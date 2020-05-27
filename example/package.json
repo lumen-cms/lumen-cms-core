@@ -1,0 +1,31 @@
+{
+  "name": "storyblok-mui-demo",
+  "version": "1.0.0",
+  "description": "Next.js Storyblok Boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "analyze:both": "BUNDLE_ANALYZE=both yarn build",
+    "analyze:browser": "BUNDLE_ANALYZE=browser yarn build",
+    "analyze:server": "BUNDLE_ANALYZE=server yarn build",
+    "dev": "rimraf app-content*.json && next",
+    "build": "rimraf app-content*.json && next build",
+    "start": "next start",
+    "deploy": "now",
+    "deploy-prod": "now --prod"
+  },
+  "author": "Dominic Garms <djgarms@gmail.com>",
+  "license": "ISC",
+  "engines": {
+    "node": "12.x"
+  },
+  "dependencies": {
+    "lumen-cms-nextjs": "file:../../lumen-cms-nextjs/.",
+    "lumen-cms-core": "file:../.",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "typescript": "^3.9.3"
+  },
+  "devDependencies": {
+    "next": "^9.4.2"
+  }
+}

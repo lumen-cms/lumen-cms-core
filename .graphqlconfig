@@ -1,0 +1,15 @@
+{
+  "schemaPath": "schema.graphql",
+  "name": "StoryblokAPI",
+  "extensions": {
+    "endpoints": {
+      "dev": {
+        "url": "https://gapi.storyblok.com/v1/api",
+        "headers": {
+          "Token": "SOBLm54Sdapihgt6ICtuFgtt",
+          "Version": "draft"
+        }
+      }
+    }
+  }
+}
