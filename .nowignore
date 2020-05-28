@@ -1,4 +1,6 @@
 *.stories.*
 /.qawolf
-example
-dist
+/example
+/dist
+/src
+/stories
