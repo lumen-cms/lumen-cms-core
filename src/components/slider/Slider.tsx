@@ -108,6 +108,7 @@ export function LmSlider({ content }: LmSliderProps): JSX.Element {
   return (
     <div className={carouselClasses} style={styles}>
       <SwipeableViews index={slide}
+                      animateTransitions={!content.disable_transition}
                       onChangeIndex={(i) => setSlide(i)}>
         {wrapInColumns ? body.map((child, index) => {
           return <LmSliderChild key={`swipeable_${index}`}

@@ -18,6 +18,7 @@ import {
   NavListStoryblok,
   NavMenuItemStoryblok,
   NavMenuStoryblok,
+  PlayerStoryblok,
   RichTextEditorStoryblok,
   SliderStoryblok,
   TableStoryblok
@@ -293,6 +294,15 @@ export const storyMotion = ({ options = {}, knob, count = '' }: StorybookOptionP
     knob,
     count
   }) as MotionStoryblok
+}
+
+export const storyPlayer = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<PlayerStoryblok> } = {}): PlayerStoryblok => {
+  return getKnobComponents({
+    componentName: 'player',
+    options,
+    knob,
+    count
+  }) as PlayerStoryblok
 }
 
 

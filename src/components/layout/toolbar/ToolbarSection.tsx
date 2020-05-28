@@ -32,9 +32,9 @@ const ToolbarSectionContainer: FunctionComponent<{ content: ToolbarRowSectionSto
 }
 ToolbarSectionContainer.displayName = 'ToolbarSectionContainer'
 
-type ToolbarSectionProps = { content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }
+export type LmToolbarSectionProps = { content: ToolbarRowSectionStoryblok, settings: GlobalStoryblok }
 
-function ToolbarSection({ settings, content }: ToolbarSectionProps): JSX.Element {
+export function LmToolbarSection({ settings, content }: LmToolbarSectionProps): JSX.Element {
   const body = content.body || []
   const { ComponentRender } = useAppContext()
   return (
@@ -43,5 +43,3 @@ function ToolbarSection({ settings, content }: ToolbarSectionProps): JSX.Element
     </ToolbarSectionContainer>
   )
 }
-
-export default ToolbarSection

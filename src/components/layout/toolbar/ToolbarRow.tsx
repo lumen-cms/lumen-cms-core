@@ -1,16 +1,17 @@
-import ToolbarSection from './ToolbarSection'
 import * as React from 'react'
 import { GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
 import clsx from 'clsx'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core/styles'
+import { useAppContext } from '../../provider/AppProvider'
 
 type ToolbarRowProps = { content: ToolbarRowStoryblok, settings: GlobalStoryblok }
 
 function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
   const body = content.body || []
   const theme = useTheme()
+  const { ComponentRender } = useAppContext()
 
   if (content.is_system_bar) {
     const toolbarConfig = settings.toolbar_config || []
@@ -27,7 +28,7 @@ function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
         <Container className="h-100" maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
           <Grid container className="h-100" justify={content.justify || 'space-between'} alignContent={'center'}
                 alignItems={'center'}>
-            {body.map(p => <ToolbarSection content={p} settings={settings} key={p._uid} />)}
+            {body.map((p, i) => ComponentRender({ content: p, settings, i }))}
           </Grid>
         </Container>
       </div>
@@ -36,7 +37,7 @@ function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
 
   return (
     <Grid container justify={content.justify || 'space-between'} className="h-100" alignItems={'center'}>
-      {body.map(p => <ToolbarSection content={p} settings={settings} key={p._uid} />)}
+      {body.map((p, i) => ComponentRender({ content: p, settings, i }))}
     </Grid>
   )
 }

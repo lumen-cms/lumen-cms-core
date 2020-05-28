@@ -893,6 +893,22 @@ export interface ParallaxItemStoryblok {
   [k: string]: any;
 }
 
+export interface PlayerStoryblok {
+  controls?: boolean;
+  playing?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  volume?: number;
+  light?: boolean;
+  url?: string;
+  ratio?: "16x9" | "4x3" | "3x2" | "1x1";
+  width?: string;
+  height?: string;
+  _uid: string;
+  component: "player";
+  [k: string]: any;
+}
+
 export interface PricingStoryblok {
   body?: any[];
   column_count?: number;
@@ -1084,6 +1100,7 @@ export interface SliderStoryblok {
     rgba?: string;
     [k: string]: any;
   };
+  disable_transition?: boolean;
   section_variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   body?: any[];
   _uid: string;

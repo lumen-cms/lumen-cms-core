@@ -4,7 +4,7 @@ import React, { memo } from 'react'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import { CONFIG } from '../../utils/config'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../..'
+import { useAppContext } from '../provider/AppProvider'
 
 type AppHeadProps = {
   settings: GlobalStoryblok

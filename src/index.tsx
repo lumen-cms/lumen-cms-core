@@ -47,7 +47,8 @@ import { LmToolbarLogo } from './components/layout/toolbar/ToolbarLogo'
 import { LmToggleDrawerButton } from './components/layout/toolbar/ToggleDrawerButton'
 import { LmApp } from './components/pages/_app'
 import { AppProps } from 'next/app'
-
+import { LmPlayer } from './components/player/Player'
+import { LmToolbarSection } from './components/layout/toolbar/ToolbarSection'
 
 export {
   LmAccordion,
@@ -92,7 +93,9 @@ export {
   LmCardListItem,
   LmImageListItem,
   LmToolbarLogo,
-  LmToggleDrawerButton
+  LmToggleDrawerButton,
+  LmPlayer,
+  LmToolbarSection
 }
 
 export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
@@ -148,7 +151,9 @@ export const LmCoreComponentsNamed = {
   'date_headline': LmDateHeadline,
   'motion': LmMotion,
   'toolbar_logo': LmToolbarLogo,
-  'toolbar_navi_button': LmToggleDrawerButton
+  'toolbar_navi_button': LmToggleDrawerButton,
+  'player': LmPlayer,
+  'toolbar_row_section': LmToolbarSection
 }
 
 export function LmDefaultApp(props: AppProps<AppPageProps>) {
