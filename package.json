@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.39.48",
+  "version": "0.39.49",
   "description": "Core website components for the LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -41,7 +41,7 @@
   "dependencies": {
     "@material-ui/core": "4.10.0",
     "@material-ui/lab": "4.0.0-alpha.54",
-    "@mdi/svg": "5.2.45",
+    "@mdi/svg": "5.3.45",
     "clsx": "1.1.0",
     "css-mediaquery": "0.1.2",
     "element-closest": "3.0.2",
@@ -50,7 +50,7 @@
     "js-cookie": "2.2.1",
     "marked": "1.1.0",
     "mdi-material-ui": "6.15.0",
-    "next": "9.4.3",
+    "next": "9.4.4",
     "next-seo": "4.5.0",
     "nprogress": "0.2.0",
     "react": "16.13.1",
@@ -63,7 +63,7 @@
     "react-swipeable-views": "0.13.9",
     "react-swipeable-views-utils": "0.13.9",
     "storyblok-js-client": "2.5.0",
-    "storyblok-react": "git+https://github.com/dohomi/storyblok-react.git",
+    "storyblok-react": "0.0.10",
     "use-debounce": "3.4.2"
   },
   "peerDependencies": {},
@@ -74,7 +74,6 @@
     "@graphql-codegen/typescript-graphql-files-modules": "^1.15.0",
     "@graphql-codegen/typescript-operations": "^1.15.0",
     "@lumen/storyblok-material-icons": "git+https://github.com/dohomi/storyblok-fieldtype-material-icons-selector.git",
-    "@next/bundle-analyzer": "^9.4.3",
     "@storybook/addon-actions": "^5.3.19",
     "@storybook/addon-info": "^5.3.19",
     "@storybook/addon-knobs": "^5.3.19",
