@@ -102,9 +102,11 @@ export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
 export { LmApp }
 export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'
-export { useAppContext } from './components/provider/AppProvider'
-export { useWindowDimensions } from './components/provider/WindowDimensionsProvider'
-export { useAppSetup } from './components/provider/AppSetupProvider'
+export { default as LmAppProvider, useAppContext } from './components/provider/AppProvider'
+export {
+  default as LmWindowDimensionProvider, useWindowDimensions
+} from './components/provider/WindowDimensionsProvider'
+export { default as LmAppSetupProvider, useAppSetup } from './components/provider/AppSetupProvider'
 export { CONFIG } from './utils/config'
 
 export const LmCoreComponentsNamed = {

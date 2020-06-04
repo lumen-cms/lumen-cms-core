@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.39.49",
+  "version": "0.39.51",
   "description": "Core website components for the LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -63,7 +63,7 @@
     "react-swipeable-views": "0.13.9",
     "react-swipeable-views-utils": "0.13.9",
     "storyblok-js-client": "2.5.0",
-    "storyblok-react": "0.0.10",
+    "storyblok-react": "https://github.com/dohomi/storyblok-react.git",
     "use-debounce": "3.4.2"
   },
   "peerDependencies": {},
