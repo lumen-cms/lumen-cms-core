@@ -18,7 +18,13 @@ export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
   useEffect(() => {
       const handleRouteChange = (url: string) => {
         NProgress.done()
-        trackGA(url)
+        const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
+        if (window['gtag'] && googleAnaliyticsId) {
+          window['gtag']('config', googleAnaliyticsId, {
+            page_location: url,
+            page_title: window.document.title
+          })
+        }
       }
       const handleRouteStart = () => {
         NProgress.start()
@@ -50,15 +56,6 @@ export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
     },
     []
   )
-
-  function trackGA(url: string, GA?: string) {
-    if (window !== undefined && window['gtag'] && (CONFIG.GA || settings?.setup_google_analytics)) {
-      window['gtag']('config', CONFIG.GA || GA, {
-        page_location: url,
-        page_title: window.document.title
-      })
-    }
-  }
 
   if (error || !settings) {
     return <Error statusCode={500} />
