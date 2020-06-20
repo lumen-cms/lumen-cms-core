@@ -3,13 +3,26 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import NextLink, { LinkProps as NextLinkProps } from 'next/link'
 import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link'
+import { CONFIG } from '../../utils/config'
 
+// https://github.com/mui-org/material-ui/blob/4b6cbf0/examples/nextjs-with-typescript/src/Link.tsx
 type NextComposedProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> &
-  NextLinkProps;
+  NextLinkProps & {
+  external?: boolean
+  nextHref?: string
+}
 
-const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>((props, ref) => {
-  const { as, href, replace, scroll, passHref, shallow, prefetch, ...other } = props
-
+const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(({ as, href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
+  if (other.external) {
+    delete other.nextHref
+    delete other.external
+    return <a ref={ref} {...other} href={href as string} />
+  } else if (!as && href) {
+    as = href
+    href = other.nextHref || CONFIG.href
+    delete other.nextHref
+    delete other.external
+  }
   return (
     <NextLink
       href={href}
@@ -24,6 +37,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>((pro
     </NextLink>
   )
 })
+NextComposed.displayName = 'NextComposedLink'
 
 interface LinkPropsBase {
   activeClassName?: string;
@@ -35,7 +49,7 @@ export type LinkProps = LinkPropsBase & NextComposedProps & Omit<MuiLinkProps, '
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
-function Link(props: LinkProps) {
+function Link(props: LinkProps): JSX.Element {
   const {
     href,
     activeClassName = 'active',
@@ -46,7 +60,7 @@ function Link(props: LinkProps) {
   } = props
 
   const router = useRouter()
-  const pathname = typeof href === 'string' ? href : href.pathname
+  const pathname = typeof href === 'object' ? href.pathname : href
   const className = clsx(classNameProps, {
     [activeClassName]: router?.pathname === pathname && activeClassName // todo probably router.asPath??
   })
@@ -66,6 +80,9 @@ function Link(props: LinkProps) {
   )
 }
 
-export default React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
+const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>((props, ref) => (
   <Link {...props} innerRef={ref} />
 ))
+MuiNextLink.displayName = 'MuiNextLink'
+
+export default MuiNextLink

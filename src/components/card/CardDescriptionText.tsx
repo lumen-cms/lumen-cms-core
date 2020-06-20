@@ -1,4 +1,4 @@
-import { default as React } from 'react'
+import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import { CardListItemProps } from './cards'
 import clsx from 'clsx'

@@ -2,7 +2,6 @@ import React, { CSSProperties, FunctionComponent } from 'react'
 import CardWrapWithAction from './CardWrapWithAction'
 import { CardListItemProps } from './cards'
 import Card from '@material-ui/core/Card'
-import ContentLink from '../link/ContentLink'
 import clsx from 'clsx'
 import useShadowStyles from '../jss/shadowStyles'
 
@@ -29,9 +28,7 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({ children, content, opt
           raised={variants.includes('raised')}
           elevation={options.elevation ? Number(options.elevation) : undefined}
           style={style}>
-      <ContentLink content={content} className={'lm-card__link'}>
-        {children}
-      </ContentLink>
+      {children}
     </Card>
   )
 }

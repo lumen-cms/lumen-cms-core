@@ -1,33 +1,13 @@
 import React, { FunctionComponent, useEffect } from 'react'
 import { useGlobalState } from '../../../utils/state/state'
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
-import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
+import { useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import { useAppSetup } from '../../provider/AppSetupProvider'
+import { useAppSetup } from '../../provider/context/AppSetupContext'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { UseBackgroundPayload } from '../../section/useBackgroundBox'
-
-
-export const useStyles = makeStyles((theme: Theme) => createStyles({
-  leftDrawer: {
-    width: theme.drawer.left,
-    '& a': {
-      color: 'inherit'
-    }
-  },
-  aboveToolbar: {
-    zIndex: theme.zIndex.drawer + 2
-  },
-  belowToolbar: {
-    zIndex: theme.zIndex.appBar - 1
-  },
-  fullWidthMobile: {
-    [theme.breakpoints.only('xs')]: {
-      width: '100%'
-    }
-  }
-}))
+import { useStyles } from './useDrawerStyles'
 
 type DrawerContainerProps = {
   backgroundProps?: UseBackgroundPayload
@@ -39,7 +19,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({ children, ba
   const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
   const appSetup = useAppSetup()
   const theme = useTheme()
-  const matches = useMediaQuery(theme.breakpoints.up(appSetup.leftDrawerMediaBreakpoint || 'sm'))
+  const matches = useMediaQuery(theme.breakpoints.down(appSetup.leftDrawerMediaBreakpoint || 'sm'))
 
 
   const drawerProps: DrawerProps = {
@@ -48,6 +28,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({ children, ba
 
   useEffect(
     () => {
+      console.log(appSetup.drawerVariant,appSetup.leftDrawerMediaBreakpoint, matches)
       if (appSetup.drawerVariant === 'temporary' || matches) {
         setOpen(false)
       }

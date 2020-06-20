@@ -5,7 +5,7 @@ import { intersectionDefaultOptions } from '../../utils/intersectionObserverConf
 import ReactPlayer from 'react-player'
 import clsx from 'clsx'
 import Skeleton from '@material-ui/lab/Skeleton'
-import * as React from 'react'
+import React from 'react'
 
 const useStyles = makeStyles({
   videoContainer: {

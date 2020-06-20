@@ -1,8 +1,7 @@
 import clsx from 'clsx'
 import ReactPlayer, { ReactPlayerProps } from 'react-player'
 import BackgroundImageContainer from './BackgroundImage'
-import * as React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 
 type ContainerDimensions = {

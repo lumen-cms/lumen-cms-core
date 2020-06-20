@@ -6,7 +6,7 @@ import { toggleLeftNavigation, toggleRightNavigation } from '../../../utils/stat
 import LmIcon from '../../icon/LmIcon'
 import MenuUi from 'mdi-material-ui/Menu'
 import AppsIcon from 'mdi-material-ui/Apps'
-import { useAppSetup } from '../../provider/AppSetupProvider'
+import { useAppSetup } from '../../provider/context/AppSetupContext'
 
 
 export type LmToggleDrawerButtonProps = { content: ToolbarNaviButtonStoryblok }

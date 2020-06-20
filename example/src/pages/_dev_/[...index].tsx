@@ -1,7 +1,6 @@
-import React from 'react'
 import { pagesGetServerSideProps } from 'lumen-cms-nextjs'
-import { LmDefaultPage } from 'lumen-cms-core'
+
+export { LmDefaultPage as default } from '../../../../dist/lumen-cms-core.esm'
 
 export const getServerSideProps = pagesGetServerSideProps
-export default LmDefaultPage
 

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { NavListStoryblok } from '../../typings/generated/components-schema'
 import { LmNavListItem } from './NavListItem'
 import clsx from 'clsx'

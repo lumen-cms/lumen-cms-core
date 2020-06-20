@@ -5,12 +5,12 @@ import { useInView } from 'react-intersection-observer'
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
 import { SectionParallaxStoryblok } from '../../typings/generated/components-schema'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 import { BannerLayer } from 'react-scroll-parallax/cjs'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { makeStyles } from '@material-ui/core/styles'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 const useStyles = makeStyles({
   parallax: {

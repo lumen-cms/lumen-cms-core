@@ -1,7 +1,6 @@
 import { useInView } from 'react-intersection-observer'
 import SVG from 'react-inlinesvg'
-import * as React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/core/styles'

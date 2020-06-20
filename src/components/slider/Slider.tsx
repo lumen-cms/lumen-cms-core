@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 const chunkArray = (myArray: Element[], chunkSize: number) => {
   const results = []

@@ -1,8 +1,7 @@
 import { pagesGetStaticPaths, pagesGetStaticProps } from 'lumen-cms-nextjs'
-import { LmDefaultPage } from 'lumen-cms-core'
 
+export { LmDefaultPage as default } from '../../../dist/lumen-cms-core.esm'
 
 export const getStaticProps = pagesGetStaticProps
 export const getStaticPaths = pagesGetStaticPaths
 
-export default LmDefaultPage

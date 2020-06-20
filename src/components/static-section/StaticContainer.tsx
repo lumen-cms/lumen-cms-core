@@ -1,6 +1,6 @@
 import { StaticContainerStoryblok } from '../../typings/generated/components-schema'
-import * as React from 'react'
-import { useAppContext } from '../provider/AppProvider'
+import React from 'react'
+import { useAppContext } from '../provider/context/AppContext'
 
 export type LmStaticContainerProps = { content: StaticContainerStoryblok }
 

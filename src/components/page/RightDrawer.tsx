@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { useGlobalState } from '../../utils/state/state'
 import { closeNavigationDrawers } from '../../utils/state/actions'
 import Drawer from '@material-ui/core/Drawer'
@@ -7,8 +6,8 @@ import ContentSpace from '../layout/ContentSpace'
 import { usePageStyles } from './usePageStyle'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
-import { useAppSetup } from '../provider/AppSetupProvider'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppSetup } from '../provider/context/AppSetupContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 
 const RightDrawerContainer: FunctionComponent = ({ children }) => {

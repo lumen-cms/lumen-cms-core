@@ -6,11 +6,11 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { useGridListStyles } from './cardListStyles'
 import { useInfiniteScroll } from '../../utils/hooks/useInfiniteScroll'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 const useStyles = makeStyles({
     cardBase: {
-      overflowX: 'hidden',
+      overflow: 'visible',
       flexGrow: 1,
       '& .MuiGridListTile-tile': {
         overflow: 'visible'
@@ -85,6 +85,9 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
       })}>
       <GridList spacing={gutterSize}
                 cellHeight={'auto'}
+                style={{
+                  overflow: 'visible'
+                }}
                 className={gridClasses.gridList}>
         {data.map((item, i) => <GridListTile key={`${item.component}_${i}`}>{ComponentRender({
           content: item,

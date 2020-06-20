@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import TimelineRowItem from './TimelineRowItem'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   iconGrid: {

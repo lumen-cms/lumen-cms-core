@@ -4,7 +4,7 @@ import BackgroundImage from './BackgroundImage'
 import Grid from '@material-ui/core/Grid'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 const xsSpanMap = {
   1: 3,

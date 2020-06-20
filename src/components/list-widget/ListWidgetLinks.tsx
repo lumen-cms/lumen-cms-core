@@ -1,7 +1,7 @@
 import React from 'react'
 import { ListWidgetStoryblok, NavItemStoryblok, NavListStoryblok } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 type ListWidgetLinksProps = {
   items: AppApiRequestPayload['allStories']

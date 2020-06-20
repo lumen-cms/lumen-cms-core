@@ -1,6 +1,6 @@
 import React from 'react'
 import { SectionProps } from '../section/Section'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 type LmSliderChildProps = { body: any[], sectionVariant: any }
 

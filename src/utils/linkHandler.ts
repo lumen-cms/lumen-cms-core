@@ -1,10 +1,9 @@
 import { CONFIG } from './config'
-import { LinkProps } from 'next/link'
 import { getGlobalState } from './state/state'
 
 export interface LinkType {
-  cached_url: string
-  linktype: string
+  cached_url?: string
+  linktype?: string
   nextHref?: string
 
   [k: string]: any
@@ -40,7 +39,7 @@ export const internalLinkHandler = (url: string) => {
 }
 
 type LinkHandlerProps = {
-  href: LinkProps['href']
+  href?: string
   target?: string
   rel?: string
   external?: boolean
@@ -50,7 +49,10 @@ export const linkHandler = (link: LinkType, options: LinkOptions): LinkHandlerPr
   const props: LinkHandlerProps = {
     href: '/'
   }
-  let cachedUrl = link.cached_url as string
+  let cachedUrl = link.cached_url
+  if (!cachedUrl) {
+    return {}
+  }
 
   if (link.linktype === 'story') {
     props.href = internalLinkHandler(cachedUrl)

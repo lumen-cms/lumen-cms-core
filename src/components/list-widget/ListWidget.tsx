@@ -7,7 +7,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { useListSearch } from './useListSearch'
 import ListWidgetContainer from './ListWidgetContainer'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 export type LmListWidgetProps = { content: ListWidgetStoryblok }
 

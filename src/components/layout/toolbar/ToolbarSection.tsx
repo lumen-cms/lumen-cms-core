@@ -3,9 +3,9 @@ import { GlobalStoryblok, ToolbarRowSectionStoryblok } from '../../../typings/ge
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
-import { useAppSetup } from '../../provider/AppSetupProvider'
+import { useAppSetup } from '../../provider/context/AppSetupContext'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useAppContext } from '../../provider/AppProvider'
+import { useAppContext } from '../../provider/context/AppContext'
 
 
 const ToolbarSectionContainer: FunctionComponent<{ content: ToolbarRowSectionStoryblok }> = ({ children, content }) => {

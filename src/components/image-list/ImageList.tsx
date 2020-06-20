@@ -1,13 +1,14 @@
 import React, { RefObject, useState } from 'react'
 import ImageListLightbox from './ImageListLightbox'
 import { ImageListStoryblok } from '../../typings/generated/components-schema'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 import GridList, { GridListProps } from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
+import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 
 export type LmImageListProps = {
   content: ImageListStoryblok
@@ -15,7 +16,8 @@ export type LmImageListProps = {
 
 export function LmImageList({ content }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
-  const { ComponentRender } = useAppContext()
+  const { ComponentRender, LinkRender } = useAppContext()
+
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -65,15 +67,24 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
                   className={gridClasses.gridList}
                   {...gridListProps}
         >
-          {body.map((item, i) => (
-            <GridListTile key={`${item.component}_${i}`} style={{
-              padding: !content.masonry ? `${gutterSize}px` : undefined,
-              marginBottom: content.masonry ? `${gutterSize}px` : undefined
-            }}
-                          onClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })}>
-              {ComponentRender({ content: item, listProps: content })}
-            </GridListTile>
-          ))}
+          {body.map((item, i) => {
+            const btnProps: any = item.link && !content.enable_lightbox ? {
+              ...getLinkAttrs(item.link as LinkType, { openExternal: !!item.open_external }),
+              naked: true,
+              component: LinkRender
+            } : {}
+            return (
+              <GridListTile key={`${item.component}_${i}`}
+                            {...btnProps}
+                            style={{
+                              padding: !content.masonry ? `${gutterSize}px` : undefined,
+                              marginBottom: content.masonry ? `${gutterSize}px` : undefined
+                            }}
+                            onClick={(ev: any) => onImageClick({ _uid: item._uid, count: i, ...ev })}>
+                {ComponentRender({ content: item, listProps: content })}
+              </GridListTile>
+            )
+          })}
         </GridList>
       </div>
       {lightbox && ImageListLightbox({

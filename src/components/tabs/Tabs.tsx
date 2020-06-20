@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { TabsItemStoryblok, TabsStoryblok } from '../../typings/generated/components-schema'
 import SwipeableViews from 'react-swipeable-views'
 import MuiTabs from '@material-ui/core/Tabs'
@@ -9,7 +8,7 @@ import LmIcon from '../icon/LmIcon'
 import Grid, { GridProps } from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {

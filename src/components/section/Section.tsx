@@ -7,7 +7,7 @@ import BackgroundImage from './BackgroundImage'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 export interface SectionProps extends SectionStoryblok {
   presetVariant?: SectionStoryblok['variant']

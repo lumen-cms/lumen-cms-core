@@ -1,6 +1,6 @@
 import ListWidgetLists from './ListWidgetLists'
 import ListWidgetCards from './ListWidgetCards'
-import * as React from 'react'
+import React from 'react'
 import {
   CardListStoryblok,
   ListsStoryblok,

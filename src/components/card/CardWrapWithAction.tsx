@@ -3,7 +3,7 @@ import React, { CSSProperties, FunctionComponent } from 'react'
 import { CardListItemProps } from './cards'
 import Card from '@material-ui/core/Card'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 interface CardWrapAction extends CardListItemProps {
   className: string

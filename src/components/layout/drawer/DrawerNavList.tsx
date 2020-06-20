@@ -1,5 +1,5 @@
 import { DrawerButton } from './DrawerButton'
-import * as React from 'react'
+import React from 'react'
 import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
 import List from '@material-ui/core/List'
 import ListSubheader from '@material-ui/core/ListSubheader'

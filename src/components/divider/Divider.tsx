@@ -1,6 +1,5 @@
 import clsx from 'clsx'
-import * as React from 'react'
-import { CSSProperties, FunctionComponent } from 'react'
+import React, { CSSProperties, FunctionComponent } from 'react'
 import { DividerStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/core/styles'
 import LmIcon from '../icon/LmIcon'

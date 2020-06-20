@@ -1,6 +1,6 @@
 import imageService from '../../../utils/ImageService'
 import Link from 'next/link'
-import * as React from 'react'
+import React from 'react'
 import { GlobalStoryblok, ToolbarLogoStoryblok } from '../../../typings/generated/components-schema'
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'

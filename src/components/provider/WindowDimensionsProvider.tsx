@@ -1,27 +1,16 @@
-import React, { createContext, FunctionComponent, useContext, useEffect, useState } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import deviceDetect from '../../utils/deviceDetect'
+import {
+  defaultWindowsProvider,
+  WindowDimensionsCtx,
+  WithWindowDimensionsProps
+} from './context/WindowDimensionContext'
 
-export type WithWindowDimensionsProps = {
-  width: number
-  height: number
-  isMobile: boolean
-  isTablet: boolean
-  isDesktop: boolean
-}
-
-let defaultValue: WithWindowDimensionsProps = {
-  height: 500,
-  width: 599, // mobile
-  isMobile: true,
-  isTablet: false,
-  isDesktop: false
-}
-
-export const WindowDimensionsCtx = createContext(defaultValue)
 
 const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
-  const [dimensions, setDimensions] = useState<WithWindowDimensionsProps>(defaultValue)
+
+  const [dimensions, setDimensions] = useState<WithWindowDimensionsProps>(defaultWindowsProvider)
   const [debouncedCallback] = useDebouncedCallback(
     // function
     () => {
@@ -70,4 +59,3 @@ WindowDimensionsProvider.displayName = 'WindowDimensionsProvider'
 
 export default WindowDimensionsProvider
 
-export const useWindowDimensions = () => useContext(WindowDimensionsCtx)

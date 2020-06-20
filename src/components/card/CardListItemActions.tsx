@@ -1,7 +1,7 @@
 import React from 'react'
 import CardActions from '@material-ui/core/CardActions'
 import { CardListItemProps } from './cards'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 function CardListItemActions({ options, content }: CardListItemProps): JSX.Element | null {
   const { ComponentRender } = useAppContext()

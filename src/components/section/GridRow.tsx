@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { BackgroundStoryblok, RowStoryblok } from '../../typings/generated/components-schema'
 import Grid, { GridProps } from '@material-ui/core/Grid'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

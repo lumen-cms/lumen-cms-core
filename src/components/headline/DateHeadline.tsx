@@ -1,4 +1,4 @@
-import { default as React } from 'react'
+import React from 'react'
 import { DateHeadlineStoryblok, HeadlineStoryblok } from '../../typings/generated/components-schema'
 import { LmHeadline } from './Headline'
 

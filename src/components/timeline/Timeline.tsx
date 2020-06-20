@@ -2,7 +2,7 @@ import React from 'react'
 import { TimelineStoryblok } from '../../typings/generated/components-schema'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 const useStyles = makeStyles({
   container: {

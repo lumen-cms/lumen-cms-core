@@ -7,7 +7,7 @@ import { intersectionDefaultOptions } from '../../utils/intersectionObserverConf
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {

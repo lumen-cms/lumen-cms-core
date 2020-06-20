@@ -6,8 +6,8 @@ import CardContent from '@material-ui/core/CardContent'
 import { TimelineItemStoryblok } from '../../typings/generated/components-schema'
 import clsx from 'clsx'
 import CardActionArea from '@material-ui/core/CardActionArea'
-import ContentLink from '../link/ContentLink'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
+import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   cardContainer: {
@@ -35,13 +35,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 const CardContentContainer: FunctionComponent<{
   content: TimelineItemStoryblok
 }> = ({ content, children }) => {
+  const { LinkRender } = useAppContext()
   if (content.link) {
+    const btnProps: any = content.link ? {
+      ...getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }),
+      naked: true,
+      component: LinkRender
+    } : {}
     return (
-      <ContentLink content={content} className="lm-timeline__link">
-        <CardActionArea>
-          {children}
-        </CardActionArea>
-      </ContentLink>
+      <CardActionArea {...btnProps}>
+        {children}
+      </CardActionArea>
     )
   }
   return (

@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'

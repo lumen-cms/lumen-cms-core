@@ -1,8 +1,8 @@
-import * as React from 'react'
+import React from 'react'
 import { FlexRowStoryblok } from '../../typings/generated/components-schema'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 export type LmFlexRowProps = { content: FlexRowStoryblok }
 

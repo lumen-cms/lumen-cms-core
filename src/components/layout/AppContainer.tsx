@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { AppPageProps, ComponentRenderProps } from '../../typings/app'
+import { AppPageProps, ComponentRenderProps, LinkRenderProps } from '../../typings/app'
 import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
 import AppSetupProvider from '../provider/AppSetupProvider'
 import GlobalTheme from '../global-theme/GlobalTheme'
@@ -10,10 +10,11 @@ import Error from 'next/error'
 type AppContainerProps = {
   content: AppPageProps
   ComponentRender: ComponentRenderProps
+  LinkRender: LinkRenderProps
 }
 
 export const AppContainer: FunctionComponent<AppContainerProps> = (
-  { content, ComponentRender, children }
+  { content, ComponentRender, LinkRender, children }
 ) => {
   const { page, settings, error, ...rest } = content
   if (error) {
@@ -23,7 +24,7 @@ export const AppContainer: FunctionComponent<AppContainerProps> = (
     return <Error statusCode={500} />
   }
   return (
-    <AppProvider content={{ ...rest, ComponentRender }}>
+    <AppProvider content={{ ...rest, ComponentRender, LinkRender }}>
       <WindowDimensionsProvider>
         <AppSetupProvider settings={settings} page={page}>
           <GlobalTheme settings={settings} rightDrawerWidth={page?.right_drawer_width}>

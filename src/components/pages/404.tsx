@@ -2,7 +2,7 @@ import { CONFIG } from '../../utils/config'
 import React, { useEffect, useState } from 'react'
 import StoryblokService from '../../utils/StoryblokService'
 import Head from 'next/head'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 const statusCodes = {
   400: 'Bad Request',

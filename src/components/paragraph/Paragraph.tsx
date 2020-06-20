@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import * as React from 'react'
+import React from 'react'
 import { ParagraphStoryblok } from '../../typings/generated/components-schema'
 import parseMarkdownContent from './markdown-helper'
 import Typography from '@material-ui/core/Typography'

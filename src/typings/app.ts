@@ -36,5 +36,7 @@ export type ComponentRenderFuncProps = {
   i?: number // iteration in case of array render
   [k: string]: any
 }
+
 export type ComponentRenderProps = FunctionComponentFactory<ComponentRenderFuncProps>
+export type LinkRenderProps = FunctionComponentFactory<any>
 

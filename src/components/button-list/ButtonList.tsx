@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import { ButtonListStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 export type LmButtonListProps = { content: ButtonListStoryblok }
 

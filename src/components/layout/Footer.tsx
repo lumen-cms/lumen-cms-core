@@ -1,11 +1,10 @@
-import * as React from 'react'
-import { FunctionComponent, memo } from 'react'
+import React, { FunctionComponent, memo } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useGlobalState } from '../../utils/state/state'
 import clsx from 'clsx'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
-import { useAppSetup } from '../provider/AppSetupProvider'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppSetup } from '../provider/context/AppSetupContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   footer: {

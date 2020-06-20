@@ -9,7 +9,7 @@ import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import { useGlobalState } from '../../../utils/state/state'
 import ContentSpace from '../ContentSpace'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import { useAppSetup } from '../../provider/AppSetupProvider'
+import { useAppSetup } from '../../provider/context/AppSetupContext'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { useDebounce } from 'use-debounce'
 

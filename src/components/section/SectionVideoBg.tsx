@@ -1,12 +1,11 @@
 import { useInView } from 'react-intersection-observer'
-import * as React from 'react'
-import { CSSProperties, useEffect, useState } from 'react'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import React, { CSSProperties, useEffect, useState } from 'react'
+import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { makeStyles } from '@material-ui/core/styles'
 import FullscreenVideoBg from './FullscreenVideoBg'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 
 const useStyles = makeStyles({

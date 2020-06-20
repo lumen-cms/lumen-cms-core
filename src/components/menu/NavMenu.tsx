@@ -1,16 +1,15 @@
-import * as React from 'react'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import Menu from '@material-ui/core/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
-import ContentLink from '../link/ContentLink'
 import LmIcon from '../icon/LmIcon'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import { useRouter } from 'next/router'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
+import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -21,7 +20,7 @@ const useStyles = makeStyles({
 export type LmMenuProps = { content: NavMenuStoryblok }
 
 export function LmMenu({ content }: LmMenuProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
+  const { ComponentRender, LinkRender } = useAppContext()
 
   const classes = useStyles(content)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -95,13 +94,19 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
         {isCustom && menuItems.map((blok, i) => ComponentRender({ content: blok, i }))}
         {!isCustom && (
           <div>
-            {menuItems.map(nestedProps => (
-              <ContentLink key={nestedProps._uid} className={'lm-nav-men__link'} content={nestedProps}>
-                <MenuItem>
+            {menuItems.map(nestedProps => {
+              const btnProps: any = nestedProps.link ? {
+                ...getLinkAttrs(nestedProps.link as LinkType, { openExternal: !!nestedProps.open_external }),
+                // naked: true,
+                component: LinkRender
+              } : {}
+
+              return (
+                <MenuItem {...btnProps} key={nestedProps._uid}>
                   {nestedProps.label}
                 </MenuItem>
-              </ContentLink>
-            ))}
+              )
+            })}
           </div>
         )}
       </Menu>

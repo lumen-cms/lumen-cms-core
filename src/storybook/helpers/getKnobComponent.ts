@@ -79,7 +79,7 @@ const getKnobComponents = ({ componentName, options = {}, knob, count = '' }: { 
       obj[schemaKey] = {
         values: optionsKnob(name, { ...allTags }, (options[schemaKey] && options[schemaKey].values) || [], { display: 'multi-select' }, knob || camelizeString(componentName))
       }
-    } else if (['bloks', 'section', 'tab'].includes(type)) {
+    } else if (['bloks', 'section', 'tab', 'richtext', 'multilink', 'file'].includes(type)) {
       // do nothing
     } else {
       console.log('MISSING KNOB DECLARATION', currentSchema)

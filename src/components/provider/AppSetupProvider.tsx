@@ -1,31 +1,9 @@
-import * as React from 'react'
-import { createContext, FunctionComponent, useContext, useMemo } from 'react'
+import React, { FunctionComponent, useMemo } from 'react'
 import { DrawerProps } from '@material-ui/core/Drawer'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
-import { useWindowDimensions } from './WindowDimensionsProvider'
+import { useWindowDimensions } from './context/WindowDimensionContext'
+import { AppSetupContext, AppSetupProps } from './context/AppSetupContext'
 
-export type AppSetupProps = {
-  hasDrawer?: boolean,
-  hasFeatureImage?: boolean | null,
-  hasRightDrawer?: boolean | null,
-  drawerVariant?: DrawerProps['variant']
-  drawerBelowToolbar?: boolean
-  hasScrollCollapse?: boolean
-  toolbarMainHeight?: string | number
-  drawerFullWidthMobile?: boolean
-  rightDrawerMediaBreakpoint?: PageStoryblok['mobile_breakpoint']
-  leftDrawerMediaBreakpoint?: GlobalStoryblok['mobile_nav_breakpoint']
-}
-
-const defaultValue: AppSetupProps = {
-  hasDrawer: false,
-  hasFeatureImage: false,
-  hasRightDrawer: false,
-  drawerVariant: 'temporary',
-  drawerBelowToolbar: false,
-  hasScrollCollapse: false
-}
-const AppSetupContext = createContext(defaultValue)
 
 const AppSetupProvider: FunctionComponent<{
   settings: GlobalStoryblok
@@ -72,6 +50,5 @@ const AppSetupProvider: FunctionComponent<{
 }
 AppSetupProvider.displayName = 'AppSetupProvider'
 
-export const useAppSetup = () => useContext(AppSetupContext)
 
 export default AppSetupProvider

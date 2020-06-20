@@ -1,6 +1,6 @@
 import { getImageAttrs } from '../../utils/ImageService'
 import React, { useState } from 'react'
-import { useWindowDimensions } from '../provider/WindowDimensionsProvider'
+import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles'

@@ -1,6 +1,5 @@
 import { getImageAttrs } from '../../utils/ImageService'
-import * as React from 'react'
-import { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { CardListItemProps } from './cards'

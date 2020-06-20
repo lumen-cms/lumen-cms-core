@@ -1,4 +1,4 @@
-import { default as React, FunctionComponent } from 'react'
+import React, { FunctionComponent } from 'react'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import Link, { LinkProps } from 'next/link'
 import MuiNextLink from './MuiNextLink'

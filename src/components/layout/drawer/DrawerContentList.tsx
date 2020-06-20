@@ -1,6 +1,6 @@
 import React from 'react'
 import { GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
-import { useAppSetup } from '../../provider/AppSetupProvider'
+import { useAppSetup } from '../../provider/context/AppSetupContext'
 import { DrawerContentRender } from './CollapsibleListSection'
 
 type DrawerContentListProps = { content: Partial<GlobalStoryblok> }

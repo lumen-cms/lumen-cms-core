@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useAppSetup } from '../provider/AppSetupProvider'
+import { useAppSetup } from '../provider/context/AppSetupContext'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

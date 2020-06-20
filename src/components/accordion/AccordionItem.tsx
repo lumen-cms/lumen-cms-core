@@ -6,7 +6,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 type LmAccordionItemProps = {
   content: AccordionItemStoryblok,

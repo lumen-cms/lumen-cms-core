@@ -1,7 +1,6 @@
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
-import * as React from 'react'
-import { FunctionComponent, memo, useMemo } from 'react'
+import React, { FunctionComponent, memo, useMemo } from 'react'
 import parseFont from '../../utils/parseFont'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { GlobalStoryblok, ToolbarRowStoryblok } from '../../typings/generated/components-schema'

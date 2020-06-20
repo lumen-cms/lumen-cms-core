@@ -1,6 +1,6 @@
 import { NextSeo } from 'next-seo'
 import { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
-import * as React from 'react'
+import React from 'react'
 import {
   GlobalStoryblok,
   ImageCoreStoryblok,

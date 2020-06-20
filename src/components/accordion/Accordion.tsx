@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AccordionItemStoryblok, AccordionStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 export type LmAccordionProps = {
   content: AccordionStoryblok

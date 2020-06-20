@@ -1,10 +1,10 @@
-import * as React from 'react'
+import React from 'react'
 import { GlobalStoryblok, ToolbarRowStoryblok } from '../../../typings/generated/components-schema'
 import clsx from 'clsx'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core/styles'
-import { useAppContext } from '../../provider/AppProvider'
+import { useAppContext } from '../../provider/context/AppContext'
 
 type ToolbarRowProps = { content: ToolbarRowStoryblok, settings: GlobalStoryblok }
 

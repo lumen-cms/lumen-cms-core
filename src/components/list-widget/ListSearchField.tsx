@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { ListSearchFieldStoryblok } from '../../typings/generated/components-schema'
 import { useDebouncedCallback } from 'use-debounce'
 import { onSearchTextChange } from '../../utils/state/actions'

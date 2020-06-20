@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { memo } from 'react'
+import React, { memo } from 'react'
 import HeaderCustom from './HeaderCustom'
 import HeaderSimple from './HeaderSimple'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'

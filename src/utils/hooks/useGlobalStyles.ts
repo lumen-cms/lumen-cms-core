@@ -272,7 +272,7 @@ export const getCreatedStyles = (theme: Theme) => {
       '.bg-light': {
         backgroundColor: '#ccc !important'
       },
-      'a.lm-link__button': {
+      'a.lm-link__button, a.MuiLink-root.MuiButton-root': {
         textDecoration: 'none',
         color: 'inherit'
       },

@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react'
 import { usePageStyles } from './usePageStyle'
 import clsx from 'clsx'
 import { useGlobalState } from '../../utils/state/state'
-import { useAppSetup } from '../provider/AppSetupProvider'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppSetup } from '../provider/context/AppSetupContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 const MainContentContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()

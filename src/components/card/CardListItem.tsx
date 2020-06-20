@@ -1,22 +1,30 @@
 import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
-import * as React from 'react'
+import React from 'react'
 import { CardListItemProps } from './cards'
 import CardDescriptionText from './CardDescriptionText'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
 import CardListItemActions from './CardListItemActions'
+import { useAppContext } from '../provider/context/AppContext'
+import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 
 export function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props
   const variants = options.variant || []
+  const { LinkRender } = useAppContext()
+  const btnProps: any = content.link ? {
+    ...getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }),
+    naked: true,
+    component: LinkRender
+  } : {}
 
   // without media / text only
   if (!content.image || options.hide_image) {
     return (
       <CardWrap {...props}>
-        <CardActionArea>
+        <CardActionArea {...btnProps}>
           <CardContent>
             <CardListActionTitles {...props} />
             <CardDescriptionText {...props} />
@@ -34,7 +42,7 @@ export function LmCardListItem(props: CardListItemProps): JSX.Element {
         <CardContent>
           <CardListActionTitles {...props} />
         </CardContent>
-        <CardActionArea>
+        <CardActionArea {...btnProps}>
           <CardMediaElement {...props} />
           {content.description && (
             <CardContent>
@@ -50,7 +58,7 @@ export function LmCardListItem(props: CardListItemProps): JSX.Element {
   if (variants.includes('over_media')) {
     return (
       <CardWrap {...props}>
-        <CardActionArea>
+        <CardActionArea {...btnProps}>
           <CardMediaElement {...props}>
             <CardContent style={{
               padding: variants.includes('overlay_content_no_space') ? 0 : undefined
@@ -71,7 +79,7 @@ export function LmCardListItem(props: CardListItemProps): JSX.Element {
   // content title and description bottom
   return (
     <CardWrap {...props}>
-      <CardActionArea>
+      <CardActionArea {...btnProps}>
         <CardMediaElement {...props} />
         {(content.description || content.title || content.subtitle) && (
           <CardContent>

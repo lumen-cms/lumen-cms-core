@@ -1,12 +1,11 @@
-import * as React from 'react'
-import { ChangeEvent, CSSProperties, useState } from 'react'
+import React, { ChangeEvent, CSSProperties, useState } from 'react'
 import { CategoryBoxStoryblok } from '../../typings/generated/components-schema'
 import { setSearchCategory } from '../../utils/state/actions'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 export type LmCategoryBoxProps = { content: CategoryBoxStoryblok }
 

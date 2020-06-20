@@ -1,8 +1,8 @@
-import * as React from 'react'
+import React from 'react'
 import TopAppBarWrap, { AppHeaderProps } from './TopAppBar'
 import clsx from 'clsx'
 import Grid from '@material-ui/core/Grid'
-import { useAppContext } from '../../provider/AppProvider'
+import { useAppContext } from '../../provider/context/AppContext'
 import { GlobalStoryblok, ToolbarNaviButtonStoryblok } from '../../../typings/generated/components-schema'
 
 type HeaderSimpleProps = AppHeaderProps

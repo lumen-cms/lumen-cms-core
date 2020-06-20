@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 import { LinkStoryblok } from '../../typings/generated/components-schema'
 import ContentLink from './ContentLink'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 export type LmLinkProps = { content: LinkStoryblok }
 

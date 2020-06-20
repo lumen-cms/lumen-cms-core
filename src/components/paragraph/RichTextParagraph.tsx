@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import * as React from 'react'
+import React from 'react'
 import { RichTextEditorStoryblok } from '../../typings/generated/components-schema'
 import { LmRteContentRenderer } from './rte/RteContentRender'
 import Typography from '@material-ui/core/Typography'

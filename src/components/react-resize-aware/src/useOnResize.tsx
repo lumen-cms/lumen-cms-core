@@ -1,22 +1,23 @@
-import * as React from 'react';
+import React from 'react'
 
 // This is just an utility to cleanly attach a `resize` event listener
 // to a target HTMLObjectElement or HTMLIFrameElement
 // The real Hook is `useResizeAware.js`
 //@ts-ignore
 export default (ref: React.ElementRef<any>, onResize: () => void) => {
-  const getTarget = () => ref.current && ref.current.contentDocument && ref.current.contentDocument.defaultView;
+  const getTarget = () => ref.current && ref.current.contentDocument && ref.current.contentDocument.defaultView
+
   function run() {
     // trigger onResize event on mount to provide initial sizes
-    onResize();
-    var target = getTarget();
-    target && target.addEventListener('resize', onResize);
+    onResize()
+    var target = getTarget()
+    target && target.addEventListener('resize', onResize)
   }
+
   React.useEffect(() => {
     if (getTarget()) {
-      run();
-    }
-    else if (ref.current && ref.current.addEventListener) {
+      run()
+    } else if (ref.current && ref.current.addEventListener) {
       ref.current.addEventListener('load', run)
     }
 
@@ -25,11 +26,11 @@ export default (ref: React.ElementRef<any>, onResize: () => void) => {
       // Ensure the target exists and is in fact an event listener
       // this fixes an issue where contentDocument.defaultView is not a real window object
       // as can be the case when used with React portals
-      const target = getTarget();
+      const target = getTarget()
       const isListener =
-        target && typeof target.removeEventListener === 'function';
+        target && typeof target.removeEventListener === 'function'
 
-      isListener && target.removeEventListener('resize', onResize);
-    };
-  }, []);
+      isListener && target.removeEventListener('resize', onResize)
+    }
+  }, [])
 };

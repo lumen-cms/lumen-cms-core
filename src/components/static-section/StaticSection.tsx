@@ -1,7 +1,7 @@
 import { StaticSectionStoryblok } from '../../typings/generated/components-schema'
 import React from 'react'
 import clsx from 'clsx'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 export type LmStaticSectionProps = { content: StaticSectionStoryblok }
 

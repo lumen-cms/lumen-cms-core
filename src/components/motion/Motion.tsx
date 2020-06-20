@@ -6,7 +6,7 @@ import Fade, { FadeProps } from '@material-ui/core/Fade'
 import Grow, { GrowProps } from '@material-ui/core/Grow'
 import Zoom, { ZoomProps } from '@material-ui/core/Zoom'
 import Collapse, { CollapseProps } from '@material-ui/core/Collapse'
-import { useAppContext } from '../provider/AppProvider'
+import { useAppContext } from '../provider/context/AppContext'
 
 export type LmMotionProps = { content: MotionStoryblok }
 
