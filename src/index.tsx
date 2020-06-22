@@ -98,7 +98,7 @@ export {
   LmToolbarSection
 }
 
-export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
+// export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
 export { LmApp }
 export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'

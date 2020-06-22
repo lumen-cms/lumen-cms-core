@@ -15,7 +15,7 @@ export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
     text: content.label || content.name,
     graphic: content.icon?.name
   }
-  const btnProps: any = content.link ? {
+  const btnProps: any = content.link?.cached_url ? {
     ...getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }),
     // naked: true,
     component: LinkRender

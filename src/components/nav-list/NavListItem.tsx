@@ -10,7 +10,7 @@ export type LmNavListItemProps = NavItemStoryblok
 export function LmNavListItem(props: LmNavListItemProps): JSX.Element {
   const content = { ...props }
   const { LinkRender } = useAppContext()
-  const btnProps: any = content.link ? {
+  const btnProps: any = content.link?.cached_url ? {
     ...getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }),
     naked: true,
     component: LinkRender

@@ -68,7 +68,7 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
                   {...gridListProps}
         >
           {body.map((item, i) => {
-            const btnProps: any = item.link && !content.enable_lightbox ? {
+            const btnProps: any = item.link?.cached_url && !content.enable_lightbox ? {
               ...getLinkAttrs(item.link as LinkType, { openExternal: !!item.open_external }),
               naked: true,
               component: LinkRender

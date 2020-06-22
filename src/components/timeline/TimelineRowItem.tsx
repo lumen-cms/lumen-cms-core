@@ -37,7 +37,7 @@ const CardContentContainer: FunctionComponent<{
 }> = ({ content, children }) => {
   const { LinkRender } = useAppContext()
   if (content.link) {
-    const btnProps: any = content.link ? {
+    const btnProps: any = content.link?.cached_url ? {
       ...getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }),
       naked: true,
       component: LinkRender

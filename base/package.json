@@ -1,0 +1,99 @@
+{
+  "name": "lumen-cms-base",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "module": "dist/lumen-cms-base.esm.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "scripts": {
+    "build": "tsdx build -i ../src/nextjs.tsx",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dominic Garms",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "4.10.2",
+    "@material-ui/lab": "4.0.0-alpha.56",
+    "@mdi/svg": "5.3.45",
+    "clsx": "1.1.1",
+    "css-mediaquery": "0.1.2",
+    "element-closest": "3.0.2",
+    "intersection-observer": "0.10.0",
+    "is-mobile": "2.2.1",
+    "js-cookie": "2.2.1",
+    "marked": "1.1.0",
+    "mdi-material-ui": "6.16.0",
+    "next-seo": "4.5.0",
+    "nprogress": "0.2.0",
+    "react-hooks-global-state": "1.0.0",
+    "react-inlinesvg": "1.2.0",
+    "react-intersection-observer": "8.26.2",
+    "react-player": "2.3.1",
+    "react-scroll-parallax": "2.3.3",
+    "react-swipeable-views": "0.13.9",
+    "react-swipeable-views-utils": "0.13.9",
+    "storyblok-js-client": "2.5.0",
+    "storyblok-react": "git+https://github.com/dohomi/storyblok-react.git",
+    "use-debounce": "3.4.2"
+  },
+  "peerDependencies": {
+    "next": "9.4.4",
+    "react-dom": "16.13.1",
+    "react": "16.13.1"
+  },
+  "devDependencies": {
+    "next": "9.4.4",
+    "@graphql-codegen/cli": "^1.15.4",
+    "@graphql-codegen/typescript": "^1.15.4",
+    "@graphql-codegen/typescript-document-nodes": "^1.15.4",
+    "@graphql-codegen/typescript-graphql-files-modules": "^1.15.4",
+    "@graphql-codegen/typescript-operations": "^1.15.4",
+    "@lumen/storyblok-material-icons": "git+https://github.com/dohomi/storyblok-fieldtype-material-icons-selector.git",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-info": "^5.3.19",
+    "@storybook/addon-knobs": "^5.3.19",
+    "@storybook/react": "^5.3.19",
+    "@types/js-cookie": "2.2.6",
+    "@types/marked": "0.7.4",
+    "@types/match-sorter": "4.0.0",
+    "@types/node": "^14.0.13",
+    "@types/node-fetch": "2.5.7",
+    "@types/nprogress": "0.2.0",
+    "@types/react": "16.9.35",
+    "@types/react-swipeable-views": "0.13.0",
+    "@types/uuid": "^8.0.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.1.0",
+    "babel-preset-react-app": "^9.1.2",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.1.0",
+    "json-schema-to-typescript": "^9.1.0",
+    "lorem-ipsum": "^2.0.3",
+    "np": "^6.2.4",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "qawolf": "^1.0.1",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "ts-loader": "^7.0.5",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "tsdx": "^0.13.2",
+    "typescript": "3.9.5",
+    "uuid": "^8.1.0",
+    "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "^3.8.0"
+  }
+}

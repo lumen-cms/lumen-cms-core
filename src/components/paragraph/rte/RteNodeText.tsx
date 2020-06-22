@@ -29,7 +29,7 @@ function RteNodeText({ content }: RteNodeTextProps): JSX.Element {
       }
       return InlineClassMapping[type]
     }))
-    if (link) {
+    if (link?.attrs?.href) {
       const btnProps: any = {
         ...getLinkAttrs({
           cached_url: link.attrs.href,

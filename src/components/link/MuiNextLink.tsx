@@ -7,7 +7,8 @@ import { CONFIG } from '../../utils/config'
 
 // https://github.com/mui-org/material-ui/blob/4b6cbf0/examples/nextjs-with-typescript/src/Link.tsx
 type NextComposedProps = Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> &
-  NextLinkProps & {
+  Omit<NextLinkProps, 'href'> & {
+  href: string
   external?: boolean
   nextHref?: string
 }
@@ -16,7 +17,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(({ a
   if (other.external) {
     delete other.nextHref
     delete other.external
-    return <a ref={ref} {...other} href={href as string} />
+    return <a ref={ref} {...other} href={href} />
   } else if (!as && href) {
     as = href
     href = other.nextHref || CONFIG.href
@@ -45,7 +46,9 @@ interface LinkPropsBase {
   naked?: boolean;
 }
 
-export type LinkProps = LinkPropsBase & NextComposedProps & Omit<MuiLinkProps, 'href'>;
+export type LinkProps = LinkPropsBase & Omit<NextComposedProps, 'href'> & Omit<MuiLinkProps, 'href'> & {
+  href?: string
+};
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
@@ -60,11 +63,15 @@ function Link(props: LinkProps): JSX.Element {
   } = props
 
   const router = useRouter()
-  const pathname = typeof href === 'object' ? href.pathname : href
-  const className = clsx(classNameProps, {
-    [activeClassName]: router?.pathname === pathname && activeClassName // todo probably router.asPath??
-  })
 
+  const pathname = href
+  const className = clsx(classNameProps, {
+    [activeClassName]: (router?.pathname === pathname) && activeClassName // todo probably router.asPath??
+  })
+  if (!href) {
+    console.log(props)
+    return <a {...other} className={className} />
+  }
   if (naked) {
     return <NextComposed className={className} ref={innerRef} href={href} {...other} />
   }
@@ -74,7 +81,7 @@ function Link(props: LinkProps): JSX.Element {
       component={NextComposed}
       className={className}
       ref={innerRef}
-      href={href as string}
+      href={href}
       {...other}
     />
   )

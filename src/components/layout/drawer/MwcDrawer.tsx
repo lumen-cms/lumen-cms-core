@@ -28,7 +28,6 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({ children, ba
 
   useEffect(
     () => {
-      console.log(appSetup.drawerVariant,appSetup.leftDrawerMediaBreakpoint, matches)
       if (appSetup.drawerVariant === 'temporary' || matches) {
         setOpen(false)
       }

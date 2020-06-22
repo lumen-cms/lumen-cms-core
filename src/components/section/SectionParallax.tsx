@@ -46,40 +46,41 @@ export function LmSectionParallax({ content }: LmSectionParallaxProps): JSX.Elem
 
   useEffect(
     () => {
+
+      const processLayers = () => {
+        const items = elements.map(async (item, i) => {
+          const containerHeight = height * Number(contentHeight as number / 100)
+          const offset = ((containerHeight * item.amount) * 2)
+          const imgHeight = containerHeight + offset
+
+          const img = getImageAttrs({
+            originalSource: item.image,
+            width: width,
+            height: ~~imgHeight,
+            smart: true,
+            focalPoint: item.image_focal_point
+          })
+          const imgSource = await getImagePromise({ src: img.src, srcSet: img.srcSet })
+          return {
+            image: `"${imgSource}"`,
+            amount: Number(item.amount),
+            children: item.children && item.children.length && ComponentRender({ content: item.children[0], i })
+          }
+        })
+        Promise.all(items)
+          .then((layers) => {
+            setLayers(layers as any)
+          })
+      }
+
       if (disableLazyLoad) {
         processLayers()
       } else if (inView) {
         refElement && processLayers()
       }
     },
-    [inView, width, height]
+    [inView, width, height, elements, contentHeight]
   )
-
-  function processLayers() {
-    const items = elements.map(async (item, i) => {
-      const containerHeight = height * Number(contentHeight as number / 100)
-      const offset = ((containerHeight * item.amount) * 2)
-      const imgHeight = containerHeight + offset
-
-      const img = getImageAttrs({
-        originalSource: item.image,
-        width: width,
-        height: ~~imgHeight,
-        smart: true,
-        focalPoint: item.image_focal_point
-      })
-      const imgSource = await getImagePromise({ src: img.src, srcSet: img.srcSet })
-      return {
-        image: `"${imgSource}"`,
-        amount: Number(item.amount),
-        children: item.children && item.children.length && ComponentRender({ content: item.children[0], i })
-      }
-    })
-    Promise.all(items)
-      .then((layers) => {
-        setLayers(layers as any)
-      })
-  }
 
 
   const body = content.body || []

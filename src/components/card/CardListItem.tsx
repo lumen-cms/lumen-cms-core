@@ -14,7 +14,7 @@ export function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props
   const variants = options.variant || []
   const { LinkRender } = useAppContext()
-  const btnProps: any = content.link ? {
+  const btnProps: any = content.link?.cached_url ? {
     ...getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }),
     naked: true,
     component: LinkRender

@@ -103,8 +103,7 @@ export function LmButton({ content }: LmButtonProps): JSX.Element {
     [`lm-font-${content.font}`]: content.font
   })
 
-
-  const btnProps: any = content.link ? {
+  const btnProps: any = content.link?.cached_url ? {
     ...getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }),
     naked: true,
     component: LinkRender

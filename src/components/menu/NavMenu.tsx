@@ -95,7 +95,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
         {!isCustom && (
           <div>
             {menuItems.map(nestedProps => {
-              const btnProps: any = nestedProps.link ? {
+              const btnProps: any = nestedProps.link?.cached_url ? {
                 ...getLinkAttrs(nestedProps.link as LinkType, { openExternal: !!nestedProps.open_external }),
                 // naked: true,
                 component: LinkRender
