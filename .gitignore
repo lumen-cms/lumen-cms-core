@@ -11,6 +11,7 @@ node_modules
 .next
 /bundles
 /dist
+/base/dist
 
 # misc
 .DS_Store
