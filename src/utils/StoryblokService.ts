@@ -94,6 +94,10 @@ class StoryblokServiceClass {
     this.devMode = true
   }
 
+  getDevMode() {
+    return this.devMode
+  }
+
   initEditor({ page, setPage, settings, setSettings }: { page?: AppPageProps['page'], setPage: Function, settings?: AppPageProps['settings'], setSettings: Function }) {
     if (window.storyblok) {
       window.storyblok.init({ accessToken: this.token })
