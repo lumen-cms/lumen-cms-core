@@ -23,7 +23,7 @@
   },
   "scripts": {
     "build-ts": "rimraf dist && tsdx build -i src/index.tsx",
-    "build-core": "rimraf base/dist && tsdx build -i src/nextjs.tsx --name lumen-cms-base",
+    "build-core": "rimraf dist && rimraf base/dist && tsdx build -i src/base.tsx --name lumen-cms-base && mv dist base/dist",
     "watch": "tsdx watch",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=80001",
