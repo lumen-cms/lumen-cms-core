@@ -25,9 +25,6 @@ const useStyles = makeStyles({
       alignItems: 'center',
       justifyContent: 'space-between'
     }
-  },
-  contentNoPadding: {
-    padding: 0
   }
 })
 
@@ -72,11 +69,13 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
             )}
           </DialogTitle>
         )}
-        <DialogContent classes={{
-          root: content.no_padding ? classes.contentNoPadding : ''
-        }}>
-          {content.body?.map((blok, i) => ComponentRender({ content: blok, i }))}
-        </DialogContent>
+        {content.no_padding ? (
+          <>{content.body?.map((blok, i) => ComponentRender({ content: blok, i }))}</>
+        ) : (
+          <DialogContent>
+            {content.body?.map((blok, i) => ComponentRender({ content: blok, i }))}
+          </DialogContent>
+        )}
       </Dialog>
     </div>
   )

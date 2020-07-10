@@ -24,6 +24,8 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
 
   return <div dangerouslySetInnerHTML={{
     __html: htmlContent
-  }} ref={refIntersectionObserver} />
+  }} ref={refIntersectionObserver} style={{
+    height: '100%'
+  }} />
 
 }
