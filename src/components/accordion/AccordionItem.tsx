@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { AccordionItemStoryblok, AccordionStoryblok } from '../../typings/generated/components-schema'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
 import Typography from '@material-ui/core/Typography'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import Accordion from '@material-ui/core/Accordion'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
 import { useAppContext } from '../provider/context/AppContext'
@@ -26,17 +26,17 @@ export function LmAccordionItem({ content, options, setOpen, opened, iteration }
   const panelKey = `panel-${iteration}`
   const expanded = options.restrict_one ? opened === panelKey : isOpen === panelKey
   return (
-    <ExpansionPanel square={options.square ? true : false}
+    <Accordion square={options.square ? true : false}
                     expanded={expanded}
                     onChange={handleChange(panelKey)}>
-      <ExpansionPanelSummary expandIcon={(content.use_plus_icon || options.use_plus) ? <Plus /> : <ChevronDown />}>
+      <AccordionSummary expandIcon={(content.use_plus_icon || options.use_plus) ? <Plus /> : <ChevronDown />}>
         <Typography>{content.title}</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <div>
           {(content.body || []).map((blok, i) => ComponentRender({ content: blok, i }))}
         </div>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   )
 }

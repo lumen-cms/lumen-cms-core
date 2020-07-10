@@ -5,7 +5,7 @@ import {
   AvatarStoryblok,
   ButtonListStoryblok,
   ButtonStoryblok,
-  DateHeadlineStoryblok,
+  DateHeadlineStoryblok, DialogStoryblok,
   DividerStoryblok,
   HeadlineStoryblok,
   HtmlStoryblok,
@@ -303,6 +303,15 @@ export const storyPlayer = ({ options = {}, knob, count = '' }: StorybookOptionP
     knob,
     count
   }) as PlayerStoryblok
+}
+
+export const storyDialog = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<DialogStoryblok> } = {}): DialogStoryblok => {
+  return getKnobComponents({
+    componentName: 'dialog',
+    options,
+    knob,
+    count
+  }) as DialogStoryblok
 }
 
 

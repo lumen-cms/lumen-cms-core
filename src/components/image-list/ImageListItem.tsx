@@ -25,26 +25,26 @@ export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
     //   height = listProps.height
     // }
     const tile = currentRef.target.closest('.MuiGridListTile-root')
-    let width = tile?.clientWidth
-    let height = tile?.clientHeight
+    if (tile) {
 
-    if (!width) {
-      return <span>some error with image list item</span>
-    }
-    width = Math.ceil(width)
-    const respectImgRatio = listProps.masonry || !listProps.aspect_ratio || !listProps.image_crop
-    height = respectImgRatio ? 0 : height && Math.ceil(height)
-    const imgSrc = getImageAttrs({
-      originalSource: content.source,
-      width,
-      height: height,
-      smart: listProps.image_crop === 'smart',
-      fitInColor: listProps.fit_in_color
-    })
-    imageProps = {
-      ...imgSrc,
-      width: width ? width : undefined,
-      height: height ? height : undefined
+      let width = tile?.clientWidth
+      let height = tile?.clientHeight
+
+      width = Math.ceil(width)
+      const respectImgRatio = listProps.masonry || !listProps.aspect_ratio || !listProps.image_crop
+      height = respectImgRatio ? 0 : height && Math.ceil(height)
+      const imgSrc = getImageAttrs({
+        originalSource: content.source,
+        width,
+        height: height,
+        smart: listProps.image_crop === 'smart',
+        fitInColor: listProps.fit_in_color
+      })
+      imageProps = {
+        ...imgSrc,
+        width: width ? width : undefined,
+        height: height ? height : undefined
+      }
     }
   }
 

@@ -336,6 +336,20 @@ export interface DateHeadlineStoryblok {
   [k: string]: any;
 }
 
+export interface DialogStoryblok {
+  title?: string;
+  fullscreen?: "xs" | "sm" | "md" | "lg" | "xl";
+  trigger?: any[];
+  body?: any[];
+  prevent_click_outside?: boolean;
+  slide_up?: boolean;
+  no_padding?: boolean;
+  prevent_close_button?: boolean;
+  _uid: string;
+  component: "dialog";
+  [k: string]: any;
+}
+
 export interface DividerStoryblok {
   color?: {
     rgba?: string;

@@ -44,6 +44,7 @@ import { LmTimelineItem } from './components/timeline/TimelineRow'
 import { LmCardListItem } from './components/card/CardListItem'
 import { LmImageListItem } from './components/image-list/ImageListItem'
 import { LmToolbarLogo } from './components/layout/toolbar/ToolbarLogo'
+import { LmDialog } from './components/dialog/Dialog'
 import { LmToggleDrawerButton } from './components/layout/toolbar/ToggleDrawerButton'
 import { LmApp } from './components/pages/_app'
 import { AppProps } from 'next/app'
@@ -79,6 +80,7 @@ export {
   LmRichTextParagraph,
   LmListSearchAutocomplete,
   LmLink,
+  LmDialog,
   LmCategoryBox,
   LmTabs,
   LmTable,
@@ -160,7 +162,8 @@ export const LmCoreComponentsNamed = {
   'toolbar_logo': LmToolbarLogo,
   'toolbar_navi_button': LmToggleDrawerButton,
   'player': LmPlayer,
-  'toolbar_row_section': LmToolbarSection
+  'toolbar_row_section': LmToolbarSection,
+  'dialog': LmDialog
 }
 
 export function LmDefaultApp(props: AppProps<AppPageProps>) {
