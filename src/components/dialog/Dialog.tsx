@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { DialogStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../..'
+import { useAppContext } from '../provider/context/AppContext'
 import Dialog, { DialogProps } from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
