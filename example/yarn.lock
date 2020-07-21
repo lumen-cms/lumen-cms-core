@@ -1020,10 +1020,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
   integrity sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==
 
-"@material-ui/core@4.10.2":
-  version "4.10.2"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.10.2.tgz#0ef78572132fcef1a25f6969bce0d34652d42e31"
-  integrity sha512-Uf4iDLi9sW6HKbVQDyDZDr1nMR4RUAE7w/RIIJZGNVZResC0xwmpLRZMtaUdSO43N0R0yJehfxTi4Z461Cd49A==
+"@material-ui/core@4.11.0":
+  version "4.11.0"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.0.tgz#b69b26e4553c9e53f2bfaf1053e216a0af9be15a"
+  integrity sha512-bYo9uIub8wGhZySHqLQ833zi4ZML+XCBE1XwJ8EuUVSpTWWG57Pm+YugQToJNFsEyiKFhPh8DPD0bgupz8n01g==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/styles" "^4.10.0"
@@ -3172,10 +3172,10 @@ inherits@2.0.3:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
   integrity sha1-Yzwsg+PaQqUC9SRmAiSA9CCCYd4=
 
-intersection-observer@0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.10.0.tgz#4d11d63c1ff67e21e62987be24d55218da1a1a69"
-  integrity sha512-fn4bQ0Xq8FTej09YC/jqKZwtijpvARlRp6wxL5WTA6yPe2YWSJ5RJh7Nm79rK2qB0wr6iDQzH60XGq5V/7u8YQ==
+intersection-observer@0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/intersection-observer/-/intersection-observer-0.11.0.tgz#f4ea067070326f68393ee161cc0a2ca4c0040c6f"
+  integrity sha512-KZArj2QVnmdud9zTpKf279m2bbGfG+4/kn16UU0NL3pTVl52ZHiJ9IRNSsnn6jaHrL9EGLFM5eWjTx2fz/+zoQ==
 
 invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
@@ -3327,10 +3327,10 @@ is-in-browser@^1.0.2, is-in-browser@^1.1.3:
   resolved "https://registry.yarnpkg.com/is-in-browser/-/is-in-browser-1.1.3.tgz#56ff4db683a078c6082eb95dad7dc62e1d04f835"
   integrity sha1-Vv9NtoOgeMYILrldrX3GLh0E+DU=
 
-is-mobile@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/is-mobile/-/is-mobile-2.2.1.tgz#10f2320012c410cc285feecb13406bd586f1b2f8"
-  integrity sha512-6zELsfVFr326eq2CI53yvqq6YBanOxKBybwDT+MbMS2laBnK6Ez8m5XHSuTQQbnKRfpDzCod1CMWW5q3wZYMvA==
+is-mobile@2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/is-mobile/-/is-mobile-2.2.2.tgz#f6c9c5d50ee01254ce05e739bdd835f1ed4e9954"
+  integrity sha512-wW/SXnYJkTjs++tVK5b6kVITZpAZPtUrt9SF80vvxGiF/Oywal+COk1jlRkiVq15RFNEQKQY31TkV24/1T5cVg==
 
 is-number@^3.0.0:
   version "3.0.0"
@@ -3666,9 +3666,9 @@ lodash.uniq@^4.5.0:
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
 lodash@^4.17.11, lodash@^4.17.13:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
@@ -3685,31 +3685,31 @@ lru-cache@5.1.1, lru-cache@^5.1.1:
     yallist "^3.0.2"
 
 "lumen-cms-core@file:..":
-  version "0.40.3"
+  version "0.41.3"
   dependencies:
-    "@material-ui/core" "4.10.2"
+    "@material-ui/core" "4.11.0"
     "@material-ui/lab" "4.0.0-alpha.56"
     "@mdi/svg" "5.3.45"
     clsx "1.1.1"
     css-mediaquery "0.1.2"
     element-closest "3.0.2"
-    intersection-observer "0.10.0"
-    is-mobile "2.2.1"
+    intersection-observer "0.11.0"
+    is-mobile "2.2.2"
     js-cookie "2.2.1"
     marked "1.1.0"
     mdi-material-ui "6.16.0"
-    next-seo "4.5.0"
+    next-seo "4.7.2"
     nprogress "0.2.0"
-    react-hooks-global-state "1.0.0"
+    react-hooks-global-state "1.0.1"
     react-inlinesvg "1.2.0"
     react-intersection-observer "8.26.2"
-    react-player "2.3.1"
+    react-player "2.5.0"
     react-scroll-parallax "2.3.3"
     react-swipeable-views "0.13.9"
     react-swipeable-views-utils "0.13.9"
-    storyblok-js-client "2.5.0"
-    storyblok-react "git+https://github.com/dohomi/storyblok-react.git"
-    use-debounce "3.4.2"
+    storyblok-js-client "2.5.1"
+    storyblok-react "0.1.0"
+    use-debounce "3.4.3"
 
 "lumen-cms-nextjs@file:../../lumen-cms-nextjs":
   version "1.1.3"
@@ -3999,10 +3999,10 @@ next-compose-plugins@2.2.0:
   resolved "https://registry.yarnpkg.com/next-compose-plugins/-/next-compose-plugins-2.2.0.tgz#95cd8eb40ab0652070d76572fb648354191628b0"
   integrity sha512-ChUlpT9tWfJ7YxqGw/WQ2T1gf8EeX93n1XqeQw0lkvGa7seszahvF4eOZUJoq7Hetsbzg4UHVnPoCXfXTyQR3g==
 
-next-seo@4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-4.5.0.tgz#d000d4fec1ee02fd7bf458bfc20c334035027939"
-  integrity sha512-PqLKaEOBHieXSxXDt++kG/XyJgi4X9N36PzmEBdJpJGkJdnqmdplFMZtz/kjuJJUg3iaVaUg/TAnRDjOROEX4A==
+next-seo@4.7.2:
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-4.7.2.tgz#18730a88ad21a466de63a1a203672091dde5e1eb"
+  integrity sha512-OfuaUfPXnXQn1ehbUSy7NDii9R/arvtHZH5VSDfhxMtk5iC5UWyzATe4p03CoVINKo76Bdln/QghUAw4NhQZXg==
 
 next-tick@~1.0.0:
   version "1.0.0"
@@ -4939,10 +4939,10 @@ react-from-dom@^0.3.0:
   resolved "https://registry.yarnpkg.com/react-from-dom/-/react-from-dom-0.3.1.tgz#49ba6e7d679314807786aa88a37436ec73637bce"
   integrity sha512-PeNBa8iuzoD7qHA9O7YpGnXFvC+XFFwStmFh2/r2zJAvEIaRg6EwOj+EPcDIFwyYBhqPIItxIx/dGdeWiFivjQ==
 
-react-hooks-global-state@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-hooks-global-state/-/react-hooks-global-state-1.0.0.tgz#a30580aec8f74327798ec75bf08b44ccb7d0b94f"
-  integrity sha512-yxHtkYz99E3rdRXXa6bFrt+FiLey+qa8H/kVY01A/CuW/UtUpl6BY12gXkWDbvzF9mfweMF4hTOH1jwu5zx4yg==
+react-hooks-global-state@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-hooks-global-state/-/react-hooks-global-state-1.0.1.tgz#3e4e1009f3e8a6fd001cd507808b4f1b289e9b27"
+  integrity sha512-GFe/7KOdf8toByd8eF5LBhogMn65XSyghIzInsnA1e8vqIxGdT2Ohs2Ohdclp8CX0QU9xNj72ZIt+WD/SQEh9Q==
 
 react-inlinesvg@1.2.0:
   version "1.2.0"
@@ -4964,10 +4964,10 @@ react-is@16.13.1, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-player@2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/react-player/-/react-player-2.3.1.tgz#fbd6fd332ffc88e77d0ae3b8461a2a60c8cbb862"
-  integrity sha512-KT5u7rZ5DB40wcs5kVl5pNzdow6eK+gSrwCM0HilgF8O85dYPFqw7nhtz3hUEyUr3VhEWbeTOrsyEf1YrNZdOA==
+react-player@2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-2.5.0.tgz#7b3e3351cc3436b175b92295ac9ca4cdaeae4cab"
+  integrity sha512-wwTp6KO6uF/QRvwV2rh+jb6A7rfZLgdVPKTgidXYYvb2IkjYd3Db9BtSVGqQeLw1e9y3OSucBCrLlJtovSMuzg==
   dependencies:
     deepmerge "^4.0.0"
     load-script "^1.0.0"
@@ -5531,18 +5531,19 @@ static-extend@^0.1.1:
     define-property "^0.2.5"
     object-copy "^0.1.0"
 
-storyblok-js-client@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-2.5.0.tgz#1b92d55a8f2cf940d76c2921b0983ee62c233f52"
-  integrity sha512-yaKPqPeJQfhZaEUutJc9FI6Q531KpKvYh4z5LK99RV98Obc8O/4AN52FcEQdrRvUpkKmRZp7BSPXiR7nEQPWrA==
+storyblok-js-client@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-2.5.1.tgz#31ac6082ce2fa300886e687aaadcc945fb2731aa"
+  integrity sha512-BNje8bqYmy2f+b2rpD6X7XtksK1ciqw9vohQl8mFE6e1TRpMqT6u8Ep9Va9zh/Pw7SN9vECSiqSKLKUt7dasuA==
   dependencies:
     "@babel/runtime-corejs3" "^7.4.5"
     axios "^0.19.0"
     qs "^6.5.2"
 
-"storyblok-react@git+https://github.com/dohomi/storyblok-react.git":
-  version "0.0.0-development"
-  resolved "git+https://github.com/dohomi/storyblok-react.git#2d311296c3605d3d51ae76c534b1290d1fee916c"
+storyblok-react@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/storyblok-react/-/storyblok-react-0.1.0.tgz#1bc1b55b11b1e34f109f1ca27abb5186f8b0c8e6"
+  integrity sha512-nhvfYganB+eRx3XErn0gNkE53jIXS2zu+2iBqonaY8O+mBYuCaM6nRpSbz1aQQQlSDUs1GtQJWuTgL7mexCAug==
 
 stream-browserify@^2.0.1:
   version "2.0.2"
@@ -5968,10 +5969,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-debounce@3.4.2:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-3.4.2.tgz#f4333cca59504244b916159600427bf977ec4c46"
-  integrity sha512-rW44wZaFPh3XiwUzGBA0JRuklpbfKO/szU/5CYD2Q/erLmCem63lJ650p3a+NJE6S+g0rulKtBOfa/3rw/GN+Q==
+use-debounce@3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/use-debounce/-/use-debounce-3.4.3.tgz#5df9322322b3f1b1c263d46413f9facf6d8b56ab"
+  integrity sha512-nxy+opOxDccWfhMl36J5BSCTpvcj89iaQk2OZWLAtBJQj7ISCtx1gh+rFbdjGfMl6vtCZf6gke/kYvrkVfHMoA==
 
 use-subscription@1.4.1:
   version "1.4.1"
