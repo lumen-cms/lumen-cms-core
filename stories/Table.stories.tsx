@@ -7,20 +7,24 @@ const body = {
   tbody: [[
     'Content 1 1',
     'Content 1 2',
-    'Content 1 3'
+    'Content 1 3',
+    'Content 1 4'
   ], [
     'Content 2 1',
     'Content 2 2',
-    'Content 2 3'
+    'Content 2 3',
+    'Content 1 4'
   ], [
     'Content 3 1',
     'Content 3 2',
-    'Content 3 3'
+    'Content 3 3',
+    'Content 1 4'
   ]],
   thead: [
     'Head 1',
     'Head 2',
-    'Head 3'
+    'Head 3',
+    'Head 4'
   ]
 }
 const props: TableStoryblok = {

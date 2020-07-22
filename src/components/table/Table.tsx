@@ -142,18 +142,20 @@ export function LmTable({ content }: LmTableProps): JSX.Element {
   const tableHead = content.body && content.body.thead || []
 
   return (
-    <table className={className}>
-      {!content.disable_table_head && (<thead>
-      <tr>
-        {tableHead.map((content, index) => <th key={`head_${index}`}>{content}</th>)}
-      </tr>
-      </thead>)}
-      <tbody>
-      {tableBody.map((row, index) => <TableRow
-        key={`row_${index}`}
-        index={index}
-        content={row} />)}
-      </tbody>
-    </table>
+    <div style={{ overflowX: 'auto' }}>
+      <table className={className}>
+        {!content.disable_table_head && (<thead>
+        <tr>
+          {tableHead.map((content, index) => <th key={`head_${index}`}>{content}</th>)}
+        </tr>
+        </thead>)}
+        <tbody>
+        {tableBody.map((row, index) => <TableRow
+          key={`row_${index}`}
+          index={index}
+          content={row} />)}
+        </tbody>
+      </table>
+    </div>
   )
 }
