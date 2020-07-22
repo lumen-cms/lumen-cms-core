@@ -10,11 +10,11 @@ export function useListSearch(items: AppApiRequestPayload['allStories'], isEnabl
   const query = router?.query
   const [searchParams] = useGlobalState('searchParams')
   let searchParamsCategories = searchParams.categories || []
-  if (!searchParams.categories && query.search__categories) {
+  if (!searchParams.categories && query?.search__categories) {
     searchParamsCategories = Array.isArray(query.search__categories) ? query.search__categories : [query.search__categories]
   }
   let searchText = searchParams.searchText
-  if (!searchParams.searchText && query.search__text) {
+  if (!searchParams.searchText && query?.search__text) {
     searchText = query.search__text as string
   }
   if (searchParamsCategories.length || searchText) {

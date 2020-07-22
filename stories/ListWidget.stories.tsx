@@ -1,6 +1,13 @@
 import { LmComponentRender as LmListWidget } from '../src/'
 import * as React from 'react'
-import { ListsStoryblok, ListWidgetStoryblok, NavListStoryblok } from '../src/typings/generated/components-schema'
+import {
+  CategoryBoxStoryblok,
+  HeadlineStoryblok,
+  ListsStoryblok,
+  ListWidgetStoryblok,
+  NavListStoryblok,
+  PageStoryblok
+} from '../src/typings/generated/components-schema'
 import SetStoriesDecorator from '../src/storybook/components/SetStoriesDecorator'
 import { storyCardList, storyListWidget } from '../src/storybook/core/section'
 
@@ -57,6 +64,20 @@ export const Filtered = () => (
     <LmListWidget content={{ ...filtered, list_options: [linksOption] }} />
   </div>
 )
+
+export const Search = () => (
+  <div className="p-3">
+    <LmListWidget content={{
+      component: 'page',
+      body: [{ ...props, enable_for_search: true, only_tagged: true, maximum_items: 20 } as ListWidgetStoryblok],
+      right_body: [{ component: 'headline', text: 'Search...' } as HeadlineStoryblok, {
+        component: 'category_box'
+      } as CategoryBoxStoryblok]
+    } as PageStoryblok} />
+
+  </div>
+)
+
 export const Playground = () => {
   const listOpts = storyListWidget({
     options: {

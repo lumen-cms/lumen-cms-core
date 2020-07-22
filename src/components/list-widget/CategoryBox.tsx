@@ -13,7 +13,7 @@ export function LmCategoryBox({ content }: LmCategoryBoxProps): JSX.Element {
   const router = useRouter()
   const query = router?.query
   let initialValues: string[] = []
-  if (query.search__categories) {
+  if (query?.search__categories) {
     initialValues = Array.isArray(query.search__categories) ? query.search__categories : [query.search__categories]
   }
   const [selected, setSelected] = useState<string[]>(initialValues)
