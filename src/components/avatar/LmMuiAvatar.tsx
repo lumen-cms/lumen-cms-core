@@ -16,7 +16,7 @@ const useStyles = makeStyles({
       width: 52,
       height: 52
     },
-    '.xlarge': {
+    '&.xlarge': {
       width: 64,
       height: 64
     }

@@ -30,7 +30,7 @@ export const Basic = () => (
     margin: '0 auto'
   }}>
     <LmImage content={props} />
-    <LmImage content={{ ...props, property: ['rounded-circle'] }} />
+    <LmImage content={{ ...props, property: ['rounded-circle'], height: 150 } as ImageStoryblok} />
     <LmImage content={{ ...props, property: ['rounded-0'] }} />
     <LmImage content={{ ...props, property: ['rounded'] }} />
     <LmImage content={{ ...props, property: ['img-thumbnail'] }} />

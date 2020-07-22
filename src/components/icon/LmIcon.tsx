@@ -12,7 +12,15 @@ const useStyles = makeStyles({
   icon: {
     fill: 'currentColor',
     width: '1em',
-    height: '1em'
+    height: '1em',
+    '&.size__lm-button-large':{
+        width: 30,
+        height: 30
+    },
+    '&.size__lm-button-xlarge': {
+      width: 40,
+      height: 40
+    }
   }
 })
 

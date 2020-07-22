@@ -121,7 +121,7 @@ export function LmButton({ content }: LmButtonProps): JSX.Element {
            size={mapSize[content.size as string] || 'medium'}
            color={color as FabProps['color']}
            disableRipple={disableRipple}>
-        <LmIcon iconName={content.icon && content.icon.name} buttonSize={content.size} />
+        <LmIcon iconName={content.icon?.name} buttonSize={content.size} />
         {content.image && (
           <LmMuiAvatar src={content.image} size={mapAvatarSize[content.size as string]} />
         )}
@@ -141,7 +141,7 @@ export function LmButton({ content }: LmButtonProps): JSX.Element {
                     borderColor: content.variant === 'outlined' && content.custom_color?.rgba ? content.custom_color.rgba : undefined
                   }}
                   className={className}>
-        <LmIcon iconName={content.icon && content.icon.name} buttonSize={content.size} />
+        <LmIcon iconName={content.icon?.name} buttonSize={content.size} />
         {content.image && (
           <LmMuiAvatar src={content.image} size={mapAvatarSize[content.size as string]} />
         )}
