@@ -690,6 +690,10 @@ export interface LinkStoryblok {
   };
   open_external?: boolean;
   body?: any[];
+  class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
   _uid: string;
   component: "link";
   [k: string]: any;
