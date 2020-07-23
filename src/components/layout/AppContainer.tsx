@@ -3,7 +3,6 @@ import { AppPageProps, ComponentRenderProps, LinkRenderProps } from '../../typin
 import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
 import AppSetupProvider from '../provider/AppSetupProvider'
 import GlobalTheme from '../global-theme/GlobalTheme'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import AppProvider from '../provider/AppProvider'
 import Error from 'next/error'
 
@@ -28,7 +27,6 @@ export const AppContainer: FunctionComponent<AppContainerProps> = (
       <WindowDimensionsProvider>
         <AppSetupProvider settings={settings} page={page}>
           <GlobalTheme settings={settings} rightDrawerWidth={page?.right_drawer_width}>
-            <CssBaseline />
             {children}
           </GlobalTheme>
         </AppSetupProvider>

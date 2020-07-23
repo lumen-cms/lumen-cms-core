@@ -19,6 +19,8 @@ import {
 import { boolean } from '@storybook/addon-knobs'
 import { storyButton, storyHeadline, storyMenu, storyMenuItem, storyParagraph } from '../src/storybook/core/various'
 import { CONFIG_STORYBOOK } from '../src/storybook/components/configStorybook'
+import GlobalTheme from '../src/components/global-theme/GlobalTheme'
+import AppSetupProvider from '../src/components/provider/AppSetupProvider'
 
 
 const getPropsDrawer = (): PageStoryblok => ({
@@ -108,6 +110,7 @@ export const WithDrawer = () => (
     <LmPage content={getPropsDrawer()} />
   </>
 )
+
 export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
   const show = boolean('Show System Bar', true, 'System Bar')
   const customSettingsSystemBar: GlobalStoryblok = {
@@ -118,17 +121,20 @@ export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
   if (!show) {
     customSettingsSystemBar.multi_toolbar && customSettingsSystemBar.multi_toolbar.shift()
   }
+  const playgroundSettings = {
+    ...settings,
+    multi_toolbar: customSettingsSystemBar.multi_toolbar,
+    footer: customSettingsSystemBar.footer,
+    toolbar_main_height: 70
+  } as GlobalStoryblok
   return (
-    <>
-      <Layout settings={{
-        ...settings,
-        multi_toolbar: customSettingsSystemBar.multi_toolbar,
-        footer: customSettingsSystemBar.footer
-
-      }}>
-        <LmPage content={getPropsDrawer()} />
-      </Layout>
-    </>
+    <AppSetupProvider settings={playgroundSettings} page={getPropsDrawer()}>
+      <GlobalTheme settings={playgroundSettings}>
+        <Layout settings={playgroundSettings}>
+          <LmPage content={getPropsDrawer()} />
+        </Layout>
+      </GlobalTheme>
+    </AppSetupProvider>
   )
 }
 

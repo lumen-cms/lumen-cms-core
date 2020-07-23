@@ -4,6 +4,7 @@ import React, { FunctionComponent, memo, useMemo } from 'react'
 import parseFont from '../../utils/parseFont'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { GlobalStoryblok, ToolbarRowStoryblok } from '../../typings/generated/components-schema'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 const mapThemeType = {
   'base': 'light',
@@ -212,6 +213,7 @@ const GlobalTheme: FunctionComponent<{
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
+      <CssBaseline />
       {children}
     </ThemeProvider>
   )

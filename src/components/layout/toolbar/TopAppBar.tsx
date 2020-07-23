@@ -48,7 +48,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     '&.lm-toolbar__scrolled': {
       '& .lm-system-bar': {
-        marginTop: -1 * theme.toolbar.height.systemBar
+        // transform: `translate(0, ${-1 * theme.toolbar.height.systemBar}px)`,
+        // transition: 'transform .5s',
+        // paddingTop: theme.toolbar.height.systemBar,
+        marginTop: -1 * theme.toolbar.height.systemBar,
         // height: '0 !important'
       },
       '& .MuiToolbar-root': {
@@ -137,6 +140,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
   const isScrollCollapse = toolbarConfig.includes('scroll_collapse')
   const showLeftShift = appSetup.drawerVariant !== 'temporary' && !appSetup.drawerBelowToolbar && isLeftDrawerOpen
 
+  const toolbarScrolled = scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage || !!props.SystemBar)
   return (
     <>
       <AppBar className={clsx(classes.topAppBar, {
@@ -144,7 +148,7 @@ const TopAppBar: FunctionComponent<AppHeaderProps & {
         'lm-toolbar__unelevated': toolbarConfig.includes('unelevated'),
         [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
         'lm-toolbar__transparent': appSetup.hasFeatureImage,
-        'lm-toolbar__scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage || !!props.SystemBar),
+        'lm-toolbar__scrolled': toolbarScrolled,
         'lm-toolbar__collapsed': isScrolled && appSetup.hasScrollCollapse,
         'lm-toolbar__scroll-collapse': isScrollCollapse,
         'lm-toolbar__with-system-bar': !!props.SystemBar,

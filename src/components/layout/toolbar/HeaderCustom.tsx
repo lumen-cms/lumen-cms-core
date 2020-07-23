@@ -28,6 +28,7 @@ function HeaderCustom(props: AppHeaderProps): JSX.Element {
 
   let SystemBar = null
   const systemBarProps = rows.find(item => item.is_system_bar)
+  console.log("inside of header custom",systemBarProps)
   if (systemBarProps) {
     SystemBar = HeaderItem(systemBarProps, content)
     // rows.splice(systemBarProps, 1)
