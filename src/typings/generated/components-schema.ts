@@ -596,6 +596,7 @@ export interface IframeStoryblok {
   display?: "relative" | "absolute";
   property?: "allow_fullscreen"[];
   allow?: ("geolocation" | "microphone" | "camera" | "midi" | "encrypted-media")[];
+  full_height?: boolean;
   _uid: string;
   component: "iframe";
   [k: string]: any;

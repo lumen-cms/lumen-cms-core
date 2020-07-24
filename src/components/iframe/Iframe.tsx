@@ -30,7 +30,7 @@ export function LmIframe({ content }: LmIframeProps): JSX.Element {
       'embed-responsive': !!content.responsive_ratio,
       [`embed-responsive-${content.responsive_ratio}`]: !!content.responsive_ratio
     })} style={{
-      height: '100%'
+      height: content.full_height ? '100%' : undefined
     }}>
       {!loaded && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
       <iframe allow={allowed.join(' ')}
