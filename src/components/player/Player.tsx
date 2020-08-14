@@ -36,7 +36,7 @@ export function LmPlayer({ content }: LmPlayerProps): JSX.Element {
 
   // need to define style rather than class name otherwise change in Storybook not detected if ratio changes
 
-  const url = content.url && content.url.indexOf(',') !== -1 ? content.url.split(',') : content.url
+  const url = content.url && content.url.indexOf(',') !== -1 ? content.url.split(',').map(i => i.trim()) : content.url
   return (
     <div
       ref={refIntersectionObserver}

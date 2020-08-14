@@ -49,7 +49,7 @@ function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
   }
 
   // cover the available space
-  const url = content.url && content.url.indexOf(',') !== -1 ? content.url.split(',') : content.url
+  const url = content.url && content.url.indexOf(',') !== -1 ? content.url.split(',').map(i => i.trim()) : content.url
 
   return (
     <>
