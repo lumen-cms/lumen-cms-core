@@ -16,7 +16,7 @@ type AppConfigProps = {
 }
 
 export const CONFIG: AppConfigProps = {
-  href: process.env.HREF || '/[[...index]]',
+  href: process.env.HREF || '/[...index]',
   previewToken: process.env.NEXT_PUBLIC_PREVIEW_TOKEN || '',
   publicToken: process.env.NEXT_PUBLIC_PUBLIC_TOKEN || '',
   languages: (process.env.NEXT_PUBLIC_LANGUAGES && process.env.NEXT_PUBLIC_LANGUAGES.split(',')) || [],

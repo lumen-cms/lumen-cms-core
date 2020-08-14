@@ -49,6 +49,8 @@ function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
   }
 
   // cover the available space
+  const url = content.url && content.url.indexOf(',') !== -1 ? content.url.split(',') : content.url
+
   return (
     <>
       <div className={`videobg-width${properties.includes('suppress_mouse_events') ? ' video-no-mouse' : ''}`}
@@ -56,7 +58,7 @@ function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
         <div className="videobg-aspect"
              style={{ paddingBottom: `${(videoAspect * 100).toFixed(2)}%` }}>
           <div className="videobg-make-height">
-            <ReactPlayer url={content.url}
+            <ReactPlayer url={url}
                          className={className}
                          width="100%"
                          height="100%"
