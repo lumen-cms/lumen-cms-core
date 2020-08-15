@@ -917,12 +917,14 @@ export interface PlayerStoryblok {
   playing?: boolean;
   loop?: boolean;
   muted?: boolean;
+  playsinline?: boolean;
   volume?: number;
   light?: boolean;
   url?: string;
   ratio?: "16x9" | "4x3" | "3x2" | "1x1";
   width?: string;
   height?: string;
+  fallback_image?: string;
   _uid: string;
   component: "player";
   [k: string]: any;
@@ -1074,9 +1076,10 @@ export interface SectionVideoBgStoryblok {
   url?: string;
   body?: any[];
   fallback_image?: string;
-  property?: ("muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline")[];
+  property?: ("muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline" | "light")[];
   video_ratio?: "16x9" | "1280x720" | "4x3" | "16x6";
   height?: number;
+  max_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   _uid: string;
   component: "section_video_bg";
   [k: string]: any;

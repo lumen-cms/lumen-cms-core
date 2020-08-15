@@ -3,10 +3,10 @@ import React, { CSSProperties, useEffect, useState } from 'react'
 import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import FullscreenVideoBg from './FullscreenVideoBg'
 import { useAppContext } from '../provider/context/AppContext'
-
+import Container, { ContainerProps } from '@material-ui/core/Container'
 
 const useStyles = makeStyles({
   videoSection: {
@@ -72,6 +72,7 @@ export type LmSectionVideoProps = { content: SectionVideoBgStoryblok }
 export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
   const classes = useStyles()
   const { ComponentRender } = useAppContext()
+  const theme = useTheme()
   const dimensions = useWindowDimensions()
   const [intersectionRef, inView, intersectionElement] = useInView(intersectionDefaultOptions)
   const [containerDimensions, setContainerDimensions] = useState({
@@ -113,7 +114,9 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
     },
     [inView, dimensions.width, dimensions.height, content.url, fixedToRatio]
   )
-
+  const maxWidth = content.max_width
+    ? (content.max_width === 'none' ? false : content.max_width)
+    : theme.defaultContainerWidth
 
   return (
     <div className={classes.videoSection}
@@ -128,7 +131,17 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
                            ratioHeight={ratioHeight}
                            ratioWidth={ratioWidth} />
       )}
-      {hasBody && <div>{body.map((blok, i) => ComponentRender({ content: blok, i }))}</div>}
+      {hasBody && (
+        <div>
+          <Container
+            style={{height: '100%'}}
+            maxWidth={maxWidth as ContainerProps['maxWidth']}>
+            {body.map((blok, i) => ComponentRender({
+              content: blok,
+              i
+            }))}
+          </Container></div>
+      )}
     </div>
   )
 }

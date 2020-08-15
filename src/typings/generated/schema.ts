@@ -9,6 +9,8 @@ export type Scalars = {
   Float: number;
   JsonScalar: any;
   BlockScalar: any;
+  /** An ISO 8601-encoded datetime */
+  ISO8601DateTime: any;
 };
 
 export type QueryType = {
@@ -62,6 +64,7 @@ export type QueryTypeCategoryItemsArgs = {
   page?: Maybe<Scalars['Int']>;
   per_page?: Maybe<Scalars['Int']>;
   filter_query?: Maybe<Scalars['JsonScalar']>;
+  filter_query_v2?: Maybe<CategoryFilterQuery>;
 };
 
 
@@ -142,6 +145,7 @@ export type QueryTypeErrorpageItemsArgs = {
   page?: Maybe<Scalars['Int']>;
   per_page?: Maybe<Scalars['Int']>;
   filter_query?: Maybe<Scalars['JsonScalar']>;
+  filter_query_v2?: Maybe<ErrorpageFilterQuery>;
 };
 
 
@@ -175,6 +179,7 @@ export type QueryTypeGlobalItemsArgs = {
   page?: Maybe<Scalars['Int']>;
   per_page?: Maybe<Scalars['Int']>;
   filter_query?: Maybe<Scalars['JsonScalar']>;
+  filter_query_v2?: Maybe<GlobalFilterQuery>;
 };
 
 
@@ -208,6 +213,7 @@ export type QueryTypePageItemsArgs = {
   page?: Maybe<Scalars['Int']>;
   per_page?: Maybe<Scalars['Int']>;
   filter_query?: Maybe<Scalars['JsonScalar']>;
+  filter_query_v2?: Maybe<PageFilterQuery>;
 };
 
 
@@ -320,6 +326,46 @@ export type PageItems = {
   total?: Maybe<Scalars['Int']>;
 };
 
+export type PageFilterQuery = {
+  preview_title?: Maybe<FilterQueryOperations>;
+  preview_subtitle?: Maybe<FilterQueryOperations>;
+  meta_title?: Maybe<FilterQueryOperations>;
+  meta_robots?: Maybe<FilterQueryOperations>;
+  property?: Maybe<FilterQueryOperations>;
+  mobile_breakpoint?: Maybe<FilterQueryOperations>;
+  right_drawer_width?: Maybe<FilterQueryOperations>;
+};
+
+export type FilterQueryOperations = {
+  /** Matches exactly one value */
+  in?: Maybe<Scalars['String']>;
+  /** Matches all without the given value */
+  not_in?: Maybe<Scalars['String']>;
+  /** Matches exactly one value with a wildcard search using * */
+  like?: Maybe<Scalars['String']>;
+  /** Matches all without the given value */
+  not_like?: Maybe<Scalars['String']>;
+  /** Matches any value of given array */
+  in_array?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** Must match all values of given array */
+  all_in_array?: Maybe<Array<Maybe<Scalars['String']>>>;
+  /** Greater than date (Exmples: 2019-03-03 or 2020-03-03T03:03:03) */
+  gt_date?: Maybe<Scalars['ISO8601DateTime']>;
+  /** Less than date (Format: 2019-03-03 or 2020-03-03T03:03:03) */
+  lt_date?: Maybe<Scalars['ISO8601DateTime']>;
+  /** Greater than integer value */
+  gt_int?: Maybe<Scalars['Int']>;
+  /** Less than integer value */
+  lt_int?: Maybe<Scalars['Int']>;
+  /** Matches exactly one integer value */
+  in_int?: Maybe<Scalars['Int']>;
+  /** Greater than float value */
+  gt_float?: Maybe<Scalars['Float']>;
+  /** Less than float value */
+  lt_float?: Maybe<Scalars['Float']>;
+};
+
+
 export type CategoryItem = {
   __typename?: 'CategoryItem';
   alternates?: Maybe<Array<Maybe<Alternate>>>;
@@ -359,6 +405,10 @@ export type CategoryItems = {
   __typename?: 'CategoryItems';
   items?: Maybe<Array<Maybe<CategoryItem>>>;
   total?: Maybe<Scalars['Int']>;
+};
+
+export type CategoryFilterQuery = {
+  name?: Maybe<FilterQueryOperations>;
 };
 
 export type GlobalItem = {
@@ -449,6 +499,46 @@ export type GlobalItems = {
   total?: Maybe<Scalars['Int']>;
 };
 
+export type GlobalFilterQuery = {
+  drawer_variant?: Maybe<FilterQueryOperations>;
+  mobile_nav_breakpoint?: Maybe<FilterQueryOperations>;
+  drawer_width?: Maybe<FilterQueryOperations>;
+  drawer_below_toolbar?: Maybe<FilterQueryOperations>;
+  drawer_below_toolbar_xs?: Maybe<FilterQueryOperations>;
+  drawer_full_width_mobile?: Maybe<FilterQueryOperations>;
+  toolbar_variant?: Maybe<FilterQueryOperations>;
+  toolbar_config?: Maybe<FilterQueryOperations>;
+  toolbar_progress_color?: Maybe<FilterQueryOperations>;
+  toolbar_main_height?: Maybe<FilterQueryOperations>;
+  toolbar_font_size?: Maybe<FilterQueryOperations>;
+  website_title?: Maybe<FilterQueryOperations>;
+  website_slogan?: Maybe<FilterQueryOperations>;
+  setup_language?: Maybe<FilterQueryOperations>;
+  setup_supported_languages?: Maybe<FilterQueryOperations>;
+  setup_google_analytics?: Maybe<FilterQueryOperations>;
+  setup_google_site_verification?: Maybe<FilterQueryOperations>;
+  footer_config?: Maybe<FilterQueryOperations>;
+  seo_title?: Maybe<FilterQueryOperations>;
+  seo_website_url?: Maybe<FilterQueryOperations>;
+  seo_robots?: Maybe<FilterQueryOperations>;
+  theme_base?: Maybe<FilterQueryOperations>;
+  theme_primary?: Maybe<FilterQueryOperations>;
+  theme_primary_contrast?: Maybe<FilterQueryOperations>;
+  theme_secondary?: Maybe<FilterQueryOperations>;
+  theme_secondary_contrast?: Maybe<FilterQueryOperations>;
+  theme_error?: Maybe<FilterQueryOperations>;
+  theme_error_contrast?: Maybe<FilterQueryOperations>;
+  theme_link?: Maybe<FilterQueryOperations>;
+  theme_link_hover?: Maybe<FilterQueryOperations>;
+  theme_font_default?: Maybe<FilterQueryOperations>;
+  theme_font_alt1?: Maybe<FilterQueryOperations>;
+  theme_font_alt2?: Maybe<FilterQueryOperations>;
+  theme_font_alt3?: Maybe<FilterQueryOperations>;
+  theme_font_alt4?: Maybe<FilterQueryOperations>;
+  theme_container_width?: Maybe<FilterQueryOperations>;
+  tawkto?: Maybe<FilterQueryOperations>;
+};
+
 export type ErrorpageItem = {
   __typename?: 'ErrorpageItem';
   alternates?: Maybe<Array<Maybe<Alternate>>>;
@@ -487,6 +577,10 @@ export type ErrorpageItems = {
   __typename?: 'ErrorpageItems';
   items?: Maybe<Array<Maybe<ErrorpageItem>>>;
   total?: Maybe<Scalars['Int']>;
+};
+
+export type ErrorpageFilterQuery = {
+  title?: Maybe<FilterQueryOperations>;
 };
 
 export type StaticcontainerItem = {

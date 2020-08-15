@@ -35,6 +35,7 @@ function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
     muted: muted,
     controls: properties.includes('controls'),
     playsinline: properties.includes('playsinline'),
+    light: content.fallback_image || properties.includes('light'),
     onError: () => setError(true),
     volume: muted ? 0 : undefined
   }

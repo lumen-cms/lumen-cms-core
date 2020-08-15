@@ -4,7 +4,6 @@ import Container, { ContainerProps } from '@material-ui/core/Container'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import BackgroundImage from './BackgroundImage'
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { useAppContext } from '../provider/context/AppContext'
@@ -59,10 +58,10 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
     containerStyles.paddingBottom = splittedPadding[0] || '2.5rem'
   }
 
-  let maxWidth: ThemeOptions['defaultContainerWidth'] = theme.defaultContainerWidth
-  if (content.max_width) {
-    maxWidth = content.max_width === 'none' ? false : content.max_width
-  }
+  const maxWidth = content.max_width
+    ? (content.max_width === 'none' ? false : content.max_width)
+    : theme.defaultContainerWidth
+
   // todo className doubled used
   return (
     <div className={clsx(classes.background, { [classes.dark]: !!content.variant }, className)}

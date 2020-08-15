@@ -54,8 +54,9 @@ export function LmPlayer({ content }: LmPlayerProps): JSX.Element {
           volume={content.muted ? 0 : content.volume}
           loop={content.loop}
           muted={content.muted}
+          playsinline={content.playsinline}
           playing={content.playing}
-          light={content.light}
+          light={content.fallback_image || content.light}
           controls={content.controls}
           height={content.ratio ? '100%' : (content.height || undefined)}
           width={content.ratio ? '100%' : (content.width || undefined)}
