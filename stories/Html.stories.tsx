@@ -3,7 +3,12 @@ import { storyHtml } from '../src/storybook/core/various'
 import React from 'react'
 
 export default {
-  title: 'HTML'
+  title: 'HTML',
+  parameters:{
+    knobs:{
+      escapeHTML: false
+    }
+  }
 }
 
 export const Basic = () => (
