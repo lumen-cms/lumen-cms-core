@@ -1,4 +1,4 @@
-import {  LmComponentRender as LmHtml } from '../src/'
+import { LmComponentRender as LmHtml } from '../src/'
 import { storyHtml } from '../src/storybook/core/various'
 import React from 'react'
 
@@ -15,13 +15,12 @@ export const Basic = () => (
     })} />
   </>
 )
-Basic.story = {
-  parameters: {
-    knobs: {
-      escapeHTML: false
-    }
+Basic.parameters = {
+  knobs: {
+    escapeHTML: false
   }
 }
+
 
 export const Mixcloud = () => (
   <>
@@ -41,10 +40,9 @@ export const Mixcloud = () => (
     })} />
   </>
 )
-Mixcloud.story = {
-  parameters: {
-    knobs: {
-      escapeHTML: false
-    }
+Mixcloud.parameters = {
+  knobs: {
+    escapeHTML: false
   }
 }
+

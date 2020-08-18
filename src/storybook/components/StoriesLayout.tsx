@@ -11,6 +11,7 @@ import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import AppProvider from '../../components/provider/AppProvider'
 import { LmComponentRender } from '../../index'
+import { Story } from '@storybook/react/types-6-0'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
   useGlobalStyles()
@@ -19,7 +20,7 @@ const Layout: FunctionComponent<{}> = ({ children }) => {
   )
 }
 
-const StoriesLayout = (storyFunc: Function) => {
+const StoriesLayout = (Story: Story) => {
 
   const isDark = boolean('Dark mode', false, CONFIG_STORYBOOK.KNOBS.THEME)
 
@@ -66,7 +67,7 @@ const StoriesLayout = (storyFunc: Function) => {
   }
   const loadFonts: string[] = getFontBasedOnSetting(settings)
   return (
-    <AppProvider content={{ ComponentRender: LmComponentRender }}>
+    <AppProvider content={{ ComponentRender: LmComponentRender as any }}>
       <WindowDimensionsProvider>
         <GlobalTheme settings={settings as GlobalStoryblok}>
           <div>
@@ -74,7 +75,7 @@ const StoriesLayout = (storyFunc: Function) => {
             <Layout>
               <Container component="main" maxWidth={false} style={{ padding: '0px' }}>
                 <>
-                  {storyFunc({ settings })}
+                  {<Story {...settings} />}
                 </>
               </Container>
             </Layout>
