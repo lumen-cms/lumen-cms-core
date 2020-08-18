@@ -59,7 +59,7 @@ export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
         <img {...imageProps}
              ref={inViewRef}
              style={styles}
-             alt={'image list item'}
+             alt={content.alt || content.label || 'image list item'}
              onLoad={onLoad} />
       </Fade>
       {(content.label || content.sub_title) &&

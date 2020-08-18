@@ -678,6 +678,7 @@ export interface ImageListItemStoryblok {
   label?: string;
   sub_title?: string;
   open_external?: boolean;
+  alt?: string;
   _uid: string;
   component: "image_list_item";
   [k: string]: any;

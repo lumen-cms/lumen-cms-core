@@ -27,8 +27,11 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({ children, cont
   }
   return (
     <>
-      {!imgSource && <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />}
-      <ImageShadow src={img.src} srcSet={img.srcSet} afterLoad={setImgSource} />
+      {!imgSource && (
+        <>
+          <Skeleton style={{ position: 'absolute' }} width={'100%'} height={'100%'} variant="rect" />
+          <ImageShadow src={img.src} srcSet={img.srcSet} afterLoad={setImgSource} />
+        </>)}
       <Fade in={!!imgSource}>
         <CardMedia style={{
           color: options.variant && options.variant.includes('font_white') ? 'white' : 'inherit',

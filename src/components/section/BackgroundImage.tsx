@@ -9,8 +9,8 @@ import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/c
 import Skeleton from '@material-ui/lab/Skeleton'
 import clsx from 'clsx'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
-import ImageShadow from './ImageShadow'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import ImageShadow from './ImageShadow'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -93,8 +93,12 @@ function BackgroundImage({ content, backgroundStyle }: BackgroundImageProps): JS
 
   return (
     <>
-      {!imgSrc && <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} variant="rect" />}
-      <ImageShadow src={imageAttrs.src} srcSet={imageAttrs.srcSet} afterLoad={setImgSrc} />
+      {!imgSrc && (
+        <>
+          <Skeleton width={'100%'} height={'100%'} style={{ position: 'absolute' }} variant="rect" />
+          <ImageShadow src={imageAttrs.src} srcSet={imageAttrs.srcSet} afterLoad={setImgSrc} />
+        </>
+      )}
       <Fade in={!!imgSrc} timeout={1000}>
         <div className={clsx(classes.root, {
           'lm-fixed-bg': backgroundStyle === 'fixed_image' || backgroundStyle === 'fixed_cover',
