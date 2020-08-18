@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.50.7",
+  "version": "0.50.8",
   "description": "Core website components for the LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
