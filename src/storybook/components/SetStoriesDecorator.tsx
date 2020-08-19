@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import StoryblokService from '../../utils/StoryblokService'
-import AppProvider, { AppContextProps } from '../../components/provider/AppProvider'
+import AppProvider from '../../components/provider/AppProvider'
+import { AppContextProps } from '../../components/provider/context/AppContext'
 import { createGlobalState } from 'react-hooks-global-state'
 import { LmComponentRender } from '../../index'
+import { Story } from '@storybook/react/types-6-0'
 
 interface StorybookState {
   allTags: { value: string, label: string }[]
@@ -15,7 +17,7 @@ const storybookDefault: StorybookState = {
 export const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(storybookDefault)
 
 
-const SetStoriesDecorator = (storyFunc: Function) => {
+const SetStoriesDecorator = (Story: Story) => {
   const [loaded, setLoaded] = useState<boolean>(false)
   const [values, setValues] = useState<AppContextProps>()
   const [, setAllTags] = useGlobalState('allTags')
@@ -65,9 +67,9 @@ const SetStoriesDecorator = (storyFunc: Function) => {
   )
   if (loaded && values) {
     return (
-      <AppProvider content={{ ...values, ComponentRender: LmComponentRender }}>
+      <AppProvider content={{ ...values, ComponentRender: LmComponentRender as any }}>
         <div className="p-3">
-          {storyFunc()}
+          <Story />
         </div>
       </AppProvider>
     )

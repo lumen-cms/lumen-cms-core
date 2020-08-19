@@ -1,6 +1,6 @@
 import React from 'react'
 import { ButtonStoryblok } from '../src/typings/generated/components-schema'
-import {  LmComponentRender as LmButton } from '../src/'
+import { LmComponentRender as LmButton } from '../src/'
 import { storyButton } from '../src/storybook/core/various'
 
 const defaultProps: ButtonStoryblok = {
@@ -23,9 +23,11 @@ const iconButton: ButtonStoryblok = {
   image: twitterPng
 }
 
+
 export default {
   title: 'Button'
 }
+
 
 export const MaterialButton = () => (
   <>
