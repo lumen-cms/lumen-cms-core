@@ -36,14 +36,14 @@ async function genTsSchema () {
     try {
       const ts = await compile(obj, values.name, {
         unknownAny: false,
-        bannerComment: ''
+        bannerComment: '',
+        unreachableDefinitions: true
       })
       tsString.push(ts)
     } catch (e) {
       console.log(e)
     }
   }
-
 }
 
 function typeMapper (schema = {}, title) {
@@ -89,9 +89,9 @@ function typeMapper (schema = {}, title) {
       }
     }
     if (type === 'bloks' && schemaElement.restrict_components && schemaElement.component_whitelist && schemaElement.component_whitelist.length) {
-      // console.log(schemaElement, title)
+      // console.log(obj[key], schemaElement, title)
       // obj[key].anyOf = schemaElement.component_whitelist.map(item => {
-      //   return {'$ref': '#/' + item}
+      //   return {'$ref': '/' + item}
       // })
       // obj[key].items = [
       //   {
