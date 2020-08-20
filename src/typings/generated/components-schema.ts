@@ -684,6 +684,15 @@ export interface ImageListItemStoryblok {
   [k: string]: any;
 }
 
+export interface InstagramPostStoryblok {
+  url: string;
+  max_width?: number;
+  hide_caption?: boolean;
+  _uid: string;
+  component: "instagram_post";
+  [k: string]: any;
+}
+
 export interface LinkStoryblok {
   link?: {
     cached_url?: string;

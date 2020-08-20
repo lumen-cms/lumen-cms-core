@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 const cachedScripts: string[] = []
 
-export function useScript(src: string) {
+export function useScript(src: string, suppressCors?: boolean) {
   // Keeping track of script loaded and error state
   const [state, setState] = useState({
     loaded: false,
@@ -30,7 +30,9 @@ export function useScript(src: string) {
         let script = document.createElement('script')
         script.src = src
         script.async = true
-        script.setAttribute('crossorigin', '*')
+        if (!suppressCors) {
+          script.setAttribute('crossorigin', '*')
+        }
 
         // Script event listener callbacks for load and error
         const onScriptLoad = () => {

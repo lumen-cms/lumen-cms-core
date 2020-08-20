@@ -50,6 +50,7 @@ import { LmApp } from './components/pages/_app'
 import { AppProps } from 'next/app'
 import { LmPlayer } from './components/player/Player'
 import { LmToolbarSection } from './components/layout/toolbar/ToolbarSection'
+import { LmInstagramPost } from './components/instagram/InstagramPost'
 
 export {
   LmAccordion,
@@ -97,7 +98,8 @@ export {
   LmToolbarLogo,
   LmToggleDrawerButton,
   LmPlayer,
-  LmToolbarSection
+  LmToolbarSection,
+  LmInstagramPost
 }
 
 export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
@@ -163,7 +165,8 @@ export const LmCoreComponentsNamed = {
   'toolbar_navi_button': LmToggleDrawerButton,
   'player': LmPlayer,
   'toolbar_row_section': LmToolbarSection,
-  'dialog': LmDialog
+  'dialog': LmDialog,
+  'instagram_post': LmInstagramPost
 }
 
 export function LmDefaultApp(props: AppProps<AppPageProps>) {

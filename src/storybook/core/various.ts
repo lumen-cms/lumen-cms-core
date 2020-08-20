@@ -12,7 +12,7 @@ import {
   HubspotMeetingStoryblok,
   IconStoryblok,
   IframeStoryblok,
-  ImageStoryblok,
+  ImageStoryblok, InstagramPostStoryblok,
   MotionStoryblok,
   NavItemStoryblok,
   NavListStoryblok,
@@ -314,4 +314,12 @@ export const storyDialog = ({ options = {}, knob, count = '' }: StorybookOptionP
   }) as DialogStoryblok
 }
 
+export const storyInstagramPost = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<InstagramPostStoryblok> } = {}): InstagramPostStoryblok => {
+  return getKnobComponents({
+    componentName: 'instagram_post',
+    options,
+    knob,
+    count
+  }) as InstagramPostStoryblok
+}
 
