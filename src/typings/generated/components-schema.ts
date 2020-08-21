@@ -684,6 +684,28 @@ export interface ImageListItemStoryblok {
   [k: string]: any;
 }
 
+export interface InstagramListStoryblok {
+  hide_description?: boolean;
+  hide_likes?: boolean;
+  hide_comments?: boolean;
+  column_gap?: "0" | "2" | "4" | "8" | "12" | "16" | "24" | "32";
+  column_count?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
+  column_count_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
+  column_count_phone?: "1" | "2" | "3" | "4";
+  height?: number;
+  masonry?: boolean;
+  username: string;
+  max_posts?: number;
+  type?: "iframe" | "image" | "card";
+  hide_caption?: boolean;
+  hide_videos?: boolean;
+  hide_images?: boolean;
+  shadow_effect?: "faded" | "float" | "hover" | "light-top" | "bouncy" | "soft";
+  _uid: string;
+  component: "instagram_list";
+  [k: string]: any;
+}
+
 export interface InstagramPostStoryblok {
   url: string;
   max_width?: number;

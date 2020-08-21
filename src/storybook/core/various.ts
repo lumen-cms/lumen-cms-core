@@ -5,14 +5,17 @@ import {
   AvatarStoryblok,
   ButtonListStoryblok,
   ButtonStoryblok,
-  DateHeadlineStoryblok, DialogStoryblok,
+  DateHeadlineStoryblok,
+  DialogStoryblok,
   DividerStoryblok,
   HeadlineStoryblok,
   HtmlStoryblok,
   HubspotMeetingStoryblok,
   IconStoryblok,
   IframeStoryblok,
-  ImageStoryblok, InstagramPostStoryblok,
+  ImageStoryblok,
+  InstagramListStoryblok,
+  InstagramPostStoryblok,
   MotionStoryblok,
   NavItemStoryblok,
   NavListStoryblok,
@@ -321,5 +324,14 @@ export const storyInstagramPost = ({ options = {}, knob, count = '' }: Storybook
     knob,
     count
   }) as InstagramPostStoryblok
+}
+
+export const storyInstagramList = ({ options = {}, knob, count = '' }: StorybookOptionProps & { options?: Partial<InstagramListStoryblok> } = {}): InstagramListStoryblok => {
+  return getKnobComponents({
+    componentName: 'instagram_list',
+    options,
+    knob,
+    count
+  }) as InstagramListStoryblok
 }
 

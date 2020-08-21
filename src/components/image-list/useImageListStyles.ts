@@ -54,8 +54,7 @@ export const useImageListStyles = makeStyles({
     }
   },
   root: {
-    overflowX: 'hidden',
-    '&.with-lightbox': {}
+    overflowX: 'hidden'
   },
   aspectRatio: {
     '& .MuiGridListTile-tile': {
@@ -100,21 +99,6 @@ export const useImageListStyles = makeStyles({
     },
     '&.ratio-2x3 .MuiGridListTile-tile': {
       paddingBottom: '150%'
-    }
-  },
-  masonry: {
-    '& img': {
-      display: 'block',
-      width: '100%',
-      height: 'auto'
-    },
-    '& .MuiGridList-root': {
-      display: 'block'
-    },
-    '& .MuiGridListTile-root': {
-      width: 'auto !important',
-      breakInside: 'avoid-column',
-      position: 'relative'
     }
   }
 })

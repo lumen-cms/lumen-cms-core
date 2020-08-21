@@ -1,7 +1,11 @@
 import React from 'react'
 import { LmComponentRender as Renderer } from '../src/'
-import { FlexRowStoryblok, InstagramPostStoryblok } from '../src/typings/generated/components-schema'
-import { storyInstagramPost } from '../src/storybook/core/various'
+import {
+  FlexRowStoryblok,
+  InstagramListStoryblok,
+  InstagramPostStoryblok
+} from '../src/typings/generated/components-schema'
+import { storyInstagramList, storyInstagramPost } from '../src/storybook/core/various'
 import { storyFlexRow } from '../src/storybook/core/section'
 
 export default {
@@ -13,15 +17,15 @@ export const Basic = () => (
     ...storyInstagramPost({
       options: {
         url: 'https://www.instagram.com/p/CBm3rVllU23'
-      },
+      }
     })
   } as InstagramPostStoryblok} />
 )
 
-export const List = () => (
+export const RowOfPosts = () => (
   <Renderer content={{
     ...storyFlexRow({
-      options:{
+      options: {
         justify: 'space-around'
       }
     }),
@@ -39,4 +43,32 @@ export const List = () => (
   } as FlexRowStoryblok} />
 )
 
+export const ListOfIframes = () => (
+  <Renderer content={{
+    ...storyInstagramList({
+      options: {
+        username: 'baliinternships',
+        type: 'iframe',
+        max_posts: 6,
+        column_count: '3'
+      }
+    })
+  } as InstagramListStoryblok} />
+)
+
+export const ListOfImages = () => (
+  <Renderer content={{
+    ...storyInstagramList({
+      options: {
+        username: 'baliinternships',
+        type: 'image',
+        max_posts: 6,
+        column_count: '3',
+        hide_videos: false,
+        column_gap: '16',
+        height: 320
+      }
+    })
+  } as InstagramListStoryblok} />
+)
 

@@ -38,13 +38,11 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
 
 
   const body = content.body || []
-  let gridListProps: GridListProps = {
+  const gridListProps: GridListProps = {
     spacing: gutterSize
-    // cols: columnCount
   }
   if (content.masonry) {
     gridListProps.spacing = 0
-    delete gridListProps.cols
     gridListProps.style = {
       // columnCount: columnCount,
       columnGap: `${gutterSize}px`
@@ -58,7 +56,7 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
              padding: gutterSize + 'px'
            }}
            className={clsx(classes.root, {
-             [classes.masonry]: content.masonry,
+             [gridClasses.masonry]: content.masonry,
              [classes.aspectRatio]: content.aspect_ratio && !content.masonry,
              ['ratio-' + content.aspect_ratio]: content.aspect_ratio,
              'with-lightbox': content.enable_lightbox

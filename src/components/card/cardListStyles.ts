@@ -35,5 +35,20 @@ export const useGridListStyles = makeStyles((theme: Theme) => createStyles({
       }
       return opts
     }
+  },
+  masonry: {
+    '& img': {
+      display: 'block',
+      width: '100%',
+      height: 'auto'
+    },
+    '& .MuiGridList-root': {
+      display: 'block'
+    },
+    '& .MuiGridListTile-root': {
+      width: 'auto !important',
+      breakInside: 'avoid-column',
+      position: 'relative'
+    }
   }
 }))

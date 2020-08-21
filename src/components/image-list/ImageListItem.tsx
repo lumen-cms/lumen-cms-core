@@ -17,7 +17,6 @@ export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
   const [inViewRef, inView, currentRef] = useInView(intersectionDefaultOptions)
   const [loaded, setLoaded] = useState<boolean>(false)
   // const width = listProps.width
-  const styles = {}
   let imageProps: { src?: string, srcSet?: string, width?: number | string, height?: number | string } = {}
 
   if (inView && content.source && currentRef?.target) {
@@ -58,7 +57,6 @@ export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
       <Fade in={loaded}>
         <img {...imageProps}
              ref={inViewRef}
-             style={styles}
              alt={content.alt || content.label || 'image list item'}
              onLoad={onLoad} />
       </Fade>
