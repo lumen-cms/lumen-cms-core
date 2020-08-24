@@ -8,6 +8,12 @@ import Layout from '../layout/Layout'
 import { NotFound } from './404'
 import { CONFIG } from '../../utils/config'
 
+declare global {
+  interface Window {
+    gtag: any
+  }
+}
+
 export type LmPagesIndexProps = AppPageProps & {
   ComponentRender: ComponentRenderProps
 }
