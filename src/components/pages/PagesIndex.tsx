@@ -10,7 +10,8 @@ import { CONFIG } from '../../utils/config'
 
 declare global {
   interface Window {
-    gtag: any
+    gtag: any,
+    instgrm: any
   }
 }
 

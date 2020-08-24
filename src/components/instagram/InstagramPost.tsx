@@ -34,11 +34,12 @@ export function LmInstagramPost({ content }: LmInstagramPostProps) {
     () => (scriptLoading.loaded && inView ? urlStr : null),
     fetcher
   )
+  const swrHtml = swr.data?.html
   useEffect(() => {
-    if (swr.data?.html) {
+    if (swrHtml) {
       window.instgrm.Embeds.process()
     }
-  }, [swr.data?.html])
+  }, [swrHtml])
 
   return (
     <div
