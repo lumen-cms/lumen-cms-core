@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.51.1",
+  "version": "0.52.0",
   "description": "Core website components for the LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -42,6 +42,7 @@
     "node": "12.x"
   },
   "dependencies": {
+    "@charlietango/use-script": "2.1.1",
     "@material-ui/core": "4.11.0",
     "@material-ui/lab": "4.0.0-alpha.56",
     "@storybook/addon-essentials": "^6.0.13",
@@ -63,7 +64,7 @@
     "react-swipeable-views-utils": "0.13.9",
     "storyblok-js-client": "2.5.2",
     "storyblok-react": "0.1.1",
-    "swr": "^0.3.0",
+    "swr": "0.3.0",
     "use-debounce": "3.4.3"
   },
   "peerDependencies": {
