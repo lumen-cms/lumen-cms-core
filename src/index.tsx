@@ -115,6 +115,7 @@ export { useWindowDimensions } from './components/provider/context/WindowDimensi
 export { default as LmAppSetupProvider } from './components/provider/AppSetupProvider'
 export { useAppSetup } from './components/provider/context/AppSetupContext'
 export { CONFIG } from './utils/config'
+export { useScript } from './utils/hooks/useScript'
 
 export const LmCoreComponentsNamed = {
   page: LmPage,
