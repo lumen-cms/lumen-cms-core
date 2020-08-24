@@ -7,11 +7,11 @@ export function useListSearch(
   isEnabled: boolean
 ) {
   const router = useRouter()
+  const [searchParams] = useGlobalState('searchParams')
   if (!isEnabled) {
     return items
   }
   const query = router?.query
-  const [searchParams] = useGlobalState('searchParams')
   let searchParamsCategories = searchParams.categories || []
   if (!searchParams.categories && query?.search__categories) {
     searchParamsCategories = Array.isArray(query.search__categories)
@@ -35,8 +35,9 @@ export function useListSearch(
       }
       const pageContent = item.content
       const inSearchText = searchText
-        ? // @ts-ignore
-          [item.full_slug, pageContent.preview_title].some(
+        ? [item.full_slug, pageContent.preview_title].some(
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
             (term) => term && term.search(new RegExp(searchText, 'i')) !== -1
           )
         : undefined
