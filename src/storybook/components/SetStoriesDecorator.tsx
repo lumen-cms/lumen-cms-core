@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { createGlobalState } from 'react-hooks-global-state'
-import { Story } from '@storybook/react/types-6-0'
+import { Story as StoryType } from '@storybook/react/types-6-0.d'
 import StoryblokService from '../../utils/StoryblokService'
 import AppProvider from '../../components/provider/AppProvider'
 import { AppContextProps } from '../../components/provider/context/AppContext'
@@ -20,7 +20,7 @@ export const {
   getGlobalState,
 } = createGlobalState(storybookDefault)
 
-const SetStoriesDecorator = (Story: Story) => {
+const SetStoriesDecorator = (Story: StoryType) => {
   const [loaded, setLoaded] = useState<boolean>(false)
   const [values, setValues] = useState<AppContextProps>()
   const [, setAllTags] = useGlobalState('allTags')
