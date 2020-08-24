@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import useSWR from 'swr'
 import { useInView } from 'react-intersection-observer'
-import { useScript } from '../../utils/hooks/useScript'
 import fetcher from '../../utils/fetcher'
 import { InstagramPostStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import useScript from '@charlietango/use-script'
 
 const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'
 
@@ -23,15 +23,12 @@ export function LmInstagramPost({ content }: LmInstagramPostProps) {
     url.searchParams.append('maxwidth', `${content.max_width}`)
   }
   const urlStr = url.toString()
-  const scriptLoading = useScript(
-    `${security}://platform.instagram.com/en_US/embeds.js`,
-    true
-  )
+  const [ready] = useScript(`${security}://platform.instagram.com/en_US/embeds.js`)
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
   const swr = useSWR(
-    () => (scriptLoading.loaded && inView ? urlStr : null),
+    () => (ready && inView ? urlStr : null),
     fetcher
   )
   const swrHtml = swr.data?.html

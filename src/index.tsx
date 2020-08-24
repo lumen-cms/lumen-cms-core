@@ -52,6 +52,7 @@ import { LmPlayer } from './components/player/Player'
 import { LmToolbarSection } from './components/layout/toolbar/ToolbarSection'
 import { LmInstagramPost } from './components/instagram/InstagramPost'
 import { LmInstagramList } from './components/instagram/InstagramList'
+import { CONFIG } from './utils/config'
 
 export {
   LmAccordion,
@@ -101,7 +102,7 @@ export {
   LmPlayer,
   LmToolbarSection,
   LmInstagramPost,
-  LmInstagramList,
+  LmInstagramList
 }
 
 export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
@@ -114,9 +115,7 @@ export { default as LmWindowDimensionProvider } from './components/provider/Wind
 export { useWindowDimensions } from './components/provider/context/WindowDimensionContext'
 export { default as LmAppSetupProvider } from './components/provider/AppSetupProvider'
 export { useAppSetup } from './components/provider/context/AppSetupContext'
-export { CONFIG } from './utils/config'
-export { useScript } from './utils/hooks/useScript'
-
+export { CONFIG }
 export const LmCoreComponentsNamed = {
   page: LmPage,
   table: LmTable,
@@ -167,6 +166,7 @@ export const LmCoreComponentsNamed = {
   dialog: LmDialog,
   instagram_post: LmInstagramPost,
   instagram_list: LmInstagramList,
+  ...CONFIG.overwriteComponents
 }
 
 export function LmDefaultApp(props: AppProps<AppPageProps>) {
@@ -190,7 +190,7 @@ export function LmStoryblokComponentRender(
       LmCoreComponentsNamed[content.component],
       {
         content,
-        ...rest,
+        ...rest
       }
     )
     if (isValidElement(CurrentElement)) {
@@ -226,7 +226,7 @@ export function LmComponentRender(
     return React.createElement(LmCoreComponentsNamed[content.component], {
       content,
       key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
-      ...rest,
+      ...rest
     })
   }
   return (

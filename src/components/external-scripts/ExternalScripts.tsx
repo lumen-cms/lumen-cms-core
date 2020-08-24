@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { CONFIG } from '../../utils/config'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
-import { useScript } from '../../utils/hooks/useScript'
 import { useAppContext } from '../provider/context/AppContext'
+import useScript, { ScriptStatus } from '@charlietango/use-script'
 
 type ExternalScriptsProps = { settings: GlobalStoryblok }
 
 function ExternalScripts({
-  settings,
+  settings
 }: ExternalScriptsProps): JSX.Element | null {
   const { insideStoryblok } = useAppContext()
   const tawkToId = CONFIG.TAWKTO || settings.tawkto
@@ -25,8 +25,8 @@ function ExternalScripts({
     !insideStoryblok && tawkToId && isScrolled
       ? `https://embed.tawk.to/${tawkToId}/default`
       : ''
-  const tawkToScript = useScript(tawkToScriptName)
-  if (tawkToScriptName && tawkToScript.error) {
+  const [, status] = useScript(tawkToScriptName)
+  if (status === ScriptStatus.ERROR) {
     console.error('Tawkto script could not load')
   }
   return null

@@ -13,6 +13,9 @@ type AppConfigProps = {
   TAWKTO?: string
   prefetch: boolean
   hostname?: string
+  overwriteComponents?: {
+    [k: string]: JSX.Element
+  }
 }
 
 export const CONFIG: AppConfigProps = {
@@ -31,4 +34,5 @@ export const CONFIG: AppConfigProps = {
   GA: process.env.NEXT_PUBLIC_GA,
   TAWKTO: process.env.NEXT_PUBLIC_TAWKTO,
   prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH,
+  overwriteComponents: {}
 }
