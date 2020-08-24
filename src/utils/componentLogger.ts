@@ -1,3 +1,4 @@
+/* eslint-disable */
 // @ts-ignore
 export function componentLogger(component: any) {
   if (process.env.NODE_ENV !== 'production') {

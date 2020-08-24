@@ -1,24 +1,3 @@
-export function getImagePromise({
-  src,
-  srcSet,
-}: {
-  src: string
-  srcSet: string
-}) {
-  return new Promise((resolve, reject) => {
-    getImage({
-      src,
-      srcSet,
-      onReady(src: string) {
-        resolve(src)
-      },
-      onError(e: any) {
-        reject(e)
-      },
-    })
-  })
-}
-
 export function getImage({
   src = '',
   srcSet = '',
@@ -42,4 +21,25 @@ export function getImage({
     onError && onError(e)
     img = null
   }
+}
+
+export function getImagePromise({
+  src,
+  srcSet,
+}: {
+  src: string
+  srcSet: string
+}) {
+  return new Promise((resolve, reject) => {
+    getImage({
+      src,
+      srcSet,
+      onReady(s: string) {
+        resolve(s)
+      },
+      onError(e: any) {
+        reject(e)
+      },
+    })
+  })
 }
