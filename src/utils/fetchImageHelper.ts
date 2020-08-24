@@ -1,4 +1,10 @@
-export function getImagePromise({ src, srcSet }: { src: string, srcSet: string }) {
+export function getImagePromise({
+  src,
+  srcSet,
+}: {
+  src: string
+  srcSet: string
+}) {
   return new Promise((resolve, reject) => {
     getImage({
       src,
@@ -8,12 +14,17 @@ export function getImagePromise({ src, srcSet }: { src: string, srcSet: string }
       },
       onError(e: any) {
         reject(e)
-      }
+      },
     })
   })
 }
 
-export function getImage({ src = '', srcSet = '', onReady, onError }: {
+export function getImage({
+  src = '',
+  srcSet = '',
+  onReady,
+  onError,
+}: {
   src: string
   srcSet: string
   onReady?: Function

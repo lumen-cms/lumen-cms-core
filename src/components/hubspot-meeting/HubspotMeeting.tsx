@@ -7,9 +7,18 @@ export type LmHubspotMeetingProps = {
   disableEmbed?: boolean
 }
 
-export function LmHubspotMeeting({ content, disableEmbed }: LmHubspotMeetingProps): JSX.Element {
-  const dataSrc = `https://app.hubspot.com/meetings/${content.meeting_name}?embed-true=${disableEmbed ? 'false' : 'true'}`
-  const { error } = useScript(content.meeting_name ? `https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=${new Date().getTime()}` : '')
+export function LmHubspotMeeting({
+  content,
+  disableEmbed,
+}: LmHubspotMeetingProps): JSX.Element {
+  const dataSrc = `https://app.hubspot.com/meetings/${
+    content.meeting_name
+  }?embed-true=${disableEmbed ? 'false' : 'true'}`
+  const { error } = useScript(
+    content.meeting_name
+      ? `https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=${new Date().getTime()}`
+      : ''
+  )
   if (error) {
     console.error('script of hubspot not loaded')
   }

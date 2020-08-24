@@ -12,5 +12,3 @@ export function LmImage({ content }: LmImageProps): JSX.Element {
   }
   return <Image content={content} />
 }
-
-

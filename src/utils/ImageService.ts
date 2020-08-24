@@ -1,6 +1,14 @@
 import { getGlobalState } from './state/state'
 
-function _getImageSource({ image, width, height }: { image: string, width: number, height: number }) {
+function _getImageSource({
+  image,
+  width,
+  height,
+}: {
+  image: string
+  width: number
+  height: number
+}) {
   let path = ''
   if (width && height) {
     path = `${parseInt(String(width))}x${parseInt(String(height))}`
@@ -9,17 +17,16 @@ function _getImageSource({ image, width, height }: { image: string, width: numbe
   return imageService(image, path, '')
 }
 
-
 export function getPreviewImageSource(image: string) {
   const orig = getOriginalImageDimensions(image)
   return _getImageSource({
-    image: image,
+    image,
     width: orig.width / 100,
-    height: orig.height / 100
+    height: orig.height / 100,
   })
 }
 
-export function imageServiceNoWebp(image: string, option: string = '') {
+export function imageServiceNoWebp(image: string, option = '') {
   if (image.endsWith('.svg')) {
     return image
   }
@@ -30,10 +37,12 @@ export function imageServiceNoWebp(image: string, option: string = '') {
 
 export function getOriginalImageDimensions(src: string) {
   const splitted = src.split('/')
-  const [originalWidth, originalHeight] = splitted[splitted.length - 3].split('x')
+  const [originalWidth, originalHeight] = splitted[splitted.length - 3].split(
+    'x'
+  )
   return {
     width: parseInt(originalWidth),
-    height: parseInt(originalHeight)
+    height: parseInt(originalHeight),
   }
 }
 
@@ -47,7 +56,15 @@ export type GetImageFuncProps = {
   focalPoint?: string
 }
 
-export function getImageAttrs({ originalSource, width = 0, height = 0, filter = '', fitInColor, smart, focalPoint }: GetImageFuncProps): { src: string, srcSet: string } {
+export function getImageAttrs({
+  originalSource,
+  width = 0,
+  height = 0,
+  filter = '',
+  fitInColor,
+  smart,
+  focalPoint,
+}: GetImageFuncProps): { src: string; srcSet: string } {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   if (originalDimensions.width < width) {
     width = originalDimensions.width
@@ -58,24 +75,31 @@ export function getImageAttrs({ originalSource, width = 0, height = 0, filter = 
   if (fitInColor) {
     filter += `:fill(${fitInColor})`
   }
-  let path = getPath(width, height)
+  const path = getPath(width, height)
   if (focalPoint) {
     filter += getFocalPoint(originalSource, focalPoint)
   }
   const src = imageService(originalSource, path, filter)
   const imgObj = {
-    src: src,
-    srcSet: src
+    src,
+    srcSet: src,
   }
   // enable retina sourceset
-  if (width <= originalDimensions.width / 2 && height <= originalDimensions.height / 2) {
-    imgObj.srcSet = `${imgObj.src} 1x, ${imageService(originalSource, getPath(width * 2, height * 2), filter)} 2x`
+  if (
+    width <= originalDimensions.width / 2 &&
+    height <= originalDimensions.height / 2
+  ) {
+    imgObj.srcSet = `${imgObj.src} 1x, ${imageService(
+      originalSource,
+      getPath(width * 2, height * 2),
+      filter
+    )} 2x`
   }
 
   function getPath(width: number, height: number) {
     let path = `${width || 0}x${height || 0}`
     if (fitInColor) {
-      path = 'fit-in/' + path
+      path = `fit-in/${path}`
     } else if (smart && !focalPoint) {
       path += '/smart'
     }
@@ -85,11 +109,11 @@ export function getImageAttrs({ originalSource, width = 0, height = 0, filter = 
   return imgObj
 }
 
-const  boundCoordinate = (value:number, upperBound:number) =>{
-  value = Math.max(0, value);
-  value = Math.min(value, upperBound);
+const boundCoordinate = (value: number, upperBound: number) => {
+  value = Math.max(0, value)
+  value = Math.min(value, upperBound)
 
-  return Math.ceil(value);
+  return Math.ceil(value)
 }
 
 const FOCAL_SQUARE_LENGTH = 100
@@ -102,32 +126,28 @@ export function getFocalPoint(src: string, focalPoint: string) {
   const top = boundCoordinate(
     (focalPointY / 100) * height - FOCAL_SQUARE_LENGTH / 2,
     height
-  );
+  )
   const left = boundCoordinate(
     (focalPointX / 100) * width - FOCAL_SQUARE_LENGTH / 2,
     width
-  );
-  const bottom = boundCoordinate(
-    top + FOCAL_SQUARE_LENGTH,
-    height
-  );
-  const right = boundCoordinate(
-    left + FOCAL_SQUARE_LENGTH,
-    width
-  );
+  )
+  const bottom = boundCoordinate(top + FOCAL_SQUARE_LENGTH, height)
+  const right = boundCoordinate(left + FOCAL_SQUARE_LENGTH, width)
 
   return `:focal(${left}x${top}:${right}x${bottom})`
 }
 
-export default function imageService(image: string, option: string = '', filter: string = '') {
+export default function imageService(image: string, option = '', filter = '') {
   if (image.endsWith('.svg')) {
     return image
   }
   option && (option += '/')
   if (getGlobalState('hasWebpSupport')) {
-    option += 'filters:format(webp)' + filter
+    option += `filters:format(webp)${filter}`
   } else if (filter) {
-    option += 'filters' + filter
+    option += `filters${filter}`
   }
-  return `https://img2.storyblok.com/${option}${image.split('storyblok.com')[1]}`
+  return `https://img2.storyblok.com/${option}${
+    image.split('storyblok.com')[1]
+  }`
 }

@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React, { CSSProperties, FunctionComponent } from 'react'
-import { DividerStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from '@material-ui/core/styles'
+import { DividerStoryblok } from '../../typings/generated/components-schema'
 import LmIcon from '../icon/LmIcon'
 
 const useStyles = makeStyles({
@@ -19,13 +19,13 @@ const useStyles = makeStyles({
       position: 'relative',
       borderTopWidth: '1px',
       borderTopStyle: 'solid',
-      borderColor: 'transparent'
+      borderColor: 'transparent',
     },
     '& div > span:before': {
-      right: '100%'
+      right: '100%',
     },
     '& div > span:after': {
-      left: '100%'
+      left: '100%',
     },
     '& div > span:before, & div > span:after': {
       content: '""',
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
       width: '2000px',
       borderTopWidth: 'inherit',
       borderTopStyle: 'solid',
-      borderColor: 'currentColor'
+      borderColor: 'currentColor',
     },
     '& div > span': {
       display: 'inline-block',
@@ -50,25 +50,25 @@ const useStyles = makeStyles({
       borderTopStyle: 'solid',
 
       '&> .material-icons': {
-        color: 'inherit'
-      }
-    }
+        color: 'inherit',
+      },
+    },
   },
   hSeparatorIcon: {
     height: '24px',
     textAlign: 'center',
     '&.large': {
-      height: '32px'
+      height: '32px',
     },
     '& div > div > i': {
       '&:before': {
-        marginRight: '15px'
+        marginRight: '15px',
       },
       '&:after': {
-        marginLeft: '15px'
-      }
-    }
-  }
+        marginLeft: '15px',
+      },
+    },
+  },
 })
 
 const DividerContainer: FunctionComponent<{
@@ -97,23 +97,34 @@ export function LmDivider({ content }: LmDividerProps): JSX.Element {
   if (iconSize) {
     style.height = `${iconSize}px`
   }
-  const className = clsx(classes.hSeparator, iconName && classes.hSeparatorIcon, content.class_names && content.class_names.values)
+  const className = clsx(
+    classes.hSeparator,
+    iconName && classes.hSeparatorIcon,
+    content.class_names && content.class_names.values
+  )
   const childStyle: CSSProperties = {
-    borderTopWidth: `${content.thickness || 1}px`
+    borderTopWidth: `${content.thickness || 1}px`,
   }
   if (content.width) {
     childStyle.width = `${content.width}%`
   }
   if (iconName) {
     return (
-      <DividerContainer style={style} childStyle={childStyle} className={className}>
+      <DividerContainer
+        style={style}
+        childStyle={childStyle}
+        className={className}
+      >
         <div>
           <div style={{ borderTopWidth: `${content.thickness || 1}px` }}>
             <span>
-              <LmIcon iconName={iconName} style={{
-                fontSize: iconSize + 'px',
-                marginTop: `${content.thickness || 1}px`
-              }} />
+              <LmIcon
+                iconName={iconName}
+                style={{
+                  fontSize: `${iconSize}px`,
+                  marginTop: `${content.thickness || 1}px`,
+                }}
+              />
             </span>
           </div>
         </div>
@@ -121,7 +132,11 @@ export function LmDivider({ content }: LmDividerProps): JSX.Element {
     )
   }
   return (
-    <DividerContainer style={style} childStyle={childStyle} className={className}>
+    <DividerContainer
+      style={style}
+      childStyle={childStyle}
+      className={className}
+    >
       <span />
     </DividerContainer>
   )

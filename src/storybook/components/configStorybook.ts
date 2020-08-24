@@ -1,9 +1,9 @@
 export const CONFIG_STORYBOOK = {
-  app:{
+  app: {
     previewToken: 'Xzl0aUdUwWqtCsD37fHMmQtt',
     publicToken: 'Xzl0aUdUwWqtCsD37fHMmQtt',
     defaultLocale: 'en',
-    languages: ['en']
+    languages: ['en'],
   },
   KNOBS: {
     THEME: 'Theme Main',
@@ -21,5 +21,5 @@ export const CONFIG_STORYBOOK = {
     BUTTON_LIST: 'Button List',
     CARD_LIST: 'Card List',
     CARD_LIST_ITEM: 'Card List Item',
-  }
+  },
 }

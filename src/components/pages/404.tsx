@@ -1,7 +1,7 @@
-import { CONFIG } from '../../utils/config'
 import React, { useEffect, useState } from 'react'
-import StoryblokService from '../../utils/StoryblokService'
 import Head from 'next/head'
+import { CONFIG } from '../../utils/config'
+import StoryblokService from '../../utils/StoryblokService'
 import { useAppContext } from '../provider/context/AppContext'
 
 const statusCodes = {
@@ -9,46 +9,55 @@ const statusCodes = {
   401: 'Not Authorized | Invalid API key',
   404: 'This page could not be found',
   500: 'Internal Server Error',
-  501: 'Not Implemented'
+  501: 'Not Implemented',
 }
 
-const getErrorPath = ({ locale, statusCode = 404 }: { locale?: string, statusCode?: number }) => {
+const getErrorPath = ({
+  locale,
+  statusCode = 404,
+}: {
+  locale?: string
+  statusCode?: number
+}) => {
   const currentLocale = locale !== CONFIG.defaultLocale ? locale : ''
   const directory = CONFIG.rootDirectory || currentLocale || ''
   return `cdn/stories/${directory ? `${directory}/` : ''}error-${statusCode}`
 }
 
-type NotFoundProps = { statusCode?: number, locale?: string }
+type NotFoundProps = { statusCode?: number; locale?: string }
 
-export function NotFound({ statusCode = 404, locale }: NotFoundProps): JSX.Element {
+export function NotFound({
+  statusCode = 404,
+  locale,
+}: NotFoundProps): JSX.Element {
   const title = (statusCodes as any)[statusCode]
   const { ComponentRender } = useAppContext()
 
-  const [errorContent, setErrorContent] = useState<{ title: string, body: any[] } | null | undefined>(undefined)
-  useEffect(
-    () => {
-      const fetchErrorContent = async () => {
-        return await StoryblokService.get(getErrorPath({ statusCode, locale }))
-      }
+  const [errorContent, setErrorContent] = useState<
+    { title: string; body: any[] } | null | undefined
+  >(undefined)
+  useEffect(() => {
+    const fetchErrorContent = async () => {
+      return await StoryblokService.get(getErrorPath({ statusCode, locale }))
+    }
 
-      fetchErrorContent()
-        .then(({ data }) => {
-          const errorContext = data && data.story && data.story.content
-          if (errorContext) {
-            setErrorContent(errorContext)
-          } else {
-            setErrorContent(null)
-          }
-        })
-        .catch(e => {
-          console.error(e)
+    fetchErrorContent()
+      .then(({ data }) => {
+        const errorContext = data && data.story && data.story.content
+        if (errorContext) {
+          setErrorContent(errorContext)
+        } else {
           setErrorContent(null)
-        })
-    },
-    [statusCode]
-  )
+        }
+      })
+      .catch((e) => {
+        console.error(e)
+        setErrorContent(null)
+      })
+  }, [statusCode])
 
-  const errorTitle = (errorContent && errorContent.title) || `${statusCode} - ${title}`
+  const errorTitle =
+    (errorContent && errorContent.title) || `${statusCode} - ${title}`
 
   return (
     <>
@@ -57,19 +66,19 @@ export function NotFound({ statusCode = 404, locale }: NotFoundProps): JSX.Eleme
         <meta key="robots" name="robots" content="noindex" />
       </Head>
       <div className="p-5">
-        {
-          errorContent && errorContent.body && errorContent.body.map((blok, i) => ComponentRender({ content: blok, i}))
-        }
-        {
-          errorContent === null && (
+        {errorContent &&
+          errorContent.body &&
+          errorContent.body.map((blok, i) =>
+            ComponentRender({ content: blok, i })
+          )}
+        {errorContent === null && (
+          <div>
+            {statusCode ? <h1>{statusCode}</h1> : null}
             <div>
-              {statusCode ? <h1>{statusCode}</h1> : null}
-              <div>
-                <h2>{title}.</h2>
-              </div>
+              <h2>{title}.</h2>
             </div>
-          )
-        }
+          </div>
+        )}
       </div>
     </>
   )

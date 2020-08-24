@@ -1,0 +1,30 @@
+{
+  "extends": [
+    "airbnb-typescript-prettier"
+  ],
+  "rules": {
+    "react/prop-types": 0,
+    "react/destructuring-assignment": 0,
+    "react/static-property-placement": 0,
+    "jsx-a11y/alt-text": 0,
+    "react/jsx-props-no-spreading": 0,
+    "semi": "off",
+    "comma-dangle": "off",
+    "camelcase": "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "no-console": "off",
+    "no-alert": "off",
+    "no-nested-ternary": "warn",
+    "no-unused-expressions": "warn",
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": 1,
+    "no-plusplus": "off",
+    "@typescript-eslint/explicit-function-return-type": 0
+  },
+  "ignorePatterns": [
+    "**/generated/*.tsx",
+    "./stories/**/*.*",
+    "./example/**/*.*"
+  ]
+}

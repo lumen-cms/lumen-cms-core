@@ -1,25 +1,36 @@
-import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
-import { CategoryComponent, PageComponent, StaticcontainerComponent } from './generated/schema'
 import { Story, StoryData } from 'storyblok-js-client'
 import { FunctionComponentFactory } from 'react'
+import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
+import {
+  CategoryComponent,
+  PageComponent,
+  StaticcontainerComponent,
+} from './generated/schema'
 
 type ErrorProps = {
-  type: 'not_supported' | 'page_not_found' | 'settings_not_found' | 'server_error',
-  status: number,
+  type:
+    | 'not_supported'
+    | 'page_not_found'
+    | 'settings_not_found'
+    | 'server_error'
+  status: number
   url: string
 }
 
 export type AppApiRequestPayload = {
-  page: Story,
-  allStories: StoryData<PageComponent>[],
-  settings: Story,
-  locale?: string,
-  allCategories: StoryData<CategoryComponent>[],
-  allStaticContent: StoryData<StaticcontainerComponent>[],
+  page: Story
+  allStories: StoryData<PageComponent>[]
+  settings: Story
+  locale?: string
+  allCategories: StoryData<CategoryComponent>[]
+  allStaticContent: StoryData<StaticcontainerComponent>[]
   listWidgetData: { [k: string]: StoryData<PageComponent>[] } | null
 }
 
-type SubProps = Pick<AppApiRequestPayload, 'allStaticContent' | 'locale' | 'allCategories' | 'listWidgetData'>
+type SubProps = Pick<
+  AppApiRequestPayload,
+  'allStaticContent' | 'locale' | 'allCategories' | 'listWidgetData'
+>
 
 export type AppPageProps = SubProps & {
   page?: PageStoryblok | null
@@ -31,12 +42,13 @@ export type AppPageProps = SubProps & {
 }
 
 export type ComponentRenderFuncProps = {
-  content?: any,
-  _uid?: string,
+  content?: any
+  _uid?: string
   i?: number // iteration in case of array render
   [k: string]: any
 }
 
-export type ComponentRenderProps = FunctionComponentFactory<ComponentRenderFuncProps>
+export type ComponentRenderProps = FunctionComponentFactory<
+  ComponentRenderFuncProps
+>
 export type LinkRenderProps = FunctionComponentFactory<any>
-

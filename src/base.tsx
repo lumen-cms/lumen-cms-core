@@ -68,62 +68,61 @@ export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'
 export { default as LmAppProvider } from './components/provider/AppProvider'
 export { useAppContext } from './components/provider/context/AppContext'
-export {
-  default as LmWindowDimensionProvider
-} from './components/provider/WindowDimensionsProvider'
-export {
-  useWindowDimensions
-} from './components/provider/context/WindowDimensionContext'
+export { default as LmWindowDimensionProvider } from './components/provider/WindowDimensionsProvider'
+export { useWindowDimensions } from './components/provider/context/WindowDimensionContext'
 export { default as LmAppSetupProvider } from './components/provider/AppSetupProvider'
 export { useAppSetup } from './components/provider/context/AppSetupContext'
 export { CONFIG } from './utils/config'
 
 export const LmCoreComponentsNamed = {
-  'table': LmTable,
-  'accordion': LmAccordion,
-  'accordion_item': LmAccordionItem,
-  'divider': LmDivider,
-  'html': LmHtml,
-  'button_list': LmButtonList,
-  'section': LmSection,
-  'headline': LmHeadline,
-  'row': LmGridRow,
-  'column': LmGridColumn,
-  'image': LmImage,
-  'image_list': LmImageList,
-  'image_list_item': LmImageListItem,
-  'button': LmButton,
-  'nav_list': LmNavList,
-  'icon': LmIcon,
-  'iframe': LmIframe,
-  'slider': LmSlider,
-  'section_video_bg': LmSectionVideo,
-  'card_list': LmCardList,
-  'section_parallax': LmSectionParallax,
-  'tabs': LmTabs,
-  'flex_row': LmFlexRow,
-  'rich_text_editor': LmRichTextParagraph,
-  'timeline': LmTimeline,
-  'timeline_item': LmTimelineItem,
-  'avatar': LmAvatar,
-  'date_headline': LmDateHeadline,
-  'motion': LmMotion,
-  'player': LmPlayer,
+  table: LmTable,
+  accordion: LmAccordion,
+  accordion_item: LmAccordionItem,
+  divider: LmDivider,
+  html: LmHtml,
+  button_list: LmButtonList,
+  section: LmSection,
+  headline: LmHeadline,
+  row: LmGridRow,
+  column: LmGridColumn,
+  image: LmImage,
+  image_list: LmImageList,
+  image_list_item: LmImageListItem,
+  button: LmButton,
+  nav_list: LmNavList,
+  icon: LmIcon,
+  iframe: LmIframe,
+  slider: LmSlider,
+  section_video_bg: LmSectionVideo,
+  card_list: LmCardList,
+  section_parallax: LmSectionParallax,
+  tabs: LmTabs,
+  flex_row: LmFlexRow,
+  rich_text_editor: LmRichTextParagraph,
+  timeline: LmTimeline,
+  timeline_item: LmTimelineItem,
+  avatar: LmAvatar,
+  date_headline: LmDateHeadline,
+  motion: LmMotion,
+  player: LmPlayer,
 }
 
-export function LmComponentRender(props: ComponentRenderFuncProps): JSX.Element {
+export function LmComponentRender(
+  props: ComponentRenderFuncProps
+): JSX.Element {
   const { content, i, ...rest } = props
 
   if (typeof LmCoreComponentsNamed[content.component] !== 'undefined') {
     return React.createElement(LmCoreComponentsNamed[content.component], {
-      content: content,
+      content,
       key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
-      ...rest
+      ...rest,
     })
   }
   return (
-    <div style={{ color: 'red' }} key={content?._uid || `${i}`}>The
-      component {content.component || 'no name found'} has not been
-      created yet.</div>
+    <div style={{ color: 'red' }} key={content?._uid || `${i}`}>
+      The component {content.component || 'no name found'} has not been created
+      yet.
+    </div>
   )
 }

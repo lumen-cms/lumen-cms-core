@@ -1,16 +1,19 @@
 import { NextSeo } from 'next-seo'
-import { getOriginalImageDimensions, imageServiceNoWebp } from '../../utils/ImageService'
 import React from 'react'
+import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
+import { useRouter } from 'next/router'
+import {
+  getOriginalImageDimensions,
+  imageServiceNoWebp,
+} from '../../utils/ImageService'
 import {
   GlobalStoryblok,
   ImageCoreStoryblok,
   PageStoryblok,
   SeoOpenGraphStoryblok,
-  SeoTwitterStoryblok
+  SeoTwitterStoryblok,
 } from '../../typings/generated/components-schema'
-import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
 import { CONFIG } from '../../utils/config'
-import { useRouter } from 'next/router'
 
 type SeoMetaTypes = {
   title: string
@@ -19,17 +22,19 @@ type SeoMetaTypes = {
   nofollow: boolean
   openGraph?: OpenGraph
   facebook?: {
-    appId: string;
+    appId: string
   }
   twitter?: Twitter
   canonical?: string
 }
 
-
-const mapOpenGraphImage = (item: ImageCoreStoryblok): OpenGraphImages | undefined => {
+const mapOpenGraphImage = (
+  item: ImageCoreStoryblok
+): OpenGraphImages | undefined => {
   if (!item.url) return
-  let dimensions = getOriginalImageDimensions(item.url)
-  const imgPath = (item.width || item.height) ? `${item.width || 0}x${item.height || 0}` : ''
+  const dimensions = getOriginalImageDimensions(item.url)
+  const imgPath =
+    item.width || item.height ? `${item.width || 0}x${item.height || 0}` : ''
   if (item.width || item.height) {
     // delete both original dimensions
     delete dimensions.width
@@ -40,32 +45,39 @@ const mapOpenGraphImage = (item: ImageCoreStoryblok): OpenGraphImages | undefine
   return {
     ...dimensions,
     alt: item.alt,
-    url: imageServiceNoWebp(item.url, imgPath)
+    url: imageServiceNoWebp(item.url, imgPath),
   }
 }
 
-const parseOpenGraph = (settingsOpenGraph: SeoOpenGraphStoryblok, pageOpenGraph: SeoOpenGraphStoryblok, seoMeta: SeoMetaTypes): OpenGraph => {
+const parseOpenGraph = (
+  settingsOpenGraph: SeoOpenGraphStoryblok,
+  pageOpenGraph: SeoOpenGraphStoryblok,
+  seoMeta: SeoMetaTypes
+): OpenGraph => {
   // set some defaults of seoMeta
   const openGraph: OpenGraph = {
     title: pageOpenGraph.title || seoMeta.title || settingsOpenGraph.title,
-    description: pageOpenGraph.description || seoMeta.description || settingsOpenGraph.description,
+    description:
+      pageOpenGraph.description ||
+      seoMeta.description ||
+      settingsOpenGraph.description,
     url: pageOpenGraph.url || settingsOpenGraph.url,
     type: pageOpenGraph.type || settingsOpenGraph.type,
     site_name: pageOpenGraph.site_name || settingsOpenGraph.site_name,
-    locale: pageOpenGraph.locale || settingsOpenGraph.locale
+    locale: pageOpenGraph.locale || settingsOpenGraph.locale,
   }
   const images: OpenGraphImages[] = []
   // settings images
   if (settingsOpenGraph.images) {
     settingsOpenGraph.images.forEach((img: ImageCoreStoryblok) => {
-      let parsed = mapOpenGraphImage(img)
+      const parsed = mapOpenGraphImage(img)
       parsed && images.push(parsed)
     })
   }
   // page images
   if (pageOpenGraph.images) {
     pageOpenGraph.images.forEach((item: ImageCoreStoryblok) => {
-      let parsed = mapOpenGraphImage(item)
+      const parsed = mapOpenGraphImage(item)
       parsed && images.push(parsed)
     })
   }
@@ -82,7 +94,7 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
   return twitter
 }
 
-const getCanonicalUrl = (hostname: string = '', url: string) => {
+const getCanonicalUrl = (hostname = '', url: string) => {
   if (url.endsWith('home')) {
     url = url.replace('home', '')
   } else if (url.endsWith('home/')) {
@@ -90,7 +102,6 @@ const getCanonicalUrl = (hostname: string = '', url: string) => {
   }
   return hostname + url
 }
-
 
 type AppSeoProps = {
   settings: GlobalStoryblok
@@ -100,47 +111,67 @@ type AppSeoProps = {
 
 function AppSeo({ settings, page, previewImage }: AppSeoProps): JSX.Element {
   const router = useRouter()
-  const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = settings.seo_body || []
+  const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
+    settings.seo_body || []
   if (!page) {
-    return <NextSeo title={'Not Found'} noindex={true} />
+    return <NextSeo title="Not Found" noindex />
   }
-  const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] = page.seo_body || []
-  const robotsIndexFollow = CONFIG.overwriteDisableIndex || page.meta_robots || !settings.seo_robots // todo additionally disable .now.sh domains
-
+  const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
+    page.seo_body || []
+  const robotsIndexFollow =
+    CONFIG.overwriteDisableIndex || page.meta_robots || !settings.seo_robots // todo additionally disable .now.sh domains
 
   const seo: SeoMetaTypes = {
-    title: page.meta_title || settings.seo_title || 'Website made by Lumen Media',
-    description: page.meta_description || settings.seo_description || 'Website made by Lumen Media',
+    title:
+      page.meta_title || settings.seo_title || 'Website made by Lumen Media',
+    description:
+      page.meta_description ||
+      settings.seo_description ||
+      'Website made by Lumen Media',
     noindex: robotsIndexFollow, // important to change if go live
-    nofollow: robotsIndexFollow
+    nofollow: robotsIndexFollow,
   }
 
   // open graphs
-  const settingsOpenGraphs: SeoOpenGraphStoryblok = seoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok
-  const pageOpenGraphs: SeoOpenGraphStoryblok = pageSeoBody.find(i => i.component === 'seo_open_graph') as SeoOpenGraphStoryblok || {}
+  const settingsOpenGraphs: SeoOpenGraphStoryblok = seoBody.find(
+    (i) => i.component === 'seo_open_graph'
+  ) as SeoOpenGraphStoryblok
+  const pageOpenGraphs: SeoOpenGraphStoryblok =
+    (pageSeoBody.find(
+      (i) => i.component === 'seo_open_graph'
+    ) as SeoOpenGraphStoryblok) || {}
   if (previewImage) {
     pageOpenGraphs.images = pageOpenGraphs.images || []
     pageOpenGraphs.images.push({ url: previewImage })
   }
 
   if (settingsOpenGraphs || pageOpenGraphs) {
-    seo.openGraph = parseOpenGraph(settingsOpenGraphs || {}, pageOpenGraphs, seo)
-    const facebookAppId = (settingsOpenGraphs && settingsOpenGraphs.app_id) || (pageOpenGraphs && pageOpenGraphs.app_id)
+    seo.openGraph = parseOpenGraph(
+      settingsOpenGraphs || {},
+      pageOpenGraphs,
+      seo
+    )
+    const facebookAppId =
+      (settingsOpenGraphs && settingsOpenGraphs.app_id) ||
+      (pageOpenGraphs && pageOpenGraphs.app_id)
     facebookAppId && (seo.facebook = { appId: facebookAppId })
   }
 
   // twitter
-  const settingsTwitter: SeoTwitterStoryblok = seoBody.find(i => i.component === 'seo_twitter') as SeoTwitterStoryblok || undefined
+  const settingsTwitter: SeoTwitterStoryblok =
+    (seoBody.find(
+      (i) => i.component === 'seo_twitter'
+    ) as SeoTwitterStoryblok) || undefined
   if (settingsTwitter) {
     seo.twitter = parseTwitter(settingsTwitter)
   }
 
   if (settings.seo_website_url) {
     seo.canonical = getCanonicalUrl(settings.seo_website_url, router?.asPath)
-  } else {
-    if (typeof window !== 'undefined') {
-      console.warn('set up seo_website_url inside of settings to have a canonical tag')
-    }
+  } else if (typeof window !== 'undefined') {
+    console.warn(
+      'set up seo_website_url inside of settings to have a canonical tag'
+    )
   }
 
   return <NextSeo {...seo} />

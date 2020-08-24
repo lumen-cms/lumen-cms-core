@@ -1,10 +1,14 @@
 import React, { FunctionComponent } from 'react'
-import { AppPageProps, ComponentRenderProps, LinkRenderProps } from '../../typings/app'
+import Error from 'next/error'
+import {
+  AppPageProps,
+  ComponentRenderProps,
+  LinkRenderProps,
+} from '../../typings/app'
 import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
 import AppSetupProvider from '../provider/AppSetupProvider'
 import GlobalTheme from '../global-theme/GlobalTheme'
 import AppProvider from '../provider/AppProvider'
-import Error from 'next/error'
 
 type AppContainerProps = {
   content: AppPageProps
@@ -12,9 +16,12 @@ type AppContainerProps = {
   LinkRender: LinkRenderProps
 }
 
-export const AppContainer: FunctionComponent<AppContainerProps> = (
-  { content, ComponentRender, LinkRender, children }
-) => {
+export const AppContainer: FunctionComponent<AppContainerProps> = ({
+  content,
+  ComponentRender,
+  LinkRender,
+  children,
+}) => {
   const { page, settings, error, ...rest } = content
   if (error) {
     return <Error statusCode={500} />
@@ -26,7 +33,10 @@ export const AppContainer: FunctionComponent<AppContainerProps> = (
     <AppProvider content={{ ...rest, ComponentRender, LinkRender }}>
       <WindowDimensionsProvider>
         <AppSetupProvider settings={settings} page={page}>
-          <GlobalTheme settings={settings} rightDrawerWidth={page?.right_drawer_width}>
+          <GlobalTheme
+            settings={settings}
+            rightDrawerWidth={page?.right_drawer_width}
+          >
             {children}
           </GlobalTheme>
         </AppSetupProvider>

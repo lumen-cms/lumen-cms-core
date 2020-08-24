@@ -3,7 +3,10 @@ import CardActions from '@material-ui/core/CardActions'
 import { CardListItemProps } from './cards'
 import { useAppContext } from '../provider/context/AppContext'
 
-function CardListItemActions({ options, content }: CardListItemProps): JSX.Element | null {
+function CardListItemActions({
+  options,
+  content,
+}: CardListItemProps): JSX.Element | null {
   const { ComponentRender } = useAppContext()
 
   const cardActionsBody = content.card_actions_body || []

@@ -1,11 +1,11 @@
+import React from 'react'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
 import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
-import React from 'react'
 import { CardListItemProps } from './cards'
 import CardDescriptionText from './CardDescriptionText'
-import CardActionArea from '@material-ui/core/CardActionArea'
-import CardContent from '@material-ui/core/CardContent'
 import CardListItemActions from './CardListItemActions'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
@@ -14,11 +14,15 @@ export function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props
   const variants = options.variant || []
   const { LinkRender } = useAppContext()
-  const btnProps: any = content.link?.cached_url ? {
-    ...getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }),
-    naked: true,
-    component: LinkRender
-  } : {}
+  const btnProps: any = content.link?.cached_url
+    ? {
+        ...getLinkAttrs(content.link as LinkType, {
+          openExternal: !!content.open_external,
+        }),
+        naked: true,
+        component: LinkRender,
+      }
+    : {}
 
   // without media / text only
   if (!content.image || options.hide_image) {
@@ -60,9 +64,13 @@ export function LmCardListItem(props: CardListItemProps): JSX.Element {
       <CardWrap {...props}>
         <CardActionArea {...btnProps}>
           <CardMediaElement {...props}>
-            <CardContent style={{
-              padding: variants.includes('overlay_content_no_space') ? 0 : undefined
-            }}>
+            <CardContent
+              style={{
+                padding: variants.includes('overlay_content_no_space')
+                  ? 0
+                  : undefined,
+              }}
+            >
               <CardListActionTitles {...props} />
             </CardContent>
           </CardMediaElement>
@@ -92,4 +100,3 @@ export function LmCardListItem(props: CardListItemProps): JSX.Element {
     </CardWrap>
   )
 }
-

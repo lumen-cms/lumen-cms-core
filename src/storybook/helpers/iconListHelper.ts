@@ -14,7 +14,7 @@ import iconList from '@lumen/storyblok-material-icons/src/material-icon-list.jso
 
 const iconListToOptions = () => {
   const obj = {}
-  let preparedList: { id: string, name: string }[] = []
+  let preparedList: { id: string; name: string }[] = []
   iconList.categories.forEach((category: any) => {
     preparedList = preparedList.concat(category.icons)
   })
@@ -27,5 +27,3 @@ const iconListToOptions = () => {
 const opts = iconListToOptions()
 
 export default opts
-
-

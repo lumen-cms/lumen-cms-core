@@ -7,7 +7,7 @@ export function useScript(src: string, suppressCors?: boolean) {
   // Keeping track of script loaded and error state
   const [state, setState] = useState({
     loaded: false,
-    error: false
+    error: false,
   })
 
   useEffect(
@@ -20,14 +20,13 @@ export function useScript(src: string, suppressCors?: boolean) {
       if (cachedScripts.includes(src)) {
         setState({
           loaded: true,
-          error: false
+          error: false,
         })
-        return
       } else {
         cachedScripts.push(src)
 
         // Create script
-        let script = document.createElement('script')
+        const script = document.createElement('script')
         script.src = src
         script.async = true
         if (!suppressCors) {
@@ -38,7 +37,7 @@ export function useScript(src: string, suppressCors?: boolean) {
         const onScriptLoad = () => {
           setState({
             loaded: true,
-            error: false
+            error: false,
           })
         }
 
@@ -50,7 +49,7 @@ export function useScript(src: string, suppressCors?: boolean) {
 
           setState({
             loaded: true,
-            error: true
+            error: true,
           })
         }
 

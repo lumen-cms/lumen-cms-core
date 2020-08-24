@@ -14,17 +14,21 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
     return <div>There is no content yet...</div>
   }
 
-  if (!body.some(i => i.component === 'section_parallax')) {
+  if (!body.some((i) => i.component === 'section_parallax')) {
     return (
       <>
-        {rightBody.length > 0 && <RightDrawer rightBody={rightBody} body={body} />}
+        {rightBody.length > 0 && (
+          <RightDrawer rightBody={rightBody} body={body} />
+        )}
         <MainContent body={body} />
       </>
     )
   }
   return (
     <ParallaxProvider>
-      {rightBody.length > 0 && <RightDrawer rightBody={rightBody} body={body} />}
+      {rightBody.length > 0 && (
+        <RightDrawer rightBody={rightBody} body={body} />
+      )}
       <MainContent body={body} />
     </ParallaxProvider>
   )

@@ -1,7 +1,7 @@
-import { RteContentProps } from './rte_typings'
 import React from 'react'
 import clsx from 'clsx'
 import MuiLink from '@material-ui/core/Link'
+import { RteContentProps } from './rte_typings'
 import { getLinkAttrs } from '../../../utils/linkHandler'
 import { useAppContext } from '../../provider/context/AppContext'
 
@@ -13,7 +13,7 @@ const InlineClassMapping = {
   code: 'text-code',
   italic: 'font-italic',
   link: 'text-link',
-  styled: ''
+  styled: '',
 }
 
 type RteNodeTextProps = { content: RteContentProps }
@@ -23,20 +23,25 @@ function RteNodeText({ content }: RteNodeTextProps): JSX.Element {
 
   if (content.marks && content.marks.length) {
     const link = content.marks.find(({ type }) => type === 'link')
-    const className = clsx(content.marks.map(({ type, attrs }) => {
-      if (attrs && attrs.class) {
-        return attrs.class
-      }
-      return InlineClassMapping[type]
-    }))
+    const className = clsx(
+      content.marks.map(({ type, attrs }) => {
+        if (attrs && attrs.class) {
+          return attrs.class
+        }
+        return InlineClassMapping[type]
+      })
+    )
     if (link?.attrs?.href) {
       const btnProps: any = {
-        ...getLinkAttrs({
-          cached_url: link.attrs.href,
-          linktype: link.attrs.linktype
-        }, {}),
+        ...getLinkAttrs(
+          {
+            cached_url: link.attrs.href,
+            linktype: link.attrs.linktype,
+          },
+          {}
+        ),
         naked: true,
-        component: LinkRender
+        component: LinkRender,
       }
       return <MuiLink {...btnProps}>{content.text}</MuiLink>
     }

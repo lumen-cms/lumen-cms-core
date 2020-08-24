@@ -17,12 +17,13 @@ const initialState: State = {
   rightNavigationDrawer: false,
   searchParams: {
     searchText: undefined,
-    categories: undefined
+    categories: undefined,
   },
   locale: CONFIG.defaultLocale,
-  hasWebpSupport: undefined
+  hasWebpSupport: undefined,
 }
-const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(initialState)
-
+const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(
+  initialState
+)
 
 export { useGlobalState, setGlobalState, getGlobalState }

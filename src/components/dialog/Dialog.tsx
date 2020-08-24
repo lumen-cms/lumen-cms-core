@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { DialogStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
 import Dialog, { DialogProps } from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -9,23 +7,25 @@ import Close from 'mdi-material-ui/Close'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Slide from '@material-ui/core/Slide'
+import { useAppContext } from '../provider/context/AppContext'
+import { DialogStoryblok } from '../../typings/generated/components-schema'
 
-const TransitionSlideUp = React.forwardRef((props, ref) =>
+const TransitionSlideUp = React.forwardRef((props, ref) => (
   // @ts-ignore
-  <Slide direction="up" ref={ref} {...props} />)
-
+  <Slide direction="up" ref={ref} {...props} />
+))
 
 const useStyles = makeStyles({
   trigger: {
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   dialogTitle: {
     '& .MuiTypography-root': {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between'
-    }
-  }
+      justifyContent: 'space-between',
+    },
+  },
 })
 
 export type LmDialogProps = {
@@ -35,7 +35,9 @@ export type LmDialogProps = {
 export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
   const theme = useTheme()
   const classes = useStyles()
-  const mediaQueryResult = useMediaQuery(theme.breakpoints.down(content.fullscreen || 'sm'))
+  const mediaQueryResult = useMediaQuery(
+    theme.breakpoints.down(content.fullscreen || 'sm')
+  )
   const fullScreen = content.fullscreen ? mediaQueryResult : false
   const { ComponentRender } = useAppContext()
   const [isOpen, setOpen] = useState<boolean>(false)
@@ -45,7 +47,7 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
   const dialogProps: DialogProps = {
     open: isOpen,
     fullScreen,
-    onClose: content.prevent_click_outside ? undefined : () => setOpen(false)
+    onClose: content.prevent_click_outside ? undefined : () => setOpen(false),
   }
   if (content.slide_up) {
     // @ts-ignore
@@ -54,26 +56,37 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
   return (
     <div>
       <a onClick={() => setOpen(true)} className={classes.trigger}>
-        {content.trigger?.map((blok, i) => ComponentRender({ content: blok, i }))}
+        {content.trigger?.map((blok, i) =>
+          ComponentRender({ content: blok, i })
+        )}
       </a>
       <Dialog {...dialogProps}>
-        {!!content.title || !content.prevent_close_button && (
-          <DialogTitle classes={{
-            root: classes.dialogTitle
-          }}>
-            <span>{content.title}</span>
-            {!content.prevent_close_button && (
-              <IconButton onClick={() => setOpen(false)}>
-                <Close />
-              </IconButton>
-            )}
-          </DialogTitle>
-        )}
+        {!!content.title ||
+          (!content.prevent_close_button && (
+            <DialogTitle
+              classes={{
+                root: classes.dialogTitle,
+              }}
+            >
+              <span>{content.title}</span>
+              {!content.prevent_close_button && (
+                <IconButton onClick={() => setOpen(false)}>
+                  <Close />
+                </IconButton>
+              )}
+            </DialogTitle>
+          ))}
         {content.no_padding ? (
-          <>{content.body?.map((blok, i) => ComponentRender({ content: blok, i }))}</>
+          <>
+            {content.body?.map((blok, i) =>
+              ComponentRender({ content: blok, i })
+            )}
+          </>
         ) : (
           <DialogContent>
-            {content.body?.map((blok, i) => ComponentRender({ content: blok, i }))}
+            {content.body?.map((blok, i) =>
+              ComponentRender({ content: blok, i })
+            )}
           </DialogContent>
         )}
       </Dialog>

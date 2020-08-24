@@ -4,5 +4,3 @@ export function componentLogger(component: any) {
     // console.debug(component.component)
   }
 }
-
-

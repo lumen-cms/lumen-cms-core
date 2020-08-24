@@ -13,7 +13,7 @@ export const defaultWindowsProvider: WithWindowDimensionsProps = {
   width: 599, // mobile
   isMobile: true,
   isTablet: false,
-  isDesktop: false
+  isDesktop: false,
 }
 
 export const WindowDimensionsCtx = createContext(defaultWindowsProvider)

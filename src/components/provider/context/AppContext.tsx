@@ -1,9 +1,14 @@
-import { AppApiRequestPayload, ComponentRenderProps, LinkRenderProps } from '../../../typings/app'
 import React, { createContext, useContext } from 'react'
+import {
+  AppApiRequestPayload,
+  ComponentRenderProps,
+  LinkRenderProps,
+} from '../../../typings/app'
 
-export type AppContextProps =
-  Omit<AppApiRequestPayload, 'locale' | 'settings' | 'page' | 'allStories'>
-  & {
+export type AppContextProps = Omit<
+  AppApiRequestPayload,
+  'locale' | 'settings' | 'page' | 'allStories'
+> & {
   insideStoryblok?: boolean
   ComponentRender: ComponentRenderProps
   LinkRender?: LinkRenderProps
@@ -16,10 +21,8 @@ const defaultValue: AppContextProps = {
   listWidgetData: {},
   insideStoryblok: false,
   ComponentRender: (_blok: any) => {
-    return (
-      <div>needs to be set</div>
-    )
-  }
+    return <div>needs to be set</div>
+  },
 }
 
 export const AppContext = createContext<AppContextProps>(defaultValue)

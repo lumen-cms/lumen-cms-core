@@ -10,14 +10,14 @@ export type AppDevice = {
 }
 
 const deviceDetect = (req?: IncomingMessage): AppDevice => {
-  let userAgent = req && req.headers['user-agent']
+  const userAgent = req && req.headers['user-agent']
   const mobileDevice = isMobile({ ua: userAgent })
   const tabletDevice = isMobile({ ua: userAgent, tablet: true })
   const obj: AppDevice = {
     width: 1080,
     isTablet: false,
     isMobile: false,
-    isDesktop: true
+    isDesktop: true,
   }
   if (mobileDevice) {
     obj.device = 'mobile'

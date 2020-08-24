@@ -1,23 +1,28 @@
 import React from 'react'
-import { getImageAttrs, getOriginalImageDimensions } from '../../utils/ImageService'
 import SwipeableViews from 'react-swipeable-views'
+import ChevronLeft from 'mdi-material-ui/ChevronLeft'
+import ChevronRight from 'mdi-material-ui/ChevronRight'
+import {
+  getImageAttrs,
+  getOriginalImageDimensions,
+} from '../../utils/ImageService'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 import { WithWindowDimensionsProps } from '../provider/context/WindowDimensionContext'
 import InvertedIndicator from '../slider/InvertedIndicator'
-import ChevronLeft from 'mdi-material-ui/ChevronLeft'
-import ChevronRight from 'mdi-material-ui/ChevronRight'
 
 export type ImageListLightboxProps = {
   elements: ImageListItemStoryblok[]
   lightbox: string
   setLightbox: Function
   onImageClick: Function
-  dimensions: WithWindowDimensionsProps,
+  dimensions: WithWindowDimensionsProps
   className: string
 }
 
 function Swipe(props: ImageListLightboxProps): JSX.Element {
-  let currentIndex = props.elements.findIndex(i => i._uid === props.lightbox)
+  const currentIndex = props.elements.findIndex(
+    (i) => i._uid === props.lightbox
+  )
 
   function getImageSource(source: string) {
     let dimensionHeight = props.dimensions.height - 68 - 16
@@ -31,7 +36,7 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
     return getImageAttrs({
       originalSource: source,
       width: landscape ? 0 : dimensionWidth,
-      height: landscape ? dimensionHeight : 0
+      height: landscape ? dimensionHeight : 0,
     })
   }
 
@@ -41,34 +46,56 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
 
   return (
     <div className="carousel slide">
-      <SwipeableViews index={currentIndex}
-                      className="carousel-inner"
-                      onChangeIndex={handleChangeIndex}>
-        {props.elements.map(item => (
+      <SwipeableViews
+        index={currentIndex}
+        className="carousel-inner"
+        onChangeIndex={handleChangeIndex}
+      >
+        {props.elements.map((item) => (
           <div key={item._uid} className="carousel-item">
             <figure className="d-block">
-              <img {...getImageSource(item.source as string)}
-                   className='img-fluid' />
+              <img
+                {...getImageSource(item.source as string)}
+                className="img-fluid"
+              />
             </figure>
           </div>
         ))}
       </SwipeableViews>
-      <a className="carousel-control-prev"
-         role="button"
-         onClick={() => props.onImageClick(currentIndex === 0 ? props.elements[props.elements.length - 1] : props.elements[currentIndex - 1])}>
+      <a
+        className="carousel-control-prev"
+        role="button"
+        onClick={() =>
+          props.onImageClick(
+            currentIndex === 0
+              ? props.elements[props.elements.length - 1]
+              : props.elements[currentIndex - 1]
+          )
+        }
+      >
         <ChevronLeft />
       </a>
-      <a className="carousel-control-next"
-         role="button"
-         onClick={() => props.onImageClick(currentIndex === props.elements.length - 1 ? props.elements[0] : props.elements[currentIndex + 1])}>
+      <a
+        className="carousel-control-next"
+        role="button"
+        onClick={() =>
+          props.onImageClick(
+            currentIndex === props.elements.length - 1
+              ? props.elements[0]
+              : props.elements[currentIndex + 1]
+          )
+        }
+      >
         <ChevronRight />
       </a>
       <ol className="carousel-indicators">
         {props.elements.map((item) => (
-          <InvertedIndicator key={item._uid}
-                             active={props.lightbox === item._uid}
-                             color={'light'}
-                             onClick={() => props.onImageClick(item)} />
+          <InvertedIndicator
+            key={item._uid}
+            active={props.lightbox === item._uid}
+            color="light"
+            onClick={() => props.onImageClick(item)}
+          />
         ))}
       </ol>
     </div>

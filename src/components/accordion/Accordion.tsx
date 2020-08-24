@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
-import { AccordionItemStoryblok, AccordionStoryblok } from '../../typings/generated/components-schema'
+import {
+  AccordionItemStoryblok,
+  AccordionStoryblok,
+} from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 
 export type LmAccordionProps = {
@@ -12,16 +15,16 @@ export function LmAccordion({ content }: LmAccordionProps): JSX.Element {
   // console.log(ctx)
   return (
     <div className="lm-accordion">
-      {(content.body || [])
-        .map((blok: AccordionItemStoryblok, iteration) =>
-          ComponentRender({
-            content: blok,
-            options: content,
-            opened: opened,
-            setOpen: setOpen,
-            iteration,
-            i: iteration
-          }))}
+      {(content.body || []).map((blok: AccordionItemStoryblok, iteration) =>
+        ComponentRender({
+          content: blok,
+          options: content,
+          opened,
+          setOpen,
+          iteration,
+          i: iteration,
+        })
+      )}
     </div>
   )
 }

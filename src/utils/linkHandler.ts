@@ -18,7 +18,9 @@ export const homepageLinkHandler = () => {
     return '/home'
   }
   const appLocale = getGlobalState('locale')
-  return appLocale && appLocale !== CONFIG.defaultLocale ? `/${appLocale}/home` : '/home'
+  return appLocale && appLocale !== CONFIG.defaultLocale
+    ? `/${appLocale}/home`
+    : '/home'
 }
 
 export const internalLinkHandler = (url: string) => {
@@ -30,7 +32,11 @@ export const internalLinkHandler = (url: string) => {
     }
   } else if (CONFIG.suppressSlugLocale) {
     const urlArray = url.split('/')
-    if (urlArray.length > 1 && CONFIG.languages.includes(urlArray[0]) && urlArray[1] !== 'home') {
+    if (
+      urlArray.length > 1 &&
+      CONFIG.languages.includes(urlArray[0]) &&
+      urlArray[1] !== 'home'
+    ) {
       urlArray.shift()
       url = urlArray.join('/')
     }
@@ -45,11 +51,14 @@ type LinkHandlerProps = {
   external?: boolean
 }
 
-export const linkHandler = (link: LinkType, options: LinkOptions): LinkHandlerProps => {
+export const linkHandler = (
+  link: LinkType,
+  options: LinkOptions
+): LinkHandlerProps => {
   const props: LinkHandlerProps = {
-    href: '/'
+    href: '/',
   }
-  let cachedUrl = link.cached_url
+  const cachedUrl = link.cached_url
   if (!cachedUrl) {
     return {}
   }
@@ -74,6 +83,9 @@ export const linkHandler = (link: LinkType, options: LinkOptions): LinkHandlerPr
   return props
 }
 
-export const getLinkAttrs = (link: LinkType = {} as LinkType, options: LinkOptions = {}): LinkHandlerProps => {
+export const getLinkAttrs = (
+  link: LinkType = {} as LinkType,
+  options: LinkOptions = {}
+): LinkHandlerProps => {
   return linkHandler(link, options)
 }

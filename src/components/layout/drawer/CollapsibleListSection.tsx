@@ -1,5 +1,4 @@
 import React from 'react'
-import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -7,6 +6,7 @@ import Collapse from '@material-ui/core/Collapse'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { useAppContext } from '../../provider/context/AppContext'
 import { DrawerButton } from './DrawerButton'
@@ -16,8 +16,9 @@ type CollapsibleListSectionProps = {
   content: NavMenuStoryblok
 }
 
-export function CollapsibleListSection({ content }: CollapsibleListSectionProps): JSX.Element {
-
+export function CollapsibleListSection({
+  content,
+}: CollapsibleListSectionProps): JSX.Element {
   const body = content.body || []
   const items: any[] = []
   const [open, setOpen] = React.useState(false)
@@ -27,11 +28,10 @@ export function CollapsibleListSection({ content }: CollapsibleListSectionProps)
     setOpen(currentOpenState)
   }
 
-  body.forEach(firstLevel => {
+  body.forEach((firstLevel) => {
     if (firstLevel.component === 'row') {
       // mega menu: consist of row / column / nav_list | button
       firstLevel.body.forEach((secondLevel: any) => {
-
         if (secondLevel.body && secondLevel.body.length) {
           secondLevel.body.forEach((thirdLevel: any) => {
             items.push(thirdLevel)
@@ -50,19 +50,26 @@ export function CollapsibleListSection({ content }: CollapsibleListSectionProps)
       <ListItem button onClick={handleClick}>
         {startIconName && (
           <ListItemIcon>
-            <LmIcon iconName={startIconName} style={{
-              width: '1.5rem',
-              height: '1.5rem'
-            }}></LmIcon>
+            <LmIcon
+              iconName={startIconName}
+              style={{
+                width: '1.5rem',
+                height: '1.5rem',
+              }}
+            />
           </ListItemIcon>
         )}
         <ListItemText primary={content.title} />
         {open ? <ChevronUp /> : <ChevronDown />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding style={{ marginLeft: startIconName ? '55px' : '20px' }}>
-          {Array.isArray(items) && items.map((blok, i) =>
-            DrawerContentRender({ content: blok, i }))}
+        <List
+          component="div"
+          disablePadding
+          style={{ marginLeft: startIconName ? '55px' : '20px' }}
+        >
+          {Array.isArray(items) &&
+            items.map((blok, i) => DrawerContentRender({ content: blok, i }))}
         </List>
       </Collapse>
     </>
@@ -70,28 +77,32 @@ export function CollapsibleListSection({ content }: CollapsibleListSectionProps)
 }
 
 type DrawerContentRenderProps = {
-  content: any,
-  i?: number,
+  content: any
+  i?: number
   [k: string]: any
 }
 
-export function DrawerContentRender({ content, i }: DrawerContentRenderProps): JSX.Element | null {
+export function DrawerContentRender({
+  content,
+  i,
+}: DrawerContentRenderProps): JSX.Element | null {
   const { ComponentRender } = useAppContext()
-  const component = content.component
+  const { component } = content
   const componentProps = {
-    content: content,
-    key: `${component}_${i}`
+    content,
+    key: `${component}_${i}`,
   }
   if (component === 'button' || component === 'nav_menu_item') {
     return <DrawerButton {...componentProps} />
-  } else if (component === 'nav_list') {
-    return <DrawerNavList {...componentProps} />
-  } else if (component === 'nav_menu') {
-    return <CollapsibleListSection {...componentProps} />
-  } else if (component === 'list_search_autocomplete') {
-    return null
-  } else {
-    return ComponentRender({ content: content, i })
   }
+  if (component === 'nav_list') {
+    return <DrawerNavList {...componentProps} />
+  }
+  if (component === 'nav_menu') {
+    return <CollapsibleListSection {...componentProps} />
+  }
+  if (component === 'list_search_autocomplete') {
+    return null
+  }
+  return ComponentRender({ content, i })
 }
-

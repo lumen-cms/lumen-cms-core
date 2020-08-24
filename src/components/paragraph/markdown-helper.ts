@@ -2,7 +2,7 @@ import marked from 'marked'
 
 const renderer = new marked.Renderer()
 
-renderer.link = function(href = '', title = '', text = '') {
+renderer.link = function (href = '', title = '', text = '') {
   if (!href) {
     return text
   }
@@ -17,8 +17,8 @@ renderer.link = function(href = '', title = '', text = '') {
 }
 export default function parseMarkdownContent(content: string) {
   const rawMarkup = marked(content, {
-    //sanitize: true,
-    renderer
+    // sanitize: true,
+    renderer,
   })
   return rawMarkup
 }

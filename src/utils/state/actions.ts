@@ -1,10 +1,10 @@
 import { setGlobalState } from './state'
 
 export const toggleLeftNavigation = () => {
-  setGlobalState('leftNavigationDrawer', value => !value)
+  setGlobalState('leftNavigationDrawer', (value) => !value)
 }
 export const toggleRightNavigation = () => {
-  setGlobalState('rightNavigationDrawer', value => !value)
+  setGlobalState('rightNavigationDrawer', (value) => !value)
 }
 
 export const closeNavigationDrawers = () => {
@@ -16,7 +16,13 @@ export const closeNavigationDrawers = () => {
 //   setGlobalState('appSetup', options)
 // }
 
-const addSearchParamsToUrl = ({ categories, searchText }: { categories?: string[], searchText?: string }) => {
+const addSearchParamsToUrl = ({
+  categories,
+  searchText,
+}: {
+  categories?: string[]
+  searchText?: string
+}) => {
   const currentUrl = new URL(window.location.href)
   if (categories) {
     currentUrl.searchParams.delete('search__categories')
@@ -38,7 +44,7 @@ const addSearchParamsToUrl = ({ categories, searchText }: { categories?: string[
 export const onSearchTextChange = (searchText: string) => {
   setGlobalState('searchParams', (v) => ({
     ...v,
-    searchText
+    searchText,
   }))
   addSearchParamsToUrl({ searchText })
 }
@@ -46,7 +52,7 @@ export const onSearchTextChange = (searchText: string) => {
 export const setSearchCategory = (categories: string[]) => {
   setGlobalState('searchParams', (v) => ({
     ...v,
-    categories
+    categories,
   }))
   addSearchParamsToUrl({ categories })
 }

@@ -1,11 +1,15 @@
-import { getCreatedStyles } from '../../utils/hooks/useGlobalStyles'
 import { createMuiTheme } from '@material-ui/core/styles'
+import { getCreatedStyles } from '../../utils/hooks/useGlobalStyles'
 
 const generateUtilityClassNames = (): string[] => {
-
   const globalStyles = getCreatedStyles(createMuiTheme())
 
-  const blacklist: string[] = ['.fonts-loaded', '.embed-responsive', '.embed-responsive-item', '.material-icons']
+  const blacklist: string[] = [
+    '.fonts-loaded',
+    '.embed-responsive',
+    '.embed-responsive-item',
+    '.material-icons',
+  ]
   const classNames: string[] = []
   Object.keys(globalStyles['@global']).forEach((key: string) => {
     if (key.startsWith('.')) {
@@ -33,5 +37,3 @@ export const getOptions = () => {
 }
 
 export const classNameOpts = getOptions()
-
-

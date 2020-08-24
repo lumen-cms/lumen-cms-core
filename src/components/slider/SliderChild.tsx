@@ -2,18 +2,21 @@ import React from 'react'
 import { SectionProps } from '../section/Section'
 import { useAppContext } from '../provider/context/AppContext'
 
-type LmSliderChildProps = { body: any[], sectionVariant: any }
+type LmSliderChildProps = { body: any[]; sectionVariant: any }
 
-export function LmSliderChild({ body, sectionVariant }: LmSliderChildProps): JSX.Element {
+export function LmSliderChild({
+  body,
+  sectionVariant,
+}: LmSliderChildProps): JSX.Element {
   const { ComponentRender } = useAppContext()
 
   return (
     <div className="d-flex h-100 lm-slider__container flex-row justify-content-center">
       {body.map((item, i) => {
         if (item.component === 'section') {
-          let newOpts: SectionProps = {
+          const newOpts: SectionProps = {
             ...item,
-            presetVariant: sectionVariant || 'transparent'
+            presetVariant: sectionVariant || 'transparent',
           }
           return ComponentRender({ content: newOpts, i })
         }

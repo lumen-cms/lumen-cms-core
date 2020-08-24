@@ -4,13 +4,13 @@ import deviceDetect from '../../utils/deviceDetect'
 import {
   defaultWindowsProvider,
   WindowDimensionsCtx,
-  WithWindowDimensionsProps
+  WithWindowDimensionsProps,
 } from './context/WindowDimensionContext'
 
-
 const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
-
-  const [dimensions, setDimensions] = useState<WithWindowDimensionsProps>(defaultWindowsProvider)
+  const [dimensions, setDimensions] = useState<WithWindowDimensionsProps>(
+    defaultWindowsProvider
+  )
   const [debouncedCallback] = useDebouncedCallback(
     // function
     () => {
@@ -20,30 +20,26 @@ const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
     500
   )
 
-
-  useEffect(
-    () => {
-      if (typeof window === 'undefined') {
-        return
-      }
-      setDimensions({
-        ...getWindowDimensions(),
-        ...deviceDetect()
-      })
-      window.addEventListener('resize', debouncedCallback)
-      return () => {
-        window.removeEventListener('resize', debouncedCallback)
-      }
-    },
-    []
-  )
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+    setDimensions({
+      ...getWindowDimensions(),
+      ...deviceDetect(),
+    })
+    window.addEventListener('resize', debouncedCallback)
+    return () => {
+      window.removeEventListener('resize', debouncedCallback)
+    }
+  }, [])
 
   function getWindowDimensions() {
     const opts = {
       ...dimensions,
       height: window.innerHeight,
       width: window.innerWidth,
-      isTabletWidth: window.innerWidth >= 600 && window.innerWidth < 960
+      isTabletWidth: window.innerWidth >= 600 && window.innerWidth < 960,
     }
     return opts
   }
@@ -58,4 +54,3 @@ const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
 WindowDimensionsProvider.displayName = 'WindowDimensionsProvider'
 
 export default WindowDimensionsProvider
-

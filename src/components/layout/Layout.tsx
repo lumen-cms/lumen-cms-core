@@ -1,6 +1,6 @@
+import React, { FunctionComponent } from 'react'
 import Header from './toolbar/Header'
 import Footer from './Footer'
-import React, { FunctionComponent } from 'react'
 import AppHead from './AppHead'
 import ExternalScripts from '../external-scripts/ExternalScripts'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
@@ -14,8 +14,7 @@ export type LayoutComponentProps = {
 const Layout: FunctionComponent<LayoutComponentProps> = ({
   children,
   // appSetup,
-  settings
-
+  settings,
 }) => {
   return (
     <>
