@@ -24,24 +24,24 @@ export const homepageLinkHandler = () => {
 }
 
 export const internalLinkHandler = (url: string) => {
+  const urlArray = url.split('/')
+  let processedUrl = url
   if (CONFIG.rootDirectory) {
-    const urlArray = url.split('/')
     if (urlArray[0] === CONFIG.rootDirectory) {
       urlArray.shift()
-      url = urlArray.join('/')
+      processedUrl = urlArray.join('/')
     }
   } else if (CONFIG.suppressSlugLocale) {
-    const urlArray = url.split('/')
     if (
       urlArray.length > 1 &&
       CONFIG.languages.includes(urlArray[0]) &&
       urlArray[1] !== 'home'
     ) {
       urlArray.shift()
-      url = urlArray.join('/')
+      processedUrl = urlArray.join('/')
     }
   }
-  return url.startsWith('/') ? url : `/${url}`
+  return processedUrl.startsWith('/') ? processedUrl : `/${processedUrl}`
 }
 
 type LinkHandlerProps = {
