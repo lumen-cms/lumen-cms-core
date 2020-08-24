@@ -10,7 +10,7 @@ export function useInfiniteScroll(collection: any[], perPage = 30) {
     if (inView) {
       setPage(page + 1)
     }
-  }, [inView])
+  }, [inView, page])
 
   return {
     ref: useRef,
