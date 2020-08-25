@@ -8,6 +8,7 @@ import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import { useWindowSize } from '@react-hook/window-size'
 
 export type LmImageListProps = {
   content: ImageListStoryblok
@@ -15,6 +16,7 @@ export type LmImageListProps = {
 
 export function LmImageList({ content }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
+  const [width, height] = useWindowSize()
   const { ComponentRender, LinkRender } = useAppContext()
 
   const gridClasses = useGridListStyles({
@@ -68,12 +70,12 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
             const btnProps: any =
               item.link?.cached_url && !content.enable_lightbox
                 ? {
-                    ...getLinkAttrs(item.link as LinkType, {
-                      openExternal: !!item.open_external
-                    }),
-                    naked: true,
-                    component: LinkRender
-                  }
+                  ...getLinkAttrs(item.link as LinkType, {
+                    openExternal: !!item.open_external
+                  }),
+                  naked: true,
+                  component: LinkRender
+                }
                 : {}
             return (
               <GridListTile
@@ -94,13 +96,15 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
         </GridList>
       </div>
       {lightbox &&
-        ImageListLightbox({
-          elements: body,
-          lightbox,
-          setLightbox,
-          onImageClick,
-          className: classes.lightbox
-        })}
+      ImageListLightbox({
+        elements: body,
+        lightbox,
+        setLightbox,
+        onImageClick,
+        className: classes.lightbox,
+        width,
+        height
+      })}
     </div>
   )
 }
