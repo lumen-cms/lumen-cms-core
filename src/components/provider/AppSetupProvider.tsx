@@ -4,14 +4,14 @@ import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
-import { useWindowDimensions } from './context/WindowDimensionContext'
 import { AppSetupContext, AppSetupProps } from './context/AppSetupContext'
+import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const AppSetupProvider: FunctionComponent<{
   settings: GlobalStoryblok
   page?: PageStoryblok | null
 }> = ({ children, settings, page }) => {
-  const { isMobile } = useWindowDimensions()
+  const { isMobile } = useDeviceDimensions()
   const hasDrawer =
     Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0
   const hasFeatureImage =

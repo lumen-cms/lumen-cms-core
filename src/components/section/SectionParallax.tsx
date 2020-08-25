@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { makeStyles } from '@material-ui/core/styles'
+import { useWindowSize } from '@react-hook/window-size'
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
 import { SectionParallaxStoryblok } from '../../typings/generated/components-schema'
-import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { useAppContext } from '../provider/context/AppContext'
@@ -30,14 +30,12 @@ export type LmSectionParallaxProps = { content: SectionParallaxStoryblok }
 export function LmSectionParallax({
   content
 }: LmSectionParallaxProps): JSX.Element {
-  const dimensions = useWindowDimensions()
   const { ComponentRender } = useAppContext()
   const classes = useStyles()
   const [refIntersectionObserver, inView, refElement] = useInView(
     intersectionDefaultOptions
   )
-  const { width } = dimensions
-  const { height } = dimensions
+  const [width, height] = useWindowSize()
   const elements = content.elements || []
   const contentHeight = content.height
   const [layers, setLayers] = useState<BannerLayer[] | undefined>()

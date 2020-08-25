@@ -11,7 +11,6 @@ import {
   text
 } from '@storybook/addon-knobs'
 import { Story as StoryType } from '@storybook/react/types-6-0.d'
-import WindowDimensionsProvider from '../../components/provider/WindowDimensionsProvider'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { CONFIG_STORYBOOK } from './configStorybook'
@@ -154,30 +153,28 @@ const StoriesLayout = (Story: StoryType) => {
         allStaticContent: []
       }}
     >
-      <WindowDimensionsProvider>
-        <GlobalTheme settings={settings as GlobalStoryblok}>
-          <div>
-            <CssBaseline />
-            <Layout>
-              <Container
-                component="main"
-                maxWidth={false}
-                style={{ padding: '0px' }}
-              >
-                <>
-                  <Story {...settings} />
-                </>
-              </Container>
-            </Layout>
-            <link
-              href={`https://fonts.googleapis.com/css?family=${loadFonts.join(
-                '|'
-              )}&display=swap`}
-              rel="stylesheet"
-            />
-          </div>
-        </GlobalTheme>
-      </WindowDimensionsProvider>
+      <GlobalTheme settings={settings as GlobalStoryblok}>
+        <div>
+          <CssBaseline />
+          <Layout>
+            <Container
+              component="main"
+              maxWidth={false}
+              style={{ padding: '0px' }}
+            >
+              <>
+                <Story {...settings} />
+              </>
+            </Container>
+          </Layout>
+          <link
+            href={`https://fonts.googleapis.com/css?family=${loadFonts.join(
+              '|'
+            )}&display=swap`}
+            rel="stylesheet"
+          />
+        </div>
+      </GlobalTheme>
     </AppProvider>
   )
 }

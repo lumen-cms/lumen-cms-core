@@ -45,10 +45,11 @@
     "@charlietango/use-client-hydrated": "1.8.2",
     "@material-ui/core": "4.11.0",
     "@material-ui/lab": "4.0.0-alpha.56",
+    "@react-hook/window-size": "3.0.7",
     "clsx": "1.1.1",
     "element-closest": "3.0.2",
     "intersection-observer": "0.11.0",
-    "is-mobile": "2.2.2",
+    "lorem-ipsum": "^2.0.3",
     "marked": "1.1.1",
     "mdi-material-ui": "6.18.0",
     "next-seo": "4.7.3",
@@ -65,8 +66,7 @@
     "storyblok-react": "0.1.1",
     "swr": "0.3.1",
     "use-debounce": "3.4.3",
-    "uuid": "^8.3.0",
-    "lorem-ipsum": "^2.0.3"
+    "uuid": "^8.3.0"
   },
   "peerDependencies": {
     "next": "^9.5.2",

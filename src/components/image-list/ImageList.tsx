@@ -4,7 +4,6 @@ import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
 import ImageListLightbox from './ImageListLightbox'
 import { ImageListStoryblok } from '../../typings/generated/components-schema'
-import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { useAppContext } from '../provider/context/AppContext'
@@ -24,7 +23,6 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
     columnCountTablet: content.column_count_tablet,
     isMasonry: !!content.masonry
   })
-  const dimensions = useWindowDimensions()
   const containerRef: RefObject<HTMLDivElement> = React.createRef()
   const [lightbox, setLightbox] = useState('')
 
@@ -100,7 +98,6 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
           elements: body,
           lightbox,
           setLightbox,
-          dimensions,
           onImageClick,
           className: classes.lightbox
         })}

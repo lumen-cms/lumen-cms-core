@@ -4,10 +4,10 @@ import { useInView } from 'react-intersection-observer'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
+import { useWindowWidth } from '@react-hook/window-size'
 import { getImageAttrs } from '../../utils/ImageService'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -48,8 +48,8 @@ type LmImageProps = {
 
 export default function LmImage({ content }: LmImageProps): JSX.Element {
   const classes = useStyles()
-  const winDims = useWindowDimensions()
-  const { isMobile } = winDims
+  const width = useWindowWidth()
+  const isMobile = width < 600
   const [loaded, setLoaded] = useState<boolean>(false)
   const imageCrop = content.image_crop || []
   const property = content.property || []
@@ -83,13 +83,13 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
     const square =
       property.includes('rounded-circle') || property.includes('square')
     let definedWidth = content.width
-    const width = Math.ceil(parentDim.width || winDims.width)
+    const w = Math.ceil(parentDim.width || width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
       definedWidth =
         definedWidth || (parentDim.height / parentDim.width) * 100 > 300
           ? grandParentDim.width
-          : width
+          : w
     }
     if (square) {
       // overwrite if square

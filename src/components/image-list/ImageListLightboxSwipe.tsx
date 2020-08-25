@@ -2,12 +2,12 @@ import React from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
+import { useWindowSize } from '@react-hook/window-size'
 import {
   getImageAttrs,
   getOriginalImageDimensions
 } from '../../utils/ImageService'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
-import { WithWindowDimensionsProps } from '../provider/context/WindowDimensionContext'
 import InvertedIndicator from '../slider/InvertedIndicator'
 
 export type ImageListLightboxProps = {
@@ -15,18 +15,18 @@ export type ImageListLightboxProps = {
   lightbox: string
   setLightbox: Function
   onImageClick: Function
-  dimensions: WithWindowDimensionsProps
   className: string
 }
 
 function Swipe(props: ImageListLightboxProps): JSX.Element {
+  const [width, height] = useWindowSize()
   const currentIndex = props.elements.findIndex(
     (i) => i._uid === props.lightbox
   )
 
   function getImageSource(source: string) {
-    let dimensionHeight = props.dimensions.height - 68 - 16
-    let dimensionWidth = props.dimensions.width - 48
+    let dimensionHeight = height - 68 - 16
+    let dimensionWidth = width - 48
     const originalDimension = getOriginalImageDimensions(source)
     const imgWidth = originalDimension.width
     const imgHeight = originalDimension.height

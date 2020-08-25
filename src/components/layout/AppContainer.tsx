@@ -5,7 +5,6 @@ import {
   ComponentRenderProps,
   LinkRenderProps
 } from '../../typings/app'
-import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
 import AppSetupProvider from '../provider/AppSetupProvider'
 import GlobalTheme from '../global-theme/GlobalTheme'
 import AppProvider from '../provider/AppProvider'
@@ -31,16 +30,14 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
   }
   return (
     <AppProvider content={{ ...rest, ComponentRender, LinkRender }}>
-      <WindowDimensionsProvider>
-        <AppSetupProvider settings={settings} page={page}>
-          <GlobalTheme
-            settings={settings}
-            rightDrawerWidth={page?.right_drawer_width}
-          >
-            {children}
-          </GlobalTheme>
-        </AppSetupProvider>
-      </WindowDimensionsProvider>
+      <AppSetupProvider settings={settings} page={page}>
+        <GlobalTheme
+          settings={settings}
+          rightDrawerWidth={page?.right_drawer_width}
+        >
+          {children}
+        </GlobalTheme>
+      </AppSetupProvider>
     </AppProvider>
   )
 }

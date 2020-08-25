@@ -6,12 +6,12 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import clsx from 'clsx'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useWindowSize } from '@react-hook/window-size'
 import {
   BackgroundStoryblok,
   SectionStoryblok
 } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
 import { getImageAttrs } from '../../utils/ImageService'
 import ImageShadow from './ImageShadow'
 
@@ -56,7 +56,7 @@ function BackgroundImage({
   backgroundStyle
 }: BackgroundImageProps): JSX.Element | null {
   const classes = useStyles()
-  const { isDesktop, width, height } = useWindowDimensions()
+  const [width, height] = useWindowSize()
   const [imgSrc, setImgSrc] = useState<string | undefined>()
   const [viewRef, inView, anchorRef] = useInView(intersectionDefaultOptions)
   const theme = useTheme()
@@ -66,6 +66,7 @@ function BackgroundImage({
   if (!content.image) {
     return null
   }
+  const isDesktop = width >= 1280
   const { image } = content
   const disableSmartCrop = content.disable_smart_crop
   const imageFocalPoint = content.image_focal_point
