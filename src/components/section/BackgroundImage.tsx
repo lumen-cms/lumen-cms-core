@@ -55,10 +55,6 @@ function BackgroundImage({
   content,
   backgroundStyle,
 }: BackgroundImageProps): JSX.Element | null {
-  if (!content.image) {
-    return null
-  }
-  const { image } = content
   const classes = useStyles()
   const { isDesktop, width, height } = useWindowDimensions()
   const [imgSrc, setImgSrc] = useState<string | undefined>()
@@ -67,6 +63,10 @@ function BackgroundImage({
   const matches = useMediaQuery(
     theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs')
   )
+  if (!content.image) {
+    return null
+  }
+  const { image } = content
   const disableSmartCrop = content.disable_smart_crop
   const imageFocalPoint = content.image_focal_point
   let imageAttrs = { src: '', srcSet: '' }

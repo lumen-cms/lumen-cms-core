@@ -4,7 +4,7 @@ import {
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok,
 } from '../../typings/generated/components-schema'
-import { StorybookOptionProps } from '../core/storybook_typing'
+import { StorybookOptionProps } from '../core/storybook_typing.d'
 import { getUid } from '../core/various'
 import getKnobComponents from '../helpers/getKnobComponent'
 

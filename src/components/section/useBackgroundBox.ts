@@ -20,7 +20,8 @@ export type UseBackgroundPayload = {
 export default function useBackgroundBox(
   props: UseBackgroundProps
 ): UseBackgroundPayload {
-  let { background, variant } = props
+  let { background } = props
+  const { variant } = props
   const theme = useTheme()
   const styles = useShadowStyles()
 

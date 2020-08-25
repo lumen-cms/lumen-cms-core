@@ -1,6 +1,6 @@
 import React from 'react'
-import { HubspotMeetingStoryblok } from '../../typings/generated/components-schema'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
+import { HubspotMeetingStoryblok } from '../../typings/generated/components-schema'
 
 export type LmHubspotMeetingProps = {
   content: HubspotMeetingStoryblok
@@ -14,7 +14,7 @@ export function LmHubspotMeeting({
   const dataSrc = `https://app.hubspot.com/meetings/${
     content.meeting_name
   }?embed-true=${disableEmbed ? 'false' : 'true'}`
-  const [,status] = useScript(
+  const [, status] = useScript(
     content.meeting_name
       ? `https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=${new Date().getTime()}`
       : ''

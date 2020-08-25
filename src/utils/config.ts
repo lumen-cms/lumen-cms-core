@@ -34,5 +34,5 @@ export const CONFIG: AppConfigProps = {
   GA: process.env.NEXT_PUBLIC_GA,
   TAWKTO: process.env.NEXT_PUBLIC_TAWKTO,
   prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH,
-  overwriteComponents: {}
+  overwriteComponents: {},
 }

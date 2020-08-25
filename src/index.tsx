@@ -102,7 +102,7 @@ export {
   LmPlayer,
   LmToolbarSection,
   LmInstagramPost,
-  LmInstagramList
+  LmInstagramList,
 }
 
 export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
@@ -166,7 +166,7 @@ export const LmCoreComponentsNamed = {
   dialog: LmDialog,
   instagram_post: LmInstagramPost,
   instagram_list: LmInstagramList,
-  ...CONFIG.overwriteComponents
+  ...CONFIG.overwriteComponents,
 }
 
 export function LmDefaultApp(props: AppProps<AppPageProps>) {
@@ -190,7 +190,7 @@ export function LmStoryblokComponentRender(
       LmCoreComponentsNamed[content.component],
       {
         content,
-        ...rest
+        ...rest,
       }
     )
     if (isValidElement(CurrentElement)) {
@@ -226,7 +226,7 @@ export function LmComponentRender(
     return React.createElement(LmCoreComponentsNamed[content.component], {
       content,
       key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
-      ...rest
+      ...rest,
     })
   }
   return (
