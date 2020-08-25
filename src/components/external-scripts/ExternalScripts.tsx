@@ -3,7 +3,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { CONFIG } from '../../utils/config'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
-import useScript, { ScriptStatus } from '@charlietango/use-script'
+import useScript, { ScriptStatus } from '../../utils/hooks/useScript'
 
 type ExternalScriptsProps = { settings: GlobalStoryblok }
 

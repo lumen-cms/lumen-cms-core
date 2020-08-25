@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer'
 import fetcher from '../../utils/fetcher'
 import { InstagramPostStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import useScript from '@charlietango/use-script'
+import useScript from '../../utils/hooks/useScript'
 
 const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'
 

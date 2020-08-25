@@ -1,4 +1,4 @@
-import React, { FunctionComponentFactory, isValidElement } from 'react'
+import React, { Attributes, ComponentClass, FC, FunctionComponentFactory, isValidElement, ReactNode } from 'react'
 import SbEditable from 'storyblok-react'
 import { AppProps } from 'next/app'
 import { AppPageProps, ComponentRenderFuncProps } from './typings/app'
@@ -110,13 +110,18 @@ export { LmApp }
 export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'
 export { default as LmAppProvider } from './components/provider/AppProvider'
+export { AppContainer as LmAppContainer } from './components/layout/AppContainer'
 export { useAppContext } from './components/provider/context/AppContext'
 export { default as LmWindowDimensionProvider } from './components/provider/WindowDimensionsProvider'
 export { useWindowDimensions } from './components/provider/context/WindowDimensionContext'
 export { default as LmAppSetupProvider } from './components/provider/AppSetupProvider'
 export { useAppSetup } from './components/provider/context/AppSetupContext'
+export { default as useScript } from './utils/hooks/useScript'
+export type { ScriptStatus } from './utils/hooks/useScript'
 export { CONFIG }
-export const LmCoreComponentsNamed = {
+
+export type LmCoreComponentsType = { [k: string]: ReactNode | null }
+export const LmCoreComponents: LmCoreComponentsType = {
   page: LmPage,
   table: LmTable,
   accordion: LmAccordion,
@@ -165,8 +170,7 @@ export const LmCoreComponentsNamed = {
   toolbar_row_section: LmToolbarSection,
   dialog: LmDialog,
   instagram_post: LmInstagramPost,
-  instagram_list: LmInstagramList,
-  ...CONFIG.overwriteComponents
+  instagram_list: LmInstagramList
 }
 
 export function LmDefaultApp(props: AppProps<AppPageProps>) {
@@ -181,17 +185,17 @@ export function LmDefaultApp(props: AppProps<AppPageProps>) {
   )
 }
 
-export function LmStoryblokComponentRender(
+export function LmStoryblokComponentRender<P>(
   props: ComponentRenderFuncProps
 ): JSX.Element {
   const { content, i, ...rest } = props
-  if (typeof LmCoreComponentsNamed[content.component] !== 'undefined') {
+  if (typeof LmCoreComponents[content.component] !== 'undefined') {
     const CurrentElement = React.createElement(
-      LmCoreComponentsNamed[content.component],
+      LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,
       {
         content,
         ...rest
-      }
+      } as unknown as Attributes & P
     )
     if (isValidElement(CurrentElement)) {
       return (
@@ -217,17 +221,20 @@ export function LmStoryblokComponentRender(
   )
 }
 
-export function LmComponentRender(
+export function LmComponentRender<P>(
   props: ComponentRenderFuncProps
 ): JSX.Element {
   const { content, i, ...rest } = props
 
-  if (typeof LmCoreComponentsNamed[content.component] !== 'undefined') {
-    return React.createElement(LmCoreComponentsNamed[content.component], {
-      content,
-      key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
-      ...rest
-    })
+  if (typeof LmCoreComponents[content.component] !== 'undefined') {
+    return React.createElement(
+      LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,
+      {
+        content,
+        key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
+        ...rest
+      } as unknown as Attributes & P
+    )
   }
   return (
     <div style={{ color: 'red' }} key={content?._uid || `${i}`}>
