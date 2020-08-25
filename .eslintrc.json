@@ -3,6 +3,8 @@
     "airbnb-typescript-prettier"
   ],
   "rules": {
+    "radix": "off",
+    "no-underscore-dangle": "off",
     "react/prop-types": 0,
     "react/destructuring-assignment": 0,
     "react/static-property-placement": 0,
@@ -23,7 +25,8 @@
     "@typescript-eslint/explicit-function-return-type": 0
   },
   "ignorePatterns": [
-    "**/generated/*.tsx",
+    "./**/generated/*.tsx",
+    "./**/generated/*.ts",
     "./stories/**/*.*",
     "./example/**/*.*"
   ]

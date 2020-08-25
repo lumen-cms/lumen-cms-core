@@ -64,7 +64,9 @@
     "storyblok-js-client": "2.5.2",
     "storyblok-react": "0.1.1",
     "swr": "0.3.1",
-    "use-debounce": "3.4.3"
+    "use-debounce": "3.4.3",
+    "uuid": "^8.3.0",
+    "lorem-ipsum": "^2.0.3"
   },
   "peerDependencies": {
     "next": "^9.5.2",
@@ -98,7 +100,6 @@
     "jest": "^26.3.0",
     "eslint-config-airbnb-typescript-prettier": "3.1.0",
     "json-schema-to-typescript": "^9.1.1",
-    "lorem-ipsum": "^2.0.3",
     "next": "9.5.2",
     "np": "^6.4.0",
     "playwright": "1.3.0",
@@ -108,7 +109,6 @@
     "ts-jest": "^26.1.4",
     "tsdx": "^0.13.2",
     "tslib": "^2.0.1",
-    "typescript": "^3.9.7",
-    "uuid": "^8.3.0"
+    "typescript": "^3.9.7"
   }
 }
