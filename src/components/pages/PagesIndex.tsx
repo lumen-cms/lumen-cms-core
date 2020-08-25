@@ -2,11 +2,12 @@ import Error from 'next/error'
 import React, { useEffect } from 'react'
 import NProgress from 'nprogress'
 import { Router } from 'next/router'
-import { AppPageProps, ComponentRenderProps } from '../../typings/app'
+import { AppPageProps } from '../../typings/app'
 import AppSeo from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import { NotFound } from './404'
 import { CONFIG } from '../../utils/config'
+import { LmComponentRender } from '../CoreComponents'
 
 declare global {
   interface Window {
@@ -15,12 +16,10 @@ declare global {
   }
 }
 
-export type LmPagesIndexProps = AppPageProps & {
-  ComponentRender: ComponentRenderProps
-}
+export type LmPagesIndexProps = AppPageProps & {}
 
 export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
-  const { settings, page, error, locale, ComponentRender } = props
+  const { settings, page, error, locale } = props
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       NProgress.done()
@@ -71,7 +70,7 @@ export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
       />
       <Layout settings={settings}>
         {page ? (
-          <ComponentRender content={page} />
+          <LmComponentRender content={page} />
         ) : (
           <NotFound locale={locale} statusCode={404} />
         )}

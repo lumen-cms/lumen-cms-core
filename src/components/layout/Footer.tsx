@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { useGlobalState } from '../../utils/state/state'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { useAppSetup } from '../provider/context/AppSetupContext'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,11 +53,10 @@ type FooterProps = {
 
 function Footer({ settings }: FooterProps): JSX.Element {
   const content = (settings && settings.footer) || []
-  const { ComponentRender } = useAppContext()
 
   return (
     <FooterContainer>
-      {content.map((blok, i) => ComponentRender({ content: blok, i }))}
+      {content.map((blok, i) => LmComponentRender({ content: blok, i }))}
     </FooterContainer>
   )
 }

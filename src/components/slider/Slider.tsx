@@ -10,7 +10,7 @@ import { SectionProps } from '../section/Section'
 import { LmSliderChild } from './SliderChild'
 import InvertedIndicator from './InvertedIndicator'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const chunkArray = (myArray: Element[], chunkSize: number) => {
   const results = []
@@ -72,7 +72,6 @@ export type LmSliderProps = { content: SliderStoryblok }
 
 export function LmSlider({ content }: LmSliderProps): JSX.Element {
   const [slide, setSlide] = useState(0)
-  const { ComponentRender } = useAppContext()
   const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
   const wrapInColumns = content.slides_per_view && !isMobile
@@ -129,9 +128,9 @@ export function LmSlider({ content }: LmSliderProps): JSX.Element {
                   ...item,
                   presetVariant: content.section_variant || 'transparent'
                 }
-                return ComponentRender({ content: newOpts, i })
+                return LmComponentRender({ content: newOpts, i })
               }
-              return ComponentRender({ content: item, i })
+              return LmComponentRender({ content: item, i })
             })}
       </SwipeableViews>
       {/* eslint-disable-next-line */}

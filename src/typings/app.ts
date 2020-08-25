@@ -48,7 +48,4 @@ export type ComponentRenderFuncProps = {
   [k: string]: any
 }
 
-export type ComponentRenderProps = FunctionComponentFactory<
-  ComponentRenderFuncProps
->
 export type LinkRenderProps = FunctionComponentFactory<any>

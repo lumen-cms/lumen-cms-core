@@ -5,7 +5,7 @@ import {
   NavListStoryblok
 } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 type ListWidgetLinksProps = {
   items: AppApiRequestPayload['allStories']
@@ -18,8 +18,6 @@ function ListWidgetLinks({
   options,
   content
 }: ListWidgetLinksProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
-
   const listProps = {
     ...options,
     _uid: content._uid,
@@ -36,7 +34,7 @@ function ListWidgetLinks({
       return opts
     })
   }
-  return <ComponentRender content={listProps} />
+  return <LmComponentRender content={listProps} />
 }
 
 export default ListWidgetLinks

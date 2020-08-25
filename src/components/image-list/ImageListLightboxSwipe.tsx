@@ -2,7 +2,10 @@ import React from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
-import { getImageAttrs, getOriginalImageDimensions } from '../../utils/ImageService'
+import {
+  getImageAttrs,
+  getOriginalImageDimensions
+} from '../../utils/ImageService'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 import InvertedIndicator from '../slider/InvertedIndicator'
 

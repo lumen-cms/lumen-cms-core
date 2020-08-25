@@ -6,7 +6,7 @@ import { useWindowSize } from '@react-hook/window-size'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import FullscreenVideoBg from './FullscreenVideoBg'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const useStyles = makeStyles({
   videoSection: {
@@ -71,7 +71,6 @@ export type LmSectionVideoProps = { content: SectionVideoBgStoryblok }
 
 export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
   const classes = useStyles()
-  const { ComponentRender } = useAppContext()
   const theme = useTheme()
   const [width, height] = useWindowSize()
   const [intersectionRef, inView, intersectionElement] = useInView(
@@ -144,7 +143,7 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
             maxWidth={maxWidth as ContainerProps['maxWidth']}
           >
             {body.map((blok, i) =>
-              ComponentRender({
+              LmComponentRender({
                 content: blok,
                 i
               })

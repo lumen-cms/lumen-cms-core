@@ -7,7 +7,7 @@ import {
   GlobalStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
-import { useAppContext } from '../../provider/context/AppContext'
+import { LmComponentRender } from '../../CoreComponents'
 
 type ToolbarRowProps = {
   content: ToolbarRowStoryblok
@@ -17,7 +17,6 @@ type ToolbarRowProps = {
 function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
   const body = content.body || []
   const theme = useTheme()
-  const { ComponentRender } = useAppContext()
 
   if (content.is_system_bar) {
     const toolbarConfig = settings.toolbar_config || []
@@ -50,7 +49,7 @@ function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
             alignContent="center"
             alignItems="center"
           >
-            {body.map((p, i) => ComponentRender({ content: p, settings, i }))}
+            {body.map((p, i) => LmComponentRender({ content: p, settings, i }))}
           </Grid>
         </Container>
       </div>
@@ -64,7 +63,7 @@ function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
       className="h-100"
       alignItems="center"
     >
-      {body.map((p, i) => ComponentRender({ content: p, settings, i }))}
+      {body.map((p, i) => LmComponentRender({ content: p, settings, i }))}
     </Grid>
   )
 }

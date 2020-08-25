@@ -4,16 +4,17 @@ import clsx from 'clsx'
 import { LinkStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import { LmComponentRender } from '../CoreComponents'
 
 export type LmLinkProps = { content: LinkStoryblok }
 
 export function LmLink({ content }: LmLinkProps): JSX.Element {
-  const { ComponentRender, LinkRender } = useAppContext()
+  const { LinkRender } = useAppContext()
   if (!content.link?.cached_url) {
     return (
       <span className={clsx(content.class_names?.values)}>
         {(content.body || []).map((blok, i) =>
-          ComponentRender({ content: blok, i })
+          LmComponentRender({ content: blok, i })
         )}
       </span>
     )
@@ -31,7 +32,7 @@ export function LmLink({ content }: LmLinkProps): JSX.Element {
       className={clsx('lm-link__container', content.class_names?.values)}
     >
       {(content.body || []).map((blok, i) =>
-        ComponentRender({ content: blok, i })
+        LmComponentRender({ content: blok, i })
       )}
     </MuiLink>
   )

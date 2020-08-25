@@ -2,17 +2,16 @@ import React from 'react'
 import clsx from 'clsx'
 import Grid from '@material-ui/core/Grid'
 import TopAppBarWrap, { AppHeaderProps } from './TopAppBar'
-import { useAppContext } from '../../provider/context/AppContext'
 import {
   GlobalStoryblok,
   ToolbarNaviButtonStoryblok
 } from '../../../typings/generated/components-schema'
+import { LmComponentRender } from '../../CoreComponents'
 
 type HeaderSimpleProps = AppHeaderProps
 
 function HeaderSimple(props: HeaderSimpleProps): JSX.Element {
   const { settings } = props
-  const { ComponentRender } = useAppContext()
 
   const content: GlobalStoryblok = settings || ({} as GlobalStoryblok)
   const mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm'
@@ -20,12 +19,12 @@ function HeaderSimple(props: HeaderSimpleProps): JSX.Element {
   navRight.push({ component: 'toolbar_navi_button', is_right_drawer: true })
   return (
     <TopAppBarWrap {...props}>
-      <ComponentRender
+      <LmComponentRender
         content={
           { component: 'toolbar_navi_button' } as ToolbarNaviButtonStoryblok
         }
       />
-      <ComponentRender
+      <LmComponentRender
         content={{ component: 'toolbar_logo' }}
         settings={content}
       />
@@ -37,7 +36,7 @@ function HeaderSimple(props: HeaderSimpleProps): JSX.Element {
             [`d-${mobileNavBreakpoint}-inline-flex`]: true
           })}
         >
-          {navRight.map((blok, i) => ComponentRender({ content: blok, i }))}
+          {navRight.map((blok, i) => LmComponentRender({ content: blok, i }))}
         </Grid>
       )}
     </TopAppBarWrap>

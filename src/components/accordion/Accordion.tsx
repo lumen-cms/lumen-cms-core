@@ -3,7 +3,7 @@ import {
   AccordionItemStoryblok,
   AccordionStoryblok
 } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 export type LmAccordionProps = {
   content: AccordionStoryblok
@@ -11,12 +11,10 @@ export type LmAccordionProps = {
 
 export function LmAccordion({ content }: LmAccordionProps): JSX.Element {
   const [opened, setOpen] = useState<string>('')
-  const { ComponentRender } = useAppContext()
-  // console.log(ctx)
   return (
     <div className="lm-accordion">
       {(content.body || []).map((blok: AccordionItemStoryblok, iteration) =>
-        ComponentRender({
+        LmComponentRender({
           content: blok,
           options: content,
           opened,

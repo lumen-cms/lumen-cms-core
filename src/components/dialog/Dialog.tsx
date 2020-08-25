@@ -7,8 +7,8 @@ import Close from 'mdi-material-ui/Close'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Slide from '@material-ui/core/Slide'
-import { useAppContext } from '../provider/context/AppContext'
 import { DialogStoryblok } from '../../typings/generated/components-schema'
+import { LmComponentRender } from '../CoreComponents'
 
 const TransitionSlideUp = React.forwardRef((props, ref) => (
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -40,7 +40,6 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
     theme.breakpoints.down(content.fullscreen || 'sm')
   )
   const fullScreen = content.fullscreen ? mediaQueryResult : false
-  const { ComponentRender } = useAppContext()
   const [isOpen, setOpen] = useState<boolean>(false)
   if (!Array.isArray(content.trigger)) {
     console.warn('The Dialog has not a correct trigger element.')
@@ -60,7 +59,7 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
       {/* eslint-disable-next-line */}
       <a onClick={() => setOpen(true)} className={classes.trigger}>
         {content.trigger?.map((blok, i) =>
-          ComponentRender({ content: blok, i })
+          LmComponentRender({ content: blok, i })
         )}
       </a>
       <Dialog {...dialogProps}>
@@ -82,13 +81,13 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
         {content.no_padding ? (
           <>
             {content.body?.map((blok, i) =>
-              ComponentRender({ content: blok, i })
+              LmComponentRender({ content: blok, i })
             )}
           </>
         ) : (
           <DialogContent>
             {content.body?.map((blok, i) =>
-              ComponentRender({ content: blok, i })
+              LmComponentRender({ content: blok, i })
             )}
           </DialogContent>
         )}

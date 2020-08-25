@@ -1,14 +1,12 @@
 import React from 'react'
 import CardActions from '@material-ui/core/CardActions'
 import { CardListItemProps } from './cards'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 function CardListItemActions({
   options,
   content
 }: CardListItemProps): JSX.Element | null {
-  const { ComponentRender } = useAppContext()
-
   const cardActionsBody = content.card_actions_body || []
 
   if (!cardActionsBody.length) {
@@ -16,7 +14,9 @@ function CardListItemActions({
   }
   return (
     <CardActions disableSpacing={!!options.card_actions_disable_spacing}>
-      {cardActionsBody.map((blok, i) => ComponentRender({ content: blok, i }))}
+      {cardActionsBody.map((blok, i) =>
+        LmComponentRender({ content: blok, i })
+      )}
     </CardActions>
   )
 }

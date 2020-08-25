@@ -9,7 +9,7 @@ import {
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,7 +60,6 @@ export type LmGridRowProps = { content: RowStoryblok }
 
 export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
   // const theme = useTheme()
-  const { ComponentRender } = useAppContext()
   const classes = useStyles()
   const spacing = content.spacing
     ? (Number(content.spacing) as GridProps['spacing'])
@@ -98,7 +97,7 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
           <BackgroundElements elements={background.background_elements} />
         )}
       {content.body &&
-        content.body.map((blok, i) => ComponentRender({ content: blok, i }))}
+        content.body.map((blok, i) => LmComponentRender({ content: blok, i }))}
     </Grid>
   )
 }

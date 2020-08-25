@@ -7,7 +7,7 @@ import {
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const xsSpanMap = {
   1: 3,
@@ -54,7 +54,6 @@ export type LmGridColumnProps = { content: ColumnStoryblok }
 
 export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
   // const classes = useStyles(content)
-  const { ComponentRender } = useAppContext()
 
   const background: BackgroundStoryblok | undefined =
     (Array.isArray(content.background) &&
@@ -97,12 +96,12 @@ export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
         >
           {content.body &&
             content.body.map((blok, i) =>
-              ComponentRender({ content: blok, i })
+              LmComponentRender({ content: blok, i })
             )}
         </Grid>
       ) : (
         content.body &&
-        content.body.map((blok, i) => ComponentRender({ content: blok, i }))
+        content.body.map((blok, i) => LmComponentRender({ content: blok, i }))
       )}
     </Grid>
   )

@@ -9,9 +9,9 @@ import {
   AccordionItemStoryblok,
   AccordionStoryblok
 } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
-type LmAccordionItemProps = {
+export type LmAccordionItemProps = {
   content: AccordionItemStoryblok
   options: AccordionStoryblok
   opened: string
@@ -27,7 +27,6 @@ export function LmAccordionItem({
   iteration
 }: LmAccordionItemProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
-  const { ComponentRender } = useAppContext()
 
   const handleChange = (panel: string) => (
     _: React.ChangeEvent<{}>,
@@ -57,7 +56,7 @@ export function LmAccordionItem({
       <AccordionDetails>
         <div>
           {(content.body || []).map((blok, i) =>
-            ComponentRender({ content: blok, i })
+            LmComponentRender({ content: blok, i })
           )}
         </div>
       </AccordionDetails>

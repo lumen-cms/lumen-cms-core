@@ -5,7 +5,7 @@ import {
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 type ListWidgetCardsProps = {
   content: ListWidgetStoryblok
@@ -18,10 +18,8 @@ function ListWidgetCards({
   content,
   options
 }: ListWidgetCardsProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
-
   return (
-    <ComponentRender
+    <LmComponentRender
       content={{
         ...options,
         _uid: content._uid,

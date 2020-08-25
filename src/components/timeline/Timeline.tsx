@@ -1,8 +1,8 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import { TimelineStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
+import { LmTimelineProps } from './TimelineProps'
 
 const useStyles = makeStyles({
   container: {
@@ -12,18 +12,15 @@ const useStyles = makeStyles({
   }
 })
 
-export type LmTimelineProps = { content: TimelineStoryblok }
-
 export function LmTimeline({ content }: LmTimelineProps): JSX.Element {
   const classes = useStyles()
-  const { ComponentRender } = useAppContext()
 
   const body = content.body || []
   return (
     <div className="lm-timeline">
       <Grid container className={classes.container}>
         {body.map((blok, i) =>
-          ComponentRender({ content: blok, iteration: i, key: blok._uid, i })
+          LmComponentRender({ content: blok, iteration: i, key: blok._uid, i })
         )}
       </Grid>
     </div>

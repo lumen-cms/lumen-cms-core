@@ -2,13 +2,14 @@ import React, { RefObject, useState } from 'react'
 import GridList, { GridListProps } from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
+import { useWindowSize } from '@react-hook/window-size'
 import ImageListLightbox from './ImageListLightbox'
 import { ImageListStoryblok } from '../../typings/generated/components-schema'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-import { useWindowSize } from '@react-hook/window-size'
+import { LmComponentRender } from '../CoreComponents'
 
 export type LmImageListProps = {
   content: ImageListStoryblok
@@ -17,7 +18,7 @@ export type LmImageListProps = {
 export function LmImageList({ content }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
   const [width, height] = useWindowSize()
-  const { ComponentRender, LinkRender } = useAppContext()
+  const { LinkRender } = useAppContext()
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -70,12 +71,12 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
             const btnProps: any =
               item.link?.cached_url && !content.enable_lightbox
                 ? {
-                  ...getLinkAttrs(item.link as LinkType, {
-                    openExternal: !!item.open_external
-                  }),
-                  naked: true,
-                  component: LinkRender
-                }
+                    ...getLinkAttrs(item.link as LinkType, {
+                      openExternal: !!item.open_external
+                    }),
+                    naked: true,
+                    component: LinkRender
+                  }
                 : {}
             return (
               <GridListTile
@@ -89,22 +90,22 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
                   onImageClick({ _uid: item._uid, count: i, ...ev })
                 }
               >
-                {ComponentRender({ content: item, listProps: content })}
+                {LmComponentRender({ content: item, listProps: content })}
               </GridListTile>
             )
           })}
         </GridList>
       </div>
       {lightbox &&
-      ImageListLightbox({
-        elements: body,
-        lightbox,
-        setLightbox,
-        onImageClick,
-        className: classes.lightbox,
-        width,
-        height
-      })}
+        ImageListLightbox({
+          elements: body,
+          lightbox,
+          setLightbox,
+          onImageClick,
+          className: classes.lightbox,
+          width,
+          height
+        })}
     </div>
   )
 }

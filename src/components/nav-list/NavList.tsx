@@ -26,7 +26,9 @@ const useStyles = makeStyles({
   }
 })
 
-export type LmNavListProps = { content: NavListStoryblok }
+export type LmNavListProps = {
+  content: NavListStoryblok
+}
 
 export function LmNavList({ content }: LmNavListProps): JSX.Element {
   const classes = useStyles()

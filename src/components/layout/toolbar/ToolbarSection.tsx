@@ -8,7 +8,7 @@ import {
   GlobalStoryblok,
   ToolbarRowSectionStoryblok
 } from '../../../typings/generated/components-schema'
-import { useAppContext } from '../../provider/context/AppContext'
+import { LmComponentRender } from '../../CoreComponents'
 
 const ToolbarSectionContainer: FunctionComponent<{
   content: ToolbarRowSectionStoryblok
@@ -52,10 +52,9 @@ export function LmToolbarSection({
   content
 }: LmToolbarSectionProps): JSX.Element {
   const body = content.body || []
-  const { ComponentRender } = useAppContext()
   return (
     <ToolbarSectionContainer content={content}>
-      {body.map((blok, i) => ComponentRender({ content: blok, settings, i }))}
+      {body.map((blok, i) => LmComponentRender({ content: blok, settings, i }))}
     </ToolbarSectionContainer>
   )
 }

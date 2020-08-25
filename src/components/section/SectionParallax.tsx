@@ -1,4 +1,4 @@
-import { ParallaxBanner, BannerLayer } from 'react-scroll-parallax'
+import { BannerLayer, ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
@@ -11,6 +11,7 @@ import { SectionParallaxStoryblok } from '../../typings/generated/components-sch
 
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const useStyles = makeStyles({
   parallax: {
@@ -30,7 +31,6 @@ export type LmSectionParallaxProps = { content: SectionParallaxStoryblok }
 export function LmSectionParallax({
   content
 }: LmSectionParallaxProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
   const classes = useStyles()
   const [refIntersectionObserver, inView, refElement] = useInView(
     intersectionDefaultOptions
@@ -71,7 +71,7 @@ export function LmSectionParallax({
           children:
             item.children &&
             item.children.length &&
-            ComponentRender({ content: item.children[0], i })
+            LmComponentRender({ content: item.children[0], i })
         }
       })
       Promise.all(items).then((lyrs) => {
@@ -90,7 +90,6 @@ export function LmSectionParallax({
     height,
     elements,
     contentHeight,
-    ComponentRender,
     disableLazyLoad,
     refElement
   ])
@@ -117,7 +116,7 @@ export function LmSectionParallax({
             content.class_names && content.class_names.values
           )}
         >
-          {body.map((blok, i) => ComponentRender({ content: blok, i }))}
+          {body.map((blok, i) => LmComponentRender({ content: blok, i }))}
         </div>
       </ParallaxBanner>
     </div>

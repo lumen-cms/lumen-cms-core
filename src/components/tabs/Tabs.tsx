@@ -11,7 +11,7 @@ import {
   TabsItemStoryblok,
   TabsStoryblok
 } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {
@@ -55,7 +55,6 @@ export function LmTabs({ content }: LmTabsProps): JSX.Element {
   const isMobile = useMediaQuery(
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')
   )
-  const { ComponentRender } = useAppContext()
 
   const classes = useStyles()
   const [activeTab, setActiveTab] = useState(0)
@@ -143,7 +142,7 @@ export function LmTabs({ content }: LmTabsProps): JSX.Element {
               <div key={`content_${tab._uid}`}>
                 {tab.body &&
                   tab.body.map((blok, i) =>
-                    ComponentRender({ content: blok, i })
+                    LmComponentRender({ content: blok, i })
                   )}
               </div>
             ))}
