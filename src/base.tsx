@@ -60,7 +60,7 @@ export {
   LmMotion,
   LmAccordionItem,
   LmImageListItem,
-  LmPlayer,
+  LmPlayer
 }
 
 // export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
@@ -104,7 +104,7 @@ export const LmCoreComponentsNamed = {
   avatar: LmAvatar,
   date_headline: LmDateHeadline,
   motion: LmMotion,
-  player: LmPlayer,
+  player: LmPlayer
 }
 
 export function LmComponentRender(
@@ -116,7 +116,7 @@ export function LmComponentRender(
     return React.createElement(LmCoreComponentsNamed[content.component], {
       content,
       key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
-      ...rest,
+      ...rest
     })
   }
   return (

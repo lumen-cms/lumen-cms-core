@@ -17,7 +17,7 @@ export function LmHeadline({ content }: LmHeadlineProps): JSX.Element {
         content.style_props,
         content.class_names && content.class_names.values,
         {
-          [`lm-font-${content.font}`]: content.font,
+          [`lm-font-${content.font}`]: content.font
         }
       )}
       component={component as ElementType}
@@ -32,7 +32,7 @@ export function LmHeadline({ content }: LmHeadlineProps): JSX.Element {
         fontSize: content.font_size ? content.font_size : undefined,
         letterSpacing: content.letter_spacing
           ? content.letter_spacing
-          : undefined,
+          : undefined
       }}
       variant={
         mapTypographyVariant[

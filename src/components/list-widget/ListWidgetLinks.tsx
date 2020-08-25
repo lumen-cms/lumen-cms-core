@@ -2,7 +2,7 @@ import React from 'react'
 import {
   ListWidgetStoryblok,
   NavItemStoryblok,
-  NavListStoryblok,
+  NavListStoryblok
 } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
 import { useAppContext } from '../provider/context/AppContext'
@@ -16,7 +16,7 @@ type ListWidgetLinksProps = {
 function ListWidgetLinks({
   items,
   options,
-  content,
+  content
 }: ListWidgetLinksProps): JSX.Element {
   const { ComponentRender } = useAppContext()
 
@@ -30,11 +30,11 @@ function ListWidgetLinks({
         name: (item.content && (item.content.preview_title || item.name)) || '',
         link: {
           cached_url: item.full_slug,
-          linktype: 'story',
-        },
+          linktype: 'story'
+        }
       }
       return opts
-    }),
+    })
   }
   return <ComponentRender content={listProps} />
 }

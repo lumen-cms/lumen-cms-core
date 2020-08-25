@@ -14,7 +14,7 @@ type DrawerContainerProps = {
 }
 const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   children,
-  backgroundProps,
+  backgroundProps
 }) => {
   const classes = useStyles()
   const router = useRouter()
@@ -27,7 +27,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   )
 
   const drawerProps: DrawerProps = {
-    variant: appSetup.drawerVariant,
+    variant: appSetup.drawerVariant
   }
 
   useEffect(() => {
@@ -43,17 +43,17 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
       className={clsx('lm-main__drawer', classes.leftDrawer, {
         [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
         [classes.belowToolbar]: appSetup.drawerBelowToolbar,
-        [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile,
+        [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile
       })}
       classes={{
         paper: clsx('lm-main__drawer', classList, classes.leftDrawer, {
           [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
           [classes.belowToolbar]: appSetup.drawerBelowToolbar,
-          [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile,
-        }),
+          [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile
+        })
       }}
       PaperProps={{
-        style: backgroundProps?.style ? backgroundProps.style : undefined,
+        style: backgroundProps?.style ? backgroundProps.style : undefined
       }}
       onClose={() => setOpen(false)}
       {...drawerProps}

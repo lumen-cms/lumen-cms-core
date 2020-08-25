@@ -15,24 +15,24 @@ const useStyles = makeStyles((theme: Theme) =>
         height: theme.toolbar.height.custom
           ? Math.round(theme.toolbar.height.custom * 0.86) +
             theme.toolbar.height.systemBar
-          : theme.toolbar.height.landscape + theme.toolbar.height.systemBar,
+          : theme.toolbar.height.landscape + theme.toolbar.height.systemBar
       },
       [theme.breakpoints.up('sm')]: {
         height: theme.toolbar.height.custom
           ? Math.round(theme.toolbar.height.custom * 1.15) +
             theme.toolbar.height.systemBar
-          : theme.toolbar.height.desktop + theme.toolbar.height.systemBar,
+          : theme.toolbar.height.desktop + theme.toolbar.height.systemBar
       },
       '&.lm-scrolled': {
         height: theme.toolbar.height.mobile,
         [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-          height: theme.toolbar.height.landscape, // + theme.toolbar.height.systemBar
+          height: theme.toolbar.height.landscape // + theme.toolbar.height.systemBar
         },
         [theme.breakpoints.up('sm')]: {
-          height: theme.toolbar.height.desktop, // + theme.toolbar.height.systemBar
-        },
-      },
-    },
+          height: theme.toolbar.height.desktop // + theme.toolbar.height.systemBar
+        }
+      }
+    }
   })
 )
 
@@ -46,7 +46,7 @@ function ContentSpace(): JSX.Element {
       className={clsx('lm-content-space', classes.contentSpace, {
         'lm-scrolled':
           scrolledWithoutHysteresis &&
-          (appSetup.toolbarMainHeight || appSetup.hasFeatureImage),
+          (appSetup.toolbarMainHeight || appSetup.hasFeatureImage)
       })}
     />
   )

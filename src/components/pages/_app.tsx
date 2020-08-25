@@ -3,7 +3,7 @@ import { AppProps } from 'next/app'
 import {
   AppPageProps,
   ComponentRenderProps,
-  LinkRenderProps,
+  LinkRenderProps
 } from '../../typings/app'
 import { AppContainer } from '../layout/AppContainer'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
@@ -21,7 +21,7 @@ export function LmApp({
   pageProps,
   ComponentRender,
   LinkRender,
-  router,
+  router
 }: LmAppProps) {
   const { locale, settings, page } = pageProps as AppPageProps
 
@@ -49,6 +49,7 @@ export function LmApp({
 
   useEffect(() => {
     StoryblokService.initEditor({ page, setPage, settings, setSettings })
+    /* eslint-disable-next-line */
   }, [])
 
   if (locale && getGlobalState('locale') !== locale) {
@@ -65,7 +66,7 @@ export function LmApp({
   const appProps = {
     ...pageProps,
     page: statePage,
-    settings: stateSettings,
+    settings: stateSettings
   }
   return (
     <AppContainer

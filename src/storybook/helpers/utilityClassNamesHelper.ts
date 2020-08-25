@@ -8,7 +8,7 @@ const generateUtilityClassNames = (): string[] => {
     '.fonts-loaded',
     '.embed-responsive',
     '.embed-responsive-item',
-    '.material-icons',
+    '.material-icons'
   ]
   const classNames: string[] = []
   Object.keys(globalStyles['@global']).forEach((key: string) => {

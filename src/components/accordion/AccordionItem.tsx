@@ -7,7 +7,7 @@ import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
 import {
   AccordionItemStoryblok,
-  AccordionStoryblok,
+  AccordionStoryblok
 } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 
@@ -24,7 +24,7 @@ export function LmAccordionItem({
   options,
   setOpen,
   opened,
-  iteration,
+  iteration
 }: LmAccordionItemProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
   const { ComponentRender } = useAppContext()

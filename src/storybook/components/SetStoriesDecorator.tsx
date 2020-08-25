@@ -12,12 +12,12 @@ interface StorybookState {
 }
 
 const storybookDefault: StorybookState = {
-  allTags: [],
+  allTags: []
 }
 export const {
   setGlobalState,
   useGlobalState,
-  getGlobalState,
+  getGlobalState
 } = createGlobalState(storybookDefault)
 
 const SetStoriesDecorator = (Story: StoryType) => {
@@ -32,9 +32,9 @@ const SetStoriesDecorator = (Story: StoryType) => {
           sort_by: 'content.name:asc',
           filter_query: {
             component: {
-              in: 'category',
-            },
-          },
+              in: 'category'
+            }
+          }
         }),
         StoryblokService.getAll(`cdn/stories`, {
           per_page: 100,
@@ -43,11 +43,11 @@ const SetStoriesDecorator = (Story: StoryType) => {
           sort_by: 'published_at:desc',
           filter_query: {
             component: {
-              in: 'page',
-            },
-          },
+              in: 'page'
+            }
+          }
         }),
-        StoryblokService.get('cdn/tags'),
+        StoryblokService.get('cdn/tags')
       ])
       const tagList =
         (tags &&
@@ -55,7 +55,7 @@ const SetStoriesDecorator = (Story: StoryType) => {
           tags.data.tags.map(
             (item: { name: string; taggings_count: number }) => ({
               value: item.name,
-              label: `${item.name} (${item.taggings_count})`,
+              label: `${item.name} (${item.taggings_count})`
             })
           )) ||
         []
@@ -63,10 +63,10 @@ const SetStoriesDecorator = (Story: StoryType) => {
       setLoaded(true)
       setValues({
         listWidgetData: {
-          storyblok_list: stories,
+          storyblok_list: stories
         },
         allCategories: categories,
-        allStaticContent: [],
+        allStaticContent: []
       })
     }
 

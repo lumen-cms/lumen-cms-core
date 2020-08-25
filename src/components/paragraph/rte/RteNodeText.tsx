@@ -13,7 +13,7 @@ const InlineClassMapping = {
   code: 'text-code',
   italic: 'font-italic',
   link: 'text-link',
-  styled: '',
+  styled: ''
 }
 
 type RteNodeTextProps = { content: RteContentProps }
@@ -36,12 +36,12 @@ function RteNodeText({ content }: RteNodeTextProps): JSX.Element {
         ...getLinkAttrs(
           {
             cached_url: link.attrs.href,
-            linktype: link.attrs.linktype,
+            linktype: link.attrs.linktype
           },
           {}
         ),
         naked: true,
-        component: LinkRender,
+        component: LinkRender
       }
       return <MuiLink {...btnProps}>{content.text}</MuiLink>
     }

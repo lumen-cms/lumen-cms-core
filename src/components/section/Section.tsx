@@ -16,23 +16,23 @@ const useStyles = makeStyles({
   fullHeight: {
     width: '100%',
     height: '100%',
-    minHeight: '100vh',
+    minHeight: '100vh'
   },
   background: {
     position: 'relative',
     overflow: 'hidden',
     '& .MuiGrid-root': {
-      position: 'relative',
-    },
+      position: 'relative'
+    }
   },
   dark: {
     '& .MuiButton-root.lm-default-color, & .MuiIconButton-root.lm-default-color': {
       color: 'inherit',
       '&.MuiButton-outlined,&.lm-outlined': {
-        borderColor: 'currentColor',
-      },
-    },
-  },
+        borderColor: 'currentColor'
+      }
+    }
+  }
 })
 
 export type LmSectionProps = {
@@ -47,7 +47,7 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
   const background = Array.isArray(content.background) && content.background[0]
   const { style, className } = useBackgroundBox({
     variant: content.variant,
-    background,
+    background
   })
   const body = content.body || []
   const containerStyles: CSSProperties = {}
@@ -94,7 +94,7 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
         style={containerStyles}
         maxWidth={maxWidth as ContainerProps['maxWidth']}
         className={clsx(className, {
-          [classes.fullHeight]: isFullHeight,
+          [classes.fullHeight]: isFullHeight
         })}
       >
         {body.map((blok, i) => ComponentRender({ content: blok, i }))}

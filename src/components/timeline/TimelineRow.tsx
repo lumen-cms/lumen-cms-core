@@ -4,12 +4,12 @@ import {
   createStyles,
   makeStyles,
   Theme,
-  useTheme,
+  useTheme
 } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import TimelineRowItem from './TimelineRowItem'
 import { TimelineItemStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
+import { TimelineRowItem } from './TimelineRowItem'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,19 +17,19 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
     },
     line: {
       position: 'absolute',
       left: 'calc(50% - 1px)',
       width: '2px',
       height: '100%',
-      backgroundColor: theme.palette.grey.A100,
+      backgroundColor: theme.palette.grey.A100
     },
     iconContainer: {
       zIndex: 0,
-      margin: '0 !important',
-    },
+      margin: '0 !important'
+    }
   })
 )
 
@@ -40,7 +40,7 @@ export type LmTimelineItemProps = {
 
 export function LmTimelineItem({
   content,
-  iteration,
+  iteration
 }: LmTimelineItemProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()

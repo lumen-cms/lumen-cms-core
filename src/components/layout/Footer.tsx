@@ -10,19 +10,19 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     footer: {
       position: 'relative',
-      zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer + 1
     },
     leftShift: {
       marginLeft: theme.drawer.left,
       width: `calc(100% - ${theme.drawer.left})`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: theme.transitions.duration.leavingScreen
       }),
       [theme.breakpoints.only('xs')]: {
-        marginLeft: 0,
-      },
-    },
+        marginLeft: 0
+      }
+    }
   })
 )
 
@@ -38,7 +38,7 @@ const FooterContainer: FunctionComponent = ({ children }) => {
         [classes.leftShift]: hasLeftShift,
         [classes[
           `left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`
-        ]]: hasLeftShift,
+        ]]: hasLeftShift
       })}
     >
       {children}

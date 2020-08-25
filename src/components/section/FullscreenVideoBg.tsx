@@ -35,7 +35,7 @@ function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
     playsinline: properties.includes('playsinline'),
     light: content.fallback_image || properties.includes('light'),
     onError: () => setError(true),
-    volume: muted ? 0 : undefined,
+    volume: muted ? 0 : undefined
   }
 
   // calculate video container to fit into available space
@@ -81,7 +81,7 @@ function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
           content={{
             image: content.fallback_image,
             _uid: `bg_fallback_${content._uid}`,
-            component: 'background',
+            component: 'background'
           }}
         />
       )}

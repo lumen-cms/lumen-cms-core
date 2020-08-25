@@ -1,20 +1,21 @@
-// @ts-ignore
 import {
   boolean,
   color,
   number,
   optionsKnob,
   select,
-  text,
+  text
 } from '@storybook/addon-knobs'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import COMPONENT_JSON from '../../../components.80001.json'
-import { allImageOptions, getUid } from '../core/various'
 import { classNameOpts } from './utilityClassNamesHelper'
 import iconObj from './iconListHelper'
 import { getGlobalState } from '../components/SetStoriesDecorator'
+import { allImageOptions, getUid } from '../core/sharedFunctions'
 
-export const camelizeString = (text: string, separator = '_') =>
-  text
+export const camelizeString = (txt: string, separator = '_') =>
+  txt
     .split(separator)
     .map((w) => w.replace(/./, (m: string) => m.toUpperCase()))
     .join(' ')
@@ -44,7 +45,7 @@ const getKnobComponents = ({
   componentName,
   options = {},
   knob,
-  count = '',
+  count = ''
 }: {
   componentName: any
   options?: any
@@ -61,7 +62,7 @@ const getKnobComponents = ({
   }
   const obj = {
     component: componentName,
-    _uid: getUid(),
+    _uid: getUid()
   }
   Object.keys(schema).forEach((schemaKey) => {
     const currentSchema = schema[schemaKey]
@@ -122,7 +123,7 @@ const getKnobComponents = ({
           (options[schemaKey] && options[schemaKey].name) || undefined,
           { display: 'select' },
           knob || camelizeString(componentName)
-        ),
+        )
       }
     } else if (currentSchema.field_type === 'vue-color-picker') {
       obj[schemaKey] = {
@@ -130,7 +131,7 @@ const getKnobComponents = ({
           name,
           (options[schemaKey] && options[schemaKey].rgba) || undefined,
           knob || camelizeString(componentName)
-        ),
+        )
       }
     } else if (
       currentSchema.field_type === 'bootstrap-utility-class-selector'
@@ -142,13 +143,13 @@ const getKnobComponents = ({
           (options[schemaKey] && options[schemaKey].values) || [],
           { display: 'multi-select' },
           knob || camelizeString(componentName)
-        ),
+        )
       }
     } else if (currentSchema.field_type === 'tags-select') {
       if (!Object.keys(allTags).length) {
-        getGlobalState('allTags').forEach(
-          (item) => (allTags[item.label] = item.value)
-        )
+        getGlobalState('allTags').forEach((item) => {
+          allTags[item.label] = item.value
+        })
       }
       obj[schemaKey] = {
         values: optionsKnob(
@@ -157,7 +158,7 @@ const getKnobComponents = ({
           (options[schemaKey] && options[schemaKey].values) || [],
           { display: 'multi-select' },
           knob || camelizeString(componentName)
-        ),
+        )
       }
     } else if (
       ['bloks', 'section', 'tab', 'richtext', 'multilink', 'file'].includes(

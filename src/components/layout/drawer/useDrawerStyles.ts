@@ -5,19 +5,19 @@ export const useStyles = makeStyles((theme: Theme) =>
     leftDrawer: {
       width: theme.drawer.left,
       '& a': {
-        color: 'inherit',
-      },
+        color: 'inherit'
+      }
     },
     aboveToolbar: {
-      zIndex: theme.zIndex.drawer + 2,
+      zIndex: theme.zIndex.drawer + 2
     },
     belowToolbar: {
-      zIndex: theme.zIndex.appBar - 1,
+      zIndex: theme.zIndex.appBar - 1
     },
     fullWidthMobile: {
       [theme.breakpoints.only('xs')]: {
-        width: '100%',
-      },
-    },
+        width: '100%'
+      }
+    }
   })
 )

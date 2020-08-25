@@ -8,7 +8,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import {
   BackgroundStoryblok,
-  SectionStoryblok,
+  SectionStoryblok
 } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { useWindowDimensions } from '../provider/context/WindowDimensionContext'
@@ -31,18 +31,18 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundAttachment: 'fixed',
         // backgroundSize: 'initial', // not sure why this was set before
         '&.lm-fixed-bg__top': {
-          backgroundPosition: 'top',
+          backgroundPosition: 'top'
         },
         [`${theme.breakpoints.down('sm')}and (orientation: portrait)`]: {
           backgroundPosition: 'center',
-          backgroundAttachment: 'scroll',
+          backgroundAttachment: 'scroll'
         },
         [`${theme.breakpoints.down('sm')}and (orientation: landscape)`]: {
           backgroundPosition: 'center',
-          backgroundAttachment: 'scroll',
-        },
-      },
-    },
+          backgroundAttachment: 'scroll'
+        }
+      }
+    }
   })
 )
 
@@ -53,12 +53,8 @@ type BackgroundImageProps = {
 
 function BackgroundImage({
   content,
-  backgroundStyle,
+  backgroundStyle
 }: BackgroundImageProps): JSX.Element | null {
-  if (!content.image) {
-    return null
-  }
-  const { image } = content
   const classes = useStyles()
   const { isDesktop, width, height } = useWindowDimensions()
   const [imgSrc, setImgSrc] = useState<string | undefined>()
@@ -67,6 +63,10 @@ function BackgroundImage({
   const matches = useMediaQuery(
     theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs')
   )
+  if (!content.image) {
+    return null
+  }
+  const { image } = content
   const disableSmartCrop = content.disable_smart_crop
   const imageFocalPoint = content.image_focal_point
   let imageAttrs = { src: '', srcSet: '' }
@@ -96,7 +96,7 @@ function BackgroundImage({
       width: currentWidth,
       height: currentHeight,
       smart: !disableSmartCrop,
-      focalPoint: !isAlternativeSource ? imageFocalPoint : undefined,
+      focalPoint: !isAlternativeSource ? imageFocalPoint : undefined
     })
   }
 
@@ -126,7 +126,7 @@ function BackgroundImage({
               backgroundStyle === 'fixed_image' ||
               backgroundStyle === 'fixed_cover',
             'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
-            'lm-fixed-bg__center': backgroundStyle === 'fixed_cover',
+            'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
           })}
           style={{
             backgroundImage: imgSrc && `url('${imgSrc}')`,
@@ -135,7 +135,7 @@ function BackgroundImage({
               : undefined,
             backgroundPosition: content.background_position
               ? content.background_position
-              : undefined,
+              : undefined
           }}
           ref={viewRef}
         />

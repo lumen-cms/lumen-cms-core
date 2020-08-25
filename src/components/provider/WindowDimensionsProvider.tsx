@@ -4,13 +4,23 @@ import deviceDetect from '../../utils/deviceDetect'
 import {
   defaultWindowsProvider,
   WindowDimensionsCtx,
-  WithWindowDimensionsProps,
+  WithWindowDimensionsProps
 } from './context/WindowDimensionContext'
 
 const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
   const [dimensions, setDimensions] = useState<WithWindowDimensionsProps>(
     defaultWindowsProvider
   )
+  const getWindowDimensions = () => {
+    const opts = {
+      ...dimensions,
+      height: window.innerHeight,
+      width: window.innerWidth,
+      isTabletWidth: window.innerWidth >= 600 && window.innerWidth < 960
+    }
+    return opts
+  }
+
   const [debouncedCallback] = useDebouncedCallback(
     // function
     () => {
@@ -22,27 +32,18 @@ const WindowDimensionsProvider: FunctionComponent = ({ children }) => {
 
   useEffect(() => {
     if (typeof window === 'undefined') {
-      return
+      return undefined
     }
     setDimensions({
       ...getWindowDimensions(),
-      ...deviceDetect(),
+      ...deviceDetect()
     })
     window.addEventListener('resize', debouncedCallback)
     return () => {
       window.removeEventListener('resize', debouncedCallback)
     }
+    /* eslint-disable-next-line */
   }, [])
-
-  function getWindowDimensions() {
-    const opts = {
-      ...dimensions,
-      height: window.innerHeight,
-      width: window.innerWidth,
-      isTabletWidth: window.innerWidth >= 600 && window.innerWidth < 960,
-    }
-    return opts
-  }
 
   return (
     <WindowDimensionsCtx.Provider value={dimensions}>

@@ -19,13 +19,13 @@ const useStyles = makeStyles({
       position: 'relative',
       borderTopWidth: '1px',
       borderTopStyle: 'solid',
-      borderColor: 'transparent',
+      borderColor: 'transparent'
     },
     '& div > span:before': {
-      right: '100%',
+      right: '100%'
     },
     '& div > span:after': {
-      left: '100%',
+      left: '100%'
     },
     '& div > span:before, & div > span:after': {
       content: '""',
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
       width: '2000px',
       borderTopWidth: 'inherit',
       borderTopStyle: 'solid',
-      borderColor: 'currentColor',
+      borderColor: 'currentColor'
     },
     '& div > span': {
       display: 'inline-block',
@@ -50,25 +50,25 @@ const useStyles = makeStyles({
       borderTopStyle: 'solid',
 
       '&> .material-icons': {
-        color: 'inherit',
-      },
-    },
+        color: 'inherit'
+      }
+    }
   },
   hSeparatorIcon: {
     height: '24px',
     textAlign: 'center',
     '&.large': {
-      height: '32px',
+      height: '32px'
     },
     '& div > div > i': {
       '&:before': {
-        marginRight: '15px',
+        marginRight: '15px'
       },
       '&:after': {
-        marginLeft: '15px',
-      },
-    },
-  },
+        marginLeft: '15px'
+      }
+    }
+  }
 })
 
 const DividerContainer: FunctionComponent<{
@@ -103,7 +103,7 @@ export function LmDivider({ content }: LmDividerProps): JSX.Element {
     content.class_names && content.class_names.values
   )
   const childStyle: CSSProperties = {
-    borderTopWidth: `${content.thickness || 1}px`,
+    borderTopWidth: `${content.thickness || 1}px`
   }
   if (content.width) {
     childStyle.width = `${content.width}%`
@@ -122,7 +122,7 @@ export function LmDivider({ content }: LmDividerProps): JSX.Element {
                 iconName={iconName}
                 style={{
                   fontSize: `${iconSize}px`,
-                  marginTop: `${content.thickness || 1}px`,
+                  marginTop: `${content.thickness || 1}px`
                 }}
               />
             </span>

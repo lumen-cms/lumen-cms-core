@@ -7,12 +7,12 @@ export const useRichTextStyles = makeStyles((theme: Theme) =>
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1),
         '&:first-child': {
-          marginTop: 0,
+          marginTop: 0
         },
         '&:last-child': {
-          marginBottom: 0,
-        },
-      },
-    },
+          marginBottom: 0
+        }
+      }
+    }
   })
 )

@@ -13,34 +13,34 @@ const useStyles = makeStyles({
     overflow: 'visible',
     flexGrow: 1,
     '& .MuiGridListTile-tile': {
-      overflow: 'visible',
+      overflow: 'visible'
     },
     '&.card__text_align_center .MuiCardMedia-root .MuiCardContent-root': {
-      textAlign: 'center',
+      textAlign: 'center'
     },
     '&.card__text_align_right .MuiCardMedia-root .MuiCardContent-root': {
-      textAlign: 'right',
+      textAlign: 'right'
     },
     '&.card__text_center .MuiCardMedia-root .MuiCardContent-root': {
-      justifyContent: 'center',
+      justifyContent: 'center'
     },
     '&.card__text_top_bottom .MuiCardMedia-root .MuiCardContent-root': {
-      justifyContent: 'space-between',
+      justifyContent: 'space-between'
     },
     '&.card__text_bottom .MuiCardMedia-root .MuiCardContent-root': {
-      justifyContent: 'flex-end',
+      justifyContent: 'flex-end'
     },
     '& .MuiCardMedia-root': {
-      paddingBottom: '56.25%', // add ratio variants
+      paddingBottom: '56.25%' // add ratio variants
     },
     '&.ratio-1x1 .MuiCardMedia-root': {
-      paddingBottom: '100%', // add ratio variants
+      paddingBottom: '100%' // add ratio variants
     },
     '&.ratio-4x3 .MuiCardMedia-root': {
-      paddingBottom: '75%', // add ratio variants
+      paddingBottom: '75%' // add ratio variants
     },
     '&.ratio-3x2 .MuiCardMedia-root': {
-      paddingBottom: '66.66%', // add ratio variants
+      paddingBottom: '66.66%' // add ratio variants
     },
     '&.card__over_media .MuiCardMedia-root': {
       position: 'relative',
@@ -50,10 +50,10 @@ const useStyles = makeStyles({
         width: '100%',
         height: '100%',
         display: 'flex',
-        flexDirection: 'column',
-      },
-    },
-  },
+        flexDirection: 'column'
+      }
+    }
+  }
 })
 
 export type LmCardListProps = { content: CardListStoryblok }
@@ -63,17 +63,17 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
 
   const {
     body,
-    column_gap,
-    column_count,
-    column_count_phone,
-    column_count_tablet,
+    // column_gap,
+    // column_count,
+    // column_count_phone,
+    // column_count_tablet,
     ...rest
   } = content
   const classes = useStyles(content)
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,
-    columnCountTablet: content.column_count_tablet,
+    columnCountTablet: content.column_count_tablet
   })
   const gutterSize = content.column_gap ? Number(content.column_gap) : 24
 
@@ -83,13 +83,13 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
   return (
     <div
       style={{
-        padding: `${gutterSize / 2}px`,
+        padding: `${gutterSize / 2}px`
       }}
       className={clsx(
         classes.cardBase,
         variant.map((i) => `card__${i}`),
         {
-          [`ratio-${content.image_ratio}`]: content.image_ratio,
+          [`ratio-${content.image_ratio}`]: content.image_ratio
         }
       )}
     >
@@ -97,7 +97,7 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
         spacing={gutterSize}
         cellHeight="auto"
         style={{
-          overflow: 'visible',
+          overflow: 'visible'
         }}
         className={gridClasses.gridList}
       >
@@ -105,7 +105,7 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
           <GridListTile key={`${item.component}_${i}`}>
             {ComponentRender({
               content: item,
-              options: rest,
+              options: rest
             })}
           </GridListTile>
         ))}

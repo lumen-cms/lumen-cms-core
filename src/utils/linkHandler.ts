@@ -56,7 +56,7 @@ export const linkHandler = (
   options: LinkOptions
 ): LinkHandlerProps => {
   const props: LinkHandlerProps = {
-    href: '/',
+    href: '/'
   }
   const cachedUrl = link.cached_url
   if (!cachedUrl) {

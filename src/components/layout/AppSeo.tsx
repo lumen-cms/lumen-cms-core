@@ -1,17 +1,17 @@
 import { NextSeo } from 'next-seo'
 import React from 'react'
-import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types'
+import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types.d'
 import { useRouter } from 'next/router'
 import {
   getOriginalImageDimensions,
-  imageServiceNoWebp,
+  imageServiceNoWebp
 } from '../../utils/ImageService'
 import {
   GlobalStoryblok,
   ImageCoreStoryblok,
   PageStoryblok,
   SeoOpenGraphStoryblok,
-  SeoTwitterStoryblok,
+  SeoTwitterStoryblok
 } from '../../typings/generated/components-schema'
 import { CONFIG } from '../../utils/config'
 
@@ -31,7 +31,7 @@ type SeoMetaTypes = {
 const mapOpenGraphImage = (
   item: ImageCoreStoryblok
 ): OpenGraphImages | undefined => {
-  if (!item.url) return
+  if (!item.url) return undefined
   const dimensions = getOriginalImageDimensions(item.url)
   const imgPath =
     item.width || item.height ? `${item.width || 0}x${item.height || 0}` : ''
@@ -45,7 +45,7 @@ const mapOpenGraphImage = (
   return {
     ...dimensions,
     alt: item.alt,
-    url: imageServiceNoWebp(item.url, imgPath),
+    url: imageServiceNoWebp(item.url, imgPath)
   }
 }
 
@@ -64,7 +64,7 @@ const parseOpenGraph = (
     url: pageOpenGraph.url || settingsOpenGraph.url,
     type: pageOpenGraph.type || settingsOpenGraph.type,
     site_name: pageOpenGraph.site_name || settingsOpenGraph.site_name,
-    locale: pageOpenGraph.locale || settingsOpenGraph.locale,
+    locale: pageOpenGraph.locale || settingsOpenGraph.locale
   }
   const images: OpenGraphImages[] = []
   // settings images
@@ -129,7 +129,7 @@ function AppSeo({ settings, page, previewImage }: AppSeoProps): JSX.Element {
       settings.seo_description ||
       'Website made by Lumen Media',
     noindex: robotsIndexFollow, // important to change if go live
-    nofollow: robotsIndexFollow,
+    nofollow: robotsIndexFollow
   }
 
   // open graphs

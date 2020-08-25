@@ -5,7 +5,7 @@ import TopAppBarWrap, { AppHeaderProps } from './TopAppBar'
 import { useAppContext } from '../../provider/context/AppContext'
 import {
   GlobalStoryblok,
-  ToolbarNaviButtonStoryblok,
+  ToolbarNaviButtonStoryblok
 } from '../../../typings/generated/components-schema'
 
 type HeaderSimpleProps = AppHeaderProps
@@ -34,7 +34,7 @@ function HeaderSimple(props: HeaderSimpleProps): JSX.Element {
         <Grid
           container
           className={clsx('lm-toolbar__section', 'd-none', {
-            [`d-${mobileNavBreakpoint}-inline-flex`]: true,
+            [`d-${mobileNavBreakpoint}-inline-flex`]: true
           })}
         >
           {navRight.map((blok, i) => ComponentRender({ content: blok, i }))}

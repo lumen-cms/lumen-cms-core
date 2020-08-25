@@ -1,4 +1,11 @@
-import React, { Attributes, ComponentClass, FC, FunctionComponentFactory, isValidElement, ReactNode } from 'react'
+import React, {
+  Attributes,
+  ComponentClass,
+  FC,
+  FunctionComponentFactory,
+  isValidElement,
+  ReactNode
+} from 'react'
 import SbEditable from 'storyblok-react'
 import { AppProps } from 'next/app'
 import { AppPageProps, ComponentRenderFuncProps } from './typings/app'
@@ -173,18 +180,6 @@ export const LmCoreComponents: LmCoreComponentsType = {
   instagram_list: LmInstagramList
 }
 
-export function LmDefaultApp(props: AppProps<AppPageProps>) {
-  const ComponentRender = props.pageProps.insideStoryblok
-    ? LmStoryblokComponentRender
-    : LmComponentRender
-  return (
-    <LmApp
-      {...props}
-      ComponentRender={ComponentRender as FunctionComponentFactory<any>}
-    />
-  )
-}
-
 export function LmStoryblokComponentRender<P>(
   props: ComponentRenderFuncProps
 ): JSX.Element {
@@ -192,10 +187,10 @@ export function LmStoryblokComponentRender<P>(
   if (typeof LmCoreComponents[content.component] !== 'undefined') {
     const CurrentElement = React.createElement(
       LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,
-      {
+      ({
         content,
         ...rest
-      } as unknown as Attributes & P
+      } as unknown) as Attributes & P
     )
     if (isValidElement(CurrentElement)) {
       return (
@@ -229,11 +224,11 @@ export function LmComponentRender<P>(
   if (typeof LmCoreComponents[content.component] !== 'undefined') {
     return React.createElement(
       LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,
-      {
+      ({
         content,
         key: typeof i === 'number' ? `${content.component}_${content._uid || i}` : undefined,
         ...rest
-      } as unknown as Attributes & P
+      } as unknown) as Attributes & P
     )
   }
   return (
@@ -241,5 +236,17 @@ export function LmComponentRender<P>(
       The component {content.component || 'no name found'} has not been created
       yet.
     </div>
+  )
+}
+
+export function LmDefaultApp(props: AppProps<AppPageProps>) {
+  const ComponentRender = props.pageProps.insideStoryblok
+    ? LmStoryblokComponentRender
+    : LmComponentRender
+  return (
+    <LmApp
+      {...props}
+      ComponentRender={ComponentRender as FunctionComponentFactory<any>}
+    />
   )
 }

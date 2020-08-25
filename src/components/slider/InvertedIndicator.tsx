@@ -6,7 +6,7 @@ const useStyles = makeStyles(({ palette, breakpoints }) => {
   const SIZES = {
     xs: 8,
     sm: 10,
-    lg: 12,
+    lg: 12
   }
   return {
     root: ({ active, color }: { active: boolean; color: 'dark' | 'light' }) => {
@@ -20,24 +20,24 @@ const useStyles = makeStyles(({ palette, breakpoints }) => {
         lineHeight: 0,
         cursor: 'pointer',
         [breakpoints.up('sm')]: {
-          padding: SIZES.sm,
+          padding: SIZES.sm
         },
         [breakpoints.up('lg')]: {
-          padding: SIZES.lg,
+          padding: SIZES.lg
         },
         '& + .Indicator-root': {
           marginLeft: SIZES.xs,
           [breakpoints.up('sm')]: {
-            marginLeft: SIZES.sm,
+            marginLeft: SIZES.sm
           },
           [breakpoints.up('sm')]: {
-            marginLeft: SIZES.lg,
-          },
+            marginLeft: SIZES.lg
+          }
         },
         '&:hover': {
           '&:after': {
-            transform: 'scale(1.2)',
-          },
+            transform: 'scale(1.2)'
+          }
         },
         '&:after': {
           content: '""',
@@ -49,15 +49,15 @@ const useStyles = makeStyles(({ palette, breakpoints }) => {
           // transition: transitions.create(),
           [breakpoints.up('sm')]: {
             width: SIZES.sm,
-            height: SIZES.sm,
+            height: SIZES.sm
           },
           [breakpoints.up('lg')]: {
             width: SIZES.lg,
-            height: SIZES.lg,
-          },
-        },
+            height: SIZES.lg
+          }
+        }
       }
-    },
+    }
   }
 })
 

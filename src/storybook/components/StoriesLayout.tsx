@@ -8,9 +8,9 @@ import {
   number,
   optionsKnob,
   select,
-  text,
+  text
 } from '@storybook/addon-knobs'
-import { Story } from '@storybook/react/types-6-0'
+import { Story as StoryType } from '@storybook/react/types-6-0.d'
 import WindowDimensionsProvider from '../../components/provider/WindowDimensionsProvider'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
@@ -25,7 +25,7 @@ const Layout: FunctionComponent<{}> = ({ children }) => {
   return <>{children}</>
 }
 
-const StoriesLayout = (Story: Story) => {
+const StoriesLayout = (Story: StoryType) => {
   const isDark = boolean('Dark mode', false, CONFIG_STORYBOOK.KNOBS.THEME)
 
   const toolbarConfig = optionsKnob(
@@ -36,7 +36,7 @@ const StoriesLayout = (Story: Story) => {
       'fixed width': 'fixed_width',
       unelevated: 'unelevated',
       'scroll collapse': 'scroll_collapse',
-      'enable system bar': 'enable_system_bar',
+      'enable system bar': 'enable_system_bar'
     },
     ['fixed'],
     { display: 'inline-check' },
@@ -109,7 +109,7 @@ const StoriesLayout = (Story: Story) => {
       CONFIG_STORYBOOK.KNOBS.TOOLBAR
     ),
     toolbar_color: {
-      rgba: color('Toolbar Color', '', CONFIG_STORYBOOK.KNOBS.TOOLBAR),
+      rgba: color('Toolbar Color', '', CONFIG_STORYBOOK.KNOBS.TOOLBAR)
     } as GlobalStoryblok['toolbar_color'],
     toolbar_variant: select(
       'Toolbar Variant',
@@ -118,7 +118,7 @@ const StoriesLayout = (Story: Story) => {
         primary: 'primary',
         secondary: 'secondary',
         dark: 'dark',
-        white: 'white',
+        white: 'white'
       },
       'secondary',
       CONFIG_STORYBOOK.KNOBS.TOOLBAR
@@ -138,15 +138,22 @@ const StoriesLayout = (Story: Story) => {
         bali:
           'https://a.storyblok.com/f/66717/672x160/db392f6ffa/logo-white.png',
         upskill:
-          'https://a.storyblok.com/f/67295/256x64/8361be6afc/upskill-logo-primary-upskill-xs.png',
+          'https://a.storyblok.com/f/67295/256x64/8361be6afc/upskill-logo-primary-upskill-xs.png'
       },
       'https://a.storyblok.com/f/69529/1076x500/aeb2c104c2/etherhill_logo_white_001.png',
       CONFIG_STORYBOOK.KNOBS.TOOLBAR
-    ),
+    )
   }
   const loadFonts: string[] = getFontBasedOnSetting(settings)
   return (
-    <AppProvider content={{ ComponentRender: LmComponentRender as any }}>
+    <AppProvider
+      content={{
+        ComponentRender: LmComponentRender as any,
+        allCategories: [],
+        listWidgetData: {},
+        allStaticContent: []
+      }}
+    >
       <WindowDimensionsProvider>
         <GlobalTheme settings={settings as GlobalStoryblok}>
           <div>

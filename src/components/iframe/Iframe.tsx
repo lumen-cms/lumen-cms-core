@@ -17,7 +17,7 @@ export function LmIframe({ content }: LmIframeProps): JSX.Element {
       return content.url
     }
     return ''
-  }, [inView])
+  }, [content.url, inView])
   const properties = content.property || []
   const allowed = content.allow || []
   content.responsive_ratio
@@ -27,10 +27,10 @@ export function LmIframe({ content }: LmIframeProps): JSX.Element {
       ref={refIntersectionObserver}
       className={clsx({
         'embed-responsive': !!content.responsive_ratio,
-        [`embed-responsive-${content.responsive_ratio}`]: !!content.responsive_ratio,
+        [`embed-responsive-${content.responsive_ratio}`]: !!content.responsive_ratio
       })}
       style={{
-        height: content.full_height ? '100%' : undefined,
+        height: content.full_height ? '100%' : undefined
       }}
     >
       {!loaded && (
@@ -42,13 +42,14 @@ export function LmIframe({ content }: LmIframeProps): JSX.Element {
         />
       )}
       <iframe
+        title={`iframe_${content.url}`}
         allow={allowed.join(' ')}
         src={urlSrc}
         aria-hidden
         frameBorder={0}
         onLoad={() => setLoaded(true)}
         className={clsx({
-          'embed-responsive-item': !!content.responsive_ratio,
+          'embed-responsive-item': !!content.responsive_ratio
         })}
         allowFullScreen={properties.includes('allow_fullscreen') || false}
         height={content.height || '100%'}
@@ -58,7 +59,7 @@ export function LmIframe({ content }: LmIframeProps): JSX.Element {
           position: content.position,
           display: content.display,
           height: content.height || '100%',
-          width: content.width || '100%',
+          width: content.width || '100%'
         }}
       />
     </div>

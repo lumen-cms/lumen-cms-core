@@ -16,17 +16,17 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.only('xs')]: {
               width: `${
                 (100 / Number(props.columnCountPhone || 1)) * 1
-              }% !important`,
-            },
-          },
+              }% !important`
+            }
+          }
         }
         if (props.columnCountTablet) {
           opts[theme.breakpoints.between('sm', 'md')] = {
             '& .MuiGridListTile-root': {
               width: `${
                 (100 / Number(props.columnCountTablet)) * 1
-              }% !important`,
-            },
+              }% !important`
+            }
           }
         }
         return opts
@@ -34,13 +34,13 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
       const opts: CreateCSSProperties<{}> = {
         columnCount: Number(props.columnCount || 4),
         [theme.breakpoints.only('xs')]: {
-          columnCount: Number(props.columnCountPhone || 2),
-        },
+          columnCount: Number(props.columnCountPhone || 2)
+        }
       }
 
       if (props.columnCountTablet) {
         opts[theme.breakpoints.between('sm', 'md')] = {
-          columnCount: Number(props.columnCountTablet),
+          columnCount: Number(props.columnCountTablet)
         }
       }
       return opts
@@ -49,16 +49,16 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
       '& img': {
         display: 'block',
         width: '100%',
-        height: 'auto',
+        height: 'auto'
       },
       '& .MuiGridList-root': {
-        display: 'block',
+        display: 'block'
       },
       '& .MuiGridListTile-root': {
         width: 'auto !important',
         breakInside: 'avoid-column',
-        position: 'relative',
-      },
-    },
+        position: 'relative'
+      }
+    }
   })
 )

@@ -26,7 +26,7 @@ const RightDrawerContainer: FunctionComponent = ({ children }) => {
       classes={{
         paper: classes.rightDrawerPaper,
         modal: classes.rightModal,
-        paperAnchorDockedRight: classes.rightDocked,
+        paperAnchorDockedRight: classes.rightDocked
       }}
       open={!matches ? rightIsOpen : true}
       onClose={() => closeNavigationDrawers()}
@@ -39,7 +39,7 @@ RightDrawerContainer.displayName = 'RightDrawerContainer'
 
 type RightDrawerProps = {
   rightBody: any[]
-  body: any[]
+  // body: any[]
 }
 
 function RightDrawer({ rightBody }: RightDrawerProps): JSX.Element {

@@ -1,7 +1,8 @@
 import React from 'react'
 import { LmComponentRender as LmTimeline } from '../src/'
 import { storyTimeline, storyTimelineItem } from '../src/storybook/core/section'
-import { randomIntFromInterval, storyAvatar, storyImageUrls } from '../src/storybook/core/various'
+import { randomIntFromInterval, storyAvatar} from '../src/storybook/core/various'
+import { storyImageUrls } from '../src/storybook/core/sharedFunctions'
 
 export default {
   title: 'Timeline'

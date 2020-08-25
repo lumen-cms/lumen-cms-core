@@ -3,10 +3,10 @@ import {
   CardListStoryblok,
   ListsStoryblok,
   ListWidgetStoryblok,
-  NavListStoryblok,
+  NavListStoryblok
 } from '../../typings/generated/components-schema'
 import { useListSearch } from './useListSearch'
-import ListWidgetContainer from './ListWidgetContainer'
+import { ListWidgetContainer } from './ListWidgetContainer'
 import { useAppContext } from '../provider/context/AppContext'
 
 export type LmListWidgetProps = { content: ListWidgetStoryblok }

@@ -18,7 +18,7 @@ renderer.link = function (href = '', title = '', text = '') {
 export default function parseMarkdownContent(content: string) {
   const rawMarkup = marked(content, {
     // sanitize: true,
-    renderer,
+    renderer
   })
   return rawMarkup
 }

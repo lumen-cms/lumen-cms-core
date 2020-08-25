@@ -13,8 +13,8 @@ interface CardWrapAction extends CardListItemProps {
 const useStyles = makeStyles((theme: Theme) => ({
   drawerContent: {
     padding: theme.spacing(3),
-    minWidth: '30%',
-  },
+    minWidth: '30%'
+  }
 }))
 
 const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({
@@ -22,7 +22,7 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({
   className,
   style,
   children,
-  options,
+  options
 }) => {
   const classes = useStyles()
   const { ComponentRender } = useAppContext()
@@ -39,6 +39,7 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({
         elevation={options.elevation ? Number(options.elevation) : undefined}
         style={style}
       >
+        {/* eslint-disable-next-line */}
         <a onClick={() => setOpen(!open)}>{children}</a>
       </Card>
       <Drawer open={open} anchor="right" onClose={() => setOpen(false)}>

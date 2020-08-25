@@ -10,38 +10,39 @@ export const getCreatedStyles = (theme: Theme) => {
       { key: 'r', val: 'Right' },
       {
         key: 'b',
-        val: 'Bottom',
-      },
+        val: 'Bottom'
+      }
     ]
     for (let i = 0; i <= 5; i++) {
-      for (const dir of directions) {
+      for (let i1 = 0; i1 < directions.length; i1++) {
+        const dir = directions[i1]
         spacing[`.p${dir.key}${breakpoint}-${i}`] = {
-          [`padding${dir.val}`]: `${theme.spacing(i)}px !important`,
+          [`padding${dir.val}`]: `${theme.spacing(i)}px !important`
         }
         spacing[`.m${dir.key}${breakpoint}-${i}`] = {
-          [`margin${dir.val}`]: `${theme.spacing(i)}px !important`,
+          [`margin${dir.val}`]: `${theme.spacing(i)}px !important`
         }
         spacing[`.p${breakpoint}-${i}`] = {
-          [`padding`]: `${theme.spacing(i)}px !important`,
+          [`padding`]: `${theme.spacing(i)}px !important`
         }
         spacing[`.m${breakpoint}-${i}`] = {
-          [`margin`]: `${theme.spacing(i)}px !important`,
+          [`margin`]: `${theme.spacing(i)}px !important`
         }
         spacing[`.mx${breakpoint}-${i}`] = {
           [`marginLeft`]: `${theme.spacing(i)}px !important`,
-          [`marginRight`]: `${theme.spacing(i)}px !important`,
+          [`marginRight`]: `${theme.spacing(i)}px !important`
         }
         spacing[`.my${breakpoint}-${i}`] = {
           [`marginTop`]: `${theme.spacing(i)}px !important`,
-          [`marginBottom`]: `${theme.spacing(i)}px !important`,
+          [`marginBottom`]: `${theme.spacing(i)}px !important`
         }
         spacing[`.px${breakpoint}-${i}`] = {
           [`paddingLeft`]: `${theme.spacing(i)}px !important`,
-          [`paddingRight`]: `${theme.spacing(i)}px !important`,
+          [`paddingRight`]: `${theme.spacing(i)}px !important`
         }
         spacing[`.py${breakpoint}-${i}`] = {
           [`paddingTop`]: `${theme.spacing(i)}px !important`,
-          [`paddingBottom`]: `${theme.spacing(i)}px !important`,
+          [`paddingBottom`]: `${theme.spacing(i)}px !important`
         }
       }
     }
@@ -58,10 +59,10 @@ export const getCreatedStyles = (theme: Theme) => {
       ...genSpacing(),
       '.img-fluid': {
         maxWidth: '100%',
-        height: 'auto',
+        height: 'auto'
       },
       a: {
-        textDecoration: 'none',
+        textDecoration: 'none'
       },
       '.badge': {
         display: 'inline-block',
@@ -72,7 +73,7 @@ export const getCreatedStyles = (theme: Theme) => {
             ? 'rgba(0, 0, 0, 0.87)'
             : theme.palette.common.white,
         borderRadius: theme.shape.borderRadius,
-        transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
       },
       '.badge-pill': {
         display: 'inline-block',
@@ -83,7 +84,7 @@ export const getCreatedStyles = (theme: Theme) => {
             ? 'rgba(0, 0, 0, 0.87)'
             : theme.palette.common.white,
         transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-        borderRadius: '2rem',
+        borderRadius: '2rem'
       },
       '.badge-square': {
         display: 'inline-block',
@@ -93,35 +94,35 @@ export const getCreatedStyles = (theme: Theme) => {
           theme.palette.type === 'dark'
             ? 'rgba(0, 0, 0, 0.87)'
             : theme.palette.common.white,
-        transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
       },
       '.badge-primary': {
         backgroundColor: theme.palette.primary.main,
-        color: theme.palette.primary.contrastText,
+        color: theme.palette.primary.contrastText
       },
       '.badge-secondary': {
         backgroundColor: theme.palette.secondary.main,
-        color: theme.palette.secondary.contrastText,
+        color: theme.palette.secondary.contrastText
       },
       '.badge-danger': {
         backgroundColor: theme.palette.error.main,
-        color: theme.palette.error.contrastText,
+        color: theme.palette.error.contrastText
       },
       '.badge-light': {
         backgroundColor: '#ccc',
-        color: 'rgba(0, 0, 0, 0.87)',
+        color: 'rgba(0, 0, 0, 0.87)'
       },
       '.badge-dark': {
         backgroundColor: dark,
-        color: '#fff',
+        color: '#fff'
       },
       '.badge-dark-transparent': {
         backgroundColor: 'rgba(0,0,0,0.5)',
-        color: '#fff',
+        color: '#fff'
       },
       '.badge-light-transparent': {
         backgroundColor: 'rgba(0,0,0,0.2)',
-        color: 'rgba(0, 0, 0, 0.87)',
+        color: 'rgba(0, 0, 0, 0.87)'
       },
       '.embed-responsive': {
         position: 'relative',
@@ -130,17 +131,17 @@ export const getCreatedStyles = (theme: Theme) => {
         padding: 0,
         overflow: 'hidden',
         '&.embed-responsive-16by9': {
-          paddingBottom: '56.25%',
+          paddingBottom: '56.25%'
         },
         '&.embed-responsive-4by3': {
-          paddingBottom: '75%',
+          paddingBottom: '75%'
         },
         '&.embed-responsive-1by1': {
-          paddingBottom: '100%',
+          paddingBottom: '100%'
         },
         '&.embed-responsive-3by2': {
-          paddingBottom: '66.6%',
-        },
+          paddingBottom: '66.6%'
+        }
       },
       '.embed-responsive-item': {
         position: 'absolute',
@@ -149,13 +150,13 @@ export const getCreatedStyles = (theme: Theme) => {
         left: 0,
         width: '100%',
         height: '100%',
-        border: 0,
+        border: 0
       },
       // '.material-icons': {
       //   visibility: 'hidden'
       // },
       '.line-through': {
-        textDecoration: 'line-through',
+        textDecoration: 'line-through'
       },
       // '.fonts-loaded': {
       //   '& .material-icons': {
@@ -163,169 +164,169 @@ export const getCreatedStyles = (theme: Theme) => {
       //   }
       // },
       '.mh-100': {
-        minHeight: '100% !important',
+        minHeight: '100% !important'
       },
       '.h-100': {
-        height: '100% !important',
+        height: '100% !important'
       },
       '.mw-100': {
-        minWidth: '100% !important',
+        minWidth: '100% !important'
       },
       '.w-100': {
-        width: '100% !important',
+        width: '100% !important'
       },
       '.text-left': {
-        textAlign: 'left',
+        textAlign: 'left'
       },
       '.text-center': {
-        textAlign: 'center',
+        textAlign: 'center'
       },
       '.text-right': {
-        textAlign: 'right',
+        textAlign: 'right'
       },
       '.text-justify': {
-        textAlign: 'justify',
+        textAlign: 'justify'
       },
       '.font-weight-bold': {
-        fontWeight: 'bold !important',
+        fontWeight: 'bold !important'
       },
       '.font-weight-bolder': {
-        fontWeight: 'bolder !important',
+        fontWeight: 'bolder !important'
       },
       '.font-weight-light': {
-        fontWeight: 'light !important',
+        fontWeight: 'light !important'
       },
       '.font-weight-lighter': {
-        fontWeight: 'lighter !important',
+        fontWeight: 'lighter !important'
       },
       '.font-weight-normal': {
-        fontWeight: 'normal !important',
+        fontWeight: 'normal !important'
       },
       '.font-weight-100': {
-        fontWeight: '100 !important',
+        fontWeight: '100 !important'
       },
       '.font-weight-200': {
-        fontWeight: '200 !important',
+        fontWeight: '200 !important'
       },
       '.font-weight-300': {
-        fontWeight: '300 !important',
+        fontWeight: '300 !important'
       },
       '.font-weight-400': {
-        fontWeight: '400 !important',
+        fontWeight: '400 !important'
       },
       '.font-weight-500': {
-        fontWeight: '500 !important',
+        fontWeight: '500 !important'
       },
       '.font-weight-600': {
-        fontWeight: '600 !important',
+        fontWeight: '600 !important'
       },
       '.font-weight-700': {
-        fontWeight: '700 !important',
+        fontWeight: '700 !important'
       },
       '.font-weight-800': {
-        fontWeight: '800 !important',
+        fontWeight: '800 !important'
       },
       '.font-weight-900': {
-        fontWeight: '900 !important',
+        fontWeight: '900 !important'
       },
       '.text-uppercase': {
-        textTransform: 'uppercase',
+        textTransform: 'uppercase'
       },
       '.text-monospace': {
         fontFamily:
-          'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace !important',
+          'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace !important'
       },
       '.font-italic': {
-        fontStyle: 'italic !important',
+        fontStyle: 'italic !important'
       },
       '.text-primary': {
-        color: `${theme.palette.primary.main} !important`,
+        color: `${theme.palette.primary.main} !important`
       },
       '.text-black-50': {
-        color: 'rgba(0,0,0,0.5) !important',
+        color: 'rgba(0,0,0,0.5) !important'
       },
       '.text-white-50': {
-        color: 'rgba(255,255,255,0.5) !important',
+        color: 'rgba(255,255,255,0.5) !important'
       },
       '.text-secondary': {
-        color: `${theme.palette.secondary.main} !important`,
+        color: `${theme.palette.secondary.main} !important`
       },
       '.text-primary-text': {
-        color: `${theme.palette.text.primary} !important`,
+        color: `${theme.palette.text.primary} !important`
       },
       '.text-primary-secondary': {
-        color: `${theme.palette.text.secondary} !important`,
+        color: `${theme.palette.text.secondary} !important`
       },
       '.text-muted': {
-        color: `${theme.palette.text.hint} !important`,
+        color: `${theme.palette.text.hint} !important`
       },
       '.text-white': {
-        color: `${theme.palette.common.white} !important`,
+        color: `${theme.palette.common.white} !important`
       },
       '.text-danger': {
-        color: `${theme.palette.error.main} !important`,
+        color: `${theme.palette.error.main} !important`
       },
       '.bg-primary': {
-        backgroundColor: `${theme.palette.primary.main} !important`,
+        backgroundColor: `${theme.palette.primary.main} !important`
       },
       '.bg-secondary': {
-        backgroundColor: `${theme.palette.secondary.main} !important`,
+        backgroundColor: `${theme.palette.secondary.main} !important`
       },
       '.bg-danger': {
-        backgroundColor: `${theme.palette.error.main} !important`,
+        backgroundColor: `${theme.palette.error.main} !important`
       },
       '.bg-white': {
-        backgroundColor: `${theme.palette.common.white} !important`,
+        backgroundColor: `${theme.palette.common.white} !important`
       },
       '.bg-black': {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor: theme.palette.common.black
       },
       '.bg-dark': {
-        backgroundColor: `${dark}!important`,
+        backgroundColor: `${dark}!important`
       },
       '.bg-light': {
-        backgroundColor: '#ccc !important',
+        backgroundColor: '#ccc !important'
       },
       'a.lm-link__button, a.MuiLink-root.MuiButton-root': {
         textDecoration: 'none',
-        color: 'inherit',
+        color: 'inherit'
       },
       '.lm-font-alt1': {
         fontFamily:
           (theme.alternativeFont && theme.alternativeFont.alt1) ||
-          theme.typography.fontFamily,
+          theme.typography.fontFamily
       },
       '.lm-font-alt2': {
         fontFamily:
           (theme.alternativeFont && theme.alternativeFont.alt2) ||
-          theme.typography.fontFamily,
+          theme.typography.fontFamily
       },
       '.lm-font-alt3': {
         fontFamily:
           (theme.alternativeFont && theme.alternativeFont.alt3) ||
-          theme.typography.fontFamily,
+          theme.typography.fontFamily
       },
       '.lm-font-alt4': {
         fontFamily:
           (theme.alternativeFont && theme.alternativeFont.alt4) ||
-          theme.typography.fontFamily,
+          theme.typography.fontFamily
       },
       '.d-none': {
-        display: 'none',
+        display: 'none'
       },
       '.d-inline-flex': {
-        display: 'inline-flex',
+        display: 'inline-flex'
       },
       '.d-block': {
-        display: 'block',
+        display: 'block'
       },
       '.d-inline-block': {
-        display: 'inline-block',
+        display: 'inline-block'
       },
       '.text-1-row-max': {
         textOverflow: 'ellipsis',
         overflow: 'hidden',
-        whiteSpace: 'nowrap',
+        whiteSpace: 'nowrap'
       },
       '.text-2-rows-max': {
         display: '-webkit-box',
@@ -333,7 +334,7 @@ export const getCreatedStyles = (theme: Theme) => {
         minHeight: '3rem',
         overflow: 'hidden',
         '-webkit-box-orient': 'vertical',
-        '-webkit-line-clamp': 2,
+        '-webkit-line-clamp': 2
       },
       '.text-3-rows-max': {
         display: '-webkit-box',
@@ -341,88 +342,88 @@ export const getCreatedStyles = (theme: Theme) => {
         overflow: 'hidden',
         minHeight: '4.5rem',
         '-webkit-line-clamp': 3,
-        '-webkit-box-orient': 'vertical',
+        '-webkit-box-orient': 'vertical'
       },
       [theme.breakpoints.only('xs')]: {
         '.d-xs-inline-flex': {
-          display: 'inline-flex',
+          display: 'inline-flex'
         },
         '.d-xs-none': {
-          display: 'none',
+          display: 'none'
         },
         '.d-xs-block': {
-          display: 'block',
-        },
+          display: 'block'
+        }
       },
       [theme.breakpoints.up('sm')]: {
         '.d-sm-inline-flex': {
-          display: 'inline-flex',
+          display: 'inline-flex'
         },
         '.d-sm-none': {
-          display: 'none',
+          display: 'none'
         },
         '.d-sm-block': {
-          display: 'block',
+          display: 'block'
         },
         '.text-sm-left': {
-          textAlign: 'left',
+          textAlign: 'left'
         },
         '.text-sm-center': {
-          textAlign: 'center',
+          textAlign: 'center'
         },
         '.text-sm-right': {
-          textAlign: 'right',
+          textAlign: 'right'
         },
         '.text-sm-justify': {
-          textAlign: 'justify',
+          textAlign: 'justify'
         },
-        ...genSpacing('-sm'),
+        ...genSpacing('-sm')
       },
       [theme.breakpoints.up('md')]: {
         '.d-md-inline-flex': {
-          display: 'inline-flex',
+          display: 'inline-flex'
         },
         '.d-md-none': {
-          display: 'none',
+          display: 'none'
         },
         '.d-md-block': {
-          display: 'block',
+          display: 'block'
         },
         '.text-md-left': {
-          textAlign: 'left',
+          textAlign: 'left'
         },
         '.text-md-center': {
-          textAlign: 'center',
+          textAlign: 'center'
         },
         '.text-md-right': {
-          textAlign: 'right',
+          textAlign: 'right'
         },
         '.text-md-justify': {
-          textAlign: 'justify',
+          textAlign: 'justify'
         },
-        ...genSpacing('-md'),
+        ...genSpacing('-md')
       },
       [theme.breakpoints.up('lg')]: {
         '.d-lg-inline-flex': {
-          display: 'inline-flex',
+          display: 'inline-flex'
         },
         '.d-lg-none': {
-          display: 'none',
+          display: 'none'
         },
         '.text-lg-left': {
-          textAlign: 'left',
+          textAlign: 'left'
         },
         '.text-lg-center': {
-          textAlign: 'center',
+          textAlign: 'center'
         },
         '.text-lg-right': {
-          textAlign: 'right',
+          textAlign: 'right'
         },
         '.text-lg-justify': {
-          textAlign: 'justify',
-        },
-      },
-    },
+          textAlign: 'justify'
+        }
+      }
+    }
   })
 }
 

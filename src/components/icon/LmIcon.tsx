@@ -15,13 +15,13 @@ const useStyles = makeStyles({
     height: '1em',
     '&.size__lm-button-large': {
       width: 30,
-      height: 30,
+      height: 30
     },
     '&.size__lm-button-xlarge': {
       width: 40,
-      height: 40,
-    },
-  },
+      height: 40
+    }
+  }
 })
 
 const iconMap = {
@@ -29,7 +29,7 @@ const iconMap = {
   people: 'account-multiple',
   access_time: 'clock-outline',
   compare_arrows: 'compare',
-  keyboard_arrow_down: 'chevron-down',
+  keyboard_arrow_down: 'chevron-down'
 }
 
 type IconCoreProps = {
@@ -45,7 +45,7 @@ function IconCore({
   style,
   iconName,
   buttonSize,
-  iconUrl,
+  iconUrl
 }: IconCoreProps): JSX.Element {
   const classes = useStyles()
   const [refIntersectionObserver, inView] = useInView(
@@ -67,7 +67,7 @@ function IconCore({
         <InlineSVG
           style={style}
           className={clsx(classes.icon, 'lm-svg-icon', className, {
-            [`size__${buttonSize}`]: buttonSize,
+            [`size__${buttonSize}`]: buttonSize
           })}
           onError={() => {
             console.error(`Icon not found: ${iconName}`)

@@ -11,5 +11,5 @@ export const mapTypographyVariant = {
   body2: 'body2',
   button: 'button',
   overline: 'overline',
-  caption: 'caption',
+  caption: 'caption'
 }

@@ -5,7 +5,7 @@ export enum ScriptStatus {
   IDLE = 'idle',
   LOADING = 'loading',
   READY = 'ready',
-  ERROR = 'error',
+  ERROR = 'error'
 }
 
 /**
@@ -14,12 +14,15 @@ export enum ScriptStatus {
  * @param url {string} url The external script to load
  * @param attributes {} attributes Script tag attributes
  * */
-export default function useScript(url?: string, attributes?: { [k: string]: string }): [boolean, ScriptStatus] {
+export default function useScript(
+  url?: string,
+  attributes?: { [k: string]: string }
+): [boolean, ScriptStatus] {
   const clientHydrated = useClientHydrated()
   const [status, setStatus] = useState<ScriptStatus>(() => {
     if (clientHydrated) {
       const script: HTMLScriptElement | null = document.querySelector(
-        `script[src="${url}"]`,
+        `script[src="${url}"]`
       )
       if (script && script.hasAttribute('data-status')) {
         return script.getAttribute('data-status') as ScriptStatus
@@ -31,11 +34,11 @@ export default function useScript(url?: string, attributes?: { [k: string]: stri
   useEffect(() => {
     if (!url) {
       setStatus(ScriptStatus.IDLE)
-      return
+      return undefined
     }
 
     let script: HTMLScriptElement | null = document.querySelector(
-      `script[src="${url}"]`,
+      `script[src="${url}"]`
     )
 
     if (!script) {
@@ -45,7 +48,7 @@ export default function useScript(url?: string, attributes?: { [k: string]: stri
       script.setAttribute('data-status', ScriptStatus.LOADING)
       document.head.appendChild(script)
       if (attributes) {
-        Object.keys(attributes).forEach(key => {
+        Object.keys(attributes).forEach((key) => {
           script?.setAttribute(key, attributes[key])
         })
       }

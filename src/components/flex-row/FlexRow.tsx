@@ -18,7 +18,7 @@ export function LmFlexRow({ content }: LmFlexRowProps): JSX.Element {
       alignItems={content.align_items ? content.align_items : undefined}
       alignContent={content.align_content ? content.align_content : undefined}
       className={clsx(content.class_names && content.class_names.values, {
-        'mh-100': content.full_height,
+        'mh-100': content.full_height
       })}
     >
       {body.map((item, i) => ComponentRender({ content: item, i }))}

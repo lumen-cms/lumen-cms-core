@@ -10,7 +10,7 @@ import { ListSearchFieldStoryblok } from '../../typings/generated/components-sch
 export type LmListSearchFieldProps = { content: ListSearchFieldStoryblok }
 
 export function LmListSearchField({
-  content,
+  content
 }: LmListSearchFieldProps): JSX.Element {
   const router = useRouter()
   const query = router?.query
@@ -36,7 +36,7 @@ export function LmListSearchField({
     <div className={clsx(content.class_names && content.class_names.values)}>
       <TextField
         InputProps={{
-          startAdornment: <Magnify />,
+          startAdornment: <Magnify />
         }}
         id={content._uid}
         value={searchText}

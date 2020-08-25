@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import {
   BackgroundStoryblok,
-  ColumnStoryblok,
+  ColumnStoryblok
 } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
@@ -16,7 +16,7 @@ const xsSpanMap = {
   4: 12,
   false: false,
   auto: 'auto',
-  true: true,
+  true: true
 }
 
 const smSpanMap = {
@@ -30,7 +30,7 @@ const smSpanMap = {
   8: 12,
   false: false,
   auto: 'auto',
-  true: true,
+  true: true
 }
 const mdSpanMap = {
   1: 1,
@@ -47,7 +47,7 @@ const mdSpanMap = {
   12: 12,
   false: false,
   auto: 'auto',
-  true: true,
+  true: true
 }
 
 export type LmGridColumnProps = { content: ColumnStoryblok }

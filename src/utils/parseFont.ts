@@ -12,7 +12,7 @@ export const getFontBasedOnSetting = (settings: Partial<GlobalStoryblok>) => {
     'theme_font_alt1',
     'theme_font_alt2',
     'theme_font_alt3',
-    'theme_font_alt4',
+    'theme_font_alt4'
   ]
   const loadFonts: string[] = []
   Object.keys(settings).forEach((key) => {

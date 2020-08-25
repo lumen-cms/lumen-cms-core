@@ -6,7 +6,7 @@ import { mapTypographyVariant } from '../../utils/muiMapProps'
 
 function CardDescriptionText({
   content,
-  options,
+  options
 }: CardListItemProps): JSX.Element | null {
   let { description } = content
   const descriptionMaxCharacter = options.description_max_character

@@ -15,7 +15,7 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
 
   const type = content.type || 'fade'
   const options: IntersectionOptions = {
-    triggerOnce: true,
+    triggerOnce: true
   }
   if (content.threshold) {
     options.threshold = Number((Number(content.threshold) / 100).toFixed(2))
@@ -78,7 +78,7 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
                 )}
               </div>
             </Collapse>
-          ),
+          )
         }[type]
       }
     </div>

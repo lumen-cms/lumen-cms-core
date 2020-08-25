@@ -8,8 +8,8 @@ const useStyles = makeStyles({
   container: {
     width: '100%',
     height: '100%',
-    display: 'flex',
-  },
+    display: 'flex'
+  }
 })
 
 export type LmTimelineProps = { content: TimelineStoryblok }

@@ -20,10 +20,10 @@ export function LmLink({ content }: LmLinkProps): JSX.Element {
   }
   const btnProps: any = {
     ...getLinkAttrs(content.link as LinkType, {
-      openExternal: !!content.open_external,
+      openExternal: !!content.open_external
     }),
     naked: true,
-    component: LinkRender,
+    component: LinkRender
   }
   return (
     <MuiLink

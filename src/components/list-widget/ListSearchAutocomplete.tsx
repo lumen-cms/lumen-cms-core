@@ -3,14 +3,14 @@ import React, {
   FunctionComponent,
   RefObject,
   useEffect,
-  useState,
+  useState
 } from 'react'
 import {
   createStyles,
   fade,
   makeStyles,
   Theme,
-  useTheme,
+  useTheme
 } from '@material-ui/core/styles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
@@ -36,8 +36,8 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-flex',
       verticalAlign: 'middle',
       '& .MuiInputLabel-root.Mui-focused': {
-        color: 'inherit',
-      },
+        color: 'inherit'
+      }
     },
     mobile: {
       position: 'absolute',
@@ -49,51 +49,51 @@ const useStyles = makeStyles((theme: Theme) =>
       verticalAlign: 'middle',
       backgroundColor: 'inherit',
       '& .MuiFormControl-root': {
-        alignSelf: 'center',
-      },
+        alignSelf: 'center'
+      }
     },
     inputRoot: {
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade('rgba(0,0,0,.05)', 0.15),
       color: 'inherit',
       '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.palette.divider,
+        borderColor: theme.palette.divider
       },
       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.palette.action.focus,
+        borderColor: theme.palette.action.focus
       },
       '&:hover': {
         backgroundColor: fade('rgba(0,0,0,.05)', 0.25),
         '& .MuiOutlinedInput-notchedOutline': {
-          borderColor: theme.palette.action.focus,
-        },
-      },
+          borderColor: theme.palette.action.focus
+        }
+      }
     },
     borderSquare: {
       borderRadius: 0,
       '& .MuiOutlinedInput-notchedOutline': {
-        borderRadius: 0,
-      },
+        borderRadius: 0
+      }
     },
     borderRounded: {
       borderRadius: '25px',
       '& .MuiOutlinedInput-notchedOutline': {
-        borderRadius: '25px',
-      },
+        borderRadius: '25px'
+      }
     },
     inputDefaultWidth: {
       color: 'inherit',
-      transition: theme.transitions.create('width'),
+      transition: theme.transitions.create('width')
     },
     variableWidth: {
       '&.MuiAutocomplete-input': {
         [theme.breakpoints.up('sm')]: {
           width: 120,
           '&:focus,&:active': {
-            width: 200,
-          },
-        },
-      },
+            width: 200
+          }
+        }
+      }
     },
     listbox: {
       '& .MuiLink-root': {
@@ -101,10 +101,10 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '100%',
         color: 'inherit',
         '&:hover': {
-          textDecoration: 'none',
-        },
-      },
-    },
+          textDecoration: 'none'
+        }
+      }
+    }
   })
 )
 
@@ -160,7 +160,7 @@ const ListSearchAutocompleteContainer: FunctionComponent<{
         <div
           style={{
             display: !visible ? 'none' : 'inline-flex',
-            backgroundColor: bgColor,
+            backgroundColor: bgColor
           }}
           className={classes.mobile}
         >
@@ -178,7 +178,7 @@ export type LmListSearchAutocompleteProps = {
 }
 
 export function LmListSearchAutocomplete({
-  content,
+  content
 }: LmListSearchAutocompleteProps): JSX.Element {
   // const { allStories } = useAppContext()
   const [allStories, setAllStories] = useState<StoryData<PageComponent>[]>([])
@@ -204,9 +204,9 @@ export function LmListSearchAutocomplete({
       search_term: value,
       filter_query: {
         component: {
-          in: 'page',
-        },
-      },
+          in: 'page'
+        }
+      }
     }).then((res) => {
       setAllStories(res.data.stories)
       setOpen(true)
@@ -233,7 +233,7 @@ export function LmListSearchAutocomplete({
               option.content?.preview_title ||
               option.content?.meta_title ||
               option.name ||
-              '',
+              ''
           }))
           .sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0))}
         freeSolo
@@ -242,11 +242,11 @@ export function LmListSearchAutocomplete({
           listbox: classes.listbox,
           inputRoot: clsx(classes.inputRoot, {
             [classes.borderSquare]: content.shape === 'square',
-            [classes.borderRounded]: content.shape === 'rounded',
+            [classes.borderRounded]: content.shape === 'rounded'
           }),
           input: clsx(classes.inputDefaultWidth, {
-            [classes.variableWidth]: !isMobileAction,
-          }),
+            [classes.variableWidth]: !isMobileAction
+          })
         }}
         renderInput={(params) => (
           <TextField
@@ -277,7 +277,7 @@ export function LmListSearchAutocomplete({
                     <Magnify />
                   )}
                 </InputAdornment>
-              ),
+              )
             }}
           />
         )}
@@ -295,22 +295,22 @@ export function LmListSearchAutocomplete({
               ...props.style,
               borderRadius: content.menu_border_radius
                 ? content.menu_border_radius
-                : undefined,
+                : undefined
             }}
           />
         )}
         renderOption={(item) => {
-          const { rel, target, external, ...rest } = getLinkAttrs(
+          const { href } = getLinkAttrs(
             {
               cached_url: item.full_slug as string,
-              linktype: 'story',
+              linktype: 'story'
             },
             {}
           )
           return (
             <MuiNextLink
               href={CONFIG.href}
-              as={rest.href}
+              as={href}
               passHref
               key={item.uuid as string}
               prefetch={false}

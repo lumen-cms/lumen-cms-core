@@ -5,7 +5,7 @@ import {
   NavMenuItemStoryblok,
   NavMenuStoryblok,
   ToolbarRowSectionStoryblok,
-  ToolbarRowStoryblok,
+  ToolbarRowStoryblok
 } from '../typings/generated/components-schema'
 import { darkSectionWithColumns } from './section'
 
@@ -15,20 +15,20 @@ const menuItem: NavMenuStoryblok = {
   border_radius: '0px',
   title: 'Menu',
   start_icon: {
-    name: 'home',
+    name: 'home'
   },
   body: [
     {
       _uid: '3243',
       component: 'nav_menu_item',
-      label: 'First',
+      label: 'First'
     },
     {
       _uid: '34234242',
       component: 'nav_menu_item',
-      label: 'Second',
-    },
-  ] as NavMenuItemStoryblok[],
+      label: 'Second'
+    }
+  ] as NavMenuItemStoryblok[]
 }
 
 const nestedMenu: NavMenuStoryblok = {
@@ -36,21 +36,21 @@ const nestedMenu: NavMenuStoryblok = {
   _uid: '123ddw',
   title: 'Nested Menu',
   start_icon: {
-    name: 'menu',
+    name: 'menu'
   },
   body: [
     {
       _uid: '3243',
       component: 'nav_menu_item',
-      label: 'First',
+      label: 'First'
     },
     {
       _uid: '34234242',
       component: 'nav_menu_item',
-      label: 'Second',
+      label: 'Second'
     },
-    { ...menuItem, start_icon: null },
-  ] as (NavMenuItemStoryblok | NavMenuStoryblok)[],
+    { ...menuItem, start_icon: null }
+  ] as (NavMenuItemStoryblok | NavMenuStoryblok)[]
 }
 
 const toolbarItems = [
@@ -61,23 +61,23 @@ const toolbarItems = [
     outlined: true,
     shape: 'square',
     not_found_label: 'We could not find any page..',
-    mobile_breakpoint: 'lg',
+    mobile_breakpoint: 'lg'
   },
   {
     _uid: '123',
     component: 'button',
-    label: 'Button',
+    label: 'Button'
   },
   {
     _uid: '12321',
     component: 'button',
     icon: {
-      name: 'home',
+      name: 'home'
     },
-    label: 'Another Button',
+    label: 'Another Button'
   },
   menuItem,
-  nestedMenu,
+  nestedMenu
 ] as (ListSearchAutocompleteStoryblok | ButtonStoryblok | NavMenuStoryblok)[]
 
 export const simpleSettings: GlobalStoryblok = {
@@ -85,7 +85,7 @@ export const simpleSettings: GlobalStoryblok = {
   component: 'global',
   theme_base: 'base',
   website_title: 'Storybook Website Title',
-  toolbar: toolbarItems,
+  toolbar: toolbarItems
 }
 
 const multiToolbar = [
@@ -97,10 +97,10 @@ const multiToolbar = [
         _uid: '123',
         component: 'toolbar_row_section',
         align_end: true,
-        body: toolbarItems,
-      },
-    ] as ToolbarRowSectionStoryblok[],
-  },
+        body: toolbarItems
+      }
+    ] as ToolbarRowSectionStoryblok[]
+  }
 ] as ToolbarRowStoryblok[]
 
 const multiToolbarWithSystemBar = [
@@ -110,9 +110,9 @@ const multiToolbarWithSystemBar = [
         _uid: '123',
         component: 'toolbar_row_section',
         align_end: true,
-        body: toolbarItems,
-      },
-    ] as ToolbarRowSectionStoryblok[],
+        body: toolbarItems
+      }
+    ] as ToolbarRowSectionStoryblok[]
   },
   {
     _uid: '23',
@@ -122,26 +122,26 @@ const multiToolbarWithSystemBar = [
         _uid: '123',
         component: 'toolbar_row_section',
         align_end: true,
-        body: toolbarItems,
-      },
-    ] as ToolbarRowSectionStoryblok[],
-  },
+        body: toolbarItems
+      }
+    ] as ToolbarRowSectionStoryblok[]
+  }
 ] as ToolbarRowStoryblok[]
 
 export const customSettings: GlobalStoryblok = {
   ...simpleSettings,
   multi_toolbar: multiToolbar,
-  footer: [darkSectionWithColumns],
+  footer: [darkSectionWithColumns]
 }
 
 export const customSettingsWithDrawer: GlobalStoryblok = {
   ...customSettings,
   drawer_body: toolbarItems,
-  drawer_class_names: { values: ['bg-primary'] },
+  drawer_class_names: { values: ['bg-primary'] }
 }
 
 export const customSettingsSystemBar: GlobalStoryblok = {
   ...simpleSettings,
   multi_toolbar: multiToolbarWithSystemBar,
-  footer: [darkSectionWithColumns],
+  footer: [darkSectionWithColumns]
 }

@@ -5,7 +5,7 @@ import { useAppContext } from '../provider/context/AppContext'
 export type LmStaticContainerProps = { content: StaticContainerStoryblok }
 
 export function LmStaticContainer({
-  content,
+  content
 }: LmStaticContainerProps): JSX.Element {
   const { ComponentRender } = useAppContext()
 

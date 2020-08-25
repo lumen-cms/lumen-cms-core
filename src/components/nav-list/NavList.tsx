@@ -17,13 +17,13 @@ const useStyles = makeStyles({
       display: 'inline-block',
       paddingRight: '12px',
       '&:last-child': {
-        paddingRight: '0px',
-      },
+        paddingRight: '0px'
+      }
     },
     '&.lm-nav-list__column .MuiTypography-root': {
-      display: 'block',
-    },
-  },
+      display: 'block'
+    }
+  }
 })
 
 export type LmNavListProps = { content: NavListStoryblok }
@@ -57,7 +57,7 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
               {
                 'lm-nav-list__column': properties.find(
                   (i) => i === 'flex-column'
-                ),
+                )
               },
               classes.root
             )}
@@ -77,7 +77,7 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
         'lm-nav-list',
         content.class_names && content.class_names.values,
         {
-          'lm-nav-list__column': properties.find((i) => i === 'flex-column'),
+          'lm-nav-list__column': properties.find((i) => i === 'flex-column')
         },
         classes.root
       )}

@@ -5,11 +5,12 @@ const actionWithPromise = (): Promise<boolean> =>
 const actionWithPromiseVoid = (): Promise<void> =>
   new Promise((_, reject) => reject())
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 Router.router = {
   push: actionWithPromise,
   replace: actionWithPromise,
   prefetch: actionWithPromiseVoid,
   route: '/mock-route',
-  pathname: 'mock-path',
+  pathname: 'mock-path'
 }

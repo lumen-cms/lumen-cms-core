@@ -8,13 +8,13 @@ import useShadowStyles from '../jss/shadowStyles'
 const CardWrap: FunctionComponent<CardListItemProps> = ({
   children,
   content,
-  options,
+  options
 }) => {
   const className = 'lm-card'
   const styles = useShadowStyles()
   const variants = options.variant || []
   const style: CSSProperties = {
-    borderRadius: options.border_radius ? options.border_radius : undefined,
+    borderRadius: options.border_radius ? options.border_radius : undefined
   }
 
   if (content.body && content.body.length) {
@@ -33,7 +33,7 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({
   return (
     <Card
       className={clsx(className, {
-        [styles[options.shadow_effect]]: !!options.shadow_effect,
+        [styles[options.shadow_effect]]: !!options.shadow_effect
       })}
       raised={variants.includes('raised')}
       elevation={options.elevation ? Number(options.elevation) : undefined}

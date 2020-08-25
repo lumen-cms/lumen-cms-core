@@ -3,19 +3,19 @@ import { makeStyles } from '@material-ui/core/styles'
 export const useImageListStyles = makeStyles({
   lightbox: {
     '& .MuiPaper-root': {
-      backgroundColor: 'rgba(0,0,0,0.9)',
+      backgroundColor: 'rgba(0,0,0,0.9)'
     },
     '& .MuiDialogTitle-root': {
       position: 'absolute',
       top: 0,
       right: 0,
-      zIndex: 2,
+      zIndex: 2
     },
     '& .carousel': {
-      height: '100%',
+      height: '100%'
     },
     '& .carousel-inner': {
-      height: '100%',
+      height: '100%'
     },
     '& .react-swipeable-view-container': {
       height: '100%',
@@ -25,17 +25,17 @@ export const useImageListStyles = makeStyles({
         height: '100%',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
-      },
+        alignItems: 'center'
+      }
     },
     '& .MuiSvgIcon-root': {
-      color: 'white',
+      color: 'white'
     },
     '& .carousel-indicators': {
       position: 'absolute',
       bottom: 0,
       width: '100%',
-      textAlign: 'center',
+      textAlign: 'center'
     },
     '& .carousel-control-next, & .carousel-control-prev': {
       position: 'absolute',
@@ -46,15 +46,15 @@ export const useImageListStyles = makeStyles({
       cursor: 'pointer',
       '& .MuiSvgIcon-root': {
         fontSize: '4rem',
-        color: 'rgba(255,255,255,0.8)',
-      },
+        color: 'rgba(255,255,255,0.8)'
+      }
     },
     '& .carousel-control-next': {
-      right: 0,
-    },
+      right: 0
+    }
   },
   root: {
-    overflowX: 'hidden',
+    overflowX: 'hidden'
   },
   aspectRatio: {
     '& .MuiGridListTile-tile': {
@@ -67,8 +67,8 @@ export const useImageListStyles = makeStyles({
         // height: '100%'
         top: '50%',
         left: '50%',
-        transform: 'translate(-50%, -50%)',
-      },
+        transform: 'translate(-50%, -50%)'
+      }
     },
     '&.ratio-* .MuiGridListTile-tile': {
       '& img': {
@@ -76,29 +76,29 @@ export const useImageListStyles = makeStyles({
         top: 0,
         left: 0,
         width: '100%',
-        height: '100%',
+        height: '100%'
         // top: '50%',
         // left: '50%',
         // transform: 'translate(-50%, -50%)',
-      },
+      }
     },
     '&.ratio-1x1 .MuiGridListTile-tile': {
-      paddingBottom: '100%',
+      paddingBottom: '100%'
     },
     '&.ratio-4x3 .MuiGridListTile-tile': {
-      paddingBottom: '75%',
+      paddingBottom: '75%'
     },
     '&.ratio-3x2 .MuiGridListTile-tile': {
-      paddingBottom: '66.66%',
+      paddingBottom: '66.66%'
     },
     '&.ratio-16x9 .MuiGridListTile-tile': {
-      paddingBottom: '56.25%',
+      paddingBottom: '56.25%'
     },
     '&.ratio-3x4 .MuiGridListTile-tile': {
-      paddingBottom: '133.33%',
+      paddingBottom: '133.33%'
     },
     '&.ratio-2x3 .MuiGridListTile-tile': {
-      paddingBottom: '150%',
-    },
-  },
+      paddingBottom: '150%'
+    }
+  }
 })

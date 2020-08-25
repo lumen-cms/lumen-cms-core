@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import {
   BackgroundStoryblok,
-  RowStoryblok,
+  RowStoryblok
 } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
@@ -23,36 +23,36 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(1),
             boxSizing: 'border-box',
             '&:first-child': {
-              marginTop: 0,
+              marginTop: 0
             },
             '&:last-child': {
-              marginBottom: 0,
-            },
-          },
+              marginBottom: 0
+            }
+          }
         },
         '& > *': {
           marginTop: theme.spacing(2),
           marginBottom: theme.spacing(2),
           boxSizing: 'border-box',
           '&:first-child': {
-            marginTop: 0,
+            marginTop: 0
           },
           '&:last-child': {
-            marginBottom: 0,
-          },
-        },
-      },
+            marginBottom: 0
+          }
+        }
+      }
     },
     xsColumnReverse: {
       [theme.breakpoints.only('xs')]: {
-        flexDirection: 'column-reverse',
-      },
+        flexDirection: 'column-reverse'
+      }
     },
     smColumnReverse: {
       [theme.breakpoints.only('sm')]: {
-        flexDirection: 'column-reverse',
-      },
-    },
+        flexDirection: 'column-reverse'
+      }
+    }
   })
 )
 
@@ -75,14 +75,14 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
       container
       style={{
         ...style,
-        padding: spacing ? `-${spacing * 8}px` : undefined,
+        padding: spacing ? `-${spacing * 8}px` : undefined
       }}
       spacing={spacing}
       alignItems={content.align_items ? content.align_items : undefined}
       direction={direction || undefined}
       className={clsx(className, classes.gridRow, {
         [classes.xsColumnReverse]: content.reverse_on_mobile,
-        [classes.smColumnReverse]: content.reverse_on_tablet,
+        [classes.smColumnReverse]: content.reverse_on_tablet
       })}
       justify={content.justify ? content.justify : undefined}
       alignContent={content.align_content ? content.align_content : undefined}

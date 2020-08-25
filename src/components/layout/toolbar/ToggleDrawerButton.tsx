@@ -5,7 +5,7 @@ import MenuUi from 'mdi-material-ui/Menu'
 import AppsIcon from 'mdi-material-ui/Apps'
 import {
   toggleLeftNavigation,
-  toggleRightNavigation,
+  toggleRightNavigation
 } from '../../../utils/state/actions'
 import LmIcon from '../../icon/LmIcon'
 import { ToolbarNaviButtonStoryblok } from '../../../typings/generated/components-schema'
@@ -14,13 +14,13 @@ import { useAppSetup } from '../../provider/context/AppSetupContext'
 export type LmToggleDrawerButtonProps = { content: ToolbarNaviButtonStoryblok }
 
 export function LmToggleDrawerButton({
-  content,
+  content
 }: LmToggleDrawerButtonProps): JSX.Element | null {
   const rightDrawer = content.is_right_drawer
   const {
     rightDrawerMediaBreakpoint,
     leftDrawerMediaBreakpoint,
-    hasRightDrawer,
+    hasRightDrawer
   } = useAppSetup()
   if (rightDrawer && !hasRightDrawer) {
     return null // if no right drawer on page hide
@@ -33,10 +33,10 @@ export function LmToggleDrawerButton({
   return (
     <IconButton
       className={clsx(content.class_names?.values, {
-        [`d-${breakpointClass}-none`]: !content.force_show,
+        [`d-${breakpointClass}-none`]: !content.force_show
       })}
       style={{
-        width: 'max-content',
+        width: 'max-content'
       }}
       onClick={() =>
         rightDrawer ? toggleRightNavigation() : toggleLeftNavigation()

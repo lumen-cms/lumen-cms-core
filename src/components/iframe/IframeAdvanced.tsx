@@ -3,7 +3,7 @@ import React, {
   RefObject,
   useEffect,
   useMemo,
-  useState,
+  useState
 } from 'react'
 import { useInView } from 'react-intersection-observer'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -13,7 +13,7 @@ import { intersectionIframeOptions } from '../../utils/intersectionObserverConfi
 export type LmIframeAdvancedProps = { content: IframeAdvancedStoryblok }
 
 export function LmIframeAdvanced({
-  content,
+  content
 }: LmIframeAdvancedProps): JSX.Element {
   const [refIntersectionObserver, inView, containerRef] = useInView(
     intersectionIframeOptions
@@ -24,12 +24,13 @@ export function LmIframeAdvanced({
   const properties = content.property || []
   const allowed = content.allow || []
   const [loaded, setLoaded] = useState<boolean>(false)
+  const contentUrl = content.url
   const src = useMemo(() => {
     if (inView) {
-      return content.url
+      return contentUrl
     }
     return ''
-  }, [inView])
+  }, [inView, contentUrl])
 
   useEffect(() => {
     const messageFunc = (message: any) => {
@@ -63,7 +64,7 @@ export function LmIframeAdvanced({
       window.removeEventListener('message', messageFunc)
       window.removeEventListener('click', clickFunc)
     }
-  }, [containerRef])
+  }, [containerRef, content.incoming_message_key, content.post_message_key])
 
   return (
     <div ref={refIntersectionObserver}>
@@ -73,6 +74,7 @@ export function LmIframeAdvanced({
         </div>
       )}
       <iframe
+        title={`iframe_${contentUrl}`}
         ref={iframeRef}
         id={contentId}
         allow={allowed.join(' ')}
@@ -87,7 +89,7 @@ export function LmIframeAdvanced({
           display: content.display,
           height: '100%',
           minHeight: content.height ? `${content.height}px` : undefined,
-          width: content.width || '100%',
+          width: content.width || '100%'
         }}
       />
     </div>

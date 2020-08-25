@@ -15,20 +15,20 @@ import { useAppContext } from '../provider/context/AppContext'
 const useStyles = makeStyles({
   parallax: {
     '& .parallax-inner': {
-      zIndex: 0,
+      zIndex: 0
     },
     '& .parallax__content': {
       zIndex: 1,
       position: 'relative',
-      height: '100%',
-    },
-  },
+      height: '100%'
+    }
+  }
 })
 
 export type LmSectionParallaxProps = { content: SectionParallaxStoryblok }
 
 export function LmSectionParallax({
-  content,
+  content
 }: LmSectionParallaxProps): JSX.Element {
   const dimensions = useWindowDimensions()
   const { ComponentRender } = useAppContext()
@@ -43,7 +43,7 @@ export function LmSectionParallax({
   const [layers, setLayers] = useState<BannerLayer[] | undefined>()
   const disableLazyLoad = content.disable_lazy_load
   const styles = {
-    height: contentHeight ? `${contentHeight}vh` : '50vh',
+    height: contentHeight ? `${contentHeight}vh` : '50vh'
   }
 
   // let [styles, setStyles] = useState(styles)
@@ -58,13 +58,14 @@ export function LmSectionParallax({
         const img = getImageAttrs({
           originalSource: item.image,
           width,
+          // eslint-disable-next-line no-bitwise
           height: ~~imgHeight,
           smart: true,
-          focalPoint: item.image_focal_point,
+          focalPoint: item.image_focal_point
         })
         const imgSource = await getImagePromise({
           src: img.src,
-          srcSet: img.srcSet,
+          srcSet: img.srcSet
         })
         return {
           image: `"${imgSource}"`,
@@ -72,11 +73,11 @@ export function LmSectionParallax({
           children:
             item.children &&
             item.children.length &&
-            ComponentRender({ content: item.children[0], i }),
+            ComponentRender({ content: item.children[0], i })
         }
       })
-      Promise.all(items).then((layers) => {
-        setLayers(layers as any)
+      Promise.all(items).then((lyrs) => {
+        setLayers(lyrs as any)
       })
     }
 
@@ -85,7 +86,16 @@ export function LmSectionParallax({
     } else if (inView) {
       refElement && processLayers()
     }
-  }, [inView, width, height, elements, contentHeight])
+  }, [
+    inView,
+    width,
+    height,
+    elements,
+    contentHeight,
+    ComponentRender,
+    disableLazyLoad,
+    refElement
+  ])
 
   const body = content.body || []
   return (

@@ -9,20 +9,20 @@ import { PlayerStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles({
   videoContainer: {
-    position: 'relative',
+    position: 'relative'
   },
   ratio16x9: {
-    paddingTop: `${100 / (16 / 9)}%`,
+    paddingTop: `${100 / (16 / 9)}%`
   },
   ratio4x3: {
-    paddingTop: `${100 / (4 / 3)}%`,
+    paddingTop: `${100 / (4 / 3)}%`
   },
   ratio3x2: {
-    paddingTop: `${100 / (3 / 2)}%`,
+    paddingTop: `${100 / (3 / 2)}%`
   },
   ratio1x1: {
-    paddingTop: `100%`,
-  },
+    paddingTop: `100%`
+  }
 })
 
 export type LmPlayerProps = {
@@ -45,7 +45,7 @@ export function LmPlayer({ content }: LmPlayerProps): JSX.Element {
     <div
       ref={refIntersectionObserver}
       className={clsx(classes.videoContainer, {
-        [classes[`ratio${content.ratio}`]]: !!content.ratio,
+        [classes[`ratio${content.ratio}`]]: !!content.ratio
       })}
     >
       {inView ? (
@@ -53,7 +53,7 @@ export function LmPlayer({ content }: LmPlayerProps): JSX.Element {
           style={{
             position: content.ratio ? 'absolute' : undefined,
             top: content.ratio ? 0 : undefined,
-            left: content.ratio ? 0 : undefined,
+            left: content.ratio ? 0 : undefined
           }}
           url={url}
           volume={content.muted ? 0 : content.volume}

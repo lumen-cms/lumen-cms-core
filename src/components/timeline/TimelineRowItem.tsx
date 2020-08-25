@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cardContainer: {
       position: 'relative',
-      padding: `${theme.spacing(1)}px 0`,
+      padding: `${theme.spacing(1)}px 0`
     },
     cardDecorator: {
       position: 'absolute',
@@ -21,16 +21,16 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 0,
       borderTop: '16px solid transparent',
       borderBottom: '16px solid transparent',
-      top: 'calc(50% - 16px)',
+      top: 'calc(50% - 16px)'
     },
     cardDecoratorLeft: {
       left: '100%',
-      borderLeft: `16px solid${theme.palette.grey.A100}`,
+      borderLeft: `16px solid${theme.palette.grey.A100}`
     },
     cardDecoratorRight: {
       borderRight: `16px solid${theme.palette.grey.A100}`,
-      right: '100%',
-    },
+      right: '100%'
+    }
   })
 )
 
@@ -42,10 +42,10 @@ const CardContentContainer: FunctionComponent<{
     const btnProps: any = content.link?.cached_url
       ? {
           ...getLinkAttrs(content.link as LinkType, {
-            openExternal: !!content.open_external,
+            openExternal: !!content.open_external
           }),
           naked: true,
-          component: LinkRender,
+          component: LinkRender
         }
       : {}
     return <CardActionArea {...btnProps}>{children}</CardActionArea>
@@ -61,7 +61,7 @@ export type TimelineRowItemProps = {
 
 export function TimelineRowItem({
   isLeft,
-  content,
+  content
 }: TimelineRowItemProps): JSX.Element {
   const classes = useStyles()
   const { ComponentRender } = useAppContext()
@@ -90,5 +90,3 @@ export function TimelineRowItem({
     </div>
   )
 }
-
-export default TimelineRowItem

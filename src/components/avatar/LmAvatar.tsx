@@ -10,16 +10,16 @@ import { getImageAttrs } from '../../utils/ImageService'
 const sizeMap = {
   dense: {
     container: 30,
-    icon: 18,
+    icon: 18
   },
   large: {
     container: 50,
-    icon: 25,
+    icon: 25
   },
   xlarge: {
     container: 64,
-    icon: 32,
-  },
+    icon: 32
+  }
 }
 
 export type LmAvatarProps = {
@@ -38,7 +38,7 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
   )
   const style: CSSProperties = {
     color: content.color && content.color.rgba,
-    backgroundColor: content.background_color && content.background_color.rgba,
+    backgroundColor: content.background_color && content.background_color.rgba
   }
   if (content.size) {
     const individualSize = sizeMap[content.size]
@@ -63,7 +63,7 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
         originalSource: imageSrc,
         width: customSize && customSize > 128 ? customSize : 128,
         height: customSize && customSize > 128 ? customSize : 128,
-        smart: true,
+        smart: true
       })
       setImageSrc(imgAttrs)
     }

@@ -11,21 +11,22 @@ import { useAppContext } from '../provider/context/AppContext'
 import { DialogStoryblok } from '../../typings/generated/components-schema'
 
 const TransitionSlideUp = React.forwardRef((props, ref) => (
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   <Slide direction="up" ref={ref} {...props} />
 ))
 
 const useStyles = makeStyles({
   trigger: {
-    cursor: 'pointer',
+    cursor: 'pointer'
   },
   dialogTitle: {
     '& .MuiTypography-root': {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'space-between',
-    },
-  },
+      justifyContent: 'space-between'
+    }
+  }
 })
 
 export type LmDialogProps = {
@@ -47,14 +48,16 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
   const dialogProps: DialogProps = {
     open: isOpen,
     fullScreen,
-    onClose: content.prevent_click_outside ? undefined : () => setOpen(false),
+    onClose: content.prevent_click_outside ? undefined : () => setOpen(false)
   }
   if (content.slide_up) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     dialogProps.TransitionComponent = TransitionSlideUp
   }
   return (
     <div>
+      {/* eslint-disable-next-line */}
       <a onClick={() => setOpen(true)} className={classes.trigger}>
         {content.trigger?.map((blok, i) =>
           ComponentRender({ content: blok, i })
@@ -65,7 +68,7 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
           (!content.prevent_close_button && (
             <DialogTitle
               classes={{
-                root: classes.dialogTitle,
+                root: classes.dialogTitle
               }}
             >
               <span>{content.title}</span>

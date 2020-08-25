@@ -5,7 +5,7 @@ import {
   CardListStoryblok,
   ListsStoryblok,
   ListWidgetStoryblok,
-  NavListStoryblok,
+  NavListStoryblok
 } from '../../typings/generated/components-schema'
 import ListWidgetLinks from './ListWidgetLinks'
 import { AppApiRequestPayload } from '../../typings/app'
@@ -28,5 +28,3 @@ export function ListWidgetContainer(
   }
   return <ListWidgetCards options={options} {...rest} />
 }
-
-export default ListWidgetContainer

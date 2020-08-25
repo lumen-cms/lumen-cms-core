@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react'
 import {
   AppApiRequestPayload,
   ComponentRenderProps,
-  LinkRenderProps,
+  LinkRenderProps
 } from '../../../typings/app'
 
 export type AppContextProps = Omit<
@@ -20,9 +20,9 @@ const defaultValue: AppContextProps = {
   allStaticContent: [],
   listWidgetData: {},
   insideStoryblok: false,
-  ComponentRender: (_blok: any) => {
+  ComponentRender: () => {
     return <div>needs to be set</div>
-  },
+  }
 }
 
 export const AppContext = createContext<AppContextProps>(defaultValue)

@@ -17,16 +17,16 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
       return ''
     }
     return content.body || ''
-  }, [inView, content.lazy_load])
+  }, [content.lazy_load, content.body, inView])
 
   return (
     <div
       dangerouslySetInnerHTML={{
-        __html: htmlContent,
+        __html: htmlContent
       }}
       ref={refIntersectionObserver}
       style={{
-        height: '100%',
+        height: '100%'
       }}
     />
   )

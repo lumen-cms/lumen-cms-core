@@ -25,64 +25,64 @@ const useStyles = makeStyles((theme: Theme) =>
         overflow: 'hidden',
         height: theme.toolbar.height.systemBar,
         [theme.breakpoints.only('xs')]: {
-          display: 'none',
-        },
+          display: 'none'
+        }
       },
       '& .MuiIconButton-root': {
-        color: 'inherit',
+        color: 'inherit'
       },
       '&.lm-toolbar__unelevated:not(.lm-toolbar__scrolled)': {
-        boxShadow: 'none',
+        boxShadow: 'none'
       },
       '&.lm-toolbar__text-bold .MuiButton-root': {
-        fontWeight: 'bold',
+        fontWeight: 'bold'
       },
       '&.lm-toolbar__transparent:not(.lm-toolbar__scrolled)': {
         backgroundColor: 'transparent',
         boxShadow: 'none',
         '& .MuiButtonBase-root': {
-          color: '#fff',
+          color: '#fff'
         },
         '& .lm-system-bar': {
-          backgroundColor: 'transparent !important',
-        },
+          backgroundColor: 'transparent !important'
+        }
       },
       '&.lm-toolbar__scrolled': {
         '& .lm-system-bar': {
           // transform: `translate(0, ${-1 * theme.toolbar.height.systemBar}px)`,
           // transition: 'transform .5s',
           // paddingTop: theme.toolbar.height.systemBar,
-          marginTop: -1 * theme.toolbar.height.systemBar,
+          marginTop: -1 * theme.toolbar.height.systemBar
           // height: '0 !important'
         },
         '& .MuiToolbar-root': {
           height: theme.toolbar.height.mobile,
           [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-            height: theme.toolbar.height.landscape,
+            height: theme.toolbar.height.landscape
           },
           [theme.breakpoints.up('sm')]: {
-            height: theme.toolbar.height.desktop,
-          },
-        },
+            height: theme.toolbar.height.desktop
+          }
+        }
       },
       '&.lm-toolbar__scroll-collapse.lm-toolbar__collapsed .MuiToolbar-root': {
         height: 0,
         minHeight: 0,
         padding: 0,
         overflow: 'hidden',
-        transitionDuration: '300ms',
-      },
+        transitionDuration: '300ms'
+      }
     },
     leftShift: {
       marginLeft: theme.drawer.left,
       width: `calc(100% - ${theme.drawer.left})`,
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: theme.transitions.duration.leavingScreen
       }),
       [theme.breakpoints.only('xs')]: {
-        marginLeft: 0,
-      },
+        marginLeft: 0
+      }
     },
     topAppBarCustom: (props: AppHeaderProps) => {
       const options: CreateCSSProperties<{}> = {}
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme: Theme) =>
       const increasedFontSize = props.settings.toolbar_font_size
       if (increasedFontSize) {
         options['& .MuiButton-root'] = {
-          fontSize: increasedFontSize as string,
+          fontSize: increasedFontSize as string
         }
       }
       return options
@@ -109,14 +109,14 @@ const useStyles = makeStyles((theme: Theme) =>
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
         height: theme.toolbar.height.custom
           ? Math.round(theme.toolbar.height.custom * 0.86)
-          : theme.toolbar.height.landscape,
+          : theme.toolbar.height.landscape
       },
       [theme.breakpoints.up('sm')]: {
         height: theme.toolbar.height.custom
           ? Math.round(theme.toolbar.height.custom * 1.15)
-          : theme.toolbar.height.desktop,
-      },
-    },
+          : theme.toolbar.height.desktop
+      }
+    }
   })
 )
 
@@ -124,7 +124,7 @@ const mapToolbarColor = {
   primary: 'primary',
   secondary: 'secondary',
   dark: 'inherit',
-  white: 'inherit',
+  white: 'inherit'
 }
 
 const TopAppBar: FunctionComponent<
@@ -178,7 +178,7 @@ const TopAppBar: FunctionComponent<
           [classes.leftShift]: showLeftShift,
           [classes[
             `left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`
-          ]]: showLeftShift,
+          ]]: showLeftShift
         })}
         color={mapToolbarColor[toolbarVariant || 'default']}
         position={isFixedTop ? 'fixed' : 'relative'}
@@ -187,7 +187,7 @@ const TopAppBar: FunctionComponent<
         <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
           <Toolbar
             className={clsx(classes.toolbar, {
-              [classes.toolbarCustom]: props.settings.toolbar_font_size,
+              [classes.toolbarCustom]: props.settings.toolbar_font_size
             })}
           >
             {props.children}

@@ -20,7 +20,7 @@ const useStyles = makeStyles({
       zIndex: 0,
       height: '100%',
       width: '100%',
-      position: 'absolute',
+      position: 'absolute'
     },
 
     '& .videobg': {
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
       width: '100%' /* Set video container element width here */,
       height: '100%' /* Set video container element height here */,
       overflow: 'hidden',
-      background: '#111' /* bg color, if video is not high enough */,
+      background: '#111' /* bg color, if video is not high enough */
     },
 
     /* horizontally center the video */
@@ -38,7 +38,7 @@ const useStyles = makeStyles({
       height: '100%',
       left: '-9999px',
       right: '-9999px',
-      margin: 'auto',
+      margin: 'auto'
     },
     /* set video aspect ratio and vertically center */
     '& .videobg-aspect': {
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
       bottom: '-9999px',
       margin: 'auto',
       // padding-bottom: 56.25%; /* 16:9 ratio this is calculated inside the component */
-      overflow: 'hidden',
+      overflow: 'hidden'
     },
 
     '& .videobg-make-height': {
@@ -57,9 +57,9 @@ const useStyles = makeStyles({
       top: 0,
       right: 0,
       bottom: 0,
-      left: 0,
-    },
-  },
+      left: 0
+    }
+  }
   // > .mdc-layout-grid {
   //     position: relative;
   //     z-index: 0;
@@ -79,7 +79,7 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
   )
   const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
-    height: 0,
+    height: 0
   })
   const hasSrc = !!content.url
   const body = content.body || []
@@ -110,11 +110,18 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
         const current = intersectionElement.target
         setContainerDimensions({
           width: current.clientWidth,
-          height: current.clientHeight,
+          height: current.clientHeight
         })
       }
     }
-  }, [inView, dimensions.width, dimensions.height, content.url, fixedToRatio])
+  }, [
+    inView,
+    dimensions.width,
+    dimensions.height,
+    content.url,
+    fixedToRatio,
+    intersectionElement
+  ])
   const maxWidth = content.max_width
     ? content.max_width === 'none'
       ? false
@@ -146,7 +153,7 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
             {body.map((blok, i) =>
               ComponentRender({
                 content: blok,
-                i,
+                i
               })
             )}
           </Container>

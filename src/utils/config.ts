@@ -30,5 +30,5 @@ export const CONFIG: AppConfigProps = {
   overwriteDisableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,
   GA: process.env.NEXT_PUBLIC_GA,
   TAWKTO: process.env.NEXT_PUBLIC_TAWKTO,
-  prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH,
+  prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH
 }

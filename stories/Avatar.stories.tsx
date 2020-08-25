@@ -1,6 +1,7 @@
 import {  LmComponentRender as LmAvatar } from '../src/'
 import React from 'react'
-import { randomIntFromInterval, storyAvatar, storyImageUrls } from '../src/storybook/core/various'
+import { randomIntFromInterval, storyAvatar} from '../src/storybook/core/various'
+import { storyImageUrls } from '../src/storybook/core/sharedFunctions'
 
 export default {
   title: 'Avatar'

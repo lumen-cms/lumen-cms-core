@@ -5,10 +5,7 @@ import Link from 'next/link'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
-import {
-  ListsStoryblok,
-  ListWidgetStoryblok,
-} from '../../typings/generated/components-schema'
+import { ListsStoryblok } from '../../typings/generated/components-schema'
 import { internalLinkHandler } from '../../utils/linkHandler'
 import { AppApiRequestPayload } from '../../typings/app'
 import { CONFIG } from '../../utils/config'
@@ -16,12 +13,12 @@ import { CONFIG } from '../../utils/config'
 type ListWidgetListsProps = {
   items: AppApiRequestPayload['allStories']
   options: ListsStoryblok
-  content: ListWidgetStoryblok
+  // content: ListWidgetStoryblok
 }
 
 function ListWidgetLists({
   items,
-  options,
+  options
 }: ListWidgetListsProps): JSX.Element {
   const imageSize = options.image_size || 'large'
   const hideImage = options.hide_image

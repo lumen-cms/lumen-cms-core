@@ -9,7 +9,7 @@ import { useRichTextStyles } from './richTextStyles'
 export type LmRichTextParagraphProps = { content: RichTextEditorStoryblok }
 
 export function LmRichTextParagraph({
-  content,
+  content
 }: LmRichTextParagraphProps): JSX.Element {
   const classes = useRichTextStyles()
   return (
@@ -20,7 +20,7 @@ export function LmRichTextParagraph({
         content.style,
         content.class_names && content.class_names.values,
         {
-          [`lm-font-${content.font}`]: content.font,
+          [`lm-font-${content.font}`]: content.font
         }
       )}
       align={content.align ? content.align : undefined}
@@ -35,7 +35,7 @@ export function LmRichTextParagraph({
         fontSize: content.font_size ? content.font_size : undefined,
         letterSpacing: content.letter_spacing
           ? content.letter_spacing
-          : undefined,
+          : undefined
       }}
       variant={
         mapTypographyVariant[

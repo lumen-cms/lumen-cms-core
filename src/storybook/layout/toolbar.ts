@@ -2,16 +2,16 @@ import {
   ListSearchAutocompleteStoryblok,
   ToolbarLogoStoryblok,
   ToolbarRowSectionStoryblok,
-  ToolbarRowStoryblok,
+  ToolbarRowStoryblok
 } from '../../typings/generated/components-schema'
 import { StorybookOptionProps } from '../core/storybook_typing'
-import { getUid } from '../core/various'
 import getKnobComponents from '../helpers/getKnobComponent'
+import { getUid } from '../core/sharedFunctions'
 
 export const storyToolbarRow = ({
   options = {},
   knob,
-  count = '',
+  count = ''
 }: StorybookOptionProps & {
   options?: Partial<ToolbarRowStoryblok>
 } = {}): ToolbarRowStoryblok => {
@@ -19,14 +19,14 @@ export const storyToolbarRow = ({
     componentName: 'toolbar_row',
     options,
     knob,
-    count,
+    count
   }) as ToolbarRowStoryblok
 }
 
 export const storyToolbarSection = ({
   options = {},
   knob,
-  count = '',
+  count = ''
 }: StorybookOptionProps & {
   options?: Partial<ToolbarRowSectionStoryblok>
 }): ToolbarRowSectionStoryblok => {
@@ -34,14 +34,14 @@ export const storyToolbarSection = ({
     componentName: 'toolbar_row_section',
     options,
     knob,
-    count,
+    count
   }) as ToolbarRowSectionStoryblok
 }
 
 export const storyListSearchAutocomplete = ({
   options = {},
   knob,
-  count,
+  count
 }: {
   options?: Partial<ListSearchAutocompleteStoryblok>
   knob?: string
@@ -51,14 +51,11 @@ export const storyListSearchAutocomplete = ({
     componentName: 'list_search_autocomplete',
     options,
     knob,
-    count,
+    count
   }) as ListSearchAutocompleteStoryblok
 }
 
-export const storyToolbarLogo = (
-  _options: Partial<ToolbarLogoStoryblok> = {},
-  _knobs?: string
-): ToolbarLogoStoryblok => ({
+export const storyToolbarLogo = (): ToolbarLogoStoryblok => ({
   _uid: getUid(),
-  component: 'toolbar_logo',
+  component: 'toolbar_logo'
 })

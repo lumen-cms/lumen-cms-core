@@ -9,12 +9,12 @@ export type LmHubspotMeetingProps = {
 
 export function LmHubspotMeeting({
   content,
-  disableEmbed,
+  disableEmbed
 }: LmHubspotMeetingProps): JSX.Element {
   const dataSrc = `https://app.hubspot.com/meetings/${
     content.meeting_name
   }?embed-true=${disableEmbed ? 'false' : 'true'}`
-  const [,status] = useScript(
+  const [, status] = useScript(
     content.meeting_name
       ? `https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=${new Date().getTime()}`
       : ''

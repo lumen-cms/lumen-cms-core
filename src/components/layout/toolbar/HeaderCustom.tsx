@@ -10,7 +10,7 @@ type HeaderComponents = {
 
 const Components: HeaderComponents = {
   toolbar_row: LmToolbarRow,
-  divider: LmDivider,
+  divider: LmDivider
 }
 
 function HeaderItem(blok: any, settings: GlobalStoryblok): JSX.Element {
@@ -18,7 +18,7 @@ function HeaderItem(blok: any, settings: GlobalStoryblok): JSX.Element {
     return React.createElement(Components[blok.component], {
       key: blok._uid,
       content: blok,
-      settings,
+      settings
     })
   }
   return React.createElement(

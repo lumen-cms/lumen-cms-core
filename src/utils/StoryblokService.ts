@@ -27,8 +27,8 @@ class StoryblokServiceClass {
       accessToken: this.token,
       cache: {
         clear: 'auto',
-        type: 'memory',
-      },
+        type: 'memory'
+      }
     })
 
     this.query = {}
@@ -97,7 +97,7 @@ class StoryblokServiceClass {
       slug,
       {
         ...params,
-        ...this.getDefaultParams(),
+        ...this.getDefaultParams()
       },
       'stories'
     )
@@ -107,7 +107,7 @@ class StoryblokServiceClass {
     const p = params || {}
     return this.client.get(slug, {
       ...p,
-      ...this.getDefaultParams(),
+      ...this.getDefaultParams()
     })
   }
 
@@ -123,7 +123,7 @@ class StoryblokServiceClass {
     page,
     setPage,
     settings,
-    setSettings,
+    setSettings
   }: {
     page?: AppPageProps['page']
     setPage: Function
