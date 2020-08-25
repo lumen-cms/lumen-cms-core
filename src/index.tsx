@@ -201,7 +201,7 @@ export function LmStoryblokComponentRender<P>(
       return (
         <SbEditable
           content={content}
-          key={typeof i === 'number' ? `${content.component}_${i}` : undefined}
+          key={typeof i === 'number' ? `${content.component}_${content._uid || i}` : undefined}
         >
           {CurrentElement}
         </SbEditable>
@@ -231,7 +231,7 @@ export function LmComponentRender<P>(
       LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,
       {
         content,
-        key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
+        key: typeof i === 'number' ? `${content.component}_${content._uid || i}` : undefined,
         ...rest
       } as unknown as Attributes & P
     )
