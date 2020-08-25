@@ -17,7 +17,7 @@ import { CONFIG_STORYBOOK } from './configStorybook'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import AppProvider from '../../components/provider/AppProvider'
-import { LmComponentRender } from '../../index'
+import '../../components/NamedComponents'
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
   useGlobalStyles()
@@ -147,7 +147,6 @@ const StoriesLayout = (Story: StoryType) => {
   return (
     <AppProvider
       content={{
-        ComponentRender: LmComponentRender as any,
         allCategories: [],
         listWidgetData: {},
         allStaticContent: []

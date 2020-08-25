@@ -50,11 +50,8 @@ import { LmPlayer } from './components/player/Player'
 import { LmToolbarSection } from './components/layout/toolbar/ToolbarSection'
 import { LmInstagramPost } from './components/instagram/InstagramPost'
 import { LmInstagramList } from './components/instagram/InstagramList'
-import { CONFIG } from './utils/config'
-import {
-  LmComponentRender,
-  LmCoreComponents
-} from './components/CoreComponents'
+import { CONFIG, LmCoreComponents } from './utils/config'
+import { LmComponentRender } from './components/CoreComponents'
 
 export {
   LmAccordion,
