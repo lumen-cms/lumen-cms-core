@@ -6,7 +6,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
 import {
   GlobalStoryblok,
-  ToolbarRowSectionStoryblok,
+  ToolbarRowSectionStoryblok
 } from '../../../typings/generated/components-schema'
 import { useAppContext } from '../../provider/context/AppContext'
 
@@ -29,11 +29,11 @@ const ToolbarSectionContainer: FunctionComponent<{
         'h-100': !align,
         'd-inline-flex':
           !content.align && !hideOnMediaQuery && !invHideOnMediaQuery,
-        'd-none': hideOnMediaQuery || invHideOnMediaQuery,
+        'd-none': hideOnMediaQuery || invHideOnMediaQuery
       })}
       style={{
         alignItems: !align ? 'center' : undefined,
-        alignSelf: align || 'center',
+        alignSelf: align || 'center'
       }}
     >
       {children}
@@ -49,7 +49,7 @@ export type LmToolbarSectionProps = {
 
 export function LmToolbarSection({
   settings,
-  content,
+  content
 }: LmToolbarSectionProps): JSX.Element {
   const body = content.body || []
   const { ComponentRender } = useAppContext()

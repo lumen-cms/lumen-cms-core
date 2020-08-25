@@ -28,7 +28,7 @@ export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
       if (window.gtag && googleAnaliyticsId) {
         window.gtag('config', googleAnaliyticsId, {
           page_location: url,
-          page_title: window.document.title,
+          page_title: window.document.title
         })
       }
     }
@@ -46,6 +46,7 @@ export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
       Router.events.off('routeChangeStart', handleRouteStart)
       Router.events.off('routeChangeError', handleRouteError)
     }
+    /* eslint-disable-next-line */
   }, [])
 
   // If the page is not yet generated, this will be displayed

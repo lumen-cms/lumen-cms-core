@@ -4,7 +4,7 @@ import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import {
   CategoryComponent,
   PageComponent,
-  StaticcontainerComponent,
+  StaticcontainerComponent
 } from './generated/schema'
 
 type ErrorProps = {

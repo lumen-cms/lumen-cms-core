@@ -5,7 +5,7 @@ export enum ScriptStatus {
   IDLE = 'idle',
   LOADING = 'loading',
   READY = 'ready',
-  ERROR = 'error',
+  ERROR = 'error'
 }
 
 /**

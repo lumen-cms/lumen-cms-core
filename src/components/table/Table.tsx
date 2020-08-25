@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme: Theme) =>
               ? theme.palette.common.white
               : theme.palette.common.black
           }`,
-          padding: theme.spacing(3),
-        },
+          padding: theme.spacing(3)
+        }
       },
       '&.lm-table__bordered-bold': {
         '& td, & th': {
@@ -25,18 +25,18 @@ const useStyles = makeStyles((theme: Theme) =>
             theme.palette.type === 'dark'
               ? theme.palette.common.white
               : theme.palette.common.black
-          }`,
+          }`
         },
 
         '& th': {
-          textAlign: 'left',
+          textAlign: 'left'
         },
 
         '& tbody tr:last-child': {
           '& td': {
-            fontWeight: 'bold',
-          },
-        },
+            fontWeight: 'bold'
+          }
+        }
       },
       '&.lm-table__boxed': {
         border: `1px solid ${
@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
         '& td': {
           border: `1px solid ${theme.palette.divider}`,
-          padding: theme.spacing(3),
-        },
+          padding: theme.spacing(3)
+        }
       },
       '&.lm-table__price': {
         width: '100%',
@@ -58,17 +58,17 @@ const useStyles = makeStyles((theme: Theme) =>
           padding: `${theme.spacing(4)}px 0`,
           borderBottom: `1px solid ${theme.palette.divider}`,
           '&:first-child': {
-            width: '80%',
+            width: '80%'
           },
           '&:not(:first-child)': {
-            textAlign: 'right',
+            textAlign: 'right'
           },
           '&:last-child': {
             fontWeight: 'bold',
-            fontSize: '1.2rem',
+            fontSize: '1.2rem'
             // fontFamily: '' // todo
-          },
-        },
+          }
+        }
       },
       '&.lm-table__comparison': {
         '& thead': {
@@ -79,19 +79,19 @@ const useStyles = makeStyles((theme: Theme) =>
               borderRight: `1px solid ${theme.palette.divider}`,
               padding: theme.spacing(4),
               color: theme.palette.primary.contrastText,
-              backgroundColor: theme.palette.primary.main,
+              backgroundColor: theme.palette.primary.main
               // fontFamily: $table-comparison-header-font-family;
             },
 
             '&:nth-child(2)': {
-              borderTopLeftRadius: '10px',
+              borderTopLeftRadius: '10px'
             },
 
             '&:last-child': {
               borderRight: 'none',
-              borderTopRightRadius: '10px',
-            },
-          },
+              borderTopRightRadius: '10px'
+            }
+          }
         },
 
         '& tbody': {
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
             '&:first-of-type': {
               color: theme.palette.text.primary,
-              padding: '25px 35px 25px 0',
+              padding: '25px 35px 25px 0'
             },
 
             '&:not(:first-child)': {
@@ -110,12 +110,12 @@ const useStyles = makeStyles((theme: Theme) =>
               textAlign: 'center',
               boxShadow: '-1px 1px 3px 0 rgba(240, 240, 240, .7)', // theme.shadows[1],//'-1px 1px 3px 0 rgba(240, 240, 240, .7)',
               borderLeft: `1px solid ${theme.palette.divider}`,
-              borderRight: `1px solid ${theme.palette.divider}`,
+              borderRight: `1px solid ${theme.palette.divider}`
             },
 
             '&:last-child': {
-              boxShadow: '1px 0 3px 0 rgba(240, 240, 240, .75)', // theme.shadows[2]//
-            },
+              boxShadow: '1px 0 3px 0 rgba(240, 240, 240, .75)' // theme.shadows[2]//
+            }
           },
 
           '& tr:last-child > td': {
@@ -123,12 +123,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
             '&:not(:first-child)': {
               borderBottom: `1px solid ${theme.palette.divider}`,
-              boxShadow: '-1px 3px 7px 0 rgba(240, 240, 240, .7)',
-            },
-          },
-        },
-      },
-    },
+              boxShadow: '-1px 3px 7px 0 rgba(240, 240, 240, .7)'
+            }
+          }
+        }
+      }
+    }
   })
 )
 
@@ -156,7 +156,7 @@ export function LmTable({ content }: LmTableProps): JSX.Element {
     'lm-table',
     content.class_names && content.class_names.values,
     {
-      [`lm-table__${content.variant}`]: !!content.variant,
+      [`lm-table__${content.variant}`]: !!content.variant
     }
   )
   const tableBody = (content.body && content.body.tbody) || []
@@ -168,8 +168,8 @@ export function LmTable({ content }: LmTableProps): JSX.Element {
         {!content.disable_table_head && (
           <thead>
             <tr>
-              {tableHead.map((content, index) => (
-                <th key={`head_${index}`}>{content}</th>
+              {tableHead.map((c, index) => (
+                <th key={`head_${index}`}>{c}</th>
               ))}
             </tr>
           </thead>

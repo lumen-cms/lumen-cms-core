@@ -12,5 +12,5 @@ Router.router = {
   replace: actionWithPromise,
   prefetch: actionWithPromiseVoid,
   route: '/mock-route',
-  pathname: 'mock-path',
+  pathname: 'mock-path'
 }

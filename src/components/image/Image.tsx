@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: '0 0 -6px 0 !important',
     overflow: 'auto',
     padding: 0,
-    position: 'relative',
+    position: 'relative'
   },
   rootNoMargin: {
-    margin: '0 !important',
+    margin: '0 !important'
   },
   image: {
     maxWidth: '100%',
@@ -28,18 +28,18 @@ const useStyles = makeStyles((theme: Theme) => ({
       padding: '.25rem',
       backgroundColor: theme.palette.background.default,
       border: `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius,
+      borderRadius: theme.shape.borderRadius
     },
     '&.square, &.rounded-0': {
-      borderRadius: 0,
+      borderRadius: 0
     },
     '&.rounded': {
-      borderRadius: theme.shape.borderRadius,
+      borderRadius: theme.shape.borderRadius
     },
     '&.rounded-circle': {
-      borderRadius: '50%',
-    },
-  },
+      borderRadius: '50%'
+    }
+  }
 }))
 
 type LmImageProps = {
@@ -62,7 +62,7 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
 
   let imgProperties = {
     src: '',
-    srcSet: '',
+    srcSet: ''
   }
 
   let definedHeight =
@@ -74,11 +74,11 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
     // console.log('parent element', hasDefinedSize, isInGrid, parentElement?.clientWidth, parentElement?.clientHeight, grandparentElement?.clientWidth, grandparentElement?.clientHeight)
     const parentDim = {
       width: parentElement?.clientWidth || 0,
-      height: parentElement?.clientHeight || 0,
+      height: parentElement?.clientHeight || 0
     }
     const grandParentDim = {
       width: grandparentElement?.clientWidth || 0,
-      height: grandparentElement?.clientHeight || 0,
+      height: grandparentElement?.clientHeight || 0
     }
     const square =
       property.includes('rounded-circle') || property.includes('square')
@@ -111,7 +111,7 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
 
     const imgRatio = {
       width: Number(definedWidth || 0),
-      height: definedHeight,
+      height: definedHeight
     }
 
     imgProperties = getImageAttrs({
@@ -119,7 +119,7 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
       ...imgRatio,
       fitInColor,
       focalPoint: content.focal_point,
-      smart: imageCrop.includes('smart_crop'),
+      smart: imageCrop.includes('smart_crop')
     })
   }
 
@@ -131,7 +131,7 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
     <figure
       ref={refIntersectionObserver}
       className={clsx(classes.root, {
-        [classes.rootNoMargin]: content.disable_ratio_correction,
+        [classes.rootNoMargin]: content.disable_ratio_correction
       })}
       style={{
         height: content.height
@@ -143,7 +143,7 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
           ? `${content.width}px`
           : content.height_fill
           ? '100%'
-          : undefined,
+          : undefined
       }}
     >
       {!loaded && (
@@ -166,7 +166,7 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
             style={{
               width: content.width ? `${content.width}px` : 'auto',
               maxHeight: 'inherit',
-              height: definedHeight ? `${definedHeight}px` : 'auto',
+              height: definedHeight ? `${definedHeight}px` : 'auto'
             }}
             className={clsx(
               classes.image,

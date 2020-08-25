@@ -13,23 +13,23 @@ import { useAppContext } from '../provider/context/AppContext'
 // fab and button: small medium large, default: large
 const mapSize = {
   dense: 'small',
-  'lm-button-large': 'large',
+  'lm-button-large': 'large'
 }
 
 const mapIconButtonSize = {
-  dense: 'small',
+  dense: 'small'
 }
 
 const mapAvatarSize = {
   dense: 'small',
   'lm-button-large': 'large',
-  'lm-button-xlarge': 'xlarge',
+  'lm-button-xlarge': 'xlarge'
 }
 
 const mapVariant = {
   raised: 'contained',
   outlined: 'outlined',
-  unelevated: 'contained',
+  unelevated: 'contained'
 }
 
 const mapColor = {
@@ -38,50 +38,50 @@ const mapColor = {
   primary: 'primary',
   secondary: 'secondary',
   primary_text: 'inherit',
-  secondary_text: 'inherit',
+  secondary_text: 'inherit'
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   button: {
     '&.lm-button-shaped': {
-      borderRadius: '2em',
+      borderRadius: '2em'
     },
     '&.lm-button-square': {
-      borderRadius: '0',
+      borderRadius: '0'
     },
     '&.lm-button-xlarge': {
       fontSize: '20px',
       '& .MuiIcon-root': {
-        fontSize: '1.8rem',
+        fontSize: '1.8rem'
       },
       '&.MuiFab-root': {
         height: '64px',
         minHeight: '64px',
         '&:not(.MuiFab-extended)': {
-          width: '64px',
-        },
+          width: '64px'
+        }
       },
       '&.MuiFab-extended': {
         paddingLeft: '1.8rem',
         paddingRight: '1.8rem',
-        borderRadius: '31px',
-      },
+        borderRadius: '31px'
+      }
     },
     '&.lm-outlined': {
       '&.MuiIconButton-root': {
-        border: `1px solid rgba(0,0,0,0.23)`,
+        border: `1px solid rgba(0,0,0,0.23)`
       },
       '&.MuiIconButton-colorSecondary': {
-        border: `1px solid ${theme.palette.secondary.main}`,
+        border: `1px solid ${theme.palette.secondary.main}`
       },
       '&.MuiIconButton-colorPrimary': {
-        border: `1px solid ${theme.palette.primary.main}`,
-      },
+        border: `1px solid ${theme.palette.primary.main}`
+      }
     },
     '&.lm-unelevated': {
-      boxShadow: 'none',
-    },
-  },
+      boxShadow: 'none'
+    }
+  }
 }))
 
 export type LmButtonProps = { content: ButtonStoryblok }
@@ -104,17 +104,17 @@ export function LmButton({ content }: LmButtonProps): JSX.Element {
       'lm-unelevated': isUnelevated,
       'lm-outlined': content.variant === 'outlined',
       [content.size as string]: !!content.size,
-      [`lm-font-${content.font}`]: content.font,
+      [`lm-font-${content.font}`]: content.font
     }
   )
 
   const btnProps: any = content.link?.cached_url
     ? {
         ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external,
+          openExternal: !!content.open_external
         }),
         naked: true,
-        component: LinkRender,
+        component: LinkRender
       }
     : {}
 
@@ -127,7 +127,7 @@ export function LmButton({ content }: LmButtonProps): JSX.Element {
         style={{
           backgroundColor: content.custom_color?.rgba
             ? content.custom_color.rgba
-            : undefined,
+            : undefined
         }}
         size={mapSize[content.size as string] || 'medium'}
         color={color as FabProps['color']}
@@ -162,7 +162,7 @@ export function LmButton({ content }: LmButtonProps): JSX.Element {
           borderColor:
             content.variant === 'outlined' && content.custom_color?.rgba
               ? content.custom_color.rgba
-              : undefined,
+              : undefined
         }}
         className={className}
       >
@@ -199,7 +199,7 @@ export function LmButton({ content }: LmButtonProps): JSX.Element {
         borderColor:
           content.variant === 'outlined' && content.custom_color?.rgba
             ? content.custom_color.rgba
-            : undefined,
+            : undefined
       }}
       startIcon={
         <LmIcon

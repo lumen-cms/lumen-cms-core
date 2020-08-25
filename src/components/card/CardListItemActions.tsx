@@ -5,7 +5,7 @@ import { useAppContext } from '../provider/context/AppContext'
 
 function CardListItemActions({
   options,
-  content,
+  content
 }: CardListItemProps): JSX.Element | null {
   const { ComponentRender } = useAppContext()
 

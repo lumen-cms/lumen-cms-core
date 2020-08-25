@@ -30,25 +30,25 @@ export const useStyles = makeStyles({
       '& > div': {
         overflow: 'hidden',
         height: '100%',
-        width: '100%',
-      },
+        width: '100%'
+      }
     },
     '& .react-swipeable-view-container .MuiContainer-root': {
       padding: '0px !important',
       margin: '0px !important',
-      maxWidth: 'inherit !important',
+      maxWidth: 'inherit !important'
     },
 
     '&.carousel__arrows_dark': {
       '& .MuiSvgIcon-root': {
-        color: 'rgba(0,0,0,0.8)',
-      },
+        color: 'rgba(0,0,0,0.8)'
+      }
     },
     '& .carousel-indicators': {
       position: 'absolute',
       bottom: 0,
       width: '100%',
-      textAlign: 'center',
+      textAlign: 'center'
     },
     '& .carousel-control-next, & .carousel-control-prev': {
       position: 'absolute',
@@ -59,13 +59,13 @@ export const useStyles = makeStyles({
       cursor: 'pointer',
       '& .MuiSvgIcon-root': {
         fontSize: '4rem',
-        color: 'rgba(255,255,255,0.8)',
-      },
+        color: 'rgba(255,255,255,0.8)'
+      }
     },
     '& .carousel-control-next': {
-      right: 0,
-    },
-  },
+      right: 0
+    }
+  }
 })
 
 export type LmSliderProps = { content: SliderStoryblok }
@@ -83,13 +83,13 @@ export function LmSlider({ content }: LmSliderProps): JSX.Element {
   const properties = content.property || []
   const styles: CSSProperties = {}
   const paginationClasses = clsx('carousel-indicators', {
-    'd-none': properties.includes('hide_pagination'),
+    'd-none': properties.includes('hide_pagination')
   })
   const carouselPrevClasses = clsx('carousel-control-prev', {
-    'd-none': properties.includes('hide_arrows'),
+    'd-none': properties.includes('hide_arrows')
   })
   const carouselNextClasses = clsx('carousel-control-next', {
-    'd-none': properties.includes('hide_arrows'),
+    'd-none': properties.includes('hide_arrows')
   })
   const carouselClasses = clsx(
     classes.carousel,
@@ -127,13 +127,14 @@ export function LmSlider({ content }: LmSliderProps): JSX.Element {
               if (item.component === 'section') {
                 const newOpts: SectionProps = {
                   ...item,
-                  presetVariant: content.section_variant || 'transparent',
+                  presetVariant: content.section_variant || 'transparent'
                 }
                 return ComponentRender({ content: newOpts, i })
               }
               return ComponentRender({ content: item, i })
             })}
       </SwipeableViews>
+      {/* eslint-disable-next-line */}
       <a
         className={carouselPrevClasses}
         role="button"
@@ -142,6 +143,7 @@ export function LmSlider({ content }: LmSliderProps): JSX.Element {
         <ChevronLeft />
         <Typography variant="srOnly">Previous</Typography>
       </a>
+      {/* eslint-disable-next-line */}
       <a
         className={carouselNextClasses}
         role="button"

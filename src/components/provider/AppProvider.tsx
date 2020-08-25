@@ -3,7 +3,7 @@ import { AppContext, AppContextProps } from './context/AppContext'
 
 const AppProvider: FunctionComponent<{ content: AppContextProps }> = ({
   children,
-  content,
+  content
 }) => {
   return <AppContext.Provider value={content}>{children}</AppContext.Provider>
 }

@@ -3,7 +3,7 @@ import { CSSProperties } from 'react'
 import clsx from 'clsx'
 import {
   BackgroundStoryblok,
-  SectionStoryblok,
+  SectionStoryblok
 } from '../../typings/generated/components-schema'
 import useShadowStyles from '../jss/shadowStyles'
 
@@ -33,7 +33,7 @@ export default function useBackgroundBox(
     dark: '#303030',
     primary: theme.palette.primary.main,
     secondary: theme.palette.secondary.main,
-    light: '#fafafa',
+    light: '#fafafa'
   }
   const mapColor = {
     light: 'rgba(0, 0, 0, 0.87)',
@@ -41,7 +41,7 @@ export default function useBackgroundBox(
     dark: theme.palette.common.white,
     light_text: theme.palette.common.white,
     primary: theme.palette.common.white,
-    secondary: theme.palette.common.white,
+    secondary: theme.palette.common.white
   }
 
   background = background || ({} as BackgroundStoryblok)
@@ -64,12 +64,12 @@ export default function useBackgroundBox(
     boxShadow: background.elevation
       ? theme.shadows[background.elevation]
       : undefined,
-    minHeight: background.height ? background.height : undefined,
+    minHeight: background.height ? background.height : undefined
   }
   Object.keys(style).forEach((key) => !style[key] && delete style[key])
 
   const className = clsx(background.classNames?.values, {
-    [styles[background.shadow_effect || '']]: !!background.shadow_effect,
+    [styles[background.shadow_effect || '']]: !!background.shadow_effect
   })
   return { className, style }
 }

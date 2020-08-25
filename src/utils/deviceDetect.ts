@@ -17,7 +17,7 @@ const deviceDetect = (req?: IncomingMessage): AppDevice => {
     width: 1080,
     isTablet: false,
     isMobile: false,
-    isDesktop: true,
+    isDesktop: true
   }
   if (mobileDevice) {
     obj.device = 'mobile'

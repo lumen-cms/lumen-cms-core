@@ -13,7 +13,7 @@ export function getOriginalImageDimensions(src: string) {
   )
   return {
     width: parseInt(originalWidth),
-    height: parseInt(originalHeight),
+    height: parseInt(originalHeight)
   }
 }
 
@@ -54,7 +54,7 @@ export default function imageService(image: string, option = '', filter = '') {
 function _getImageSource({
   image,
   width,
-  height,
+  height
 }: {
   image: string
   width: number
@@ -73,7 +73,7 @@ export function getPreviewImageSource(image: string) {
   return _getImageSource({
     image,
     width: orig.width / 100,
-    height: orig.height / 100,
+    height: orig.height / 100
   })
 }
 
@@ -103,7 +103,7 @@ export function getImageAttrs({
   filter = '',
   fitInColor,
   smart,
-  focalPoint,
+  focalPoint
 }: GetImageFuncProps): { src: string; srcSet: string } {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   let dimW = width
@@ -134,7 +134,7 @@ export function getImageAttrs({
   const src = imageService(originalSource, path, filter)
   const imgObj = {
     src,
-    srcSet: src,
+    srcSet: src
   }
   // enable retina sourceset
   if (

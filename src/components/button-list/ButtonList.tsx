@@ -14,7 +14,7 @@ export function LmButtonList({ content }: LmButtonListProps): JSX.Element {
     'd-flex',
     content.class_names && content.class_names.values,
     {
-      'lm-button-list__margin-left': properties.includes('margin_left'),
+      'lm-button-list__margin-left': properties.includes('margin_left')
     }
   )
 

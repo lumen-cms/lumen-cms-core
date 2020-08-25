@@ -16,8 +16,39 @@ type CollapsibleListSectionProps = {
   content: NavMenuStoryblok
 }
 
-export function CollapsibleListSection({
+type DrawerContentRenderProps = {
+  content: any
+  i?: number
+  [k: string]: any
+}
+
+export function DrawerContentRender({
   content,
+  i
+}: DrawerContentRenderProps): JSX.Element | null {
+  const { ComponentRender } = useAppContext()
+  const { component } = content
+  const componentProps = {
+    content,
+    key: `${component}_${i}`
+  }
+  if (component === 'button' || component === 'nav_menu_item') {
+    return <DrawerButton {...componentProps} />
+  }
+  if (component === 'nav_list') {
+    return <DrawerNavList {...componentProps} />
+  }
+  if (component === 'nav_menu') {
+    return <CollapsibleListSection {...componentProps} />
+  }
+  if (component === 'list_search_autocomplete') {
+    return null
+  }
+  return ComponentRender({ content, i })
+}
+
+export function CollapsibleListSection({
+  content
 }: CollapsibleListSectionProps): JSX.Element {
   const body = content.body || []
   const items: any[] = []
@@ -54,7 +85,7 @@ export function CollapsibleListSection({
               iconName={startIconName}
               style={{
                 width: '1.5rem',
-                height: '1.5rem',
+                height: '1.5rem'
               }}
             />
           </ListItemIcon>
@@ -74,35 +105,4 @@ export function CollapsibleListSection({
       </Collapse>
     </>
   )
-}
-
-type DrawerContentRenderProps = {
-  content: any
-  i?: number
-  [k: string]: any
-}
-
-export function DrawerContentRender({
-  content,
-  i,
-}: DrawerContentRenderProps): JSX.Element | null {
-  const { ComponentRender } = useAppContext()
-  const { component } = content
-  const componentProps = {
-    content,
-    key: `${component}_${i}`,
-  }
-  if (component === 'button' || component === 'nav_menu_item') {
-    return <DrawerButton {...componentProps} />
-  }
-  if (component === 'nav_list') {
-    return <DrawerNavList {...componentProps} />
-  }
-  if (component === 'nav_menu') {
-    return <CollapsibleListSection {...componentProps} />
-  }
-  if (component === 'list_search_autocomplete') {
-    return null
-  }
-  return ComponentRender({ content, i })
 }

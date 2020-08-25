@@ -2,7 +2,7 @@ import { DrawerProps } from '@material-ui/core/Drawer'
 import { createContext, useContext } from 'react'
 import {
   GlobalStoryblok,
-  PageStoryblok,
+  PageStoryblok
 } from '../../../typings/generated/components-schema'
 
 export type AppSetupProps = {
@@ -24,7 +24,7 @@ const defaultValue: AppSetupProps = {
   hasRightDrawer: false,
   drawerVariant: 'temporary',
   drawerBelowToolbar: false,
-  hasScrollCollapse: false,
+  hasScrollCollapse: false
 }
 
 export const AppSetupContext = createContext(defaultValue)

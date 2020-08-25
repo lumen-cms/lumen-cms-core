@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core/styles'
 import {
   GlobalStoryblok,
-  ToolbarRowStoryblok,
+  ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 import { useAppContext } from '../../provider/context/AppContext'
 
@@ -35,7 +35,7 @@ function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
         style={{
           backgroundColor:
             (content.background_color && content.background_color.rgba) ||
-            theme.palette.primary.main,
+            theme.palette.primary.main
           // height: `${content.height || 40}px`
         }}
       >

@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer'
 import {
   BackgroundElementColorStoryblok,
   BackgroundElementGradientStoryblok,
-  BackgroundElementItemStoryblok,
+  BackgroundElementItemStoryblok
 } from '../../typings/generated/components-schema'
 import imageService from '../../utils/ImageService'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -17,7 +17,7 @@ type BackgroundElementsProps = {
 }
 
 function BackgroundElements({
-  elements = [],
+  elements = []
 }: BackgroundElementsProps): JSX.Element {
   const [viewRef, inView] = useInView(intersectionDefaultOptions)
 
@@ -26,7 +26,7 @@ function BackgroundElements({
     top: 0,
     left: 0,
     width: '100%',
-    height: '100%',
+    height: '100%'
   }
 
   if (inView) {
@@ -46,6 +46,8 @@ function BackgroundElements({
           case 'background_element_gradient': {
             return item.value
           }
+          default:
+            return ''
         }
       })
       .filter((i) => i)

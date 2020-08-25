@@ -4,7 +4,7 @@ import React, {
   FC,
   FunctionComponentFactory,
   isValidElement,
-  ReactNode,
+  ReactNode
 } from 'react'
 import SbEditable from 'storyblok-react'
 import { AppProps } from 'next/app'
@@ -109,7 +109,7 @@ export {
   LmPlayer,
   LmToolbarSection,
   LmInstagramPost,
-  LmInstagramList,
+  LmInstagramList
 }
 
 export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
@@ -177,7 +177,7 @@ export const LmCoreComponents: LmCoreComponentsType = {
   toolbar_row_section: LmToolbarSection,
   dialog: LmDialog,
   instagram_post: LmInstagramPost,
-  instagram_list: LmInstagramList,
+  instagram_list: LmInstagramList
 }
 
 export function LmStoryblokComponentRender<P>(
@@ -189,7 +189,7 @@ export function LmStoryblokComponentRender<P>(
       LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,
       ({
         content,
-        ...rest,
+        ...rest
       } as unknown) as Attributes & P
     )
     if (isValidElement(CurrentElement)) {
@@ -227,7 +227,7 @@ export function LmComponentRender<P>(
       ({
         content,
         key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
-        ...rest,
+        ...rest
       } as unknown) as Attributes & P
     )
   }

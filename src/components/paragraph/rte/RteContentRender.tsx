@@ -11,7 +11,7 @@ const ElementMap = {
   horizontal_rule: 'hr',
   hard_break: 'br',
   // 'image': '',
-  code_block: 'code',
+  code_block: 'code'
 }
 
 type RteNodeProps = { content: RteProps }
@@ -24,6 +24,7 @@ function RteNode({ content }: RteNodeProps): JSX.Element {
     {},
     content.content &&
       content.content.map((blok: RteContentProps, i) =>
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
         LmRteContentRenderer(blok, i)
       )
   )
@@ -40,14 +41,14 @@ const RteComponents = {
   horizontal_rule: () => <hr />,
   hard_break: RteNode,
   image: RteNode,
-  code_block: RteNode,
+  code_block: RteNode
 }
 
 export function LmRteContentRenderer(blok: any, i: number): JSX.Element {
   if (typeof RteComponents[blok.type] !== 'undefined') {
     return React.createElement(RteComponents[blok.type], {
       content: blok,
-      key: `${blok.type}_${i}`,
+      key: `${blok.type}_${i}`
     })
   }
   return React.createElement(

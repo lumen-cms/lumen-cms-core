@@ -3,7 +3,7 @@ import Error from 'next/error'
 import {
   AppPageProps,
   ComponentRenderProps,
-  LinkRenderProps,
+  LinkRenderProps
 } from '../../typings/app'
 import WindowDimensionsProvider from '../provider/WindowDimensionsProvider'
 import AppSetupProvider from '../provider/AppSetupProvider'
@@ -20,7 +20,7 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
   content,
   ComponentRender,
   LinkRender,
-  children,
+  children
 }) => {
   const { page, settings, error, ...rest } = content
   if (error) {

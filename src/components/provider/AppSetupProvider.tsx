@@ -2,7 +2,7 @@ import React, { FunctionComponent, useMemo } from 'react'
 import { DrawerProps } from '@material-ui/core/Drawer'
 import {
   GlobalStoryblok,
-  PageStoryblok,
+  PageStoryblok
 } from '../../typings/generated/components-schema'
 import { useWindowDimensions } from './context/WindowDimensionContext'
 import { AppSetupContext, AppSetupProps } from './context/AppSetupContext'
@@ -49,7 +49,7 @@ const AppSetupProvider: FunctionComponent<{
       drawerBelowToolbar,
       drawerFullWidthMobile,
       rightDrawerMediaBreakpoint,
-      leftDrawerMediaBreakpoint,
+      leftDrawerMediaBreakpoint
     }
   }, [
     hasDrawer,
@@ -61,7 +61,7 @@ const AppSetupProvider: FunctionComponent<{
     drawerBelowToolbar,
     drawerFullWidthMobile,
     rightDrawerMediaBreakpoint,
-    leftDrawerMediaBreakpoint,
+    leftDrawerMediaBreakpoint
   ])
 
   return (

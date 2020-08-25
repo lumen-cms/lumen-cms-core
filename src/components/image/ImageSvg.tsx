@@ -9,7 +9,7 @@ import { ImageStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles({
   root: {
-    display: 'inline-block',
+    display: 'inline-block'
   },
   svg: {
     display: 'inline-block',
@@ -17,10 +17,10 @@ const useStyles = makeStyles({
     height: 120,
     '&.has-color': {
       '& path': {
-        fill: 'currentColor',
-      },
-    },
-  },
+        fill: 'currentColor'
+      }
+    }
+  }
 })
 type ImageSvgProps = { content: ImageStoryblok }
 
@@ -48,12 +48,12 @@ export default function ImageSvg({ content }: ImageSvgProps): JSX.Element {
             style={{
               color: fitInColor,
               width: content.width && `${content.width}px`,
-              height: content.height && `${content.height}px`,
+              height: content.height && `${content.height}px`
             }}
             onLoad={afterSvgLoaded}
             onError={onErrorHandler}
             className={clsx(classes.svg, {
-              'has-color': !!fitInColor,
+              'has-color': !!fitInColor
             })}
           />
         )}

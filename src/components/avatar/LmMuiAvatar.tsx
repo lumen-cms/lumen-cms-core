@@ -10,17 +10,17 @@ const useStyles = makeStyles({
   avatar: {
     '&.small': {
       width: 24,
-      height: 24,
+      height: 24
     },
     '&.large': {
       width: 52,
-      height: 52,
+      height: 52
     },
     '&.xlarge': {
       width: 64,
-      height: 64,
-    },
-  },
+      height: 64
+    }
+  }
 })
 
 export type LmMuiAvatarProps = {
@@ -33,7 +33,7 @@ export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
   const [reference, inView] = useInView(intersectionDefaultOptions)
   const [imageAttrs, setImageSrc] = useState<{ src: string; srcSet: string }>({
     src: '',
-    srcSet: '',
+    srcSet: ''
   })
   useEffect(() => {
     if (!inView) {
@@ -41,7 +41,7 @@ export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
     }
     const imgAttrs = getImageAttrs({ originalSource: src, width: 128 })
     setImageSrc(imgAttrs)
-  }, [inView])
+  }, [inView, src])
 
   return (
     <Avatar
@@ -49,7 +49,7 @@ export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
       src={imageAttrs.src}
       srcSet={imageAttrs.srcSet}
       className={clsx(classes.avatar, {
-        [size as string]: !!size,
+        [size as string]: !!size
       })}
     />
   )

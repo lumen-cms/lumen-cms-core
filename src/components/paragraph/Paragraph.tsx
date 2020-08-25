@@ -18,7 +18,7 @@ export function LmParagraph({ content }: LmParagraphProps): JSX.Element {
         content.style,
         content.class_names && content.class_names.values,
         {
-          [`lm-font-${content.font}`]: content.font,
+          [`lm-font-${content.font}`]: content.font
         }
       )}
       variant={
@@ -28,7 +28,7 @@ export function LmParagraph({ content }: LmParagraphProps): JSX.Element {
       }
       component="div"
       dangerouslySetInnerHTML={{
-        __html: parseMarkdownContent(content.text as string),
+        __html: parseMarkdownContent(content.text as string)
       }}
     />
   )

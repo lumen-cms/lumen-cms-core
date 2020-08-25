@@ -9,12 +9,12 @@ const statusCodes = {
   401: 'Not Authorized | Invalid API key',
   404: 'This page could not be found',
   500: 'Internal Server Error',
-  501: 'Not Implemented',
+  501: 'Not Implemented'
 }
 
 const getErrorPath = ({
   locale,
-  statusCode = 404,
+  statusCode = 404
 }: {
   locale?: string
   statusCode?: number
@@ -28,7 +28,7 @@ type NotFoundProps = { statusCode?: number; locale?: string }
 
 export function NotFound({
   statusCode = 404,
-  locale,
+  locale
 }: NotFoundProps): JSX.Element {
   const title = (statusCodes as any)[statusCode]
   const { ComponentRender } = useAppContext()
@@ -38,7 +38,7 @@ export function NotFound({
   >(undefined)
   useEffect(() => {
     const fetchErrorContent = async () => {
-      return await StoryblokService.get(getErrorPath({ statusCode, locale }))
+      return StoryblokService.get(getErrorPath({ statusCode, locale }))
     }
 
     fetchErrorContent()
@@ -54,7 +54,7 @@ export function NotFound({
         console.error(e)
         setErrorContent(null)
       })
-  }, [statusCode])
+  }, [statusCode, locale])
 
   const errorTitle =
     (errorContent && errorContent.title) || `${statusCode} - ${title}`

@@ -9,7 +9,7 @@ import { intersectionDefaultOptions } from '../../../utils/intersectionObserverC
 import { homepageLinkHandler } from '../../../utils/linkHandler'
 import {
   GlobalStoryblok,
-  ToolbarLogoStoryblok,
+  ToolbarLogoStoryblok
 } from '../../../typings/generated/components-schema'
 import imageService from '../../../utils/ImageService'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {
   AccordionItemStoryblok,
-  AccordionStoryblok,
+  AccordionStoryblok
 } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 
@@ -22,7 +22,7 @@ export function LmAccordion({ content }: LmAccordionProps): JSX.Element {
           opened,
           setOpen,
           iteration,
-          i: iteration,
+          i: iteration
         })
       )}
     </div>

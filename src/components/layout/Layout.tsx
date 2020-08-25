@@ -14,7 +14,7 @@ export type LayoutComponentProps = {
 const Layout: FunctionComponent<LayoutComponentProps> = ({
   children,
   // appSetup,
-  settings,
+  settings
 }) => {
   return (
     <>

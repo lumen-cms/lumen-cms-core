@@ -11,7 +11,7 @@ import ImageShadow from '../section/ImageShadow'
 const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   children,
   content,
-  options,
+  options
 }) => {
   const [reference, inView, intersecRef] = useInView(intersectionDefaultOptions)
   const [imgSource, setImgSource] = useState<string>('')
@@ -28,7 +28,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
       height: ['contain', 'initial', 'auto'].includes(imageSize)
         ? 0
         : currentHeight,
-      smart: true,
+      smart: true
     })
   }
   return (
@@ -55,7 +55,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
               options.variant && options.variant.includes('font_white')
                 ? 'white'
                 : 'inherit',
-            backgroundSize: imageSize || 'cover',
+            backgroundSize: imageSize || 'cover'
           }}
           image={imgSource}
           ref={reference}

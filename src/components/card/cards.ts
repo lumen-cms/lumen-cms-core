@@ -1,6 +1,6 @@
 import {
   CardListItemStoryblok,
-  CardListStoryblok,
+  CardListStoryblok
 } from '../../typings/generated/components-schema'
 
 export type CardListItemProps = {

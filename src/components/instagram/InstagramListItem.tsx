@@ -2,18 +2,12 @@ import React from 'react'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 import Comment from 'mdi-material-ui/Comment'
 import Heart from 'mdi-material-ui/Heart'
-import { InstagramListStoryblok } from '../../typings/generated/components-schema'
-import { InstagramMappedProps } from './InstagramList'
 import { LmInstagramPost } from './InstagramPost'
-
-type InstagramListItemProps = {
-  content: InstagramMappedProps
-  options: InstagramListStoryblok
-}
+import { InstagramListItemProps } from './instaTypes'
 
 export function InstagramListItem({
   content,
-  options,
+  options
 }: InstagramListItemProps) {
   if (options.type === 'image') {
     const Social = () => (
@@ -44,7 +38,7 @@ export function InstagramListItem({
           style={{
             width: '100%',
             height: !options.height ? 'auto' : '100%',
-            objectFit: options.height ? 'cover' : undefined,
+            objectFit: options.height ? 'cover' : undefined
           }}
           width={content.thumbnail.config_width}
           height={content.thumbnail.config_height}
@@ -68,7 +62,7 @@ export function InstagramListItem({
           url: `https://instagr.am/p/${content.shortcode}`,
           hide_caption: options?.hide_caption || undefined,
           _uid: content.shortcode,
-          component: 'instagram_post',
+          component: 'instagram_post'
         }}
       />
     </div>

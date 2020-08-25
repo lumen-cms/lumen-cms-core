@@ -9,25 +9,25 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import LmIcon from '../icon/LmIcon'
 import {
   TabsItemStoryblok,
-  TabsStoryblok,
+  TabsStoryblok
 } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {
     '& .react-swipeable-view-container > div > div': {
-      padding: theme.spacing(3),
-    },
+      padding: theme.spacing(3)
+    }
   },
   vertical: {
     '& .MuiTabs-flexContainerVertical': {
-      borderRight: `1px solid ${theme.palette.divider}`,
+      borderRight: `1px solid ${theme.palette.divider}`
     },
     '& .react-swipeable-view-container > div > div': {
       paddingTop: 0,
-      paddingBottom: 0,
-    },
-  },
+      paddingBottom: 0
+    }
+  }
 }))
 
 const widthMap = {
@@ -45,7 +45,7 @@ const widthMap = {
   12: 12,
   false: false,
   auto: 'auto',
-  true: true,
+  true: true
 }
 
 export type LmTabsProps = { content: TabsStoryblok }
@@ -69,7 +69,7 @@ export function LmTabs({ content }: LmTabsProps): JSX.Element {
       container
       direction="row"
       className={clsx(classes.tabContainer, {
-        [classes.vertical]: isVertical,
+        [classes.vertical]: isVertical
       })}
     >
       <Grid

@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   GlobalStoryblok,
-  ToolbarRowStoryblok,
+  ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
 import { DrawerContentRender } from './CollapsibleListSection'
@@ -9,7 +9,7 @@ import { DrawerContentRender } from './CollapsibleListSection'
 type DrawerContentListProps = { content: Partial<GlobalStoryblok> }
 
 export function DrawerContentList({
-  content,
+  content
 }: DrawerContentListProps): JSX.Element {
   const appSetup = useAppSetup()
   let childs =

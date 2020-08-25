@@ -4,7 +4,7 @@ import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
 import {
   getImageAttrs,
-  getOriginalImageDimensions,
+  getOriginalImageDimensions
 } from '../../utils/ImageService'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 import { WithWindowDimensionsProps } from '../provider/context/WindowDimensionContext'
@@ -36,7 +36,7 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
     return getImageAttrs({
       originalSource: source,
       width: landscape ? 0 : dimensionWidth,
-      height: landscape ? dimensionHeight : 0,
+      height: landscape ? dimensionHeight : 0
     })
   }
 
@@ -62,9 +62,11 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
           </div>
         ))}
       </SwipeableViews>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
       <a
         className="carousel-control-prev"
         role="button"
+        tabIndex={currentIndex}
         onClick={() =>
           props.onImageClick(
             currentIndex === 0
@@ -75,8 +77,10 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
       >
         <ChevronLeft />
       </a>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
       <a
         className="carousel-control-next"
+        tabIndex={currentIndex}
         role="button"
         onClick={() =>
           props.onImageClick(

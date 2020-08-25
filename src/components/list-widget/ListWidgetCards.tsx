@@ -2,7 +2,7 @@ import React from 'react'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
-  ListWidgetStoryblok,
+  ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
 import { useAppContext } from '../provider/context/AppContext'
@@ -16,7 +16,7 @@ type ListWidgetCardsProps = {
 function ListWidgetCards({
   items,
   content,
-  options,
+  options
 }: ListWidgetCardsProps): JSX.Element {
   const { ComponentRender } = useAppContext()
 
@@ -41,10 +41,10 @@ function ListWidgetCards({
             image: itemContent.preview_image,
             link: {
               cached_url: item.full_slug,
-              linktype: 'story',
-            },
+              linktype: 'story'
+            }
           } as CardListItemStoryblok
-        }),
+        })
       }}
     />
   )

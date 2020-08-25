@@ -18,7 +18,7 @@ export const closeNavigationDrawers = () => {
 
 const addSearchParamsToUrl = ({
   categories,
-  searchText,
+  searchText
 }: {
   categories?: string[]
   searchText?: string
@@ -44,7 +44,7 @@ const addSearchParamsToUrl = ({
 export const onSearchTextChange = (searchText: string) => {
   setGlobalState('searchParams', (v) => ({
     ...v,
-    searchText,
+    searchText
   }))
   addSearchParamsToUrl({ searchText })
 }
@@ -52,7 +52,7 @@ export const onSearchTextChange = (searchText: string) => {
 export const setSearchCategory = (categories: string[]) => {
   setGlobalState('searchParams', (v) => ({
     ...v,
-    categories,
+    categories
   }))
   addSearchParamsToUrl({ categories })
 }

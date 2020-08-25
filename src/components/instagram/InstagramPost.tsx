@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react'
 import useSWR from 'swr'
 import { useInView } from 'react-intersection-observer'
-import useScript from '@charlietango/use-script'
 import fetcher from '../../utils/fetcher'
-import { InstagramPostStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { LmInstagramPostProps } from './instaTypes'
+import useScript from '../../utils/hooks/useScript'
 
 const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'
-
-export type LmInstagramPostProps = {
-  content: InstagramPostStoryblok
-}
 
 export function LmInstagramPost({ content }: LmInstagramPostProps) {
   const url = new URL(`${security}://api.instagram.com/oembed`)

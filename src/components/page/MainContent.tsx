@@ -18,7 +18,7 @@ const MainContentContainer: FunctionComponent = ({ children }) => {
         ]]: true,
         [classes.leftShift]: appSetup.drawerVariant !== 'temporary' && isOpen,
         [classes[`left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`]]:
-          appSetup.drawerVariant !== 'temporary' && isOpen,
+          appSetup.drawerVariant !== 'temporary' && isOpen
       })}
     >
       {children}
@@ -40,5 +40,3 @@ export function MainContent({ body }: MainContentProps): JSX.Element {
     </MainContentContainer>
   )
 }
-
-export default MainContent

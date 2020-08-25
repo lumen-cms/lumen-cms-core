@@ -6,7 +6,7 @@ type LmSliderChildProps = { body: any[]; sectionVariant: any }
 
 export function LmSliderChild({
   body,
-  sectionVariant,
+  sectionVariant
 }: LmSliderChildProps): JSX.Element {
   const { ComponentRender } = useAppContext()
 
@@ -16,7 +16,7 @@ export function LmSliderChild({
         if (item.component === 'section') {
           const newOpts: SectionProps = {
             ...item,
-            presetVariant: sectionVariant || 'transparent',
+            presetVariant: sectionVariant || 'transparent'
           }
           return ComponentRender({ content: newOpts, i })
         }

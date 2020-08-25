@@ -17,10 +17,10 @@ export function LmCardListItem(props: CardListItemProps): JSX.Element {
   const btnProps: any = content.link?.cached_url
     ? {
         ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external,
+          openExternal: !!content.open_external
         }),
         naked: true,
-        component: LinkRender,
+        component: LinkRender
       }
     : {}
 
@@ -68,7 +68,7 @@ export function LmCardListItem(props: CardListItemProps): JSX.Element {
               style={{
                 padding: variants.includes('overlay_content_no_space')
                   ? 0
-                  : undefined,
+                  : undefined
               }}
             >
               <CardListActionTitles {...props} />

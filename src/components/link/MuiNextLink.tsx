@@ -24,6 +24,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
     if (other.external) {
       delete other.nextHref
       delete other.external
+      // eslint-disable-next-line jsx-a11y/anchor-has-content
       return <a ref={ref} {...other} href={href} />
     }
     if (!as && href) {
@@ -42,6 +43,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
         shallow={shallow}
         passHref={passHref}
       >
+        {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
         <a ref={ref} {...other} />
       </NextLink>
     )
@@ -75,12 +77,12 @@ function Link(props: LinkProps): JSX.Element {
 
   const router = useRouter()
 
-  const pathname = href
   const className = clsx(classNameProps, {
-    [activeClassName]: router?.pathname === pathname && activeClassName, // todo probably router.asPath??
+    [activeClassName]: router?.pathname === href && activeClassName // todo probably router.asPath??
   })
   if (!href) {
     console.log(props)
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a {...other} className={className} />
   }
   if (naked) {

@@ -7,7 +7,7 @@ import { getImageAttrs } from '../../utils/ImageService'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import {
   ImageListItemStoryblok,
-  ImageListStoryblok,
+  ImageListStoryblok
 } from '../../typings/generated/components-schema'
 
 export type LmImageListItemProps = {
@@ -45,12 +45,12 @@ export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
         width,
         height,
         smart: listProps.image_crop === 'smart',
-        fitInColor: listProps.fit_in_color,
+        fitInColor: listProps.fit_in_color
       })
       imageProps = {
         ...imgSrc,
         width: width || undefined,
-        height: height || undefined,
+        height: height || undefined
       }
     }
   }

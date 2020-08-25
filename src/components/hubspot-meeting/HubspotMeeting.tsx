@@ -9,7 +9,7 @@ export type LmHubspotMeetingProps = {
 
 export function LmHubspotMeeting({
   content,
-  disableEmbed,
+  disableEmbed
 }: LmHubspotMeetingProps): JSX.Element {
   const dataSrc = `https://app.hubspot.com/meetings/${
     content.meeting_name

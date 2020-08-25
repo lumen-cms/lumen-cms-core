@@ -6,7 +6,7 @@ import { useAppContext } from '../provider/context/AppContext'
 export type LmStaticSectionProps = { content: StaticSectionStoryblok }
 
 export function LmStaticSection({
-  content,
+  content
 }: LmStaticSectionProps): JSX.Element | null {
   const { ComponentRender } = useAppContext()
   const { allStaticContent } = useAppContext()

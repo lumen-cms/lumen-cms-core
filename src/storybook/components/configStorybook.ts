@@ -3,7 +3,7 @@ export const CONFIG_STORYBOOK = {
     previewToken: 'Xzl0aUdUwWqtCsD37fHMmQtt',
     publicToken: 'Xzl0aUdUwWqtCsD37fHMmQtt',
     defaultLocale: 'en',
-    languages: ['en'],
+    languages: ['en']
   },
   KNOBS: {
     THEME: 'Theme Main',
@@ -20,6 +20,6 @@ export const CONFIG_STORYBOOK = {
     ACCORDION: 'Accordion',
     BUTTON_LIST: 'Button List',
     CARD_LIST: 'Card List',
-    CARD_LIST_ITEM: 'Card List Item',
-  },
+    CARD_LIST_ITEM: 'Card List Item'
+  }
 }

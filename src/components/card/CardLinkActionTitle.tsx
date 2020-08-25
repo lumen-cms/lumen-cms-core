@@ -6,7 +6,7 @@ import { mapTypographyVariant } from '../../utils/muiMapProps'
 
 function CardListActionTitles({
   content,
-  options,
+  options
 }: CardListItemProps): JSX.Element {
   return (
     <>

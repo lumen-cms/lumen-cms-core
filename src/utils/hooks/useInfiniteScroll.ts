@@ -15,6 +15,6 @@ export function useInfiniteScroll(collection: any[], perPage = 30) {
   return {
     ref: useRef,
     data: collection.slice(0, offset + perPage),
-    hasMore: Math.ceil(collection.length / perPage) > page,
+    hasMore: Math.ceil(collection.length / perPage) > page
   }
 }

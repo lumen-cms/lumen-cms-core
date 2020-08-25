@@ -1,7 +1,7 @@
 import {
   createMuiTheme,
   responsiveFontSizes,
-  ThemeProvider,
+  ThemeProvider
 } from '@material-ui/core/styles'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import React, { FunctionComponent, memo, useMemo } from 'react'
@@ -10,12 +10,12 @@ import parseFont from '../../utils/parseFont'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import {
   GlobalStoryblok,
-  ToolbarRowStoryblok,
+  ToolbarRowStoryblok
 } from '../../typings/generated/components-schema'
 
 const mapThemeType = {
   base: 'light',
-  dark: 'dark',
+  dark: 'dark'
 }
 
 declare module '@material-ui/core/styles/createMuiTheme' {
@@ -102,16 +102,16 @@ const GlobalTheme: FunctionComponent<{
         type: mapThemeType[(settings.theme_base as string) || 'base'],
         primary: {
           main: (settings.theme_primary as string) || '#1769aa',
-          contrastText: (settings.theme_primary_contrast as string) || '#fff',
+          contrastText: (settings.theme_primary_contrast as string) || '#fff'
         },
         secondary: {
           main: (settings.theme_secondary as string) || '#ab003c',
-          contrastText: (settings.theme_secondary_contrast as string) || '#fff',
-        },
+          contrastText: (settings.theme_secondary_contrast as string) || '#fff'
+        }
       },
       drawer: {
         left: `${settings.drawer_width || 285}px`,
-        right: `${rightDrawerWidth || 254}px`,
+        right: `${rightDrawerWidth || 254}px`
       },
       toolbar: {
         progressColor: settings.toolbar_progress_color,
@@ -124,13 +124,13 @@ const GlobalTheme: FunctionComponent<{
             : undefined,
           systemBar: firstMultiToolbar?.is_system_bar
             ? firstMultiToolbar?.height || 40
-            : 0,
-        },
+            : 0
+        }
       },
       typography: {
         fontFamily:
           settings.theme_font_default &&
-          (parseFont(settings.theme_font_default) as string),
+          (parseFont(settings.theme_font_default) as string)
       },
       alternativeFont: {
         alt1:
@@ -144,29 +144,29 @@ const GlobalTheme: FunctionComponent<{
           (parseFont(settings.theme_font_alt3) as string),
         alt4:
           settings.theme_font_alt4 &&
-          (parseFont(settings.theme_font_alt4) as string),
+          (parseFont(settings.theme_font_alt4) as string)
       },
       defaultContainerWidth,
       overrides: {
         MuiDrawer: {
           modal: {
             '&.lm-main__drawer .MuiExpansionPanelDetails-root .MuiList-root': {
-              width: '100%',
-            },
-          },
+              width: '100%'
+            }
+          }
         },
         MuiPopover: {
           paper: {
             '& a': {
               color: 'inherit',
-              textDecoration: 'none',
-            },
-          },
+              textDecoration: 'none'
+            }
+          }
         },
         MuiAppBar: {
           root: {
             '& .MuiToolbar-root': {
-              padding: '12px 0',
+              padding: '12px 0'
             },
 
             '& .lm-logo-header': {
@@ -175,61 +175,79 @@ const GlobalTheme: FunctionComponent<{
               '&.lm-logo-text': {
                 height: '100%',
                 display: 'inline-flex',
-                alignItems: 'center',
+                alignItems: 'center'
               },
               '& figure': {
-                boxSizing: 'border-box',
+                boxSizing: 'border-box'
               },
               '& .MuiCollapse-wrapper': {
-                height: '100%',
+                height: '100%'
               },
               '& img': {
                 display: 'block',
-                height: '100%',
-              },
+                height: '100%'
+              }
             },
             '& .MuiButtonBase-root.lm-default-color, & a.lm-logo-header': {
               color: 'inherit',
               textDecoration: 'none',
               whiteSpace: 'nowrap',
               '&.MuiButton-outlined,&.lm-outlined': {
-                borderColor: 'currentColor',
-              },
+                borderColor: 'currentColor'
+              }
             },
             '& .lm-toolbar__section': {
-              justifyContent: 'flex-end',
+              justifyContent: 'flex-end'
             },
             '&.lm-toolbar__dark': {
               backgroundColor: '#424242',
-              color: 'white',
-            },
-          },
+              color: 'white'
+            }
+          }
         },
         MuiCard: {
           root: {
             '& > a': {
               textDecoration: 'none',
-              color: 'inherit',
-            },
-          },
+              color: 'inherit'
+            }
+          }
         },
         MuiList: {
           root: {
             '& > a': {
-              color: 'inherit',
-            },
-          },
+              color: 'inherit'
+            }
+          }
         },
         MuiButton: {
           label: {
-            textTransform: 'initial',
-          },
-        },
-      },
+            textTransform: 'initial'
+          }
+        }
+      }
     }
 
     return responsiveFontSizes(createMuiTheme(globalTheme))
-  }, [themeUid])
+  }, [
+    rightDrawerWidth,
+    settings.drawer_width,
+    settings.multi_toolbar,
+    settings.theme_base,
+    settings.theme_container_width,
+    settings.theme_font_alt1,
+    settings.theme_font_alt2,
+    settings.theme_font_alt3,
+    settings.theme_font_alt4,
+    settings.theme_font_default,
+    settings.theme_primary,
+    settings.theme_primary_contrast,
+    settings.theme_secondary,
+    settings.theme_secondary_contrast,
+    settings.toolbar_main_height,
+    settings.toolbar_progress_color,
+    themeUid
+  ])
 
   return (
     <ThemeProvider theme={theme}>

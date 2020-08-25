@@ -1,8 +1,8 @@
-export function getImage({
+function getImage({
   src = '',
   srcSet = '',
   onReady,
-  onError,
+  onError
 }: {
   src: string
   srcSet: string
@@ -14,7 +14,7 @@ export function getImage({
   img.srcset = srcSet || src
   // img.crossOrigin = 'anonymous'
   img.onload = () => {
-    onReady && onReady(img && (img.currentSrc || img.src)) // return current selected source
+    onReady && onReady(img?.currentSrc || img?.src) // return current selected source
     img = null // dispose image element
   }
   img.onerror = (e) => {
@@ -25,7 +25,7 @@ export function getImage({
 
 export function getImagePromise({
   src,
-  srcSet,
+  srcSet
 }: {
   src: string
   srcSet: string
@@ -39,7 +39,7 @@ export function getImagePromise({
       },
       onError(e: any) {
         reject(e)
-      },
+      }
     })
   })
 }

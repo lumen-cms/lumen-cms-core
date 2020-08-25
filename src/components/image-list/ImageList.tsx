@@ -22,7 +22,7 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,
     columnCountTablet: content.column_count_tablet,
-    isMasonry: !!content.masonry,
+    isMasonry: !!content.masonry
   })
   const dimensions = useWindowDimensions()
   const containerRef: RefObject<HTMLDivElement> = React.createRef()
@@ -37,13 +37,13 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
 
   const body = content.body || []
   const gridListProps: GridListProps = {
-    spacing: gutterSize,
+    spacing: gutterSize
   }
   if (content.masonry) {
     gridListProps.spacing = 0
     gridListProps.style = {
       // columnCount: columnCount,
-      columnGap: `${gutterSize}px`,
+      columnGap: `${gutterSize}px`
     }
   }
 
@@ -52,13 +52,13 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
       <div
         ref={containerRef}
         style={{
-          padding: `${gutterSize}px`,
+          padding: `${gutterSize}px`
         }}
         className={clsx(classes.root, {
           [gridClasses.masonry]: content.masonry,
           [classes.aspectRatio]: content.aspect_ratio && !content.masonry,
           [`ratio-${content.aspect_ratio}`]: content.aspect_ratio,
-          'with-lightbox': content.enable_lightbox,
+          'with-lightbox': content.enable_lightbox
         })}
       >
         <GridList
@@ -71,10 +71,10 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
               item.link?.cached_url && !content.enable_lightbox
                 ? {
                     ...getLinkAttrs(item.link as LinkType, {
-                      openExternal: !!item.open_external,
+                      openExternal: !!item.open_external
                     }),
                     naked: true,
-                    component: LinkRender,
+                    component: LinkRender
                   }
                 : {}
             return (
@@ -83,7 +83,7 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
                 {...btnProps}
                 style={{
                   padding: !content.masonry ? `${gutterSize}px` : undefined,
-                  marginBottom: content.masonry ? `${gutterSize}px` : undefined,
+                  marginBottom: content.masonry ? `${gutterSize}px` : undefined
                 }}
                 onClick={(ev: any) =>
                   onImageClick({ _uid: item._uid, count: i, ...ev })
@@ -102,7 +102,7 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
           setLightbox,
           dimensions,
           onImageClick,
-          className: classes.lightbox,
+          className: classes.lightbox
         })}
     </div>
   )

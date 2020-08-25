@@ -13,8 +13,8 @@ import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
-    borderRadius: props.border_radius,
-  }),
+    borderRadius: props.border_radius
+  })
 })
 
 export type LmMenuProps = { content: NavMenuStoryblok }
@@ -30,6 +30,10 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
   const router = useRouter()
   const asPath = router?.asPath
 
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
   useEffect(() => {
     handleClose()
   }, [asPath])
@@ -37,9 +41,6 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
   let addons = {}
 
   if (content.alignment === 'bottomStart') {
@@ -47,24 +48,24 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
       getContentAnchorEl: null,
       anchorOrigin: {
         vertical: 'bottom',
-        horizontal: 'left',
+        horizontal: 'left'
       },
       transformOrigin: {
         vertical: 'top',
-        horizontal: 'left',
-      },
+        horizontal: 'left'
+      }
     }
   } else if (content.alignment === 'bottomEnd') {
     addons = {
       getContentAnchorEl: null,
       anchorOrigin: {
         vertical: 'bottom',
-        horizontal: 'right',
+        horizontal: 'right'
       },
       transformOrigin: {
         vertical: 'top',
-        horizontal: 'right',
-      },
+        horizontal: 'right'
+      }
     }
   }
   const ExpandIcon =
@@ -102,7 +103,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
         onClose={handleClose}
         anchorEl={anchorEl}
         classes={{
-          paper: classes.paper,
+          paper: classes.paper
         }}
         {...addons}
       >
@@ -114,10 +115,10 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
               const btnProps: any = nestedProps.link?.cached_url
                 ? {
                     ...getLinkAttrs(nestedProps.link as LinkType, {
-                      openExternal: !!nestedProps.open_external,
+                      openExternal: !!nestedProps.open_external
                     }),
                     // naked: true,
-                    component: LinkRender,
+                    component: LinkRender
                   }
                 : {}
 
