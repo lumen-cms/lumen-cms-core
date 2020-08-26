@@ -11,11 +11,7 @@ import { useGlobalState } from '../../../utils/state/state'
 import ContentSpace from '../ContentSpace'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
-import { GlobalStoryblok } from '../../../typings/generated/components-schema'
-
-export type AppHeaderProps = {
-  settings: GlobalStoryblok
-}
+import { AppHeaderProps } from './toolbarTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,12 +1,13 @@
 import React from 'react'
 import clsx from 'clsx'
 import Grid from '@material-ui/core/Grid'
-import TopAppBarWrap, { AppHeaderProps } from './TopAppBar'
+import TopAppBarWrap from './TopAppBar'
 import {
   GlobalStoryblok,
   ToolbarNaviButtonStoryblok
 } from '../../../typings/generated/components-schema'
 import { LmComponentRender } from '../../CoreComponents'
+import { AppHeaderProps } from './toolbarTypes'
 
 type HeaderSimpleProps = AppHeaderProps
 

@@ -1,8 +1,9 @@
 import React from 'react'
-import TopAppBarWrap, { AppHeaderProps } from './TopAppBar'
+import TopAppBarWrap from './TopAppBar'
 import LmToolbarRow from './ToolbarRow'
 import { LmDivider } from '../../divider/Divider'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
+import { AppHeaderProps } from './toolbarTypes'
 
 type HeaderComponents = {
   [k: string]: any

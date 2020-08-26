@@ -1,12 +1,8 @@
 import { JSXElementConstructor, ReactNode } from 'react'
-import { LmSectionProps } from '../components/section/Section'
 import {
   LmTimelineItemProps,
   LmTimelineProps
 } from '../components/timeline/timelineTypes'
-import { LmToolbarLogoProps } from '../components/layout/toolbar/ToolbarLogo'
-import { LmToggleDrawerButtonProps } from '../components/layout/toolbar/ToggleDrawerButton'
-import { LmToolbarSectionProps } from '../components/layout/toolbar/ToolbarSection'
 import {
   LmInstagramListProps,
   LmInstagramPostProps
@@ -61,6 +57,7 @@ import {
   LmGridColumnProps,
   LmGridRowProps,
   LmSectionParallaxProps,
+  LmSectionProps,
   LmSectionVideoProps
 } from '../components/section/sectionTypes'
 import { LmSliderProps } from '../components/slider/sliderTypes'
@@ -70,6 +67,11 @@ import {
 } from '../components/static-section/staticTypes'
 import { LmTableProps } from '../components/table/tableTypes'
 import { LmTabsProps } from '../components/tabs/tabsTypes'
+import {
+  LmToggleDrawerButtonProps,
+  LmToolbarLogoProps,
+  LmToolbarSectionProps
+} from '../components/layout/toolbar/toolbarTypes'
 
 type AppConfigProps = {
   href: string

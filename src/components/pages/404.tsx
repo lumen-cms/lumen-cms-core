@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { CONFIG } from '../../utils/config'
 import StoryblokService from '../../utils/StoryblokService'
-import { useAppContext } from '../provider/context/AppContext'
 import { LmComponentRender } from '../CoreComponents'
 
 const statusCodes = {

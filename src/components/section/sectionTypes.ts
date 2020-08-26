@@ -14,3 +14,6 @@ export type LmSectionParallaxProps = { content: SectionParallaxStoryblok }
 export type LmSectionVideoProps = { content: SectionVideoBgStoryblok }
 export type LmGridRowProps = { content: RowStoryblok }
 export type LmGridColumnProps = { content: ColumnStoryblok }
+export type LmSectionProps = {
+  content: SectionProps
+}

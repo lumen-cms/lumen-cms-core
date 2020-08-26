@@ -4,11 +4,9 @@ import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
-import {
-  GlobalStoryblok,
-  ToolbarRowSectionStoryblok
-} from '../../../typings/generated/components-schema'
+import { ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
 import { LmComponentRender } from '../../CoreComponents'
+import { LmToolbarSectionProps } from './toolbarTypes'
 
 const ToolbarSectionContainer: FunctionComponent<{
   content: ToolbarRowSectionStoryblok
@@ -41,11 +39,6 @@ const ToolbarSectionContainer: FunctionComponent<{
   )
 }
 ToolbarSectionContainer.displayName = 'ToolbarSectionContainer'
-
-export type LmToolbarSectionProps = {
-  content: ToolbarRowSectionStoryblok
-  settings: GlobalStoryblok
-}
 
 export function LmToolbarSection({
   settings,

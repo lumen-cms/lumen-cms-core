@@ -6,7 +6,7 @@ import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { LmComponentRender } from '../CoreComponents'
-import { SectionProps } from './sectionTypes'
+import { LmSectionProps } from './sectionTypes'
 
 const useStyles = makeStyles({
   fullHeight: {
@@ -30,10 +30,6 @@ const useStyles = makeStyles({
     }
   }
 })
-
-export type LmSectionProps = {
-  content: SectionProps
-}
 
 export function LmSection({ content }: LmSectionProps): JSX.Element {
   const classes = useStyles()
