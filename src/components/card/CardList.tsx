@@ -99,10 +99,7 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
       >
         {data.map((item, i) => (
           <GridListTile key={`${item.component}_${i}`}>
-            {LmComponentRender({
-              content: item,
-              options: rest
-            })}
+            <LmComponentRender content={item} options={rest} />
           </GridListTile>
         ))}
       </GridList>

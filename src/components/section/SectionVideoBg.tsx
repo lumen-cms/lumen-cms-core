@@ -140,12 +140,9 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
             style={{ height: '100%' }}
             maxWidth={maxWidth as ContainerProps['maxWidth']}
           >
-            {body.map((blok, i) =>
-              LmComponentRender({
-                content: blok,
-                i
-              })
-            )}
+            {body.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
           </Container>
         </div>
       )}

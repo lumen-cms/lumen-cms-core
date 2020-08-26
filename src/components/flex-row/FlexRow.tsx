@@ -18,7 +18,9 @@ export function LmFlexRow({ content }: LmFlexRowProps): JSX.Element {
         'mh-100': content.full_height
       })}
     >
-      {body.map((item, i) => LmComponentRender({ content: item, i }))}
+      {body.map((item) => (
+        <LmComponentRender content={item} key={item._uid} />
+      ))}
     </Grid>
   )
 }

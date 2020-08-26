@@ -5,6 +5,7 @@ export { LmDefaultApp } from './components/pages/_appDefault'
 
 export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
 export { LmApp } from './components/pages/_app'
+export { LmPage } from './components/page/Page'
 export { default as LmStoryblokService } from './utils/StoryblokService'
 export { internalLinkHandler } from './utils/linkHandler'
 export { default as LmAppProvider } from './components/provider/AppProvider'

@@ -19,9 +19,9 @@ export function LmTimeline({ content }: LmTimelineProps): JSX.Element {
   return (
     <div className="lm-timeline">
       <Grid container className={classes.container}>
-        {body.map((blok, i) =>
-          LmComponentRender({ content: blok, iteration: i, key: blok._uid, i })
-        )}
+        {body.map((blok, i) => (
+          <LmComponentRender content={blok} key={blok._uid} iteration={i} />
+        ))}
       </Grid>
     </div>
   )

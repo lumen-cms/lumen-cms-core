@@ -120,15 +120,17 @@ export function LmSlider({ content }: LmSliderProps): JSX.Element {
                 />
               )
             })
-          : body.map((item, i) => {
+          : body.map((item) => {
               if (item.component === 'section') {
                 const newOpts: SectionProps = {
                   ...item,
                   presetVariant: content.section_variant || 'transparent'
                 }
-                return LmComponentRender({ content: newOpts, i })
+                return (
+                  <LmComponentRender content={newOpts} key={newOpts._uid} />
+                )
               }
-              return LmComponentRender({ content: item, i })
+              return <LmComponentRender content={item} key={item._uid} />
             })}
       </SwipeableViews>
       {/* eslint-disable-next-line */}

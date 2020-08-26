@@ -88,7 +88,9 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
           [classes.fullHeight]: isFullHeight
         })}
       >
-        {body.map((blok, i) => LmComponentRender({ content: blok, i }))}
+        {body.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
       </Container>
     </div>
   )

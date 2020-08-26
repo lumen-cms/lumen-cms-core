@@ -91,13 +91,15 @@ export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
           }
         >
           {content.body &&
-            content.body.map((blok, i) =>
-              LmComponentRender({ content: blok, i })
-            )}
+            content.body.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
         </Grid>
       ) : (
         content.body &&
-        content.body.map((blok, i) => LmComponentRender({ content: blok, i }))
+        content.body.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))
       )}
     </Grid>
   )

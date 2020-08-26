@@ -16,7 +16,9 @@ export function LmButtonList({ content }: LmButtonListProps): JSX.Element {
 
   return (
     <div className={classNames}>
-      {body.map((blok, i) => LmComponentRender({ content: blok, i }))}
+      {body.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </div>
   )
 }

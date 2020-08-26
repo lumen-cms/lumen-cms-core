@@ -43,7 +43,7 @@ export function DrawerContentRender({
   if (component === 'list_search_autocomplete') {
     return null
   }
-  return LmComponentRender({ content, i })
+  return <LmComponentRender content={content} key={content._uid} />
 }
 
 export function CollapsibleListSection({

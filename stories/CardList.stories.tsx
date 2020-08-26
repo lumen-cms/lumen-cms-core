@@ -1,4 +1,4 @@
-import {  LmComponentRender as LmCardList } from '../src/'
+import { LmComponentRender as LmCardList } from '../src/'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
@@ -12,59 +12,31 @@ import { storyCardList, storyCardListItem } from '../src/storybook/core/section'
 import { loremIpsum } from 'lorem-ipsum'
 import { getRandomImage } from '../src/storybook/core/various'
 
-const cardListBody: CardListItemStoryblok[] = [{
-  _uid: '123',
-  component: 'card_list_item',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-}, {
-  _uid: '123123',
-  component: 'card_list_item',
-  title: 'Toll',
-  subtitle: 'SubTitle',
-  description: 'Some Description',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-}, {
-  _uid: '12321312',
-  component: 'card_list_item',
-  title: 'Toll',
-  subtitle: 'SubTitle',
-  description: 'Some Description',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-}, {
-  _uid: '123213123',
-  component: 'card_list_item',
-  title: 'Toll',
-  subtitle: 'SubTitle',
-  description: 'Some Description',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-}, {
-  _uid: '3wdswdeds',
-  component: 'card_list_item',
-  title: 'Toll',
-  subtitle: 'SubTitle',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-}, {
-  _uid: '23421esafdsferf',
-  component: 'card_list_item',
-  title: 'Toll',
-  subtitle: 'SubTitle',
-  description: 'Some Description',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-}, {
-  _uid: '3qwdefwef',
-  component: 'card_list_item',
-  title: 'Toll',
-  subtitle: 'SubTitle',
-  description: 'Some Description',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-}, {
-  _uid: 'jzhilz87zhtf',
-  component: 'card_list_item',
-  title: 'Toll',
-  subtitle: 'SubTitle',
-  description: 'Some Description',
-  image: 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
-}]
+const getCardListItemElement = (iteration: number) => {
+  return {
+    _uid: loremIpsum() + '_' + iteration,
+    component: 'card_list_item',
+    image: getRandomImage(),
+    title: loremIpsum(),
+    subtitle: loremIpsum(),
+    description: loremIpsum({ units: 'sentences' })
+  } as CardListItemStoryblok
+}
+
+const itemCount = 32
+const items: CardListItemStoryblok[] = []
+let counter = 0
+
+function createItems() {
+  if (counter < itemCount) {
+    items.push(getCardListItemElement(itemCount))
+    counter++
+    createItems()
+  }
+}
+
+createItems()
+const cardListBody: CardListItemStoryblok[] = items
 
 const cardListLongDescription: CardListItemStoryblok[] = [{
   _uid: '123',

@@ -52,9 +52,9 @@ export function LmTimelineItem({
         <div className={classes.line} />
         <div className={classes.iconContainer}>
           {content.icon &&
-            content.icon.map((blok, i) =>
-              LmComponentRender({ content: blok, i })
-            )}
+            content.icon.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
         </div>
       </Grid>
       <Grid

@@ -44,9 +44,9 @@ export function LmAccordionItem({
       </AccordionSummary>
       <AccordionDetails>
         <div>
-          {(content.body || []).map((blok, i) =>
-            LmComponentRender({ content: blok, i })
-          )}
+          {(content.body || []).map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         </div>
       </AccordionDetails>
     </Accordion>

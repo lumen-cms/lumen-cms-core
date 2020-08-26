@@ -33,45 +33,45 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
               direction={content.slide_direction || 'down'}
             >
               <div>
-                {(content.body || []).map((blok, i) =>
-                  LmComponentRender({ content: blok, i })
-                )}
+                {(content.body || []).map((blok) => (
+                  <LmComponentRender content={blok} key={blok._uid} />
+                ))}
               </div>
             </Slide>
           ),
           fade: (
             <Fade in={inView} {...(transitionProps as FadeProps)}>
               <div>
-                {(content.body || []).map((blok, i) =>
-                  LmComponentRender({ content: blok, i })
-                )}
+                {(content.body || []).map((blok) => (
+                  <LmComponentRender content={blok} key={blok._uid} />
+                ))}
               </div>
             </Fade>
           ),
           grow: (
             <Grow in={inView} {...(transitionProps as GrowProps)}>
               <div>
-                {(content.body || []).map((blok, i) =>
-                  LmComponentRender({ content: blok, i })
-                )}
+                {(content.body || []).map((blok) => (
+                  <LmComponentRender content={blok} key={blok._uid} />
+                ))}
               </div>
             </Grow>
           ),
           zoom: (
             <Zoom in={inView} {...(transitionProps as ZoomProps)}>
               <div>
-                {(content.body || []).map((blok, i) =>
-                  LmComponentRender({ content: blok, i })
-                )}
+                {(content.body || []).map((blok) => (
+                  <LmComponentRender content={blok} key={blok._uid} />
+                ))}
               </div>
             </Zoom>
           ),
           collapse: (
             <Collapse in={inView} {...(transitionProps as CollapseProps)}>
               <div>
-                {(content.body || []).map((blok, i) =>
-                  LmComponentRender({ content: blok, i })
-                )}
+                {(content.body || []).map((blok) => (
+                  <LmComponentRender content={blok} key={blok._uid} />
+                ))}
               </div>
             </Collapse>
           )

@@ -108,7 +108,9 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
         {...addons}
       >
         {isCustom &&
-          menuItems.map((blok, i) => LmComponentRender({ content: blok, i }))}
+          menuItems.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         {!isCustom && (
           <div>
             {menuItems.map((nestedProps) => {

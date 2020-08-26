@@ -47,7 +47,9 @@ export function LmToolbarSection({
   const body = content.body || []
   return (
     <ToolbarSectionContainer content={content}>
-      {body.map((blok, i) => LmComponentRender({ content: blok, settings, i }))}
+      {body.map((blok) => (
+        <LmComponentRender content={blok} settings={settings} key={blok._uid} />
+      ))}
     </ToolbarSectionContainer>
   )
 }

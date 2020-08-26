@@ -43,7 +43,9 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({
       </Card>
       <Drawer open={open} anchor="right" onClose={() => setOpen(false)}>
         <div className={classes.drawerContent}>
-          {body.map((blok, i) => LmComponentRender({ content: blok, i }))}
+          {body.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         </div>
       </Drawer>
     </>

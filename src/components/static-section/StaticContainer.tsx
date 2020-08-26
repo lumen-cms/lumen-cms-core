@@ -7,9 +7,9 @@ export function LmStaticContainer({
 }: LmStaticContainerProps): JSX.Element {
   return (
     <div className="lm-static-container">
-      {(content.body || []).map((blok, i) =>
-        LmComponentRender({ content: blok, i })
-      )}
+      {(content.body || []).map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </div>
   )
 }

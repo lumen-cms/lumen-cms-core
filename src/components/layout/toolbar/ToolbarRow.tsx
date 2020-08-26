@@ -49,7 +49,13 @@ function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
             alignContent="center"
             alignItems="center"
           >
-            {body.map((p, i) => LmComponentRender({ content: p, settings, i }))}
+            {body.map((blok) => (
+              <LmComponentRender
+                content={blok}
+                settings={settings}
+                key={blok._uid}
+              />
+            ))}
           </Grid>
         </Container>
       </div>
@@ -63,7 +69,9 @@ function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
       className="h-100"
       alignItems="center"
     >
-      {body.map((p, i) => LmComponentRender({ content: p, settings, i }))}
+      {body.map((blok) => (
+        <LmComponentRender content={blok} settings={settings} key={blok._uid} />
+      ))}
     </Grid>
   )
 }

@@ -49,7 +49,9 @@ function RightDrawer({ rightBody }: RightDrawerProps): JSX.Element {
     <RightDrawerContainer>
       <ContentSpace />
       <div className={classes.rightContent}>
-        {rightBody.map((blok, i) => LmComponentRender({ content: blok, i }))}
+        {rightBody.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
       </div>
     </RightDrawerContainer>
   )

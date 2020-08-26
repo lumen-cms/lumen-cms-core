@@ -86,7 +86,7 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
                   onImageClick({ _uid: item._uid, count: i, ...ev })
                 }
               >
-                {LmComponentRender({ content: item, listProps: content })}
+                <LmComponentRender content={item} listProps={content} />
               </GridListTile>
             )
           })}

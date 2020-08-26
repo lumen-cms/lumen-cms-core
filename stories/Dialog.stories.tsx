@@ -15,10 +15,10 @@ export default {
 
 const body = [{
   component: 'headline',
-  _uid: '123',
+  _uid: 'dfasfsagafha',
   text: 'Some Dialog Headline'
 }, {
-  component: 'image', _uid: '46464', source: 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
+  component: 'image', _uid: 'adfasfas', source: 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
 }] as (HeadlineStoryblok | ImageStoryblok)[]
 
 export const Playground = () => (
@@ -34,7 +34,7 @@ export const Playground = () => (
       }),
       body,
       trigger: [{
-        component: 'button', _uid: '123', label: 'A button trigger'
+        component: 'button', _uid: '1asdfasf23', label: 'A button trigger'
       } as ButtonStoryblok]
     } as DialogStoryblok} />
     <div style={{ padding: '10px' }}></div>
@@ -46,7 +46,7 @@ export const Playground = () => (
       }),
       body,
       trigger: [{
-        component: 'headline', _uid: '1112', text: 'Headline Trigger'
+        component: 'headline', _uid: '11asdffg12', text: 'Headline Trigger'
       } as HeadlineStoryblok]
     } as DialogStoryblok} />
     <div style={{ padding: '10px' }}></div>
@@ -59,7 +59,7 @@ export const Playground = () => (
       }),
       body,
       trigger: [{
-        component: 'image', _uid: '46464', source: 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
+        component: 'image', _uid: '46assfasf64', source: 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
       } as ImageStoryblok]
     } as DialogStoryblok} />
     <div style={{ padding: '10px' }}></div>

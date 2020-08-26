@@ -56,7 +56,9 @@ function Footer({ settings }: FooterProps): JSX.Element {
 
   return (
     <FooterContainer>
-      {content.map((blok, i) => LmComponentRender({ content: blok, i }))}
+      {content.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </FooterContainer>
   )
 }

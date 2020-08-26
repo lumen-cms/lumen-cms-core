@@ -67,9 +67,9 @@ export function NotFound({
       <div className="p-5">
         {errorContent &&
           errorContent.body &&
-          errorContent.body.map((blok, i) =>
-            LmComponentRender({ content: blok, i })
-          )}
+          errorContent.body.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         {errorContent === null && (
           <div>
             {statusCode ? <h1>{statusCode}</h1> : null}

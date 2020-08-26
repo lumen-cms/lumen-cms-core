@@ -93,7 +93,9 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
           <BackgroundElements elements={background.background_elements} />
         )}
       {content.body &&
-        content.body.map((blok, i) => LmComponentRender({ content: blok, i }))}
+        content.body.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
     </Grid>
   )
 }

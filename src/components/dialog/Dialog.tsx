@@ -54,9 +54,9 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
     <div>
       {/* eslint-disable-next-line */}
       <a onClick={() => setOpen(true)} className={classes.trigger}>
-        {content.trigger?.map((blok, i) =>
-          LmComponentRender({ content: blok, i })
-        )}
+        {content.trigger?.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
       </a>
       <Dialog {...dialogProps}>
         {!!content.title ||
@@ -75,16 +75,16 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
             </DialogTitle>
           ))}
         {content.no_padding ? (
-          <>
-            {content.body?.map((blok, i) =>
-              LmComponentRender({ content: blok, i })
-            )}
-          </>
+          <div>
+            {content.body?.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
+          </div>
         ) : (
           <DialogContent>
-            {content.body?.map((blok, i) =>
-              LmComponentRender({ content: blok, i })
-            )}
+            {content.body?.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
           </DialogContent>
         )}
       </Dialog>

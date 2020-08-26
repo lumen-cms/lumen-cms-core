@@ -78,7 +78,9 @@ export function TimelineRowItem({
           )}
           {body.length > 0 && (
             <CardContent>
-              {body.map((blok, i) => LmComponentRender({ content: blok, i }))}
+              {body.map((blok) => (
+                <LmComponentRender content={blok} key={blok._uid} />
+              ))}
             </CardContent>
           )}
         </CardContentContainer>

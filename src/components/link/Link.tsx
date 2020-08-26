@@ -11,9 +11,9 @@ export function LmLink({ content }: LmLinkProps): JSX.Element {
   if (!content.link?.cached_url) {
     return (
       <span className={clsx(content.class_names?.values)}>
-        {(content.body || []).map((blok, i) =>
-          LmComponentRender({ content: blok, i })
-        )}
+        {(content.body || []).map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
       </span>
     )
   }
@@ -29,9 +29,9 @@ export function LmLink({ content }: LmLinkProps): JSX.Element {
       {...btnProps}
       className={clsx('lm-link__container', content.class_names?.values)}
     >
-      {(content.body || []).map((blok, i) =>
-        LmComponentRender({ content: blok, i })
-      )}
+      {(content.body || []).map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </MuiLink>
   )
 }

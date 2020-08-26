@@ -14,9 +14,9 @@ function CardListItemActions({
   }
   return (
     <CardActions disableSpacing={!!options.card_actions_disable_spacing}>
-      {cardActionsBody.map((blok, i) =>
-        LmComponentRender({ content: blok, i })
-      )}
+      {cardActionsBody.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </CardActions>
   )
 }

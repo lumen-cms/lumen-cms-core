@@ -24,7 +24,9 @@ export function LmStaticSection({
 
   return (
     <div className={clsx(content.class_names && content.class_names.values)}>
-      {body.map((blok, i) => LmComponentRender({ content: blok, i }))}
+      {body.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </div>
   )
 }

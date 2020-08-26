@@ -37,7 +37,9 @@ function HeaderSimple(props: HeaderSimpleProps): JSX.Element {
             [`d-${mobileNavBreakpoint}-inline-flex`]: true
           })}
         >
-          {navRight.map((blok, i) => LmComponentRender({ content: blok, i }))}
+          {navRight.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         </Grid>
       )}
     </TopAppBarWrap>

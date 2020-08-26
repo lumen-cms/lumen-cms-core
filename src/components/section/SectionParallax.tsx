@@ -45,7 +45,7 @@ export function LmSectionParallax({
 
   useEffect(() => {
     const processLayers = () => {
-      const items = elements.map(async (item, i) => {
+      const items = elements.map(async (item) => {
         const containerHeight = height * Number((contentHeight as number) / 100)
         const offset = containerHeight * item.amount * 2
         const imgHeight = containerHeight + offset
@@ -65,10 +65,12 @@ export function LmSectionParallax({
         return {
           image: `"${imgSource}"`,
           amount: Number(item.amount),
-          children:
-            item.children &&
-            item.children.length &&
-            LmComponentRender({ content: item.children[0], i })
+          children: item.children && item.children.length && (
+            <LmComponentRender
+              content={item.children[0]}
+              key={item.children[0]._uid}
+            />
+          )
         }
       })
       Promise.all(items).then((lyrs) => {
@@ -113,7 +115,9 @@ export function LmSectionParallax({
             content.class_names && content.class_names.values
           )}
         >
-          {body.map((blok, i) => LmComponentRender({ content: blok, i }))}
+          {body.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         </div>
       </ParallaxBanner>
     </div>
