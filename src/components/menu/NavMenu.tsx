@@ -11,14 +11,13 @@ import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
+import { LmMenuProps } from './menuTypes'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
     borderRadius: props.border_radius
   })
 })
-
-export type LmMenuProps = { content: NavMenuStoryblok }
 
 export function LmMenu({ content }: LmMenuProps): JSX.Element {
   const { LinkRender } = useAppContext()

@@ -9,7 +9,7 @@ import { TimelineItemStoryblok } from '../../typings/generated/components-schema
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
-import { TimelineRowItemProps } from './TimelineProps'
+import { TimelineRowItemProps } from './timelineTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

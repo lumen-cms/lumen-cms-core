@@ -1,8 +1,8 @@
 import React from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
-import { IconStoryblok } from '../../typings/generated/components-schema'
 import LmIconMwc from './LmIcon'
+import { LmIconProps } from './iconTypes'
 
 const useStyles = makeStyles({
   icon: {
@@ -29,8 +29,6 @@ const useStyles = makeStyles({
     }
   }
 })
-
-export type LmIconProps = { content: IconStoryblok }
 
 export function LmIcon({ content }: LmIconProps): JSX.Element {
   const classes = useStyles()

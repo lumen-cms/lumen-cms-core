@@ -9,7 +9,7 @@ import {
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { TimelineRowItem } from './TimelineRowItem'
 import { LmComponentRender } from '../CoreComponents'
-import { LmTimelineItemProps } from './TimelineProps'
+import { LmTimelineItemProps } from './timelineTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,10 +1,8 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
-import { FlexRowStoryblok } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
-
-export type LmFlexRowProps = { content: FlexRowStoryblok }
+import { LmFlexRowProps } from './flexRowTypes'
 
 export function LmFlexRow({ content }: LmFlexRowProps): JSX.Element {
   const body = content.body || []

@@ -4,16 +4,12 @@ import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
 import { useWindowSize } from '@react-hook/window-size'
 import ImageListLightbox from './ImageListLightbox'
-import { ImageListStoryblok } from '../../typings/generated/components-schema'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
-
-export type LmImageListProps = {
-  content: ImageListStoryblok
-}
+import { LmImageListProps } from './imageListTypes'
 
 export function LmImageList({ content }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()

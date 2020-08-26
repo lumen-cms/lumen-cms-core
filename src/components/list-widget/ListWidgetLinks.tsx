@@ -13,7 +13,7 @@ type ListWidgetLinksProps = {
   content: ListWidgetStoryblok
 }
 
-function ListWidgetLinks({
+export function ListWidgetLinks({
   items,
   options,
   content
@@ -36,5 +36,3 @@ function ListWidgetLinks({
   }
   return <LmComponentRender content={listProps} />
 }
-
-export default ListWidgetLinks

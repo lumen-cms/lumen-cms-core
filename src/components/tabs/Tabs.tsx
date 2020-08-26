@@ -7,11 +7,9 @@ import Grid, { GridProps } from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import LmIcon from '../icon/LmIcon'
-import {
-  TabsItemStoryblok,
-  TabsStoryblok
-} from '../../typings/generated/components-schema'
+import { TabsItemStoryblok } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
+import { LmTabsProps } from './tabsTypes'
 
 const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {
@@ -47,8 +45,6 @@ const widthMap = {
   auto: 'auto',
   true: true
 }
-
-export type LmTabsProps = { content: TabsStoryblok }
 
 export function LmTabs({ content }: LmTabsProps): JSX.Element {
   const theme = useTheme()

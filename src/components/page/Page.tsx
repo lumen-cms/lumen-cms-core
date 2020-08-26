@@ -1,10 +1,8 @@
 import { ParallaxProvider } from 'react-scroll-parallax'
 import React from 'react'
-import { PageStoryblok } from '../../typings/generated/components-schema'
 import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
-
-export type LmPageProps = { content: PageStoryblok }
+import { LmPageProps } from './pageTypes'
 
 export function LmPage({ content }: LmPageProps): JSX.Element {
   const body = content.body || []

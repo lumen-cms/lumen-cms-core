@@ -2,15 +2,11 @@ import React, { CSSProperties } from 'react'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { SectionStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { LmComponentRender } from '../CoreComponents'
-
-export interface SectionProps extends SectionStoryblok {
-  presetVariant?: SectionStoryblok['variant']
-}
+import { SectionProps } from './sectionTypes'
 
 const useStyles = makeStyles({
   fullHeight: {

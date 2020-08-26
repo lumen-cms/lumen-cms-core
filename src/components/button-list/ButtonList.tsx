@@ -1,9 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
-import { ButtonListStoryblok } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
-
-export type LmButtonListProps = { content: ButtonListStoryblok }
+import { LmButtonListProps } from './buttonListTypes'
 
 export function LmButtonList({ content }: LmButtonListProps): JSX.Element {
   const body = content.body || []

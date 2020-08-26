@@ -1,14 +1,15 @@
 import React from 'react'
 import ListWidgetLists from './ListWidgetLists'
-import ListWidgetCards from './ListWidgetCards'
+
 import {
   CardListStoryblok,
   ListsStoryblok,
   ListWidgetStoryblok,
   NavListStoryblok
 } from '../../typings/generated/components-schema'
-import ListWidgetLinks from './ListWidgetLinks'
 import { AppApiRequestPayload } from '../../typings/app'
+import { ListWidgetCards } from './ListWidgetCards'
+import { ListWidgetLinks } from './ListWidgetLinks'
 
 type ListWidgetContainerProps = {
   options: ListsStoryblok | CardListStoryblok | NavListStoryblok

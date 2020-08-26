@@ -1,9 +1,7 @@
 import React from 'react'
-import { ImageStoryblok } from '../../typings/generated/components-schema'
 import Image from './Image'
 import ImageSvg from './ImageSvg'
-
-export type LmImageProps = { content: ImageStoryblok }
+import { LmImageProps } from './imageTypes'
 
 export function LmImage({ content }: LmImageProps): JSX.Element {
   const isSvgImage = content.source && content.source.endsWith('.svg')

@@ -2,10 +2,10 @@ import React, { CSSProperties, useEffect, useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import { useInView } from 'react-intersection-observer'
 import clsx from 'clsx'
-import { AvatarStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import LmIcon from '../icon/LmIcon'
 import { getImageAttrs } from '../../utils/ImageService'
+import { LmAvatarProps } from './avatarTypes'
 
 const sizeMap = {
   dense: {
@@ -20,10 +20,6 @@ const sizeMap = {
     container: 64,
     icon: 32
   }
-}
-
-export type LmAvatarProps = {
-  content: AvatarStoryblok
 }
 
 export function LmAvatar({ content }: LmAvatarProps): JSX.Element {

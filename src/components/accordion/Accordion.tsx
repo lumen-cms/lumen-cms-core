@@ -1,13 +1,7 @@
 import React, { useState } from 'react'
-import {
-  AccordionItemStoryblok,
-  AccordionStoryblok
-} from '../../typings/generated/components-schema'
+import { AccordionItemStoryblok } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
-
-export type LmAccordionProps = {
-  content: AccordionStoryblok
-}
+import { LmAccordionProps } from './accordionTypes'
 
 export function LmAccordion({ content }: LmAccordionProps): JSX.Element {
   const [opened, setOpen] = useState<string>('')

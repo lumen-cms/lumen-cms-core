@@ -13,7 +13,7 @@ type ListWidgetCardsProps = {
   options: CardListStoryblok
 }
 
-function ListWidgetCards({
+export function ListWidgetCards({
   items,
   content,
   options
@@ -47,5 +47,3 @@ function ListWidgetCards({
     />
   )
 }
-
-export default ListWidgetCards

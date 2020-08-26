@@ -5,9 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import clsx from 'clsx'
 import Magnify from 'mdi-material-ui/Magnify'
 import { onSearchTextChange } from '../../utils/state/actions'
-import { ListSearchFieldStoryblok } from '../../typings/generated/components-schema'
-
-export type LmListSearchFieldProps = { content: ListSearchFieldStoryblok }
+import { LmListSearchFieldProps } from './listWidgetTypes'
 
 export function LmListSearchField({
   content

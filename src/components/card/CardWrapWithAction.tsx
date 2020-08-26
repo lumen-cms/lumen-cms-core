@@ -2,8 +2,8 @@ import Drawer from '@material-ui/core/Drawer'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import Card from '@material-ui/core/Card'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { CardListItemProps } from './cards'
 import { LmComponentRender } from '../CoreComponents'
+import { CardListItemProps } from './cardTypes'
 
 interface CardWrapAction extends CardListItemProps {
   className: string

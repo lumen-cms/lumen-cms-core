@@ -5,19 +5,8 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Accordion from '@material-ui/core/Accordion'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
-import {
-  AccordionItemStoryblok,
-  AccordionStoryblok
-} from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
-
-export type LmAccordionItemProps = {
-  content: AccordionItemStoryblok
-  options: AccordionStoryblok
-  opened: string
-  setOpen: Function
-  iteration: number
-}
+import { LmAccordionItemProps } from './accordionTypes'
 
 export function LmAccordionItem({
   content,

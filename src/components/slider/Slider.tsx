@@ -5,12 +5,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
-import { SliderStoryblok } from '../../typings/generated/components-schema'
-import { SectionProps } from '../section/Section'
 import { LmSliderChild } from './SliderChild'
 import InvertedIndicator from './InvertedIndicator'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { LmComponentRender } from '../CoreComponents'
+import { SectionProps } from '../section/sectionTypes'
+import { LmSliderProps } from './sliderTypes'
 
 const chunkArray = (myArray: Element[], chunkSize: number) => {
   const results = []
@@ -67,8 +67,6 @@ export const useStyles = makeStyles({
     }
   }
 })
-
-export type LmSliderProps = { content: SliderStoryblok }
 
 export function LmSlider({ content }: LmSliderProps): JSX.Element {
   const [slide, setSlide] = useState(0)

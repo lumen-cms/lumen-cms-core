@@ -1,8 +1,6 @@
 import React from 'react'
-import { StaticContainerStoryblok } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
-
-export type LmStaticContainerProps = { content: StaticContainerStoryblok }
+import { LmStaticContainerProps } from './staticTypes'
 
 export function LmStaticContainer({
   content

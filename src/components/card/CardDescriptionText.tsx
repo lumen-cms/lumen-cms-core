@@ -1,8 +1,8 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
-import { CardListItemProps } from './cards'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
+import { CardListItemProps } from './cardTypes'
 
 function CardDescriptionText({
   content,

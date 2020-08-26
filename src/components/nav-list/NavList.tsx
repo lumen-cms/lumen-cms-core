@@ -8,8 +8,8 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { LmNavListItem } from './NavListItem'
-import { NavListStoryblok } from '../../typings/generated/components-schema'
 import LmIcon from '../icon/LmIcon'
+import { LmNavListProps } from './navListTypes'
 
 const useStyles = makeStyles({
   root: {
@@ -25,10 +25,6 @@ const useStyles = makeStyles({
     }
   }
 })
-
-export type LmNavListProps = {
-  content: NavListStoryblok
-}
 
 export function LmNavList({ content }: LmNavListProps): JSX.Element {
   const classes = useStyles()

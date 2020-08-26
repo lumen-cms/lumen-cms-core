@@ -1,7 +1,7 @@
 import React from 'react'
 import CardActions from '@material-ui/core/CardActions'
-import { CardListItemProps } from './cards'
 import { LmComponentRender } from '../CoreComponents'
+import { CardListItemProps } from './cardTypes'
 
 function CardListItemActions({
   options,

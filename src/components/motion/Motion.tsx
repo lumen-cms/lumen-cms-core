@@ -5,10 +5,8 @@ import Fade, { FadeProps } from '@material-ui/core/Fade'
 import Grow, { GrowProps } from '@material-ui/core/Grow'
 import Zoom, { ZoomProps } from '@material-ui/core/Zoom'
 import Collapse, { CollapseProps } from '@material-ui/core/Collapse'
-import { MotionStoryblok } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
-
-export type LmMotionProps = { content: MotionStoryblok }
+import { LmMotionProps } from './motionTypes'
 
 export function LmMotion({ content }: LmMotionProps): JSX.Element {
   const type = content.type || 'fade'

@@ -2,10 +2,8 @@ import { useInView } from 'react-intersection-observer'
 import React, { useMemo, useState } from 'react'
 import clsx from 'clsx'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { IframeStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-
-export type LmIframeProps = { content: IframeStoryblok }
+import { LmIframeProps } from './iframeTypes'
 
 export function LmIframe({ content }: LmIframeProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(

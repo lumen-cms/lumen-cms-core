@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { DividerStoryblok } from '../../typings/generated/components-schema'
 import LmIcon from '../icon/LmIcon'
+import { LmDividerProps } from './dividerTypes'
 
 const useStyles = makeStyles({
   hSeparator: {
@@ -82,8 +82,6 @@ const DividerContainer: FunctionComponent<{
 )
 
 DividerContainer.displayName = 'DividerContainer'
-
-export type LmDividerProps = { content: DividerStoryblok }
 
 export function LmDivider({ content }: LmDividerProps): JSX.Element {
   const classes = useStyles()

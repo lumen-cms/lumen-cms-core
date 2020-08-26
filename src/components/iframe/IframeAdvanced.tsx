@@ -7,10 +7,8 @@ import React, {
 } from 'react'
 import { useInView } from 'react-intersection-observer'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { IframeAdvancedStoryblok } from '../../typings/generated/components-schema'
 import { intersectionIframeOptions } from '../../utils/intersectionObserverConfig'
-
-export type LmIframeAdvancedProps = { content: IframeAdvancedStoryblok }
+import { LmIframeAdvancedProps } from './iframeTypes'
 
 export function LmIframeAdvanced({
   content

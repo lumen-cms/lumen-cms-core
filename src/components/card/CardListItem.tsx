@@ -4,11 +4,11 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
-import { CardListItemProps } from './cards'
 import CardDescriptionText from './CardDescriptionText'
 import CardListItemActions from './CardListItemActions'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import { CardListItemProps } from './cardTypes'
 
 export function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props

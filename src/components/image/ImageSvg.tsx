@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import Fade from '@material-ui/core/Fade'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { ImageStoryblok } from '../../typings/generated/components-schema'
+import { LmImageProps } from './imageTypes'
 
 const useStyles = makeStyles({
   root: {
@@ -22,9 +22,8 @@ const useStyles = makeStyles({
     }
   }
 })
-type ImageSvgProps = { content: ImageStoryblok }
 
-export default function ImageSvg({ content }: ImageSvgProps): JSX.Element {
+export default function ImageSvg({ content }: LmImageProps): JSX.Element {
   const classes = useStyles()
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions

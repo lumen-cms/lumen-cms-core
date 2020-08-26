@@ -4,10 +4,8 @@ import { useRouter } from 'next/router'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import { setSearchCategory } from '../../utils/state/actions'
-import { CategoryBoxStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
-
-export type LmCategoryBoxProps = { content: CategoryBoxStoryblok }
+import { LmCategoryBoxProps } from './listWidgetTypes'
 
 export function LmCategoryBox({ content }: LmCategoryBoxProps): JSX.Element {
   const router = useRouter()

@@ -7,8 +7,8 @@ import Close from 'mdi-material-ui/Close'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Slide from '@material-ui/core/Slide'
-import { DialogStoryblok } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
+import { LmDialogProps } from './dialogTypes'
 
 const TransitionSlideUp = React.forwardRef((props, ref) => (
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
@@ -28,10 +28,6 @@ const useStyles = makeStyles({
     }
   }
 })
-
-export type LmDialogProps = {
-  content: DialogStoryblok
-}
 
 export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
   const theme = useTheme()

@@ -2,14 +2,12 @@ import React from 'react'
 import {
   CardListStoryblok,
   ListsStoryblok,
-  ListWidgetStoryblok,
   NavListStoryblok
 } from '../../typings/generated/components-schema'
 import { useListSearch } from './useListSearch'
 import { ListWidgetContainer } from './ListWidgetContainer'
 import { useAppContext } from '../provider/context/AppContext'
-
-export type LmListWidgetProps = { content: ListWidgetStoryblok }
+import { LmListWidgetProps } from './listWidgetTypes'
 
 export function LmListWidget({ content }: LmListWidgetProps): JSX.Element {
   const { listWidgetData } = useAppContext()

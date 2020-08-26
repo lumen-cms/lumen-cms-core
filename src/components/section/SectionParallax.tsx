@@ -7,11 +7,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useWindowSize } from '@react-hook/window-size'
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
-import { SectionParallaxStoryblok } from '../../typings/generated/components-schema'
 
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { useAppContext } from '../provider/context/AppContext'
 import { LmComponentRender } from '../CoreComponents'
+import { LmSectionParallaxProps } from './sectionTypes'
 
 const useStyles = makeStyles({
   parallax: {
@@ -25,8 +24,6 @@ const useStyles = makeStyles({
     }
   }
 })
-
-export type LmSectionParallaxProps = { content: SectionParallaxStoryblok }
 
 export function LmSectionParallax({
   content

@@ -1,11 +1,7 @@
 import React from 'react'
-import {
-  DateHeadlineStoryblok,
-  HeadlineStoryblok
-} from '../../typings/generated/components-schema'
+import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import { LmHeadline } from './Headline'
-
-export type LmDateHeadlineProps = { content: DateHeadlineStoryblok }
+import { LmDateHeadlineProps } from './headlineTypes'
 
 export function LmDateHeadline({ content }: LmDateHeadlineProps): JSX.Element {
   const modifContent = {

@@ -3,10 +3,10 @@ import React, { CSSProperties, useEffect, useState } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import { useWindowSize } from '@react-hook/window-size'
-import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import FullscreenVideoBg from './FullscreenVideoBg'
 import { LmComponentRender } from '../CoreComponents'
+import { LmSectionVideoProps } from './sectionTypes'
 
 const useStyles = makeStyles({
   videoSection: {
@@ -66,8 +66,6 @@ const useStyles = makeStyles({
   //   }
   // }
 })
-
-export type LmSectionVideoProps = { content: SectionVideoBgStoryblok }
 
 export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
   const classes = useStyles()

@@ -1,12 +1,10 @@
 import React from 'react'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
-import { LinkStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
-
-export type LmLinkProps = { content: LinkStoryblok }
+import { LmLinkProps } from './linkTypes'
 
 export function LmLink({ content }: LmLinkProps): JSX.Element {
   const { LinkRender } = useAppContext()

@@ -1,10 +1,8 @@
 import React from 'react'
 import MuiLink from '@material-ui/core/Link'
-import { NavItemStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-
-export type LmNavListItemProps = NavItemStoryblok
+import { LmNavListItemProps } from './navListTypes'
 
 export function LmNavListItem(props: LmNavListItemProps): JSX.Element {
   const content = { ...props }

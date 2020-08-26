@@ -7,7 +7,8 @@ import { LmCoreComponents } from '../utils/config'
 export function LmComponentRender<P>(
   props: ComponentRenderFuncProps
 ): JSX.Element {
-  const { insideStoryblok } = useAppContext()
+  const appContext = useAppContext()
+  const insideStoryblok = appContext?.insideStoryblok
   const { content, i, ...rest } = props
 
   if (typeof LmCoreComponents[content.component] !== 'undefined') {

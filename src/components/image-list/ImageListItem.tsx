@@ -5,15 +5,7 @@ import { useInView } from 'react-intersection-observer'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { getImageAttrs } from '../../utils/ImageService'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import {
-  ImageListItemStoryblok,
-  ImageListStoryblok
-} from '../../typings/generated/components-schema'
-
-export type LmImageListItemProps = {
-  content: ImageListItemStoryblok
-  listProps: ImageListStoryblok
-}
+import { LmImageListItemProps } from './imageListTypes'
 
 export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
   const { content, listProps } = props
