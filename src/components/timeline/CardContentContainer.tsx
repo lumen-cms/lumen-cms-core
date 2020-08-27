@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
+import CardActionArea from '@material-ui/core/CardActionArea'
 import { TimelineItemStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-import CardActionArea from '@material-ui/core/CardActionArea'
 
 export const CardContentContainer: FunctionComponent<{
   content: TimelineItemStoryblok
@@ -11,12 +11,12 @@ export const CardContentContainer: FunctionComponent<{
   if (content.link) {
     const btnProps: any = content.link?.cached_url
       ? {
-        ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external
-        }),
-        naked: true,
-        component: LinkRender
-      }
+          ...getLinkAttrs(content.link as LinkType, {
+            openExternal: !!content.open_external
+          }),
+          naked: true,
+          component: LinkRender
+        }
       : {}
     return <CardActionArea {...btnProps}>{children}</CardActionArea>
   }

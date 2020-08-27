@@ -4,19 +4,19 @@ import { LmTimelineProps } from './timelineTypes'
 import { LmComponentRender } from '../CoreComponents'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
-
 export function LmTimeline({ content }: LmTimelineProps): JSX.Element {
   const { isMobile } = useDeviceDimensions()
   return (
-    <Timeline align={isMobile ? 'left' : (content.align || 'alternate')}>
-      {content.body?.map((blok, i) =>
+    <Timeline align={isMobile ? 'left' : content.align || 'alternate'}>
+      {content.body?.map((blok, i) => (
         <LmComponentRender
           content={blok}
           options={content}
           key={blok._uid}
           isLast={i + 1 === content.body?.length}
-          isMobile={isMobile} />)
-      }
+          isMobile={isMobile}
+        />
+      ))}
     </Timeline>
   )
 }

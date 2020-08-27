@@ -3,7 +3,9 @@ import {
   CardListStoryblok
 } from '../../typings/generated/components-schema'
 
-export type LmCardListProps = { content: CardListStoryblok }
+export type LmCardListProps = {
+  content: CardListStoryblok
+}
 export type CardListItemProps = {
   content: CardListItemStoryblok
   options: Omit<

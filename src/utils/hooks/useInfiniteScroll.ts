@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-export function useInfiniteScroll(collection: any[], perPage = 5) {
+export function useInfiniteScroll(collection: any[], perPage = 30) {
   const [page, setPage] = useState<number>(1)
   const [useRef, inView] = useInView()
   const offset = (page - 1) * perPage
