@@ -12,4 +12,6 @@ export type TimelineRowItemProps = {
   content: TimelineItemStoryblok
 }
 
-export type LmTimelineProps = { content: TimelineStoryblok }
+export type LmTimelineProps = {
+  content: TimelineStoryblok
+}
