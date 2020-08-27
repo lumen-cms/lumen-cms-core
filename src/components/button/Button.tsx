@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export function LmButton({ content }: LmButtonProps): JSX.Element {
+export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
   const classes = useStyles()
   const { LinkRender } = useAppContext()
   const properties = content.properties || []
@@ -108,14 +108,17 @@ export function LmButton({ content }: LmButtonProps): JSX.Element {
 
   const btnProps: any = content.link?.cached_url
     ? {
-        ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external
-        }),
-        naked: true,
-        component: LinkRender
-      }
+      ...getLinkAttrs(content.link as LinkType, {
+        openExternal: !!content.open_external
+      }),
+      naked: true,
+      component: LinkRender
+    }
     : {}
 
+  if (onClick) {
+    btnProps.onClick = onClick
+  }
   if (content.variant === 'fab') {
     return (
       <Fab
