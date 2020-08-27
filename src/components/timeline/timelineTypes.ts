@@ -1,11 +1,10 @@
-import {
-  TimelineItemStoryblok,
-  TimelineStoryblok
-} from '../../typings/generated/components-schema'
+import { TimelineItemStoryblok, TimelineStoryblok } from '../../typings/generated/components-schema'
 
 export type LmTimelineItemProps = {
   content: TimelineItemStoryblok
-  iteration: number
+  options: TimelineStoryblok
+  isMobile?: boolean
+  isLast?: boolean
 }
 export type TimelineRowItemProps = {
   isLeft: boolean

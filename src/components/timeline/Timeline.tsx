@@ -1,28 +1,22 @@
 import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
-import { LmComponentRender } from '../CoreComponents'
+import Timeline from '@material-ui/lab/Timeline'
 import { LmTimelineProps } from './timelineTypes'
+import { LmComponentRender } from '../CoreComponents'
+import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
-const useStyles = makeStyles({
-  container: {
-    width: '100%',
-    height: '100%',
-    display: 'flex'
-  }
-})
 
 export function LmTimeline({ content }: LmTimelineProps): JSX.Element {
-  const classes = useStyles()
-
-  const body = content.body || []
+  const { isMobile } = useDeviceDimensions()
   return (
-    <div className="lm-timeline">
-      <Grid container className={classes.container}>
-        {body.map((blok, i) => (
-          <LmComponentRender content={blok} key={blok._uid} iteration={i} />
-        ))}
-      </Grid>
-    </div>
+    <Timeline align={isMobile ? 'left' : (content.align || 'alternate')}>
+      {content.body?.map((blok, i) =>
+        <LmComponentRender
+          content={blok}
+          options={content}
+          key={blok._uid}
+          isLast={i + 1 === content.body?.length}
+          isMobile={isMobile} />)
+      }
+    </Timeline>
   )
 }
