@@ -27,7 +27,7 @@ import { LmDateHeadline } from './components/headline/DateHeadline'
 import { LmMotion } from './components/motion/Motion'
 import { LmSection } from './components/section/Section'
 import { LmAccordionItem } from './components/accordion/AccordionItem'
-import { LmTimelineItem } from './components/timeline/TimelineRow'
+import { LmTimelineItem } from './components/timeline/TimelineItem'
 import { LmImageListItem } from './components/image-list/ImageListItem'
 import { LmPlayer } from './components/player/Player'
 

@@ -36,7 +36,6 @@ import { LmLink } from './link/Link'
 import { LmListSearchAutocomplete } from './list-widget/ListSearchAutocomplete'
 import { LmRichTextParagraph } from './paragraph/RichTextParagraph'
 import { LmTimeline } from './timeline/Timeline'
-import { LmTimelineItem } from './timeline/TimelineRow'
 import { LmAvatar } from './avatar/LmAvatar'
 import { LmDateHeadline } from './headline/DateHeadline'
 import { LmMotion } from './motion/Motion'
@@ -49,6 +48,7 @@ import { LmInstagramPost } from './instagram/InstagramPost'
 import { LmInstagramList } from './instagram/InstagramList'
 
 import { LmCoreComponents } from '../utils/config'
+import { LmTimelineItem } from './timeline/TimelineItem'
 
 LmCoreComponents.page = LmPage
 LmCoreComponents.table = LmTable
