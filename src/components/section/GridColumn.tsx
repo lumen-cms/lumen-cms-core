@@ -1,13 +1,11 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
-import {
-  BackgroundStoryblok,
-  ColumnStoryblok
-} from '../../typings/generated/components-schema'
+import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
+import { LmGridColumnProps } from './sectionTypes'
 
 const xsSpanMap = {
   1: 3,
@@ -50,11 +48,8 @@ const mdSpanMap = {
   true: true
 }
 
-export type LmGridColumnProps = { content: ColumnStoryblok }
-
 export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
   // const classes = useStyles(content)
-  const { ComponentRender } = useAppContext()
 
   const background: BackgroundStoryblok | undefined =
     (Array.isArray(content.background) &&
@@ -96,13 +91,15 @@ export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
           }
         >
           {content.body &&
-            content.body.map((blok, i) =>
-              ComponentRender({ content: blok, i })
-            )}
+            content.body.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
         </Grid>
       ) : (
         content.body &&
-        content.body.map((blok, i) => ComponentRender({ content: blok, i }))
+        content.body.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))
       )}
     </Grid>
   )

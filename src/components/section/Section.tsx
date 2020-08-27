@@ -2,15 +2,11 @@ import React, { CSSProperties } from 'react'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { SectionStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { useAppContext } from '../provider/context/AppContext'
-
-export interface SectionProps extends SectionStoryblok {
-  presetVariant?: SectionStoryblok['variant']
-}
+import { LmComponentRender } from '../CoreComponents'
+import { LmSectionProps } from './sectionTypes'
 
 const useStyles = makeStyles({
   fullHeight: {
@@ -35,14 +31,9 @@ const useStyles = makeStyles({
   }
 })
 
-export type LmSectionProps = {
-  content: SectionProps
-}
-
 export function LmSection({ content }: LmSectionProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()
-  const { ComponentRender } = useAppContext()
 
   const background = Array.isArray(content.background) && content.background[0]
   const { style, className } = useBackgroundBox({
@@ -97,7 +88,9 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
           [classes.fullHeight]: isFullHeight
         })}
       >
-        {body.map((blok, i) => ComponentRender({ content: blok, i }))}
+        {body.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
       </Container>
     </div>
   )

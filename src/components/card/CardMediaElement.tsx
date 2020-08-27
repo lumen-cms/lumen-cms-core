@@ -3,10 +3,10 @@ import { useInView } from 'react-intersection-observer'
 import CardMedia from '@material-ui/core/CardMedia'
 import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { CardListItemProps } from './cards'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { getImageAttrs } from '../../utils/ImageService'
 import ImageShadow from '../section/ImageShadow'
+import { CardListItemProps } from './cardTypes'
 
 const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   children,

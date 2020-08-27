@@ -1,20 +1,19 @@
 import React from 'react'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
-import { LinkStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-
-export type LmLinkProps = { content: LinkStoryblok }
+import { LmComponentRender } from '../CoreComponents'
+import { LmLinkProps } from './linkTypes'
 
 export function LmLink({ content }: LmLinkProps): JSX.Element {
-  const { ComponentRender, LinkRender } = useAppContext()
+  const { LinkRender } = useAppContext()
   if (!content.link?.cached_url) {
     return (
       <span className={clsx(content.class_names?.values)}>
-        {(content.body || []).map((blok, i) =>
-          ComponentRender({ content: blok, i })
-        )}
+        {(content.body || []).map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
       </span>
     )
   }
@@ -30,9 +29,9 @@ export function LmLink({ content }: LmLinkProps): JSX.Element {
       {...btnProps}
       className={clsx('lm-link__container', content.class_names?.values)}
     >
-      {(content.body || []).map((blok, i) =>
-        ComponentRender({ content: blok, i })
-      )}
+      {(content.body || []).map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </MuiLink>
   )
 }

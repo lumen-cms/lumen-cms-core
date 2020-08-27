@@ -10,6 +10,8 @@ import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import { LmComponentRender } from '../CoreComponents'
+import { LmMenuProps } from './menuTypes'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -17,10 +19,8 @@ const useStyles = makeStyles({
   })
 })
 
-export type LmMenuProps = { content: NavMenuStoryblok }
-
 export function LmMenu({ content }: LmMenuProps): JSX.Element {
-  const { ComponentRender, LinkRender } = useAppContext()
+  const { LinkRender } = useAppContext()
 
   const classes = useStyles(content)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -108,7 +108,9 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
         {...addons}
       >
         {isCustom &&
-          menuItems.map((blok, i) => ComponentRender({ content: blok, i }))}
+          menuItems.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         {!isCustom && (
           <div>
             {menuItems.map((nestedProps) => {

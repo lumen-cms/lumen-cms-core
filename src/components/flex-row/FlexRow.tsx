@@ -1,14 +1,11 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
-import { FlexRowStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
-
-export type LmFlexRowProps = { content: FlexRowStoryblok }
+import { LmComponentRender } from '../CoreComponents'
+import { LmFlexRowProps } from './flexRowTypes'
 
 export function LmFlexRow({ content }: LmFlexRowProps): JSX.Element {
   const body = content.body || []
-  const { ComponentRender } = useAppContext()
 
   return (
     <Grid
@@ -21,7 +18,9 @@ export function LmFlexRow({ content }: LmFlexRowProps): JSX.Element {
         'mh-100': content.full_height
       })}
     >
-      {body.map((item, i) => ComponentRender({ content: item, i }))}
+      {body.map((item) => (
+        <LmComponentRender content={item} key={item._uid} />
+      ))}
     </Grid>
   )
 }

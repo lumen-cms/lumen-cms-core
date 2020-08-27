@@ -7,9 +7,9 @@ import {
   useTheme
 } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { TimelineItemStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
 import { TimelineRowItem } from './TimelineRowItem'
+import { LmComponentRender } from '../CoreComponents'
+import { LmTimelineItemProps } from './timelineTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,11 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export type LmTimelineItemProps = {
-  content: TimelineItemStoryblok
-  iteration: number
-}
-
 export function LmTimelineItem({
   content,
   iteration
@@ -45,7 +40,6 @@ export function LmTimelineItem({
   const classes = useStyles()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
-  const { ComponentRender } = useAppContext()
 
   return (
     <>
@@ -58,9 +52,9 @@ export function LmTimelineItem({
         <div className={classes.line} />
         <div className={classes.iconContainer}>
           {content.icon &&
-            content.icon.map((blok, i) =>
-              ComponentRender({ content: blok, i })
-            )}
+            content.icon.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
         </div>
       </Grid>
       <Grid

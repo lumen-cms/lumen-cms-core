@@ -29,6 +29,7 @@ import MuiNextLink from '../link/MuiNextLink'
 import { getLinkAttrs } from '../../utils/linkHandler'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { CONFIG } from '../../utils/config'
+import { LmListSearchAutocompleteProps } from './listWidgetTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -172,10 +173,6 @@ const ListSearchAutocompleteContainer: FunctionComponent<{
   return <>{children}</>
 }
 ListSearchAutocompleteContainer.displayName = 'ListSearchAutocompleteContainer'
-
-export type LmListSearchAutocompleteProps = {
-  content: ListSearchAutocompleteStoryblok
-}
 
 export function LmListSearchAutocomplete({
   content

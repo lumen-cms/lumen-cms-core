@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { CONFIG } from '../../utils/config'
 import StoryblokService from '../../utils/StoryblokService'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const statusCodes = {
   400: 'Bad Request',
@@ -31,7 +31,6 @@ export function NotFound({
   locale
 }: NotFoundProps): JSX.Element {
   const title = (statusCodes as any)[statusCode]
-  const { ComponentRender } = useAppContext()
 
   const [errorContent, setErrorContent] = useState<
     { title: string; body: any[] } | null | undefined
@@ -68,9 +67,9 @@ export function NotFound({
       <div className="p-5">
         {errorContent &&
           errorContent.body &&
-          errorContent.body.map((blok, i) =>
-            ComponentRender({ content: blok, i })
-          )}
+          errorContent.body.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         {errorContent === null && (
           <div>
             {statusCode ? <h1>{statusCode}</h1> : null}

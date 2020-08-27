@@ -8,6 +8,8 @@ import CardActionArea from '@material-ui/core/CardActionArea'
 import { TimelineItemStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import { LmComponentRender } from '../CoreComponents'
+import { TimelineRowItemProps } from './timelineTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,17 +56,11 @@ const CardContentContainer: FunctionComponent<{
 }
 CardContentContainer.displayName = 'CardContentContainer'
 
-export type TimelineRowItemProps = {
-  isLeft: boolean
-  content: TimelineItemStoryblok
-}
-
 export function TimelineRowItem({
   isLeft,
   content
 }: TimelineRowItemProps): JSX.Element {
   const classes = useStyles()
-  const { ComponentRender } = useAppContext()
 
   const body = content.body || []
   return (
@@ -82,7 +78,9 @@ export function TimelineRowItem({
           )}
           {body.length > 0 && (
             <CardContent>
-              {body.map((blok, i) => ComponentRender({ content: blok, i }))}
+              {body.map((blok) => (
+                <LmComponentRender content={blok} key={blok._uid} />
+              ))}
             </CardContent>
           )}
         </CardContentContainer>

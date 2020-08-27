@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { TableStoryblok } from '../../typings/generated/components-schema'
+import { LmTableProps } from './tableTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -146,8 +146,6 @@ function TableRow({ content, index }: TableRowProps): JSX.Element {
     </tr>
   )
 }
-
-export type LmTableProps = { content: TableStoryblok }
 
 export function LmTable({ content }: LmTableProps): JSX.Element {
   const classes = useStyles()

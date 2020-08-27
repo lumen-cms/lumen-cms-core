@@ -1,4 +1,4 @@
-import { ParallaxBanner, BannerLayer } from 'react-scroll-parallax'
+import { BannerLayer, ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
@@ -7,10 +7,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useWindowSize } from '@react-hook/window-size'
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
-import { SectionParallaxStoryblok } from '../../typings/generated/components-schema'
 
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
+import { LmSectionParallaxProps } from './sectionTypes'
 
 const useStyles = makeStyles({
   parallax: {
@@ -25,12 +25,9 @@ const useStyles = makeStyles({
   }
 })
 
-export type LmSectionParallaxProps = { content: SectionParallaxStoryblok }
-
 export function LmSectionParallax({
   content
 }: LmSectionParallaxProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
   const classes = useStyles()
   const [refIntersectionObserver, inView, refElement] = useInView(
     intersectionDefaultOptions
@@ -48,7 +45,7 @@ export function LmSectionParallax({
 
   useEffect(() => {
     const processLayers = () => {
-      const items = elements.map(async (item, i) => {
+      const items = elements.map(async (item) => {
         const containerHeight = height * Number((contentHeight as number) / 100)
         const offset = containerHeight * item.amount * 2
         const imgHeight = containerHeight + offset
@@ -68,10 +65,12 @@ export function LmSectionParallax({
         return {
           image: `"${imgSource}"`,
           amount: Number(item.amount),
-          children:
-            item.children &&
-            item.children.length &&
-            ComponentRender({ content: item.children[0], i })
+          children: item.children && item.children.length && (
+            <LmComponentRender
+              content={item.children[0]}
+              key={item.children[0]._uid}
+            />
+          )
         }
       })
       Promise.all(items).then((lyrs) => {
@@ -90,7 +89,6 @@ export function LmSectionParallax({
     height,
     elements,
     contentHeight,
-    ComponentRender,
     disableLazyLoad,
     refElement
   ])
@@ -117,7 +115,9 @@ export function LmSectionParallax({
             content.class_names && content.class_names.values
           )}
         >
-          {body.map((blok, i) => ComponentRender({ content: blok, i }))}
+          {body.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         </div>
       </ParallaxBanner>
     </div>

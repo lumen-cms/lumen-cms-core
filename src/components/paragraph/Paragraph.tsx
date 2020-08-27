@@ -1,12 +1,10 @@
 import clsx from 'clsx'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { ParagraphStoryblok } from '../../typings/generated/components-schema'
 import parseMarkdownContent from './markdown-helper'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { useRichTextStyles } from './richTextStyles'
-
-export type LmParagraphProps = { content: ParagraphStoryblok }
+import { LmParagraphProps } from './paragraphTypes'
 
 export function LmParagraph({ content }: LmParagraphProps): JSX.Element {
   const classes = useRichTextStyles()

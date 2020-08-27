@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { usePageStyles } from './usePageStyle'
 import { useGlobalState } from '../../utils/state/state'
 import { useAppSetup } from '../provider/context/AppSetupContext'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const MainContentContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
@@ -32,11 +32,11 @@ type MainContentProps = {
 }
 
 export function MainContent({ body }: MainContentProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
-
   return (
     <MainContentContainer>
-      {body.map((blok, i) => ComponentRender({ content: blok, i }))}
+      {body.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </MainContentContainer>
   )
 }

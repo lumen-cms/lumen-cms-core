@@ -2,10 +2,8 @@ import React, { ElementType } from 'react'
 import clsx from 'clsx'
 import Typography from '@material-ui/core/Typography'
 import { componentLogger } from '../../utils/componentLogger'
-import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
-
-export type LmHeadlineProps = { content: HeadlineStoryblok }
+import { LmHeadlineProps } from './headlineTypes'
 
 export function LmHeadline({ content }: LmHeadlineProps): JSX.Element {
   componentLogger(content)

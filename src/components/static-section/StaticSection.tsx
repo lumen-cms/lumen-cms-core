@@ -1,14 +1,12 @@
 import React from 'react'
 import clsx from 'clsx'
-import { StaticSectionStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
-
-export type LmStaticSectionProps = { content: StaticSectionStoryblok }
+import { LmComponentRender } from '../CoreComponents'
+import { LmStaticSectionProps } from './staticTypes'
 
 export function LmStaticSection({
   content
 }: LmStaticSectionProps): JSX.Element | null {
-  const { ComponentRender } = useAppContext()
   const { allStaticContent } = useAppContext()
 
   if (!content.container) {
@@ -26,7 +24,9 @@ export function LmStaticSection({
 
   return (
     <div className={clsx(content.class_names && content.class_names.values)}>
-      {body.map((blok, i) => ComponentRender({ content: blok, i }))}
+      {body.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </div>
   )
 }

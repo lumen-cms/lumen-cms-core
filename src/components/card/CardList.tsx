@@ -3,10 +3,10 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
-import { CardListStoryblok } from '../../typings/generated/components-schema'
 import { useGridListStyles } from './cardListStyles'
 import { useInfiniteScroll } from '../../utils/hooks/useInfiniteScroll'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
+import { LmCardListProps } from './cardTypes'
 
 const useStyles = makeStyles({
   cardBase: {
@@ -56,11 +56,7 @@ const useStyles = makeStyles({
   }
 })
 
-export type LmCardListProps = { content: CardListStoryblok }
-
 export function LmCardList({ content }: LmCardListProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
-
   const {
     body,
     // column_gap,
@@ -103,10 +99,7 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
       >
         {data.map((item, i) => (
           <GridListTile key={`${item.component}_${i}`}>
-            {ComponentRender({
-              content: item,
-              options: rest
-            })}
+            <LmComponentRender content={item} options={rest} />
           </GridListTile>
         ))}
       </GridList>

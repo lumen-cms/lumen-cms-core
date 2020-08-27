@@ -3,7 +3,7 @@ import useSWR from 'swr'
 import { useInView } from 'react-intersection-observer'
 import fetcher from '../../utils/fetcher'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { LmInstagramPostProps } from './instaTypes'
+import { LmInstagramPostProps } from './instagramTypes'
 import useScript from '../../utils/hooks/useScript'
 
 const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'

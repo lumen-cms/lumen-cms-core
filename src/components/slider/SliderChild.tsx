@@ -1,6 +1,6 @@
 import React from 'react'
-import { SectionProps } from '../section/Section'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
+import { SectionProps } from '../section/sectionTypes'
 
 type LmSliderChildProps = { body: any[]; sectionVariant: any }
 
@@ -8,21 +8,19 @@ export function LmSliderChild({
   body,
   sectionVariant
 }: LmSliderChildProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
-
   return (
     <div className="d-flex h-100 lm-slider__container flex-row justify-content-center">
-      {body.map((item, i) => {
+      {body.map((item) => {
         if (item.component === 'section') {
           const newOpts: SectionProps = {
             ...item,
             presetVariant: sectionVariant || 'transparent'
           }
-          return ComponentRender({ content: newOpts, i })
+          return <LmComponentRender content={newOpts} key={newOpts._uid} />
         }
         return (
           <div key={`child_${item._uid}`} className="flex-grow-1">
-            {ComponentRender({ content: item, i })}
+            <LmComponentRender content={item} key={item._uid} />
           </div>
         )
       })}

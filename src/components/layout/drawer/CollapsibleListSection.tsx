@@ -8,9 +8,9 @@ import ChevronUp from 'mdi-material-ui/ChevronUp'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
-import { useAppContext } from '../../provider/context/AppContext'
 import { DrawerButton } from './DrawerButton'
 import { DrawerNavList } from './DrawerNavList'
+import { LmComponentRender } from '../../CoreComponents'
 
 type CollapsibleListSectionProps = {
   content: NavMenuStoryblok
@@ -26,7 +26,6 @@ export function DrawerContentRender({
   content,
   i
 }: DrawerContentRenderProps): JSX.Element | null {
-  const { ComponentRender } = useAppContext()
   const { component } = content
   const componentProps = {
     content,
@@ -44,7 +43,7 @@ export function DrawerContentRender({
   if (component === 'list_search_autocomplete') {
     return null
   }
-  return ComponentRender({ content, i })
+  return <LmComponentRender content={content} key={content._uid} />
 }
 
 export function CollapsibleListSection({

@@ -2,8 +2,8 @@ import React, { CSSProperties, FunctionComponent } from 'react'
 import Card from '@material-ui/core/Card'
 import clsx from 'clsx'
 import CardWrapWithAction from './CardWrapWithAction'
-import { CardListItemProps } from './cards'
 import useShadowStyles from '../jss/shadowStyles'
+import { CardListItemProps } from './cardTypes'
 
 const CardWrap: FunctionComponent<CardListItemProps> = ({
   children,

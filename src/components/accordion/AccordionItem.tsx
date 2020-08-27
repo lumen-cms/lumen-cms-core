@@ -5,19 +5,8 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Accordion from '@material-ui/core/Accordion'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
-import {
-  AccordionItemStoryblok,
-  AccordionStoryblok
-} from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
-
-type LmAccordionItemProps = {
-  content: AccordionItemStoryblok
-  options: AccordionStoryblok
-  opened: string
-  setOpen: Function
-  iteration: number
-}
+import { LmComponentRender } from '../CoreComponents'
+import { LmAccordionItemProps } from './accordionTypes'
 
 export function LmAccordionItem({
   content,
@@ -27,7 +16,6 @@ export function LmAccordionItem({
   iteration
 }: LmAccordionItemProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
-  const { ComponentRender } = useAppContext()
 
   const handleChange = (panel: string) => (
     _: React.ChangeEvent<{}>,
@@ -56,9 +44,9 @@ export function LmAccordionItem({
       </AccordionSummary>
       <AccordionDetails>
         <div>
-          {(content.body || []).map((blok, i) =>
-            ComponentRender({ content: blok, i })
-          )}
+          {(content.body || []).map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         </div>
       </AccordionDetails>
     </Accordion>

@@ -1,12 +1,10 @@
 import clsx from 'clsx'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { RichTextEditorStoryblok } from '../../typings/generated/components-schema'
 import { LmRteContentRenderer } from './rte/RteContentRender'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { useRichTextStyles } from './richTextStyles'
-
-export type LmRichTextParagraphProps = { content: RichTextEditorStoryblok }
+import { LmRichTextParagraphProps } from './paragraphTypes'
 
 export function LmRichTextParagraph({
   content

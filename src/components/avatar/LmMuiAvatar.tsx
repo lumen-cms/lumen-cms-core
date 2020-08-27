@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { getImageAttrs } from '../../utils/ImageService'
+import { LmMuiAvatarProps } from './avatarTypes'
 
 const useStyles = makeStyles({
   avatar: {
@@ -22,11 +23,6 @@ const useStyles = makeStyles({
     }
   }
 })
-
-export type LmMuiAvatarProps = {
-  src: string
-  size: 'small' | 'large' | 'xlarge' | 'xsmall' | 'xmall' | 'medium' | undefined
-}
 
 export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
   const classes = useStyles()

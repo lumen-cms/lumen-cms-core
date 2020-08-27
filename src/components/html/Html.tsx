@@ -1,9 +1,7 @@
 import React, { useMemo } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { HtmlStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-
-export type LmHtmlProps = { content: HtmlStoryblok }
+import { LmHtmlProps } from './htmlTypes'
 
 export function LmHtml({ content }: LmHtmlProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(

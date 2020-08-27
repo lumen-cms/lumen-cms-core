@@ -7,7 +7,7 @@ import { closeNavigationDrawers } from '../../utils/state/actions'
 import ContentSpace from '../layout/ContentSpace'
 import { usePageStyles } from './usePageStyle'
 import { useAppSetup } from '../provider/context/AppSetupContext'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
 
 const RightDrawerContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
@@ -44,13 +44,14 @@ type RightDrawerProps = {
 
 function RightDrawer({ rightBody }: RightDrawerProps): JSX.Element {
   const classes = usePageStyles()
-  const { ComponentRender } = useAppContext()
 
   return (
     <RightDrawerContainer>
       <ContentSpace />
       <div className={classes.rightContent}>
-        {rightBody.map((blok, i) => ComponentRender({ content: blok, i }))}
+        {rightBody.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
       </div>
     </RightDrawerContainer>
   )

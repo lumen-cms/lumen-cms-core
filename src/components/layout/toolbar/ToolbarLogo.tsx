@@ -7,18 +7,10 @@ import { useInView } from 'react-intersection-observer'
 import { LogoJsonLd } from 'next-seo'
 import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
 import { homepageLinkHandler } from '../../../utils/linkHandler'
-import {
-  GlobalStoryblok,
-  ToolbarLogoStoryblok
-} from '../../../typings/generated/components-schema'
 import imageService from '../../../utils/ImageService'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'
 import { CONFIG } from '../../../utils/config'
-
-export type LmToolbarLogoProps = {
-  content?: ToolbarLogoStoryblok
-  settings: GlobalStoryblok
-}
+import { LmToolbarLogoProps } from './toolbarTypes'
 
 export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
   const websiteTitle = settings.website_title

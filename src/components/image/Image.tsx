@@ -6,8 +6,8 @@ import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useWindowWidth } from '@react-hook/window-size'
 import { getImageAttrs } from '../../utils/ImageService'
-import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { LmImageProps } from './imageTypes'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -41,10 +41,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
   }
 }))
-
-type LmImageProps = {
-  content: ImageStoryblok
-}
 
 export default function LmImage({ content }: LmImageProps): JSX.Element {
   const classes = useStyles()

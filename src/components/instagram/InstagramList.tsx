@@ -12,7 +12,7 @@ import {
   EdgeProps,
   InstagramMappedProps,
   LmInstagramListProps
-} from './instaTypes'
+} from './instagramTypes'
 import { InstagramListItem } from './InstagramListItem'
 
 const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'

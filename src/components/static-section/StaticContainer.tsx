@@ -1,19 +1,15 @@
 import React from 'react'
-import { StaticContainerStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
-
-export type LmStaticContainerProps = { content: StaticContainerStoryblok }
+import { LmComponentRender } from '../CoreComponents'
+import { LmStaticContainerProps } from './staticTypes'
 
 export function LmStaticContainer({
   content
 }: LmStaticContainerProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
-
   return (
     <div className="lm-static-container">
-      {(content.body || []).map((blok, i) =>
-        ComponentRender({ content: blok, i })
-      )}
+      {(content.body || []).map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </div>
   )
 }

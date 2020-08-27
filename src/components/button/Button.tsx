@@ -4,11 +4,11 @@ import React from 'react'
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { useAppContext } from '../provider/context/AppContext'
+import { LmButtonProps } from './buttonTypes'
 
 // fab and button: small medium large, default: large
 const mapSize = {
@@ -83,8 +83,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
   }
 }))
-
-export type LmButtonProps = { content: ButtonStoryblok }
 
 export function LmButton({ content }: LmButtonProps): JSX.Element {
   const classes = useStyles()

@@ -1,13 +1,9 @@
 import clsx from 'clsx'
 import React from 'react'
-import { ButtonListStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
-
-export type LmButtonListProps = { content: ButtonListStoryblok }
+import { LmComponentRender } from '../CoreComponents'
+import { LmButtonListProps } from './buttonListTypes'
 
 export function LmButtonList({ content }: LmButtonListProps): JSX.Element {
-  const { ComponentRender } = useAppContext()
-
   const body = content.body || []
   const properties = content.property || []
   const classNames = clsx(
@@ -20,7 +16,9 @@ export function LmButtonList({ content }: LmButtonListProps): JSX.Element {
 
   return (
     <div className={classNames}>
-      {body.map((blok, i) => ComponentRender({ content: blok, i }))}
+      {body.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </div>
   )
 }

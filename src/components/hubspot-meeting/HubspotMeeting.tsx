@@ -1,11 +1,6 @@
 import React from 'react'
-import { HubspotMeetingStoryblok } from '../../typings/generated/components-schema'
 import useScript, { ScriptStatus } from '../../utils/hooks/useScript'
-
-export type LmHubspotMeetingProps = {
-  content: HubspotMeetingStoryblok
-  disableEmbed?: boolean
-}
+import { LmHubspotMeetingProps } from './hubspotTypes'
 
 export function LmHubspotMeeting({
   content,

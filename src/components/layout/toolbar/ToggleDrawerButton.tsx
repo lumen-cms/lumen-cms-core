@@ -8,10 +8,8 @@ import {
   toggleRightNavigation
 } from '../../../utils/state/actions'
 import LmIcon from '../../icon/LmIcon'
-import { ToolbarNaviButtonStoryblok } from '../../../typings/generated/components-schema'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
-
-export type LmToggleDrawerButtonProps = { content: ToolbarNaviButtonStoryblok }
+import { LmToggleDrawerButtonProps } from './toolbarTypes'
 
 export function LmToggleDrawerButton({
   content

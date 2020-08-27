@@ -2,8 +2,8 @@ import Drawer from '@material-ui/core/Drawer'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import Card from '@material-ui/core/Card'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { CardListItemProps } from './cards'
-import { useAppContext } from '../provider/context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
+import { CardListItemProps } from './cardTypes'
 
 interface CardWrapAction extends CardListItemProps {
   className: string
@@ -25,7 +25,6 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({
   options
 }) => {
   const classes = useStyles()
-  const { ComponentRender } = useAppContext()
 
   const [open, setOpen] = React.useState<boolean>(false)
   const body = content.body || []
@@ -44,7 +43,9 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({
       </Card>
       <Drawer open={open} anchor="right" onClose={() => setOpen(false)}>
         <div className={classes.drawerContent}>
-          {body.map((blok, i) => ComponentRender({ content: blok, i }))}
+          {body.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         </div>
       </Drawer>
     </>

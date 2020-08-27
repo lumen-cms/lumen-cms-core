@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import Skeleton from '@material-ui/lab/Skeleton'
 import React from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { PlayerStoryblok } from '../../typings/generated/components-schema'
+import { LmPlayerProps } from './playerTypes'
 
 const useStyles = makeStyles({
   videoContainer: {
@@ -24,10 +24,6 @@ const useStyles = makeStyles({
     paddingTop: `100%`
   }
 })
-
-export type LmPlayerProps = {
-  content: PlayerStoryblok
-}
 
 export function LmPlayer({ content }: LmPlayerProps): JSX.Element {
   const classes = useStyles()
