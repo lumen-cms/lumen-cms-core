@@ -55,7 +55,7 @@ export const storyListSearchAutocomplete = ({
   }) as ListSearchAutocompleteStoryblok
 }
 
-export const storyToolbarLogo = ({}): ToolbarLogoStoryblok => ({
+export const storyToolbarLogo = (): ToolbarLogoStoryblok => ({
   _uid: getUid(),
   component: 'toolbar_logo'
 })

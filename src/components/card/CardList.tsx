@@ -115,8 +115,8 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
         }}
         className={gridClasses.gridList}
       >
-        {data.map((item, i) => (
-          <GridListTile key={`${item.component}_${i}`}>
+        {data.map((item) => (
+          <GridListTile key={`${item.component}_${item._uid}`}>
             <LmComponentRender content={item} options={rest} />
           </GridListTile>
         ))}
