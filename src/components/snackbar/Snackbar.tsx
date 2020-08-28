@@ -5,6 +5,7 @@ import { ButtonStoryblok, SnackbarStoryblok } from '../../typings/generated/comp
 import { LmComponentRender } from '../CoreComponents'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
+import { Dialog, DialogActions, DialogContent } from '@material-ui/core'
 
 type LmSnackbarProps = {
   content: SnackbarStoryblok
@@ -72,24 +73,38 @@ export function LmSnackbar({ content }: LmSnackbarProps) {
 
   console.log(open)
 
-  const Actions = () => <>
-    {(content?.additional_actions || []).map((blok) => (
-      <LmComponentRender content={{ color: 'secondary_text', ...blok } as ButtonStoryblok} key={blok._uid} />
-    ))}
-    {(content?.close_action || []).map((blok) => (
-      <LmComponentRender
-        content={{ color: 'secondary_text', ...blok } as ButtonStoryblok}
-        key={blok._uid}
-        onClick={handleAccept}
-      />
-    ))}
-  </>
 
   const Content = () => <>{(content?.descriptions || []).map((blok) => (
     <LmComponentRender content={blok} key={blok._uid} />
   ))}</>
 
-  return (
+  return content.dialog ? (
+    <Dialog open={open}
+            maxWidth={content.max_width || false}
+            PaperProps={{
+              elevation: content.elevation || undefined,
+              square: content.square
+            }}
+            onClose={content.prevent_click_outside ? undefined : () => setOpen(false)}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        {(content?.close_action || []).map((blok) => (
+          <LmComponentRender
+            content={{ color: 'secondary_text', ...blok } as ButtonStoryblok}
+            key={blok._uid}
+            onClick={handleAccept}
+          />
+        ))}
+      </div>
+      <DialogContent>
+        <Content />
+      </DialogContent>
+      <DialogActions>
+        {(content?.additional_actions || []).map((blok) => (
+          <LmComponentRender content={{ color: 'secondary_text', ...blok } as ButtonStoryblok} key={blok._uid} />
+        ))}
+      </DialogActions>
+    </Dialog>
+  ) : (
     <Snackbar
       anchorOrigin={{
         horizontal: content.anchor_horizontal || 'center',
@@ -111,7 +126,18 @@ export function LmSnackbar({ content }: LmSnackbarProps) {
           borderRadius: content.square ? 0 : undefined
         }}
         message={<Content />}
-        action={<Actions />} />
+        action={<>
+          {(content?.additional_actions || []).map((blok) => (
+            <LmComponentRender content={{ color: 'secondary_text', ...blok } as ButtonStoryblok} key={blok._uid} />
+          ))}
+          {(content?.close_action || []).map((blok) => (
+            <LmComponentRender
+              content={{ color: 'secondary_text', ...blok } as ButtonStoryblok}
+              key={blok._uid}
+              onClick={handleAccept}
+            />
+          ))}
+        </>} />
     </Snackbar>
   )
 }

@@ -95,6 +95,28 @@ export const Autoshow = () => (
   </>
 )
 
+export const Dialog = () => (
+  <>
+    <h3>The snackbar shows after 4 seconds</h3>
+    <LmSnackbar content={{
+      ...storySnackbar(),
+      dialog: true,
+      descriptions: [storyHeadline({
+        options: {
+          typography: 'body1'
+        }
+      })],
+      close_action: [{
+        component: 'button',
+        _uid: '3qewqeq',
+        icon: {
+          name: 'close'
+        }
+      } as ButtonStoryblok]
+    }} />
+  </>
+)
+
 export const Playground = () => (
   <LmSnackbar content={{
     ...storySnackbar(),

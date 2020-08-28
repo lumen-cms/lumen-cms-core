@@ -1171,6 +1171,7 @@ export interface SliderStoryblok {
 }
 
 export interface SnackbarStoryblok {
+  dialog?: boolean;
   anchor_horizontal?: "center" | "left" | "right";
   anchor_vertical?: "top" | "bottom";
   width?: string;
@@ -1192,6 +1193,8 @@ export interface SnackbarStoryblok {
   expire_in_days?: number;
   auto_close?: number;
   auto_show?: number;
+  prevent_click_outside?: boolean;
+  max_width?: "xs" | "sm" | "md" | "lg" | "xl";
   _uid: string;
   component: "snackbar";
   [k: string]: any;
