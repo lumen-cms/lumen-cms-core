@@ -10,7 +10,7 @@ import { LmHubspotMeeting } from './hubspot-meeting/HubspotMeeting'
 import { LmButtonList } from './button-list/ButtonList'
 import { LmSection } from './section/Section'
 import { LmHeadline } from './headline/Headline'
-import { LmParagraph } from './paragraph/Paragraph'
+// import { LmParagraph } from './paragraph/Paragraph'
 import { LmGridRow } from './section/GridRow'
 import { LmGridColumn } from './section/GridColumn'
 import { LmImage } from './image/ImageElement'
@@ -62,7 +62,7 @@ LmCoreComponents.hubspot_meeting = LmHubspotMeeting
 LmCoreComponents.button_list = LmButtonList
 LmCoreComponents.section = LmSection
 LmCoreComponents.headline = LmHeadline
-LmCoreComponents.paragraph = LmParagraph
+// LmCoreComponents.paragraph = LmParagraph
 LmCoreComponents.row = LmGridRow
 LmCoreComponents.column = LmGridColumn
 LmCoreComponents.image = LmImage
