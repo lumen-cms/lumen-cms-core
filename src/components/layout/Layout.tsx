@@ -25,7 +25,9 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
       <DrawerElement settings={settings} />
       <Footer settings={settings} />
       <ExternalScripts settings={settings} />
-      {settings.snackbars?.map(blok => <LmSnackbar content={blok} key={blok._uid} />)}
+      {settings.snackbars?.map((blok) => (
+        <LmSnackbar content={blok} key={blok._uid} />
+      ))}
     </>
   )
 }

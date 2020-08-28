@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { CONFIG } from '../../utils/config'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 import useScript, { ScriptStatus } from '../../utils/hooks/useScript'
+import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 
 type ExternalScriptsProps = { settings: GlobalStoryblok }
 
@@ -13,14 +12,8 @@ function ExternalScripts({
   const { insideStoryblok } = useAppContext()
   const tawkToId = CONFIG.TAWKTO || settings.tawkto
 
-  const scrolled = useScrollTrigger({ disableHysteresis: true })
-  const [isScrolled, setIsScrolled] = useState<boolean>(false)
+  const isScrolled = useScrollOnce()
 
-  useEffect(() => {
-    if (scrolled) {
-      setIsScrolled(true)
-    }
-  }, [scrolled])
   const tawkToScriptName =
     !insideStoryblok && tawkToId && isScrolled
       ? `https://embed.tawk.to/${tawkToId}/default`

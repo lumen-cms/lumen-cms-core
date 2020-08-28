@@ -1171,20 +1171,27 @@ export interface SliderStoryblok {
 }
 
 export interface SnackbarStoryblok {
-  descriptions?: any[];
-  close_action?: any[];
-  additional_actions?: any[];
-  cookie_name?: string;
-  expire_in_days?: number;
   anchor_horizontal?: "center" | "left" | "right";
   anchor_vertical?: "top" | "bottom";
-  variant?: "standard" | "filled" | "outlined";
-  severity?: "info" | "success" | "warning" | "error";
   width?: string;
+  elevation?: number;
+  square?: boolean;
   background_color?: {
     rgba?: string;
     [k: string]: any;
   };
+  border_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  descriptions?: any[];
+  display?: "hide_on_scroll" | "show_on_scroll";
+  close_action?: any[];
+  additional_actions?: any[];
+  cookie_name?: string;
+  expire_in_days?: number;
+  auto_close?: number;
+  auto_show?: number;
   _uid: string;
   component: "snackbar";
   [k: string]: any;

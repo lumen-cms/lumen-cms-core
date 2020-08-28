@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
-import Alert from '@material-ui/lab/Alert'
 import Cookies from 'js-cookie'
-import { SnackbarStoryblok } from '../../typings/generated/components-schema'
+import { ButtonStoryblok, SnackbarStoryblok } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
-
+import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
+import SnackbarContent from '@material-ui/core/SnackbarContent'
 
 type LmSnackbarProps = {
   content: SnackbarStoryblok
@@ -12,45 +12,82 @@ type LmSnackbarProps = {
 
 const devMode = process.env.NODE_ENV !== 'production'
 
-
 export function LmSnackbar({ content }: LmSnackbarProps) {
   const [open, setOpen] = React.useState<boolean>(false)
+  const isScrolled = useScrollOnce()
+  const cookieExists = content.cookie_name ? Cookies.get(content.cookie_name) : false
 
-  const COOKIE_NAME = content?.cookie_name
+  useEffect(() => {
+    let initalValue = true
+    if (cookieExists || content.auto_show || content.display === 'show_on_scroll') {
+      initalValue = false
+    }
+    setOpen(initalValue)
+  }, [cookieExists, content.display, content.auto_show])
 
-  useEffect(
-    () => {
-      if (typeof window === 'undefined') {
-        return
-      }
-      if (!COOKIE_NAME) {
-        setOpen(true)
-        return
-      }
+  useEffect(() => {
+    if (!content.display || !isScrolled) {
+      return
+    }
+    if (content.display === 'show_on_scroll' && !cookieExists) {
+      setOpen(true)
+    } else if (content.display === 'hide_on_scroll') {
+      setOpen(false)
+    }
+  }, [isScrolled, content.display, cookieExists])
 
-      const cookie = Cookies.get(COOKIE_NAME)
-      if (!cookie) {
-        setOpen(true)
-      }
 
-    },
-    []
-  )
+  useEffect(() => {
+    if (!content.auto_close) {
+      return undefined
+    }
+    const timer = setTimeout(() => {
+      setOpen(false)
+    }, content.auto_close)
+
+    return () => clearTimeout(timer)
+  }, [content.auto_close])
+
+  useEffect(() => {
+    if (!content.auto_show && !cookieExists) {
+      return undefined
+    }
+    const timer = setTimeout(() => {
+      setOpen(true)
+    }, content.auto_show, cookieExists)
+
+    return () => clearTimeout(timer)
+  }, [content.auto_show])
 
   const handleAccept = () => {
     setOpen(false)
 
-    if (!devMode && COOKIE_NAME) {
-      Cookies.set(COOKIE_NAME, 'true', {
+    if (!devMode && content.cookie_name) {
+      Cookies.set(content.cookie_name, 'true', {
         expires: content?.expire_in_days || 1,
-        secure: location ? location.protocol === 'https:' : true
+        secure: window.location ? window.location.protocol === 'https:' : true
       })
     }
   }
 
-  if (!content) {
-    return null
-  }
+  console.log(open)
+
+  const Actions = () => <>
+    {(content?.additional_actions || []).map((blok) => (
+      <LmComponentRender content={{ color: 'secondary_text', ...blok } as ButtonStoryblok} key={blok._uid} />
+    ))}
+    {(content?.close_action || []).map((blok) => (
+      <LmComponentRender
+        content={{ color: 'secondary_text', ...blok } as ButtonStoryblok}
+        key={blok._uid}
+        onClick={handleAccept}
+      />
+    ))}
+  </>
+
+  const Content = () => <>{(content?.descriptions || []).map((blok) => (
+    <LmComponentRender content={blok} key={blok._uid} />
+  ))}</>
 
   return (
     <Snackbar
@@ -64,22 +101,17 @@ export function LmSnackbar({ content }: LmSnackbarProps) {
         width: content.width ? content.width : undefined
       }}
     >
-      <Alert
+      <SnackbarContent
+        elevation={content.elevation || undefined}
+        variant={content.variant === 'outlined' ? 'outlined' : 'elevation'}
         style={{
           width: content.width ? content.width : undefined,
-          backgroundColor: content.background_color?.rgba || undefined
+          backgroundColor: content.background_color?.rgba || undefined,
+          border: content.border_color?.rgba ? `1px solid ${content.border_color.rgba}` : undefined,
+          borderRadius: content.square ? 0 : undefined
         }}
-        classes={{}} icon={false}
-        variant={content.variant || undefined}
-        severity={content.severity || undefined}
-        action={
-          <>
-            {(content?.additional_actions || []).map(blok => <LmComponentRender content={blok} key={blok._uid} />)}
-            {(content?.close_action || []).map(blok => <LmComponentRender content={blok} key={blok._uid}
-                                                                          onClick={handleAccept} />)}
-          </>}>
-        {(content?.descriptions || []).map(blok => <LmComponentRender content={blok} key={blok._uid} />)}
-      </Alert>
+        message={<Content />}
+        action={<Actions />} />
     </Snackbar>
   )
 }
