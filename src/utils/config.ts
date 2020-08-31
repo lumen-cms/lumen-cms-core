@@ -45,7 +45,6 @@ import {
   LmToolbarLogoProps,
   LmToolbarSectionProps
 } from '../components/layout/toolbar/toolbarTypes'
-import { AppPageProps } from '../typings/app'
 
 type AppConfigProps = {
   href: string
@@ -62,9 +61,6 @@ type AppConfigProps = {
   TAWKTO?: string
   prefetch: boolean
   hostname?: string
-  ssrHooks: {
-    pageProps: ((props: AppPageProps) => Promise<void>)[]
-  }
 }
 
 export const CONFIG: AppConfigProps = {
@@ -82,10 +78,7 @@ export const CONFIG: AppConfigProps = {
   overwriteDisableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,
   GA: process.env.NEXT_PUBLIC_GA,
   TAWKTO: process.env.NEXT_PUBLIC_TAWKTO,
-  prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH,
-  ssrHooks: {
-    pageProps: []
-  }
+  prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH
 }
 
 type LmCoreComponentsProps = {
