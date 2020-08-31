@@ -45,6 +45,7 @@ import {
   LmToolbarLogoProps,
   LmToolbarSectionProps
 } from '../components/layout/toolbar/toolbarTypes'
+import { LinkProps } from '../components/link/MuiNextLink'
 
 type AppConfigProps = {
   href: string
@@ -131,6 +132,7 @@ type LmCoreComponentsProps = {
   dialog?: JSXElementConstructor<LmDialogProps>
   instagram_post?: JSXElementConstructor<LmInstagramPostProps>
   instagram_list?: JSXElementConstructor<LmInstagramListProps>
+  lm_link_render?: JSXElementConstructor<LinkProps>
   [k: string]: ReactNode | null
 }
 

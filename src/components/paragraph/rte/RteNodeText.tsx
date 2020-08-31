@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import MuiLink from '@material-ui/core/Link'
 import { RteContentProps } from './rte_typings'
 import { getLinkAttrs } from '../../../utils/linkHandler'
-import { useAppContext } from '../../provider/context/AppContext'
+import { LmCoreComponents } from '../../..'
 
 const InlineClassMapping = {
   bold: 'font-weight-bold',
@@ -19,7 +19,6 @@ const InlineClassMapping = {
 type RteNodeTextProps = { content: RteContentProps }
 
 function RteNodeText({ content }: RteNodeTextProps): JSX.Element {
-  const { LinkRender } = useAppContext()
 
   if (content.marks && content.marks.length) {
     const link = content.marks.find(({ type }) => type === 'link')
@@ -41,7 +40,7 @@ function RteNodeText({ content }: RteNodeTextProps): JSX.Element {
           {}
         ),
         naked: true,
-        component: LinkRender
+        component: LmCoreComponents.lm_link_render
       }
       return <MuiLink {...btnProps}>{content.text}</MuiLink>
     }

@@ -1,18 +1,16 @@
 import React, { FunctionComponent } from 'react'
 import Error from 'next/error'
-import { AppPageProps, LinkRenderProps } from '../../typings/app'
+import { AppPageProps } from '../../typings/app'
 import AppSetupProvider from '../provider/AppSetupProvider'
 import GlobalTheme from '../global-theme/GlobalTheme'
 import AppProvider from '../provider/AppProvider'
 
 type AppContainerProps = {
   content: AppPageProps
-  LinkRender: LinkRenderProps
 }
 
 export const AppContainer: FunctionComponent<AppContainerProps> = ({
   content,
-  LinkRender,
   children
 }) => {
   const { page, settings, error, ...rest } = content
@@ -23,7 +21,7 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
     return <Error statusCode={500} />
   }
   return (
-    <AppProvider content={{ ...rest, LinkRender }}>
+    <AppProvider content={{ ...rest }}>
       <AppSetupProvider settings={settings} page={page}>
         <GlobalTheme
           settings={settings}

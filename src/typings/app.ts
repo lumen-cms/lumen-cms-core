@@ -1,11 +1,6 @@
 import { Story, StoryData } from 'storyblok-js-client'
-import { FunctionComponentFactory } from 'react'
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
-import {
-  CategoryComponent,
-  PageComponent,
-  StaticcontainerComponent
-} from './generated/schema'
+import { CategoryComponent, PageComponent, StaticcontainerComponent } from './generated/schema'
 
 type ErrorProps = {
   type:
@@ -27,10 +22,8 @@ export type AppApiRequestPayload = {
   listWidgetData: { [k: string]: StoryData<PageComponent>[] } | null
 }
 
-type SubProps = Pick<
-  AppApiRequestPayload,
-  'allStaticContent' | 'locale' | 'allCategories' | 'listWidgetData'
->
+type SubProps = Pick<AppApiRequestPayload,
+  'allStaticContent' | 'locale' | 'allCategories' | 'listWidgetData'>
 
 export type AppPageProps = SubProps & {
   page?: PageStoryblok | null
@@ -48,4 +41,3 @@ export type ComponentRenderFuncProps = {
   [k: string]: any
 }
 
-export type LinkRenderProps = FunctionComponentFactory<any>

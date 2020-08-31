@@ -6,22 +6,21 @@ import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
 import CardDescriptionText from './CardDescriptionText'
 import CardListItemActions from './CardListItemActions'
-import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { CardListItemProps } from './cardTypes'
+import { LmCoreComponents } from '../..'
 
 export function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props
   const variants = options.variant || []
-  const { LinkRender } = useAppContext()
   const btnProps: any = content.link?.cached_url
     ? {
-        ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external
-        }),
-        naked: true,
-        component: LinkRender
-      }
+      ...getLinkAttrs(content.link as LinkType, {
+        openExternal: !!content.open_external
+      }),
+      naked: true,
+      component: LmCoreComponents.lm_link_render
+    }
     : {}
 
   // without media / text only

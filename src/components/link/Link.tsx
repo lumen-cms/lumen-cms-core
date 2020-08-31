@@ -1,13 +1,12 @@
 import React from 'react'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
-import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
 import { LmLinkProps } from './linkTypes'
+import { LmCoreComponents } from '../..'
 
 export function LmLink({ content }: LmLinkProps): JSX.Element {
-  const { LinkRender } = useAppContext()
   if (!content.link?.cached_url) {
     return (
       <span className={clsx(content.class_names?.values)}>
@@ -22,7 +21,7 @@ export function LmLink({ content }: LmLinkProps): JSX.Element {
       openExternal: !!content.open_external
     }),
     naked: true,
-    component: LinkRender
+    component: LmCoreComponents.lm_link_render
   }
   return (
     <MuiLink

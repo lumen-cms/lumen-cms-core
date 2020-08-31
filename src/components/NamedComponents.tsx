@@ -49,6 +49,7 @@ import { LmInstagramList } from './instagram/InstagramList'
 
 import { LmCoreComponents } from '../utils/config'
 import { LmTimelineItem } from './timeline/TimelineItem'
+import MuiNextLink from './link/MuiNextLink'
 
 LmCoreComponents.page = LmPage
 LmCoreComponents.table = LmTable
@@ -99,3 +100,4 @@ LmCoreComponents.toolbar_row_section = LmToolbarSection
 LmCoreComponents.dialog = LmDialog
 LmCoreComponents.instagram_post = LmInstagramPost
 LmCoreComponents.instagram_list = LmInstagramList
+LmCoreComponents.lm_link_render = MuiNextLink

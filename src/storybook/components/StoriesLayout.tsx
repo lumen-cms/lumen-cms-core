@@ -1,15 +1,8 @@
 import * as React from 'react'
-import { FunctionComponent } from 'react'
+import { FC, FunctionComponent } from 'react'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import {
-  boolean,
-  color,
-  number,
-  optionsKnob,
-  select,
-  text
-} from '@storybook/addon-knobs'
+import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 import { Story as StoryType } from '@storybook/react/types-6-0.d'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
@@ -18,6 +11,12 @@ import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import AppProvider from '../../components/provider/AppProvider'
 import '../../components/NamedComponents'
+import { LmCoreComponents } from '../../utils/config'
+
+const OverwriteLink: FC = ({ children }) => {
+  return <a>{children}</a>
+}
+LmCoreComponents.lm_link_render = OverwriteLink
 
 const Layout: FunctionComponent<{}> = ({ children }) => {
   useGlobalStyles()

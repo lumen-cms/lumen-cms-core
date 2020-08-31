@@ -8,10 +8,10 @@ import ChevronUp from 'mdi-material-ui/ChevronUp'
 import { useRouter } from 'next/router'
 import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
 import { LmMenuProps } from './menuTypes'
+import { LmCoreComponents } from '../..'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -20,7 +20,6 @@ const useStyles = makeStyles({
 })
 
 export function LmMenu({ content }: LmMenuProps): JSX.Element {
-  const { LinkRender } = useAppContext()
 
   const classes = useStyles(content)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -108,20 +107,20 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
         {...addons}
       >
         {isCustom &&
-          menuItems.map((blok) => (
-            <LmComponentRender content={blok} key={blok._uid} />
-          ))}
+        menuItems.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
         {!isCustom && (
           <div>
             {menuItems.map((nestedProps) => {
               const btnProps: any = nestedProps.link?.cached_url
                 ? {
-                    ...getLinkAttrs(nestedProps.link as LinkType, {
-                      openExternal: !!nestedProps.open_external
-                    }),
-                    // naked: true,
-                    component: LinkRender
-                  }
+                  ...getLinkAttrs(nestedProps.link as LinkType, {
+                    openExternal: !!nestedProps.open_external
+                  }),
+                  // naked: true,
+                  component: LmCoreComponents.lm_link_render
+                }
                 : {}
 
               return (

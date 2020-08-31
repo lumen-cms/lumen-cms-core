@@ -5,24 +5,23 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import { ButtonStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../../utils/linkHandler'
-import { useAppContext } from '../../provider/context/AppContext'
+import { LmCoreComponents } from '../../..'
 
 type DrawerButtonProps = { content: ButtonStoryblok }
 
 export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
-  const { LinkRender } = useAppContext()
   const buttonProps = {
     text: content.label || content.name,
     graphic: content.icon?.name
   }
   const btnProps: any = content.link?.cached_url
     ? {
-        ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external
-        }),
-        // naked: true,
-        component: LinkRender
-      }
+      ...getLinkAttrs(content.link as LinkType, {
+        openExternal: !!content.open_external
+      }),
+      // naked: true,
+      component: LmCoreComponents.lm_link_render
+    }
     : {}
 
   return (

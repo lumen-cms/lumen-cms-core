@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { AppProps } from 'next/app'
-import { AppPageProps, LinkRenderProps } from '../../typings/app'
+import { AppPageProps } from '../../typings/app'
 import { AppContainer } from '../layout/AppContainer'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import hasWebpSupport from '../../utils/detectWebpSupport'
-import MuiNextLink from '../link/MuiNextLink'
 import StoryblokService from '../../utils/StoryblokService'
 
-export type LmAppProps = AppProps<AppPageProps> & {
-  LinkRender?: LinkRenderProps
-}
+export type LmAppProps = AppProps<AppPageProps>
 
 export function LmApp({
   Component,
   pageProps,
-  LinkRender,
   router
 }: LmAppProps) {
   const { locale, settings, page } = pageProps as AppPageProps
@@ -65,7 +61,6 @@ export function LmApp({
   return (
     <AppContainer
       content={appProps}
-      LinkRender={(LinkRender || MuiNextLink) as any}
     >
       <Component {...appProps} />
     </AppContainer>
