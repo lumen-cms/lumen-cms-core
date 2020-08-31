@@ -60,26 +60,26 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
       </a>
       <Dialog {...dialogProps}>
         {!!content.title ||
-          (!content.prevent_close_button && (
-            <DialogTitle
-              classes={{
-                root: classes.dialogTitle
-              }}
-            >
-              <span>{content.title}</span>
-              {!content.prevent_close_button && (
-                <IconButton onClick={() => setOpen(false)}>
-                  <Close />
-                </IconButton>
-              )}
-            </DialogTitle>
-          ))}
+        (!content.prevent_close_button && (
+          <DialogTitle
+            classes={{
+              root: classes.dialogTitle
+            }}
+          >
+            <span>{content.title}</span>
+            {!content.prevent_close_button && (
+              <IconButton onClick={() => setOpen(false)}>
+                <Close />
+              </IconButton>
+            )}
+          </DialogTitle>
+        ))}
         {content.no_padding ? (
-          <div>
+          <>
             {content.body?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />
             ))}
-          </div>
+          </>
         ) : (
           <DialogContent>
             {content.body?.map((blok) => (
