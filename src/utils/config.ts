@@ -62,8 +62,8 @@ type AppConfigProps = {
   TAWKTO?: string
   prefetch: boolean
   hostname?: string
-  ssrHooks?: {
-    pageProps?: ((props: AppPageProps) => Promise<AppPageProps>)[]
+  ssrHooks: {
+    pageProps: ((props: AppPageProps) => Promise<void>)[]
   }
 }
 
@@ -82,7 +82,10 @@ export const CONFIG: AppConfigProps = {
   overwriteDisableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,
   GA: process.env.NEXT_PUBLIC_GA,
   TAWKTO: process.env.NEXT_PUBLIC_TAWKTO,
-  prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH
+  prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH,
+  ssrHooks: {
+    pageProps: []
+  }
 }
 
 type LmCoreComponentsProps = {
