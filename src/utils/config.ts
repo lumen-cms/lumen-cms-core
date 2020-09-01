@@ -1,4 +1,4 @@
-import { JSXElementConstructor, ReactNode } from 'react'
+import { FC, JSXElementConstructor, ReactNode } from 'react'
 import { LmTimelineItemProps, LmTimelineProps } from '../components/timeline/timelineTypes'
 import { LmInstagramListProps, LmInstagramPostProps } from '../components/instagram/instagramTypes'
 import { LmAccordionItemProps, LmAccordionProps } from '../components/accordion/accordionTypes'
@@ -133,6 +133,7 @@ type LmCoreComponentsProps = {
   instagram_post?: JSXElementConstructor<LmInstagramPostProps>
   instagram_list?: JSXElementConstructor<LmInstagramListProps>
   lm_link_render?: JSXElementConstructor<LinkProps>
+  lm_app_providers?: (FC<any>)[]
   [k: string]: ReactNode | null
 }
 
