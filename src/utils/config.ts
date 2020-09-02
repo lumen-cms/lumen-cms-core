@@ -133,8 +133,10 @@ type LmCoreComponentsProps = {
   instagram_post?: JSXElementConstructor<LmInstagramPostProps>
   instagram_list?: JSXElementConstructor<LmInstagramListProps>
   lm_link_render?: JSXElementConstructor<LinkProps>
-  lm_app_providers?: (FC<any>)[]
+  lm_app_providers: (FC<any>)[]
   [k: string]: ReactNode | null
 }
 
-export const LmCoreComponents: LmCoreComponentsProps = {}
+export const LmCoreComponents: LmCoreComponentsProps = {
+  lm_app_providers: []
+}
