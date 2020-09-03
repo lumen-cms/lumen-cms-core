@@ -286,7 +286,9 @@ export interface CategoryBoxStoryblok {
 }
 
 export interface ChatFacebookStoryblok {
-  account?: string;
+  page_id?: string;
+  app_id?: string;
+  disable_lazy?: boolean;
   _uid: string;
   component: "chat_facebook";
   [k: string]: any;

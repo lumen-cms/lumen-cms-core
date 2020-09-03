@@ -1,5 +1,9 @@
 import { LmComponentRender } from '../src'
-import { ChatTawktoStoryblok, ChatWhatsappStoryblok } from '../src/typings/generated/components-schema'
+import {
+  ChatFacebookStoryblok,
+  ChatTawktoStoryblok,
+  ChatWhatsappStoryblok
+} from '../src/typings/generated/components-schema'
 import * as React from 'react'
 
 
@@ -27,5 +31,16 @@ export const Whatsapp = () => (
       tooltip: 'This is a veeeeeeeeeery long tooltip message',
       welcome_message: 'This is the welcome message'
     } as ChatWhatsappStoryblok} />
+  </div>
+)
+export const Facebook = () => (
+  <div>
+    <LmComponentRender content={{
+      _uid: '123',
+      component: 'chat_facebook',
+      disable_lazy: true,
+      app_id: '333190476840248',
+      page_id: '286699738032795'
+    } as ChatFacebookStoryblok} />
   </div>
 )

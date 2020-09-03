@@ -1,16 +1,16 @@
 import React from 'react'
 import Fab from '@material-ui/core/Fab'
 import Whatsapp from 'mdi-material-ui/Whatsapp'
-import { WhatsappProps } from './chatTypings'
+import { WhatsappChatButtonProps } from './chatTypings'
 import Tooltip from '@material-ui/core/Tooltip'
 
 const whatsappUrl = `https://wa.me`
 
-export function WhatsappChatButton({ content }: WhatsappProps) {
+export function WhatsappChatButton({ content }: WhatsappChatButtonProps) {
   let phoneNumber = content.phone_number || ''
   phoneNumber = phoneNumber.replace(/[^\w\s]/gi, '').replace(/ /g, '')
   const url = new URL(`${whatsappUrl}/${phoneNumber}`)
-  
+
   return (
     <Tooltip placement={'top'} title={content.tooltip || ''}>
       <Fab
