@@ -1,8 +1,10 @@
 import { createContext, useContext } from 'react'
 import { AppApiRequestPayload } from '../../../typings/app'
 
-export type AppContextProps = Omit<AppApiRequestPayload,
-  'locale' | 'settings' | 'page' | 'allStories'> & {
+export type AppContextProps = Omit<
+  AppApiRequestPayload,
+  'locale' | 'settings' | 'page' | 'allStories'
+> & {
   insideStoryblok?: boolean
   [k: string]: any
 }

@@ -19,7 +19,6 @@ const InlineClassMapping = {
 type RteNodeTextProps = { content: RteContentProps }
 
 function RteNodeText({ content }: RteNodeTextProps): JSX.Element {
-
   if (content.marks && content.marks.length) {
     const link = content.marks.find(({ type }) => type === 'link')
     const className = clsx(

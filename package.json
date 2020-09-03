@@ -26,7 +26,7 @@
     "build-core": "rimraf dist && rimraf base/dist && tsdx build -i src/base.tsx --name lumen-cms-base && mv dist base/dist",
     "watch": "tsdx watch",
     "gen-ts-schema": "node generate-ts-schema.js",
-    "fetch-storyblok-components": "storyblok pull-components --space=80001",
+    "fetch-storyblok-components": "storyblok pull-components --space=82895",
     "update-storyblok": "npm run fetch-storyblok-components && npm run gen-ts-schema && npm run codegen",
     "codegen": "graphql-codegen --config codegen.yml",
     "storybook": "start-storybook -p 6006 -c .storybook",

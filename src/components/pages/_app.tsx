@@ -8,11 +8,7 @@ import StoryblokService from '../../utils/StoryblokService'
 
 export type LmAppProps = AppProps<AppPageProps>
 
-export function LmApp({
-  Component,
-  pageProps,
-  router
-}: LmAppProps) {
+export function LmApp({ Component, pageProps, router }: LmAppProps) {
   const { locale, settings, page } = pageProps as AppPageProps
 
   const settingsUid = settings?.uuid
@@ -59,9 +55,7 @@ export function LmApp({
     settings: stateSettings
   }
   return (
-    <AppContainer
-      content={appProps}
-    >
+    <AppContainer content={appProps}>
       <Component {...appProps} />
     </AppContainer>
   )

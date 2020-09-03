@@ -10,7 +10,6 @@ type AppContainerProps = {
   content: AppPageProps
 }
 
-
 export const AppContainer: FunctionComponent<AppContainerProps> = ({
   content,
   children
@@ -29,9 +28,7 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
           settings={settings}
           rightDrawerWidth={page?.right_drawer_width}
         >
-          <LmAppProvidersContainer>
-            {children}
-          </LmAppProvidersContainer>
+          <LmAppProvidersContainer>{children}</LmAppProvidersContainer>
         </GlobalTheme>
       </AppSetupProvider>
     </AppProvider>

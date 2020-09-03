@@ -66,12 +66,12 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
             const btnProps: any =
               item.link?.cached_url && !content.enable_lightbox
                 ? {
-                  ...getLinkAttrs(item.link as LinkType, {
-                    openExternal: !!item.open_external
-                  }),
-                  naked: true,
-                  component: LmCoreComponents.lm_link_render
-                }
+                    ...getLinkAttrs(item.link as LinkType, {
+                      openExternal: !!item.open_external
+                    }),
+                    naked: true,
+                    component: LmCoreComponents.lm_link_render
+                  }
                 : {}
             return (
               <GridListTile
@@ -92,15 +92,15 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
         </GridList>
       </div>
       {lightbox &&
-      ImageListLightbox({
-        elements: body,
-        lightbox,
-        setLightbox,
-        onImageClick,
-        className: classes.lightbox,
-        width,
-        height
-      })}
+        ImageListLightbox({
+          elements: body,
+          lightbox,
+          setLightbox,
+          onImageClick,
+          className: classes.lightbox,
+          width,
+          height
+        })}
     </div>
   )
 }

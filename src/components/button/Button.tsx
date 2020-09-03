@@ -107,12 +107,12 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
 
   const btnProps: any = content.link?.cached_url
     ? {
-      ...getLinkAttrs(content.link as LinkType, {
-        openExternal: !!content.open_external
-      }),
-      naked: true,
-      component: LmCoreComponents.lm_link_render
-    }
+        ...getLinkAttrs(content.link as LinkType, {
+          openExternal: !!content.open_external
+        }),
+        naked: true,
+        component: LmCoreComponents.lm_link_render
+      }
     : {}
 
   if (onClick) {

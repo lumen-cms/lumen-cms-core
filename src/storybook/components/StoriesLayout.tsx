@@ -2,7 +2,14 @@ import * as React from 'react'
 import { FC, FunctionComponent } from 'react'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
+import {
+  boolean,
+  color,
+  number,
+  optionsKnob,
+  select,
+  text
+} from '@storybook/addon-knobs'
 import { Story as StoryType } from '@storybook/react/types-6-0.d'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
@@ -19,8 +26,8 @@ const OverwriteLink: FC = ({ children }) => {
 }
 LmCoreComponents.lm_link_render = OverwriteLink
 
-const ProviderA: FC = ({ children }) => (<div>{children}</div>)
-const ProviderB: FC = ({ children }) => (<div>{children}</div>)
+const ProviderA: FC = ({ children }) => <div>{children}</div>
+const ProviderB: FC = ({ children }) => <div>{children}</div>
 
 LmCoreComponents.lm_app_providers = [ProviderA, ProviderB]
 const Layout: FunctionComponent<{}> = ({ children }) => {

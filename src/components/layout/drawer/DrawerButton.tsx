@@ -16,12 +16,12 @@ export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
   }
   const btnProps: any = content.link?.cached_url
     ? {
-      ...getLinkAttrs(content.link as LinkType, {
-        openExternal: !!content.open_external
-      }),
-      // naked: true,
-      component: LmCoreComponents.lm_link_render
-    }
+        ...getLinkAttrs(content.link as LinkType, {
+          openExternal: !!content.open_external
+        }),
+        // naked: true,
+        component: LmCoreComponents.lm_link_render
+      }
     : {}
 
   return (
