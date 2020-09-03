@@ -52,6 +52,7 @@ import { LmTimelineItem } from './timeline/TimelineItem'
 import MuiNextLink from './link/MuiNextLink'
 import { TawktoChatButton } from './chat/TawktoChatButton'
 import { WhatsappChatButton } from './chat/WhatsappChatButton'
+import { FacebookChatButton } from './chat/FacebookChatButton'
 
 LmCoreComponents.page = LmPage
 LmCoreComponents.table = LmTable
@@ -105,3 +106,4 @@ LmCoreComponents.instagram_list = LmInstagramList
 LmCoreComponents.lm_link_render = MuiNextLink
 LmCoreComponents.chat_tawkto = TawktoChatButton
 LmCoreComponents.chat_whatsapp = WhatsappChatButton
+LmCoreComponents.chat_facebook = FacebookChatButton

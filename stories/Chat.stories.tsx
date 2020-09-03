@@ -35,12 +35,12 @@ export const Whatsapp = () => (
 )
 export const Facebook = () => (
   <div>
+    This Only works online on play.lumen.media!!
     <LmComponentRender content={{
       _uid: '123',
       component: 'chat_facebook',
       disable_lazy: true,
-      app_id: '333190476840248',
-      page_id: '286699738032795'
+      page_id: '1456836611252852'
     } as ChatFacebookStoryblok} />
   </div>
 )

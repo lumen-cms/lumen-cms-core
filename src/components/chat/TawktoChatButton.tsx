@@ -8,6 +8,7 @@ export function TawktoChatButton({ content }: TawktoProps) {
   const tawkToId = content.account
 
   const isScrolled = useScrollOnce()
+
   const startInclude = content.disable_lazy || isScrolled
 
   const tawkToScriptName =
