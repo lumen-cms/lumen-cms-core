@@ -1,8 +1,8 @@
 import React from 'react'
 import Fab from '@material-ui/core/Fab'
 import Whatsapp from 'mdi-material-ui/Whatsapp'
-import { WhatsappChatButtonProps } from './chatTypings'
 import Tooltip from '@material-ui/core/Tooltip'
+import { WhatsappChatButtonProps } from './chatTypings'
 
 const whatsappUrl = `https://wa.me`
 
@@ -12,7 +12,7 @@ export function WhatsappChatButton({ content }: WhatsappChatButtonProps) {
   const url = new URL(`${whatsappUrl}/${phoneNumber}`)
 
   return (
-    <Tooltip placement={'top'} title={content.tooltip || ''}>
+    <Tooltip placement="top" title={content.tooltip || ''}>
       <Fab
         onClick={() => {
           window.open(url.toString())
