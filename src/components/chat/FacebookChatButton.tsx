@@ -9,6 +9,12 @@ declare global {
     fbAsyncInit?: () => void
     FB?: {
       init: (props: any) => void
+      CustomerChat: {
+        hide: () => void
+        showDialog: () => void
+        hideDialog: () => void
+        show: (shouldShowDialog?: boolean) => void
+      }
       [k: string]: any
     }
   }
@@ -34,7 +40,6 @@ export function FacebookChatButton({ content }: FacbookChatButtonProps) {
         xfbml: true,
         version: 'v8.0'
       })
-      console.log(window.FB)
       setInitialized(true)
     }
   }
@@ -44,6 +49,7 @@ export function FacebookChatButton({ content }: FacbookChatButtonProps) {
 
   useEffect(
     () => {
+      window?.FB?.CustomerChat?.show()
       return () => {
         window?.FB?.CustomerChat?.hide()
       }
