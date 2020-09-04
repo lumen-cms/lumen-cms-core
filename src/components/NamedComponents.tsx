@@ -53,6 +53,7 @@ import MuiNextLink from './link/MuiNextLink'
 import { TawktoChatButton } from './chat/TawktoChatButton'
 import { WhatsappChatButton } from './chat/WhatsappChatButton'
 import { FacebookChatButton } from './chat/FacebookChatButton'
+import { LmSnackbar } from './snackbar/Snackbar'
 
 LmCoreComponents.page = LmPage
 LmCoreComponents.table = LmTable
@@ -107,3 +108,4 @@ LmCoreComponents.lm_link_render = MuiNextLink
 LmCoreComponents.chat_tawkto = TawktoChatButton
 LmCoreComponents.chat_whatsapp = WhatsappChatButton
 LmCoreComponents.chat_facebook = FacebookChatButton
+LmCoreComponents.snackbar = LmSnackbar
