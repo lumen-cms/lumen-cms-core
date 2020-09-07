@@ -30,11 +30,14 @@ const useStyles = makeStyles({
   }
 })
 
-export function LmIcon({ content }: LmIconProps): JSX.Element {
+export function LmIcon({ content, onClick }: LmIconProps): JSX.Element {
   const classes = useStyles()
   return (
     <div className={clsx(content.class_names && content.class_names.values)}>
       <LmIconMwc
+        onClick={() => {
+          onClick && onClick()
+        }}
         className={clsx(classes.icon, {
           [content.size as string]: !!content.size
         })}

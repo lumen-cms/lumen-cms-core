@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export default function LmImage({ content }: LmImageProps): JSX.Element {
+export default function LmImage({ content, onClick }: LmImageProps): JSX.Element {
   const classes = useStyles()
   const width = useWindowWidth()
   const isMobile = width < 600
@@ -125,6 +125,9 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
 
   return (
     <figure
+      onClick={() => {
+        onClick && onClick()
+      }}
       ref={refIntersectionObserver}
       className={clsx(classes.root, {
         [classes.rootNoMargin]: content.disable_ratio_correction
@@ -133,13 +136,13 @@ export default function LmImage({ content }: LmImageProps): JSX.Element {
         height: content.height
           ? `${content.height}px`
           : content.height_fill
-          ? '100%'
-          : undefined,
+            ? '100%'
+            : undefined,
         width: content.width
           ? `${content.width}px`
           : content.height_fill
-          ? '100%'
-          : undefined
+            ? '100%'
+            : undefined
       }}
     >
       {!loaded && (

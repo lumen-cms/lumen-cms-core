@@ -5,11 +5,14 @@ import { componentLogger } from '../../utils/componentLogger'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { LmHeadlineProps } from './headlineTypes'
 
-export function LmHeadline({ content }: LmHeadlineProps): JSX.Element {
+export function LmHeadline({ content, onClick }: LmHeadlineProps): JSX.Element {
   componentLogger(content)
   const component = content.tag ? content.tag : undefined
   return (
     <Typography
+      onClick={() => {
+        onClick && onClick()
+      }}
       className={clsx(
         content.style,
         content.style_props,
@@ -35,7 +38,7 @@ export function LmHeadline({ content }: LmHeadlineProps): JSX.Element {
       variant={
         mapTypographyVariant[
           content.typography ? (content.typography as string) : 'headline4'
-        ]
+          ]
       }
     >
       {!!content.text_xs && (

@@ -1,14 +1,10 @@
 import React, { FunctionComponent } from 'react'
 import Error from 'next/error'
-import { AppPageProps } from '../../typings/app'
 import AppSetupProvider from '../provider/AppSetupProvider'
 import GlobalTheme from '../global-theme/GlobalTheme'
 import AppProvider from '../provider/AppProvider'
 import { LmAppProvidersContainer } from './LmAppProvidersContainer'
-
-type AppContainerProps = {
-  content: AppPageProps
-}
+import { AppContainerProps } from './layoutTypes'
 
 export const AppContainer: FunctionComponent<AppContainerProps> = ({
   content,
@@ -28,7 +24,7 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
           settings={settings}
           rightDrawerWidth={page?.right_drawer_width}
         >
-          <LmAppProvidersContainer>{children}</LmAppProvidersContainer>
+          <LmAppProvidersContainer settings={settings}>{children}</LmAppProvidersContainer>
         </GlobalTheme>
       </AppSetupProvider>
     </AppProvider>
