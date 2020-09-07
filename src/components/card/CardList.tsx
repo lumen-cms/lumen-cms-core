@@ -1,10 +1,10 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
+import { useInView } from 'react-intersection-observer'
 import { useGridListStyles } from './cardListStyles'
-import { useInfiniteScroll } from '../../utils/hooks/useInfiniteScroll'
 import { LmComponentRender } from '../CoreComponents'
 import { LmCardListProps } from './cardTypes'
 
@@ -56,15 +56,10 @@ const useStyles = makeStyles({
   }
 })
 
+const chunkSize = 30
+
 export function LmCardList({ content }: LmCardListProps): JSX.Element {
-  const {
-    body,
-    // column_gap,
-    // column_count,
-    // column_count_phone,
-    // column_count_tablet,
-    ...rest
-  } = content
+  const { body = [], ...rest } = content
   const classes = useStyles(content)
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -72,8 +67,31 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
     columnCountTablet: content.column_count_tablet
   })
   const gutterSize = content.column_gap ? Number(content.column_gap) : 24
+  const enableInView = body.length > chunkSize
+  const [intersectionRef, inView] = useInView()
 
-  const { ref, data, hasMore } = useInfiniteScroll(body || [])
+  // const [data, setData] = useState<CardListItemStoryblok[]>(
+  //   body.slice(0, chunkSize) || []
+  // )
+  const [page, setPage] = useState<number>(1)
+
+  const data = body.slice(0, page * chunkSize) || []
+
+  useEffect(() => {
+    if (inView) {
+      setPage((v) => v + 1)
+    }
+  }, [inView, setPage])
+
+  // useEffect(() => {
+  //   if (page > 0) {
+  //     setData((v) => [
+  //       ...v,
+  //       ...body.slice(page * chunkSize, (page + 1) * chunkSize)
+  //     ])
+  //   }
+  // }, [page, setData, body])
+
   const variant = content.variant || []
 
   return (
@@ -97,13 +115,19 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
         }}
         className={gridClasses.gridList}
       >
-        {data.map((item, i) => (
-          <GridListTile key={`${item.component}_${i}`}>
+        {data.map((item) => (
+          <GridListTile key={`${item.component}_${item._uid}`}>
             <LmComponentRender content={item} options={rest} />
           </GridListTile>
         ))}
       </GridList>
-      <div ref={hasMore ? ref : undefined} />
+      <div
+        ref={
+          enableInView && data.length < body.length
+            ? intersectionRef
+            : undefined
+        }
+      />
     </div>
   )
 }

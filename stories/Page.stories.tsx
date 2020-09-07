@@ -1,7 +1,10 @@
 import { LmComponentRender as LmPage } from '../src/'
 import {
+  ButtonStoryblok,
   GlobalStoryblok,
+  HeadlineStoryblok,
   PageStoryblok,
+  SnackbarStoryblok,
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
 } from '../src/typings/generated/components-schema'
@@ -125,7 +128,28 @@ export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
     ...settings,
     multi_toolbar: customSettingsSystemBar.multi_toolbar,
     footer: customSettingsSystemBar.footer,
-    toolbar_main_height: 70
+    toolbar_main_height: 70,
+    snackbars: [{
+      component: 'snackbar',
+      _uid: '12312',
+      width: '98%',
+      descriptions: [{
+        text: 'Hey we are using cookies!!',
+        typography: 'body1',
+        _uid: 'dsfdfs',
+        component: 'headline'
+      } as HeadlineStoryblok, {
+        text: 'As you can see...',
+        typography: 'body2',
+        _uid: '321',
+        component: 'headline'
+      } as HeadlineStoryblok],
+      close_action: [{
+        label: 'I understand!',
+        component: 'button',
+        _uid: '12313'
+      } as ButtonStoryblok]
+    } as SnackbarStoryblok]
   } as GlobalStoryblok
   return (
     <AppSetupProvider settings={playgroundSettings} page={getPropsDrawer()}>

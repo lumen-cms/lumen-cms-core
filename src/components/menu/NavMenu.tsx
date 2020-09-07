@@ -8,10 +8,10 @@ import ChevronUp from 'mdi-material-ui/ChevronUp'
 import { useRouter } from 'next/router'
 import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
 import { LmMenuProps } from './menuTypes'
+import { LmCoreComponents } from '../..'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -20,8 +20,6 @@ const useStyles = makeStyles({
 })
 
 export function LmMenu({ content }: LmMenuProps): JSX.Element {
-  const { LinkRender } = useAppContext()
-
   const classes = useStyles(content)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const menuItems = content.body || []
@@ -120,7 +118,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
                       openExternal: !!nestedProps.open_external
                     }),
                     // naked: true,
-                    component: LinkRender
+                    component: LmCoreComponents.lm_link_render
                   }
                 : {}
 

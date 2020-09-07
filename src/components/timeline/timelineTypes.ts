@@ -1,4 +1,7 @@
-import { TimelineItemStoryblok, TimelineStoryblok } from '../../typings/generated/components-schema'
+import {
+  TimelineItemStoryblok,
+  TimelineStoryblok
+} from '../../typings/generated/components-schema'
 
 export type LmTimelineItemProps = {
   content: TimelineItemStoryblok

@@ -1,4 +1,4 @@
-import { JSXElementConstructor, ReactNode } from 'react'
+import { FC, JSXElementConstructor, ReactNode } from 'react'
 import {
   LmTimelineItemProps,
   LmTimelineProps
@@ -72,6 +72,7 @@ import {
   LmToolbarLogoProps,
   LmToolbarSectionProps
 } from '../components/layout/toolbar/toolbarTypes'
+import { LinkProps } from '../components/link/MuiNextLink'
 
 type AppConfigProps = {
   href: string
@@ -160,7 +161,11 @@ type LmCoreComponentsProps = {
   dialog?: JSXElementConstructor<LmDialogProps>
   instagram_post?: JSXElementConstructor<LmInstagramPostProps>
   instagram_list?: JSXElementConstructor<LmInstagramListProps>
+  lm_link_render?: JSXElementConstructor<LinkProps>
+  lm_app_providers: FC<any>[]
   [k: string]: ReactNode | null
 }
 
-export const LmCoreComponents: LmCoreComponentsProps = {}
+export const LmCoreComponents: LmCoreComponentsProps = {
+  lm_app_providers: []
+}

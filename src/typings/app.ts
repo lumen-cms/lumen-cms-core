@@ -1,5 +1,4 @@
 import { Story, StoryData } from 'storyblok-js-client'
-import { FunctionComponentFactory } from 'react'
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import {
   CategoryComponent,
@@ -47,5 +46,3 @@ export type ComponentRenderFuncProps = {
   i?: number // iteration in case of array render
   [k: string]: any
 }
-
-export type LinkRenderProps = FunctionComponentFactory<any>

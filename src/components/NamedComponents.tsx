@@ -10,7 +10,7 @@ import { LmHubspotMeeting } from './hubspot-meeting/HubspotMeeting'
 import { LmButtonList } from './button-list/ButtonList'
 import { LmSection } from './section/Section'
 import { LmHeadline } from './headline/Headline'
-import { LmParagraph } from './paragraph/Paragraph'
+// import { LmParagraph } from './paragraph/Paragraph'
 import { LmGridRow } from './section/GridRow'
 import { LmGridColumn } from './section/GridColumn'
 import { LmImage } from './image/ImageElement'
@@ -49,6 +49,11 @@ import { LmInstagramList } from './instagram/InstagramList'
 
 import { LmCoreComponents } from '../utils/config'
 import { LmTimelineItem } from './timeline/TimelineItem'
+import MuiNextLink from './link/MuiNextLink'
+import { TawktoChatButton } from './chat/TawktoChatButton'
+import { WhatsappChatButton } from './chat/WhatsappChatButton'
+import { FacebookChatButton } from './chat/FacebookChatButton'
+import { LmSnackbar } from './snackbar/Snackbar'
 
 LmCoreComponents.page = LmPage
 LmCoreComponents.table = LmTable
@@ -62,7 +67,7 @@ LmCoreComponents.hubspot_meeting = LmHubspotMeeting
 LmCoreComponents.button_list = LmButtonList
 LmCoreComponents.section = LmSection
 LmCoreComponents.headline = LmHeadline
-LmCoreComponents.paragraph = LmParagraph
+// LmCoreComponents.paragraph = LmParagraph
 LmCoreComponents.row = LmGridRow
 LmCoreComponents.column = LmGridColumn
 LmCoreComponents.image = LmImage
@@ -99,3 +104,8 @@ LmCoreComponents.toolbar_row_section = LmToolbarSection
 LmCoreComponents.dialog = LmDialog
 LmCoreComponents.instagram_post = LmInstagramPost
 LmCoreComponents.instagram_list = LmInstagramList
+LmCoreComponents.lm_link_render = MuiNextLink
+LmCoreComponents.chat_tawkto = TawktoChatButton
+LmCoreComponents.chat_whatsapp = WhatsappChatButton
+LmCoreComponents.chat_facebook = FacebookChatButton
+LmCoreComponents.snackbar = LmSnackbar

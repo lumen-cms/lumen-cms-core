@@ -8,7 +8,7 @@ import {
 } from '@storybook/addon-knobs'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
-import COMPONENT_JSON from '../../../components.80001.json'
+import COMPONENT_JSON from '../../../components.82895.json'
 import { classNameOpts } from './utilityClassNamesHelper'
 import iconObj from './iconListHelper'
 import { getGlobalState } from '../components/SetStoriesDecorator'

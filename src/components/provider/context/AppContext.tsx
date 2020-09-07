@@ -1,12 +1,11 @@
 import { createContext, useContext } from 'react'
-import { AppApiRequestPayload, LinkRenderProps } from '../../../typings/app'
+import { AppApiRequestPayload } from '../../../typings/app'
 
 export type AppContextProps = Omit<
   AppApiRequestPayload,
   'locale' | 'settings' | 'page' | 'allStories'
 > & {
   insideStoryblok?: boolean
-  LinkRender?: LinkRenderProps
   [k: string]: any
 }
 

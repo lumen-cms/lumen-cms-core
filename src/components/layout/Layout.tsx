@@ -2,9 +2,13 @@ import React, { FunctionComponent } from 'react'
 import Header from './toolbar/Header'
 import Footer from './Footer'
 import AppHead from './AppHead'
-import ExternalScripts from '../external-scripts/ExternalScripts'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import {
+  ChatTawktoStoryblok,
+  GlobalStoryblok
+} from '../../typings/generated/components-schema'
 import DrawerElement from './drawer/DrawerElement'
+import { LmSnackbar } from '../snackbar/Snackbar'
+import { LmComponentRender } from '../CoreComponents'
 
 export type LayoutComponentProps = {
   // appSetup?: State['appSetup'],
@@ -16,6 +20,15 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
   // appSetup,
   settings
 }) => {
+  // legacy code for old projects.. remove after all tawkto are integrated
+  if (settings.tawkto) {
+    settings.chat_button = settings.chat_button || []
+    settings.chat_button.push({
+      _uid: 'chat button',
+      component: 'chat_tawkto',
+      account: settings.tawkto
+    } as ChatTawktoStoryblok)
+  }
   return (
     <>
       <AppHead settings={settings} />
@@ -23,7 +36,12 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
       {children}
       <DrawerElement settings={settings} />
       <Footer settings={settings} />
-      <ExternalScripts settings={settings} />
+      {settings.snackbars?.map((blok) => (
+        <LmSnackbar content={blok} key={blok._uid} />
+      ))}
+      {settings.chat_button?.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </>
   )
 }

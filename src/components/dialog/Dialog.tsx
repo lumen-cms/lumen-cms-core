@@ -75,11 +75,11 @@ export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
             </DialogTitle>
           ))}
         {content.no_padding ? (
-          <div>
+          <>
             {content.body?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />
             ))}
-          </div>
+          </>
         ) : (
           <DialogContent>
             {content.body?.map((blok) => (

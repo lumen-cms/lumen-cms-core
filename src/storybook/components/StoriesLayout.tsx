@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { FunctionComponent } from 'react'
+import { FC, FunctionComponent } from 'react'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {
@@ -18,7 +18,18 @@ import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import AppProvider from '../../components/provider/AppProvider'
 import '../../components/NamedComponents'
+import { LmCoreComponents } from '../../utils/config'
+import { LmAppProvidersContainer } from '../../components/layout/LmAppProvidersContainer'
 
+const OverwriteLink: FC = ({ children }) => {
+  return <a>{children}</a>
+}
+LmCoreComponents.lm_link_render = OverwriteLink
+
+const ProviderA: FC = ({ children }) => <div>{children}</div>
+const ProviderB: FC = ({ children }) => <div>{children}</div>
+
+LmCoreComponents.lm_app_providers = [ProviderA, ProviderB]
 const Layout: FunctionComponent<{}> = ({ children }) => {
   useGlobalStyles()
   return <>{children}</>
@@ -153,7 +164,7 @@ const StoriesLayout = (Story: StoryType) => {
       }}
     >
       <GlobalTheme settings={settings as GlobalStoryblok}>
-        <div>
+        <LmAppProvidersContainer>
           <CssBaseline />
           <Layout>
             <Container
@@ -172,7 +183,7 @@ const StoriesLayout = (Story: StoryType) => {
             )}&display=swap`}
             rel="stylesheet"
           />
-        </div>
+        </LmAppProvidersContainer>
       </GlobalTheme>
     </AppProvider>
   )

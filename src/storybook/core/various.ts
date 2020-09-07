@@ -25,6 +25,7 @@ import {
   PlayerStoryblok,
   RichTextEditorStoryblok,
   SliderStoryblok,
+  SnackbarStoryblok,
   TableStoryblok
 } from '../../typings/generated/components-schema'
 import { StorybookOptionProps } from './storybook_typing'
@@ -471,4 +472,19 @@ export const storyInstagramList = ({
     knob,
     count
   }) as InstagramListStoryblok
+}
+
+export const storySnackbar = ({
+  options = {},
+  knob,
+  count = ''
+}: StorybookOptionProps & {
+  options?: Partial<SnackbarStoryblok>
+} = {}): SnackbarStoryblok => {
+  return getKnobComponents({
+    componentName: 'snackbar',
+    options,
+    knob,
+    count
+  }) as SnackbarStoryblok
 }

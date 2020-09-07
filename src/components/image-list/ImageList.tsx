@@ -6,15 +6,14 @@ import { useWindowSize } from '@react-hook/window-size'
 import ImageListLightbox from './ImageListLightbox'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
-import { useAppContext } from '../provider/context/AppContext'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
 import { LmImageListProps } from './imageListTypes'
+import { LmCoreComponents } from '../..'
 
 export function LmImageList({ content }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
   const [width, height] = useWindowSize()
-  const { LinkRender } = useAppContext()
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -71,7 +70,7 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
                       openExternal: !!item.open_external
                     }),
                     naked: true,
-                    component: LinkRender
+                    component: LmCoreComponents.lm_link_render
                   }
                 : {}
             return (

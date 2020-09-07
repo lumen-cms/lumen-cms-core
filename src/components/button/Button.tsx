@@ -7,8 +7,8 @@ import clsx from 'clsx'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-import { useAppContext } from '../provider/context/AppContext'
 import { LmButtonProps } from './buttonTypes'
+import { LmCoreComponents } from '../..'
 
 // fab and button: small medium large, default: large
 const mapSize = {
@@ -84,9 +84,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export function LmButton({ content }: LmButtonProps): JSX.Element {
+export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
   const classes = useStyles()
-  const { LinkRender } = useAppContext()
   const properties = content.properties || []
   const disableRipple = !!properties.find((i) => i === 'disable-ripple')
   const isUnelevated =
@@ -112,10 +111,13 @@ export function LmButton({ content }: LmButtonProps): JSX.Element {
           openExternal: !!content.open_external
         }),
         naked: true,
-        component: LinkRender
+        component: LmCoreComponents.lm_link_render
       }
     : {}
 
+  if (onClick) {
+    btnProps.onClick = onClick
+  }
   if (content.variant === 'fab') {
     return (
       <Fab
