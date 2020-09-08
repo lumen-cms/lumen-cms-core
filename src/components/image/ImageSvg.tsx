@@ -23,7 +23,10 @@ const useStyles = makeStyles({
   }
 })
 
-export default function ImageSvg({ content, onClick }: LmImageProps): JSX.Element {
+export default function ImageSvg({
+  content,
+  onClick
+}: LmImageProps): JSX.Element {
   const classes = useStyles()
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
