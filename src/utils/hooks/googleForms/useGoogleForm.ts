@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { hijackGoogleFormsXHR } from '../hijackGoogleFormXHR'
+import { hijackGoogleFormsXHR } from './hijackGoogleFormXHR'
 
 type StructuredFormFieldProps = {
   questionTypeCode: number

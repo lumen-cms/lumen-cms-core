@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGoogleForm } from '../src/utils/hooks/useGoogleForm'
+import { useGoogleForm } from '../src/utils/hooks/googleForms/useGoogleForm'
 
 export default {
   title: 'useGoogleForm Hook'
