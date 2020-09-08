@@ -54,7 +54,7 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
             }
             return <TextFieldElement {...baseFieldProps} {...additionalProps} />
           }
-          return <div />
+          return null
         })}
         <Button
           type="submit"

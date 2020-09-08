@@ -9,6 +9,7 @@ import {
   DateHeadlineStoryblok,
   DialogStoryblok,
   DividerStoryblok,
+  FormStoryblok,
   HeadlineStoryblok,
   HtmlStoryblok,
   HubspotMeetingStoryblok,
@@ -31,6 +32,7 @@ import {
 import { StorybookOptionProps } from './storybook_typing'
 import getKnobComponents, { camelizeString } from '../helpers/getKnobComponent'
 import { storyImageUrls } from './sharedFunctions'
+import { GoogleFormExampleUrl } from '../../utils/config'
 
 const lorem = new LoremIpsum()
 
@@ -139,6 +141,24 @@ export const storyDateHeadline = ({
     knob,
     count
   }) as DateHeadlineStoryblok
+}
+
+export const storyForm = ({
+  options = {},
+  knob,
+  count = ''
+}: StorybookOptionProps & {
+  options?: Partial<FormStoryblok>
+} = {}): FormStoryblok => {
+  return getKnobComponents({
+    componentName: 'form',
+    options: {
+      api: GoogleFormExampleUrl,
+      ...options
+    },
+    knob,
+    count
+  }) as FormStoryblok
 }
 
 export const storyParagraph = ({

@@ -2,13 +2,15 @@ import React from 'react'
 import { LmComponentRender, LmCoreComponents } from '../src/'
 import { FormStoryblok } from '../src/typings/generated/components-schema'
 import { LmGoogleForm } from '../src/components/google-form/GoogleForm'
+import { storyForm } from '../src/storybook/core/various'
+import { GoogleFormExampleUrl } from '../src/utils/config'
 
 LmCoreComponents.form = LmGoogleForm
 
 const props: FormStoryblok = {
   _uid: '123098',
   component: 'form',
-  api: 'https://docs.google.com/forms/d/e/1FAIpQLSdw3tdslj4k94OU6bluk0Yobe997r8gV5obEbEdiMs70SKQPw/viewform?embedded=true',
+  api: GoogleFormExampleUrl,
   fields_full_width: true
 }
 
@@ -22,4 +24,10 @@ export const Example = () => {
       <LmComponentRender content={{...props}}/>
     </>
   )
+}
+
+export const Playground = () => {
+  return <>
+    <LmComponentRender content={storyForm()}/>
+  </>
 }
