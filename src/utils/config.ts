@@ -37,7 +37,7 @@ import {
   LmImageListItemProps,
   LmImageListProps
 } from '../components/image-list/imageListTypes'
-import { LmLinkProps } from '../components/link/linkTypes'
+import { LinkProps, LmLinkProps } from '../components/link/linkTypes'
 import {
   LmCategoryBoxProps,
   LmListSearchAutocompleteProps,
@@ -72,7 +72,7 @@ import {
   LmToolbarLogoProps,
   LmToolbarSectionProps
 } from '../components/layout/toolbar/toolbarTypes'
-import { LinkProps } from '../components/link/MuiNextLink'
+import { LmGoogleFormProps } from '../components/google-form/googleFormProps'
 
 type AppConfigProps = {
   href: string
@@ -123,6 +123,7 @@ type LmCoreComponentsProps = {
   section?: JSXElementConstructor<LmSectionProps>
   headline?: JSXElementConstructor<LmHeadlineProps>
   paragraph?: JSXElementConstructor<LmParagraphProps>
+  form?: JSXElementConstructor<LmGoogleFormProps>
   row?: JSXElementConstructor<LmGridRowProps>
   column?: JSXElementConstructor<LmGridColumnProps>
   image?: JSXElementConstructor<LmImageProps>

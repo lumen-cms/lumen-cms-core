@@ -1,20 +1,10 @@
 import React from 'react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import NextLink, { LinkProps as NextLinkProps } from 'next/link'
-import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link'
+import NextLink from 'next/link'
+import MuiLink from '@material-ui/core/Link'
 import { CONFIG } from '../../utils/config'
-
-// https://github.com/mui-org/material-ui/blob/4b6cbf0/examples/nextjs-with-typescript/src/Link.tsx
-type NextComposedProps = Omit<
-  React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  'href'
-> &
-  Omit<NextLinkProps, 'href'> & {
-    href: string
-    external?: boolean
-    nextHref?: string
-  }
+import { LinkProps, NextComposedProps } from './linkTypes'
 
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   (
@@ -50,18 +40,6 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   }
 )
 NextComposed.displayName = 'NextComposedLink'
-
-interface LinkPropsBase {
-  activeClassName?: string
-  innerRef?: React.Ref<HTMLAnchorElement>
-  naked?: boolean
-}
-
-export type LinkProps = LinkPropsBase &
-  Omit<NextComposedProps, 'href'> &
-  Omit<MuiLinkProps, 'href'> & {
-    href?: string
-  }
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link

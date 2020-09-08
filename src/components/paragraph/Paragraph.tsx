@@ -14,7 +14,7 @@ export function LmParagraph({ content }: LmParagraphProps): JSX.Element {
         'lm-markup',
         classes.richText,
         content.style,
-        content.class_names && content.class_names.values,
+        content.class_names?.values,
         {
           [`lm-font-${content.font}`]: content.font
         }

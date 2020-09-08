@@ -467,18 +467,63 @@ export interface DividerStoryblok {
   [k: string]: any
 }
 
+export interface EcommerceCheckoutStoryblok {
+  integration?: any[]
+  trigger?: any[]
+  _uid: string
+  component: 'ecommerce_checkout'
+  [k: string]: any
+}
+
+export interface EcommerceFastspringConfigStoryblok {
+  url?: string
+  data_storefront?: string
+  data_accesss_key?: string
+  _uid: string
+  component: 'ecommerce_fastspring_config'
+  [k: string]: any
+}
+
+export interface EcommerceFastspringProductStoryblok {
+  path?: string
+  _uid: string
+  component: 'ecommerce_fastspring_product'
+  [k: string]: any
+}
+
+export interface EcommerceShopifyCheckoutStoryblok {
+  product_id?: number
+  product_variant_id?: string
+  _uid: string
+  component: 'ecommerce_shopify_checkout'
+  [k: string]: any
+}
+
+export interface EcommerceShopifyConfigStoryblok {
+  sdk_url?: string
+  domain?: string
+  access_token?: string
+  _uid: string
+  component: 'ecommerce_shopify_config'
+  [k: string]: any
+}
+
+export interface EcommerceShopifyIframeStoryblok {
+  product_id?: number
+  button_destination?: 'cart' | 'modal' | 'checkout'
+  layout?: 'vertical' | 'horizontal'
+  width?: string
+  is_button?: boolean
+  _uid: string
+  component: 'ecommerce_shopify_iframe'
+  [k: string]: any
+}
+
 export interface ErrorPageStoryblok {
   title?: string
   body?: any[]
   _uid: string
   component: 'error_page'
-  [k: string]: any
-}
-
-export interface FastspringProductStoryblok {
-  data_fsc_item_path?: string
-  _uid: string
-  component: 'fastspring_product'
   [k: string]: any
 }
 
@@ -512,7 +557,8 @@ export interface FlexRowStoryblok {
 
 export interface FormStoryblok {
   api?: string
-  border?: ('outlined' | 'shaped' | 'square')[]
+  border?: 'standard' | 'filled' | 'outlined'
+  fields_full_width?: boolean
   error_msg_required?: string
   error_msg_email?: string
   body?: any[]
@@ -626,6 +672,7 @@ export interface GlobalStoryblok {
   theme_font_alt3?: string
   theme_font_alt4?: string
   theme_container_width?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'none'
+  ecommerce?: any[]
   _uid: string
   component: 'global'
   uuid?: string
@@ -1250,24 +1297,6 @@ export interface RowStoryblok {
   reverse_on_tablet?: boolean
   _uid: string
   component: 'row'
-  [k: string]: any
-}
-
-export interface RowNestedStoryblok {
-  body?: any[]
-  fluid_width?: boolean
-  column_gap?: number
-  grid_gap?: number
-  align?: 'left' | 'right'
-  background?: any[]
-  grid_margin_desktop?: string
-  grid_margin_tablet?: string
-  grid_margin_phone?: string
-  grid_gutter_desktop?: string
-  grid_gutter_tablet?: string
-  grid_gutter_phone?: string
-  _uid: string
-  component: 'row_nested'
   [k: string]: any
 }
 
