@@ -35,7 +35,7 @@ export function FacebookChatButton({ content }: FacbookChatButtonProps) {
     }
   )
   if (!initialized) {
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
       window.FB?.init({
         xfbml: true,
         version: 'v8.0'
@@ -47,15 +47,12 @@ export function FacebookChatButton({ content }: FacbookChatButtonProps) {
     console.log(status)
   }
 
-  useEffect(
-    () => {
-      window?.FB?.CustomerChat?.show()
-      return () => {
-        window?.FB?.CustomerChat?.hide()
-      }
-    },
-    []
-  )
+  useEffect(() => {
+    window?.FB?.CustomerChat?.show()
+    return () => {
+      window?.FB?.CustomerChat?.hide()
+    }
+  }, [])
 
   return startInclude ? (
     // <MessengerCustomerChat

@@ -1,13 +1,13 @@
+import { useEffect } from 'react'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import useScript, { ScriptStatus } from '../../utils/hooks/useScript'
 import { TawktoProps } from './chatTypings'
 import { useAppContext } from '../provider/context/AppContext'
-import { useEffect } from 'react'
 
 declare global {
   interface Window {
     Tawk_API?: {
-      hideWidget: () => void,
+      hideWidget: () => void
       toggleVisibility: () => void
       showWidget: () => void
       isChatHidden: () => boolean
@@ -32,18 +32,15 @@ export function TawktoChatButton({ content }: TawktoProps) {
   if (status === ScriptStatus.ERROR) {
     console.error('Tawkto script could not load')
   }
-  useEffect(
-    () => {
-      if (window?.Tawk_API?.isChatHidden()) {
-        window.Tawk_API?.showWidget()
+  useEffect(() => {
+    if (window?.Tawk_API?.isChatHidden()) {
+      window.Tawk_API?.showWidget()
+    }
+    return () => {
+      if (window?.Tawk_API) {
+        window.Tawk_API.hideWidget()
       }
-      return () => {
-        if (window?.Tawk_API) {
-          window.Tawk_API.hideWidget()
-        }
-      }
-    },
-    []
-  )
+    }
+  }, [])
   return null
 }
