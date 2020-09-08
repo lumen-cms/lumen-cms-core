@@ -38,6 +38,7 @@ type IconCoreProps = {
   style?: CSSProperties
   iconName?: string
   buttonSize?: ButtonStoryblok['size']
+  onClick?: () => void
 }
 
 function IconCore({
@@ -45,7 +46,8 @@ function IconCore({
   style,
   iconName,
   buttonSize,
-  iconUrl
+  iconUrl,
+  onClick
 }: IconCoreProps): JSX.Element {
   const classes = useStyles()
   const [refIntersectionObserver, inView] = useInView(
@@ -65,6 +67,9 @@ function IconCore({
     <>
       {iconSrc && (
         <InlineSVG
+          onClick={() => {
+            onClick && onClick()
+          }}
           style={style}
           className={clsx(classes.icon, 'lm-svg-icon', className, {
             [`size__${buttonSize}`]: buttonSize

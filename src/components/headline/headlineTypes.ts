@@ -1,7 +1,4 @@
-import {
-  DateHeadlineStoryblok,
-  HeadlineStoryblok
-} from '../../typings/generated/components-schema'
+import { DateHeadlineStoryblok, HeadlineStoryblok } from '../../typings/generated/components-schema'
 
 export type LmDateHeadlineProps = { content: DateHeadlineStoryblok }
-export type LmHeadlineProps = { content: HeadlineStoryblok }
+export type LmHeadlineProps = { content: HeadlineStoryblok, onClick?: () => void }

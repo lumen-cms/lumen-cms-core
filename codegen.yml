@@ -2,7 +2,7 @@ overwrite: true
 schema:
   - https://gapi.storyblok.com/v1/api:
       headers:
-        Token: IQrhrTP6aL0WYgDXmersbgtt
+        Token: HvyhDYHDPgo3U4lB7s44jgtt
 generates:
   src/typings/generated/schema.ts:
     plugins:
