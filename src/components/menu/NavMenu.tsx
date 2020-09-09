@@ -66,6 +66,18 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
         horizontal: 'right'
       }
     }
+  } else if (content.alignment === 'bottomCenter') {
+    addons = {
+      getContentAnchorEl: null,
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'center'
+      },
+      transformOrigin: {
+        vertical: 'top',
+        horizontal: 'center'
+      }
+    }
   }
   const ExpandIcon =
     content.icon && content.icon.name ? (
