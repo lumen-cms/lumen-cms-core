@@ -24,7 +24,7 @@ export default function useScript(
       const script: HTMLScriptElement | null = document.querySelector(
         `script[src="${url}"]`
       )
-      if (script && script.hasAttribute('data-status')) {
+      if (script?.hasAttribute('data-status')) {
         return script.getAttribute('data-status') as ScriptStatus
       }
     }
@@ -56,12 +56,10 @@ export default function useScript(
       // Ensure the status is loading
       setStatus(ScriptStatus.LOADING)
 
-      script.onerror = () => {
-        if (script) script.setAttribute('data-status', ScriptStatus.ERROR)
-      }
-      script.onload = () => {
-        if (script) script.setAttribute('data-status', ScriptStatus.READY)
-      }
+      script.onerror = () =>
+        script?.setAttribute('data-status', ScriptStatus.ERROR)
+      script.onload = () =>
+        script?.setAttribute('data-status', ScriptStatus.READY)
     } else if (script.hasAttribute('data-status')) {
       setStatus(script.getAttribute('data-status') as ScriptStatus)
     }

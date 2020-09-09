@@ -42,7 +42,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export default function LmImage({ content, onClick }: LmImageProps): JSX.Element {
+export default function LmImage({
+  content,
+  onClick
+}: LmImageProps): JSX.Element {
   const classes = useStyles()
   const width = useWindowWidth()
   const isMobile = width < 600
@@ -136,13 +139,13 @@ export default function LmImage({ content, onClick }: LmImageProps): JSX.Element
         height: content.height
           ? `${content.height}px`
           : content.height_fill
-            ? '100%'
-            : undefined,
+          ? '100%'
+          : undefined,
         width: content.width
           ? `${content.width}px`
           : content.height_fill
-            ? '100%'
-            : undefined
+          ? '100%'
+          : undefined
       }}
     >
       {!loaded && (

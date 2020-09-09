@@ -37,7 +37,7 @@ import {
   LmImageListItemProps,
   LmImageListProps
 } from '../components/image-list/imageListTypes'
-import { LmLinkProps } from '../components/link/linkTypes'
+import { LinkProps, LmLinkProps } from '../components/link/linkTypes'
 import {
   LmCategoryBoxProps,
   LmListSearchAutocompleteProps,
@@ -72,7 +72,7 @@ import {
   LmToolbarLogoProps,
   LmToolbarSectionProps
 } from '../components/layout/toolbar/toolbarTypes'
-import { LinkProps } from '../components/link/MuiNextLink'
+import { LmGoogleFormProps } from '../components/google-form/googleFormProps'
 
 type AppConfigProps = {
   href: string
@@ -108,6 +108,9 @@ export const CONFIG: AppConfigProps = {
   TAWKTO: process.env.NEXT_PUBLIC_TAWKTO,
   prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH
 }
+
+export const GoogleFormExampleUrl =
+  'https://docs.google.com/forms/d/e/1FAIpQLSdw3tdslj4k94OU6bluk0Yobe997r8gV5obEbEdiMs70SKQPw/viewform?embedded=true'
 
 type LmCoreComponentsProps = {
   page?: JSXElementConstructor<LmPageProps>

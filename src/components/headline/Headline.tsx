@@ -39,7 +39,7 @@ export function LmHeadline({ content, onClick }: LmHeadlineProps): JSX.Element {
       variant={
         mapTypographyVariant[
           content.typography ? (content.typography as string) : 'headline4'
-          ]
+        ]
       }
     >
       {!!content.text_xs ? (

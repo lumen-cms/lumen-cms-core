@@ -206,6 +206,7 @@ export type GlobalComponent = {
   __typename?: 'GlobalComponent'
   _editable?: Maybe<Scalars['String']>
   _uid?: Maybe<Scalars['String']>
+  chat_button?: Maybe<Scalars['BlockScalar']>
   component?: Maybe<Scalars['String']>
   drawer_background?: Maybe<Scalars['BlockScalar']>
   drawer_below_toolbar?: Maybe<Scalars['Boolean']>
@@ -214,6 +215,7 @@ export type GlobalComponent = {
   drawer_full_width_mobile?: Maybe<Scalars['Boolean']>
   drawer_variant?: Maybe<Scalars['String']>
   drawer_width?: Maybe<Scalars['String']>
+  ecommerce?: Maybe<Scalars['BlockScalar']>
   footer?: Maybe<Scalars['BlockScalar']>
   footer_config?: Maybe<Array<Maybe<Scalars['String']>>>
   mobile_nav_breakpoint?: Maybe<Scalars['String']>
@@ -261,13 +263,13 @@ export type GlobalComponent = {
 }
 
 export type GlobalFilterQuery = {
+  tawkto?: Maybe<FilterQueryOperations>
   website_title?: Maybe<FilterQueryOperations>
   website_slogan?: Maybe<FilterQueryOperations>
   setup_language?: Maybe<FilterQueryOperations>
   setup_supported_languages?: Maybe<FilterQueryOperations>
   setup_google_analytics?: Maybe<FilterQueryOperations>
   setup_google_site_verification?: Maybe<FilterQueryOperations>
-  tawkto?: Maybe<FilterQueryOperations>
   drawer_variant?: Maybe<FilterQueryOperations>
   mobile_nav_breakpoint?: Maybe<FilterQueryOperations>
   drawer_width?: Maybe<FilterQueryOperations>
