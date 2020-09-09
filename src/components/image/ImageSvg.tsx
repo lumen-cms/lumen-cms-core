@@ -45,6 +45,7 @@ export default function ImageSvg({ content, onClick }: LmImageProps): JSX.Elemen
           <SVG
             src={src as string}
             style={{
+              cursor: onClick ? 'pointer' : undefined,
               color: fitInColor,
               width: content.width && `${content.width}px`,
               height: content.height && `${content.height}px`

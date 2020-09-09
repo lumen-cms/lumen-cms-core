@@ -12,6 +12,7 @@ import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
 import { LmMenuProps } from './menuTypes'
 import { LmCoreComponents } from '../..'
+import { Popover } from '@material-ui/core'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -96,41 +97,50 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
       >
         {content.title}
       </Button>
-      <Menu
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        anchorEl={anchorEl}
-        classes={{
-          paper: classes.paper
-        }}
-        {...addons}
-      >
-        {isCustom &&
-          menuItems.map((blok) => (
-            <LmComponentRender content={blok} key={blok._uid} />
-          ))}
-        {!isCustom && (
-          <div>
-            {menuItems.map((nestedProps) => {
-              const btnProps: any = nestedProps.link?.cached_url
-                ? {
-                    ...getLinkAttrs(nestedProps.link as LinkType, {
-                      openExternal: !!nestedProps.open_external
-                    }),
-                    // naked: true,
-                    component: LmCoreComponents.lm_link_render
-                  }
-                : {}
-
-              return (
-                <MenuItem {...btnProps} key={nestedProps._uid}>
-                  {nestedProps.label}
-                </MenuItem>
-              )
-            })}
+      {isCustom ? (
+        <Popover
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          anchorEl={anchorEl}
+          classes={{
+            paper: classes.paper
+          }}
+          {...addons}
+        >
+          <div style={{ padding: 16 }}>
+            {menuItems.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
           </div>
-        )}
-      </Menu>
+        </Popover>
+      ) : (
+        <Menu
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          anchorEl={anchorEl}
+          classes={{
+            paper: classes.paper
+          }}
+          {...addons}
+        >
+          {menuItems.map((nestedProps) => {
+            const btnProps: any = nestedProps.link?.cached_url
+              ? {
+                ...getLinkAttrs(nestedProps.link as LinkType, {
+                  openExternal: !!nestedProps.open_external
+                }),
+                // naked: true,
+                component: LmCoreComponents.lm_link_render
+              }
+              : {}
+            return (
+              <MenuItem {...btnProps} key={nestedProps._uid}>
+                {nestedProps.label}
+              </MenuItem>
+            )
+          })}
+        </Menu>
+      )}
     </>
   )
 }

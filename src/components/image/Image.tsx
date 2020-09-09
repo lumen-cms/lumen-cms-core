@@ -163,6 +163,7 @@ export default function LmImage({ content, onClick }: LmImageProps): JSX.Element
             width={content.width ? content.width : undefined}
             height={definedHeight || undefined}
             style={{
+              cursor: onClick ? 'pointer' : undefined,
               width: content.width ? `${content.width}px` : 'auto',
               maxHeight: 'inherit',
               height: definedHeight ? `${definedHeight}px` : 'auto'
