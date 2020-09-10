@@ -56,6 +56,8 @@ type LinkHandlerProps = {
   target?: string
   rel?: string
   external?: boolean
+  download?: string
+  email?: string
 }
 
 export const linkHandler = (
@@ -66,15 +68,26 @@ export const linkHandler = (
     href: '/'
   }
   const cachedUrl = link.cached_url
+  if (link.email) {
+    props.href = `mailto:${link.email.replace('mailto:', '')}`
+    props.external = true
+    return props
+  }
   if (!cachedUrl) {
     return {}
   }
 
   if (link.linktype === 'story') {
     props.href = internalLinkHandler(cachedUrl) + (link.anchor ? `#${link.anchor}` : '')
+  } else if (link.linktype === 'asset') {
+    props.href = cachedUrl
+    props.download = cachedUrl
+    props.external = true
+    props.target = '_blank'
+    props.rel = 'noopener noreferrer'
   } else {
     let href = cachedUrl || ''
-    if (href.includes('@')) {
+    if (/\S+@\S+\.\S+/.test(href)) {
       href = `mailto:${href.replace('mailto:', '')}`
     } else if (href.includes('+')) {
       href = `tel:${href.replace('+', '')}`
