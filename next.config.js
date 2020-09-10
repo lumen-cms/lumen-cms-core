@@ -1,4 +1,4 @@
-let config = require('../../lumen-cms-nextjs/src/config/nextjs_prod_config')
+// let config = require('../lumen-cms-nextjs/src/config/nextjs_prod_config')
 
 //demo
 // NEXT_PUBLIC_PREVIEW_TOKEN=SOBLm54Sdapihgt6ICtuFgtt
@@ -18,14 +18,16 @@ let config = require('../../lumen-cms-nextjs/src/config/nextjs_prod_config')
 //preview:J10coRNVCTKuAYyNpGsjbgtt
 //public:bD6T7TKMBiGZAaCItHwphAtt
 
-module.exports = config({
-  NEXT_PUBLIC_PREVIEW_TOKEN: 'J10coRNVCTKuAYyNpGsjbgtt',
-  NEXT_PUBLIC_PUBLIC_TOKEN: 'bD6T7TKMBiGZAaCItHwphAtt',
-  NEXT_PUBLIC_LANGUAGES: 'en,de',
-  NEXT_PUBLIC_DEFAULT_LOCALE: 'en',
-  // NEXT_PUBLIC_ROOT_DIRECTORY: 'etherhill',
-  // overwriteLocale: process.env.overwriteLocale,
-  // suppressSlugLocale: process.env.suppressSlugLocale,
-  // TAWKTO: '5923d96d8028bb732704747b',
-  // GA: 'UA-27070879-1'
-})
+module.exports = function () {
+  return {
+    // env: {
+    //   NEXT_PUBLIC_PREVIEW_TOKEN: 'J10coRNVCTKuAYyNpGsjbgtt',
+    //   NEXT_PUBLIC_PUBLIC_TOKEN: 'bD6T7TKMBiGZAaCItHwphAtt',
+    //   //NEXT_PUBLIC_LANGUAGES: 'en,de',
+    //   NEXT_PUBLIC_DEFAULT_LOCALE: 'de'
+    //   // NEXT_PUBLIC_ROOT_DIRECTORY: 'etherhill',
+    //   // overwriteLocale: process.env.overwriteLocale,
+    // }
+  }
+}
+

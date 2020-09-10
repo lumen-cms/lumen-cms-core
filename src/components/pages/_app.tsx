@@ -1,42 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { AppProps } from 'next/app'
 import { AppPageProps } from '../../typings/app'
 import { AppContainer } from '../layout/AppContainer'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import hasWebpSupport from '../../utils/detectWebpSupport'
-import StoryblokService from '../../utils/StoryblokService'
+import { useStoryblokComposer } from '../../utils/hooks/useStoryblokComposer'
 
 export type LmAppProps = AppProps<AppPageProps>
 
 export function LmApp({ Component, pageProps, router }: LmAppProps) {
   const { locale, settings, page } = pageProps as AppPageProps
-
-  const settingsUid = settings?.uuid
-  const pageUid = page?.uuid
-
-  const [statePage, setPage] = useState<AppPageProps['page']>(page)
-  const [stateSettings, setSettings] = useState<AppPageProps['settings']>(
-    settings
-  )
-
-  useEffect(() => {
-    if (pageUid !== statePage?.uuid) {
-      // console.log('different page', pageUid, statePage.uuid)
-      setPage(page)
-    }
-  }, [pageUid, statePage, page])
-
-  useEffect(() => {
-    if (settingsUid !== stateSettings?.uuid) {
-      // console.log('different settings', settingsUid, stateSettings.uuid)
-      setSettings(settings)
-    }
-  }, [settingsUid, stateSettings, settings])
-
-  useEffect(() => {
-    StoryblokService.initEditor({ page, setPage, settings, setSettings })
-    /* eslint-disable-next-line */
-  }, [])
+  const [statePage, stateSettings] = useStoryblokComposer({ settings, page })
 
   if (locale && getGlobalState('locale') !== locale) {
     setGlobalState('locale', locale)

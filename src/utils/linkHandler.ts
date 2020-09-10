@@ -5,6 +5,9 @@ export interface LinkType {
   cached_url?: string
   linktype?: string
   nextHref?: string
+  id?: string
+  anchor?: string
+  url?: string
 
   [k: string]: any
 }
@@ -23,6 +26,10 @@ export const homepageLinkHandler = () => {
     : '/home'
 }
 
+/**
+ * This handler needs to be in sync with lumen-cms-nextjs internalLinkHandler
+ * @param url
+ */
 export const internalLinkHandler = (url: string) => {
   const urlArray = url.split('/')
   let processedUrl = url
@@ -64,7 +71,7 @@ export const linkHandler = (
   }
 
   if (link.linktype === 'story') {
-    props.href = internalLinkHandler(cachedUrl)
+    props.href = internalLinkHandler(cachedUrl) + (link.anchor ? `#${link.anchor}` : '')
   } else {
     let href = cachedUrl || ''
     if (href.includes('@')) {

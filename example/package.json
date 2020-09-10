@@ -19,9 +19,7 @@
     "node": "12.x"
   },
   "dependencies": {
-    "lumen-cms-core": "file:../.",
-    "lumen-cms-nextjs": "file:../../lumen-cms-nextjs/.",
-    "next": "9.5.0",
+    "next": "9.5.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }

@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.56.6",
+  "version": "0.57.0",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "dist/index.js",
@@ -23,8 +23,9 @@
     "trailingComma": "none"
   },
   "scripts": {
-    "build-ts": "rimraf dist && tsdx build -i src/index.tsx",
-    "build-core": "rimraf dist && rimraf base/dist && tsdx build -i src/base.tsx --name lumen-cms-base && mv dist base/dist",
+    "dev": "next",
+    "build-ts": "rimraf dist && tsdx build -i src/index.tsx --tsconfig ./tsconfig.build.json",
+    "build-core": "rimraf dist && rimraf base/dist && tsdx build -i src/base.tsx --name lumen-cms-base --tsconfig ./tsconfig.build.json && mv dist base/dist",
     "watch": "tsdx watch",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=82895",
@@ -107,6 +108,7 @@
     "jest": "^26.4.2",
     "json-schema-to-typescript": "^9.1.1",
     "lorem-ipsum": "^2.0.3",
+    "lumen-cms-nextjs": "^1.4.2",
     "next": "9.5.3",
     "np": "^6.5.0",
     "playwright": "1.3.0",
