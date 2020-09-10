@@ -68,12 +68,13 @@ export const linkHandler = (
     href: '/'
   }
   const cachedUrl = link.cached_url
-  if (link.email) {
-    props.href = `mailto:${link.email.replace('mailto:', '')}`
-    props.external = true
-    return props
-  }
+
   if (!cachedUrl) {
+    if (link.email) {
+      props.href = `mailto:${link.email.replace('mailto:', '')}`
+      props.external = true
+      return props
+    }
     return {}
   }
 
