@@ -3,10 +3,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import Cookies from 'js-cookie'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
 import { Dialog, DialogActions, DialogContent } from '@material-ui/core'
-import {
-  ButtonStoryblok,
-  SnackbarStoryblok
-} from '../../typings/generated/components-schema'
+import { ButtonStoryblok, SnackbarStoryblok } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '../CoreComponents'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 
@@ -130,6 +127,7 @@ export function LmSnackbar({ content }: LmSnackbarProps) {
         style={{
           width: content.width ? content.width : undefined,
           backgroundColor: content.background_color?.rgba || undefined,
+          alignItems: content.button_top_align ? 'flex-start' : undefined,
           border: content.border_color?.rgba
             ? `1px solid ${content.border_color.rgba}`
             : undefined,

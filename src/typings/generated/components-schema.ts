@@ -128,7 +128,7 @@ export interface ButtonStoryblok {
   };
   corners?: "lm-button-shaped" | "lm-button-square";
   font?: "alt1" | "alt2" | "alt3" | "alt4";
-  align?: "flext-start" | "flex-end";
+  align?: "flex-start" | "flex-end";
   properties?: ("disable-ripple" | "disable-shadow" | "no-linebreak")[];
   label?: string;
   open_external?: boolean;
@@ -1236,11 +1236,9 @@ export interface SliderStoryblok {
 }
 
 export interface SnackbarStoryblok {
-  display?: "hide_on_scroll" | "show_on_scroll";
-  auto_show?: number;
-  auto_close?: number;
-  square?: boolean;
-  elevation?: number;
+  anchor_horizontal?: "center" | "left" | "right";
+  anchor_vertical?: "top" | "bottom";
+  button_top_align?: boolean;
   border_color?: {
     rgba?: string;
     [k: string]: any;
@@ -1250,8 +1248,11 @@ export interface SnackbarStoryblok {
     [k: string]: any;
   };
   width?: string;
-  anchor_vertical?: "top" | "bottom";
-  anchor_horizontal?: "center" | "left" | "right";
+  display?: "hide_on_scroll" | "show_on_scroll";
+  auto_show?: number;
+  auto_close?: number;
+  square?: boolean;
+  elevation?: number;
   dialog?: boolean;
   descriptions?: any[];
   close_action?: any[];

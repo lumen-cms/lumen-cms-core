@@ -38,7 +38,8 @@ const mapColor = {
   primary: 'primary',
   secondary: 'secondary',
   primary_text: 'inherit',
-  secondary_text: 'inherit'
+  secondary_text: 'inherit',
+  inherit: 'inherit'
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
