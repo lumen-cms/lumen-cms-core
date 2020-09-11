@@ -8,7 +8,7 @@ import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import { ListsStoryblok } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
 import { CONFIG } from '../../utils/config'
-import { internalLinkHandler } from '../..'
+import { internalLinkHandler } from 'lumen-cms-utils'
 
 type ListWidgetListsProps = {
   items: AppApiRequestPayload['allStories']
