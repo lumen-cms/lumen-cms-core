@@ -42,12 +42,14 @@ export function LmHeadline({ content, onClick }: LmHeadlineProps): JSX.Element {
         ]
       }
     >
-      {!!content.text_xs ? (
+      {content.text_xs ? (
         <>
           <span className="d-none d-sm-block">{content.text}</span>
           <span className="d-block d-sm-none">{content.text_xs}</span>
         </>
-      ) : content.text}
+      ) : (
+        content.text
+      )}
     </Typography>
   )
 }

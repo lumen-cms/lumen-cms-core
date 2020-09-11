@@ -1,1 +1,1 @@
-export { LmDefaultApp as default } from '../'
+export { LmDefaultApp as default } from '..'

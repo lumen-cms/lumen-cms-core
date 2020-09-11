@@ -79,7 +79,8 @@ export const linkHandler = (
   }
 
   if (link.linktype === 'story') {
-    props.href = internalLinkHandler(cachedUrl) + (link.anchor ? `#${link.anchor}` : '')
+    props.href =
+      internalLinkHandler(cachedUrl) + (link.anchor ? `#${link.anchor}` : '')
   } else if (link.linktype === 'asset') {
     props.href = cachedUrl
     props.download = cachedUrl

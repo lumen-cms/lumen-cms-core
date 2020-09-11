@@ -6,13 +6,13 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import { useRouter } from 'next/router'
+import { Popover } from '@material-ui/core'
 import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
 import { LmMenuProps } from './menuTypes'
 import { LmCoreComponents } from '../..'
-import { Popover } from '@material-ui/core'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -138,12 +138,12 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           {menuItems.map((nestedProps) => {
             const btnProps: any = nestedProps.link?.cached_url
               ? {
-                ...getLinkAttrs(nestedProps.link as LinkType, {
-                  openExternal: !!nestedProps.open_external
-                }),
-                // naked: true,
-                component: LmCoreComponents.lm_link_render
-              }
+                  ...getLinkAttrs(nestedProps.link as LinkType, {
+                    openExternal: !!nestedProps.open_external
+                  }),
+                  // naked: true,
+                  component: LmCoreComponents.lm_link_render
+                }
               : {}
             return (
               <MenuItem {...btnProps} key={nestedProps._uid}>
