@@ -6,9 +6,9 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import { ListsStoryblok } from '../../typings/generated/components-schema'
-import { internalLinkHandler } from '../../utils/linkHandler'
 import { AppApiRequestPayload } from '../../typings/app'
 import { CONFIG } from '../../utils/config'
+import { internalLinkHandler } from '../..'
 
 type ListWidgetListsProps = {
   items: AppApiRequestPayload['allStories']

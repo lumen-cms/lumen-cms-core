@@ -1,5 +1,6 @@
 import { CONFIG } from './config'
 import { getGlobalState } from './state/state'
+import { internalLinkHandler } from 'lumen-cms-utils'
 
 export interface LinkType {
   cached_url?: string
@@ -24,31 +25,6 @@ export const homepageLinkHandler = () => {
   return appLocale && appLocale !== CONFIG.defaultLocale
     ? `/${appLocale}/home`
     : '/home'
-}
-
-/**
- * This handler needs to be in sync with lumen-cms-nextjs internalLinkHandler
- * @param url
- */
-export const internalLinkHandler = (url: string) => {
-  const urlArray = url.split('/')
-  let processedUrl = url
-  if (CONFIG.rootDirectory) {
-    if (urlArray[0] === CONFIG.rootDirectory) {
-      urlArray.shift()
-      processedUrl = urlArray.join('/')
-    }
-  } else if (CONFIG.suppressSlugLocale) {
-    if (
-      urlArray.length > 1 &&
-      CONFIG.languages.includes(urlArray[0]) &&
-      urlArray[1] !== 'home'
-    ) {
-      urlArray.shift()
-      processedUrl = urlArray.join('/')
-    }
-  }
-  return processedUrl.startsWith('/') ? processedUrl : `/${processedUrl}`
 }
 
 type LinkHandlerProps = {

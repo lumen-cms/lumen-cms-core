@@ -2,10 +2,10 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { createGlobalState } from 'react-hooks-global-state'
 import { Story as StoryType } from '@storybook/react/types-6-0.d'
-import StoryblokService from '../../utils/StoryblokService'
 import AppProvider from '../../components/provider/AppProvider'
 import { AppContextProps } from '../../components/provider/context/AppContext'
 import { LmComponentRender } from '../../index'
+import { LmStoryblokService } from 'lumen-cms-utils'
 
 interface StorybookState {
   allTags: { value: string; label: string }[]
@@ -27,7 +27,7 @@ const SetStoriesDecorator = (Story: StoryType) => {
   useEffect(() => {
     const fetch = async () => {
       const [categories, stories, tags] = await Promise.all([
-        StoryblokService.getAll('cdn/stories', {
+        LmStoryblokService.getAll('cdn/stories', {
           per_page: 100,
           sort_by: 'content.name:asc',
           filter_query: {
@@ -36,7 +36,7 @@ const SetStoriesDecorator = (Story: StoryType) => {
             }
           }
         }),
-        StoryblokService.getAll(`cdn/stories`, {
+        LmStoryblokService.getAll(`cdn/stories`, {
           per_page: 100,
           excluding_fields:
             'body,meta_robots,property,meta_title,meta_description,seo_body',
@@ -47,7 +47,7 @@ const SetStoriesDecorator = (Story: StoryType) => {
             }
           }
         }),
-        StoryblokService.get('cdn/tags')
+        LmStoryblokService.get('cdn/tags')
       ])
       const tagList =
         (tags &&

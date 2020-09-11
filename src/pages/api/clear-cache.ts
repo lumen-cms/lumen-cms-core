@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import LmStoryblokService from '../../utils/StoryblokService'
+import { LmStoryblokService } from 'lumen-cms-utils'
 
 export default function clearCache(_req: NextApiRequest, res: NextApiResponse) {
   LmStoryblokService.flushCache()

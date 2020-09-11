@@ -1,17 +1,5 @@
-import React, {
-  createRef,
-  FunctionComponent,
-  RefObject,
-  useEffect,
-  useState
-} from 'react'
-import {
-  createStyles,
-  fade,
-  makeStyles,
-  Theme,
-  useTheme
-} from '@material-ui/core/styles'
+import React, { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
+import { createStyles, fade, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
@@ -23,13 +11,13 @@ import { StoryData } from 'storyblok-js-client'
 import { useDebouncedCallback } from 'use-debounce'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { PageComponent } from '../../typings/generated/schema'
-import StoryblokService from '../../utils/StoryblokService'
 import LmIcon from '../icon/LmIcon'
 import MuiNextLink from '../link/MuiNextLink'
 import { getLinkAttrs } from '../../utils/linkHandler'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { CONFIG } from '../../utils/config'
 import { LmListSearchAutocompleteProps } from './listWidgetTypes'
+import { LmStoryblokService } from 'lumen-cms-utils'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -194,7 +182,7 @@ export function LmListSearchAutocomplete({
     }
 
     setOpen(true)
-    StoryblokService.getSearch(`cdn/stories`, {
+    LmStoryblokService.getSearch(`cdn/stories`, {
       per_page: 25,
       sort_by: 'content.preview_title:desc',
       excluding_fields: 'body,right_body,meta_robots,property,seo_body',

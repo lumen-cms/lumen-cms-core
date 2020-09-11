@@ -64,8 +64,6 @@ export {
 }
 
 // export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
-export { default as LmStoryblokService } from './utils/StoryblokService'
-export { internalLinkHandler } from './utils/linkHandler'
 export { default as LmAppProvider } from './components/provider/AppProvider'
 export { useAppContext } from './components/provider/context/AppContext'
 export { default as LmAppSetupProvider } from './components/provider/AppSetupProvider'
