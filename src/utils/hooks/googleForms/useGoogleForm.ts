@@ -23,13 +23,13 @@ export type StructuredFormProps =
 export const GoogleFormFieldTypes = {
   0: { name: 'ShortAnswer' },
   1: { name: 'Paragraph' },
-  2: { name: 'MultiSelect' },
+  2: { name: 'MultiChoice' },
   3: { name: 'DropDown' },
   4: { name: 'CheckBoxes' },
-  5: { name: 'LinearScale' },
-  7: { name: 'MultiGridChoice' },
-  9: { name: 'Date' },
-  10: { name: 'Time' }
+  // 5: { name: 'LinearScale' },
+  // 7: { name: 'MultiGridChoice' },
+  9: { name: 'Date' }
+  // 10: { name: 'Time' }
 }
 
 export function useGoogleForm(formUrl: string) {

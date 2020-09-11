@@ -114,6 +114,7 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
         component: LmCoreComponents.lm_link_render
       }
     : {}
+  btnProps.fullWidth = properties.find((p) => p === 'fullWidth')
 
   if (onClick) {
     btnProps.onClick = onClick
