@@ -111,7 +111,7 @@
     "jest": "^26.4.2",
     "json-schema-to-typescript": "^9.1.1",
     "lorem-ipsum": "^2.0.3",
-    "lumen-cms-nextjs": "^1.4.2",
+    "lumen-cms-nextjs": "^1.5.0",
     "next": "9.5.3",
     "np": "^6.5.0",
     "playwright": "1.3.0",
