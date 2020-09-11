@@ -93,18 +93,15 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
     properties.find((i) => i === 'disable-shadow') ||
     content.variant === 'unelevated'
   const color = content.color ? mapColor[content.color] : undefined
-  const className = clsx(
-    classes.button,
-    content.class_names && content.class_names.values,
-    {
-      'lm-default-color': !content.color,
-      [content.corners as string]: !!content.corners,
-      'lm-unelevated': isUnelevated,
-      'lm-outlined': content.variant === 'outlined',
-      [content.size as string]: !!content.size,
-      [`lm-font-${content.font}`]: content.font
-    }
-  )
+  const className = clsx(classes.button, content.class_names?.values, {
+    'lm-default-color': !content.color,
+    [content.corners as string]: !!content.corners,
+    'lm-unelevated': isUnelevated,
+    'lm-outlined': content.variant === 'outlined',
+    [content.size as string]: !!content.size,
+    [`lm-font-${content.font}`]: content.font,
+    'w-100': properties.find((p) => p === 'fullWidth')
+  })
 
   const btnProps: any = content.link
     ? {
@@ -115,7 +112,6 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
         component: LmCoreComponents.lm_link_render
       }
     : {}
-  btnProps.fullWidth = properties.find((p) => p === 'fullWidth')
 
   if (onClick) {
     btnProps.onClick = onClick
