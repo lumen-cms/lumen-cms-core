@@ -1,42 +1,21 @@
 import { FC, JSXElementConstructor, ReactNode } from 'react'
-import {
-  LmTimelineItemProps,
-  LmTimelineProps
-} from '../components/timeline/timelineTypes'
-import {
-  LmInstagramListProps,
-  LmInstagramPostProps
-} from '../components/instagram/instagramTypes'
-import {
-  LmAccordionItemProps,
-  LmAccordionProps
-} from '../components/accordion/accordionTypes'
+import { LmTimelineItemProps, LmTimelineProps } from '../components/timeline/timelineTypes'
+import { LmInstagramListProps, LmInstagramPostProps } from '../components/instagram/instagramTypes'
+import { LmAccordionItemProps, LmAccordionProps } from '../components/accordion/accordionTypes'
 import { LmAvatarProps } from '../components/avatar/avatarTypes'
 import { LmButtonProps } from '../components/button/buttonTypes'
 import { LmButtonListProps } from '../components/button-list/buttonListTypes'
-import {
-  CardListItemProps,
-  LmCardListProps
-} from '../components/card/cardTypes'
+import { CardListItemProps, LmCardListProps } from '../components/card/cardTypes'
 import { LmDialogProps } from '../components/dialog/dialogTypes'
 import { LmDividerProps } from '../components/divider/dividerTypes'
 import { LmFlexRowProps } from '../components/flex-row/flexRowTypes'
-import {
-  LmDateHeadlineProps,
-  LmHeadlineProps
-} from '../components/headline/headlineTypes'
+import { LmDateHeadlineProps, LmHeadlineProps } from '../components/headline/headlineTypes'
 import { LmHtmlProps } from '../components/html/htmlTypes'
 import { LmHubspotMeetingProps } from '../components/hubspot-meeting/hubspotTypes'
 import { LmIconProps } from '../components/icon/iconTypes'
-import {
-  LmIframeAdvancedProps,
-  LmIframeProps
-} from '../components/iframe/iframeTypes'
+import { LmIframeAdvancedProps, LmIframeProps } from '../components/iframe/iframeTypes'
 import { LmImageProps } from '../components/image/imageTypes'
-import {
-  LmImageListItemProps,
-  LmImageListProps
-} from '../components/image-list/imageListTypes'
+import { LmImageListItemProps, LmImageListProps } from '../components/image-list/imageListTypes'
 import { LinkProps, LmLinkProps } from '../components/link/linkTypes'
 import {
   LmCategoryBoxProps,
@@ -48,10 +27,7 @@ import { LmMenuProps } from '../components/menu/menuTypes'
 import { LmMotionProps } from '../components/motion/motionTypes'
 import { LmNavListProps } from '../components/nav-list/navListTypes'
 import { LmPageProps } from '../components/page/pageTypes'
-import {
-  LmParagraphProps,
-  LmRichTextParagraphProps
-} from '../components/paragraph/paragraphTypes'
+import { LmParagraphProps, LmRichTextParagraphProps } from '../components/paragraph/paragraphTypes'
 import { LmPlayerProps } from '../components/player/playerTypes'
 import {
   LmGridColumnProps,
@@ -61,10 +37,7 @@ import {
   LmSectionVideoProps
 } from '../components/section/sectionTypes'
 import { LmSliderProps } from '../components/slider/sliderTypes'
-import {
-  LmStaticContainerProps,
-  LmStaticSectionProps
-} from '../components/static-section/staticTypes'
+import { LmStaticContainerProps, LmStaticSectionProps } from '../components/static-section/staticTypes'
 import { LmTableProps } from '../components/table/tableTypes'
 import { LmTabsProps } from '../components/tabs/tabsTypes'
 import {
@@ -94,10 +67,7 @@ export const CONFIG: AppConfigProps = {
   href: process.env.HREF || '/[...index]',
   previewToken: process.env.NEXT_PUBLIC_PREVIEW_TOKEN || '',
   publicToken: process.env.NEXT_PUBLIC_PUBLIC_TOKEN || '',
-  languages:
-    (process.env.NEXT_PUBLIC_LANGUAGES &&
-      process.env.NEXT_PUBLIC_LANGUAGES.split(',')) ||
-    [],
+  languages: process.env.NEXT_PUBLIC_LANGUAGES ? process.env.NEXT_PUBLIC_LANGUAGES.split(',') : [],
   defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en',
   rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
   overwriteLocale: process.env.NEXT_PUBLIC_OVERWRITE_LOCALE,
@@ -149,9 +119,7 @@ type LmCoreComponentsProps = {
   category_box?: JSXElementConstructor<LmCategoryBoxProps>
   list_search_field?: JSXElementConstructor<LmListSearchFieldProps>
   link?: JSXElementConstructor<LmLinkProps>
-  list_search_autocomplete?: JSXElementConstructor<
-    LmListSearchAutocompleteProps
-  >
+  list_search_autocomplete?: JSXElementConstructor<LmListSearchAutocompleteProps>
   rich_text_editor?: JSXElementConstructor<LmRichTextParagraphProps>
   timeline?: JSXElementConstructor<LmTimelineProps>
   timeline_item?: JSXElementConstructor<LmTimelineItemProps>

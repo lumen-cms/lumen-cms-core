@@ -25,6 +25,7 @@ export function LmHeadline({ content, onClick }: LmHeadlineProps): JSX.Element {
       align={content.align ? content.align : undefined}
       color={content.color ? content.color : undefined}
       style={{
+        cursor: onClick ? 'pointer' : undefined,
         color:
           content.custom_color && content.custom_color.rgba
             ? content.custom_color.rgba
@@ -41,14 +42,12 @@ export function LmHeadline({ content, onClick }: LmHeadlineProps): JSX.Element {
         ]
       }
     >
-      {!!content.text_xs && (
+      {!!content.text_xs ? (
         <>
           <span className="d-none d-sm-block">{content.text}</span>
           <span className="d-block d-sm-none">{content.text_xs}</span>
         </>
-      )}
-      <></>
-      {!content.text_xs && content.text}
+      ) : content.text}
     </Typography>
   )
 }

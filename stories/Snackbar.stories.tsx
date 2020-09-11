@@ -1,7 +1,7 @@
 import { LmSnackbar } from '../src/components/snackbar/Snackbar'
-import { storyHeadline, storySnackbar } from '../src/storybook/core/various'
+import { storyButton, storyHeadline, storySnackbar } from '../src/storybook/core/various'
 import * as React from 'react'
-import { ButtonStoryblok } from '../src/typings/generated/components-schema'
+import { ButtonStoryblok, HeadlineStoryblok } from '../src/typings/generated/components-schema'
 
 export default {
   title: 'Snackbar'
@@ -95,9 +95,48 @@ export const Autoshow = () => (
   </>
 )
 
+export const Promotion = () => (
+  <>
+    <h3>More complex promotion snackbar.</h3>
+    <LmSnackbar content={{
+      ...storySnackbar({
+        options: {
+          button_top_align: true
+        }
+      }),
+      descriptions: [storyHeadline({
+        count: 1,
+        options: {
+          text: 'Promotion',
+          typography: 'headline5'
+        }
+      }), storyHeadline({
+        count: 2,
+        options: {
+          text: 'You should get your hands on it.',
+          typography: 'headline6'
+        }
+      }), storyButton({
+        options: {
+          label: 'Get it!',
+          variant: 'raised',
+          color: 'primary'
+        }
+      })] as (HeadlineStoryblok | ButtonStoryblok)[],
+      close_action: [{
+        component: 'button',
+        _uid: '3qewqeq',
+        icon: {
+          name: 'close'
+        }
+      } as ButtonStoryblok]
+    }} />
+  </>
+)
+
 export const Dialog = () => (
   <>
-    <h3>The snackbar shows after 4 seconds</h3>
+    <h3>You can also use a dialog!</h3>
     <LmSnackbar content={{
       ...storySnackbar(),
       dialog: true,

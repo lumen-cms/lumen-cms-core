@@ -38,7 +38,8 @@ const mapColor = {
   primary: 'primary',
   secondary: 'secondary',
   primary_text: 'inherit',
-  secondary_text: 'inherit'
+  secondary_text: 'inherit',
+  inherit: 'inherit'
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -105,14 +106,14 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
     }
   )
 
-  const btnProps: any = content.link?.cached_url
+  const btnProps: any = content.link
     ? {
-        ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external
-        }),
-        naked: true,
-        component: LmCoreComponents.lm_link_render
-      }
+      ...getLinkAttrs(content.link as LinkType, {
+        openExternal: !!content.open_external
+      }),
+      naked: true,
+      component: LmCoreComponents.lm_link_render
+    }
     : {}
   btnProps.fullWidth = properties.find((p) => p === 'fullWidth')
 
@@ -126,6 +127,7 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
         {...btnProps}
         className={className}
         style={{
+          whiteSpace: content.properties?.includes('no-linebreak') ? 'nowrap' : undefined,
           backgroundColor: content.custom_color?.rgba
             ? content.custom_color.rgba
             : undefined
@@ -187,6 +189,8 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
       disabled={disableRipple}
       color={color as ButtonProps['color']}
       style={{
+        justifyContent: content.align ? content.align : undefined,
+        whiteSpace: content.properties?.includes('no-linebreak') ? 'nowrap' : undefined,
         color:
           !['raised', 'unelevated'].includes(content.variant || '') &&
           content.custom_color?.rgba
@@ -202,17 +206,16 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
             ? content.custom_color.rgba
             : undefined
       }}
-      startIcon={
-        <LmIcon
-          iconName={content.icon && content.icon.name}
-          buttonSize={content.size}
-        />
+      startIcon={content.icon?.name ? <LmIcon
+        iconName={content.icon.name}
+        buttonSize={content.size}
+      /> : undefined
       }
-      endIcon={
+      endIcon={content.trailing_icon?.name ?
         <LmIcon
-          iconName={content.trailing_icon && content.trailing_icon.name}
+          iconName={content.trailing_icon.name}
           buttonSize={content.size}
-        />
+        /> : undefined
       }
     >
       {content.image && (

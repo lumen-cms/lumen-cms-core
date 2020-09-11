@@ -48,6 +48,7 @@ export default function ImageSvg({
           <SVG
             src={src as string}
             style={{
+              cursor: onClick ? 'pointer' : undefined,
               color: fitInColor,
               width: content.width && `${content.width}px`,
               height: content.height && `${content.height}px`

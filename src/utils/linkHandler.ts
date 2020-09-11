@@ -5,6 +5,9 @@ export interface LinkType {
   cached_url?: string
   linktype?: string
   nextHref?: string
+  id?: string
+  anchor?: string
+  url?: string
 
   [k: string]: any
 }
@@ -23,6 +26,10 @@ export const homepageLinkHandler = () => {
     : '/home'
 }
 
+/**
+ * This handler needs to be in sync with lumen-cms-nextjs internalLinkHandler
+ * @param url
+ */
 export const internalLinkHandler = (url: string) => {
   const urlArray = url.split('/')
   let processedUrl = url
@@ -49,6 +56,8 @@ type LinkHandlerProps = {
   target?: string
   rel?: string
   external?: boolean
+  download?: string
+  email?: string
 }
 
 export const linkHandler = (
@@ -59,15 +68,27 @@ export const linkHandler = (
     href: '/'
   }
   const cachedUrl = link.cached_url
+
   if (!cachedUrl) {
+    if (link.email) {
+      props.href = `mailto:${link.email.replace('mailto:', '')}`
+      props.external = true
+      return props
+    }
     return {}
   }
 
   if (link.linktype === 'story') {
-    props.href = internalLinkHandler(cachedUrl)
+    props.href = internalLinkHandler(cachedUrl) + (link.anchor ? `#${link.anchor}` : '')
+  } else if (link.linktype === 'asset') {
+    props.href = cachedUrl
+    props.download = cachedUrl
+    props.external = true
+    props.target = '_blank'
+    props.rel = 'noopener noreferrer'
   } else {
     let href = cachedUrl || ''
-    if (href.includes('@')) {
+    if (/\S+@\S+\.\S+/.test(href)) {
       href = `mailto:${href.replace('mailto:', '')}`
     } else if (href.includes('+')) {
       href = `tel:${href.replace('+', '')}`
