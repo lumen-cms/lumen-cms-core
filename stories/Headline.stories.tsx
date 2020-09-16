@@ -169,7 +169,8 @@ export const HeadlineCounter = () => (
   <LmHeadline content={storyHeadline({
     options: {
       count_end: 10000,
-      suffix: 'Users'
+      prefix: '+ ',
+      suffix: ' Users'
     }
   })} />
 )

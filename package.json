@@ -75,6 +75,7 @@
     "storyblok-js-client": "2.5.2",
     "storyblok-react": "0.1.1",
     "swr": "0.3.2",
+    "use-count-up": "^2.2.5",
     "use-debounce": "3.4.3",
     "uuid": "^8.3.0"
   },
