@@ -63,16 +63,19 @@ export const Overview = () => (
         duration: 5000,
         body
       }} />
+      <h3>End of presentation of motion</h3>
     </div>
   </div>
 )
 export const Playground = () => (
   <div style={{ textAlign: 'center' }}>
     <div style={{ maxWidth: '60vw' }}>
+      <h3>Start of presentation of motion</h3>
       <LmMotion content={{
         ...storyMotion({ options: { duration: 5000 } }),
         body
       }} />
+      <h3>End of presentation of motion</h3>
     </div>
   </div>
 )

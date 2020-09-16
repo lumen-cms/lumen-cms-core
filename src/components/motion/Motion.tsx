@@ -23,7 +23,9 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
     transitionProps.timeout = Number(content.duration)
   }
   return (
-    <div ref={viewRef}>
+    <div ref={viewRef} style={{
+      overflow: content.enable_overflow ? undefined : 'hidden'
+    }}>
       {
         {
           slide: (

@@ -935,11 +935,12 @@ export interface LogoStoryblok {
 }
 
 export interface MotionStoryblok {
-  body?: any[];
   type?: "fade" | "grow" | "slide" | "zoom" | "collapse";
   duration?: number;
-  slide_direction?: "left" | "right" | "down" | "up";
   threshold?: number;
+  slide_direction?: "left" | "right" | "down" | "up";
+  enable_overflow?: boolean;
+  body?: any[];
   _uid: string;
   component: "motion";
   [k: string]: any;
