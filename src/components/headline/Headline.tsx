@@ -3,7 +3,6 @@ import { LmHeadlineProps } from './headlineTypes'
 import { LmHeadlineCore } from './HeadlineCore'
 
 export const LmHeadline: FC<LmHeadlineProps> = ({ content, onClick, children }) => {
-
   return (
     <LmHeadlineCore content={content} onClick={onClick}>
       {children || (!!content.text_xs ? (
@@ -11,6 +10,7 @@ export const LmHeadline: FC<LmHeadlineProps> = ({ content, onClick, children }) 
           <span className="d-none d-sm-block">{content.text}</span>
           <span className="d-block d-sm-none">{content.text_xs}</span>
         </>
+
       ) : content.text)}
     </LmHeadlineCore>
   )

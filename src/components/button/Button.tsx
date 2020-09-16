@@ -93,27 +93,24 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
     properties.find((i) => i === 'disable-shadow') ||
     content.variant === 'unelevated'
   const color = content.color ? mapColor[content.color] : undefined
-  const className = clsx(
-    classes.button,
-    content.class_names && content.class_names.values,
-    {
-      'lm-default-color': !content.color,
-      [content.corners as string]: !!content.corners,
-      'lm-unelevated': isUnelevated,
-      'lm-outlined': content.variant === 'outlined',
-      [content.size as string]: !!content.size,
-      [`lm-font-${content.font}`]: content.font
-    }
-  )
+  const className = clsx(classes.button, content.class_names?.values, {
+    'lm-default-color': !content.color,
+    [content.corners as string]: !!content.corners,
+    'lm-unelevated': isUnelevated,
+    'lm-outlined': content.variant === 'outlined',
+    [content.size as string]: !!content.size,
+    [`lm-font-${content.font}`]: content.font,
+    'w-100': properties.find((p) => p === 'fullWidth')
+  })
 
   const btnProps: any = content.link
     ? {
-      ...getLinkAttrs(content.link as LinkType, {
-        openExternal: !!content.open_external
-      }),
-      naked: true,
-      component: LmCoreComponents.lm_link_render
-    }
+        ...getLinkAttrs(content.link as LinkType, {
+          openExternal: !!content.open_external
+        }),
+        naked: true,
+        component: LmCoreComponents.lm_link_render
+      }
     : {}
 
   if (onClick) {
@@ -126,7 +123,9 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
         {...btnProps}
         className={className}
         style={{
-          whiteSpace: content.properties?.includes('no-linebreak') ? 'nowrap' : undefined,
+          whiteSpace: content.properties?.includes('no-linebreak')
+            ? 'nowrap'
+            : undefined,
           backgroundColor: content.custom_color?.rgba
             ? content.custom_color.rgba
             : undefined
@@ -189,7 +188,9 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
       color={color as ButtonProps['color']}
       style={{
         justifyContent: content.align ? content.align : undefined,
-        whiteSpace: content.properties?.includes('no-linebreak') ? 'nowrap' : undefined,
+        whiteSpace: content.properties?.includes('no-linebreak')
+          ? 'nowrap'
+          : undefined,
         color:
           !['raised', 'unelevated'].includes(content.variant || '') &&
           content.custom_color?.rgba
@@ -205,16 +206,18 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
             ? content.custom_color.rgba
             : undefined
       }}
-      startIcon={content.icon?.name ? <LmIcon
-        iconName={content.icon.name}
-        buttonSize={content.size}
-      /> : undefined
+      startIcon={
+        content.icon?.name ? (
+          <LmIcon iconName={content.icon.name} buttonSize={content.size} />
+        ) : undefined
       }
-      endIcon={content.trailing_icon?.name ?
-        <LmIcon
-          iconName={content.trailing_icon.name}
-          buttonSize={content.size}
-        /> : undefined
+      endIcon={
+        content.trailing_icon?.name ? (
+          <LmIcon
+            iconName={content.trailing_icon.name}
+            buttonSize={content.size}
+          />
+        ) : undefined
       }
     >
       {content.image && (
