@@ -129,7 +129,7 @@ export interface ButtonStoryblok {
   corners?: "lm-button-shaped" | "lm-button-square";
   font?: "alt1" | "alt2" | "alt3" | "alt4";
   align?: "flex-start" | "flex-end";
-  properties?: ("disable-ripple" | "disable-shadow" | "no-linebreak")[];
+  properties?: ("disable-ripple" | "disable-shadow" | "no-linebreak" | "fullWidth")[];
   label?: string;
   open_external?: boolean;
   image?: string;
@@ -426,9 +426,27 @@ export interface EcommerceShopifyCheckoutStoryblok {
 }
 
 export interface EcommerceShopifyConfigStoryblok {
+  image_container_height?: number;
+  hide_description?: boolean;
+  product_title?: any[];
+  product_variant_name?: any[];
+  product_price?: any[];
+  product_add_to_cart?: any[];
+  product_checkout?: any[];
+  product_variant?: any[];
+  product_active_variant?: any[];
+  columns_justify?: "space-between" | "space-around" | "space-evenly" | "center" | "flex-start" | "flex-end";
+  columns_align_items?: "center" | "flex-start" | "flex-end" | "stretch";
   sdk_url?: string;
   domain?: string;
   access_token?: string;
+  currency_prefix?: string;
+  cart_toolbar?: any[];
+  cart_footer?: any[];
+  cart_checkout?: any[];
+  cart_footer_additional?: any[];
+  columns_first_width?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "auto" | "true";
+  columns_second_width?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "auto" | "true";
   _uid: string;
   component: "ecommerce_shopify_config";
   [k: string]: any;
@@ -442,6 +460,25 @@ export interface EcommerceShopifyIframeStoryblok {
   is_button?: boolean;
   _uid: string;
   component: "ecommerce_shopify_iframe";
+  [k: string]: any;
+}
+
+export interface EcommerceSnipcartConfigStoryblok {
+  url?: string;
+  data_api_key?: string;
+  _uid: string;
+  component: "ecommerce_snipcart_config";
+  [k: string]: any;
+}
+
+export interface EcommerceSnipcartProductStoryblok {
+  data_id?: number;
+  price?: number;
+  description?: string;
+  name?: string;
+  image_url?: string;
+  _uid: string;
+  component: "ecommerce_snipcart_product";
   [k: string]: any;
 }
 
@@ -470,12 +507,6 @@ export interface FlexRowStoryblok {
 }
 
 export interface FormStoryblok {
-  submit_button_text?: string;
-  submit_button_color?: "default" | "inherit" | "primary" | "secondary";
-  submit_button_full_width?: boolean;
-  submit_button_position?: "right" | "left";
-  submit_button_variant?: "text" | "outlined" | "contained";
-  submit_button_size?: "large" | "medium" | "small";
   api?: string;
   body?: any[];
   success_body?: any[];
@@ -484,7 +515,7 @@ export interface FormStoryblok {
   fields_full_width?: boolean;
   fields_gap?: "0" | "2" | "4" | "8" | "16" | "24";
   fields_min_width?: number;
-  submit_button_top_gap?: number;
+  submit_button: any[];
   _uid: string;
   component: "form";
   [k: string]: any;
@@ -595,11 +626,13 @@ export interface GlobalStoryblok {
 }
 
 export interface HeadlineStoryblok {
+  count_start?: number;
+  count_end?: number;
+  prefix?: string;
+  suffix?: string;
+  count_duration?: number;
+  animation?: "linear" | "easeInCubic" | "easeOutCubic";
   text?: string;
-  class_names?: {
-    values?: string[];
-    [k: string]: any;
-  };
   text_xs?: string;
   typography?:
     | "headline1"
@@ -619,6 +652,10 @@ export interface HeadlineStoryblok {
   tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
   color?: "primary" | "secondary" | "textPrimary" | "textSecondary" | "error";
   align?: "left" | "center" | "right" | "justify";
+  class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
   custom_color?: {
     rgba?: string;
     [k: string]: any;

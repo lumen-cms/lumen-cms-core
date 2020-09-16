@@ -1,4 +1,4 @@
-import {  LmComponentRender as LmHeadline } from '../src/'
+import { LmComponentRender as LmHeadline } from '../src/'
 import { HeadlineStoryblok } from '../src/typings/generated/components-schema'
 import * as React from 'react'
 import { storyDateHeadline, storyHeadline } from '../src/storybook/core/various'
@@ -163,6 +163,17 @@ export const AlternativeConfig = () => (
       }} />
   </>
 )
+
+
+export const HeadlineCounter = () => (
+  <LmHeadline content={storyHeadline({
+    options: {
+      count_end: 10000,
+      suffix: 'Users'
+    }
+  })} />
+)
+
 export const HeadlineWithDate = () => (
   <LmHeadline content={storyDateHeadline({
     options: {
@@ -170,6 +181,8 @@ export const HeadlineWithDate = () => (
     }
   })} />
 )
+
+
 export const Playground = () => (
   <div className="p-5 text-center">
     <LmHeadline content={storyHeadline()} />

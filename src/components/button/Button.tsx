@@ -1,6 +1,6 @@
 import Button, { ButtonProps } from '@material-ui/core/Button'
 import Fab, { FabProps } from '@material-ui/core/Fab'
-import React from 'react'
+import React, { FC } from 'react'
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
+export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
   const classes = useStyles()
   const properties = content.properties || []
   const disableRipple = !!properties.find((i) => i === 'disable-ripple')
@@ -142,7 +142,7 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
             size={mapAvatarSize[content.size as string]}
           />
         )}
-        {content.label}
+        {children || content.label}
         <LmIcon
           iconName={content.trailing_icon && content.trailing_icon.name}
           buttonSize={content.size}
@@ -223,7 +223,8 @@ export function LmButton({ content, onClick }: LmButtonProps): JSX.Element {
           size={mapAvatarSize[content.size as string]}
         />
       )}
-      {content.label}
+      {children || content.label}
     </Button>
   )
 }
+LmButton.displayName = 'LmButton'
