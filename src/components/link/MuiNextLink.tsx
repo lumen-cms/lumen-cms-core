@@ -59,7 +59,7 @@ function Link(props: LinkProps): JSX.Element {
     [activeClassName]: router?.pathname === href && activeClassName // todo probably router.asPath??
   })
   if (!href) {
-    console.log(props)
+    // console.log(props)
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a {...other} className={className} />
   }

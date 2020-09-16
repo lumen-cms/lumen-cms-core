@@ -22,7 +22,7 @@ class LocalizedUtils extends DateFnsUtils {
 
 export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
   const { formStructure } = useGoogleForm(content.api || '')
-  console.log(content, formStructure)
+  // console.log(content, formStructure)
 
   const onSubmit = async (data: any) => {
     if (!formStructure?.formAction) {
