@@ -1074,6 +1074,19 @@ export interface ParallaxItemStoryblok {
 }
 
 export interface PlayerStoryblok {
+  url?: string;
+  url_internal?: {
+    alt?: string;
+    copyright?: string;
+    id?: number;
+    filename?: string;
+    name?: string;
+    title?: string;
+    [k: string]: any;
+  };
+  ratio?: "16x9" | "4x3" | "3x2" | "1x1";
+  width?: string;
+  height?: string;
   controls?: boolean;
   playing?: boolean;
   loop?: boolean;
@@ -1081,10 +1094,6 @@ export interface PlayerStoryblok {
   playsinline?: boolean;
   volume?: number;
   light?: boolean;
-  url?: string;
-  ratio?: "16x9" | "4x3" | "3x2" | "1x1";
-  width?: string;
-  height?: string;
   fallback_image?: string;
   _uid: string;
   component: "player";
@@ -1217,6 +1226,15 @@ export interface SectionParallaxStoryblok {
 export interface SectionVideoBgStoryblok {
   section_identifier?: string;
   url?: string;
+  url_internal?: {
+    alt?: string;
+    copyright?: string;
+    id?: number;
+    filename?: string;
+    name?: string;
+    title?: string;
+    [k: string]: any;
+  };
   body?: any[];
   fallback_image?: string;
   property?: ("muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline" | "light")[];

@@ -22,7 +22,9 @@ function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
   // let fixedToRatio = content.fixedToRatio
   const [error, setError] = useState(false)
   const className = clsx('react-player')
-  if (!content.url) {
+  const videoUrl = content.url_internal?.filename || content.url
+
+  if (!videoUrl) {
     return <div>please insert a video URL</div>
   }
 
@@ -49,9 +51,9 @@ function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
 
   // cover the available space
   const url =
-    content.url && content.url.indexOf(',') !== -1
-      ? content.url.split(',').map((i) => i.trim())
-      : content.url
+    videoUrl && videoUrl.indexOf(',') !== -1
+      ? videoUrl.split(',').map((i) => i.trim())
+      : videoUrl
 
   return (
     <>

@@ -17,3 +17,19 @@ export const storyImageOptions = () => {
   return obj
 }
 export const allImageOptions = storyImageOptions()
+
+
+const storyVideoUrls = [
+  'https://a.storyblok.com/f/82895/x/a266d33556/union-klischee-leiterbahn.mp4'
+]
+const storyAssetVideoOptions = () => {
+  const obj = {
+    'Select an asset': undefined
+  }
+  storyVideoUrls.forEach((url, i) => {
+    obj[`${url}_${i}`] = url
+  })
+  return obj
+}
+
+export const allAssetVideoOptions = storyAssetVideoOptions()

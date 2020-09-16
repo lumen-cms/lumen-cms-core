@@ -78,7 +78,9 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
     width: 0,
     height: 0
   })
-  const hasSrc = !!content.url
+  const videoUrl = content.url_internal?.filename || content.url
+
+  const hasSrc = !!videoUrl
   const body = content.body || []
   const hasBody = !!body.length
   const fixedToRatio = !content.height // enable fixed ratio if height is not set (!hasBody)
@@ -111,7 +113,8 @@ export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
         })
       }
     }
-  }, [inView, width, height, content.url, fixedToRatio, intersectionElement])
+  }, [inView, width, height, videoUrl, fixedToRatio, intersectionElement])
+
   const maxWidth = content.max_width
     ? content.max_width === 'none'
       ? false

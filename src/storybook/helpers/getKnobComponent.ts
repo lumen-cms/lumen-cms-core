@@ -1,18 +1,11 @@
-import {
-  boolean,
-  color,
-  number,
-  optionsKnob,
-  select,
-  text
-} from '@storybook/addon-knobs'
+import { boolean, color, number, optionsKnob, select, text } from '@storybook/addon-knobs'
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import COMPONENT_JSON from '../../../components.82895.json'
 import { classNameOpts } from './utilityClassNamesHelper'
 import iconObj from './iconListHelper'
 import { getGlobalState } from '../components/SetStoriesDecorator'
-import { allImageOptions, getUid } from '../core/sharedFunctions'
+import { allAssetVideoOptions, allImageOptions, getUid } from '../core/sharedFunctions'
 
 export const camelizeString = (txt: string, separator = '_') =>
   txt
@@ -89,16 +82,16 @@ const getKnobComponents = ({
       obj[schemaKey] = text(
         name,
         options[schemaKey] ||
-          (currentSchema.default_value ? currentSchema.default_value : ''),
+        (currentSchema.default_value ? currentSchema.default_value : ''),
         knob || camelizeString(componentName)
       )
     } else if (type === 'number') {
       obj[schemaKey] = number(
         name,
         options[schemaKey] ||
-          (currentSchema.default_value
-            ? Number(currentSchema.default_value)
-            : undefined),
+        (currentSchema.default_value
+          ? Number(currentSchema.default_value)
+          : undefined),
         {},
         knob || camelizeString(componentName)
       )
@@ -115,6 +108,16 @@ const getKnobComponents = ({
         options[schemaKey] || undefined,
         knob || camelizeString(componentName)
       )
+    } else if (type === 'asset') {
+      obj[schemaKey] = {
+        filename: optionsKnob(
+          name,
+          { ...allAssetVideoOptions },
+          (options[schemaKey] && options[schemaKey].filename) || undefined,
+          { display: 'select' },
+          knob || camelizeString(componentName)
+        )
+      }
     } else if (currentSchema.field_type === 'material-icons-selector') {
       obj[schemaKey] = {
         name: optionsKnob(

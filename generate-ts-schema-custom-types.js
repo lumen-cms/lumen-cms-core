@@ -1,4 +1,4 @@
-function customTypeParser (key, obj) {
+module.exports = function customTypeParser (key, obj) {
   switch (obj.field_type) {
     case 'bootstrap-utility-class-selector':
       return {
@@ -82,5 +82,3 @@ function customTypeParser (key, obj) {
       return {}
   }
 }
-
-module.exports = {customTypeParser}

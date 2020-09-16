@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCountUp } from 'use-count-up'
+import { CountUp } from 'use-count-up'
 import { LmHeadlineProps } from './headlineTypes'
 import { LmHeadlineCore } from './HeadlineCore'
 import { useInView } from 'react-intersection-observer'
@@ -10,20 +10,27 @@ export function HeadlineCountUp({ content, onClick }: LmHeadlineProps) {
       triggerOnce: true
     }
   )
-  const { value } = useCountUp({
-    isCounting: inView,
-    start: content.count_start || 0,
-    end: content.count_end || 1000,
-    duration: content.count_duration || undefined,
-    suffix: content.suffix || undefined,
-    prefix: content.prefix || undefined,
-    easing: content.animation || undefined
-  })
+  // const { value } = useCountUp({
+  //   isCounting: true,
+  //   start: content.count_start || 0,
+  //   end: content.count_end || 1000,
+  //   duration: content.count_duration || 2.5,
+  //   suffix: content.suffix || undefined,
+  //   prefix: content.prefix || undefined,
+  //   easing: content.animation || undefined
+  // })
   return (
     <LmHeadlineCore content={content} onClick={onClick}>
-      <span ref={refIntersectionObserver}>
-      {value}
-      </span>
+    <span ref={refIntersectionObserver}>
+      <CountUp isCounting={inView}
+               duration={content.count_duration ? Number(content.count_duration) : 2.5}
+               end={content.count_end ? Number(content.count_end) : 1000}
+               start={content.count_start ? Number(content.count_start) : 0}
+               suffix={content.suffix || undefined}
+               prefix={content.prefix || undefined}
+        // easing={content.animation || undefined}
+      />
+    </span>
     </LmHeadlineCore>
   )
 }

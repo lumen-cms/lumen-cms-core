@@ -30,13 +30,13 @@ export function LmPlayer({ content }: LmPlayerProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
-
+  const videoUrl = content.url_internal?.filename || content.url
   // need to define style rather than class name otherwise change in Storybook not detected if ratio changes
-
   const url =
-    content.url && content.url.indexOf(',') !== -1
-      ? content.url.split(',').map((i) => i.trim())
-      : content.url
+    videoUrl && videoUrl.indexOf(',') !== -1
+      ? videoUrl.split(',').map((i) => i.trim())
+      : videoUrl
+  
   return (
     <div
       ref={refIntersectionObserver}
