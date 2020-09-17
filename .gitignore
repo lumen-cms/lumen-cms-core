@@ -10,7 +10,7 @@ node_modules
 /build
 .next
 /bundles
-/dist
+#/dist
 /base/dist
 
 # misc

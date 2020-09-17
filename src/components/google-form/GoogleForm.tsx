@@ -86,9 +86,10 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
           onSuccess={onSubmit}
         >
           {formStructure?.fields?.map((formField) => {
+            const key = formField.answerSubmitIdValue
             const hasVariant = ![9].includes(formField.questionTypeCode)
             const baseFieldProps = {
-              key: formField.answerSubmitIdValue,
+              key,
               label: formField.questionTextValue,
               name: `${formField.answerSubmitIdValue}`,
               // required: formField.isRequired,
@@ -128,6 +129,7 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                       name={`${formField.answerSubmitIdValue}_sentinel`}
                       hidden
                       style={{ display: 'none' }}
+                      key={`${key}_sentinel`}
                     />
                   )}
 
@@ -144,6 +146,7 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
             if (formField.questionTypeCode === 4) {
               return (
                 <div
+                  key={`${key}_parent`}
                   style={{
                     margin: baseStyle.margin,
                     display: 'inline-flex',
@@ -154,6 +157,7 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                     name={`${formField.answerSubmitIdValue}_sentinel`}
                     hidden
                     style={{ display: 'none' }}
+                    key={`${key}_sentinel`}
                   />
                   <MultiSelectElement
                     menuItems={formField.answerOptionsList
