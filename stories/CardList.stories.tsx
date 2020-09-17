@@ -97,14 +97,17 @@ const cardListWithAction: CardListStoryblok = {
   component: 'card_list',
   body: cardListBody.map((cardItem, i) => ({
     ...cardItem,
+    action_headline: [{
+      _uid: '543',
+      component: 'headline',
+      typography: 'headline5',
+      color: 'textSecondary',
+      text: `Some Sidebar Action`
+    } as HeadlineStoryblok],
     body: [{
       _uid: '543',
       component: 'headline',
       text: `Headline ${i}`
-    }, {
-      _uid: '2342',
-      component: 'paragraph',
-      text: `Some random ${i}\n\n **Some new line`
     }] as (HeadlineStoryblok | ParagraphStoryblok | ImageStoryblok)[]
   }))
 }

@@ -188,7 +188,7 @@ export interface CardListStoryblok {
     | "overlay_content_no_space"
   )[];
   image_size?: "cover" | "contain" | "initial" | "auto";
-  image_ratio?: "16x9" | "1x1" | "4x3" | "3x2";
+  image_ratio?: "16x9" | "1x1" | "4x3" | "3x2" | "2x3";
   hide_image?: boolean;
   border_radius?: "0" | "2" | "4" | "";
   shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft";
@@ -241,6 +241,13 @@ export interface CardListStoryblok {
 }
 
 export interface CardListItemStoryblok {
+  image?: string;
+  action_width?: string;
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  body?: any[];
+  action_headline?: any[];
   card_actions_body?: any[];
   link?: {
     cached_url?: string;
@@ -248,11 +255,6 @@ export interface CardListItemStoryblok {
     [k: string]: any;
   };
   open_external?: boolean;
-  body?: any[];
-  image?: string;
-  title?: string;
-  subtitle?: string;
-  description?: string;
   _uid: string;
   component: "card_list_item";
   [k: string]: any;
@@ -426,6 +428,12 @@ export interface EcommerceShopifyCheckoutStoryblok {
 }
 
 export interface EcommerceShopifyConfigStoryblok {
+  sdk_url?: string;
+  floating_button_color?: "primary" | "secondary" | "success" | "info" | "warning";
+  domain?: string;
+  access_token?: string;
+  currency_prefix?: string;
+  floating_badge_color?: "primary" | "secondary" | "error" | "success" | "info" | "warning";
   image_container_height?: number;
   hide_description?: boolean;
   product_title?: any[];
@@ -437,16 +445,13 @@ export interface EcommerceShopifyConfigStoryblok {
   product_active_variant?: any[];
   columns_justify?: "space-between" | "space-around" | "space-evenly" | "center" | "flex-start" | "flex-end";
   columns_align_items?: "center" | "flex-start" | "flex-end" | "stretch";
-  sdk_url?: string;
-  domain?: string;
-  access_token?: string;
-  currency_prefix?: string;
   cart_toolbar?: any[];
   cart_footer?: any[];
   cart_checkout?: any[];
   cart_footer_additional?: any[];
   columns_first_width?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "auto" | "true";
   columns_second_width?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "auto" | "true";
+  product_description_trigger?: any[];
   _uid: string;
   component: "ecommerce_shopify_config";
   [k: string]: any;
