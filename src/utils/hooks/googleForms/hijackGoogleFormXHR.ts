@@ -18,7 +18,7 @@ export function hijackGoogleFormsXHR(XHR: {
       url.indexOf('gstatic.com') !== -1 ||
       url.indexOf('docs.google.com') !== -1
     ) {
-      url = `http://googleformrestyler.apixml.net/corsProxy.aspx?base64Url=${btoa(
+      url = `https://googleformrestyler.apixml.net/corsProxy.aspx?base64Url=${btoa(
         url
       )}`
     }
