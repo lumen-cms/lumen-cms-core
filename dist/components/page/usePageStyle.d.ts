@@ -1,0 +1,1 @@
+export declare const usePageStyles: (props?: any) => Record<"content" | "rightDocked" | "rightModal" | "rightDrawerPaper" | "rightContent" | "contentWithRight" | "right-mobile-sm" | "right-mobile-md" | "right-mobile-lg" | "leftShift" | "left-mobile-sm" | "left-mobile-md" | "left-mobile-lg", string>;
