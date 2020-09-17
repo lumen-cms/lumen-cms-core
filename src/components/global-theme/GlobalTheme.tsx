@@ -1,17 +1,10 @@
-import {
-  createMuiTheme,
-  responsiveFontSizes,
-  ThemeProvider
-} from '@material-ui/core/styles'
+import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import React, { FunctionComponent, memo, useMemo } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import parseFont from '../../utils/parseFont'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
-import {
-  GlobalStoryblok,
-  ToolbarRowStoryblok
-} from '../../typings/generated/components-schema'
+import { GlobalStoryblok, ToolbarRowStoryblok } from '../../typings/generated/components-schema'
 
 const mapThemeType = {
   base: 'light',

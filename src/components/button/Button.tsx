@@ -43,6 +43,9 @@ const mapColor = {
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
+  noWhitespace: {
+    whiteSpace: 'nowrap'
+  },
   button: {
     '&.lm-button-shaped': {
       borderRadius: '2em'
@@ -88,29 +91,27 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
   const classes = useStyles()
   const properties = content.properties || []
-  const disableRipple = !!properties.find((i) => i === 'disable-ripple')
-  const isUnelevated =
-    properties.find((i) => i === 'disable-shadow') ||
-    content.variant === 'unelevated'
+  const disableRipple = properties.includes('disable-ripple')
   const color = content.color ? mapColor[content.color] : undefined
   const className = clsx(classes.button, content.class_names?.values, {
+    [classes.noWhitespace]: properties.includes('no-linebreak'),
     'lm-default-color': !content.color,
     [content.corners as string]: !!content.corners,
-    'lm-unelevated': isUnelevated,
+    'lm-unelevated': properties.includes('disable-shadow') || content.variant === 'unelevated',
     'lm-outlined': content.variant === 'outlined',
     [content.size as string]: !!content.size,
     [`lm-font-${content.font}`]: content.font,
-    'w-100': properties.find((p) => p === 'fullWidth')
+    'w-100': properties.includes('fullWidth')
   })
 
   const btnProps: any = content.link
     ? {
-        ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external
-        }),
-        naked: true,
-        component: LmCoreComponents.lm_link_render
-      }
+      ...getLinkAttrs(content.link as LinkType, {
+        openExternal: !!content.open_external
+      }),
+      naked: true,
+      component: LmCoreComponents.lm_link_render
+    }
     : {}
 
   if (onClick) {
@@ -123,9 +124,6 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
         {...btnProps}
         className={className}
         style={{
-          whiteSpace: content.properties?.includes('no-linebreak')
-            ? 'nowrap'
-            : undefined,
           backgroundColor: content.custom_color?.rgba
             ? content.custom_color.rgba
             : undefined
@@ -188,9 +186,6 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
       color={color as ButtonProps['color']}
       style={{
         justifyContent: content.align ? content.align : undefined,
-        whiteSpace: content.properties?.includes('no-linebreak')
-          ? 'nowrap'
-          : undefined,
         color:
           !['raised', 'unelevated'].includes(content.variant || '') &&
           content.custom_color?.rgba
