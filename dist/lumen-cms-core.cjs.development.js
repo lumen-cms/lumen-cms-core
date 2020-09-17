@@ -7,18 +7,28 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var React = require('react');
 var React__default = _interopDefault(React);
 var SbEditable = _interopDefault(require('storyblok-react'));
-var clsx = _interopDefault(require('clsx'));
+var reactScrollParallax = require('react-scroll-parallax');
+var Drawer = _interopDefault(require('@material-ui/core/Drawer'));
+var useMediaQuery = _interopDefault(require('@material-ui/core/useMediaQuery'));
 var styles = require('@material-ui/core/styles');
+var reactHooksGlobalState = require('react-hooks-global-state');
+var clsx = _interopDefault(require('clsx'));
+var useScrollTrigger = _interopDefault(require('@material-ui/core/useScrollTrigger'));
+var AccordionSummary = _interopDefault(require('@material-ui/core/AccordionSummary'));
+var Typography = _interopDefault(require('@material-ui/core/Typography'));
+var AccordionDetails = _interopDefault(require('@material-ui/core/AccordionDetails'));
+var Accordion = _interopDefault(require('@material-ui/core/Accordion'));
+var ChevronDown = _interopDefault(require('mdi-material-ui/ChevronDown'));
+var Plus = _interopDefault(require('mdi-material-ui/Plus'));
 var InlineSVG = _interopDefault(require('react-inlinesvg'));
 var reactIntersectionObserver = require('react-intersection-observer');
-var Typography = _interopDefault(require('@material-ui/core/Typography'));
-var useCountUp = require('use-count-up');
-var Grid = _interopDefault(require('@material-ui/core/Grid'));
+var useClientHydrated = _interopDefault(require('@charlietango/use-client-hydrated'));
+var Container = _interopDefault(require('@material-ui/core/Container'));
 var Fade = _interopDefault(require('@material-ui/core/Fade'));
 var Skeleton = _interopDefault(require('@material-ui/lab/Skeleton'));
-var useMediaQuery = _interopDefault(require('@material-ui/core/useMediaQuery'));
 var windowSize = require('@react-hook/window-size');
-var reactHooksGlobalState = require('react-hooks-global-state');
+var useCountUp = require('use-count-up');
+var Grid = _interopDefault(require('@material-ui/core/Grid'));
 var GridList = _interopDefault(require('@material-ui/core/GridList'));
 var GridListTile = _interopDefault(require('@material-ui/core/GridListTile'));
 var Dialog = _interopDefault(require('@material-ui/core/Dialog'));
@@ -29,16 +39,6 @@ var SwipeableViews = _interopDefault(require('react-swipeable-views'));
 var ChevronLeft = _interopDefault(require('mdi-material-ui/ChevronLeft'));
 var ChevronRight = _interopDefault(require('mdi-material-ui/ChevronRight'));
 var lumenCmsUtils = require('lumen-cms-utils');
-var reactScrollParallax = require('react-scroll-parallax');
-var Drawer = _interopDefault(require('@material-ui/core/Drawer'));
-var useScrollTrigger = _interopDefault(require('@material-ui/core/useScrollTrigger'));
-var AccordionSummary = _interopDefault(require('@material-ui/core/AccordionSummary'));
-var AccordionDetails = _interopDefault(require('@material-ui/core/AccordionDetails'));
-var Accordion = _interopDefault(require('@material-ui/core/Accordion'));
-var ChevronDown = _interopDefault(require('mdi-material-ui/ChevronDown'));
-var Plus = _interopDefault(require('mdi-material-ui/Plus'));
-var useClientHydrated = _interopDefault(require('@charlietango/use-client-hydrated'));
-var Container = _interopDefault(require('@material-ui/core/Container'));
 var GridListTileBar = _interopDefault(require('@material-ui/core/GridListTileBar'));
 var Button = _interopDefault(require('@material-ui/core/Button'));
 var Fab = _interopDefault(require('@material-ui/core/Fab'));
@@ -98,14 +98,32 @@ var Tooltip = _interopDefault(require('@material-ui/core/Tooltip'));
 var Snackbar = _interopDefault(require('@material-ui/core/Snackbar'));
 var Cookies = _interopDefault(require('js-cookie'));
 var SnackbarContent = _interopDefault(require('@material-ui/core/SnackbarContent'));
-require('next/error');
-require('@material-ui/core/CssBaseline');
-require('nprogress');
-require('@material-ui/core/AppBar');
-require('@material-ui/core/Toolbar');
-require('next/head');
-require('@material-ui/core/ListItemIcon');
-require('@material-ui/core/ListSubheader');
+var Error = _interopDefault(require('next/error'));
+var CssBaseline = _interopDefault(require('@material-ui/core/CssBaseline'));
+var NProgress = _interopDefault(require('nprogress'));
+var AppBar = _interopDefault(require('@material-ui/core/AppBar'));
+var Toolbar = _interopDefault(require('@material-ui/core/Toolbar'));
+var NextHead = _interopDefault(require('next/head'));
+var ListItemIcon = _interopDefault(require('@material-ui/core/ListItemIcon'));
+var ListSubheader = _interopDefault(require('@material-ui/core/ListSubheader'));
+
+var CONFIG = {
+  href: process.env.HREF || '/[...index]',
+  previewToken: process.env.NEXT_PUBLIC_PREVIEW_TOKEN || '',
+  publicToken: process.env.NEXT_PUBLIC_PUBLIC_TOKEN || '',
+  languages: process.env.NEXT_PUBLIC_LANGUAGES ? /*#__PURE__*/process.env.NEXT_PUBLIC_LANGUAGES.split(',') : [],
+  defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en',
+  rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
+  overwriteLocale: process.env.NEXT_PUBLIC_OVERWRITE_LOCALE,
+  suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE,
+  overwriteDisableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,
+  GA: process.env.NEXT_PUBLIC_GA,
+  TAWKTO: process.env.NEXT_PUBLIC_TAWKTO,
+  prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH
+};
+var LmCoreComponents = {
+  lm_app_providers: []
+};
 
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -151,24 +169,6 @@ var useAppContext = function useAppContext() {
   return React.useContext(AppContext);
 };
 
-var CONFIG = {
-  href: process.env.HREF || '/[...index]',
-  previewToken: process.env.NEXT_PUBLIC_PREVIEW_TOKEN || '',
-  publicToken: process.env.NEXT_PUBLIC_PUBLIC_TOKEN || '',
-  languages: process.env.NEXT_PUBLIC_LANGUAGES ? /*#__PURE__*/process.env.NEXT_PUBLIC_LANGUAGES.split(',') : [],
-  defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en',
-  rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
-  overwriteLocale: process.env.NEXT_PUBLIC_OVERWRITE_LOCALE,
-  suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE,
-  overwriteDisableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,
-  GA: process.env.NEXT_PUBLIC_GA,
-  TAWKTO: process.env.NEXT_PUBLIC_TAWKTO,
-  prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH
-};
-var LmCoreComponents = {
-  lm_app_providers: []
-};
-
 function LmComponentRender(props) {
   var appContext = useAppContext();
   var insideStoryblok = appContext === null || appContext === void 0 ? void 0 : appContext.insideStoryblok;
@@ -200,28 +200,292 @@ function LmComponentRender(props) {
   }, "The component ", content.component || 'no name found', " has not been created yet.");
 }
 
-function LmAccordion(_ref) {
-  var content = _ref.content;
+var initialState = {
+  leftNavigationDrawer: false,
+  rightNavigationDrawer: false,
+  searchParams: {
+    searchText: undefined,
+    categories: undefined
+  },
+  locale: CONFIG.defaultLocale,
+  hasWebpSupport: undefined
+};
 
-  var _useState = React.useState(''),
-      opened = _useState[0],
-      setOpen = _useState[1];
+var _createGlobalState = /*#__PURE__*/reactHooksGlobalState.createGlobalState(initialState),
+    setGlobalState = _createGlobalState.setGlobalState,
+    useGlobalState = _createGlobalState.useGlobalState,
+    getGlobalState = _createGlobalState.getGlobalState;
 
+var toggleLeftNavigation = function toggleLeftNavigation() {
+  setGlobalState('leftNavigationDrawer', function (value) {
+    return !value;
+  });
+};
+var toggleRightNavigation = function toggleRightNavigation() {
+  setGlobalState('rightNavigationDrawer', function (value) {
+    return !value;
+  });
+};
+var closeNavigationDrawers = function closeNavigationDrawers() {
+  setGlobalState('leftNavigationDrawer', false);
+  setGlobalState('rightNavigationDrawer', false);
+}; // export const setAppSetup = (options: State['appSetup']) => {
+//   setGlobalState('appSetup', options)
+// }
+
+var addSearchParamsToUrl = function addSearchParamsToUrl(_ref) {
+  var categories = _ref.categories,
+      searchText = _ref.searchText;
+  var currentUrl = new URL(window.location.href);
+
+  if (categories) {
+    currentUrl.searchParams["delete"]('search__categories');
+    categories.forEach(function (category) {
+      currentUrl.searchParams.append('search__categories', category);
+    });
+  }
+
+  if (searchText !== undefined) {
+    if (!searchText) {
+      currentUrl.searchParams["delete"]('search__text');
+    } else {
+      currentUrl.searchParams.set('search__text', searchText);
+    }
+  }
+
+  window.history.pushState({
+    path: currentUrl.href
+  }, '', currentUrl.href);
+  window.scrollTo(0, 0);
+};
+
+var onSearchTextChange = function onSearchTextChange(searchText) {
+  setGlobalState('searchParams', function (v) {
+    return _extends({}, v, {
+      searchText: searchText
+    });
+  });
+  addSearchParamsToUrl({
+    searchText: searchText
+  });
+};
+var setSearchCategory = function setSearchCategory(categories) {
+  setGlobalState('searchParams', function (v) {
+    return _extends({}, v, {
+      categories: categories
+    });
+  });
+  addSearchParamsToUrl({
+    categories: categories
+  });
+};
+
+var defaultValue$1 = {
+  hasDrawer: false,
+  hasFeatureImage: false,
+  hasRightDrawer: false,
+  drawerVariant: 'temporary',
+  drawerBelowToolbar: false,
+  hasScrollCollapse: false
+};
+var AppSetupContext = /*#__PURE__*/React.createContext(defaultValue$1);
+var useAppSetup = function useAppSetup() {
+  return React.useContext(AppSetupContext);
+};
+
+function useScrollTop() {
+  var scrolledWithoutHysteresis = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 60
+  }); // const [value] = useDebounce(scrolledWithoutHysteresis, 700)
+
+  return scrolledWithoutHysteresis;
+}
+
+var useStyles = /*#__PURE__*/styles.makeStyles(function (theme) {
+  var _lmScrolled, _contentSpace;
+
+  return styles.createStyles({
+    contentSpace: (_contentSpace = {
+      height: theme.toolbar.height.custom ? Number(theme.toolbar.height.custom) : theme.toolbar.height.mobile,
+      transitionDuration: '500ms'
+    }, _contentSpace[theme.breakpoints.up('xs') + " and (orientation: landscape)"] = {
+      height: theme.toolbar.height.custom ? Math.round(theme.toolbar.height.custom * 0.86) + theme.toolbar.height.systemBar : theme.toolbar.height.landscape + theme.toolbar.height.systemBar
+    }, _contentSpace[theme.breakpoints.up('sm')] = {
+      height: theme.toolbar.height.custom ? Math.round(theme.toolbar.height.custom * 1.15) + theme.toolbar.height.systemBar : theme.toolbar.height.desktop + theme.toolbar.height.systemBar
+    }, _contentSpace['&.lm-scrolled'] = (_lmScrolled = {
+      height: theme.toolbar.height.mobile
+    }, _lmScrolled[theme.breakpoints.up('xs') + " and (orientation: landscape)"] = {
+      height: theme.toolbar.height.landscape // + theme.toolbar.height.systemBar
+
+    }, _lmScrolled[theme.breakpoints.up('sm')] = {
+      height: theme.toolbar.height.desktop // + theme.toolbar.height.systemBar
+
+    }, _lmScrolled), _contentSpace)
+  });
+});
+
+function ContentSpace() {
+  var classes = useStyles();
+  var appSetup = useAppSetup();
+  var scrolledWithoutHysteresis = useScrollTop();
   return React__default.createElement("div", {
-    className: "lm-accordion"
-  }, (content.body || []).map(function (blok, iteration) {
+    className: clsx('lm-content-space', classes.contentSpace, {
+      'lm-scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage)
+    })
+  });
+}
+
+var usePageStyles = /*#__PURE__*/styles.makeStyles(function (theme) {
+  var _rightMobileSm, _rightMobileMd, _rightMobileLg, _leftMobileSm, _leftMobileMd, _leftMobileLg;
+
+  return styles.createStyles({
+    rightDocked: {
+      width: theme.drawer.right,
+      zIndex: theme.zIndex.appBar - 1
+    },
+    rightModal: {
+      '& .lm-content-space': {
+        display: 'none'
+      }
+    },
+    rightDrawerPaper: {
+      width: theme.drawer.right,
+      padding: theme.spacing(2)
+    },
+    rightContent: {
+      overflowY: 'auto'
+    },
+    content: {
+      transition: theme.transitions.create(['margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      })
+    },
+    contentWithRight: {
+      marginRight: theme.drawer.right
+    },
+    'right-mobile-sm': (_rightMobileSm = {}, _rightMobileSm[theme.breakpoints.only('xs')] = {
+      marginRight: '0 !important'
+    }, _rightMobileSm),
+    'right-mobile-md': (_rightMobileMd = {}, _rightMobileMd[theme.breakpoints.down('sm')] = {
+      marginRight: 0
+    }, _rightMobileMd),
+    'right-mobile-lg': (_rightMobileLg = {}, _rightMobileLg[theme.breakpoints.down('md')] = {
+      marginRight: 0
+    }, _rightMobileLg),
+    leftShift: {
+      marginLeft: theme.drawer.left,
+      transition: theme.transitions.create(['margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      })
+    },
+    'left-mobile-sm': (_leftMobileSm = {}, _leftMobileSm[theme.breakpoints.only('xs')] = {
+      marginLeft: 0
+    }, _leftMobileSm),
+    'left-mobile-md': (_leftMobileMd = {}, _leftMobileMd[theme.breakpoints.down('sm')] = {
+      marginLeft: 0
+    }, _leftMobileMd),
+    'left-mobile-lg': (_leftMobileLg = {}, _leftMobileLg[theme.breakpoints.down('md')] = {
+      marginLeft: 0
+    }, _leftMobileLg)
+  });
+});
+
+var RightDrawerContainer = function RightDrawerContainer(_ref) {
+  var children = _ref.children;
+  var classes = usePageStyles();
+  var theme = styles.useTheme();
+  var appSetup = useAppSetup();
+  var matches = useMediaQuery(theme.breakpoints.up(appSetup.rightDrawerMediaBreakpoint || 'sm')); // const { isMobile } = useDeviceDimensions()
+
+  var _useGlobalState = useGlobalState('rightNavigationDrawer'),
+      rightIsOpen = _useGlobalState[0];
+
+  return React__default.createElement(Drawer, {
+    variant: !matches ? 'temporary' : 'permanent',
+    anchor: "right",
+    classes: {
+      paper: classes.rightDrawerPaper,
+      modal: classes.rightModal,
+      paperAnchorDockedRight: classes.rightDocked
+    },
+    open: !matches ? rightIsOpen : true,
+    onClose: function onClose() {
+      return closeNavigationDrawers();
+    }
+  }, children);
+};
+
+RightDrawerContainer.displayName = 'RightDrawerContainer';
+
+function RightDrawer(_ref2) {
+  var rightBody = _ref2.rightBody;
+  var classes = usePageStyles();
+  return React__default.createElement(RightDrawerContainer, null, React__default.createElement(ContentSpace, null), React__default.createElement("div", {
+    className: classes.rightContent
+  }, rightBody.map(function (blok) {
     return React__default.createElement(LmComponentRender, {
       content: blok,
-      options: content,
-      opened: opened,
-      setOpen: setOpen,
-      iteration: iteration,
+      key: blok._uid
+    });
+  })));
+}
+
+var MainContentContainer = function MainContentContainer(_ref) {
+  var _clsx;
+
+  var children = _ref.children;
+  var classes = usePageStyles();
+  var appSetup = useAppSetup();
+
+  var _useGlobalState = useGlobalState('leftNavigationDrawer'),
+      isOpen = _useGlobalState[0];
+
+  return React__default.createElement("main", {
+    className: clsx(classes.content, (_clsx = {}, _clsx[classes.contentWithRight] = appSetup.hasRightDrawer, _clsx[classes["right-mobile-" + (appSetup.rightDrawerMediaBreakpoint || 'sm')]] = true, _clsx[classes.leftShift] = appSetup.drawerVariant !== 'temporary' && isOpen, _clsx[classes["left-mobile-" + (appSetup.leftDrawerMediaBreakpoint || 'sm')]] = appSetup.drawerVariant !== 'temporary' && isOpen, _clsx))
+  }, children);
+};
+
+MainContentContainer.displayName = 'MainContentContainer';
+function MainContent(_ref2) {
+  var body = _ref2.body;
+  return React__default.createElement(MainContentContainer, null, body.map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
       key: blok._uid
     });
   }));
 }
 
-var useStyles = /*#__PURE__*/styles.makeStyles(function (theme) {
+function LmPage(_ref) {
+  var content = _ref.content;
+  var body = content.body || [];
+  var rightBody = content.right_body || [];
+
+  if (!body.length) {
+    return React__default.createElement("div", null, "There is no content yet...");
+  }
+
+  if (!body.some(function (i) {
+    return i.component === 'section_parallax';
+  })) {
+    return React__default.createElement(React__default.Fragment, null, rightBody.length > 0 && React__default.createElement(RightDrawer, {
+      rightBody: rightBody
+    }), React__default.createElement(MainContent, {
+      body: body
+    }));
+  }
+
+  return React__default.createElement(reactScrollParallax.ParallaxProvider, null, rightBody.length > 0 && React__default.createElement(RightDrawer, {
+    rightBody: rightBody
+  }), React__default.createElement(MainContent, {
+    body: body
+  }));
+}
+
+var useStyles$1 = /*#__PURE__*/styles.makeStyles(function (theme) {
   return styles.createStyles({
     tables: {
       tableLayout: 'fixed',
@@ -343,7 +607,7 @@ function LmTable(_ref2) {
   var _clsx;
 
   var content = _ref2.content;
-  var classes = useStyles();
+  var classes = useStyles$1();
   var className = clsx(classes.tables, 'lm-table', content.class_names && content.class_names.values, (_clsx = {}, _clsx["lm-table__" + content.variant] = !!content.variant, _clsx));
   var tableBody = content.body && content.body.tbody || [];
   var tableHead = content.body && content.body.thead || [];
@@ -366,6 +630,96 @@ function LmTable(_ref2) {
   }))));
 }
 
+function LmAccordion(_ref) {
+  var content = _ref.content;
+
+  var _useState = React.useState(''),
+      opened = _useState[0],
+      setOpen = _useState[1];
+
+  return React__default.createElement("div", {
+    className: "lm-accordion"
+  }, (content.body || []).map(function (blok, iteration) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      options: content,
+      opened: opened,
+      setOpen: setOpen,
+      iteration: iteration,
+      key: blok._uid
+    });
+  }));
+}
+
+function LmAccordionItem(_ref) {
+  var content = _ref.content,
+      options = _ref.options,
+      setOpen = _ref.setOpen,
+      opened = _ref.opened,
+      iteration = _ref.iteration;
+
+  var _useState = React.useState(''),
+      isOpen = _useState[0],
+      setIsOpen = _useState[1];
+
+  var handleChange = function handleChange(panel) {
+    return function (_, isExpanded) {
+      options.restrict_one ? setOpen(isExpanded ? panel : '') : setIsOpen(isExpanded ? panel : '');
+    };
+  };
+
+  var panelKey = "panel-" + iteration;
+  var expanded = options.restrict_one ? opened === panelKey : isOpen === panelKey;
+  return React__default.createElement(Accordion, {
+    square: !!options.square,
+    expanded: expanded,
+    onChange: handleChange(panelKey)
+  }, React__default.createElement(AccordionSummary, {
+    expandIcon: content.use_plus_icon || options.use_plus ? React__default.createElement(Plus, null) : React__default.createElement(ChevronDown, null)
+  }, React__default.createElement(Typography, null, content.title)), React__default.createElement(AccordionDetails, null, React__default.createElement("div", null, (content.body || []).map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  }))));
+}
+
+function LmStaticSection(_ref) {
+  var content = _ref.content;
+
+  var _useAppContext = useAppContext(),
+      allStaticContent = _useAppContext.allStaticContent;
+
+  if (!content.container) {
+    return null;
+  }
+
+  var containerContent = allStaticContent.find(function (item) {
+    return item.uuid === content.container;
+  });
+  var body = containerContent && containerContent.content && containerContent.content.body || [];
+  return React__default.createElement("div", {
+    className: clsx(content.class_names && content.class_names.values)
+  }, body.map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  }));
+}
+
+function LmStaticContainer(_ref) {
+  var content = _ref.content;
+  return React__default.createElement("div", {
+    className: "lm-static-container"
+  }, (content.body || []).map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  }));
+}
+
 var intersectionDefaultOptions = {
   triggerOnce: true,
   rootMargin: '400px 0px 400px 0px'
@@ -378,7 +732,7 @@ var underscoreToMinus = function underscoreToMinus(str) {
   return str.replace(/_/g, '-');
 };
 
-var useStyles$1 = /*#__PURE__*/styles.makeStyles({
+var useStyles$2 = /*#__PURE__*/styles.makeStyles({
   icon: {
     fill: 'currentColor',
     width: '1em',
@@ -410,7 +764,7 @@ function IconCore(_ref) {
       buttonSize = _ref.buttonSize,
       iconUrl = _ref.iconUrl,
       _onClick = _ref.onClick;
-  var classes = useStyles$1();
+  var classes = useStyles$2();
 
   var _useInView = reactIntersectionObserver.useInView(intersectionDefaultOptions),
       refIntersectionObserver = _useInView[0],
@@ -438,7 +792,7 @@ function IconCore(_ref) {
   })) : React__default.createElement("span", null);
 }
 
-var useStyles$2 = /*#__PURE__*/styles.makeStyles({
+var useStyles$3 = /*#__PURE__*/styles.makeStyles({
   hSeparator: {
     clear: 'both',
     width: '100%',
@@ -520,7 +874,7 @@ var DividerContainer = function DividerContainer(_ref) {
 DividerContainer.displayName = 'DividerContainer';
 function LmDivider(_ref2) {
   var content = _ref2.content;
-  var classes = useStyles$2();
+  var classes = useStyles$3();
   var style = {};
   var iconName = content.icon && content.icon.name;
   var iconSize = content.size;
@@ -567,6 +921,146 @@ function LmDivider(_ref2) {
   }, React__default.createElement("span", null));
 }
 
+function LmHtml(_ref) {
+  var content = _ref.content;
+
+  var _useInView = reactIntersectionObserver.useInView(intersectionDefaultOptions),
+      refIntersectionObserver = _useInView[0],
+      inView = _useInView[1];
+
+  var htmlContent = React.useMemo(function () {
+    if (content.lazy_load) {
+      if (inView) {
+        return content.body || '';
+      }
+
+      return '';
+    }
+
+    return content.body || '';
+  }, [content.lazy_load, content.body, inView]);
+  return React__default.createElement("div", {
+    dangerouslySetInnerHTML: {
+      __html: htmlContent
+    },
+    ref: refIntersectionObserver,
+    style: {
+      height: '100%'
+    }
+  });
+}
+
+var ScriptStatus;
+
+(function (ScriptStatus) {
+  ScriptStatus["IDLE"] = "idle";
+  ScriptStatus["LOADING"] = "loading";
+  ScriptStatus["READY"] = "ready";
+  ScriptStatus["ERROR"] = "error";
+})(ScriptStatus || (ScriptStatus = {}));
+/**
+ * Hook to load an external script. Returns true once the script has finished loading.
+ *
+ * @param url {string} url The external script to load
+ * @param attributes {} attributes Script tag attributes
+ * */
+
+
+function useScript(url, attributes) {
+  var clientHydrated = useClientHydrated();
+
+  var _useState = React.useState(function () {
+    if (clientHydrated) {
+      var script = document.querySelector("script[src=\"" + url + "\"]");
+
+      if (script === null || script === void 0 ? void 0 : script.hasAttribute('data-status')) {
+        return script.getAttribute('data-status');
+      }
+    }
+
+    return url ? ScriptStatus.LOADING : ScriptStatus.IDLE;
+  }),
+      status = _useState[0],
+      setStatus = _useState[1];
+
+  React.useEffect(function () {
+    if (!url) {
+      setStatus(ScriptStatus.IDLE);
+      return undefined;
+    }
+
+    var script = document.querySelector("script[src=\"" + url + "\"]");
+
+    if (!script) {
+      script = document.createElement('script');
+      script.src = url;
+      script.async = true;
+      script.setAttribute('data-status', ScriptStatus.LOADING);
+      document.head.appendChild(script);
+
+      if (attributes) {
+        Object.keys(attributes).forEach(function (key) {
+          var _script;
+
+          (_script = script) === null || _script === void 0 ? void 0 : _script.setAttribute(key, attributes[key]);
+        });
+      } // Ensure the status is loading
+
+
+      setStatus(ScriptStatus.LOADING);
+
+      script.onerror = function () {
+        var _script2;
+
+        return (_script2 = script) === null || _script2 === void 0 ? void 0 : _script2.setAttribute('data-status', ScriptStatus.ERROR);
+      };
+
+      script.onload = function () {
+        var _script3;
+
+        return (_script3 = script) === null || _script3 === void 0 ? void 0 : _script3.setAttribute('data-status', ScriptStatus.READY);
+      };
+    } else if (script.hasAttribute('data-status')) {
+      setStatus(script.getAttribute('data-status'));
+    }
+
+    var eventHandler = function eventHandler(e) {
+      setStatus(e.type === 'load' ? ScriptStatus.READY : ScriptStatus.ERROR);
+    }; // Add load event listener
+
+
+    script.addEventListener('load', eventHandler);
+    script.addEventListener('error', eventHandler);
+    return function () {
+      if (script) {
+        script.removeEventListener('load', eventHandler);
+        script.removeEventListener('error', eventHandler);
+      }
+    };
+  }, [url, attributes]);
+  return [status === ScriptStatus.READY, status];
+}
+
+function LmHubspotMeeting(_ref) {
+  var content = _ref.content,
+      disableEmbed = _ref.disableEmbed;
+  var dataSrc = "https://app.hubspot.com/meetings/" + content.meeting_name + "?embed-true=" + (disableEmbed ? 'false' : 'true');
+
+  var _useScript = useScript(content.meeting_name ? "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=" + new Date().getTime() : ''),
+      status = _useScript[1];
+
+  if (status === ScriptStatus.ERROR) {
+    console.error('script of hubspot not loaded');
+  }
+
+  return React__default.createElement("div", {
+    className: "lm-hubspot-meeting"
+  }, content.meeting_name, React__default.createElement("div", {
+    className: "meetings-iframe-container",
+    "data-src": dataSrc
+  }));
+}
+
 function LmButtonList(_ref) {
   var content = _ref.content;
   var body = content.body || [];
@@ -583,121 +1077,6 @@ function LmButtonList(_ref) {
     });
   }));
 }
-
-var mapTypographyVariant = {
-  headline1: 'h1',
-  headline2: 'h2',
-  headline3: 'h3',
-  headline4: 'h4',
-  headline5: 'h5',
-  headline6: 'h6',
-  subtitle2: 'subtitle2',
-  subtitle1: 'subtitle1',
-  body1: 'body1',
-  body2: 'body2',
-  button: 'button',
-  overline: 'overline',
-  caption: 'caption'
-};
-
-var LmHeadlineCore = function LmHeadlineCore(_ref) {
-  var _clsx;
-
-  var content = _ref.content,
-      _onClick = _ref.onClick,
-      children = _ref.children;
-  return React__default.createElement(Typography, {
-    onClick: function onClick() {
-      _onClick && _onClick();
-    },
-    className: clsx(content.style, content.style_props, content.class_names && content.class_names.values, (_clsx = {}, _clsx["lm-font-" + content.font] = content.font, _clsx)),
-    component: content.tag ? content.tag : undefined,
-    align: content.align ? content.align : undefined,
-    color: content.color ? content.color : undefined,
-    style: {
-      cursor: _onClick ? 'pointer' : undefined,
-      color: content.custom_color && content.custom_color.rgba ? content.custom_color.rgba : undefined,
-      lineHeight: content.line_height ? content.line_height : undefined,
-      fontSize: content.font_size ? content.font_size : undefined,
-      letterSpacing: content.letter_spacing ? content.letter_spacing : undefined
-    },
-    variant: mapTypographyVariant[content.typography ? content.typography : 'headline4']
-  }, children);
-};
-LmHeadlineCore.displayName = 'LmHeadlineCore';
-
-function HeadlineCountUp(_ref) {
-  var content = _ref.content,
-      onClick = _ref.onClick;
-
-  var _useInView = reactIntersectionObserver.useInView({
-    triggerOnce: true
-  }),
-      refIntersectionObserver = _useInView[0],
-      inView = _useInView[1]; // const { value } = useCountUp({
-  //   isCounting: true,
-  //   start: content.count_start || 0,
-  //   end: content.count_end || 1000,
-  //   duration: content.count_duration || 2.5,
-  //   suffix: content.suffix || undefined,
-  //   prefix: content.prefix || undefined,
-  //   easing: content.animation || undefined
-  // })
-
-
-  return React__default.createElement(LmHeadlineCore, {
-    content: content,
-    onClick: onClick
-  }, React__default.createElement("span", {
-    ref: refIntersectionObserver
-  }, React__default.createElement(useCountUp.CountUp, {
-    isCounting: inView,
-    duration: content.count_duration ? Number(content.count_duration) : 2.5,
-    end: content.count_end ? Number(content.count_end) : 1000,
-    start: content.count_start ? Number(content.count_start) : 0,
-    suffix: content.suffix || undefined,
-    prefix: content.prefix || undefined
-  })));
-}
-
-var LmHeadline = function LmHeadline(_ref) {
-  var content = _ref.content,
-      onClick = _ref.onClick,
-      children = _ref.children;
-
-  if (content.count_end || content.count_start) {
-    return React__default.createElement(HeadlineCountUp, {
-      content: content,
-      onClick: onClick
-    });
-  }
-
-  return React__default.createElement(LmHeadlineCore, {
-    content: content,
-    onClick: onClick
-  }, children || (!!content.text_xs ? React__default.createElement(React__default.Fragment, null, React__default.createElement("span", {
-    className: "d-none d-sm-block"
-  }, content.text), React__default.createElement("span", {
-    className: "d-block d-sm-none"
-  }, content.text_xs)) : content.text));
-};
-LmHeadline.displayName = 'LmHeadline';
-
-var initialState = {
-  leftNavigationDrawer: false,
-  rightNavigationDrawer: false,
-  searchParams: {
-    searchText: undefined,
-    categories: undefined
-  },
-  locale: CONFIG.defaultLocale,
-  hasWebpSupport: undefined
-};
-
-var _createGlobalState = /*#__PURE__*/reactHooksGlobalState.createGlobalState(initialState),
-    setGlobalState = _createGlobalState.setGlobalState,
-    useGlobalState = _createGlobalState.useGlobalState,
-    getGlobalState = _createGlobalState.getGlobalState;
 
 var boundCoordinate = function boundCoordinate(value, upperBound) {
   var v = Math.min(value, upperBound);
@@ -759,6 +1138,19 @@ function imageService(image, option, filter) {
   }
 
   return "https://img2.storyblok.com/" + opt + image.split('storyblok.com')[1];
+}
+function imageServiceNoWebp(image, option) {
+  if (option === void 0) {
+    option = '';
+  }
+
+  if (image.endsWith('.svg')) {
+    return image;
+  }
+
+  var imageService2 = 'https://img2.storyblok.com/';
+  var path = image.replace('//a.storyblok.com', '');
+  return imageService2 + option + path;
 }
 function getImageAttrs(_ref2) {
   var originalSource = _ref2.originalSource,
@@ -847,7 +1239,7 @@ var ImageShadow = function ImageShadow(_ref) {
   }));
 };
 
-var useStyles$3 = /*#__PURE__*/styles.makeStyles(function (theme) {
+var useStyles$4 = /*#__PURE__*/styles.makeStyles(function (theme) {
   var _lmFixedBg;
 
   return styles.createStyles({
@@ -881,7 +1273,7 @@ var useStyles$3 = /*#__PURE__*/styles.makeStyles(function (theme) {
 function BackgroundImage(_ref) {
   var content = _ref.content,
       backgroundStyle = _ref.backgroundStyle;
-  var classes = useStyles$3();
+  var classes = useStyles$4();
 
   var _useWindowSize = windowSize.useWindowSize(),
       width = _useWindowSize[0],
@@ -1114,7 +1506,183 @@ function useBackgroundBox(props) {
   };
 }
 
-var useStyles$4 = /*#__PURE__*/styles.makeStyles(function (theme) {
+var useStyles$5 = /*#__PURE__*/styles.makeStyles({
+  fullHeight: {
+    width: '100%',
+    height: '100%',
+    minHeight: '100vh'
+  },
+  background: {
+    position: 'relative',
+    overflow: 'hidden',
+    '& .MuiGrid-root': {
+      position: 'relative'
+    }
+  },
+  dark: {
+    '& .MuiButton-root.lm-default-color, & .MuiIconButton-root.lm-default-color': {
+      color: 'inherit',
+      '&.MuiButton-outlined,&.lm-outlined': {
+        borderColor: 'currentColor'
+      }
+    }
+  }
+});
+function LmSection(_ref) {
+  var _clsx, _clsx2;
+
+  var content = _ref.content;
+  var classes = useStyles$5();
+  var theme = styles.useTheme();
+  var background = Array.isArray(content.background) && content.background[0];
+
+  var _useBackgroundBox = useBackgroundBox({
+    variant: content.variant,
+    background: background
+  }),
+      style = _useBackgroundBox.style,
+      className = _useBackgroundBox.className;
+
+  var body = content.body || [];
+  var containerStyles = {};
+  var isFullHeight = !!(content.property && content.property.includes('is_full_height'));
+
+  if (!isFullHeight) {
+    var _content$padding;
+
+    var splittedPadding = ((_content$padding = content.padding) === null || _content$padding === void 0 ? void 0 : _content$padding.split(' ')) || [];
+
+    if (splittedPadding.length > 2) {
+      containerStyles.padding = content.padding;
+    }
+
+    containerStyles.paddingTop = splittedPadding[0] || '2.5rem';
+    containerStyles.paddingBottom = splittedPadding[0] || '2.5rem';
+  }
+
+  var maxWidth = content.max_width ? content.max_width === 'none' ? false : content.max_width : theme.defaultContainerWidth; // todo className doubled used
+
+  return React__default.createElement("div", {
+    className: clsx(classes.background, (_clsx = {}, _clsx[classes.dark] = !!content.variant, _clsx), className),
+    style: style,
+    id: content.section_identifier || content._uid
+  }, ((background === null || background === void 0 ? void 0 : background.image) || (background === null || background === void 0 ? void 0 : background.background_elements)) && React__default.createElement(BackgroundImage, {
+    content: background,
+    backgroundStyle: content.background_style
+  }), (background === null || background === void 0 ? void 0 : background.background_elements) && background.background_elements.length > 0 && React__default.createElement(BackgroundElements, {
+    elements: background.background_elements
+  }), React__default.createElement(Container, {
+    style: containerStyles,
+    maxWidth: maxWidth,
+    className: clsx(className, (_clsx2 = {}, _clsx2[classes.fullHeight] = isFullHeight, _clsx2))
+  }, body.map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  })));
+}
+
+var mapTypographyVariant = {
+  headline1: 'h1',
+  headline2: 'h2',
+  headline3: 'h3',
+  headline4: 'h4',
+  headline5: 'h5',
+  headline6: 'h6',
+  subtitle2: 'subtitle2',
+  subtitle1: 'subtitle1',
+  body1: 'body1',
+  body2: 'body2',
+  button: 'button',
+  overline: 'overline',
+  caption: 'caption'
+};
+
+var LmHeadlineCore = function LmHeadlineCore(_ref) {
+  var _clsx;
+
+  var content = _ref.content,
+      _onClick = _ref.onClick,
+      children = _ref.children;
+  return React__default.createElement(Typography, {
+    onClick: function onClick() {
+      _onClick && _onClick();
+    },
+    className: clsx(content.style, content.style_props, content.class_names && content.class_names.values, (_clsx = {}, _clsx["lm-font-" + content.font] = content.font, _clsx)),
+    component: content.tag ? content.tag : undefined,
+    align: content.align ? content.align : undefined,
+    color: content.color ? content.color : undefined,
+    style: {
+      cursor: _onClick ? 'pointer' : undefined,
+      color: content.custom_color && content.custom_color.rgba ? content.custom_color.rgba : undefined,
+      lineHeight: content.line_height ? content.line_height : undefined,
+      fontSize: content.font_size ? content.font_size : undefined,
+      letterSpacing: content.letter_spacing ? content.letter_spacing : undefined
+    },
+    variant: mapTypographyVariant[content.typography ? content.typography : 'headline4']
+  }, children);
+};
+LmHeadlineCore.displayName = 'LmHeadlineCore';
+
+function HeadlineCountUp(_ref) {
+  var content = _ref.content,
+      onClick = _ref.onClick;
+
+  var _useInView = reactIntersectionObserver.useInView({
+    triggerOnce: true
+  }),
+      refIntersectionObserver = _useInView[0],
+      inView = _useInView[1]; // const { value } = useCountUp({
+  //   isCounting: true,
+  //   start: content.count_start || 0,
+  //   end: content.count_end || 1000,
+  //   duration: content.count_duration || 2.5,
+  //   suffix: content.suffix || undefined,
+  //   prefix: content.prefix || undefined,
+  //   easing: content.animation || undefined
+  // })
+
+
+  return React__default.createElement(LmHeadlineCore, {
+    content: content,
+    onClick: onClick
+  }, React__default.createElement("span", {
+    ref: refIntersectionObserver
+  }, React__default.createElement(useCountUp.CountUp, {
+    isCounting: inView,
+    duration: content.count_duration ? Number(content.count_duration) : 2.5,
+    end: content.count_end ? Number(content.count_end) : 1000,
+    start: content.count_start ? Number(content.count_start) : 0,
+    suffix: content.suffix || undefined,
+    prefix: content.prefix || undefined
+  })));
+}
+
+var LmHeadline = function LmHeadline(_ref) {
+  var content = _ref.content,
+      onClick = _ref.onClick,
+      children = _ref.children;
+
+  if (content.count_end || content.count_start) {
+    return React__default.createElement(HeadlineCountUp, {
+      content: content,
+      onClick: onClick
+    });
+  }
+
+  return React__default.createElement(LmHeadlineCore, {
+    content: content,
+    onClick: onClick
+  }, children || (!!content.text_xs ? React__default.createElement(React__default.Fragment, null, React__default.createElement("span", {
+    className: "d-none d-sm-block"
+  }, content.text), React__default.createElement("span", {
+    className: "d-block d-sm-none"
+  }, content.text_xs)) : content.text));
+};
+LmHeadline.displayName = 'LmHeadline';
+
+var useStyles$6 = /*#__PURE__*/styles.makeStyles(function (theme) {
   var _xsColumnReverse, _smColumnReverse;
 
   return styles.createStyles({
@@ -1161,7 +1729,7 @@ function LmGridRow(_ref) {
 
   var content = _ref.content;
   // const theme = useTheme()
-  var classes = useStyles$4();
+  var classes = useStyles$6();
   var spacing = content.spacing ? Number(content.spacing) : 3;
   var background = Array.isArray(content.background) && content.background[0];
   var direction = content.direction;
@@ -1288,7 +1856,7 @@ function LmGridColumn(_ref) {
   }));
 }
 
-var useStyles$5 = /*#__PURE__*/styles.makeStyles(function (theme) {
+var useStyles$7 = /*#__PURE__*/styles.makeStyles(function (theme) {
   return {
     root: {
       display: 'inline-block',
@@ -1327,7 +1895,7 @@ function LmImage(_ref) {
 
   var content = _ref.content,
       _onClick = _ref.onClick;
-  var classes = useStyles$5();
+  var classes = useStyles$7();
   var width = windowSize.useWindowWidth();
   var isMobile = width < 600;
 
@@ -1444,7 +2012,7 @@ function LmImage(_ref) {
   }))));
 }
 
-var useStyles$6 = /*#__PURE__*/styles.makeStyles({
+var useStyles$8 = /*#__PURE__*/styles.makeStyles({
   root: {
     display: 'inline-block'
   },
@@ -1462,7 +2030,7 @@ var useStyles$6 = /*#__PURE__*/styles.makeStyles({
 function ImageSvg(_ref) {
   var content = _ref.content,
       _onClick = _ref.onClick;
-  var classes = useStyles$6();
+  var classes = useStyles$8();
 
   var _useInView = reactIntersectionObserver.useInView(intersectionDefaultOptions),
       refIntersectionObserver = _useInView[0],
@@ -1530,36 +2098,7 @@ function LmImage$1(_ref) {
   });
 }
 
-function LmHtml(_ref) {
-  var content = _ref.content;
-
-  var _useInView = reactIntersectionObserver.useInView(intersectionDefaultOptions),
-      refIntersectionObserver = _useInView[0],
-      inView = _useInView[1];
-
-  var htmlContent = React.useMemo(function () {
-    if (content.lazy_load) {
-      if (inView) {
-        return content.body || '';
-      }
-
-      return '';
-    }
-
-    return content.body || '';
-  }, [content.lazy_load, content.body, inView]);
-  return React__default.createElement("div", {
-    dangerouslySetInnerHTML: {
-      __html: htmlContent
-    },
-    ref: refIntersectionObserver,
-    style: {
-      height: '100%'
-    }
-  });
-}
-
-var useStyles$7 = /*#__PURE__*/styles.makeStyles(function (_ref) {
+var useStyles$9 = /*#__PURE__*/styles.makeStyles(function (_ref) {
   var palette = _ref.palette,
       breakpoints = _ref.breakpoints;
   var SIZES = {
@@ -1618,7 +2157,7 @@ function InvertedIndicator(_ref4) {
       color = _ref4.color,
       props = _objectWithoutPropertiesLoose(_ref4, ["className", "active", "color"]);
 
-  var classes = useStyles$7(_extends({
+  var classes = useStyles$9(_extends({
     active: active,
     color: color || 'dark'
   }, props));
@@ -1938,530 +2477,94 @@ var getLinkAttrs = function getLinkAttrs(link, options) {
   return linkHandler(link, options);
 };
 
-var toggleLeftNavigation = function toggleLeftNavigation() {
-  setGlobalState('leftNavigationDrawer', function (value) {
-    return !value;
-  });
-};
-var toggleRightNavigation = function toggleRightNavigation() {
-  setGlobalState('rightNavigationDrawer', function (value) {
-    return !value;
-  });
-};
-var closeNavigationDrawers = function closeNavigationDrawers() {
-  setGlobalState('leftNavigationDrawer', false);
-  setGlobalState('rightNavigationDrawer', false);
-}; // export const setAppSetup = (options: State['appSetup']) => {
-//   setGlobalState('appSetup', options)
-// }
-
-var addSearchParamsToUrl = function addSearchParamsToUrl(_ref) {
-  var categories = _ref.categories,
-      searchText = _ref.searchText;
-  var currentUrl = new URL(window.location.href);
-
-  if (categories) {
-    currentUrl.searchParams["delete"]('search__categories');
-    categories.forEach(function (category) {
-      currentUrl.searchParams.append('search__categories', category);
-    });
-  }
-
-  if (searchText !== undefined) {
-    if (!searchText) {
-      currentUrl.searchParams["delete"]('search__text');
-    } else {
-      currentUrl.searchParams.set('search__text', searchText);
-    }
-  }
-
-  window.history.pushState({
-    path: currentUrl.href
-  }, '', currentUrl.href);
-  window.scrollTo(0, 0);
-};
-
-var onSearchTextChange = function onSearchTextChange(searchText) {
-  setGlobalState('searchParams', function (v) {
-    return _extends({}, v, {
-      searchText: searchText
-    });
-  });
-  addSearchParamsToUrl({
-    searchText: searchText
-  });
-};
-var setSearchCategory = function setSearchCategory(categories) {
-  setGlobalState('searchParams', function (v) {
-    return _extends({}, v, {
-      categories: categories
-    });
-  });
-  addSearchParamsToUrl({
-    categories: categories
-  });
-};
-
-var defaultValue$1 = {
-  hasDrawer: false,
-  hasFeatureImage: false,
-  hasRightDrawer: false,
-  drawerVariant: 'temporary',
-  drawerBelowToolbar: false,
-  hasScrollCollapse: false
-};
-var AppSetupContext = /*#__PURE__*/React.createContext(defaultValue$1);
-var useAppSetup = function useAppSetup() {
-  return React.useContext(AppSetupContext);
-};
-
-function useScrollTop() {
-  var scrolledWithoutHysteresis = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 60
-  }); // const [value] = useDebounce(scrolledWithoutHysteresis, 700)
-
-  return scrolledWithoutHysteresis;
-}
-
-var useStyles$8 = /*#__PURE__*/styles.makeStyles(function (theme) {
-  var _lmScrolled, _contentSpace;
-
-  return styles.createStyles({
-    contentSpace: (_contentSpace = {
-      height: theme.toolbar.height.custom ? Number(theme.toolbar.height.custom) : theme.toolbar.height.mobile,
-      transitionDuration: '500ms'
-    }, _contentSpace[theme.breakpoints.up('xs') + " and (orientation: landscape)"] = {
-      height: theme.toolbar.height.custom ? Math.round(theme.toolbar.height.custom * 0.86) + theme.toolbar.height.systemBar : theme.toolbar.height.landscape + theme.toolbar.height.systemBar
-    }, _contentSpace[theme.breakpoints.up('sm')] = {
-      height: theme.toolbar.height.custom ? Math.round(theme.toolbar.height.custom * 1.15) + theme.toolbar.height.systemBar : theme.toolbar.height.desktop + theme.toolbar.height.systemBar
-    }, _contentSpace['&.lm-scrolled'] = (_lmScrolled = {
-      height: theme.toolbar.height.mobile
-    }, _lmScrolled[theme.breakpoints.up('xs') + " and (orientation: landscape)"] = {
-      height: theme.toolbar.height.landscape // + theme.toolbar.height.systemBar
-
-    }, _lmScrolled[theme.breakpoints.up('sm')] = {
-      height: theme.toolbar.height.desktop // + theme.toolbar.height.systemBar
-
-    }, _lmScrolled), _contentSpace)
-  });
-});
-
-function ContentSpace() {
-  var classes = useStyles$8();
-  var appSetup = useAppSetup();
-  var scrolledWithoutHysteresis = useScrollTop();
-  return React__default.createElement("div", {
-    className: clsx('lm-content-space', classes.contentSpace, {
-      'lm-scrolled': scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage)
-    })
-  });
-}
-
-var usePageStyles = /*#__PURE__*/styles.makeStyles(function (theme) {
-  var _rightMobileSm, _rightMobileMd, _rightMobileLg, _leftMobileSm, _leftMobileMd, _leftMobileLg;
-
-  return styles.createStyles({
-    rightDocked: {
-      width: theme.drawer.right,
-      zIndex: theme.zIndex.appBar - 1
-    },
-    rightModal: {
-      '& .lm-content-space': {
-        display: 'none'
-      }
-    },
-    rightDrawerPaper: {
-      width: theme.drawer.right,
-      padding: theme.spacing(2)
-    },
-    rightContent: {
-      overflowY: 'auto'
-    },
-    content: {
-      transition: theme.transitions.create(['margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      })
-    },
-    contentWithRight: {
-      marginRight: theme.drawer.right
-    },
-    'right-mobile-sm': (_rightMobileSm = {}, _rightMobileSm[theme.breakpoints.only('xs')] = {
-      marginRight: '0 !important'
-    }, _rightMobileSm),
-    'right-mobile-md': (_rightMobileMd = {}, _rightMobileMd[theme.breakpoints.down('sm')] = {
-      marginRight: 0
-    }, _rightMobileMd),
-    'right-mobile-lg': (_rightMobileLg = {}, _rightMobileLg[theme.breakpoints.down('md')] = {
-      marginRight: 0
-    }, _rightMobileLg),
-    leftShift: {
-      marginLeft: theme.drawer.left,
-      transition: theme.transitions.create(['margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      })
-    },
-    'left-mobile-sm': (_leftMobileSm = {}, _leftMobileSm[theme.breakpoints.only('xs')] = {
-      marginLeft: 0
-    }, _leftMobileSm),
-    'left-mobile-md': (_leftMobileMd = {}, _leftMobileMd[theme.breakpoints.down('sm')] = {
-      marginLeft: 0
-    }, _leftMobileMd),
-    'left-mobile-lg': (_leftMobileLg = {}, _leftMobileLg[theme.breakpoints.down('md')] = {
-      marginLeft: 0
-    }, _leftMobileLg)
-  });
-});
-
-var RightDrawerContainer = function RightDrawerContainer(_ref) {
-  var children = _ref.children;
-  var classes = usePageStyles();
-  var theme = styles.useTheme();
-  var appSetup = useAppSetup();
-  var matches = useMediaQuery(theme.breakpoints.up(appSetup.rightDrawerMediaBreakpoint || 'sm')); // const { isMobile } = useDeviceDimensions()
-
-  var _useGlobalState = useGlobalState('rightNavigationDrawer'),
-      rightIsOpen = _useGlobalState[0];
-
-  return React__default.createElement(Drawer, {
-    variant: !matches ? 'temporary' : 'permanent',
-    anchor: "right",
-    classes: {
-      paper: classes.rightDrawerPaper,
-      modal: classes.rightModal,
-      paperAnchorDockedRight: classes.rightDocked
-    },
-    open: !matches ? rightIsOpen : true,
-    onClose: function onClose() {
-      return closeNavigationDrawers();
-    }
-  }, children);
-};
-
-RightDrawerContainer.displayName = 'RightDrawerContainer';
-
-function RightDrawer(_ref2) {
-  var rightBody = _ref2.rightBody;
-  var classes = usePageStyles();
-  return React__default.createElement(RightDrawerContainer, null, React__default.createElement(ContentSpace, null), React__default.createElement("div", {
-    className: classes.rightContent
-  }, rightBody.map(function (blok) {
-    return React__default.createElement(LmComponentRender, {
-      content: blok,
-      key: blok._uid
-    });
-  })));
-}
-
-var MainContentContainer = function MainContentContainer(_ref) {
+function LmImageList(_ref) {
   var _clsx;
 
-  var children = _ref.children;
-  var classes = usePageStyles();
-  var appSetup = useAppSetup();
-
-  var _useGlobalState = useGlobalState('leftNavigationDrawer'),
-      isOpen = _useGlobalState[0];
-
-  return React__default.createElement("main", {
-    className: clsx(classes.content, (_clsx = {}, _clsx[classes.contentWithRight] = appSetup.hasRightDrawer, _clsx[classes["right-mobile-" + (appSetup.rightDrawerMediaBreakpoint || 'sm')]] = true, _clsx[classes.leftShift] = appSetup.drawerVariant !== 'temporary' && isOpen, _clsx[classes["left-mobile-" + (appSetup.leftDrawerMediaBreakpoint || 'sm')]] = appSetup.drawerVariant !== 'temporary' && isOpen, _clsx))
-  }, children);
-};
-
-MainContentContainer.displayName = 'MainContentContainer';
-function MainContent(_ref2) {
-  var body = _ref2.body;
-  return React__default.createElement(MainContentContainer, null, body.map(function (blok) {
-    return React__default.createElement(LmComponentRender, {
-      content: blok,
-      key: blok._uid
-    });
-  }));
-}
-
-function LmPage(_ref) {
   var content = _ref.content;
-  var body = content.body || [];
-  var rightBody = content.right_body || [];
+  var classes = useImageListStyles();
 
-  if (!body.length) {
-    return React__default.createElement("div", null, "There is no content yet...");
-  }
+  var _useWindowSize = windowSize.useWindowSize(),
+      width = _useWindowSize[0],
+      height = _useWindowSize[1];
 
-  if (!body.some(function (i) {
-    return i.component === 'section_parallax';
-  })) {
-    return React__default.createElement(React__default.Fragment, null, rightBody.length > 0 && React__default.createElement(RightDrawer, {
-      rightBody: rightBody
-    }), React__default.createElement(MainContent, {
-      body: body
-    }));
-  }
-
-  return React__default.createElement(reactScrollParallax.ParallaxProvider, null, rightBody.length > 0 && React__default.createElement(RightDrawer, {
-    rightBody: rightBody
-  }), React__default.createElement(MainContent, {
-    body: body
-  }));
-}
-
-function LmAccordionItem(_ref) {
-  var content = _ref.content,
-      options = _ref.options,
-      setOpen = _ref.setOpen,
-      opened = _ref.opened,
-      iteration = _ref.iteration;
+  var gridClasses = useGridListStyles({
+    columnCount: content.column_count,
+    columnCountPhone: content.column_count_phone,
+    columnCountTablet: content.column_count_tablet,
+    isMasonry: !!content.masonry
+  });
+  var containerRef = React__default.createRef();
 
   var _useState = React.useState(''),
-      isOpen = _useState[0],
-      setIsOpen = _useState[1];
+      lightbox = _useState[0],
+      setLightbox = _useState[1];
 
-  var handleChange = function handleChange(panel) {
-    return function (_, isExpanded) {
-      options.restrict_one ? setOpen(isExpanded ? panel : '') : setIsOpen(isExpanded ? panel : '');
-    };
-  };
+  var gutterSize = content.column_gap ? Number(content.column_gap) : 2;
 
-  var panelKey = "panel-" + iteration;
-  var expanded = options.restrict_one ? opened === panelKey : isOpen === panelKey;
-  return React__default.createElement(Accordion, {
-    square: !!options.square,
-    expanded: expanded,
-    onChange: handleChange(panelKey)
-  }, React__default.createElement(AccordionSummary, {
-    expandIcon: content.use_plus_icon || options.use_plus ? React__default.createElement(Plus, null) : React__default.createElement(ChevronDown, null)
-  }, React__default.createElement(Typography, null, content.title)), React__default.createElement(AccordionDetails, null, React__default.createElement("div", null, (content.body || []).map(function (blok) {
-    return React__default.createElement(LmComponentRender, {
-      content: blok,
-      key: blok._uid
-    });
-  }))));
-}
-
-function LmStaticSection(_ref) {
-  var content = _ref.content;
-
-  var _useAppContext = useAppContext(),
-      allStaticContent = _useAppContext.allStaticContent;
-
-  if (!content.container) {
-    return null;
+  function onImageClick(element) {
+    // open lightbox
+    content.enable_lightbox && setLightbox(element._uid);
   }
-
-  var containerContent = allStaticContent.find(function (item) {
-    return item.uuid === content.container;
-  });
-  var body = containerContent && containerContent.content && containerContent.content.body || [];
-  return React__default.createElement("div", {
-    className: clsx(content.class_names && content.class_names.values)
-  }, body.map(function (blok) {
-    return React__default.createElement(LmComponentRender, {
-      content: blok,
-      key: blok._uid
-    });
-  }));
-}
-
-function LmStaticContainer(_ref) {
-  var content = _ref.content;
-  return React__default.createElement("div", {
-    className: "lm-static-container"
-  }, (content.body || []).map(function (blok) {
-    return React__default.createElement(LmComponentRender, {
-      content: blok,
-      key: blok._uid
-    });
-  }));
-}
-
-var ScriptStatus;
-
-(function (ScriptStatus) {
-  ScriptStatus["IDLE"] = "idle";
-  ScriptStatus["LOADING"] = "loading";
-  ScriptStatus["READY"] = "ready";
-  ScriptStatus["ERROR"] = "error";
-})(ScriptStatus || (ScriptStatus = {}));
-/**
- * Hook to load an external script. Returns true once the script has finished loading.
- *
- * @param url {string} url The external script to load
- * @param attributes {} attributes Script tag attributes
- * */
-
-
-function useScript(url, attributes) {
-  var clientHydrated = useClientHydrated();
-
-  var _useState = React.useState(function () {
-    if (clientHydrated) {
-      var script = document.querySelector("script[src=\"" + url + "\"]");
-
-      if (script === null || script === void 0 ? void 0 : script.hasAttribute('data-status')) {
-        return script.getAttribute('data-status');
-      }
-    }
-
-    return url ? ScriptStatus.LOADING : ScriptStatus.IDLE;
-  }),
-      status = _useState[0],
-      setStatus = _useState[1];
-
-  React.useEffect(function () {
-    if (!url) {
-      setStatus(ScriptStatus.IDLE);
-      return undefined;
-    }
-
-    var script = document.querySelector("script[src=\"" + url + "\"]");
-
-    if (!script) {
-      script = document.createElement('script');
-      script.src = url;
-      script.async = true;
-      script.setAttribute('data-status', ScriptStatus.LOADING);
-      document.head.appendChild(script);
-
-      if (attributes) {
-        Object.keys(attributes).forEach(function (key) {
-          var _script;
-
-          (_script = script) === null || _script === void 0 ? void 0 : _script.setAttribute(key, attributes[key]);
-        });
-      } // Ensure the status is loading
-
-
-      setStatus(ScriptStatus.LOADING);
-
-      script.onerror = function () {
-        var _script2;
-
-        return (_script2 = script) === null || _script2 === void 0 ? void 0 : _script2.setAttribute('data-status', ScriptStatus.ERROR);
-      };
-
-      script.onload = function () {
-        var _script3;
-
-        return (_script3 = script) === null || _script3 === void 0 ? void 0 : _script3.setAttribute('data-status', ScriptStatus.READY);
-      };
-    } else if (script.hasAttribute('data-status')) {
-      setStatus(script.getAttribute('data-status'));
-    }
-
-    var eventHandler = function eventHandler(e) {
-      setStatus(e.type === 'load' ? ScriptStatus.READY : ScriptStatus.ERROR);
-    }; // Add load event listener
-
-
-    script.addEventListener('load', eventHandler);
-    script.addEventListener('error', eventHandler);
-    return function () {
-      if (script) {
-        script.removeEventListener('load', eventHandler);
-        script.removeEventListener('error', eventHandler);
-      }
-    };
-  }, [url, attributes]);
-  return [status === ScriptStatus.READY, status];
-}
-
-function LmHubspotMeeting(_ref) {
-  var content = _ref.content,
-      disableEmbed = _ref.disableEmbed;
-  var dataSrc = "https://app.hubspot.com/meetings/" + content.meeting_name + "?embed-true=" + (disableEmbed ? 'false' : 'true');
-
-  var _useScript = useScript(content.meeting_name ? "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=" + new Date().getTime() : ''),
-      status = _useScript[1];
-
-  if (status === ScriptStatus.ERROR) {
-    console.error('script of hubspot not loaded');
-  }
-
-  return React__default.createElement("div", {
-    className: "lm-hubspot-meeting"
-  }, content.meeting_name, React__default.createElement("div", {
-    className: "meetings-iframe-container",
-    "data-src": dataSrc
-  }));
-}
-
-var useStyles$9 = /*#__PURE__*/styles.makeStyles({
-  fullHeight: {
-    width: '100%',
-    height: '100%',
-    minHeight: '100vh'
-  },
-  background: {
-    position: 'relative',
-    overflow: 'hidden',
-    '& .MuiGrid-root': {
-      position: 'relative'
-    }
-  },
-  dark: {
-    '& .MuiButton-root.lm-default-color, & .MuiIconButton-root.lm-default-color': {
-      color: 'inherit',
-      '&.MuiButton-outlined,&.lm-outlined': {
-        borderColor: 'currentColor'
-      }
-    }
-  }
-});
-function LmSection(_ref) {
-  var _clsx, _clsx2;
-
-  var content = _ref.content;
-  var classes = useStyles$9();
-  var theme = styles.useTheme();
-  var background = Array.isArray(content.background) && content.background[0];
-
-  var _useBackgroundBox = useBackgroundBox({
-    variant: content.variant,
-    background: background
-  }),
-      style = _useBackgroundBox.style,
-      className = _useBackgroundBox.className;
 
   var body = content.body || [];
-  var containerStyles = {};
-  var isFullHeight = !!(content.property && content.property.includes('is_full_height'));
+  var gridListProps = {
+    spacing: gutterSize
+  };
 
-  if (!isFullHeight) {
-    var _content$padding;
-
-    var splittedPadding = ((_content$padding = content.padding) === null || _content$padding === void 0 ? void 0 : _content$padding.split(' ')) || [];
-
-    if (splittedPadding.length > 2) {
-      containerStyles.padding = content.padding;
-    }
-
-    containerStyles.paddingTop = splittedPadding[0] || '2.5rem';
-    containerStyles.paddingBottom = splittedPadding[0] || '2.5rem';
+  if (content.masonry) {
+    gridListProps.spacing = 0;
+    gridListProps.style = {
+      // columnCount: columnCount,
+      columnGap: gutterSize + "px"
+    };
   }
 
-  var maxWidth = content.max_width ? content.max_width === 'none' ? false : content.max_width : theme.defaultContainerWidth; // todo className doubled used
-
   return React__default.createElement("div", {
-    className: clsx(classes.background, (_clsx = {}, _clsx[classes.dark] = !!content.variant, _clsx), className),
-    style: style,
-    id: content.section_identifier || content._uid
-  }, ((background === null || background === void 0 ? void 0 : background.image) || (background === null || background === void 0 ? void 0 : background.background_elements)) && React__default.createElement(BackgroundImage, {
-    content: background,
-    backgroundStyle: content.background_style
-  }), (background === null || background === void 0 ? void 0 : background.background_elements) && background.background_elements.length > 0 && React__default.createElement(BackgroundElements, {
-    elements: background.background_elements
-  }), React__default.createElement(Container, {
-    style: containerStyles,
-    maxWidth: maxWidth,
-    className: clsx(className, (_clsx2 = {}, _clsx2[classes.fullHeight] = isFullHeight, _clsx2))
-  }, body.map(function (blok) {
-    return React__default.createElement(LmComponentRender, {
-      content: blok,
-      key: blok._uid
-    });
-  })));
+    className: "lm-imagelist__container"
+  }, React__default.createElement("div", {
+    ref: containerRef,
+    style: {
+      padding: gutterSize + "px"
+    },
+    className: clsx(classes.root, (_clsx = {}, _clsx[gridClasses.masonry] = content.masonry, _clsx[classes.aspectRatio] = content.aspect_ratio && !content.masonry, _clsx["ratio-" + content.aspect_ratio] = content.aspect_ratio, _clsx['with-lightbox'] = content.enable_lightbox, _clsx))
+  }, React__default.createElement(GridList, Object.assign({
+    cellHeight: "auto",
+    className: gridClasses.gridList
+  }, gridListProps), body.map(function (item, i) {
+    var _item$link;
+
+    var btnProps = ((_item$link = item.link) === null || _item$link === void 0 ? void 0 : _item$link.cached_url) && !content.enable_lightbox ? _extends({}, getLinkAttrs(item.link, {
+      openExternal: !!item.open_external
+    }), {
+      naked: true,
+      component: LmCoreComponents.lm_link_render
+    }) : {};
+    return React__default.createElement(GridListTile, Object.assign({
+      key: item.component + "_" + i
+    }, btnProps, {
+      style: {
+        padding: !content.masonry ? gutterSize + "px" : undefined,
+        marginBottom: content.masonry ? gutterSize + "px" : undefined
+      },
+      onClick: function onClick(ev) {
+        return onImageClick(_extends({
+          _uid: item._uid,
+          count: i
+        }, ev));
+      }
+    }), React__default.createElement(LmComponentRender, {
+      content: item,
+      listProps: content
+    }));
+  }))), lightbox && ImageListLightbox({
+    elements: body,
+    lightbox: lightbox,
+    setLightbox: setLightbox,
+    onImageClick: onImageClick,
+    className: classes.lightbox,
+    width: width,
+    height: height
+  }));
 }
 
 function LmImageListItem(props) {
@@ -6107,6 +6210,624 @@ var AppSetupProvider = function AppSetupProvider(_ref) {
 
 AppSetupProvider.displayName = 'AppSetupProvider';
 
+function parseFont(string) {
+  if (!string) return null;
+  var name = string.split(':')[0];
+  return name.replace(/\+/g, ' ');
+}
+var getFontBasedOnSetting = function getFontBasedOnSetting(settings) {
+  var settingsFonts = ['theme_font_default', 'theme_font_alt1', 'theme_font_alt2', 'theme_font_alt3', 'theme_font_alt4'];
+  var loadFonts = [];
+  Object.keys(settings).forEach(function (key) {
+    if (settingsFonts.includes(key) && settings[key]) {
+      loadFonts.push(settings[key]);
+    }
+  });
+  return loadFonts;
+};
+
+var getNprogressJss = function getNprogressJss(theme) {
+  return {
+    // NProgress
+    '#nprogress': {
+      pointerEvents: 'none',
+      '& .bar': {
+        position: 'fixed',
+        background: theme.toolbar && theme.toolbar.progressColor ? theme.toolbar.progressColor : theme.palette.primary.main,
+        borderRadius: 0,
+        zIndex: theme.zIndex.tooltip,
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: 2
+      },
+      '& dd, & dt': {
+        position: 'absolute',
+        top: 0,
+        height: 2,
+        boxShadow: (theme.toolbar && theme.toolbar.progressColor || theme.palette.primary.main) + " 1px 0 6px 1px",
+        borderRadius: '100%',
+        animation: 'nprogress-pulse 2s ease-out 0s infinite'
+      },
+      '& dd': {
+        opacity: 0.6,
+        width: 20,
+        right: 0,
+        clip: 'rect(-6px,22px,14px,10px)'
+      },
+      '& dt': {
+        opacity: 0.6,
+        width: 180,
+        right: -80,
+        clip: 'rect(-6px,90px,14px,-6px)'
+      }
+    },
+    '@keyframes nprogress-pulse': {
+      '30%': {
+        opacity: 0.6
+      },
+      '60%': {
+        opacity: 0
+      },
+      to: {
+        opacity: 0.6
+      }
+    }
+  };
+};
+
+var getCreatedStyles = function getCreatedStyles(theme) {
+  var _extends2;
+
+  var genSpacing = function genSpacing(breakpoint) {
+    if (breakpoint === void 0) {
+      breakpoint = '';
+    }
+
+    var spacing = {};
+    var directions = [{
+      key: 't',
+      val: 'Top'
+    }, {
+      key: 'l',
+      val: 'Left'
+    }, {
+      key: 'r',
+      val: 'Right'
+    }, {
+      key: 'b',
+      val: 'Bottom'
+    }];
+
+    for (var i = 0; i <= 5; i++) {
+      for (var i1 = 0; i1 < directions.length; i1++) {
+        var _spacing, _spacing2, _spacing3, _spacing4, _spacing5, _spacing6, _spacing7, _spacing8;
+
+        var dir = directions[i1];
+        spacing[".p" + dir.key + breakpoint + "-" + i] = (_spacing = {}, _spacing["padding" + dir.val] = theme.spacing(i) + "px !important", _spacing);
+        spacing[".m" + dir.key + breakpoint + "-" + i] = (_spacing2 = {}, _spacing2["margin" + dir.val] = theme.spacing(i) + "px !important", _spacing2);
+        spacing[".p" + breakpoint + "-" + i] = (_spacing3 = {}, _spacing3["padding"] = theme.spacing(i) + "px !important", _spacing3);
+        spacing[".m" + breakpoint + "-" + i] = (_spacing4 = {}, _spacing4["margin"] = theme.spacing(i) + "px !important", _spacing4);
+        spacing[".mx" + breakpoint + "-" + i] = (_spacing5 = {}, _spacing5["marginLeft"] = theme.spacing(i) + "px !important", _spacing5["marginRight"] = theme.spacing(i) + "px !important", _spacing5);
+        spacing[".my" + breakpoint + "-" + i] = (_spacing6 = {}, _spacing6["marginTop"] = theme.spacing(i) + "px !important", _spacing6["marginBottom"] = theme.spacing(i) + "px !important", _spacing6);
+        spacing[".px" + breakpoint + "-" + i] = (_spacing7 = {}, _spacing7["paddingLeft"] = theme.spacing(i) + "px !important", _spacing7["paddingRight"] = theme.spacing(i) + "px !important", _spacing7);
+        spacing[".py" + breakpoint + "-" + i] = (_spacing8 = {}, _spacing8["paddingTop"] = theme.spacing(i) + "px !important", _spacing8["paddingBottom"] = theme.spacing(i) + "px !important", _spacing8);
+      }
+    }
+
+    return spacing;
+  }; // const spacing = genSpacing()
+
+
+  var dark = '#303030';
+  return styles.createStyles({
+    '@global': _extends({}, getNprogressJss(theme), genSpacing(), (_extends2 = {
+      '.img-fluid': {
+        maxWidth: '100%',
+        height: 'auto'
+      },
+      html: {
+        scrollBehavior: 'smooth'
+      },
+      a: {
+        textDecoration: 'none'
+      },
+      '.badge': {
+        display: 'inline-block',
+        padding: '.25em .4em',
+        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
+        color: theme.palette.type === 'dark' ? 'rgba(0, 0, 0, 0.87)' : theme.palette.common.white,
+        borderRadius: theme.shape.borderRadius,
+        transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+      },
+      '.badge-pill': {
+        display: 'inline-block',
+        padding: '.25em .4em',
+        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
+        color: theme.palette.type === 'dark' ? 'rgba(0, 0, 0, 0.87)' : theme.palette.common.white,
+        transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+        borderRadius: '2rem'
+      },
+      '.badge-square': {
+        display: 'inline-block',
+        padding: '.25em .4em',
+        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
+        color: theme.palette.type === 'dark' ? 'rgba(0, 0, 0, 0.87)' : theme.palette.common.white,
+        transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+      },
+      '.badge-primary': {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText
+      },
+      '.badge-secondary': {
+        backgroundColor: theme.palette.secondary.main,
+        color: theme.palette.secondary.contrastText
+      },
+      '.badge-danger': {
+        backgroundColor: theme.palette.error.main,
+        color: theme.palette.error.contrastText
+      },
+      '.badge-light': {
+        backgroundColor: '#ccc',
+        color: 'rgba(0, 0, 0, 0.87)'
+      },
+      '.badge-dark': {
+        backgroundColor: dark,
+        color: '#fff'
+      },
+      '.badge-dark-transparent': {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        color: '#fff'
+      },
+      '.badge-light-transparent': {
+        backgroundColor: 'rgba(0,0,0,0.2)',
+        color: 'rgba(0, 0, 0, 0.87)'
+      },
+      '.embed-responsive': {
+        position: 'relative',
+        display: 'block',
+        width: '100%',
+        padding: 0,
+        overflow: 'hidden',
+        '&.embed-responsive-16by9': {
+          paddingBottom: '56.25%'
+        },
+        '&.embed-responsive-4by3': {
+          paddingBottom: '75%'
+        },
+        '&.embed-responsive-1by1': {
+          paddingBottom: '100%'
+        },
+        '&.embed-responsive-3by2': {
+          paddingBottom: '66.6%'
+        }
+      },
+      '.embed-responsive-item': {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        border: 0
+      },
+      // '.material-icons': {
+      //   visibility: 'hidden'
+      // },
+      '.line-through': {
+        textDecoration: 'line-through'
+      },
+      // '.fonts-loaded': {
+      //   '& .material-icons': {
+      //     visibility: 'visible'
+      //   }
+      // },
+      '.mh-100': {
+        minHeight: '100% !important'
+      },
+      '.h-100': {
+        height: '100% !important'
+      },
+      '.mw-100': {
+        minWidth: '100% !important'
+      },
+      '.w-100': {
+        width: '100% !important'
+      },
+      '.text-left': {
+        textAlign: 'left'
+      },
+      '.text-center': {
+        textAlign: 'center'
+      },
+      '.text-right': {
+        textAlign: 'right'
+      },
+      '.text-justify': {
+        textAlign: 'justify'
+      },
+      '.font-weight-bold': {
+        fontWeight: 'bold !important'
+      },
+      '.font-weight-bolder': {
+        fontWeight: 'bolder !important'
+      },
+      '.font-weight-light': {
+        fontWeight: 'light !important'
+      },
+      '.font-weight-lighter': {
+        fontWeight: 'lighter !important'
+      },
+      '.font-weight-normal': {
+        fontWeight: 'normal !important'
+      },
+      '.font-weight-100': {
+        fontWeight: '100 !important'
+      },
+      '.font-weight-200': {
+        fontWeight: '200 !important'
+      },
+      '.font-weight-300': {
+        fontWeight: '300 !important'
+      },
+      '.font-weight-400': {
+        fontWeight: '400 !important'
+      },
+      '.font-weight-500': {
+        fontWeight: '500 !important'
+      },
+      '.font-weight-600': {
+        fontWeight: '600 !important'
+      },
+      '.font-weight-700': {
+        fontWeight: '700 !important'
+      },
+      '.font-weight-800': {
+        fontWeight: '800 !important'
+      },
+      '.font-weight-900': {
+        fontWeight: '900 !important'
+      },
+      '.text-uppercase': {
+        textTransform: 'uppercase'
+      },
+      '.text-monospace': {
+        fontFamily: 'SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace !important'
+      },
+      '.font-italic': {
+        fontStyle: 'italic !important'
+      },
+      '.text-primary': {
+        color: theme.palette.primary.main + " !important"
+      },
+      '.text-black-50': {
+        color: 'rgba(0,0,0,0.5) !important'
+      },
+      '.text-white-50': {
+        color: 'rgba(255,255,255,0.5) !important'
+      },
+      '.text-secondary': {
+        color: theme.palette.secondary.main + " !important"
+      },
+      '.text-primary-text': {
+        color: theme.palette.text.primary + " !important"
+      },
+      '.text-primary-secondary': {
+        color: theme.palette.text.secondary + " !important"
+      },
+      '.text-muted': {
+        color: theme.palette.text.hint + " !important"
+      },
+      '.text-white': {
+        color: theme.palette.common.white + " !important"
+      },
+      '.text-danger': {
+        color: theme.palette.error.main + " !important"
+      },
+      '.bg-primary': {
+        backgroundColor: theme.palette.primary.main + " !important"
+      },
+      '.bg-secondary': {
+        backgroundColor: theme.palette.secondary.main + " !important"
+      },
+      '.bg-danger': {
+        backgroundColor: theme.palette.error.main + " !important"
+      },
+      '.bg-white': {
+        backgroundColor: theme.palette.common.white + " !important"
+      },
+      '.bg-black': {
+        backgroundColor: theme.palette.common.black
+      },
+      '.bg-dark': {
+        backgroundColor: dark + "!important"
+      },
+      '.bg-light': {
+        backgroundColor: '#ccc !important'
+      },
+      'a.lm-link__button, a.MuiLink-root.MuiButton-root': {
+        textDecoration: 'none',
+        color: 'inherit'
+      },
+      '.lm-font-alt1': {
+        fontFamily: theme.alternativeFont && theme.alternativeFont.alt1 || theme.typography.fontFamily
+      },
+      '.lm-font-alt2': {
+        fontFamily: theme.alternativeFont && theme.alternativeFont.alt2 || theme.typography.fontFamily
+      },
+      '.lm-font-alt3': {
+        fontFamily: theme.alternativeFont && theme.alternativeFont.alt3 || theme.typography.fontFamily
+      },
+      '.lm-font-alt4': {
+        fontFamily: theme.alternativeFont && theme.alternativeFont.alt4 || theme.typography.fontFamily
+      },
+      '.d-none': {
+        display: 'none'
+      },
+      '.d-inline-flex': {
+        display: 'inline-flex'
+      },
+      '.d-block': {
+        display: 'block'
+      },
+      '.d-inline-block': {
+        display: 'inline-block'
+      },
+      '.text-1-row-max': {
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap'
+      },
+      '.text-2-rows-max': {
+        display: '-webkit-box',
+        textOverflow: 'ellipsis',
+        minHeight: '3rem',
+        overflow: 'hidden',
+        '-webkit-box-orient': 'vertical',
+        '-webkit-line-clamp': 2
+      },
+      '.text-3-rows-max': {
+        display: '-webkit-box',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+        minHeight: '4.5rem',
+        '-webkit-line-clamp': 3,
+        '-webkit-box-orient': 'vertical'
+      }
+    }, _extends2[theme.breakpoints.only('xs')] = {
+      '.d-xs-inline-flex': {
+        display: 'inline-flex'
+      },
+      '.d-xs-none': {
+        display: 'none'
+      },
+      '.d-xs-block': {
+        display: 'block'
+      }
+    }, _extends2[theme.breakpoints.up('sm')] = _extends({
+      '.d-sm-inline-flex': {
+        display: 'inline-flex'
+      },
+      '.d-sm-none': {
+        display: 'none'
+      },
+      '.d-sm-block': {
+        display: 'block'
+      },
+      '.text-sm-left': {
+        textAlign: 'left'
+      },
+      '.text-sm-center': {
+        textAlign: 'center'
+      },
+      '.text-sm-right': {
+        textAlign: 'right'
+      },
+      '.text-sm-justify': {
+        textAlign: 'justify'
+      }
+    }, genSpacing('-sm')), _extends2[theme.breakpoints.up('md')] = _extends({
+      '.d-md-inline-flex': {
+        display: 'inline-flex'
+      },
+      '.d-md-none': {
+        display: 'none'
+      },
+      '.d-md-block': {
+        display: 'block'
+      },
+      '.text-md-left': {
+        textAlign: 'left'
+      },
+      '.text-md-center': {
+        textAlign: 'center'
+      },
+      '.text-md-right': {
+        textAlign: 'right'
+      },
+      '.text-md-justify': {
+        textAlign: 'justify'
+      }
+    }, genSpacing('-md')), _extends2[theme.breakpoints.up('lg')] = {
+      '.d-lg-inline-flex': {
+        display: 'inline-flex'
+      },
+      '.d-lg-none': {
+        display: 'none'
+      },
+      '.text-lg-left': {
+        textAlign: 'left'
+      },
+      '.text-lg-center': {
+        textAlign: 'center'
+      },
+      '.text-lg-right': {
+        textAlign: 'right'
+      },
+      '.text-lg-justify': {
+        textAlign: 'justify'
+      }
+    }, _extends2))
+  });
+};
+var useGlobalStyles = /*#__PURE__*/styles.makeStyles(function (theme) {
+  return getCreatedStyles(theme);
+});
+
+var mapThemeType = {
+  base: 'light',
+  dark: 'dark'
+};
+var GlobalStyles = /*#__PURE__*/React.memo(function () {
+  useGlobalStyles();
+  return null;
+});
+
+var GlobalTheme = function GlobalTheme(_ref) {
+  var children = _ref.children,
+      settings = _ref.settings,
+      rightDrawerWidth = _ref.rightDrawerWidth;
+  var themeUid = settings && settings._uid;
+  var theme = React.useMemo(function () {
+    if (!themeUid) {
+      return {};
+    }
+
+    if (!settings.theme_font_default) {
+      settings.theme_font_default = 'Nunito:300,400,700';
+    }
+
+    var defaultContainerWidth = 'lg';
+
+    if (settings.theme_container_width) {
+      defaultContainerWidth = settings.theme_container_width === 'none' ? false : settings.theme_container_width;
+    }
+
+    var firstMultiToolbar = Array.isArray(settings.multi_toolbar) && settings.multi_toolbar[0];
+    var globalTheme = {
+      palette: {
+        type: mapThemeType[settings.theme_base || 'base'],
+        primary: {
+          main: settings.theme_primary || '#1769aa',
+          contrastText: settings.theme_primary_contrast || '#fff'
+        },
+        secondary: {
+          main: settings.theme_secondary || '#ab003c',
+          contrastText: settings.theme_secondary_contrast || '#fff'
+        }
+      },
+      drawer: {
+        left: (settings.drawer_width || 285) + "px",
+        right: (rightDrawerWidth || 254) + "px"
+      },
+      toolbar: {
+        progressColor: settings.toolbar_progress_color,
+        height: {
+          mobile: 56,
+          landscape: 48,
+          desktop: 64,
+          custom: settings.toolbar_main_height ? settings.toolbar_main_height : undefined,
+          systemBar: (firstMultiToolbar === null || firstMultiToolbar === void 0 ? void 0 : firstMultiToolbar.is_system_bar) ? (firstMultiToolbar === null || firstMultiToolbar === void 0 ? void 0 : firstMultiToolbar.height) || 40 : 0
+        }
+      },
+      typography: {
+        fontFamily: settings.theme_font_default && parseFont(settings.theme_font_default)
+      },
+      alternativeFont: {
+        alt1: settings.theme_font_alt1 && parseFont(settings.theme_font_alt1),
+        alt2: settings.theme_font_alt2 && parseFont(settings.theme_font_alt2),
+        alt3: settings.theme_font_alt3 && parseFont(settings.theme_font_alt3),
+        alt4: settings.theme_font_alt4 && parseFont(settings.theme_font_alt4)
+      },
+      defaultContainerWidth: defaultContainerWidth,
+      overrides: {
+        MuiDrawer: {
+          modal: {
+            '&.lm-main__drawer .MuiExpansionPanelDetails-root .MuiList-root': {
+              width: '100%'
+            }
+          }
+        },
+        MuiPopover: {
+          paper: {
+            '& a': {
+              color: 'inherit',
+              textDecoration: 'none'
+            }
+          }
+        },
+        MuiAppBar: {
+          root: {
+            '& .MuiToolbar-root': {
+              padding: '12px 0'
+            },
+            '& .lm-logo-header': {
+              height: '100%',
+              display: 'inline-block',
+              '&.lm-logo-text': {
+                height: '100%',
+                display: 'inline-flex',
+                alignItems: 'center'
+              },
+              '& figure': {
+                boxSizing: 'border-box'
+              },
+              '& .MuiCollapse-wrapper': {
+                height: '100%'
+              },
+              '& img': {
+                display: 'block',
+                height: '100%'
+              }
+            },
+            '& .MuiButtonBase-root.lm-default-color, & a.lm-logo-header': {
+              color: 'inherit',
+              textDecoration: 'none',
+              whiteSpace: 'nowrap',
+              '&.MuiButton-outlined,&.lm-outlined': {
+                borderColor: 'currentColor'
+              }
+            },
+            '& .lm-toolbar__section': {
+              justifyContent: 'flex-end'
+            },
+            '&.lm-toolbar__dark': {
+              backgroundColor: '#424242',
+              color: 'white'
+            }
+          }
+        },
+        MuiCard: {
+          root: {
+            '& > a': {
+              textDecoration: 'none',
+              color: 'inherit'
+            }
+          }
+        },
+        MuiList: {
+          root: {
+            '& > a': {
+              color: 'inherit'
+            }
+          }
+        },
+        MuiButton: {
+          label: {
+            textTransform: 'initial'
+          }
+        }
+      }
+    };
+    return styles.responsiveFontSizes(styles.createMuiTheme(globalTheme));
+  }, [rightDrawerWidth, settings.drawer_width, settings.multi_toolbar, settings.theme_base, settings.theme_container_width, settings.theme_font_alt1, settings.theme_font_alt2, settings.theme_font_alt3, settings.theme_font_alt4, settings.theme_font_default, settings.theme_primary, settings.theme_primary_contrast, settings.theme_secondary, settings.theme_secondary_contrast, settings.toolbar_main_height, settings.toolbar_progress_color, themeUid]);
+  return React__default.createElement(styles.ThemeProvider, {
+    theme: theme
+  }, React__default.createElement(GlobalStyles, null), React__default.createElement(CssBaseline, null), children);
+};
+
+GlobalTheme.displayName = 'GlobalTheme';
+
 var AppProvider = function AppProvider(_ref) {
   var children = _ref.children,
       content = _ref.content;
@@ -6117,182 +6838,1209 @@ var AppProvider = function AppProvider(_ref) {
 
 AppProvider.displayName = 'AppProvider';
 
-function LmImageList(_ref) {
-  var _clsx;
+var LmAppProvidersContainer = function LmAppProvidersContainer(_ref) {
+  var children = _ref.children,
+      settings = _ref.settings;
+  var Providers = LmCoreComponents.lm_app_providers || [];
 
-  var content = _ref.content;
-  var classes = useImageListStyles();
-
-  var _useWindowSize = windowSize.useWindowSize(),
-      width = _useWindowSize[0],
-      height = _useWindowSize[1];
-
-  var gridClasses = useGridListStyles({
-    columnCount: content.column_count,
-    columnCountPhone: content.column_count_phone,
-    columnCountTablet: content.column_count_tablet,
-    isMasonry: !!content.masonry
-  });
-  var containerRef = React__default.createRef();
-
-  var _useState = React.useState(''),
-      lightbox = _useState[0],
-      setLightbox = _useState[1];
-
-  var gutterSize = content.column_gap ? Number(content.column_gap) : 2;
-
-  function onImageClick(element) {
-    // open lightbox
-    content.enable_lightbox && setLightbox(element._uid);
+  if (!Providers.length) {
+    return React__default.createElement(React__default.Fragment, null, children);
   }
 
-  var body = content.body || [];
-  var gridListProps = {
-    spacing: gutterSize
-  };
+  var count = Providers.length - 1;
+  var LatestChild = children;
 
-  if (content.masonry) {
-    gridListProps.spacing = 0;
-    gridListProps.style = {
-      // columnCount: columnCount,
-      columnGap: gutterSize + "px"
+  while (count >= 0) {
+    LatestChild = React__default.createElement(Providers[count], {
+      settings: settings
+    }, LatestChild);
+    count--;
+  }
+
+  return React__default.createElement(React__default.Fragment, null, LatestChild);
+};
+
+var AppContainer = function AppContainer(_ref) {
+  var content = _ref.content,
+      children = _ref.children;
+
+  var page = content.page,
+      settings = content.settings,
+      error = content.error,
+      rest = _objectWithoutPropertiesLoose(content, ["page", "settings", "error"]);
+
+  if (error) {
+    return React__default.createElement(Error, {
+      statusCode: 500
+    });
+  }
+
+  if (!settings) {
+    return React__default.createElement(Error, {
+      statusCode: 500
+    });
+  }
+
+  return React__default.createElement(AppProvider, {
+    content: _extends({}, rest)
+  }, React__default.createElement(AppSetupProvider, {
+    settings: settings,
+    page: page
+  }, React__default.createElement(GlobalTheme, {
+    settings: settings,
+    rightDrawerWidth: page === null || page === void 0 ? void 0 : page.right_drawer_width
+  }, React__default.createElement(LmAppProvidersContainer, {
+    settings: settings
+  }, children))));
+};
+AppContainer.displayName = 'AppContainer';
+
+var isSupported = null;
+
+var supportsWebP = function supportsWebP() {
+  return new Promise(function (resolve) {
+    var image = new Image();
+
+    image.onerror = function () {
+      return resolve(false);
     };
+
+    image.onload = function () {
+      return resolve(image.width === 1);
+    };
+
+    image.src = 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=';
+  })["catch"](function () {
+    return Promise.resolve(false);
+  });
+};
+
+var hasWebpSupport = function hasWebpSupport(req) {
+  try {
+    if (req) {
+      // we set this and calling it in _document to set global windows variable
+      return Promise.resolve(!!(req.headers.accept && req.headers.accept.includes('webp')));
+    }
+
+    if (typeof isSupported === 'boolean') {
+      return Promise.resolve(isSupported);
+    }
+
+    return Promise.resolve(supportsWebP()).then(function (can) {
+      isSupported = can;
+      return !!can;
+    });
+  } catch (e) {
+    return Promise.reject(e);
+  }
+};
+
+function useStoryblokComposer(_ref) {
+  var page = _ref.page,
+      settings = _ref.settings;
+  var settingsUid = settings === null || settings === void 0 ? void 0 : settings.uuid;
+  var pageUid = page === null || page === void 0 ? void 0 : page.uuid;
+
+  var _useState = React.useState(page),
+      statePage = _useState[0],
+      setPage = _useState[1];
+
+  var _useState2 = React.useState(settings),
+      stateSettings = _useState2[0],
+      setSettings = _useState2[1];
+
+  React.useEffect(function () {
+    if (pageUid !== (statePage === null || statePage === void 0 ? void 0 : statePage.uuid)) {
+      // console.log('different page', pageUid, statePage.uuid)
+      setPage(page);
+    }
+  }, [pageUid, statePage, page]);
+  React.useEffect(function () {
+    if (settingsUid !== (stateSettings === null || stateSettings === void 0 ? void 0 : stateSettings.uuid)) {
+      // console.log('different settings', settingsUid, stateSettings.uuid)
+      setSettings(settings);
+    }
+  }, [settingsUid, stateSettings, settings]);
+  React.useEffect(function () {
+    if (typeof window !== 'undefined' && window.storyblok) {
+      window.storyblok.init();
+      window.storyblok.on(['change'], function () {
+        console.log('change::save triggered');
+        window.location.reload();
+      });
+      window.storyblok.on(['published', 'unpublished'], function () {
+        console.log('published triggered');
+        window.location.reload(); //   fetch(
+        //     `${window.location.protocol}//${window.location.host}/api/clear-cache`
+        //   )
+        //     .then(() => {
+        //       console.log(
+        //         'flush cashed successful triggered. ENV Vars:',
+        //         this.previewToken,
+        //         this.token
+        //       )
+        //       console.log('after flush: current token:', this.client.getToken())
+        //       window.location.reload()
+        //     })
+        //     .catch((e) => {
+        //       console.error('error on flush cache:', e)
+        //     })
+      });
+      window.storyblok.on('input', function (event) {
+        // console.log( content, event.story.content)
+        // todo if this is still works after rewrite... maybe add one for settings as well..
+        var newContent = _extends({}, event === null || event === void 0 ? void 0 : event.story.content, {
+          uuid: event === null || event === void 0 ? void 0 : event.story.uuid
+        });
+
+        if ((event === null || event === void 0 ? void 0 : event.story.content.component) === 'page' && (event === null || event === void 0 ? void 0 : event.story.uuid) === (page === null || page === void 0 ? void 0 : page.uuid)) {
+          console.log('input::input content changed');
+          setPage(window.storyblok.addComments(newContent, event === null || event === void 0 ? void 0 : event.story.id));
+        }
+
+        if ((event === null || event === void 0 ? void 0 : event.story.content.component) === 'global' && (event === null || event === void 0 ? void 0 : event.story.uuid) === (settings === null || settings === void 0 ? void 0 : settings.uuid)) {
+          console.log('input::input settings changed');
+          setSettings(window.storyblok.addComments(newContent, event === null || event === void 0 ? void 0 : event.story.id));
+        } // if (event.story.content.component === 'static_container') {
+        //   const newContainerContent = content.allStaticContent.filter((el:any) => el._uid !== event.story.content._uid)
+        //   newContainerContent.push(event.story.content)
+        //   console.log('input::input static container changed',newContainerContent)
+        //   setContent({
+        //     ...content,
+        //     allStaticContent: newContainerContent
+        //   })
+        // }
+
+      });
+    }
+  }, []);
+  return [statePage, stateSettings];
+}
+
+function LmApp(_ref) {
+  var Component = _ref.Component,
+      pageProps = _ref.pageProps,
+      router = _ref.router;
+  var locale = pageProps.locale,
+      settings = pageProps.settings,
+      page = pageProps.page;
+
+  var _useStoryblokComposer = useStoryblokComposer({
+    settings: settings,
+    page: page
+  }),
+      statePage = _useStoryblokComposer[0],
+      stateSettings = _useStoryblokComposer[1];
+
+  if (locale && getGlobalState('locale') !== locale) {
+    setGlobalState('locale', locale);
   }
 
-  return React__default.createElement("div", {
-    className: "lm-imagelist__container"
-  }, React__default.createElement("div", {
-    ref: containerRef,
-    style: {
-      padding: gutterSize + "px"
-    },
-    className: clsx(classes.root, (_clsx = {}, _clsx[gridClasses.masonry] = content.masonry, _clsx[classes.aspectRatio] = content.aspect_ratio && !content.masonry, _clsx["ratio-" + content.aspect_ratio] = content.aspect_ratio, _clsx['with-lightbox'] = content.enable_lightbox, _clsx))
-  }, React__default.createElement(GridList, Object.assign({
-    cellHeight: "auto",
-    className: gridClasses.gridList
-  }, gridListProps), body.map(function (item, i) {
-    var _item$link;
+  if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
+    hasWebpSupport().then(function (has) {
+      return setGlobalState('hasWebpSupport', has);
+    });
+  }
 
-    var btnProps = ((_item$link = item.link) === null || _item$link === void 0 ? void 0 : _item$link.cached_url) && !content.enable_lightbox ? _extends({}, getLinkAttrs(item.link, {
-      openExternal: !!item.open_external
-    }), {
-      naked: true,
-      component: LmCoreComponents.lm_link_render
-    }) : {};
-    return React__default.createElement(GridListTile, Object.assign({
-      key: item.component + "_" + i
-    }, btnProps, {
-      style: {
-        padding: !content.masonry ? gutterSize + "px" : undefined,
-        marginBottom: content.masonry ? gutterSize + "px" : undefined
+  if (router.isFallback) {
+    return React__default.createElement("div", null, "loading...");
+  }
+
+  var appProps = _extends({}, pageProps, {
+    page: statePage,
+    settings: stateSettings
+  });
+
+  return React__default.createElement(AppContainer, {
+    content: appProps
+  }, React__default.createElement(Component, Object.assign({}, appProps)));
+}
+
+var mapOpenGraphImage = function mapOpenGraphImage(item) {
+  if (!item.url) return undefined;
+  var dimensions = getOriginalImageDimensions(item.url);
+  var imgPath = item.width || item.height ? (item.width || 0) + "x" + (item.height || 0) : '';
+
+  if (item.width || item.height) {
+    // delete both original dimensions
+    delete dimensions.width;
+    delete dimensions.height;
+    item.width && (dimensions.width = item.width);
+    item.height && (dimensions.height = item.height);
+  }
+
+  return _extends({}, dimensions, {
+    alt: item.alt,
+    url: imageServiceNoWebp(item.url, imgPath)
+  });
+};
+
+var parseOpenGraph = function parseOpenGraph(settingsOpenGraph, pageOpenGraph, seoMeta) {
+  // set some defaults of seoMeta
+  var openGraph = {
+    title: pageOpenGraph.title || seoMeta.title || settingsOpenGraph.title,
+    description: pageOpenGraph.description || seoMeta.description || settingsOpenGraph.description,
+    url: pageOpenGraph.url || settingsOpenGraph.url,
+    type: pageOpenGraph.type || settingsOpenGraph.type,
+    site_name: pageOpenGraph.site_name || settingsOpenGraph.site_name,
+    locale: pageOpenGraph.locale || settingsOpenGraph.locale
+  };
+  var images = []; // settings images
+
+  if (settingsOpenGraph.images) {
+    settingsOpenGraph.images.forEach(function (img) {
+      var parsed = mapOpenGraphImage(img);
+      parsed && images.push(parsed);
+    });
+  } // page images
+
+
+  if (pageOpenGraph.images) {
+    pageOpenGraph.images.forEach(function (item) {
+      var parsed = mapOpenGraphImage(item);
+      parsed && images.push(parsed);
+    });
+  }
+
+  openGraph.images = images;
+  return openGraph;
+};
+
+var parseTwitter = function parseTwitter(values) {
+  var twitter = values;
+
+  if (twitter.card_type) {
+    twitter.cardType = twitter.card_type;
+    delete twitter.card_type; // remove wrong string
+  }
+
+  return twitter;
+};
+
+var getCanonicalUrl = function getCanonicalUrl(hostname, url) {
+  if (hostname === void 0) {
+    hostname = '';
+  }
+
+  if (url.endsWith('home')) {
+    url = url.replace('home', '');
+  } else if (url.endsWith('home/')) {
+    url = url.replace('home/', '');
+  }
+
+  return hostname + url;
+};
+
+function AppSeo(_ref) {
+  var settings = _ref.settings,
+      page = _ref.page,
+      previewImage = _ref.previewImage;
+  var router$1 = router.useRouter();
+  var seoBody = settings.seo_body || [];
+
+  if (!page) {
+    return React__default.createElement(nextSeo.NextSeo, {
+      title: "Not Found",
+      noindex: true
+    });
+  }
+
+  var pageSeoBody = page.seo_body || [];
+  var robotsIndexFollow = CONFIG.overwriteDisableIndex || page.meta_robots || !settings.seo_robots; // todo additionally disable .now.sh domains
+
+  var seo = {
+    title: page.meta_title || settings.seo_title || 'Website made by Lumen Media',
+    description: page.meta_description || settings.seo_description || 'Website made by Lumen Media',
+    noindex: robotsIndexFollow,
+    nofollow: robotsIndexFollow
+  }; // open graphs
+
+  var settingsOpenGraphs = seoBody.find(function (i) {
+    return i.component === 'seo_open_graph';
+  });
+  var pageOpenGraphs = pageSeoBody.find(function (i) {
+    return i.component === 'seo_open_graph';
+  }) || {};
+
+  if (previewImage) {
+    pageOpenGraphs.images = pageOpenGraphs.images || [];
+    pageOpenGraphs.images.push({
+      url: previewImage
+    });
+  }
+
+  if (settingsOpenGraphs || pageOpenGraphs) {
+    seo.openGraph = parseOpenGraph(settingsOpenGraphs || {}, pageOpenGraphs, seo);
+    var facebookAppId = settingsOpenGraphs && settingsOpenGraphs.app_id || pageOpenGraphs && pageOpenGraphs.app_id;
+    facebookAppId && (seo.facebook = {
+      appId: facebookAppId
+    });
+  } // twitter
+
+
+  var settingsTwitter = seoBody.find(function (i) {
+    return i.component === 'seo_twitter';
+  }) || undefined;
+
+  if (settingsTwitter) {
+    seo.twitter = parseTwitter(settingsTwitter);
+  }
+
+  if (settings.seo_website_url) {
+    seo.canonical = getCanonicalUrl(settings.seo_website_url, router$1 === null || router$1 === void 0 ? void 0 : router$1.asPath);
+  } else if (typeof window !== 'undefined') {
+    console.warn('set up seo_website_url inside of settings to have a canonical tag');
+  }
+
+  return React__default.createElement(nextSeo.NextSeo, Object.assign({}, seo));
+}
+
+var useStyles$p = /*#__PURE__*/styles.makeStyles(function (theme) {
+  var _lmSystemBar, _MuiToolbarRoot, _leftShift, _toolbar;
+
+  return styles.createStyles({
+    topAppBar: {
+      '& .lm-system-bar': (_lmSystemBar = {
+        transitionDuration: '500ms',
+        overflow: 'hidden',
+        height: theme.toolbar.height.systemBar
+      }, _lmSystemBar[theme.breakpoints.only('xs')] = {
+        display: 'none'
+      }, _lmSystemBar),
+      '& .MuiIconButton-root': {
+        color: 'inherit'
       },
-      onClick: function onClick(ev) {
-        return onImageClick(_extends({
-          _uid: item._uid,
-          count: i
-        }, ev));
+      '&.lm-toolbar__unelevated:not(.lm-toolbar__scrolled)': {
+        boxShadow: 'none'
+      },
+      '&.lm-toolbar__text-bold .MuiButton-root': {
+        fontWeight: 'bold'
+      },
+      '&.lm-toolbar__transparent:not(.lm-toolbar__scrolled)': {
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        '& .MuiButtonBase-root': {
+          color: '#fff'
+        },
+        '& .lm-system-bar': {
+          backgroundColor: 'transparent !important'
+        }
+      },
+      '&.lm-toolbar__scrolled': {
+        '& .lm-system-bar': {
+          // transform: `translate(0, ${-1 * theme.toolbar.height.systemBar}px)`,
+          // transition: 'transform .5s',
+          // paddingTop: theme.toolbar.height.systemBar,
+          marginTop: -1 * theme.toolbar.height.systemBar // height: '0 !important'
+
+        },
+        '& .MuiToolbar-root': (_MuiToolbarRoot = {
+          height: theme.toolbar.height.mobile
+        }, _MuiToolbarRoot[theme.breakpoints.up('xs') + " and (orientation: landscape)"] = {
+          height: theme.toolbar.height.landscape
+        }, _MuiToolbarRoot[theme.breakpoints.up('sm')] = {
+          height: theme.toolbar.height.desktop
+        }, _MuiToolbarRoot)
+      },
+      '&.lm-toolbar__scroll-collapse.lm-toolbar__collapsed .MuiToolbar-root': {
+        height: 0,
+        minHeight: 0,
+        padding: 0,
+        overflow: 'hidden',
+        transitionDuration: '300ms'
       }
-    }), React__default.createElement(LmComponentRender, {
-      content: item,
-      listProps: content
-    }));
-  }))), lightbox && ImageListLightbox({
-    elements: body,
-    lightbox: lightbox,
-    setLightbox: setLightbox,
-    onImageClick: onImageClick,
-    className: classes.lightbox,
-    width: width,
-    height: height
+    },
+    leftShift: (_leftShift = {
+      marginLeft: theme.drawer.left,
+      width: "calc(100% - " + theme.drawer.left + ")",
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      })
+    }, _leftShift[theme.breakpoints.only('xs')] = {
+      marginLeft: 0
+    }, _leftShift),
+    topAppBarCustom: function topAppBarCustom(props) {
+      var _props$settings, _props$settings$toolb;
+
+      var options = {};
+
+      if ((_props$settings = props.settings) === null || _props$settings === void 0 ? void 0 : (_props$settings$toolb = _props$settings.toolbar_color) === null || _props$settings$toolb === void 0 ? void 0 : _props$settings$toolb.rgba) {
+        options.backgroundColor = props.settings.toolbar_color.rgba + " !important";
+      }
+
+      return options;
+    },
+    toolbarCustom: function toolbarCustom(props) {
+      var options = {};
+      var increasedFontSize = props.settings.toolbar_font_size;
+
+      if (increasedFontSize) {
+        options['& .MuiButton-root'] = {
+          fontSize: increasedFontSize
+        };
+      }
+
+      return options;
+    },
+    toolbar: (_toolbar = {
+      height: theme.toolbar.height.custom ? Number(theme.toolbar.height.custom) : theme.toolbar.height.mobile,
+      transitionDuration: '500ms'
+    }, _toolbar[theme.breakpoints.up('xs') + " and (orientation: landscape)"] = {
+      height: theme.toolbar.height.custom ? Math.round(theme.toolbar.height.custom * 0.86) : theme.toolbar.height.landscape
+    }, _toolbar[theme.breakpoints.up('sm')] = {
+      height: theme.toolbar.height.custom ? Math.round(theme.toolbar.height.custom * 1.15) : theme.toolbar.height.desktop
+    }, _toolbar)
+  });
+});
+var mapToolbarColor = {
+  primary: 'primary',
+  secondary: 'secondary',
+  dark: 'inherit',
+  white: 'inherit'
+};
+
+var TopAppBar = function TopAppBar(props) {
+  var _props$settings2, _props$settings2$tool, _clsx, _clsx2;
+
+  var classes = useStyles$p(props);
+  var settings = props.settings;
+  var toolbarConfig = settings.toolbar_config || [];
+  var appSetup = useAppSetup();
+  var isScrolledTrigger = useScrollTrigger({
+    disableHysteresis: false
+  });
+
+  var _useDebounce = useDebounce.useDebounce(isScrolledTrigger, 100),
+      isScrolled = _useDebounce[0];
+
+  var _useGlobalState = useGlobalState('leftNavigationDrawer'),
+      isLeftDrawerOpen = _useGlobalState[0];
+
+  var scrolledWithoutHysteresis = useScrollTop();
+  var toolbarVariant = settings.toolbar_variant;
+  var toolbarWidth = false;
+
+  if (toolbarConfig.includes('fixed_width')) {
+    toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg';
+  }
+
+  var isFixedTop = toolbarConfig.includes('fixed');
+  var isScrollCollapse = toolbarConfig.includes('scroll_collapse');
+  var showLeftShift = appSetup.drawerVariant !== 'temporary' && !appSetup.drawerBelowToolbar && isLeftDrawerOpen;
+  var toolbarScrolled = scrolledWithoutHysteresis && (appSetup.toolbarMainHeight || appSetup.hasFeatureImage || !!props.SystemBar);
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(AppBar, {
+    className: clsx(classes.topAppBar, (_clsx = {
+      'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
+      'lm-toolbar__unelevated': toolbarConfig.includes('unelevated')
+    }, _clsx["lm-toolbar__" + toolbarVariant] = toolbarVariant, _clsx['lm-toolbar__transparent'] = appSetup.hasFeatureImage, _clsx['lm-toolbar__scrolled'] = toolbarScrolled, _clsx['lm-toolbar__collapsed'] = isScrolled && appSetup.hasScrollCollapse, _clsx['lm-toolbar__scroll-collapse'] = isScrollCollapse, _clsx['lm-toolbar__with-system-bar'] = !!props.SystemBar, _clsx[classes.topAppBarCustom] = (_props$settings2 = props.settings) === null || _props$settings2 === void 0 ? void 0 : (_props$settings2$tool = _props$settings2.toolbar_color) === null || _props$settings2$tool === void 0 ? void 0 : _props$settings2$tool.rgba, _clsx[classes.leftShift] = showLeftShift, _clsx[classes["left-mobile-" + (appSetup.leftDrawerMediaBreakpoint || 'sm')]] = showLeftShift, _clsx)),
+    color: mapToolbarColor[toolbarVariant || 'default'],
+    position: isFixedTop ? 'fixed' : 'relative'
+  }, props.SystemBar, React__default.createElement(Container, {
+    maxWidth: toolbarWidth
+  }, React__default.createElement(Toolbar, {
+    className: clsx(classes.toolbar, (_clsx2 = {}, _clsx2[classes.toolbarCustom] = props.settings.toolbar_font_size, _clsx2))
+  }, props.children))), isFixedTop && !appSetup.hasFeatureImage && React__default.createElement(ContentSpace, null));
+};
+
+TopAppBar.displayName = 'TopAppBar';
+
+function ToolbarRow(_ref) {
+  var content = _ref.content,
+      settings = _ref.settings;
+  var body = content.body || [];
+  var theme = styles.useTheme();
+
+  if (content.is_system_bar) {
+    var toolbarConfig = settings.toolbar_config || [];
+    var toolbarWidth = false;
+
+    if (toolbarConfig.includes('fixed_width')) {
+      toolbarWidth = settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg';
+    }
+
+    return React__default.createElement("div", {
+      className: clsx('lm-system-bar'),
+      style: {
+        backgroundColor: content.background_color && content.background_color.rgba || theme.palette.primary.main // height: `${content.height || 40}px`
+
+      }
+    }, React__default.createElement(Container, {
+      className: "h-100",
+      maxWidth: toolbarWidth
+    }, React__default.createElement(Grid, {
+      container: true,
+      className: "h-100",
+      justify: content.justify || 'space-between',
+      alignContent: "center",
+      alignItems: "center"
+    }, body.map(function (blok) {
+      return React__default.createElement(LmComponentRender, {
+        content: blok,
+        settings: settings,
+        key: blok._uid
+      });
+    }))));
+  }
+
+  return React__default.createElement(Grid, {
+    container: true,
+    justify: content.justify || 'space-between',
+    className: "h-100",
+    alignItems: "center"
+  }, body.map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      settings: settings,
+      key: blok._uid
+    });
   }));
 }
 
-var LmCoreComponentsNamed = {
-  table: LmTable,
-  accordion: LmAccordion,
-  accordion_item: LmAccordionItem,
-  divider: LmDivider,
-  html: LmHtml,
-  button_list: LmButtonList,
-  section: LmSection,
-  headline: LmHeadline,
-  row: LmGridRow,
-  column: LmGridColumn,
-  image: LmImage$1,
-  image_list: LmImageList,
-  image_list_item: LmImageListItem,
-  button: LmButton,
-  nav_list: LmNavList,
-  icon: LmIcon,
-  iframe: LmIframe,
-  slider: LmSlider,
-  section_video_bg: LmSectionVideo,
-  card_list: LmCardList,
-  section_parallax: LmSectionParallax,
-  tabs: LmTabs,
-  flex_row: LmFlexRow,
-  rich_text_editor: LmRichTextParagraph,
-  timeline: LmTimeline,
-  timeline_item: LmTimelineItem,
-  avatar: LmAvatar,
-  date_headline: LmDateHeadline,
-  motion: LmMotion,
-  player: LmPlayer
+var Components = {
+  toolbar_row: ToolbarRow,
+  divider: LmDivider
 };
-function LmComponentRender$1(props) {
-  var content = props.content,
-      i = props.i,
-      rest = _objectWithoutPropertiesLoose(props, ["content", "i"]);
 
-  if (typeof LmCoreComponentsNamed[content.component] !== 'undefined') {
-    return React__default.createElement(LmCoreComponentsNamed[content.component], _extends({
-      content: content,
-      key: typeof i === 'number' ? content.component + "_" + i : undefined
-    }, rest));
+function HeaderItem(blok, settings) {
+  if (typeof Components[blok.component] !== 'undefined') {
+    return React__default.createElement(Components[blok.component], {
+      key: blok._uid,
+      content: blok,
+      settings: settings
+    });
   }
 
-  return React__default.createElement("div", {
-    style: {
-      color: 'red'
+  return React__default.createElement(function () {
+    return React__default.createElement("div", {
+      style: {
+        color: 'red'
+      }
+    }, "The component ", blok.component, " has not been created yet.");
+  }, {
+    key: blok._uid
+  });
+}
+
+function HeaderCustom(props) {
+  var content = props.settings || {};
+  var rows = content.multi_toolbar || [];
+  var SystemBar = null;
+  var systemBarProps = rows.find(function (item) {
+    return item.is_system_bar;
+  });
+
+  if (systemBarProps) {
+    SystemBar = HeaderItem(systemBarProps, content); // rows.splice(systemBarProps, 1)
+
+    rows = rows.filter(function (i) {
+      return i._uid !== systemBarProps._uid;
+    });
+  }
+
+  return React__default.createElement(TopAppBar, Object.assign({}, props, {
+    SystemBar: SystemBar
+  }), rows.map(function (p) {
+    return HeaderItem(p, content);
+  }));
+}
+
+function HeaderSimple(props) {
+  var _clsx;
+
+  var settings = props.settings;
+  var content = settings || {};
+  var mobileNavBreakpoint = content.mobile_nav_breakpoint || 'sm';
+  var navRight = content.toolbar || [];
+  navRight.push({
+    component: 'toolbar_navi_button',
+    is_right_drawer: true
+  });
+  return React__default.createElement(TopAppBar, Object.assign({}, props), React__default.createElement(LmComponentRender, {
+    content: {
+      component: 'toolbar_navi_button'
+    }
+  }), React__default.createElement(LmComponentRender, {
+    content: {
+      component: 'toolbar_logo'
     },
-    key: (content === null || content === void 0 ? void 0 : content._uid) || "" + i
-  }, "The component ", content.component || 'no name found', " has not been created yet.");
+    settings: content
+  }), navRight.length > 0 && React__default.createElement(Grid, {
+    container: true,
+    className: clsx('lm-toolbar__section', 'd-none', (_clsx = {}, _clsx["d-" + mobileNavBreakpoint + "-inline-flex"] = true, _clsx))
+  }, navRight.map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  })));
+}
+
+function Header(_ref) {
+  var settings = _ref.settings;
+
+  if (settings.multi_toolbar && settings.multi_toolbar.length) {
+    return React__default.createElement(HeaderCustom, {
+      settings: settings
+    });
+  }
+
+  return React__default.createElement(HeaderSimple, {
+    settings: settings
+  });
+}
+
+var Header$1 = /*#__PURE__*/React.memo(Header);
+
+var useStyles$q = /*#__PURE__*/styles.makeStyles(function (theme) {
+  var _leftShift;
+
+  return styles.createStyles({
+    footer: {
+      position: 'relative',
+      zIndex: theme.zIndex.drawer + 1
+    },
+    leftShift: (_leftShift = {
+      marginLeft: theme.drawer.left,
+      width: "calc(100% - " + theme.drawer.left + ")",
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      })
+    }, _leftShift[theme.breakpoints.only('xs')] = {
+      marginLeft: 0
+    }, _leftShift)
+  });
+});
+
+var FooterContainer = function FooterContainer(_ref) {
+  var _clsx;
+
+  var children = _ref.children;
+  var classes = useStyles$q();
+
+  var _useGlobalState = useGlobalState('leftNavigationDrawer'),
+      isLeftDrawerOpen = _useGlobalState[0];
+
+  var appSetup = useAppSetup();
+  var hasLeftShift = appSetup.drawerVariant !== 'temporary' && isLeftDrawerOpen;
+  return React__default.createElement("footer", {
+    className: clsx(classes.footer, (_clsx = {}, _clsx[classes.leftShift] = hasLeftShift, _clsx[classes["left-mobile-" + (appSetup.leftDrawerMediaBreakpoint || 'sm')]] = hasLeftShift, _clsx))
+  }, children);
+};
+
+FooterContainer.displayName = 'FooterContainer';
+
+function Footer(_ref2) {
+  var settings = _ref2.settings;
+  var content = settings && settings.footer || [];
+  return React__default.createElement(FooterContainer, null, content.map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  }));
+}
+
+var Footer$1 = /*#__PURE__*/React.memo(Footer);
+
+function AppHead(_ref) {
+  var settings = _ref.settings;
+  var favicon = settings.setup_favicon;
+  var loadFonts = getFontBasedOnSetting(settings);
+
+  var _useAppContext = useAppContext(),
+      insideStoryblok = _useAppContext.insideStoryblok;
+
+  {
+    console.log('render app head');
+  }
+
+  return React__default.createElement(NextHead, null, React__default.createElement("meta", {
+    name: "viewport",
+    content: "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no",
+    key: "viewport"
+  }), React__default.createElement("link", {
+    rel: "preconnect",
+    href: "https://fonts.gstatic.com/",
+    crossOrigin: "anonymous"
+  }), React__default.createElement("link", {
+    rel: "preconnect",
+    href: "https://cdn.jsdelivr.net/",
+    crossOrigin: "anonymous"
+  }), React__default.createElement("link", {
+    rel: "preconnect",
+    href: "https://img2.storyblok.com/",
+    crossOrigin: "anonymous"
+  }), CONFIG.GA && React__default.createElement(React__default.Fragment, null, React__default.createElement("link", {
+    rel: "preconnect",
+    href: "https://www.googletagmanager.com/",
+    crossOrigin: "anonymous"
+  }), React__default.createElement("link", {
+    rel: "preconnect",
+    href: "https://www.google-analytics.com/",
+    crossOrigin: "anonymous"
+  })), favicon && React__default.createElement(React__default.Fragment, null, React__default.createElement("link", {
+    rel: "icon",
+    href: imageService(favicon, "32x32"),
+    sizes: "32x32",
+    key: "favicon"
+  }), React__default.createElement("link", {
+    rel: "apple-touch-icon-precomposed",
+    href: imageService(favicon, "152x152"),
+    key: "apple-touch-icon-precomposed"
+  })), React__default.createElement("link", {
+    href: "https://fonts.googleapis.com/css?family=" + loadFonts.join('|') + "&display=swap",
+    rel: "stylesheet"
+  }), settings.setup_google_site_verification && React__default.createElement("meta", {
+    name: "google-site-verification",
+    content: settings.setup_google_site_verification,
+    key: "google-site-verification"
+  }), insideStoryblok && React__default.createElement("script", {
+    src: "//app.storyblok.com/f/storyblok-latest.js"
+  }));
+}
+
+var AppHead$1 = /*#__PURE__*/React.memo(AppHead);
+
+function DrawerButton(_ref) {
+  var _content$icon, _content$link;
+
+  var content = _ref.content;
+  var buttonProps = {
+    text: content.label || content.name,
+    graphic: (_content$icon = content.icon) === null || _content$icon === void 0 ? void 0 : _content$icon.name
+  };
+  var btnProps = ((_content$link = content.link) === null || _content$link === void 0 ? void 0 : _content$link.cached_url) ? _extends({}, getLinkAttrs(content.link, {
+    openExternal: !!content.open_external
+  }), {
+    // naked: true,
+    component: LmCoreComponents.lm_link_render
+  }) : {};
+  return React__default.createElement(ListItem, Object.assign({
+    button: true
+  }, btnProps), buttonProps.graphic && React__default.createElement(ListItemIcon, null, React__default.createElement(IconCore, {
+    iconName: buttonProps.graphic,
+    style: {
+      width: '1.5rem',
+      height: '1.5rem'
+    }
+  })), React__default.createElement(ListItemText, {
+    primary: buttonProps.text
+  }));
+}
+
+function DrawerNavList(props) {
+  var content = props.content;
+  var body = content.body || [];
+  return React__default.createElement(List, {
+    subheader: React__default.createElement(ListSubheader, null, content.header)
+  }, body.map(function (blok) {
+    return React__default.createElement(DrawerButton, {
+      content: blok,
+      key: blok._uid
+    });
+  }));
+}
+
+function DrawerContentRender(_ref) {
+  var content = _ref.content,
+      i = _ref.i;
+  var component = content.component;
+  var componentProps = {
+    content: content,
+    key: component + "_" + i
+  };
+
+  if (component === 'button' || component === 'nav_menu_item') {
+    return React__default.createElement(DrawerButton, Object.assign({}, componentProps));
+  }
+
+  if (component === 'nav_list') {
+    return React__default.createElement(DrawerNavList, Object.assign({}, componentProps));
+  }
+
+  if (component === 'nav_menu') {
+    return React__default.createElement(CollapsibleListSection, Object.assign({}, componentProps));
+  }
+
+  if (component === 'list_search_autocomplete') {
+    return null;
+  }
+
+  return React__default.createElement(LmComponentRender, {
+    content: content,
+    key: content._uid
+  });
+}
+function CollapsibleListSection(_ref2) {
+  var content = _ref2.content;
+  var body = content.body || [];
+  var items = [];
+
+  var _React$useState = React__default.useState(false),
+      open = _React$useState[0],
+      setOpen = _React$useState[1];
+
+  var handleClick = function handleClick() {
+    var currentOpenState = !open;
+    setOpen(currentOpenState);
+  };
+
+  body.forEach(function (firstLevel) {
+    if (firstLevel.component === 'row') {
+      // mega menu: consist of row / column / nav_list | button
+      firstLevel.body.forEach(function (secondLevel) {
+        if (secondLevel.body && secondLevel.body.length) {
+          secondLevel.body.forEach(function (thirdLevel) {
+            items.push(thirdLevel);
+          });
+        }
+      });
+    } else {
+      // simple menu
+      items.push(firstLevel);
+    }
+  });
+  var startIconName = content.start_icon && content.start_icon.name;
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(ListItem, {
+    button: true,
+    onClick: handleClick
+  }, startIconName && React__default.createElement(ListItemIcon, null, React__default.createElement(IconCore, {
+    iconName: startIconName,
+    style: {
+      width: '1.5rem',
+      height: '1.5rem'
+    }
+  })), React__default.createElement(ListItemText, {
+    primary: content.title
+  }), open ? React__default.createElement(ChevronUp, null) : React__default.createElement(ChevronDown, null)), React__default.createElement(Collapse, {
+    "in": open,
+    timeout: "auto",
+    unmountOnExit: true
+  }, React__default.createElement(List, {
+    component: "div",
+    disablePadding: true,
+    style: {
+      marginLeft: startIconName ? '55px' : '20px'
+    }
+  }, Array.isArray(items) && items.map(function (blok, i) {
+    return DrawerContentRender({
+      content: blok,
+      i: i
+    });
+  }))));
+}
+
+function DrawerContentList(_ref) {
+  var content = _ref.content;
+  var appSetup = useAppSetup();
+  var childs = (appSetup.hasDrawer ? content.drawer_body : content.toolbar) || [];
+
+  if (!appSetup.hasDrawer && content.multi_toolbar && content.multi_toolbar.length) {
+    childs = [];
+    content.multi_toolbar.forEach(function (row) {
+      var rowItems = row.body || [];
+      rowItems.forEach(function (section) {
+        var sectionItems = section.body || [];
+        sectionItems.forEach(function (item) {
+          if (['toolbar_search', 'button', 'nav_menu'].includes(item.component)) {
+            childs.push(item);
+          }
+        });
+      });
+    });
+  }
+
+  return React__default.createElement(React__default.Fragment, null, childs.map(function (props, i) {
+    return DrawerContentRender({
+      content: props,
+      i: i
+    });
+  }));
+}
+
+var useStyles$r = /*#__PURE__*/styles.makeStyles(function (theme) {
+  var _fullWidthMobile;
+
+  return styles.createStyles({
+    leftDrawer: {
+      width: theme.drawer.left,
+      '& a': {
+        color: 'inherit'
+      }
+    },
+    aboveToolbar: {
+      zIndex: theme.zIndex.drawer + 2
+    },
+    belowToolbar: {
+      zIndex: theme.zIndex.appBar - 1
+    },
+    fullWidthMobile: (_fullWidthMobile = {}, _fullWidthMobile[theme.breakpoints.only('xs')] = {
+      width: '100%'
+    }, _fullWidthMobile)
+  });
+});
+
+var DrawerContainer = function DrawerContainer(_ref) {
+  var _clsx, _clsx2;
+
+  var children = _ref.children,
+      backgroundProps = _ref.backgroundProps;
+  var classes = useStyles$r();
+  var router$1 = router.useRouter();
+  var asPath = router$1 === null || router$1 === void 0 ? void 0 : router$1.asPath;
+
+  var _useGlobalState = useGlobalState('leftNavigationDrawer'),
+      isOpen = _useGlobalState[0],
+      setOpen = _useGlobalState[1];
+
+  var appSetup = useAppSetup();
+  var theme = styles.useTheme();
+  var matches = useMediaQuery(theme.breakpoints.down(appSetup.leftDrawerMediaBreakpoint || 'sm'));
+  var drawerProps = {
+    variant: appSetup.drawerVariant
+  };
+  React.useEffect(function () {
+    if (appSetup.drawerVariant === 'temporary' || matches) {
+      setOpen(false);
+    }
+  }, [asPath, appSetup, setOpen, matches]);
+  var classList = backgroundProps === null || backgroundProps === void 0 ? void 0 : backgroundProps.className;
+  return React__default.createElement(Drawer, Object.assign({
+    open: isOpen,
+    className: clsx('lm-main__drawer', classes.leftDrawer, (_clsx = {}, _clsx[classes.aboveToolbar] = !appSetup.drawerBelowToolbar, _clsx[classes.belowToolbar] = appSetup.drawerBelowToolbar, _clsx[classes.fullWidthMobile] = appSetup.drawerFullWidthMobile, _clsx)),
+    classes: {
+      paper: clsx('lm-main__drawer', classList, classes.leftDrawer, (_clsx2 = {}, _clsx2[classes.aboveToolbar] = !appSetup.drawerBelowToolbar, _clsx2[classes.belowToolbar] = appSetup.drawerBelowToolbar, _clsx2[classes.fullWidthMobile] = appSetup.drawerFullWidthMobile, _clsx2))
+    },
+    PaperProps: {
+      style: (backgroundProps === null || backgroundProps === void 0 ? void 0 : backgroundProps.style) ? backgroundProps.style : undefined
+    },
+    onClose: function onClose() {
+      return setOpen(false);
+    }
+  }, drawerProps), children);
+};
+
+DrawerContainer.displayName = 'DrawerContainer';
+
+function DrawerElement(_ref) {
+  var settings = _ref.settings;
+  var appSetup = useAppSetup();
+  var background = Array.isArray(settings.drawer_background) && settings.drawer_background[0];
+  var backgroundProps = useBackgroundBox({
+    background: background
+  });
+  var websiteTitle = settings.website_title;
+  var websiteLogo = settings.website_logo;
+  var websiteSlogan = settings.website_slogan;
+  return React__default.createElement(DrawerContainer, {
+    backgroundProps: backgroundProps
+  }, ((background === null || background === void 0 ? void 0 : background.image) || (background === null || background === void 0 ? void 0 : background.background_elements)) && React__default.createElement(BackgroundImage, {
+    content: background
+  }), (background === null || background === void 0 ? void 0 : background.background_elements) && background.background_elements.length > 0 && React__default.createElement(BackgroundElements, {
+    elements: background.background_elements
+  }), React__default.createElement("div", null, appSetup.drawerBelowToolbar && React__default.createElement(ContentSpace, null), !appSetup.hasDrawer && !appSetup.drawerBelowToolbar && React__default.createElement("div", null, React__default.createElement(Link$1, {
+    href: CONFIG.href,
+    as: homepageLinkHandler()
+  }, React__default.createElement("a", null, React__default.createElement("div", {
+    className: "p-3"
+  }, !websiteLogo && websiteTitle, websiteLogo && React__default.createElement("img", {
+    src: imageService(websiteLogo, '0x128'),
+    height: "48",
+    alt: websiteTitle || 'website logo'
+  })))), websiteSlogan && React__default.createElement("div", null, websiteSlogan)), React__default.createElement(DrawerContentList, {
+    content: settings
+  })));
+}
+
+var DrawerElement$1 = /*#__PURE__*/React.memo(DrawerElement);
+
+var Layout = function Layout(_ref) {
+  var _settings$snackbars, _settings$chat_button;
+
+  var children = _ref.children,
+      settings = _ref.settings;
+
+  // legacy code for old projects.. remove after all tawkto are integrated
+  if (settings.tawkto) {
+    settings.chat_button = settings.chat_button || [];
+    settings.chat_button.push({
+      _uid: 'chat button',
+      component: 'chat_tawkto',
+      account: settings.tawkto
+    });
+  }
+
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(AppHead$1, {
+    settings: settings
+  }), React__default.createElement(Header$1, {
+    settings: settings
+  }), children, React__default.createElement(DrawerElement$1, {
+    settings: settings
+  }), React__default.createElement(Footer$1, {
+    settings: settings
+  }), (_settings$snackbars = settings.snackbars) === null || _settings$snackbars === void 0 ? void 0 : _settings$snackbars.map(function (blok) {
+    return React__default.createElement(LmSnackbar, {
+      content: blok,
+      key: blok._uid
+    });
+  }), (_settings$chat_button = settings.chat_button) === null || _settings$chat_button === void 0 ? void 0 : _settings$chat_button.map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  }));
+};
+
+Layout.displayName = 'Layout'; // export default memo<{children: ReactNode, settings:GlobalStoryblok}>(Layout)
+
+var statusCodes = {
+  400: 'Bad Request',
+  401: 'Not Authorized | Invalid API key',
+  404: 'This page could not be found',
+  500: 'Internal Server Error',
+  501: 'Not Implemented'
+};
+
+var getErrorPath = function getErrorPath(_ref) {
+  var locale = _ref.locale,
+      _ref$statusCode = _ref.statusCode,
+      statusCode = _ref$statusCode === void 0 ? 404 : _ref$statusCode;
+  var currentLocale = locale !== CONFIG.defaultLocale ? locale : '';
+  var directory = CONFIG.rootDirectory || currentLocale || '';
+  return "cdn/stories/" + (directory ? directory + "/" : '') + "error-" + statusCode;
+};
+
+function NotFound(_ref2) {
+  var _ref2$statusCode = _ref2.statusCode,
+      statusCode = _ref2$statusCode === void 0 ? 404 : _ref2$statusCode,
+      locale = _ref2.locale;
+  var title = statusCodes[statusCode];
+
+  var _useState = React.useState(undefined),
+      errorContent = _useState[0],
+      setErrorContent = _useState[1];
+
+  React.useEffect(function () {
+    var fetchErrorContent = function fetchErrorContent() {
+      try {
+        return Promise.resolve(lumenCmsUtils.LmStoryblokService.get(getErrorPath({
+          statusCode: statusCode,
+          locale: locale
+        })));
+      } catch (e) {
+        return Promise.reject(e);
+      }
+    };
+
+    fetchErrorContent().then(function (_ref3) {
+      var data = _ref3.data;
+      var errorContext = data && data.story && data.story.content;
+
+      if (errorContext) {
+        setErrorContent(errorContext);
+      } else {
+        setErrorContent(null);
+      }
+    })["catch"](function (e) {
+      console.error(e);
+      setErrorContent(null);
+    });
+  }, [statusCode, locale]);
+  var errorTitle = errorContent && errorContent.title || statusCode + " - " + title;
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(NextHead, null, errorContent !== undefined && React__default.createElement("title", null, errorTitle), React__default.createElement("meta", {
+    key: "robots",
+    name: "robots",
+    content: "noindex"
+  })), React__default.createElement("div", {
+    className: "p-5"
+  }, errorContent && errorContent.body && errorContent.body.map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  }), errorContent === null && React__default.createElement("div", null, statusCode ? React__default.createElement("h1", null, statusCode) : null, React__default.createElement("div", null, React__default.createElement("h2", null, title, ".")))));
+}
+
+function LmPagesIndex(props) {
+  var settings = props.settings,
+      page = props.page,
+      error = props.error,
+      locale = props.locale;
+  React.useEffect(function () {
+    var handleRouteChange = function handleRouteChange(url) {
+      NProgress.done();
+      var googleAnaliyticsId = CONFIG.GA || (settings === null || settings === void 0 ? void 0 : settings.setup_google_analytics);
+
+      if (window.gtag && googleAnaliyticsId) {
+        window.gtag('config', googleAnaliyticsId, {
+          page_location: url,
+          page_title: window.document.title
+        });
+      }
+    };
+
+    var handleRouteStart = function handleRouteStart() {
+      NProgress.start();
+    };
+
+    var handleRouteError = function handleRouteError() {
+      NProgress.done();
+    };
+
+    router.Router.events.on('routeChangeComplete', handleRouteChange);
+    router.Router.events.on('routeChangeStart', handleRouteStart);
+    router.Router.events.on('routeChangeError', handleRouteError);
+    return function () {
+      router.Router.events.off('routeChangeComplete', handleRouteChange);
+      router.Router.events.off('routeChangeStart', handleRouteStart);
+      router.Router.events.off('routeChangeError', handleRouteError);
+    };
+    /* eslint-disable-next-line */
+  }, []); // If the page is not yet generated, this will be displayed
+  // initially until getStaticProps() finishes running
+
+  React.useEffect(function () {
+    // Remove the server-side injected CSS.
+    var jssStyles = document.querySelector('#jss-server-side');
+
+    if (jssStyles && jssStyles.parentElement) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
+
+  if (error || !settings) {
+    return React__default.createElement(Error, {
+      statusCode: 500
+    });
+  }
+
+  return React__default.createElement(React__default.Fragment, null, React__default.createElement(AppSeo, {
+    settings: settings,
+    page: page,
+    previewImage: page === null || page === void 0 ? void 0 : page.preview_image
+  }), React__default.createElement(Layout, {
+    settings: settings
+  }, page ? React__default.createElement(LmComponentRender, {
+    content: page
+  }) : React__default.createElement(NotFound, {
+    locale: locale,
+    statusCode: 404
+  })));
 }
 
 exports.CONFIG = CONFIG;
-exports.LmAccordion = LmAccordion;
-exports.LmAccordionItem = LmAccordionItem;
+exports.LmApp = LmApp;
+exports.LmAppContainer = AppContainer;
 exports.LmAppProvider = AppProvider;
 exports.LmAppSetupProvider = AppSetupProvider;
-exports.LmAvatar = LmAvatar;
-exports.LmButton = LmButton;
-exports.LmButtonList = LmButtonList;
-exports.LmCardList = LmCardList;
-exports.LmComponentRender = LmComponentRender$1;
-exports.LmCoreComponentsNamed = LmCoreComponentsNamed;
-exports.LmDateHeadline = LmDateHeadline;
-exports.LmDivider = LmDivider;
-exports.LmFlexRow = LmFlexRow;
-exports.LmGridColumn = LmGridColumn;
-exports.LmGridRow = LmGridRow;
-exports.LmHeadline = LmHeadline;
-exports.LmHtml = LmHtml;
-exports.LmIcon = LmIcon;
-exports.LmIframe = LmIframe;
-exports.LmImage = LmImage$1;
-exports.LmImageList = LmImageList;
-exports.LmImageListItem = LmImageListItem;
-exports.LmMotion = LmMotion;
-exports.LmNavList = LmNavList;
-exports.LmPlayer = LmPlayer;
-exports.LmRichTextParagraph = LmRichTextParagraph;
-exports.LmSection = LmSection;
-exports.LmSectionParallax = LmSectionParallax;
-exports.LmSectionVideo = LmSectionVideo;
-exports.LmSlider = LmSlider;
-exports.LmTable = LmTable;
-exports.LmTabs = LmTabs;
-exports.LmTimeline = LmTimeline;
+exports.LmComponentRender = LmComponentRender;
+exports.LmCoreComponents = LmCoreComponents;
+exports.LmDefaultApp = LmApp;
+exports.LmDefaultPage = LmPagesIndex;
+exports.LmPage = LmPage;
 exports.useAppContext = useAppContext;
 exports.useAppSetup = useAppSetup;
-//# sourceMappingURL=lumen-cms-base.cjs.development.js.map
+exports.useScript = useScript;
+//# sourceMappingURL=lumen-cms-core.cjs.development.js.map
