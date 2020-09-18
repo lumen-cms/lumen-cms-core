@@ -49,13 +49,13 @@ export function LmTimelineItem({
         <TimelineDot
           color={content.dot_color || undefined}
           variant={
-            content.dot_variant === 'outlined' || options.variant === 'outlined'
+            content.dot_variant === 'outlined' || options?.variant === 'outlined'
               ? 'outlined'
               : 'default'
           }
           className={clsx({
             [classes.naked]:
-              content.dot_variant === 'naked' || options.variant === 'naked'
+              content.dot_variant === 'naked' || options?.variant === 'naked'
           })}
         >
           {content.icon &&
