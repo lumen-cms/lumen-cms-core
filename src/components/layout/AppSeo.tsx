@@ -37,7 +37,11 @@ const mapOpenGraphImage = (
     item.width || item.height ? `${item.width || 0}x${item.height || 0}` : ''
   if (item.width || item.height) {
     // delete both original dimensions
-    delete dimensions.width
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    delete dimensions?.width
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
     delete dimensions.height
     item.width && (dimensions.width = item.width)
     item.height && (dimensions.height = item.height)
