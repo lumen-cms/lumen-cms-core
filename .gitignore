@@ -28,3 +28,4 @@ components.*.json
 app-content*.json
 
 .vercel
+/dist
