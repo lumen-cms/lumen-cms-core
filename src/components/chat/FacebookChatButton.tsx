@@ -35,7 +35,7 @@ export function FacebookChatButton({ content }: FacbookChatButtonProps) {
     }
   )
   if (!initialized) {
-    window.fbAsyncInit = function () {
+    window.fbAsyncInit = () => {
       window.FB?.init({
         xfbml: true,
         version: 'v8.0'

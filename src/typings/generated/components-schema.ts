@@ -568,6 +568,13 @@ export interface FormTextfieldStoryblok {
 }
 
 export interface GlobalStoryblok {
+  website_title?: string;
+  website_slogan?: string;
+  setup_language?: string;
+  setup_supported_languages?: string;
+  setup_google_analytics?: string;
+  setup_google_site_verification?: string;
+  setup_facebook_pixel?: string;
   tawkto?: string;
   chat_button?: any[];
   setup_favicon?: string;
@@ -575,12 +582,6 @@ export interface GlobalStoryblok {
   website_logo_xs?: string;
   website_logo_invert_xs?: string;
   website_logo_invert?: string;
-  website_title?: string;
-  website_slogan?: string;
-  setup_language?: string;
-  setup_supported_languages?: string;
-  setup_google_analytics?: string;
-  setup_google_site_verification?: string;
   snackbars?: any[];
   drawer_body?: any[];
   drawer_variant?: "persistent" | "temporary";

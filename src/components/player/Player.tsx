@@ -36,7 +36,7 @@ export function LmPlayer({ content }: LmPlayerProps): JSX.Element {
     videoUrl && videoUrl.indexOf(',') !== -1
       ? videoUrl.split(',').map((i) => i.trim())
       : videoUrl
-  
+
   return (
     <div
       ref={refIntersectionObserver}

@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.58.6",
+  "version": "0.58.7",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "dist/index.js",
@@ -53,6 +53,8 @@
     "@material-ui/lab": "4.0.0-alpha.56",
     "@material-ui/pickers": "3.2.10",
     "@react-hook/window-size": "3.0.7",
+    "@types/facebook-pixel": "0.0.20",
+    "@types/gtag.js": "0.0.3",
     "clsx": "1.1.1",
     "date-fns": "2.7.0",
     "element-closest": "3.0.2",

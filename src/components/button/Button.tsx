@@ -97,7 +97,8 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
     [classes.noWhitespace]: properties.includes('no-linebreak'),
     'lm-default-color': !content.color,
     [content.corners as string]: !!content.corners,
-    'lm-unelevated': properties.includes('disable-shadow') || content.variant === 'unelevated',
+    'lm-unelevated':
+      properties.includes('disable-shadow') || content.variant === 'unelevated',
     'lm-outlined': content.variant === 'outlined',
     [content.size as string]: !!content.size,
     [`lm-font-${content.font}`]: content.font,
@@ -106,12 +107,12 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
 
   const btnProps: any = content.link
     ? {
-      ...getLinkAttrs(content.link as LinkType, {
-        openExternal: !!content.open_external
-      }),
-      naked: true,
-      component: LmCoreComponents.lm_link_render
-    }
+        ...getLinkAttrs(content.link as LinkType, {
+          openExternal: !!content.open_external
+        }),
+        naked: true,
+        component: LmCoreComponents.lm_link_render
+      }
     : {}
 
   if (onClick) {
@@ -124,9 +125,7 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
         {...btnProps}
         className={className}
         classes={{
-          primary:{
-
-          }
+          primary: {}
         }}
         style={{
           backgroundColor: content.custom_color?.rgba

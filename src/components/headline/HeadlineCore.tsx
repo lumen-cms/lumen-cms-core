@@ -4,7 +4,11 @@ import Typography from '@material-ui/core/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { LmHeadlineProps } from './headlineTypes'
 
-export const LmHeadlineCore: FC<LmHeadlineProps> = ({ content, onClick, children }) => (
+export const LmHeadlineCore: FC<LmHeadlineProps> = ({
+  content,
+  onClick,
+  children
+}) => (
   <Typography
     onClick={() => {
       onClick && onClick()
@@ -28,14 +32,12 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({ content, onClick, children
           : undefined,
       lineHeight: content.line_height ? content.line_height : undefined,
       fontSize: content.font_size ? content.font_size : undefined,
-      letterSpacing: content.letter_spacing
-        ? content.letter_spacing
-        : undefined
+      letterSpacing: content.letter_spacing ? content.letter_spacing : undefined
     }}
     variant={
       mapTypographyVariant[
         content.typography ? (content.typography as string) : 'headline4'
-        ]
+      ]
     }
   >
     {children}

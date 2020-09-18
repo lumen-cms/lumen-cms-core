@@ -7,7 +7,10 @@ import clsx from 'clsx'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useWindowSize } from '@react-hook/window-size'
-import { BackgroundStoryblok, SectionStoryblok } from '../../typings/generated/components-schema'
+import {
+  BackgroundStoryblok,
+  SectionStoryblok
+} from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { getImageAttrs } from '../../utils/ImageService'
 import ImageShadow from './ImageShadow'

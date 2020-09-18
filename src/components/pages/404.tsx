@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
+import { LmStoryblokService } from 'lumen-cms-utils'
 import { CONFIG } from '../../utils/config'
 import { LmComponentRender } from '../CoreComponents'
-import { LmStoryblokService } from 'lumen-cms-utils'
 
 const statusCodes = {
   400: 'Bad Request',
@@ -32,7 +32,9 @@ export function NotFound({
 }: NotFoundProps): JSX.Element {
   const title = (statusCodes as any)[statusCode]
 
-  const [errorContent, setErrorContent] = useState<{ title: string; body: any[] } | null | undefined>(undefined)
+  const [errorContent, setErrorContent] = useState<
+    { title: string; body: any[] } | null | undefined
+  >(undefined)
   useEffect(() => {
     const fetchErrorContent = async () => {
       return LmStoryblokService.get(getErrorPath({ statusCode, locale }))
@@ -64,10 +66,10 @@ export function NotFound({
       </Head>
       <div className="p-5">
         {errorContent &&
-        errorContent.body &&
-        errorContent.body.map((blok) => (
-          <LmComponentRender content={blok} key={blok._uid} />
-        ))}
+          errorContent.body &&
+          errorContent.body.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
         {errorContent === null && (
           <div>
             {statusCode ? <h1>{statusCode}</h1> : null}

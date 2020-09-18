@@ -98,7 +98,7 @@ export function useStoryblokComposer({
         // }
       })
     }
-  }, [])
+  }, [page, settings])
 
   return [statePage, stateSettings]
 }

@@ -2,10 +2,10 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { createGlobalState } from 'react-hooks-global-state'
 import { Story as StoryType } from '@storybook/react/types-6-0.d'
+import { LmStoryblokService } from 'lumen-cms-utils'
 import AppProvider from '../../components/provider/AppProvider'
 import { AppContextProps } from '../../components/provider/context/AppContext'
 import { LmComponentRender } from '../../index'
-import { LmStoryblokService } from 'lumen-cms-utils'
 
 interface StorybookState {
   allTags: { value: string; label: string }[]

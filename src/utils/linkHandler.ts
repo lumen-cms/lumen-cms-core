@@ -1,6 +1,6 @@
+import { internalLinkHandler } from 'lumen-cms-utils'
 import { CONFIG } from './config'
 import { getGlobalState } from './state/state'
-import { internalLinkHandler } from 'lumen-cms-utils'
 
 export interface LinkType {
   cached_url?: string

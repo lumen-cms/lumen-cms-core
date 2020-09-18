@@ -1,5 +1,17 @@
-import React, { createRef, FunctionComponent, RefObject, useEffect, useState } from 'react'
-import { createStyles, fade, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
+import React, {
+  createRef,
+  FunctionComponent,
+  RefObject,
+  useEffect,
+  useState
+} from 'react'
+import {
+  createStyles,
+  fade,
+  makeStyles,
+  Theme,
+  useTheme
+} from '@material-ui/core/styles'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
@@ -10,6 +22,7 @@ import IconButton from '@material-ui/core/IconButton'
 import { StoryData } from 'storyblok-js-client'
 import { useDebouncedCallback } from 'use-debounce'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import { LmStoryblokService } from 'lumen-cms-utils'
 import { PageComponent } from '../../typings/generated/schema'
 import LmIcon from '../icon/LmIcon'
 import MuiNextLink from '../link/MuiNextLink'
@@ -17,7 +30,6 @@ import { getLinkAttrs } from '../../utils/linkHandler'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { CONFIG } from '../../utils/config'
 import { LmListSearchAutocompleteProps } from './listWidgetTypes'
-import { LmStoryblokService } from 'lumen-cms-utils'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

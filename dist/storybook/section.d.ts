@@ -21,7 +21,7 @@ export declare const get3ColumnsSection: ({ count, knob }?: {
             background?: any[] | undefined;
             justify?: "center" | "flex-start" | "flex-end" | "space-between" | "space-evenly" | "space-around" | undefined;
             align_content?: "center" | "flex-start" | "flex-end" | "space-between" | "space-around" | "stretch" | undefined;
-            align_items?: "baseline" | "center" | "flex-start" | "flex-end" | "stretch" | undefined;
+            align_items?: "center" | "baseline" | "flex-start" | "flex-end" | "stretch" | undefined;
             _uid: string;
             component: "column";
         }[];
@@ -29,7 +29,7 @@ export declare const get3ColumnsSection: ({ count, knob }?: {
         spacing?: "1" | "10" | "9" | "8" | "7" | "6" | "5" | "4" | "3" | "2" | undefined;
         justify?: "center" | "flex-start" | "flex-end" | "space-between" | "space-evenly" | "space-around" | undefined;
         align_content?: "center" | "flex-start" | "flex-end" | "space-between" | "space-around" | "stretch" | undefined;
-        align_items?: "baseline" | "center" | "flex-start" | "flex-end" | "stretch" | undefined;
+        align_items?: "center" | "baseline" | "flex-start" | "flex-end" | "stretch" | undefined;
         direction?: "column" | "row" | "row-reverse" | "column-reverse" | undefined;
         reverse_on_mobile?: boolean | undefined;
         reverse_on_tablet?: boolean | undefined;

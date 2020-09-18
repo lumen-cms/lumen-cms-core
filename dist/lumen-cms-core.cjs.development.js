@@ -57,6 +57,7 @@ var CardActionArea = _interopDefault(require('@material-ui/core/CardActionArea')
 var CardContent = _interopDefault(require('@material-ui/core/CardContent'));
 var CardMedia = _interopDefault(require('@material-ui/core/CardMedia'));
 var Card = _interopDefault(require('@material-ui/core/Card'));
+var mdiMaterialUi = require('mdi-material-ui');
 var CardActions = _interopDefault(require('@material-ui/core/CardActions'));
 var MuiTabs = _interopDefault(require('@material-ui/core/Tabs'));
 var Tab = _interopDefault(require('@material-ui/core/Tab'));
@@ -98,9 +99,9 @@ var Tooltip = _interopDefault(require('@material-ui/core/Tooltip'));
 var Snackbar = _interopDefault(require('@material-ui/core/Snackbar'));
 var Cookies = _interopDefault(require('js-cookie'));
 var SnackbarContent = _interopDefault(require('@material-ui/core/SnackbarContent'));
+var NProgress = _interopDefault(require('nprogress'));
 var Error = _interopDefault(require('next/error'));
 var CssBaseline = _interopDefault(require('@material-ui/core/CssBaseline'));
-var NProgress = _interopDefault(require('nprogress'));
 var AppBar = _interopDefault(require('@material-ui/core/AppBar'));
 var Toolbar = _interopDefault(require('@material-ui/core/Toolbar'));
 var NextHead = _interopDefault(require('next/head'));
@@ -1674,7 +1675,7 @@ var LmHeadline = function LmHeadline(_ref) {
   return React__default.createElement(LmHeadlineCore, {
     content: content,
     onClick: onClick
-  }, children || (!!content.text_xs ? React__default.createElement(React__default.Fragment, null, React__default.createElement("span", {
+  }, children || (content.text_xs ? React__default.createElement(React__default.Fragment, null, React__default.createElement("span", {
     className: "d-none d-sm-block"
   }, content.text), React__default.createElement("span", {
     className: "d-block d-sm-none"
@@ -2714,6 +2715,9 @@ var mapColor = {
 };
 var useStyles$b = /*#__PURE__*/styles.makeStyles(function (theme) {
   return {
+    noWhitespace: {
+      whiteSpace: 'nowrap'
+    },
     button: {
       '&.lm-button-shaped': {
         borderRadius: '2em'
@@ -2757,25 +2761,16 @@ var useStyles$b = /*#__PURE__*/styles.makeStyles(function (theme) {
   };
 });
 var LmButton = function LmButton(_ref) {
-  var _content$class_names, _clsx, _content$properties2, _content$custom_color4, _content$custom_color5, _content$custom_color6, _content$icon3, _content$trailing_ico;
+  var _content$class_names, _clsx, _content$custom_color4, _content$custom_color5, _content$custom_color6, _content$icon3, _content$trailing_ico;
 
   var children = _ref.children,
       content = _ref.content,
       onClick = _ref.onClick;
   var classes = useStyles$b();
   var properties = content.properties || [];
-  var disableRipple = !!properties.find(function (i) {
-    return i === 'disable-ripple';
-  });
-  var isUnelevated = properties.find(function (i) {
-    return i === 'disable-shadow';
-  }) || content.variant === 'unelevated';
+  var disableRipple = properties.includes('disable-ripple');
   var color = content.color ? mapColor[content.color] : undefined;
-  var className = clsx(classes.button, (_content$class_names = content.class_names) === null || _content$class_names === void 0 ? void 0 : _content$class_names.values, (_clsx = {
-    'lm-default-color': !content.color
-  }, _clsx[content.corners] = !!content.corners, _clsx['lm-unelevated'] = isUnelevated, _clsx['lm-outlined'] = content.variant === 'outlined', _clsx[content.size] = !!content.size, _clsx["lm-font-" + content.font] = content.font, _clsx['w-100'] = properties.find(function (p) {
-    return p === 'fullWidth';
-  }), _clsx));
+  var className = clsx(classes.button, (_content$class_names = content.class_names) === null || _content$class_names === void 0 ? void 0 : _content$class_names.values, (_clsx = {}, _clsx[classes.noWhitespace] = properties.includes('no-linebreak'), _clsx['lm-default-color'] = !content.color, _clsx[content.corners] = !!content.corners, _clsx['lm-unelevated'] = properties.includes('disable-shadow') || content.variant === 'unelevated', _clsx['lm-outlined'] = content.variant === 'outlined', _clsx[content.size] = !!content.size, _clsx["lm-font-" + content.font] = content.font, _clsx['w-100'] = properties.includes('fullWidth'), _clsx));
   var btnProps = content.link ? _extends({}, getLinkAttrs(content.link, {
     openExternal: !!content.open_external
   }), {
@@ -2788,14 +2783,16 @@ var LmButton = function LmButton(_ref) {
   }
 
   if (content.variant === 'fab') {
-    var _content$properties, _content$custom_color, _content$icon;
+    var _content$custom_color, _content$icon;
 
     return React__default.createElement(Fab, Object.assign({
       variant: content.label ? 'extended' : undefined
     }, btnProps, {
       className: className,
+      classes: {
+        primary: {}
+      },
       style: {
-        whiteSpace: ((_content$properties = content.properties) === null || _content$properties === void 0 ? void 0 : _content$properties.includes('no-linebreak')) ? 'nowrap' : undefined,
         backgroundColor: ((_content$custom_color = content.custom_color) === null || _content$custom_color === void 0 ? void 0 : _content$custom_color.rgba) ? content.custom_color.rgba : undefined
       },
       size: mapSize[content.size] || 'medium',
@@ -2844,7 +2841,6 @@ var LmButton = function LmButton(_ref) {
     color: color,
     style: {
       justifyContent: content.align ? content.align : undefined,
-      whiteSpace: ((_content$properties2 = content.properties) === null || _content$properties2 === void 0 ? void 0 : _content$properties2.includes('no-linebreak')) ? 'nowrap' : undefined,
       color: !['raised', 'unelevated'].includes(content.variant || '') && ((_content$custom_color4 = content.custom_color) === null || _content$custom_color4 === void 0 ? void 0 : _content$custom_color4.rgba) ? content.custom_color.rgba : undefined,
       backgroundColor: ['raised', 'unelevated'].includes(content.variant || '') && ((_content$custom_color5 = content.custom_color) === null || _content$custom_color5 === void 0 ? void 0 : _content$custom_color5.rgba) ? content.custom_color.rgba : undefined,
       borderColor: content.variant === 'outlined' && ((_content$custom_color6 = content.custom_color) === null || _content$custom_color6 === void 0 ? void 0 : _content$custom_color6.rgba) ? content.custom_color.rgba : undefined
@@ -3618,6 +3614,10 @@ var useStyles$h = /*#__PURE__*/styles.makeStyles({
       paddingBottom: '66.66%' // add ratio variants
 
     },
+    '&.ratio-2x3 .MuiCardMedia-root': {
+      paddingBottom: '150%' // add ratio variants
+
+    },
     '&.card__over_media .MuiCardMedia-root': {
       position: 'relative',
       '& .MuiCardContent-root': {
@@ -3765,12 +3765,18 @@ var useStyles$i = /*#__PURE__*/styles.makeStyles(function (theme) {
   return {
     drawerContent: {
       padding: theme.spacing(3),
-      minWidth: '30%'
+      flex: 1,
+      overflowY: 'auto'
+    },
+    drawerToolbar: {
+      justifyContent: 'space-between'
     }
   };
 });
 
 var CardWrapWithAction = function CardWrapWithAction(_ref) {
+  var _content$action_headl, _content$action_headl2, _content$body;
+
   var content = _ref.content,
       className = _ref.className,
       style = _ref.style,
@@ -3782,7 +3788,9 @@ var CardWrapWithAction = function CardWrapWithAction(_ref) {
       open = _React$useState[0],
       setOpen = _React$useState[1];
 
-  var body = content.body || [];
+  var _useDeviceDimensions = useDeviceDimensions(),
+      isMobile = _useDeviceDimensions.isMobile;
+
   var variants = options.variant || [];
   return React__default.createElement(React__default.Fragment, null, React__default.createElement(Card, {
     className: className,
@@ -3796,17 +3804,41 @@ var CardWrapWithAction = function CardWrapWithAction(_ref) {
   }, children)), React__default.createElement(Drawer, {
     open: open,
     anchor: "right",
+    PaperProps: {
+      style: {
+        width: isMobile ? '100%' : content.action_width || 420
+      }
+    },
     onClose: function onClose() {
-      return setOpen(false);
+      setOpen(false);
     }
-  }, React__default.createElement("div", {
-    className: classes.drawerContent
-  }, body.map(function (blok) {
+  }, React__default.createElement(Grid, {
+    container: true,
+    direction: "column"
+  }, React__default.createElement(Grid, {
+    item: true
+  }, React__default.createElement(core.Toolbar, {
+    classes: {
+      root: classes.drawerToolbar
+    }
+  }, (_content$action_headl = (_content$action_headl2 = content.action_headline) === null || _content$action_headl2 === void 0 ? void 0 : _content$action_headl2.map(function (blok) {
     return React__default.createElement(LmComponentRender, {
       content: blok,
       key: blok._uid
     });
-  }))));
+  })) !== null && _content$action_headl !== void 0 ? _content$action_headl : React__default.createElement("div", null), React__default.createElement(IconButton, {
+    edge: "end",
+    onClick: function onClick() {
+      setOpen(false);
+    }
+  }, React__default.createElement(mdiMaterialUi.Close, null)))), React__default.createElement(Grid, {
+    className: classes.drawerContent
+  }, (_content$body = content.body) === null || _content$body === void 0 ? void 0 : _content$body.map(function (blok) {
+    return React__default.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  })))));
 };
 
 CardWrapWithAction.displayName = 'CardWrapWithAction';
@@ -7013,17 +7045,17 @@ function useStoryblokComposer(_ref) {
 
       });
     }
-  }, []);
+  }, [page, settings]);
   return [statePage, stateSettings];
 }
 
 function LmApp(_ref) {
   var Component = _ref.Component,
-      pageProps = _ref.pageProps,
-      router = _ref.router;
+      pageProps = _ref.pageProps;
   var locale = pageProps.locale,
       settings = pageProps.settings,
       page = pageProps.page;
+  var router$1 = router.useRouter();
 
   var _useStoryblokComposer = useStoryblokComposer({
     settings: settings,
@@ -7042,7 +7074,39 @@ function LmApp(_ref) {
     });
   }
 
-  if (router.isFallback) {
+  var googleAnaliyticsId = CONFIG.GA || (settings === null || settings === void 0 ? void 0 : settings.setup_google_analytics);
+  React.useEffect(function () {
+    var handleRouteChange = function handleRouteChange(url) {
+      NProgress.done();
+    };
+
+    var handleRouteStart = function handleRouteStart() {
+      NProgress.start();
+    };
+
+    var handleRouteError = function handleRouteError() {
+      NProgress.done();
+    };
+
+    router$1.events.on('routeChangeComplete', handleRouteChange);
+    router$1.events.on('routeChangeStart', handleRouteStart);
+    router$1.events.on('routeChangeError', handleRouteError);
+    return function () {
+      router$1.events.off('routeChangeComplete', handleRouteChange);
+      router$1.events.off('routeChangeStart', handleRouteStart);
+      router$1.events.off('routeChangeError', handleRouteError);
+    };
+  }, [router$1.events, googleAnaliyticsId]);
+  React.useEffect(function () {
+    // Remove the server-side injected CSS.
+    var jssStyles = document.querySelector('#jss-server-side');
+
+    if (jssStyles && jssStyles.parentElement) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
+
+  if (router$1.isFallback) {
     return React__default.createElement("div", null, "loading...");
   }
 
@@ -7968,47 +8032,6 @@ function LmPagesIndex(props) {
       page = props.page,
       error = props.error,
       locale = props.locale;
-  React.useEffect(function () {
-    var handleRouteChange = function handleRouteChange(url) {
-      NProgress.done();
-      var googleAnaliyticsId = CONFIG.GA || (settings === null || settings === void 0 ? void 0 : settings.setup_google_analytics);
-
-      if (window.gtag && googleAnaliyticsId) {
-        window.gtag('config', googleAnaliyticsId, {
-          page_location: url,
-          page_title: window.document.title
-        });
-      }
-    };
-
-    var handleRouteStart = function handleRouteStart() {
-      NProgress.start();
-    };
-
-    var handleRouteError = function handleRouteError() {
-      NProgress.done();
-    };
-
-    router.Router.events.on('routeChangeComplete', handleRouteChange);
-    router.Router.events.on('routeChangeStart', handleRouteStart);
-    router.Router.events.on('routeChangeError', handleRouteError);
-    return function () {
-      router.Router.events.off('routeChangeComplete', handleRouteChange);
-      router.Router.events.off('routeChangeStart', handleRouteStart);
-      router.Router.events.off('routeChangeError', handleRouteError);
-    };
-    /* eslint-disable-next-line */
-  }, []); // If the page is not yet generated, this will be displayed
-  // initially until getStaticProps() finishes running
-
-  React.useEffect(function () {
-    // Remove the server-side injected CSS.
-    var jssStyles = document.querySelector('#jss-server-side');
-
-    if (jssStyles && jssStyles.parentElement) {
-      jssStyles.parentElement.removeChild(jssStyles);
-    }
-  }, []);
 
   if (error || !settings) {
     return React__default.createElement(Error, {

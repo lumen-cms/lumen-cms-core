@@ -2,12 +2,12 @@ import Drawer from '@material-ui/core/Drawer'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import Card from '@material-ui/core/Card'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { LmComponentRender } from '../CoreComponents'
-import { CardListItemProps } from './cardTypes'
 import { Toolbar } from '@material-ui/core'
 import { Close } from 'mdi-material-ui'
 import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
+import { CardListItemProps } from './cardTypes'
+import { LmComponentRender } from '../CoreComponents'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 interface CardWrapAction extends CardListItemProps {
@@ -50,25 +50,32 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({
         {/* eslint-disable-next-line */}
         <a onClick={() => setOpen(!open)}>{children}</a>
       </Card>
-      <Drawer open={open}
-              anchor="right"
-              PaperProps={{
-                style: {
-                  width: isMobile ? '100%' : (content.action_width || 420)
-                }
-              }}
-              onClose={() => {
-                setOpen(false)
-              }}>
-        <Grid container direction={'column'}>
+      <Drawer
+        open={open}
+        anchor="right"
+        PaperProps={{
+          style: {
+            width: isMobile ? '100%' : content.action_width || 420
+          }
+        }}
+        onClose={() => {
+          setOpen(false)
+        }}
+      >
+        <Grid container direction="column">
           <Grid item>
             <Toolbar classes={{ root: classes.drawerToolbar }}>
-              {content.action_headline?.map(blok => (
+              {content.action_headline?.map((blok) => (
                 <LmComponentRender content={blok} key={blok._uid} />
               )) ?? <div />}
-              <IconButton edge={'end'} onClick={() => {
-                setOpen(false)
-              }}><Close /></IconButton>
+              <IconButton
+                edge="end"
+                onClick={() => {
+                  setOpen(false)
+                }}
+              >
+                <Close />
+              </IconButton>
             </Toolbar>
           </Grid>
           <Grid className={classes.drawerContent}>
