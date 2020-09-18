@@ -12,6 +12,7 @@ export { useAppContext } from './components/provider/context/AppContext'
 export { default as LmAppSetupProvider } from './components/provider/AppSetupProvider'
 export { useAppSetup } from './components/provider/context/AppSetupContext'
 export { default as useScript } from './utils/hooks/useScript'
+export { hasFacebookPixel, hasGtag } from './utils/analyticsHelper'
 export type { ScriptStatus } from './utils/hooks/useScript'
 export { CONFIG }
 
