@@ -44,12 +44,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ChevronUp from 'mdi-material-ui/ChevronUp';
 import { useRouter, Router } from 'next/router';
-import { Popover, GridListTile as GridListTile$1, Dialog as Dialog$1, DialogContent as DialogContent$1, DialogActions } from '@material-ui/core';
+import { Popover, Toolbar, GridListTile as GridListTile$1, Dialog as Dialog$1, DialogContent as DialogContent$1, DialogActions } from '@material-ui/core';
 import ReactPlayer from 'react-player';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Card from '@material-ui/core/Card';
+import { Close as Close$1 } from 'mdi-material-ui';
 import CardActions from '@material-ui/core/CardActions';
 import MuiTabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -95,7 +96,7 @@ import Error from 'next/error';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import NProgress from 'nprogress';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import Toolbar$1 from '@material-ui/core/Toolbar';
 import NextHead from 'next/head';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -2707,6 +2708,9 @@ var mapColor = {
 };
 var useStyles$b = /*#__PURE__*/makeStyles(function (theme) {
   return {
+    noWhitespace: {
+      whiteSpace: 'nowrap'
+    },
     button: {
       '&.lm-button-shaped': {
         borderRadius: '2em'
@@ -2750,25 +2754,16 @@ var useStyles$b = /*#__PURE__*/makeStyles(function (theme) {
   };
 });
 var LmButton = function LmButton(_ref) {
-  var _content$class_names, _clsx, _content$properties2, _content$custom_color4, _content$custom_color5, _content$custom_color6, _content$icon3, _content$trailing_ico;
+  var _content$class_names, _clsx, _content$custom_color4, _content$custom_color5, _content$custom_color6, _content$icon3, _content$trailing_ico;
 
   var children = _ref.children,
       content = _ref.content,
       onClick = _ref.onClick;
   var classes = useStyles$b();
   var properties = content.properties || [];
-  var disableRipple = !!properties.find(function (i) {
-    return i === 'disable-ripple';
-  });
-  var isUnelevated = properties.find(function (i) {
-    return i === 'disable-shadow';
-  }) || content.variant === 'unelevated';
+  var disableRipple = properties.includes('disable-ripple');
   var color = content.color ? mapColor[content.color] : undefined;
-  var className = clsx(classes.button, (_content$class_names = content.class_names) === null || _content$class_names === void 0 ? void 0 : _content$class_names.values, (_clsx = {
-    'lm-default-color': !content.color
-  }, _clsx[content.corners] = !!content.corners, _clsx['lm-unelevated'] = isUnelevated, _clsx['lm-outlined'] = content.variant === 'outlined', _clsx[content.size] = !!content.size, _clsx["lm-font-" + content.font] = content.font, _clsx['w-100'] = properties.find(function (p) {
-    return p === 'fullWidth';
-  }), _clsx));
+  var className = clsx(classes.button, (_content$class_names = content.class_names) === null || _content$class_names === void 0 ? void 0 : _content$class_names.values, (_clsx = {}, _clsx[classes.noWhitespace] = properties.includes('no-linebreak'), _clsx['lm-default-color'] = !content.color, _clsx[content.corners] = !!content.corners, _clsx['lm-unelevated'] = properties.includes('disable-shadow') || content.variant === 'unelevated', _clsx['lm-outlined'] = content.variant === 'outlined', _clsx[content.size] = !!content.size, _clsx["lm-font-" + content.font] = content.font, _clsx['w-100'] = properties.includes('fullWidth'), _clsx));
   var btnProps = content.link ? _extends({}, getLinkAttrs(content.link, {
     openExternal: !!content.open_external
   }), {
@@ -2781,14 +2776,16 @@ var LmButton = function LmButton(_ref) {
   }
 
   if (content.variant === 'fab') {
-    var _content$properties, _content$custom_color, _content$icon;
+    var _content$custom_color, _content$icon;
 
     return React.createElement(Fab, Object.assign({
       variant: content.label ? 'extended' : undefined
     }, btnProps, {
       className: className,
+      classes: {
+        primary: {}
+      },
       style: {
-        whiteSpace: ((_content$properties = content.properties) === null || _content$properties === void 0 ? void 0 : _content$properties.includes('no-linebreak')) ? 'nowrap' : undefined,
         backgroundColor: ((_content$custom_color = content.custom_color) === null || _content$custom_color === void 0 ? void 0 : _content$custom_color.rgba) ? content.custom_color.rgba : undefined
       },
       size: mapSize[content.size] || 'medium',
@@ -2837,7 +2834,6 @@ var LmButton = function LmButton(_ref) {
     color: color,
     style: {
       justifyContent: content.align ? content.align : undefined,
-      whiteSpace: ((_content$properties2 = content.properties) === null || _content$properties2 === void 0 ? void 0 : _content$properties2.includes('no-linebreak')) ? 'nowrap' : undefined,
       color: !['raised', 'unelevated'].includes(content.variant || '') && ((_content$custom_color4 = content.custom_color) === null || _content$custom_color4 === void 0 ? void 0 : _content$custom_color4.rgba) ? content.custom_color.rgba : undefined,
       backgroundColor: ['raised', 'unelevated'].includes(content.variant || '') && ((_content$custom_color5 = content.custom_color) === null || _content$custom_color5 === void 0 ? void 0 : _content$custom_color5.rgba) ? content.custom_color.rgba : undefined,
       borderColor: content.variant === 'outlined' && ((_content$custom_color6 = content.custom_color) === null || _content$custom_color6 === void 0 ? void 0 : _content$custom_color6.rgba) ? content.custom_color.rgba : undefined
@@ -3611,6 +3607,10 @@ var useStyles$h = /*#__PURE__*/makeStyles({
       paddingBottom: '66.66%' // add ratio variants
 
     },
+    '&.ratio-2x3 .MuiCardMedia-root': {
+      paddingBottom: '150%' // add ratio variants
+
+    },
     '&.card__over_media .MuiCardMedia-root': {
       position: 'relative',
       '& .MuiCardContent-root': {
@@ -3758,12 +3758,18 @@ var useStyles$i = /*#__PURE__*/makeStyles(function (theme) {
   return {
     drawerContent: {
       padding: theme.spacing(3),
-      minWidth: '30%'
+      flex: 1,
+      overflowY: 'auto'
+    },
+    drawerToolbar: {
+      justifyContent: 'space-between'
     }
   };
 });
 
 var CardWrapWithAction = function CardWrapWithAction(_ref) {
+  var _content$action_headl, _content$action_headl2, _content$body;
+
   var content = _ref.content,
       className = _ref.className,
       style = _ref.style,
@@ -3775,7 +3781,9 @@ var CardWrapWithAction = function CardWrapWithAction(_ref) {
       open = _React$useState[0],
       setOpen = _React$useState[1];
 
-  var body = content.body || [];
+  var _useDeviceDimensions = useDeviceDimensions(),
+      isMobile = _useDeviceDimensions.isMobile;
+
   var variants = options.variant || [];
   return React.createElement(React.Fragment, null, React.createElement(Card, {
     className: className,
@@ -3789,17 +3797,41 @@ var CardWrapWithAction = function CardWrapWithAction(_ref) {
   }, children)), React.createElement(Drawer, {
     open: open,
     anchor: "right",
+    PaperProps: {
+      style: {
+        width: isMobile ? '100%' : content.action_width || 420
+      }
+    },
     onClose: function onClose() {
-      return setOpen(false);
+      setOpen(false);
     }
-  }, React.createElement("div", {
-    className: classes.drawerContent
-  }, body.map(function (blok) {
+  }, React.createElement(Grid, {
+    container: true,
+    direction: 'column'
+  }, React.createElement(Grid, {
+    item: true
+  }, React.createElement(Toolbar, {
+    classes: {
+      root: classes.drawerToolbar
+    }
+  }, (_content$action_headl = (_content$action_headl2 = content.action_headline) === null || _content$action_headl2 === void 0 ? void 0 : _content$action_headl2.map(function (blok) {
     return React.createElement(LmComponentRender, {
       content: blok,
       key: blok._uid
     });
-  }))));
+  })) !== null && _content$action_headl !== void 0 ? _content$action_headl : React.createElement("div", null), React.createElement(IconButton, {
+    edge: 'end',
+    onClick: function onClick() {
+      setOpen(false);
+    }
+  }, React.createElement(Close$1, null)))), React.createElement(Grid, {
+    className: classes.drawerContent
+  }, (_content$body = content.body) === null || _content$body === void 0 ? void 0 : _content$body.map(function (blok) {
+    return React.createElement(LmComponentRender, {
+      content: blok,
+      key: blok._uid
+    });
+  })))));
 };
 
 CardWrapWithAction.displayName = 'CardWrapWithAction';
@@ -7339,7 +7371,7 @@ var TopAppBar = function TopAppBar(props) {
     position: isFixedTop ? 'fixed' : 'relative'
   }, props.SystemBar, React.createElement(Container, {
     maxWidth: toolbarWidth
-  }, React.createElement(Toolbar, {
+  }, React.createElement(Toolbar$1, {
     className: clsx(classes.toolbar, (_clsx2 = {}, _clsx2[classes.toolbarCustom] = props.settings.toolbar_font_size, _clsx2))
   }, props.children))), isFixedTop && !appSetup.hasFeatureImage && React.createElement(ContentSpace, null));
 };
