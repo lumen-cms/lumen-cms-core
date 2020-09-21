@@ -428,12 +428,6 @@ export interface EcommerceShopifyCheckoutStoryblok {
 }
 
 export interface EcommerceShopifyConfigStoryblok {
-  sdk_url?: string;
-  floating_button_color?: "primary" | "secondary" | "success" | "info" | "warning";
-  domain?: string;
-  access_token?: string;
-  currency_prefix?: string;
-  floating_badge_color?: "primary" | "secondary" | "error" | "success" | "info" | "warning";
   image_container_height?: number;
   hide_description?: boolean;
   product_title?: any[];
@@ -443,6 +437,13 @@ export interface EcommerceShopifyConfigStoryblok {
   product_checkout?: any[];
   product_variant?: any[];
   product_active_variant?: any[];
+  product_description_trigger?: any[];
+  sdk_url?: string;
+  floating_button_color?: "primary" | "secondary" | "success" | "info" | "warning";
+  domain?: string;
+  access_token?: string;
+  currency_prefix?: string;
+  floating_badge_color?: "primary" | "secondary" | "error" | "success" | "info" | "warning";
   columns_justify?: "space-between" | "space-around" | "space-evenly" | "center" | "flex-start" | "flex-end";
   columns_align_items?: "center" | "flex-start" | "flex-end" | "stretch";
   cart_toolbar?: any[];
@@ -451,7 +452,8 @@ export interface EcommerceShopifyConfigStoryblok {
   cart_footer_additional?: any[];
   columns_first_width?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "auto" | "true";
   columns_second_width?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "auto" | "true";
-  product_description_trigger?: any[];
+  carousel_auto_play?: boolean;
+  carousel_hide_indicator?: boolean;
   _uid: string;
   component: "ecommerce_shopify_config";
   [k: string]: any;
@@ -515,12 +517,13 @@ export interface FormStoryblok {
   api?: string;
   body?: any[];
   success_body?: any[];
+  error_body?: any[];
   error_msg_required?: string;
+  fields_min_width?: number;
+  submit_button: any[];
   fields_border?: "standard" | "filled" | "outlined";
   fields_full_width?: boolean;
   fields_gap?: "0" | "2" | "4" | "8" | "16" | "24";
-  fields_min_width?: number;
-  submit_button: any[];
   _uid: string;
   component: "form";
   [k: string]: any;

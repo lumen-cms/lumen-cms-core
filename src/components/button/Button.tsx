@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
+export const LmButton: FC<LmButtonProps> = ({ children, content, onClick, type }) => {
   const classes = useStyles()
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')
@@ -135,6 +135,7 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
         size={mapSize[content.size as string] || 'medium'}
         color={color as FabProps['color']}
         disableRipple={disableRipple}
+        type={type || 'button'}
       >
         <LmIcon iconName={content.icon?.name} buttonSize={content.size} />
         {content.image && (
@@ -168,6 +169,7 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
               : undefined
         }}
         className={className}
+        type={type || 'button'}
       >
         <LmIcon iconName={content.icon?.name} buttonSize={content.size} />
         {content.image && (
@@ -218,6 +220,7 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick }) => {
           />
         ) : undefined
       }
+      type={type || 'button'}
     >
       {content.image && (
         <LmMuiAvatar

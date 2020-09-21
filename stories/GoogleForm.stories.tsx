@@ -2,7 +2,7 @@ import React from 'react'
 import { LmComponentRender, LmCoreComponents } from '../src/'
 import { FormStoryblok } from '../src/typings/generated/components-schema'
 import { LmGoogleForm } from '../src/components/google-form/GoogleForm'
-import { storyButton, storyForm } from '../src/storybook/core/various'
+import { storyButton, storyForm, storyParagraph } from '../src/storybook/core/various'
 import { GoogleFormExampleUrl } from '../src/utils/config'
 
 LmCoreComponents.form = LmGoogleForm
@@ -12,7 +12,8 @@ const props: FormStoryblok = {
   component: 'form',
   api: GoogleFormExampleUrl,
   fields_full_width: true,
-  submit_button: [storyButton()]
+  submit_button: [storyButton()],
+  success_body: [ storyParagraph() ]
 }
 
 export default {
