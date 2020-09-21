@@ -515,12 +515,13 @@ export interface FormStoryblok {
   api?: string;
   body?: any[];
   success_body?: any[];
+  error_body?: any[];
   error_msg_required?: string;
+  fields_min_width?: number;
+  submit_button: any[];
   fields_border?: "standard" | "filled" | "outlined";
   fields_full_width?: boolean;
   fields_gap?: "0" | "2" | "4" | "8" | "16" | "24";
-  fields_min_width?: number;
-  submit_button: any[];
   _uid: string;
   component: "form";
   [k: string]: any;
