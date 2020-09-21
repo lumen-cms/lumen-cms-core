@@ -37,7 +37,7 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
 
   const background = Array.isArray(content.background) && content.background[0]
   const { style, className } = useBackgroundBox({
-    variant: content.variant,
+    variant: content.variant || content.presetVariant,
     background
   })
   const body = content.body || []
@@ -78,9 +78,9 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
         />
       )}
       {background?.background_elements &&
-        background.background_elements.length > 0 && (
-          <BackgroundElements elements={background.background_elements} />
-        )}
+      background.background_elements.length > 0 && (
+        <BackgroundElements elements={background.background_elements} />
+      )}
       <Container
         style={containerStyles}
         maxWidth={maxWidth as ContainerProps['maxWidth']}
