@@ -105,7 +105,7 @@ export const LmButton: FC<LmButtonProps> = ({ children, content, onClick, type }
     'w-100': properties.includes('fullWidth')
   })
 
-  const btnProps: any = content.link
+  const btnProps: any = content.link?.url
     ? {
         ...getLinkAttrs(content.link as LinkType, {
           openExternal: !!content.open_external
