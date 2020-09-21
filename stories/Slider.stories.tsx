@@ -2,6 +2,7 @@ import { LmComponentRender as LmSlider } from '../src/'
 import * as React from 'react'
 import { storySlider } from '../src/storybook/core/various'
 import { get3ColumnsSection } from '../src/storybook/section'
+import { SliderStoryblok } from '../src/typings/generated/components-schema'
 
 export default {
   title: 'Slider'
@@ -29,12 +30,14 @@ export const PlaygroundDark = () => (
         },
         section_variant: 'dark'
       }
-    }), body: [
+    }),
+    section_variant: 'dark',
+    body: [
       get3ColumnsSection({ count: 1 }),
       get3ColumnsSection({ count: 2 }),
       get3ColumnsSection({ count: 3 })
     ]
-  }} />
+  } as SliderStoryblok} />
 )
 
 
