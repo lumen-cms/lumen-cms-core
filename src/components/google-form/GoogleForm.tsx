@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-ignore */
-import React from 'react'
+import React, { useState } from 'react'
 import {
   DatePickerElement,
   FormContainer,
@@ -12,9 +12,14 @@ import Typography from '@material-ui/core/Typography'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import Box from '@material-ui/core/Box'
+import Alert from '@material-ui/lab/Alert'
 import { LmGoogleFormProps } from './googleFormProps'
 import { useGoogleForm } from '../../utils/hooks/googleForms/useGoogleForm'
 import { LmComponentRender } from '../CoreComponents'
+import {
+  ButtonStoryblok,
+  RichTextEditorStoryblok
+} from '../../typings/generated/components-schema'
 
 class LocalizedUtils extends DateFnsUtils {
   dateFormat = 'P'
@@ -22,8 +27,11 @@ class LocalizedUtils extends DateFnsUtils {
 
 export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
   const { formStructure } = useGoogleForm(content.api || '')
-  // console.log(content, formStructure)
+  const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
+  // @TODO mode is no-cors, can't detect result status
+  // const [submitError, setSubmitError] = useState<boolean>(false)
 
+  console.log(formStructure)
   const onSubmit = async (data: any) => {
     if (!formStructure?.formAction) {
       return
@@ -50,11 +58,13 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
         formData.append(`entry.${entryId}_day`, `${d.getDay()}`)
       }
     })
-    await fetch(formStructure.formAction, {
+    const res = await fetch(formStructure.formAction, {
       method: 'POST',
       body: formData,
       mode: 'no-cors'
     })
+    console.log(res)
+    setSubmitSuccess(true)
   }
   if (!formStructure) {
     return <LinearProgress variant="query" />
@@ -75,6 +85,27 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
     defaultValues[`${formField.answerSubmitIdValue}`] =
       formField.questionTypeCode === 9 ? null : ''
   })
+
+  if (submitSuccess) {
+    return (
+      <Alert severity="success">
+        {content?.success_body?.length ? (
+          <LmComponentRender
+            content={
+              {
+                ...content.success_body[0]
+              } as RichTextEditorStoryblok
+            }
+            type="submit"
+            key={content.success_body[0]._uid}
+          />
+        ) : (
+          'Submit successfull'
+        )}
+      </Alert>
+    )
+  }
+
   return (
     <div>
       <Typography variant="h5">{formStructure.title}</Typography>
@@ -86,16 +117,12 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
           onSuccess={onSubmit}
         >
           {formStructure?.fields?.map((formField) => {
-            const key = formField.answerSubmitIdValue
+            const key = `${formField.answerSubmitIdValue}`
             const hasVariant = ![9].includes(formField.questionTypeCode)
             const baseFieldProps = {
               key,
               label: formField.questionTextValue,
               name: `${formField.answerSubmitIdValue}`,
-              // required: formField.isRequired,
-              // parserError: formField.isRequired // @TODO - not working yet
-              //   ? () => content.error_msg_required
-              //   : undefined,
               fullWidth: content.fields_full_width,
               style:
                 formField.questionTypeCode === 4
@@ -118,7 +145,16 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                 additionalProps.rows = 2
               }
               return (
-                <TextFieldElement {...baseFieldProps} {...additionalProps} />
+                <TextFieldElement
+                  {...baseFieldProps}
+                  {...additionalProps}
+                  required={formField.isRequired}
+                  parseError={
+                    content?.error_msg_required
+                      ? () => content.error_msg_required
+                      : undefined
+                  }
+                />
               )
             }
             if ([2, 3].includes(formField.questionTypeCode)) {
@@ -126,6 +162,12 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                 <>
                   {formField.questionTypeCode === 2 && (
                     <TextFieldElement
+                      required={formField.isRequired}
+                      parseError={
+                        content?.error_msg_required
+                          ? () => content.error_msg_required
+                          : undefined
+                      }
                       name={`${formField.answerSubmitIdValue}_sentinel`}
                       hidden
                       style={{ display: 'none' }}
@@ -134,6 +176,12 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                   )}
 
                   <SelectElement
+                    required={formField.isRequired}
+                    parseError={
+                      content?.error_msg_required
+                        ? () => content.error_msg_required
+                        : undefined
+                    }
                     options={formField.answerOptionsList.sort().map((opt) => ({
                       id: opt,
                       title: opt || '--'
@@ -160,6 +208,12 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                     key={`${key}_sentinel`}
                   />
                   <MultiSelectElement
+                    required={formField.isRequired}
+                    parseError={
+                      content?.error_msg_required
+                        ? () => content.error_msg_required
+                        : undefined
+                    }
                     menuItems={formField.answerOptionsList
                       .sort()
                       .filter((opt) => !!opt)}
@@ -171,6 +225,12 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
             if (formField.questionTypeCode === 9) {
               return (
                 <DatePickerElement
+                  required={formField.isRequired}
+                  parseError={
+                    content?.error_msg_required
+                      ? () => content.error_msg_required
+                      : undefined
+                  }
                   {...baseFieldProps}
                   inputVariant={content.fields_border}
                 />
@@ -179,18 +239,20 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
             return null
           })}
           <Box>
-            {(content?.submit_button || []).map((blok) => (
+            {content?.submit_button?.length && (
               <LmComponentRender
-                content={{
-                  color: 'primary',
-                  variant: 'contained',
-                  label: 'Submit',
-                  ...blok
-                }}
-                key={blok._uid}
+                content={
+                  {
+                    color: 'primary',
+                    variant: 'contained',
+                    label: 'Submit',
+                    ...content.submit_button[0]
+                  } as ButtonStoryblok
+                }
                 type="submit"
+                key={content.submit_button[0]._uid}
               />
-            ))}
+            )}
           </Box>
         </FormContainer>
       </MuiPickersUtilsProvider>
