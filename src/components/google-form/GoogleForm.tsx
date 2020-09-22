@@ -133,8 +133,6 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                   : baseStyle
             }
             const additionalProps: Record<string, any> = {}
-            formField.isRequired &&
-              (additionalProps.validation = content.error_msg_required)
             if (hasVariant) {
               additionalProps.variant = content.fields_border
             }
@@ -162,12 +160,6 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                 <>
                   {formField.questionTypeCode === 2 && (
                     <TextFieldElement
-                      required={formField.isRequired}
-                      parseError={
-                        content?.error_msg_required
-                          ? () => content.error_msg_required
-                          : undefined
-                      }
                       name={`${formField.answerSubmitIdValue}_sentinel`}
                       hidden
                       style={{ display: 'none' }}
