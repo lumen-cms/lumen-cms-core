@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
-import { LogoJsonLd } from 'next-seo'
 import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
 import { homepageLinkHandler } from '../../../utils/linkHandler'
 import imageService from '../../../utils/ImageService'
@@ -28,12 +27,6 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
 
   return (
     <div className="h-100 d-inline-block" ref={refIntersectionObserver}>
-      {websiteLogo && settings.seo_website_url && (
-        <LogoJsonLd
-          logo={imageService(websiteLogo)}
-          url={settings.seo_website_url}
-        />
-      )}
       <Link as={homepageLinkHandler()} href={CONFIG.href} passHref>
         <MuiLink
           className={clsx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
