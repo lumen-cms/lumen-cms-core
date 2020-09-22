@@ -104,7 +104,11 @@ export function getImageAttrs({
   fitInColor,
   smart,
   focalPoint
-}: GetImageFuncProps): { src: string; srcSet: string } {
+}: GetImageFuncProps): {
+  src: string
+  srcSet: string
+  originalDimensions: { width: number; height: number }
+} {
   const originalDimensions = getOriginalImageDimensions(originalSource)
   let dimW = width
   let dimH = height
@@ -134,7 +138,8 @@ export function getImageAttrs({
   const src = imageService(originalSource, path, filter)
   const imgObj = {
     src,
-    srcSet: src
+    srcSet: src,
+    originalDimensions
   }
   // enable retina sourceset
   if (

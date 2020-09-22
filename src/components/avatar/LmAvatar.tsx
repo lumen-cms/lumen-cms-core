@@ -71,7 +71,8 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
       variant={content.variant || 'circle'}
       style={style}
       className={clsx(content.class_names && content.class_names.values)}
-      {...imageAttrs}
+      src={imageAttrs.src}
+      srcSet={imageAttrs.srcSet}
     >
       {content.letter}
       {iconName && <LmIcon iconName={iconName} />}

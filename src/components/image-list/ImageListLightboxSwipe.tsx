@@ -34,11 +34,15 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
     dimensionWidth = imgWidth <= dimensionWidth ? imgWidth : dimensionWidth
     dimensionHeight = imgHeight <= dimensionHeight ? imgHeight : dimensionHeight
     const landscape = dimensionWidth > dimensionHeight
-    return getImageAttrs({
+    const attrs = getImageAttrs({
       originalSource: source,
       width: landscape ? 0 : dimensionWidth,
       height: landscape ? dimensionHeight : 0
     })
+    return {
+      src: attrs.src,
+      srcSet: attrs.srcSet
+    }
   }
 
   function handleChangeIndex(index: number) {

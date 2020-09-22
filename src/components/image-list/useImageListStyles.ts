@@ -59,6 +59,7 @@ export const useImageListStyles = makeStyles({
   aspectRatio: {
     '& .MuiGridListTile-tile': {
       // paddingBottom: '56.25%',
+      // marginBottom: '-6px',
       '& img': {
         position: 'absolute',
         // top: 0,
