@@ -10,7 +10,8 @@ LmCoreComponents.form = LmGoogleForm
 const props: FormStoryblok = {
   _uid: '123098',
   component: 'form',
-  api: GoogleFormExampleUrl,
+  // api: GoogleFormExampleUrl,
+  api: 'https://docs.google.com/forms/d/e/1FAIpQLSdflinC8Ua4vLjNca_WGckSKYc_9ww0OTUgdfM9DJ0NRIFKqQ/viewform?embedded=true',
   fields_full_width: true,
   submit_button: [storyButton()],
   success_body: [ storyParagraph() ]
