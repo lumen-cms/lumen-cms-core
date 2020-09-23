@@ -2,7 +2,6 @@ const isDev = () => process.env.NODE_ENV !== 'production'
 
 declare global {
   interface Window {
-    gtag: (type: 'event' | 'config', name: string, opts?: any) => void
     instgrm: any
   }
 }

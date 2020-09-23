@@ -20,6 +20,7 @@ import {
   ButtonStoryblok,
   RichTextEditorStoryblok
 } from '../../typings/generated/components-schema'
+import { hasFacebookPixel, hasGtag } from '../..'
 
 class LocalizedUtils extends DateFnsUtils {
   dateFormat = 'P'
@@ -31,7 +32,6 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
   // @TODO mode is no-cors, can't detect result status
   // const [submitError, setSubmitError] = useState<boolean>(false)
 
-  console.log(formStructure)
   const onSubmit = async (data: any) => {
     if (!formStructure?.formAction) {
       return
@@ -58,12 +58,18 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
         formData.append(`entry.${entryId}_day`, `${d.getDay()}`)
       }
     })
-    const res = await fetch(formStructure.formAction, {
+    if (hasGtag()) {
+      window.gtag('event', 'generate_lead')
+    }
+    if (hasFacebookPixel()) {
+      window.fbq('track', 'GoogleForm')
+    }
+    await fetch(formStructure.formAction, {
       method: 'POST',
       body: formData,
       mode: 'no-cors'
     })
-    console.log(res)
+
     setSubmitSuccess(true)
   }
   if (!formStructure) {
