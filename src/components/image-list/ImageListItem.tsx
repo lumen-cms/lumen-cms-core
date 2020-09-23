@@ -40,7 +40,8 @@ export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
         fitInColor: listProps.fit_in_color
       })
       imageProps = {
-        ...imgSrc,
+        src: imgSrc.src,
+        srcSet: imgSrc.srcSet,
         width: width || undefined,
         height: height || undefined
       }

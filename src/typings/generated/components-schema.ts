@@ -778,7 +778,7 @@ export interface ImageStoryblok {
 }
 
 export interface ImageCoreStoryblok {
-  url?: string;
+  url: string;
   alt?: string;
   width?: number;
   height?: number;
@@ -1255,6 +1255,64 @@ export interface SectionVideoBgStoryblok {
   [k: string]: any;
 }
 
+export interface SeoCorporateContactStoryblok {
+  url: string;
+  logo?: string;
+  contact_point: any[];
+  _uid: string;
+  component: "seo_corporate_contact";
+  [k: string]: any;
+}
+
+export interface SeoCorporateContactPointStoryblok {
+  telephone: string;
+  contact_type: string;
+  area_served?: string;
+  available_language?: string;
+  _uid: string;
+  component: "seo_corporate_contact_point";
+  [k: string]: any;
+}
+
+export interface SeoLocalBusinessStoryblok {
+  id: string;
+  type: string;
+  name: string;
+  url?: string;
+  description: string;
+  address_country: string;
+  address_locality: string;
+  address_region?: string;
+  address_postal_code: string;
+  address_street: string;
+  images: any[];
+  telephone?: string;
+  geo_latitude?: string;
+  geo_longitude?: string;
+  opening_hours?: any[];
+  _uid: string;
+  component: "seo_local_business";
+  [k: string]: any;
+}
+
+export interface SeoLocalBusinessOpeningHourStoryblok {
+  opens: string;
+  closes: string;
+  day_of_week: (
+    | "Monday"
+    | "Tuesday"
+    | "Wednesday"
+    | "Thursday"
+    | "Friday"
+    | "Saturday"
+    | "Sunday"
+    | "PublicHolidays"
+  )[];
+  _uid: string;
+  component: "seo_local_business_opening_hour";
+  [k: string]: any;
+}
+
 export interface SeoOpenGraphStoryblok {
   title?: string;
   description?: string;
@@ -1266,6 +1324,53 @@ export interface SeoOpenGraphStoryblok {
   images?: any[];
   _uid: string;
   component: "seo_open_graph";
+  [k: string]: any;
+}
+
+export interface SeoProductStoryblok {
+  product_name: string;
+  sku?: string;
+  images?: any[];
+  description?: string;
+  brand?: string;
+  offers: any[];
+  _uid: string;
+  component: "seo_product";
+  [k: string]: any;
+}
+
+export interface SeoProductOfferStoryblok {
+  price: number;
+  price_currency: string;
+  item_condition?:
+    | "https://schema.org/DamagedCondition"
+    | "https://schema.org/NewCondition"
+    | "https://schema.org/RefurbishedCondition"
+    | "https://schema.org/UsedCondition";
+  availability?:
+    | "https://schema.org/Discontinued"
+    | "https://schema.org/InStock"
+    | "https://schema.org/InStoreOnly"
+    | "https://schema.org/LimitedAvailability"
+    | "https://schema.org/OnlineOnly"
+    | "https://schema.org/OutOfStock"
+    | "https://schema.org/PreOrder"
+    | "https://schema.org/PreSale"
+    | "https://schema.org/SoldOut";
+  url?: string;
+  seller_name: string;
+  _uid: string;
+  component: "seo_product_offer";
+  [k: string]: any;
+}
+
+export interface SeoSocialProfileStoryblok {
+  type: "Person" | "Organization";
+  name: string;
+  url: string;
+  same_as: string;
+  _uid: string;
+  component: "seo_social_profile";
   [k: string]: any;
 }
 

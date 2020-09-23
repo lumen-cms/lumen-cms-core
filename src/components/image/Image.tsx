@@ -113,13 +113,15 @@ export default function LmImage({
       height: definedHeight
     }
 
-    imgProperties = getImageAttrs({
+    const attrs = getImageAttrs({
       originalSource: content.source,
       ...imgRatio,
       fitInColor,
       focalPoint: content.focal_point,
       smart: imageCrop.includes('smart_crop')
     })
+    imgProperties.src = attrs.src
+    imgProperties.srcSet = attrs.srcSet
   }
 
   function onImageLoaded() {

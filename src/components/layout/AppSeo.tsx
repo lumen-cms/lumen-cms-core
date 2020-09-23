@@ -1,19 +1,20 @@
-import { NextSeo } from 'next-seo'
+import { LogoJsonLd, NextSeo } from 'next-seo'
 import React from 'react'
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types.d'
 import { useRouter } from 'next/router'
 import {
-  getOriginalImageDimensions,
-  imageServiceNoWebp
-} from '../../utils/ImageService'
-import {
-  GlobalStoryblok,
   ImageCoreStoryblok,
-  PageStoryblok,
   SeoOpenGraphStoryblok,
   SeoTwitterStoryblok
 } from '../../typings/generated/components-schema'
 import { CONFIG } from '../../utils/config'
+import { AppSeoProps } from './layoutTypes'
+import { mapOpenGraphImage } from '../../utils/mapOpenGraphImage'
+import { SeoProduct } from './seo/SeoProduct'
+import { SeoSocialProfile } from './seo/SeoSocialProfile'
+import { SeoLocalBusiness } from './seo/SeoLocalBusiness'
+import { SeoCorporateContact } from './seo/SeoCorporateContact'
+import { imageServiceNoWebp } from '../../utils/ImageService'
 
 type SeoMetaTypes = {
   title: string
@@ -26,31 +27,6 @@ type SeoMetaTypes = {
   }
   twitter?: Twitter
   canonical?: string
-}
-
-const mapOpenGraphImage = (
-  item: ImageCoreStoryblok
-): OpenGraphImages | undefined => {
-  if (!item.url) return undefined
-  const dimensions = getOriginalImageDimensions(item.url)
-  const imgPath =
-    item.width || item.height ? `${item.width || 0}x${item.height || 0}` : ''
-  if (item.width || item.height) {
-    // delete both original dimensions
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    delete dimensions?.width
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-    // @ts-ignore
-    delete dimensions.height
-    item.width && (dimensions.width = item.width)
-    item.height && (dimensions.height = item.height)
-  }
-  return {
-    ...dimensions,
-    alt: item.alt,
-    url: imageServiceNoWebp(item.url, imgPath)
-  }
 }
 
 const parseOpenGraph = (
@@ -107,13 +83,11 @@ const getCanonicalUrl = (hostname = '', url: string) => {
   return hostname + url
 }
 
-type AppSeoProps = {
-  settings: GlobalStoryblok
-  page?: PageStoryblok | null
-  previewImage?: string
-}
-
-function AppSeo({ settings, page, previewImage }: AppSeoProps): JSX.Element {
+export function AppSeo({
+  settings,
+  page,
+  previewImage
+}: AppSeoProps): JSX.Element {
   const router = useRouter()
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
     settings.seo_body || []
@@ -178,7 +152,19 @@ function AppSeo({ settings, page, previewImage }: AppSeoProps): JSX.Element {
     )
   }
 
-  return <NextSeo {...seo} />
+  return (
+    <>
+      <NextSeo {...seo} />
+      <SeoProduct settings={settings} page={page} />
+      <SeoSocialProfile settings={settings} page={page} />
+      <SeoLocalBusiness settings={settings} page={page} />
+      <SeoCorporateContact settings={settings} page={page} />
+      {settings.website_logo && settings.seo_website_url && (
+        <LogoJsonLd
+          logo={imageServiceNoWebp(settings.website_logo)}
+          url={settings.seo_website_url}
+        />
+      )}
+    </>
+  )
 }
-
-export default AppSeo

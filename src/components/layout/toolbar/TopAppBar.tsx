@@ -80,13 +80,6 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: 0
       }
     },
-    topAppBarCustom: (props: AppHeaderProps) => {
-      const options: CreateCSSProperties<{}> = {}
-      if (props.settings?.toolbar_color?.rgba) {
-        options.backgroundColor = `${props.settings.toolbar_color.rgba} !important`
-      }
-      return options
-    },
     toolbarCustom: (props: AppHeaderProps) => {
       const options: CreateCSSProperties<{}> = {}
       const increasedFontSize = props.settings.toolbar_font_size
@@ -170,12 +163,18 @@ const TopAppBar: FunctionComponent<
           'lm-toolbar__collapsed': isScrolled && appSetup.hasScrollCollapse,
           'lm-toolbar__scroll-collapse': isScrollCollapse,
           'lm-toolbar__with-system-bar': !!props.SystemBar,
-          [classes.topAppBarCustom]: props.settings?.toolbar_color?.rgba,
           [classes.leftShift]: showLeftShift,
           [classes[
             `left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`
           ]]: showLeftShift
         })}
+        style={{
+          backgroundColor:
+            props.settings?.toolbar_color?.rgba &&
+            (!appSetup.hasFeatureImage || toolbarScrolled)
+              ? props.settings?.toolbar_color?.rgba
+              : undefined
+        }}
         color={mapToolbarColor[toolbarVariant || 'default']}
         position={isFixedTop ? 'fixed' : 'relative'}
       >
