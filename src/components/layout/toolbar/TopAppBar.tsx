@@ -6,7 +6,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import { useDebounce } from 'use-debounce'
 import { useGlobalState } from '../../../utils/state/state'
 import ContentSpace from '../ContentSpace'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
@@ -125,8 +124,8 @@ const TopAppBar: FunctionComponent<
   const { settings } = props
   const toolbarConfig = settings.toolbar_config || []
   const appSetup = useAppSetup()
-  const isScrolledTrigger = useScrollTrigger({ disableHysteresis: false })
-  const [isScrolled] = useDebounce(isScrolledTrigger, 100)
+  const isScrolled = useScrollTrigger({ disableHysteresis: false })
+  // const [isScrolled] = useDebounce(isScrolledTrigger, 100)
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
   const scrolledWithoutHysteresis = useScrollTop()
   const toolbarVariant = settings.toolbar_variant

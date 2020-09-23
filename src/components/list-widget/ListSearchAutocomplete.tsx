@@ -132,7 +132,7 @@ export function LmListSearchAutocomplete({
     prefixLocale = CONFIG.rootDirectory
   }
   const isMobileAction = content.mobile_breakpoint && matches
-  const [debounceFunc] = useDebouncedCallback((value: string) => {
+  const { callback } = useDebouncedCallback((value: string) => {
     if (value.length < 2) {
       return
     }
@@ -197,7 +197,7 @@ export function LmListSearchAutocomplete({
                 setOpen(false)
               },
               onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
-                debounceFunc(event.currentTarget.value),
+                callback(event.currentTarget.value),
               autoComplete: 'new-password',
               startAdornment: (
                 <InputAdornment position="start">
