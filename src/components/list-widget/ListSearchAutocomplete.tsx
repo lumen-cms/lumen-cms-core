@@ -1,10 +1,4 @@
-import React, {
-  createRef,
-  FunctionComponent,
-  RefObject,
-  useEffect,
-  useState
-} from 'react'
+import React, { createRef, RefObject, useState } from 'react'
 import {
   createStyles,
   fade,
@@ -18,7 +12,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Magnify from 'mdi-material-ui/Magnify'
 import clsx from 'clsx'
 import Paper from '@material-ui/core/Paper'
-import IconButton from '@material-ui/core/IconButton'
 import { StoryData } from 'storyblok-js-client'
 import { useDebouncedCallback } from 'use-debounce'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -27,9 +20,11 @@ import { PageComponent } from '../../typings/generated/schema'
 import LmIcon from '../icon/LmIcon'
 import MuiNextLink from '../link/MuiNextLink'
 import { getLinkAttrs } from '../../utils/linkHandler'
-import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { CONFIG } from '../../utils/config'
 import { LmListSearchAutocompleteProps } from './listWidgetTypes'
+import { useAppContext } from '../provider/context/AppContext'
+import { ListSearchAutocompleteContainer } from './ListSearchAutocompleteContainer'
+import useSWR from 'swr'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,19 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
       verticalAlign: 'middle',
       '& .MuiInputLabel-root.Mui-focused': {
         color: 'inherit'
-      }
-    },
-    mobile: {
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      width: '100%',
-      zIndex: 1,
-      height: '100%',
-      verticalAlign: 'middle',
-      backgroundColor: 'inherit',
-      '& .MuiFormControl-root': {
-        alignSelf: 'center'
       }
     },
     inputRoot: {
@@ -109,76 +91,32 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const ListSearchAutocompleteContainer: FunctionComponent<{
-  content: ListSearchAutocompleteStoryblok
-  popperActive?: boolean
-  inputRef: RefObject<HTMLInputElement>
-  isMobileAction: boolean
-}> = ({ content, children, popperActive, inputRef, isMobileAction }) => {
-  const [visible, setVisible] = useState<boolean>(false)
-  const classes = useStyles()
-  const [bgColor, setBgColor] = useState<string | undefined>()
-  useEffect(() => {
-    if (isMobileAction) {
-      const toolbar:
-        | HTMLDivElement
-        | null
-        | undefined = inputRef.current?.closest('.MuiAppBar-root')
-      const bg =
-        toolbar && window.getComputedStyle(toolbar, null).backgroundColor
-      setBgColor(bg || undefined)
+const fetcher = async (
+  path: string,
+  searchterm: string,
+  locale?: string
+): Promise<StoryData<PageComponent>[]> => {
+  console.log(searchterm, locale)
+  const { data } = await LmStoryblokService.getSearch(path, {
+    per_page: 15,
+    sort_by: 'content.preview_title:desc',
+    excluding_fields: 'body,right_body,meta_robots,property,seo_body',
+    search_term: searchterm,
+    starts_with: locale,
+    filter_query: {
+      component: {
+        in: 'page'
+      }
     }
-  }, [isMobileAction, inputRef])
-  useEffect(() => {
-    if (!isMobileAction) {
-      return
-    }
-    inputRef.current?.focus()
-  }, [visible, inputRef, isMobileAction])
-  useEffect(() => {
-    if (!isMobileAction) {
-      return
-    }
-    if (!popperActive) {
-      setVisible(false)
-    }
-  }, [popperActive, isMobileAction])
-  const onOpen = () => {
-    setVisible(true)
-  }
-  if (isMobileAction) {
-    return (
-      <>
-        {!visible && (
-          <IconButton onClick={onOpen}>
-            {content.icon?.name ? (
-              <LmIcon iconName={content.icon.name} />
-            ) : (
-              <Magnify />
-            )}
-          </IconButton>
-        )}
-        <div
-          style={{
-            display: !visible ? 'none' : 'inline-flex',
-            backgroundColor: bgColor
-          }}
-          className={classes.mobile}
-        >
-          {children}
-        </div>
-      </>
-    )
-  }
-  return <>{children}</>
+  })
+  return data.stories
 }
-ListSearchAutocompleteContainer.displayName = 'ListSearchAutocompleteContainer'
 
 export function LmListSearchAutocomplete({
   content
 }: LmListSearchAutocompleteProps): JSX.Element {
-  // const { allStories } = useAppContext()
-  const [allStories, setAllStories] = useState<StoryData<PageComponent>[]>([])
+  const [searchTerm, setSearchTerm] = useState<string>()
+  const appContext = useAppContext()
   const classes = useStyles()
   const inputRef: RefObject<HTMLInputElement> = createRef()
   const [open, setOpen] = useState<boolean | undefined>()
@@ -186,30 +124,26 @@ export function LmListSearchAutocomplete({
   const matches = useMediaQuery(
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')
   )
+  let prefixLocale =
+    appContext?.locale && CONFIG.defaultLocale !== appContext.locale
+      ? appContext.locale
+      : undefined
+  if (CONFIG.rootDirectory) {
+    prefixLocale = CONFIG.rootDirectory
+  }
   const isMobileAction = content.mobile_breakpoint && matches
-
   const [debounceFunc] = useDebouncedCallback((value: string) => {
     if (value.length < 2) {
       return
     }
-
+    setSearchTerm(value)
     setOpen(true)
-    LmStoryblokService.getSearch(`cdn/stories`, {
-      per_page: 25,
-      sort_by: 'content.preview_title:desc',
-      excluding_fields: 'body,right_body,meta_robots,property,seo_body',
-      search_term: value,
-      filter_query: {
-        component: {
-          in: 'page'
-        }
-      }
-    }).then((res) => {
-      setAllStories(res.data.stories)
-      setOpen(true)
-      // setSearchText(value)
-    })
   }, 400)
+  const { data } = useSWR(
+    searchTerm ? [`cdn/stories`, searchTerm, prefixLocale] : null,
+    fetcher
+  )
+  const allStories = data || []
 
   return (
     <ListSearchAutocompleteContainer

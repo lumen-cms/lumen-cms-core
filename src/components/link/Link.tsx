@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
 import { LmLinkProps } from './linkTypes'
-import { LmCoreComponents } from '../..'
+import { LmCoreComponents } from '../../utils/config'
 
 export function LmLink({ content }: LmLinkProps): JSX.Element {
   if (!content.link?.cached_url) {

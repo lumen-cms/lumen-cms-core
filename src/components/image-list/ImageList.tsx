@@ -9,7 +9,7 @@ import { useImageListStyles } from './useImageListStyles'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
 import { LmImageListProps } from './imageListTypes'
-import { LmCoreComponents } from '../..'
+import { LmCoreComponents } from '../../utils/config'
 
 export function LmImageList({ content }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { LmCoreComponents } from '../..'
+import { LmCoreComponents } from '../../utils/config'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
 export const LmAppProvidersContainer: FC<{ settings: GlobalStoryblok }> = ({
