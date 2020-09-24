@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import MuiLink from '@material-ui/core/Link'
 import { RteContentProps } from './rte_typings'
 import { getLinkAttrs } from '../../../utils/linkHandler'
-import { LmCoreComponents } from '../../..'
+import { LmCoreComponents } from '../../../utils/config'
 
 const InlineClassMapping = {
   bold: 'font-weight-bold',

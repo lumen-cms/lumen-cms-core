@@ -8,7 +8,7 @@ import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmButtonProps } from './buttonTypes'
-import { LmCoreComponents } from '../..'
+import { LmCoreComponents } from '../../utils/config'
 
 // fab and button: small medium large, default: large
 const mapSize = {
@@ -88,7 +88,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export const LmButton: FC<LmButtonProps> = ({ children, content, onClick, type }) => {
+export const LmButton: FC<LmButtonProps> = ({
+  children,
+  content,
+  onClick,
+  type
+}) => {
   const classes = useStyles()
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')

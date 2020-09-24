@@ -12,7 +12,7 @@ import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '../CoreComponents'
 import { LmMenuProps } from './menuTypes'
-import { LmCoreComponents } from '../..'
+import { LmCoreComponents } from '../../utils/config'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({

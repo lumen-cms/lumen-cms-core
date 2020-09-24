@@ -22,12 +22,13 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
 }) => {
   // legacy code for old projects.. remove after all tawkto are integrated
   if (settings.tawkto) {
-    settings.chat_button = settings.chat_button || []
-    settings.chat_button.push({
-      _uid: 'chat button',
-      component: 'chat_tawkto',
-      account: settings.tawkto
-    } as ChatTawktoStoryblok)
+    settings.chat_button = [
+      {
+        _uid: 'chat button',
+        component: 'chat_tawkto',
+        account: settings.tawkto
+      } as ChatTawktoStoryblok
+    ]
   }
   return (
     <>

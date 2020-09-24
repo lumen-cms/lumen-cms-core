@@ -7,6 +7,7 @@ import useScrollTop from '../../utils/hooks/useScrollTop'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     contentSpace: {
+      display: 'inline-table',
       height: theme.toolbar.height.custom
         ? Number(theme.toolbar.height.custom)
         : theme.toolbar.height.mobile,
