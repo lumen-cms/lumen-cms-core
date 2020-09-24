@@ -11,7 +11,6 @@ import { LinearProgress } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
-import Box from '@material-ui/core/Box'
 import Alert from '@material-ui/lab/Alert'
 import { LmGoogleFormProps } from './googleFormProps'
 import { useGoogleForm } from '../../utils/hooks/googleForms/useGoogleForm'
@@ -185,6 +184,7 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                       title: opt || '--'
                     }))}
                     {...baseFieldProps}
+                    {...additionalProps}
                   />
                 </>
               )
@@ -216,6 +216,7 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                       .sort()
                       .filter((opt) => !!opt)}
                     {...baseFieldProps}
+                    {...additionalProps}
                   />
                 </div>
               )
@@ -236,8 +237,14 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
             }
             return null
           })}
-          <Box>
-            {content?.submit_button?.length && (
+          {content?.submit_button?.length && (
+            <div
+              style={{
+                display: 'flex',
+                width: '100%',
+                justifyContent: content.submit_button[0].align || 'center'
+              }}
+            >
               <LmComponentRender
                 content={
                   {
@@ -250,8 +257,8 @@ export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
                 type="submit"
                 key={content.submit_button[0]._uid}
               />
-            )}
-          </Box>
+            </div>
+          )}
         </FormContainer>
       </MuiPickersUtilsProvider>
     </div>
