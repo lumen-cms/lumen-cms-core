@@ -23,27 +23,22 @@ type DrawerContentRenderProps = {
 }
 
 export function DrawerContentRender({
-  content,
-  i
+  content
 }: DrawerContentRenderProps): JSX.Element | null {
   const { component } = content
-  const componentProps = {
-    content,
-    key: `${component}_${i}`
-  }
   if (component === 'button' || component === 'nav_menu_item') {
-    return <DrawerButton {...componentProps} />
+    return <DrawerButton content={content} />
   }
   if (component === 'nav_list') {
-    return <DrawerNavList {...componentProps} />
+    return <DrawerNavList content={content} />
   }
   if (component === 'nav_menu') {
-    return <CollapsibleListSection {...componentProps} />
+    return <CollapsibleListSection content={content} />
   }
   if (component === 'list_search_autocomplete') {
     return null
   }
-  return <LmComponentRender content={content} key={content._uid} />
+  return <LmComponentRender content={content} />
 }
 
 export function CollapsibleListSection({
@@ -92,14 +87,16 @@ export function CollapsibleListSection({
         <ListItemText primary={content.title} />
         {open ? <ChevronUp /> : <ChevronDown />}
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse in={open} timeout="auto">
         <List
           component="div"
           disablePadding
           style={{ marginLeft: startIconName ? '55px' : '20px' }}
         >
           {Array.isArray(items) &&
-            items.map((blok, i) => DrawerContentRender({ content: blok, i }))}
+            items.map((blok) => (
+              <DrawerContentRender content={blok} key={blok._uid} />
+            ))}
         </List>
       </Collapse>
     </>

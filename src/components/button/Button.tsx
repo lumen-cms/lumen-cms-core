@@ -110,15 +110,17 @@ export const LmButton: FC<LmButtonProps> = ({
     'w-100': properties.includes('fullWidth')
   })
 
-  const btnProps: any = content.link?.url
-    ? {
-        ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external
-        }),
-        naked: true,
-        component: LmCoreComponents.lm_link_render
-      }
-    : {}
+  console.log(content.link)
+  const btnProps: any =
+    content.link?.cached_url || content.link?.url || content.link?.email
+      ? {
+          ...getLinkAttrs(content.link as LinkType, {
+            openExternal: !!content.open_external
+          }),
+          naked: true,
+          component: LmCoreComponents.lm_link_render
+        }
+      : {}
 
   if (onClick) {
     btnProps.onClick = onClick

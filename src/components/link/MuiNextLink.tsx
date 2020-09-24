@@ -1,6 +1,4 @@
 import React from 'react'
-import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 import { CONFIG } from '../../utils/config'
@@ -53,11 +51,12 @@ function Link(props: LinkProps): JSX.Element {
     ...other
   } = props
 
-  const router = useRouter()
-
-  const className = clsx(classNameProps, {
-    [activeClassName]: router?.pathname === href && activeClassName // todo probably router.asPath??
-  })
+  // const router = useRouter()
+  //
+  // const className = clsx(classNameProps, {
+  //   [activeClassName]: router?.asPath === href && activeClassName
+  // })
+  const className = classNameProps
   if (!href) {
     // console.log(props)
     // eslint-disable-next-line jsx-a11y/anchor-has-content

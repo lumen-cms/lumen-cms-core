@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../provider/context/AppContext'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { FacbookChatButtonProps } from './chatTypings'
-import useScript, { ScriptStatus } from '../../utils/hooks/useScript'
+import useScript, { ScriptStatus } from '@charlietango/use-script'
 
 declare global {
   interface Window {
@@ -31,7 +31,9 @@ export function FacebookChatButton({ content }: FacbookChatButtonProps) {
       ? 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js'
       : '',
     {
-      id: 'facebook-jssdk'
+      attributes: {
+        id: 'facebook-jssdk'
+      }
     }
   )
   if (!initialized) {

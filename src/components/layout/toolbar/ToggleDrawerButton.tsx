@@ -23,7 +23,6 @@ export function LmToggleDrawerButton({
   if (rightDrawer && !hasRightDrawer) {
     return null // if no right drawer on page hide
   }
-
   const breakpointClass = rightDrawer
     ? rightDrawerMediaBreakpoint || 'sm'
     : leftDrawerMediaBreakpoint || 'sm'

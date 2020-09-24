@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
 import { useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
@@ -25,6 +25,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   const matches = useMediaQuery(
     theme.breakpoints.down(appSetup.leftDrawerMediaBreakpoint || 'sm')
   )
+  const [mountedOnce, setMountedOnce] = useState<boolean>(false)
 
   const drawerProps: DrawerProps = {
     variant: appSetup.drawerVariant
@@ -36,10 +37,19 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
     }
   }, [asPath, appSetup, setOpen, matches])
 
+  useEffect(() => {
+    if (isOpen && !mountedOnce) {
+      setMountedOnce(true)
+    }
+  }, [isOpen, mountedOnce])
+
   const classList = backgroundProps?.className
   return (
     <Drawer
       open={isOpen}
+      SlideProps={{
+        unmountOnExit: !mountedOnce
+      }}
       className={clsx('lm-main__drawer', classes.leftDrawer, {
         [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
         [classes.belowToolbar]: appSetup.drawerBelowToolbar,

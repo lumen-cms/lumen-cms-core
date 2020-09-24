@@ -4,9 +4,15 @@ import { useInView } from 'react-intersection-observer'
 import fetcher from '../../utils/fetcher'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmInstagramPostProps } from './instagramTypes'
-import useScript from '../../utils/hooks/useScript'
+import useScript from '@charlietango/use-script'
 
 const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+
+declare global {
+  interface Window {
+    instgrm: any
+  }
+}
 
 export function LmInstagramPost({ content }: LmInstagramPostProps) {
   const url = new URL(`${security}://api.instagram.com/oembed`)

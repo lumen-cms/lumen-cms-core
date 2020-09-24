@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
-import useScript, { ScriptStatus } from '../../utils/hooks/useScript'
+import useScript, { ScriptStatus } from '@charlietango/use-script'
 import { TawktoProps } from './chatTypings'
 import { useAppContext } from '../provider/context/AppContext'
 

@@ -9,6 +9,7 @@ export interface LinkType {
   id?: string
   anchor?: string
   url?: string
+  email?: string
 
   [k: string]: any
 }
