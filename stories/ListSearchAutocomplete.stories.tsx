@@ -85,6 +85,17 @@ export const Shaped = () => (
         shape: 'square'
       }}
     />
+    <h3>Custom Height:</h3>
+    <LmListSearchAutocomplete
+      content={{
+        ...props,
+        label: undefined,
+        menu_border_radius: '0px',
+        large: true,
+        shape: 'square',
+        height: '80'
+      }}
+    />
     <h3>Fullwidth:</h3>
     <LmListSearchAutocomplete
       content={{

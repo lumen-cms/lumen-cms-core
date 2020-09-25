@@ -153,6 +153,7 @@ export function LmListSearchAutocomplete({
       isMobileAction={!!isMobileAction}
     >
       <Autocomplete
+        fullWidth={content.fullwidth}
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
         style={{ width: isMobileAction ? '100%' : undefined }}
@@ -191,7 +192,7 @@ export function LmListSearchAutocomplete({
             InputProps={{
               ...params.InputProps,
               style: {
-                height: content.height ? content.height : undefined
+                height: content.height ? Number(content.height) : undefined
               },
               onFocus: () => {
                 setOpen(true)
