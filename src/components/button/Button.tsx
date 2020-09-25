@@ -110,7 +110,6 @@ export const LmButton: FC<LmButtonProps> = ({
     'w-100': properties.includes('fullWidth')
   })
 
-  console.log(content.link)
   const btnProps: any =
     content.link?.cached_url || content.link?.url || content.link?.email
       ? {

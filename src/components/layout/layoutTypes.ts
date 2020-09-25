@@ -12,3 +12,7 @@ export type AppSeoProps = {
   page?: PageStoryblok | null
   previewImage?: string
 }
+
+export type ContentSpaceProps = {
+  isBlock?: boolean
+}

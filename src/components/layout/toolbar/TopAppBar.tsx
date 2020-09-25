@@ -7,10 +7,11 @@ import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { useGlobalState } from '../../../utils/state/state'
-import ContentSpace from '../ContentSpace'
+import { ContentSpace } from '../ContentSpace'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { AppHeaderProps } from './toolbarTypes'
+import { useDebounce } from 'use-debounce'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -124,8 +125,8 @@ const TopAppBar: FunctionComponent<
   const { settings } = props
   const toolbarConfig = settings.toolbar_config || []
   const appSetup = useAppSetup()
-  const isScrolled = useScrollTrigger({ disableHysteresis: false })
-  // const [isScrolled] = useDebounce(isScrolledTrigger, 100)
+  const isScrolledTrigger = useScrollTrigger({ disableHysteresis: false })
+  const [isScrolled] = useDebounce(isScrolledTrigger, 100)
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
   const scrolledWithoutHysteresis = useScrollTop()
   const toolbarVariant = settings.toolbar_variant
@@ -188,7 +189,9 @@ const TopAppBar: FunctionComponent<
           </Toolbar>
         </Container>
       </AppBar>
-      {isFixedTop && !appSetup.hasFeatureImage && <ContentSpace />}
+      {isFixedTop && !appSetup.hasFeatureImage && (
+        <ContentSpace isBlock={true} />
+      )}
     </>
   )
 }

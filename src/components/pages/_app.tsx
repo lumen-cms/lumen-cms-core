@@ -8,7 +8,7 @@ import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import hasWebpSupport from '../../utils/detectWebpSupport'
 import { useStoryblokComposer } from '../../utils/hooks/useStoryblokComposer'
 import { CONFIG } from '../../utils/config'
-import { analyticsOnPageChange } from '../../utils/analyticsHelper'
+import { analyticsOnPageChange, setGtag } from '../../utils/analyticsHelper'
 
 export type LmAppProps = AppProps<AppPageProps>
 
@@ -24,6 +24,8 @@ export function LmApp({ Component, pageProps }: LmAppProps) {
   }
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
+  googleAnaliyticsId && setGtag(googleAnaliyticsId)
+  console.log('inside _app', googleAnaliyticsId)
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {

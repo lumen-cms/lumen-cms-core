@@ -3,11 +3,11 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useAppSetup } from '../provider/context/AppSetupContext'
 import useScrollTop from '../../utils/hooks/useScrollTop'
+import { ContentSpaceProps } from './layoutTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     contentSpace: {
-      display: 'inline-table',
       height: theme.toolbar.height.custom
         ? Number(theme.toolbar.height.custom)
         : theme.toolbar.height.mobile,
@@ -32,12 +32,15 @@ const useStyles = makeStyles((theme: Theme) =>
         [theme.breakpoints.up('sm')]: {
           height: theme.toolbar.height.desktop // + theme.toolbar.height.systemBar
         }
+      },
+      '&.lm-is-table': {
+        display: 'inline-table'
       }
     }
   })
 )
 
-function ContentSpace(): JSX.Element {
+export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
   const classes = useStyles()
   const appSetup = useAppSetup()
   const scrolledWithoutHysteresis = useScrollTop()
@@ -45,6 +48,7 @@ function ContentSpace(): JSX.Element {
   return (
     <div
       className={clsx('lm-content-space', classes.contentSpace, {
+        'lm-is-table': !isBlock,
         'lm-scrolled':
           scrolledWithoutHysteresis &&
           (appSetup.toolbarMainHeight || appSetup.hasFeatureImage)
@@ -52,5 +56,3 @@ function ContentSpace(): JSX.Element {
     />
   )
 }
-
-export default ContentSpace

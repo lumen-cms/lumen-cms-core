@@ -1,7 +1,7 @@
 import { CONFIG, LmCoreComponents } from './utils/config'
 import { LmComponentRender } from './components/CoreComponents'
 
-export { LmDefaultApp } from './components/pages/_appDefault'
+export { LmDefaultApp, reportWebVitals } from './components/pages/_appDefault'
 
 export { LmPagesIndex as LmDefaultPage } from './components/pages/PagesIndex'
 export { LmApp } from './components/pages/_app'
