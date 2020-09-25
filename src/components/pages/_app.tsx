@@ -24,8 +24,6 @@ export function LmApp({ Component, pageProps }: LmAppProps) {
   }
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
-  googleAnaliyticsId && setGtag(googleAnaliyticsId)
-  console.log('inside _app', googleAnaliyticsId)
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
