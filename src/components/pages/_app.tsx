@@ -8,7 +8,7 @@ import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import hasWebpSupport from '../../utils/detectWebpSupport'
 import { useStoryblokComposer } from '../../utils/hooks/useStoryblokComposer'
 import { CONFIG } from '../../utils/config'
-import { analyticsOnPageChange, setGtag } from '../../utils/analyticsHelper'
+import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 
 export type LmAppProps = AppProps<AppPageProps>
 
