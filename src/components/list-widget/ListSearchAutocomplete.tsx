@@ -182,7 +182,7 @@ export function LmListSearchAutocomplete({
         renderInput={(params) => (
           <TextField
             {...params}
-            size="small"
+            size={content.large ? 'medium' : 'small'}
             variant="outlined"
             label={content.label || undefined}
             placeholder={content.placeholder}
@@ -190,6 +190,9 @@ export function LmListSearchAutocomplete({
             inputRef={inputRef}
             InputProps={{
               ...params.InputProps,
+              style: {
+                height: content.height ? content.height : undefined
+              },
               onFocus: () => {
                 setOpen(true)
               },

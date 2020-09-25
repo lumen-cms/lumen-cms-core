@@ -66,6 +66,12 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
             href={imageService(favicon, `152x152`)}
             key="apple-touch-icon-precomposed"
           />
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href={imageService(favicon, `180x180`)}
+            key="apple-touch-icon"
+          />
         </>
       )}
       <link

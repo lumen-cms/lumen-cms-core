@@ -14,16 +14,19 @@ import { LmComponentRender } from '../../CoreComponents'
 
 type CollapsibleListSectionProps = {
   content: NavMenuStoryblok
+  openedPath: string[]
 }
 
 type DrawerContentRenderProps = {
   content: any
   i?: number
+  openedPath: string[]
   [k: string]: any
 }
 
 export function DrawerContentRender({
-  content
+  content,
+  openedPath
 }: DrawerContentRenderProps): JSX.Element | null {
   const { component } = content
   if (component === 'button' || component === 'nav_menu_item') {
@@ -33,7 +36,7 @@ export function DrawerContentRender({
     return <DrawerNavList content={content} />
   }
   if (component === 'nav_menu') {
-    return <CollapsibleListSection content={content} />
+    return <CollapsibleListSection content={content} openedPath={openedPath} />
   }
   if (component === 'list_search_autocomplete') {
     return null
@@ -42,11 +45,18 @@ export function DrawerContentRender({
 }
 
 export function CollapsibleListSection({
-  content
+  content,
+  openedPath
 }: CollapsibleListSectionProps): JSX.Element {
   const body = content.body || []
   const items: any[] = []
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(openedPath.includes(content._uid))
+
+  // useEffect(() => {
+  //   if (openedPath.includes(content._uid)) {
+  //     setOpen(true)
+  //   }
+  // }, [openedPath, content._uid])
 
   const handleClick = () => {
     const currentOpenState = !open
@@ -95,7 +105,11 @@ export function CollapsibleListSection({
         >
           {Array.isArray(items) &&
             items.map((blok) => (
-              <DrawerContentRender content={blok} key={blok._uid} />
+              <DrawerContentRender
+                content={blok}
+                key={blok._uid}
+                openedPath={openedPath}
+              />
             ))}
         </List>
       </Collapse>

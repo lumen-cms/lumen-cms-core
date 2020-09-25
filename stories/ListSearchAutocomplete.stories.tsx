@@ -22,38 +22,79 @@ export const Basic = () => (
     <h3>Default without label:</h3>
     <LmListSearchAutocomplete content={{ ...props, label: undefined }} />
     <h3>Fullwidth:</h3>
-    <LmListSearchAutocomplete content={{ ...props, label: undefined, fullwidth: true }} />
+    <LmListSearchAutocomplete
+      content={{ ...props, label: undefined, fullwidth: true }}
+    />
     <h3>Square:</h3>
-    <LmListSearchAutocomplete content={{ ...props, label: undefined, shape: 'square' }} />
+    <LmListSearchAutocomplete
+      content={{ ...props, label: undefined, shape: 'square' }}
+    />
     <h3>Square fullwidth:</h3>
     <LmListSearchAutocomplete
-      content={{ ...props, label: undefined, fullwidth: true, shape: 'square' }} />
+      content={{ ...props, label: undefined, fullwidth: true, shape: 'square' }}
+    />
     <h3>Rounded:</h3>
     <LmListSearchAutocomplete
-      content={{ ...props, label: undefined, shape: 'rounded' }} />
+      content={{ ...props, label: undefined, shape: 'rounded' }}
+    />
     <h3>Rounded fullwidth:</h3>
     <LmListSearchAutocomplete
-      content={{ ...props, label: undefined, fullwidth: true, shape: 'rounded' }} />
+      content={{
+        ...props,
+        label: undefined,
+        fullwidth: true,
+        shape: 'rounded'
+      }}
+    />
   </div>
 )
 export const Mobile = () => (
   <div>
     <h3>Mobile sm:</h3>
-    <LmListSearchAutocomplete content={{ ...props, label: undefined, mobile_breakpoint: 'sm' }} />
+    <LmListSearchAutocomplete
+      content={{ ...props, label: undefined, mobile_breakpoint: 'sm' }}
+    />
     <h3>Mobile lg:</h3>
-    <LmListSearchAutocomplete content={{ ...props, label: undefined, mobile_breakpoint: 'lg' }} />
+    <LmListSearchAutocomplete
+      content={{ ...props, label: undefined, mobile_breakpoint: 'lg' }}
+    />
   </div>
 )
 export const Shaped = () => (
   <div className="p-3">
     <h3>Default:</h3>
-    <LmListSearchAutocomplete content={{ ...props, label: 'Search', outlined: true }} />
+    <LmListSearchAutocomplete
+      content={{ ...props, label: 'Search', outlined: true }}
+    />
     <h3>Default without label:</h3>
     <LmListSearchAutocomplete
-      content={{ ...props, label: undefined, menu_border_radius: '0px', shape: 'square' }} />
+      content={{
+        ...props,
+        label: undefined,
+        menu_border_radius: '0px',
+        shape: 'square'
+      }}
+    />
+    <h3>Large:</h3>
+    <LmListSearchAutocomplete
+      content={{
+        ...props,
+        label: undefined,
+        menu_border_radius: '0px',
+        large: true,
+        shape: 'square'
+      }}
+    />
     <h3>Fullwidth:</h3>
     <LmListSearchAutocomplete
-      content={{ ...props, label: undefined, fullwidth: true, outlined: true, menu_border_radius: '16px' }} />
+      content={{
+        ...props,
+        label: undefined,
+        fullwidth: true,
+        outlined: true,
+        menu_border_radius: '16px'
+      }}
+    />
     <h3>Square:</h3>
     <LmListSearchAutocomplete
       content={{
@@ -62,7 +103,8 @@ export const Shaped = () => (
         outlined: true,
         shape: 'square',
         menu_border_radius: '0px 4px 16px 16px'
-      }} />
+      }}
+    />
     <h3>Align Menu to the right</h3>
     <div className="text-center">
       <LmListSearchAutocomplete
@@ -73,7 +115,8 @@ export const Shaped = () => (
           shape: 'square',
           menu_border_radius: '0px',
           menu_align_right: true
-        }} />
+        }}
+      />
     </div>
   </div>
 )
@@ -84,7 +127,7 @@ export const Playground = () => (
         options: {
           placeholder: 'Search..'
         }
-      })} />
+      })}
+    />
   </div>
 )
-

@@ -219,6 +219,8 @@ export type GlobalComponent = {
   footer_config?: Maybe<Array<Maybe<Scalars['String']>>>;
   mobile_nav_breakpoint?: Maybe<Scalars['String']>;
   multi_toolbar?: Maybe<Scalars['BlockScalar']>;
+  pwa_app_description?: Maybe<Scalars['String']>;
+  pwa_app_name?: Maybe<Scalars['String']>;
   seo_body?: Maybe<Scalars['BlockScalar']>;
   seo_description?: Maybe<Scalars['String']>;
   seo_robots?: Maybe<Scalars['Boolean']>;
@@ -270,6 +272,7 @@ export type GlobalFilterQuery = {
   setup_google_analytics?: Maybe<FilterQueryOperations>;
   setup_google_site_verification?: Maybe<FilterQueryOperations>;
   setup_facebook_pixel?: Maybe<FilterQueryOperations>;
+  pwa_app_name?: Maybe<FilterQueryOperations>;
   tawkto?: Maybe<FilterQueryOperations>;
   drawer_variant?: Maybe<FilterQueryOperations>;
   mobile_nav_breakpoint?: Maybe<FilterQueryOperations>;

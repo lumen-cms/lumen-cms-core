@@ -1,21 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   GlobalStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
 import { DrawerContentRender } from './CollapsibleListSection'
+import { useRouter } from 'next/router'
 
-// const _findDeepPath = require('deepdash/findPathDeep')
+const findPathDeep = require('deepdash/findPathDeep')
 
 type DrawerContentListProps = { content: Partial<GlobalStoryblok> }
+
+/**
+ * function to return uids of the current path. only called once
+ * @param childs
+ * @param activeRoutePath
+ */
+const getUidsOfSlug = (childs: any[], activeRoutePath: string) => {
+  const path =
+    activeRoutePath &&
+    activeRoutePath !== '/' &&
+    findPathDeep(
+      childs,
+      (_: any, _n: any, context: any) =>
+        '/' + context.link?.cached_url === activeRoutePath,
+      {
+        pathFormat: 'array'
+      }
+    )
+  if (path) {
+    const uids = []
+    const cleanedPath = path.map((i: string) => (Number(i) ? Number(i) : i))
+    let tmp = [...childs]
+    for (let i = 0; i < cleanedPath.length; i++) {
+      const curr = tmp[cleanedPath[i]]
+      curr?._uid && uids.push(curr?._uid)
+      tmp = curr
+    }
+    return uids
+  }
+  return []
+}
 
 export function DrawerContentList({
   content
 }: DrawerContentListProps): JSX.Element {
   const appSetup = useAppSetup()
-  // const router = useRouter()
-  // const activeRoutePath = router?.asPath
+  const router = useRouter()
+  const activeRoutePath = router?.asPath
   let childs =
     (appSetup.hasDrawer ? content.drawer_body : content.toolbar) || []
 
@@ -39,24 +71,18 @@ export function DrawerContentList({
       })
     })
   }
+  const [openedPath] = useState<string[]>(
+    getUidsOfSlug(childs, activeRoutePath)
+  )
 
-  // useEffect(() => {
-  //   const path = _findDeepPath(
-  //     childs,
-  //     (value, parentValue, context) => {
-  //       console.log('value: ', value)
-  //       console.log('key: ', parentValue)
-  //       console.log('context: ', context)
-  //       return '/' + context.link?.cached_url === activeRoutePath
-  //     },
-  //     {}
-  //   )
-  //   console.log(path)
-  // }, [])
   return (
     <>
       {childs.map((props) => (
-        <DrawerContentRender content={props} key={props._uid} />
+        <DrawerContentRender
+          content={props}
+          key={props._uid}
+          openedPath={openedPath}
+        />
       ))}
     </>
   )

@@ -419,6 +419,20 @@ export interface EcommerceFastspringProductStoryblok {
   [k: string]: any;
 }
 
+export interface EcommercePaypalConfigStoryblok {
+  sdk_client_id: string;
+  _uid: string;
+  component: "ecommerce_paypal_config";
+  [k: string]: any;
+}
+
+export interface EcommercePaypalProductStoryblok {
+  price?: number;
+  _uid: string;
+  component: "ecommerce_paypal_product";
+  [k: string]: any;
+}
+
 export interface EcommerceShopifyCheckoutStoryblok {
   product_id?: number;
   product_variant_id?: string;
@@ -578,6 +592,8 @@ export interface GlobalStoryblok {
   setup_google_analytics?: string;
   setup_google_site_verification?: string;
   setup_facebook_pixel?: string;
+  pwa_app_name?: string;
+  pwa_app_description?: string;
   tawkto?: string;
   chat_button?: any[];
   setup_favicon?: string;
@@ -881,6 +897,12 @@ export interface ListsStoryblok {
 }
 
 export interface ListSearchAutocompleteStoryblok {
+  shape?: "rounded" | "square";
+  large?: boolean;
+  height?: number;
+  mobile_breakpoint?: "xs" | "sm" | "md" | "lg";
+  fullwidth?: boolean;
+  outlined?: boolean;
   menu_border_radius?: string;
   placeholder?: string;
   label?: string;
@@ -889,11 +911,6 @@ export interface ListSearchAutocompleteStoryblok {
     name?: string;
     [k: string]: any;
   };
-  shape?: "rounded" | "square";
-  height?: number;
-  mobile_breakpoint?: "xs" | "sm" | "md" | "lg";
-  fullwidth?: boolean;
-  outlined?: boolean;
   menu_elevation?: number;
   menu_square?: boolean;
   menu_outlined?: boolean;
