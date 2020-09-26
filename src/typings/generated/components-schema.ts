@@ -10,6 +10,7 @@ export interface AccordionStoryblok {
 
 export interface AccordionItemStoryblok {
   title?: string;
+  title_custom?: any[];
   body?: any[];
   use_plus_icon?: boolean;
   _uid: string;
@@ -434,8 +435,7 @@ export interface EcommercePaypalProductStoryblok {
 }
 
 export interface EcommerceShopifyCheckoutStoryblok {
-  product_id?: number;
-  product_variant_id?: string;
+  handle?: string;
   _uid: string;
   component: "ecommerce_shopify_checkout";
   [k: string]: any;

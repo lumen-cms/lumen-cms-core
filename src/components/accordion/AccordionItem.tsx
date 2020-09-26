@@ -29,6 +29,7 @@ export function LmAccordionItem({
   const expanded = options.restrict_one
     ? opened === panelKey
     : isOpen === panelKey
+  const titleCustom = content.title_custom || []
   return (
     <Accordion
       square={!!options.square}
@@ -40,7 +41,13 @@ export function LmAccordionItem({
           content.use_plus_icon || options.use_plus ? <Plus /> : <ChevronDown />
         }
       >
-        <Typography>{content.title}</Typography>
+        {titleCustom.length ? (
+          titleCustom.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))
+        ) : (
+          <Typography>{content.title}</Typography>
+        )}
       </AccordionSummary>
       <AccordionDetails>
         <div>
