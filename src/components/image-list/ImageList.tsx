@@ -60,7 +60,7 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
       >
         <GridList
           cellHeight="auto"
-          className={gridClasses.gridList}
+          className={clsx(gridClasses.gridList, classes.rootGrid)}
           {...gridListProps}
         >
           {body.map((item, i) => {

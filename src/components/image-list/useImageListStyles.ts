@@ -56,6 +56,9 @@ export const useImageListStyles = makeStyles({
   root: {
     overflowX: 'hidden'
   },
+  rootGrid: {
+    justifyContent: 'center'
+  },
   defaultImg: {
     '& img': {
       display: 'block',
