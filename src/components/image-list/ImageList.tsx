@@ -47,14 +47,15 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
     <div className="lm-imagelist__container">
       <div
         ref={containerRef}
-        style={{
-          padding: `${gutterSize}px`
-        }}
+        // // style={{
+        // //   padding: `${gutterSize}px`
+        // {/*}}*/}
         className={clsx(classes.root, {
           [gridClasses.masonry]: content.masonry,
           [classes.aspectRatio]: content.aspect_ratio && !content.masonry,
           [`ratio-${content.aspect_ratio}`]: content.aspect_ratio,
-          'with-lightbox': content.enable_lightbox
+          'with-lightbox': content.enable_lightbox,
+          [classes.defaultImg]: !content.masonry && !content.aspect_ratio
         })}
       >
         <GridList
@@ -91,16 +92,17 @@ export function LmImageList({ content }: LmImageListProps): JSX.Element {
           })}
         </GridList>
       </div>
-      {lightbox &&
-        ImageListLightbox({
-          elements: body,
-          lightbox,
-          setLightbox,
-          onImageClick,
-          className: classes.lightbox,
-          width,
-          height
-        })}
+      {lightbox && (
+        <ImageListLightbox
+          elements={body}
+          lightbox={lightbox}
+          setLightbox={setLightbox}
+          onImageClick={onImageClick}
+          className={classes.lightbox}
+          width={width}
+          height={height}
+        />
+      )}
     </div>
   )
 }

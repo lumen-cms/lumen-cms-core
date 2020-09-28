@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Fade from '@material-ui/core/Fade'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 import { useInView } from 'react-intersection-observer'
 import Skeleton from '@material-ui/lab/Skeleton'
@@ -62,14 +61,12 @@ export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
           variant="rect"
         />
       )}
-      <Fade in={loaded}>
-        <img
-          {...imageProps}
-          ref={inViewRef}
-          alt={content.alt || content.label || 'image list item'}
-          onLoad={onLoad}
-        />
-      </Fade>
+      <img
+        {...imageProps}
+        ref={inViewRef}
+        alt={content.alt || content.label || 'image list item'}
+        onLoad={onLoad}
+      />
       {(content.label || content.sub_title) && (
         <GridListTileBar
           title={content.label}

@@ -18,7 +18,7 @@ function ImageListLightbox(props: ImageListLightboxProps): JSX.Element {
           <Close />
         </IconButton>
       </DialogTitle>
-      {Swipe(props)}
+      <Swipe {...props} />
     </Dialog>
   )
 }
