@@ -2,7 +2,8 @@ import {
   GlobalStoryblok,
   ToolbarLogoStoryblok,
   ToolbarNaviButtonStoryblok,
-  ToolbarRowSectionStoryblok
+  ToolbarRowSectionStoryblok,
+  ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 
 export type LmToolbarLogoProps = {
@@ -15,5 +16,9 @@ export type AppHeaderProps = {
 }
 export type LmToolbarSectionProps = {
   content: ToolbarRowSectionStoryblok
+  settings: GlobalStoryblok
+}
+export type LmToolbarRowProps = {
+  content: ToolbarRowStoryblok
   settings: GlobalStoryblok
 }

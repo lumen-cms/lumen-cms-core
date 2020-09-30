@@ -1,7 +1,7 @@
+import dynamic from 'next/dynamic'
+
 import { LmPage } from './page/Page'
 import { LmTable } from './table/Table'
-import { LmAccordion } from './accordion/Accordion'
-import { LmAccordionItem } from './accordion/AccordionItem'
 import { LmStaticSection } from './static-section/StaticSection'
 import { LmStaticContainer } from './static-section/StaticContainer'
 import { LmDivider } from './divider/Divider'
@@ -21,12 +21,9 @@ import { LmNavList } from './nav-list/NavList'
 import { LmMenu } from './menu/NavMenu'
 import { LmIcon } from './icon/Icon'
 import { LmIframe } from './iframe/Iframe'
-import { LmSlider } from './slider/Slider'
-import { LmSectionVideo } from './section/SectionVideoBg'
 import { LmCardList } from './card/CardList'
 import { LmCardListItem } from './card/CardListItem'
 import { LmSectionParallax } from './section/SectionParallax'
-import { LmTabs } from './tabs/Tabs'
 import { LmListWidget } from './list-widget/ListWidget'
 import { LmFlexRow } from './flex-row/FlexRow'
 import { LmIframeAdvanced } from './iframe/IframeAdvanced'
@@ -35,30 +32,31 @@ import { LmListSearchField } from './list-widget/ListSearchField'
 import { LmLink } from './link/Link'
 import { LmListSearchAutocomplete } from './list-widget/ListSearchAutocomplete'
 import { LmRichTextParagraph } from './paragraph/RichTextParagraph'
-import { LmTimeline } from './timeline/Timeline'
 import { LmAvatar } from './avatar/LmAvatar'
 import { LmDateHeadline } from './headline/DateHeadline'
 import { LmMotion } from './motion/Motion'
 import { LmToolbarLogo } from './layout/toolbar/ToolbarLogo'
 import { LmToggleDrawerButton } from './layout/toolbar/ToggleDrawerButton'
-import { LmPlayer } from './player/Player'
 import { LmToolbarSection } from './layout/toolbar/ToolbarSection'
 import { LmDialog } from './dialog/Dialog'
 import { LmInstagramPost } from './instagram/InstagramPost'
 import { LmInstagramList } from './instagram/InstagramList'
-
 import { LmCoreComponents } from '../utils/config'
-import { LmTimelineItem } from './timeline/TimelineItem'
 import MuiNextLink from './link/MuiNextLink'
 import { TawktoChatButton } from './chat/TawktoChatButton'
 import { WhatsappChatButton } from './chat/WhatsappChatButton'
 import { FacebookChatButton } from './chat/FacebookChatButton'
 import { LmSnackbar } from './snackbar/Snackbar'
+import { LmToolbarRow } from './layout/toolbar/ToolbarRow'
 
 LmCoreComponents.page = LmPage
 LmCoreComponents.table = LmTable
-LmCoreComponents.accordion = LmAccordion
-LmCoreComponents.accordion_item = LmAccordionItem
+LmCoreComponents.accordion = dynamic(
+  () => import(/* webpackChunkName: 'accordion' */ './accordion/Accordion')
+)
+LmCoreComponents.accordion_item = dynamic(
+  () => import(/* webpackChunkName: 'accordion' */ './accordion/AccordionItem')
+)
 LmCoreComponents.static_section = LmStaticSection
 LmCoreComponents.static_container = LmStaticContainer
 LmCoreComponents.divider = LmDivider
@@ -78,12 +76,18 @@ LmCoreComponents.nav_list = LmNavList
 LmCoreComponents.nav_menu = LmMenu
 LmCoreComponents.icon = LmIcon
 LmCoreComponents.iframe = LmIframe
-LmCoreComponents.slider = LmSlider
-LmCoreComponents.section_video_bg = LmSectionVideo
+LmCoreComponents.slider = dynamic(
+  () => import(/* webpackChunkName: 'slider' */ './slider/Slider')
+)
+LmCoreComponents.section_video_bg = dynamic(
+  () => import(/* webpackChunkName: 'videoPlayer' */ './section/SectionVideoBg')
+)
 LmCoreComponents.card_list = LmCardList
 LmCoreComponents.card_list_item = LmCardListItem
 LmCoreComponents.section_parallax = LmSectionParallax
-LmCoreComponents.tabs = LmTabs
+LmCoreComponents.tabs = dynamic(
+  () => import(/* webpackChunkName: 'tabs' */ './tabs/Tabs')
+)
 LmCoreComponents.list_widget = LmListWidget
 LmCoreComponents.flex_row = LmFlexRow
 LmCoreComponents.iframe_advanced = LmIframeAdvanced
@@ -92,15 +96,22 @@ LmCoreComponents.list_search_field = LmListSearchField
 LmCoreComponents.link = LmLink
 LmCoreComponents.list_search_autocomplete = LmListSearchAutocomplete
 LmCoreComponents.rich_text_editor = LmRichTextParagraph
-LmCoreComponents.timeline = LmTimeline
-LmCoreComponents.timeline_item = LmTimelineItem
+LmCoreComponents.timeline = dynamic(
+  () => import(/* webpackChunkName: 'timeline' */ './timeline/Timeline')
+)
+LmCoreComponents.timeline_item = dynamic(
+  () => import(/* webpackChunkName: 'timeline' */ './timeline/TimelineItem')
+)
 LmCoreComponents.avatar = LmAvatar
 LmCoreComponents.date_headline = LmDateHeadline
 LmCoreComponents.motion = LmMotion
 LmCoreComponents.toolbar_logo = LmToolbarLogo
 LmCoreComponents.toolbar_navi_button = LmToggleDrawerButton
-LmCoreComponents.player = LmPlayer
+LmCoreComponents.player = dynamic(
+  () => import(/* webpackChunkName: 'videoPlayer' */ './player/Player')
+)
 LmCoreComponents.toolbar_row_section = LmToolbarSection
+LmCoreComponents.toolbar_row = LmToolbarRow
 LmCoreComponents.dialog = LmDialog
 LmCoreComponents.instagram_post = LmInstagramPost
 LmCoreComponents.instagram_list = LmInstagramList

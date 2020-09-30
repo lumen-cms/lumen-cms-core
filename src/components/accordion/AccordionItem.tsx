@@ -8,7 +8,7 @@ import Plus from 'mdi-material-ui/Plus'
 import { LmComponentRender } from '../CoreComponents'
 import { LmAccordionItemProps } from './accordionTypes'
 
-export function LmAccordionItem({
+export default function LmAccordionItem({
   content,
   options,
   setOpen,

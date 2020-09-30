@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   }
 })
 
-export function LmTimelineItem({
+export default function LmTimelineItem({
   content,
   options,
   isMobile,
@@ -49,7 +49,8 @@ export function LmTimelineItem({
         <TimelineDot
           color={content.dot_color || undefined}
           variant={
-            content.dot_variant === 'outlined' || options?.variant === 'outlined'
+            content.dot_variant === 'outlined' ||
+            options?.variant === 'outlined'
               ? 'outlined'
               : 'default'
           }

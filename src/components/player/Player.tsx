@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 import { useInView } from 'react-intersection-observer'
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player/lazy'
 import clsx from 'clsx'
 import Skeleton from '@material-ui/lab/Skeleton'
 import React from 'react'
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   }
 })
 
-export function LmPlayer({ content }: LmPlayerProps): JSX.Element {
+export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
   const classes = useStyles()
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions

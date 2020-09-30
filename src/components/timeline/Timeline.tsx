@@ -4,7 +4,7 @@ import { LmTimelineProps } from './timelineTypes'
 import { LmComponentRender } from '../CoreComponents'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
-export function LmTimeline({ content }: LmTimelineProps): JSX.Element {
+export default function LmTimeline({ content }: LmTimelineProps): JSX.Element {
   const { isMobile } = useDeviceDimensions()
   return (
     <Timeline align={isMobile ? 'left' : content.align || 'alternate'}>

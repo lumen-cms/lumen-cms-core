@@ -67,7 +67,9 @@ const useStyles = makeStyles({
   // }
 })
 
-export function LmSectionVideo({ content }: LmSectionVideoProps): JSX.Element {
+export default function LmSectionVideo({
+  content
+}: LmSectionVideoProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()
   const [width, height] = useWindowSize()

@@ -70,7 +70,8 @@ import { LmTabsProps } from '../components/tabs/tabsTypes'
 import {
   LmToggleDrawerButtonProps,
   LmToolbarLogoProps,
-  LmToolbarSectionProps
+  LmToolbarSectionProps,
+  LmToolbarRowProps
 } from '../components/layout/toolbar/toolbarTypes'
 
 type AppConfigProps = {
@@ -161,6 +162,7 @@ type LmCoreComponentsProps = {
   toolbar_navi_button?: JSXElementConstructor<LmToggleDrawerButtonProps>
   player?: JSXElementConstructor<LmPlayerProps>
   toolbar_row_section?: JSXElementConstructor<LmToolbarSectionProps>
+  toolbar_row?: JSXElementConstructor<LmToolbarRowProps>
   dialog?: JSXElementConstructor<LmDialogProps>
   instagram_post?: JSXElementConstructor<LmInstagramPostProps>
   instagram_list?: JSXElementConstructor<LmInstagramListProps>

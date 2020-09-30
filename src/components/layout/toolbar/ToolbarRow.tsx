@@ -1,20 +1,14 @@
 import React from 'react'
-import clsx from 'clsx'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core/styles'
-import {
-  GlobalStoryblok,
-  ToolbarRowStoryblok
-} from '../../../typings/generated/components-schema'
 import { LmComponentRender } from '../../CoreComponents'
+import { LmToolbarRowProps } from './toolbarTypes'
 
-type ToolbarRowProps = {
-  content: ToolbarRowStoryblok
-  settings: GlobalStoryblok
-}
-
-function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
+export function LmToolbarRow({
+  content,
+  settings
+}: LmToolbarRowProps): JSX.Element {
   const body = content.body || []
   const theme = useTheme()
 
@@ -30,7 +24,7 @@ function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
     }
     return (
       <div
-        className={clsx('lm-system-bar')}
+        className={'lm-system-bar'}
         style={{
           backgroundColor:
             (content.background_color && content.background_color.rgba) ||
@@ -75,5 +69,3 @@ function ToolbarRow({ content, settings }: ToolbarRowProps): JSX.Element {
     </Grid>
   )
 }
-
-export default ToolbarRow

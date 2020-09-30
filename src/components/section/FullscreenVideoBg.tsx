@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import ReactPlayer, { ReactPlayerProps } from 'react-player'
+import ReactPlayer, { ReactPlayerProps } from 'react-player/lazy'
 import React, { useState } from 'react'
 import BackgroundImageContainer from './BackgroundImage'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
@@ -16,7 +16,9 @@ type FullscreenVideoBgProps = SectionVideoBgStoryblok & {
   ratioWidth: number
 }
 
-function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
+export default function FullscreenVideoBg(
+  content: FullscreenVideoBgProps
+): JSX.Element {
   const properties = content.property || []
   const videoAspect = content.ratioHeight / content.ratioWidth
   // let fixedToRatio = content.fixedToRatio
@@ -90,5 +92,3 @@ function FullscreenVideoBg(content: FullscreenVideoBgProps): JSX.Element {
     </>
   )
 }
-
-export default FullscreenVideoBg

@@ -164,7 +164,7 @@ const StoriesLayout = (Story: StoryType) => {
       }}
     >
       <GlobalTheme settings={settings as GlobalStoryblok}>
-        <LmAppProvidersContainer>
+        <LmAppProvidersContainer settings={settings as GlobalStoryblok}>
           <CssBaseline />
           <Layout>
             <Container

@@ -46,7 +46,7 @@ const widthMap = {
   true: true
 }
 
-export function LmTabs({ content }: LmTabsProps): JSX.Element {
+export default function LmTabs({ content }: LmTabsProps): JSX.Element {
   const theme = useTheme()
   const isMobile = useMediaQuery(
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')

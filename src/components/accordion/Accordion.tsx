@@ -3,7 +3,9 @@ import { AccordionItemStoryblok } from '../../typings/generated/components-schem
 import { LmComponentRender } from '../CoreComponents'
 import { LmAccordionProps } from './accordionTypes'
 
-export function LmAccordion({ content }: LmAccordionProps): JSX.Element {
+export default function LmAccordion({
+  content
+}: LmAccordionProps): JSX.Element {
   const [opened, setOpen] = useState<string>('')
   return (
     <div className="lm-accordion">

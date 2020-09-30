@@ -68,7 +68,7 @@ export const useStyles = makeStyles({
   }
 })
 
-export function LmSlider({ content }: LmSliderProps): JSX.Element {
+export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   const [slide, setSlide] = useState(0)
   const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
