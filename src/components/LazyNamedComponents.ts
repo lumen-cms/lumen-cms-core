@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { LmCoreComponents } from '..'
+import { LmCoreComponents } from '../utils/config'
 
 LmCoreComponents.chat_whatsapp = dynamic(
   () => import(/* webpackChunkName: 'popper' */ './chat/WhatsappChatButton')
