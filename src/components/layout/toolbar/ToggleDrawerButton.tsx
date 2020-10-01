@@ -29,6 +29,7 @@ export function LmToggleDrawerButton({
 
   return (
     <IconButton
+      aria-label={rightDrawer ? 'Drawer right toggle' : 'Drawer left toggle'}
       className={clsx(content.class_names?.values, {
         [`d-${breakpointClass}-none`]: !content.force_show
       })}

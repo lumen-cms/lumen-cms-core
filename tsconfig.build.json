@@ -34,8 +34,7 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "traceResolution": true,
-    "outDir": "dist/"
+    "traceResolution": true
   },
   "exclude": [
     "node_modules",

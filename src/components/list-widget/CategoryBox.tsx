@@ -7,7 +7,9 @@ import { setSearchCategory } from '../../utils/state/actions'
 import { useAppContext } from '../provider/context/AppContext'
 import { LmCategoryBoxProps } from './listWidgetTypes'
 
-export function LmCategoryBox({ content }: LmCategoryBoxProps): JSX.Element {
+export default function LmCategoryBox({
+  content
+}: LmCategoryBoxProps): JSX.Element {
   const router = useRouter()
   const query = router?.query
   let initialValues: string[] = []

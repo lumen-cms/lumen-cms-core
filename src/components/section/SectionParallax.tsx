@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   }
 })
 
-export function LmSectionParallax({
+export default function LmSectionParallax({
   content
 }: LmSectionParallaxProps): JSX.Element {
   const classes = useStyles()

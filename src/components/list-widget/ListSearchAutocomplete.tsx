@@ -112,7 +112,7 @@ const fetcher = async (
   return data.stories
 }
 
-export function LmListSearchAutocomplete({
+export default function LmListSearchAutocomplete({
   content
 }: LmListSearchAutocompleteProps): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>()

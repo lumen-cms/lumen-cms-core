@@ -2,7 +2,7 @@ import React from 'react'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 import Comment from 'mdi-material-ui/Comment'
 import Heart from 'mdi-material-ui/Heart'
-import { LmInstagramPost } from './InstagramPost'
+import LmInstagramPost from './InstagramPost'
 import { InstagramListItemProps } from './instagramTypes'
 
 export function InstagramListItem({

@@ -7,7 +7,7 @@ import Magnify from 'mdi-material-ui/Magnify'
 import { onSearchTextChange } from '../../utils/state/actions'
 import { LmListSearchFieldProps } from './listWidgetTypes'
 
-export function LmListSearchField({
+export default function LmListSearchField({
   content
 }: LmListSearchFieldProps): JSX.Element {
   const router = useRouter()

@@ -1,10 +1,10 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.59.18",
+  "version": "0.59.23",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "typings": "dist/lumen-cms-core.cjs.development.js/src/index.d.ts",
   "files": [
     "dist",
     "src",

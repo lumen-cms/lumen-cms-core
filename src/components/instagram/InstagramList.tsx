@@ -17,7 +17,7 @@ import { InstagramListItem } from './InstagramListItem'
 
 const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'
 
-export function LmInstagramList({ content }: LmInstagramListProps) {
+export default function LmInstagramList({ content }: LmInstagramListProps) {
   const username = content.username.trim().replace('@', '')
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions

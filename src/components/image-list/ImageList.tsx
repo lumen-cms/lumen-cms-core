@@ -11,7 +11,9 @@ import { LmComponentRender } from '../CoreComponents'
 import { LmImageListProps } from './imageListTypes'
 import { LmCoreComponents } from '../../utils/config'
 
-export function LmImageList({ content }: LmImageListProps): JSX.Element {
+export default function LmImageList({
+  content
+}: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
   const [width, height] = useWindowSize()
 
