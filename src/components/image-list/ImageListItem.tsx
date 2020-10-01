@@ -6,7 +6,9 @@ import { getImageAttrs } from '../../utils/ImageService'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageListItemProps } from './imageListTypes'
 
-export function LmImageListItem(props: LmImageListItemProps): JSX.Element {
+export default function LmImageListItem(
+  props: LmImageListItemProps
+): JSX.Element {
   const { content, listProps } = props
   const [inViewRef, inView, currentRef] = useInView(intersectionDefaultOptions)
   const [loaded, setLoaded] = useState<boolean>(false)

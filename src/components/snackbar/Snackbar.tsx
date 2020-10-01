@@ -16,7 +16,7 @@ type LmSnackbarProps = {
 
 const devMode = process.env.NODE_ENV !== 'production'
 
-export function LmSnackbar({ content }: LmSnackbarProps) {
+export default function LmSnackbar({ content }: LmSnackbarProps) {
   const [open, setOpen] = React.useState<boolean>(false)
   const isScrolled = useScrollOnce()
   const cookieExists = content.cookie_name

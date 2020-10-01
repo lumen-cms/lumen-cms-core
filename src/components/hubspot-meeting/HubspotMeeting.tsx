@@ -2,7 +2,7 @@ import React from 'react'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
 import { LmHubspotMeetingProps } from './hubspotTypes'
 
-export function LmHubspotMeeting({
+export default function LmHubspotMeeting({
   content,
   disableEmbed
 }: LmHubspotMeetingProps): JSX.Element {

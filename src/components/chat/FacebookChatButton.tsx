@@ -20,7 +20,9 @@ declare global {
   }
 }
 
-export function FacebookChatButton({ content }: FacbookChatButtonProps) {
+export default function FacebookChatButton({
+  content
+}: FacbookChatButtonProps) {
   const { insideStoryblok } = useAppContext()
   const isScrolled = useScrollOnce()
   const startInclude =

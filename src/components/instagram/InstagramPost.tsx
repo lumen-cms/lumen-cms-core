@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-export function LmInstagramPost({ content }: LmInstagramPostProps) {
+export default function LmInstagramPost({ content }: LmInstagramPostProps) {
   const url = new URL(`${security}://api.instagram.com/oembed`)
   url.searchParams.append('url', content.url)
   url.searchParams.append('omitscript', 'true')

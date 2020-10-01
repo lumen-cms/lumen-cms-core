@@ -29,7 +29,9 @@ const useStyles = makeStyles({
   }
 })
 
-export function LmDialog({ content }: LmDialogProps): JSX.Element | null {
+export default function LmDialog({
+  content
+}: LmDialogProps): JSX.Element | null {
   const theme = useTheme()
   const classes = useStyles()
   const mediaQueryResult = useMediaQuery(

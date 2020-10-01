@@ -5,7 +5,7 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmIframeProps } from './iframeTypes'
 
-export function LmIframe({ content }: LmIframeProps): JSX.Element {
+export default function LmIframe({ content }: LmIframeProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )

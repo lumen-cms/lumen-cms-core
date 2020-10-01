@@ -6,7 +6,9 @@ import { WhatsappChatButtonProps } from './chatTypings'
 
 const whatsappUrl = `https://wa.me`
 
-export function WhatsappChatButton({ content }: WhatsappChatButtonProps) {
+export default function WhatsappChatButton({
+  content
+}: WhatsappChatButtonProps) {
   let phoneNumber = content.phone_number || ''
   phoneNumber = phoneNumber.replace(/[^\w\s]/gi, '').replace(/ /g, '')
   const url = new URL(`${whatsappUrl}/${phoneNumber}`)

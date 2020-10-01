@@ -7,7 +7,6 @@ import {
   GlobalStoryblok
 } from '../../typings/generated/components-schema'
 import DrawerElement from './drawer/DrawerElement'
-import { LmSnackbar } from '../snackbar/Snackbar'
 import { LmComponentRender } from '../CoreComponents'
 
 export type LayoutComponentProps = {
@@ -38,7 +37,7 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
       <DrawerElement settings={settings} />
       <Footer settings={settings} />
       {settings.snackbars?.map((blok) => (
-        <LmSnackbar content={blok} key={blok._uid} />
+        <LmComponentRender content={blok} key={blok._uid} />
       ))}
       {settings.chat_button?.map((blok) => (
         <LmComponentRender content={blok} key={blok._uid} />

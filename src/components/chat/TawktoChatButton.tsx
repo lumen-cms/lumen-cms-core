@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-export function TawktoChatButton({ content }: TawktoProps) {
+export default function TawktoChatButton({ content }: TawktoProps) {
   const { insideStoryblok } = useAppContext()
   const tawkToId = content.account
 
