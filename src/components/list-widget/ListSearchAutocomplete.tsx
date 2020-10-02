@@ -15,7 +15,6 @@ import Paper from '@material-ui/core/Paper'
 import { StoryData } from 'storyblok-js-client'
 import { useDebouncedCallback } from 'use-debounce'
 import InputAdornment from '@material-ui/core/InputAdornment'
-import { LmStoryblokService } from 'lumen-cms-utils'
 import useSWR from 'swr'
 import { PageComponent } from '../../typings/generated/schema'
 import LmIcon from '../icon/LmIcon'
@@ -97,19 +96,20 @@ const fetcher = async (
   locale?: string
 ): Promise<StoryData<PageComponent>[]> => {
   console.log(searchterm, locale)
-  const { data } = await LmStoryblokService.getSearch(path, {
-    per_page: 15,
-    sort_by: 'content.preview_title:desc',
-    excluding_fields: 'body,right_body,meta_robots,property,seo_body',
-    search_term: searchterm,
-    starts_with: locale,
-    filter_query: {
-      component: {
-        in: 'page'
-      }
-    }
-  })
-  return data.stories
+  let isDev = process.env.NODE_ENV === 'development'
+  const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
+  const url = new URL('https://cdn-api.lumen.media' + path)
+  url.searchParams.append('token', token)
+  url.searchParams.append('searchterm', searchterm)
+  if (isDev) {
+    url.searchParams.append('no_cache', 'true')
+  }
+  if (locale) {
+    url.searchParams.append('locale', locale)
+  }
+
+  const stories = await fetch(url.toString()).then((r) => r.json())
+  return stories
 }
 
 export default function LmListSearchAutocomplete({
@@ -140,7 +140,7 @@ export default function LmListSearchAutocomplete({
     setOpen(true)
   }, 400)
   const { data } = useSWR(
-    searchTerm ? [`cdn/stories`, searchTerm, prefixLocale] : null,
+    searchTerm ? [`/api/search-stories`, searchTerm, prefixLocale] : null,
     fetcher
   )
   const allStories = data || []

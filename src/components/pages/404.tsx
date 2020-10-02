@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import { LmStoryblokService } from 'lumen-cms-utils'
 import { CONFIG } from '../../utils/config'
 import { LmComponentRender } from '../CoreComponents'
 
@@ -35,9 +34,24 @@ export function NotFound({
   const [errorContent, setErrorContent] = useState<
     { title: string; body: any[] } | null | undefined
   >(undefined)
+  const isDev = process.env.NODE_ENV !== 'production'
+  const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
+  const getParams = new URLSearchParams()
+  getParams.append('token', token)
+  if (isDev) {
+    getParams.append('no_cache', 'true')
+  }
+  const paramString = getParams.toString()
   useEffect(() => {
     const fetchErrorContent = async () => {
-      return LmStoryblokService.get(getErrorPath({ statusCode, locale }))
+      return fetch(
+        `https://cdn-api.lumen.media/api/single-story?slug=cdn/stories/${getErrorPath(
+          {
+            statusCode,
+            locale
+          }
+        )}&${paramString}`
+      ).then((r) => r.json())
     }
 
     fetchErrorContent()
@@ -53,7 +67,7 @@ export function NotFound({
         console.error(e)
         setErrorContent(null)
       })
-  }, [statusCode, locale])
+  }, [statusCode, locale, paramString])
 
   const errorTitle =
     (errorContent && errorContent.title) || `${statusCode} - ${title}`
