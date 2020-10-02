@@ -1,12 +1,12 @@
+import { ProductJsonLd } from 'next-seo'
+import React from 'react'
 import { AppSeoProps } from '../layoutTypes'
 import {
   ImageCoreStoryblok,
   SeoProductOfferStoryblok,
   SeoProductStoryblok
 } from '../../../typings/generated/components-schema'
-import { ProductJsonLd } from 'next-seo'
 import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
-import React from 'react'
 
 export function SeoProduct({ settings, page }: AppSeoProps) {
   const product: SeoProductStoryblok | undefined =

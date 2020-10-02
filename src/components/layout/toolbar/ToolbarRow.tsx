@@ -24,7 +24,7 @@ export function LmToolbarRow({
     }
     return (
       <div
-        className={'lm-system-bar'}
+        className="lm-system-bar"
         style={{
           backgroundColor:
             (content.background_color && content.background_color.rgba) ||

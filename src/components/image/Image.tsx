@@ -59,7 +59,7 @@ export default function LmImage({
     intersectionDefaultOptions
   )
 
-  let imgProperties = {
+  const imgProperties = {
     src: '',
     srcSet: ''
   }

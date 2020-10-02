@@ -7,7 +7,7 @@ import Close from 'mdi-material-ui/Close'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Slide from '@material-ui/core/Slide'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '../..'
 import { LmDialogProps } from './dialogTypes'
 
 const TransitionSlideUp = React.forwardRef((props, ref) => (

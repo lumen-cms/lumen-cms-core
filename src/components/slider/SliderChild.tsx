@@ -1,5 +1,5 @@
 import React from 'react'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '../..'
 import { SectionProps } from '../section/sectionTypes'
 
 type LmSliderChildProps = { body: any[]; sectionVariant: any }

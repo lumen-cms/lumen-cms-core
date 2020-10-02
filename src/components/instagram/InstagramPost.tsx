@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import useSWR from 'swr'
 import { useInView } from 'react-intersection-observer'
+import useScript from '@charlietango/use-script'
 import fetcher from '../../utils/fetcher'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmInstagramPostProps } from './instagramTypes'
-import useScript from '@charlietango/use-script'
 
 const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'
 

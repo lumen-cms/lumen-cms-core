@@ -1,10 +1,10 @@
 import React from 'react'
+import { CorporateContactJsonLd } from 'next-seo'
 import {
   SeoCorporateContactPointStoryblok,
   SeoCorporateContactStoryblok
 } from '../../../typings/generated/components-schema'
 import { AppSeoProps } from '../layoutTypes'
-import { CorporateContactJsonLd } from 'next-seo'
 
 export function SeoCorporateContact({ settings, page }: AppSeoProps) {
   const business: SeoCorporateContactStoryblok | undefined =

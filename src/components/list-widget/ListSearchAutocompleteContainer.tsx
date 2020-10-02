@@ -1,9 +1,9 @@
 import React, { FunctionComponent, RefObject, useEffect, useState } from 'react'
-import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import IconButton from '@material-ui/core/IconButton'
-import LmIcon from '../icon/LmIcon'
 import Magnify from 'mdi-material-ui/Magnify'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
+import LmIcon from '../icon/LmIcon'
+import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles(() =>
   createStyles({

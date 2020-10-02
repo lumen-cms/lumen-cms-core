@@ -1,7 +1,7 @@
-import { AppSeoProps } from '../layoutTypes'
-import { SeoSocialProfileStoryblok } from '../../../typings/generated/components-schema'
 import { SocialProfileJsonLd } from 'next-seo'
 import React from 'react'
+import { AppSeoProps } from '../layoutTypes'
+import { SeoSocialProfileStoryblok } from '../../../typings/generated/components-schema'
 
 export function SeoSocialProfile({ settings, page }: AppSeoProps) {
   const profile: SeoSocialProfileStoryblok | undefined =

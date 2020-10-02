@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
-import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
+import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { TawktoProps } from './chatTypings'
-import { useAppContext } from '../provider/context/AppContext'
+import { useAppContext } from '../..'
 
 declare global {
   interface Window {

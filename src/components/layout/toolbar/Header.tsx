@@ -1,16 +1,28 @@
 import React, { memo } from 'react'
-import HeaderCustom from './HeaderCustom'
-import { GlobalStoryblok } from '../../../typings/generated/components-schema'
+import TopAppBarWrap from './TopAppBar'
+import { AppHeaderProps } from './toolbarTypes'
+import { LmComponentRender } from '../../CoreComponents'
 
-type LmHeaderProps = {
-  settings: GlobalStoryblok
-}
+function Header(props: AppHeaderProps): JSX.Element {
+  const content = props.settings
+  let rows = content.multi_toolbar || []
 
-function Header({ settings }: LmHeaderProps): JSX.Element {
-  if (settings.multi_toolbar && settings.multi_toolbar.length) {
-    return <HeaderCustom settings={settings} />
+  let SystemBar = null
+  const systemBarProps = rows.find((item) => item.is_system_bar)
+  if (systemBarProps) {
+    SystemBar = (
+      <LmComponentRender content={systemBarProps} settings={content} />
+    )
+    // rows.splice(systemBarProps, 1)
+    rows = rows.filter((i) => i._uid !== systemBarProps._uid)
   }
-  return <div>simple toolbar does not exist any longer...</div>
+  return (
+    <TopAppBarWrap {...props} SystemBar={SystemBar}>
+      {rows.map((p) => (
+        <LmComponentRender content={p} settings={content} key={p._uid} />
+      ))}
+    </TopAppBarWrap>
+  )
 }
 
 export default memo(Header)

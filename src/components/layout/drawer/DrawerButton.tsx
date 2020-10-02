@@ -2,11 +2,11 @@ import React from 'react'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import { useRouter } from 'next/router'
 import { ButtonStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../../utils/linkHandler'
 import { LmCoreComponents } from '../../../utils/config'
-import { useRouter } from 'next/router'
 
 type DrawerButtonProps = { content: ButtonStoryblok }
 

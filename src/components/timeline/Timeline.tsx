@@ -1,7 +1,7 @@
 import React from 'react'
 import Timeline from '@material-ui/lab/Timeline'
 import { LmTimelineProps } from './timelineTypes'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '../..'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 export default function LmTimeline({ content }: LmTimelineProps): JSX.Element {

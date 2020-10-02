@@ -30,8 +30,8 @@ type SeoMetaTypes = {
 }
 
 const parseOpenGraph = (
-  settingsOpenGraph: SeoOpenGraphStoryblok,
-  pageOpenGraph: SeoOpenGraphStoryblok,
+  settingsOpenGraph: Partial<SeoOpenGraphStoryblok> = {},
+  pageOpenGraph: Partial<SeoOpenGraphStoryblok> = {},
   seoMeta: SeoMetaTypes
 ): OpenGraph => {
   // set some defaults of seoMeta
@@ -111,24 +111,19 @@ export function AppSeo({
   }
 
   // open graphs
-  const settingsOpenGraphs: SeoOpenGraphStoryblok = seoBody.find(
+  const settingsOpenGraphs: Partial<SeoOpenGraphStoryblok> = seoBody.find(
     (i) => i.component === 'seo_open_graph'
   ) as SeoOpenGraphStoryblok
-  const pageOpenGraphs: SeoOpenGraphStoryblok =
-    (pageSeoBody.find(
-      (i) => i.component === 'seo_open_graph'
-    ) as SeoOpenGraphStoryblok) || {}
+  const pageOpenGraphs: Partial<SeoOpenGraphStoryblok> = pageSeoBody.find(
+    (i) => i.component === 'seo_open_graph'
+  ) as SeoOpenGraphStoryblok
   if (previewImage) {
     pageOpenGraphs.images = pageOpenGraphs.images || []
     pageOpenGraphs.images.push({ url: previewImage })
   }
 
   if (settingsOpenGraphs || pageOpenGraphs) {
-    seo.openGraph = parseOpenGraph(
-      settingsOpenGraphs || {},
-      pageOpenGraphs,
-      seo
-    )
+    seo.openGraph = parseOpenGraph(settingsOpenGraphs, pageOpenGraphs, seo)
     const facebookAppId =
       (settingsOpenGraphs && settingsOpenGraphs.app_id) ||
       (pageOpenGraphs && pageOpenGraphs.app_id)

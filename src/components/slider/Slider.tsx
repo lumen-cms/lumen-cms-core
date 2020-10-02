@@ -8,7 +8,7 @@ import ChevronRight from 'mdi-material-ui/ChevronRight'
 import { LmSliderChild } from './SliderChild'
 import InvertedIndicator from './InvertedIndicator'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '../..'
 import { SectionProps } from '../section/sectionTypes'
 import { LmSliderProps } from './sliderTypes'
 

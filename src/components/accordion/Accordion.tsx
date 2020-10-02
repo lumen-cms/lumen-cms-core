@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AccordionItemStoryblok } from '../../typings/generated/components-schema'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '../..'
 import { LmAccordionProps } from './accordionTypes'
 
 export default function LmAccordion({

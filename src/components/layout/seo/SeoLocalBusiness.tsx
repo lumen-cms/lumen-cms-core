@@ -1,11 +1,11 @@
+import { LocalBusinessJsonLd } from 'next-seo'
+import React from 'react'
 import { AppSeoProps } from '../layoutTypes'
 import {
   ImageCoreStoryblok,
   SeoLocalBusinessOpeningHourStoryblok,
   SeoLocalBusinessStoryblok
 } from '../../../typings/generated/components-schema'
-import { LocalBusinessJsonLd } from 'next-seo'
-import React from 'react'
 import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
 
 export function SeoLocalBusiness({ settings, page }: AppSeoProps) {

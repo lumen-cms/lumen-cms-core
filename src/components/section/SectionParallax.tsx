@@ -9,7 +9,7 @@ import { getImageAttrs } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
 
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '../..'
 import { LmSectionParallaxProps } from './sectionTypes'
 
 const useStyles = makeStyles({

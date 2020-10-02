@@ -66,4 +66,3 @@ LmCoreComponents.toolbar_row_section = LmToolbarSection
 LmCoreComponents.toolbar_row = LmToolbarRow
 
 LmCoreComponents.lm_link_render = MuiNextLink
-

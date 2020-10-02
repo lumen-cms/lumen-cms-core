@@ -2,7 +2,6 @@ import Header from '../src/components/layout/toolbar/Header'
 import * as React from 'react'
 import { customSettings, simpleSettings } from '../src/storybook/toolbar'
 
-
 export default {
   title: 'Toolbar'
 }
@@ -19,6 +18,4 @@ export const Basic = () => (
     <Header settings={{ ...simpleSettings, toolbar_variant: 'white' }} />
   </>
 )
-export const Custom = () => (
-  <Header settings={customSettings} />
-)
+export const Custom = () => <Header settings={customSettings} />

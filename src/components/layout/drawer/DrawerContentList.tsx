@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import {
   GlobalStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
 import { DrawerContentRender } from './CollapsibleListSection'
-import { useRouter } from 'next/router'
 
 const findPathDeep = require('deepdash/findPathDeep')
 
@@ -23,7 +23,7 @@ const getUidsOfSlug = (childs: any[], activeRoutePath: string) => {
     findPathDeep(
       childs,
       (_: any, _n: any, context: any) =>
-        '/' + context.link?.cached_url === activeRoutePath,
+        `/${context.link?.cached_url}` === activeRoutePath,
       {
         pathFormat: 'array'
       }

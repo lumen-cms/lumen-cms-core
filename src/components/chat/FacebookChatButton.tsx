@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useAppContext } from '../provider/context/AppContext'
+import useScript, { ScriptStatus } from '@charlietango/use-script'
+import { useAppContext } from '../..'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { FacbookChatButtonProps } from './chatTypings'
-import useScript, { ScriptStatus } from '@charlietango/use-script'
 
 declare global {
   interface Window {

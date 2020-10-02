@@ -5,7 +5,7 @@ import Container, { ContainerProps } from '@material-ui/core/Container'
 import { useWindowSize } from '@react-hook/window-size'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import FullscreenVideoBg from './FullscreenVideoBg'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '../..'
 import { LmSectionVideoProps } from './sectionTypes'
 
 const useStyles = makeStyles({

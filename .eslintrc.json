@@ -7,6 +7,10 @@
   "extends": [
     "airbnb-typescript-prettier"
   ],
+  "globals": {
+    "gtag": false,
+    "fbq": false
+  },
   "rules": {
     "radix": "off",
     "no-underscore-dangle": "off",

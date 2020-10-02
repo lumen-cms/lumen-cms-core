@@ -5,7 +5,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails'
 import Accordion from '@material-ui/core/Accordion'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import Plus from 'mdi-material-ui/Plus'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '../..'
 import { LmAccordionItemProps } from './accordionTypes'
 
 export default function LmAccordionItem({

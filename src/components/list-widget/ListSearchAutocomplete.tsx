@@ -16,15 +16,15 @@ import { StoryData } from 'storyblok-js-client'
 import { useDebouncedCallback } from 'use-debounce'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { LmStoryblokService } from 'lumen-cms-utils'
+import useSWR from 'swr'
 import { PageComponent } from '../../typings/generated/schema'
 import LmIcon from '../icon/LmIcon'
 import MuiNextLink from '../link/MuiNextLink'
 import { getLinkAttrs } from '../../utils/linkHandler'
-import { CONFIG } from '../../utils/config'
+import { CONFIG, useAppContext } from '../..'
 import { LmListSearchAutocompleteProps } from './listWidgetTypes'
-import { useAppContext } from '../provider/context/AppContext'
+
 import { ListSearchAutocompleteContainer } from './ListSearchAutocompleteContainer'
-import useSWR from 'swr'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
