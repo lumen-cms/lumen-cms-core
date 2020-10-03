@@ -6,7 +6,12 @@ import { Story as StoryType } from '@storybook/react/types-6-0.d'
 import AppProvider from '../../components/provider/AppProvider'
 import { AppContextProps } from '@context/AppContext'
 import { LmComponentRender } from '@LmComponentRender'
-import '../../components/LazyNamedComponents'
+import { LmCoreComponents } from '@CONFIG'
+import { LmLazyComponents } from '../../components/LazyNamedComponents'
+
+Object.keys(LmLazyComponents).forEach((k) => {
+  LmCoreComponents[k] = LmLazyComponents[k]
+})
 
 interface StorybookState {
   allTags: { value: string; label: string }[]

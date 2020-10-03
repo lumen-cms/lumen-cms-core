@@ -41,6 +41,9 @@
       ],
       "@CONFIG": [
         "src/utils/config.ts"
+      ],
+      "@context/*": [
+        "src/components/provider/context/*"
       ]
     }
   },

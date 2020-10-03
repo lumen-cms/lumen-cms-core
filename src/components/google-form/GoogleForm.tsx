@@ -7,7 +7,7 @@ import {
   SelectElement,
   TextFieldElement
 } from 'react-form-hook-mui'
-import { LinearProgress } from '@material-ui/core'
+import LinearProgress from '@material-ui/core/LinearProgress'
 import Typography from '@material-ui/core/Typography'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
@@ -25,7 +25,9 @@ class LocalizedUtils extends DateFnsUtils {
   dateFormat = 'P'
 }
 
-export function LmGoogleForm({ content }: LmGoogleFormProps): JSX.Element {
+export default function LmGoogleForm({
+  content
+}: LmGoogleFormProps): JSX.Element {
   const { formStructure } = useGoogleForm(content.api || '')
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
   // @TODO mode is no-cors, can't detect result status
