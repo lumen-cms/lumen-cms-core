@@ -5,7 +5,7 @@ import imageService from '../../utils/ImageService'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import { CONFIG } from '@CONFIG'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '../provider/context/AppContext'
+import { useAppContext } from '@context/AppContext'
 
 type AppHeadProps = {
   settings: GlobalStoryblok

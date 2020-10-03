@@ -8,7 +8,7 @@ import {
   toggleRightNavigation
 } from '../../../utils/state/actions'
 import LmIcon from '../../icon/LmIcon'
-import { useAppSetup } from '../../provider/context/AppSetupContext'
+import { useAppSetup } from '@context/AppSetupContext'
 import { LmToggleDrawerButtonProps } from './toolbarTypes'
 
 export function LmToggleDrawerButton({

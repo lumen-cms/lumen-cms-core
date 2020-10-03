@@ -4,7 +4,7 @@ import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
-import { AppSetupContext, AppSetupProps } from './context/AppSetupContext'
+import { AppSetupContext, AppSetupProps } from '@context/AppSetupContext'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const AppSetupProvider: FunctionComponent<{

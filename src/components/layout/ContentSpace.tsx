@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useAppSetup } from '../provider/context/AppSetupContext'
+import { useAppSetup } from '@context/AppSetupContext'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 import { ContentSpaceProps } from './layoutTypes'
 

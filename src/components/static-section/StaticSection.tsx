@@ -1,6 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
-import { useAppContext } from '../provider/context/AppContext'
+import { useAppContext } from '@context/AppContext'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmStaticSectionProps } from './staticTypes'
 
