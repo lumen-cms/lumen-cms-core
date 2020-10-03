@@ -10,9 +10,9 @@ import { Popover } from '@material-ui/core'
 import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmMenuProps } from './menuTypes'
-import { LmCoreComponents } from '../../utils/config'
+import { LmCoreComponents } from '@CONFIG'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({

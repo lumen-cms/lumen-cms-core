@@ -5,7 +5,7 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { useInView } from 'react-intersection-observer'
 import { useGridListStyles } from './cardListStyles'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmCardListProps } from './cardTypes'
 
 const useStyles = makeStyles({

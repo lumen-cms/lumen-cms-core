@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import { CONFIG } from '../../utils/config'
-import { LmComponentRender } from '../CoreComponents'
+import { CONFIG } from '@CONFIG'
+import { LmComponentRender } from '@LmComponentRender'
 
 const statusCodes = {
   400: 'Bad Request',

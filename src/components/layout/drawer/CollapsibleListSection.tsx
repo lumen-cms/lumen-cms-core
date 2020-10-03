@@ -10,7 +10,7 @@ import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { DrawerButton } from './DrawerButton'
 import { DrawerNavList } from './DrawerNavList'
-import { LmComponentRender } from '../../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 
 type CollapsibleListSectionProps = {
   content: NavMenuStoryblok

@@ -10,7 +10,7 @@ import { DrawerContentList } from './DrawerContentList'
 import MwcDrawer from './MwcDrawer'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
 import useBackgroundBox from '../../section/useBackgroundBox'
-import { CONFIG } from '../../../utils/config'
+import { CONFIG } from '@CONFIG'
 
 type DrawerElementProps = {
   settings: GlobalStoryblok

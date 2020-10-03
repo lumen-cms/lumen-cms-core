@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { usePageStyles } from './usePageStyle'
 import { useGlobalState } from '../../utils/state/state'
 import { useAppSetup } from '../provider/context/AppSetupContext'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 
 const MainContentContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()

@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import GoogleFonts from 'next-google-fonts'
 import imageService from '../../utils/ImageService'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
-import { CONFIG } from '../../utils/config'
+import { CONFIG } from '@CONFIG'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '../provider/context/AppContext'
 

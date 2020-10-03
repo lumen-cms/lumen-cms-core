@@ -14,7 +14,7 @@ import DateFnsUtils from '@date-io/date-fns'
 import Alert from '@material-ui/lab/Alert'
 import { LmGoogleFormProps } from './googleFormProps'
 import { useGoogleForm } from '../../utils/hooks/googleForms/useGoogleForm'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import {
   ButtonStoryblok,
   RichTextEditorStoryblok

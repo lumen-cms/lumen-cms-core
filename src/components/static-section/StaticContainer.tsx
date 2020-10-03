@@ -1,5 +1,5 @@
 import React from 'react'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmStaticContainerProps } from './staticTypes'
 
 export function LmStaticContainer({

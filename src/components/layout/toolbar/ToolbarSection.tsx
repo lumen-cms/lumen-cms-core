@@ -5,7 +5,7 @@ import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useAppSetup } from '../../provider/context/AppSetupContext'
 import { ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
-import { LmComponentRender } from '../../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmToolbarSectionProps } from './toolbarTypes'
 
 const ToolbarSectionContainer: FunctionComponent<{

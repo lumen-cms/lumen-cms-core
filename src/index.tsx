@@ -1,5 +1,5 @@
-import { CONFIG, LmCoreComponents } from './utils/config'
-import { LmComponentRender } from './components/CoreComponents'
+import { CONFIG, LmCoreComponents } from '@CONFIG'
+import { LmComponentRender } from '@LmComponentRender'
 
 export { LmDefaultApp, reportWebVitals } from './components/pages/_appDefault'
 

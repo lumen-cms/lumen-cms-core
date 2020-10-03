@@ -8,7 +8,7 @@ import CardDescriptionText from './CardDescriptionText'
 import CardListItemActions from './CardListItemActions'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { CardListItemProps } from './cardTypes'
-import { LmCoreComponents } from '../../utils/config'
+import { LmCoreComponents } from '@CONFIG'
 
 export function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props

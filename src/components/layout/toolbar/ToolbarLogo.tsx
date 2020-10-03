@@ -8,7 +8,7 @@ import { intersectionDefaultOptions } from '../../../utils/intersectionObserverC
 import { homepageLinkHandler } from '../../../utils/linkHandler'
 import imageService from '../../../utils/ImageService'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'
-import { CONFIG } from '../../../utils/config'
+import { CONFIG } from '@CONFIG'
 import { LmToolbarLogoProps } from './toolbarTypes'
 
 export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {

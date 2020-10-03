@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 import { useAppContext } from '../provider/context/AppContext'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmStaticSectionProps } from './staticTypes'
 
 export function LmStaticSection({

@@ -2,7 +2,7 @@ import React from 'react'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core/styles'
-import { LmComponentRender } from '../../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmToolbarRowProps } from './toolbarTypes'
 
 export function LmToolbarRow({

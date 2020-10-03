@@ -1,5 +1,5 @@
 import { createGlobalState } from 'react-hooks-global-state'
-import { CONFIG } from '../config'
+import { CONFIG } from '@CONFIG'
 
 export interface State {
   leftNavigationDrawer: boolean
