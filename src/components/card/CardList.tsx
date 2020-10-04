@@ -45,6 +45,15 @@ const useStyles = makeStyles({
     '&.ratio-2x3 .MuiCardMedia-root': {
       paddingBottom: '150%' // add ratio variants
     },
+    '&.ratio-1x3 .MuiCardMedia-root': {
+      paddingBottom: '300%' // add ratio variants
+    },
+    '&.ratio-3x1 .MuiCardMedia-root': {
+      paddingBottom: '33.33%' // add ratio variants
+    },
+    '&.ratio-2.85x1 .MuiCardMedia-root': {
+      paddingBottom: '35.09%' // add ratio variants
+    },
     '&.card__over_media .MuiCardMedia-root': {
       position: 'relative',
 
