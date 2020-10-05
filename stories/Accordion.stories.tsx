@@ -1,8 +1,11 @@
 import * as React from 'react'
-import { LmComponentRender as LmAccordion } from '../src/'
+import { LmComponentRender as LmAccordion, LmCoreComponents } from '../src'
 import { storyAccordion, storyAccordionItem } from '../src/storybook/core/various'
 import { get3ColumnsSection } from '../src/storybook/section'
+import { LmLazyComponents } from '../src/components/LazyNamedComponents'
 
+LmCoreComponents['accordion'] = LmLazyComponents.accordion
+LmCoreComponents['accordion_item'] = LmLazyComponents.accordion_item
 
 export default {
   title: 'Accordion'

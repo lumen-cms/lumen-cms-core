@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { LmComponentRender as LmPage } from '../src/'
+import { LmComponentRender as LmPage, LmCoreComponents } from '../src/'
 import { get3ColumnsSection } from '../src/storybook/section'
 import {
   storyBackground,
@@ -9,6 +9,9 @@ import {
   storySectionParallax
 } from '../src/storybook/core/section'
 import { storyHeadline } from '../src/storybook/core/various'
+import {LmLazyComponents} from '../src/components/LazyNamedComponents'
+
+LmCoreComponents['section_parallax'] = LmLazyComponents.section_parallax2
 
 export default {
   title: 'Section Parallax'

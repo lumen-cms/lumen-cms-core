@@ -31,7 +31,10 @@ export const LmLazyComponents = {
   ),
 
   section_parallax: dynamic(
-    () => import(/* webpackChunkName: 'addon' */ './section/SectionParallax')
+    () => import(/* webpackChunkName: 'addon' */ './section/SectionParallaxOld')
+  ),
+  section_parallax2: dynamic(
+    () => import(/* webpackChunkName: 'addon' */ './section/SectionParallaxOld')
   ),
   accordion: dynamic(
     () => import(/* webpackChunkName: 'addon' */ './accordion/Accordion')
