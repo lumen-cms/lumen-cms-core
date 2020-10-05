@@ -29,12 +29,6 @@ export const LmLazyComponents = {
   dialog: dynamic(
     () => import(/* webpackChunkName: 'addon' */ './dialog/Dialog')
   ),
-  parallax_provider: dynamic(
-    () =>
-      import(
-        /* webpackChunkName: 'parallax' */ './section/parallaxHelpers/ParallaxProviderDefaultExport'
-      )
-  ),
   section_parallax: dynamic(
     () => import(/* webpackChunkName: 'parallax' */ './section/SectionParallax')
   ),

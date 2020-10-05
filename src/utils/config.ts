@@ -73,7 +73,6 @@ import {
   LmToolbarSectionProps,
   LmToolbarRowProps
 } from '../components/layout/toolbar/toolbarTypes'
-import { ParallaxProviderProps } from 'react-scroll-parallax/cjs'
 
 type AppConfigProps = {
   href: string
@@ -142,7 +141,6 @@ type LmCoreComponentsProps = {
   section_video_bg?: JSXElementConstructor<LmSectionVideoProps>
   card_list?: JSXElementConstructor<LmCardListProps>
   card_list_item?: JSXElementConstructor<CardListItemProps>
-  parallax_provider?: JSXElementConstructor<ParallaxProviderProps>
   section_parallax?: JSXElementConstructor<LmSectionParallaxProps>
   tabs?: JSXElementConstructor<LmTabsProps>
   list_widget?: JSXElementConstructor<LmListWidgetProps>
