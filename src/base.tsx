@@ -17,6 +17,7 @@ import LmSlider from './components/slider/Slider'
 import LmSectionVideo from './components/section/SectionVideoBg'
 import { LmIcon } from './components/icon/Icon'
 import { LmCardList } from './components/card/CardList'
+import LmParallaxProvider from './components/section/parallaxHelpers/ParallaxProviderDefaultExport'
 import LmSectionParallax from './components/section/SectionParallax'
 import LmTabs from './components/tabs/Tabs'
 import { LmFlexRow } from './components/flex-row/FlexRow'
@@ -53,6 +54,7 @@ export {
   LmRichTextParagraph,
   LmTabs,
   LmTable,
+  LmParallaxProvider,
   LmSectionParallax,
   LmSlider,
   LmNavList,
@@ -91,6 +93,7 @@ export const LmCoreComponentsNamed = {
   slider: LmSlider,
   section_video_bg: LmSectionVideo,
   card_list: LmCardList,
+  parallax_provider: LmParallaxProvider,
   section_parallax: LmSectionParallax,
   tabs: LmTabs,
   flex_row: LmFlexRow,

@@ -3,6 +3,7 @@ import React from 'react'
 import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
 import { LmPageProps } from './pageTypes'
+import { LmParallaxProvider } from '../../base'
 
 export function LmPage({ content }: LmPageProps): JSX.Element {
   const body = content.body || []
@@ -21,9 +22,9 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
     )
   }
   return (
-    <ParallaxProvider>
+    <LmParallaxProvider>
       {rightBody.length > 0 && <RightDrawer rightBody={rightBody} />}
       <MainContent body={body} />
-    </ParallaxProvider>
+    </LmParallaxProvider>
   )
 }
