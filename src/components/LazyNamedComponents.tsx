@@ -92,5 +92,17 @@ export const LmLazyComponents = {
   form: dynamic(
     () =>
       import(/* webpackChunkName: 'googleForm' */ './google-form/GoogleForm')
+  ),
+  ecommerce_checkout: dynamic(
+    () =>
+      import(
+        /* webpackChunkName: 'ecommerce_checkout' */ './ecommerce/EcommerceCheckout'
+      )
+  ),
+  ecommerce_fastspring_product: dynamic(
+    () =>
+      import(
+        /* webpackChunkName: 'fastspring' */ './ecommerce/fastspring/LmFastSpringCheckout'
+      )
   )
 }

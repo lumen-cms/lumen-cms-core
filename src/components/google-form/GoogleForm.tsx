@@ -19,7 +19,7 @@ import {
   ButtonStoryblok,
   RichTextEditorStoryblok
 } from '../../typings/generated/components-schema'
-import { hasFacebookPixel, hasGtag } from '../..'
+import { hasFacebookPixel, hasGtag } from '../../utils/analyticsHelper'
 
 class LocalizedUtils extends DateFnsUtils {
   dateFormat = 'P'
