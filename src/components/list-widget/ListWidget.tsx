@@ -6,7 +6,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { useListSearch } from './useListSearch'
 import { ListWidgetContainer } from './ListWidgetContainer'
-import { useAppContext } from '../provider/context/AppContext'
+import { useAppContext } from '@context/AppContext'
 import { LmListWidgetProps } from './listWidgetTypes'
 
 export function LmListWidget({ content }: LmListWidgetProps): JSX.Element {

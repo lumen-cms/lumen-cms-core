@@ -7,7 +7,7 @@ import {
   GlobalStoryblok
 } from '../../typings/generated/components-schema'
 import DrawerElement from './drawer/DrawerElement'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 
 export type LayoutComponentProps = {
   // appSetup?: State['appSetup'],

@@ -1,7 +1,7 @@
 import React from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
-import { CONFIG } from '../../utils/config'
+import { CONFIG } from '@CONFIG'
 import { LinkProps, NextComposedProps } from './linkTypes'
 
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(

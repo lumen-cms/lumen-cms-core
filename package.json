@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.60.6",
+  "version": "0.60.12",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "dist/index.js",
@@ -67,7 +67,7 @@
     "element-closest": "3.0.2",
     "intersection-observer": "0.11.0",
     "js-cookie": "2.2.1",
-    "lumen-cms-utils": "^1.0.0",
+    "lumen-cms-utils": "^2.0.0",
     "marked": "1.1.1",
     "mdi-material-ui": "6.19.0",
     "next-google-fonts": "^1.2.1",
@@ -130,6 +130,7 @@
     "qawolf": "^1.4.0",
     "storyblok-generate-ts": "^0.6.0",
     "ts-jest": "^26.4.1",
+    "tsconfig-paths-webpack-plugin": "^3.3.0",
     "tsdx": "^0.14.0",
     "tslib": "^2.0.1",
     "typescript": "4.0.3"

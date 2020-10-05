@@ -11,7 +11,7 @@ import Card from '@material-ui/core/Card'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import { CardContentContainer } from './CardContentContainer'
-import { LmComponentRender } from '../..'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmTimelineItemProps } from './timelineTypes'
 
 const useStyles = makeStyles({

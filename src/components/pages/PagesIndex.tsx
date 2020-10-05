@@ -4,7 +4,7 @@ import { AppPageProps } from '../../typings/app'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import { NotFound } from './404'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 
 export type LmPagesIndexProps = AppPageProps & {}
 

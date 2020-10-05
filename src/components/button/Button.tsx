@@ -8,7 +8,7 @@ import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmButtonProps } from './buttonTypes'
-import { LmCoreComponents } from '../../utils/config'
+import { LmCoreComponents } from '@CONFIG'
 
 // fab and button: small medium large, default: large
 const mapSize = {

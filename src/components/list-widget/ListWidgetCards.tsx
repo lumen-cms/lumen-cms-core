@@ -5,7 +5,7 @@ import {
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 
 type ListWidgetCardsProps = {
   content: ListWidgetStoryblok

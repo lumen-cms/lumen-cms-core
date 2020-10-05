@@ -6,7 +6,9 @@ import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { useRichTextStyles } from './richTextStyles'
 import { LmParagraphProps } from './paragraphTypes'
 
-export function LmParagraph({ content }: LmParagraphProps): JSX.Element {
+export default function LmParagraph({
+  content
+}: LmParagraphProps): JSX.Element {
   const classes = useRichTextStyles()
   return (
     <Typography

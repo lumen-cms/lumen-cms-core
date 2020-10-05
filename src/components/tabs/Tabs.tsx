@@ -8,7 +8,7 @@ import clsx from 'clsx'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import LmIcon from '../icon/LmIcon'
 import { TabsItemStoryblok } from '../../typings/generated/components-schema'
-import { LmComponentRender } from '../..'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmTabsProps } from './tabsTypes'
 
 const useStyles = makeStyles((theme: Theme) => ({

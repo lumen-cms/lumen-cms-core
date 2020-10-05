@@ -7,7 +7,7 @@ import { AppContainer } from '../layout/AppContainer'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
 import hasWebpSupport from '../../utils/detectWebpSupport'
 import { useStoryblokComposer } from '../../utils/hooks/useStoryblokComposer'
-import { CONFIG } from '../../utils/config'
+import { CONFIG } from '@CONFIG'
 import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 
 export type LmAppProps = AppProps<AppPageProps>

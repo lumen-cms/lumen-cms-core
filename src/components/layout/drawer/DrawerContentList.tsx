@@ -4,7 +4,7 @@ import {
   GlobalStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
-import { useAppSetup } from '../../provider/context/AppSetupContext'
+import { useAppSetup } from '@context/AppSetupContext'
 import { DrawerContentRender } from './CollapsibleListSection'
 
 const findPathDeep = require('deepdash/findPathDeep')

@@ -1,5 +1,5 @@
 import { internalLinkHandler } from 'lumen-cms-utils'
-import { CONFIG } from './config'
+import { CONFIG } from '@CONFIG'
 import { getGlobalState } from './state/state'
 
 export interface LinkType {

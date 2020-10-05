@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { AppContext, AppContextProps } from './context/AppContext'
+import { AppContext, AppContextProps } from '@context/AppContext'
 
 const AppProvider: FunctionComponent<{ content: AppContextProps }> = ({
   children,

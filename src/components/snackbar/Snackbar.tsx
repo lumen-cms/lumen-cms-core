@@ -7,7 +7,7 @@ import {
   ButtonStoryblok,
   SnackbarStoryblok
 } from '../../typings/generated/components-schema'
-import { LmComponentRender } from '../..'
+import { LmComponentRender } from '@LmComponentRender'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 
 type LmSnackbarProps = {

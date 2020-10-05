@@ -3,8 +3,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useGlobalState } from '../../utils/state/state'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
-import { useAppSetup } from '../provider/context/AppSetupContext'
-import { LmComponentRender } from '../CoreComponents'
+import { useAppSetup } from '@context/AppSetupContext'
+import { LmComponentRender } from '@LmComponentRender'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

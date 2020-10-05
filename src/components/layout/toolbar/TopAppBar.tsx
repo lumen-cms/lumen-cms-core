@@ -9,7 +9,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { useDebounce } from 'use-debounce'
 import { useGlobalState } from '../../../utils/state/state'
 import { ContentSpace } from '../ContentSpace'
-import { useAppSetup } from '../../provider/context/AppSetupContext'
+import { useAppSetup } from '@context/AppSetupContext'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { AppHeaderProps } from './toolbarTypes'
 

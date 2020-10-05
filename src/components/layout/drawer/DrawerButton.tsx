@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { ButtonStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../../utils/linkHandler'
-import { LmCoreComponents } from '../../../utils/config'
+import { LmCoreComponents } from '@CONFIG'
 
 type DrawerButtonProps = { content: ButtonStoryblok }
 

@@ -88,5 +88,12 @@ export const LmLazyComponents = {
   chat_facebook: dynamic(
     () =>
       import(/* webpackChunkName: 'facebookChat' */ './chat/FacebookChatButton')
+  ),
+  paragraph: dynamic(
+    () => import(/* webpackChunkName: 'paragraph' */ './paragraph/Paragraph')
+  ),
+  form: dynamic(
+    () =>
+      import(/* webpackChunkName: 'googleForm' */ './google-form/GoogleForm')
   )
 }

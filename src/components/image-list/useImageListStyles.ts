@@ -112,6 +112,21 @@ export const useImageListStyles = makeStyles({
     },
     '&.ratio-2x3 .MuiGridListTile-tile': {
       paddingBottom: '150%'
+    },
+    '&.ratio-1x2 .MuiGridListTile-tile': {
+      paddingBottom: '200%'
+    },
+    '&.ratio-2x1 .MuiGridListTile-tile': {
+      paddingBottom: '50%'
+    },
+    '&.ratio-1x3 .MuiGridListTile-tile': {
+      paddingBottom: '300%'
+    },
+    '&.ratio-3x1 .MuiGridListTile-tile': {
+      paddingBottom: '33.33%'
+    },
+    '&.ratio-2.85x1 .MuiGridListTile-tile': {
+      paddingBottom: '35.09%'
     }
   }
 })

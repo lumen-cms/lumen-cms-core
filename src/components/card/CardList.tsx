@@ -5,7 +5,7 @@ import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import { useInView } from 'react-intersection-observer'
 import { useGridListStyles } from './cardListStyles'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmCardListProps } from './cardTypes'
 
 const useStyles = makeStyles({
@@ -44,6 +44,15 @@ const useStyles = makeStyles({
     },
     '&.ratio-2x3 .MuiCardMedia-root': {
       paddingBottom: '150%' // add ratio variants
+    },
+    '&.ratio-1x3 .MuiCardMedia-root': {
+      paddingBottom: '300%' // add ratio variants
+    },
+    '&.ratio-3x1 .MuiCardMedia-root': {
+      paddingBottom: '33.33%' // add ratio variants
+    },
+    '&.ratio-2.85x1 .MuiCardMedia-root': {
+      paddingBottom: '35.09%' // add ratio variants
     },
     '&.card__over_media .MuiCardMedia-root': {
       position: 'relative',

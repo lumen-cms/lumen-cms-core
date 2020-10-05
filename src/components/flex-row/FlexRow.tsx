@@ -1,7 +1,7 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRowProps } from './flexRowTypes'
 
 export function LmFlexRow({ content }: LmFlexRowProps): JSX.Element {

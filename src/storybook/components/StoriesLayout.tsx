@@ -18,7 +18,7 @@ import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import AppProvider from '../../components/provider/AppProvider'
 import '../../components/NamedComponents'
-import { LmCoreComponents } from '../../utils/config'
+import { LmCoreComponents } from '@CONFIG'
 import { LmAppProvidersContainer } from '../../components/layout/LmAppProvidersContainer'
 
 const OverwriteLink: FC = ({ children }) => {

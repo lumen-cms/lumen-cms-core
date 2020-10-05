@@ -24,7 +24,7 @@
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
-    //    "baseUrl": "./",
+    "baseUrl": "./",
     "rootDir": "./src",
     "strict": true,
     //
@@ -34,7 +34,18 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "traceResolution": true
+    "traceResolution": true,
+    "paths": {
+      "@LmComponentRender": [
+        "src/components/CoreComponents.tsx"
+      ],
+      "@CONFIG": [
+        "src/utils/config.ts"
+      ],
+      "@context/*": [
+        "src/components/provider/context/*"
+      ]
+    }
   },
   "exclude": [
     "node_modules",

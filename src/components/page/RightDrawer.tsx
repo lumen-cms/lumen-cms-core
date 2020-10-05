@@ -6,8 +6,8 @@ import { useGlobalState } from '../../utils/state/state'
 import { closeNavigationDrawers } from '../../utils/state/actions'
 import { ContentSpace } from '../layout/ContentSpace'
 import { usePageStyles } from './usePageStyle'
-import { useAppSetup } from '../provider/context/AppSetupContext'
-import { LmComponentRender } from '../CoreComponents'
+import { useAppSetup } from '@context/AppSetupContext'
+import { LmComponentRender } from '@LmComponentRender'
 
 const RightDrawerContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()

@@ -7,7 +7,8 @@ import ImageListLightbox from './ImageListLightbox'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-import { LmComponentRender, LmCoreComponents } from '../..'
+import { LmComponentRender } from '@LmComponentRender'
+import { LmCoreComponents } from '@CONFIG'
 import { LmImageListProps } from './imageListTypes'
 
 export default function LmImageList({

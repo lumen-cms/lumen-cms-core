@@ -5,7 +5,7 @@ import Fade, { FadeProps } from '@material-ui/core/Fade'
 import Grow, { GrowProps } from '@material-ui/core/Grow'
 import Zoom, { ZoomProps } from '@material-ui/core/Zoom'
 import Collapse, { CollapseProps } from '@material-ui/core/Collapse'
-import { LmComponentRender } from '../CoreComponents'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmMotionProps } from './motionTypes'
 
 export function LmMotion({ content }: LmMotionProps): JSX.Element {
