@@ -20,7 +20,9 @@ import { PageComponent } from '../../typings/generated/schema'
 import LmIcon from '../icon/LmIcon'
 import MuiNextLink from '../link/MuiNextLink'
 import { getLinkAttrs } from '../../utils/linkHandler'
-import { CONFIG, useAppContext } from '../..'
+import { CONFIG } from '@CONFIG'
+import { useAppContext } from '@context/AppContext'
+
 import { LmListSearchAutocompleteProps } from './listWidgetTypes'
 
 import { ListSearchAutocompleteContainer } from './ListSearchAutocompleteContainer'

@@ -26,10 +26,6 @@ const OverwriteLink: FC = ({ children }) => {
 }
 LmCoreComponents.lm_link_render = OverwriteLink
 
-const ProviderA: FC = ({ children }) => <div>{children}</div>
-const ProviderB: FC = ({ children }) => <div>{children}</div>
-
-LmCoreComponents.lm_app_providers = [ProviderA, ProviderB]
 const Layout: FunctionComponent<{}> = ({ children }) => {
   useGlobalStyles()
   return <>{children}</>

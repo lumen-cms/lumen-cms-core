@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { TawktoProps } from './chatTypings'
-import { useAppContext } from '../..'
+import { useAppContext } from '@context/AppContext'
 
 declare global {
   interface Window {

@@ -14,7 +14,9 @@ type AppHeadProps = {
 function AppHead({ settings }: AppHeadProps): JSX.Element {
   const favicon = settings.setup_favicon
   const loadFonts: string[] = getFontBasedOnSetting(settings)
-  const { insideStoryblok } = useAppContext()
+  const appContext = useAppContext()
+  const { insideStoryblok } = appContext
+  console.log('app head inside stroyblok', insideStoryblok)
   if (process.env.NODE_ENV === 'development') {
     console.log('render app head')
   }
