@@ -4,7 +4,7 @@ import { useShopifySdkContext } from './context/ShopifySdkContext'
 import { ShopifyProductItem } from './product/ShopifyProductItem'
 import { LmShopifyCheckoutProps, ShopifyProductItemProps } from './shopifyTypes'
 
-export function LmShopifyProduct({ content }: LmShopifyCheckoutProps) {
+export default function LmShopifyProduct({ content }: LmShopifyCheckoutProps) {
   const { products } = useShopifySdkContext()
   const product = products.find((p) => {
     // @ts-ignore

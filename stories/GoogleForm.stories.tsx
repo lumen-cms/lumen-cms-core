@@ -1,11 +1,12 @@
 import React from 'react'
-import { LmComponentRender, LmCoreComponents } from '../src/'
+import { LmComponentRender } from '../src/'
 import { FormStoryblok } from '../src/typings/generated/components-schema'
-import { LmGoogleForm } from '../src/components/google-form/GoogleForm'
-import { storyButton, storyForm, storyParagraph } from '../src/storybook/core/various'
+import {
+  storyButton,
+  storyForm,
+  storyParagraph
+} from '../src/storybook/core/various'
 import { GoogleFormExampleUrl } from '../src/utils/config'
-
-LmCoreComponents.form = LmGoogleForm
 
 const props: FormStoryblok = {
   _uid: '123098',
@@ -13,7 +14,7 @@ const props: FormStoryblok = {
   api: GoogleFormExampleUrl,
   fields_full_width: true,
   submit_button: [storyButton()],
-  success_body: [ storyParagraph() ]
+  success_body: [storyParagraph()]
 }
 
 export default {
@@ -23,14 +24,20 @@ export default {
 export const Example = () => {
   return (
     <>
-      <LmComponentRender content={{...props}}/>
+      <LmComponentRender content={{ ...props }} />
     </>
   )
 }
 
 export const Playground = () => {
-  return <>
-    <LmComponentRender content={{...storyForm(), submit_button: [storyButton({options: {label: 'SubmitTest'}})]
-    }}/>
-  </>
+  return (
+    <>
+      <LmComponentRender
+        content={{
+          ...storyForm(),
+          submit_button: [storyButton({ options: { label: 'SubmitTest' } })]
+        }}
+      />
+    </>
+  )
 }

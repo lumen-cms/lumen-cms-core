@@ -168,6 +168,7 @@ type LmCoreComponentsProps = {
   instagram_list?: JSXElementConstructor<LmInstagramListProps>
   lm_link_render?: JSXElementConstructor<LinkProps>
   lm_app_providers: FC<any>[]
+  parallax_provider?: JSXElementConstructor<any>
   [k: string]: ReactNode | null
 }
 

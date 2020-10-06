@@ -1,6 +1,12 @@
 import dynamic from 'next/dynamic'
 
 export const LmLazyComponents = {
+  parallax_provider: dynamic(
+    () =>
+      import(
+        /* webpackChunkName: 'parallax' */ './section/parallaxHelpers/ParallaxProviderDefaultExport'
+      )
+  ),
   instagram_post: dynamic(
     () =>
       import(/* webpackChunkName: 'instagram' */ './instagram/InstagramPost')
@@ -102,6 +108,12 @@ export const LmLazyComponents = {
     () =>
       import(
         /* webpackChunkName: 'fastspring' */ './ecommerce/fastspring/LmFastSpringCheckout'
+      )
+  ),
+  ecommerce_shopify_checkout: dynamic(
+    () =>
+      import(
+        /* webpackChunkName: 'fastspring' */ './ecommerce/shopify/ShopifyProduct'
       )
   )
 }
