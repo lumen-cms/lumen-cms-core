@@ -29,9 +29,8 @@ export const LmLazyComponents = {
   dialog: dynamic(
     () => import(/* webpackChunkName: 'addon' */ './dialog/Dialog')
   ),
-
   section_parallax: dynamic(
-    () => import(/* webpackChunkName: 'addon' */ './section/SectionParallax')
+    () => import(/* webpackChunkName: 'parallax' */ './section/SectionParallax')
   ),
   accordion: dynamic(
     () => import(/* webpackChunkName: 'addon' */ './accordion/Accordion')

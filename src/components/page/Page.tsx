@@ -1,8 +1,15 @@
-import { ParallaxProvider } from 'react-scroll-parallax'
 import React from 'react'
+import dynamic from 'next/dynamic'
 import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
 import { LmPageProps } from './pageTypes'
+
+const ParallaxProviderDynamic = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: 'parallax' */ '../section/parallaxHelpers/ParallaxProviderDefaultExport'
+    )
+)
 
 export function LmPage({ content }: LmPageProps): JSX.Element {
   const body = content.body || []
@@ -21,9 +28,9 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
     )
   }
   return (
-    <ParallaxProvider>
+    <ParallaxProviderDynamic>
       {rightBody.length > 0 && <RightDrawer rightBody={rightBody} />}
       <MainContent body={body} />
-    </ParallaxProvider>
+    </ParallaxProviderDynamic>
   )
 }
