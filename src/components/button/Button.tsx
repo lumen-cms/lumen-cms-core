@@ -139,7 +139,7 @@ export const LmButton: FC<LmButtonProps> = ({
             ? content.custom_color.rgba
             : undefined
         }}
-        size={mapSize[content.size as 'lm-button-large' || 'dense'] || 'medium'}
+        size={mapSize[content.size as any] || 'medium'}
         color={color as FabProps['color']}
         disableRipple={disableRipple}
         type={type || 'button'}
