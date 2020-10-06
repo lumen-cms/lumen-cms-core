@@ -5,14 +5,6 @@ import { FastSpringContext } from './context/FastSpringContext'
 import { EcommerceFastspringConfigStoryblok } from '../../../typings/generated/components-schema'
 import { hasFacebookPixel, hasGtag } from '../../../utils/analyticsHelper'
 
-declare global {
-  interface Window {
-    fastspring: any
-    fscDataCallback: (data: any) => void
-    dataPopupClosed: (data: { id?: string; reference?: string } | null) => void
-  }
-}
-
 let cachedProducts: any[] = []
 
 export const LmFastSpringProvider: FC<{

@@ -50,3 +50,11 @@ declare module '@material-ui/core/styles/createMuiTheme' {
     }
   }
 }
+
+declare global {
+  interface Window {
+    fastspring: any
+    fscDataCallback: (data: any) => void
+    dataPopupClosed: (data: { id?: string; reference?: string } | null) => void
+  }
+}
