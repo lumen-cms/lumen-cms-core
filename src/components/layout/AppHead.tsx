@@ -16,7 +16,6 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
   const loadFonts: string[] = getFontBasedOnSetting(settings)
   const appContext = useAppContext()
   const { insideStoryblok } = appContext
-  console.log('app head inside stroyblok', insideStoryblok)
   if (process.env.NODE_ENV === 'development') {
     console.log('render app head')
   }
