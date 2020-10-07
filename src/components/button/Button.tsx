@@ -4,11 +4,11 @@ import React, { FC } from 'react'
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
+import { LmCoreComponents } from '@CONFIG'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmButtonProps } from './buttonTypes'
-import { LmCoreComponents } from '@CONFIG'
 
 // fab and button: small medium large, default: large
 const mapSize = {
@@ -139,7 +139,7 @@ export const LmButton: FC<LmButtonProps> = ({
             ? content.custom_color.rgba
             : undefined
         }}
-        size={mapSize[content.size as string] || 'medium'}
+        size={mapSize[content.size as any] || 'medium'}
         color={color as FabProps['color']}
         disableRipple={disableRipple}
         type={type || 'button'}
