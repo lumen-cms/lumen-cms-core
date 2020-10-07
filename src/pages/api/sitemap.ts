@@ -3,7 +3,7 @@ import { IncomingMessage, ServerResponse } from 'http'
 import { getAllStoriesOfProject } from '../../utils/initial-props/storyblokPagesConfig'
 import { PageItem } from '../../typings/generated/schema'
 import { internalLinkHandler } from 'lumen-cms-utils'
-import { CONFIG } from '@CONFIG'
+import { SSR_CONFIG } from '../../utils/initial-props/ssrConfig'
 // import { createGzip } from 'zlib'
 
 export default async function (req: IncomingMessage, res: ServerResponse) {
@@ -42,7 +42,7 @@ export default async function (req: IncomingMessage, res: ServerResponse) {
         }
       }
     }
-    await Promise.all(CONFIG.ssrHooks.sitemap.map((func) => func(smStream)))
+    await Promise.all(SSR_CONFIG.ssrHooks.sitemap.map((func) => func(smStream)))
     smStream.end()
 
     const sitemap = await streamToPromise(smStream).then((sm) => sm.toString())

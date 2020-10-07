@@ -7,6 +7,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../typings/app'
 import { CONFIG } from '@CONFIG'
+import { SSR_CONFIG } from './ssrConfig'
 
 const getPageProps = async (
   slug: string | string[],
@@ -75,7 +76,7 @@ const getPageProps = async (
     insideStoryblok: !!insideStoryblok
   }
 
-  await Promise.all(CONFIG.ssrHooks.pageProps.map((func) => func(props)))
+  await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
 
   return props
 }
