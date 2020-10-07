@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.70.1",
+  "version": "0.70.2",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -64,8 +64,10 @@
     "lumen-cms-utils": "^2.0.0",
     "marked": "1.1.1",
     "mdi-material-ui": "6.19.0",
+    "next-compose-plugins": "^2.2.0",
     "next-google-fonts": "^1.2.1",
     "next-seo": "4.10.0",
+    "next-transpile-modules": "^4.1.0",
     "nprogress": "0.2.0",
     "react-form-hook-mui": "0.9.0",
     "react-hook-form": "6.7.2",
