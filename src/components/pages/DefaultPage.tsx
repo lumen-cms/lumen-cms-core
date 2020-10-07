@@ -1,14 +1,14 @@
 import Error from 'next/error'
 import React from 'react'
+import { LmComponentRender } from '@LmComponentRender'
 import { AppPageProps } from '../../typings/app'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import { NotFound } from './404'
-import { LmComponentRender } from '@LmComponentRender'
 
 export type LmPagesIndexProps = AppPageProps & {}
 
-export function LmPagesIndex(props: LmPagesIndexProps): JSX.Element {
+export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
   const { settings, page, error, locale } = props
 
   if (error || !settings) {

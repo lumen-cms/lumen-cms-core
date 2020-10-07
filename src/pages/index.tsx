@@ -1,2 +1,5 @@
-export { pagesGetStaticProps as getStaticProps } from 'lumen-cms-nextjs'
-export { LmDefaultPage as default } from '..'
+import pagesGetStaticProps from '../utils/initial-props/pagesGetStaticProps'
+import { LmDefaultPage } from '../components/pages/DefaultPage'
+
+export default LmDefaultPage
+export const getStaticProps = pagesGetStaticProps

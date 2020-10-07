@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useMemo } from 'react'
 import { DrawerProps } from '@material-ui/core/Drawer'
+import { AppSetupContext, AppSetupProps } from '@context/AppSetupContext'
 import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
-import { AppSetupContext, AppSetupProps } from '@context/AppSetupContext'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const AppSetupProvider: FunctionComponent<{

@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
+import { LmComponentRender } from '@LmComponentRender'
 import TopAppBarWrap from './TopAppBar'
 import { AppHeaderProps } from './toolbarTypes'
-import { LmComponentRender } from '@LmComponentRender'
 
 function Header(props: AppHeaderProps): JSX.Element {
   const content = props.settings

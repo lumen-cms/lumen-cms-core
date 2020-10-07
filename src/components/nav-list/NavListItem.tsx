@@ -1,8 +1,8 @@
 import React from 'react'
 import MuiLink from '@material-ui/core/Link'
+import { LmCoreComponents } from '@CONFIG'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmNavListItemProps } from './navListTypes'
-import { LmCoreComponents } from '@CONFIG'
 
 export function LmNavListItem(props: LmNavListItemProps): JSX.Element {
   const content = { ...props }

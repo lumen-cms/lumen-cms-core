@@ -2,12 +2,12 @@ import { LogoJsonLd, NextSeo } from 'next-seo'
 import React from 'react'
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types.d'
 import { useRouter } from 'next/router'
+import { CONFIG } from '@CONFIG'
 import {
   ImageCoreStoryblok,
   SeoOpenGraphStoryblok,
   SeoTwitterStoryblok
 } from '../../typings/generated/components-schema'
-import { CONFIG } from '@CONFIG'
 import { AppSeoProps } from './layoutTypes'
 import { mapOpenGraphImage } from '../../utils/mapOpenGraphImage'
 import { SeoProduct } from './seo/SeoProduct'

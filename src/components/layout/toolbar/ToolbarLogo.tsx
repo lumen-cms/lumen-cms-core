@@ -4,11 +4,11 @@ import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
+import { CONFIG } from '@CONFIG'
 import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
 import { homepageLinkHandler } from '../../../utils/linkHandler'
 import imageService from '../../../utils/ImageService'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'
-import { CONFIG } from '@CONFIG'
 import { LmToolbarLogoProps } from './toolbarTypes'
 
 export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {

@@ -1,10 +1,10 @@
 import React from 'react'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
-import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmComponentRender } from '@LmComponentRender'
-import { LmLinkProps } from './linkTypes'
 import { LmCoreComponents } from '@CONFIG'
+import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import { LmLinkProps } from './linkTypes'
 
 export function LmLink({ content }: LmLinkProps): JSX.Element {
   if (!content.link?.cached_url) {

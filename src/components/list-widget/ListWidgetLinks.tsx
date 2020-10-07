@@ -1,11 +1,11 @@
 import React from 'react'
+import { LmComponentRender } from '@LmComponentRender'
 import {
   ListWidgetStoryblok,
   NavItemStoryblok,
   NavListStoryblok
 } from '../../typings/generated/components-schema'
 import { AppApiRequestPayload } from '../../typings/app'
-import { LmComponentRender } from '@LmComponentRender'
 
 type ListWidgetLinksProps = {
   items: AppApiRequestPayload['allStories']

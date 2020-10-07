@@ -16,12 +16,12 @@ import { StoryData } from 'storyblok-js-client'
 import { useDebouncedCallback } from 'use-debounce'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import useSWR from 'swr'
+import { CONFIG } from '@CONFIG'
+import { useAppContext } from '@context/AppContext'
 import { PageComponent } from '../../typings/generated/schema'
 import LmIcon from '../icon/LmIcon'
 import MuiNextLink from '../link/MuiNextLink'
 import { getLinkAttrs } from '../../utils/linkHandler'
-import { CONFIG } from '@CONFIG'
-import { useAppContext } from '@context/AppContext'
 
 import { LmListSearchAutocompleteProps } from './listWidgetTypes'
 
@@ -98,9 +98,9 @@ const fetcher = async (
   locale?: string
 ): Promise<StoryData<PageComponent>[]> => {
   console.log(searchterm, locale)
-  let isDev = process.env.NODE_ENV === 'development'
+  const isDev = process.env.NODE_ENV === 'development'
   const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
-  const url = new URL('https://cdn-api.lumen.media' + path)
+  const url = new URL(`https://cdn-api.lumen.media${path}`)
   url.searchParams.append('token', token)
   url.searchParams.append('searchterm', searchterm)
   if (isDev) {

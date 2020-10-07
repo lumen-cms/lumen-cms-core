@@ -2,7 +2,8 @@
   "ignorePatterns": [
     "./**/generated/*.tsx",
     "./**/generated/*.ts",
-    "./stories/**/*.*"
+    "./stories/**/*.*",
+    "./src/storybook/**/*.*"
   ],
   "extends": [
     "airbnb-typescript-prettier"
@@ -10,6 +11,11 @@
   "globals": {
     "gtag": false,
     "fbq": false
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
   },
   "rules": {
     "radix": "off",

@@ -1,6 +1,7 @@
 import React from 'react'
 import CardActionArea from '@material-ui/core/CardActionArea'
 import CardContent from '@material-ui/core/CardContent'
+import { LmCoreComponents } from '@CONFIG'
 import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
@@ -8,7 +9,6 @@ import CardDescriptionText from './CardDescriptionText'
 import CardListItemActions from './CardListItemActions'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { CardListItemProps } from './cardTypes'
-import { LmCoreComponents } from '@CONFIG'
 
 export function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props

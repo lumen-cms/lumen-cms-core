@@ -1,5 +1,7 @@
 import React, { memo } from 'react'
 import Link from 'next/link'
+import { useAppSetup } from '@context/AppSetupContext'
+import { CONFIG } from '@CONFIG'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
@@ -8,9 +10,7 @@ import imageService from '../../../utils/ImageService'
 import { ContentSpace } from '../ContentSpace'
 import { DrawerContentList } from './DrawerContentList'
 import MwcDrawer from './MwcDrawer'
-import { useAppSetup } from '@context/AppSetupContext'
 import useBackgroundBox from '../../section/useBackgroundBox'
-import { CONFIG } from '@CONFIG'
 
 type DrawerElementProps = {
   settings: GlobalStoryblok

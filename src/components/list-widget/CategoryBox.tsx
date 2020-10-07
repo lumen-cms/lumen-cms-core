@@ -3,8 +3,8 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import { setSearchCategory } from '../../utils/state/actions'
 import { useAppContext } from '@context/AppContext'
+import { setSearchCategory } from '../../utils/state/actions'
 import { LmCategoryBoxProps } from './listWidgetTypes'
 
 export default function LmCategoryBox({

@@ -7,12 +7,12 @@ import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import { useRouter } from 'next/router'
 import { Popover } from '@material-ui/core'
+import { LmComponentRender } from '@LmComponentRender'
+import { LmCoreComponents } from '@CONFIG'
 import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-import { LmComponentRender } from '@LmComponentRender'
 import { LmMenuProps } from './menuTypes'
-import { LmCoreComponents } from '@CONFIG'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({

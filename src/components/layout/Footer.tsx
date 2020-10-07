@@ -1,10 +1,10 @@
 import React, { FunctionComponent, memo } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useGlobalState } from '../../utils/state/state'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { useAppSetup } from '@context/AppSetupContext'
 import { LmComponentRender } from '@LmComponentRender'
+import { useGlobalState } from '../../utils/state/state'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

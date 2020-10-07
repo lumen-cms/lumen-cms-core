@@ -1,3 +1,6 @@
-export { pagesGetServerSideProps as getServerSideProps } from 'lumen-cms-nextjs'
+import pagesGetServerSideProps from '../../utils/initial-props/pagesGetServerSideProps'
+import { LmDefaultPage } from '../../components/pages/DefaultPage'
+// import { LmDefaultPage } from 'lumen-cms-core'
 
-export { LmDefaultPage as default } from '../..'
+export default LmDefaultPage
+export const getServerSideProps = pagesGetServerSideProps

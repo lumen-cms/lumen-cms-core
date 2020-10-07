@@ -11,6 +11,7 @@ import {
   text
 } from '@storybook/addon-knobs'
 import { Story as StoryType } from '@storybook/react/types-6-0.d'
+import { LmCoreComponents } from '@CONFIG'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { CONFIG_STORYBOOK } from './configStorybook'
@@ -18,7 +19,6 @@ import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import AppProvider from '../../components/provider/AppProvider'
 import '../../components/NamedComponents'
-import { LmCoreComponents } from '@CONFIG'
 import { LmAppProvidersContainer } from '../../components/layout/LmAppProvidersContainer'
 
 const OverwriteLink: FC = ({ children }) => {

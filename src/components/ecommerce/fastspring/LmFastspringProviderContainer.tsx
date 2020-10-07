@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
+import dynamic from 'next/dynamic'
 import {
   EcommerceFastspringConfigStoryblok,
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
-import dynamic from 'next/dynamic'
 
 const LmFastSpringProvider = dynamic(
   () => import(/* webpackChunkName: 'fastspring' */ './LmFastspringProvider')

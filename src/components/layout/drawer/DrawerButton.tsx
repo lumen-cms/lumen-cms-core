@@ -3,10 +3,10 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import { useRouter } from 'next/router'
+import { LmCoreComponents } from '@CONFIG'
 import { ButtonStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../../utils/linkHandler'
-import { LmCoreComponents } from '@CONFIG'
 
 type DrawerButtonProps = { content: ButtonStoryblok }
 

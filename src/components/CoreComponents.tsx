@@ -1,8 +1,8 @@
 import React, { Attributes, ComponentClass, FC } from 'react'
 import SbEditable from 'storyblok-react'
-import { ComponentRenderFuncProps } from '../typings/app'
 import { useAppContext } from '@context/AppContext'
 import { LmCoreComponents } from '@CONFIG'
+import { ComponentRenderFuncProps } from '../typings/app'
 
 export function LmComponentRender<P>(
   props: ComponentRenderFuncProps

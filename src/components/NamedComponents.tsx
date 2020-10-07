@@ -1,3 +1,4 @@
+import { LmCoreComponents } from '@CONFIG'
 import { LmPage } from './page/Page'
 import { LmTable } from './table/Table'
 import { LmStaticSection } from './static-section/StaticSection'
@@ -26,7 +27,6 @@ import { LmMotion } from './motion/Motion'
 import { LmToolbarLogo } from './layout/toolbar/ToolbarLogo'
 import { LmToggleDrawerButton } from './layout/toolbar/ToggleDrawerButton'
 import { LmToolbarSection } from './layout/toolbar/ToolbarSection'
-import { LmCoreComponents } from '@CONFIG'
 import MuiNextLink from './link/MuiNextLink'
 import { LmToolbarRow } from './layout/toolbar/ToolbarRow'
 

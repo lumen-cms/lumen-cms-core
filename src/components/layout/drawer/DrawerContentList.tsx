@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useAppSetup } from '@context/AppSetupContext'
 import {
   GlobalStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
-import { useAppSetup } from '@context/AppSetupContext'
 import { DrawerContentRender } from './CollapsibleListSection'
 
 const findPathDeep = require('deepdash/findPathDeep')

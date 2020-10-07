@@ -4,8 +4,8 @@ import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useAppSetup } from '@context/AppSetupContext'
-import { ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
 import { LmComponentRender } from '@LmComponentRender'
+import { ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
 import { LmToolbarSectionProps } from './toolbarTypes'
 
 const ToolbarSectionContainer: FunctionComponent<{

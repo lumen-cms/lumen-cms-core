@@ -1,11 +1,11 @@
 import NextHead from 'next/head'
 import React, { memo } from 'react'
 import GoogleFonts from 'next-google-fonts'
+import { CONFIG } from '@CONFIG'
+import { useAppContext } from '@context/AppContext'
 import imageService from '../../utils/ImageService'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
-import { CONFIG } from '@CONFIG'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '@context/AppContext'
 
 type AppHeadProps = {
   settings: GlobalStoryblok

@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import { LmComponentRender } from '@LmComponentRender'
 import Header from './toolbar/Header'
 import Footer from './Footer'
 import AppHead from './AppHead'
@@ -7,7 +8,6 @@ import {
   GlobalStoryblok
 } from '../../typings/generated/components-schema'
 import DrawerElement from './drawer/DrawerElement'
-import { LmComponentRender } from '@LmComponentRender'
 
 export type LayoutComponentProps = {
   // appSetup?: State['appSetup'],
