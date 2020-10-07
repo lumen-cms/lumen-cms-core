@@ -114,9 +114,10 @@ export function AppSeo({
   const settingsOpenGraphs: Partial<SeoOpenGraphStoryblok> = seoBody.find(
     (i) => i.component === 'seo_open_graph'
   ) as SeoOpenGraphStoryblok
-  const pageOpenGraphs: Partial<SeoOpenGraphStoryblok> = pageSeoBody.find(
-    (i) => i.component === 'seo_open_graph'
-  ) as SeoOpenGraphStoryblok
+  const pageOpenGraphs: Partial<SeoOpenGraphStoryblok> =
+    (pageSeoBody.find(
+      (i) => i.component === 'seo_open_graph'
+    ) as SeoOpenGraphStoryblok) || {}
   if (previewImage) {
     pageOpenGraphs.images = pageOpenGraphs.images || []
     pageOpenGraphs.images.push({ url: previewImage })
