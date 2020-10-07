@@ -1,8 +1,8 @@
 import React from 'react'
+import { LmCoreComponents } from '@CONFIG'
 import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
 import { LmPageProps } from './pageTypes'
-import { LmCoreComponents } from '@CONFIG'
 
 export function LmPage({ content }: LmPageProps): JSX.Element {
   const body = content.body || []
@@ -21,6 +21,7 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
     )
   }
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     <LmCoreComponents.parallax_provider>
       {rightBody.length > 0 && <RightDrawer rightBody={rightBody} />}
