@@ -1,17 +1,10 @@
 import { GetServerSideProps } from 'next'
 import getPageProps from './getPageProps'
 
-
 const pagesGetServerSideProps: GetServerSideProps = async (props) => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
-  const { query, req } = props
-  let hostname = ''
-  if (req) {
-    const { headers: { host } } = req
-    hostname = host?.includes('localhost') ? `http://${host}` : `https://${host}`
-  } else {
-    hostname = `${location.protocol}//${location.host}`
-  }
+  const { query } = props
+
   try {
     // startMeasureTime('start get server side props')
 

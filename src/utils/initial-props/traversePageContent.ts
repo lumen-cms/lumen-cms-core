@@ -1,8 +1,17 @@
 import { StoryData } from 'storyblok-js-client'
-import { ListWidgetStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
-import { CategoryComponent, PageComponent } from '../../typings/generated/schema'
+import {
+  ListWidgetStoryblok,
+  PageStoryblok
+} from '../../typings/generated/components-schema'
+import {
+  CategoryComponent,
+  PageComponent
+} from '../../typings/generated/schema'
 
-const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<PageComponent>[]) => {
+const listWidgetFilter = (
+  content: ListWidgetStoryblok,
+  allStories: StoryData<PageComponent>[]
+) => {
   const filter = (content.tags && content.tags.values) || []
   const sort = content.sort
   const sortDescending = content.sort_descending
@@ -11,8 +20,8 @@ const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<Pa
       const itemCategories = item.tag_list || []
       if (filter.length) {
         return content.match_all_tags
-          ? filter.every(element => itemCategories.includes(element))
-          : filter.some(element => itemCategories.includes(element))
+          ? filter.every((element) => itemCategories.includes(element))
+          : filter.some((element) => itemCategories.includes(element))
       }
       if (content.only_tagged) {
         return !!itemCategories.length
@@ -34,8 +43,12 @@ const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<Pa
         sortACriteria = itemContentA.preview_publish_date || a.published_at
         sortBCriteria = itemContentB.preview_publish_date || b.published_at
       } else if (sort === 'title') {
-        sortACriteria = String(itemContentA.preview_title || a.name).toLowerCase()
-        sortBCriteria = String(itemContentB.preview_title || b.name).toLowerCase()
+        sortACriteria = String(
+          itemContentA.preview_title || a.name
+        ).toLowerCase()
+        sortBCriteria = String(
+          itemContentB.preview_title || b.name
+        ).toLowerCase()
       }
       if (String(sortACriteria) < String(sortBCriteria)) {
         return sortDescending ? +1 : -1
@@ -51,14 +64,16 @@ const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<Pa
   return stories
 }
 
-
-export const traversePageContent = (page: PageStoryblok, lookup = 'list_widget') => {
+export const traversePageContent = (
+  page: PageStoryblok,
+  lookup = 'list_widget'
+) => {
   if (!page) {
     return []
   }
-  const listWidgets = []
+  const listWidgets: any[] = []
   const walkArray = (elements: any[]) => {
-    elements.forEach(item => {
+    elements.forEach((item) => {
       if (item.component === lookup) {
         listWidgets.push(item)
       } else if (Array.isArray(item.body)) {
@@ -98,7 +113,6 @@ export const traversePageContent = (page: PageStoryblok, lookup = 'list_widget')
 //
 // }
 
-
 export const collectComponentData = async (
   page: PageStoryblok,
   _allCategories: StoryData<CategoryComponent>[],
@@ -107,7 +121,7 @@ export const collectComponentData = async (
 ) => {
   const listWidgets = traversePageContent(page)
   const listData: { [k: string]: StoryData<PageComponent>[] } = {}
-  listWidgets.forEach(item => {
+  listWidgets.forEach((item) => {
     listData[item._uid] = listWidgetFilter(item, allStories)
   })
   if (listWidgets.length !== Object.keys(listData).length) {
