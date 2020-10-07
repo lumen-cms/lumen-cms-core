@@ -14,3 +14,4 @@ export {
   clearFileCache
 } from './utils/initial-props/fileCache'
 export { getAllStoriesOfProject } from './utils/initial-props/storyblokPagesConfig'
+export { SSR_CONFIG } from './utils/initial-props/ssrConfig'
