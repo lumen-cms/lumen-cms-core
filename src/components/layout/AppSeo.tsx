@@ -41,7 +41,6 @@ const parseOpenGraph = (
       pageOpenGraph.description ||
       seoMeta.description ||
       settingsOpenGraph.description,
-    url: pageOpenGraph.url || settingsOpenGraph.url,
     type: pageOpenGraph.type || settingsOpenGraph.type,
     site_name: pageOpenGraph.site_name || settingsOpenGraph.site_name,
     locale: pageOpenGraph.locale || settingsOpenGraph.locale
@@ -141,7 +140,14 @@ export function AppSeo({
   }
 
   if (settings.seo_website_url) {
-    seo.canonical = getCanonicalUrl(settings.seo_website_url, router?.asPath)
+    const canonicalUrl = getCanonicalUrl(
+      settings.seo_website_url,
+      router?.asPath
+    )
+    seo.canonical = canonicalUrl
+    if (seo.openGraph) {
+      seo.openGraph.url = canonicalUrl
+    }
   } else if (typeof window !== 'undefined') {
     console.warn(
       'set up seo_website_url inside of settings to have a canonical tag'
