@@ -4,15 +4,16 @@ const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (env = {}, plugins = [], transpileModules = []) {
-  const withTM = require('next-transpile-modules')([...['lumen-cms-core', 'lumen-cms-nextjs'], ...transpileModules])
+  const withTM = require('next-transpile-modules')([
+    ...['lumen-cms-core', 'lumen-cms-nextjs'],
+    ...transpileModules
+  ])
   const config = {
     experimental: {
       modern: true
     },
-    async rewrites () {
-      return [
-        {source: '/sitemap.xml', destination: '/api/sitemap'}
-      ]
+    async rewrites() {
+      return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
     },
     env,
     // reactStrictMode: true, // => not working currently
@@ -29,18 +30,9 @@ module.exports = function (env = {}, plugins = [], transpileModules = []) {
       config.resolve = config.resolve || {}
       config.resolve.plugins = config.resolve.plugins || []
       config.resolve.plugins.push(new TsconfigPathsPlugin())
-
-      config.resolve.alias['react'] = path.join(process.cwd(), 'node_modules/react')
-      config.resolve.alias['react-dom'] = path.join(process.cwd(), 'node_modules/react-dom')
-      // config.resolve.alias = {
-      //   ...config.resolve.alias,
-      // Will make webpack look for these modules in parent directories
-      // '@CONFIG': path.join(process.cwd(), 'node_modules/lumen-cms-core/src/utils/config.ts'),
-      // '@LmComponentRender': path.join(process.cwd(), 'node_modules/lumen-cms-core/src/components/CoreComponents.tsx'),
-      // '@context/*': path.join(process.cwd(), 'node_modules/lumen-cms-core/src/components/provider/context/*')
-      // '@your-project/styleguide': require.resolve('@your-project/styleguide')
-      // ...
-      // }
+      if (!options.isServer) {
+        config.resolve.alias['@sentry/node'] = '@sentry/browser'
+      }
 
       const originalEntry = config.entry
       config.entry = async () => {
@@ -54,7 +46,6 @@ module.exports = function (env = {}, plugins = [], transpileModules = []) {
     }
   }
 
-
   let pluginConfiguration = [
     // next-offline
     // [withOffline],
@@ -63,7 +54,7 @@ module.exports = function (env = {}, plugins = [], transpileModules = []) {
   ]
 
   if (plugins.length) {
-    plugins.forEach(plugin => {
+    plugins.forEach((plugin) => {
       if (!Array.isArray(plugin)) {
         throw new Error('plugin configuration must be wrapped in an array.')
       }
