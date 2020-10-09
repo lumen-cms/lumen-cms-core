@@ -80,6 +80,8 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
     ]
 
     client.checkout.addLineItems(checkout.id, newLineItems).then((c) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const totalPrice = Number(c.paymentDue)
 
       if (hasFacebookPixel()) {
@@ -119,6 +121,8 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
       ]
       c = await client.checkout.addLineItems(checkout.id, newLineItems)
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const totalPrice = Number(c.paymentDue)
     if (hasGtag()) {
       gtag('event', 'begin_checkout', {
@@ -135,12 +139,16 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
         value: totalPrice
       })
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     openCheckoutWindow(c.webUrl)
     setTotalAmount(totalPrice)
   }
 
   const updateCartItemQuantity = (variant: LineItem, quantity: number) => {
     client.checkout
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       .updateLineItems(checkout.id, [
         {
           id: variant.id,
@@ -149,6 +157,8 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
       ])
       .then((c: Cart) => {
         setCartVariants(c.lineItems)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         const totalPrice = Number(c.paymentDue)
         setTotalAmount(totalPrice)
         if (hasFacebookPixel()) {

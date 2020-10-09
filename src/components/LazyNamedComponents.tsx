@@ -96,6 +96,7 @@ LmCoreComponents.paragraph = dynamic(
 LmCoreComponents.form = dynamic(
   () => import(/* webpackChunkName: 'googleForm' */ './google-form/GoogleForm')
 )
+
 LmCoreComponents.ecommerce_checkout = dynamic(
   () =>
     import(

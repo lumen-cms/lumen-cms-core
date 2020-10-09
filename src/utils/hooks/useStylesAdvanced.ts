@@ -1,36 +1,42 @@
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import { StylesStoryblok } from '../../typings/generated/components-schema'
 
 const addImportant = (value?: string) =>
   value ? `${value} !important` : undefined
-export const useStylesAdvanced = makeStyles((theme: Theme) => ({
-  advanced: (props?: StylesStoryblok[]) => {
-    if (!props || !props.length) {
-      return {}
-    }
-    const rules: CreateCSSProperties = {
-      margin: addImportant(props.margin),
-      padding: addImportant(props.padding),
-      backgroundColor: addImportant(props.background_color?.rgba),
-      width: addImportant(props.width),
-      border: props.border_color?.rgba
-        ? addImportant(`1px solid ${props.border_color.rgba}`)
-        : undefined,
-      '&:hover': {
-        color: addImportant(props.hover_color?.rgba),
-        backgroundColor: addImportant(props.hover_background_color?.rgba)
-      },
-      [theme.breakpoints.only('xs')]: {
-        margin: addImportant(props.margin_mobile),
-        padding: addImportant(props.padding_mobile)
-      },
-      [theme.breakpoints.between('sm', 'md')]: {
-        margin: addImportant(props.margin_tablet),
-        padding: addImportant(props.padding_tablet)
+export const useStylesAdvanced = makeStyles((theme: Theme) =>
+  createStyles({
+    // don't know why this not works in build
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    advanced: (props?: StylesStoryblok[]) => {
+      if (!props || !props.length) {
+        const temp: CreateCSSProperties = {}
+        return temp
       }
+      const content = props[0]
+      const rules: CreateCSSProperties = {
+        margin: addImportant(content.margin),
+        padding: addImportant(content.padding),
+        backgroundColor: addImportant(content.background_color?.rgba),
+        width: addImportant(content.width),
+        border: content.border_color?.rgba
+          ? addImportant(`1px solid ${content.border_color.rgba}`)
+          : undefined,
+        '&:hover': {
+          color: addImportant(content.hover_color?.rgba),
+          backgroundColor: addImportant(content.hover_background_color?.rgba)
+        },
+        [theme.breakpoints.only('xs')]: {
+          margin: addImportant(content.margin_mobile),
+          padding: addImportant(content.padding_mobile)
+        },
+        [theme.breakpoints.between('sm', 'md')]: {
+          margin: addImportant(content.margin_tablet),
+          padding: addImportant(content.padding_tablet)
+        }
+      }
+      return rules
     }
-
-    return rules
-  }
-}))
+  })
+)
