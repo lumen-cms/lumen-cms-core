@@ -67,7 +67,7 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
           </div>
         ))}
       </SwipeableViews>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+      {/* eslint-disable-next-line */}
       <a
         className="carousel-control-prev"
         role="button"
@@ -82,7 +82,7 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
       >
         <ChevronLeft />
       </a>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+      {/* eslint-disable-next-line */}
       <a
         className="carousel-control-next"
         tabIndex={currentIndex}

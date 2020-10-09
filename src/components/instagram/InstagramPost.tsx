@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { useEffect } from 'react'
 import useSWR from 'swr'
 import { useInView } from 'react-intersection-observer'

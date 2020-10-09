@@ -39,6 +39,7 @@ function DrawerElement({ settings }: DrawerElementProps): JSX.Element {
         {!appSetup.hasDrawer && !appSetup.drawerBelowToolbar && (
           <div>
             <Link href={CONFIG.href} as={homepageLinkHandler()}>
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a>
                 <div className="p-3">
                   {!websiteLogo && websiteTitle}

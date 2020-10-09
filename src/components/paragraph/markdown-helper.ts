@@ -2,7 +2,7 @@ import marked from 'marked'
 
 const renderer = new marked.Renderer()
 
-renderer.link = function (href = '', title = '', text = '') {
+function linkRendererFunc(href = '', title = '', text = '') {
   if (!href) {
     return text
   }
@@ -15,6 +15,11 @@ renderer.link = function (href = '', title = '', text = '') {
   }
   return `<a href="${href}" title="${title}">${text}</a>`
 }
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+renderer.link = linkRendererFunc
+
 export default function parseMarkdownContent(content: string) {
   const rawMarkup = marked(content, {
     // sanitize: true,

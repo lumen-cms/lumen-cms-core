@@ -20,9 +20,6 @@
     "build": "next build",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true npm run build",
-    "build-ts": "rimraf dist && tsdx build -i src/index.ts --tsconfig ./tsconfig.build.json",
-    "build-core": "rimraf dist && rimraf base/dist && tsdx build -i src/base.tsx --name lumen-cms-base --tsconfig ./tsconfig.build.json && mv dist base/dist",
-    "watch": "tsdx watch",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=82895",
     "update-storyblok": "npm run fetch-storyblok-components && npm run gen-ts-schema && npm run codegen",
@@ -31,9 +28,9 @@
     "build-story": "build-storybook -c .storybook -o public_storybook",
     "vercel-build": "build-storybook -c .storybook -o public",
     "deploy-storybook": "rimraf public_storybook && npm run build-story && vercel --prod",
-    "__prepublishOnly": "npm run build-ts",
+    "prepare": "npm run lint:fix",
     "release": "np",
-    "lint": "eslint './src/**/*.{ts,tsx,js}'",
+    "lint": "eslint './src/**/*.{ts,tsx}'",
     "lint:fix": "npm run lint -- --fix"
   },
   "author": "Dominic Garms",
@@ -129,7 +126,6 @@
     "qawolf": "^1.4.0",
     "storyblok-generate-ts": "^0.6.0",
     "ts-jest": "^26.4.1",
-    "tsdx": "^0.14.0",
     "tslib": "^2.0.1",
     "typescript": "4.0.3"
   }
