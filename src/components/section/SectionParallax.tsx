@@ -1,6 +1,6 @@
 import { BannerLayer, ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { makeStyles } from '@material-ui/core/styles'
@@ -33,7 +33,7 @@ export default function LmSectionParallax({
     intersectionDefaultOptions
   )
   const [width, height] = useWindowSize()
-  const elements = content.elements || []
+  const elements = useMemo(() => content.elements || [], [content.elements])
   const contentHeight = content.height
   const [layers, setLayers] = useState<BannerLayer[] | undefined>()
   const disableLazyLoad = content.disable_lazy_load

@@ -1,16 +1,3 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true'
-})
+const config = require('./nextjs_dev_config')
 
-const nextConfig = {
-  // any configs you need
-  webpack: (config, options) => {
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: 'empty'
-    }
-    return config
-  }
-}
-
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = config({})

@@ -36,6 +36,9 @@
     "jsx": "preserve",
     "traceResolution": true,
     "paths": {
+      "@polyfills": [
+        "client/polyfills.js"
+      ],
       "@LmComponentRender": [
         "src/components/CoreComponents.tsx"
       ],

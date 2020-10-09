@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAppSetup } from '@context/AppSetupContext'
+import findPathDeep from 'deepdash/findPathDeep'
 import {
   GlobalStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 import { DrawerContentRender } from './CollapsibleListSection'
-
-const findPathDeep = require('deepdash/findPathDeep')
 
 type DrawerContentListProps = { content: Partial<GlobalStoryblok> }
 
@@ -16,7 +15,7 @@ type DrawerContentListProps = { content: Partial<GlobalStoryblok> }
  * @param childs
  * @param activeRoutePath
  */
-const getUidsOfSlug = (childs: any[], activeRoutePath: string) => {
+const getUidsOfSlug = (childs: any[], activeRoutePath?: string) => {
   const path =
     activeRoutePath &&
     activeRoutePath !== '/' &&
