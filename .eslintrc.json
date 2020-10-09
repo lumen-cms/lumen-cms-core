@@ -1,10 +1,9 @@
 {
   "ignorePatterns": [
-    "**/*.js",
-    "./**/generated/*.tsx",
-    "./**/generated/*.ts",
-    "./stories/**/*.*",
-    "./src/storybook/**/*.*"
+    "/**/generated/*.tsx",
+    "/**/generated/*.ts",
+    "/stories/**/*.*",
+    "/src/storybook/**/*.*"
   ],
   "extends": [
     "airbnb-typescript-prettier"

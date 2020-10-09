@@ -33,7 +33,7 @@
     "deploy-storybook": "rimraf public_storybook && npm run build-story && vercel --prod",
     "__prepublishOnly": "npm run build-ts",
     "release": "np",
-    "lint": "eslint './src/**/*.{ts,tsx,js}'",
+    "lint": "eslint './src/**/*.{ts,tsx}'",
     "lint:fix": "npm run lint -- --fix"
   },
   "author": "Dominic Garms",
