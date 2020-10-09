@@ -1,5 +1,6 @@
 {
   "ignorePatterns": [
+    "**/*.js",
     "./**/generated/*.tsx",
     "./**/generated/*.ts",
     "./stories/**/*.*",
