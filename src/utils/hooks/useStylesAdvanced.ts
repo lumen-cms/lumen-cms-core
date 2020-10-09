@@ -5,14 +5,15 @@ import { StylesStoryblok } from '../../typings/generated/components-schema'
 const addImportant = (value?: string) =>
   value ? `${value} !important` : undefined
 export const useStylesAdvanced = makeStyles((theme: Theme) => ({
-  advanced: (props?: StylesStoryblok) => {
-    if (!props) {
+  advanced: (props?: StylesStoryblok[]) => {
+    if (!props || !props.length) {
       return {}
     }
     const rules: CreateCSSProperties = {
       margin: addImportant(props.margin),
       padding: addImportant(props.padding),
       backgroundColor: addImportant(props.background_color?.rgba),
+      width: addImportant(props.width),
       border: props.border_color?.rgba
         ? addImportant(`1px solid ${props.border_color.rgba}`)
         : undefined,

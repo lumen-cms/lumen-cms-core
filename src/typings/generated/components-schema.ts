@@ -51,6 +51,7 @@ export interface BackgroundStoryblok {
     [k: string]: any;
   };
   height?: string;
+  margin?: string;
   background_color?: {
     rgba?: string;
     [k: string]: any;
@@ -689,6 +690,7 @@ export interface HeadlineStoryblok {
   font_size?: string;
   line_height?: string;
   letter_spacing?: string;
+  styles?: any[];
   _uid: string;
   component: "headline";
   [k: string]: any;
@@ -1202,6 +1204,7 @@ export interface RichTextEditorStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  styles?: any[];
   _uid: string;
   component: "rich_text_editor";
   [k: string]: any;
@@ -1227,7 +1230,7 @@ export interface SectionStoryblok {
   body?: any[];
   variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   background?: any[];
-  property?: "is_full_height"[];
+  property?: ("is_full_height" | "allow_overflow")[];
   padding?: string;
   max_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   background_style?: "fixed_image" | "fixed_cover";
@@ -1475,15 +1478,8 @@ export interface StaticSectionStoryblok {
 export interface StylesStoryblok {
   margin?: string;
   padding?: string;
-  background_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  border_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  hover_color?: {
+  width?: string;
+  hover_border_color?: {
     rgba?: string;
     [k: string]: any;
   };
@@ -1491,14 +1487,22 @@ export interface StylesStoryblok {
     rgba?: string;
     [k: string]: any;
   };
+  hover_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  border_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   margin_tablet?: string;
   padding_tablet?: string;
   margin_mobile?: string;
   padding_mobile?: string;
-  hover_border_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
   _uid: string;
   component: "styles";
   [k: string]: any;

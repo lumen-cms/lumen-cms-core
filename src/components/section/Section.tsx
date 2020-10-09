@@ -16,7 +16,6 @@ const useStyles = makeStyles({
   },
   background: {
     position: 'relative',
-    overflow: 'hidden',
     '& .MuiGrid-root': {
       position: 'relative'
     }
@@ -68,7 +67,12 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
         { [classes.dark]: !!content.variant },
         className
       )}
-      style={style}
+      style={{
+        ...style,
+        overflow: content.property?.includes('allow_overflow')
+          ? undefined
+          : 'hidden'
+      }}
       id={content.section_identifier || content._uid}
     >
       {(background?.image || background?.background_elements) && (

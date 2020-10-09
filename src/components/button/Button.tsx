@@ -9,7 +9,7 @@ import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmButtonProps } from './buttonTypes'
-import { useStylesAdvanced } from './useStylesAdvanced'
+import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 
 // fab and button: small medium large, default: large
 const mapSize = {
@@ -96,7 +96,7 @@ export const LmButton: FC<LmButtonProps> = ({
   type
 }) => {
   const classes = useStyles()
-  const advancedClasses = useStylesAdvanced(content.styles && content.styles[0])
+  const advancedClasses = useStylesAdvanced(content.styles)
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')
   const color = content.color ? mapColor[content.color] : undefined

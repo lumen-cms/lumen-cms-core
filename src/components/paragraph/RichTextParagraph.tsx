@@ -5,11 +5,13 @@ import { LmRteContentRenderer } from './rte/RteContentRender'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { useRichTextStyles } from './richTextStyles'
 import { LmRichTextParagraphProps } from './paragraphTypes'
+import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 
 export function LmRichTextParagraph({
   content
 }: LmRichTextParagraphProps): JSX.Element {
   const classes = useRichTextStyles()
+  const advancedClasses = useStylesAdvanced(content.styles)
   return (
     <Typography
       className={clsx(
@@ -18,6 +20,7 @@ export function LmRichTextParagraph({
         content.style,
         content.class_names && content.class_names.values,
         {
+          [advancedClasses.advanced]: content.styles?.length,
           [`lm-font-${content.font}`]: content.font
         }
       )}

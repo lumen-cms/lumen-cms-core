@@ -56,17 +56,16 @@ export default function useBackgroundBox(
 
   const style: CSSProperties = {
     backgroundColor:
-      (background.background_color && background.background_color.rgba) ||
-      mapBgColor[variant as string],
+      background.background_color?.rgba || mapBgColor[variant as string],
     border,
+    margin: background.margin,
     borderRadius: background.border_radius,
     color: mapColor[variant as string],
     boxShadow: background.elevation
       ? theme.shadows[background.elevation]
       : undefined,
-    minHeight: background.height ? background.height : undefined
+    minHeight: background.height
   }
-  Object.keys(style).forEach((key) => !style[key] && delete style[key])
 
   const className = clsx(background.classNames?.values, {
     [styles[background.shadow_effect || '']]: !!background.shadow_effect
