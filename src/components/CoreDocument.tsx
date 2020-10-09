@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
 import { CONFIG } from '@CONFIG'
