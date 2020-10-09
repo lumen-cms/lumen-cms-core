@@ -65,6 +65,7 @@ export default function FacebookChatButton({
     // />
     <div
       className="fb-customerchat"
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       attribution="setup_tool"
       page_id={content.page_id}

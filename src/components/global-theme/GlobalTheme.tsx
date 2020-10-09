@@ -178,25 +178,7 @@ const GlobalTheme: FunctionComponent<{
     }
 
     return responsiveFontSizes(createMuiTheme(globalTheme))
-  }, [
-    rightDrawerWidth,
-    settings.drawer_width,
-    settings.multi_toolbar,
-    settings.theme_base,
-    settings.theme_container_width,
-    settings.theme_font_alt1,
-    settings.theme_font_alt2,
-    settings.theme_font_alt3,
-    settings.theme_font_alt4,
-    settings.theme_font_default,
-    settings.theme_primary,
-    settings.theme_primary_contrast,
-    settings.theme_secondary,
-    settings.theme_secondary_contrast,
-    settings.toolbar_main_height,
-    settings.toolbar_progress_color,
-    themeUid
-  ])
+  }, [rightDrawerWidth, settings, themeUid])
 
   return (
     <ThemeProvider theme={theme}>
