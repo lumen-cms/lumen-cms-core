@@ -46,6 +46,8 @@ export default function ImageSvg({
       <div className={classes.root} ref={refIntersectionObserver}>
         {!!src && (
           <SVG
+            width={content.width}
+            height={content.height}
             src={src as string}
             style={{
               cursor: onClick ? 'pointer' : undefined,
