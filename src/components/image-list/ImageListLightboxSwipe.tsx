@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
@@ -12,7 +12,7 @@ import InvertedIndicator from '../slider/InvertedIndicator'
 export type ImageListLightboxProps = {
   elements: ImageListItemStoryblok[]
   lightbox: string
-  setLightbox: () => void
+  setLightbox: Dispatch<SetStateAction<string>>
   onImageClick: (ImageListItemStoryblok: ImageListItemStoryblok) => void
   className: string
   width: number
