@@ -80,7 +80,6 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
     ]
 
     client.checkout.addLineItems(checkout.id, newLineItems).then((c) => {
-      // @ts-ignore
       const totalPrice = Number(c.paymentDue)
 
       if (hasFacebookPixel()) {
@@ -120,7 +119,6 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
       ]
       c = await client.checkout.addLineItems(checkout.id, newLineItems)
     }
-    // @ts-ignore
     const totalPrice = Number(c.paymentDue)
     if (hasGtag()) {
       gtag('event', 'begin_checkout', {
@@ -137,14 +135,12 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
         value: totalPrice
       })
     }
-    // @ts-ignore
     openCheckoutWindow(c.webUrl)
     setTotalAmount(totalPrice)
   }
 
   const updateCartItemQuantity = (variant: LineItem, quantity: number) => {
     client.checkout
-      // @ts-ignore
       .updateLineItems(checkout.id, [
         {
           id: variant.id,
@@ -153,7 +149,6 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
       ])
       .then((c: Cart) => {
         setCartVariants(c.lineItems)
-        // @ts-ignore
         const totalPrice = Number(c.paymentDue)
         setTotalAmount(totalPrice)
         if (hasFacebookPixel()) {

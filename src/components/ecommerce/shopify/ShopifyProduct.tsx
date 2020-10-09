@@ -7,7 +7,6 @@ import { LmShopifyCheckoutProps, ShopifyProductItemProps } from './shopifyTypes'
 export default function LmShopifyProduct({ content }: LmShopifyCheckoutProps) {
   const { products } = useShopifySdkContext()
   const product = products.find((p) => {
-    // @ts-ignore
     return p.handle === content.handle
   })
   if (process.env.NODE_ENV !== 'production') {
