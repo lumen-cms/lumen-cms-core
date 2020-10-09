@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAppSetup } from '@context/AppSetupContext'
-import findPathDeep from 'deepdash/findPathDeep'
+import findPathDeep from 'deepdash-es/findPathDeep'
 import {
   GlobalStoryblok,
   ToolbarRowStoryblok
@@ -27,9 +27,11 @@ const getUidsOfSlug = (childs: any[], activeRoutePath?: string) => {
         pathFormat: 'array'
       }
     )
-  if (path) {
+  if (Array.isArray(path)) {
     const uids = []
-    const cleanedPath = path.map((i: string) => (Number(i) ? Number(i) : i))
+    const cleanedPath = path.map((i: string | number) =>
+      Number(i) ? Number(i) : i
+    )
     let tmp = [...childs]
     for (let i = 0; i < cleanedPath.length; i++) {
       const curr = tmp[cleanedPath[i]]
