@@ -78,7 +78,7 @@ export default function LmImageList({
                 : {}
             return (
               <GridListTile
-                key={`${item.component}_${i}`}
+                key={String(`${item.component}_${i}`)}
                 {...btnProps}
                 style={{
                   padding: !content.masonry ? `${gutterSize}px` : undefined,

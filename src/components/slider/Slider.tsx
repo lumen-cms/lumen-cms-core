@@ -114,7 +114,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
           ? body.map((child, index) => {
               return (
                 <LmSliderChild
-                  key={`swipeable_${index}`}
+                  key={String(`swipeable_${index}`)}
                   body={child}
                   sectionVariant={content.section_variant}
                 />
