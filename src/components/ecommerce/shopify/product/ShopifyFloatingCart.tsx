@@ -16,19 +16,14 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: 70
     },
     buttonColor: (props: { buttonColor: string }) => ({
-      // @ts-ignore
       backgroundColor: theme.palette[props.buttonColor].main,
-      // @ts-ignore
       color: theme.palette[props.buttonColor].contrastText,
       '&:hover': {
-        // @ts-ignore
         backgroundColor: theme.palette[props.buttonColor].dark
       }
     }),
     badgeColor: (props: { buttonColor: string; badgeColor: string }) => ({
-      // @ts-ignore
       backgroundColor: theme.palette[props.badgeColor].main,
-      // @ts-ignore
       color: theme.palette[props.badgeColor].contrastText
     })
   })

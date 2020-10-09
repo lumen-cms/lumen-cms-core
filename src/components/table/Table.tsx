@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key,react/no-danger */
 import clsx from 'clsx'
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
@@ -166,15 +167,15 @@ export function LmTable({ content }: LmTableProps): JSX.Element {
         {!content.disable_table_head && (
           <thead>
             <tr>
-              {tableHead.map((c, index) => (
-                <th key={`head_${index}`}>{c}</th>
+              {tableHead.map((c, i) => (
+                <th key={`head_${i}`}>{c}</th>
               ))}
             </tr>
           </thead>
         )}
         <tbody>
-          {tableBody.map((row, index) => (
-            <TableRow key={`row_${index}`} index={index} content={row} />
+          {tableBody.map((row, i) => (
+            <TableRow key={`row_${i}`} index={i} content={row} />
           ))}
         </tbody>
       </table>

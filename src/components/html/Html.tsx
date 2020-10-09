@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { useMemo } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'

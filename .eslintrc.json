@@ -34,11 +34,11 @@
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "no-console": "off",
     "no-alert": "off",
-    "no-nested-ternary": "warn",
     "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": 0,
     "@typescript-eslint/ban-ts-comment": 1,
     "no-plusplus": "off",
+    "no-nested-ternary": "off",
     // @TODO
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-explicit-any": 0,
