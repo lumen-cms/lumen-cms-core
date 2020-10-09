@@ -1,5 +1,5 @@
-import { AppPageProps } from '../../typings/app'
 import { SitemapStream } from 'sitemap'
+import { AppPageProps } from '../../typings/app'
 
 export type SSR_CONFIG_PROPS = {
   ssrHooks: {

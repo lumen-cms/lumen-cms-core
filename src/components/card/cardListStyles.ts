@@ -10,28 +10,24 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
       isMasonry?: boolean
     }) => {
       if (!props.isMasonry) {
-        const opts: CreateCSSProperties<{}> = {
+        const opts: CreateCSSProperties = {
           '& .MuiGridListTile-root': {
             width: `${(100 / Number(props.columnCount || 4)) * 1}% !important`,
             [theme.breakpoints.only('xs')]: {
-              width: `${
-                (100 / Number(props.columnCountPhone || 1)) * 1
-              }% !important`
+              width: `${100 / Number(props.columnCountPhone || 1)}% !important`
             }
           }
         }
         if (props.columnCountTablet) {
           opts[theme.breakpoints.between('sm', 'md')] = {
             '& .MuiGridListTile-root': {
-              width: `${
-                (100 / Number(props.columnCountTablet)) * 1
-              }% !important`
+              width: `${100 / Number(props.columnCountTablet)}% !important`
             }
           }
         }
         return opts
       }
-      const opts: CreateCSSProperties<{}> = {
+      const opts: CreateCSSProperties = {
         columnCount: Number(props.columnCount || 4),
         [theme.breakpoints.only('xs')]: {
           columnCount: Number(props.columnCountPhone || 2)

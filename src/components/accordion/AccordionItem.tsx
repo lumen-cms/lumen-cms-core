@@ -18,7 +18,7 @@ export default function LmAccordionItem({
   const [isOpen, setIsOpen] = useState<string>('')
 
   const handleChange = (panel: string) => (
-    _: React.ChangeEvent<{}>,
+    _: React.ChangeEvent,
     isExpanded: boolean
   ) => {
     options.restrict_one

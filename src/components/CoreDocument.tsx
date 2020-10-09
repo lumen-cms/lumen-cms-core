@@ -1,7 +1,7 @@
 import { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
-import { AppPageProps } from '../typings/app'
 import { CONFIG } from '@CONFIG'
+import { AppPageProps } from '../typings/app'
 
 type CoreDocumentProps = {
   props: AppPageProps
@@ -18,7 +18,7 @@ export function LmCoreDocument({
   const facebookPixelId = settings?.setup_facebook_pixel
   const locale = settings?.setup_language || CONFIG.defaultLocale
   return (
-    <Html lang={locale ? locale : undefined}>
+    <Html lang={locale || undefined}>
       <Head>
         {settings?.pwa_app_name && settings?.pwa_app_description && (
           <>
@@ -47,7 +47,7 @@ export function LmCoreDocument({
             __html: `
       var StoryblokCacheVersion = '${cv}';`
           }}
-        ></script>
+        />
         <NextScript />
         {!isDevelopment && facebookPixelId && (
           <>

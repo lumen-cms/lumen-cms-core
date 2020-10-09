@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+import { CONFIG } from '@CONFIG'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import { collectComponentData } from './traversePageContent'
@@ -6,7 +8,6 @@ import {
   PageStoryblok
 } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../typings/app'
-import { CONFIG } from '@CONFIG'
 import { SSR_CONFIG } from './ssrConfig'
 
 const getPageProps = async (
@@ -28,7 +29,7 @@ const getPageProps = async (
   } = await apiRequestResolver({
     pageSlug,
     locale: knownLocale,
-    isLandingPage: isLandingPage,
+    isLandingPage,
     insideStoryblok
   })
 
@@ -38,7 +39,7 @@ const getPageProps = async (
     locale = defaultLocale
   }
 
-  const overwriteLocale = CONFIG.overwriteLocale
+  const { overwriteLocale } = CONFIG
   if (overwriteLocale) {
     locale = overwriteLocale
   }
@@ -60,11 +61,12 @@ const getPageProps = async (
     componentData = await collectComponentData(
       pageProps,
       allCategories,
-      allStories,
-      knownLocale
+      allStories
+      // ,
+      // knownLocale
     )
   }
-  let props = {
+  const props = {
     page: pageProps ? { ...pageProps, uuid: page?.data?.story?.uuid } : null,
     settings: settingsProps
       ? { ...settingsProps, uuid: settings?.data?.story?.uuid }

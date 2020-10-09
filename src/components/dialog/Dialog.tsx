@@ -11,7 +11,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import { LmDialogProps } from './dialogTypes'
 
 const TransitionSlideUp = React.forwardRef((props, ref) => (
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   <Slide direction="up" ref={ref} {...props} />
 ))
@@ -48,7 +48,7 @@ export default function LmDialog({
     onClose: content.prevent_click_outside ? undefined : () => setOpen(false)
   }
   if (content.slide_up) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     dialogProps.TransitionComponent = TransitionSlideUp
   }

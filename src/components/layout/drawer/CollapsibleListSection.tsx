@@ -19,6 +19,7 @@ type CollapsibleListSectionProps = {
 
 type DrawerContentRenderProps = {
   content: any
+  // eslint-disable-next-line react/no-unused-prop-types
   i?: number
   openedPath: string[]
   [k: string]: any

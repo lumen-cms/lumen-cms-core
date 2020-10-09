@@ -20,6 +20,7 @@
   "rules": {
     "radix": "off",
     "no-underscore-dangle": "off",
+    "consistent-return": "off",
     "react/prop-types": 0,
     "react/destructuring-assignment": 0,
     "react/static-property-placement": 0,
@@ -34,7 +35,8 @@
     "no-alert": "off",
     "no-nested-ternary": "warn",
     "import/prefer-default-export": 0,
-    "import/no-extraneous-dependencies": 1,
+    "import/no-extraneous-dependencies": 0,
+    "@typescript-eslint/ban-ts-comment": 1,
     "no-plusplus": "off",
     // @TODO
     "@typescript-eslint/explicit-function-return-type": 0,

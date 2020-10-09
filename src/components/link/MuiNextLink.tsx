@@ -44,6 +44,7 @@ NextComposed.displayName = 'NextComposedLink'
 function Link(props: LinkProps): JSX.Element {
   const {
     href,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     activeClassName = 'active',
     className: classNameProps,
     innerRef,

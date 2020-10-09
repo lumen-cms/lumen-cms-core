@@ -1,8 +1,8 @@
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { IncomingMessage, ServerResponse } from 'http'
+import { internalLinkHandler } from 'lumen-cms-utils'
 import { getAllStoriesOfProject } from '../../utils/initial-props/storyblokPagesConfig'
 import { PageItem } from '../../typings/generated/schema'
-import { internalLinkHandler } from 'lumen-cms-utils'
 import { SSR_CONFIG } from '../../utils/initial-props/ssrConfig'
 // import { createGzip } from 'zlib'
 
@@ -11,7 +11,7 @@ export default async function (req: IncomingMessage, res: ServerResponse) {
   try {
     const stories: PageItem[] = await getAllStoriesOfProject()
     const smStream = new SitemapStream({
-      hostname: 'https://' + req.headers.host
+      hostname: `https://${req.headers.host}`
     })
     const ignoreList =
       (process.env.SITEMAP_IGNORE_PATH &&
@@ -20,7 +20,8 @@ export default async function (req: IncomingMessage, res: ServerResponse) {
 
     ignoreList.push('demo-content')
 
-    for (const story of stories) {
+    for (let i = 0; i < stories.length; i++) {
+      const story = stories[i]
       const fullSlug = story.full_slug as string
       const shouldIndex = !ignoreList.some((ignorePath: string) =>
         fullSlug.includes(ignorePath)

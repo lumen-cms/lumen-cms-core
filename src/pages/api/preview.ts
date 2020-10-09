@@ -18,7 +18,11 @@ const setCookieSameSite = (res: NextApiResponse, value: string) => {
 export default function preview(req: NextApiRequest, res: NextApiResponse) {
   let currentSlug = req.query.slug
 
-  if (!currentSlug || typeof currentSlug !== 'string' || req.query.secret !== 'lm-qrxswkwkwkw') {
+  if (
+    !currentSlug ||
+    typeof currentSlug !== 'string' ||
+    req.query.secret !== 'lm-qrxswkwkwkw'
+  ) {
     return res.status(401).json({ message: 'Invalid token/slug' })
   }
   currentSlug = currentSlug.startsWith('/') ? currentSlug : `/${currentSlug}`

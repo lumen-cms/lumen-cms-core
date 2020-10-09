@@ -12,8 +12,8 @@ import InvertedIndicator from '../slider/InvertedIndicator'
 export type ImageListLightboxProps = {
   elements: ImageListItemStoryblok[]
   lightbox: string
-  setLightbox: Function
-  onImageClick: Function
+  setLightbox: () => void
+  onImageClick: (ImageListItemStoryblok: ImageListItemStoryblok) => void
   className: string
   width: number
   height: number

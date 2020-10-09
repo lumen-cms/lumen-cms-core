@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-ignore */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useState } from 'react'
 import {
   DatePickerElement,
@@ -83,7 +83,7 @@ export default function LmGoogleForm({
     minWidth: `${content.fields_min_width || 180}px`
   }
   const defaultValues = {}
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   formStructure.fields.forEach((formField) => {
     if ([2, 4].includes(formField.questionTypeCode)) {

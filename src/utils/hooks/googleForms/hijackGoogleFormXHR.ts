@@ -8,10 +8,10 @@ export function hijackGoogleFormsXHR(XHR: {
   readonly UNSENT: number
 }) {
   const { open } = XHR.prototype
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   XHR.prototype.open = function openXhr(method, url, async, user, pass) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this._url = url
     if (

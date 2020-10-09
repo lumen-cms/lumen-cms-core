@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     toolbarCustom: (props: AppHeaderProps) => {
-      const options: CreateCSSProperties<{}> = {}
+      const options: CreateCSSProperties = {}
       const increasedFontSize = props.settings.toolbar_font_size
       if (increasedFontSize) {
         options['& .MuiButton-root'] = {

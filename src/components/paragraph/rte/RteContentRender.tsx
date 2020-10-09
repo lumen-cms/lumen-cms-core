@@ -24,7 +24,7 @@ function RteNode({ content }: RteNodeProps): JSX.Element {
     {},
     content.content &&
       content.content.map((blok: RteContentProps, i) =>
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define,no-use-before-define
         LmRteContentRenderer(blok, i)
       )
   )

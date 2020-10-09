@@ -11,6 +11,6 @@ export type LmAccordionItemProps = {
   content: AccordionItemStoryblok
   options: AccordionStoryblok
   opened: string
-  setOpen: Function
+  setOpen: () => void
   iteration: number
 }

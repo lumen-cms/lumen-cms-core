@@ -28,6 +28,7 @@ export function ShopifyProductSlider({
   useEffect(() => {
     if (selectedVariant && ref.current) {
       const active = variants.findIndex((i) => i.id === selectedVariant?.id)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       ref.current?.pressIndicator(active)
     }
@@ -35,6 +36,7 @@ export function ShopifyProductSlider({
 
   return (
     <Carousel
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       ref={ref}
       fullHeightHover

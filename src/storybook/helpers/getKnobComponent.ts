@@ -6,7 +6,7 @@ import {
   select,
   text
 } from '@storybook/addon-knobs'
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import COMPONENT_JSON from '../../../components.82895.json'
 import { classNameOpts } from './utilityClassNamesHelper'
@@ -32,7 +32,7 @@ type KeyValueStoryblok = {
 const optionsArrayToObject = (
   array: KeyValueStoryblok[],
   addEmpty?: boolean
-): object => {
+): Record<string, unknown> => {
   const obj = {}
   if (addEmpty) {
     obj['Please Select'] = undefined

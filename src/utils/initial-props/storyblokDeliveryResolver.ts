@@ -1,7 +1,7 @@
 import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload } from '../../typings/app'
 
-const rootDirectory = CONFIG.rootDirectory
+const { rootDirectory } = CONFIG
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
@@ -33,7 +33,7 @@ export const fetchSharedStoryblokContent = ({
   locale?: string
   insideStoryblok?: boolean
 }) => {
-  let isDev = insideStoryblok || process.env.NODE_ENV === 'development'
+  const isDev = insideStoryblok || process.env.NODE_ENV === 'development'
   const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
   const getParams = new URLSearchParams()
   getParams.append('token', token)
@@ -73,7 +73,7 @@ export const apiRequestResolver = async ({
     stories,
     staticContent
   ] = await fetchSharedStoryblokContent({ locale, insideStoryblok })
-  let isDev = insideStoryblok || process.env.NODE_ENV === 'development'
+  const isDev = insideStoryblok || process.env.NODE_ENV === 'development'
   const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
   const getParams = new URLSearchParams()
   getParams.append('token', token)
@@ -91,7 +91,7 @@ export const apiRequestResolver = async ({
     configLanguages.length > 1 &&
     !isLandingPage
   ) {
-    let [, ...languagesWithoutDefault] = configLanguages // make sure default language is always first of array
+    const [, ...languagesWithoutDefault] = configLanguages // make sure default language is always first of array
     if (CONFIG.suppressSlugIncludeDefault) {
       languagesWithoutDefault.unshift(CONFIG.defaultLocale)
     }
@@ -104,6 +104,7 @@ export const apiRequestResolver = async ({
     })
   }
 
+  // eslint-disable-next-line prefer-const
   let [page, ...otherPageLanguages] = await resolveAllPromises(all)
 
   if (page === null && otherPageLanguages.length) {
@@ -116,7 +117,7 @@ export const apiRequestResolver = async ({
     })
 
     // make 2nd API calls to fetch locale based settings and other values
-    let [
+    const [
       localizedSettings,
       localizedCategories,
       localizedStories,

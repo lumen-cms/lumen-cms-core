@@ -13,7 +13,7 @@ const listWidgetFilter = (
   allStories: StoryData<PageComponent>[]
 ) => {
   const filter = (content.tags && content.tags.values) || []
-  const sort = content.sort
+  const { sort } = content
   const sortDescending = content.sort_descending
   const stories = (allStories || [])
     .filter((item) => {
@@ -116,8 +116,9 @@ export const traversePageContent = (
 export const collectComponentData = async (
   page: PageStoryblok,
   _allCategories: StoryData<CategoryComponent>[],
-  allStories: StoryData<PageComponent>[] = [],
-  _locale?: string
+  allStories: StoryData<PageComponent>[] = []
+  // ,
+  // _locale?: string
 ) => {
   const listWidgets = traversePageContent(page)
   const listData: { [k: string]: StoryData<PageComponent>[] } = {}

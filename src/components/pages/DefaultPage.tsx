@@ -6,7 +6,7 @@ import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import { NotFound } from './404'
 
-export type LmPagesIndexProps = AppPageProps & {}
+export type LmPagesIndexProps = AppPageProps & Record<string, unknown>
 
 export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
   const { settings, page, error, locale } = props

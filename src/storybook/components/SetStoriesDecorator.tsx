@@ -20,9 +20,13 @@ export const {
 } = createGlobalState(storybookDefault)
 
 const SetStoriesDecorator = (Story: StoryType) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loaded, setLoaded] = useState<boolean>(false)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [values, setValues] = useState<AppContextProps>()
   const [, setAllTags] = useGlobalState('allTags')
   useEffect(() => {
