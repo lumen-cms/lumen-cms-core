@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAppSetup } from '@context/AppSetupContext'
-import findPathDeep from 'deepdash-es/findPathDeep'
 import {
   GlobalStoryblok,
   ToolbarRowStoryblok
 } from '../../../typings/generated/components-schema'
 import { DrawerContentRender } from './CollapsibleListSection'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const findPathDeep = require('deepdash/findPathDeep')
 
 type DrawerContentListProps = { content: Partial<GlobalStoryblok> }
 
