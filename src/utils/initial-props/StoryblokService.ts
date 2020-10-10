@@ -1,8 +1,6 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 
-let version: null | number = null
-
 /**
  * Keep in sync with lumen-cms-core
  */
@@ -47,13 +45,9 @@ class StoryblokServiceClass {
 
   async setCacheVersion() {
     if (!this.cv) {
-      console.log('fetch cache version!!', this.cv, version)
       const res = await this.get('cdn/spaces/me', {})
       const cacheVersion = res.data.space.version
       this.cv = cacheVersion
-      version = cacheVersion
-    } else {
-      console.log('set cache version is set!!')
     }
   }
 
