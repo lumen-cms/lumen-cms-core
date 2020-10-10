@@ -16,15 +16,6 @@ export default function LmAccordionItem({
   iteration
 }: LmAccordionItemProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
-
-  const handleChange = (panel: string) => (
-    _: React.ChangeEvent,
-    isExpanded: boolean
-  ) => {
-    options.restrict_one
-      ? setOpen(isExpanded ? panel : '')
-      : setIsOpen(isExpanded ? panel : '')
-  }
   const panelKey = `panel-${iteration}`
   const expanded = options.restrict_one
     ? opened === panelKey
@@ -34,7 +25,11 @@ export default function LmAccordionItem({
     <Accordion
       square={!!options.square}
       expanded={expanded}
-      onChange={handleChange(panelKey)}
+      onChange={(_, isExpanded) => {
+        options.restrict_one
+          ? setOpen(isExpanded ? panelKey : '')
+          : setIsOpen(isExpanded ? panelKey : '')
+      }}
     >
       <AccordionSummary
         expandIcon={
