@@ -34,7 +34,7 @@ export default function LmAccordionItem({
     <Accordion
       square={!!options.square}
       expanded={expanded}
-      onChange={() => handleChange(panelKey)}
+      onChange={handleChange(panelKey)}
     >
       <AccordionSummary
         expandIcon={

@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.70.11",
+  "version": "0.71.0",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -18,6 +18,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "build-test": "cross-env TEST=TRUE npm run build",
     "start": "next start",
     "analyze": "cross-env ANALYZE=true npm run build",
     "gen-ts-schema": "node generate-ts-schema.js",
@@ -28,7 +29,7 @@
     "build-story": "build-storybook -c .storybook -o public_storybook",
     "vercel-build": "build-storybook -c .storybook -o public",
     "deploy-storybook": "rimraf public_storybook && npm run build-story && vercel --prod",
-    "prepare": "npm run lint:fix",
+    "prepublish": "npm run lint:fix",
     "release": "np",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "lint:fix": "npm run lint -- --fix"

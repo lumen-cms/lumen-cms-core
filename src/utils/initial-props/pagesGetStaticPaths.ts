@@ -6,7 +6,7 @@ import { PageItem } from '../../typings/generated/schema'
 const pagesGetStaticPaths: GetStaticPaths = async () => {
   const stories: PageItem[] = await getAllStoriesOfProject()
 
-  const paths = stories.map((pageItem) => {
+  let paths = stories.map((pageItem) => {
     return {
       params: {
         index: internalLinkHandler(pageItem.full_slug as string)
@@ -15,7 +15,10 @@ const pagesGetStaticPaths: GetStaticPaths = async () => {
       }
     }
   })
-  // paths.push({ params: { index: [''] } }) // landing page as empty
+  if (process.env.TEST || process.env.ANALYZE) {
+    paths = paths.slice(0, 5)
+  }
+  paths.push({ params: { index: [] } }) // landing page as empty
   return {
     paths,
     fallback: true
