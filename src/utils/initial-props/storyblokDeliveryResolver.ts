@@ -1,5 +1,7 @@
 import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload } from '../../typings/app'
+import { LmStoryblokService } from './StoryblokService'
+import { StoriesParams } from 'storyblok-js-client'
 
 const { rootDirectory } = CONFIG
 
@@ -18,6 +20,62 @@ const getSettingsPath = ({ locale }: { locale?: string }) => {
   return `cdn/stories/${directory ? `${directory}/` : ''}settings`
 }
 
+const getCategoryParams = ({ locale }: { locale?: string }) => {
+  const params: StoriesParams = {
+    per_page: 100,
+    sort_by: 'content.name:asc',
+    filter_query: {
+      component: {
+        in: 'category'
+      }
+    }
+  }
+  if (rootDirectory) {
+    params.starts_with = `${rootDirectory}/`
+  } else if (locale) {
+    params.starts_with = `${locale}/`
+  }
+  return params
+}
+
+const getStaticContainer = ({ locale }: { locale?: string }) => {
+  const params: StoriesParams = {
+    per_page: 25,
+    sort_by: 'content.name:asc',
+    filter_query: {
+      component: {
+        in: 'static_container'
+      }
+    }
+  }
+  if (rootDirectory) {
+    params.starts_with = `${rootDirectory}/`
+  } else if (locale) {
+    params.starts_with = `${locale}/`
+  }
+  return params
+}
+
+const getStoriesParams = ({ locale }: { locale?: string }) => {
+  const params: StoriesParams = {
+    per_page: 100,
+    excluding_fields:
+      'body,right_body,meta_robots,property,meta_description,seo_body',
+    sort_by: 'published_at:desc',
+    filter_query: {
+      component: {
+        in: 'page'
+      }
+    }
+  }
+  if (rootDirectory) {
+    params.starts_with = `${rootDirectory}/`
+  } else if (locale) {
+    params.starts_with = `${locale}/`
+  }
+  return params
+}
+
 type ApiProps = {
   pageSlug: string
   locale?: string
@@ -26,38 +84,51 @@ type ApiProps = {
 }
 const configLanguages = CONFIG.languages
 
+// export const fetchSharedStoryblokContent = ({
+//   locale,
+//   insideStoryblok
+// }: {
+//   locale?: string
+//   insideStoryblok?: boolean
+// }) => {
+//   const isDev = insideStoryblok || process.env.NODE_ENV === 'development'
+//   const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
+//   const getParams = new URLSearchParams()
+//   getParams.append('token', token)
+//   if (rootDirectory || locale) {
+//     getParams.append('locale', rootDirectory || (locale as string))
+//   }
+//   if (isDev) {
+//     getParams.append('no_cache', 'true')
+//   }
+//   return Promise.all([
+//     fetch(
+//       `https://cdn-api.lumen.media/api/single-story?token=${token}&slug=${getSettingsPath(
+//         { locale }
+//       )}${isDev ? '&no_cache=true' : ''}`
+//     ).then((r) => r.json()),
+//     fetch(
+//       `https://cdn-api.lumen.media/api/all-tag-categories?${getParams.toString()}`
+//     ).then((r) => r.json()),
+//     fetch(
+//       `https://cdn-api.lumen.media/api/all-stories?${getParams.toString()}`
+//     ).then((r) => r.json()),
+//     fetch(
+//       `https://cdn-api.lumen.media/api/all-static-container?${getParams.toString()}`
+//     ).then((r) => r.json())
+//   ])
+// }
 export const fetchSharedStoryblokContent = ({
-  locale,
-  insideStoryblok
+  locale
 }: {
   locale?: string
   insideStoryblok?: boolean
 }) => {
-  const isDev = insideStoryblok || process.env.NODE_ENV === 'development'
-  const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
-  const getParams = new URLSearchParams()
-  getParams.append('token', token)
-  if (rootDirectory || locale) {
-    getParams.append('locale', rootDirectory || (locale as string))
-  }
-  if (isDev) {
-    getParams.append('no_cache', 'true')
-  }
   return Promise.all([
-    fetch(
-      `https://cdn-api.lumen.media/api/single-story?token=${token}&slug=${getSettingsPath(
-        { locale }
-      )}${isDev ? '&no_cache=true' : ''}`
-    ).then((r) => r.json()),
-    fetch(
-      `https://cdn-api.lumen.media/api/all-tag-categories?${getParams.toString()}`
-    ).then((r) => r.json()),
-    fetch(
-      `https://cdn-api.lumen.media/api/all-stories?${getParams.toString()}`
-    ).then((r) => r.json()),
-    fetch(
-      `https://cdn-api.lumen.media/api/all-static-container?${getParams.toString()}`
-    ).then((r) => r.json())
+    LmStoryblokService.get(getSettingsPath({ locale })),
+    LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
+    LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })), //    Promise.resolve([])/**/,
+    LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])
 }
 
@@ -80,11 +151,7 @@ export const apiRequestResolver = async ({
   if (isDev) {
     getParams.append('no_cache', 'true')
   }
-  const all: any[] = [
-    fetch(
-      `https://cdn-api.lumen.media/api/single-story?slug=cdn/stories/${pageSlug}&${getParams.toString()}`
-    ).then((r) => r.json())
-  ]
+  const all: any[] = [LmStoryblokService.get(`cdn/stories/${pageSlug}`)]
 
   if (
     CONFIG.suppressSlugLocale &&
@@ -97,9 +164,7 @@ export const apiRequestResolver = async ({
     }
     languagesWithoutDefault.forEach((currentLocale) => {
       all.push(
-        fetch(
-          `https://cdn-api.lumen.media/api/single-story?slug=cdn/stories/${currentLocale}/${pageSlug}&${getParams.toString()}`
-        ).then((r) => r.json())
+        LmStoryblokService.get(`cdn/stories/${currentLocale}/${pageSlug}`)
       )
     })
   }
