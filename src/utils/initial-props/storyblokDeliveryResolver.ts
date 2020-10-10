@@ -1,7 +1,7 @@
+import { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
-import { StoriesParams } from 'storyblok-js-client'
 
 const { rootDirectory } = CONFIG
 

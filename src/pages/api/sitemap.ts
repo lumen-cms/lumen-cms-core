@@ -6,7 +6,10 @@ import { PageItem } from '../../typings/generated/schema'
 import { SSR_CONFIG } from '../../utils/initial-props/ssrConfig'
 // import { createGzip } from 'zlib'
 
-export default async function (req: IncomingMessage, res: ServerResponse) {
+export default async function sitemapApi(
+  req: IncomingMessage,
+  res: ServerResponse
+) {
   // res.setHeader('Content-Encoding', 'gzip')
   try {
     const stories: PageItem[] = await getAllStoriesOfProject()
