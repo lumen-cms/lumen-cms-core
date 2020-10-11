@@ -119,7 +119,8 @@ const configLanguages = CONFIG.languages
 //   ])
 // }
 export const fetchSharedStoryblokContent = ({
-  locale
+  locale,
+  insideStoryblok
 }: {
   locale?: string
   insideStoryblok?: boolean
@@ -127,7 +128,11 @@ export const fetchSharedStoryblokContent = ({
   return Promise.all([
     LmStoryblokService.get(getSettingsPath({ locale })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })), //    Promise.resolve([])/**/,
+    insideStoryblok
+      ? fetch(
+          `https://cdn-api.lumen.media/api/all-stories?token=${CONFIG.previewToken}&no_cache=true&locale=${locale}`
+        ).then((r) => r.json())
+      : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
     LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])
 }
