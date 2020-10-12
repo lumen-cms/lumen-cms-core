@@ -59,10 +59,7 @@ export default function LmImage({
     intersectionDefaultOptions
   )
 
-  const imgProperties = {
-    src: '',
-    srcSet: ''
-  }
+  const imgProperties: { src?: string; srcSet?: string } = {}
 
   let definedHeight =
     content.height_xs && isMobile ? content.height_xs : content.height
@@ -160,28 +157,24 @@ export default function LmImage({
         />
       )}
       <Fade in={loaded}>
-        {!imgProperties.src ? (
-          <span />
-        ) : (
-          <img
-            {...imgProperties}
-            alt={content.alt || 'website image'}
-            width={content.width ? content.width : undefined}
-            height={definedHeight || undefined}
-            style={{
-              cursor: onClick ? 'pointer' : undefined,
-              width: content.width ? `${content.width}px` : 'auto',
-              maxHeight: 'inherit',
-              height: definedHeight ? `${definedHeight}px` : 'auto'
-            }}
-            className={clsx(
-              classes.image,
-              content.property,
-              content.class_names?.values
-            )}
-            onLoad={onImageLoaded}
-          />
-        )}
+        <img
+          {...imgProperties}
+          alt={content.alt || 'website image'}
+          width={content.width ? content.width : undefined}
+          height={definedHeight || undefined}
+          style={{
+            cursor: onClick ? 'pointer' : undefined,
+            width: content.width ? `${content.width}px` : 'auto',
+            maxHeight: 'inherit',
+            height: definedHeight ? `${definedHeight}px` : 'auto'
+          }}
+          className={clsx(
+            classes.image,
+            content.property,
+            content.class_names?.values
+          )}
+          onLoad={onImageLoaded}
+        />
       </Fade>
     </figure>
   )
