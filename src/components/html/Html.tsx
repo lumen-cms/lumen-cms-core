@@ -1,5 +1,5 @@
 /* eslint-disable react/no-danger */
-import React from 'react'
+import React, { HTMLAttributes } from 'react'
 import { useInView } from 'react-intersection-observer'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
@@ -12,11 +12,10 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
     intersectionDefaultOptions
   )
   const classes = useStylesAdvanced(content.styles)
-  const divProps: JSX.IntrinsicElements.div = {
+  const divProps: HTMLAttributes<Element> = {
     className: clsx({
       [classes.advanced]: content.styles?.length
     }),
-    ref: content.lazy_load ? refIntersectionObserver : undefined,
     style: {
       height: content.styles?.length ? undefined : '100%'
     }
@@ -29,10 +28,18 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
         ? content.body || ''
         : '') as string
     }
-    return <div {...divProps} />
+    return (
+      <div
+        {...divProps}
+        ref={content.lazy_load ? refIntersectionObserver : undefined}
+      />
+    )
   }
   return (
-    <div {...divProps}>
+    <div
+      {...divProps}
+      ref={content.lazy_load ? refIntersectionObserver : undefined}
+    >
       {content.blocks?.map((blok) => (
         <LmComponentRender content={blok} key={blok._uid} />
       ))}
