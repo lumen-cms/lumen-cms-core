@@ -6,7 +6,7 @@ import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useWindowWidth } from '@react-hook/window-size'
 import { getImageAttrs } from '../../utils/ImageService'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -55,7 +55,7 @@ export default function LmImage({
   const fitInColor = content.color?.rgba || content.fit_in_color
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView(
-    intersectionDefaultOptions
+    intersectionImageOptions
   )
 
   const imgProperties: { src?: string; srcSet?: string } = {}
