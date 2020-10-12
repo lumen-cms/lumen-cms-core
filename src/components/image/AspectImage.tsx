@@ -21,9 +21,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: '0 !important'
   },
   image: {
-    maxWidth: '100%',
-    height: 'auto',
-    display: 'block',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+
     '&.img-thumbnail': {
       padding: '.25rem',
       backgroundColor: theme.palette.background.default,
@@ -46,7 +47,7 @@ export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element {
-  console.log('Image')
+  console.log('Aspect')
   const classes = useStyles()
   const width = useWindowWidth()
   const isMobile = width < 600
@@ -65,9 +66,10 @@ export default function LmImage({
     srcSet: ''
   }
 
-  let definedHeight =
-    isMobile && content.height_xs ? content.height_xs : content.height
-
+  let definedHeight = content.height
+  if (isMobile && content.height_xs) {
+    definedHeight = content.height_xs
+  }
   if (inView && content.source && intersectionElement) {
     const { parentElement } = intersectionElement.target
     const grandparentElement =
@@ -84,13 +86,21 @@ export default function LmImage({
     const square =
       property.includes('rounded-circle') || property.includes('square')
     let definedWidth = content.width
+    const w = Math.ceil(parentDim.width || width)
+    if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
+      // default: set available width to the current width either in crop mode
+      definedWidth =
+        definedWidth || (parentDim.height / parentDim.width) * 100 > 300
+          ? grandParentDim.width
+          : w
+      if (definedWidth > parentDim.width) {
+        definedWidth = parentDim.width
+      }
+    }
 
     if (square) {
       // overwrite if square
-      const iconSize = Math.min(
-        definedHeight || Infinity,
-        definedWidth || Infinity
-      )
+      const iconSize = definedHeight || definedWidth || 64
       definedWidth = iconSize
       definedHeight = iconSize
     }
@@ -133,8 +143,16 @@ export default function LmImage({
         [classes.rootNoMargin]: content.disable_ratio_correction
       })}
       style={{
-        height: `${content.height}px`,
-        width: `${content.width}px`
+        height: content.height
+          ? `${content.height}px`
+          : content.height_fill
+          ? '100%'
+          : undefined,
+        width: content.width
+          ? `${content.width}px`
+          : content.height_fill
+          ? '100%'
+          : undefined
       }}
     >
       {!loaded && (
@@ -152,13 +170,13 @@ export default function LmImage({
           <img
             {...imgProperties}
             alt={altText}
-            width={content.width}
+            width={content.width || undefined}
             height={definedHeight || undefined}
             style={{
               cursor: onClick ? 'pointer' : undefined,
-              width: `${content.width}px`,
+              width: content.width ? `${content.width}px` : 'auto',
               maxHeight: 'inherit',
-              height: `${definedHeight}px`
+              height: definedHeight ? `${definedHeight}px` : 'auto'
             }}
             className={clsx(
               classes.image,
