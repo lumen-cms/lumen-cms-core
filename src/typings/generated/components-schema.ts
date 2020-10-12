@@ -698,6 +698,7 @@ export interface HeadlineStoryblok {
 
 export interface HtmlStoryblok {
   body?: string;
+  blocks?: any[];
   lazy_load?: boolean;
   styles?: any[];
   _uid: string;
@@ -1477,20 +1478,7 @@ export interface StaticSectionStoryblok {
 }
 
 export interface StylesStoryblok {
-  margin?: string;
-  padding?: string;
-  width?: string;
-  height?: string;
-  display?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
-  hover_border_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  hover_background_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  hover_color?: {
+  background_color?: {
     rgba?: string;
     [k: string]: any;
   };
@@ -1498,10 +1486,23 @@ export interface StylesStoryblok {
     rgba?: string;
     [k: string]: any;
   };
-  background_color?: {
+  hover_color?: {
     rgba?: string;
     [k: string]: any;
   };
+  hover_background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  hover_border_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  margin?: string;
+  padding?: string;
+  width?: string;
+  height?: string;
+  display?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
   margin_tablet?: string;
   padding_tablet?: string;
   margin_mobile?: string;
@@ -1513,6 +1514,7 @@ export interface StylesStoryblok {
   left?: string;
   bottom?: string;
   right?: string;
+  z_index?: number;
   _uid: string;
   component: "styles";
   [k: string]: any;

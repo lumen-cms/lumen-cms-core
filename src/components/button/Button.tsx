@@ -134,9 +134,6 @@ export const LmButton: FC<LmButtonProps> = ({
         variant={content.label ? 'extended' : undefined}
         {...btnProps}
         className={className}
-        classes={{
-          primary: {}
-        }}
         style={{
           backgroundColor: content.custom_color?.rgba
             ? content.custom_color.rgba
