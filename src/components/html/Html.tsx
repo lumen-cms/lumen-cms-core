@@ -15,7 +15,11 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
   return (
     <div
       dangerouslySetInnerHTML={{
-        __html: !content.lazy_load ? content.body : inView ? content.body : ''
+        __html: (!content.lazy_load
+          ? content.body || ''
+          : inView
+          ? content.body || ''
+          : '') as string
       }}
       className={clsx({
         [classes.advanced]: content.styles?.length
