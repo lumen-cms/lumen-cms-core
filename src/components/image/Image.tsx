@@ -52,8 +52,7 @@ export default function LmImage({
   const [loaded, setLoaded] = useState<boolean>(false)
   const imageCrop = content.image_crop || []
   const property = content.property || []
-  const fitInColor =
-    (content.color && content.color.rgba) || content.fit_in_color
+  const fitInColor = content.color?.rgba || content.fit_in_color
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView(
     intersectionDefaultOptions
