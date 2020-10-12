@@ -22,6 +22,7 @@ export const useStylesAdvanced = makeStyles((theme: Theme) =>
         width: addImportant(content.width),
         height: addImportant(content.height),
         display: addImportant(content.display),
+        zIndex: content.z_index,
         position: content.position,
         top: content.top,
         left: content.left,
