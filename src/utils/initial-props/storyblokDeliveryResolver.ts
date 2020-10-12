@@ -84,40 +84,6 @@ type ApiProps = {
 }
 const configLanguages = CONFIG.languages
 
-// export const fetchSharedStoryblokContent = ({
-//   locale,
-//   insideStoryblok
-// }: {
-//   locale?: string
-//   insideStoryblok?: boolean
-// }) => {
-//   const isDev = insideStoryblok || process.env.NODE_ENV === 'development'
-//   const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
-//   const getParams = new URLSearchParams()
-//   getParams.append('token', token)
-//   if (rootDirectory || locale) {
-//     getParams.append('locale', rootDirectory || (locale as string))
-//   }
-//   if (isDev) {
-//     getParams.append('no_cache', 'true')
-//   }
-//   return Promise.all([
-//     fetch(
-//       `https://cdn-api.lumen.media/api/single-story?token=${token}&slug=${getSettingsPath(
-//         { locale }
-//       )}${isDev ? '&no_cache=true' : ''}`
-//     ).then((r) => r.json()),
-//     fetch(
-//       `https://cdn-api.lumen.media/api/all-tag-categories?${getParams.toString()}`
-//     ).then((r) => r.json()),
-//     fetch(
-//       `https://cdn-api.lumen.media/api/all-stories?${getParams.toString()}`
-//     ).then((r) => r.json()),
-//     fetch(
-//       `https://cdn-api.lumen.media/api/all-static-container?${getParams.toString()}`
-//     ).then((r) => r.json())
-//   ])
-// }
 export const fetchSharedStoryblokContent = ({
   locale,
   insideStoryblok
