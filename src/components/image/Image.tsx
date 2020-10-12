@@ -53,6 +53,7 @@ export default function LmImage({
   const imageCrop = content.image_crop || []
   const property = content.property || []
   const fitInColor = content.color?.rgba || content.fit_in_color
+  const altText = content.alt || 'website image'
 
   const [refIntersectionObserver, inView, intersectionElement] = useInView(
     intersectionDefaultOptions
@@ -88,23 +89,23 @@ export default function LmImage({
         definedWidth || (parentDim.height / parentDim.width) * 100 > 300
           ? grandParentDim.width
           : w
+      if (definedWidth > parentDim.width) {
+        definedWidth = parentDim.width
+      }
     }
+
     if (square) {
       // overwrite if square
       const iconSize = definedHeight || definedWidth || 64
       definedWidth = iconSize
       definedHeight = iconSize
     }
-    if (content.height_fill) {
+    if (content.height_fill && grandParentDim.height === parentDim.height) {
       // with a tolerance of 200 height should fit grandparents height
-      if (grandParentDim.height === parentDim.height) {
-        definedHeight = Math.ceil(grandParentDim.height)
-      }
+      definedHeight = Math.ceil(grandParentDim.height)
     }
-    if (content.focal_point && parentElement && !definedHeight) {
-      if (parentDim) {
-        definedHeight = Math.ceil(parentDim.height)
-      }
+    if (content.focal_point && parentElement && !definedHeight && parentDim) {
+      definedHeight = Math.ceil(parentDim.height)
     }
 
     const imgRatio = {
@@ -164,7 +165,7 @@ export default function LmImage({
         ) : (
           <img
             {...imgProperties}
-            alt={content.alt || 'website image'}
+            alt={altText}
             width={content.width || undefined}
             height={definedHeight || undefined}
             style={{
