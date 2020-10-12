@@ -1,54 +1,22 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useWindowWidth } from '@react-hook/window-size'
-import { getImageAttrs } from '../../utils/ImageService'
+import AspectRatio from 'react-aspect-ratio'
+import {
+  getImageAttrs,
+  getOriginalImageDimensions
+} from '../../utils/ImageService'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'
-
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    display: 'inline-block',
-    margin: '0 0 -6px 0 !important',
-    overflow: 'auto',
-    padding: 0,
-    position: 'relative'
-  },
-  rootNoMargin: {
-    margin: '0 !important'
-  },
-  image: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-
-    '&.img-thumbnail': {
-      padding: '.25rem',
-      backgroundColor: theme.palette.background.default,
-      border: `1px solid ${theme.palette.divider}`,
-      borderRadius: theme.shape.borderRadius
-    },
-    '&.square, &.rounded-0': {
-      borderRadius: 0
-    },
-    '&.rounded': {
-      borderRadius: theme.shape.borderRadius
-    },
-    '&.rounded-circle': {
-      borderRadius: '50%'
-    }
-  }
-}))
+import 'react-aspect-ratio/aspect-ratio.css'
 
 export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element {
   console.log('Aspect')
-  const classes = useStyles()
   const width = useWindowWidth()
   const isMobile = width < 600
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -128,32 +96,29 @@ export default function LmImage({
     imgProperties.srcSet = attrs.srcSet
   }
 
+  let originalDimensions
+  let ratio
+  let maxWidth
+  if (inView && content.source) {
+    originalDimensions = getOriginalImageDimensions(content.source || '')
+    ratio = originalDimensions.width / originalDimensions.height
+    maxWidth = Math.min(
+      originalDimensions.width,
+      width,
+      content.width || Infinity
+    )
+  }
   const onImageLoaded = () => {
     setLoaded(true)
   }
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-    <figure
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+    <div
       onClick={() => {
         onClick && onClick()
       }}
       ref={refIntersectionObserver}
-      className={clsx(classes.root, {
-        [classes.rootNoMargin]: content.disable_ratio_correction
-      })}
-      style={{
-        height: content.height
-          ? `${content.height}px`
-          : content.height_fill
-          ? '100%'
-          : undefined,
-        width: content.width
-          ? `${content.width}px`
-          : content.height_fill
-          ? '100%'
-          : undefined
-      }}
     >
       {!loaded && (
         <Skeleton
@@ -163,30 +128,20 @@ export default function LmImage({
           variant={property.includes('rounded-circle') ? 'circle' : 'rect'}
         />
       )}
-      <Fade in={loaded}>
-        {!imgProperties.src ? (
-          <span />
-        ) : (
+      {ratio && (
+        <AspectRatio ratio={ratio} style={{ maxWidth }}>
           <img
             {...imgProperties}
             alt={altText}
-            width={content.width || undefined}
-            height={definedHeight || undefined}
             style={{
               cursor: onClick ? 'pointer' : undefined,
-              width: content.width ? `${content.width}px` : 'auto',
-              maxHeight: 'inherit',
-              height: definedHeight ? `${definedHeight}px` : 'auto'
+              maxHeight: 'inherit'
             }}
-            className={clsx(
-              classes.image,
-              content.property,
-              content.class_names?.values
-            )}
+            className={clsx(content.property, content.class_names?.values)}
             onLoad={onImageLoaded}
           />
-        )}
-      </Fade>
-    </figure>
+        </AspectRatio>
+      )}
+    </div>
   )
 }
