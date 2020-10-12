@@ -31,8 +31,9 @@
     "deploy-storybook": "rimraf public_storybook && npm run build-story && vercel --prod",
     "__prepublish": "npm run lint:fix",
     "release": "np",
-    "lint": "eslint './src/**/*.{ts,tsx}'",
-    "lint:fix": "npm run lint -- --fix"
+    "check-types": "tsc --noemit",
+    "lint": "eslint './src/**/*.{ts,tsx}' && npm run check-types",
+    "lint:fix": "npm run lint --fix"
   },
   "author": "Dominic Garms",
   "license": "MIT",
