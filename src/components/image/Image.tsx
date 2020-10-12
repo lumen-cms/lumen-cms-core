@@ -165,7 +165,7 @@ export default function LmImage({
           <img
             {...imgProperties}
             alt={content.alt || 'website image'}
-            width={content.width ? content.width : undefined}
+            width={content.width || undefined}
             height={definedHeight || undefined}
             style={{
               cursor: onClick ? 'pointer' : undefined,
