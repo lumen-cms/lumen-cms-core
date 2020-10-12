@@ -96,7 +96,10 @@ export function AppSeo({
   const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
     page.seo_body || []
   const robotsIndexFollow =
-    CONFIG.overwriteDisableIndex || page.meta_robots || !settings.seo_robots // todo additionally disable .now.sh domains
+    CONFIG.overwriteDisableIndex ||
+    page.meta_robots ||
+    !settings.seo_robots ||
+    router.asPath.startsWith('/_dev_/') // todo additionally disable .now.sh domains
 
   const seo: SeoMetaTypes = {
     title:

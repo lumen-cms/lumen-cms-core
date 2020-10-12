@@ -20,6 +20,13 @@ export const useStylesAdvanced = makeStyles((theme: Theme) =>
         padding: addImportant(content.padding),
         backgroundColor: addImportant(content.background_color?.rgba),
         width: addImportant(content.width),
+        height: addImportant(content.height),
+        display: addImportant(content.display),
+        position: content.position,
+        top: content.top,
+        left: content.left,
+        bottom: content.bottom,
+        right: content.right,
         border: content.border_color?.rgba
           ? addImportant(`1px solid ${content.border_color.rgba}`)
           : undefined,
@@ -29,11 +36,13 @@ export const useStylesAdvanced = makeStyles((theme: Theme) =>
         },
         [theme.breakpoints.only('xs')]: {
           margin: addImportant(content.margin_mobile),
-          padding: addImportant(content.padding_mobile)
+          padding: addImportant(content.padding_mobile),
+          display: addImportant(content.display_mobile)
         },
         [theme.breakpoints.between('sm', 'md')]: {
           margin: addImportant(content.margin_tablet),
-          padding: addImportant(content.padding_tablet)
+          padding: addImportant(content.padding_tablet),
+          display: addImportant(content.display_tablet)
         }
       }
       return rules

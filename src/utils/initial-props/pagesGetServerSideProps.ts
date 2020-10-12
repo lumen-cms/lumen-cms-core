@@ -1,8 +1,11 @@
 import { GetServerSideProps } from 'next'
 import getPageProps from './getPageProps'
 import { LmStoryblokService } from './StoryblokService'
+import { AppPageProps } from '../../typings/app'
 
-const pagesGetServerSideProps: GetServerSideProps = async (props) => {
+const pagesGetServerSideProps: GetServerSideProps = async (
+  props
+): Promise<{ props: AppPageProps }> => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { query } = props
 

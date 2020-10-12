@@ -699,6 +699,7 @@ export interface HeadlineStoryblok {
 export interface HtmlStoryblok {
   body?: string;
   lazy_load?: boolean;
+  styles?: any[];
   _uid: string;
   component: "html";
   [k: string]: any;
@@ -1479,6 +1480,8 @@ export interface StylesStoryblok {
   margin?: string;
   padding?: string;
   width?: string;
+  height?: string;
+  display?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
   hover_border_color?: {
     rgba?: string;
     [k: string]: any;
@@ -1503,6 +1506,13 @@ export interface StylesStoryblok {
   padding_tablet?: string;
   margin_mobile?: string;
   padding_mobile?: string;
+  display_tablet?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
+  display_mobile?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
+  position?: "relative" | "absolute" | "fixed" | "static" | "sticky";
+  top?: string;
+  left?: string;
+  bottom?: string;
+  right?: string;
   _uid: string;
   component: "styles";
   [k: string]: any;
