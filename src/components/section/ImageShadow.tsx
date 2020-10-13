@@ -1,12 +1,12 @@
-import React, { createRef, RefObject } from 'react'
+import React, { useRef } from 'react'
 
 type ImageShadowProps = {
   src?: string
   srcSet?: string
   afterLoad: FunctionStringCallback
 }
-const ImageShadow = ({ afterLoad, ...rest }: ImageShadowProps) => {
-  const ref: RefObject<HTMLImageElement> = createRef()
+export default function ImageShadow({ afterLoad, ...rest }: ImageShadowProps) {
+  const ref = useRef<HTMLImageElement>(null)
   if (!rest.src) {
     return null // don't render any component
   }
@@ -24,5 +24,3 @@ const ImageShadow = ({ afterLoad, ...rest }: ImageShadowProps) => {
     />
   )
 }
-
-export default ImageShadow
