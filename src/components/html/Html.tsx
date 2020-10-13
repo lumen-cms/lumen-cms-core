@@ -17,7 +17,8 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
       [classes.advanced]: content.styles?.length
     }),
     style: {
-      height: content.styles?.length ? undefined : '100%'
+      height:
+        content.styles?.length || content.blocks?.length ? undefined : '100%'
     }
   }
   if (!content.blocks?.length) {

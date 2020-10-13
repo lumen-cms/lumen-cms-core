@@ -114,22 +114,18 @@ export default function LmImage({
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-    <div
-      onClick={() => {
-        onClick && onClick()
-      }}
-      ref={refIntersectionObserver}
-    >
-      {!loaded && (
-        <Skeleton
-          style={{ position: 'absolute' }}
-          width="100%"
-          height="100%"
-          variant={property.includes('rounded-circle') ? 'circle' : 'rect'}
-        />
-      )}
-      {ratio && (
-        <AspectRatio ratio={ratio} style={{ maxWidth }}>
+    <>
+      <span ref={refIntersectionObserver} />
+      <AspectRatio ratio={ratio} style={{ maxWidth }}>
+        {!loaded && (
+          <Skeleton
+            style={{ position: 'absolute' }}
+            width="100%"
+            height="100%"
+            variant={property.includes('rounded-circle') ? 'circle' : 'rect'}
+          />
+        )}
+        {ratio && (
           <img
             {...imgProperties}
             alt={altText}
@@ -139,9 +135,12 @@ export default function LmImage({
             }}
             className={clsx(content.property, content.class_names?.values)}
             onLoad={onImageLoaded}
+            onClick={() => {
+              onClick && onClick()
+            }}
           />
-        </AspectRatio>
-      )}
-    </div>
+        )}
+      </AspectRatio>
+    </>
   )
 }

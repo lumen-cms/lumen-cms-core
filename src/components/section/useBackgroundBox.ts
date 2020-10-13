@@ -66,6 +66,7 @@ export default function useBackgroundBox(
       : undefined,
     minHeight: background.height
   }
+  Object.keys(style).forEach((key) => !style[key] && delete style[key])
 
   const className = clsx(background.classNames?.values, {
     [styles[background.shadow_effect || '']]: !!background.shadow_effect

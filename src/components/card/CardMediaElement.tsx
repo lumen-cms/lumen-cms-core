@@ -1,9 +1,7 @@
-import React, { FunctionComponent, useState } from 'react'
-import { useInView } from 'react-intersection-observer'
+import React, { FunctionComponent, useRef, useState } from 'react'
 import CardMedia from '@material-ui/core/CardMedia'
 import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { getImageAttrs } from '../../utils/ImageService'
 import ImageShadow from '../section/ImageShadow'
 import { CardListItemProps } from './cardTypes'
@@ -11,15 +9,17 @@ import { CardListItemProps } from './cardTypes'
 const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   children,
   content,
-  options
+  options,
+  inView
 }) => {
-  const [reference, inView, intersecRef] = useInView(intersectionDefaultOptions)
+  const intersecRef = useRef<HTMLDivElement>(null)
   const [imgSource, setImgSource] = useState<string>('')
+  let img: { src?: string; srcSet?: string } = {}
   const contentImage = content.image
-  let img: { src: string; srcSet: string } = { src: '', srcSet: '' }
   const imageSize = options.image_size
-  if (inView && contentImage && intersecRef && intersecRef.target) {
-    const mediaEl: Partial<HTMLDivElement> | undefined = intersecRef?.target
+  const mediaEl: Partial<HTMLDivElement> | null = intersecRef?.current
+  // console.log(currentWidth, clientWidth)
+  if (inView && contentImage && mediaEl) {
     const currentWidth = mediaEl?.clientWidth || 0
     const currentHeight = mediaEl?.clientHeight
     img = getImageAttrs({
@@ -34,20 +34,14 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   return (
     <>
       {!imgSource && (
-        <>
-          <Skeleton
-            style={{ position: 'absolute' }}
-            width="100%"
-            height="100%"
-            variant="rect"
-          />
-          <ImageShadow
-            src={img.src}
-            srcSet={img.srcSet}
-            afterLoad={setImgSource}
-          />
-        </>
+        <Skeleton
+          style={{ position: 'absolute' }}
+          width="100%"
+          height="100%"
+          variant="rect"
+        />
       )}
+      <ImageShadow src={img.src} srcSet={img.srcSet} afterLoad={setImgSource} />
       <Fade in={!!imgSource}>
         <CardMedia
           style={{
@@ -58,7 +52,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
             backgroundSize: imageSize || 'cover'
           }}
           image={imgSource}
-          ref={reference}
+          ref={intersecRef}
         >
           {!imgSource && <div />}
           {children}

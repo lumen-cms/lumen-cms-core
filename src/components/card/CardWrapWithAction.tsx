@@ -10,7 +10,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import { CardListItemProps } from './cardTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
-interface CardWrapAction extends CardListItemProps {
+type CardWrapAction = Omit<CardListItemProps, 'inView'> & {
   className: string
   style: CSSProperties
 }

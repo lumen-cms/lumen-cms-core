@@ -7,6 +7,8 @@ import { useInView } from 'react-intersection-observer'
 import { LmComponentRender } from '@LmComponentRender'
 import { useGridListStyles } from './cardListStyles'
 import { LmCardListProps } from './cardTypes'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const useStyles = makeStyles({
   cardBase: {
@@ -81,10 +83,8 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
   const gutterSize = content.column_gap ? Number(content.column_gap) : 24
   const enableInView = body.length > chunkSize
   const [intersectionRef, inView] = useInView()
-
-  // const [data, setData] = useState<CardListItemStoryblok[]>(
-  //   body.slice(0, chunkSize) || []
-  // )
+  const [inViewRef, elementInView] = useInView(intersectionDefaultOptions)
+  useDeviceDimensions() // make sure images rescale on resize
   const [page, setPage] = useState<number>(1)
 
   const data = body.slice(0, page * chunkSize) || []
@@ -95,19 +95,11 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
     }
   }, [inView, setPage])
 
-  // useEffect(() => {
-  //   if (page > 0) {
-  //     setData((v) => [
-  //       ...v,
-  //       ...body.slice(page * chunkSize, (page + 1) * chunkSize)
-  //     ])
-  //   }
-  // }, [page, setData, body])
-
   const variant = content.variant || []
 
   return (
     <div
+      ref={inViewRef}
       style={{
         padding: `${gutterSize / 2}px`
       }}
@@ -129,7 +121,11 @@ export function LmCardList({ content }: LmCardListProps): JSX.Element {
       >
         {data.map((item) => (
           <GridListTile key={`${item.component}_${item._uid}`}>
-            <LmComponentRender content={item} options={rest} />
+            <LmComponentRender
+              content={item}
+              options={rest}
+              inView={elementInView}
+            />
           </GridListTile>
         ))}
       </GridList>

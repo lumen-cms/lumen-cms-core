@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useWindowWidth } from '@react-hook/window-size'
-import { getImageAttrs } from '../../utils/ImageService'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import AspectRatio from 'react-aspect-ratio'
+import {
+  getImageAttrs,
+  getOriginalImageDimensions
+} from '../../utils/ImageService'
+import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'
+import 'react-aspect-ratio/aspect-ratio.css'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -46,7 +50,6 @@ export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element {
-  console.log('Image')
   const classes = useStyles()
   const width = useWindowWidth()
   const isMobile = width < 600
@@ -55,19 +58,27 @@ export default function LmImage({
   const property = content.property || []
   const fitInColor = content.color?.rgba || content.fit_in_color
   const altText = content.alt || 'website image'
-
+  const originalDimensions = getOriginalImageDimensions(content.source || '')
   const [refIntersectionObserver, inView, intersectionElement] = useInView(
-    intersectionDefaultOptions
+    intersectionImageOptions
   )
 
-  const imgProperties = {
-    src: '',
-    srcSet: ''
-  }
+  const imgProperties: { src?: string; srcSet?: string } = {}
+  const square =
+    property.includes('rounded-circle') || property.includes('square')
 
   let definedHeight =
     isMobile && content.height_xs ? content.height_xs : content.height
-
+  let definedWidth = content.width
+  if (square) {
+    // overwrite if square
+    const iconSize = Math.min(
+      definedHeight || Infinity,
+      definedWidth || Infinity
+    )
+    definedWidth = iconSize
+    definedHeight = iconSize
+  }
   if (inView && content.source && intersectionElement) {
     const { parentElement } = intersectionElement.target
     const grandparentElement =
@@ -81,19 +92,7 @@ export default function LmImage({
       width: grandparentElement?.clientWidth || 0,
       height: grandparentElement?.clientHeight || 0
     }
-    const square =
-      property.includes('rounded-circle') || property.includes('square')
-    let definedWidth = content.width
 
-    if (square) {
-      // overwrite if square
-      const iconSize = Math.min(
-        definedHeight || Infinity,
-        definedWidth || Infinity
-      )
-      definedWidth = iconSize
-      definedHeight = iconSize
-    }
     if (content.height_fill && grandParentDim.height === parentDim.height) {
       // with a tolerance of 200 height should fit grandparents height
       definedHeight = Math.ceil(grandParentDim.height)
@@ -122,19 +121,38 @@ export default function LmImage({
     setLoaded(true)
   }
 
+  const ratio =
+    definedWidth && definedHeight
+      ? definedWidth / definedHeight
+      : originalDimensions.width / originalDimensions.height
+  if (!definedWidth && definedHeight) {
+    definedWidth =
+      (definedHeight * originalDimensions.height) / originalDimensions.width
+  }
+  if (!definedHeight && definedWidth) {
+    definedHeight =
+      (definedWidth * originalDimensions.width) / originalDimensions.height
+  }
+  console.log(
+    ratio,
+    originalDimensions.width,
+    definedWidth,
+    originalDimensions.height,
+    definedHeight
+  )
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-    <figure
+    <AspectRatio
+      ratio={ratio}
       onClick={() => {
         onClick && onClick()
       }}
-      ref={refIntersectionObserver}
-      className={clsx(classes.root, {
-        [classes.rootNoMargin]: content.disable_ratio_correction
-      })}
+      // className={clsx(classes.root, {
+      //   // [classes.rootNoMargin]: content.disable_ratio_correction
+      // })}
       style={{
-        height: `${content.height}px`,
-        width: `${content.width}px`
+        maxHeight: `${definedHeight}px`,
+        maxWidth: `${definedWidth}px`
       }}
     >
       {!loaded && (
@@ -145,30 +163,26 @@ export default function LmImage({
           variant={property.includes('rounded-circle') ? 'circle' : 'rect'}
         />
       )}
-      <Fade in={loaded}>
-        {!imgProperties.src ? (
-          <span />
-        ) : (
-          <img
-            {...imgProperties}
-            alt={altText}
-            width={content.width}
-            height={definedHeight || undefined}
-            style={{
-              cursor: onClick ? 'pointer' : undefined,
-              width: `${content.width}px`,
-              maxHeight: 'inherit',
-              height: `${definedHeight}px`
-            }}
-            className={clsx(
-              classes.image,
-              content.property,
-              content.class_names?.values
-            )}
-            onLoad={onImageLoaded}
-          />
+      <img
+        {...imgProperties}
+        alt={altText}
+        width={content.width ? content.width : undefined}
+        height={definedHeight || undefined}
+        style={{
+          cursor: onClick ? 'pointer' : undefined,
+          // width: content.width ? `${content.width}px` : 'auto',
+          maxHeight: 'inherit',
+          // height: definedHeight ? `${definedHeight}px` : 'auto',
+          display: !imgProperties.src ? 'none' : undefined
+        }}
+        className={clsx(
+          classes.image,
+          content.property,
+          content.class_names?.values
         )}
-      </Fade>
-    </figure>
+        onLoad={onImageLoaded}
+      />
+      <span ref={refIntersectionObserver} />
+    </AspectRatio>
   )
 }

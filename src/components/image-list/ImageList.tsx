@@ -1,21 +1,24 @@
-import React, { RefObject, useState } from 'react'
+import React, { useState } from 'react'
 import GridList, { GridListProps } from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
 import { useWindowSize } from '@react-hook/window-size'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
+import { useInView } from 'react-intersection-observer'
 import ImageListLightbox from './ImageListLightbox'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmImageListProps } from './imageListTypes'
+import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 export default function LmImageList({
   content
 }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
   const [width, height] = useWindowSize()
+  const [inViewRef, inView] = useInView(intersectionDefaultOptions)
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -23,7 +26,6 @@ export default function LmImageList({
     columnCountTablet: content.column_count_tablet,
     isMasonry: !!content.masonry
   })
-  const containerRef: RefObject<HTMLDivElement> = React.createRef()
   const [lightbox, setLightbox] = useState('')
 
   const gutterSize = content.column_gap ? Number(content.column_gap) : 2
@@ -46,9 +48,8 @@ export default function LmImageList({
   }
 
   return (
-    <div className="lm-imagelist__container">
+    <div className="lm-imagelist__container" ref={inViewRef}>
       <div
-        ref={containerRef}
         // // style={{
         // //   padding: `${gutterSize}px`
         // {/*}}*/}
@@ -88,7 +89,11 @@ export default function LmImageList({
                   onImageClick({ _uid: item._uid, count: i, ...ev })
                 }
               >
-                <LmComponentRender content={item} listProps={content} />
+                <LmComponentRender
+                  content={item}
+                  listProps={content}
+                  inView={inView}
+                />
               </GridListTile>
             )
           })}

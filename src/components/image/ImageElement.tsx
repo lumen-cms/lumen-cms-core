@@ -16,16 +16,16 @@ export function LmImage({ content, onClick }: LmImageProps): JSX.Element {
       />
     )
   }
-  if (!content.height && !content.width) {
-    return (
-      <AspectImage
-        content={content}
-        onClick={() => {
-          onClick && onClick()
-        }}
-      />
-    )
-  }
+  // if (!content.height && !content.width) {
+  // return (
+  //   <AspectImage
+  //     content={content}
+  //     onClick={() => {
+  //       onClick && onClick()
+  //     }}
+  //   />
+  // )
+  // }
   return (
     <Image
       content={content}
