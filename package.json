@@ -29,7 +29,7 @@
     "build-story": "build-storybook -c .storybook -o public_storybook",
     "vercel-build": "build-storybook -c .storybook -o public",
     "deploy-storybook": "rimraf public_storybook && npm run build-story && vercel --prod",
-    "prepublish": "npm run lint:fix",
+    "prepublishOnly": "npm run lint:fix",
     "release": "np",
     "check-types": "tsc --noemit",
     "lint": "eslint './src/**/*.{ts,tsx}' && npm run check-types",

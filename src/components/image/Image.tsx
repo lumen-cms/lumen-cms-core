@@ -59,7 +59,7 @@ export default function LmImage({
   )
 
   const imgProperties: { src?: string; srcSet?: string } = {}
-
+  let definedWidth = content.width
   let definedHeight =
     content.height_xs && isMobile ? content.height_xs : content.height
   if (inView && content.source && intersectionElement) {
@@ -77,7 +77,7 @@ export default function LmImage({
     }
     const square =
       property.includes('rounded-circle') || property.includes('square')
-    let definedWidth = content.width
+
     const w = Math.ceil(parentDim.width || width)
     if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
       // default: set available width to the current width either in crop mode
@@ -89,8 +89,13 @@ export default function LmImage({
     if (square) {
       // overwrite if square
       const iconSize = definedHeight || definedWidth || 64
+      // const iconSize = Math.min(
+      //   definedHeight || Infinity,
+      //   definedWidth || Infinity
+      // )
       definedWidth = iconSize
       definedHeight = iconSize
+      console.log('inside of square: ', definedWidth, definedHeight)
     }
     if (content.height_fill) {
       // with a tolerance of 200 height should fit grandparents height
@@ -124,6 +129,7 @@ export default function LmImage({
     setLoaded(true)
   }
 
+  // console.log(definedHeight, definedWidth, content.height, content.width)
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
     <figure
@@ -135,13 +141,13 @@ export default function LmImage({
         [classes.rootNoMargin]: content.disable_ratio_correction
       })}
       style={{
-        height: content.height
-          ? `${content.height}px`
+        maxHeight: definedHeight
+          ? `${definedHeight}px`
           : content.height_fill
           ? '100%'
           : undefined,
-        width: content.width
-          ? `${content.width}px`
+        maxWidth: definedWidth
+          ? `${definedWidth}px`
           : content.height_fill
           ? '100%'
           : undefined
@@ -159,13 +165,13 @@ export default function LmImage({
         <img
           {...imgProperties}
           alt={content.alt || 'website image'}
-          width={content.width ? content.width : undefined}
-          height={definedHeight || undefined}
+          width={content.width || undefined}
+          height={content.height || undefined}
           style={{
             cursor: onClick ? 'pointer' : undefined,
             width: content.width ? `${content.width}px` : 'auto',
             maxHeight: 'inherit',
-            height: definedHeight ? `${definedHeight}px` : 'auto'
+            height: content.height ? `${content.height}px` : 'auto'
           }}
           className={clsx(
             classes.image,
