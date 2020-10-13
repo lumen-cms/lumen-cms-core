@@ -1515,6 +1515,9 @@ export interface StylesStoryblok {
   bottom?: string;
   right?: string;
   z_index?: number;
+  position_mobile?: string;
+  position_tablet?: string;
+  elevation?: number;
   _uid: string;
   component: "styles";
   [k: string]: any;

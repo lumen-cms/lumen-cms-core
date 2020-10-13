@@ -23,7 +23,10 @@ export const useStylesAdvanced = makeStyles((theme: Theme) =>
         height: addImportant(content.height),
         display: addImportant(content.display),
         zIndex: content.z_index,
-        position: content.position,
+        position: addImportant(content.position) as any,
+        boxShadow: content.elevation
+          ? theme.shadows[`${content.elevation}`]
+          : undefined,
         top: content.top,
         left: content.left,
         bottom: content.bottom,
