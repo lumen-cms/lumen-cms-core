@@ -1,18 +1,15 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
-import { useInView } from 'react-intersection-observer'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { getImageAttrs } from '../../utils/ImageService'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageListItemProps } from './imageListTypes'
 
 export default function LmImageListItem(
   props: LmImageListItemProps
 ): JSX.Element {
-  const { content, listProps } = props
-  const [inViewRef, inView, currentRef] = useInView(intersectionDefaultOptions)
+  const { content, listProps, inView } = props
+  const inViewRef = useRef<HTMLImageElement>(null)
   const [loaded, setLoaded] = useState<boolean>(false)
-  // const width = listProps.width
   let imageProps: {
     src?: string
     srcSet?: string
@@ -20,11 +17,11 @@ export default function LmImageListItem(
     height?: number | string
   } = {}
 
-  if (inView && content.source && currentRef?.target) {
+  if (inView && content.source && inViewRef?.current) {
     // if (listProps.image_crop && !listProps.masonry /*|| (!listProps.masonry && !listProps.fit_in_color)*/) {
     //   height = listProps.height
     // }
-    const tile = currentRef.target.closest('.MuiGridListTile-root')
+    const tile = inViewRef.current.closest('.MuiGridListTile-root')
     if (tile) {
       let width = tile?.clientWidth
       let height = tile?.clientHeight

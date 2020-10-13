@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import Fade from '@material-ui/core/Fade'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'
 
 const useStyles = makeStyles({
@@ -28,9 +28,7 @@ export default function ImageSvg({
   onClick
 }: LmImageProps): JSX.Element {
   const classes = useStyles()
-  const [refIntersectionObserver, inView] = useInView(
-    intersectionDefaultOptions
-  )
+  const [refIntersectionObserver, inView] = useInView(intersectionImageOptions)
   const src = inView ? content.source : ''
   const [loaded, setLoaded] = useState<boolean>(false)
   const afterSvgLoaded = () => {

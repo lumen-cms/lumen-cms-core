@@ -1,8 +1,8 @@
 import React, { createRef, RefObject } from 'react'
 
 type ImageShadowProps = {
-  src: string
-  srcSet: string
+  src?: string
+  srcSet?: string
   afterLoad: FunctionStringCallback
 }
 const ImageShadow = ({ afterLoad, ...rest }: ImageShadowProps) => {
