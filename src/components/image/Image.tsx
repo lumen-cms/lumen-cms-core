@@ -95,7 +95,6 @@ export default function LmImage({
       // )
       definedWidth = iconSize
       definedHeight = iconSize
-      console.log('inside of square: ', definedWidth, definedHeight)
     }
     if (content.height_fill) {
       // with a tolerance of 200 height should fit grandparents height
