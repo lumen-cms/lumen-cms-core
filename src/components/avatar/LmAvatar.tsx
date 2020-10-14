@@ -6,6 +6,7 @@ import { intersectionDefaultOptions } from '../../utils/intersectionObserverConf
 import LmIcon from '../icon/LmIcon'
 import { getImageAttrs } from '../../utils/ImageService'
 import { LmAvatarProps } from './avatarTypes'
+import { getNumber } from '../../utils/numberParser'
 
 const sizeMap = {
   dense: {
@@ -28,7 +29,7 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
   )
   const iconName = content.icon && content.icon.name
   const imageSrc = content.image
-  const customSize = content.custom_size && Number(content.custom_size)
+  const customSize = getNumber(content.custom_size) as number
   const [imageAttrs, setImageSrc] = useState<{ src?: string; srcSet?: string }>(
     {}
   )

@@ -14,6 +14,7 @@ import {
   LmInstagramListProps
 } from './instagramTypes'
 import { InstagramListItem } from './InstagramListItem'
+import { getNumber } from '../../utils/numberParser'
 
 const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'
 
@@ -52,7 +53,7 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
         alt: i.node.accessibility_caption
       } as InstagramMappedProps
     })
-    .splice(0, content.max_posts ? Number(content.max_posts) : 12)
+    .splice(0, getNumber(content.max_posts, 12))
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -77,13 +78,7 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
         style={{
           columnGap: content.masonry ? `${content.column_gap}px` : undefined
         }}
-        spacing={
-          !content.masonry
-            ? content.column_gap
-              ? Number(content.column_gap)
-              : 2
-            : 0
-        }
+        spacing={!content.masonry ? Number(content.column_gap || 2) : 0}
       >
         {(posts || []).map((item) => (
           <GridListTile

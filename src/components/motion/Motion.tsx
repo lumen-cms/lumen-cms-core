@@ -17,23 +17,24 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
     options.threshold = Number((Number(content.threshold) / 100).toFixed(2))
   }
   const [viewRef, inView] = useInView(options)
-
   const transitionProps: FadeProps | SlideProps | ZoomProps | GrowProps = {}
   if (content.duration) {
     transitionProps.timeout = Number(content.duration)
   }
+  const start = inView
   return (
     <div
       ref={viewRef}
       style={{
-        overflow: content.enable_overflow ? undefined : 'hidden'
+        overflow: content.enable_overflow ? undefined : 'hidden',
+        width: 'inherit'
       }}
     >
       {
         {
           slide: (
             <Slide
-              in={inView}
+              in={start}
               {...(transitionProps as SlideProps)}
               direction={content.slide_direction || 'down'}
             >
@@ -45,7 +46,7 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
             </Slide>
           ),
           fade: (
-            <Fade in={inView} {...(transitionProps as FadeProps)}>
+            <Fade in={start} {...(transitionProps as FadeProps)}>
               <div>
                 {(content.body || []).map((blok) => (
                   <LmComponentRender content={blok} key={blok._uid} />
@@ -54,7 +55,7 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
             </Fade>
           ),
           grow: (
-            <Grow in={inView} {...(transitionProps as GrowProps)}>
+            <Grow in={start} {...(transitionProps as GrowProps)}>
               <div>
                 {(content.body || []).map((blok) => (
                   <LmComponentRender content={blok} key={blok._uid} />
@@ -63,7 +64,7 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
             </Grow>
           ),
           zoom: (
-            <Zoom in={inView} {...(transitionProps as ZoomProps)}>
+            <Zoom in={start} {...(transitionProps as ZoomProps)}>
               <div>
                 {(content.body || []).map((blok) => (
                   <LmComponentRender content={blok} key={blok._uid} />
@@ -72,7 +73,7 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
             </Zoom>
           ),
           collapse: (
-            <Collapse in={inView} {...(transitionProps as CollapseProps)}>
+            <Collapse in={start} {...(transitionProps as CollapseProps)}>
               <div>
                 {(content.body || []).map((blok) => (
                   <LmComponentRender content={blok} key={blok._uid} />

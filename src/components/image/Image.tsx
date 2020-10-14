@@ -12,6 +12,7 @@ import {
 import { LmImageProps } from './imageTypes'
 import { AspectRatio } from './RatioContainer'
 import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
+import { getNumber } from '../../utils/numberParser'
 
 const useStyles = makeStyles((theme: Theme) => ({
   // root: {
@@ -63,9 +64,11 @@ export default function LmImage({
   const imageSource = content.source
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
 
-  let definedWidth = content.width
+  let definedWidth = getNumber(content.width) as number | undefined
   let definedHeight =
-    content.height_xs && isMobile ? content.height_xs : content.height
+    content.height_xs && isMobile
+      ? (getNumber(content.height) as number | undefined)
+      : (getNumber(content.height) as number | undefined)
   if (inView && imageSource && intersectionElement) {
     const { parentElement } = intersectionElement.target
     const grandparentElement =
@@ -104,7 +107,7 @@ export default function LmImage({
     }
 
     const imgRatio = {
-      width: Number(definedWidth || 0),
+      width: definedWidth || 0,
       height: definedHeight
     }
 
@@ -152,8 +155,8 @@ export default function LmImage({
         style={{
           maxHeight: definedHeight,
           maxWidth: definedWidth,
-          height: content.height || undefined,
-          width: content.width || 'inherit'
+          height: getNumber(content.width),
+          width: getNumber(content.width, 'inherit')
           // maxHeight: definedHeight
           //   ? `${definedHeight}px`
           //   : content.height_fill
