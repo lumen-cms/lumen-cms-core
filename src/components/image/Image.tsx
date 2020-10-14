@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export default function LmImage({
   content,
   onClick
-}: LmImageProps): JSX.Element {
+}: LmImageProps): JSX.Element | null {
   const classes = useStyles()
   const width = useWindowWidth()
   const isMobile = width < 600
@@ -62,6 +62,11 @@ export default function LmImage({
 
   const imgProperties: { src?: string; srcSet?: string } = {}
   const imageSource = content.source
+
+  if (!imageSource) {
+    return <div /> // don't need to render anything
+  }
+
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
 
   let definedWidth = getNumber(content.width) as number | undefined
@@ -149,6 +154,7 @@ export default function LmImage({
         onClick={() => {
           onClick && onClick()
         }}
+        className={clsx(content.class_names?.values)}
         // className={clsx(classes.root, {
         // [classes.rootNoMargin]: content.disable_ratio_correction
         // })}
@@ -189,11 +195,7 @@ export default function LmImage({
               maxHeight: 'inherit'
               // height: content.height ? `${content.height}px` : 'auto'
             }}
-            className={clsx(
-              classes.image,
-              content.property,
-              content.class_names?.values
-            )}
+            className={clsx(classes.image, content.property)}
             onLoad={onImageLoaded}
           />
         </Fade>
