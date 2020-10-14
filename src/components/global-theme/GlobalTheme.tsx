@@ -56,7 +56,16 @@ const GlobalTheme: FunctionComponent<{
         secondary: {
           main: (settings.theme_secondary as string) || '#ab003c',
           contrastText: (settings.theme_secondary_contrast as string) || '#fff'
-        }
+        },
+        error: {
+          main: (settings.theme_error as string) || '#f44336',
+          contrastText: (settings.theme_error_contrast as string) || '#fff'
+        },
+        ...(settings.body_background_color?.rgba && {
+          background: {
+            default: settings.body_background_color.rgba
+          }
+        })
       },
       drawer: {
         left: `${settings.drawer_width || 285}px`,

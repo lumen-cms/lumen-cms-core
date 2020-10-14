@@ -205,6 +205,7 @@ export type GlobalComponent = {
   __typename?: 'GlobalComponent';
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
+  body_background_color?: Maybe<Scalars['JsonScalar']>;
   chat_button?: Maybe<Scalars['BlockScalar']>;
   component?: Maybe<Scalars['String']>;
   drawer_background?: Maybe<Scalars['BlockScalar']>;
@@ -265,6 +266,21 @@ export type GlobalComponent = {
 };
 
 export type GlobalFilterQuery = {
+  theme_base?: Maybe<FilterQueryOperations>;
+  theme_primary?: Maybe<FilterQueryOperations>;
+  theme_primary_contrast?: Maybe<FilterQueryOperations>;
+  theme_secondary?: Maybe<FilterQueryOperations>;
+  theme_secondary_contrast?: Maybe<FilterQueryOperations>;
+  theme_error?: Maybe<FilterQueryOperations>;
+  theme_error_contrast?: Maybe<FilterQueryOperations>;
+  theme_link?: Maybe<FilterQueryOperations>;
+  theme_link_hover?: Maybe<FilterQueryOperations>;
+  theme_font_default?: Maybe<FilterQueryOperations>;
+  theme_font_alt1?: Maybe<FilterQueryOperations>;
+  theme_font_alt2?: Maybe<FilterQueryOperations>;
+  theme_font_alt3?: Maybe<FilterQueryOperations>;
+  theme_font_alt4?: Maybe<FilterQueryOperations>;
+  theme_container_width?: Maybe<FilterQueryOperations>;
   website_title?: Maybe<FilterQueryOperations>;
   website_slogan?: Maybe<FilterQueryOperations>;
   setup_language?: Maybe<FilterQueryOperations>;
@@ -289,21 +305,6 @@ export type GlobalFilterQuery = {
   seo_title?: Maybe<FilterQueryOperations>;
   seo_website_url?: Maybe<FilterQueryOperations>;
   seo_robots?: Maybe<FilterQueryOperations>;
-  theme_base?: Maybe<FilterQueryOperations>;
-  theme_primary?: Maybe<FilterQueryOperations>;
-  theme_primary_contrast?: Maybe<FilterQueryOperations>;
-  theme_secondary?: Maybe<FilterQueryOperations>;
-  theme_secondary_contrast?: Maybe<FilterQueryOperations>;
-  theme_error?: Maybe<FilterQueryOperations>;
-  theme_error_contrast?: Maybe<FilterQueryOperations>;
-  theme_link?: Maybe<FilterQueryOperations>;
-  theme_link_hover?: Maybe<FilterQueryOperations>;
-  theme_font_default?: Maybe<FilterQueryOperations>;
-  theme_font_alt1?: Maybe<FilterQueryOperations>;
-  theme_font_alt2?: Maybe<FilterQueryOperations>;
-  theme_font_alt3?: Maybe<FilterQueryOperations>;
-  theme_font_alt4?: Maybe<FilterQueryOperations>;
-  theme_container_width?: Maybe<FilterQueryOperations>;
 };
 
 export type GlobalItem = {

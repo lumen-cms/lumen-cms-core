@@ -587,6 +587,25 @@ export interface FormTextfieldStoryblok {
 }
 
 export interface GlobalStoryblok {
+  theme_base: "base" | "dark";
+  theme_primary?: string;
+  theme_primary_contrast?: string;
+  theme_secondary?: string;
+  theme_secondary_contrast?: string;
+  theme_error?: string;
+  theme_error_contrast?: string;
+  theme_link?: string;
+  theme_link_hover?: string;
+  body_background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  theme_font_default?: string;
+  theme_font_alt1?: string;
+  theme_font_alt2?: string;
+  theme_font_alt3?: string;
+  theme_font_alt4?: string;
+  theme_container_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   website_title?: string;
   website_slogan?: string;
   setup_language?: string;
@@ -630,21 +649,6 @@ export interface GlobalStoryblok {
   seo_website_url?: string;
   seo_robots?: boolean;
   seo_body?: any[];
-  theme_base: "base" | "dark";
-  theme_primary?: string;
-  theme_primary_contrast?: string;
-  theme_secondary?: string;
-  theme_secondary_contrast?: string;
-  theme_error?: string;
-  theme_error_contrast?: string;
-  theme_link?: string;
-  theme_link_hover?: string;
-  theme_font_default?: string;
-  theme_font_alt1?: string;
-  theme_font_alt2?: string;
-  theme_font_alt3?: string;
-  theme_font_alt4?: string;
-  theme_container_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   ecommerce?: any[];
   _uid: string;
   component: "global";
