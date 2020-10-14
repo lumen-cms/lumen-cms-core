@@ -7,6 +7,9 @@ const boundCoordinate = (value: number, upperBound: number) => {
 }
 
 export function getOriginalImageDimensions(src: string) {
+  if (!src) {
+    return { width: 0, height: 0 }
+  }
   const splitted = src.split('/')
   const [originalWidth, originalHeight] = splitted[splitted.length - 3].split(
     'x'
