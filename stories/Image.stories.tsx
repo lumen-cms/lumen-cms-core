@@ -174,7 +174,7 @@ export const ImageInSections = () => (
               width_general: 'auto',
               body: [
                 {
-                  ...storyImage({ count: 1, options: { width: 250 } })
+                  ...storyImage({ count: 1, options: { width: 120 } })
                 } as ImageStoryblok
               ]
             },
