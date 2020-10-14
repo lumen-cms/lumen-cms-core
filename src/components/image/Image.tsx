@@ -11,6 +11,7 @@ import {
 } from '../../utils/ImageService'
 import { LmImageProps } from './imageTypes'
 import { AspectRatio } from './RatioContainer'
+import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 
 const useStyles = makeStyles((theme: Theme) => ({
   // root: {
@@ -54,8 +55,9 @@ export default function LmImage({
   const property = content.property || []
   const fitInColor = content.color?.rgba || content.fit_in_color
 
-  const [refIntersectionObserver, inView, intersectionElement] = useInView()
-  // intersectionImageOptions
+  const [refIntersectionObserver, inView, intersectionElement] = useInView(
+    intersectionImageOptions
+  )
 
   const imgProperties: { src?: string; srcSet?: string } = {}
   const imageSource = content.source
@@ -151,7 +153,7 @@ export default function LmImage({
           maxHeight: definedHeight,
           maxWidth: definedWidth,
           height: content.height || undefined,
-          width: content.width || undefined
+          width: content.width || 'inherit'
           // maxHeight: definedHeight
           //   ? `${definedHeight}px`
           //   : content.height_fill
