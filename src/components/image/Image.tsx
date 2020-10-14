@@ -5,25 +5,25 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useWindowWidth } from '@react-hook/window-size'
-import { getImageAttrs } from '../../utils/ImageService'
-import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
+import {
+  getImageAttrs,
+  getOriginalImageDimensions
+} from '../../utils/ImageService'
 import { LmImageProps } from './imageTypes'
+import { AspectRatio } from './RatioContainer'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    display: 'inline-block',
-    margin: '0 0 -6px 0 !important',
-    overflow: 'auto',
-    padding: 0,
-    position: 'relative'
-  },
+  // root: {
+  //   display: 'inline-block'
+  // margin: '0 0 -6px 0 !important',
+  // overflow: 'auto',
+  // padding: 0,
+  // position: 'relative'
+  // },
   rootNoMargin: {
     margin: '0 !important'
   },
   image: {
-    maxWidth: '100%',
-    height: 'auto',
-    display: 'block',
     '&.img-thumbnail': {
       padding: '.25rem',
       backgroundColor: theme.palette.background.default,
@@ -54,19 +54,20 @@ export default function LmImage({
   const property = content.property || []
   const fitInColor = content.color?.rgba || content.fit_in_color
 
-  const [refIntersectionObserver, inView, intersectionElement] = useInView(
-    intersectionImageOptions
-  )
+  const [refIntersectionObserver, inView, intersectionElement] = useInView()
+  // intersectionImageOptions
 
   const imgProperties: { src?: string; srcSet?: string } = {}
+  const imageSource = content.source
+  const originalDimensions = getOriginalImageDimensions(imageSource || '')
+
   let definedWidth = content.width
   let definedHeight =
     content.height_xs && isMobile ? content.height_xs : content.height
-  if (inView && content.source && intersectionElement) {
+  if (inView && imageSource && intersectionElement) {
     const { parentElement } = intersectionElement.target
     const grandparentElement =
       intersectionElement.target.parentElement?.parentElement
-    // console.log('parent element', hasDefinedSize, isInGrid, parentElement?.clientWidth, parentElement?.clientHeight, grandparentElement?.clientWidth, grandparentElement?.clientHeight)
     const parentDim = {
       width: parentElement?.clientWidth || 0,
       height: parentElement?.clientHeight || 0
@@ -75,6 +76,7 @@ export default function LmImage({
       width: grandparentElement?.clientWidth || 0,
       height: grandparentElement?.clientHeight || 0
     }
+
     const square =
       property.includes('rounded-circle') || property.includes('square')
 
@@ -88,11 +90,7 @@ export default function LmImage({
     }
     if (square) {
       // overwrite if square
-      const iconSize = definedHeight || definedWidth || 64
-      // const iconSize = Math.min(
-      //   definedHeight || Infinity,
-      //   definedWidth || Infinity
-      // )
+      const iconSize = definedHeight || definedWidth || 120
       definedWidth = iconSize
       definedHeight = iconSize
     }
@@ -102,11 +100,6 @@ export default function LmImage({
         definedHeight = Math.ceil(grandParentDim.height)
       }
     }
-    if (content.focal_point && parentElement && !definedHeight) {
-      if (parentDim) {
-        definedHeight = Math.ceil(parentDim.height)
-      }
-    }
 
     const imgRatio = {
       width: Number(definedWidth || 0),
@@ -114,7 +107,7 @@ export default function LmImage({
     }
 
     const attrs = getImageAttrs({
-      originalSource: content.source,
+      originalSource: imageSource,
       ...imgRatio,
       fitInColor,
       focalPoint: content.focal_point,
@@ -128,58 +121,78 @@ export default function LmImage({
     setLoaded(true)
   }
 
+  const ratio =
+    definedWidth && definedHeight
+      ? definedWidth / definedHeight
+      : originalDimensions.width / originalDimensions.height
+  if (!definedWidth && definedHeight) {
+    definedWidth =
+      (definedHeight * originalDimensions.width) / originalDimensions.height
+  }
+  if (!definedHeight && definedWidth) {
+    definedHeight =
+      (definedWidth * originalDimensions.height) / originalDimensions.width
+  }
+
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
   // console.log(definedHeight, definedWidth, content.height, content.width)
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-    <figure
-      onClick={() => {
-        onClick && onClick()
-      }}
-      ref={refIntersectionObserver}
-      className={clsx(classes.root, {
-        [classes.rootNoMargin]: content.disable_ratio_correction
-      })}
-      style={{
-        maxHeight: definedHeight
-          ? `${definedHeight}px`
-          : content.height_fill
-          ? '100%'
-          : undefined,
-        maxWidth: definedWidth
-          ? `${definedWidth}px`
-          : content.height_fill
-          ? '100%'
-          : undefined
-      }}
-    >
-      {!loaded && (
-        <Skeleton
-          style={{ position: 'absolute' }}
-          width="100%"
-          height="100%"
-          variant={property.includes('rounded-circle') ? 'circle' : 'rect'}
-        />
-      )}
-      <Fade in={loaded}>
-        <img
-          {...imgProperties}
-          alt={content.alt || 'website image'}
-          width={content.width || undefined}
-          height={content.height || undefined}
-          style={{
-            cursor: onClick ? 'pointer' : undefined,
-            width: content.width ? `${content.width}px` : 'auto',
-            maxHeight: 'inherit',
-            height: content.height ? `${content.height}px` : 'auto'
-          }}
-          className={clsx(
-            classes.image,
-            content.property,
-            content.class_names?.values
-          )}
-          onLoad={onImageLoaded}
-        />
-      </Fade>
-    </figure>
+    <>
+      <span ref={refIntersectionObserver} />
+      <AspectRatio
+        ratio={ratio}
+        onClick={() => {
+          onClick && onClick()
+        }}
+        // className={clsx(classes.root, {
+        // [classes.rootNoMargin]: content.disable_ratio_correction
+        // })}
+        style={{
+          maxHeight: definedHeight,
+          maxWidth: definedWidth,
+          height: content.height || undefined,
+          width: content.width || undefined
+          // maxHeight: definedHeight
+          //   ? `${definedHeight}px`
+          //   : content.height_fill
+          //   ? '100%'
+          //   : undefined,
+          // maxWidth: definedWidth
+          //   ? `${definedWidth}px`
+          //   : content.height_fill
+          //   ? '100%'
+          //   : undefined
+        }}
+      >
+        {!loaded && (
+          <Skeleton
+            style={{ position: 'absolute' }}
+            width="100%"
+            height="100%"
+            variant={property.includes('rounded-circle') ? 'circle' : 'rect'}
+          />
+        )}
+        <Fade in={loaded}>
+          <img
+            {...imgProperties}
+            alt={content.alt || 'website image'}
+            width={definedWidth || undefined}
+            height={definedHeight || undefined}
+            style={{
+              cursor: onClick ? 'pointer' : undefined,
+              // width: content.width ? `${content.width}px` : 'auto',
+              maxHeight: 'inherit'
+              // height: content.height ? `${content.height}px` : 'auto'
+            }}
+            className={clsx(
+              classes.image,
+              content.property,
+              content.class_names?.values
+            )}
+            onLoad={onImageLoaded}
+          />
+        </Fade>
+      </AspectRatio>
+    </>
   )
 }

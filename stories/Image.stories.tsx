@@ -56,7 +56,10 @@ export const Basic = () => (
     <LmImage content={{ ...props, property: ['img-thumbnail'] }} />
     <h3>Square:</h3>
     <LmImage content={{ ...props, property: ['square'] }} />
-    <h3>Resized images with fixed height:</h3>
+    <h3>Resized images with fixed height or width:</h3>
+    <LmImage content={{ ...props, width: 140 }} />
+    <LmImage content={{ ...props, height: 64 }} />
+    <LmImage content={{ ...props, property: ['rounded-circle'], width: 100 }} />
     <LmImage content={{ ...props, property: ['rounded-circle'], height: 64 }} />
     <LmImage content={{ ...props, property: ['square'], height: 64 }} />
     <LmImage content={{ ...props, property: ['img-thumbnail'], height: 64 }} />
@@ -171,7 +174,25 @@ export const ImageInSections = () => (
               width_general: 'auto',
               body: [
                 {
-                  ...storyImage()
+                  ...storyImage({ count: 1, options: { width: 250 } })
+                } as ImageStoryblok
+              ]
+            },
+            {
+              ...storyColumn({ count: 3 }),
+              width_general: '2',
+              body: [
+                {
+                  ...storyImage({ count: 2 })
+                } as ImageStoryblok
+              ]
+            },
+            {
+              ...storyColumn({ count: 4 }),
+              width_general: 'true',
+              body: [
+                {
+                  ...storyImage({ count: 3 })
                 } as ImageStoryblok
               ]
             }
