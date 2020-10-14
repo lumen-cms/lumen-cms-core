@@ -95,20 +95,31 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
 
   return (
     <>
-      <Button
-        endIcon={anchorEl ? CloseIcon : ExpandIcon}
-        startIcon={
-          content.start_icon?.name && (
-            <LmIcon iconName={content.start_icon.name} />
-          )
-        }
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        className="lm-default-color"
-        onClick={handleClick}
-      >
-        {content.title}
-      </Button>
+      {content.title_custom?.length ? (
+        content.title_custom.map((blok) => (
+          <LmComponentRender
+            content={blok}
+            key={blok._uid}
+            onClick={handleClick}
+          />
+        ))
+      ) : (
+        <Button
+          endIcon={anchorEl ? CloseIcon : ExpandIcon}
+          startIcon={
+            content.start_icon?.name && (
+              <LmIcon iconName={content.start_icon.name} />
+            )
+          }
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          className="lm-default-color"
+          onClick={handleClick}
+        >
+          {content.title}
+        </Button>
+      )}
+
       {isCustom ? (
         <Popover
           open={Boolean(anchorEl)}

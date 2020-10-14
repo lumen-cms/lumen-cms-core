@@ -1014,6 +1014,9 @@ export interface NavListStoryblok {
 }
 
 export interface NavMenuStoryblok {
+  title?: string;
+  title_custom?: any[];
+  body?: any[];
   alignment?: "bottomStart" | "bottomEnd" | "bottomCenter";
   border_radius?: string;
   start_icon?: {
@@ -1028,12 +1031,10 @@ export interface NavMenuStoryblok {
     name?: string;
     [k: string]: any;
   };
-  title?: string;
   class_names?: {
     values?: string[];
     [k: string]: any;
   };
-  body?: any[];
   _uid: string;
   component: "nav_menu";
   [k: string]: any;
