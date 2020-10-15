@@ -11,10 +11,16 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
-  const classes = useStylesAdvanced(content.styles)
+  const classes = useStylesAdvanced({
+    props: content.styles,
+    propsMobile: content.styles_mobile,
+    propsTablet: content.styles_tablet
+  })
   const divProps: HTMLAttributes<Element> = {
     className: clsx({
-      [classes.advanced]: content.styles?.length
+      [classes.advanced]: content.styles?.length,
+      [classes.advancedTablet]: content.styles_tablet?.length,
+      [classes.advancedMobile]: content.styles_mobile?.length
     }),
     style: {
       height:

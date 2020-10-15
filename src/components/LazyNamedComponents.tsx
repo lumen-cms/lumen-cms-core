@@ -4,7 +4,7 @@ import { LmCoreComponents } from '@CONFIG'
 LmCoreComponents.parallax_provider = dynamic(
   () =>
     import(
-      /* webpackChunkName: 'parallax' */ './section/parallaxHelpers/ParallaxProviderDefaultExport'
+      /* webpackChunkName: 'parallax' */ './section/helper/ParallaxProviderDefaultExport'
     )
 )
 LmCoreComponents.instagram_post = dynamic(

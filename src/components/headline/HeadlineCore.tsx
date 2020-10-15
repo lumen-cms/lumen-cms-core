@@ -10,7 +10,11 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({
   onClick,
   children
 }) => {
-  const classes = useStylesAdvanced(content.styles)
+  const classes = useStylesAdvanced({
+    props: content.styles,
+    propsMobile: content.styles_mobile,
+    propsTablet: content.styles_tablet
+  })
   return (
     <Typography
       onClick={() => {
@@ -22,6 +26,8 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({
         content.class_names && content.class_names.values,
         {
           [classes.advanced]: content.styles?.length,
+          [classes.advancedMobile]: content.styles_mobile?.length,
+          [classes.advancedTablet]: content.styles_tablet?.length,
           [`lm-font-${content.font}`]: content.font
         }
       )}

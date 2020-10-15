@@ -55,7 +55,12 @@ export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
     (Array.isArray(content.background) &&
       (content.background[0] as BackgroundStoryblok)) ||
     undefined
-  const { className, style } = useBackgroundBox({ background })
+  const { className, style } = useBackgroundBox({
+    background,
+    styles: content.styles,
+    stylesMobile: content.styles_mobile,
+    stylesTablet: content.styles_tablet
+  })
   const mdWidth = mdSpanMap[content.width_general as string]
   let smWidth = smSpanMap[content.width_tablet as string]
   if (!smWidth && mdWidth) {

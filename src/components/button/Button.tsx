@@ -96,12 +96,18 @@ export const LmButton: FC<LmButtonProps> = ({
   type
 }) => {
   const classes = useStyles()
-  const advancedClasses = useStylesAdvanced(content.styles)
+  const advancedClasses = useStylesAdvanced({
+    props: content.styles,
+    propsMobile: content.styles_mobile,
+    propsTablet: content.styles_tablet
+  })
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')
   const color = content.color ? mapColor[content.color] : undefined
   const className = clsx(classes.button, content.class_names?.values, {
     [advancedClasses.advanced]: content.styles?.length,
+    [advancedClasses.advancedMobile]: content.styles_mobile?.length,
+    [advancedClasses.advancedTablet]: content.styles_tablet?.length,
     [classes.noWhitespace]: properties.includes('no-linebreak'),
     'lm-default-color': !content.color,
     [content.corners as string]: !!content.corners,

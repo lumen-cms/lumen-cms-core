@@ -3,14 +3,19 @@ import { CSSProperties } from 'react'
 import clsx from 'clsx'
 import {
   BackgroundStoryblok,
-  SectionStoryblok
+  SectionStoryblok,
+  StylesStoryblok
 } from '../../typings/generated/components-schema'
 import useShadowStyles from '../jss/shadowStyles'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { generateBackgroundStyles } from './helper/generateBackgroundStyles'
 
 export type UseBackgroundProps = {
   background?: BackgroundStoryblok
   variant?: SectionStoryblok['variant']
+  styles?: StylesStoryblok[]
+  stylesMobile?: StylesStoryblok[]
+  stylesTablet?: StylesStoryblok[]
 }
 
 export type UseBackgroundPayload = {
@@ -21,59 +26,29 @@ export type UseBackgroundPayload = {
 export default function useBackgroundBox(
   props: UseBackgroundProps
 ): UseBackgroundPayload {
-  let { background } = props
-  const { variant } = props
+  const { background, styles, stylesMobile, stylesTablet, variant } = props
   const theme = useTheme()
   const shadowClasses = useShadowStyles()
-  const customClasses = useStylesAdvanced(props.background?.styles)
-  // const customStyles
-
+  const customClasses = useStylesAdvanced({
+    props: styles,
+    propsMobile: stylesMobile,
+    propsTablet: stylesTablet
+  })
   if (!background && !variant) {
     return {}
   }
 
-  const mapBgColor = {
-    dark: '#303030',
-    primary: theme.palette.primary.main,
-    secondary: theme.palette.secondary.main,
-    light: '#fafafa'
-  }
-  const mapColor = {
-    light: 'rgba(0, 0, 0, 0.87)',
-    dark_text: 'rgba(0, 0, 0, 0.87)',
-    dark: theme.palette.common.white,
-    light_text: theme.palette.common.white,
-    primary: theme.palette.common.white,
-    secondary: theme.palette.common.white
-  }
+  const style = background
+    ? generateBackgroundStyles({ background, theme, variant })
+    : {}
 
-  background = background || ({} as BackgroundStoryblok)
-  let border
-  if (background.border_color && background.border_color.rgba) {
-    border = `${background.border_size || 1}px ${
-      background.border_style || 'solid'
-    } ${background.border_color && background.border_color.rgba}`
-  } else if (background.border_radius) {
-    border = '1px solid transparent'
-  }
-
-  const style: CSSProperties = {
-    backgroundColor:
-      background.background_color?.rgba || mapBgColor[variant as string],
-    border,
-    margin: background.margin,
-    borderRadius: background.border_radius,
-    color: mapColor[variant as string],
-    boxShadow: background.elevation
-      ? theme.shadows[background.elevation]
-      : undefined,
-    minHeight: background.height
-  }
-  Object.keys(style).forEach((key) => !style[key] && delete style[key])
-
-  const className = clsx(background.classNames?.values, {
-    [shadowClasses[background.shadow_effect || '']]: !!background.shadow_effect,
-    [customClasses.advanced]: background.styles?.length
+  const className = clsx(background?.classNames?.values, {
+    [shadowClasses[
+      background?.shadow_effect || ''
+    ]]: !!background?.shadow_effect,
+    [customClasses.advanced]: styles?.length,
+    [customClasses.advancedMobile]: stylesMobile?.length,
+    [customClasses.advancedTablet]: stylesTablet?.length
   })
   return { className, style }
 }

@@ -11,7 +11,11 @@ export function LmRichTextParagraph({
   content
 }: LmRichTextParagraphProps): JSX.Element {
   const classes = useRichTextStyles()
-  const advancedClasses = useStylesAdvanced(content.styles)
+  const advancedClasses = useStylesAdvanced({
+    props: content.styles,
+    propsMobile: content.styles_mobile,
+    propsTablet: content.styles_tablet
+  })
   return (
     <Typography
       className={clsx(
@@ -21,6 +25,8 @@ export function LmRichTextParagraph({
         content.class_names && content.class_names.values,
         {
           [advancedClasses.advanced]: content.styles?.length,
+          [advancedClasses.advancedTablet]: content.styles_tablet?.length,
+          [advancedClasses.advancedMobile]: content.styles_mobile?.length,
           [`lm-font-${content.font}`]: content.font
         }
       )}

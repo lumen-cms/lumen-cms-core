@@ -37,7 +37,10 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
   const background = Array.isArray(content.background) && content.background[0]
   const { style, className } = useBackgroundBox({
     variant: content.variant || content.presetVariant,
-    background
+    background,
+    styles: content.styles,
+    stylesMobile: content.styles_mobile,
+    stylesTablet: content.styles_tablet
   })
   const body = content.body || []
   const containerStyles: CSSProperties = {}

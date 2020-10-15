@@ -51,7 +51,6 @@ export interface BackgroundStoryblok {
     [k: string]: any;
   };
   height?: string;
-  margin?: string;
   background_color?: {
     rgba?: string;
     [k: string]: any;
@@ -73,7 +72,6 @@ export interface BackgroundStoryblok {
   border_size?: number;
   border_radius?: string;
   border_style?: "solid" | "dashed" | "dotted";
-  styles?: any[];
   _uid: string;
   component: "background";
   [k: string]: any;
@@ -154,6 +152,8 @@ export interface ButtonStoryblok {
     [k: string]: any;
   };
   styles?: any[];
+  styles_mobile?: any[];
+  styles_tablet?: any[];
   _uid: string;
   component: "button";
   [k: string]: any;
@@ -326,6 +326,9 @@ export interface ColumnStoryblok {
   justify?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
   align_content?: "flex-start" | "flex-end" | "center" | "space-around" | "space-between" | "stretch";
   align_items?: "flex-start" | "flex-end" | "center" | "stretch" | "baseline";
+  styles?: any[];
+  styles_mobile?: any[];
+  styles_tablet?: any[];
   _uid: string;
   component: "column";
   [k: string]: any;
@@ -696,16 +699,20 @@ export interface HeadlineStoryblok {
   line_height?: string;
   letter_spacing?: string;
   styles?: any[];
+  styles_mobile?: any[];
+  styles_tablet?: any[];
   _uid: string;
   component: "headline";
   [k: string]: any;
 }
 
 export interface HtmlStoryblok {
+  styles?: any[];
   body?: string;
   blocks?: any[];
   lazy_load?: boolean;
-  styles?: any[];
+  styles_mobile?: any[];
+  styles_tablet?: any[];
   _uid: string;
   component: "html";
   [k: string]: any;
@@ -1213,6 +1220,8 @@ export interface RichTextEditorStoryblok {
     [k: string]: any;
   };
   styles?: any[];
+  styles_mobile?: any[];
+  styles_tablet?: any[];
   _uid: string;
   component: "rich_text_editor";
   [k: string]: any;
@@ -1228,6 +1237,9 @@ export interface RowStoryblok {
   body?: any[];
   reverse_on_mobile?: boolean;
   reverse_on_tablet?: boolean;
+  styles?: any[];
+  styles_mobile?: any[];
+  styles_tablet?: any[];
   _uid: string;
   component: "row";
   [k: string]: any;
@@ -1242,6 +1254,9 @@ export interface SectionStoryblok {
   padding?: string;
   max_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
   background_style?: "fixed_image" | "fixed_cover";
+  styles?: any[];
+  styles_mobile?: any[];
+  styles_tablet?: any[];
   _uid: string;
   component: "section";
   [k: string]: any;
@@ -1509,20 +1524,12 @@ export interface StylesStoryblok {
   width?: string;
   height?: string;
   display?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
-  margin_tablet?: string;
-  padding_tablet?: string;
-  margin_mobile?: string;
-  padding_mobile?: string;
-  display_tablet?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
-  display_mobile?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
   position?: "relative" | "absolute" | "fixed" | "static" | "sticky";
   top?: string;
   left?: string;
   bottom?: string;
   right?: string;
   z_index?: number;
-  position_mobile?: string;
-  position_tablet?: string;
   elevation?: number;
   _uid: string;
   component: "styles";

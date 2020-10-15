@@ -4,52 +4,80 @@ import { StylesStoryblok } from '../../typings/generated/components-schema'
 
 const addImportant = (value?: string) =>
   value ? `${value} !important` : undefined
+
+const getStyles = (
+  content: StylesStoryblok,
+  theme: Theme
+): CreateCSSProperties => ({
+  margin: addImportant(content.margin),
+  padding: addImportant(content.padding),
+  backgroundColor: addImportant(content.background_color?.rgba),
+  width: addImportant(content.width),
+  height: addImportant(content.height),
+  display: addImportant(content.display),
+  zIndex: content.z_index,
+  position: addImportant(content.position) as any,
+  boxShadow: content.elevation
+    ? theme.shadows[`${content.elevation}`]
+    : undefined,
+  top: content.top,
+  left: content.left,
+  bottom: content.bottom,
+  right: content.right,
+  border: content.border_color?.rgba
+    ? addImportant(`1px solid ${content.border_color.rgba}`)
+    : undefined,
+  '&:hover': {
+    color: addImportant(content.hover_color?.rgba),
+    backgroundColor: addImportant(content.hover_background_color?.rgba)
+  }
+})
+
 export const useStylesAdvanced = makeStyles((theme: Theme) =>
   createStyles({
-    // don't know why this not works in build
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    advanced: (props?: StylesStoryblok[]) => {
+    advanced: ({
+      props
+    }: {
+      props?: StylesStoryblok[]
+      propsTablet?: StylesStoryblok[]
+      propsMobile?: StylesStoryblok[]
+    }) => {
       if (!props || !props.length) {
-        const temp: CreateCSSProperties = {}
-        return temp
+        return {} as CreateCSSProperties
       }
-      const content = props[0]
-      const rules: CreateCSSProperties = {
-        margin: addImportant(content.margin),
-        padding: addImportant(content.padding),
-        backgroundColor: addImportant(content.background_color?.rgba),
-        width: addImportant(content.width),
-        height: addImportant(content.height),
-        display: addImportant(content.display),
-        zIndex: content.z_index,
-        position: addImportant(content.position) as any,
-        boxShadow: content.elevation
-          ? theme.shadows[`${content.elevation}`]
-          : undefined,
-        top: content.top,
-        left: content.left,
-        bottom: content.bottom,
-        right: content.right,
-        border: content.border_color?.rgba
-          ? addImportant(`1px solid ${content.border_color.rgba}`)
-          : undefined,
-        '&:hover': {
-          color: addImportant(content.hover_color?.rgba),
-          backgroundColor: addImportant(content.hover_background_color?.rgba)
-        },
+      return getStyles(props[0], theme)
+    },
+    advancedMobile: ({
+      propsMobile
+    }: {
+      props?: StylesStoryblok[]
+      propsTablet?: StylesStoryblok[]
+      propsMobile?: StylesStoryblok[]
+    }) => {
+      if (!propsMobile || !propsMobile.length) {
+        return {} as CreateCSSProperties
+      }
+      return {
         [theme.breakpoints.only('xs')]: {
-          margin: addImportant(content.margin_mobile),
-          padding: addImportant(content.padding_mobile),
-          display: addImportant(content.display_mobile)
-        },
-        [theme.breakpoints.between('sm', 'md')]: {
-          margin: addImportant(content.margin_tablet),
-          padding: addImportant(content.padding_tablet),
-          display: addImportant(content.display_tablet)
+          ...getStyles(propsMobile[0], theme)
         }
       }
-      return rules
+    },
+    advancedTablet: ({
+      propsTablet
+    }: {
+      props?: StylesStoryblok[]
+      propsTablet?: StylesStoryblok[]
+      propsMobile?: StylesStoryblok[]
+    }) => {
+      if (!propsTablet || !propsTablet.length) {
+        return {} as CreateCSSProperties
+      }
+      return {
+        [theme.breakpoints.between('sm', 'md')]: {
+          ...getStyles(propsTablet[0], theme)
+        }
+      }
     }
   })
 )
