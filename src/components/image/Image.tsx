@@ -143,9 +143,14 @@ export default function LmImage({
     definedHeight =
       (definedWidth * originalDimensions.height) / originalDimensions.width
   }
-
-  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-  // console.log(definedHeight, definedWidth, content.height, content.width)
+  definedHeight =
+    originalDimensions.height < (definedHeight || 0)
+      ? originalDimensions.height
+      : definedHeight
+  definedWidth =
+    originalDimensions.width < (definedWidth || 0)
+      ? originalDimensions.width
+      : definedWidth
   return (
     <>
       <span ref={refIntersectionObserver} />
