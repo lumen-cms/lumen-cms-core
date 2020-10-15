@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import { StylesStoryblok } from '../../typings/generated/components-schema'
 
@@ -33,51 +33,49 @@ const getStyles = (
   }
 })
 
-export const useStylesAdvanced = makeStyles((theme: Theme) =>
-  createStyles({
-    advanced: ({
-      props
-    }: {
-      props?: StylesStoryblok[]
-      propsTablet?: StylesStoryblok[]
-      propsMobile?: StylesStoryblok[]
-    }) => {
-      if (!props || !props.length) {
-        return {} as CreateCSSProperties
-      }
-      return getStyles(props[0], theme)
-    },
-    advancedMobile: ({
-      propsMobile
-    }: {
-      props?: StylesStoryblok[]
-      propsTablet?: StylesStoryblok[]
-      propsMobile?: StylesStoryblok[]
-    }) => {
-      if (!propsMobile || !propsMobile.length) {
-        return {} as CreateCSSProperties
-      }
-      return {
-        [theme.breakpoints.only('xs')]: {
-          ...getStyles(propsMobile[0], theme)
-        }
-      }
-    },
-    advancedTablet: ({
-      propsTablet
-    }: {
-      props?: StylesStoryblok[]
-      propsTablet?: StylesStoryblok[]
-      propsMobile?: StylesStoryblok[]
-    }) => {
-      if (!propsTablet || !propsTablet.length) {
-        return {} as CreateCSSProperties
-      }
-      return {
-        [theme.breakpoints.between('sm', 'md')]: {
-          ...getStyles(propsTablet[0], theme)
-        }
+export const useStylesAdvanced = makeStyles((theme: Theme) => ({
+  advanced: ({
+    props
+  }: {
+    props?: StylesStoryblok[]
+    propsTablet?: StylesStoryblok[]
+    propsMobile?: StylesStoryblok[]
+  }) => {
+    if (!props || !props.length) {
+      return {} as CreateCSSProperties
+    }
+    return getStyles(props[0], theme)
+  },
+  advancedMobile: ({
+    propsMobile
+  }: {
+    props?: StylesStoryblok[]
+    propsTablet?: StylesStoryblok[]
+    propsMobile?: StylesStoryblok[]
+  }) => {
+    if (!propsMobile || !propsMobile.length) {
+      return {} as CreateCSSProperties
+    }
+    return {
+      [theme.breakpoints.only('xs')]: {
+        ...getStyles(propsMobile[0], theme)
       }
     }
-  })
-)
+  },
+  advancedTablet: ({
+    propsTablet
+  }: {
+    props?: StylesStoryblok[]
+    propsTablet?: StylesStoryblok[]
+    propsMobile?: StylesStoryblok[]
+  }) => {
+    if (!propsTablet || !propsTablet.length) {
+      return {} as CreateCSSProperties
+    }
+    return {
+      [theme.breakpoints.between('sm', 'md')]: {
+        ...getStyles(propsTablet[0], theme)
+      }
+    }
+  }
+}))
