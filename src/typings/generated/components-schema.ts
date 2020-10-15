@@ -73,6 +73,7 @@ export interface BackgroundStoryblok {
   border_size?: number;
   border_radius?: string;
   border_style?: "solid" | "dashed" | "dotted";
+  styles?: any[];
   _uid: string;
   component: "background";
   [k: string]: any;

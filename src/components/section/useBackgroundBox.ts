@@ -6,6 +6,7 @@ import {
   SectionStoryblok
 } from '../../typings/generated/components-schema'
 import useShadowStyles from '../jss/shadowStyles'
+import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 
 export type UseBackgroundProps = {
   background?: BackgroundStoryblok
@@ -23,7 +24,9 @@ export default function useBackgroundBox(
   let { background } = props
   const { variant } = props
   const theme = useTheme()
-  const styles = useShadowStyles()
+  const shadowClasses = useShadowStyles()
+  const customClasses = useStylesAdvanced(props.background?.styles)
+  // const customStyles
 
   if (!background && !variant) {
     return {}
@@ -69,7 +72,8 @@ export default function useBackgroundBox(
   Object.keys(style).forEach((key) => !style[key] && delete style[key])
 
   const className = clsx(background.classNames?.values, {
-    [styles[background.shadow_effect || '']]: !!background.shadow_effect
+    [shadowClasses[background.shadow_effect || '']]: !!background.shadow_effect,
+    [customClasses.advanced]: background.styles?.length
   })
   return { className, style }
 }
