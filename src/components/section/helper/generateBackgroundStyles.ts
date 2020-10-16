@@ -10,7 +10,7 @@ export const generateBackgroundStyles = ({
   theme,
   variant
 }: {
-  background: Partial<BackgroundStoryblok>
+  background?: Partial<BackgroundStoryblok>
   theme: Theme
   variant?: SectionStoryblok['variant']
 }) => {
