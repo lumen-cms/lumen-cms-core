@@ -27,7 +27,7 @@ export function LmMotion({ content }: LmMotionProps): JSX.Element {
       ref={viewRef}
       style={{
         overflow: content.enable_overflow ? undefined : 'hidden',
-        width: content.body?.includes((el) => el.component === 'image')
+        width: content.body?.find((el) => el.component === 'image')
           ? 'inherit'
           : undefined
       }}
