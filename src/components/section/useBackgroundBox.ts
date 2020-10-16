@@ -34,13 +34,11 @@ export default function useBackgroundBox(
     propsMobile: stylesMobile,
     propsTablet: stylesTablet
   })
-  if (!background && !variant) {
-    return {}
-  }
 
-  const style = background
-    ? generateBackgroundStyles({ background, theme, variant })
-    : {}
+  const style =
+    background || variant
+      ? generateBackgroundStyles({ background, theme, variant })
+      : {}
 
   const className = clsx(background?.classNames?.values, {
     [shadowClasses[
