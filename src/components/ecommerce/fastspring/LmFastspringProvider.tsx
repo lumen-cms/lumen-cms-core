@@ -18,7 +18,7 @@ export const LmFastSpringProvider: FC<{
       'data-access-key': fastSpring?.data_accesss_key || '',
       'data-data-callback': 'fscDataCallback',
       'data-continuous': 'true',
-      'data-popup-closed': 'dataPopupClosed'
+      'data-popup-closed': 'fscDataPopupClosed'
     }
   })
   const [products, setProducts] = useState<any[]>(cachedProducts)
@@ -34,18 +34,20 @@ export const LmFastSpringProvider: FC<{
         cachedProducts = [...fetchedProducts]
       }
     }
-    window.dataPopupClosed = (data) => {
-      if (data?.id && data?.reference) {
-        // successful purchase
-        if (hasGtag()) {
-          gtag('event', 'purchase', {
-            content_id: data?.id
-          })
-        }
-        if (hasFacebookPixel()) {
-          fbq('track', 'Purchase', {
-            content_ids: [data.id]
-          })
+    if (!window.fscDataPopupClosed) {
+      window.fscDataPopupClosed = (data) => {
+        if (data?.id && data?.reference) {
+          // successful purchase
+          if (hasGtag()) {
+            gtag('event', 'purchase', {
+              content_id: data?.id
+            })
+          }
+          if (hasFacebookPixel()) {
+            fbq('track', 'Purchase', {
+              content_ids: [data.id]
+            })
+          }
         }
       }
     }

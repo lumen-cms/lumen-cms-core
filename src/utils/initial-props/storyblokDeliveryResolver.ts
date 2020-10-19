@@ -91,13 +91,14 @@ export const fetchSharedStoryblokContent = ({
   locale?: string
   insideStoryblok?: boolean
 }) => {
+  const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
+    CONFIG.previewToken
+  }&no_cache=true${locale ? `&locale=${locale}` : ''}`
   return Promise.all([
     LmStoryblokService.get(getSettingsPath({ locale })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
     insideStoryblok
-      ? fetch(
-          `https://cdn-api.lumen.media/api/all-stories?token=${CONFIG.previewToken}&no_cache=true&locale=${locale}`
-        ).then((r) => r.json())
+      ? fetch(cdnUrl).then((r) => r.json())
       : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
     LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])

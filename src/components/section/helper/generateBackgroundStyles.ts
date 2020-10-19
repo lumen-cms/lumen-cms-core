@@ -6,11 +6,11 @@ import {
 } from '../../../typings/generated/components-schema'
 
 export const generateBackgroundStyles = ({
-  background,
+  background = {},
   theme,
   variant
 }: {
-  background: BackgroundStoryblok
+  background?: Partial<BackgroundStoryblok>
   theme: Theme
   variant?: SectionStoryblok['variant']
 }) => {

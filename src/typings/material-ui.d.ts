@@ -55,6 +55,8 @@ declare global {
   interface Window {
     fastspring: any
     fscDataCallback: (data: any) => void
-    dataPopupClosed: (data: { id?: string; reference?: string } | null) => void
+    fscDataPopupClosed: (
+      data: { id?: string; reference?: string } | null
+    ) => void
   }
 }
