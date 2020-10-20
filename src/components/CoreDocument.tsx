@@ -3,12 +3,12 @@ import { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
 import { CONFIG } from '@CONFIG'
 import { AppPageProps } from '../typings/app'
+import { LmStoryblokService } from '../utils/initial-props/StoryblokService'
 
 type CoreDocumentProps = {
   props: AppPageProps
   isDevelopment: boolean
 }
-const cv = new Date().getTime()
 
 export function LmCoreDocument({
   props,
@@ -45,8 +45,7 @@ export function LmCoreDocument({
         <Main />
         <script
           dangerouslySetInnerHTML={{
-            __html: `
-      var StoryblokCacheVersion = '${cv}';`
+            __html: `var StoryblokCacheVersion = '${LmStoryblokService.getCacheVersion()}';`
           }}
         />
         <NextScript />

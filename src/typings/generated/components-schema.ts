@@ -421,6 +421,11 @@ export interface EcommerceFastspringConfigStoryblok {
 export interface EcommerceFastspringProductStoryblok {
   path?: string;
   text_only?: boolean;
+  on_successful_redirect?: {
+    cached_url?: string;
+    linktype?: string;
+    [k: string]: any;
+  };
   _uid: string;
   component: "ecommerce_fastspring_product";
   [k: string]: any;

@@ -8,13 +8,16 @@ export default function LmFastSpringCheckout({
   content,
   trigger
 }: FastSpringCheckoutProps) {
-  const { products } = useFastspringContext()
+  const { products, setRedirect } = useFastspringContext()
 
   const { path } = content
 
   const currentItem = products?.find((i) => i.path === path)
 
   if (!products.length) {
+    if (typeof window !== 'undefined') {
+      console.log(products)
+    }
     return null
   }
 
@@ -42,6 +45,14 @@ export default function LmFastSpringCheckout({
         if (content.text_only) {
           return
         }
+
+        const cachedUrl = content.on_successful_redirect?.cached_url
+          ? content.on_successful_redirect.story?.url ||
+            content.on_successful_redirect.cached_url
+          : null
+
+        setRedirect(cachedUrl ? `/${cachedUrl}` : '')
+
         if (hasGtag()) {
           gtag('event', 'begin_checkout', {
             items: [path],
@@ -55,7 +66,7 @@ export default function LmFastSpringCheckout({
           })
         }
         window.fastspring.builder.push({
-          reset: true,
+          // reset: true,
           products: [
             {
               path,

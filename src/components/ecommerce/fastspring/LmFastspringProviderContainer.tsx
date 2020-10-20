@@ -18,7 +18,7 @@ const LmFastSpringProviderContainer: FC<{ settings: GlobalStoryblok }> = ({
   ).find((i) => i.component === 'ecommerce_fastspring_config')
   if (fastSpring) {
     return (
-      <LmFastSpringProvider fastSpring={fastSpring}>
+      <LmFastSpringProvider settings={settings}>
         {children}
       </LmFastSpringProvider>
     )

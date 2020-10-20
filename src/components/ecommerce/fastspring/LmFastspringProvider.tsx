@@ -1,15 +1,23 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import React, { FC, useState } from 'react'
 import useScript from '@charlietango/use-script'
+import { useRouter } from 'next/router'
 import { FastSpringContext } from './context/FastSpringContext'
-import { EcommerceFastspringConfigStoryblok } from '../../../typings/generated/components-schema'
+import {
+  EcommerceFastspringConfigStoryblok,
+  GlobalStoryblok
+} from '../../../typings/generated/components-schema'
 import { hasFacebookPixel, hasGtag } from '../../../utils/analyticsHelper'
 
 let cachedProducts: any[] = []
 
 export const LmFastSpringProvider: FC<{
-  fastSpring: EcommerceFastspringConfigStoryblok
-}> = ({ children, fastSpring }) => {
+  settings: GlobalStoryblok
+}> = ({ children, settings }) => {
+  const router = useRouter()
+  const fastSpring: EcommerceFastspringConfigStoryblok | undefined = (
+    settings.ecommerce || []
+  ).find((i) => i.component === 'ecommerce_fastspring_config')
   const [ready, status] = useScript(fastSpring?.url, {
     attributes: {
       id: 'fsc-api',
@@ -22,6 +30,7 @@ export const LmFastSpringProvider: FC<{
     }
   })
   const [products, setProducts] = useState<any[]>(cachedProducts)
+  const [redirect, setRedirect] = useState<string>('')
 
   if (status === 'error') {
     console.error(status)
@@ -35,7 +44,7 @@ export const LmFastSpringProvider: FC<{
       }
     }
     if (!window.fscDataPopupClosed) {
-      window.fscDataPopupClosed = (data) => {
+      window.fscDataPopupClosed = async (data) => {
         if (data?.id && data?.reference) {
           // successful purchase
           if (hasGtag()) {
@@ -48,13 +57,27 @@ export const LmFastSpringProvider: FC<{
               content_ids: [data.id]
             })
           }
+
+          if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
+            try {
+              await fetch(
+                `${process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE}?orderId=${data.id}`
+              ).then((r) => r.json())
+            } catch (e) {
+              console.error(e)
+            }
+          }
+          if (redirect) {
+            await router.push(redirect)
+            setRedirect('')
+          }
         }
       }
     }
   }
 
   return (
-    <FastSpringContext.Provider value={{ products }}>
+    <FastSpringContext.Provider value={{ products, setRedirect }}>
       {children}
     </FastSpringContext.Provider>
   )
