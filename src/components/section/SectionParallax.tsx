@@ -7,20 +7,20 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useWindowSize } from '@react-hook/window-size'
 import { getImageAttrs } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
-
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmComponentRender } from '../..'
 import { LmSectionParallaxProps } from './sectionTypes'
 
 const useStyles = makeStyles({
   parallax: {
-    '& .parallax-inner': {
-      zIndex: 0
-    },
     '& .parallax__content': {
       zIndex: 1,
-      position: 'relative',
-      height: '100%'
+      position: 'absolute',
+      width: '100%',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
     }
   }
 })
@@ -40,9 +40,6 @@ export default function LmSectionParallax({
   const styles = {
     height: contentHeight ? `${contentHeight}vh` : '50vh'
   }
-
-  // let [styles, setStyles] = useState(styles)
-
   useEffect(() => {
     const processLayers = () => {
       const items = elements.map(async (item) => {
@@ -65,7 +62,7 @@ export default function LmSectionParallax({
         return {
           image: `"${imgSource}"`,
           amount: Number(item.amount),
-          children: item.children && item.children.length && (
+          children: item.children?.length && (
             <LmComponentRender
               content={item.children[0]}
               key={item.children[0]._uid}
@@ -94,10 +91,11 @@ export default function LmSectionParallax({
   ])
 
   const body = content.body || []
+
   return (
     <div
       className={classes.parallax}
-      style={styles}
+      style={{ ...styles, position: 'relative' }}
       ref={refIntersectionObserver}
     >
       <ParallaxBanner disabled={false} style={styles} layers={layers || []}>
@@ -109,17 +107,15 @@ export default function LmSectionParallax({
             variant="rect"
           />
         )}
-        <div
-          className={clsx(
-            'parallax__content',
-            content.class_names && content.class_names.values
-          )}
-        >
-          {body.map((blok) => (
-            <LmComponentRender content={blok} key={blok._uid} />
-          ))}
-        </div>
       </ParallaxBanner>
+      <div
+        className={clsx('parallax__content', content.class_names?.values)}
+        style={styles}
+      >
+        {body.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
+      </div>
     </div>
   )
 }
