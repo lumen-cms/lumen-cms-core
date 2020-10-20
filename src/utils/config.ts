@@ -89,6 +89,7 @@ type AppConfigProps = {
   TAWKTO?: string
   prefetch: boolean
   hostname?: string
+  excluding_slugs?: string // exclude slugs for sitemap, getStaticPaths. widcards allowed: "auth/*,demo-content/*"
   overwriteSettingsPaths: string[] // overwrite paths which are in route, add trailing slash: some/special/,other/special/
 }
 
@@ -112,7 +113,8 @@ export const CONFIG: AppConfigProps = {
   prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH,
   overwriteSettingsPaths: process.env.NEXT_PUBLIC_OVERWRITE_SETTINGS_PATHS
     ? process.env.NEXT_PUBLIC_OVERWRITE_SETTINGS_PATHS.split(',')
-    : []
+    : [],
+  excluding_slugs: process.env.NEXT_PUBLIC_EXCLUDING_SLUGS || ''
 }
 export const GoogleFormExampleUrl =
   'https://docs.google.com/forms/d/e/1FAIpQLSdw3tdslj4k94OU6bluk0Yobe997r8gV5obEbEdiMs70SKQPw/viewform?embedded=true'
