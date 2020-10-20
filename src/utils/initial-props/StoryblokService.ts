@@ -11,20 +11,19 @@ class StoryblokServiceClass {
 
   private token: string
 
-  private readonly previewToken: string
-
   private client: StoryblokClient
 
   private query: any
 
   constructor() {
-    this.token = CONFIG.publicToken
-    this.previewToken = CONFIG.previewToken
+    this.token =
+      process.env.NODE_ENV === 'production'
+        ? CONFIG.publicToken
+        : CONFIG.previewToken
     this.cv = new Date().getDate()
-    this.devMode = false // If true it always loads draft
+    this.devMode = process.env.NODE_ENV !== 'production' // If true it always loads draft
     this.client = new StoryblokClient({
-      accessToken:
-        process.env.NODE_ENV === 'production' ? this.token : this.previewToken,
+      accessToken: this.token,
       cache: {
         clear: 'auto',
         type: 'memory'
@@ -62,7 +61,7 @@ class StoryblokServiceClass {
     }
     if (this.devMode) {
       params.version = 'draft'
-      this.client.setToken(this.previewToken)
+      this.client.setToken(CONFIG.previewToken)
       delete params.cv
     }
     return params
