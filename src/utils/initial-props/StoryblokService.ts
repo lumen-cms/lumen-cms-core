@@ -51,9 +51,20 @@ class StoryblokServiceClass {
     }
   }
 
+  getCacheVersion() {
+    return this.client.cacheVersion
+  }
+
   getDefaultParams() {
     const params: StoriesParams = {
       cv: this.cv
+    }
+
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.StoryblokCacheVersion !== 'undefined'
+    ) {
+      params.cv = window.StoryblokCacheVersion
     }
 
     const getFromRelease = this.getQuery('_storyblok_release')
@@ -80,8 +91,12 @@ class StoryblokServiceClass {
   }
 
   async get(slug: string, params = {}) {
+    const defaultParams = {
+      resolve_links: 'url',
+      ...params
+    }
     return this.client.get(slug, {
-      ...params,
+      ...defaultParams,
       ...this.getDefaultParams()
     })
   }

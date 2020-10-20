@@ -15,9 +15,17 @@ const resolveAllPromises = (promises: Promise<any>[]) => {
   )
 }
 
-const getSettingsPath = ({ locale }: { locale?: string }) => {
+const getSettingsPath = ({
+  locale,
+  overwriteSettingPath
+}: {
+  locale?: string
+  overwriteSettingPath?: string
+}) => {
   const directory = rootDirectory || locale || ''
-  return `cdn/stories/${directory ? `${directory}/` : ''}settings`
+  return `cdn/stories/${directory ? `${directory}/` : ''}${
+    overwriteSettingPath || ''
+  }settings`
 }
 
 const getCategoryParams = ({ locale }: { locale?: string }) => {
@@ -86,16 +94,18 @@ const configLanguages = CONFIG.languages
 
 export const fetchSharedStoryblokContent = ({
   locale,
-  insideStoryblok
+  insideStoryblok,
+  overwriteSettingPath
 }: {
   locale?: string
   insideStoryblok?: boolean
+  overwriteSettingPath?: string
 }) => {
   const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
     CONFIG.previewToken
   }&no_cache=true${locale ? `&locale=${locale}` : ''}`
   return Promise.all([
-    LmStoryblokService.get(getSettingsPath({ locale })),
+    LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
     insideStoryblok
       ? fetch(cdnUrl).then((r) => r.json())
@@ -110,12 +120,20 @@ export const apiRequestResolver = async ({
   isLandingPage,
   insideStoryblok
 }: ApiProps): Promise<AppApiRequestPayload> => {
+  const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
+    pageSlug.includes(path)
+  )
+
   const [
     settings,
     categories,
     stories,
     staticContent
-  ] = await fetchSharedStoryblokContent({ locale, insideStoryblok })
+  ] = await fetchSharedStoryblokContent({
+    locale,
+    insideStoryblok,
+    overwriteSettingPath
+  })
   const isDev = insideStoryblok || process.env.NODE_ENV === 'development'
   const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
   const getParams = new URLSearchParams()
@@ -161,7 +179,8 @@ export const apiRequestResolver = async ({
       localizedStaticContent
     ] = await fetchSharedStoryblokContent({
       locale,
-      insideStoryblok
+      insideStoryblok,
+      overwriteSettingPath
     })
 
     return {

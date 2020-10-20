@@ -10,6 +10,14 @@ export interface LinkType {
   anchor?: string
   url?: string
   email?: string
+  story?: {
+    name: string
+    id: number
+    uuid: string
+    slug: string
+    full_slug: string
+    url: string
+  }
 
   [k: string]: any
 }
@@ -44,7 +52,7 @@ export const linkHandler = (
   const props: LinkHandlerProps = {
     href: '/'
   }
-  const cachedUrl = link.cached_url
+  const cachedUrl = link.story?.url || link.cached_url
 
   if (!cachedUrl) {
     if (link.email) {
