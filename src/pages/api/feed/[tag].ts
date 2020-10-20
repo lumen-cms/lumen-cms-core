@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { StoriesParams } from 'storyblok-js-client'
-import { CONFIG } from '@CONFIG'
 import { PageItem } from '../../../typings/generated/schema'
 import { getAllStoriesOfProject } from '../../../utils/initial-props/storyblokPagesConfig'
 
@@ -81,11 +80,4 @@ export default async function handler(
   res.setHeader('Content-Type', 'text/xml')
   res.write(storiesXML)
   res.end()
-  // res.end(storiesXML
-    // `Tag: ${tag}; # of Stories: ${stories.length}\n\n${JSON.stringify(
-    //   stories,
-    //   null,
-    //   2
-    // )}`
-  // )
 }
