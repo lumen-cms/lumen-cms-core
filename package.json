@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.71.31",
+  "version": "0.72.0",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -107,6 +107,7 @@
     "@storybook/addon-essentials": "^6.0.22",
     "@storybook/addon-knobs": "^6.0.22",
     "@storybook/react": "^6.0.22",
+    "@types/auth0": "^2.20.9",
     "@types/debug": "^4.1.5",
     "@types/jest": "^26.0.14",
     "@types/match-sorter": "4.0.0",

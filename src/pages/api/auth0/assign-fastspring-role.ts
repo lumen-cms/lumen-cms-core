@@ -8,6 +8,7 @@ export default auth0.requireAuthentication(async function callback(
   res: NextApiResponse
 ) {
   try {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { user } = await auth0.getSession(req)
     const orderId = req.query.orderId as string
