@@ -1,4 +1,4 @@
-import { StoriesParams } from 'storyblok-js-client'
+import { StoriesParams, StoryblokResult } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
@@ -91,6 +91,14 @@ type ApiProps = {
   insideStoryblok?: boolean
 }
 const configLanguages = CONFIG.languages
+
+export const fetchSettings = async ({
+  locale
+}: {
+  locale?: string
+}): Promise<StoryblokResult> => {
+  return LmStoryblokService.get(getSettingsPath({ locale }))
+}
 
 export const fetchSharedStoryblokContent = ({
   locale,

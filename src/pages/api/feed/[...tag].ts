@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { StoriesParams } from 'storyblok-js-client'
 import { PageItem } from '../../../typings/generated/schema'
 import { getAllStoriesOfProject } from '../../../utils/initial-props/storyblokPagesConfig'
+import { fetchSettings } from '../../../utils/initial-props/storyblokDeliveryResolver'
+import { prepareForStoryblok } from '../../../utils/initial-props/prepareStoryblokRequest'
 
 const storiesRssXML = (stories: PageItem[], host: string) => {
   let latestPostDate = ''
@@ -35,11 +37,17 @@ const storiesRssXML = (stories: PageItem[], host: string) => {
   }
 }
 
-const getXmlFeed = (stories: PageItem[], host: string) => {
+const getXmlFeed = async (stories: PageItem[], host: string) => {
   const { rssItemsXml, latestPostDate } = storiesRssXML(stories, host)
-  const title = 'title' // @TODO
-  const language = 'en' // @TODO
-  const description = 'description' // @TODO
+  const { knownLocale } = prepareForStoryblok()
+  const settings = await fetchSettings({})
+  const {
+    data: {
+      story: {
+        content: { website_title, seo_description }
+      }
+    }
+  } = settings
 
   return `<?xml version="1.0" ?>
       <rss
@@ -49,12 +57,12 @@ const getXmlFeed = (stories: PageItem[], host: string) => {
         version="2.0"
       >
         <channel>
-            <title><![CDATA[${title}]]></title>
+            <title><![CDATA[${website_title || ''}]]></title>
             <link>${host}</link>
             <description>
-              <![CDATA[${description}]]>
+              <![CDATA[${seo_description || ''}]]>
             </description>
-            <language>${language}</language>
+            <language>${knownLocale || ''}</language>
             <lastBuildDate>${latestPostDate}</lastBuildDate>
             ${rssItemsXml}
         </channel>
@@ -75,9 +83,10 @@ export default async function handler(
   }
 
   const stories = await getAllStoriesOfProject(extendDefaultPageConfig)
-  const storiesXML = getXmlFeed(stories, host || '')
-  console.log(storiesXML)
+  const storiesXML = await getXmlFeed(stories, host || '')
+
   res.setHeader('Content-Type', 'text/xml')
+  console.log(storiesXML)
   res.write(storiesXML)
   res.end()
 }
