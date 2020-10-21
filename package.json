@@ -20,6 +20,7 @@
     "build": "next build",
     "build-test": "cross-env TEST=TRUE npm run build",
     "start": "next start",
+    "serve": "ts-node server.ts",
     "analyze": "cross-env ANALYZE=true npm run build",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=82895",
@@ -131,6 +132,7 @@
     "qawolf": "^1.4.0",
     "storyblok-generate-ts": "^0.6.0",
     "ts-jest": "^26.4.1",
+    "ts-node": "^9.0.0",
     "tslib": "^2.0.1",
     "typescript": "4.0.3"
   }

@@ -115,3 +115,6 @@ LmCoreComponents.ecommerce_shopify_checkout = dynamic(
       /* webpackChunkName: 'fastspring' */ './ecommerce/shopify/ShopifyProduct'
     )
 )
+LmCoreComponents.auth_container = dynamic(
+  () => import(/* webpackChunkName: 'authContainer' */ './auth/AuthContainer')
+)

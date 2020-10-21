@@ -29,3 +29,4 @@ app-content*.json
 
 .vercel
 /dist
+/credentials

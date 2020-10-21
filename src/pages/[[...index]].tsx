@@ -1,7 +1,3 @@
-import pagesGetStaticProps from '../utils/initial-props/pagesGetStaticProps'
-import pagesGetStaticPaths from '../utils/initial-props/pagesGetStaticPaths'
-import { LmDefaultPage } from '../components/pages/DefaultPage'
-
-export default LmDefaultPage
-export const getStaticProps = pagesGetStaticProps
-export const getStaticPaths = pagesGetStaticPaths
+export { default as getStaticProps } from '../utils/initial-props/pagesGetStaticProps'
+export { default as getStaticPaths } from '../utils/initial-props/pagesGetStaticPaths'
+export { LmDefaultPage as default } from '../components/pages/DefaultPage'

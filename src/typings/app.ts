@@ -6,6 +6,10 @@ import {
   StaticcontainerComponent
 } from './generated/schema'
 
+export interface IClaims {
+  [key: string]: any // just a copy of the IClaim
+}
+
 type ErrorProps = {
   type:
     | 'not_supported'
@@ -24,6 +28,7 @@ export type AppApiRequestPayload = {
   allCategories: StoryData<CategoryComponent>[]
   allStaticContent: StoryData<StaticcontainerComponent>[]
   listWidgetData: { [k: string]: StoryData<PageComponent>[] } | null
+  user?: IClaims
 }
 
 type SubProps = Pick<
@@ -37,6 +42,7 @@ export type AppPageProps = SubProps & {
   error?: ErrorProps
   query?: any
   insideStoryblok?: boolean
+  user?: IClaims
   [k: string]: any
 }
 

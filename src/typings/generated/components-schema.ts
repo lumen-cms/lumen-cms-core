@@ -18,6 +18,16 @@ export interface AccordionItemStoryblok {
   [k: string]: any;
 }
 
+export interface AuthContainerStoryblok {
+  hide_on_role?: string;
+  body?: any[];
+  require_role?: string;
+  display?: "hide_logged_in" | "require_logged_in";
+  _uid: string;
+  component: "auth_container";
+  [k: string]: any;
+}
+
 export interface AvatarStoryblok {
   variant?: "circle" | "rounded" | "square";
   color?: {

@@ -18,14 +18,14 @@ export const analyticsOnPageChange = ({
   if (!isDev()) {
     if (googleAnaliyticsId) {
       gaId = googleAnaliyticsId
-      gtag('config', googleAnaliyticsId, {
+      window.gtag('config', googleAnaliyticsId, {
         page_location: url,
         page_title: window.document.title
       })
     }
     if (facebookPixelId) {
       facebookPxId = facebookPixelId
-      fbq('track', 'PageView')
+      window.fbq('track', 'PageView')
     }
   }
 }
