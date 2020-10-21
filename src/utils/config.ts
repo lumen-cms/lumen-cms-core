@@ -89,7 +89,7 @@ type AppConfigProps = {
   TAWKTO?: string
   prefetch: boolean
   hostname?: string
-  excluding_slugs?: string // exclude slugs for sitemap, getStaticPaths. widcards allowed: "auth/*,demo-content/*"
+  excluding_slugs?: string // exclude slugs for sitemap, getStaticPaths. wildcards allowed: "auth/*,demo-content/*"
   overwriteSettingsPaths: string[] // overwrite paths which are in route, add trailing slash: some/special/,other/special/
 }
 
