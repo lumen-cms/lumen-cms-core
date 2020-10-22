@@ -91,6 +91,12 @@ type AppConfigProps = {
   hostname?: string
   excluding_slugs?: string // exclude slugs for sitemap, getStaticPaths. wildcards allowed: "auth/*,demo-content/*"
   overwriteSettingsPaths: string[] // overwrite paths which are in route, add trailing slash: some/special/,other/special/
+  authPathRequiredRoles?: [
+    {
+      path: string
+      roles: string[]
+    }
+  ]
 }
 
 export const CONFIG: AppConfigProps = {

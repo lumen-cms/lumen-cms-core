@@ -9,7 +9,7 @@ export const AuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
   children
 }) => {
   const appContext = useAppContext()
-  const { user } = appContext
+  const { user, insideStoryblok } = appContext
   let hideOnRole = true
   let requireRole = true
   let showContent = true
@@ -37,7 +37,7 @@ export const AuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
       requireRole = hasAuth0Credentials(rolesRequired, user)
     }
   }
-  if (!(hideOnRole && showContent && requireRole)) {
+  if (!insideStoryblok && !(hideOnRole && showContent && requireRole)) {
     return <span className="lm-empty__auth" /> // some condition is not matched
   }
   if (content.body?.length) {

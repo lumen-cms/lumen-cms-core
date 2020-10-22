@@ -7,7 +7,7 @@ export default async function callback(
 ) {
   try {
     await auth0.handleCallback(req, res, {
-      redirectTo: '/auth/dashboard'
+      redirectTo: process.env.NEXT_PUBLIC_AUTH0_LANDING_PAGE
       // onUserLoaded: async (req, res, session, state) => {
       //   return {
       //     ...session,

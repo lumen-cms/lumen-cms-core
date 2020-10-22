@@ -43,7 +43,6 @@ export default auth0.requireAuthentication(async function callback(
       }
     }
     const params = { id: user.sub }
-    console.log(JSON.stringify(updateUserData, null, 2))
     await auth0ManagementClient.updateUser(params, updateUserData)
 
     res.json({ orders: updateUserData.app_metadata.orders })

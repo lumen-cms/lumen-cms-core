@@ -1,32 +1,63 @@
 import { GetServerSideProps } from 'next'
-import { ParsedUrlQuery } from 'querystring'
 import {
   createLoginUrl,
   fetchUser,
   hasAuth0PathCredentials
 } from '../auth0/auth0Helpers'
 import auth0 from '../auth0/auth0'
-import pagesGetServerSideProps from './pagesGetServerSideProps'
+import { LmStoryblokService } from './StoryblokService'
+import getPageProps from './getPageProps'
 
 export const auth0GetServerSideProps: GetServerSideProps = async (ctx) => {
-  const params: string[] = (ctx.params?.index as string[]) || []
-  const newContext = {
-    ...ctx
-  }
+  const { preview, query, req, res } = ctx
+  // const params: string[] = (ctx.params?.index as string[]) || []
+
+  const headers = req?.headers
+  const inStoryblokBackend =
+    headers?.referer?.includes('app.storyblok.com') ||
+    headers?.['sec-fetch-dest'] === 'iframe'
+  const queryPath = query?.index
   if (process.env.NEXT_PUBLIC_AUTH0_PATH) {
-    newContext.params = (params.unshift(
-      process.env.NEXT_PUBLIC_AUTH0_PATH as string
-    ) as unknown) as ParsedUrlQuery // need to re-add auth to catchAll in case env var exists
+    Array.isArray(queryPath) &&
+      queryPath.unshift(process.env.NEXT_PUBLIC_AUTH0_PATH as string) // need to re-add auth to catchAll in case env var exists
   }
 
-  const isPreviewMode = ctx.preview
-
-  const pageProps = await pagesGetServerSideProps(newContext as any)
-  if (isPreviewMode) {
-    return pageProps // bypass authentication
+  const slug = queryPath || 'home'
+  if (preview && inStoryblokBackend) {
+    LmStoryblokService.setDevMode()
+    LmStoryblokService.setQuery(query)
   }
-  if (!ctx.req) {
-    const user = await fetchUser()
+
+  const pageProps = {
+    props: await getPageProps(slug, inStoryblokBackend)
+  }
+
+  if (req) {
+    await LmStoryblokService.setCacheVersion()
+  }
+
+  if (inStoryblokBackend || (!req && preview)) {
+    const userAdminCredentials = {
+      [process.env.NEXT_PUBLIC_AUTH_PERMISSION ?? '']: [
+        process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY
+          ? {
+              [process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY]: ['admin']
+            }
+          : 'admin'
+      ]
+    }
+    return {
+      props: {
+        ...pageProps.props,
+        user: userAdminCredentials
+      }
+    }
+  }
+  const user = req
+    ? await auth0.getSession(req).then((r) => r?.user)
+    : await fetchUser()
+
+  if (!req) {
     return {
       props: {
         ...pageProps.props,
@@ -35,25 +66,19 @@ export const auth0GetServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
 
-  const session = await auth0.getSession(ctx.req)
-  // console.log('inside session of index', session)
-
-  if (!session || !session.user) {
-    ctx.res.writeHead(302, {
-      Location: createLoginUrl(ctx.req.url)
+  if (!user) {
+    res.writeHead(302, {
+      Location: createLoginUrl(req.url)
     })
-    ctx.res.end()
+    res.end()
     return pageProps
   }
 
-  const { user } = session
-  const currentPath = params.join('/')
-
-  if (!hasAuth0PathCredentials(currentPath, user)) {
-    ctx.res.writeHead(302, {
+  if (!hasAuth0PathCredentials(queryPath, user)) {
+    res.writeHead(302, {
       Location: process.env.NEXT_PUBLIC_AUTH0_LANDING_PAGE
     })
-    ctx.res.end()
+    res.end()
     return pageProps
   }
 

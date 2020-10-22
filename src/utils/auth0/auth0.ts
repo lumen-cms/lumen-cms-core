@@ -2,8 +2,8 @@ import { initAuth0 } from '@auth0/nextjs-auth0'
 import { AUTH0_CONFIG } from './auth0Config'
 
 export default initAuth0({
-  domain: process.env.AUTH0_DOMAIN as string,
-  clientId: process.env.AUTH0_CLIENT_ID as string,
+  domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string,
+  clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID as string,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
   scope: 'openid profile email read:users read:users_app_metadata',
   redirectUri: `${AUTH0_CONFIG.DOMAIN}/api/auth0/callback`,

@@ -1,3 +1,4 @@
+import { CONFIG } from '@CONFIG'
 import { IClaims } from '../../typings/app'
 
 let userState: any
@@ -18,13 +19,6 @@ export const fetchUser = async () => {
   userState = res.ok ? await res.json() : null
   return userState
 }
-// @TODO @CONFIG ?
-const authPathRequireRole = [
-  {
-    path: 'auth/offensive-1/',
-    roles: ['app-offensive']
-  }
-]
 
 export const hasAuth0Credentials = (roles: string[], user: IClaims) => {
   const userCurrentRoles =
@@ -44,13 +38,13 @@ export const hasAuth0Credentials = (roles: string[], user: IClaims) => {
 }
 
 export const hasAuth0PathCredentials = (
-  routeParams: string | string[],
+  routeParams: string | string[] | undefined,
   user: IClaims
 ) => {
   const currentPath = Array.isArray(routeParams)
     ? routeParams.join('/')
-    : routeParams
-  const needSpecificRole = authPathRequireRole.find((item) =>
+    : routeParams ?? ''
+  const needSpecificRole = CONFIG.authPathRequiredRoles?.find((item) =>
     currentPath.includes(item.path)
   )
   if (needSpecificRole) {
