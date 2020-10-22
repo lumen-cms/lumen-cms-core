@@ -5,6 +5,7 @@ export { default as pagesGetStaticProps } from './utils/initial-props/pagesGetSt
 export { default as apiSitemap } from './pages/api/sitemap'
 export { default as apiPreview } from './pages/api/preview'
 export { default as apiClearCache } from './pages/api/clear-cache'
+export { default as apiExitPreview } from './pages/api/exit-preview'
 export { default as LmDefaultDocument } from './pages/_document'
 export { traversePageContent } from './utils/initial-props/traversePageContent'
 export {
