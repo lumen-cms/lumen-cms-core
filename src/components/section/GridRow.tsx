@@ -44,13 +44,15 @@ const useStyles = makeStyles((theme: Theme) =>
     xsColumnReverse: {
       [theme.breakpoints.only('xs')]: {
         flexDirection: 'column-reverse',
-        flexWrap: 'initial'
+        flexWrap: 'initial',
+        alignItems: 'stretch'
       }
     },
     smColumnReverse: {
       [theme.breakpoints.only('sm')]: {
         flexDirection: 'column-reverse',
-        flexWrap: 'initial'
+        flexWrap: 'initial',
+        alignItems: 'stretch'
       }
     }
   })

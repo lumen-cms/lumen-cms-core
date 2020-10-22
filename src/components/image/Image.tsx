@@ -135,6 +135,7 @@ export default function LmImage({
     definedWidth && definedHeight
       ? definedWidth / definedHeight
       : originalDimensions.width / originalDimensions.height
+
   if (!definedWidth && definedHeight) {
     definedWidth =
       (definedHeight * originalDimensions.width) / originalDimensions.height
@@ -151,6 +152,7 @@ export default function LmImage({
     originalDimensions.width < (definedWidth || 0)
       ? originalDimensions.width
       : definedWidth
+
   return (
     <>
       <span ref={refIntersectionObserver} />
@@ -166,7 +168,7 @@ export default function LmImage({
         style={{
           maxHeight: definedHeight,
           maxWidth: definedWidth,
-          height: getNumber(content.width),
+          height: getNumber(isMobile ? content.height_xs : content.height),
           width: getNumber(content.width, 'inherit')
           // maxHeight: definedHeight
           //   ? `${definedHeight}px`
