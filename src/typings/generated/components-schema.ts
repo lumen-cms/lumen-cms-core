@@ -19,10 +19,10 @@ export interface AccordionItemStoryblok {
 }
 
 export interface AuthContainerStoryblok {
+  display?: "hide_logged_in" | "require_logged_in";
+  require_role?: string;
   hide_on_role?: string;
   body?: any[];
-  require_role?: string;
-  display?: "hide_logged_in" | "require_logged_in";
   _uid: string;
   component: "auth_container";
   [k: string]: any;
@@ -126,6 +126,32 @@ export interface BookingStoryblok {
 export interface BookingFormStoryblok {
   _uid: string;
   component: "Booking Form";
+  [k: string]: any;
+}
+
+export interface BottomNavigationStoryblok {
+  body?: any[];
+  styles?: any[];
+  styles_mobile?: any[];
+  styles_tablet?: any[];
+  stick_to_bottom?: boolean;
+  _uid: string;
+  component: "bottom_navigation";
+  [k: string]: any;
+}
+
+export interface BottomNavigationItemStoryblok {
+  label?: any[];
+  icon?: any[];
+  show_label?: boolean;
+  link?: {
+    cached_url?: string;
+    linktype?: string;
+    [k: string]: any;
+  };
+  open_external?: boolean;
+  _uid: string;
+  component: "bottom_navigation_item";
   [k: string]: any;
 }
 

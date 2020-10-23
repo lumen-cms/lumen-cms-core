@@ -155,7 +155,10 @@ export default function LmImage({
 
   return (
     <>
-      <span ref={refIntersectionObserver} />
+      <span
+        ref={refIntersectionObserver}
+        style={{ margin: '0px !important' }}
+      />
       <AspectRatio
         ratio={ratio}
         onClick={() => {

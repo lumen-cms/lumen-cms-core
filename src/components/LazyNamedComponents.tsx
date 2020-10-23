@@ -118,3 +118,9 @@ LmCoreComponents.ecommerce_shopify_checkout = dynamic(
 LmCoreComponents.auth_container = dynamic(
   () => import(/* webpackChunkName: 'authContainer' */ './auth/AuthContainer')
 )
+LmCoreComponents.bottom_navigation = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: 'bottomNavigation' */ './bottom-navigation/BottomNavigation'
+    )
+)
