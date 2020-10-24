@@ -2,6 +2,7 @@
 import React, { FC, useState } from 'react'
 import useScript from '@charlietango/use-script'
 import { useRouter } from 'next/router'
+import { CONFIG } from '@CONFIG'
 import { FastSpringContext } from './context/FastSpringContext'
 import {
   EcommerceFastspringConfigStoryblok,
@@ -68,9 +69,11 @@ export const LmFastSpringProvider: FC<{
             }
           }
           if (redirect) {
-            await router.push(redirect)
+            await router.push(CONFIG.href, redirect)
             setRedirect('')
           }
+        } else {
+          setRedirect('')
         }
       }
     }

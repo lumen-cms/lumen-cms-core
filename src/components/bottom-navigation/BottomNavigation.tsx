@@ -56,16 +56,13 @@ export default function LmBottomNavigation({
           <BottomNavigationAction
             key={item._uid}
             {...btnProps}
-            onClick={() => {
-              console.log('on change')
-            }}
             label={
-              item.label ? (
+              Array.isArray(item.label) && item.label[0] ? (
                 <LmComponentRender content={item.label[0]} />
               ) : undefined
             }
             icon={
-              item.icon ? (
+              Array.isArray(item.icon) && item.icon[0] ? (
                 <LmComponentRender content={item.icon[0]} />
               ) : undefined
             }

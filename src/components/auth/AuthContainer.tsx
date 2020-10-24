@@ -37,6 +37,7 @@ export const AuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
       requireRole = hasAuth0Credentials(rolesRequired, user)
     }
   }
+
   if (!insideStoryblok && !(hideOnRole && showContent && requireRole)) {
     return <span className="lm-empty__auth" /> // some condition is not matched
   }

@@ -28,6 +28,15 @@ export interface AuthContainerStoryblok {
   [k: string]: any;
 }
 
+export interface AuthFormStoryblok {
+  account_delete_body?: any[];
+  account_update_button?: any[];
+  account_delete_button?: any[];
+  _uid: string;
+  component: "auth_form";
+  [k: string]: any;
+}
+
 export interface AvatarStoryblok {
   variant?: "circle" | "rounded" | "square";
   color?: {

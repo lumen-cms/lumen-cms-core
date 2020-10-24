@@ -23,6 +23,9 @@ export const fetchUser = async () => {
 export const hasAuth0Credentials = (roles: string[], user: IClaims) => {
   const userCurrentRoles =
     user[process.env.NEXT_PUBLIC_AUTH_PERMISSION as string] || []
+  if (!userCurrentRoles.length) {
+    return false
+  }
   if (
     !roles.find((role) =>
       userCurrentRoles.find((item: string | any) =>

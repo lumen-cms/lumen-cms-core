@@ -56,7 +56,7 @@ export const auth0GetServerSideProps: GetServerSideProps = async (ctx) => {
   const user = req
     ? await auth0.getSession(req).then((r) => r?.user)
     : await fetchUser()
-
+  console.log(user)
   if (!req) {
     return {
       props: {
