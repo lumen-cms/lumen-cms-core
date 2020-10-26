@@ -26,7 +26,7 @@ const pagesGetServerSideProps: GetServerSideProps = async (
     }
   } catch (e) {
     console.log('error', e)
-    throw new Error('error occured')
+    throw new Error('error occurred')
   }
 }
 
