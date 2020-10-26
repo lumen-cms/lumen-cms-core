@@ -93,7 +93,8 @@ export const LmButton: FC<LmButtonProps> = ({
   children,
   content,
   onClick,
-  type
+  type,
+  disabled
 }) => {
   const classes = useStyles()
   const advancedClasses = useStylesAdvanced({
@@ -137,6 +138,7 @@ export const LmButton: FC<LmButtonProps> = ({
   if (content.variant === 'fab') {
     return (
       <Fab
+        disabled={!!disabled}
         variant={content.label ? 'extended' : undefined}
         {...btnProps}
         className={className}
@@ -168,6 +170,7 @@ export const LmButton: FC<LmButtonProps> = ({
   if (!content.label) {
     return (
       <IconButton
+        disabled={!!disabled}
         color={color as IconButtonProps['color']}
         {...btnProps}
         size={mapIconButtonSize[content.size as string] || 'medium'}
@@ -197,11 +200,11 @@ export const LmButton: FC<LmButtonProps> = ({
 
   return (
     <Button
+      disabled={!!disabled || disableRipple}
       size={mapSize[content.size as string]}
       {...btnProps}
       className={className}
       variant={mapVariant[content.variant as string]}
-      disabled={disableRipple}
       color={color as ButtonProps['color']}
       style={{
         justifyContent: content.align ? content.align : undefined,
