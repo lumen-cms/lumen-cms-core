@@ -4,7 +4,7 @@ import {
   prepareElasticContact
 } from './elastic-helpers'
 
-export const updateElasticClient = async ({
+export const updateElasticContact = async ({
   data
 }: {
   data: Record<string, any>

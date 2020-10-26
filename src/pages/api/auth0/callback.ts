@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import auth0 from '../../../utils/auth0/auth0'
+import { updateElasticContact } from '../../../utils/email/update-elastic-contact'
 
 export default async function callback(
   req: NextApiRequest,
@@ -7,16 +8,25 @@ export default async function callback(
 ) {
   try {
     await auth0.handleCallback(req, res, {
-      redirectTo: process.env.NEXT_PUBLIC_AUTH0_LANDING_PAGE
-      // onUserLoaded: async (req, res, session, state) => {
-      //   return {
-      //     ...session,
-      //     user: {
-      //       ...session.user,
-      //       age: 20
-      //     }
-      //   };
-      // }
+      redirectTo: process.env.NEXT_PUBLIC_AUTH0_LANDING_PAGE,
+      onUserLoaded: async (_req, _res, session) => {
+        const { user } = session
+        if (process.env.ELASTIC_EMAIL_API_KEY) {
+          try {
+            await updateElasticContact({
+              data: {
+                email: user.email,
+                given_name: user.given_name,
+                family_name: user.family_name,
+                lang: user.locale || ''
+              }
+            })
+          } catch (e) {
+            console.error(e)
+          }
+        }
+        return session
+      }
     })
   } catch (error) {
     console.error(error)

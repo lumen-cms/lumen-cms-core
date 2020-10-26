@@ -1,15 +1,9 @@
-import axios from 'axios'
+// import axios from 'axios'
 
-export const elastic = axios.create({
-  baseURL: 'https://api.elasticemail.com/v2'
-})
-
-export function getElasticAccount(key: string) {
-  const accounts = {
-    // @TODO
-  }
-  return accounts[key]
-}
+const baseURL = 'https://api.elasticemail.com/v2'
+// export const elastic = axios.create({
+//   baseURL
+// })
 
 /**
  * @description convert array to string for interests of client
@@ -42,6 +36,10 @@ export function prepareElasticContact(model: Record<string, any>) {
       obj[`field_${key}`] = _getUidString(model[key])
     } else if (key === 'email') {
       obj.email = model.email
+    } else if (key === 'given_name') {
+      obj.firstName = model[key]
+    } else if (key === 'family_name') {
+      obj.lastName = model[key]
     } else {
       obj[`field_${key}`] = model[key]
     }
@@ -53,32 +51,34 @@ export function prepareElasticContact(model: Record<string, any>) {
 
 export function getAddApi(data: Record<string, any>) {
   const params = {
-    publicAccountID: getElasticAccount(data.field_domain || data.domain)
-      .publicAccountID,
+    publicAccountID: process.env.ELASTIC_EMAIL_PUBLIC_ACCOUNT_ID,
     sendActivation: false
   }
   Object.assign(params, data)
-
-  return elastic.get('/contact/add', { params })
+  const paramUrl = new URLSearchParams()
+  Object.keys(params).forEach((key) => {
+    paramUrl.append(key, params[key])
+  })
+  const fetchURL = `${baseURL}/contact/add?${paramUrl.toString()}`
+  console.log(fetchURL)
+  return fetch(fetchURL).then((r) => r.json())
 }
 
 export function getUpdateApi(data: Record<string, any>) {
   const params = {
-    apikey: getElasticAccount(data.field_domain || data.domain).apikey,
+    apikey: process.env.ELASTIC_EMAIL_API_KEY,
     clearRestOfFields: false,
     activate: true
   }
   delete data.field_firstpurchase
   delete data.field_contactCreatedAt
   Object.assign(params, data)
-  return elastic.get('/contact/update', { params })
-}
+  const paramUrl = new URLSearchParams()
+  Object.keys(params).forEach((key) => {
+    paramUrl.append(key, params[key])
+  })
 
-export function elasticChangeContactStatus(data: Record<string, any>) {
-  const params = {
-    apikey: getElasticAccount(data.domain).apikey,
-    status: data.disabled ? -2 : 0,
-    emails: data.email
-  }
-  return elastic.get('/contact/changestatus', { params })
+  const fetchURL = `${baseURL}/contact/update?${paramUrl.toString()}`
+  console.log(fetchURL)
+  return fetch(fetchURL).then((r) => r.json())
 }

@@ -17,6 +17,7 @@ export const getFastspringOrder = async (path: string) => {
     return {
       id: res.id,
       reference: res.reference,
+      customer: res.customer,
       items: res.items.map((i: any) => i.product)
     }
   }

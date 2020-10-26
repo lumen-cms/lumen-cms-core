@@ -65,6 +65,11 @@ export const LmFastSpringProvider: FC<{
                 `${process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE}?orderId=${data.id}`
               ).then((r) => r.json())
             } catch (e) {
+              // update elastic because user not logged in
+              if (process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL)
+                await fetch(
+                  `${process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL}?orderId=${data.id}`
+                ).then((r) => r.json())
               console.error(e)
             }
           }
