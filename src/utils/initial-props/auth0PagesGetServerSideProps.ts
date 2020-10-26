@@ -19,9 +19,9 @@ export const auth0GetServerSideProps: GetServerSideProps = async (ctx) => {
   const queryPath = query?.index
   if (process.env.NEXT_PUBLIC_AUTH0_PATH) {
     Array.isArray(queryPath) &&
+      queryPath[0] !== process.env.NEXT_PUBLIC_AUTH0_PATH &&
       queryPath.unshift(process.env.NEXT_PUBLIC_AUTH0_PATH as string) // need to re-add auth to catchAll in case env var exists
   }
-
   const slug = queryPath || 'home'
   if (preview && inStoryblokBackend) {
     LmStoryblokService.setDevMode()
