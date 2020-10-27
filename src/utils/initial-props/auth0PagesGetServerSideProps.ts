@@ -32,10 +32,6 @@ export const auth0GetServerSideProps: GetServerSideProps = async (ctx) => {
     props: await getPageProps(slug, inStoryblokBackend)
   }
 
-  if (req) {
-    await LmStoryblokService.setCacheVersion()
-  }
-
   if (inStoryblokBackend || (!req && preview)) {
     const userAdminCredentials = {
       [process.env.NEXT_PUBLIC_AUTH_PERMISSION ?? '']: [

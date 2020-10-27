@@ -72,7 +72,7 @@ const useStyles = makeStyles({
 
 const chunkSize = 30
 
-export function LmCardList({ content }: LmCardListProps): JSX.Element {
+export default function LmCardList({ content }: LmCardListProps): JSX.Element {
   const { body = [], ...rest } = content
   const classes = useStyles(content)
   const gridClasses = useGridListStyles({

@@ -9,7 +9,9 @@ import { useListSearch } from './useListSearch'
 import { ListWidgetContainer } from './ListWidgetContainer'
 import { LmListWidgetProps } from './listWidgetTypes'
 
-export function LmListWidget({ content }: LmListWidgetProps): JSX.Element {
+export default function LmListWidget({
+  content
+}: LmListWidgetProps): JSX.Element {
   const { listWidgetData } = useAppContext()
   const items = useListSearch(
     (listWidgetData && listWidgetData[content._uid]) || [],

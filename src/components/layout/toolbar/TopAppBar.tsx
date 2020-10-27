@@ -169,6 +169,7 @@ const TopAppBar: FunctionComponent<
           ]]: showLeftShift
         })}
         style={{
+          background: props.settings.toolbar_background ?? undefined,
           backgroundColor:
             props.settings?.toolbar_color?.rgba &&
             (!appSetup.hasFeatureImage || toolbarScrolled)

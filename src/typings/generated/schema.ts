@@ -251,6 +251,7 @@ export type GlobalComponent = {
   theme_secondary?: Maybe<Scalars['String']>;
   theme_secondary_contrast?: Maybe<Scalars['String']>;
   toolbar?: Maybe<Scalars['BlockScalar']>;
+  toolbar_background?: Maybe<Scalars['String']>;
   toolbar_color?: Maybe<Scalars['JsonScalar']>;
   toolbar_config?: Maybe<Array<Maybe<Scalars['String']>>>;
   toolbar_font_size?: Maybe<Scalars['String']>;
@@ -266,6 +267,12 @@ export type GlobalComponent = {
 };
 
 export type GlobalFilterQuery = {
+  toolbar_variant?: Maybe<FilterQueryOperations>;
+  toolbar_config?: Maybe<FilterQueryOperations>;
+  toolbar_progress_color?: Maybe<FilterQueryOperations>;
+  toolbar_background?: Maybe<FilterQueryOperations>;
+  toolbar_main_height?: Maybe<FilterQueryOperations>;
+  toolbar_font_size?: Maybe<FilterQueryOperations>;
   theme_base?: Maybe<FilterQueryOperations>;
   theme_primary?: Maybe<FilterQueryOperations>;
   theme_primary_contrast?: Maybe<FilterQueryOperations>;
@@ -296,11 +303,6 @@ export type GlobalFilterQuery = {
   drawer_below_toolbar?: Maybe<FilterQueryOperations>;
   drawer_below_toolbar_xs?: Maybe<FilterQueryOperations>;
   drawer_full_width_mobile?: Maybe<FilterQueryOperations>;
-  toolbar_variant?: Maybe<FilterQueryOperations>;
-  toolbar_config?: Maybe<FilterQueryOperations>;
-  toolbar_progress_color?: Maybe<FilterQueryOperations>;
-  toolbar_main_height?: Maybe<FilterQueryOperations>;
-  toolbar_font_size?: Maybe<FilterQueryOperations>;
   footer_config?: Maybe<FilterQueryOperations>;
   seo_title?: Maybe<FilterQueryOperations>;
   seo_website_url?: Maybe<FilterQueryOperations>;

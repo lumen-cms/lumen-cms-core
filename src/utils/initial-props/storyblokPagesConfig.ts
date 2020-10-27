@@ -31,7 +31,6 @@ export function getStoryblokPagesConfig(pageConfig?: StoriesParams) {
 export const getAllStoriesOfProject = async (
   pageConfig?: StoriesParams
 ): Promise<PageItem[]> => {
-  await LmStoryblokService.setCacheVersion()
   const stories: PageItem[] = await LmStoryblokService.getAll(
     'cdn/stories',
     getStoryblokPagesConfig(pageConfig)

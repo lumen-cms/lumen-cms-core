@@ -15,7 +15,6 @@ const pagesGetServerSideProps: GetServerSideProps = async (
     const slug = query?.index || 'home'
     LmStoryblokService.setDevMode()
     LmStoryblokService.setQuery(query)
-    await LmStoryblokService.setCacheVersion()
 
     // console.log('pagesGetServerSideProps', hostname, slug)
     const pageProps = await getPageProps(slug, true)

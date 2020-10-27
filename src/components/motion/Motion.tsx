@@ -8,7 +8,7 @@ import Collapse, { CollapseProps } from '@material-ui/core/Collapse'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmMotionProps } from './motionTypes'
 
-export function LmMotion({ content }: LmMotionProps): JSX.Element {
+export default function LmMotion({ content }: LmMotionProps): JSX.Element {
   const type = content.type || 'fade'
   const options: IntersectionOptions = {
     triggerOnce: true

@@ -20,8 +20,6 @@ const pagesGetStaticProps: GetStaticProps = async (
       LmStoryblokService.setDevMode()
       LmStoryblokService.setQuery(previewData)
     }
-    await LmStoryblokService.setCacheVersion()
-    // console.log('pagesGetStaticProps', previewData, props)
     const pageProps = await getPageProps(slug, !!preview)
     // endMeasureTime()
     return {
