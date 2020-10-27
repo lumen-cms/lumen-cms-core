@@ -1,12 +1,10 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 
-const cacheStamp = new Date().getDate()
-
 class StoryblokServiceClass {
   private devMode: boolean
 
-  private cv: number
+  private cv?: number
 
   private token: string
 
@@ -19,7 +17,6 @@ class StoryblokServiceClass {
       process.env.NODE_ENV === 'production'
         ? CONFIG.publicToken
         : CONFIG.previewToken
-    this.cv = cacheStamp
     this.devMode = process.env.NODE_ENV !== 'production' // If true it always loads draft
     this.client = new StoryblokClient({
       accessToken: this.token,
