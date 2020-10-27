@@ -52,9 +52,12 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
     Object.keys(data).forEach((key) => {
       params.append(key, data[key])
     })
-    await fetch(`/api/auth0/update-user?${params.toString()}`)
+    try {
+      await fetch(`/api/auth0/update-user?${params.toString()}`)
+    } catch (e) {
+      console.error(e)
+    }
     setUpdating(false)
-    console.log(params.toString())
   }
 
   return (
@@ -111,9 +114,18 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
         <LmComponentRender
           key={blok._uid}
           content={blok}
+          disabled={updating}
           onClick={async () => {
-            await fetch(`/api/auth0/delete-user?sub=${appCtx.user?.sub || ''}`)
-            await fetch(`/api/auth0/logout`)
+            setUpdating(true)
+            try {
+              await fetch(
+                `/api/auth0/delete-user?sub=${appCtx.user?.sub || ''}`
+              )
+            } catch (e) {
+              console.error(e)
+            }
+            setUpdating(false)
+            window.location.reload()
           }}
         />
       ))}

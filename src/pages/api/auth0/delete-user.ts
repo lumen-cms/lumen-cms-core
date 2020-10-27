@@ -19,8 +19,9 @@ export default auth0.requireAuthentication(async function deleteUser(
     if (sub !== user.sub) {
       throw new Error('ID is not equal')
     }
+    await auth0.handleLogout(req, res)
     await auth0ManagementClient.deleteUser({ id: user.sub })
-    res.status(200).json({ deleted: true })
+    // res.status(200).json({ deleted: true })
   } catch (error) {
     console.log(error)
     res.status(error.status || 400).end(error.message || error)

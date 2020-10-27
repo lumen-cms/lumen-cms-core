@@ -2,15 +2,15 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import auth0 from '../../../utils/auth0/auth0'
 import { getFastspringOrder } from '../../../utils/fastspring/fastspring'
 import auth0ManagementClient from '../../../utils/auth0/auth0Management'
+import { updateElasticContact } from '../../../utils/email/update-elastic-contact'
 
 export default auth0.requireAuthentication(async function callback(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const { user } = await auth0.getSession(req)
+    const session = await auth0.getSession(req)
+    const user = session?.user
     const orderId = req.query.orderId as string
     if (!orderId) {
       throw new Error('Order ID is not existing')
@@ -27,9 +27,13 @@ export default auth0.requireAuthentication(async function callback(
     ) {
       throw new Error('order does not exist')
     }
+    if (!user) {
+      throw new Error('user is not logged in')
+    }
 
     // assign role of the fastspring order to the user
-    const oldPermissions = user[process.env.NEXT_PUBLIC_AUTH_PERMISSION] || []
+    const oldPermissions =
+      user[process.env.NEXT_PUBLIC_AUTH_PERMISSION as string] || []
     const updateUserData = {
       app_metadata: {
         orders: [
@@ -44,7 +48,16 @@ export default auth0.requireAuthentication(async function callback(
     }
     const params = { id: user.sub }
     await auth0ManagementClient.updateUser(params, updateUserData)
-
+    await updateElasticContact({
+      data: {
+        email: user.email,
+        given_name: user.given_name,
+        family_name: user.family_name,
+        phone: findOrderInFastspring?.customer.phone,
+        orders: findOrderInFastspring?.items,
+        lang: user.user_metadata?.lang || ''
+      }
+    })
     res.json({ orders: updateUserData.app_metadata.orders })
   } catch (error) {
     console.error(error)

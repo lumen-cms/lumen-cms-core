@@ -23,6 +23,7 @@ const getSettingsPath = ({
   overwriteSettingPath?: string
 }) => {
   const directory = rootDirectory || locale || ''
+  console.log(locale, overwriteSettingPath)
   return `cdn/stories/${directory ? `${directory}/` : ''}${
     overwriteSettingPath || ''
   }settings`
