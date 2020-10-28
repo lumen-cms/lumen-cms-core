@@ -641,6 +641,18 @@ export interface FormTextfieldStoryblok {
 }
 
 export interface GlobalStoryblok {
+  toolbar?: any[];
+  multi_toolbar?: any[];
+  toolbar_variant?: "primary" | "secondary" | "white" | "dark";
+  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated" | "scroll_collapse" | "enable_system_bar")[];
+  toolbar_progress_color?: string;
+  toolbar_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  toolbar_background?: string;
+  toolbar_main_height?: number;
+  toolbar_font_size?: string;
   theme_base: "base" | "dark";
   theme_primary?: string;
   theme_primary_contrast?: string;
@@ -685,17 +697,6 @@ export interface GlobalStoryblok {
   drawer_below_toolbar_xs?: boolean;
   drawer_full_width_mobile?: boolean;
   drawer_background?: any[];
-  toolbar?: any[];
-  multi_toolbar?: any[];
-  toolbar_variant?: "primary" | "secondary" | "white" | "dark";
-  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated" | "scroll_collapse" | "enable_system_bar")[];
-  toolbar_progress_color?: string;
-  toolbar_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  toolbar_main_height?: number;
-  toolbar_font_size?: string;
   footer?: any[];
   footer_config?: ("footer-large" | "footer-small")[];
   seo_title?: string;

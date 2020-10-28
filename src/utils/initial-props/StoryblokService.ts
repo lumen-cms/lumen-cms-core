@@ -1,13 +1,10 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 
-/**
- * Keep in sync with lumen-cms-core
- */
 class StoryblokServiceClass {
   private devMode: boolean
 
-  private cv: number
+  private cv?: number
 
   private token: string
 
@@ -20,7 +17,6 @@ class StoryblokServiceClass {
       process.env.NODE_ENV === 'production'
         ? CONFIG.publicToken
         : CONFIG.previewToken
-    this.cv = new Date().getDate()
     this.devMode = process.env.NODE_ENV !== 'production' // If true it always loads draft
     this.client = new StoryblokClient({
       accessToken: this.token,
@@ -33,21 +29,8 @@ class StoryblokServiceClass {
     this.query = {}
   }
 
-  setToken(token: string) {
-    this.token = token
-    this.client.setToken(token)
-  }
-
   getSearch(slug: string, params: Record<string, unknown>) {
     return this.client.get(slug, { ...params, ...this.getDefaultParams() })
-  }
-
-  async setCacheVersion() {
-    if (!this.cv) {
-      const res = await this.get('cdn/spaces/me', {})
-      const cacheVersion = res.data.space.version
-      this.cv = cacheVersion
-    }
   }
 
   getCacheVersion() {
@@ -70,10 +53,13 @@ class StoryblokServiceClass {
     if (getFromRelease) {
       params.from_release = getFromRelease
     }
-    if (this.devMode) {
+    if (
+      this.getQuery('_storyblok') ||
+      this.devMode ||
+      (typeof window !== 'undefined' && window.storyblok)
+    ) {
       params.version = 'draft'
       this.client.setToken(CONFIG.previewToken)
-      delete params.cv
     }
     return params
   }

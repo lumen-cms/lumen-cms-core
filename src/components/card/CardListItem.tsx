@@ -10,7 +10,7 @@ import CardListItemActions from './CardListItemActions'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { CardListItemProps } from './cardTypes'
 
-export function LmCardListItem(props: CardListItemProps): JSX.Element {
+export default function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props
   const variants = options.variant || []
   const btnProps: any = content.link?.cached_url

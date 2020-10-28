@@ -148,7 +148,7 @@ function TableRow({ content, index }: TableRowProps): JSX.Element {
   )
 }
 
-export function LmTable({ content }: LmTableProps): JSX.Element {
+export default function LmTable({ content }: LmTableProps): JSX.Element {
   const classes = useStyles()
   const className = clsx(
     classes.tables,

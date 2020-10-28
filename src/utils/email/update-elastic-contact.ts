@@ -19,7 +19,7 @@ export const updateElasticContact = async ({
   }
   const resultUpdate = await getUpdateApi(prepared)
   const d = resultUpdate.data
-  if (!d.success) {
+  if (!resultUpdate.success) {
     console.log(data)
     throw new Error('Update of elastic contact not successful')
   }

@@ -1,6 +1,26 @@
 import dynamic from 'next/dynamic'
 import { LmCoreComponents } from '@CONFIG'
 
+LmCoreComponents.table = dynamic(
+  () => import(/* webpackChunkName: 'table' */ './table/Table')
+)
+
+LmCoreComponents.card_list_item = dynamic(
+  () => import(/* webpackChunkName: 'lists' */ './card/CardListItem')
+)
+
+LmCoreComponents.card_list = dynamic(
+  () => import(/* webpackChunkName: 'lists' */ './card/CardList')
+)
+
+LmCoreComponents.list_widget = dynamic(
+  () => import(/* webpackChunkName: 'lists' */ './list-widget/ListWidget')
+)
+
+LmCoreComponents.motion = dynamic(
+  () => import(/* webpackChunkName: 'motion' */ './motion/Motion')
+)
+
 LmCoreComponents.parallax_provider = dynamic(
   () =>
     import(
