@@ -13,7 +13,7 @@ export const updateElasticContact = async ({
   const prepared = prepareElasticContact(data)
 
   const findContact = await getFindApi(prepared.email)
-  const existingElasticUser = findContact.data
+  const existingElasticUser = findContact?.data
 
   if (!existingElasticUser) {
     prepared.emails = prepared.email
