@@ -49,17 +49,25 @@ export function prepareElasticContact(model: Record<string, any>) {
   return obj
 }
 
+export function getFindApi(email: string) {
+  const paramUrl = new URLSearchParams()
+  paramUrl.append('apikey', process.env.ELASTIC_EMAIL_API_KEY as string)
+  paramUrl.append('email', email)
+  const fetchURL = `${baseURL}/contact/loadcontact?${paramUrl.toString()}`
+  console.log(fetchURL)
+  return fetch(fetchURL).then((r) => r.json())
+}
+
 export function getAddApi(data: Record<string, any>) {
   const params = {
-    publicAccountID: process.env.ELASTIC_EMAIL_PUBLIC_ACCOUNT_ID,
-    sendActivation: false
+    apikey: process.env.ELASTIC_EMAIL_API_KEY
   }
   Object.assign(params, data)
   const paramUrl = new URLSearchParams()
   Object.keys(params).forEach((key) => {
     paramUrl.append(key, params[key])
   })
-  const fetchURL = `${baseURL}/contact/add?${paramUrl.toString()}`
+  const fetchURL = `${baseURL}/contact/quickadd?${paramUrl.toString()}`
   console.log(fetchURL)
   return fetch(fetchURL).then((r) => r.json())
 }
