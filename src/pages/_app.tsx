@@ -1,6 +1,5 @@
-import { CONFIG, LmCoreComponents } from '@CONFIG'
-import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
-
+import { CONFIG } from '@CONFIG'
+// import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
 import { LmDefaultApp } from '../components/pages/_appDefault'
 
 // @ts-ignore
@@ -11,9 +10,9 @@ import { LmDefaultApp } from '../components/pages/_appDefault'
 //   return { ...appProps }
 // }
 export default LmDefaultApp
-if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
-  LmCoreComponents.lm_app_providers.push(LmFastSpringProvider)
-}
+// if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
+//   LmCoreComponents.lm_app_providers.push(LmFastSpringProvider)
+// }
 
 CONFIG.authPathRequiredRoles = [
   {
