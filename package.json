@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.73.8",
+  "version": "0.73.9",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
