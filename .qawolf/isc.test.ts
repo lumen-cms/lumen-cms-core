@@ -26,6 +26,8 @@ test("isc", async () => {
   // await qawolf.scroll(page, "html", { x: 0, y: 527 });
   await page.click(".MuiButton-contained");
   const frame = await (await page.waitForSelector('[name$="-frame"]')).contentFrame();
-  await frame.click("#contact-email");
-  await frame.fill("#contact-email", "test@test.test");
+  if(frame) {
+    await frame.click("#contact-email");
+    await frame.fill("#contact-email", "test@test.test");
+  }
 });
