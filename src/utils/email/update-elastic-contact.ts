@@ -5,11 +5,18 @@ import {
   prepareElasticContact
 } from './elastic-helpers'
 
-export const updateElasticContact = async ({
-  data
-}: {
-  data: Record<string, any>
-}) => {
+export type UpdateElasticProps = {
+  data: {
+    email: string
+    given_name?: string
+    family_name?: string
+    phone?: string
+    orders?: any[]
+    lang?: string | 'en' | 'de'
+  }
+}
+
+export const updateElasticContact = async ({ data }: UpdateElasticProps) => {
   const prepared = prepareElasticContact(data)
 
   const findContact = await getFindApi(prepared.email)
@@ -22,7 +29,8 @@ export const updateElasticContact = async ({
   }
 
   const oldOrders = existingElasticUser.customfields?.orders ?? ''
-  if (oldOrders) {
+  if (oldOrders && prepared.field_orders) {
+    // merge old and new orders together
     const oldOrdersArray = oldOrders.split(';').filter((i: string) => i)
     const newOrders =
       prepared.field_orders?.split(';').filter((i: string) => i) ?? []

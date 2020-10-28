@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import auth0 from '../../../utils/auth0/auth0'
 import { getFastspringOrder } from '../../../utils/fastspring/fastspring'
 import auth0ManagementClient from '../../../utils/auth0/auth0Management'
-import { updateElasticContact } from '../../../utils/email/update-elastic-contact'
 
 export default auth0.requireAuthentication(async function callback(
   req: NextApiRequest,
@@ -48,16 +47,6 @@ export default auth0.requireAuthentication(async function callback(
     }
     const params = { id: user.sub }
     await auth0ManagementClient.updateUser(params, updateUserData)
-    await updateElasticContact({
-      data: {
-        email: user.email,
-        given_name: user.given_name,
-        family_name: user.family_name,
-        phone: findOrderInFastspring?.customer.phone,
-        orders: findOrderInFastspring?.items,
-        lang: user.user_metadata?.lang || ''
-      }
-    })
     res.json({ orders: updateUserData.app_metadata.orders })
   } catch (error) {
     console.error(error)

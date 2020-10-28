@@ -50,7 +50,9 @@ export const auth0GetServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
   const user = req
-    ? await auth0.getSession(req).then((r) => r?.user)
+    ? await auth0.getSession(req).then((r) => {
+        return r?.user
+      })
     : await fetchUser()
   if (!req) {
     return {
