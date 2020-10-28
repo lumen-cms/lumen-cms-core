@@ -9,6 +9,7 @@ import {
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
 import { hasFacebookPixel, hasGtag } from '../../../utils/analyticsHelper'
+import { fetchUser } from '../../../utils/auth0/auth0Helpers'
 
 let cachedProducts: any[] = []
 
@@ -73,6 +74,8 @@ export const LmFastSpringProvider: FC<{
               console.error(e)
             }
           }
+          // todo refetch user???
+          await fetchUser(true)
           if (redirect) {
             await router.push(CONFIG.href, redirect)
             setRedirect('')

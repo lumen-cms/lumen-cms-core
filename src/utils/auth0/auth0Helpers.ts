@@ -10,8 +10,8 @@ export function createLoginUrl(redirectTo?: string) {
   return `/api/auth0/login`
 }
 
-export const fetchUser = async () => {
-  if (userState !== undefined) {
+export const fetchUser = async (forceRefetch?: boolean) => {
+  if (userState !== undefined && !forceRefetch) {
     return userState
   }
 
