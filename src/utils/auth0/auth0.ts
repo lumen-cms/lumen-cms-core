@@ -5,7 +5,7 @@ export default initAuth0({
   domain: process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string,
   clientId: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID as string,
   clientSecret: process.env.AUTH0_CLIENT_SECRET,
-  scope: 'openid profile email read:users read:users_app_metadata',
+  scope: 'openid profile email',
   redirectUri: `${AUTH0_CONFIG.DOMAIN}/api/auth0/callback`,
   postLogoutRedirectUri: `${AUTH0_CONFIG.DOMAIN}/`,
   session: {

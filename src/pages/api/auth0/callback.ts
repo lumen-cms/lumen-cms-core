@@ -13,14 +13,19 @@ export default async function callback(
         const { user } = session
         if (process.env.ELASTIC_EMAIL_API_KEY) {
           try {
-            await updateElasticContact({
+            console.log(JSON.stringify(user, null, 2))
+            const data = {
               data: {
                 email: user.email,
                 given_name: user.given_name,
                 family_name: user.family_name,
-                lang: user.locale || ''
+                phone: user.phone,
+                orders:
+                  user[process.env.NEXT_PUBLIC_AUTH_PERMISSION as string] || '',
+                lang: user[process.env.NEXT_PUBLIC_AUTH_LANG as string] || ''
               }
-            })
+            }
+            await updateElasticContact(data)
           } catch (e) {
             console.error(e)
           }
