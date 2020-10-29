@@ -4,7 +4,9 @@ import { getAllStoriesOfProject } from './storyblokPagesConfig'
 import { PageItem } from '../../typings/generated/schema'
 
 const pagesGetStaticPaths: GetStaticPaths = async () => {
+  console.log('[start] inside of static paths')
   const stories: PageItem[] = await getAllStoriesOfProject()
+  console.log('[end] inside of static paths')
 
   let paths = stories.map((pageItem) => {
     return {

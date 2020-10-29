@@ -116,7 +116,7 @@ export const fetchSharedStoryblokContent = ({
   return Promise.all([
     LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    insideStoryblok
+    insideStoryblok || process.env.NODE_ENV !== 'production'
       ? fetch(cdnUrl).then((r) => r.json())
       : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
     LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
@@ -132,6 +132,7 @@ export const apiRequestResolver = async ({
   const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
     pageSlug.includes(path)
   )
+  console.log('[start] inside delivery resolver')
 
   const [
     settings,
@@ -143,14 +144,9 @@ export const apiRequestResolver = async ({
     insideStoryblok,
     overwriteSettingPath
   })
-  const isDev = insideStoryblok || process.env.NODE_ENV === 'development'
-  const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
-  const getParams = new URLSearchParams()
-  getParams.append('token', token)
-  if (isDev) {
-    getParams.append('no_cache', 'true')
-  }
+  console.log('[after shared] inside delivery resolver')
   const all: any[] = [LmStoryblokService.get(`cdn/stories/${pageSlug}`)]
+  console.log("[after page] inside delivery resolver'")
 
   if (
     CONFIG.suppressSlugLocale &&

@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from 'react'
+import React, { createRef } from 'react'
 import { ProductVariant } from 'shopify-buy'
 import { makeStyles } from '@material-ui/core/styles'
 import Carousel from 'react-material-ui-carousel'
@@ -25,15 +25,6 @@ export function ShopifyProductSlider({
     ? Number(config.image_container_height)
     : 300
 
-  useEffect(() => {
-    if (selectedVariant && ref.current) {
-      const active = variants.findIndex((i) => i.id === selectedVariant?.id)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      ref.current?.pressIndicator(active)
-    }
-  }, [selectedVariant, variants, ref])
-
   return (
     <Carousel
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -43,7 +34,7 @@ export function ShopifyProductSlider({
       indicators={!config.carousel_hide_indicator}
       autoPlay={!!config.carousel_auto_play}
       animation="slide"
-      startAt={
+      index={
         variants.findIndex((i) => i.id === selectedVariant?.id) < 0
           ? 0
           : variants.findIndex((i) => i.id === selectedVariant?.id)
