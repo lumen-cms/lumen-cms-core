@@ -67,6 +67,7 @@ export default function LmImage({
       }}
       className={clsx(content.class_names?.values)}
       style={{
+        cursor: onClick ? 'pointer' : undefined,
         backgroundColor: loaded ? 'transparent' : 'rgb(74,74,74, 0.1)',
         maxWidth: '100%'
       }}
@@ -77,10 +78,6 @@ export default function LmImage({
           alt={content.alt || 'website image'}
           width={squareSize || originalDimensions.width}
           height={squareSize || originalDimensions.height}
-          style={{
-            cursor: onClick ? 'pointer' : undefined,
-            maxHeight: 'inherit'
-          }}
           className={clsx(classes.image, content.property)}
           onLoad={() => setLoaded(true)}
         />
