@@ -9,7 +9,6 @@ import {
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
 import { hasFacebookPixel, hasGtag } from '../../../utils/analyticsHelper'
-import { fetchUser } from '../../../utils/auth0/auth0Helpers'
 
 let cachedProducts: any[] = []
 
@@ -64,19 +63,26 @@ export const LmFastSpringProvider: FC<{
             try {
               await fetch(
                 `${process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE}?orderId=${data.id}`
-              ).then((r) => r.json())
+              )
             } catch (e) {
-              // update elastic because user not logged in
-              if (process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL)
-                await fetch(
-                  `${process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL}?orderId=${data.id}`
-                ).then((r) => r.json())
               console.error(e)
             }
           }
-          // todo refetch user???
-          await fetchUser(true)
-          if (redirect) {
+          // update elastic if defined
+          if (process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL) {
+            try {
+              await fetch(
+                `${process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL}?orderId=${data.id}`
+              )
+            } catch (e) {
+              console.error(e)
+            }
+          }
+          if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
+            window.location.href = `/api/auth0/login${
+              redirect ? `?redirectTo=${redirect}` : ''
+            }`
+          } else if (redirect) {
             await router.push(CONFIG.href, redirect)
             setRedirect('')
           }

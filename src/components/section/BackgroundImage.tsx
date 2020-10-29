@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles'
-import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
 import clsx from 'clsx'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
@@ -63,20 +62,24 @@ function BackgroundImage({
   const matches = useMediaQuery(
     theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs')
   )
-  if (!content.image) {
-    return null
-  }
   const isDesktop = width >= 1280
-  const { image } = content
-  const disableSmartCrop = content.disable_smart_crop
-  const imageFocalPoint = content.image_focal_point
-  let imageAttrs = { src: '', srcSet: '' }
+  const {
+    image,
+    alternative_image,
+    disable_smart_crop,
+    image_focal_point,
+    hide_image_on_breakpoint
+  } = content
   const current = anchorRef && (anchorRef.target as HTMLDivElement)
-  if (content.hide_image_on_breakpoint && matches) {
-    return null // don't render if image hidden
-  }
+  const dontRender = hide_image_on_breakpoint && matches
 
-  if (current && inView && image) {
+  const imgAttrs = useMemo(() => {
+    if (!current || !inView || !image || dontRender) {
+      return {
+        src: '',
+        srcSet: ''
+      }
+    }
     let currentWidth = current.clientWidth
     let currentHeight = current.clientHeight
     if (isDesktop) {
@@ -89,57 +92,66 @@ function BackgroundImage({
       }
     }
 
-    const isAlternativeSource = content.alternative_image && height > width
-    imageAttrs = getImageAttrs({
+    const isAlternativeSource = alternative_image && height > width
+    return getImageAttrs({
       originalSource: isAlternativeSource
-        ? (content.alternative_image as string)
+        ? (alternative_image as string)
         : image,
       width: currentWidth,
       height: currentHeight,
-      smart: !disableSmartCrop,
-      focalPoint: !isAlternativeSource ? imageFocalPoint : undefined
+      smart: !disable_smart_crop,
+      focalPoint: !isAlternativeSource ? image_focal_point : undefined
     })
-  }
+  }, [
+    current,
+    inView,
+    image,
+    alternative_image,
+    dontRender,
+    disable_smart_crop,
+    image_focal_point,
+    height,
+    width,
+    backgroundStyle,
+    isDesktop
+  ])
 
   // const imgSrc = useGetSrcHook(imageAttrs)
   return (
     <>
-      {!imgSrc && (
-        <>
-          <Skeleton
-            width="100%"
-            height="100%"
-            style={{ position: 'absolute' }}
-            variant="rect"
-          />
-          <ImageShadow
-            src={imageAttrs.src}
-            srcSet={imageAttrs.srcSet}
-            afterLoad={setImgSrc}
-          />
-        </>
-      )}
-      <Fade in={!!imgSrc} timeout={1000}>
-        <div
-          className={clsx(classes.root, {
-            'lm-fixed-bg':
-              backgroundStyle === 'fixed_image' ||
-              backgroundStyle === 'fixed_cover',
-            'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
-            'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
-          })}
-          style={{
-            backgroundImage: imgSrc && `url('${imgSrc}')`,
-            backgroundSize: content.background_size
-              ? content.background_size
-              : undefined,
-            backgroundPosition: content.background_position
-              ? content.background_position
-              : undefined
-          }}
-          ref={viewRef}
+      {!imgSrc && image && (
+        <Skeleton
+          width="100%"
+          height="100%"
+          style={{ position: 'absolute' }}
+          variant="rect"
         />
-      </Fade>
+      )}
+      <ImageShadow
+        src={imgAttrs.src}
+        srcSet={imgAttrs.srcSet}
+        afterLoad={setImgSrc}
+      />
+
+      <div
+        className={clsx(classes.root, {
+          'lm-fixed-bg':
+            backgroundStyle === 'fixed_image' ||
+            backgroundStyle === 'fixed_cover',
+          'lm-fixed-bg__top': backgroundStyle === 'fixed_image',
+          'lm-fixed-bg__center': backgroundStyle === 'fixed_cover'
+        })}
+        style={{
+          backgroundImage: imgSrc && `url('${imgSrc}')`,
+          backgroundSize: content.background_size
+            ? content.background_size
+            : undefined,
+          backgroundPosition: content.background_position
+            ? content.background_position
+            : undefined
+        }}
+        ref={viewRef}
+      />
     </>
   )
 }
