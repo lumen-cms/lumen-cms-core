@@ -1,30 +1,14 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import { useInView } from 'react-intersection-observer'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import Skeleton from '@material-ui/lab/Skeleton'
-import { useWindowWidth } from '@react-hook/window-size'
 import Image from 'next/image'
 import {
   getImageAttrs,
   getOriginalImageDimensions
 } from '../../utils/ImageService'
 import { LmImageProps } from './imageTypes'
-import { AspectRatio } from './RatioContainer'
-import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
-import { getNumber } from '../../utils/numberParser'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  // root: {
-  //   display: 'inline-block'
-  // margin: '0 0 -6px 0 !important',
-  // overflow: 'auto',
-  // padding: 0,
-  // position: 'relative'
-  // },
-  rootNoMargin: {
-    margin: '0 !important'
-  },
   image: {
     '&.img-thumbnail': {
       padding: '.25rem',
@@ -48,168 +32,59 @@ export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element | null {
+  const definedWidth = content.width
+  const definedHeight = content.height
   const classes = useStyles()
-  const width = useWindowWidth()
-  const isMobile = width < 600
   const [loaded, setLoaded] = useState<boolean>(false)
-  const imageCrop = content.image_crop || []
   const property = content.property || []
-  const fitInColor = content.color?.rgba || content.fit_in_color
-
-  const [refIntersectionObserver, inView, intersectionElement] = useInView(
-    intersectionImageOptions
-  )
-
   const imageSource = content.source
-  const imgProperties: { src: string; srcSet?: string } = {
-    src: imageSource || ''
-  }
+  const storyblokImage = imageSource?.replace('//a', 'https://img2')
+  const originalDimensions = getOriginalImageDimensions(imageSource || '')
+
+  const square =
+    property.includes('rounded-circle') || property.includes('square')
+  const squareSize = square ? definedHeight || definedWidth || 120 : undefined
+
+  // const imageAttrs = imageSource
+  //   ? getImageAttrs({
+  //       originalSource: imageSource,
+  //       width: squareSize || originalDimensions.width,
+  //       height: squareSize || originalDimensions.height,
+  //       focalPoint: content.focal_point,
+  //       smart: !!squareSize
+  //     })
+  //   : undefined
 
   if (!imageSource) {
     return <div /> // don't need to render anything
   }
-
-  const originalDimensions = getOriginalImageDimensions(imageSource || '')
-
-  let definedWidth = getNumber(content.width) as number | undefined
-  let definedHeight =
-    content.height_xs && isMobile
-      ? (getNumber(content.height) as number | undefined)
-      : (getNumber(content.height) as number | undefined)
-  if (inView && imageSource && intersectionElement) {
-    const { parentElement } = intersectionElement.target
-    const grandparentElement =
-      intersectionElement.target.parentElement?.parentElement
-    const parentDim = {
-      width: parentElement?.clientWidth || 0,
-      height: parentElement?.clientHeight || 0
-    }
-    const grandParentDim = {
-      width: grandparentElement?.clientWidth || 0,
-      height: grandparentElement?.clientHeight || 0
-    }
-
-    const square =
-      property.includes('rounded-circle') || property.includes('square')
-
-    const w = Math.ceil(parentDim.width || width)
-    if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
-      // default: set available width to the current width either in crop mode
-      definedWidth =
-        definedWidth || (parentDim.height / parentDim.width) * 100 > 300
-          ? grandParentDim.width
-          : w
-    }
-    if (square) {
-      // overwrite if square
-      const iconSize = definedHeight || definedWidth || 120
-      definedWidth = iconSize
-      definedHeight = iconSize
-    }
-    if (content.height_fill) {
-      // with a tolerance of 200 height should fit grandparents height
-      if (grandParentDim.height === parentDim.height) {
-        definedHeight = Math.ceil(grandParentDim.height)
-      }
-    }
-
-    const imgRatio = {
-      width: definedWidth || 0,
-      height: definedHeight
-    }
-
-    const attrs = getImageAttrs({
-      originalSource: imageSource,
-      ...imgRatio,
-      fitInColor,
-      focalPoint: content.focal_point,
-      smart: imageCrop.includes('smart_crop')
-    })
-    imgProperties.src = attrs.src || ''
-  }
-
-  const ratio =
-    definedWidth && definedHeight
-      ? definedWidth / definedHeight
-      : originalDimensions.width / originalDimensions.height
-
-  if (!definedWidth && definedHeight) {
-    definedWidth =
-      (definedHeight * originalDimensions.width) / originalDimensions.height
-  }
-  if (!definedHeight && definedWidth) {
-    definedHeight =
-      (definedWidth * originalDimensions.height) / originalDimensions.width
-  }
-  definedHeight =
-    originalDimensions.height < (definedHeight || 0)
-      ? originalDimensions.height
-      : definedHeight
-  definedWidth =
-    originalDimensions.width < (definedWidth || 0)
-      ? originalDimensions.width
-      : definedWidth
-
-  console.log(definedWidth)
+  // console.log(imageAttrs?.src)
   return (
-    <>
-      <span
-        ref={refIntersectionObserver}
-        style={{ margin: '0px !important' }}
-      />
-      <AspectRatio
-        ratio={ratio}
-        onClick={() => {
-          onClick && onClick()
-        }}
-        className={clsx(content.class_names?.values)}
-        // className={clsx(classes.root, {
-        // [classes.rootNoMargin]: content.disable_ratio_correction
-        // })}
-        style={{
-          maxHeight: definedHeight,
-          maxWidth: definedWidth,
-          height: getNumber(isMobile ? content.height_xs : content.height),
-          width: getNumber(content.width, 'inherit')
-          // maxHeight: definedHeight
-          //   ? `${definedHeight}px`
-          //   : content.height_fill
-          //   ? '100%'
-          //   : undefined,
-          // maxWidth: definedWidth
-          //   ? `${definedWidth}px`
-          //   : content.height_fill
-          //   ? '100%'
-          //   : undefined
-        }}
-      >
-        {!loaded && (
-          <Skeleton
-            style={{ position: 'absolute' }}
-            width="100%"
-            height="100%"
-            variant={property.includes('rounded-circle') ? 'circle' : 'rect'}
-          />
-        )}
-        {content.source && (
-          <Image
-            src={content.source?.replace('//a', 'https://a')}
-            // loading="eager"
-            alt={content.alt || 'website image'}
-            width={originalDimensions.width}
-            height={originalDimensions.height}
-            sizes=""
-            style={{
-              cursor: onClick ? 'pointer' : undefined,
-              // width: content.width ? `${content.width}px` : 'auto',
-              maxHeight: 'inherit'
-              // height: content.height ? `${content.height}px` : 'auto'
-            }}
-            className={clsx(classes.image, content.property)}
-            onLoad={() => setLoaded(true)}
-          />
-        )}
-      </AspectRatio>
-    </>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
+    <div
+      onClick={() => {
+        onClick && onClick()
+      }}
+      className={clsx(content.class_names?.values)}
+      style={{
+        backgroundColor: loaded ? 'transparent' : 'rgb(74,74,74, 0.1)',
+        maxWidth: '100%'
+      }}
+    >
+      {storyblokImage && (
+        <Image
+          src={storyblokImage}
+          alt={content.alt || 'website image'}
+          width={originalDimensions.width}
+          height={originalDimensions.height}
+          style={{
+            cursor: onClick ? 'pointer' : undefined,
+            maxHeight: 'inherit'
+          }}
+          className={clsx(classes.image, content.property)}
+          onLoad={() => setLoaded(true)}
+        />
+      )}
+    </div>
   )
 }

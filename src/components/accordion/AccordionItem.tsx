@@ -45,11 +45,11 @@ export default function LmAccordionItem({
         )}
       </AccordionSummary>
       <AccordionDetails>
-        <div>
+        <>
           {(content.body || []).map((blok) => (
             <LmComponentRender content={blok} key={blok._uid} />
           ))}
-        </div>
+        </>
       </AccordionDetails>
     </Accordion>
   )
