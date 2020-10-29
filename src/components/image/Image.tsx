@@ -40,21 +40,25 @@ export default function LmImage({
   const imageSource = content.source
   const storyblokImage = imageSource?.replace('//a', 'https://img2')
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
+  const manualSquare =
+    definedWidth && definedHeight && definedWidth === definedHeight
   const square =
-    property.includes('rounded-circle') || property.includes('square')
+    manualSquare ||
+    property.includes('rounded-circle') ||
+    property.includes('square')
   const squareSize = square ? definedHeight || definedWidth || 120 : undefined
-  let maxWidth = definedWidth
 
   const imageAttrs = imageSource
     ? getImageAttrs({
         originalSource: imageSource,
-        width: squareSize || originalDimensions.width,
-        height: squareSize || originalDimensions.height,
+        width: squareSize || definedWidth || originalDimensions.width,
+        height: squareSize || definedHeight || originalDimensions.height,
         focalPoint: content.focal_point,
         smart: !!squareSize
       })
     : undefined
 
+  console.log(property, squareSize)
   if (!imageSource) {
     return <div /> // don't need to render anything
   }
