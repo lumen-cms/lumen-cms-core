@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '100%',
       minHeight: 'inherit',
       '& .MuiGrid-item': {
+        '&.MuiGrid-grid-md-true': {
+          overflow: 'auto' // flexbox fix for image component
+        },
         '& > .MuiGrid-direction-xs-column': {
           '& > *': {
             marginTop: theme.spacing(1),
