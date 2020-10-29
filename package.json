@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.73.10",
+  "version": "0.73.12",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -42,7 +42,7 @@
     "node": "12.x"
   },
   "dependencies": {
-    "@charlietango/use-script": "2.1.2",
+    "@charlietango/use-script": "2.2.0",
     "@date-io/date-fns": "1.3.13",
     "@material-ui/core": "4.11.0",
     "@material-ui/icons": "4.9.1",
@@ -76,7 +76,7 @@
     "react-hooks-global-state": "1.0.1",
     "react-inlinesvg": "2.1.1",
     "react-intersection-observer": "8.29.1",
-    "react-material-ui-carousel": "2.0.2",
+    "react-material-ui-carousel": "2.1.1",
     "react-player": "2.6.2",
     "react-scroll-parallax": "2.3.4",
     "react-swipeable-views": "0.13.9",
@@ -105,9 +105,9 @@
     "@graphql-codegen/typescript-operations": "^1.17.8",
     "@lumen/storyblok-material-icons": "git+https://github.com/dohomi/storyblok-fieldtype-material-icons-selector.git",
     "@next/bundle-analyzer": "^10.0.0",
-    "@storybook/addon-essentials": "^6.0.27",
-    "@storybook/addon-knobs": "^6.0.27",
-    "@storybook/react": "^6.0.27",
+    "@storybook/addon-essentials": "6.1.0-alpha.31",
+    "@storybook/addon-knobs": "6.1.0-alpha.31",
+    "@storybook/react": "6.1.0-alpha.31",
     "@types/auth0": "^2.20.9",
     "@types/debug": "^4.1.5",
     "@types/jest": "^26.0.15",
@@ -138,6 +138,6 @@
     "ts-jest": "^26.4.3",
     "ts-node": "^9.0.0",
     "tslib": "^2.0.1",
-    "typescript": "4.0.3"
+    "typescript": "4.0.5"
   }
 }

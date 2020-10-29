@@ -1486,6 +1486,7 @@ export interface SliderStoryblok {
     | "hide_arrows"
     | "pagination_bottom_right"
     | "pagination_circle"
+    | "container-align-center"
   )[];
   slides_per_view?: number;
   background_color?: {
