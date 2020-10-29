@@ -31,9 +31,13 @@ export function getStoryblokPagesConfig(pageConfig?: StoriesParams) {
 export const getAllStoriesOfProject = async (
   pageConfig?: StoriesParams
 ): Promise<PageItem[]> => {
-  const stories: PageItem[] = await LmStoryblokService.getAll(
-    'cdn/stories',
-    getStoryblokPagesConfig(pageConfig)
-  )
+  const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${CONFIG.previewToken}&no_cache=true`
+  const stories: PageItem[] =
+    process.env.NODE_ENV !== 'production'
+      ? await fetch(cdnUrl).then((r) => r.json())
+      : await LmStoryblokService.getAll(
+          'cdn/stories',
+          getStoryblokPagesConfig(pageConfig)
+        )
   return stories
 }

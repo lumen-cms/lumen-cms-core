@@ -132,7 +132,6 @@ export const apiRequestResolver = async ({
   const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
     pageSlug.includes(path)
   )
-  console.log('[start] inside delivery resolver')
 
   const [
     settings,
@@ -144,9 +143,7 @@ export const apiRequestResolver = async ({
     insideStoryblok,
     overwriteSettingPath
   })
-  console.log('[after shared] inside delivery resolver')
   const all: any[] = [LmStoryblokService.get(`cdn/stories/${pageSlug}`)]
-  console.log("[after page] inside delivery resolver'")
 
   if (
     CONFIG.suppressSlugLocale &&
