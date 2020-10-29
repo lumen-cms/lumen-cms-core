@@ -33,6 +33,9 @@ export const useStyles = makeStyles({
         width: '100%'
       }
     },
+    '&.carousel__container-align-center .react-swipeable-view-container': {
+      alignItems: 'center'
+    },
     '& .react-swipeable-view-container .MuiContainer-root': {
       padding: '0px !important',
       margin: '0px !important',
@@ -88,11 +91,6 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   const carouselNextClasses = clsx('carousel-control-next', {
     'd-none': properties.includes('hide_arrows')
   })
-  const carouselClasses = clsx(
-    classes.carousel,
-    'carousel slide',
-    properties.map((i) => `carousel__${i}`)
-  )
 
   function handleChangeIndex(item: any) {
     setSlide(body.findIndex((i) => i._uid === item._uid))
@@ -104,7 +102,14 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   }
 
   return (
-    <div className={carouselClasses} style={styles}>
+    <div
+      className={clsx(
+        classes.carousel,
+        'carousel slide',
+        properties.map((i) => `carousel__${i}`)
+      )}
+      style={styles}
+    >
       <SwipeableViews
         index={slide}
         animateTransitions={!content.disable_transition}
