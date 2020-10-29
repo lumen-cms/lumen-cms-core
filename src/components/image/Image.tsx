@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useWindowWidth } from '@react-hook/window-size'
+import Image from 'next/image'
 import {
   getImageAttrs,
   getOriginalImageDimensions
@@ -60,8 +60,10 @@ export default function LmImage({
     intersectionImageOptions
   )
 
-  const imgProperties: { src?: string; srcSet?: string } = {}
   const imageSource = content.source
+  const imgProperties: { src: string; srcSet?: string } = {
+    src: imageSource || ''
+  }
 
   if (!imageSource) {
     return <div /> // don't need to render anything
@@ -123,12 +125,7 @@ export default function LmImage({
       focalPoint: content.focal_point,
       smart: imageCrop.includes('smart_crop')
     })
-    imgProperties.src = attrs.src
-    imgProperties.srcSet = attrs.srcSet
-  }
-
-  function onImageLoaded() {
-    setLoaded(true)
+    imgProperties.src = attrs.src || ''
   }
 
   const ratio =
@@ -153,6 +150,7 @@ export default function LmImage({
       ? originalDimensions.width
       : definedWidth
 
+  console.log(definedWidth)
   return (
     <>
       <span
@@ -193,12 +191,14 @@ export default function LmImage({
             variant={property.includes('rounded-circle') ? 'circle' : 'rect'}
           />
         )}
-        <Fade in={loaded}>
-          <img
-            {...imgProperties}
+        {content.source && (
+          <Image
+            src={content.source?.replace('//a', 'https://a')}
+            // loading="eager"
             alt={content.alt || 'website image'}
-            width={definedWidth || undefined}
-            height={definedHeight || undefined}
+            width={originalDimensions.width}
+            height={originalDimensions.height}
+            sizes=""
             style={{
               cursor: onClick ? 'pointer' : undefined,
               // width: content.width ? `${content.width}px` : 'auto',
@@ -206,9 +206,9 @@ export default function LmImage({
               // height: content.height ? `${content.height}px` : 'auto'
             }}
             className={clsx(classes.image, content.property)}
-            onLoad={onImageLoaded}
+            onLoad={() => setLoaded(true)}
           />
-        </Fade>
+        )}
       </AspectRatio>
     </>
   )

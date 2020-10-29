@@ -12,6 +12,9 @@ module.exports = function (env = {}, plugins = [], transpileModules = []) {
     experimental: {
       modern: true
     },
+    images: {
+      domains: ['a.storyblok.com', 'img2.storyblok.com'],
+    },
     async rewrites() {
       return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
     },
