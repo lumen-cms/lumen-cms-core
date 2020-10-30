@@ -3,7 +3,7 @@ import auth0 from '../../../utils/auth0/auth0'
 
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { redirectTo } = req.query
+    // const { redirectTo } = req.query
     await auth0.handleLogin(req, res, {
       // authParams: {
       //   login_hint: 'foo@acme.com',
@@ -11,7 +11,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
       //   scope: 'some other scope',
       //   foo: 'bar'
       // },
-      redirectTo: redirectTo as string
+      // redirectTo: redirectTo as string
       // getState: (req2) => {
       //   console.log(req2)
       //   return {
