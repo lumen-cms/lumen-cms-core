@@ -34,6 +34,11 @@ export default async function callback(
     })
   } catch (error) {
     console.error(error)
-    res.status(error.status || 400).end(error.message)
+    if (error.message.include('invalid_grant')) {
+      res.writeHead(307, { Location: '/' })
+      res.end()
+    } else {
+      res.status(error.status || 400).end(error.message)
+    }
   }
 }

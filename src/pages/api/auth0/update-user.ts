@@ -29,9 +29,7 @@ export default auth0.requireAuthentication(async function updateUser(
     }
     console.log(data)
     await auth0ManagementClient.updateUser({ id: user.sub }, data)
-    await auth0.handleProfile(req, res, {
-      refetch: true // only if on SSR
-    })
+    await auth0.handleProfile(req, res)
   } catch (error) {
     console.log(error)
     res.status(error.status || 400).end(error.message || error)
