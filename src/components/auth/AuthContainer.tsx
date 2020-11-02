@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { useAppContext } from '@context/AppContext'
+import { useAuth0 } from '@auth0/auth0-react'
 import { AuthContainerStoryblok } from '../../typings/generated/components-schema'
 import { hasAuth0Credentials } from '../../utils/auth0/auth0Helpers'
 
@@ -8,8 +9,8 @@ export const AuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
   content,
   children
 }) => {
-  const appContext = useAppContext()
-  const { user, insideStoryblok } = appContext
+  const { insideStoryblok } = useAppContext()
+  const { user } = useAuth0()
   let hideOnRole = true
   let requireRole = true
   let showContent = true
