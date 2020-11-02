@@ -2,11 +2,14 @@ import React, { useState } from 'react'
 import { FormContainer, TextFieldElement } from 'react-form-hook-mui'
 import { Button } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
+import { useAuth0 } from '@auth0/auth0-react'
 import { useAppContext } from '../provider/context/AppContext'
 import { Auth0FormProps } from './authTypes'
+import { auth0Endpoint } from '../../utils/auth0/auth0Helpers'
 
 export default function LmAuthForm({ content }: Auth0FormProps) {
   const appCtx = useAppContext()
+  const { getAccessTokenSilently } = useAuth0()
   const [updating, setUpdating] = useState(false)
   const defaults = {
     email: appCtx.user?.email || '',
@@ -52,8 +55,13 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
     Object.keys(data).forEach((key) => {
       params.append(key, data[key])
     })
+    const accessToken = await getAccessTokenSilently()
     try {
-      await fetch(`/api/auth0/update-user?${params.toString()}`)
+      await fetch(`${auth0Endpoint.api}/api/update-user?${params.toString()}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
     } catch (e) {
       console.error(e)
     }
@@ -98,7 +106,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
               key={blok._uid}
               content={blok}
               type="submit"
-              disabled={!updating}
+              disabled={updating}
             />
           ))
         ) : (
@@ -117,9 +125,18 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
           disabled={updating}
           onClick={async () => {
             setUpdating(true)
+            const accessToken = await getAccessTokenSilently()
+            console.log(accessToken)
             try {
               await fetch(
-                `/api/auth0/delete-user?sub=${appCtx.user?.sub || ''}`
+                `${auth0Endpoint.api}/api/delete-user?sub=${
+                  appCtx.user?.sub || ''
+                }`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`
+                  }
+                }
               )
             } catch (e) {
               console.error(e)

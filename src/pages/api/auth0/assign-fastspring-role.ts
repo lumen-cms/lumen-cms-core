@@ -28,7 +28,7 @@ export default async function callback(
       throw new Error('user ID is not part of tags')
     }
     const oldUserData = await auth0ManagementClient.getUser({
-      id: findOrderInFastspring.tags.sub
+      id: userSub
     })
 
     // assign role of the fastspring order to the user
