@@ -4,8 +4,7 @@ import Error from 'next/error'
 import { LmDefaultPage, LmPagesIndexProps } from './DefaultPage'
 
 function MyPage(props: LmPagesIndexProps) {
-  console.log('inside of page...')
-  const { error, isLoading, user, logout } = useAuth0()
+  const { error, isLoading } = useAuth0()
 
   if (isLoading) {
     return <h3>loading...</h3>
@@ -13,15 +12,7 @@ function MyPage(props: LmPagesIndexProps) {
   if (error) {
     return <Error statusCode={500} title={error.message} />
   }
-  console.log(user)
-  return (
-    <>
-      <button onClick={() => logout({ returnTo: window.location.origin })}>
-        Log out
-      </button>
-      <LmDefaultPage {...props} />
-    </>
-  )
+  return <LmDefaultPage {...props} />
 }
 
 export const Auth0Page = withAuthenticationRequired(MyPage)
