@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
 import NProgress from 'nprogress'
 import { CONFIG } from '@CONFIG'
 import { AppPageProps } from '../../typings/app'
@@ -12,9 +11,8 @@ import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 
 export type LmAppProps = AppProps<AppPageProps>
 
-export function LmApp({ Component, pageProps }: LmAppProps) {
+export function LmApp({ Component, pageProps, router }: LmAppProps) {
   const { locale, settings, page } = pageProps as AppPageProps
-  const router = useRouter()
   const [statePage, stateSettings] = useStoryblokComposer({ settings, page })
   if (locale && getGlobalState('locale') !== locale) {
     setGlobalState('locale', locale)

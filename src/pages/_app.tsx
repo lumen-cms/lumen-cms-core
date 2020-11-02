@@ -1,6 +1,6 @@
 import { CONFIG } from '@CONFIG'
 // import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
-import { LmDefaultApp } from '../components/pages/_appDefault'
+export { Auth0App as default } from '../components/pages/_appAuth0'
 
 // @ts-ignore
 // LmDefaultApp.getInitialProps = async (appContext) => {
@@ -9,7 +9,7 @@ import { LmDefaultApp } from '../components/pages/_appDefault'
 //
 //   return { ...appProps }
 // }
-export default LmDefaultApp
+// export default LmDefaultApp
 // if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
 //   LmCoreComponents.lm_app_providers.push(LmFastSpringProvider)
 // }
