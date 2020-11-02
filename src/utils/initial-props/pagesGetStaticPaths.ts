@@ -21,7 +21,6 @@ const pagesGetStaticPaths: GetStaticPaths = async () => {
     paths = paths.slice(0, 2)
   }
   paths.push({ params: { index: [] } }) // landing page as empty
-  console.log(paths.length)
   return {
     paths,
     fallback: true

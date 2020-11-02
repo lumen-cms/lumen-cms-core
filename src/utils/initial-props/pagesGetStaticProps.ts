@@ -22,7 +22,6 @@ const pagesGetStaticProps: GetStaticProps = async (
     }
     const pageProps = await getPageProps(slug, !!preview)
     // endMeasureTime()
-    console.log('inside page props before return props')
     return {
       props: pageProps,
       revalidate: 300

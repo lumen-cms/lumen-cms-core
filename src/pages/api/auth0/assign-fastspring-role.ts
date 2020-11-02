@@ -1,15 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import auth0 from '../../../utils/auth0/auth0'
 import { getFastspringOrder } from '../../../utils/fastspring/fastspring'
 import auth0ManagementClient from '../../../utils/auth0/auth0Management'
 
-export default auth0.requireAuthentication(async function callback(
+export default async function callback(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const session = await auth0.getSession(req)
-    const user = session?.user
     const orderId = req.query.orderId as string
     if (!orderId) {
       throw new Error('Order ID is not existing')
@@ -26,13 +23,16 @@ export default auth0.requireAuthentication(async function callback(
     ) {
       throw new Error('order does not exist')
     }
-    if (!user) {
-      throw new Error('user is not logged in')
+    const userSub = findOrderInFastspring.tags?.sub
+    if (!userSub) {
+      throw new Error('user ID is not part of tags')
     }
+    const oldUserData = await auth0ManagementClient.getUser({
+      id: findOrderInFastspring.tags.sub
+    })
 
     // assign role of the fastspring order to the user
-    const oldPermissions =
-      user[process.env.NEXT_PUBLIC_AUTH_PERMISSION as string] || []
+    const oldPermissions = oldUserData.app_metadata?.orders || []
     const updateUserData = {
       app_metadata: {
         orders: [
@@ -45,11 +45,11 @@ export default auth0.requireAuthentication(async function callback(
         ]
       }
     }
-    const params = { id: user.sub }
+    const params = { id: userSub }
     await auth0ManagementClient.updateUser(params, updateUserData)
     res.json({ orders: updateUserData.app_metadata.orders })
   } catch (error) {
     console.error(error)
     res.status(error.status || 400).end(error.message)
   }
-})
+}

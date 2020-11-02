@@ -1,5 +1,5 @@
 import React from 'react'
-import { Auth0Provider } from '@auth0/auth0-react'
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 import Router from 'next/router'
 import { LmApp, LmAppProps } from './_app'
 
@@ -8,6 +8,18 @@ export { reportWebVitals } from './_appDefault'
 const onRedirectCallback = (appState: any) => {
   console.log('inside of redirect callbck')
   Router.replace(appState?.returnTo || '/')
+}
+
+function AppContainer(props: LmAppProps) {
+  const { user } = useAuth0()
+  const newProps = {
+    ...props,
+    pageProps: {
+      ...props.pageProps,
+      user
+    }
+  }
+  return <LmApp {...newProps} />
 }
 
 export function Auth0App(props: LmAppProps) {
@@ -22,7 +34,7 @@ export function Auth0App(props: LmAppProps) {
       }
       onRedirectCallback={onRedirectCallback}
     >
-      <LmApp {...props} />
+      <AppContainer {...props} />
     </Auth0Provider>
   )
 }
