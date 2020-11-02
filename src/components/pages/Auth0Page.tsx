@@ -9,8 +9,6 @@ function MyPage(props: LmPagesIndexProps) {
   const { asPath, replace } = useRouter()
   const { error, isLoading, user } = useAuth0()
 
-  useEffect(() => {}, [])
-
   useEffect(() => {
     if (!hasAuth0PathCredentials(asPath, user)) {
       replace('/')
