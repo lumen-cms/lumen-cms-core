@@ -10,7 +10,6 @@ export const AuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
 }) => {
   const appContext = useAppContext()
   const { user, insideStoryblok } = appContext
-  console.log('inside of auth container', user)
   let hideOnRole = true
   let requireRole = true
   let showContent = true

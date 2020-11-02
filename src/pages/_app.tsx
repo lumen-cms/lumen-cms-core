@@ -16,7 +16,7 @@ export { Auth0App as default } from '../components/pages/_appAuth0'
 
 CONFIG.authPathRequiredRoles = [
   {
-    path: 'auth/offensive-1/',
+    path: 'offensive-1/',
     roles: ['app-offensive']
   }
 ]
