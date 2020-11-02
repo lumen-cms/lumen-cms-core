@@ -14,9 +14,9 @@ export default initAuth0({
     // The cookie lifetime (expiration) in seconds. Set to 8 hours by default.
     cookieLifetime: 60 * 60 * 8,
     // (Optional) The cookie domain this should run on. Leave it blank to restrict it to your domain.
-    // cookieDomain: 'your-domain.com',
+    cookieDomain: process.env.NEXT_PUBLIC_COOKIE_DOMAIN || undefined,
     // (Optional) SameSite configuration for the session cookie. Defaults to 'lax', but can be changed to 'strict' or 'none'. Set it to false if you want to disable the SameSite setting.
-    // cookieSameSite: 'lax',
+    cookieSameSite: 'lax',
     // (Optional) Store the id_token in the session. Defaults to false.
     storeIdToken: false,
     // (Optional) Store the access_token in the session. Defaults to false.
