@@ -58,8 +58,6 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
     const accessToken = await getAccessTokenSilently()
     try {
       await fetch(`${auth0Endpoint.api}/api/update-user?${params.toString()}`, {
-        method: 'GET',
-        mode: 'no-cors',
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
