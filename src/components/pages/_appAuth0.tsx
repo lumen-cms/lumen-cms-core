@@ -29,6 +29,7 @@ export function Auth0App(props: LmAppProps) {
       scope="openid profile email"
       audience={process.env.NEXT_PUBLIC_AUTH0_AUDIENCE}
       cacheLocation="localstorage"
+      useRefreshTokens
       redirectUri={
         (typeof window !== 'undefined' && window.location.origin) as string
       }
