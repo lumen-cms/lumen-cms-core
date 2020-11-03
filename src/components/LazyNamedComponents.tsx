@@ -144,6 +144,6 @@ LmCoreComponents.bottom_navigation = dynamic(
       /* webpackChunkName: 'bottomNavigation' */ './bottom-navigation/BottomNavigation'
     )
 )
-LmCoreComponents.auth_form = dynamic(
-  () => import(/* webpackChunkName: 'bottomNavigation' */ './auth/AuthForm')
-)
+// LmCoreComponents.auth_form = dynamic(
+//   () => import(/* webpackChunkName: 'bottomNavigation' */ './auth/AuthForm')
+// )
