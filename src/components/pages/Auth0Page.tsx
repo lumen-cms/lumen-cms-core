@@ -1,15 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react'
 import Error from 'next/error'
 import { useRouter } from 'next/router'
 import { LmComponentRender } from '@LmComponentRender'
+import { LinearProgress } from '@material-ui/core'
 import { LmPagesIndexProps } from './DefaultPage'
 import { hasAuth0PathCredentials } from '../../utils/auth0/auth0Helpers'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import { NotFound } from './404'
 
-function MyPage(props: LmPagesIndexProps) {
+function PageContainer({ page }: { page: LmPagesIndexProps['page'] }) {
+  return <LmComponentRender content={page} />
+}
+
+const PageAuthContainer: FC<{
+  page: LmPagesIndexProps['page']
+}> = withAuthenticationRequired(PageContainer)
+
+export function Auth0Page(props: LmPagesIndexProps) {
   const { settings, page, locale } = props
   const { asPath, replace } = useRouter()
   const { error, isLoading, user } = useAuth0()
@@ -38,9 +47,9 @@ function MyPage(props: LmPagesIndexProps) {
       />
       <Layout settings={settings}>
         {isLoading ? (
-          <h3>loading...</h3>
+          <LinearProgress />
         ) : page ? (
-          <LmComponentRender content={page} />
+          <PageAuthContainer page={page} />
         ) : (
           <NotFound locale={locale} statusCode={404} />
         )}
@@ -48,5 +57,3 @@ function MyPage(props: LmPagesIndexProps) {
     </>
   )
 }
-
-export const Auth0Page = withAuthenticationRequired(MyPage)
