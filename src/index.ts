@@ -2,7 +2,6 @@ import { CONFIG, LmCoreComponents } from '@CONFIG'
 import { LmComponentRender } from '@LmComponentRender'
 
 export { LmDefaultApp, reportWebVitals } from './components/pages/_appDefault'
-
 export { LmDefaultPage } from './components/pages/DefaultPage'
 export { LmApp } from './components/pages/_app'
 export { LmPage } from './components/page/Page'
