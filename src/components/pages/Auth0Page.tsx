@@ -11,15 +11,6 @@ import Layout from '../layout/Layout'
 import { NotFound } from './404'
 
 function PageContainer({ page }: { page: LmPagesIndexProps['page'] }) {
-  return <LmComponentRender content={page} />
-}
-
-const PageAuthContainer: FC<{
-  page: LmPagesIndexProps['page']
-}> = withAuthenticationRequired(PageContainer)
-
-export function Auth0Page(props: LmPagesIndexProps) {
-  const { settings, page, locale } = props
   const { asPath, replace } = useRouter()
   const { error, isLoading, user } = useAuth0()
 
@@ -28,14 +19,29 @@ export function Auth0Page(props: LmPagesIndexProps) {
       replace('/')
     }
   }, [asPath, user, replace])
+  if (error) {
+    return <Error statusCode={401} title={error?.message || 'Error occured'} />
+  }
 
-  if (error || props.error || !settings) {
+  if (isLoading) {
     return (
-      <Error
-        statusCode={500}
-        title={error?.message || 'Error occured or no settings found'}
-      />
+      <div style={{ minHeight: '30vh' }}>
+        <LinearProgress />
+      </div>
     )
+  }
+  return <LmComponentRender content={page} />
+}
+
+const PageAuthContainer: FC<{
+  page: LmPagesIndexProps['page']
+}> = withAuthenticationRequired(PageContainer)
+
+export function Auth0Page(props: LmPagesIndexProps) {
+  const { settings, page, locale, error } = props
+
+  if (error || !settings) {
+    return <Error statusCode={500} title="Error occured or no settings found" />
   }
 
   return (
@@ -46,9 +52,7 @@ export function Auth0Page(props: LmPagesIndexProps) {
         previewImage={page?.preview_image}
       />
       <Layout settings={settings}>
-        {isLoading ? (
-          <LinearProgress />
-        ) : page ? (
+        {page ? (
           <PageAuthContainer page={page} />
         ) : (
           <NotFound locale={locale} statusCode={404} />
