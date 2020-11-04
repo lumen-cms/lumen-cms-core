@@ -17,10 +17,10 @@ export const LmFastSpringProvider: FC<{
   settings: GlobalStoryblok
 }> = ({ children, settings }) => {
   const router = useRouter()
+  const appCtx = useAppContext()
   const fastSpring: EcommerceFastspringConfigStoryblok | undefined = (
     settings.ecommerce || []
   ).find((i) => i.component === 'ecommerce_fastspring_config')
-  const appCtx = useAppContext()
   const [ready, status] = useScript(fastSpring?.url, {
     attributes: {
       id: 'fsc-api',
@@ -46,30 +46,32 @@ export const LmFastSpringProvider: FC<{
         cachedProducts = [...fetchedProducts]
       }
     }
-    if (!window.fscDataPopupClosed) {
-      window.fscDataPopupClosed = async (data) => {
-        if (data?.id && data?.reference) {
-          // successful purchase
-          if (hasGtag()) {
-            gtag('event', 'purchase', {
-              content_id: data?.id
-            })
-          }
-          if (hasFacebookPixel()) {
-            fbq('track', 'Purchase', {
-              content_ids: [data.id]
-            })
-          }
-          // update elastic if defined
-          if (appCtx?.user?.email) {
-            window.location.href = '/refetch'
-          } else if (redirect) {
-            await router.push(CONFIG.href, redirect)
-            setRedirect('')
-          }
-        } else {
+    window.fscDataPopupClosed = async (data) => {
+      if (data?.id && data?.reference) {
+        // successful purchase
+        if (hasGtag()) {
+          gtag('event', 'purchase', {
+            content_id: data?.id
+          })
+        }
+        if (hasFacebookPixel()) {
+          fbq('track', 'Purchase', {
+            content_ids: [data.id]
+          })
+        }
+        console.log('purchase from FS with user', appCtx.user)
+        // update elastic if defined
+        if (appCtx?.user) {
+          console.log('start refetch')
+          window.location.href = '/refetch'
+          setRedirect('')
+        } else if (redirect) {
+          await router.push(CONFIG.href, redirect)
           setRedirect('')
         }
+      } else {
+        console.log('no purchase from FS', appCtx)
+        setRedirect('')
       }
     }
   }
