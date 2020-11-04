@@ -147,15 +147,18 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           {...addons}
         >
           {menuItems.map((nestedProps) => {
-            const btnProps: any = nestedProps.link?.cached_url
-              ? {
-                  ...getLinkAttrs(nestedProps.link as LinkType, {
-                    openExternal: !!nestedProps.open_external
-                  }),
-                  // naked: true,
-                  component: LmCoreComponents.lm_link_render
-                }
-              : {}
+            const btnProps: any =
+              nestedProps.link?.cached_url ||
+              nestedProps.link?.url ||
+              nestedProps.link?.email
+                ? {
+                    ...getLinkAttrs(nestedProps.link as LinkType, {
+                      openExternal: !!nestedProps.open_external
+                    }),
+                    // naked: true,
+                    component: LmCoreComponents.lm_link_render
+                  }
+                : {}
             return (
               <MenuItem {...btnProps} key={nestedProps._uid}>
                 {nestedProps.label}

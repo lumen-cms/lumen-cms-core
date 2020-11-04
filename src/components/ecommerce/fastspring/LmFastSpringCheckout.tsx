@@ -1,5 +1,6 @@
 import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
+import { useAppContext } from '@context/AppContext'
 import { useFastspringContext } from './context/FastSpringContext'
 import { FastSpringCheckoutProps } from './fastSpringTypes'
 import { hasFacebookPixel, hasGtag } from '../../../utils/analyticsHelper'
@@ -9,7 +10,7 @@ export default function LmFastSpringCheckout({
   trigger
 }: FastSpringCheckoutProps) {
   const { products, setRedirect } = useFastspringContext()
-
+  const ctx = useAppContext()
   const { path } = content
 
   const currentItem = products?.find((i) => i.path === path)
@@ -72,7 +73,12 @@ export default function LmFastSpringCheckout({
               path,
               quantity: 1
             }
-          ]
+          ],
+          tags: {
+            sub: ctx?.user?.sub ?? '',
+            email: ctx?.user?.email ?? '',
+            id: ctx?.user?.id ?? ''
+          }
         })
         window.fastspring.builder.checkout()
       }}

@@ -1,4 +1,5 @@
 // server
+export { LmStoryblokService } from './utils/initial-props/StoryblokService'
 export { default as pagesGetStaticPaths } from './utils/initial-props/pagesGetStaticPaths'
 export { default as pagesGetServerSideProps } from './utils/initial-props/pagesGetServerSideProps'
 export { default as pagesGetStaticProps } from './utils/initial-props/pagesGetStaticProps'

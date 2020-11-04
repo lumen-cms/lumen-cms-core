@@ -1,25 +1,6 @@
 import { CONFIG } from '@CONFIG'
 import { IClaims } from '../../typings/app'
 
-let userState: any
-
-export function createLoginUrl(redirectTo?: string) {
-  if (redirectTo) {
-    return `/api/auth0/login?redirectTo=${encodeURIComponent(redirectTo)}`
-  }
-  return `/api/auth0/login`
-}
-
-export const fetchUser = async (forceRefetch?: boolean) => {
-  if (userState !== undefined && !forceRefetch) {
-    return userState
-  }
-
-  const res = await fetch('/api/auth0/me')
-  userState = res.ok ? await res.json() : null
-  return userState
-}
-
 export const hasAuth0Credentials = (roles: string[], user: IClaims) => {
   const userCurrentRoles =
     user[process.env.NEXT_PUBLIC_AUTH_PERMISSION as string] || []
@@ -54,4 +35,10 @@ export const hasAuth0PathCredentials = (
     return hasAuth0Credentials(needSpecificRole.roles, user)
   }
   return true
+}
+export const auth0Endpoint = {
+  api:
+    process.env.NODE_ENV === 'production'
+      ? process.env.NEXT_PUBLIC_AUTH_API
+      : 'http://localhost:3001'
 }

@@ -79,9 +79,7 @@ export const LmFastSpringProvider: FC<{
             }
           }
           if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
-            window.location.href = `/api/auth0/login${
-              redirect ? `?redirectTo=${redirect}` : ''
-            }`
+            window.location.href = '/refetch'
           } else if (redirect) {
             await router.push(CONFIG.href, redirect)
             setRedirect('')
