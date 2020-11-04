@@ -79,7 +79,7 @@ export function getPreviewImageSource(image: string) {
 
 export function imageServiceNoWebp(image: string, option = '') {
   if (image.endsWith('.svg') || !option) {
-    return image
+    return image.replace('//a.', 'https://a.')
   }
   const imageService2 = 'https://img2.storyblok.com/'
   const path = image.replace('//a.storyblok.com', '')
