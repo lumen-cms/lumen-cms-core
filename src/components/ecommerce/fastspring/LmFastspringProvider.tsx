@@ -59,10 +59,8 @@ export const LmFastSpringProvider: FC<{
             content_ids: [data.id]
           })
         }
-        console.log('purchase from FS with user', appCtx.user)
         // update elastic if defined
         if (appCtx?.user) {
-          console.log('start refetch')
           window.location.href = '/refetch'
           setRedirect('')
         } else if (redirect) {
@@ -70,7 +68,6 @@ export const LmFastSpringProvider: FC<{
           setRedirect('')
         }
       } else {
-        console.log('no purchase from FS', appCtx)
         setRedirect('')
       }
     }
