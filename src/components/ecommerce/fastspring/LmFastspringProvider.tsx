@@ -3,6 +3,7 @@ import React, { FC, useState } from 'react'
 import useScript from '@charlietango/use-script'
 import { useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
+import { useAppContext } from '@context/AppContext'
 import { FastSpringContext } from './context/FastSpringContext'
 import {
   EcommerceFastspringConfigStoryblok,
@@ -19,6 +20,7 @@ export const LmFastSpringProvider: FC<{
   const fastSpring: EcommerceFastspringConfigStoryblok | undefined = (
     settings.ecommerce || []
   ).find((i) => i.component === 'ecommerce_fastspring_config')
+  const appCtx = useAppContext()
   const [ready, status] = useScript(fastSpring?.url, {
     attributes: {
       id: 'fsc-api',
@@ -58,27 +60,8 @@ export const LmFastSpringProvider: FC<{
               content_ids: [data.id]
             })
           }
-
-          if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
-            try {
-              await fetch(
-                `${process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE}?orderId=${data.id}`
-              )
-            } catch (e) {
-              console.error(e)
-            }
-          }
           // update elastic if defined
-          if (process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL) {
-            try {
-              await fetch(
-                `${process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL}?orderId=${data.id}`
-              )
-            } catch (e) {
-              console.error(e)
-            }
-          }
-          if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
+          if (appCtx?.user?.email) {
             window.location.href = '/refetch'
           } else if (redirect) {
             await router.push(CONFIG.href, redirect)

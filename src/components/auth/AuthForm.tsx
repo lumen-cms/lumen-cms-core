@@ -126,7 +126,6 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
           onClick={async () => {
             setUpdating(true)
             const accessToken = await getAccessTokenSilently()
-            console.log(accessToken)
             try {
               await fetch(
                 `${auth0Endpoint.api}/api/delete-user?sub=${
