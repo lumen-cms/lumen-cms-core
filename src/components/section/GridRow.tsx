@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: 'inherit',
       '& .MuiGrid-item': {
         '&.MuiGrid-grid-md-true': {
-          overflow: 'auto' // flexbox fix for image component
+          overflow: 'auto', // flexbox fix for image component
+          height: 'inherit'
         },
         '& > .MuiGrid-direction-xs-column': {
           '& > *': {
@@ -64,9 +65,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
   // const theme = useTheme()
   const classes = useStyles()
-  const spacing = content.spacing
-    ? (Number(content.spacing) as GridProps['spacing'])
-    : 3
+  const spacing = Number(content.spacing || 3) as GridProps['spacing']
+
   const background: BackgroundStoryblok | undefined =
     Array.isArray(content.background) && content.background[0]
   const { direction } = content
@@ -104,10 +104,9 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
         background.background_elements.length > 0 && (
           <BackgroundElements elements={background.background_elements} />
         )}
-      {content.body &&
-        content.body.map((blok) => (
-          <LmComponentRender content={blok} key={blok._uid} />
-        ))}
+      {content.body?.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
     </Grid>
   )
 }
