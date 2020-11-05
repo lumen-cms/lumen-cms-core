@@ -55,17 +55,21 @@ const BackgroundImage = ({
     hide_image_on_breakpoint
   } = content
   const dontRender = hide_image_on_breakpoint && matches
-  const imageSource =
-    alternative_image && height > width ? alternative_image : image
+  const imageSource = (
+    (alternative_image && height > width ? alternative_image : image) || ''
+  ).replace('//a', 'https://img2')
   if (dontRender) {
     return null
   }
-  console.log(content)
+
+  // @TODO
+  // - backgroundStyle options
+  // - SB options for loading and priority
   return (
     <div className={clsx(classes.root)}>
       {imageSource && (
         <Image
-          src={imageSource.replace('//a', 'https://img2')}
+          src={imageSource}
           sizes="100vw"
           priority
           loading="eager"
