@@ -1,16 +1,14 @@
 import React from 'react'
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Image from 'next/image'
 import { useWindowSize } from '@react-hook/window-size'
 import {
   BackgroundStoryblok,
-  SectionStoryblok
 } from '../../typings/generated/components-schema'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     objectFitContain: {
       objectFit: 'contain'
@@ -33,12 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type BackgroundImageProps = {
   content: BackgroundStoryblok
-  backgroundStyle?: SectionStoryblok['background_style']
+  // backgroundStyle?: SectionStoryblok['background_style']
 }
 
 const BackgroundImage = ({
-  content,
-  backgroundStyle
+  content
 }: BackgroundImageProps): JSX.Element | null => {
   const classes = useStyles()
   const theme = useTheme()
@@ -49,8 +46,9 @@ const BackgroundImage = ({
   const {
     image,
     alternative_image,
-    disable_smart_crop,
-    image_focal_point,
+    // ,
+    // disable_smart_crop,
+    // image_focal_point,
     hide_image_on_breakpoint
   } = content
   const dontRender = hide_image_on_breakpoint && matches
