@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useWindowSize } from '@react-hook/window-size'
 import {
   BackgroundStoryblok,
+  SectionStoryblok
 } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles(() =>
@@ -31,11 +32,12 @@ const useStyles = makeStyles(() =>
 
 type BackgroundImageProps = {
   content: BackgroundStoryblok
-  // backgroundStyle?: SectionStoryblok['background_style']
+  backgroundStyle?: SectionStoryblok['background_style']
 }
 
 const BackgroundImage = ({
-  content
+  content,
+  backgroundStyle
 }: BackgroundImageProps): JSX.Element | null => {
   const classes = useStyles()
   const theme = useTheme()
@@ -43,6 +45,7 @@ const BackgroundImage = ({
   const matches = useMediaQuery(
     theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs')
   )
+  console.log(backgroundStyle)
   const {
     image,
     alternative_image,
