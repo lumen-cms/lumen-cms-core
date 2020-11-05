@@ -48,12 +48,7 @@ export const LmFastSpringProvider: FC<{
     }
     window.fscDataPopupClosed = async (data) => {
       if (data?.id && data?.reference) {
-        // successful purchase
-        if (hasGtag()) {
-          gtag('event', 'purchase', {
-            content_id: data?.id
-          })
-        }
+        // successful purchase GA should be set via GTM or inside of Fastspring itself
         if (hasFacebookPixel()) {
           fbq('track', 'Purchase', {
             content_ids: [data.id]

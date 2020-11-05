@@ -1,5 +1,6 @@
 import { appContext } from './config'
 import {
+  ButtonStoryblok,
   EcommerceCheckoutStoryblok,
   EcommerceShopifyCheckoutStoryblok,
   EcommerceShopifyConfigStoryblok,
@@ -32,8 +33,15 @@ export default {
             // sdk_url: sdk,
             domain: DOMAIN,
             access_token: ACCESS_TOKEN,
-            currency_prefix: 'EUR',
-            image_container_height: 250
+            currency_prefix: '€',
+            image_container_height: 250,
+            product_active_variant: [
+              {
+                _uid: '123123121',
+                component: 'button',
+                color: 'primary'
+              } as ButtonStoryblok
+            ]
           } as EcommerceShopifyConfigStoryblok
         ]
       } as GlobalStoryblok
