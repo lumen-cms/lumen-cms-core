@@ -71,7 +71,8 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
     background,
     styles: content.styles,
     stylesMobile: content.styles_mobile,
-    stylesTablet: content.styles_tablet
+    stylesTablet: content.styles_tablet,
+    stylesHover: content.styles_hover
   })
 
   return (

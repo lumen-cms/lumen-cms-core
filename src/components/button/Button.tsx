@@ -100,7 +100,8 @@ export const LmButton: FC<LmButtonProps> = ({
   const advancedClasses = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
-    propsTablet: content.styles_tablet
+    propsTablet: content.styles_tablet,
+    propsHover: content.styles_hover
   })
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')

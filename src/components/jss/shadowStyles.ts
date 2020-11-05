@@ -37,6 +37,14 @@ const useShadowStyles = makeStyles({
       transform: 'translateY(-3px)',
       boxShadow: '0 4px 20px 0 rgba(0,0,0,0.12)'
     }
+  },
+  flowUp: {
+    boxShadow: '0 42px 64px 0 rgba(0,0,0,0.12)',
+    transition: 'all 0.4s',
+    '&:hover': {
+      transform: 'translateY(-.5rem)',
+      boxShadow: '0 0.2rem 0.8rem rgba(0,0,0,.15)'
+    }
   }
 })
 

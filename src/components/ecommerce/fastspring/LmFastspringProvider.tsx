@@ -9,7 +9,7 @@ import {
   EcommerceFastspringConfigStoryblok,
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
-import { hasFacebookPixel, hasGtag } from '../../../utils/analyticsHelper'
+import { hasFacebookPixel } from '../../../utils/analyticsHelper'
 
 let cachedProducts: any[] = []
 

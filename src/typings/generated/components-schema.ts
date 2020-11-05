@@ -74,7 +74,7 @@ export interface BackgroundStoryblok {
     rgba?: string;
     [k: string]: any;
   };
-  shadow_effect?: "faded" | "float" | "hover" | "light-top" | "bouncy" | "soft";
+  shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft" | "flowUp";
   elevation?: number;
   image?: string;
   alternative_image?: string;
@@ -144,6 +144,7 @@ export interface BottomNavigationStoryblok {
   styles_mobile?: any[];
   styles_tablet?: any[];
   stick_to_bottom?: boolean;
+  styles_hover?: any[];
   _uid: string;
   component: "bottom_navigation";
   [k: string]: any;
@@ -199,6 +200,7 @@ export interface ButtonStoryblok {
   styles?: any[];
   styles_mobile?: any[];
   styles_tablet?: any[];
+  styles_hover?: any[];
   _uid: string;
   component: "button";
   [k: string]: any;
@@ -240,7 +242,7 @@ export interface CardListStoryblok {
   image_ratio?: "16x9" | "1x1" | "4x3" | "3x2" | "2x3" | "1x3" | "3x1" | "2.85x1";
   hide_image?: boolean;
   border_radius?: "0" | "2" | "4" | "";
-  shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft";
+  shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft" | "flowUp";
   elevation?: "0" | "1" | "2" | "4" | "8" | "12" | "16" | "20" | "3" | "5" | "6" | "24" | "22";
   title_typography?:
     | "headline2"
@@ -374,6 +376,7 @@ export interface ColumnStoryblok {
   styles?: any[];
   styles_mobile?: any[];
   styles_tablet?: any[];
+  styles_hover?: any[];
   _uid: string;
   component: "column";
   [k: string]: any;
@@ -752,6 +755,7 @@ export interface HeadlineStoryblok {
   styles?: any[];
   styles_mobile?: any[];
   styles_tablet?: any[];
+  styles_hover?: any[];
   _uid: string;
   component: "headline";
   [k: string]: any;
@@ -764,6 +768,7 @@ export interface HtmlStoryblok {
   lazy_load?: boolean;
   styles_mobile?: any[];
   styles_tablet?: any[];
+  styles_hover?: any[];
   _uid: string;
   component: "html";
   [k: string]: any;
@@ -1273,6 +1278,7 @@ export interface RichTextEditorStoryblok {
   styles?: any[];
   styles_mobile?: any[];
   styles_tablet?: any[];
+  styles_hover?: any[];
   _uid: string;
   component: "rich_text_editor";
   [k: string]: any;
@@ -1291,6 +1297,7 @@ export interface RowStoryblok {
   styles?: any[];
   styles_mobile?: any[];
   styles_tablet?: any[];
+  styles_hover?: any[];
   _uid: string;
   component: "row";
   [k: string]: any;
@@ -1308,6 +1315,7 @@ export interface SectionStoryblok {
   styles?: any[];
   styles_mobile?: any[];
   styles_tablet?: any[];
+  styles_hover?: any[];
   _uid: string;
   component: "section";
   [k: string]: any;
@@ -1559,30 +1567,21 @@ export interface StylesStoryblok {
     rgba?: string;
     [k: string]: any;
   };
-  hover_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  hover_background_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  hover_border_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
+  border_radius?: string;
+  elevation?: number;
   margin?: string;
   padding?: string;
   width?: string;
   height?: string;
   display?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
+  z_index?: number;
   position?: "relative" | "absolute" | "fixed" | "static" | "sticky";
   top?: string;
   left?: string;
   bottom?: string;
   right?: string;
-  z_index?: number;
-  elevation?: number;
+  custom_css?: string;
+  box_shadow?: string;
   _uid: string;
   component: "styles";
   [k: string]: any;

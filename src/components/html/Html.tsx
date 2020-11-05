@@ -14,7 +14,8 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
   const classes = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
-    propsTablet: content.styles_tablet
+    propsTablet: content.styles_tablet,
+    propsHover: content.styles_hover
   })
   const divProps: HTMLAttributes<Element> = {
     className: clsx({
