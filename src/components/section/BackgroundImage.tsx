@@ -9,7 +9,6 @@ import {
   BackgroundStoryblok,
   SectionStoryblok
 } from '../../typings/generated/components-schema'
-import { getOriginalImageDimensions } from '../../utils/ImageService'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
