@@ -16,6 +16,7 @@ export type UseBackgroundProps = {
   styles?: StylesStoryblok[]
   stylesMobile?: StylesStoryblok[]
   stylesTablet?: StylesStoryblok[]
+  stylesHover?: StylesStoryblok[]
 }
 
 export type UseBackgroundPayload = {
@@ -26,13 +27,21 @@ export type UseBackgroundPayload = {
 export default function useBackgroundBox(
   props: UseBackgroundProps
 ): UseBackgroundPayload {
-  const { background, styles, stylesMobile, stylesTablet, variant } = props
+  const {
+    background,
+    styles,
+    stylesMobile,
+    stylesTablet,
+    stylesHover,
+    variant
+  } = props
   const theme = useTheme()
   const shadowClasses = useShadowStyles()
   const customClasses = useStylesAdvanced({
     props: styles,
     propsMobile: stylesMobile,
-    propsTablet: stylesTablet
+    propsTablet: stylesTablet,
+    propsHover: stylesHover
   })
 
   const style =
@@ -46,7 +55,8 @@ export default function useBackgroundBox(
     ]]: !!background?.shadow_effect,
     [customClasses.advanced]: styles?.length,
     [customClasses.advancedMobile]: stylesMobile?.length,
-    [customClasses.advancedTablet]: stylesTablet?.length
+    [customClasses.advancedTablet]: stylesTablet?.length,
+    [customClasses.advancedHover]: stylesHover?.length
   })
   return { className, style }
 }

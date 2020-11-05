@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.74.4",
+  "version": "0.76.0",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -98,7 +98,6 @@
   },
   "devDependencies": {
     "@auth0/auth0-react": "1.1.0",
-    "@auth0/nextjs-auth0": "^0.16.0",
     "@graphql-codegen/cli": "^1.19.0",
     "@graphql-codegen/typescript": "^1.17.11",
     "@graphql-codegen/typescript-document-nodes": "^1.17.8",
@@ -109,7 +108,6 @@
     "@storybook/addon-essentials": "6.1.0-alpha.31",
     "@storybook/addon-knobs": "6.1.0-alpha.31",
     "@storybook/react": "6.1.0-alpha.31",
-    "@types/auth0": "^2.20.9",
     "@types/debug": "^4.1.5",
     "@types/jest": "^26.0.15",
     "@types/match-sorter": "5.0.0",
@@ -117,7 +115,6 @@
     "@types/node-fetch": "2.5.7",
     "@types/react": "^16.9.54",
     "@types/uuid": "^8.3.0",
-    "auth0": "^2.30.0",
     "core-js": "^3.0.1",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",

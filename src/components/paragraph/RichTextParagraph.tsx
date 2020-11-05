@@ -14,7 +14,8 @@ export function LmRichTextParagraph({
   const advancedClasses = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
-    propsTablet: content.styles_tablet
+    propsTablet: content.styles_tablet,
+    propsHover: content.styles_hover
   })
   return (
     <Typography
@@ -27,6 +28,7 @@ export function LmRichTextParagraph({
           [advancedClasses.advanced]: content.styles?.length,
           [advancedClasses.advancedTablet]: content.styles_tablet?.length,
           [advancedClasses.advancedMobile]: content.styles_mobile?.length,
+          [advancedClasses.advancedHover]: content.styles_hover?.length,
           [`lm-font-${content.font}`]: content.font
         }
       )}

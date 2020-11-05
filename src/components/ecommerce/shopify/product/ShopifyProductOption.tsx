@@ -18,9 +18,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       flexWrap: 'wrap',
-      '& .MuiButtonBase-root': {
-        marginRight: theme.spacing(2),
-        marginTop: theme.spacing(2)
+      marginTop: theme.spacing(2),
+      '& > button': {
+        marginRight: theme.spacing(2)
       }
     },
     buttonSpace: {
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function ShopifyProductOption({ option }: ShopifyProductOptionProps) {
   const { selectedVariant, onVariantSelect, config } = useShopifySdkContext()
+  const { currency_prefix } = config
   const classes = useStyles()
   useEffect(() => {
     if (!selectedVariant) {
@@ -54,10 +55,12 @@ export function ShopifyProductOption({ option }: ShopifyProductOptionProps) {
           >
             {selectedVariant.compareAtPrice && (
               <s className={classes.redColor}>
-                {selectedVariant.compareAtPrice}&nbsp;
+                {currency_prefix || ''} {selectedVariant.compareAtPrice}
               </s>
-            )}
-            <span>{selectedVariant.price}</span>
+            )}{' '}
+            <span>
+              {currency_prefix || ''} {selectedVariant.price}
+            </span>
           </LmComponentRender>
         )}
       </div>
@@ -91,8 +94,12 @@ export function ShopifyProductOption({ option }: ShopifyProductOptionProps) {
                     ? 'unelevated'
                     : 'outlined',
                 ...(selectedVariant?.id === variant.id
-                  ? config?.product_active_variant || {}
-                  : config?.product_variant || {}),
+                  ? config?.product_active_variant?.length
+                    ? config.product_active_variant[0]
+                    : {}
+                  : config?.product_variant?.length
+                  ? config.product_variant[0]
+                  : {}),
                 label: variant.title
               } as ButtonStoryblok
             }

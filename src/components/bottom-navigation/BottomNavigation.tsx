@@ -28,7 +28,8 @@ export default function LmBottomNavigation({
   const classesAdvanced = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
-    propsTablet: content.styles_tablet
+    propsTablet: content.styles_tablet,
+    propsHover: content.styles_hover
   })
   const bodyElements: LmBottomNavigationItemProps[] = content.body || []
   return (
@@ -38,7 +39,8 @@ export default function LmBottomNavigation({
         [classes.root]: content.stick_to_bottom,
         [classesAdvanced.advanced]: content.styles?.length,
         [classesAdvanced.advancedMobile]: content.styles_mobile?.length,
-        [classesAdvanced.advancedTablet]: content.styles_tablet?.length
+        [classesAdvanced.advancedTablet]: content.styles_tablet?.length,
+        [classesAdvanced.advancedHover]: content.styles_hover?.length
       })}
     >
       {bodyElements.map((item) => {

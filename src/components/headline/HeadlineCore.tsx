@@ -13,7 +13,8 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({
   const classes = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
-    propsTablet: content.styles_tablet
+    propsTablet: content.styles_tablet,
+    propsHover: content.styles_hover
   })
   return (
     <Typography
@@ -28,6 +29,7 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({
           [classes.advanced]: content.styles?.length,
           [classes.advancedMobile]: content.styles_mobile?.length,
           [classes.advancedTablet]: content.styles_tablet?.length,
+          [classes.advancedHover]: content.styles_hover?.length,
           [`lm-font-${content.font}`]: content.font
         }
       )}

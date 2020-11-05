@@ -3,12 +3,13 @@ import React, { FC, useState } from 'react'
 import useScript from '@charlietango/use-script'
 import { useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
+import { useAppContext } from '@context/AppContext'
 import { FastSpringContext } from './context/FastSpringContext'
 import {
   EcommerceFastspringConfigStoryblok,
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
-import { hasFacebookPixel, hasGtag } from '../../../utils/analyticsHelper'
+import { hasFacebookPixel } from '../../../utils/analyticsHelper'
 
 let cachedProducts: any[] = []
 
@@ -16,6 +17,7 @@ export const LmFastSpringProvider: FC<{
   settings: GlobalStoryblok
 }> = ({ children, settings }) => {
   const router = useRouter()
+  const appCtx = useAppContext()
   const fastSpring: EcommerceFastspringConfigStoryblok | undefined = (
     settings.ecommerce || []
   ).find((i) => i.component === 'ecommerce_fastspring_config')
@@ -44,49 +46,24 @@ export const LmFastSpringProvider: FC<{
         cachedProducts = [...fetchedProducts]
       }
     }
-    if (!window.fscDataPopupClosed) {
-      window.fscDataPopupClosed = async (data) => {
-        if (data?.id && data?.reference) {
-          // successful purchase
-          if (hasGtag()) {
-            gtag('event', 'purchase', {
-              content_id: data?.id
-            })
-          }
-          if (hasFacebookPixel()) {
-            fbq('track', 'Purchase', {
-              content_ids: [data.id]
-            })
-          }
-
-          if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
-            try {
-              await fetch(
-                `${process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE}?orderId=${data.id}`
-              )
-            } catch (e) {
-              console.error(e)
-            }
-          }
-          // update elastic if defined
-          if (process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL) {
-            try {
-              await fetch(
-                `${process.env.NEXT_PUBLIC_UPDATE_ELASTIC_EMAIL}?orderId=${data.id}`
-              )
-            } catch (e) {
-              console.error(e)
-            }
-          }
-          if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
-            window.location.href = '/refetch'
-          } else if (redirect) {
-            await router.push(CONFIG.href, redirect)
-            setRedirect('')
-          }
-        } else {
+    window.fscDataPopupClosed = async (data) => {
+      if (data?.id && data?.reference) {
+        // successful purchase GA should be set via GTM or inside of Fastspring itself
+        if (hasFacebookPixel()) {
+          fbq('track', 'Purchase', {
+            content_ids: [data.id]
+          })
+        }
+        // update elastic if defined
+        if (appCtx?.user) {
+          window.location.href = '/refetch'
+          setRedirect('')
+        } else if (redirect) {
+          await router.push(CONFIG.href, redirect)
           setRedirect('')
         }
+      } else {
+        setRedirect('')
       }
     }
   }

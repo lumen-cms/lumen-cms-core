@@ -40,7 +40,8 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
     background,
     styles: content.styles,
     stylesMobile: content.styles_mobile,
-    stylesTablet: content.styles_tablet
+    stylesTablet: content.styles_tablet,
+    stylesHover: content.styles_hover
   })
   const body = content.body || []
   const containerStyles: CSSProperties = {}

@@ -3,7 +3,12 @@ const withPlugins = require('next-compose-plugins')
 const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
-module.exports = function (env = {}, plugins = [], transpileModules = []) {
+module.exports = function (
+  env = {},
+  plugins = [],
+  transpileModules = [],
+  redirects = []
+) {
   const withTM = require('next-transpile-modules')([
     ...['lumen-cms-core', 'lumen-cms-nextjs'],
     ...transpileModules
@@ -17,6 +22,9 @@ module.exports = function (env = {}, plugins = [], transpileModules = []) {
     },
     async rewrites() {
       return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
+    },
+    async redirects() {
+      return redirects
     },
     env,
     // reactStrictMode: true, // => not working currently

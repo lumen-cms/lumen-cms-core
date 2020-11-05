@@ -14,13 +14,15 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
   const classes = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
-    propsTablet: content.styles_tablet
+    propsTablet: content.styles_tablet,
+    propsHover: content.styles_hover
   })
   const divProps: HTMLAttributes<Element> = {
     className: clsx({
       [classes.advanced]: content.styles?.length,
       [classes.advancedTablet]: content.styles_tablet?.length,
-      [classes.advancedMobile]: content.styles_mobile?.length
+      [classes.advancedMobile]: content.styles_mobile?.length,
+      [classes.advancedHover]: content.styles_hover?.length
     }),
     style: {
       height:
