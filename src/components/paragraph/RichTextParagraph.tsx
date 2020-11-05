@@ -28,6 +28,7 @@ export function LmRichTextParagraph({
           [advancedClasses.advanced]: content.styles?.length,
           [advancedClasses.advancedTablet]: content.styles_tablet?.length,
           [advancedClasses.advancedMobile]: content.styles_mobile?.length,
+          [advancedClasses.advancedHover]: content.styles_hover?.length,
           [`lm-font-${content.font}`]: content.font
         }
       )}

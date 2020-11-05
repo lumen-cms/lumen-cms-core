@@ -39,7 +39,8 @@ export default function LmBottomNavigation({
         [classes.root]: content.stick_to_bottom,
         [classesAdvanced.advanced]: content.styles?.length,
         [classesAdvanced.advancedMobile]: content.styles_mobile?.length,
-        [classesAdvanced.advancedTablet]: content.styles_tablet?.length
+        [classesAdvanced.advancedTablet]: content.styles_tablet?.length,
+        [classesAdvanced.advancedHover]: content.styles_hover?.length
       })}
     >
       {bodyElements.map((item) => {

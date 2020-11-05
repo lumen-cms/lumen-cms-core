@@ -941,6 +941,18 @@ export interface InstagramPostStoryblok {
   [k: string]: any;
 }
 
+export interface ItemKeyValueStoryblok {
+  key?: string;
+  value?: string;
+  value_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  _uid: string;
+  component: "item_key_value";
+  [k: string]: any;
+}
+
 export interface LinkStoryblok {
   link?: {
     cached_url?: string;
@@ -1559,16 +1571,42 @@ export interface StaticSectionStoryblok {
 }
 
 export interface StylesStoryblok {
+  border_width?: string;
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  color_theme?: "primary" | "secondary" | "success" | "info" | "warning" | "error" | "grey";
+  background?: string;
   background_color?: {
     rgba?: string;
     [k: string]: any;
   };
+  background_color_theme?: "primary" | "secondary" | "success" | "info" | "warning" | "error" | "grey";
+  elevation?: number;
+  box_shadow?: string;
+  border_style?:
+    | "solid"
+    | "dashed"
+    | "dotted"
+    | "double"
+    | "groove"
+    | "hidden"
+    | "inherit"
+    | "initial"
+    | "inset"
+    | "none"
+    | "outset"
+    | "revert"
+    | "ridge"
+    | "unset";
   border_color?: {
     rgba?: string;
     [k: string]: any;
   };
+  border_color_theme?: "primary" | "secondary" | "error" | "success" | "info" | "warning" | "grey";
   border_radius?: string;
-  elevation?: number;
+  border_position?: ("top" | "left" | "right" | "bottom")[];
   margin?: string;
   padding?: string;
   width?: string;
@@ -1580,8 +1618,9 @@ export interface StylesStoryblok {
   left?: string;
   bottom?: string;
   right?: string;
-  custom_css?: string;
-  box_shadow?: string;
+  transition?: string;
+  transform?: string;
+  css_properties?: any[];
   _uid: string;
   component: "styles";
   [k: string]: any;

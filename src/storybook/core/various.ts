@@ -27,6 +27,7 @@ import {
   RichTextEditorStoryblok,
   SliderStoryblok,
   SnackbarStoryblok,
+  StylesStoryblok,
   TableStoryblok
 } from '../../typings/generated/components-schema'
 import { StorybookOptionProps } from './storybook_typing'
@@ -508,4 +509,19 @@ export const storySnackbar = ({
     knob,
     count
   }) as SnackbarStoryblok
+}
+
+export const storyStyles = ({
+  options = {},
+  knob,
+  count = ''
+}: StorybookOptionProps & {
+  options?: Partial<StylesStoryblok>
+} = {}): StylesStoryblok => {
+  return getKnobComponents({
+    componentName: 'styles',
+    options,
+    knob,
+    count
+  }) as StylesStoryblok
 }

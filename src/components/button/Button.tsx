@@ -110,6 +110,7 @@ export const LmButton: FC<LmButtonProps> = ({
     [advancedClasses.advanced]: content.styles?.length,
     [advancedClasses.advancedMobile]: content.styles_mobile?.length,
     [advancedClasses.advancedTablet]: content.styles_tablet?.length,
+    [advancedClasses.advancedHover]: content.styles_hover?.length,
     [classes.noWhitespace]: properties.includes('no-linebreak'),
     'lm-default-color': !content.color,
     [content.corners as string]: !!content.corners,
