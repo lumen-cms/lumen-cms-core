@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import Header from './toolbar/Header'
 import Footer from './Footer'
-import AppHead from './AppHead'
 import {
   ChatTawktoStoryblok,
   GlobalStoryblok
@@ -31,7 +30,6 @@ const Layout: FunctionComponent<LayoutComponentProps> = ({
   }
   return (
     <>
-      <AppHead settings={settings} />
       <Header settings={settings} />
       {children}
       <DrawerElement settings={settings} />

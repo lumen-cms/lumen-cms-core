@@ -23,11 +23,6 @@ export default class MyDoc extends Document {
   }
 
   render() {
-    return (
-      <LmCoreDocument
-        props={this.props.__NEXT_DATA__.props.pageProps}
-        isDevelopment={this.props.isDevelopment}
-      />
-    )
+    return <LmCoreDocument props={this.props.__NEXT_DATA__.props.pageProps} />
   }
 }

@@ -65,6 +65,15 @@ export interface AvatarStoryblok {
 }
 
 export interface BackgroundStoryblok {
+  image?: string;
+  alternative_image?: string;
+  priority?: boolean;
+  disable_lazy_loading?: boolean;
+  hide_image_on_breakpoint?: "xs" | "sm" | "md";
+  background_size?: "auto" | "contain" | "cover" | "initial" | "inherit";
+  image_focal_point?: string;
+  background_position?: string;
+  disable_smart_crop?: boolean;
   classNames?: {
     values?: string[];
     [k: string]: any;
@@ -76,13 +85,6 @@ export interface BackgroundStoryblok {
   };
   shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft" | "flowUp";
   elevation?: number;
-  image?: string;
-  alternative_image?: string;
-  hide_image_on_breakpoint?: "xs" | "sm" | "md";
-  background_size?: "auto" | "contain" | "cover" | "initial" | "inherit";
-  image_focal_point?: string;
-  background_position?: string;
-  disable_smart_crop?: boolean;
   background_elements?: any[];
   border_color?: {
     rgba?: string;
@@ -644,6 +646,17 @@ export interface FormTextfieldStoryblok {
 }
 
 export interface GlobalStoryblok {
+  website_title?: string;
+  website_slogan?: string;
+  setup_language?: string;
+  setup_supported_languages?: string;
+  setup_google_analytics?: string;
+  setup_google_site_verification?: string;
+  setup_facebook_pixel?: string;
+  setup_ad_roll_adv_id?: string;
+  setup_ad_roll_pix_id?: string;
+  pwa_app_name?: string;
+  pwa_app_description?: string;
   toolbar?: any[];
   multi_toolbar?: any[];
   toolbar_variant?: "primary" | "secondary" | "white" | "dark";
@@ -675,15 +688,6 @@ export interface GlobalStoryblok {
   theme_font_alt3?: string;
   theme_font_alt4?: string;
   theme_container_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
-  website_title?: string;
-  website_slogan?: string;
-  setup_language?: string;
-  setup_supported_languages?: string;
-  setup_google_analytics?: string;
-  setup_google_site_verification?: string;
-  setup_facebook_pixel?: string;
-  pwa_app_name?: string;
-  pwa_app_description?: string;
   tawkto?: string;
   chat_button?: any[];
   setup_favicon?: string;

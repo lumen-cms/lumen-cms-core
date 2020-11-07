@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { AppProps } from 'next/app'
 import NProgress from 'nprogress'
 import { CONFIG } from '@CONFIG'
+import { DefaultSeo } from 'next-seo'
 import { AppPageProps } from '../../typings/app'
 import { AppContainer } from '../layout/AppContainer'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
@@ -63,6 +64,15 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
   }
   return (
     <AppContainer content={appProps}>
+      <DefaultSeo
+        additionalMetaTags={[
+          {
+            name: 'viewport',
+            content:
+              'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
+          }
+        ]}
+      />
       <Component {...appProps} />
     </AppContainer>
   )
