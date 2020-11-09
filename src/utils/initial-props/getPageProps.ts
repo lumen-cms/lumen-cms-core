@@ -1,5 +1,4 @@
 /* eslint-disable prefer-const */
-import { CONFIG } from '@CONFIG'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import { collectComponentData } from './traversePageContent'
@@ -21,23 +20,11 @@ const getPageProps = async (
     settings,
     allCategories = [],
     allStories = [],
-    locale,
     allStaticContent = []
   } = await apiRequestResolver({
     ...options,
     pageSlug
   })
-
-  // console.log('after fetch SSR', typeof page, typeof settings)
-  const defaultLocale = CONFIG.defaultLocale || 'en'
-  if (defaultLocale && !locale) {
-    locale = defaultLocale
-  }
-
-  const { overwriteLocale } = CONFIG
-  if (overwriteLocale) {
-    locale = overwriteLocale
-  }
 
   // const url = `https://${CONFIG.HOSTNAME}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
   const pageProps = page?.data?.story?.content as PageStoryblok | undefined
@@ -68,7 +55,7 @@ const getPageProps = async (
       : null,
     allCategories,
     allStaticContent,
-    locale,
+    locale: options.locale,
     listWidgetData: componentData || null,
     insideStoryblok: !!options.insideStoryblok
   }

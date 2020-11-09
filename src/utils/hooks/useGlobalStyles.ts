@@ -61,9 +61,6 @@ export const getCreatedStyles = (theme: Theme) => {
         maxWidth: '100%',
         height: 'auto'
       },
-      html: {
-        scrollBehavior: 'smooth'
-      },
       a: {
         textDecoration: 'none'
       },

@@ -110,6 +110,7 @@ export const apiRequestResolver = async ({
   const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
     CONFIG.previewToken
   }&no_cache=true${locale ? `&locale=${locale}` : ''}`
+  console.log(locale, pageSlug)
   const [
     page,
     settings,
@@ -133,7 +134,6 @@ export const apiRequestResolver = async ({
     settings,
     allCategories,
     allStories,
-    locale,
     allStaticContent,
     listWidgetData: {}
   }
