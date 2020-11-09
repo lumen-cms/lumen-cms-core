@@ -15,10 +15,13 @@ const useStyles = makeStyles(() =>
       objectFit: 'contain'
     },
     objectFitCover: {
-      objectFit: 'cover'
+      position: 'fixed'
     },
     objectFitNone: {
       objectFit: 'none'
+    },
+    rootWrap: {
+      position: 'relative'
     },
     root: {
       position: 'absolute',
@@ -45,7 +48,6 @@ const BackgroundImage = ({
   const matches = useMediaQuery(
     theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs')
   )
-  console.log(backgroundStyle)
   const {
     image,
     alternative_image,
@@ -65,6 +67,8 @@ const BackgroundImage = ({
     return null
   }
 
+  console.log(backgroundStyle, imageSource)
+
   // @TODO
   // - backgroundStyle options
   // - SB options for loading and priority
@@ -77,7 +81,7 @@ const BackgroundImage = ({
           priority={!!priority}
           loading={loading}
           layout="fill"
-          className={classes.objectFitCover}
+          className={clsx(classes.objectFitCover)}
         />
       )}
     </div>
