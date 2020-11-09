@@ -9,7 +9,10 @@ const pagesGetStaticProps: GetStaticProps = async (
 ): Promise<{ props: AppPageProps; revalidate?: number }> => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { params, preview, previewData, locale, locales, defaultLocale } = props
-  const slug = params?.index || 'home'
+  const slug =
+    params?.index?.length && params.index[0] !== defaultLocale
+      ? params.index
+      : 'home'
   console.log('static props', slug, params, locale, defaultLocale, locales)
   // startMeasureTime('start get static props')
   if (Array.isArray(slug) && slug[0] === '_dev_') {
