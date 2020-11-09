@@ -1,7 +1,6 @@
 import NextHead from 'next/head'
 import React, { memo } from 'react'
 import GoogleFonts from 'next-google-fonts'
-import { CONFIG } from '@CONFIG'
 import { useAppContext } from '@context/AppContext'
 import { MetaTag } from 'next-seo/lib/types'
 import { DefaultSeo, LogoJsonLd } from 'next-seo'
@@ -95,20 +94,6 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
           href="https://img2.storyblok.com"
           crossOrigin="anonymous"
         />
-        {CONFIG.GA && (
-          <>
-            <link
-              rel="preconnect"
-              href="https://www.googletagmanager.com"
-              crossOrigin="anonymous"
-            />
-            <link
-              rel="preconnect"
-              href="https://www.google-analytics.com"
-              crossOrigin="anonymous"
-            />
-          </>
-        )}
         {favicon && (
           <>
             <link

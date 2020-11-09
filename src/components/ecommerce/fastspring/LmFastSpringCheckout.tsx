@@ -3,7 +3,6 @@ import { LmComponentRender } from '@LmComponentRender'
 import { useAppContext } from '@context/AppContext'
 import { useFastspringContext } from './context/FastSpringContext'
 import { FastSpringCheckoutProps } from './fastSpringTypes'
-import { hasFacebookPixel, hasGtag } from '../../../utils/analyticsHelper'
 
 export default function LmFastSpringCheckout({
   content,
@@ -54,18 +53,18 @@ export default function LmFastSpringCheckout({
 
         setRedirect(cachedUrl ? `/${cachedUrl}` : '')
 
-        if (hasGtag()) {
+        gtag &&
           gtag('event', 'begin_checkout', {
             items: [path],
             value: currentItem.price
           })
-        }
-        if (hasFacebookPixel()) {
+
+        fbq &&
           fbq('track', 'InitiateCheckout', {
             content_ids: [path as string],
             value: currentItem.price
           })
-        }
+
         window.fastspring.builder.push({
           // reset: true,
           products: [

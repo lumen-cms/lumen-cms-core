@@ -7,6 +7,16 @@ type GtagProps = {
 export default function Gtag({ googleAnalyticsId }: GtagProps) {
   return (
     <Head>
+      <link
+        rel="preconnect"
+        href="https://www.googletagmanager.com"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="preconnect"
+        href="https://www.google-analytics.com"
+        crossOrigin="anonymous"
+      />
       <script
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}

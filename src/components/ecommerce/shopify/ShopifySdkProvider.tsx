@@ -7,7 +7,6 @@ import {
 import { ShopifySdkContext } from './context/ShopifySdkContext'
 import { ShopfiyCart } from './product/ShopifyCart'
 import { ShopifyFloatingCart } from './product/ShopifyFloatingCart'
-import { hasFacebookPixel, hasGtag } from '../../../utils/analyticsHelper'
 
 let client: Client.Client
 let checkout: Cart
@@ -46,16 +45,15 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
     startFetch()
   }, [shopifyConfig?.access_token, shopifyConfig?.domain])
   const onVariantSelect = (variant: ProductVariant) => {
-    if (hasGtag()) {
+    gtag &&
       gtag('event', 'select_content', {
         items: [variant.id]
       })
-    }
-    if (hasFacebookPixel()) {
+
+    fbq &&
       fbq('track', 'CustomizeProduct', {
         content_ids: [variant.id as string]
       })
-    }
 
     setSelectedVariant(variant)
   }
@@ -84,13 +82,13 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
       // @ts-ignore
       const totalPrice = Number(c.paymentDue)
 
-      if (hasFacebookPixel()) {
+      fbq &&
         fbq('track', 'AddToCart', {
           content_ids: c.lineItems.map((i) => `${i.variantId}`),
           value: totalPrice
         })
-      }
-      if (hasGtag()) {
+
+      gtag &&
         gtag('event', 'add_to_cart', {
           items: c.lineItems.map((i) => ({
             id: i.variantId,
@@ -98,7 +96,7 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
           })),
           value: totalPrice
         })
-      }
+
       setCartVariants(c.lineItems)
       setCartOpen(true)
       setTotalAmount(totalPrice)
@@ -124,7 +122,7 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const totalPrice = Number(c.paymentDue)
-    if (hasGtag()) {
+    gtag &&
       gtag('event', 'begin_checkout', {
         items: c.lineItems.map((i) => ({
           id: i.variantId,
@@ -132,13 +130,13 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
         })),
         value: totalPrice
       })
-    }
-    if (hasFacebookPixel()) {
+
+    fbq &&
       fbq('track', 'InitiateCheckout', {
         content_ids: c.lineItems.map((i) => `${i.variantId}`),
         value: totalPrice
       })
-    }
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     openCheckoutWindow(c.webUrl)
@@ -161,13 +159,13 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
         // @ts-ignore
         const totalPrice = Number(c.paymentDue)
         setTotalAmount(totalPrice)
-        if (hasFacebookPixel()) {
+        fbq &&
           fbq('track', 'AddToCart', {
             content_ids: c.lineItems.map((i) => `${i.variantId}`),
             value: totalPrice
           })
-        }
-        if (hasGtag()) {
+
+        gtag &&
           gtag('event', 'add_to_cart', {
             items: c.lineItems.map((i) => ({
               id: i.variantId,
@@ -175,7 +173,6 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
             })),
             value: totalPrice
           })
-        }
       })
   }
   return (
