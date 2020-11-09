@@ -7,17 +7,14 @@ import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
-import { AppPageProps } from '../../typings/app'
+import { AppPageProps, PagePropsOptions } from '../../typings/app'
 import { SSR_CONFIG } from './ssrConfig'
 
 const getPageProps = async (
   slug: string | string[],
-  insideStoryblok?: boolean
+  options: PagePropsOptions
 ): Promise<AppPageProps> => {
-  const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(
-    slug,
-    insideStoryblok
-  )
+  const { pageSlug } = prepareForStoryblok(slug, options)
 
   let {
     page,
@@ -27,10 +24,8 @@ const getPageProps = async (
     locale,
     allStaticContent = []
   } = await apiRequestResolver({
-    pageSlug,
-    locale: knownLocale,
-    isLandingPage,
-    insideStoryblok
+    ...options,
+    pageSlug
   })
 
   // console.log('after fetch SSR', typeof page, typeof settings)
@@ -75,7 +70,7 @@ const getPageProps = async (
     allStaticContent,
     locale,
     listWidgetData: componentData || null,
-    insideStoryblok: !!insideStoryblok
+    insideStoryblok: !!options.insideStoryblok
   }
 
   await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))

@@ -1,4 +1,5 @@
 import { Story, StoryData } from 'storyblok-js-client'
+import { GetStaticPropsContext } from 'next'
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import {
   CategoryComponent,
@@ -51,4 +52,11 @@ export type ComponentRenderFuncProps = {
   _uid?: string
   i?: number // iteration in case of array render
   [k: string]: any
+}
+
+export type PagePropsOptions = Pick<
+  GetStaticPropsContext,
+  'defaultLocale' | 'locale' | 'locales'
+> & {
+  insideStoryblok?: boolean
 }
