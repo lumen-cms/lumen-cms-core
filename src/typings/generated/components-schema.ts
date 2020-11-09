@@ -65,6 +65,15 @@ export interface AvatarStoryblok {
 }
 
 export interface BackgroundStoryblok {
+  image?: string;
+  alternative_image?: string;
+  priority?: boolean;
+  disable_lazy_loading?: boolean;
+  hide_image_on_breakpoint?: "xs" | "sm" | "md";
+  background_size?: "auto" | "contain" | "cover" | "initial" | "inherit";
+  image_focal_point?: string;
+  background_position?: string;
+  disable_smart_crop?: boolean;
   classNames?: {
     values?: string[];
     [k: string]: any;
@@ -76,13 +85,6 @@ export interface BackgroundStoryblok {
   };
   shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft" | "flowUp";
   elevation?: number;
-  image?: string;
-  alternative_image?: string;
-  hide_image_on_breakpoint?: "xs" | "sm" | "md";
-  background_size?: "auto" | "contain" | "cover" | "initial" | "inherit";
-  image_focal_point?: string;
-  background_position?: string;
-  disable_smart_crop?: boolean;
   background_elements?: any[];
   border_color?: {
     rgba?: string;

@@ -52,9 +52,12 @@ const BackgroundImage = ({
     // ,
     // disable_smart_crop,
     // image_focal_point,
-    hide_image_on_breakpoint
+    hide_image_on_breakpoint,
+    priority,
+    disable_lazy_loading
   } = content
   const dontRender = hide_image_on_breakpoint && matches
+  const loading = priority || disable_lazy_loading ? 'eager' : 'lazy'
   const imageSource = (
     (alternative_image && height > width ? alternative_image : image) || ''
   ).replace('//a', 'https://img2')
@@ -71,8 +74,8 @@ const BackgroundImage = ({
         <Image
           src={imageSource}
           sizes="100vw"
-          priority
-          loading="eager"
+          priority={!!priority}
+          loading={loading}
           layout="fill"
           className={classes.objectFitCover}
         />
