@@ -27,5 +27,6 @@ export const analyticsOnPageChange = ({
       facebookPxId = facebookPixelId
       window.fbq('track', 'PageView')
     }
+    window.adroll?.track('pageView')
   }
 }

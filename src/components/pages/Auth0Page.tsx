@@ -9,6 +9,7 @@ import { hasAuth0PathCredentials } from '../../utils/auth0/auth0Helpers'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import { NotFound } from './404'
+import AppHead from '../layout/AppHead'
 
 function PageContainer({ page }: { page: LmPagesIndexProps['page'] }) {
   const { asPath, replace } = useRouter()
@@ -51,6 +52,7 @@ export function Auth0Page(props: LmPagesIndexProps) {
         page={page}
         previewImage={page?.preview_image}
       />
+      <AppHead settings={settings} />
       <Layout settings={settings}>
         {page ? (
           <PageAuthContainer page={page} />

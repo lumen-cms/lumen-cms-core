@@ -3,9 +3,16 @@ import React, { memo } from 'react'
 import GoogleFonts from 'next-google-fonts'
 import { CONFIG } from '@CONFIG'
 import { useAppContext } from '@context/AppContext'
-import imageService from '../../utils/ImageService'
+import { MetaTag } from 'next-seo/lib/types'
+import { DefaultSeo, LogoJsonLd } from 'next-seo'
+import imageService, { imageServiceNoWebp } from '../../utils/ImageService'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import FbqPixel from '../tracking/FbqPixel'
+import Gtag from '../tracking/Gtag'
+import AdRoll from '../tracking/AdRoll'
+
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
 type AppHeadProps = {
   settings: GlobalStoryblok
@@ -19,19 +26,65 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
   if (process.env.NODE_ENV === 'development') {
     console.log('render app head')
   }
+  const additionalMetaTags: MetaTag[] = []
+  if (settings?.pwa_app_name && settings?.pwa_app_description) {
+    additionalMetaTags.push(
+      {
+        name: 'application-name',
+        content: settings.pwa_app_name
+      },
+      {
+        name: 'apple-mobile-web-app-capable',
+        content: 'yes'
+      },
+      {
+        name: 'apple-mobile-web-app-status-bar-style',
+        content: 'default'
+      },
+      {
+        name: 'apple-mobile-web-app-title',
+        content: settings.pwa_app_name
+      },
+      {
+        name: 'description',
+        content: settings.pwa_app_description
+      },
+      {
+        name: 'format-detection',
+        content: 'telephone=no'
+      },
+      {
+        name: 'mobile-web-app-capable',
+        content: 'yes'
+      },
+      {
+        name: 'theme-color',
+        content: '#FFFFFF'
+      }
+    )
+  }
+  if (settings.setup_google_site_verification) {
+    additionalMetaTags.push({
+      name: 'google-site-verification',
+      content: settings.setup_google_site_verification
+    })
+  }
+
   return (
     <>
+      <DefaultSeo additionalMetaTags={additionalMetaTags} />
       <GoogleFonts
         href={`https://fonts.googleapis.com/css?family=${loadFonts.join(
           '|'
         )}&display=swap`}
       />
-      <NextHead>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-          key="viewport"
+      {settings.website_logo && settings.seo_website_url && (
+        <LogoJsonLd
+          logo={imageServiceNoWebp(settings.website_logo)}
+          url={settings.seo_website_url}
         />
+      )}
+      <NextHead>
         <link
           rel="preconnect"
           href="https://cdn.jsdelivr.net"
@@ -77,17 +130,30 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
             />
           </>
         )}
-        {settings.setup_google_site_verification && (
-          <meta
-            name="google-site-verification"
-            content={settings.setup_google_site_verification}
-            key="google-site-verification"
-          />
+        {settings?.pwa_app_name && settings?.pwa_app_description && (
+          <link rel="manifest" href="/manifest.json" />
         )}
         {insideStoryblok && (
           <script src="//app.storyblok.com/f/storyblok-latest.js" />
         )}
       </NextHead>
+      {!isDevelopment && !insideStoryblok && settings?.setup_facebook_pixel && (
+        <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />
+      )}
+      {!isDevelopment &&
+        !insideStoryblok &&
+        settings?.setup_ad_roll_adv_id &&
+        settings?.setup_ad_roll_pix_id && (
+          <AdRoll
+            advId={settings.setup_ad_roll_adv_id}
+            pixId={settings.setup_ad_roll_pix_id}
+          />
+        )}
+      {!isDevelopment &&
+        !insideStoryblok &&
+        settings?.setup_google_analytics && (
+          <Gtag googleAnalyticsId={settings.setup_google_analytics} />
+        )}
     </>
   )
 }

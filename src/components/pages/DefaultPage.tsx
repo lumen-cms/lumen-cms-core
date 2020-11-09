@@ -5,6 +5,7 @@ import { AppPageProps } from '../../typings/app'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import { NotFound } from './404'
+import AppHead from '../layout/AppHead'
 
 export type LmPagesIndexProps = AppPageProps & Record<string, unknown>
 
@@ -21,6 +22,7 @@ export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
         page={page}
         previewImage={page?.preview_image}
       />
+      <AppHead settings={settings} />
       <Layout settings={settings}>
         {page ? (
           <LmComponentRender content={page} />

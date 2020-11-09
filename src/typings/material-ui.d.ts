@@ -58,5 +58,8 @@ declare global {
     fscDataPopupClosed: (
       data: { id?: string; reference?: string } | null
     ) => void
+    adroll: {
+      track: (k: string) => void
+    }
   }
 }

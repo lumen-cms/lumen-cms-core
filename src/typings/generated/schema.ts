@@ -227,6 +227,8 @@ export type GlobalComponent = {
   seo_robots?: Maybe<Scalars['Boolean']>;
   seo_title?: Maybe<Scalars['String']>;
   seo_website_url?: Maybe<Scalars['String']>;
+  setup_ad_roll_adv_id?: Maybe<Scalars['String']>;
+  setup_ad_roll_pix_id?: Maybe<Scalars['String']>;
   setup_facebook_pixel?: Maybe<Scalars['String']>;
   setup_favicon?: Maybe<Scalars['String']>;
   setup_google_analytics?: Maybe<Scalars['String']>;
@@ -267,6 +269,16 @@ export type GlobalComponent = {
 };
 
 export type GlobalFilterQuery = {
+  website_title?: Maybe<FilterQueryOperations>;
+  website_slogan?: Maybe<FilterQueryOperations>;
+  setup_language?: Maybe<FilterQueryOperations>;
+  setup_supported_languages?: Maybe<FilterQueryOperations>;
+  setup_google_analytics?: Maybe<FilterQueryOperations>;
+  setup_google_site_verification?: Maybe<FilterQueryOperations>;
+  setup_facebook_pixel?: Maybe<FilterQueryOperations>;
+  setup_ad_roll_adv_id?: Maybe<FilterQueryOperations>;
+  setup_ad_roll_pix_id?: Maybe<FilterQueryOperations>;
+  pwa_app_name?: Maybe<FilterQueryOperations>;
   toolbar_variant?: Maybe<FilterQueryOperations>;
   toolbar_config?: Maybe<FilterQueryOperations>;
   toolbar_progress_color?: Maybe<FilterQueryOperations>;
@@ -288,14 +300,6 @@ export type GlobalFilterQuery = {
   theme_font_alt3?: Maybe<FilterQueryOperations>;
   theme_font_alt4?: Maybe<FilterQueryOperations>;
   theme_container_width?: Maybe<FilterQueryOperations>;
-  website_title?: Maybe<FilterQueryOperations>;
-  website_slogan?: Maybe<FilterQueryOperations>;
-  setup_language?: Maybe<FilterQueryOperations>;
-  setup_supported_languages?: Maybe<FilterQueryOperations>;
-  setup_google_analytics?: Maybe<FilterQueryOperations>;
-  setup_google_site_verification?: Maybe<FilterQueryOperations>;
-  setup_facebook_pixel?: Maybe<FilterQueryOperations>;
-  pwa_app_name?: Maybe<FilterQueryOperations>;
   tawkto?: Maybe<FilterQueryOperations>;
   drawer_variant?: Maybe<FilterQueryOperations>;
   mobile_nav_breakpoint?: Maybe<FilterQueryOperations>;

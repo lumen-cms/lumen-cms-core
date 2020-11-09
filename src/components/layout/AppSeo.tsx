@@ -1,4 +1,4 @@
-import { LogoJsonLd, NextSeo } from 'next-seo'
+import { NextSeo, NextSeoProps } from 'next-seo'
 import React from 'react'
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types.d'
 import { useRouter } from 'next/router'
@@ -14,25 +14,11 @@ import { SeoProduct } from './seo/SeoProduct'
 import { SeoSocialProfile } from './seo/SeoSocialProfile'
 import { SeoLocalBusiness } from './seo/SeoLocalBusiness'
 import { SeoCorporateContact } from './seo/SeoCorporateContact'
-import { imageServiceNoWebp } from '../../utils/ImageService'
-
-type SeoMetaTypes = {
-  title: string
-  description: string
-  noindex: boolean
-  nofollow: boolean
-  openGraph?: OpenGraph
-  facebook?: {
-    appId: string
-  }
-  twitter?: Twitter
-  canonical?: string
-}
 
 const parseOpenGraph = (
   settingsOpenGraph: Partial<SeoOpenGraphStoryblok> = {},
   pageOpenGraph: Partial<SeoOpenGraphStoryblok> = {},
-  seoMeta: SeoMetaTypes
+  seoMeta: NextSeoProps
 ): OpenGraph => {
   // set some defaults of seoMeta
   const openGraph: OpenGraph = {
@@ -101,7 +87,7 @@ export function AppSeo({
     !settings.seo_robots ||
     router.asPath.startsWith('/_dev_/') // todo additionally disable .now.sh domains
 
-  const seo: SeoMetaTypes = {
+  const seo: NextSeoProps = {
     title:
       page.meta_title || settings.seo_title || 'Website made by Lumen Media',
     description:
@@ -156,7 +142,6 @@ export function AppSeo({
       'set up seo_website_url inside of settings to have a canonical tag'
     )
   }
-
   return (
     <>
       <NextSeo {...seo} />
@@ -164,12 +149,6 @@ export function AppSeo({
       <SeoSocialProfile settings={settings} page={page} />
       <SeoLocalBusiness settings={settings} page={page} />
       <SeoCorporateContact settings={settings} page={page} />
-      {settings.website_logo && settings.seo_website_url && (
-        <LogoJsonLd
-          logo={imageServiceNoWebp(settings.website_logo)}
-          url={settings.seo_website_url}
-        />
-      )}
     </>
   )
 }
