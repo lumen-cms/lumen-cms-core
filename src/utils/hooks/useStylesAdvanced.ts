@@ -65,20 +65,24 @@ const getStyles = (
     }`
     if (content.border_position?.length) {
       content.border_position.forEach((key) => {
-        cssRules[`border${capitalizeFirstLetter(key)}`] = borderStr
+        cssRules[`border${capitalizeFirstLetter(key)}`] = addImportant(
+          borderStr
+        )
       })
     } else {
-      cssRules.border = borderStr
+      cssRules.border = addImportant(borderStr)
     }
   }
   if (content.color?.rgba || content.color_theme) {
-    cssRules.color =
+    cssRules.color = addImportant(
       content.color?.rgba || getThemeMainColor(content.color_theme as string)
+    )
   }
   if (content.background_color?.rgba || content.background_color_theme) {
-    cssRules.backgroundColor =
+    cssRules.backgroundColor = addImportant(
       content.background_color?.rgba ||
-      getThemeMainColor(content.background_color_theme as string)
+        getThemeMainColor(content.background_color_theme as string)
+    )
   }
   return cssRules
 }

@@ -5,11 +5,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import { LmComponentRender } from '@LmComponentRender'
 import clsx from 'clsx'
 import { LmCoreComponents } from '@CONFIG'
+import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 import {
   LmBottomNavigationItemProps,
   LmBottomNavigationProps
 } from './bottomNavigationTypes'
-import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 
 const useStyles = makeStyles((theme) => ({
@@ -35,13 +35,15 @@ export default function LmBottomNavigation({
   return (
     <BottomNavigation
       showLabels
-      className={clsx({
-        [classes.root]: content.stick_to_bottom,
-        [classesAdvanced.advanced]: content.styles?.length,
-        [classesAdvanced.advancedMobile]: content.styles_mobile?.length,
-        [classesAdvanced.advancedTablet]: content.styles_tablet?.length,
-        [classesAdvanced.advancedHover]: content.styles_hover?.length
-      })}
+      classes={{
+        root: clsx({
+          [classes.root]: content.stick_to_bottom,
+          [classesAdvanced.advanced]: content.styles?.length,
+          [classesAdvanced.advancedMobile]: content.styles_mobile?.length,
+          [classesAdvanced.advancedTablet]: content.styles_tablet?.length,
+          [classesAdvanced.advancedHover]: content.styles_hover?.length
+        })
+      }}
     >
       {bodyElements.map((item) => {
         const btnProps: any =
