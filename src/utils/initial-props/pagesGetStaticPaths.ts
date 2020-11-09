@@ -27,6 +27,7 @@ const pagesGetStaticPaths: GetStaticPaths = async ({
   if (process.env.TEST || process.env.ANALYZE) {
     paths = paths.slice(0, 2)
   }
+  paths.push({ params: { index: [] }, locale: defaultLocale })
   return {
     paths,
     fallback: true
