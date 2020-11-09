@@ -27,7 +27,9 @@ const pagesGetStaticPaths: GetStaticPaths = async ({
   if (process.env.TEST || process.env.ANALYZE) {
     paths = paths.slice(0, 2)
   }
+  paths.unshift({ params: { index: '' }, locale: defaultLocale }) // landing page as empty
   paths.unshift({ params: { index: [] }, locale: defaultLocale }) // landing page as empty
+  paths.unshift({ params: { index: '/' }, locale: defaultLocale }) // landing page as empty
   return {
     paths,
     fallback: true
