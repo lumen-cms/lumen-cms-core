@@ -30,6 +30,7 @@ export type AppApiRequestPayload = {
   allStaticContent: StoryData<StaticcontainerComponent>[]
   listWidgetData: { [k: string]: StoryData<PageComponent>[] } | null
   user?: IClaims
+  notFoundLocale?: string
 }
 
 type SubProps = Pick<
