@@ -28,7 +28,7 @@ export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
         component: LmCoreComponents.lm_link_render
       }
     : {}
-  const isActiveRoute = activeRoutePath === `/${cachedUrl}`
+  const isActiveRoute = `/${cachedUrl}`.includes(activeRoutePath)
   return (
     <ListItem button {...btnProps} selected={isActiveRoute}>
       {buttonProps.graphic && (

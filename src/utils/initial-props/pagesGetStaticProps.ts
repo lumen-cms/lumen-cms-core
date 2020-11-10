@@ -7,7 +7,11 @@ import { LmStoryblokService } from './StoryblokService'
 const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { params, preview, previewData, locale, locales, defaultLocale } = props
-  const slug = params?.index?.length ? params.index : 'home'
+  const slug = params?.index?.length
+    ? params.index !== 'index'
+      ? params.index
+      : 'home'
+    : 'home'
   console.log('static props', slug, defaultLocale, locales)
   // startMeasureTime('start get static props')
   if (Array.isArray(slug) && slug[0] === '_dev_') {
