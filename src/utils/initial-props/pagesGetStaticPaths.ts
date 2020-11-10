@@ -4,6 +4,19 @@ import { ParsedUrlQuery } from 'querystring'
 import { getAllStoriesOfProject } from './storyblokPagesConfig'
 import { PageItem } from '../../typings/generated/schema'
 
+const getFallbackMode = () => {
+  if (process.env.NEXT_FALLBACK_MODE === 'true') {
+    return true
+  }
+  if (process.env.NEXT_FALLBACK_MODE === 'false') {
+    return false
+  }
+  if (process.env.NEXT_FALLBACK_MODE) {
+    return process.env.NEXT_FALLBACK_MODE as 'blocking'
+  }
+  return true
+}
+
 const pagesGetStaticPaths: GetStaticPaths = async ({
   defaultLocale,
   locales
@@ -30,7 +43,7 @@ const pagesGetStaticPaths: GetStaticPaths = async ({
   paths.push({ params: { index: [] }, locale: defaultLocale })
   return {
     paths,
-    fallback: true
+    fallback: getFallbackMode()
   }
 }
 

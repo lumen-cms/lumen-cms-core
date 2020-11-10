@@ -3,6 +3,7 @@ import React from 'react'
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types.d'
 import { useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
+import { useAppContext } from '@context/AppContext'
 import {
   ImageCoreStoryblok,
   SeoOpenGraphStoryblok,
@@ -74,10 +75,11 @@ export function AppSeo({
   previewImage
 }: AppSeoProps): JSX.Element {
   const router = useRouter()
+  const appCtx = useAppContext()
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
     settings.seo_body || []
-  if (!page) {
-    return <NextSeo title="Not Found" noindex />
+  if (appCtx?.pageNotFound || !page) {
+    return <NextSeo title="Not Found" noindex nofollow />
   }
   const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
     page.seo_body || []

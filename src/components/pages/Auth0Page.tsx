@@ -8,7 +8,6 @@ import { LmPagesIndexProps } from './DefaultPage'
 import { hasAuth0PathCredentials } from '../../utils/auth0/auth0Helpers'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
-import { NotFound } from './404'
 import AppHead from '../layout/AppHead'
 
 function PageContainer({ page }: { page: LmPagesIndexProps['page'] }) {
@@ -39,9 +38,9 @@ const PageAuthContainer: FC<{
 }> = withAuthenticationRequired(PageContainer)
 
 export function Auth0Page(props: LmPagesIndexProps) {
-  const { settings, page, locale, error } = props
+  const { settings, page, error } = props
 
-  if (error || !settings) {
+  if (error || !settings || !page) {
     return <Error statusCode={500} title="Error occured or no settings found" />
   }
 
@@ -54,11 +53,7 @@ export function Auth0Page(props: LmPagesIndexProps) {
       />
       <AppHead settings={settings} />
       <Layout settings={settings}>
-        {page ? (
-          <PageAuthContainer page={page} />
-        ) : (
-          <NotFound locale={locale} statusCode={404} />
-        )}
+        <PageAuthContainer page={page} />
       </Layout>
     </>
   )

@@ -4,9 +4,7 @@ import getPageProps from './getPageProps'
 import { AppPageProps } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
 
-const pagesGetStaticProps: GetStaticProps = async (
-  props
-): Promise<{ props: AppPageProps; revalidate?: number }> => {
+const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { params, preview, previewData, locale, locales, defaultLocale } = props
   const slug = params?.index?.length ? params.index : 'home'
@@ -26,7 +24,12 @@ const pagesGetStaticProps: GetStaticProps = async (
       locales,
       insideStoryblok: preview
     })
-    // endMeasureTime()
+    if (!(pageProps.page && pageProps.settings)) {
+      return {
+        props: pageProps,
+        notFound: true
+      }
+    }
     return {
       props: pageProps,
       revalidate: 300

@@ -4,15 +4,13 @@ import { LmComponentRender } from '@LmComponentRender'
 import { AppPageProps } from '../../typings/app'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
-import { NotFound } from './404'
 import AppHead from '../layout/AppHead'
 
 export type LmPagesIndexProps = AppPageProps & Record<string, unknown>
 
 export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
-  const { settings, page, error, locale } = props
-
-  if (error || !settings) {
+  const { settings, page, error } = props
+  if (error || !settings || !page) {
     return <Error statusCode={500} />
   }
   return (
@@ -24,11 +22,7 @@ export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
       />
       <AppHead settings={settings} />
       <Layout settings={settings}>
-        {page ? (
-          <LmComponentRender content={page} />
-        ) : (
-          <NotFound locale={locale} statusCode={404} />
-        )}
+        <LmComponentRender content={page} />
       </Layout>
     </>
   )

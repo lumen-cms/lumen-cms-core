@@ -55,7 +55,7 @@ const getPageProps = async (
       : null,
     allCategories,
     allStaticContent,
-    locale: options.locale,
+    locale: options.locale || null,
     listWidgetData: componentData || null,
     insideStoryblok: !!options.insideStoryblok
   }

@@ -3,8 +3,8 @@ const redirectFunc = require('./config/localeRedirect')
 
 const nextConfig = {
   i18n: {
-    locales: ['de'],
-    defaultLocale: 'de'
+    locales: ['en', 'de', 'it', 'es'],
+    defaultLocale: 'en'
   },
   async redirects() {
     // const reds = await redirectFunc(['de', 'it', 'es'])

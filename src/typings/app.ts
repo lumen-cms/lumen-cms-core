@@ -44,6 +44,7 @@ export type AppPageProps = SubProps & {
   query?: any
   insideStoryblok?: boolean
   user?: IClaims
+  pageNotFound?: boolean
   [k: string]: any
 }
 
