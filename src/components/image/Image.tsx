@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import clsx from 'clsx'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
-import { useWindowWidth } from '@react-hook/window-size'
 import {
   getImageAttrs,
   getOriginalImageDimensions
@@ -35,11 +34,8 @@ export default function LmImage({
 }: LmImageProps): JSX.Element | null {
   const classes = useStyles()
   const [loaded, setLoaded] = useState<boolean>(false)
-  const windowWidth = useWindowWidth()
-  const isMobile = windowWidth < 600
   const definedWidth = content.width
-  const definedHeight =
-    isMobile && content.height_xs ? content.height_xs : content.height
+  const definedHeight = content.height
   const property = content.property || []
   const imageSource = content.source
   const storyblokImage = imageSource?.replace('//a', 'https://img2')
