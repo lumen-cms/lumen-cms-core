@@ -11,24 +11,25 @@ import {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    objectFitContain: {
-      objectFit: 'contain'
-    },
-    objectFitCover: {
-      position: 'fixed'
-    },
-    objectFitNone: {
-      objectFit: 'none'
-    },
-    rootWrap: {
-      position: 'relative'
-    },
     root: {
       position: 'absolute',
       top: 0,
       left: 0,
       width: '100%',
       height: '100%'
+    },
+    rootFixedImage: {
+      clip: 'rect(0,auto,auto,0)!important',
+      clipPath: 'polygon(0px 0px,100% 0px,100% 100%,0px 100%)!important'
+    },
+    fixedCoverImageWrap: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden',
+      zIndex: -1
     }
   })
 )
@@ -51,7 +52,8 @@ const BackgroundImage = ({
   const {
     image,
     alternative_image,
-    // ,
+    background_position,
+    background_size,
     // disable_smart_crop,
     // image_focal_point,
     hide_image_on_breakpoint,
@@ -60,30 +62,42 @@ const BackgroundImage = ({
   } = content
   const dontRender = hide_image_on_breakpoint && matches
   const loading = priority || disable_lazy_loading ? 'eager' : 'lazy'
-  const imageSource = (
+  const imageBase =
     (alternative_image && height > width ? alternative_image : image) || ''
-  ).replace('//a', 'https://img2')
+  const imageSource = imageBase.replace('//a', 'https://img2')
   if (dontRender) {
     return null
   }
 
-  console.log(backgroundStyle, imageSource)
+  const BgImage = () =>
+    imageSource ? (
+      <Image
+        src={imageSource}
+        sizes="100vw"
+        priority={!!priority}
+        loading={loading}
+        objectFit={
+          background_size !== 'auto' && background_size
+            ? background_size
+            : 'cover'
+        }
+        objectPosition={background_position}
+        layout="fill"
+      />
+    ) : null
 
-  // @TODO
-  // - backgroundStyle options
-  // - SB options for loading and priority
+  if (backgroundStyle === 'fixed_cover') {
+    return (
+      <div className={clsx(classes.root, classes.rootFixedImage)}>
+        <div className={classes.fixedCoverImageWrap}>
+          <BgImage />
+        </div>
+      </div>
+    )
+  }
   return (
     <div className={clsx(classes.root)}>
-      {imageSource && (
-        <Image
-          src={imageSource}
-          sizes="100vw"
-          priority={!!priority}
-          loading={loading}
-          layout="fill"
-          className={clsx(classes.objectFitCover)}
-        />
-      )}
+      <BgImage />
     </div>
   )
 }

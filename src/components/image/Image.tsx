@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import clsx from 'clsx'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import Image from 'next/image'
+import { useWindowWidth } from '@react-hook/window-size'
 import {
   getImageAttrs,
   getOriginalImageDimensions
@@ -32,10 +33,13 @@ export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element | null {
-  const definedWidth = content.width
-  const definedHeight = content.height
   const classes = useStyles()
   const [loaded, setLoaded] = useState<boolean>(false)
+  const windowWidth = useWindowWidth()
+  const isMobile = windowWidth < 600
+  const definedWidth = content.width
+  const definedHeight =
+    isMobile && content.height_xs ? content.height_xs : content.height
   const property = content.property || []
   const imageSource = content.source
   const storyblokImage = imageSource?.replace('//a', 'https://img2')
@@ -47,12 +51,24 @@ export default function LmImage({
     property.includes('rounded-circle') ||
     property.includes('square')
   const squareSize = square ? definedHeight || definedWidth || 120 : undefined
+  let proportionalWidth = 0
+  let proportionalHeight = 0
+  let isProportional = false
+  if ((definedWidth && !definedHeight) || (!definedWidth && definedHeight)) {
+    isProportional = true
+    proportionalWidth = definedWidth || 0
+    proportionalHeight = definedHeight || 0
+  }
 
   const imageAttrs = imageSource
     ? getImageAttrs({
         originalSource: imageSource,
-        width: squareSize || definedWidth || originalDimensions.width,
-        height: squareSize || definedHeight || originalDimensions.height,
+        width: isProportional
+          ? proportionalWidth
+          : squareSize || definedWidth || originalDimensions.width,
+        height: isProportional
+          ? proportionalHeight
+          : squareSize || definedHeight || originalDimensions.height,
         focalPoint: content.focal_point,
         smart: !!squareSize
       })
@@ -71,7 +87,11 @@ export default function LmImage({
       style={{
         cursor: onClick ? 'pointer' : undefined,
         backgroundColor: loaded ? 'transparent' : 'rgb(74,74,74, 0.1)',
-        maxWidth: '100%'
+        maxWidth: squareSize
+          ? `${squareSize}px`
+          : isProportional
+          ? Math.max(proportionalWidth, proportionalHeight)
+          : '100%'
       }}
     >
       {storyblokImage && (
@@ -82,6 +102,7 @@ export default function LmImage({
           height={squareSize || originalDimensions.height}
           className={clsx(classes.image, content.property)}
           onLoad={() => setLoaded(true)}
+          layout="intrinsic"
         />
       )}
     </div>

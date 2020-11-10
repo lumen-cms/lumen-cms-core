@@ -127,7 +127,7 @@
     "json-schema-to-typescript": "^9.1.1",
     "jwks-rsa": "^1.11.0",
     "lorem-ipsum": "^2.0.3",
-    "next": "10.0.1",
+    "next": "10.0.2-canary.5",
     "np": "^7.0.0",
     "playwright": "1.5.2",
     "prettier": "^2.1.2",
