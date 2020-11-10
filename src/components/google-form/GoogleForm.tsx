@@ -59,8 +59,8 @@ export default function LmGoogleForm({
       }
     })
 
-    gtag && gtag('event', 'generate_lead')
-    fbq && fbq('track', 'Lead')
+    window.gtag && gtag('event', 'generate_lead')
+    window.fbq && fbq('track', 'Lead')
     await fetch(formStructure.formAction, {
       method: 'POST',
       body: formData,

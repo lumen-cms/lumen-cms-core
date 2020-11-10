@@ -49,7 +49,7 @@ export const LmFastSpringProvider: FC<{
       if (data?.id && data?.reference) {
         // successful purchase GA should be set via GTM or inside of Fastspring itself
 
-        fbq &&
+        window.fbq &&
           fbq('track', 'Purchase', {
             content_ids: [data.id]
           })
