@@ -25,7 +25,7 @@ export type AppApiRequestPayload = {
   page: Story
   allStories: StoryData<PageComponent>[]
   settings: Story
-  locale?: string
+  locale?: string | null
   allCategories: StoryData<CategoryComponent>[]
   allStaticContent: StoryData<StaticcontainerComponent>[]
   listWidgetData: { [k: string]: StoryData<PageComponent>[] } | null
