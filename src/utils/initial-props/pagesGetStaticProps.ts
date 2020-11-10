@@ -8,9 +8,9 @@ const pagesGetStaticProps: GetStaticProps = async (
   props
 ): Promise<{ props: AppPageProps; revalidate?: number }> => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
-  const { params, preview, previewData } = props
-  const slug = params?.index || 'home'
-  console.log('static props', slug, params)
+  const { params, preview, previewData, locale, locales, defaultLocale } = props
+  const slug = params?.index?.length ? params.index : 'home'
+  console.log('static props', slug, defaultLocale, locales)
   // startMeasureTime('start get static props')
   if (Array.isArray(slug) && slug[0] === '_dev_') {
     return { props: getBaseProps({ type: 'not_supported' }) } // do nothing _dev_ mode is active
@@ -20,7 +20,12 @@ const pagesGetStaticProps: GetStaticProps = async (
       LmStoryblokService.setDevMode()
       LmStoryblokService.setQuery(previewData)
     }
-    const pageProps = await getPageProps(slug, !!preview)
+    const pageProps = await getPageProps(slug, {
+      locale,
+      defaultLocale,
+      locales,
+      insideStoryblok: preview
+    })
     // endMeasureTime()
     return {
       props: pageProps,

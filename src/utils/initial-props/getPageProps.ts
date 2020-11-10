@@ -1,5 +1,4 @@
 /* eslint-disable prefer-const */
-import { CONFIG } from '@CONFIG'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import { collectComponentData } from './traversePageContent'
@@ -7,42 +6,25 @@ import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
-import { AppPageProps } from '../../typings/app'
+import { AppPageProps, PagePropsOptions } from '../../typings/app'
 import { SSR_CONFIG } from './ssrConfig'
 
 const getPageProps = async (
   slug: string | string[],
-  insideStoryblok?: boolean
+  options: PagePropsOptions
 ): Promise<AppPageProps> => {
-  const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(
-    slug,
-    insideStoryblok
-  )
+  const { pageSlug } = prepareForStoryblok(slug, options)
 
   let {
     page,
     settings,
     allCategories = [],
     allStories = [],
-    locale,
     allStaticContent = []
   } = await apiRequestResolver({
-    pageSlug,
-    locale: knownLocale,
-    isLandingPage,
-    insideStoryblok
+    ...options,
+    pageSlug
   })
-
-  // console.log('after fetch SSR', typeof page, typeof settings)
-  const defaultLocale = CONFIG.defaultLocale || 'en'
-  if (defaultLocale && !locale) {
-    locale = defaultLocale
-  }
-
-  const { overwriteLocale } = CONFIG
-  if (overwriteLocale) {
-    locale = overwriteLocale
-  }
 
   // const url = `https://${CONFIG.HOSTNAME}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
   const pageProps = page?.data?.story?.content as PageStoryblok | undefined
@@ -73,9 +55,9 @@ const getPageProps = async (
       : null,
     allCategories,
     allStaticContent,
-    locale,
+    locale: options.locale,
     listWidgetData: componentData || null,
-    insideStoryblok: !!insideStoryblok
+    insideStoryblok: !!options.insideStoryblok
   }
 
   await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))

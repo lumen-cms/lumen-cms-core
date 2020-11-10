@@ -6,7 +6,7 @@ import { LmApp, LmAppProps } from './_app'
 export { reportWebVitals } from './_appDefault'
 
 const onRedirectCallback = (appState: any) => {
-  return Router.replace(appState?.returnTo || '/')
+  return Router.replace(appState?.returnTo || '/home')
 }
 
 function AppContainer(props: LmAppProps) {

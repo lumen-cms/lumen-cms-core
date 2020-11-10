@@ -3,7 +3,6 @@ import { StoriesParams } from 'storyblok-js-client'
 import { PageItem } from '../../../typings/generated/schema'
 import { getAllStoriesOfProject } from '../../../utils/initial-props/storyblokPagesConfig'
 import { fetchSettings } from '../../../utils/initial-props/storyblokDeliveryResolver'
-import { prepareForStoryblok } from '../../../utils/initial-props/prepareStoryblokRequest'
 
 const storiesRssXML = (stories: PageItem[], host: string) => {
   let latestPostDate = ''
@@ -11,7 +10,8 @@ const storiesRssXML = (stories: PageItem[], host: string) => {
   stories.forEach((story) => {
     const date = story.published_at || story.created_at || ''
     const postDate = Date.parse(date)
-    const postHref = `${host}/${story.slug}`
+    // todo language handling
+    const postHref = `${host}/${story.full_slug}`
 
     if (!latestPostDate || postDate > Date.parse(latestPostDate)) {
       latestPostDate = date
@@ -37,14 +37,20 @@ const storiesRssXML = (stories: PageItem[], host: string) => {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getLocaleFromSlug = (_: string) => {
+  // TODO need to write a function for this
+  return ''
+}
+
 const getXmlFeed = async (stories: PageItem[], host: string) => {
   const { rssItemsXml, latestPostDate } = storiesRssXML(stories, host)
-  const { knownLocale } = prepareForStoryblok()
+  // const { knownLocale } = prepareForStoryblok()
   const settings = await fetchSettings({})
   const {
     data: {
       story: {
-        content: { website_title, seo_description }
+        content: { website_title, seo_description, full_slug }
       }
     }
   } = settings
@@ -62,7 +68,7 @@ const getXmlFeed = async (stories: PageItem[], host: string) => {
             <description>
               <![CDATA[${seo_description || ''}]]>
             </description>
-            <language>${knownLocale || ''}</language>
+            <language>${getLocaleFromSlug(full_slug) || ''}</language>
             <lastBuildDate>${latestPostDate}</lastBuildDate>
             ${rssItemsXml}
         </channel>

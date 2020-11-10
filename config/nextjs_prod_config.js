@@ -4,16 +4,16 @@ const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (
-  env = {},
+  nextConfig = {},
   plugins = [],
-  transpileModules = [],
-  redirects = []
+  transpileModules = []
 ) {
   const withTM = require('next-transpile-modules')([
     ...['lumen-cms-core', 'lumen-cms-nextjs'],
     ...transpileModules
   ])
   const config = {
+    ...nextConfig,
     experimental: {
       modern: true
     },
@@ -23,10 +23,6 @@ module.exports = function (
     async rewrites() {
       return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
     },
-    async redirects() {
-      return redirects
-    },
-    env,
     // reactStrictMode: true, // => not working currently
     webpack: (config, options) => {
       // Fixes npm packages that depend on `fs` module

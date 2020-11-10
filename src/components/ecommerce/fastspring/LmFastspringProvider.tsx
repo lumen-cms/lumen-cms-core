@@ -9,7 +9,6 @@ import {
   EcommerceFastspringConfigStoryblok,
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
-import { hasFacebookPixel } from '../../../utils/analyticsHelper'
 
 let cachedProducts: any[] = []
 
@@ -49,11 +48,12 @@ export const LmFastSpringProvider: FC<{
     window.fscDataPopupClosed = async (data) => {
       if (data?.id && data?.reference) {
         // successful purchase GA should be set via GTM or inside of Fastspring itself
-        if (hasFacebookPixel()) {
+
+        fbq &&
           fbq('track', 'Purchase', {
             content_ids: [data.id]
           })
-        }
+
         // update elastic if defined
         if (appCtx?.user) {
           window.location.href = '/refetch'

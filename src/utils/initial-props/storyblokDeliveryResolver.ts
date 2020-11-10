@@ -1,6 +1,6 @@
 import { StoriesParams, StoryblokResult } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
-import { AppApiRequestPayload } from '../../typings/app'
+import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
 
 const { rootDirectory } = CONFIG
@@ -85,13 +85,9 @@ const getStoriesParams = ({ locale }: { locale?: string }) => {
   return params
 }
 
-type ApiProps = {
+type ApiProps = PagePropsOptions & {
   pageSlug: string
-  locale?: string
-  isLandingPage?: boolean
-  insideStoryblok?: boolean
 }
-const configLanguages = CONFIG.languages
 
 export const fetchSettings = async ({
   locale
@@ -101,19 +97,30 @@ export const fetchSettings = async ({
   return LmStoryblokService.get(getSettingsPath({ locale }))
 }
 
-export const fetchSharedStoryblokContent = ({
-  locale,
+export const apiRequestResolver = async ({
+  pageSlug,
   insideStoryblok,
-  overwriteSettingPath
-}: {
-  locale?: string
-  insideStoryblok?: boolean
-  overwriteSettingPath?: string
-}) => {
+  ...options
+}: ApiProps): Promise<AppApiRequestPayload> => {
+  const locale =
+    options.locale !== options.defaultLocale ? options.locale : undefined
+  const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
+    pageSlug.includes(path)
+  )
   const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
     CONFIG.previewToken
   }&no_cache=true${locale ? `&locale=${locale}` : ''}`
-  return Promise.all([
+  console.log(locale, pageSlug)
+  const [
+    page,
+    settings,
+    allCategories,
+    allStories,
+    allStaticContent
+  ] = await resolveAllPromises([
+    LmStoryblokService.get(
+      `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
+    ),
     LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
     insideStoryblok || process.env.NODE_ENV !== 'production'
@@ -121,88 +128,13 @@ export const fetchSharedStoryblokContent = ({
       : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
     LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])
-}
-
-export const apiRequestResolver = async ({
-  pageSlug,
-  locale,
-  isLandingPage,
-  insideStoryblok
-}: ApiProps): Promise<AppApiRequestPayload> => {
-  const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
-    pageSlug.includes(path)
-  )
-
-  const [
-    settings,
-    categories,
-    stories,
-    staticContent
-  ] = await fetchSharedStoryblokContent({
-    locale,
-    insideStoryblok,
-    overwriteSettingPath
-  })
-  const all: any[] = [LmStoryblokService.get(`cdn/stories/${pageSlug}`)]
-
-  if (
-    CONFIG.suppressSlugLocale &&
-    configLanguages.length > 1 &&
-    !isLandingPage
-  ) {
-    const [, ...languagesWithoutDefault] = configLanguages // make sure default language is always first of array
-    if (CONFIG.suppressSlugIncludeDefault) {
-      languagesWithoutDefault.unshift(CONFIG.defaultLocale)
-    }
-    languagesWithoutDefault.forEach((currentLocale) => {
-      all.push(
-        LmStoryblokService.get(`cdn/stories/${currentLocale}/${pageSlug}`)
-      )
-    })
-  }
-
-  // eslint-disable-next-line prefer-const
-  let [page, ...otherPageLanguages] = await resolveAllPromises(all)
-
-  if (page === null && otherPageLanguages.length) {
-    otherPageLanguages.forEach((value, index) => {
-      if (value) {
-        locale =
-          configLanguages[CONFIG.suppressSlugIncludeDefault ? index : index + 1] // overwrite locale
-        page = value // overwrite page values of localized page
-      }
-    })
-
-    // make 2nd API calls to fetch locale based settings and other values
-    const [
-      localizedSettings,
-      localizedCategories,
-      localizedStories,
-      localizedStaticContent
-    ] = await fetchSharedStoryblokContent({
-      locale,
-      insideStoryblok,
-      overwriteSettingPath
-    })
-
-    return {
-      page,
-      locale,
-      settings: localizedSettings,
-      allCategories: localizedCategories,
-      allStories: localizedStories,
-      allStaticContent: localizedStaticContent,
-      listWidgetData: {}
-    }
-  }
 
   return {
     page,
     settings,
-    allCategories: categories,
-    allStories: stories,
-    locale,
-    allStaticContent: staticContent,
+    allCategories,
+    allStories,
+    allStaticContent,
     listWidgetData: {}
   }
 }

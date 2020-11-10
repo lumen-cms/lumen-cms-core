@@ -19,7 +19,6 @@ import {
   ButtonStoryblok,
   RichTextEditorStoryblok
 } from '../../typings/generated/components-schema'
-import { hasFacebookPixel, hasGtag } from '../../utils/analyticsHelper'
 
 class LocalizedUtils extends DateFnsUtils {
   dateFormat = 'P'
@@ -59,12 +58,9 @@ export default function LmGoogleForm({
         formData.append(`entry.${entryId}_day`, `${d.getDay()}`)
       }
     })
-    if (hasGtag()) {
-      window.gtag('event', 'generate_lead')
-    }
-    if (hasFacebookPixel()) {
-      window.fbq('track', 'GoogleForm')
-    }
+
+    gtag && gtag('event', 'generate_lead')
+    fbq && fbq('track', 'Lead')
     await fetch(formStructure.formAction, {
       method: 'POST',
       body: formData,

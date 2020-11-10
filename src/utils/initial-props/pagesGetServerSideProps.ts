@@ -7,7 +7,7 @@ const pagesGetServerSideProps: GetServerSideProps = async (
   props
 ): Promise<{ props: AppPageProps }> => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
-  const { query } = props
+  const { query, locale, locales, defaultLocale } = props
 
   try {
     // startMeasureTime('start get server side props')
@@ -17,7 +17,12 @@ const pagesGetServerSideProps: GetServerSideProps = async (
     LmStoryblokService.setQuery(query)
 
     // console.log('pagesGetServerSideProps', hostname, slug)
-    const pageProps = await getPageProps(slug, true)
+    const pageProps = await getPageProps(slug, {
+      locale,
+      locales,
+      defaultLocale,
+      insideStoryblok: true
+    })
     // endMeasureTime()
 
     return {
