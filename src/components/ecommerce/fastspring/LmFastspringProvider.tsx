@@ -13,9 +13,9 @@ import {
 export const LmFastSpringProvider: FC<{
   settings: GlobalStoryblok
 }> = ({ children, settings }) => {
-  let currency = 'USD'
   const router = useRouter()
   const appCtx = useAppContext()
+  const [currency, setCurrency] = useState('USD')
   const fastSpring: EcommerceFastspringConfigStoryblok | undefined = (
     settings.ecommerce || []
   ).find((i) => i.component === 'ecommerce_fastspring_config')
@@ -39,10 +39,10 @@ export const LmFastSpringProvider: FC<{
   }
   if (typeof window !== 'undefined' && ready) {
     window.fscDataCallback = (data) => {
-      currency = data.currency || 'USD'
       if (!products.length) {
         const fetchedProducts: any[] = data.groups[0].items
         setProducts(fetchedProducts)
+        setCurrency(data.currency)
       }
     }
     window.fscDataPopupWebhookReceived = (data) => {
@@ -74,7 +74,7 @@ export const LmFastSpringProvider: FC<{
   }
 
   return (
-    <FastSpringContext.Provider value={{ products, setRedirect }}>
+    <FastSpringContext.Provider value={{ products, setRedirect, currency }}>
       {children}
     </FastSpringContext.Provider>
   )

@@ -8,7 +8,7 @@ export default function LmFastSpringCheckout({
   content,
   trigger
 }: FastSpringCheckoutProps) {
-  const { products, setRedirect } = useFastspringContext()
+  const { products, setRedirect, currency } = useFastspringContext()
   const ctx = useAppContext()
   const { path } = content
 
@@ -56,13 +56,15 @@ export default function LmFastSpringCheckout({
         window.gtag &&
           gtag('event', 'begin_checkout', {
             items: [path],
-            value: currentItem.price
+            value: currentItem.priceValue,
+            currency
           })
 
         window.fbq &&
           fbq('track', 'InitiateCheckout', {
             content_ids: [path as string],
-            value: currentItem.price
+            value: currentItem.priceValue,
+            currency
           } as facebook.Pixel.InitiateCheckoutParameters)
 
         window.fastspring.builder.push({
