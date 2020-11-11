@@ -1,7 +1,8 @@
 import { createContext, useContext } from 'react'
+import { FastSpringProduct } from '../fastSpringTypes'
 
 export type FastSpringContextProps = {
-  products: any[]
+  products: FastSpringProduct[]
   setRedirect: (path: string) => void
 }
 

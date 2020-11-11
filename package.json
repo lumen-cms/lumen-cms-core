@@ -66,9 +66,9 @@
     "lumen-cms-utils": "2.0.0",
     "marked": "1.2.3",
     "mdi-material-ui": "6.20.0",
-    "next-compose-plugins": "2.2.0",
+    "next-compose-plugins": "2.2.1",
     "next-google-fonts": "^1.2.1",
-    "next-seo": "4.15.1",
+    "next-seo": "4.16.0",
     "next-transpile-modules": "4.1.0",
     "nprogress": "0.2.0",
     "react-form-hook-mui": "0.10.3",
@@ -97,7 +97,7 @@
     "react": "^17.0.1"
   },
   "devDependencies": {
-    "@auth0/auth0-react": "1.1.0",
+    "@auth0/auth0-react": "1.2.0",
     "@graphql-codegen/cli": "^1.19.0",
     "@graphql-codegen/typescript": "^1.17.11",
     "@graphql-codegen/typescript-document-nodes": "^1.17.8",

@@ -11,6 +11,52 @@ export type FastSpringCheckoutProps = {
   trigger: ButtonStoryblok | ImageStoryblok | IconStoryblok | HeadlineStoryblok // need to keep up to date
 }
 
+export type FastSpringData = {
+  currency: string
+  country: string
+  language: string
+  taxExemptionAllowed: string
+  taxExempt: boolean
+  total: string
+  totalValue: number
+  groups: { items: FastSpringProduct[] }[]
+  [k: string]: any
+}
+
 export type FastSpringProduct = {
-  product: string
+  path: string
+  pid: string
+  selected: boolean
+  quantity: 1
+  price: string
+  priceValue: number
+  priceTotal: string
+  priceTotalValue: number
+  unitPrice: string
+  unitPriceValue: number
+  unitDiscountValue: number
+  discountTotal: string
+  discountTotalValue: number
+  total: string
+  totalValue: number
+  [k: string]: any
+}
+
+export type FastSpringWebhookReceivedData = {
+  id: string
+  reference: string
+  currency: string
+  payoutCurrency: string
+  total: number
+  totalDisplay: string
+  totalInPayoutCurrency: number
+  totalInPayoutCurrencyDisplay: string
+  items: {
+    product: string
+    quantity: number
+    coupon: string
+    sku: string
+    [k: string]: any
+  }[]
+  [k: string]: any
 }
