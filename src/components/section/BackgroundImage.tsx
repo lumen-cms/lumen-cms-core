@@ -61,7 +61,11 @@ const BackgroundImage = ({
     disable_lazy_loading
   } = content
   const dontRender = hide_image_on_breakpoint && matches
-  const loading = priority || disable_lazy_loading ? 'eager' : 'lazy'
+  const loading = priority
+    ? undefined
+    : disable_lazy_loading
+    ? 'eager'
+    : undefined
   const imageBase =
     (alternative_image && height > width ? alternative_image : image) || ''
   const imageSource = imageBase.replace('//a', 'https://img2')

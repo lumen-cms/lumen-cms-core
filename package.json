@@ -82,7 +82,7 @@
     "react-swipeable-views": "0.13.9",
     "react-swipeable-views-utils": "0.13.9",
     "shopify-buy": "2.11.0",
-    "sitemap": "6.3.2",
+    "sitemap": "6.3.3",
     "storyblok-js-client": "3.1.1",
     "storyblok-react": "0.1.1",
     "swr": "0.3.8",
@@ -92,7 +92,7 @@
     "uuid": "^8.3.0"
   },
   "peerDependencies": {
-    "next": "10.0.2-canary.7",
+    "next": "10.0.2-canary.8",
     "react-dom": "^17.0.1",
     "react": "^17.0.1"
   },
@@ -127,7 +127,7 @@
     "json-schema-to-typescript": "^9.1.1",
     "jwks-rsa": "^1.11.0",
     "lorem-ipsum": "^2.0.3",
-    "next": "10.0.2-canary.7",
+    "next": "10.0.2-canary.8",
     "np": "^7.0.0",
     "playwright": "1.5.2",
     "prettier": "^2.1.2",

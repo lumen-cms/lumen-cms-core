@@ -31,6 +31,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
       smart: true
     })
   }
+
   return (
     <>
       {!imgSource && (
@@ -45,10 +46,9 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
       <Fade in={!!imgSource}>
         <CardMedia
           style={{
-            color:
-              options.variant && options.variant.includes('font_white')
-                ? 'white'
-                : 'inherit',
+            color: options.variant?.includes('font_white')
+              ? 'white'
+              : 'inherit',
             backgroundSize: imageSize || 'cover'
           }}
           image={imgSource}
