@@ -57,6 +57,7 @@ export default function LmFastSpringCheckout({
           gtag('event', 'begin_checkout', {
             items: [path],
             value: currentItem.priceValue,
+            content_type: 'product',
             currency
           })
 
@@ -64,6 +65,7 @@ export default function LmFastSpringCheckout({
           fbq('track', 'InitiateCheckout', {
             content_ids: [path as string],
             value: currentItem.priceValue,
+            content_type: 'product',
             currency
           } as facebook.Pixel.InitiateCheckoutParameters)
 

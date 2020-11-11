@@ -51,6 +51,7 @@ export const LmFastSpringProvider: FC<{
         fbq('track', 'Purchase', {
           content_ids: data.items.map((product) => product.product),
           currency,
+          content_type: 'product',
           value: data.total
         })
       } else {
