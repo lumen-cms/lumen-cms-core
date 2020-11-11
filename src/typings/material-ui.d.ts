@@ -64,7 +64,7 @@ declare global {
     ) => void
     fscDataPopupWebhookReceived: (data: FastSpringWebhookReceivedData) => void
     adroll: {
-      track: (k: string) => void
+      track: (k: string, opts?: any) => void
     }
   }
 }
