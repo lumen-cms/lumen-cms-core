@@ -847,6 +847,12 @@ export interface IframeAdvancedStoryblok {
 }
 
 export interface ImageStoryblok {
+  source?: string;
+  alt?: string;
+  priority?: boolean;
+  disable_lazy_loading?: boolean;
+  image_crop?: ("image_crop" | "smart_crop")[];
+  focal_point?: string;
   property?: ("img-thumbnail" | "rounded" | "rounded-circle" | "square" | "rounded-0")[];
   height?: number;
   height_xs?: number;
@@ -857,10 +863,6 @@ export interface ImageStoryblok {
     rgba?: string;
     [k: string]: any;
   };
-  source?: string;
-  alt?: string;
-  image_crop?: ("image_crop" | "smart_crop")[];
-  focal_point?: string;
   class_names?: {
     values?: string[];
     [k: string]: any;
