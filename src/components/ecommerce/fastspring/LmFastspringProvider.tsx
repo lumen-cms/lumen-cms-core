@@ -47,13 +47,14 @@ export const LmFastSpringProvider: FC<{
     }
     window.fscDataPopupWebhookReceived = (data) => {
       // successful purchase GA should be set via GTM or inside of Fastspring itself
-      if (data && data.total && Array.isArray(data.items)) {
-        window.fbq &&
-          fbq('track', 'Purchase', {
-            content_ids: data.items.map((product) => product.product),
-            currency,
-            value: data.total
-          })
+      if (window.fbq && data && data.total && Array.isArray(data.items)) {
+        fbq('track', 'Purchase', {
+          content_ids: data.items.map((product) => product.product),
+          currency,
+          value: data.total
+        })
+      } else {
+        console.info(data) // remove soon
       }
     }
     window.fscDataPopupClosed = async (data) => {
