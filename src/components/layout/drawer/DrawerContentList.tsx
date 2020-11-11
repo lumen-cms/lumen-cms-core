@@ -24,7 +24,7 @@ const getUidsOfSlug = (childs: any[], activeRoutePath?: string) => {
     findPathDeep(
       childs,
       (_: any, _n: any, context: any) =>
-        `/${context.link?.cached_url}` === activeRoutePath,
+        `/${context.link?.cached_url}`.includes(activeRoutePath),
       {
         pathFormat: 'array'
       }

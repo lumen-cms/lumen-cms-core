@@ -20,7 +20,8 @@ const getPageProps = async (
     settings,
     allCategories = [],
     allStories = [],
-    allStaticContent = []
+    allStaticContent = [],
+    notFoundLocale
   } = await apiRequestResolver({
     ...options,
     pageSlug
@@ -55,9 +56,10 @@ const getPageProps = async (
       : null,
     allCategories,
     allStaticContent,
-    locale: options.locale,
+    locale: options.locale || null,
     listWidgetData: componentData || null,
-    insideStoryblok: !!options.insideStoryblok
+    insideStoryblok: !!options.insideStoryblok,
+    notFoundLocale
   }
 
   await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))

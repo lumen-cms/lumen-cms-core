@@ -11,13 +11,14 @@ export const analyticsOnPageChange = ({
 }) => {
   if (!isDev()) {
     if (googleAnaliyticsId) {
-      gtag('config', googleAnaliyticsId, {
-        page_location: url,
-        page_title: window.document.title
-      })
+      window.gtag &&
+        gtag('config', googleAnaliyticsId, {
+          page_location: url,
+          page_title: window.document.title
+        })
     }
     if (facebookPixelId) {
-      fbq('track', 'PageView')
+      window.fbq && fbq('track', 'PageView')
     }
     window.adroll?.track('pageView')
   }

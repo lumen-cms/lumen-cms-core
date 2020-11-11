@@ -1,6 +1,4 @@
 import { internalLinkHandler } from 'lumen-cms-utils'
-import { CONFIG } from '@CONFIG'
-import { getGlobalState } from './state/state'
 
 export interface LinkType {
   cached_url?: string
@@ -24,16 +22,6 @@ export interface LinkType {
 
 interface LinkOptions {
   openExternal?: boolean
-}
-
-export const homepageLinkHandler = () => {
-  if (CONFIG.rootDirectory) {
-    return '/home'
-  }
-  const appLocale = getGlobalState('locale')
-  return appLocale && appLocale !== CONFIG.defaultLocale
-    ? `/${appLocale}/home`
-    : '/home'
 }
 
 type LinkHandlerProps = {

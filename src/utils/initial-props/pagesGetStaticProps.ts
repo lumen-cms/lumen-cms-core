@@ -4,12 +4,14 @@ import getPageProps from './getPageProps'
 import { AppPageProps } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
 
-const pagesGetStaticProps: GetStaticProps = async (
-  props
-): Promise<{ props: AppPageProps; revalidate?: number }> => {
+const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { params, preview, previewData, locale, locales, defaultLocale } = props
-  const slug = params?.index?.length ? params.index : 'home'
+  const slug = params?.index?.length
+    ? params.index !== 'index'
+      ? params.index
+      : 'home'
+    : 'home'
   console.log('static props', slug, defaultLocale, locales)
   // startMeasureTime('start get static props')
   if (Array.isArray(slug) && slug[0] === '_dev_') {
@@ -20,13 +22,25 @@ const pagesGetStaticProps: GetStaticProps = async (
       LmStoryblokService.setDevMode()
       LmStoryblokService.setQuery(previewData)
     }
-    const pageProps = await getPageProps(slug, {
+    const { notFoundLocale, ...pageProps } = await getPageProps(slug, {
       locale,
       defaultLocale,
       locales,
       insideStoryblok: preview
     })
-    // endMeasureTime()
+    if (!pageProps.page && notFoundLocale) {
+      return {
+        redirect: {
+          destination: notFoundLocale,
+          permanent: true
+        }
+      }
+    }
+    if (!(pageProps.page && pageProps.settings)) {
+      return {
+        notFound: true
+      }
+    }
     return {
       props: pageProps,
       revalidate: 300

@@ -25,11 +25,12 @@ export type AppApiRequestPayload = {
   page: Story
   allStories: StoryData<PageComponent>[]
   settings: Story
-  locale?: string
+  locale?: string | null
   allCategories: StoryData<CategoryComponent>[]
   allStaticContent: StoryData<StaticcontainerComponent>[]
   listWidgetData: { [k: string]: StoryData<PageComponent>[] } | null
   user?: IClaims
+  notFoundLocale?: string
 }
 
 type SubProps = Pick<
@@ -44,6 +45,7 @@ export type AppPageProps = SubProps & {
   query?: any
   insideStoryblok?: boolean
   user?: IClaims
+  pageNotFound?: boolean
   [k: string]: any
 }
 

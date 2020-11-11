@@ -45,12 +45,12 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
     startFetch()
   }, [shopifyConfig?.access_token, shopifyConfig?.domain])
   const onVariantSelect = (variant: ProductVariant) => {
-    gtag &&
+    window.gtag &&
       gtag('event', 'select_content', {
         items: [variant.id]
       })
 
-    fbq &&
+    window.fbq &&
       fbq('track', 'CustomizeProduct', {
         content_ids: [variant.id as string]
       })
@@ -82,13 +82,13 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
       // @ts-ignore
       const totalPrice = Number(c.paymentDue)
 
-      fbq &&
+      window.fbq &&
         fbq('track', 'AddToCart', {
           content_ids: c.lineItems.map((i) => `${i.variantId}`),
           value: totalPrice
         })
 
-      gtag &&
+      window.gtag &&
         gtag('event', 'add_to_cart', {
           items: c.lineItems.map((i) => ({
             id: i.variantId,
@@ -122,7 +122,7 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const totalPrice = Number(c.paymentDue)
-    gtag &&
+    window.gtag &&
       gtag('event', 'begin_checkout', {
         items: c.lineItems.map((i) => ({
           id: i.variantId,
@@ -131,7 +131,7 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
         value: totalPrice
       })
 
-    fbq &&
+    window.fbq &&
       fbq('track', 'InitiateCheckout', {
         content_ids: c.lineItems.map((i) => `${i.variantId}`),
         value: totalPrice
@@ -159,13 +159,13 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
         // @ts-ignore
         const totalPrice = Number(c.paymentDue)
         setTotalAmount(totalPrice)
-        fbq &&
+        window.fbq &&
           fbq('track', 'AddToCart', {
             content_ids: c.lineItems.map((i) => `${i.variantId}`),
             value: totalPrice
           })
 
-        gtag &&
+        window.gtag &&
           gtag('event', 'add_to_cart', {
             items: c.lineItems.map((i) => ({
               id: i.variantId,

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { AppProps } from 'next/app'
 import NProgress from 'nprogress'
 import { CONFIG } from '@CONFIG'
-import { DefaultSeo } from 'next-seo'
+import Head from 'next/head'
 import { AppPageProps } from '../../typings/app'
 import { AppContainer } from '../layout/AppContainer'
 import { getGlobalState, setGlobalState } from '../../utils/state/state'
@@ -10,17 +10,16 @@ import hasWebpSupport from '../../utils/detectWebpSupport'
 import { useStoryblokComposer } from '../../utils/hooks/useStoryblokComposer'
 import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 
+if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
+  hasWebpSupport().then((has) => setGlobalState('hasWebpSupport', has))
+}
+
 export type LmAppProps = AppProps<AppPageProps>
 
 export function LmApp({ Component, pageProps, router }: LmAppProps) {
-  const { locale, settings, page } = pageProps as AppPageProps
+  const { settings, page } = pageProps as AppPageProps
   const [statePage, stateSettings] = useStoryblokComposer({ settings, page })
-  if (locale && getGlobalState('locale') !== locale) {
-    setGlobalState('locale', locale)
-  }
-  if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
-    hasWebpSupport().then((has) => setGlobalState('hasWebpSupport', has))
-  }
+
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
 
@@ -64,15 +63,13 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
   }
   return (
     <AppContainer content={appProps}>
-      <DefaultSeo
-        additionalMetaTags={[
-          {
-            name: 'viewport',
-            content:
-              'minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no'
-          }
-        ]}
-      />
+      <Head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+          key="viewport"
+        />
+      </Head>
       <Component {...appProps} />
     </AppContainer>
   )

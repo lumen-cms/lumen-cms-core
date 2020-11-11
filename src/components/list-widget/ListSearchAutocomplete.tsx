@@ -17,7 +17,7 @@ import { useDebouncedCallback } from 'use-debounce'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import useSWR from 'swr'
 import { CONFIG } from '@CONFIG'
-import { useAppContext } from '@context/AppContext'
+import { useRouter } from 'next/router'
 import { PageComponent } from '../../typings/generated/schema'
 import LmIcon from '../icon/LmIcon'
 import MuiNextLink from '../link/MuiNextLink'
@@ -118,18 +118,15 @@ export default function LmListSearchAutocomplete({
   content
 }: LmListSearchAutocompleteProps): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>()
-  const appContext = useAppContext()
   const classes = useStyles()
+  const { defaultLocale, locale } = useRouter()
   const inputRef: RefObject<HTMLInputElement> = createRef()
   const [open, setOpen] = useState<boolean | undefined>()
   const theme = useTheme()
   const matches = useMediaQuery(
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')
   )
-  let prefixLocale =
-    appContext?.locale && CONFIG.defaultLocale !== appContext.locale
-      ? appContext.locale
-      : undefined
+  let prefixLocale = defaultLocale !== locale ? locale : undefined
   if (CONFIG.rootDirectory) {
     prefixLocale = CONFIG.rootDirectory
   }

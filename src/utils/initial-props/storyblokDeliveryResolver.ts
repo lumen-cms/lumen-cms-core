@@ -128,6 +128,22 @@ export const apiRequestResolver = async ({
       : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
     LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])
+  let notFoundLocale
+  if (CONFIG.suppressSlugLocale && !page && Array.isArray(options.locales)) {
+    const [, ...languagesWithoutDefault] = options.locales // make sure default language is always first of array
+    const otherPageLanguages = await resolveAllPromises(
+      languagesWithoutDefault.map((currentLocale) =>
+        LmStoryblokService.get(`cdn/stories/${currentLocale}/${pageSlug}`)
+      )
+    )
+    otherPageLanguages.forEach((value, index) => {
+      if (value) {
+        notFoundLocale = `/${
+          (options?.locales && options.locales[index + 1]) || ''
+        }/${pageSlug}` // overwrite locale
+      }
+    })
+  }
 
   return {
     page,
@@ -135,6 +151,7 @@ export const apiRequestResolver = async ({
     allCategories,
     allStories,
     allStaticContent,
-    listWidgetData: {}
+    listWidgetData: {},
+    notFoundLocale
   }
 }

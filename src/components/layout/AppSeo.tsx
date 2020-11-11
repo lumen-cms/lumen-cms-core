@@ -1,8 +1,9 @@
 import { NextSeo, NextSeoProps } from 'next-seo'
 import React from 'react'
 import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types.d'
-import { useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
+import { useAppContext } from '@context/AppContext'
 import {
   ImageCoreStoryblok,
   SeoOpenGraphStoryblok,
@@ -59,11 +60,15 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
   return twitter
 }
 
-const getCanonicalUrl = (hostname = '', url: string) => {
+const getCanonicalUrl = (hostname = '', router: NextRouter) => {
+  let url =
+    router.locale && router.defaultLocale !== router.locale
+      ? `/${router.locale}${router.asPath}`
+      : router.asPath
   if (url.endsWith('home')) {
-    url = url.replace('home', '')
+    url = url.replace('/home', '')
   } else if (url.endsWith('home/')) {
-    url = url.replace('home/', '')
+    url = url.replace('/home/', '')
   }
   return hostname + url
 }
@@ -74,10 +79,11 @@ export function AppSeo({
   previewImage
 }: AppSeoProps): JSX.Element {
   const router = useRouter()
+  const appCtx = useAppContext()
   const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
     settings.seo_body || []
-  if (!page) {
-    return <NextSeo title="Not Found" noindex />
+  if (appCtx?.pageNotFound || !page) {
+    return <NextSeo title="Not Found" noindex nofollow />
   }
   const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
     page.seo_body || []
@@ -129,10 +135,7 @@ export function AppSeo({
   }
 
   if (settings.seo_website_url) {
-    const canonicalUrl = getCanonicalUrl(
-      settings.seo_website_url,
-      router?.asPath
-    )
+    const canonicalUrl = getCanonicalUrl(settings.seo_website_url, router)
     seo.canonical = canonicalUrl
     if (seo.openGraph) {
       seo.openGraph.url = canonicalUrl

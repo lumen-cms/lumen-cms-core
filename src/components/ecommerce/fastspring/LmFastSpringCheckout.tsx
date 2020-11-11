@@ -53,17 +53,17 @@ export default function LmFastSpringCheckout({
 
         setRedirect(cachedUrl ? `/${cachedUrl}` : '')
 
-        gtag &&
+        window.gtag &&
           gtag('event', 'begin_checkout', {
             items: [path],
             value: currentItem.price
           })
 
-        fbq &&
+        window.fbq &&
           fbq('track', 'InitiateCheckout', {
             content_ids: [path as string],
             value: currentItem.price
-          })
+          } as facebook.Pixel.InitiateCheckoutParameters)
 
         window.fastspring.builder.push({
           // reset: true,

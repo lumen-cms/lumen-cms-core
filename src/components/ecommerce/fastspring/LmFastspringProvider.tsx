@@ -10,11 +10,10 @@ import {
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
 
-let cachedProducts: any[] = []
-
 export const LmFastSpringProvider: FC<{
   settings: GlobalStoryblok
 }> = ({ children, settings }) => {
+  let currency = 'USD'
   const router = useRouter()
   const appCtx = useAppContext()
   const fastSpring: EcommerceFastspringConfigStoryblok | undefined = (
@@ -28,10 +27,11 @@ export const LmFastSpringProvider: FC<{
       'data-access-key': fastSpring?.data_accesss_key || '',
       'data-data-callback': 'fscDataCallback',
       'data-continuous': 'true',
-      'data-popup-closed': 'fscDataPopupClosed'
+      'data-popup-closed': 'fscDataPopupClosed',
+      'data-popup-webhook-received': 'fscDataPopupWebhookReceived'
     }
   })
-  const [products, setProducts] = useState<any[]>(cachedProducts)
+  const [products, setProducts] = useState<any[]>([])
   const [redirect, setRedirect] = useState<string>('')
 
   if (status === 'error') {
@@ -39,21 +39,26 @@ export const LmFastSpringProvider: FC<{
   }
   if (typeof window !== 'undefined' && ready) {
     window.fscDataCallback = (data) => {
+      currency = data.currency || 'USD'
       if (!products.length) {
         const fetchedProducts: any[] = data.groups[0].items
         setProducts(fetchedProducts)
-        cachedProducts = [...fetchedProducts]
+      }
+    }
+    window.fscDataPopupWebhookReceived = (data) => {
+      // successful purchase GA should be set via GTM or inside of Fastspring itself
+      if (window.fbq && data && data.total && Array.isArray(data.items)) {
+        fbq('track', 'Purchase', {
+          content_ids: data.items.map((product) => product.product),
+          currency,
+          value: data.total
+        })
+      } else {
+        console.info(data) // remove soon
       }
     }
     window.fscDataPopupClosed = async (data) => {
       if (data?.id && data?.reference) {
-        // successful purchase GA should be set via GTM or inside of Fastspring itself
-
-        fbq &&
-          fbq('track', 'Purchase', {
-            content_ids: [data.id]
-          })
-
         // update elastic if defined
         if (appCtx?.user) {
           window.location.href = '/refetch'

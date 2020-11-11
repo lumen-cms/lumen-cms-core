@@ -5,12 +5,12 @@ import { CONFIG } from '@CONFIG'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
-import { homepageLinkHandler } from '../../../utils/linkHandler'
 import imageService from '../../../utils/ImageService'
 import { ContentSpace } from '../ContentSpace'
 import { DrawerContentList } from './DrawerContentList'
 import MwcDrawer from './MwcDrawer'
 import useBackgroundBox from '../../section/useBackgroundBox'
+import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 
 type DrawerElementProps = {
   settings: GlobalStoryblok
@@ -18,6 +18,7 @@ type DrawerElementProps = {
 
 function DrawerElement({ settings }: DrawerElementProps): JSX.Element {
   const appSetup = useAppSetup()
+  const homepageHref = useHomepageLink()
   const background =
     Array.isArray(settings.drawer_background) && settings.drawer_background[0]
   const backgroundProps = useBackgroundBox({ background })
@@ -38,7 +39,7 @@ function DrawerElement({ settings }: DrawerElementProps): JSX.Element {
         {appSetup.drawerBelowToolbar && <ContentSpace />}
         {!appSetup.hasDrawer && !appSetup.drawerBelowToolbar && (
           <div>
-            <Link href={CONFIG.href} as={homepageLinkHandler()}>
+            <Link href={CONFIG.href} as={homepageHref}>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a>
                 <div className="p-3">

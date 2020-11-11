@@ -1,4 +1,8 @@
 import { Theme, ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
+import {
+  FastSpringData,
+  FastSpringWebhookReceivedData
+} from '../components/ecommerce/fastspring/fastSpringTypes'
 
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
@@ -54,10 +58,11 @@ declare module '@material-ui/core/styles/createMuiTheme' {
 declare global {
   interface Window {
     fastspring: any
-    fscDataCallback: (data: any) => void
+    fscDataCallback: (data: FastSpringData) => void
     fscDataPopupClosed: (
       data: { id?: string; reference?: string } | null
     ) => void
+    fscDataPopupWebhookReceived: (data: FastSpringWebhookReceivedData) => void
     adroll: {
       track: (k: string) => void
     }

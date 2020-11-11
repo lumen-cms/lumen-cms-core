@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import GoogleFonts from 'next-google-fonts'
 import { useAppContext } from '@context/AppContext'
 import { MetaTag } from 'next-seo/lib/types'
-import { DefaultSeo, LogoJsonLd } from 'next-seo'
+import { LogoJsonLd } from 'next-seo'
 import imageService, { imageServiceNoWebp } from '../../utils/ImageService'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
@@ -71,7 +71,6 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
 
   return (
     <>
-      <DefaultSeo additionalMetaTags={additionalMetaTags} />
       <GoogleFonts
         href={`https://fonts.googleapis.com/css?family=${loadFonts.join(
           '|'
@@ -84,6 +83,9 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
         />
       )}
       <NextHead>
+        {additionalMetaTags.map((item) => (
+          <meta content={item.content} name={item.name} key={item.name} />
+        ))}
         <link
           rel="preconnect"
           href="https://cdn.jsdelivr.net"
