@@ -10,3 +10,7 @@ export type FastSpringCheckoutProps = {
   content: EcommerceFastspringProductStoryblok
   trigger: ButtonStoryblok | ImageStoryblok | IconStoryblok | HeadlineStoryblok // need to keep up to date
 }
+
+export type FastSpringProduct = {
+  product: string
+}

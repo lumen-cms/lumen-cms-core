@@ -1,5 +1,4 @@
 import { createGlobalState } from 'react-hooks-global-state'
-import { CONFIG } from '@CONFIG'
 
 export interface State {
   leftNavigationDrawer: boolean
@@ -8,7 +7,6 @@ export interface State {
     searchText: string | undefined
     categories: string[] | undefined
   }
-  locale: string
   hasWebpSupport?: boolean
 }
 
@@ -19,7 +17,6 @@ const initialState: State = {
     searchText: undefined,
     categories: undefined
   },
-  locale: CONFIG.defaultLocale,
   hasWebpSupport: undefined
 }
 const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(

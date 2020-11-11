@@ -1,6 +1,4 @@
-import { IncomingMessage } from 'http'
-
-let isSupported: boolean | null | unknown = null
+let isSupported: boolean | undefined
 
 const supportsWebP = (): Promise<boolean | unknown> =>
   new Promise((resolve) => {
@@ -11,16 +9,12 @@ const supportsWebP = (): Promise<boolean | unknown> =>
       'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA='
   }).catch(() => Promise.resolve(false))
 
-const hasWebpSupport = async (req?: IncomingMessage): Promise<boolean> => {
-  if (req) {
-    // we set this and calling it in _document to set global windows variable
-    return !!(req.headers.accept && req.headers.accept.includes('webp'))
-  }
+const hasWebpSupport = async (): Promise<boolean> => {
   if (typeof isSupported === 'boolean') {
     return isSupported
   }
   const can = await supportsWebP()
-  isSupported = can
+  isSupported = !!can
   return !!can
 }
 

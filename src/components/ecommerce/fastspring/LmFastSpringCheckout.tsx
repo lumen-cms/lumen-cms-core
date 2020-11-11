@@ -63,7 +63,7 @@ export default function LmFastSpringCheckout({
           fbq('track', 'InitiateCheckout', {
             content_ids: [path as string],
             value: currentItem.price
-          })
+          } as facebook.Pixel.InitiateCheckoutParameters)
 
         window.fastspring.builder.push({
           // reset: true,

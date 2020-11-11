@@ -76,10 +76,8 @@ import {
 
 type AppConfigProps = {
   href: string
-  defaultLocale: string
   publicToken: string
   previewToken: string
-  languages: string[]
   rootDirectory?: string
   overwriteLocale?: string
   suppressSlugLocale?: boolean
@@ -106,10 +104,6 @@ export const CONFIG: AppConfigProps = {
     (process.env.NEXT_PUBLIC_PREVIEW_MODE
       ? process.env.NEXT_PUBLIC_PREVIEW_TOKEN
       : process.env.NEXT_PUBLIC_PUBLIC_TOKEN) || '',
-  languages: process.env.NEXT_PUBLIC_LANGUAGES
-    ? process.env.NEXT_PUBLIC_LANGUAGES.split(',')
-    : [],
-  defaultLocale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE || 'en',
   rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
   overwriteLocale: process.env.NEXT_PUBLIC_OVERWRITE_LOCALE,
   suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE,

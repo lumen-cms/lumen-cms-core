@@ -3,12 +3,14 @@ import { FormContainer, TextFieldElement } from 'react-form-hook-mui'
 import { Button } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { useAuth0 } from '@auth0/auth0-react'
+import { useRouter } from 'next/router'
 import { useAppContext } from '../provider/context/AppContext'
 import { Auth0FormProps } from './authTypes'
 import { auth0Endpoint } from '../../utils/auth0/auth0Helpers'
 
 export default function LmAuthForm({ content }: Auth0FormProps) {
   const appCtx = useAppContext()
+  const { locale } = useRouter()
   const { getAccessTokenSilently } = useAuth0()
   const [updating, setUpdating] = useState(false)
   const defaults = {
@@ -36,7 +38,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
       email_helper: 'The email can not be changed.'
     }
   }
-  const currentLocale = appCtx.locale || 'de'
+  const currentLocale = locale || 'de'
   const parseError = (errorType: string) => {
     switch (errorType) {
       case 'required':

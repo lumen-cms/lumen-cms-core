@@ -6,12 +6,13 @@ import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 import { CONFIG } from '@CONFIG'
 import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
-import { homepageLinkHandler } from '../../../utils/linkHandler'
 import imageService from '../../../utils/ImageService'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'
 import { LmToolbarLogoProps } from './toolbarTypes'
+import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 
 export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
+  const homepageHref = useHomepageLink()
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo
   const websiteLogoInvert = settings.website_logo_invert
@@ -27,7 +28,7 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
 
   return (
     <div className="h-100 d-inline-block" ref={refIntersectionObserver}>
-      <Link as={homepageLinkHandler()} href={CONFIG.href} passHref>
+      <Link as={homepageHref} href={CONFIG.href} passHref>
         <MuiLink
           className={clsx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
         >

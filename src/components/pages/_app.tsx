@@ -10,17 +10,16 @@ import hasWebpSupport from '../../utils/detectWebpSupport'
 import { useStoryblokComposer } from '../../utils/hooks/useStoryblokComposer'
 import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 
+if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
+  hasWebpSupport().then((has) => setGlobalState('hasWebpSupport', has))
+}
+
 export type LmAppProps = AppProps<AppPageProps>
 
 export function LmApp({ Component, pageProps, router }: LmAppProps) {
-  const { locale, settings, page } = pageProps as AppPageProps
+  const { settings, page } = pageProps as AppPageProps
   const [statePage, stateSettings] = useStoryblokComposer({ settings, page })
-  if (locale && getGlobalState('locale') !== locale) {
-    setGlobalState('locale', locale)
-  }
-  if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
-    hasWebpSupport().then((has) => setGlobalState('hasWebpSupport', has))
-  }
+
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
 
