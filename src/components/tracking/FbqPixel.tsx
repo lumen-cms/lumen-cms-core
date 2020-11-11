@@ -6,6 +6,7 @@ type PixelProps = {
 }
 
 export default function FbqPixel({ facebookPixelId }: PixelProps) {
+  const multiPixel = facebookPixelId.split(',').map((i) => i.trim())
   return (
     <Head>
       <script
@@ -20,18 +21,21 @@ export default function FbqPixel({ facebookPixelId }: PixelProps) {
               t.src=v;s=b.getElementsByTagName(e)[0];
               s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${facebookPixelId}');
+            ${multiPixel.map((id) => `fbq('init', '${id}');`)}
             fbq('track', 'PageView');
           `
         }}
       />
       <noscript>
-        <img
-          height="1"
-          width="1"
-          style={{ display: 'none' }}
-          src={`https://www.facebook.com/tr?id=${facebookPixelId}&ev=PageView&noscript=1`}
-        />
+        {multiPixel.map((id) => (
+          <img
+            key={id}
+            height="1"
+            width="1"
+            style={{ display: 'none' }}
+            src={`https://www.facebook.com/tr?id=${facebookPixelId}&ev=PageView&noscript=1`}
+          />
+        ))}
       </noscript>
     </Head>
   )
