@@ -5,22 +5,12 @@ import { LmImageProps } from './imageTypes'
 
 export function LmImage({ content, onClick }: LmImageProps): JSX.Element {
   const isSvgImage = content.source?.endsWith('.svg')
-  if (isSvgImage) {
-    return (
-      <ImageSvg
-        content={content}
-        onClick={() => {
-          onClick && onClick()
-        }}
-      />
-    )
+  const containerProps: Partial<LmImageProps> = {}
+  if (onClick) {
+    containerProps.onClick = () => onClick()
   }
-  return (
-    <Image
-      content={content}
-      onClick={() => {
-        onClick && onClick()
-      }}
-    />
-  )
+  if (isSvgImage) {
+    return <ImageSvg content={content} {...containerProps} />
+  }
+  return <Image content={content} {...containerProps} />
 }
