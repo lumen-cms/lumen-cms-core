@@ -3,7 +3,6 @@ import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Image from 'next/image'
-import { useWindowSize } from '@react-hook/window-size'
 import {
   BackgroundStoryblok,
   SectionStoryblok
@@ -12,6 +11,22 @@ import {
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
+      '@media (orientation: landscape)': {
+        '&.portrait': {
+          display: 'none !important'
+        },
+        '&.portrait div, &.portrait img, &.portrait div img': {
+          display: 'none !important'
+        }
+      },
+      '@media (orientation: portrait)': {
+        '&.landscape': {
+          display: 'none !important',
+          '&.portrait div, &.portrait img, &.portrait div img': {
+            display: 'none !important'
+          }
+        }
+      },
       position: 'absolute',
       top: 0,
       left: 0,
@@ -45,7 +60,6 @@ const BackgroundImage = ({
 }: BackgroundImageProps): JSX.Element | null => {
   const classes = useStyles()
   const theme = useTheme()
-  const [width, height] = useWindowSize()
   const matches = useMediaQuery(
     theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs')
   )
@@ -66,17 +80,22 @@ const BackgroundImage = ({
     : disable_lazy_loading
     ? 'eager'
     : undefined
-  const imageBase =
-    (alternative_image && height > width ? alternative_image : image) || ''
-  const imageSource = imageBase.replace('//a', 'https://img2')
+  const imageSource = (image || '').replace('//a', 'https://img2')
+  const imageSourcePortrait = alternative_image
+    ? alternative_image.replace('//a', 'https://img2')
+    : undefined
+
   if (dontRender) {
     return null
   }
 
-  const BgImage = () =>
-    imageSource ? (
+  const BgImage = (props: { src?: string }) => {
+    if (!props.src) {
+      return null
+    }
+    return (
       <Image
-        src={imageSource}
+        src={props.src}
         sizes="100vw"
         priority={!!priority}
         loading={loading}
@@ -88,21 +107,42 @@ const BackgroundImage = ({
         objectPosition={background_position}
         layout="fill"
       />
-    ) : null
+    )
+  }
 
   if (backgroundStyle === 'fixed_cover') {
     return (
-      <div className={clsx(classes.root, classes.rootFixedImage)}>
-        <div className={classes.fixedCoverImageWrap}>
-          <BgImage />
+      <>
+        <div
+          className={clsx(classes.root, classes.rootFixedImage, 'landscape')}
+        >
+          <div className={classes.fixedCoverImageWrap}>
+            <BgImage src={imageSource} />
+          </div>
         </div>
-      </div>
+        {imageSourcePortrait && (
+          <div
+            className={clsx(classes.root, classes.rootFixedImage, 'portrait')}
+          >
+            <div className={classes.fixedCoverImageWrap}>
+              <BgImage src={imageSourcePortrait} />
+            </div>
+          </div>
+        )}
+      </>
     )
   }
   return (
-    <div className={clsx(classes.root)}>
-      <BgImage />
-    </div>
+    <>
+      <div className={clsx(classes.root, 'landscape')}>
+        <BgImage src={imageSource} />
+      </div>
+      {imageSourcePortrait && (
+        <div className={clsx(classes.root, 'portrait')}>
+          <BgImage src={imageSourcePortrait} />
+        </div>
+      )}
+    </>
   )
 }
 

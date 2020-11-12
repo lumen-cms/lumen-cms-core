@@ -33,9 +33,10 @@ export const getAllStoriesOfProject = async (
 ): Promise<PageItem[]> => {
   const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${CONFIG.previewToken}&no_cache=true`
   const stories: PageItem[] =
-    process.env.NODE_ENV !== 'production'
-      ? await fetch(cdnUrl).then((r) => r.json())
-      : await LmStoryblokService.getAll(
+    // process.env.NODE_ENV !== 'production'
+    //   ? await fetch(cdnUrl).then((r) => r.json())
+    //   :
+      await LmStoryblokService.getAll(
           'cdn/stories',
           getStoryblokPagesConfig(pageConfig)
         )

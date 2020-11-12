@@ -92,7 +92,7 @@
     "uuid": "^8.3.0"
   },
   "peerDependencies": {
-    "next": "10.0.2-canary.8",
+    "next": "10.0.2-canary.11",
     "react-dom": "^17.0.1",
     "react": "^17.0.1"
   },
@@ -104,7 +104,7 @@
     "@graphql-codegen/typescript-graphql-files-modules": "^1.18.0",
     "@graphql-codegen/typescript-operations": "1.17.9",
     "@lumen/storyblok-material-icons": "git+https://github.com/dohomi/storyblok-fieldtype-material-icons-selector.git",
-    "@next/bundle-analyzer": "canary",
+    "@next/bundle-analyzer": "10.0.2-canary.11",
     "@storybook/addon-essentials": "6.1.0-alpha.31",
     "@storybook/addon-knobs": "6.1.0-alpha.31",
     "@storybook/react": "6.1.0-alpha.31",
@@ -127,7 +127,7 @@
     "json-schema-to-typescript": "^9.1.1",
     "jwks-rsa": "^1.11.0",
     "lorem-ipsum": "^2.0.3",
-    "next": "10.0.2-canary.8",
+    "next": "10.0.2-canary.11",
     "np": "^7.0.0",
     "playwright": "1.5.2",
     "prettier": "^2.1.2",

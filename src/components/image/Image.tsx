@@ -10,6 +10,8 @@ import { LmImageProps } from './imageTypes'
 
 const useStyles = makeStyles((theme: Theme) => ({
   image: {
+    width: '100%',
+    height: '100%',
     '&.img-thumbnail': {
       padding: '.25rem',
       backgroundColor: theme.palette.background.default,
@@ -96,6 +98,12 @@ export default function LmImage({
   if (onClick) {
     containerProps.onClick = () => onClick()
   }
+  if (imageSource.includes('1836315_1920')) {
+    console.log(
+      squareSize || originalDimensions.width,
+      squareSize || originalDimensions.height
+    )
+  }
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
     <div
@@ -124,12 +132,12 @@ export default function LmImage({
         <Image
           src={imageAttrs?.src || storyblokImage}
           alt={content.alt || 'website image'}
-          width={squareSize || originalDimensions.width}
-          height={squareSize || originalDimensions.height}
+          width={squareSize || originalDimensions.width / 10}
+          height={squareSize || originalDimensions.height / 10}
           onLoad={() => setLoaded(true)}
-          layout="intrinsic"
           loading={loading}
           priority={priority}
+          layout="responsive"
         />
       )}
     </div>
