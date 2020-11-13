@@ -48,7 +48,10 @@ const mdSpanMap = {
   true: true
 }
 
-export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
+export function LmGridColumn({
+  content,
+  parent
+}: LmGridColumnProps): JSX.Element {
   // const classes = useStyles(content)
 
   const background: BackgroundStoryblok | undefined =
@@ -85,7 +88,8 @@ export function LmGridColumn({ content }: LmGridColumnProps): JSX.Element {
         background.background_elements.length > 0 && (
           <BackgroundElements elements={background.background_elements} />
         )}
-      {content.justify || content.align_content || content.align_items ? (
+      {!['column', 'column-reverse'].includes(parent.direction) &&
+      (content.justify || content.align_content || content.align_items) ? (
         <Grid
           container
           direction="column"

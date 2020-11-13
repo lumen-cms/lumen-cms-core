@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme: Theme) =>
       minHeight: 'inherit',
       '& .MuiGrid-item': {
         '&.MuiGrid-grid-md-true': {
-          overflow: 'auto', // flexbox fix for image component
-          height: 'inherit'
+          // overflow: 'inherit', // flexbox fix for image component
+          // height: 'inherit'
         },
         '& > .MuiGrid-direction-xs-column': {
           '& > *': {
@@ -106,7 +106,11 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
           <BackgroundElements elements={background.background_elements} />
         )}
       {content.body?.map((blok) => (
-        <LmComponentRender content={blok} key={blok._uid} />
+        <LmComponentRender
+          content={blok}
+          key={blok._uid}
+          parent={{ direction: content.direction }}
+        />
       ))}
     </Grid>
   )

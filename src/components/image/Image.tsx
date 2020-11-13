@@ -10,6 +10,7 @@ import { LmImageProps } from './imageTypes'
 
 const useStyles = makeStyles((theme: Theme) => ({
   image: {
+    margin: 'auto',
     width: '100%',
     height: '100%',
     '&.img-thumbnail': {
