@@ -79,7 +79,7 @@ export default function LmImageList({
                 : {}
             return (
               <GridListTile
-                key={String(`${item.component}_${i}`)}
+                key={item._uid}
                 {...btnProps}
                 style={{
                   padding: !content.masonry ? `${gutterSize}px` : undefined,
@@ -105,7 +105,6 @@ export default function LmImageList({
           lightbox={lightbox}
           setLightbox={setLightbox}
           onImageClick={onImageClick}
-          className={classes.lightbox}
           width={width}
           height={height}
         />
