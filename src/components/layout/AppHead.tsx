@@ -69,12 +69,13 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
     })
   }
 
+  const googleFontsString = loadFonts.join('|')
   return (
     <>
       <GoogleFonts
-        href={`https://fonts.googleapis.com/css?family=${loadFonts.join(
-          '|'
-        )}&display=swap`}
+        href={`https://fonts.googleapis.com/${
+          googleFontsString.includes('wght') ? 'css2' : 'css'
+        }?family=${googleFontsString}&display=swap`}
       />
       {settings.website_logo && settings.seo_website_url && (
         <LogoJsonLd
