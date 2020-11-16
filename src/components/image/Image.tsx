@@ -99,12 +99,6 @@ export default function LmImage({
   if (onClick) {
     containerProps.onClick = () => onClick()
   }
-  if (imageSource.includes('1836315_1920')) {
-    console.log(
-      squareSize || originalDimensions.width,
-      squareSize || originalDimensions.height
-    )
-  }
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
     <div

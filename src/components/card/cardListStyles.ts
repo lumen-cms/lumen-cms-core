@@ -12,16 +12,14 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
       if (!props.isMasonry) {
         const opts: CreateCSSProperties = {
           '& .MuiGridListTile-root': {
-            width: `${(100 / Number(props.columnCount || 4)) * 1}% !important`,
+            width: `${100 / Number(props.columnCount || 4)}% !important`,
             [theme.breakpoints.only('xs')]: {
               width: `${100 / Number(props.columnCountPhone || 1)}% !important`
-            }
-          }
-        }
-        if (props.columnCountTablet) {
-          opts[theme.breakpoints.between('sm', 'md')] = {
-            '& .MuiGridListTile-root': {
-              width: `${100 / Number(props.columnCountTablet)}% !important`
+            },
+            [theme.breakpoints.between('sm', 'md')]: {
+              width: `${
+                100 / Number(props.columnCountTablet || props.columnCount || 3)
+              }% !important`
             }
           }
         }
