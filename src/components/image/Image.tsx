@@ -133,8 +133,8 @@ export default function LmImage({
         <Image
           src={imageAttrs?.src || storyblokImage}
           alt={content.alt || 'website image'}
-          width={squareSize || originalDimensions.width / 10}
-          height={squareSize || originalDimensions.height / 10}
+          width={squareSize || originalDimensions.width}
+          height={squareSize || originalDimensions.height}
           onLoad={() => setLoaded(true)}
           loading={loading}
           priority={priority}

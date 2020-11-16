@@ -96,7 +96,6 @@ const BackgroundImage = ({
     return (
       <Image
         src={props.src}
-        sizes="100vw"
         priority={!!priority}
         loading={loading}
         objectFit={
@@ -104,7 +103,7 @@ const BackgroundImage = ({
             ? background_size
             : 'cover'
         }
-        objectPosition={background_position}
+        objectPosition={background_position || 'center'}
         layout="fill"
       />
     )
@@ -134,7 +133,12 @@ const BackgroundImage = ({
   }
   return (
     <>
-      <div className={clsx(classes.root, 'landscape')}>
+      <div
+        className={clsx(
+          classes.root,
+          imageSourcePortrait ? 'landscape' : undefined
+        )}
+      >
         <BgImage src={imageSource} />
       </div>
       {imageSourcePortrait && (
