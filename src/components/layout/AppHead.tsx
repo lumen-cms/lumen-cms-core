@@ -19,7 +19,6 @@ type AppHeadProps = {
 
 function AppHead({ settings }: AppHeadProps): JSX.Element {
   const favicon = settings.setup_favicon
-  const loadFonts: string[] = getFontBasedOnSetting(settings)
   const appContext = useAppContext()
   const { insideStoryblok } = appContext
   if (process.env.NODE_ENV === 'development') {
@@ -69,14 +68,9 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
     })
   }
 
-  const googleFontsString = loadFonts.join('|')
   return (
     <>
-      <GoogleFonts
-        href={`https://fonts.googleapis.com/${
-          googleFontsString.includes('wght') ? 'css2' : 'css'
-        }?family=${googleFontsString}&display=swap`}
-      />
+      <GoogleFonts href={getFontBasedOnSetting(settings)} />
       {settings.website_logo && settings.seo_website_url && (
         <LogoJsonLd
           logo={imageServiceNoWebp(settings.website_logo)}

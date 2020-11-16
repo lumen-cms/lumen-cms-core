@@ -34,7 +34,8 @@ const GlobalTheme: FunctionComponent<{
     }
 
     if (!settings.theme_font_default) {
-      settings.theme_font_default = 'Nunito:300,400,700'
+      settings.theme_font_default =
+        'Nunito:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700'
     }
     let defaultContainerWidth: ThemeOptions['defaultContainerWidth'] = 'lg'
     if (settings.theme_container_width) {
