@@ -43,7 +43,8 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
       <CardMedia
         style={{
           color: options.variant?.includes('font_white') ? 'white' : 'inherit',
-          backgroundSize: imageSize || 'cover'
+          backgroundSize: imageSize || 'cover',
+          position: 'relative'
         }}
       >
         <Image
