@@ -7,6 +7,7 @@ import {
   getOriginalImageDimensions
 } from '../../utils/ImageService'
 import { CardListItemProps } from './cardTypes'
+import { COLUMN_COUNT } from './cardListStyles'
 
 const getVwByColCount = (count?: string): number => {
   const c = Number(count)
@@ -31,9 +32,11 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
     : undefined
   const { column_count, column_count_phone, column_count_tablet } = options
 
-  const phoneVw = getVwByColCount(column_count_phone)
-  const tabletVw = getVwByColCount(column_count_tablet || column_count)
-  const desktopVw = getVwByColCount(column_count)
+  const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
+  const tabletVw = getVwByColCount(
+    column_count_tablet || column_count || COLUMN_COUNT.TABLET
+  )
+  const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
 
   return (
     <>

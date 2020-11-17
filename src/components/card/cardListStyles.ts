@@ -1,24 +1,39 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 
+export const COLUMN_COUNT = {
+  DESKTOP: 4,
+  TABLET: 3,
+  PHONE: 1,
+  PHONE_MASONRY: 2
+}
 export const useGridListStyles = makeStyles((theme: Theme) =>
   createStyles({
     gridList: (props: {
       columnCount?: string
-      columnCountPhone?: string
       columnCountTablet?: string
+      columnCountPhone?: string
       isMasonry?: boolean
     }) => {
       if (!props.isMasonry) {
         const opts: CreateCSSProperties = {
           '& .MuiGridListTile-root': {
-            width: `${100 / Number(props.columnCount || 4)}% !important`,
+            width: `${
+              100 / Number(props.columnCount || COLUMN_COUNT.DESKTOP)
+            }% !important`,
             [theme.breakpoints.only('xs')]: {
-              width: `${100 / Number(props.columnCountPhone || 1)}% !important`
+              width: `${
+                100 / Number(props.columnCountPhone || COLUMN_COUNT.PHONE)
+              }% !important`
             },
             [theme.breakpoints.between('sm', 'md')]: {
               width: `${
-                100 / Number(props.columnCountTablet || props.columnCount || 3)
+                100 /
+                Number(
+                  props.columnCountTablet ||
+                    props.columnCount ||
+                    COLUMN_COUNT.TABLET
+                )
               }% !important`
             }
           }
@@ -26,15 +41,16 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
         return opts
       }
       const opts: CreateCSSProperties = {
-        columnCount: Number(props.columnCount || 4),
+        columnCount: Number(props.columnCount || COLUMN_COUNT.DESKTOP),
         [theme.breakpoints.only('xs')]: {
-          columnCount: Number(props.columnCountPhone || 2)
-        }
-      }
-
-      if (props.columnCountTablet) {
-        opts[theme.breakpoints.between('sm', 'md')] = {
-          columnCount: Number(props.columnCountTablet)
+          columnCount: Number(
+            props.columnCountPhone || COLUMN_COUNT.PHONE_MASONRY
+          )
+        },
+        [theme.breakpoints.between('sm', 'md')]: {
+          columnCount: Number(
+            props.columnCountTablet || props.columnCount || COLUMN_COUNT.TABLET
+          )
         }
       }
       return opts
