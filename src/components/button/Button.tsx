@@ -132,7 +132,6 @@ export const LmButton: FC<LmButtonProps> = ({
           component: LmCoreComponents.lm_link_render
         }
       : {}
-
   if (onClick) {
     btnProps.onClick = onClick
   }

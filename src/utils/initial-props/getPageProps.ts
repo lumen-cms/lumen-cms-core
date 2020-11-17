@@ -59,7 +59,7 @@ const getPageProps = async (
     locale: options.locale || null,
     listWidgetData: componentData || null,
     insideStoryblok: !!options.insideStoryblok,
-    notFoundLocale
+    notFoundLocale: notFoundLocale || null
   }
 
   await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))

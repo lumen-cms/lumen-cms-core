@@ -1,4 +1,3 @@
-import { Theme, ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import {
   FastSpringData,
   FastSpringWebhookReceivedData

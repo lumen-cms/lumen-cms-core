@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { createStyles, Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { ShopifyProductOptionProps } from '../shopifyTypes'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
@@ -9,25 +9,23 @@ import {
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    redColor: {
-      color: theme.palette.error.main
-    },
-    buttonContainer: {
-      display: 'flex',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      marginTop: theme.spacing(2),
-      '& > button': {
-        marginRight: theme.spacing(2)
-      }
-    },
-    buttonSpace: {
-      marginTop: theme.spacing(2)
+const useStyles = makeStyles((theme: Theme) => ({
+  redColor: {
+    color: theme.palette.error.main
+  },
+  buttonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    marginTop: theme.spacing(2),
+    '& > button': {
+      marginRight: theme.spacing(2)
     }
-  })
-)
+  },
+  buttonSpace: {
+    marginTop: theme.spacing(2)
+  }
+}))
 
 export function ShopifyProductOption({ option }: ShopifyProductOptionProps) {
   const { selectedVariant, onVariantSelect, config } = useShopifySdkContext()

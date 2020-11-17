@@ -41,6 +41,7 @@ const getStyles = (
         })
       }
     } else if (content[key]) {
+      // eslint-disable-next-line no-prototype-builtins
       const curVal = content[key]?.hasOwnProperty('rgba')
         ? content[key]?.rgba
         : content[key]
