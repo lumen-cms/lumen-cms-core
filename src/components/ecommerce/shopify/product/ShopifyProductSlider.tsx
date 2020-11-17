@@ -19,7 +19,6 @@ export function ShopifyProductSlider({
   variants: ProductVariant[]
 }) {
   const { selectedVariant, onVariantSelect, config } = useShopifySdkContext()
-  const ref = createRef()
   const classes = useStyles()
   const height = config?.image_container_height
     ? Number(config.image_container_height)
@@ -27,9 +26,6 @@ export function ShopifyProductSlider({
 
   return (
     <Carousel
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      ref={ref}
       fullHeightHover
       indicators={!config.carousel_hide_indicator}
       autoPlay={!!config.carousel_auto_play}

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import Drawer from '@material-ui/core/Drawer'
-import { createStyles, Theme, Toolbar, useTheme } from '@material-ui/core'
+import { Theme, Toolbar, useTheme } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
@@ -16,28 +16,26 @@ import {
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    cartItemContent: {
-      padding: theme.spacing(3),
-      overflowY: 'auto'
-    },
-    cartActions: {
-      padding: theme.spacing(3)
-    },
-    cartCheckoutButton: {
-      marginTop: theme.spacing(2)
-    },
-    cartVariantDivider: {
-      marginTop: theme.spacing(1)
-    },
-    cartFooterHeadline: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      marginBottom: theme.spacing(2)
-    }
-  })
-)
+const useStyles = makeStyles((theme: Theme) => ({
+  cartItemContent: {
+    padding: theme.spacing(3),
+    overflowY: 'auto'
+  },
+  cartActions: {
+    padding: theme.spacing(3)
+  },
+  cartCheckoutButton: {
+    marginTop: theme.spacing(2)
+  },
+  cartVariantDivider: {
+    marginTop: theme.spacing(1)
+  },
+  cartFooterHeadline: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing(2)
+  }
+}))
 
 export function ShopfiyCart() {
   const {
@@ -46,7 +44,8 @@ export function ShopfiyCart() {
     cartVariants,
     totalAmount,
     onCheckout,
-    config
+    config,
+    checkoutUrl
   } = useShopifySdkContext()
   const classes = useStyles()
   const theme = useTheme()
@@ -123,7 +122,7 @@ export function ShopfiyCart() {
             />
           </div>
           {config?.cart_footer_additional?.map((blok: HeadlineStoryblok) => (
-            <LmComponentRender content={blok} _uid={blok._uid} />
+            <LmComponentRender content={blok} key={blok._uid} />
           ))}
           <div className={classes.cartCheckoutButton}>
             <LmComponentRender
@@ -141,6 +140,7 @@ export function ShopfiyCart() {
               onClick={() => {
                 onCheckout()
               }}
+              disabled={!checkoutUrl}
             />
           </div>
         </Grid>

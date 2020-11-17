@@ -1,5 +1,6 @@
-import { CONFIG } from '@CONFIG'
+import { CONFIG, LmCoreComponents } from '@CONFIG'
 // import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
+import { LmShopifySdkProvider } from '../components/ecommerce/shopify/ShopifySdkProvider'
 // export { Auth0App as default } from '../components/pages/_appAuth0'
 export { LmDefaultApp as default } from '../components/pages/_appDefault'
 
@@ -7,6 +8,7 @@ export { LmDefaultApp as default } from '../components/pages/_appDefault'
 // if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
 //   LmCoreComponents.lm_app_providers.push(LmFastSpringProvider)
 // }
+LmCoreComponents.lm_app_providers.push(LmShopifySdkProvider)
 
 CONFIG.authPathRequiredRoles = [
   {

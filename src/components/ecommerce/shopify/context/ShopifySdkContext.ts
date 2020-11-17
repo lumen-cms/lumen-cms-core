@@ -14,6 +14,7 @@ type ShopifySdkContextProps = {
   updateCartItemQuantity: (variant: LineItem, quantity: number) => void
   totalAmount: number
   config: EcommerceShopifyConfigStoryblok
+  checkoutUrl: string
 }
 
 const noop = () => {
@@ -33,7 +34,8 @@ export const ShopifySdkContext = createContext<ShopifySdkContextProps>({
   config: {
     component: 'ecommerce_shopify_config',
     _uid: '1'
-  }
+  },
+  checkoutUrl: ''
 })
 export const useShopifySdkContext = () =>
   useContext<ShopifySdkContextProps>(ShopifySdkContext)

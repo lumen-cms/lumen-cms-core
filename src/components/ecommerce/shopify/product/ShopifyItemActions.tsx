@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { makeStyles } from '@material-ui/core/styles'
 import { createStyles, Theme } from '@material-ui/core'
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export function ShopifyItemActions({ item }: ShopifyProductItemProps) {
-  const { addToCart, onCheckout, config } = useShopifySdkContext()
+  const { addToCart, checkoutUrl, onCheckout, config } = useShopifySdkContext()
   const classes = useStyles()
   return (
     <div>
@@ -57,6 +57,7 @@ export function ShopifyItemActions({ item }: ShopifyProductItemProps) {
           onClick={() => {
             onCheckout()
           }}
+          disabled={!checkoutUrl}
         />
       </div>
       {!config?.hide_description && (
