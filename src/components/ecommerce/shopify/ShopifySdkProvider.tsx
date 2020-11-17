@@ -42,6 +42,8 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
       const items = await client.product.fetchAll()
       // Do something with the products
       setProducts(items)
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       setCheckoutUrl(c.webUrl)
     }
 
@@ -82,6 +84,8 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
         content_ids: c.lineItems.map((i) => `${i.variantId}`),
         value: totalPrice,
         content_type: 'product',
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         currency: c.currencyCode
       })
 
@@ -92,6 +96,8 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
           quantity: i.quantity
         })),
         value: totalPrice,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         currency: c.currencyCode
       })
 
@@ -127,6 +133,8 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
           quantity: i.quantity
         })),
         value: totalPrice,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         currency: c.currencyCode
       })
 
@@ -135,16 +143,20 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
         content_ids: c.lineItems.map((i) => `${i.variantId}`),
         value: totalPrice,
         content_type: 'product',
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         currency: c.currencyCode
       })
 
+    setTotalAmount(totalPrice)
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    setTotalAmount(totalPrice)
-    setCheckoutUrl(c.webUrl)
+    const { webUrl } = c
+    setCheckoutUrl(webUrl)
     const anchor = checkoutLinkRef.current
     if (anchor !== null) {
-      anchor.href = c.webUrl
+      anchor.href = webUrl
       anchor.click()
     }
   }
@@ -201,7 +213,7 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
     >
       {children}
       <a
-        href="#"
+        href="/#"
         ref={checkoutLinkRef}
         aria-label="checkout link"
         style={{ display: 'none' }}

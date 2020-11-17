@@ -37,6 +37,7 @@ export function DrawerContentRender({
     return <DrawerNavList content={content} />
   }
   if (component === 'nav_menu') {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return <CollapsibleListSection content={content} openedPath={openedPath} />
   }
   if (component === 'list_search_autocomplete') {

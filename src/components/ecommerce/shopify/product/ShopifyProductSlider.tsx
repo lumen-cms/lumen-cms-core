@@ -1,4 +1,4 @@
-import React, { createRef } from 'react'
+import React from 'react'
 import { ProductVariant } from 'shopify-buy'
 import { makeStyles } from '@material-ui/core/styles'
 import Carousel from 'react-material-ui-carousel'
