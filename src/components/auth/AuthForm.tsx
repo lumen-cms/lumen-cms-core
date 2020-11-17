@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import { FormContainer, TextFieldElement } from 'react-form-hook-mui'
 import { Button } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
@@ -71,7 +71,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
   }
 
   return (
-    <>
+    <Suspense fallback={null}>
       <FormContainer onSuccess={onSuccess as any} defaultValues={defaults}>
         <TextFieldElement
           name="given_name"
@@ -147,6 +147,6 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
           }}
         />
       ))}
-    </>
+    </Suspense>
   )
 }

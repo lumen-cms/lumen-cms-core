@@ -15,10 +15,17 @@ export const getFontBasedOnSetting = (settings: Partial<GlobalStoryblok>) => {
     'theme_font_alt4'
   ]
   const loadFonts: string[] = []
+  let isCss2 = false
   Object.keys(settings).forEach((key) => {
     if (settingsFonts.includes(key) && settings[key]) {
+      if (settings[key].includes('wght')) {
+        isCss2 = true
+      }
       loadFonts.push(settings[key])
     }
   })
-  return loadFonts
+  const googleFontsString = loadFonts.join(isCss2 ? '&family=' : '|')
+  return `https://fonts.googleapis.com/${
+    isCss2 ? 'css2' : 'css'
+  }?family=${googleFontsString}&display=swap`
 }

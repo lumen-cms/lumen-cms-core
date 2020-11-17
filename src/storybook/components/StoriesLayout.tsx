@@ -150,7 +150,6 @@ const StoriesLayout = (Story: StoryType) => {
       CONFIG_STORYBOOK.KNOBS.TOOLBAR
     )
   }
-  const loadFonts: string[] = getFontBasedOnSetting(settings)
   return (
     <AppProvider
       content={{
@@ -173,12 +172,7 @@ const StoriesLayout = (Story: StoryType) => {
               </>
             </Container>
           </Layout>
-          <link
-            href={`https://fonts.googleapis.com/css?family=${loadFonts.join(
-              '|'
-            )}&display=swap`}
-            rel="stylesheet"
-          />
+          <link href={getFontBasedOnSetting(settings)} rel="stylesheet" />
         </LmAppProvidersContainer>
       </GlobalTheme>
     </AppProvider>

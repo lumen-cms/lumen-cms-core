@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react'
 import {
   ImageListItemStoryblok,
   ImageListStoryblok
@@ -10,4 +11,13 @@ export type LmImageListItemProps = {
   content: ImageListItemStoryblok
   listProps: ImageListStoryblok
   inView: boolean
+}
+
+export type ImageListLightboxProps = {
+  elements: ImageListItemStoryblok[]
+  lightbox: string
+  setLightbox: Dispatch<SetStateAction<string>>
+  onImageClick: (ImageListItemStoryblok: ImageListItemStoryblok) => void
+  width: number
+  height: number
 }
