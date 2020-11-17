@@ -21,10 +21,10 @@ const useStyles = makeStyles(() =>
       },
       '@media (orientation: portrait)': {
         '&.landscape': {
-          display: 'none !important',
-          '&.portrait div, &.portrait img, &.portrait div img': {
-            display: 'none !important'
-          }
+          display: 'none !important'
+        },
+        '&.portrait div, &.portrait img, &.portrait div img': {
+          display: 'none !important'
         }
       },
       position: 'absolute',
@@ -113,7 +113,11 @@ const BackgroundImage = ({
     return (
       <>
         <div
-          className={clsx(classes.root, classes.rootFixedImage, 'landscape')}
+          className={clsx(
+            classes.root,
+            classes.rootFixedImage,
+            imageSourcePortrait ? 'landscape' : undefined
+          )}
         >
           <div className={classes.fixedCoverImageWrap}>
             <BgImage src={imageSource} />
