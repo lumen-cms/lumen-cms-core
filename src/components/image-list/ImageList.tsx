@@ -30,8 +30,7 @@ export default function LmImageList({
 
   const gutterSize = content.column_gap ? Number(content.column_gap) : 2
 
-  function onImageClick(element: any) {
-    // open lightbox
+  const onImageClick = (element: any) => {
     content.enable_lightbox && setLightbox(element._uid)
   }
 
@@ -42,7 +41,6 @@ export default function LmImageList({
   if (content.masonry) {
     gridListProps.spacing = 0
     gridListProps.style = {
-      // columnCount: columnCount,
       columnGap: `${gutterSize}px`
     }
   }
@@ -50,9 +48,6 @@ export default function LmImageList({
   return (
     <div className="lm-imagelist__container" ref={inViewRef}>
       <div
-        // // style={{
-        // //   padding: `${gutterSize}px`
-        // {/*}}*/}
         className={clsx(classes.root, {
           [gridClasses.masonry]: content.masonry,
           [classes.aspectRatio]: content.aspect_ratio && !content.masonry,
