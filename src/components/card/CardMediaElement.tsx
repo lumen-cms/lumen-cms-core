@@ -1,6 +1,5 @@
-import React, { FunctionComponent, useRef, useState } from 'react'
+import React, { createRef, FunctionComponent, useEffect, useState } from 'react'
 import CardMedia from '@material-ui/core/CardMedia'
-import Fade from '@material-ui/core/Fade'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { getImageAttrs } from '../../utils/ImageService'
 import ImageShadow from '../section/ImageShadow'
@@ -12,25 +11,27 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   options,
   inView
 }) => {
-  const intersecRef = useRef<HTMLDivElement>(null)
+  const intersecRef = createRef<HTMLDivElement>() // don't use useRef here!! it randomly returns null
   const [imgSource, setImgSource] = useState<string>('')
-  let img: { src?: string; srcSet?: string } = {}
+  const [img, setImg] = useState<{ src?: string; srcSet?: string }>({})
   const contentImage = content.image
   const imageSize = options.image_size
-  const mediaEl: Partial<HTMLDivElement> | null = intersecRef?.current
-  // console.log(currentWidth, clientWidth)
-  if (inView && contentImage && mediaEl) {
-    const currentWidth = mediaEl?.clientWidth || 0
-    const currentHeight = mediaEl?.clientHeight
-    img = getImageAttrs({
-      originalSource: contentImage,
-      width: currentWidth,
-      height: ['contain', 'initial', 'auto'].includes(imageSize)
-        ? 0
-        : currentHeight,
-      smart: true
-    })
-  }
+  useEffect(() => {
+    const { current } = intersecRef
+    if (inView && contentImage && current && !img.src) {
+      setImg(
+        getImageAttrs({
+          originalSource: contentImage,
+          width: current.clientWidth || 0,
+          height: ['contain', 'initial', 'auto'].includes(imageSize)
+            ? 0
+            : current.clientHeight,
+          smart: true
+        })
+      )
+    }
+  }, [inView, contentImage, imageSize, img.src, intersecRef])
+
   return (
     <>
       {!imgSource && (
@@ -42,22 +43,20 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
         />
       )}
       <ImageShadow src={img.src} srcSet={img.srcSet} afterLoad={setImgSource} />
-      <Fade in={!!imgSource}>
-        <CardMedia
-          style={{
-            color:
-              options.variant && options.variant.includes('font_white')
-                ? 'white'
-                : 'inherit',
-            backgroundSize: imageSize || 'cover'
-          }}
-          image={imgSource}
-          ref={intersecRef}
-        >
-          {!imgSource && <div />}
-          {children}
-        </CardMedia>
-      </Fade>
+      <CardMedia
+        style={{
+          color:
+            options.variant && options.variant.includes('font_white')
+              ? 'white'
+              : 'inherit',
+          backgroundSize: imageSize || 'cover'
+        }}
+        image={imgSource}
+        ref={intersecRef}
+      >
+        {!imgSource && <div />}
+        {children}
+      </CardMedia>
     </>
   )
 }
