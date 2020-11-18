@@ -70,7 +70,9 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
 
   return (
     <>
-      <GoogleFonts href={getFontBasedOnSetting(settings)} />
+      {!process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE && (
+        <GoogleFonts href={getFontBasedOnSetting(settings)} />
+      )}
       {settings.website_logo && settings.seo_website_url && (
         <LogoJsonLd
           logo={imageServiceNoWebp(settings.website_logo)}
@@ -78,6 +80,13 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
         />
       )}
       <NextHead>
+        {process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE && (
+          <link
+            href={getFontBasedOnSetting(settings)}
+            rel="stylesheet"
+            media="all"
+          />
+        )}
         {additionalMetaTags.map((item) => (
           <meta content={item.content} name={item.name} key={item.name} />
         ))}

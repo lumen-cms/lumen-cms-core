@@ -27,5 +27,7 @@ export const getFontBasedOnSetting = (settings: Partial<GlobalStoryblok>) => {
   const googleFontsString = loadFonts.join(isCss2 ? '&family=' : '|')
   return `https://fonts.googleapis.com/${
     isCss2 ? 'css2' : 'css'
-  }?family=${googleFontsString}&display=swap`
+  }?family=${googleFontsString}${
+    process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE ? '' : '&display=swap'
+  }`
 }
