@@ -32,6 +32,7 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
       return {
         redirect: {
           destination: notFoundLocale,
+          locale: false,
           permanent: true
         }
       }

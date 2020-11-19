@@ -13,7 +13,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
       return <a ref={ref} {...other} href={href} />
     }
     const skipLocaleAndPrefetch =
-      locale !== defaultLocale && !href.startsWith(`/${locale}`)
+      locale !== defaultLocale && !href.startsWith(`/${locale}/`)
     return (
       <NextLink
         href={href}
