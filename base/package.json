@@ -20,7 +20,7 @@
     "trailingComma": "es5"
   },
   "scripts": {
-    "build": "tsdx build -i ../src/base.tsx",
+    "build": "tsdx build -i ../src/components/BaseComponents.tsx",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Dominic Garms",
