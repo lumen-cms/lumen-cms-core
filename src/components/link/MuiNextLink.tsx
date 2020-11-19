@@ -1,36 +1,30 @@
 import React from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
-import { CONFIG } from '@CONFIG'
+import { useRouter } from 'next/router'
 import { LinkProps, NextComposedProps } from './linkTypes'
 
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
-  (
-    { as, href, replace, scroll, passHref, shallow, prefetch, ...other },
-    ref
-  ) => {
+  ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
+    const { locale, defaultLocale } = useRouter()
     if (other.external) {
-      delete other.nextHref
       delete other.external
       // eslint-disable-next-line jsx-a11y/anchor-has-content
       return <a ref={ref} {...other} href={href} />
-    }
-    if (!as && href) {
-      as = href
-      href = other.nextHref || CONFIG.href
-      delete other.nextHref
-      delete other.external
     }
     return (
       <NextLink
         href={href}
         prefetch={prefetch}
-        as={as}
         replace={replace}
         scroll={scroll}
         shallow={shallow}
         passHref={passHref}
-        locale={false}
+        locale={
+          locale !== defaultLocale && !href.startsWith(`/${locale}`)
+            ? false
+            : locale
+        }
       >
         {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
         <a ref={ref} {...other} />
@@ -42,18 +36,14 @@ NextComposed.displayName = 'NextComposedLink'
 
 // A styled version of the Next.js Link component:
 // https://nextjs.org/docs/#with-link
-function Link(props: LinkProps): JSX.Element {
-  const {
-    href,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    activeClassName = 'active',
-    className: classNameProps,
-    innerRef,
-    naked,
-    ...other
-  } = props
-
-  // const router = useRouter()
+function Link({
+  href,
+  // activeClassName = 'active',
+  className: classNameProps,
+  innerRef,
+  naked,
+  ...other
+}: LinkProps): JSX.Element {
   //
   // const className = clsx(classNameProps, {
   //   [activeClassName]: router?.asPath === href && activeClassName
@@ -64,6 +54,7 @@ function Link(props: LinkProps): JSX.Element {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a {...other} className={className} />
   }
+
   if (naked) {
     return (
       <NextComposed

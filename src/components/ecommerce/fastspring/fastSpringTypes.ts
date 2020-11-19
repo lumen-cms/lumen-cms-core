@@ -60,3 +60,14 @@ export type FastSpringWebhookReceivedData = {
   }[]
   [k: string]: any
 }
+
+declare global {
+  interface Window {
+    fastspring: any
+    fscDataCallback: (data: FastSpringData) => void
+    fscDataPopupClosed: (
+      data: { id?: string; reference?: string } | null
+    ) => void
+    fscDataPopupWebhookReceived: (data: FastSpringWebhookReceivedData) => void
+  }
+}

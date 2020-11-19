@@ -2,7 +2,6 @@
 import React, { FC, useState } from 'react'
 import useScript from '@charlietango/use-script'
 import { useRouter } from 'next/router'
-import { CONFIG } from '@CONFIG'
 import { useAppContext } from '@context/AppContext'
 import { FastSpringContext } from './context/FastSpringContext'
 import {
@@ -76,7 +75,7 @@ export const LmFastSpringProvider: FC<{
           window.location.href = '/refetch'
           setRedirect('')
         } else if (redirect) {
-          await router.push(CONFIG.href, redirect)
+          await router.push(redirect)
           setRedirect('')
         }
       } else {

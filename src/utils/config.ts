@@ -75,7 +75,6 @@ import {
 } from '../components/layout/toolbar/toolbarTypes'
 
 type AppConfigProps = {
-  href: string
   publicToken: string
   previewToken: string
   rootDirectory?: string
@@ -98,7 +97,6 @@ type AppConfigProps = {
 }
 
 export const CONFIG: AppConfigProps = {
-  href: process.env.HREF || '/[...index]',
   previewToken: process.env.NEXT_PUBLIC_PREVIEW_TOKEN || '',
   publicToken:
     (process.env.NEXT_PUBLIC_PREVIEW_MODE

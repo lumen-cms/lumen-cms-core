@@ -1,7 +1,6 @@
 import React, { memo } from 'react'
 import Link from 'next/link'
 import { useAppSetup } from '@context/AppSetupContext'
-import { CONFIG } from '@CONFIG'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
@@ -39,7 +38,7 @@ function DrawerElement({ settings }: DrawerElementProps): JSX.Element {
         {appSetup.drawerBelowToolbar && <ContentSpace />}
         {!appSetup.hasDrawer && !appSetup.drawerBelowToolbar && (
           <div>
-            <Link href={CONFIG.href} as={homepageHref}>
+            <Link href={homepageHref}>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a>
                 <div className="p-3">

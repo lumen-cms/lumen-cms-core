@@ -1,4 +1,3 @@
-import React from 'react'
 import { CONFIG, LmCoreComponents } from '@CONFIG'
 import LmAccordion from './components/accordion/Accordion'
 import LmTable from './components/table/Table'
@@ -68,7 +67,7 @@ export { default as LmAppProvider } from './components/provider/AppProvider'
 export { useAppContext } from './components/provider/context/AppContext'
 export { default as LmAppSetupProvider } from './components/provider/AppSetupProvider'
 export { useAppSetup } from './components/provider/context/AppSetupContext'
-export { CONFIG } from './utils/config'
+export { CONFIG }
 
 LmCoreComponents.table = LmTable
 LmCoreComponents.accordion = LmAccordion

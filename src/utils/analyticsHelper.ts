@@ -1,5 +1,13 @@
 const isDev = () => process.env.NODE_ENV !== 'production'
 
+declare global {
+  interface Window {
+    adroll: {
+      track: (k: string, opts?: any) => void
+    }
+  }
+}
+
 export const analyticsOnPageChange = ({
   googleAnaliyticsId,
   url,

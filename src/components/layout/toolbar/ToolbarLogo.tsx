@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
-import { CONFIG } from '@CONFIG'
 import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
 import imageService from '../../../utils/ImageService'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'
@@ -28,7 +27,7 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
 
   return (
     <div className="h-100 d-inline-block" ref={refIntersectionObserver}>
-      <Link as={homepageHref} href={CONFIG.href} passHref>
+      <Link href={homepageHref} passHref>
         <MuiLink
           className={clsx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
         >

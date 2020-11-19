@@ -23,7 +23,7 @@ const getSettingsPath = ({
   overwriteSettingPath?: string
 }) => {
   const directory = rootDirectory || locale || ''
-  console.log(locale, overwriteSettingPath)
+  // console.log(locale, overwriteSettingPath)
   return `cdn/stories/${directory ? `${directory}/` : ''}${
     overwriteSettingPath || ''
   }settings`
@@ -110,7 +110,7 @@ export const apiRequestResolver = async ({
   const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
     CONFIG.previewToken
   }&no_cache=true${locale ? `&locale=${locale}` : ''}`
-  console.log(locale, pageSlug)
+  // console.log(locale, pageSlug)
   const [
     page,
     settings,
