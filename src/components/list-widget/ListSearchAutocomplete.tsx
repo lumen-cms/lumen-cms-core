@@ -243,8 +243,7 @@ export default function LmListSearchAutocomplete({
           )
           return (
             <MuiNextLink
-              href={CONFIG.href}
-              as={href}
+              href={href}
               passHref
               key={item.uuid as string}
               prefetch={false}

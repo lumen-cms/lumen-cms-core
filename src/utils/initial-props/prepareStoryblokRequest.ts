@@ -25,7 +25,6 @@ export const prepareForStoryblok = (
     first !== rootDirectory && slugAsArray.unshift(rootDirectory)
   }
   const pageSlug = slugAsArray.join('/')
-  console.log(pageSlug, slugAsArray, options)
   return {
     pageSlug
   }

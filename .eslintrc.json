@@ -3,7 +3,8 @@
     "/**/generated/*.tsx",
     "/**/generated/*.ts",
     "/stories/**/*.*",
-    "/src/storybook/**/*.*"
+    "/src/storybook/**/*.*",
+    "**/*.js"
   ],
   "extends": [
     "airbnb-typescript-prettier"

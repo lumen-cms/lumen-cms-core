@@ -1,6 +1,4 @@
 const withPlugins = require('next-compose-plugins')
-// const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin')
-const path = require('path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (
@@ -14,9 +12,6 @@ module.exports = function (
   ])
   const config = {
     ...nextConfig,
-    experimental: {
-      modern: true
-    },
     images: {
       domains: ['a.storyblok.com', 'img2.storyblok.com'],
       deviceSizes: [360, 420, 510, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],

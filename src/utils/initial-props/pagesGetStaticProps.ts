@@ -12,7 +12,7 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
       ? params.index
       : 'home'
     : 'home'
-  console.log('static props', slug, defaultLocale, locales)
+  // console.log('static props', slug, defaultLocale, locales)
   // startMeasureTime('start get static props')
   if (Array.isArray(slug) && slug[0] === '_dev_') {
     return { props: getBaseProps({ type: 'not_supported' }) } // do nothing _dev_ mode is active
@@ -32,6 +32,7 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
       return {
         redirect: {
           destination: notFoundLocale,
+          locale: false,
           permanent: true
         }
       }

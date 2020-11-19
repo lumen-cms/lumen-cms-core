@@ -3,7 +3,6 @@ import { internalLinkHandler } from 'lumen-cms-utils'
 export interface LinkType {
   cached_url?: string
   linktype?: string
-  nextHref?: string
   id?: string
   anchor?: string
   url?: string

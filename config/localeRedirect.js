@@ -9,6 +9,7 @@ const localeRedirects = async (locales = []) => {
       redirects.push({
         source: `/${slug.replace(`${localeFound}/`, '')}`,
         destination: `/${slug}`,
+        locale: false,
         permanent: true
       })
     }

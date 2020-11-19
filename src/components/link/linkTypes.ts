@@ -12,7 +12,6 @@ export type NextComposedProps = Omit<
   Omit<NextLinkProps, 'href'> & {
     href: string
     external?: boolean
-    nextHref?: string
   }
 
 interface LinkPropsBase {
