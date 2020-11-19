@@ -50,7 +50,6 @@ export default function LmImage({
   const [loaded, setLoaded] = useState<boolean>(
     !!(priority || disable_lazy_loading)
   )
-
   const loading = priority
     ? undefined
     : disable_lazy_loading

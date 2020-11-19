@@ -17,6 +17,11 @@ export function getOriginalImageDimensions(src: string) {
   }
 }
 
+export const getVwByColCount = (count?: string | number): number => {
+  const c = Number(count)
+  return c && c > 0 ? Math.round(100 / c) : 100
+}
+
 export const getFocalPoint = (src: string, focalPoint: string) => {
   const { width, height } = getOriginalImageDimensions(src)
   const FOCAL_SQUARE_LENGTH = 100

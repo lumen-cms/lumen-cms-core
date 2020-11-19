@@ -1,70 +1,85 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
-import Skeleton from '@material-ui/lab/Skeleton'
-import { getImageAttrs } from '../../utils/ImageService'
+import Image from 'next/image'
+import { useTheme } from '@material-ui/core/styles'
+import {
+  getImageAttrs,
+  getOriginalImageDimensions,
+  getVwByColCount
+} from '../../utils/ImageService'
 import { LmImageListItemProps } from './imageListTypes'
+import { COLUMN_COUNT } from '../card/cardListStyles'
 
 export default function LmImageListItem(
   props: LmImageListItemProps
 ): JSX.Element {
-  const { content, listProps, inView } = props
-  const inViewRef = useRef<HTMLImageElement>(null)
   const [loaded, setLoaded] = useState<boolean>(false)
-  let imageProps: {
-    src?: string
-    srcSet?: string
-    width?: number | string
-    height?: number | string
-  } = {}
+  const { content, listProps } = props
+  const imageSource = content.source
+  const originalDimensions = getOriginalImageDimensions(imageSource || '')
+  const { breakpoints } = useTheme()
 
-  if (inView && content.source && inViewRef?.current) {
-    // if (listProps.image_crop && !listProps.masonry /*|| (!listProps.masonry && !listProps.fit_in_color)*/) {
-    //   height = listProps.height
-    // }
-    const tile = inViewRef.current.closest('.MuiGridListTile-root')
-    if (tile) {
-      let width = tile?.clientWidth
-      let height = tile?.clientHeight
+  const { width } = originalDimensions
+  const { height } = originalDimensions
 
-      width = Math.ceil(width)
-      const respectImgRatio =
-        listProps.masonry || !listProps.aspect_ratio || !listProps.image_crop
-      height = respectImgRatio ? 0 : height && Math.ceil(height)
-      const imgSrc = getImageAttrs({
-        originalSource: content.source,
-        width,
-        height,
-        smart: listProps.image_crop === 'smart',
-        fitInColor: listProps.fit_in_color
-      })
-      imageProps = {
-        src: imgSrc.src,
-        srcSet: imgSrc.srcSet,
-        width: width || undefined,
-        height: height || undefined
-      }
-    }
-  }
+  const respectImgRatio =
+    listProps.masonry || !listProps.aspect_ratio || !listProps.image_crop
+  const imageAttrs = getImageAttrs({
+    originalSource: imageSource || '',
+    width,
+    height,
+    fitInColor: listProps.fit_in_color
+  })
 
-  function onLoad() {
-    setLoaded(true)
+  const { column_count, column_count_phone, column_count_tablet } = listProps
+
+  const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
+  const tabletVw = getVwByColCount(
+    column_count_tablet || column_count || COLUMN_COUNT.TABLET
+  )
+  const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
+  if (!respectImgRatio) {
+    return (
+      <div className="image-list-item-wrap" style={{}}>
+        <Image
+          src={imageAttrs.src}
+          width={width}
+          height={height}
+          alt={content.alt || content.label || 'image list item'}
+          onLoad={() => setLoaded(true)}
+          layout="intrinsic"
+          sizes={`(min-width: 0) and (max-width: ${
+            breakpoints.values.sm - 1
+          }px) ${phoneVw}vw, (min-width: ${
+            breakpoints.values.sm
+          }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
+            ${desktopVw}vw`}
+        />
+        {(content.label || content.sub_title) && (
+          <GridListTileBar
+            title={content.label}
+            subtitle={content.sub_title}
+            titlePosition={listProps.label_position || 'bottom'}
+          />
+        )}
+      </div>
+    )
   }
 
   return (
-    <>
-      {!loaded && (
-        <Skeleton
-          width="100%"
-          height="100%"
-          style={{ position: 'absolute' }}
-          variant="rect"
-        />
-      )}
-      <img
-        {...imageProps}
-        ref={inViewRef}
+    <div className="image-list-item-wrap">
+      <Image
+        src={imageAttrs.src}
         alt={content.alt || content.label || 'image list item'}
-        onLoad={onLoad}
+        onLoad={() => setLoaded(true)}
+        layout="fill"
+        sizes={`(min-width: 0) and (max-width: ${
+          breakpoints.values.sm - 1
+        }px) ${phoneVw}vw, (min-width: ${
+          breakpoints.values.sm
+        }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
+            ${desktopVw}vw`}
+        objectFit="cover"
       />
       {(content.label || content.sub_title) && (
         <GridListTileBar
@@ -73,6 +88,6 @@ export default function LmImageListItem(
           titlePosition={listProps.label_position || 'bottom'}
         />
       )}
-    </>
+    </div>
   )
 }

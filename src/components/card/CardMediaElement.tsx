@@ -4,15 +4,11 @@ import Image from 'next/image'
 import { useTheme } from '@material-ui/core/styles'
 import {
   getImageAttrs,
-  getOriginalImageDimensions
+  getOriginalImageDimensions, getVwByColCount,
 } from '../../utils/ImageService'
 import { CardListItemProps } from './cardTypes'
 import { COLUMN_COUNT } from './cardListStyles'
 
-const getVwByColCount = (count?: string): number => {
-  const c = Number(count)
-  return c && c > 0 ? Math.round(100 / c) : 100
-}
 const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   children,
   content,
@@ -37,7 +33,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
     column_count_tablet || column_count || COLUMN_COUNT.TABLET
   )
   const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
-
+  console.log(imageSize)
   return (
     <>
       <CardMedia
@@ -57,6 +53,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
             breakpoints.values.sm
           }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
             ${desktopVw}vw`}
+          objectFit="cover"
         />
         {children}
       </CardMedia>

@@ -5,20 +5,17 @@ import clsx from 'clsx'
 import { useWindowSize } from '@react-hook/window-size'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
-import { useInView } from 'react-intersection-observer'
 import ImageListLightbox from './ImageListLightbox'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmImageListProps } from './imageListTypes'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 export default function LmImageList({
   content
 }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
   const [width, height] = useWindowSize()
-  const [inViewRef, inView] = useInView(intersectionDefaultOptions)
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -46,7 +43,7 @@ export default function LmImageList({
   }
 
   return (
-    <div className="lm-imagelist__container" ref={inViewRef}>
+    <div className="lm-imagelist__container">
       <div
         className={clsx(classes.root, {
           [gridClasses.masonry]: content.masonry,
@@ -84,11 +81,7 @@ export default function LmImageList({
                   onImageClick({ _uid: item._uid, count: i, ...ev })
                 }
               >
-                <LmComponentRender
-                  content={item}
-                  listProps={content}
-                  inView={inView}
-                />
+                <LmComponentRender content={item} listProps={content} />
               </GridListTile>
             )
           })}
