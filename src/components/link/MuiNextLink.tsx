@@ -12,19 +12,17 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
       // eslint-disable-next-line jsx-a11y/anchor-has-content
       return <a ref={ref} {...other} href={href} />
     }
+    const skipLocaleAndPrefetch =
+      locale !== defaultLocale && !href.startsWith(`/${locale}`)
     return (
       <NextLink
         href={href}
-        prefetch={prefetch}
+        prefetch={skipLocaleAndPrefetch ? false : prefetch}
         replace={replace}
         scroll={scroll}
         shallow={shallow}
         passHref={passHref}
-        locale={
-          locale !== defaultLocale && !href.startsWith(`/${locale}`)
-            ? false
-            : locale
-        }
+        locale={skipLocaleAndPrefetch ? false : locale}
       >
         {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
         <a ref={ref} {...other} />
