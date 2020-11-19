@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComponentRenderFuncProps } from './typings/app'
+import { CONFIG, LmCoreComponents } from '@CONFIG'
 import LmAccordion from './components/accordion/Accordion'
 import LmTable from './components/table/Table'
 import { LmDivider } from './components/divider/Divider'
@@ -70,13 +70,21 @@ export { default as LmAppSetupProvider } from './components/provider/AppSetupPro
 export { useAppSetup } from './components/provider/context/AppSetupContext'
 export { CONFIG } from './utils/config'
 
-export const LmCoreComponentsNamed = {
-  table: LmTable,
-  accordion: LmAccordion,
-  accordion_item: LmAccordionItem,
-  divider: LmDivider,
-  html: LmHtml,
-  button_list: LmButtonList,
+LmCoreComponents.table = LmTable
+LmCoreComponents.accordion = LmAccordion
+LmCoreComponents.accordion_item = LmAccordionItem
+LmCoreComponents.divider = LmDivider
+LmCoreComponents.button_list = LmButtonList
+LmCoreComponents.section = LmSection
+LmCoreComponents.headline = LmHeadline
+LmCoreComponents.row = LmGridRow
+LmCoreComponents.column = LmGridColumn
+LmCoreComponents.image = LmImage
+LmCoreComponents.image_list = LmImageList
+LmCoreComponents.image_list_item = LmImageListItem
+LmCoreComponents.html = LmHtml
+
+export const XXX = {
   section: LmSection,
   headline: LmHeadline,
   row: LmGridRow,
@@ -101,24 +109,4 @@ export const LmCoreComponentsNamed = {
   date_headline: LmDateHeadline,
   motion: LmMotion,
   player: LmPlayer
-}
-
-export function LmComponentRender(
-  props: ComponentRenderFuncProps
-): JSX.Element {
-  const { content, i, ...rest } = props
-
-  if (typeof LmCoreComponentsNamed[content.component] !== 'undefined') {
-    return React.createElement(LmCoreComponentsNamed[content.component], {
-      content,
-      key: typeof i === 'number' ? `${content.component}_${i}` : undefined,
-      ...rest
-    })
-  }
-  return (
-    <div style={{ color: 'red' }} key={content?._uid || `${i}`}>
-      The component {content.component || 'no name found'} has not been created
-      yet.
-    </div>
-  )
 }

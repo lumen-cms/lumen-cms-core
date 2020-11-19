@@ -1,7 +1,5 @@
 const withPlugins = require('next-compose-plugins')
-// const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin')
-const path = require('path')
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+// const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (
   nextConfig = {},
@@ -14,9 +12,6 @@ module.exports = function (
   ])
   const config = {
     ...nextConfig,
-    experimental: {
-      modern: true
-    },
     async rewrites() {
       return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
     },
@@ -32,8 +27,8 @@ module.exports = function (
       }
 
       config.resolve = config.resolve || {}
-      config.resolve.plugins = config.resolve.plugins || []
-      config.resolve.plugins.push(new TsconfigPathsPlugin())
+      // config.resolve.plugins = config.resolve.plugins || []
+      // config.resolve.plugins.push(new TsconfigPathsPlugin())
       if (!options.isServer) {
         config.resolve.alias['@sentry/node'] = '@sentry/browser'
       }
