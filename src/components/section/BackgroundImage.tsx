@@ -24,7 +24,7 @@ const useStyles = makeStyles(() =>
         '&.landscape': {
           display: 'none !important'
         },
-        '&.portrait div, &.portrait img, &.portrait div img': {
+        '&.landscape div, &.landscape img, &.landscape div img': {
           display: 'none !important'
         }
       },
@@ -136,6 +136,7 @@ const BackgroundImage = ({
       </>
     )
   }
+  console.log(imageSourcePortrait)
   return (
     <>
       <div
