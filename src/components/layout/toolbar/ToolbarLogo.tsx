@@ -3,8 +3,6 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
-import { useInView } from 'react-intersection-observer'
-import { intersectionDefaultOptions } from '../../../utils/intersectionObserverConfig'
 import imageService from '../../../utils/ImageService'
 import useDeviceDimensions from '../../../utils/hooks/useDeviceDimensions'
 import { LmToolbarLogoProps } from './toolbarTypes'
@@ -18,22 +16,21 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
   const height = settings.toolbar_main_height
     ? settings.toolbar_main_height * 2
     : 48 * 2
-  const [refIntersectionObserver, inView] = useInView(
-    intersectionDefaultOptions
-  )
+
   const { isMobile } = useDeviceDimensions()
 
+  // todo rewrite to intrinsic image
   const getImageSrc = (image: string) => imageService(image, `0x${height}`)
 
   return (
-    <div className="h-100 d-inline-block" ref={refIntersectionObserver}>
+    <div className="h-100 d-inline-block">
       <Link href={homepageHref} passHref>
         <MuiLink
           className={clsx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
         >
           <>
             {!websiteLogo && <Typography>{websiteTitle}</Typography>}
-            {websiteLogo && inView && (
+            {websiteLogo && (
               <img
                 src={getImageSrc(
                   isMobile && settings.website_logo_xs
@@ -46,7 +43,7 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
                 alt={websiteTitle || 'website logo'}
               />
             )}
-            {websiteLogoInvert && inView && (
+            {websiteLogoInvert && (
               <img
                 src={getImageSrc(
                   isMobile && settings.website_logo_invert_xs

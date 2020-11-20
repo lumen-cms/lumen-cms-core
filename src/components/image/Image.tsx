@@ -107,7 +107,8 @@ export default function LmImage({
   if (squareSize || definedWidth) {
     const currentWidth = squareSize || (definedWidth as number)
     const calculatePxToVw = (absolute: number, breakpoint: number) =>
-      Math.round(absolute / breakpoint) * 100)
+      Math.round((absolute / breakpoint) * 100)
+    // todo check with steffen taken from here: https://vw.joealden.com/
     sizes = `(min-width: 0) and (max-width: ${
       breakpoints.values.sm - 1
     }px) ${calculatePxToVw(
@@ -115,8 +116,10 @@ export default function LmImage({
       breakpoints.values.sm - 1
     )}vw, (min-width: ${breakpoints.values.sm}px) and (max-width: ${
       breakpoints.values.md - 1
-    }px): ${calculatePxToVw(currentWidth, breakpoints.values.md - 1)}vw,
-            ${calculatePxToVw(currentWidth, breakpoints.values.lg)}vw`
+    }px): ${calculatePxToVw(
+      currentWidth,
+      breakpoints.values.md - 1
+    )}vw, ${calculatePxToVw(currentWidth, breakpoints.values.lg)}vw`
   }
   if (square) {
     return (
