@@ -27,6 +27,17 @@ export function getRootImageUrl(src = '') {
   return src.replace('//a.', 'https://a.')
 }
 
+export function vercelImageService(
+  image: string,
+  { width, quality }: { width: number; quality?: number }
+) {
+  const query = new URLSearchParams()
+  query.append('url', getRootImageUrl(image))
+  query.append('w', `${width}`)
+  query.append('q', `${quality || 75}`)
+  return `/_next/image?${query.toString()}`
+}
+
 export const getVwByColCount = (count?: string | number): number => {
   const c = Number(count)
   return c && c > 0 ? Math.round(100 / c) : 100

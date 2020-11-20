@@ -1,7 +1,6 @@
 import React from 'react'
-import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import Image from 'next/image'
 import {
   BackgroundStoryblok,
@@ -9,7 +8,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { getRootImageUrl } from '../../utils/ImageService'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       '@media (orientation: landscape)': {
@@ -32,7 +31,22 @@ const useStyles = makeStyles(() =>
       top: 0,
       left: 0,
       width: '100%',
-      height: '100%'
+      height: '100%',
+      '&.hide__xs': {
+        [theme.breakpoints.only('xs')]: {
+          display: 'none !important'
+        }
+      },
+      '&.hide__sm': {
+        [theme.breakpoints.down('sm')]: {
+          display: 'none !important'
+        }
+      },
+      '&.hide__md': {
+        [theme.breakpoints.down('md')]: {
+          display: 'none !important'
+        }
+      }
     },
     rootFixedImage: {
       clip: 'rect(0,auto,auto,0)!important',
@@ -60,10 +74,7 @@ const BackgroundImage = ({
   backgroundStyle
 }: BackgroundImageProps): JSX.Element | null => {
   const classes = useStyles()
-  const theme = useTheme()
-  const matches = useMediaQuery(
-    theme.breakpoints.down(content.hide_image_on_breakpoint || 'xs')
-  )
+
   const {
     image,
     alternative_image,
@@ -75,7 +86,7 @@ const BackgroundImage = ({
     priority,
     disable_lazy_loading
   } = content
-  const dontRender = hide_image_on_breakpoint && matches
+
   const loading = priority
     ? undefined
     : disable_lazy_loading
@@ -85,10 +96,6 @@ const BackgroundImage = ({
   const imageSourcePortrait = alternative_image
     ? getRootImageUrl(alternative_image)
     : undefined
-
-  if (dontRender) {
-    return null
-  }
 
   const BgImage = (props: { src?: string }) => {
     if (!props.src) {
@@ -117,7 +124,10 @@ const BackgroundImage = ({
           className={clsx(
             classes.root,
             classes.rootFixedImage,
-            imageSourcePortrait ? 'landscape' : undefined
+            imageSourcePortrait ? 'landscape' : undefined,
+            hide_image_on_breakpoint
+              ? `hide__${hide_image_on_breakpoint}`
+              : undefined
           )}
         >
           <div className={classes.fixedCoverImageWrap}>
@@ -136,13 +146,15 @@ const BackgroundImage = ({
       </>
     )
   }
-  console.log(imageSourcePortrait)
   return (
     <>
       <div
         className={clsx(
           classes.root,
-          imageSourcePortrait ? 'landscape' : undefined
+          imageSourcePortrait ? 'landscape' : undefined,
+          hide_image_on_breakpoint
+            ? `hide__${hide_image_on_breakpoint}`
+            : undefined
         )}
       >
         <BgImage src={imageSource} />
