@@ -48,9 +48,9 @@ export default function LmImageList({
         className={clsx(classes.root, {
           [gridClasses.masonry]: content.masonry,
           [classes.aspectRatio]: content.aspect_ratio && !content.masonry,
-          [`ratio-${content.aspect_ratio}`]: content.aspect_ratio,
-          'with-lightbox': content.enable_lightbox,
-          [classes.defaultImg]: !content.masonry && !content.aspect_ratio
+          [`ratio-${content.aspect_ratio}`]:
+            content.aspect_ratio && !content.masonry,
+          'with-lightbox': content.enable_lightbox
         })}
       >
         <GridList

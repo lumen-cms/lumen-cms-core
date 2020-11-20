@@ -4,7 +4,8 @@ import Image from 'next/image'
 import { useTheme } from '@material-ui/core/styles'
 import {
   getImageAttrs,
-  getOriginalImageDimensions, getVwByColCount,
+  getOriginalImageDimensions,
+  getVwByColCount
 } from '../../utils/ImageService'
 import { CardListItemProps } from './cardTypes'
 import { COLUMN_COUNT } from './cardListStyles'
@@ -17,7 +18,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   const imageSource = content.image
   const imageSize = options.image_size
   const { breakpoints } = useTheme()
-  const storyblokImage = imageSource?.replace('//a', 'https://img2')
+  const storyblokImage = imageSource?.replace('//a.', 'a.')
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
   const imageAttrs = imageSource
     ? getImageAttrs({

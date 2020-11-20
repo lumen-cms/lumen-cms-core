@@ -7,6 +7,7 @@ import {
   BackgroundStoryblok,
   SectionStoryblok
 } from '../../typings/generated/components-schema'
+import { getRootImageUrl } from '../../utils/ImageService'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -80,9 +81,9 @@ const BackgroundImage = ({
     : disable_lazy_loading
     ? 'eager'
     : undefined
-  const imageSource = (image || '').replace('//a', 'https://img2')
+  const imageSource = getRootImageUrl(image)
   const imageSourcePortrait = alternative_image
-    ? alternative_image.replace('//a', 'https://img2')
+    ? getRootImageUrl(alternative_image)
     : undefined
 
   if (dontRender) {

@@ -17,6 +17,10 @@ export function getOriginalImageDimensions(src: string) {
   }
 }
 
+export function getRootImageUrl(src = '') {
+  return src.replace('//a.', 'https://a.')
+}
+
 export const getVwByColCount = (count?: string | number): number => {
   const c = Number(count)
   return c && c > 0 ? Math.round(100 / c) : 100

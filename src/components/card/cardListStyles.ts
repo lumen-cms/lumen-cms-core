@@ -56,11 +56,11 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
       return opts
     },
     masonry: {
-      '& img': {
-        display: 'block',
-        width: '100%',
-        height: 'auto'
-      },
+      // '& img': {
+      //   display: 'block',
+      //   width: '100%',
+      //   height: 'auto'
+      // },
       '& .MuiGridList-root': {
         display: 'block'
       },

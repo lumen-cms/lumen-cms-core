@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import {
-  getImageAttrs,
-  getOriginalImageDimensions
+  getOriginalImageDimensions,
+  getRootImageUrl
 } from '../../utils/ImageService'
 import { LmImageProps } from './imageTypes'
 
@@ -41,21 +41,27 @@ export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element | null {
+  const { breakpoints } = useTheme()
+
   const classes = useStyles()
   const definedWidth = content.width
   const definedHeight = content.height
   const property = content.property || []
   const imageSource = content.source
+
   const { priority, disable_lazy_loading } = content
   const [loaded, setLoaded] = useState<boolean>(
     !!(priority || disable_lazy_loading)
   )
+  if (!imageSource) {
+    return <div /> // don't need to render anything
+  }
   const loading = priority
     ? undefined
     : disable_lazy_loading
     ? 'eager'
     : undefined
-  const storyblokImage = imageSource?.replace('//a', 'https://img2')
+  const storyblokImage = getRootImageUrl(imageSource)
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
 
   const manualSquare =
@@ -63,7 +69,9 @@ export default function LmImage({
   const squareOrRoundedIsSet =
     property.includes('rounded-circle') || property.includes('square')
   const square = manualSquare || squareOrRoundedIsSet
-  const squareSize = square ? definedHeight || definedWidth || 120 : undefined
+  const squareSize = square
+    ? definedHeight || definedWidth || originalDimensions.width // todo was set to 120 before, does it break things?
+    : undefined
 
   let proportionalWidth = 0
   let proportionalHeight = 0
@@ -77,26 +85,70 @@ export default function LmImage({
     proportionalHeight = definedHeight || 0
   }
 
-  const imageAttrs = imageSource
-    ? getImageAttrs({
-        originalSource: imageSource,
-        width: isProportional
-          ? proportionalWidth
-          : squareSize || definedWidth || originalDimensions.width,
-        height: isProportional
-          ? proportionalHeight
-          : squareSize || definedHeight || originalDimensions.height,
-        focalPoint: content.focal_point,
-        smart: !!squareSize
-      })
-    : undefined
+  // const imageAttrs = imageSource
+  //   ? getImageAttrs({
+  //       originalSource: imageSource,
+  //       width: isProportional
+  //         ? proportionalWidth
+  //         : squareSize || definedWidth || originalDimensions.width,
+  //       height: isProportional
+  //         ? proportionalHeight
+  //         : squareSize || definedHeight || originalDimensions.height,
+  //       focalPoint: content.focal_point,
+  //       smart: !!squareSize
+  //     })
+  //   : undefined
 
-  if (!imageSource) {
-    return <div /> // don't need to render anything
-  }
   const containerProps: React.HTMLAttributes<HTMLDivElement> = {}
   if (onClick) {
     containerProps.onClick = () => onClick()
+  }
+  let sizes
+  if (squareSize || definedWidth) {
+    const currentWidth = squareSize || (definedWidth as number)
+    const calculatePxToVw = (absolute: number, breakpoint: number) =>
+      Math.round(absolute / breakpoint) * 100)
+    sizes = `(min-width: 0) and (max-width: ${
+      breakpoints.values.sm - 1
+    }px) ${calculatePxToVw(
+      currentWidth,
+      breakpoints.values.sm - 1
+    )}vw, (min-width: ${breakpoints.values.sm}px) and (max-width: ${
+      breakpoints.values.md - 1
+    }px): ${calculatePxToVw(currentWidth, breakpoints.values.md - 1)}vw,
+            ${calculatePxToVw(currentWidth, breakpoints.values.lg)}vw`
+  }
+  if (square) {
+    return (
+      <div
+        {...containerProps}
+        style={{
+          margin: 'auto',
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'block',
+          maxWidth: `${squareSize}px`,
+          maxHeight: `${squareSize}px`
+        }}
+        className={clsx(
+          content.class_names?.values,
+          content.property,
+          loaded ? 'loaded' : 'loading'
+        )}
+      >
+        <div style={{ paddingBottom: '100%' }} />
+        <Image
+          src={storyblokImage}
+          alt={content.alt || 'website image'}
+          onLoad={() => setLoaded(true)}
+          loading={loading}
+          priority={priority}
+          sizes={sizes}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+    )
   }
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
@@ -122,18 +174,17 @@ export default function LmImage({
           : '100%'
       }}
     >
-      {storyblokImage && (
-        <Image
-          src={imageAttrs?.src || storyblokImage}
-          alt={content.alt || 'website image'}
-          width={squareSize || originalDimensions.width}
-          height={squareSize || originalDimensions.height}
-          onLoad={() => setLoaded(true)}
-          loading={loading}
-          priority={priority}
-          layout="responsive"
-        />
-      )}
+      <Image
+        src={storyblokImage}
+        alt={content.alt || 'website image'}
+        width={squareSize || originalDimensions.width}
+        height={squareSize || originalDimensions.height}
+        onLoad={() => setLoaded(true)}
+        loading={loading}
+        priority={priority}
+        layout="responsive"
+        sizes={sizes}
+      />
     </div>
   )
 }
