@@ -1,7 +1,8 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import CardMedia from '@material-ui/core/CardMedia'
 import Image from 'next/image'
 import { useTheme } from '@material-ui/core/styles'
+import Skeleton from '@material-ui/lab/Skeleton'
 import {
   getImageAttrs,
   getOriginalImageDimensions,
@@ -15,6 +16,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   content,
   options
 }) => {
+  const [loaded, setLoaded] = useState<boolean>(false)
   const imageSource = content.image
   const imageSize = options.image_size
   const { breakpoints } = useTheme()
@@ -44,8 +46,17 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
           position: 'relative'
         }}
       >
+        {!loaded && (
+          <Skeleton
+            style={{ position: 'absolute' }}
+            width="100%"
+            height="100%"
+            variant="rect"
+          />
+        )}
         <Image
           src={imageAttrs?.src || storyblokImage || ''}
+          onLoad={() => setLoaded(true)}
           loading="lazy"
           layout="fill"
           sizes={`(min-width: 0) and (max-width: ${

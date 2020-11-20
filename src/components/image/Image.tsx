@@ -106,9 +106,11 @@ export default function LmImage({
   let sizes
   if (squareSize || definedWidth) {
     const currentWidth = squareSize || (definedWidth as number)
+
     const calculatePxToVw = (absolute: number, breakpoint: number) =>
-      Math.round((absolute / breakpoint) * 100)
+      absolute > breakpoint ? 100 : Math.round((absolute / breakpoint) * 100)
     // todo check with steffen taken from here: https://vw.joealden.com/
+    // not sure which breakpoint to take..
     sizes = `(min-width: 0) and (max-width: ${
       breakpoints.values.sm - 1
     }px) ${calculatePxToVw(
