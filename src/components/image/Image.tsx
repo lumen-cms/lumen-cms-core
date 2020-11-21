@@ -4,7 +4,8 @@ import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import {
   getOriginalImageDimensions,
-  getRootImageUrl
+  getRootImageUrl,
+  imageSizesOnWidthAndBreakpoints
 } from '../../utils/ImageService'
 import { LmImageProps } from './imageTypes'
 
@@ -92,22 +93,7 @@ export default function LmImage({
   let sizes
   if (squareSize || definedWidth) {
     const currentWidth = squareSize || (definedWidth as number)
-
-    const calculatePxToVw = (absolute: number, breakpoint: number) =>
-      absolute > breakpoint ? 100 : Math.round((absolute / breakpoint) * 100)
-    // todo check with steffen taken from here: https://vw.joealden.com/
-    // not sure which breakpoint to take..
-    sizes = `(min-width: 0) and (max-width: ${
-      breakpoints.values.sm - 1
-    }px) ${calculatePxToVw(
-      currentWidth,
-      breakpoints.values.sm - 1
-    )}vw, (min-width: ${breakpoints.values.sm}px) and (max-width: ${
-      breakpoints.values.md - 1
-    }px): ${calculatePxToVw(
-      currentWidth,
-      breakpoints.values.md - 1
-    )}vw, ${calculatePxToVw(currentWidth, breakpoints.values.lg)}vw`
+    sizes = imageSizesOnWidthAndBreakpoints(currentWidth, breakpoints)
   }
   if (square) {
     return (

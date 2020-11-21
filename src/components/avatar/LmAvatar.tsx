@@ -1,10 +1,13 @@
-import React, { CSSProperties, useEffect, useState } from 'react'
+import React, { CSSProperties } from 'react'
 import Avatar from '@material-ui/core/Avatar'
-import { useInView } from 'react-intersection-observer'
 import clsx from 'clsx'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import Image from 'next/image'
+import { useTheme } from '@material-ui/core/styles'
 import LmIcon from '../icon/LmIcon'
-import { getImageAttrs } from '../../utils/ImageService'
+import {
+  getRootImageUrl,
+  imageSizesOnWidthAndBreakpoints
+} from '../../utils/ImageService'
 import { LmAvatarProps } from './avatarTypes'
 import { getNumber } from '../../utils/numberParser'
 
@@ -24,18 +27,16 @@ const sizeMap = {
 }
 
 export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
-  const [refIntersectionObserver, inView] = useInView(
-    intersectionDefaultOptions
-  )
-  const iconName = content.icon && content.icon.name
-  const imageSrc = content.image
+  const { breakpoints } = useTheme()
+
+  const iconName = content.icon?.name
   const customSize = getNumber(content.custom_size) as number
-  const [imageAttrs, setImageSrc] = useState<{ src?: string; srcSet?: string }>(
-    {}
-  )
+
   const style: CSSProperties = {
-    color: content.color && content.color.rgba,
-    backgroundColor: content.background_color && content.background_color.rgba
+    color: content.color?.rgba || undefined,
+    backgroundColor: content.image
+      ? 'transparent'
+      : content.background_color?.rgba || undefined
   }
   if (content.size) {
     const individualSize = sizeMap[content.size]
@@ -54,27 +55,24 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
     style.height = customSize
     style.fontSize = customSize / 2
   }
-  useEffect(() => {
-    if (inView && imageSrc) {
-      const imgAttrs = getImageAttrs({
-        originalSource: imageSrc,
-        width: customSize && customSize > 128 ? customSize : 128,
-        height: customSize && customSize > 128 ? customSize : 128,
-        smart: true
-      })
-      setImageSrc(imgAttrs)
-    }
-  }, [inView, imageSrc, customSize])
 
   return (
     <Avatar
-      ref={refIntersectionObserver}
       variant={content.variant || 'circle'}
       style={style}
-      className={clsx(content.class_names && content.class_names.values)}
-      src={imageAttrs.src}
-      srcSet={imageAttrs.srcSet}
+      className={clsx(content.class_names?.values)}
     >
+      {content.image && (
+        <Image
+          src={getRootImageUrl(content.image)}
+          layout="fill"
+          objectFit="cover"
+          sizes={imageSizesOnWidthAndBreakpoints(
+            style.width ? Number(style.width) : 40,
+            breakpoints
+          )}
+        />
+      )}
       {content.letter}
       {iconName && <LmIcon iconName={iconName} />}
     </Avatar>

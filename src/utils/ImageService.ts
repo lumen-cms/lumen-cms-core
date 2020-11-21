@@ -1,3 +1,4 @@
+import { Theme } from '@material-ui/core'
 import { getGlobalState } from './state/state'
 
 export function getOriginalImageDimensions(src = '') {
@@ -44,6 +45,26 @@ export const imageCalculateWidth = (
   return Math.round(
     (height / originalDimensions.height) * originalDimensions.width
   )
+}
+
+const calculatePxToVw = (absolute: number, breakpoint: number) =>
+  absolute > breakpoint ? 100 : Math.round((absolute / breakpoint) * 100)
+
+export const imageSizesOnWidthAndBreakpoints = (
+  currentWidth: number,
+  breakpoints: Theme['breakpoints']
+) => {
+  return `(min-width: 0) and (max-width: ${
+    breakpoints.values.sm - 1
+  }px) ${calculatePxToVw(
+    currentWidth,
+    breakpoints.values.sm - 1
+  )}vw, (min-width: ${breakpoints.values.sm}px) and (max-width: ${
+    breakpoints.values.md - 1
+  }px): ${calculatePxToVw(
+    currentWidth,
+    breakpoints.values.md - 1
+  )}vw, ${calculatePxToVw(currentWidth, breakpoints.values.lg)}vw`
 }
 
 export default function imageService(image: string, option = '', filter = '') {
