@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
           display: 'none'
         }
       },
+      '& .logo-img__invert': {
+        display: 'none'
+      },
       '& .MuiIconButton-root': {
         color: 'inherit'
       },
@@ -41,6 +44,12 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         '& .lm-system-bar': {
           backgroundColor: 'transparent !important'
+        },
+        '& .logo-img__default': {
+          display: 'none'
+        },
+        '& .logo-img__invert': {
+          display: 'block'
         }
       },
       '&.lm-toolbar__scrolled': {

@@ -10,42 +10,42 @@ export const useImageListStyles = makeStyles({
   rootGrid: {
     justifyContent: 'center'
   },
-  defaultImg: {
-    '& img': {
-      display: 'block',
-      width: '100%',
-      height: 'auto',
-      marginTop: '50%',
-      transform: 'translateY(-50%)'
-    }
-  },
+  // defaultImg: {
+  //   '& img': {
+  //     display: 'block',
+  //     width: '100%',
+  //     height: 'auto',
+  //     marginTop: '50%',
+  //     transform: 'translateY(-50%)'
+  //   }
+  // },
   aspectRatio: {
     '& .MuiGridListTile-tile': {
       // paddingBottom: '56.25%',
       // marginBottom: '-6px',
-      '& img': {
-        position: 'absolute',
-        // top: 0,
-        // left: 0,
-        // width: '100%',
-        // height: '100%'
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)'
-      }
+      // '& img': {
+      //   position: 'absolute',
+      //   // top: 0,
+      //   // left: 0,
+      //   // width: '100%',
+      //   // height: '100%'
+      //   top: '50%',
+      //   left: '50%',
+      //   transform: 'translate(-50%, -50%)'
+      // }
     },
-    '&.ratio-* .MuiGridListTile-tile': {
-      '& img': {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%'
-        // top: '50%',
-        // left: '50%',
-        // transform: 'translate(-50%, -50%)',
-      }
-    },
+    // '&.ratio-* .MuiGridListTile-tile': {
+    //   '& img': {
+    //     position: 'absolute',
+    //     top: 0,
+    //     left: 0,
+    //     width: '100%',
+    //     height: '100%'
+    //     // top: '50%',
+    //     // left: '50%',
+    //     // transform: 'translate(-50%, -50%)',
+    //   }
+    // },
     '&.ratio-1x1 .MuiGridListTile-tile': {
       paddingBottom: '100%'
     },

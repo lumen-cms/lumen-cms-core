@@ -14,7 +14,7 @@ const getFallbackMode = () => {
   if (process.env.NEXT_FALLBACK_MODE) {
     return process.env.NEXT_FALLBACK_MODE as 'blocking'
   }
-  return true
+  return 'blocking'
 }
 
 const pagesGetStaticPaths: GetStaticPaths = async ({

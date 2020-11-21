@@ -25,7 +25,8 @@ export const useImageListLightboxStyles = makeStyles({
         height: '100%',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'relative'
       }
     },
     '& .MuiSvgIcon-root': {

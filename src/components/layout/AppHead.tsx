@@ -4,7 +4,7 @@ import GoogleFonts from 'next-google-fonts'
 import { useAppContext } from '@context/AppContext'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
-import imageService, { imageServiceNoWebp } from '../../utils/ImageService'
+import { imageServiceNoWebp } from '../../utils/ImageService'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import FbqPixel from '../tracking/FbqPixel'
@@ -104,19 +104,19 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
           <>
             <link
               rel="icon"
-              href={imageService(favicon, `32x32`)}
+              href={imageServiceNoWebp(favicon, '32x32')}
               sizes="32x32"
               key="favicon"
             />
             <link
               rel="apple-touch-icon-precomposed"
-              href={imageService(favicon, `152x152`)}
+              href={imageServiceNoWebp(favicon, '152x152')}
               key="apple-touch-icon-precomposed"
             />
             <link
               rel="apple-touch-icon"
               sizes="180x180"
-              href={imageService(favicon, `180x180`)}
+              href={imageServiceNoWebp(favicon, '180x180')}
               key="apple-touch-icon"
             />
           </>

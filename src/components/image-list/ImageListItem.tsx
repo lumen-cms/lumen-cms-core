@@ -1,70 +1,107 @@
-import React, { useRef, useState } from 'react'
-import GridListTileBar from '@material-ui/core/GridListTileBar'
+import React, { FC, useState } from 'react'
+import Image, { ImageProps } from 'next/image'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { getImageAttrs } from '../../utils/ImageService'
+import { GridListTileBar } from '@material-ui/core'
+import {
+  getOriginalImageDimensions,
+  getRootImageUrl,
+  getVwByColCount
+} from '../../utils/ImageService'
 import { LmImageListItemProps } from './imageListTypes'
+import { COLUMN_COUNT } from '../card/cardListStyles'
 
-export default function LmImageListItem(
-  props: LmImageListItemProps
-): JSX.Element {
-  const { content, listProps, inView } = props
-  const inViewRef = useRef<HTMLImageElement>(null)
+const useStyles = makeStyles(() => ({
+  root: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    width: '100%',
+    height: '100%'
+  }
+}))
+
+export default function LmImageListItem({
+  content,
+  listProps
+}: LmImageListItemProps): JSX.Element {
   const [loaded, setLoaded] = useState<boolean>(false)
-  let imageProps: {
-    src?: string
-    srcSet?: string
-    width?: number | string
-    height?: number | string
-  } = {}
+  const classes = useStyles()
+  const imageSource = getRootImageUrl(content.source)
 
-  if (inView && content.source && inViewRef?.current) {
-    // if (listProps.image_crop && !listProps.masonry /*|| (!listProps.masonry && !listProps.fit_in_color)*/) {
-    //   height = listProps.height
-    // }
-    const tile = inViewRef.current.closest('.MuiGridListTile-root')
-    if (tile) {
-      let width = tile?.clientWidth
-      let height = tile?.clientHeight
+  const originalDimensions = getOriginalImageDimensions(content.source || '')
+  const { breakpoints } = useTheme()
 
-      width = Math.ceil(width)
-      const respectImgRatio =
-        listProps.masonry || !listProps.aspect_ratio || !listProps.image_crop
-      height = respectImgRatio ? 0 : height && Math.ceil(height)
-      const imgSrc = getImageAttrs({
-        originalSource: content.source,
-        width,
-        height,
-        smart: listProps.image_crop === 'smart',
-        fitInColor: listProps.fit_in_color
-      })
-      imageProps = {
-        src: imgSrc.src,
-        srcSet: imgSrc.srcSet,
-        width: width || undefined,
-        height: height || undefined
-      }
+  const { width } = originalDimensions
+  const { height } = originalDimensions
+
+  const respectImgRatio = listProps.masonry || !listProps.aspect_ratio
+  // const imageAttrs = getImageAttrs({
+  //   originalSource: imageSource || ''
+  // width,
+  // height,
+  // fitInColor: listProps.fit_in_color
+  // })
+
+  const { column_count, column_count_phone, column_count_tablet } = listProps
+
+  const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
+  const tabletVw = getVwByColCount(
+    column_count_tablet || column_count || COLUMN_COUNT.TABLET
+  )
+  const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
+  // console.log('inside of masonry', listProps)
+  let imgProps: ImageProps = {
+    src: imageSource as string,
+    layout: 'fill',
+    objectFit: listProps.fit_in_color ? 'contain' : 'cover'
+  }
+  if (respectImgRatio) {
+    imgProps = {
+      src: imageSource as string,
+      width,
+      height,
+      layout: 'intrinsic'
     }
   }
 
-  function onLoad() {
-    setLoaded(true)
-  }
+  const ImageWrap: FC =
+    !listProps.fit_in_color || respectImgRatio
+      ? ({ children }) => <>{children}</>
+      : ({ children }) => (
+          <div
+            className={classes.root}
+            style={{
+              backgroundColor:
+                listProps.fit_in_color || loaded ? '#eee' : undefined
+            }}
+          >
+            {children}
+          </div>
+        )
 
   return (
-    <>
+    <ImageWrap>
       {!loaded && (
         <Skeleton
+          style={{ position: 'absolute' }}
           width="100%"
           height="100%"
-          style={{ position: 'absolute' }}
           variant="rect"
         />
       )}
-      <img
-        {...imageProps}
-        ref={inViewRef}
+      <Image
+        {...imgProps}
         alt={content.alt || content.label || 'image list item'}
-        onLoad={onLoad}
+        onLoad={() => setLoaded(true)}
+        sizes={`(min-width: 0) and (max-width: ${
+          breakpoints.values.sm - 1
+        }px) ${phoneVw}vw, (min-width: ${
+          breakpoints.values.sm
+        }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
+            ${desktopVw}vw`}
       />
       {(content.label || content.sub_title) && (
         <GridListTileBar
@@ -73,6 +110,6 @@ export default function LmImageListItem(
           titlePosition={listProps.label_position || 'bottom'}
         />
       )}
-    </>
+    </ImageWrap>
   )
 }

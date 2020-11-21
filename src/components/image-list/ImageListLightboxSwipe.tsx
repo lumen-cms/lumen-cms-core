@@ -2,38 +2,25 @@ import React from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
-import {
-  getImageAttrs,
-  getOriginalImageDimensions
-} from '../../utils/ImageService'
+import Image from 'next/image'
+import { getRootImageUrl } from '../../utils/ImageService'
 import InvertedIndicator from '../slider/InvertedIndicator'
 import { ImageListLightboxProps } from './imageListTypes'
+import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 
-function Swipe(props: ImageListLightboxProps): JSX.Element {
-  const { width, height } = props
+function CarouselImageItem({ content }: { content: ImageListItemStoryblok }) {
+  const imageSource = getRootImageUrl(content.source)
+  return (
+    <div className="carousel-item">
+      <Image src={imageSource} layout="fill" objectFit="contain" />
+    </div>
+  )
+}
+
+export default function Swipe(props: ImageListLightboxProps): JSX.Element {
   const currentIndex = props.elements.findIndex(
     (i) => i._uid === props.lightbox
   )
-
-  function getImageSource(source: string) {
-    let dimensionHeight = height - 68 - 16
-    let dimensionWidth = width - 48
-    const originalDimension = getOriginalImageDimensions(source)
-    const imgWidth = originalDimension.width
-    const imgHeight = originalDimension.height
-    dimensionWidth = imgWidth <= dimensionWidth ? imgWidth : dimensionWidth
-    dimensionHeight = imgHeight <= dimensionHeight ? imgHeight : dimensionHeight
-    const landscape = dimensionWidth > dimensionHeight
-    const attrs = getImageAttrs({
-      originalSource: source,
-      width: landscape ? 0 : dimensionWidth,
-      height: landscape ? dimensionHeight : 0
-    })
-    return {
-      src: attrs.src,
-      srcSet: attrs.srcSet
-    }
-  }
 
   function handleChangeIndex(index: number) {
     props.onImageClick(props.elements[index])
@@ -47,14 +34,7 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
         onChangeIndex={handleChangeIndex}
       >
         {props.elements.map((item) => (
-          <div key={item._uid} className="carousel-item">
-            <figure className="d-block">
-              <img
-                {...getImageSource(item.source as string)}
-                className="img-fluid"
-              />
-            </figure>
-          </div>
+          <CarouselImageItem content={item} key={item._uid} />
         ))}
       </SwipeableViews>
       {/* eslint-disable-next-line */}
@@ -100,5 +80,3 @@ function Swipe(props: ImageListLightboxProps): JSX.Element {
     </div>
   )
 }
-
-export default Swipe

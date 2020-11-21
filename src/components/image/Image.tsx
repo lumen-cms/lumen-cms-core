@@ -1,45 +1,39 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import { useInView } from 'react-intersection-observer'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import Fade from '@material-ui/core/Fade'
-import Skeleton from '@material-ui/lab/Skeleton'
-import { useWindowWidth } from '@react-hook/window-size'
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
+import Image from 'next/image'
 import {
-  getImageAttrs,
-  getOriginalImageDimensions
+  getOriginalImageDimensions,
+  getRootImageUrl,
+  imageSizesOnWidthAndBreakpoints
 } from '../../utils/ImageService'
 import { LmImageProps } from './imageTypes'
-import { AspectRatio } from './RatioContainer'
-import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
-import { getNumber } from '../../utils/numberParser'
 
 const useStyles = makeStyles((theme: Theme) => ({
-  // root: {
-  //   display: 'inline-block'
-  // margin: '0 0 -6px 0 !important',
-  // overflow: 'auto',
-  // padding: 0,
-  // position: 'relative'
-  // },
-  rootNoMargin: {
-    margin: '0 !important'
-  },
   image: {
+    margin: 'auto',
+    width: '100%',
+    height: 'auto',
     '&.img-thumbnail': {
       padding: '.25rem',
       backgroundColor: theme.palette.background.default,
-      border: `1px solid ${theme.palette.divider}`,
+      border: `1px solid ${theme.palette.divider}!important`,
       borderRadius: theme.shape.borderRadius
     },
-    '&.square, &.rounded-0': {
+    '&.square, &.rounded-0 img': {
       borderRadius: 0
     },
-    '&.rounded': {
+    '&.rounded img': {
       borderRadius: theme.shape.borderRadius
+    },
+    '&.rounded-circle img': {
+      borderRadius: '50%'
     },
     '&.rounded-circle': {
       borderRadius: '50%'
+    },
+    '&.loading': {
+      backgroundColor: 'rgb(74,74,74, 0.3)'
     }
   }
 }))
@@ -48,168 +42,126 @@ export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element | null {
+  const { breakpoints } = useTheme()
+
   const classes = useStyles()
-  const width = useWindowWidth()
-  const isMobile = width < 600
-  const [loaded, setLoaded] = useState<boolean>(false)
-  const imageCrop = content.image_crop || []
+  const definedWidth = content.width
+  const definedHeight = content.height
   const property = content.property || []
-  const fitInColor = content.color?.rgba || content.fit_in_color
-
-  const [refIntersectionObserver, inView, intersectionElement] = useInView(
-    intersectionImageOptions
-  )
-
-  const imgProperties: { src?: string; srcSet?: string } = {}
   const imageSource = content.source
 
+  const { priority, disable_lazy_loading } = content
+  const [loaded, setLoaded] = useState<boolean>(
+    !!(priority || disable_lazy_loading)
+  )
   if (!imageSource) {
     return <div /> // don't need to render anything
   }
-
+  const loading = priority
+    ? undefined
+    : disable_lazy_loading
+    ? 'eager'
+    : undefined
+  const storyblokImage = getRootImageUrl(imageSource)
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
 
-  let definedWidth = getNumber(content.width) as number | undefined
-  let definedHeight =
-    content.height_xs && isMobile
-      ? (getNumber(content.height) as number | undefined)
-      : (getNumber(content.height) as number | undefined)
-  if (inView && imageSource && intersectionElement) {
-    const { parentElement } = intersectionElement.target
-    const grandparentElement =
-      intersectionElement.target.parentElement?.parentElement
-    const parentDim = {
-      width: parentElement?.clientWidth || 0,
-      height: parentElement?.clientHeight || 0
-    }
-    const grandParentDim = {
-      width: grandparentElement?.clientWidth || 0,
-      height: grandparentElement?.clientHeight || 0
-    }
+  const manualSquare =
+    definedWidth && definedHeight && definedWidth === definedHeight
+  const squareOrRoundedIsSet =
+    property.includes('rounded-circle') || property.includes('square')
+  const square = manualSquare || squareOrRoundedIsSet
+  const squareSize = square
+    ? definedHeight || definedWidth || originalDimensions.width // todo was set to 120 before, does it break things?
+    : undefined
 
-    const square =
-      property.includes('rounded-circle') || property.includes('square')
-
-    const w = Math.ceil(parentDim.width || width)
-    if ((!definedWidth && !definedHeight) || imageCrop.length || fitInColor) {
-      // default: set available width to the current width either in crop mode
-      definedWidth =
-        definedWidth || (parentDim.height / parentDim.width) * 100 > 300
-          ? grandParentDim.width
-          : w
-    }
-    if (square) {
-      // overwrite if square
-      const iconSize = definedHeight || definedWidth || 120
-      definedWidth = iconSize
-      definedHeight = iconSize
-    }
-    if (content.height_fill) {
-      // with a tolerance of 200 height should fit grandparents height
-      if (grandParentDim.height === parentDim.height) {
-        definedHeight = Math.ceil(grandParentDim.height)
-      }
-    }
-
-    const imgRatio = {
-      width: definedWidth || 0,
-      height: definedHeight
-    }
-
-    const attrs = getImageAttrs({
-      originalSource: imageSource,
-      ...imgRatio,
-      fitInColor,
-      focalPoint: content.focal_point,
-      smart: imageCrop.includes('smart_crop')
-    })
-    imgProperties.src = attrs.src
-    imgProperties.srcSet = attrs.srcSet
+  let proportionalWidth = 0
+  let proportionalHeight = 0
+  let isProportional = false
+  if (
+    !squareOrRoundedIsSet &&
+    ((definedWidth && !definedHeight) || (!definedWidth && definedHeight))
+  ) {
+    isProportional = true
+    proportionalWidth = definedWidth || 0
+    proportionalHeight = definedHeight || 0
   }
 
-  function onImageLoaded() {
-    setLoaded(true)
+  const containerProps: React.HTMLAttributes<HTMLDivElement> = {}
+  if (onClick) {
+    containerProps.onClick = () => onClick()
   }
-
-  const ratio =
-    definedWidth && definedHeight
-      ? definedWidth / definedHeight
-      : originalDimensions.width / originalDimensions.height
-
-  if (!definedWidth && definedHeight) {
-    definedWidth =
-      (definedHeight * originalDimensions.width) / originalDimensions.height
+  let sizes
+  if (squareSize || definedWidth) {
+    const currentWidth = squareSize || (definedWidth as number)
+    sizes = imageSizesOnWidthAndBreakpoints(currentWidth, breakpoints)
   }
-  if (!definedHeight && definedWidth) {
-    definedHeight =
-      (definedWidth * originalDimensions.height) / originalDimensions.width
-  }
-  definedHeight =
-    originalDimensions.height < (definedHeight || 0)
-      ? originalDimensions.height
-      : definedHeight
-  definedWidth =
-    originalDimensions.width < (definedWidth || 0)
-      ? originalDimensions.width
-      : definedWidth
-
-  return (
-    <>
-      <span
-        ref={refIntersectionObserver}
-        style={{ margin: '0px !important' }}
-      />
-      <AspectRatio
-        ratio={ratio}
-        onClick={() => {
-          onClick && onClick()
-        }}
-        className={clsx(content.class_names?.values)}
-        // className={clsx(classes.root, {
-        // [classes.rootNoMargin]: content.disable_ratio_correction
-        // })}
+  if (square) {
+    return (
+      <div
+        {...containerProps}
         style={{
-          maxHeight: definedHeight,
-          maxWidth: definedWidth,
-          height: getNumber(isMobile ? content.height_xs : content.height),
-          width: getNumber(content.width, 'inherit')
-          // maxHeight: definedHeight
-          //   ? `${definedHeight}px`
-          //   : content.height_fill
-          //   ? '100%'
-          //   : undefined,
-          // maxWidth: definedWidth
-          //   ? `${definedWidth}px`
-          //   : content.height_fill
-          //   ? '100%'
-          //   : undefined
+          margin: 'auto',
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'block',
+          maxWidth: `${squareSize}px`,
+          maxHeight: `${squareSize}px`
         }}
-      >
-        {!loaded && (
-          <Skeleton
-            style={{ position: 'absolute' }}
-            width="100%"
-            height="100%"
-            variant={property.includes('rounded-circle') ? 'circle' : 'rect'}
-          />
+        className={clsx(
+          content.class_names?.values,
+          content.property,
+          loaded ? 'loaded' : 'loading'
         )}
-        <Fade in={loaded}>
-          <img
-            {...imgProperties}
-            alt={content.alt || 'website image'}
-            width={definedWidth || undefined}
-            height={definedHeight || undefined}
-            style={{
-              cursor: onClick ? 'pointer' : undefined,
-              // width: content.width ? `${content.width}px` : 'auto',
-              maxHeight: 'inherit'
-              // height: content.height ? `${content.height}px` : 'auto'
-            }}
-            className={clsx(classes.image, content.property)}
-            onLoad={onImageLoaded}
-          />
-        </Fade>
-      </AspectRatio>
-    </>
+      >
+        <div style={{ paddingBottom: '100%' }} />
+        <Image
+          src={storyblokImage}
+          alt={content.alt || 'website image'}
+          onLoad={() => setLoaded(true)}
+          loading={loading}
+          priority={priority}
+          sizes={sizes}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+    )
+  }
+  return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
+    <div
+      {...containerProps}
+      className={clsx(
+        content.class_names?.values,
+        classes.image,
+        content.property,
+        loaded ? 'loaded' : 'loading'
+      )}
+      style={{
+        cursor: onClick ? 'pointer' : undefined,
+        maxWidth: squareSize
+          ? `${squareSize}px`
+          : isProportional
+          ? Math.max(proportionalWidth, proportionalHeight)
+          : '100%',
+        maxHeight: squareSize
+          ? `${squareSize}px`
+          : isProportional
+          ? Math.max(proportionalHeight, proportionalWidth)
+          : '100%'
+      }}
+    >
+      <Image
+        src={storyblokImage}
+        alt={content.alt || 'website image'}
+        width={squareSize || originalDimensions.width}
+        height={squareSize || originalDimensions.height}
+        onLoad={() => setLoaded(true)}
+        loading={loading}
+        priority={priority}
+        layout="responsive"
+        sizes={sizes}
+      />
+    </div>
   )
 }

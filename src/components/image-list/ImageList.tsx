@@ -5,20 +5,17 @@ import clsx from 'clsx'
 import { useWindowSize } from '@react-hook/window-size'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
-import { useInView } from 'react-intersection-observer'
 import ImageListLightbox from './ImageListLightbox'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmImageListProps } from './imageListTypes'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 export default function LmImageList({
   content
 }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
   const [width, height] = useWindowSize()
-  const [inViewRef, inView] = useInView(intersectionDefaultOptions)
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -30,8 +27,7 @@ export default function LmImageList({
 
   const gutterSize = content.column_gap ? Number(content.column_gap) : 2
 
-  function onImageClick(element: any) {
-    // open lightbox
+  const onImageClick = (element: any) => {
     content.enable_lightbox && setLightbox(element._uid)
   }
 
@@ -42,23 +38,19 @@ export default function LmImageList({
   if (content.masonry) {
     gridListProps.spacing = 0
     gridListProps.style = {
-      // columnCount: columnCount,
       columnGap: `${gutterSize}px`
     }
   }
 
   return (
-    <div className="lm-imagelist__container" ref={inViewRef}>
+    <div className="lm-imagelist__container">
       <div
-        // // style={{
-        // //   padding: `${gutterSize}px`
-        // {/*}}*/}
         className={clsx(classes.root, {
           [gridClasses.masonry]: content.masonry,
           [classes.aspectRatio]: content.aspect_ratio && !content.masonry,
-          [`ratio-${content.aspect_ratio}`]: content.aspect_ratio,
-          'with-lightbox': content.enable_lightbox,
-          [classes.defaultImg]: !content.masonry && !content.aspect_ratio
+          [`ratio-${content.aspect_ratio}`]:
+            content.aspect_ratio && !content.masonry,
+          'with-lightbox': content.enable_lightbox
         })}
       >
         <GridList
@@ -89,11 +81,7 @@ export default function LmImageList({
                   onImageClick({ _uid: item._uid, count: i, ...ev })
                 }
               >
-                <LmComponentRender
-                  content={item}
-                  listProps={content}
-                  inView={inView}
-                />
+                <LmComponentRender content={item} listProps={content} />
               </GridListTile>
             )
           })}

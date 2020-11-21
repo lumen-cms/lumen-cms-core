@@ -1,60 +1,60 @@
-import React, { createRef, FunctionComponent, useEffect, useState } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import CardMedia from '@material-ui/core/CardMedia'
+import Image from 'next/image'
+import { useTheme } from '@material-ui/core/styles'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { getImageAttrs } from '../../utils/ImageService'
-import ImageShadow from '../section/ImageShadow'
+import { getRootImageUrl, getVwByColCount } from '../../utils/ImageService'
 import { CardListItemProps } from './cardTypes'
+import { COLUMN_COUNT } from './cardListStyles'
 
 const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   children,
   content,
-  options,
-  inView
+  options
 }) => {
-  const intersecRef = createRef<HTMLDivElement>() // don't use useRef here!! it randomly returns null
-  const [imgSource, setImgSource] = useState<string>('')
-  const [img, setImg] = useState<{ src?: string; srcSet?: string }>({})
-  const contentImage = content.image
+  const [loaded, setLoaded] = useState<boolean>(false)
+  const imageSource = content.image
   const imageSize = options.image_size
-  useEffect(() => {
-    const { current } = intersecRef
-    if (inView && contentImage && current && !img.src) {
-      setImg(
-        getImageAttrs({
-          originalSource: contentImage,
-          width: current.clientWidth || 0,
-          height: ['contain', 'initial', 'auto'].includes(imageSize)
-            ? 0
-            : current.clientHeight,
-          smart: true
-        })
-      )
-    }
-  }, [inView, contentImage, imageSize, img.src, intersecRef])
+  const { breakpoints } = useTheme()
+  const storyblokImage = getRootImageUrl(imageSource)
 
+  const { column_count, column_count_phone, column_count_tablet } = options
+
+  const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
+  const tabletVw = getVwByColCount(
+    column_count_tablet || column_count || COLUMN_COUNT.TABLET
+  )
+  const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
   return (
     <>
-      {!imgSource && (
-        <Skeleton
-          style={{ position: 'absolute' }}
-          width="100%"
-          height="100%"
-          variant="rect"
-        />
-      )}
-      <ImageShadow src={img.src} srcSet={img.srcSet} afterLoad={setImgSource} />
       <CardMedia
         style={{
-          color:
-            options.variant && options.variant.includes('font_white')
-              ? 'white'
-              : 'inherit',
-          backgroundSize: imageSize || 'cover'
+          color: options.variant?.includes('font_white') ? 'white' : 'inherit',
+          backgroundSize: imageSize || 'cover',
+          position: 'relative'
         }}
-        image={imgSource}
-        ref={intersecRef}
       >
-        {!imgSource && <div />}
+        {!loaded && (
+          <Skeleton
+            style={{ position: 'absolute' }}
+            width="100%"
+            height="100%"
+            variant="rect"
+          />
+        )}
+        <Image
+          src={storyblokImage}
+          onLoad={() => setLoaded(true)}
+          loading="lazy"
+          layout="fill"
+          sizes={`(min-width: 0) and (max-width: ${
+            breakpoints.values.sm - 1
+          }px) ${phoneVw}vw, (min-width: ${
+            breakpoints.values.sm
+          }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
+            ${desktopVw}vw`}
+          objectFit="cover"
+        />
         {children}
       </CardMedia>
     </>

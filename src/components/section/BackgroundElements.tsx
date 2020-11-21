@@ -5,7 +5,7 @@ import {
   BackgroundElementGradientStoryblok,
   BackgroundElementItemStoryblok
 } from '../../typings/generated/components-schema'
-import imageService from '../../utils/ImageService'
+import { getRootImageUrl } from '../../utils/ImageService'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 type BackgroundElementsProps = {
@@ -35,7 +35,7 @@ function BackgroundElements({
         const elementType = item.component
         switch (elementType) {
           case 'background_element_item': {
-            const url = imageService(item.url || '', '')
+            const url = getRootImageUrl(item.url)
             return `url('${url}') ${item.horizontal || 'left'} ${
               item.vertical || 'top'
             }/${item.size || 'auto'} ${item.repeat || 'no-repeat'}`
