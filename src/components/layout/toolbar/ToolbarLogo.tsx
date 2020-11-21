@@ -108,6 +108,7 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
                 loading="eager"
                 alt={websiteTitle || 'website logo'}
                 layout="intrinsic"
+                quality={100}
                 width={dimensions.width}
                 height={dimensions.height}
               />

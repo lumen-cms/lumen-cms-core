@@ -4,7 +4,7 @@ import GoogleFonts from 'next-google-fonts'
 import { useAppContext } from '@context/AppContext'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
-import imageService, {
+import {
   imageServiceNoWebp,
   vercelImageService
 } from '../../utils/ImageService'

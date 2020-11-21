@@ -5,10 +5,7 @@ import {
   BackgroundElementGradientStoryblok,
   BackgroundElementItemStoryblok
 } from '../../typings/generated/components-schema'
-import imageService, {
-  getRootImageUrl,
-  vercelImageService
-} from '../../utils/ImageService'
+import { getRootImageUrl } from '../../utils/ImageService'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 
 type BackgroundElementsProps = {
