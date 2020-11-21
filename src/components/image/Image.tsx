@@ -85,20 +85,6 @@ export default function LmImage({
     proportionalHeight = definedHeight || 0
   }
 
-  // const imageAttrs = imageSource
-  //   ? getImageAttrs({
-  //       originalSource: imageSource,
-  //       width: isProportional
-  //         ? proportionalWidth
-  //         : squareSize || definedWidth || originalDimensions.width,
-  //       height: isProportional
-  //         ? proportionalHeight
-  //         : squareSize || definedHeight || originalDimensions.height,
-  //       focalPoint: content.focal_point,
-  //       smart: !!squareSize
-  //     })
-  //   : undefined
-
   const containerProps: React.HTMLAttributes<HTMLDivElement> = {}
   if (onClick) {
     containerProps.onClick = () => onClick()

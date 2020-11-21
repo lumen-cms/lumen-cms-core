@@ -3,25 +3,16 @@ import SwipeableViews from 'react-swipeable-views'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
 import Image from 'next/image'
-import {
-  getOriginalImageDimensions,
-  getRootImageUrl
-} from '../../utils/ImageService'
+import { getRootImageUrl } from '../../utils/ImageService'
 import InvertedIndicator from '../slider/InvertedIndicator'
 import { ImageListLightboxProps } from './imageListTypes'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 
 function CarouselImageItem({ content }: { content: ImageListItemStoryblok }) {
   const imageSource = getRootImageUrl(content.source)
-  const originalDimensions = getOriginalImageDimensions(imageSource)
   return (
     <div className="carousel-item">
-      <Image
-        src={imageSource}
-        width={originalDimensions.width}
-        height={originalDimensions.height}
-        layout="intrinsic"
-      />
+      <Image src={imageSource} layout="fill" objectFit="contain" />
     </div>
   )
 }

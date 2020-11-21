@@ -14,6 +14,12 @@ import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
+    '& .logo-img': {
+      position: 'relative',
+      '& > div > div': {
+        height: '100%' // need to set see if intrinsic image changes over time
+      }
+    },
     '& .MuiLink-root > div, & .MuiLink-root > div > div': {
       height: '100%'
     },
@@ -24,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       '& .logo-img__mobile': {
         display: 'block'
       },
-      '& .logo-img:not(.logo-img__mobile)': {
+      '& .logo-img__default': {
         display: 'none'
       }
     }
@@ -73,15 +79,6 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
     }
   ].filter((i) => i.source)
 
-  const height = settings.toolbar_main_height
-    ? settings.toolbar_main_height
-    : 40
-
-  // const { isMobile } = useDeviceDimensions()
-
-  // todo rewrite to intrinsic image
-  // const getImageSrc = (image: string) => imageService(image, `0x${height}`)
-
   return (
     <div className={clsx('h-100 d-inline-block', classes.root)}>
       <Link href={homepageHref} passHref>
@@ -91,27 +88,28 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
           {!websiteLogo && <Typography>{websiteTitle}</Typography>}
           {logoImageArray.map(({ isMobile, dimensions, source, isInvert }) => (
             <div
-              style={{
-                width: Math.round(
-                  (height / dimensions.height) * dimensions.width
-                ),
-                height
-              }}
+              className={clsx('logo-img', {
+                'logo-img__default':
+                  (websiteLogoInvert && !isInvert) ||
+                  (websiteLogoInvertMobile && !isInvert),
+                'logo-img__invert': isInvert,
+                'logo-img__mobile': isMobile
+              })}
+              style={
+                {
+                  // width: imageCalculateWidth(height, dimensions)
+                }
+              }
               key={`${source}-${isMobile}-${isInvert}`}
             >
               <Image
                 src={source as string}
                 priority
                 loading="eager"
-                width={dimensions.width}
-                height={dimensions.height}
                 alt={websiteTitle || 'website logo'}
                 layout="intrinsic"
-                className={clsx('logo-img', {
-                  logo__default: websiteLogoInvert && !isInvert,
-                  logo__invert: isInvert,
-                  logo__mobile: isMobile
-                })}
+                width={dimensions.width}
+                height={dimensions.height}
               />
             </div>
           ))}

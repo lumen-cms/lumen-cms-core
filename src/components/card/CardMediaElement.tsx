@@ -3,11 +3,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Image from 'next/image'
 import { useTheme } from '@material-ui/core/styles'
 import Skeleton from '@material-ui/lab/Skeleton'
-import {
-  getImageAttrs,
-  getOriginalImageDimensions,
-  getVwByColCount
-} from '../../utils/ImageService'
+import { getRootImageUrl, getVwByColCount } from '../../utils/ImageService'
 import { CardListItemProps } from './cardTypes'
 import { COLUMN_COUNT } from './cardListStyles'
 
@@ -20,15 +16,8 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   const imageSource = content.image
   const imageSize = options.image_size
   const { breakpoints } = useTheme()
-  const storyblokImage = imageSource?.replace('//a.', 'a.')
-  const originalDimensions = getOriginalImageDimensions(imageSource || '')
-  const imageAttrs = imageSource
-    ? getImageAttrs({
-        originalSource: imageSource,
-        width: originalDimensions.width,
-        height: originalDimensions.height
-      })
-    : undefined
+  const storyblokImage = getRootImageUrl(imageSource)
+
   const { column_count, column_count_phone, column_count_tablet } = options
 
   const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
@@ -55,7 +44,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
           />
         )}
         <Image
-          src={imageAttrs?.src || storyblokImage || ''}
+          src={storyblokImage}
           onLoad={() => setLoaded(true)}
           loading="lazy"
           layout="fill"

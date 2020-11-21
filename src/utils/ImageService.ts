@@ -1,11 +1,5 @@
 import { getGlobalState } from './state/state'
 
-const boundCoordinate = (value: number, upperBound: number) => {
-  const v: number = Math.min(value, upperBound)
-
-  return Math.ceil(v)
-}
-
 export function getOriginalImageDimensions(src = '') {
   if (!src) {
     return {
@@ -43,24 +37,13 @@ export const getVwByColCount = (count?: string | number): number => {
   return c && c > 0 ? Math.round(100 / c) : 100
 }
 
-export const getFocalPoint = (src: string, focalPoint: string) => {
-  const { width, height } = getOriginalImageDimensions(src)
-  const FOCAL_SQUARE_LENGTH = 100
-  const [focalPointXVal, focalPointYVal] = focalPoint.split('x')
-  const focalPointX = parseInt(focalPointXVal)
-  const focalPointY = parseInt(focalPointYVal)
-  const top = boundCoordinate(
-    (focalPointY / 100) * height - FOCAL_SQUARE_LENGTH / 2,
-    height
+export const imageCalculateWidth = (
+  height: number,
+  originalDimensions: { width: number; height: number }
+) => {
+  return Math.round(
+    (height / originalDimensions.height) * originalDimensions.width
   )
-  const left = boundCoordinate(
-    (focalPointX / 100) * width - FOCAL_SQUARE_LENGTH / 2,
-    width
-  )
-  const bottom = boundCoordinate(top + FOCAL_SQUARE_LENGTH, height)
-  const right = boundCoordinate(left + FOCAL_SQUARE_LENGTH, width)
-
-  return `:focal(${left}x${top}:${right}x${bottom})`
 }
 
 export default function imageService(image: string, option = '', filter = '') {
@@ -77,35 +60,9 @@ export default function imageService(image: string, option = '', filter = '') {
   return `https://img2.storyblok.com/${opt}${image.split('storyblok.com')[1]}`
 }
 
-function _getImageSource({
-  image,
-  width,
-  height
-}: {
-  image: string
-  width: number
-  height: number
-}) {
-  let path = ''
-  if (width && height) {
-    path = `${parseInt(String(width))}x${parseInt(String(height))}`
-  }
-  path += '/smart'
-  return imageService(image, path, '')
-}
-
-export function getPreviewImageSource(image: string) {
-  const orig = getOriginalImageDimensions(image)
-  return _getImageSource({
-    image,
-    width: orig.width / 100,
-    height: orig.height / 100
-  })
-}
-
 export function imageServiceNoWebp(image: string, option = '') {
   if (image.endsWith('.svg') || !option) {
-    return image.replace('//a.', 'https://a.')
+    return getRootImageUrl(image)
   }
   const imageService2 = 'https://img2.storyblok.com/'
   const path = image.replace('//a.storyblok.com', '')
@@ -158,9 +115,7 @@ export function getImageAttrs({
     filterVar += `:fill(${fitInColor})`
   }
   const path = getPath(dimW, dimH)
-  if (focalPoint) {
-    filterVar += getFocalPoint(originalSource, focalPoint)
-  }
+
   const src = imageService(originalSource, path, filter)
   const imgObj = {
     src,
