@@ -28,11 +28,7 @@ export const getVwByColCount = (count?: string | number): number => {
 export const imageCalculateWidth = (
   height: number,
   originalDimensions: { width: number; height: number }
-) => {
-  return Math.round(
-    (height / originalDimensions.height) * originalDimensions.width
-  )
-}
+) => Math.round((height / originalDimensions.height) * originalDimensions.width)
 
 const calculatePxToVw = (absolute: number, breakpoint: number) =>
   absolute > breakpoint ? 100 : Math.round((absolute / breakpoint) * 100)
@@ -40,8 +36,8 @@ const calculatePxToVw = (absolute: number, breakpoint: number) =>
 export const imageSizesOnWidthAndBreakpoints = (
   currentWidth: number,
   breakpoints: Theme['breakpoints']
-) => {
-  return `(min-width: 0) and (max-width: ${
+) =>
+  `(min-width: 0) and (max-width: ${
     breakpoints.values.sm - 1
   }px) ${calculatePxToVw(
     currentWidth,
@@ -52,7 +48,6 @@ export const imageSizesOnWidthAndBreakpoints = (
     currentWidth,
     breakpoints.values.md - 1
   )}vw, ${calculatePxToVw(currentWidth, breakpoints.values.lg)}vw`
-}
 
 export function imageService(image: string, option = '', filter = '') {
   let opt = option
