@@ -2,10 +2,10 @@ import { BannerLayer, ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import Skeleton from '@material-ui/lab/Skeleton'
 import { makeStyles } from '@material-ui/core/styles'
 import { useWindowSize } from '@react-hook/window-size'
-import { getImageAttrs } from '../../utils/ImageService'
+import Image from 'next/image'
+import { getImageAttrs, getRootImageUrl } from '../../utils/ImageService'
 import { getImagePromise } from '../../utils/fetchImageHelper'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmComponentRender } from '../..'
@@ -98,16 +98,48 @@ export default function LmSectionParallax({
       style={{ ...styles, position: 'relative' }}
       ref={refIntersectionObserver}
     >
-      <ParallaxBanner disabled={false} style={styles} layers={layers || []}>
-        {!layers && (
-          <Skeleton
-            style={{ position: 'absolute' }}
-            width="100%"
-            height="100%"
-            variant="rect"
-          />
-        )}
-      </ParallaxBanner>
+      <ParallaxBanner
+        disabled={false}
+        style={styles}
+        layers={
+          content.elements?.map((item) => {
+            return {
+              amount: Number(item.amount),
+              children: (
+                <>
+                  {item.image && (
+                    <Image
+                      src={getRootImageUrl(item.image)}
+                      layout="fill"
+                      objectFit="fill"
+                    />
+                  )}
+                  {item.children?.map((child) => (
+                    <LmComponentRender content={child} key={child._uid} />
+                  ))}
+                </>
+              )
+              // children: () => (
+              //   <>
+              //     {item.image && (
+              //       <Image
+              //         src={getRootImageUrl(item.image)}
+              //         layout="fill"
+              //         objectFit="fill"
+              //       />
+              //     )}
+              //     {item.children?.length && (
+              //       <LmComponentRender
+              //         content={item.children[0]}
+              //         key={item.children[0]._uid}
+              //       />
+              //     )}
+              //   </>
+              // )
+            }
+          }) || []
+        }
+      />
       <div
         className={clsx('parallax__content', content.class_names?.values)}
         style={styles}
