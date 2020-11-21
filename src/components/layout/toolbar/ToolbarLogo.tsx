@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       '& .logo-img__mobile': {
         display: 'block'
       },
-      '& .logo-img__default': {
+      '& .logo-img__default, & .logo-img__desktop': {
         display: 'none'
       }
     }
@@ -93,7 +93,10 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
                   (websiteLogoInvert && !isInvert) ||
                   (websiteLogoInvertMobile && !isInvert),
                 'logo-img__invert': isInvert,
-                'logo-img__mobile': isMobile
+                'logo-img__mobile': isMobile,
+                'logo-img__desktop':
+                  (source === websiteLogo && websiteLogoMobile) ||
+                  (source === websiteLogoInvert && !isInvert)
               })}
               style={
                 {
