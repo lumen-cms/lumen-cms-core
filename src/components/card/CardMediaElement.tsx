@@ -25,7 +25,6 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
     column_count_tablet || column_count || COLUMN_COUNT.TABLET
   )
   const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
-  console.log(imageSize)
   return (
     <>
       <CardMedia

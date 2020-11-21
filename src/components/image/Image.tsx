@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   image: {
     margin: 'auto',
     width: '100%',
-    height: '100%',
+    height: 'auto',
     '&.img-thumbnail': {
       padding: '.25rem',
       backgroundColor: theme.palette.background.default,
