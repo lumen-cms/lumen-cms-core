@@ -95,7 +95,7 @@ export default function LmImage({
     const currentWidth = squareSize || (definedWidth as number)
     sizes = imageSizesOnWidthAndBreakpoints(currentWidth, breakpoints)
   }
-  if (square) {
+  if (square && squareSize) {
     return (
       <div
         {...containerProps}
@@ -105,7 +105,9 @@ export default function LmImage({
           overflow: 'hidden',
           display: 'block',
           maxWidth: `${squareSize}px`,
-          maxHeight: `${squareSize}px`
+          maxHeight: `${squareSize}px`,
+          width: squareSize < 360 ? `${squareSize}px` : undefined,
+          height: squareSize < 360 ? `${squareSize}px` : undefined
         }}
         className={clsx(
           content.class_names?.values,
