@@ -156,6 +156,7 @@ type LmCoreComponentsProps = {
   category_box?: JSXElementConstructor<LmCategoryBoxProps>
   list_search_field?: JSXElementConstructor<LmListSearchFieldProps>
   link?: JSXElementConstructor<LmLinkProps>
+  // eslint-disable-next-line
   list_search_autocomplete?: JSXElementConstructor<
     LmListSearchAutocompleteProps
   >
