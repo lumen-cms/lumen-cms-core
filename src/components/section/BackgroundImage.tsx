@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -117,7 +117,7 @@ const BackgroundImage = ({
     )
   }
 
-  if (backgroundStyle === 'fixed_cover') {
+  if (['fixed_cover', 'fixed_image'].includes(backgroundStyle || '')) {
     return (
       <>
         <div
