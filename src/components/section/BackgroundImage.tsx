@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import Image from 'next/image'

@@ -163,6 +163,7 @@ export default function LmImage({
         priority={priority}
         layout="responsive"
         sizes={sizes}
+        unoptimized={imageSource.endsWith('.gif')}
       />
     </div>
   )
