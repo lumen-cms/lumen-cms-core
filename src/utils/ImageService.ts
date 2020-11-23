@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core'
+import { Theme } from '@material-ui/core/styles'
 
 export function getOriginalImageDimensions(src = '') {
   if (!src) {
