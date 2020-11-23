@@ -7,7 +7,6 @@ export interface State {
     searchText: string | undefined
     categories: string[] | undefined
   }
-  hasWebpSupport?: boolean
 }
 
 const initialState: State = {
@@ -16,8 +15,7 @@ const initialState: State = {
   searchParams: {
     searchText: undefined,
     categories: undefined
-  },
-  hasWebpSupport: undefined
+  }
 }
 const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState(
   initialState

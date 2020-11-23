@@ -37,7 +37,8 @@ NextComposed.displayName = 'NextComposedLink'
 // https://nextjs.org/docs/#with-link
 function Link({
   href,
-  // activeClassName = 'active',
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  activeClassName = 'active',
   className: classNameProps,
   innerRef,
   naked,

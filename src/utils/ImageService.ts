@@ -1,5 +1,4 @@
 import { Theme } from '@material-ui/core'
-import { getGlobalState } from './state/state'
 
 export function getOriginalImageDimensions(src = '') {
   if (!src) {
@@ -49,21 +48,7 @@ export const imageSizesOnWidthAndBreakpoints = (
     breakpoints.values.md - 1
   )}vw, ${calculatePxToVw(currentWidth, breakpoints.values.lg)}vw`
 
-export function imageService(image: string, option = '', filter = '') {
-  let opt = option
-  if (image.endsWith('.svg')) {
-    return image
-  }
-  opt && (opt += '/')
-  if (getGlobalState('hasWebpSupport')) {
-    opt += `filters:format(webp)${filter}`
-  } else if (filter) {
-    opt += `filters${filter}`
-  }
-  return `https://img2.storyblok.com/${opt}${image.split('storyblok.com')[1]}`
-}
-
-export function imageServiceNoWebp(image: string, option = '') {
+export function imageServiceNoWebp(image = '', option = '') {
   if (image.endsWith('.svg') || !option) {
     return getRootImageUrl(image)
   }

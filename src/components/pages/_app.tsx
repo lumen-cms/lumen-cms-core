@@ -5,8 +5,6 @@ import { CONFIG } from '@CONFIG'
 import Head from 'next/head'
 import { AppPageProps } from '../../typings/app'
 import { AppContainer } from '../layout/AppContainer'
-import { getGlobalState, setGlobalState } from '../../utils/state/state'
-import hasWebpSupport from '../../utils/detectWebpSupport'
 import { useStoryblokComposer } from '../../utils/hooks/useStoryblokComposer'
 import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 
@@ -18,10 +16,6 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
 
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
-
-  if (typeof getGlobalState('hasWebpSupport') === 'undefined') {
-    hasWebpSupport().then((has) => setGlobalState('hasWebpSupport', has))
-  }
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {

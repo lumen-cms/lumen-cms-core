@@ -8,16 +8,18 @@ import { LmComponentRender } from '../..'
 import { LmSectionParallaxProps } from './sectionTypes'
 
 const useStyles = makeStyles({
-  parallax: {
-    '& .parallax__content': {
-      zIndex: 1,
-      position: 'absolute',
-      width: '100%',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0
-    }
+  parallaxRoot: {
+    position: 'relative'
+  },
+  parallaxContent: {
+    overflowX: 'hidden',
+    zIndex: 1,
+    position: 'absolute',
+    width: '100%',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0
   }
 })
 
@@ -31,12 +33,8 @@ export default function LmSectionParallax({
   }
 
   return (
-    <div
-      className={classes.parallax}
-      style={{ ...styles, position: 'relative' }}
-    >
+    <div className={classes.parallaxRoot} style={{ ...styles }}>
       <ParallaxBanner
-        disabled={false}
         style={styles}
         layers={
           content.elements?.map((item) => {
@@ -62,7 +60,7 @@ export default function LmSectionParallax({
         }
       />
       <div
-        className={clsx('parallax__content', content.class_names?.values)}
+        className={clsx(classes.parallaxContent, content.class_names?.values)}
         style={styles}
       >
         {content.body?.map((blok) => (

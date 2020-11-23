@@ -4,10 +4,11 @@ import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
 import Image from 'next/image'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import {
   getOriginalImageDimensions,
-  getRootImageUrl
+  getRootImageUrl,
+  imageSizesOnWidthAndBreakpoints
 } from '../../../utils/ImageService'
 import { LmToolbarLogoProps } from './toolbarTypes'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
   const classes = useStyles()
+  const { breakpoints } = useTheme()
   const homepageHref = useHomepageLink()
   const websiteTitle = settings.website_title
   const websiteLogo = getRootImageUrl(settings.website_logo)
@@ -98,11 +100,6 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
                   (source === websiteLogo && websiteLogoMobile) ||
                   (source === websiteLogoInvert && !isInvert)
               })}
-              style={
-                {
-                  // width: imageCalculateWidth(height, dimensions)
-                }
-              }
               key={`${source}-${isMobile}-${isInvert}`}
             >
               <Image
@@ -111,9 +108,12 @@ export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
                 loading="eager"
                 alt={websiteTitle || 'website logo'}
                 layout="intrinsic"
-                quality={100}
-                width={dimensions.width}
-                height={dimensions.height}
+                sizes={imageSizesOnWidthAndBreakpoints(
+                  dimensions.width,
+                  breakpoints
+                )}
+                quality={95}
+                {...dimensions}
               />
             </div>
           ))}

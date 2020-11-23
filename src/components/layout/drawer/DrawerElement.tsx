@@ -1,10 +1,17 @@
 import React, { memo } from 'react'
 import Link from 'next/link'
 import { useAppSetup } from '@context/AppSetupContext'
+import Image from 'next/image'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import clsx from 'clsx'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
-import { imageService } from '../../../utils/ImageService'
+import {
+  getOriginalImageDimensions,
+  getRootImageUrl,
+  imageSizesOnWidthAndBreakpoints
+} from '../../../utils/ImageService'
 import { ContentSpace } from '../ContentSpace'
 import { DrawerContentList } from './DrawerContentList'
 import MwcDrawer from './MwcDrawer'
@@ -15,9 +22,23 @@ type DrawerElementProps = {
   settings: GlobalStoryblok
 }
 
+const useStyles = makeStyles({
+  logoRoot: {
+    '& > div': {
+      height: '40px'
+    }
+  },
+  logo: {
+    objectFit: 'contain',
+    objectPosition: 'left'
+  }
+})
+
 function DrawerElement({ settings }: DrawerElementProps): JSX.Element {
   const appSetup = useAppSetup()
   const homepageHref = useHomepageLink()
+  const { breakpoints } = useTheme()
+  const classes = useStyles()
   const background =
     Array.isArray(settings.drawer_background) && settings.drawer_background[0]
   const backgroundProps = useBackgroundBox({ background })
@@ -41,13 +62,15 @@ function DrawerElement({ settings }: DrawerElementProps): JSX.Element {
             <Link href={homepageHref}>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a>
-                <div className="p-3">
-                  {!websiteLogo && websiteTitle}
+                <div className={clsx('p-3', classes.logoRoot)}>
+                  {!websiteLogo && { websiteTitle }}
                   {websiteLogo && (
-                    <img
-                      src={imageService(websiteLogo, '0x128')}
-                      height="48"
-                      alt={websiteTitle || 'website logo'}
+                    <Image
+                      src={getRootImageUrl(websiteLogo)}
+                      layout="intrinsic"
+                      {...getOriginalImageDimensions(websiteLogo)}
+                      className={classes.logo}
+                      sizes={imageSizesOnWidthAndBreakpoints(360, breakpoints)}
                     />
                   )}
                 </div>
