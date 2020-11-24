@@ -34,8 +34,12 @@ type MainContentProps = {
 export function MainContent({ body }: MainContentProps): JSX.Element {
   return (
     <MainContentContainer>
-      {body.map((blok) => (
-        <LmComponentRender content={blok} key={blok._uid} />
+      {body.map((blok, iteration) => (
+        <LmComponentRender
+          content={blok}
+          key={blok._uid}
+          sectionPosition={iteration}
+        />
       ))}
     </MainContentContainer>
   )

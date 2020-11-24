@@ -67,11 +67,13 @@ const useStyles = makeStyles((theme: Theme) =>
 type BackgroundImageProps = {
   content: BackgroundStoryblok
   backgroundStyle?: SectionStoryblok['background_style']
+  sectionPosition?: number
 }
 
 const BackgroundImage = ({
   content,
-  backgroundStyle
+  backgroundStyle,
+  sectionPosition
 }: BackgroundImageProps): JSX.Element | null => {
   const classes = useStyles()
 
@@ -80,18 +82,17 @@ const BackgroundImage = ({
     alternative_image,
     background_position,
     background_size,
-    // disable_smart_crop,
-    // image_focal_point,
     hide_image_on_breakpoint,
     priority,
     disable_lazy_loading
   } = content
 
-  const loading = priority
-    ? undefined
-    : disable_lazy_loading
-    ? 'eager'
-    : undefined
+  const loading =
+    priority || sectionPosition === 0
+      ? undefined
+      : disable_lazy_loading
+      ? 'eager'
+      : undefined
   const imageSource = getRootImageUrl(image)
   const imageSourcePortrait = alternative_image
     ? getRootImageUrl(alternative_image)
@@ -104,7 +105,7 @@ const BackgroundImage = ({
     return (
       <Image
         src={props.src}
-        priority={!!priority}
+        priority={!!priority || sectionPosition === 0}
         loading={loading}
         objectFit={
           background_size !== 'auto' && background_size

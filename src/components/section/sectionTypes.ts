@@ -11,8 +11,14 @@ export interface SectionProps extends SectionStoryblok {
   presetVariant?: SectionStoryblok['variant']
 }
 
-export type LmSectionParallaxProps = { content: SectionParallaxStoryblok }
-export type LmSectionVideoProps = { content: SectionVideoBgStoryblok }
+export type LmSectionParallaxProps = {
+  content: SectionParallaxStoryblok
+  sectionPosition?: number
+}
+export type LmSectionVideoProps = {
+  content: SectionVideoBgStoryblok
+  sectionPosition?: number
+}
 export type LmGridRowProps = { content: RowStoryblok }
 export type LmGridColumnProps = {
   content: ColumnStoryblok
@@ -20,4 +26,5 @@ export type LmGridColumnProps = {
 }
 export type LmSectionProps = {
   content: SectionProps
+  sectionPosition?: number
 }

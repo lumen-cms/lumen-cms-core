@@ -6,7 +6,7 @@ import { LinkProps, NextComposedProps } from './linkTypes'
 
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
-    const { defaultLocale, locales } = useRouter()
+    const { defaultLocale, locales, locale } = useRouter()
     if (other.external) {
       delete other.external
       // eslint-disable-next-line jsx-a11y/anchor-has-content
@@ -23,7 +23,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
         scroll={scroll}
         shallow={shallow}
         passHref={passHref}
-        locale={detectedLocale}
+        locale={detectedLocale !== locale ? false : undefined}
       >
         {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
         <a ref={ref} {...other} />

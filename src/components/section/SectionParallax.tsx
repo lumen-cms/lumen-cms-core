@@ -24,7 +24,8 @@ const useStyles = makeStyles({
 })
 
 export default function LmSectionParallax({
-  content
+  content,
+  sectionPosition
 }: LmSectionParallaxProps): JSX.Element {
   const classes = useStyles()
   const contentHeight = content.height
@@ -44,7 +45,9 @@ export default function LmSectionParallax({
                 <>
                   {item.image && (
                     <Image
-                      priority={!!content.disable_lazy_load}
+                      priority={
+                        !!content.disable_lazy_load || sectionPosition === 0
+                      }
                       src={getRootImageUrl(item.image)}
                       layout="fill"
                       objectFit="cover"

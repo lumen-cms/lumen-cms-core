@@ -33,20 +33,17 @@ const calculatePxToVw = (absolute: number, breakpoint: number) =>
   absolute > breakpoint ? 100 : Math.round((absolute / breakpoint) * 100)
 
 export const imageSizesOnWidthAndBreakpoints = (
-  currentWidth: number,
+  width: number,
   breakpoints: Theme['breakpoints']
 ) =>
   `(min-width: 0) and (max-width: ${
     breakpoints.values.sm - 1
-  }px) ${calculatePxToVw(
-    currentWidth,
-    breakpoints.values.sm - 1
-  )}vw, (min-width: ${breakpoints.values.sm}px) and (max-width: ${
+  }px) ${calculatePxToVw(width, breakpoints.values.sm - 1)}vw, (min-width: ${
+    breakpoints.values.sm
+  }px) and (max-width: ${breakpoints.values.md - 1}px): ${calculatePxToVw(
+    width,
     breakpoints.values.md - 1
-  }px): ${calculatePxToVw(
-    currentWidth,
-    breakpoints.values.md - 1
-  )}vw, ${calculatePxToVw(currentWidth, breakpoints.values.lg)}vw`
+  )}vw, ${calculatePxToVw(width, breakpoints.values.lg)}vw`
 
 export function imageServiceNoWebp(image = '', option = '') {
   if (image.endsWith('.svg') || !option) {

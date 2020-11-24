@@ -30,7 +30,10 @@ const useStyles = makeStyles({
   }
 })
 
-export function LmSection({ content }: LmSectionProps): JSX.Element {
+export function LmSection({
+  content,
+  sectionPosition
+}: LmSectionProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()
 
@@ -81,6 +84,7 @@ export function LmSection({ content }: LmSectionProps): JSX.Element {
     >
       {(background?.image || background?.background_elements) && (
         <BackgroundImage
+          sectionPosition={sectionPosition}
           content={background}
           backgroundStyle={content.background_style}
         />
