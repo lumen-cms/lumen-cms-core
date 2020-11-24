@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.79.4",
+  "version": "0.79.8",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -64,7 +64,7 @@
     "intersection-observer": "0.11.0",
     "js-cookie": "2.2.1",
     "lumen-cms-utils": "2.0.0",
-    "marked": "1.2.4",
+    "marked": "1.2.5",
     "mdi-material-ui": "6.20.0",
     "next-compose-plugins": "2.2.1",
     "next-google-fonts": "^1.2.1",
@@ -72,7 +72,7 @@
     "next-transpile-modules": "4.1.0",
     "nprogress": "0.2.0",
     "react-form-hook-mui": "0.10.5",
-    "react-hook-form": "6.11.4",
+    "react-hook-form": "6.11.5",
     "react-hooks-global-state": "1.0.1",
     "react-inlinesvg": "2.1.1",
     "react-intersection-observer": "8.30.3",
@@ -92,7 +92,7 @@
     "uuid": "^8.3.0"
   },
   "peerDependencies": {
-    "next": "^10.0.2",
+    "next": "^10.0.3",
     "react-dom": "^17.0.1",
     "react": "^17.0.1"
   },
@@ -104,7 +104,7 @@
     "@graphql-codegen/typescript-graphql-files-modules": "^1.18.0",
     "@graphql-codegen/typescript-operations": "1.17.9",
     "@lumen/storyblok-material-icons": "git+https://github.com/dohomi/storyblok-fieldtype-material-icons-selector.git",
-    "@next/bundle-analyzer": "^10.0.2",
+    "@next/bundle-analyzer": "^10.0.3",
     "@storybook/addon-essentials": "6.1.0-rc.2",
     "@storybook/addon-knobs": "6.1.0-rc.2",
     "@storybook/react": "6.1.0-rc.2",
@@ -113,7 +113,7 @@
     "@types/match-sorter": "5.0.0",
     "@types/node": "14.14.7",
     "@types/node-fetch": "2.5.7",
-    "@types/react": "^16.9.56",
+    "@types/react": "^17.0.0",
     "@types/uuid": "^8.3.0",
     "core-js": "3.7.0",
     "cross-env": "^7.0.2",
@@ -127,7 +127,7 @@
     "json-schema-to-typescript": "^9.1.1",
     "jwks-rsa": "^1.11.0",
     "lorem-ipsum": "^2.0.3",
-    "next": "10.0.2",
+    "next": "10.0.3",
     "np": "^7.0.0",
     "playwright": "1.5.2",
     "prettier": "^2.1.2",
@@ -138,6 +138,6 @@
     "ts-jest": "^26.4.3",
     "ts-node": "^9.0.0",
     "tslib": "^2.0.1",
-    "typescript": "4.0.5"
+    "typescript": "4.1.2"
   }
 }

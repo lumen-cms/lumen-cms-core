@@ -49,17 +49,23 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     rootFixedImage: {
-      clip: 'rect(0,auto,auto,0)!important',
-      clipPath: 'polygon(0px 0px,100% 0px,100% 100%,0px 100%)!important'
+      // disable for mobile
+      [theme.breakpoints.up('sm')]: {
+        clip: 'rect(0,auto,auto,0)!important',
+        clipPath: 'polygon(0px 0px,100% 0px,100% 100%,0px 100%)!important'
+      }
     },
     fixedCoverImageWrap: {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      overflow: 'hidden',
-      zIndex: -1
+      // disable for mobile
+      [theme.breakpoints.up('sm')]: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        zIndex: -1
+      }
     }
   })
 )
