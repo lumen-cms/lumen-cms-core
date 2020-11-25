@@ -79,6 +79,7 @@ type AppConfigProps = {
   previewToken: string
   rootDirectory?: string
   overwriteLocale?: string
+  enableLocaleSuffix?: boolean
   suppressSlugLocale?: boolean
   suppressSlugIncludeDefault?: boolean
   overwriteDisableIndex?: boolean
@@ -103,6 +104,7 @@ export const CONFIG: AppConfigProps = {
       ? process.env.NEXT_PUBLIC_PREVIEW_TOKEN
       : process.env.NEXT_PUBLIC_PUBLIC_TOKEN) || '',
   rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
+  enableLocaleSuffix: !!process.env.NEXT_PUBLIC_ENABLE_LOCALE_SUFFIX,
   overwriteLocale: process.env.NEXT_PUBLIC_OVERWRITE_LOCALE,
   suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE,
   overwriteDisableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,

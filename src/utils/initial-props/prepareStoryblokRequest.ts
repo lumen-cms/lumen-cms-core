@@ -24,6 +24,7 @@ export const prepareForStoryblok = (
     // if the first entry is not root directory append root directory
     first !== rootDirectory && slugAsArray.unshift(rootDirectory)
   }
+
   const pageSlug = slugAsArray.join('/')
   return {
     pageSlug

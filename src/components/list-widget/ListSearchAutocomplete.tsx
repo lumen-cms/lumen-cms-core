@@ -130,6 +130,9 @@ export default function LmListSearchAutocomplete({
   if (CONFIG.rootDirectory) {
     prefixLocale = CONFIG.rootDirectory
   }
+  if (CONFIG.enableLocaleSuffix) {
+    prefixLocale = locale
+  }
   const isMobileAction = content.mobile_breakpoint && matches
   const { callback } = useDebouncedCallback((value: string) => {
     if (value.length < 2) {

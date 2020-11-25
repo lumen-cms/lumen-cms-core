@@ -3,7 +3,7 @@ import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
 
-const { rootDirectory } = CONFIG
+const { rootDirectory, enableLocaleSuffix } = CONFIG
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
@@ -103,7 +103,9 @@ export const apiRequestResolver = async ({
   ...options
 }: ApiProps): Promise<AppApiRequestPayload> => {
   const locale =
-    options.locale !== options.defaultLocale ? options.locale : undefined
+    options.locale !== options.defaultLocale || enableLocaleSuffix
+      ? options.locale
+      : undefined
   const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
     pageSlug.includes(path)
   )
