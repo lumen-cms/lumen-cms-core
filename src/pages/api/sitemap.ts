@@ -1,14 +1,14 @@
 import { SitemapStream, streamToPromise } from 'sitemap'
-import { IncomingMessage, ServerResponse } from 'http'
 import { internalLinkHandler } from 'lumen-cms-utils'
+import { NextApiRequest, NextApiResponse } from 'next'
 import { getAllStoriesOfProject } from '../../utils/initial-props/storyblokPagesConfig'
 import { PageItem } from '../../typings/generated/schema'
 import { SSR_CONFIG } from '../../utils/initial-props/ssrConfig'
 // import { createGzip } from 'zlib'
 
 export default async function sitemapApi(
-  req: IncomingMessage,
-  res: ServerResponse
+  req: NextApiRequest,
+  res: NextApiResponse
 ) {
   // res.setHeader('Content-Encoding', 'gzip')
   try {
@@ -16,6 +16,18 @@ export default async function sitemapApi(
     const smStream = new SitemapStream({
       hostname: `https://${req.headers.host}`
     })
+    let locale: string
+    if (process.env.LOCALE_DOMAIN_MAP) {
+      const domainMap: { locale: string; domain: string }[] = JSON.parse(
+        process.env.LOCALE_DOMAIN_MAP
+      )
+      const checkMap = domainMap.find(
+        (items) => items.domain === req.headers.host
+      )
+      if (checkMap?.locale) {
+        locale = checkMap.locale
+      }
+    }
     const ignoreList =
       (process.env.SITEMAP_IGNORE_PATH &&
         process.env.SITEMAP_IGNORE_PATH.split(',')) ||
@@ -46,7 +58,9 @@ export default async function sitemapApi(
         }
       }
     }
-    await Promise.all(SSR_CONFIG.ssrHooks.sitemap.map((func) => func(smStream)))
+    await Promise.all(
+      SSR_CONFIG.ssrHooks.sitemap.map((func) => func(smStream, locale))
+    )
     smStream.end()
 
     const sitemap = await streamToPromise(smStream).then((sm) => sm.toString())

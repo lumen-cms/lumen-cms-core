@@ -4,7 +4,7 @@ import { AppPageProps } from '../../typings/app'
 export type SSR_CONFIG_PROPS = {
   ssrHooks: {
     pageProps: ((props: AppPageProps) => Promise<void>)[]
-    sitemap: ((stream: SitemapStream) => Promise<void>)[]
+    sitemap: ((stream: SitemapStream, locale?: string) => Promise<void>)[]
   }
 }
 
