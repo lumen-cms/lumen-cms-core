@@ -220,6 +220,13 @@ export interface ButtonListStoryblok {
   [k: string]: any;
 }
 
+export interface ButtonSpeechTextStoryblok {
+  trigger?: any[];
+  _uid: string;
+  component: "button_speech_text";
+  [k: string]: any;
+}
+
 export interface CardListStoryblok {
   column_gap?: "0" | "2" | "4" | "8" | "16" | "24" | "32";
   column_count?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
@@ -760,6 +767,7 @@ export interface HeadlineStoryblok {
   styles_mobile?: any[];
   styles_tablet?: any[];
   styles_hover?: any[];
+  enable_speech?: boolean;
   _uid: string;
   component: "headline";
   [k: string]: any;
@@ -887,7 +895,6 @@ export interface ImageListStoryblok {
   text_protection?: boolean;
   enable_lightbox?: boolean;
   masonry?: boolean;
-  image_crop?: "crop" | "smart" | "fit_in";
   fit_in_color?: string;
   column_gap?: "0" | "2" | "4" | "8" | "16" | "24" | "32";
   column_count?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
@@ -1297,6 +1304,7 @@ export interface RichTextEditorStoryblok {
   styles_mobile?: any[];
   styles_tablet?: any[];
   styles_hover?: any[];
+  enable_speech?: boolean;
   _uid: string;
   component: "rich_text_editor";
   [k: string]: any;

@@ -25,6 +25,7 @@ export function LmRichTextParagraph({
         content.style,
         content.class_names && content.class_names.values,
         {
+          enable__speech: content.enable_speech,
           [advancedClasses.advanced]: content.styles?.length,
           [advancedClasses.advancedTablet]: content.styles_tablet?.length,
           [advancedClasses.advancedMobile]: content.styles_mobile?.length,

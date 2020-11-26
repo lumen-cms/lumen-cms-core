@@ -144,6 +144,13 @@ LmCoreComponents.bottom_navigation = dynamic(
       /* webpackChunkName: 'bottomNavigation' */ './bottom-navigation/BottomNavigation'
     )
 )
+LmCoreComponents.button_speech_text = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: 'buttonSpeechText' */ './button/ButtonSpeechText'
+    ),
+  { ssr: false }
+)
 // LmCoreComponents.auth_form = dynamic(
 //   () => import(/* webpackChunkName: 'bottomNavigation' */ './auth/AuthForm')
 // )

@@ -2,8 +2,8 @@ import React from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 import { useRouter } from 'next/router'
+import { CONFIG } from '@CONFIG'
 import { LinkProps, NextComposedProps } from './linkTypes'
-import { CONFIG } from '../../index'
 
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
@@ -19,7 +19,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
     return (
       <NextLink
         href={
-          CONFIG.enableLocaleSuffix ? href.replace(`/${locale}/`, '') : href
+          CONFIG.enableLocaleSuffix ? href.replace(`/${locale}/`, '/') : href
         }
         prefetch={prefetch}
         replace={replace}

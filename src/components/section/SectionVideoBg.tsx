@@ -2,7 +2,6 @@ import { useInView } from 'react-intersection-observer'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Container, { ContainerProps } from '@material-ui/core/Container'
-import { useWindowSize } from '@react-hook/window-size'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import FullscreenVideoBg from './FullscreenVideoBg'
 import { LmComponentRender } from '../..'
@@ -72,7 +71,6 @@ export default function LmSectionVideo({
 }: LmSectionVideoProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()
-  const [width, height] = useWindowSize()
   const [intersectionRef, inView, intersectionElement] = useInView(
     intersectionDefaultOptions
   )
@@ -115,7 +113,7 @@ export default function LmSectionVideo({
         })
       }
     }
-  }, [inView, width, height, videoUrl, fixedToRatio, intersectionElement])
+  }, [inView, videoUrl, fixedToRatio, intersectionElement])
 
   const maxWidth = content.max_width
     ? content.max_width === 'none'

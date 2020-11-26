@@ -18,6 +18,4 @@ export type ImageListLightboxProps = {
   lightbox: string
   setLightbox: Dispatch<SetStateAction<string>>
   onImageClick: (ImageListItemStoryblok: ImageListItemStoryblok) => void
-  width: number
-  height: number
 }

@@ -26,6 +26,7 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({
         content.style_props,
         content.class_names && content.class_names.values,
         {
+          enable__speech: content.enable_speech,
           [classes.advanced]: content.styles?.length,
           [classes.advancedMobile]: content.styles_mobile?.length,
           [classes.advancedTablet]: content.styles_tablet?.length,

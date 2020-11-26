@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import GridList, { GridListProps } from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
-import { useWindowSize } from '@react-hook/window-size'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import ImageListLightbox from './ImageListLightbox'
@@ -15,7 +14,6 @@ export default function LmImageList({
   content
 }: LmImageListProps): JSX.Element {
   const classes = useImageListStyles()
-  const [width, height] = useWindowSize()
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
@@ -93,8 +91,6 @@ export default function LmImageList({
           lightbox={lightbox}
           setLightbox={setLightbox}
           onImageClick={onImageClick}
-          width={width}
-          height={height}
         />
       )}
     </div>
