@@ -9,6 +9,8 @@ const locale = 'de'
 export default function ButtonSpeechText({ content }: LmButtonSpeechTextProps) {
   const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis()
   const currentVoices: SpeechSynthesisVoice[] = voices
+  const trigger: ButtonStoryblok | undefined =
+    Array.isArray(content.trigger) && content.trigger[0]
 
   const onClick = () => {
     if (speaking) {
@@ -34,7 +36,7 @@ export default function ButtonSpeechText({ content }: LmButtonSpeechTextProps) {
           _uid: content._uid,
           component: 'button',
           label: 'Click to speech',
-          ...content.trigger,
+          ...(trigger || {}),
           ...(speaking
             ? {
                 trailing_icon: {

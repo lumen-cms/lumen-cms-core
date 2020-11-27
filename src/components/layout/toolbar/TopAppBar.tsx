@@ -100,10 +100,8 @@ const useStyles = makeStyles((theme: Theme) =>
       return options
     },
     toolbar: {
-      height: theme.toolbar.height.custom
-        ? Number(theme.toolbar.height.custom)
-        : theme.toolbar.height.mobile,
       transitionDuration: '500ms',
+      height: theme.toolbar.height.mobile,
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
         height: theme.toolbar.height.custom
           ? Math.round(theme.toolbar.height.custom * 0.86)

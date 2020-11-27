@@ -8,15 +8,10 @@ import { ContentSpaceProps } from './layoutTypes'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     contentSpace: {
-      height: theme.toolbar.height.custom
-        ? Number(theme.toolbar.height.custom)
-        : theme.toolbar.height.mobile,
+      height: theme.toolbar.height.mobile,
       transitionDuration: '500ms',
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-        height: theme.toolbar.height.custom
-          ? Math.round(theme.toolbar.height.custom * 0.86) +
-            theme.toolbar.height.systemBar
-          : theme.toolbar.height.landscape + theme.toolbar.height.systemBar
+        height: theme.toolbar.height.landscape + theme.toolbar.height.systemBar
       },
       [theme.breakpoints.up('sm')]: {
         height: theme.toolbar.height.custom
