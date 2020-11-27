@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
       position: 'relative',
       '& > div > div': {
         height: '100%' // need to set see if intrinsic image changes over time
+      },
+      '& img': {
+        objectFit: 'contain',
+        objectPosition: 'left'
       }
     },
     '& .MuiLink-root > div, & .MuiLink-root > div > div': {
