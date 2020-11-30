@@ -1,5 +1,6 @@
 import { LmComponentRender } from '@LmComponentRender'
 import React from 'react'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { useSpeechSynthesis } from 'react-speech-kit'
 import { LmButtonSpeechTextProps } from './buttonTypes'
@@ -21,6 +22,7 @@ export default function ButtonSpeechText({ content }: LmButtonSpeechTextProps) {
     const allNodes = document.querySelectorAll('.enable__speech')
     const texts: string[] = []
     allNodes.forEach((node) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       texts.push(node.innerText)
     })

@@ -11,15 +11,7 @@ import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
 
 function PageContainer({ page }: { page: LmPagesIndexProps['page'] }) {
-  const {
-    asPath,
-    replace,
-    pathname,
-    locale,
-    defaultLocale,
-    route
-  } = useRouter()
-  console.log(pathname, locale, defaultLocale, route)
+  const { asPath, replace, locale, defaultLocale } = useRouter()
   const { error, isLoading, user } = useAuth0()
 
   useEffect(() => {
@@ -31,7 +23,7 @@ function PageContainer({ page }: { page: LmPagesIndexProps['page'] }) {
     ) {
       replace('/')
     }
-  }, [asPath, user, replace])
+  }, [asPath, user, replace, locale, defaultLocale])
   if (error) {
     return <Error statusCode={401} title={error?.message || 'Error occured'} />
   }
