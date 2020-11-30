@@ -11,11 +11,24 @@ import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
 
 function PageContainer({ page }: { page: LmPagesIndexProps['page'] }) {
-  const { asPath, replace } = useRouter()
+  const {
+    asPath,
+    replace,
+    pathname,
+    locale,
+    defaultLocale,
+    route
+  } = useRouter()
+  console.log(pathname, locale, defaultLocale, route)
   const { error, isLoading, user } = useAuth0()
 
   useEffect(() => {
-    if (!hasAuth0PathCredentials(asPath, user)) {
+    if (
+      !hasAuth0PathCredentials(asPath, user, {
+        locale,
+        defaultLocale
+      })
+    ) {
       replace('/')
     }
   }, [asPath, user, replace])

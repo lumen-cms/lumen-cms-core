@@ -89,12 +89,10 @@ type AppConfigProps = {
   hostname?: string
   excluding_slugs?: string // exclude slugs for sitemap, getStaticPaths. wildcards allowed: "auth/*,demo-content/*"
   overwriteSettingsPaths: string[] // overwrite paths which are in route, add trailing slash: some/special/,other/special/
-  authPathRequiredRoles?: [
-    {
-      path: string
-      roles: string[]
-    }
-  ]
+  authPathRequiredRoles?: {
+    path: string
+    roles: string[]
+  }[]
 }
 
 export const CONFIG: AppConfigProps = {
@@ -159,9 +157,7 @@ type LmCoreComponentsProps = {
   list_search_field?: JSXElementConstructor<LmListSearchFieldProps>
   link?: JSXElementConstructor<LmLinkProps>
   // eslint-disable-next-line
-  list_search_autocomplete?: JSXElementConstructor<
-    LmListSearchAutocompleteProps
-  >
+  list_search_autocomplete?: JSXElementConstructor<LmListSearchAutocompleteProps>
   rich_text_editor?: JSXElementConstructor<LmRichTextParagraphProps>
   timeline?: JSXElementConstructor<LmTimelineProps>
   timeline_item?: JSXElementConstructor<LmTimelineItemProps>

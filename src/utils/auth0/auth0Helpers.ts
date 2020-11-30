@@ -23,13 +23,17 @@ export const hasAuth0Credentials = (roles: string[], user: IClaims) => {
 
 export const hasAuth0PathCredentials = (
   routeParams: string | string[] | undefined,
-  user: IClaims
+  user: IClaims,
+  options: { locale?: string; defaultLocale?: string }
 ) => {
-  const currentPath = Array.isArray(routeParams)
+  let currentPath = Array.isArray(routeParams)
     ? routeParams.join('/')
     : routeParams ?? ''
+  if (options.locale && options.defaultLocale !== options.locale) {
+    currentPath = `/${options.locale}${currentPath}`
+  }
   const needSpecificRole = CONFIG.authPathRequiredRoles?.find((item) =>
-    currentPath.includes(item.path)
+    currentPath.startsWith(item.path)
   )
   if (needSpecificRole) {
     return hasAuth0Credentials(needSpecificRole.roles, user)
