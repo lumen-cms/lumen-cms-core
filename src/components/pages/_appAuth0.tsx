@@ -22,6 +22,9 @@ function AppContainer(props: LmAppProps) {
 }
 
 export function Auth0App(props: LmAppProps) {
+  if (props.pageProps.insideStoryblok) {
+    return <LmApp {...props} />
+  }
   return (
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string}

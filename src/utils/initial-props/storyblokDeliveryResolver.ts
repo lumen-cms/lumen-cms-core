@@ -22,11 +22,9 @@ const getSettingsPath = ({
   locale?: string
   overwriteSettingPath?: string
 }) => {
-  const directory = rootDirectory || locale || ''
-  // console.log(locale, overwriteSettingPath)
-  return `cdn/stories/${directory ? `${directory}/` : ''}${
-    overwriteSettingPath || ''
-  }settings`
+  return `cdn/stories/${locale ? `${locale}/` : ''}${
+    rootDirectory ? `${rootDirectory}/` : ''
+  }${overwriteSettingPath || ''}settings`
 }
 
 const getCategoryParams = ({ locale }: { locale?: string }) => {
@@ -39,10 +37,10 @@ const getCategoryParams = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (rootDirectory) {
-    params.starts_with = `${rootDirectory}/`
-  } else if (locale) {
-    params.starts_with = `${locale}/`
+  if (rootDirectory || locale) {
+    params.starts_with = `${locale ? `${locale}/` : ''}${
+      rootDirectory ? `${rootDirectory}/` : ''
+    }`
   }
   return params
 }
@@ -57,10 +55,10 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (rootDirectory) {
-    params.starts_with = `${rootDirectory}/`
-  } else if (locale) {
-    params.starts_with = `${locale}/`
+  if (rootDirectory || locale) {
+    params.starts_with = `${locale ? `${locale}/` : ''}${
+      rootDirectory ? `${rootDirectory}/` : ''
+    }`
   }
   return params
 }
@@ -77,10 +75,10 @@ const getStoriesParams = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (rootDirectory) {
-    params.starts_with = `${rootDirectory}/`
-  } else if (locale) {
-    params.starts_with = `${locale}/`
+  if (rootDirectory || locale) {
+    params.starts_with = `${locale ? `${locale}/` : ''}${
+      rootDirectory ? `${rootDirectory}/` : ''
+    }`
   }
   return params
 }

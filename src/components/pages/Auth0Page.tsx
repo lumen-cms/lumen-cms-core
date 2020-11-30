@@ -38,7 +38,7 @@ const PageAuthContainer: FC<{
 }> = withAuthenticationRequired(PageContainer)
 
 export function Auth0Page(props: LmPagesIndexProps) {
-  const { settings, page, error } = props
+  const { settings, page, error, insideStoryblok } = props
 
   if (error || !settings || !page) {
     return <Error statusCode={500} title="Error occured or no settings found" />
@@ -53,7 +53,11 @@ export function Auth0Page(props: LmPagesIndexProps) {
       />
       <AppHead settings={settings} />
       <Layout settings={settings}>
-        <PageAuthContainer page={page} />
+        {insideStoryblok ? (
+          <LmComponentRender content={page} />
+        ) : (
+          <PageAuthContainer page={page} />
+        )}
       </Layout>
     </>
   )

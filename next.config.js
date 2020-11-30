@@ -4,17 +4,17 @@ const redirectFunc = require('./config/localeRedirect')
 const nextConfig = {
   i18n: {
     locales: ['en', 'de'],
-    defaultLocale: 'en',
-    domains: [
-      {
-        domain: 'studentsgoabroad.org',
-        defaultLocale: 'en'
-      },
-      {
-        domain: 'studentsgoabroad.com',
-        defaultLocale: 'de'
-      }
-    ]
+    defaultLocale: 'de'
+    // domains: [
+    //   {
+    //     domain: 'studentsgoabroad.org',
+    //     defaultLocale: 'en'
+    //   },
+    //   {
+    //     domain: 'studentsgoabroad.com',
+    //     defaultLocale: 'de'
+    //   }
+    // ]
   },
   async redirects() {
     // const reds = await redirectFunc(['de', 'it', 'es'])
