@@ -38,6 +38,12 @@ module.exports = function (
         config.resolve.alias['@sentry/node'] = '@sentry/browser'
       }
 
+      config.module.rules.push({
+        test: /\.graphql$/,
+        exclude: /node_modules/,
+        use: [options.defaultLoaders.babel, { loader: 'graphql-let/loader' }]
+      })
+
       const originalEntry = config.entry
       config.entry = async () => {
         const entries = await originalEntry()

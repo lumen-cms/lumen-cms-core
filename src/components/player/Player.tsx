@@ -52,7 +52,7 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
             left: content.ratio ? 0 : undefined
           }}
           url={url}
-          volume={content.muted ? 0 : content.volume}
+          volume={content.muted ? 0 : Number(content.volume || 0)}
           loop={content.loop}
           muted={content.muted}
           playsinline={content.playsinline}

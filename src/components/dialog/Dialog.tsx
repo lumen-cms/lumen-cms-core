@@ -53,13 +53,19 @@ export default function LmDialog({
     dialogProps.TransitionComponent = TransitionSlideUp
   }
   return (
-    <div>
+    <>
       {/* eslint-disable-next-line */}
-      <a onClick={() => setOpen(true)} className={classes.trigger}>
+      <div className={classes.trigger}>
         {content.trigger?.map((blok) => (
-          <LmComponentRender content={blok} key={blok._uid} />
+          <LmComponentRender
+            content={blok}
+            key={blok._uid}
+            onClick={() => {
+              setOpen(true)
+            }}
+          />
         ))}
-      </a>
+      </div>
       <Dialog {...dialogProps}>
         {!!content.title ||
           (!content.prevent_close_button && (
@@ -90,6 +96,6 @@ export default function LmDialog({
           </DialogContent>
         )}
       </Dialog>
-    </div>
+    </>
   )
 }

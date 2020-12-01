@@ -122,19 +122,19 @@ export const LmButton: FC<LmButtonProps> = ({
     'w-100': properties.includes('fullWidth')
   })
 
-  const btnProps: any =
-    content.link?.cached_url || content.link?.url || content.link?.email
-      ? {
-          ...getLinkAttrs(content.link as LinkType, {
-            openExternal: !!content.open_external
-          }),
-          naked: true,
-          component: LmCoreComponents.lm_link_render
-        }
-      : {}
-  if (onClick) {
-    btnProps.onClick = onClick
-  }
+  const btnProps: any = onClick
+    ? {
+        onClick
+      }
+    : content.link?.cached_url || content.link?.url || content.link?.email
+    ? {
+        ...getLinkAttrs(content.link as LinkType, {
+          openExternal: !!content.open_external
+        }),
+        naked: true,
+        component: LmCoreComponents.lm_link_render
+      }
+    : {}
   btnProps['aria-label'] = content.label || content.icon?.name
   if (content.variant === 'fab') {
     return (
