@@ -15,7 +15,7 @@ import {
   ButtonStoryblok,
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
-import { getTotalCartAmount } from '../lib/shopifyHelpers'
+import { getTotalCartAmount, getTotalCartQuantity } from '../lib/shopifyHelpers'
 
 const useStyles = makeStyles((theme: Theme) => ({
   cartItemContent: {
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 function CheckoutButton() {
-  const { onCheckout, config } = useShopifySdkContext()
+  const { onCheckout, config, cartVariants } = useShopifySdkContext()
   const classes = useStyles()
   const [loading, setLoading] = useState<boolean>(false)
   return (
@@ -53,10 +53,10 @@ function CheckoutButton() {
             variant: 'raised',
             color: 'primary',
             class_names: { values: ['w-100'] },
-            ...((config?.cart_checkout && config.cart_checkout[0]) || {}),
-            disabled: loading
+            ...((config?.cart_checkout && config.cart_checkout[0]) || {})
           } as ButtonStoryblok
         }
+        disabled={loading || getTotalCartQuantity(cartVariants) < 1}
         onClick={async () => {
           setLoading(true)
           await onCheckout()

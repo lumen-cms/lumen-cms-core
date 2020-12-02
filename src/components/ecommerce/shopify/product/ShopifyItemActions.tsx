@@ -35,8 +35,8 @@ function AddToCartButton() {
               {})
           } as ButtonStoryblok
         }
-        onClick={async () => {
-          await addToCart()
+        onClick={() => {
+          addToCart()
         }}
       />
     </div>
@@ -59,10 +59,10 @@ function CheckoutButton() {
             variant: 'raised',
             color: 'primary',
             class_names: { values: ['w-100'] },
-            ...((config?.product_checkout && config.product_checkout[0]) || {}),
-            disabled: loading
+            ...((config?.product_checkout && config.product_checkout[0]) || {})
           } as ButtonStoryblok
         }
+        disabled={loading}
         onClick={async () => {
           setLoading(true)
           await onCheckout()

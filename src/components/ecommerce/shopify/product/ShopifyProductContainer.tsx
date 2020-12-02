@@ -37,6 +37,7 @@ export function ShopifyProductContainer({
     >
       <Grid
         item
+        xs={12}
         sm={
           config?.columns_first_width
             ? mapWidth(config?.columns_first_width)
@@ -47,6 +48,7 @@ export function ShopifyProductContainer({
       </Grid>
       <Grid
         item
+        xs={12}
         sm={
           config?.columns_second_width
             ? mapWidth(config?.columns_second_width)

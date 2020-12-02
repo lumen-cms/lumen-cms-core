@@ -4,6 +4,7 @@ import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined'
 import { makeStyles } from '@material-ui/core/styles'
 import Badge from '@material-ui/core/Badge'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
+import { getTotalCartQuantity } from '../lib/shopifyHelpers'
 
 const useStyles = makeStyles((theme: Theme) => ({
   sticky: {
@@ -43,9 +44,10 @@ export function ShopifyFloatingCart() {
     buttonColor: config?.floating_button_color || 'primary',
     badgeColor: config?.floating_badge_color || 'warning'
   })
-  const isOpen = cartVariants.length && !cartOpen
 
-  return isOpen ? (
+  const totalCartQuantity = getTotalCartQuantity(cartVariants)
+
+  return totalCartQuantity && !cartOpen ? (
     <Fab
       classes={{
         root: classes.sticky,
@@ -57,7 +59,7 @@ export function ShopifyFloatingCart() {
       }}
     >
       <Badge
-        badgeContent={cartVariants.length}
+        badgeContent={totalCartQuantity}
         color="primary"
         classes={{
           colorPrimary: classes.badgeColor

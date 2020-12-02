@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { ApolloProvider } from '@apollo/client'
 import { useAppContext } from '@context/AppContext'
 import {
@@ -40,6 +40,12 @@ const LmShopifySdkProviderComponent: FC<{ settings: GlobalStoryblok }> = ({
   const [cartOpen, setCartOpen] = useState<boolean>(false)
   const [checkoutCreateMutation] = useCheckoutCreateMutation()
 
+  useEffect(() => {
+    if (!cartOpen) {
+      setCartVariants((items) => items.filter((i) => i.quantity > 0))
+    }
+  }, [cartOpen, setCartVariants])
+
   const initCheckout = async (input: CheckoutCreateInput) => {
     const { data } = await checkoutCreateMutation({
       variables: {
@@ -75,7 +81,9 @@ const LmShopifySdkProviderComponent: FC<{ settings: GlobalStoryblok }> = ({
       quantity: 1
     }
     const items = [...cartVariants]
-    items.push(newItem)
+    if (!items.find((i) => i.variant.id === selectedVariant.id)) {
+      items.push(newItem)
+    }
 
     const totalPrice = getTotalCartAmount(items)
     window.fbq &&
@@ -160,7 +168,12 @@ const LmShopifySdkProviderComponent: FC<{ settings: GlobalStoryblok }> = ({
     const items = cartVariants.map((i) => {
       return {
         variant: i.variant,
-        quantity: i.variant.id === variant.id ? quantity : i.quantity
+        quantity:
+          i.variant.id === variant.id
+            ? quantity < 0
+              ? 0
+              : quantity
+            : i.quantity
       }
     })
     setCartVariants(items)

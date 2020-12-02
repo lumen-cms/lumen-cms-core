@@ -198,7 +198,6 @@ export const LmButton: FC<LmButtonProps> = ({
       </IconButton>
     )
   }
-
   return (
     <Button
       disabled={!!disabled || disableRipple}
