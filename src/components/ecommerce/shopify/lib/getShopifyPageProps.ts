@@ -1,18 +1,13 @@
-import { initializeApollo } from './shopify-apollo'
-import { AllProductsDocument } from '../graphql/allProducts.graphql'
 import { AppPageProps } from '../../../../typings/app'
+import { shopifyGraphqlSdk } from './shopify-graphql-request'
 
 export const getShopifyPageProps = async (props: AppPageProps) => {
   if (!props.page) {
     return // no page found
   }
-
-  const apolloClient = initializeApollo()
-  await apolloClient.query({
-    query: AllProductsDocument
-  })
+  const { products } = await shopifyGraphqlSdk.allProducts()
 
   Object.assign(props, {
-    shopifyApolloState: apolloClient.cache.extract()
+    allShopifyProducts: products.edges
   })
 }

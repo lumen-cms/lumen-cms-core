@@ -1,6 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
-import { ApolloProvider } from '@apollo/client'
-import { useAppContext } from '@context/AppContext'
 import {
   ShopifyProductFragment,
   ShopifySdkContext
@@ -11,15 +9,12 @@ import {
   EcommerceShopifyConfigStoryblok,
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
-import { useApollo } from './lib/shopify-apollo'
-import {
-  CheckoutCreateInput,
-  useCheckoutCreateMutation
-} from './graphql/checkout.graphql'
 import { getTotalCartAmount } from './lib/shopifyHelpers'
+import { shopifyGraphqlSdk } from './lib/shopify-graphql-request'
+import { CheckoutCreateInput } from '../../../typings/generated/shopify-schema'
 
 let currencyCode = 'EUR'
-const LmShopifySdkProviderComponent: FC<{ settings: GlobalStoryblok }> = ({
+export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
   children,
   settings
 }) => {
@@ -38,7 +33,6 @@ const LmShopifySdkProviderComponent: FC<{ settings: GlobalStoryblok }> = ({
     }[]
   >([])
   const [cartOpen, setCartOpen] = useState<boolean>(false)
-  const [checkoutCreateMutation] = useCheckoutCreateMutation()
 
   useEffect(() => {
     if (!cartOpen) {
@@ -47,12 +41,9 @@ const LmShopifySdkProviderComponent: FC<{ settings: GlobalStoryblok }> = ({
   }, [cartOpen, setCartVariants])
 
   const initCheckout = async (input: CheckoutCreateInput) => {
-    const { data } = await checkoutCreateMutation({
-      variables: {
-        input
-      }
-    })
-    return data?.checkoutCreate?.checkout
+    const { checkoutCreate } = await shopifyGraphqlSdk.checkoutCreate({ input })
+
+    return checkoutCreate?.checkout
   }
 
   const onVariantSelect = async (variant: ShopifyProductFragment) => {
@@ -227,21 +218,21 @@ const LmShopifySdkProviderComponent: FC<{ settings: GlobalStoryblok }> = ({
     </ShopifySdkContext.Provider>
   )
 }
-LmShopifySdkProviderComponent.displayName = 'LmShopifySdkProvider'
+LmShopifySdkProvider.displayName = 'LmShopifySdkProvider'
 
-export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
-  children,
-  settings
-}) => {
-  const ctx = useAppContext()
-  const apolloClient = useApollo(ctx.shopifyApolloState)
-
-  return (
-    <ApolloProvider client={apolloClient}>
-      <LmShopifySdkProviderComponent settings={settings}>
-        {children}
-      </LmShopifySdkProviderComponent>
-    </ApolloProvider>
-  )
-}
-LmShopifySdkProvider.displayName = 'ShopifyProviderContainer'
+// export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
+//   children,
+//   settings
+// }) => {
+//   const ctx = useAppContext()
+//   const apolloClient = useApollo(ctx.shopifyApolloState)
+//
+//   return (
+//     <ApolloProvider client={apolloClient}>
+//       <LmShopifySdkProviderComponent settings={settings}>
+//         {children}
+//       </LmShopifySdkProviderComponent>
+//     </ApolloProvider>
+//   )
+// }
+// LmShopifySdkProvider.displayName = 'ShopifyProviderContainer'

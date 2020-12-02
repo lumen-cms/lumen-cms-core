@@ -1,9 +1,20 @@
 overwrite: true
-schema:
-  - https://gapi.storyblok.com/v1/api:
-      headers:
-        Token: HvyhDYHDPgo3U4lB7s44jgtt
 generates:
   src/typings/generated/schema.ts:
+    schema:
+      - https://gapi.storyblok.com/v1/api:
+          headers:
+            Token: HvyhDYHDPgo3U4lB7s44jgtt
     plugins:
       - "typescript"
+  src/typings/generated/shopify-schema.ts:
+    schema:
+      - https://kembalisales.myshopify.com/api/2020-10/graphql:
+          headers:
+            X-Shopify-Storefront-Access-Token: 9e9a0888f96c95dc362ef9712e10b584
+    documents:
+      - "**/*.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"

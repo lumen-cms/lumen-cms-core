@@ -41,7 +41,11 @@ module.exports = function (
       config.module.rules.push({
         test: /\.graphql$/,
         exclude: /node_modules\/(?!(lumen-cms-core|lumen-cms-ecommerce|lumen-cms-travel)\/).*/,
-        use: [options.defaultLoaders.babel, { loader: 'graphql-let/loader' }]
+        use: [
+          {
+            loader: 'graphql-tag/loader'
+          }
+        ]
       })
 
       const originalEntry = config.entry

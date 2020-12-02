@@ -13,6 +13,8 @@ export const getTotalCartAmount = (
     variant: ShopifyProductFragment
   }[]
 ) =>
-  cartItems
-    .reduce((a, b) => a + b.variant.priceV2.amount * b.quantity, 0)
-    .toFixed(2)
+  Number(
+    cartItems
+      .reduce((a, b) => a + b.variant.priceV2.amount * b.quantity, 0)
+      .toFixed(2)
+  )
