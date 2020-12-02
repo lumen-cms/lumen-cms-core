@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.80.1",
+  "version": "0.80.3",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -63,6 +63,7 @@
     "element-closest": "3.0.2",
     "graphql": "^15.4.0",
     "graphql-request": "^3.3.0",
+    "graphql-tag": "^2.11.0",
     "intersection-observer": "0.11.0",
     "js-cookie": "2.2.1",
     "lumen-cms-utils": "2.0.0",
