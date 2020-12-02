@@ -33,6 +33,6 @@ app-content*.json
 localhost.crt
 localhost.key
 
-#**.graphql.d.ts
-#**.graphqls.d.ts
-#__generated__
+**.graphql.d.ts
+**.graphqls.d.ts
+__generated__
