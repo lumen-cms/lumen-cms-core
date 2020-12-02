@@ -1,41 +1,48 @@
 import { createContext, useContext } from 'react'
-import { LineItem, Product, ProductVariant } from 'shopify-buy'
 import { EcommerceShopifyConfigStoryblok } from '../../../../typings/generated/components-schema'
+import { ProductFragment } from '../graphql/product.fragment.graphql'
 
-type ShopifySdkContextProps = {
-  products: Product[]
-  selectedVariant?: ProductVariant
-  onVariantSelect: (variant: ProductVariant) => void
-  onCheckout: () => void
+export type ShopifyProductFragment = ProductFragment['variants']['edges'][0]['node'] & {
+  productTitle: string
+}
+export type ShopifySdkContextProps = {
+  selectedVariant?: ShopifyProductFragment
+  onVariantSelect: (data: ShopifyProductFragment) => void
+  onCheckout: () => Promise<void>
   cartOpen: boolean
   setCartOpen: (bool: boolean) => void
   addToCart: () => void
-  cartVariants: LineItem[]
-  updateCartItemQuantity: (variant: LineItem, quantity: number) => void
-  totalAmount: number
+  cartVariants: {
+    quantity: number
+    variant: ShopifyProductFragment
+  }[]
+  updateCartItemQuantity: (
+    variant: ShopifyProductFragment,
+    quantity: number
+  ) => void
   config: EcommerceShopifyConfigStoryblok
-  checkoutUrl: string
 }
 
 const noop = () => {
   // do nothing
 }
 
+const asyncNoop = async () => {
+  // do nothing
+}
+
 export const ShopifySdkContext = createContext<ShopifySdkContextProps>({
-  products: [],
   onVariantSelect: noop,
-  onCheckout: noop,
+  onCheckout: asyncNoop,
   cartOpen: false,
   setCartOpen: noop,
-  addToCart: noop,
+  addToCart: asyncNoop,
   cartVariants: [],
   updateCartItemQuantity: noop,
-  totalAmount: 0,
   config: {
     component: 'ecommerce_shopify_config',
     _uid: '1'
-  },
-  checkoutUrl: ''
+  }
 })
 export const useShopifySdkContext = () =>
   useContext<ShopifySdkContextProps>(ShopifySdkContext)

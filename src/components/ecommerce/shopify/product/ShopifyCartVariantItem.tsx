@@ -1,17 +1,24 @@
-import { LineItem, ProductVariant } from 'shopify-buy'
 import React from 'react'
-import { Grid } from '@material-ui/core'
+import { Grid, useTheme } from '@material-ui/core'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import RemoveIcon from '@material-ui/icons/Remove'
 import AddIcon from '@material-ui/icons/Add'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import { useShopifySdkContext } from '../context/ShopifySdkContext'
-import { EcommerceShopifyConfigStoryblok } from '../../../../typings/generated/components-schema'
+import Image from 'next/image'
+import {
+  ShopifySdkContextProps,
+  useShopifySdkContext
+} from '../context/ShopifySdkContext'
+import {
+  EcommerceShopifyConfigStoryblok,
+  HeadlineStoryblok
+} from '../../../../typings/generated/components-schema'
+import { imageSizesOnWidthAndBreakpoints } from '../../../../utils/ImageService'
 
 type ShopifyCartVariantItemProps = {
-  lineItem: LineItem & { variant: ProductVariant }
+  lineItem: ShopifySdkContextProps['cartVariants'][0]
   config: EcommerceShopifyConfigStoryblok
 }
 
@@ -20,16 +27,27 @@ export function ShopifyCartVariantItem({
   config
 }: ShopifyCartVariantItemProps) {
   const { updateCartItemQuantity } = useShopifySdkContext()
-
-  const { title, quantity, variant } = lineItem
+  const { breakpoints } = useTheme()
+  const { title, priceV2, image, productTitle } = lineItem.variant
+  const titleCustom = (Array.isArray(config?.product_title) &&
+    config.product_title[0]) as HeadlineStoryblok
+  const overwrittenTitle = titleCustom?.text || ''
   return (
     <Grid container spacing={2}>
       <Grid item>
-        <Avatar src={variant.image.src} alt={variant.title} />
+        <Avatar>
+          <Image
+            src={image?.transformedSrc}
+            layout="fill"
+            objectFit="cover"
+            sizes={imageSizesOnWidthAndBreakpoints(40, breakpoints)}
+            alt={title}
+          />
+        </Avatar>
       </Grid>
       <Grid item xs>
+        <div>{overwrittenTitle || productTitle}</div>
         <div>{title}</div>
-        <div>{variant.title}</div>
         <div
           style={{
             display: 'flex',
@@ -40,7 +58,7 @@ export function ShopifyCartVariantItem({
           <IconButton
             size="small"
             onClick={() => {
-              updateCartItemQuantity(lineItem, quantity - 1)
+              updateCartItemQuantity(lineItem.variant, lineItem.quantity - 1)
             }}
           >
             <RemoveIcon />
@@ -49,9 +67,9 @@ export function ShopifyCartVariantItem({
             type="number"
             size="small"
             variant="standard"
-            value={quantity}
+            value={lineItem.quantity}
             onChange={(ev) => {
-              updateCartItemQuantity(lineItem, Number(ev.target.value))
+              updateCartItemQuantity(lineItem.variant, Number(ev.target.value))
             }}
             style={{
               width: 70
@@ -65,7 +83,7 @@ export function ShopifyCartVariantItem({
           <IconButton
             size="small"
             onClick={() => {
-              updateCartItemQuantity(lineItem, quantity + 1)
+              updateCartItemQuantity(lineItem.variant, lineItem.quantity + 1)
             }}
           >
             <AddIcon />
@@ -75,9 +93,9 @@ export function ShopifyCartVariantItem({
       <Grid item style={{ alignSelf: 'flex-end' }}>
         <Typography variant="subtitle1">
           {config?.currency_prefix || ''}{' '}
-          {(Math.round(quantity * Number(variant.price) * 100) / 100).toFixed(
-            2
-          )}
+          {(
+            Math.round(lineItem.quantity * Number(priceV2.amount) * 100) / 100
+          ).toFixed(2)}
         </Typography>
       </Grid>
     </Grid>

@@ -1,4 +1,3 @@
-import { Product } from 'shopify-buy'
 import {
   ButtonStoryblok,
   EcommerceShopifyCheckoutStoryblok,
@@ -7,6 +6,8 @@ import {
   IconStoryblok,
   ImageStoryblok
 } from '../../../typings/generated/components-schema'
+import { ProductFragment } from './graphql/allProducts.graphql'
+import { ProductVariantEdge } from './graphql/product.graphql'
 
 export type LmShopifyIframeProps = {
   content: EcommerceShopifyIframeStoryblok
@@ -19,11 +20,9 @@ export type LmShopifyCheckoutProps = {
 }
 
 export type ShopifyProductItemProps = {
-  item: Product & { descriptionHtml: string }
+  item: ProductFragment
 }
 
 export type ShopifyProductOptionProps = {
-  option: ShopifyBuy.Option & {
-    variants: ShopifyBuy.ProductVariant[]
-  }
+  variant: ProductVariantEdge['node']
 }

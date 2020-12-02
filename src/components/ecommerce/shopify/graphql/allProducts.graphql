@@ -1,0 +1,15 @@
+# import product from './product.fragment.graphql'
+
+query allProducts{
+  products(first: 24){
+    pageInfo{
+      hasNextPage
+      hasPreviousPage
+    }
+    edges{
+      node{
+        ...product
+      }
+    }
+  }
+}

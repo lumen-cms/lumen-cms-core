@@ -4,6 +4,8 @@
     "/**/generated/*.ts",
     "/stories/**/*.*",
     "/src/storybook/**/*.*",
+    "/__generated__/**/*.*",
+    "**/*.graphql.d.ts",
     "**/*.js"
   ],
   "extends": [

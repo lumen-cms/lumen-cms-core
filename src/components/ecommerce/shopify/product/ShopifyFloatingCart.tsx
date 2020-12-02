@@ -14,15 +14,25 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: '24px 0 0 24px',
     minHeight: 70
   },
-  buttonColor: (props: { buttonColor: string }) => ({
+  buttonColor: (props: { buttonColor: any }) => ({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     backgroundColor: theme.palette[props.buttonColor].main,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     color: theme.palette[props.buttonColor].contrastText,
     '&:hover': {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       backgroundColor: theme.palette[props.buttonColor].dark
     }
   }),
   badgeColor: (props: { buttonColor: string; badgeColor: string }) => ({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     backgroundColor: theme.palette[props.badgeColor].main,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     color: theme.palette[props.badgeColor].contrastText
   })
 }))

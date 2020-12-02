@@ -1,0 +1,13 @@
+schema:
+  - https://kembalisales.myshopify.com/api/2020-10/graphql:
+      headers:
+        X-Shopify-Storefront-Access-Token: 9e9a0888f96c95dc362ef9712e10b584
+
+documents: '**/*.graphql'
+plugins:
+  - typescript
+  - typescript-operations
+  - typescript-react-apollo
+cacheDir: __generated__
+respectGitIgnore: true
+

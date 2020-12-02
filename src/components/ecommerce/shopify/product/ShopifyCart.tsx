@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import Drawer from '@material-ui/core/Drawer'
 import { Theme, Toolbar, useTheme } from '@material-ui/core'
@@ -15,6 +15,7 @@ import {
   ButtonStoryblok,
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
+import { getTotalCartAmount } from '../lib/shopifyHelpers'
 
 const useStyles = makeStyles((theme: Theme) => ({
   cartItemContent: {
@@ -37,16 +38,37 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
+function CheckoutButton() {
+  const { onCheckout, config } = useShopifySdkContext()
+  const classes = useStyles()
+  const [loading, setLoading] = useState<boolean>(false)
+  return (
+    <div className={classes.cartCheckoutButton}>
+      <LmComponentRender
+        content={
+          {
+            component: 'button',
+            label: 'Checkout',
+            _uid: '1321',
+            variant: 'raised',
+            color: 'primary',
+            class_names: { values: ['w-100'] },
+            ...((config?.cart_checkout && config.cart_checkout[0]) || {}),
+            disabled: loading
+          } as ButtonStoryblok
+        }
+        onClick={async () => {
+          setLoading(true)
+          await onCheckout()
+          setLoading(false)
+        }}
+      />
+    </div>
+  )
+}
+
 export function ShopfiyCart() {
-  const {
-    cartOpen,
-    setCartOpen,
-    cartVariants,
-    totalAmount,
-    onCheckout,
-    config,
-    checkoutUrl
-  } = useShopifySdkContext()
+  const { cartOpen, setCartOpen, cartVariants, config } = useShopifySdkContext()
   const classes = useStyles()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
@@ -59,6 +81,7 @@ export function ShopfiyCart() {
     ...((config?.cart_footer && config.cart_footer[0]) || {})
   }
 
+  const totalAmount = getTotalCartAmount(cartVariants)
   return (
     <Drawer
       open={cartOpen}
@@ -101,11 +124,8 @@ export function ShopfiyCart() {
         </Grid>
         <Grid item xs className={classes.cartItemContent}>
           {cartVariants.map((lineItem) => (
-            <div key={lineItem.id}>
-              <ShopifyCartVariantItem
-                lineItem={lineItem as any}
-                config={config}
-              />
+            <div key={lineItem.variant.id}>
+              <ShopifyCartVariantItem lineItem={lineItem} config={config} />
               <Divider className={classes.cartVariantDivider} />
             </div>
           ))}
@@ -124,25 +144,7 @@ export function ShopfiyCart() {
           {config?.cart_footer_additional?.map((blok: HeadlineStoryblok) => (
             <LmComponentRender content={blok} key={blok._uid} />
           ))}
-          <div className={classes.cartCheckoutButton}>
-            <LmComponentRender
-              content={
-                {
-                  component: 'button',
-                  label: 'Checkout',
-                  _uid: '1321',
-                  variant: 'raised',
-                  color: 'primary',
-                  class_names: { values: ['w-100'] },
-                  ...((config?.cart_checkout && config.cart_checkout[0]) || {})
-                } as ButtonStoryblok
-              }
-              onClick={() => {
-                onCheckout()
-              }}
-              disabled={!checkoutUrl}
-            />
-          </div>
+          <CheckoutButton />
         </Grid>
       </Grid>
     </Drawer>

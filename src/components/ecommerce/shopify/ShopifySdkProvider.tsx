@@ -1,16 +1,25 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
-import Client, { Cart, LineItem, Product, ProductVariant } from 'shopify-buy'
+import React, { FC, useRef, useState } from 'react'
+import { ApolloProvider } from '@apollo/client'
+import { useAppContext } from '@context/AppContext'
+import {
+  ShopifyProductFragment,
+  ShopifySdkContext
+} from './context/ShopifySdkContext'
+import { ShopfiyCart } from './product/ShopifyCart'
+import { ShopifyFloatingCart } from './product/ShopifyFloatingCart'
 import {
   EcommerceShopifyConfigStoryblok,
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
-import { ShopifySdkContext } from './context/ShopifySdkContext'
-import { ShopfiyCart } from './product/ShopifyCart'
-import { ShopifyFloatingCart } from './product/ShopifyFloatingCart'
+import { useApollo } from './lib/shopify-apollo'
+import {
+  CheckoutCreateInput,
+  useCheckoutCreateMutation
+} from './graphql/checkout.graphql'
+import { getTotalCartAmount } from './lib/shopifyHelpers'
 
-let client: Client.Client
-let checkout: Cart
-export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
+let currencyCode = 'EUR'
+const LmShopifySdkProviderComponent: FC<{ settings: GlobalStoryblok }> = ({
   children,
   settings
 }) => {
@@ -18,38 +27,29 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
     settings.ecommerce || []
   ).find((i) => i.component === 'ecommerce_shopify_config')
   const checkoutLinkRef = useRef<HTMLAnchorElement | null>(null)
-  const [products, setProducts] = useState<Product[]>([])
-  const [selectedVariant, setSelectedVariant] = useState<ProductVariant>()
-  const [cartVariants, setCartVariants] = useState<LineItem[]>([])
+  const [
+    selectedVariant,
+    setSelectedVariant
+  ] = useState<ShopifyProductFragment>()
+  const [cartVariants, setCartVariants] = useState<
+    {
+      quantity: number
+      variant: ShopifyProductFragment
+    }[]
+  >([])
   const [cartOpen, setCartOpen] = useState<boolean>(false)
-  const [totalAmount, setTotalAmount] = useState<number>(0)
-  const [checkoutUrl, setCheckoutUrl] = useState<string>('')
+  const [checkoutCreateMutation] = useCheckoutCreateMutation()
 
-  useEffect(() => {
-    const startFetch = async () => {
-      if (!shopifyConfig?.domain || !shopifyConfig?.access_token) {
-        return
+  const initCheckout = async (input: CheckoutCreateInput) => {
+    const { data } = await checkoutCreateMutation({
+      variables: {
+        input
       }
-      client = Client.buildClient({
-        domain: shopifyConfig.domain,
-        storefrontAccessToken: shopifyConfig.access_token,
-        language: 'de-DE'
-      })
+    })
+    return data?.checkoutCreate?.checkout
+  }
 
-      const c = await client.checkout.create()
-      checkout = c
-
-      const items = await client.product.fetchAll()
-      // Do something with the products
-      setProducts(items)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      setCheckoutUrl(c.webUrl)
-    }
-
-    startFetch()
-  }, [shopifyConfig?.access_token, shopifyConfig?.domain])
-  const onVariantSelect = async (variant: ProductVariant) => {
+  const onVariantSelect = async (variant: ShopifyProductFragment) => {
     window.gtag &&
       gtag('event', 'select_content', {
         items: [variant.id]
@@ -62,142 +62,133 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
       })
 
     setSelectedVariant(variant)
+    currencyCode = variant.priceV2.currencyCode
   }
 
-  const addToCart = async () => {
+  const addToCart = () => {
     if (!selectedVariant?.id) {
       return // always one should be selected
     }
-    const newLineItems = [
-      {
-        variantId: selectedVariant?.id,
-        quantity: 1
-      }
-    ]
-    const c = await client.checkout.addLineItems(checkout.id, newLineItems)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const totalPrice = Number(c.paymentDue)
 
+    const newItem = {
+      variant: selectedVariant,
+      quantity: 1
+    }
+    const items = [...cartVariants]
+    items.push(newItem)
+
+    const totalPrice = getTotalCartAmount(items)
     window.fbq &&
       fbq('track', 'AddToCart', {
-        content_ids: c.lineItems.map((i) => `${i.variantId}`),
+        content_ids: items?.map((i) => `${i.variant.id}`),
         value: totalPrice,
         content_type: 'product',
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        currency: c.currencyCode
+        currency: currencyCode
       })
-
     window.gtag &&
       gtag('event', 'add_to_cart', {
-        items: c.lineItems.map((i) => ({
-          id: i.variantId,
+        items: items?.map((i) => ({
+          id: i.variant.id,
           quantity: i.quantity
         })),
+        content_type: 'product',
         value: totalPrice,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        currency: c.currencyCode
+        currency: currencyCode
       })
 
-    setCartVariants(c.lineItems)
+    setCartVariants(items)
     setCartOpen(true)
-    setTotalAmount(totalPrice)
   }
 
   const onCheckout = async () => {
-    setCheckoutUrl('')
-    let c = null
-    if (cartVariants.length) {
-      c = await client.checkout.fetch(checkout.id as any)
-    } else {
-      if (!selectedVariant?.id) {
-        return // always one should be selected
-      }
-      const newLineItems = [
+    let lineItems = cartVariants.map((i) => ({
+      quantity: i.quantity,
+      variantId: i.variant.id
+    }))
+    let totalPrice = getTotalCartAmount(cartVariants)
+    if (!lineItems.length && selectedVariant?.id) {
+      lineItems = [
         {
-          variantId: selectedVariant?.id,
-          quantity: 1
+          quantity: 1,
+          variantId: selectedVariant?.id
         }
       ]
-      c = await client.checkout.addLineItems(checkout.id, newLineItems)
+      totalPrice = getTotalCartAmount([
+        { quantity: 1, variant: selectedVariant }
+      ])
     }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const totalPrice = Number(c.paymentDue)
+    if (!lineItems.length) {
+      return
+    }
+    const c = await initCheckout({
+      allowPartialAddresses: true,
+      lineItems
+    })
+
     window.gtag &&
       gtag('event', 'begin_checkout', {
-        items: c.lineItems.map((i) => ({
+        items: lineItems.map((i) => ({
           id: i.variantId,
           quantity: i.quantity
         })),
         value: totalPrice,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        currency: c.currencyCode
+        content_type: 'product',
+        currency: currencyCode
       })
 
     window.fbq &&
       fbq('track', 'InitiateCheckout', {
-        content_ids: c.lineItems.map((i) => `${i.variantId}`),
+        content_ids: lineItems.map((i) => `${i.variantId}`),
         value: totalPrice,
         content_type: 'product',
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        currency: c.currencyCode
+        currency: currencyCode
       })
 
-    setTotalAmount(totalPrice)
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const { webUrl } = c
-    setCheckoutUrl(webUrl)
+    const webUrl = c?.webUrl
     const anchor = checkoutLinkRef.current
     if (anchor !== null) {
       anchor.href = webUrl
       anchor.click()
     }
+    return webUrl
   }
 
-  const updateCartItemQuantity = (variant: LineItem, quantity: number) => {
-    client.checkout
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      .updateLineItems(checkout.id, [
-        {
-          id: variant.id,
-          quantity
-        }
-      ])
-      .then((c: Cart) => {
-        setCartVariants(c.lineItems)
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        const totalPrice = Number(c.paymentDue)
-        setTotalAmount(totalPrice)
-        window.fbq &&
-          fbq('track', 'AddToCart', {
-            content_ids: c.lineItems.map((i) => `${i.variantId}`),
-            value: totalPrice,
-            content_type: 'product'
-          })
+  const updateCartItemQuantity = (
+    variant: ShopifyProductFragment,
+    quantity: number
+  ) => {
+    const items = cartVariants.map((i) => {
+      return {
+        variant: i.variant,
+        quantity: i.variant.id === variant.id ? quantity : i.quantity
+      }
+    })
+    setCartVariants(items)
 
-        window.gtag &&
-          gtag('event', 'add_to_cart', {
-            items: c.lineItems.map((i) => ({
-              id: i.variantId,
-              quantity: i.quantity
-            })),
-            value: totalPrice
-          })
+    const totalPrice = getTotalCartAmount(cartVariants)
+
+    window.fbq &&
+      fbq('track', 'AddToCart', {
+        content_ids: items.map((i) => `${i.variant.id}`),
+        value: totalPrice,
+        content_type: 'product',
+        currency: currencyCode
+      })
+
+    window.gtag &&
+      gtag('event', 'add_to_cart', {
+        items: items.map((i) => ({
+          id: i.variant.id,
+          quantity: i.quantity
+        })),
+        content_type: 'product',
+        currency: currencyCode,
+        value: totalPrice
       })
   }
   return (
     <ShopifySdkContext.Provider
       value={{
-        products,
         onVariantSelect,
         selectedVariant,
         onCheckout,
@@ -206,8 +197,6 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
         cartVariants,
         addToCart,
         updateCartItemQuantity,
-        totalAmount,
-        checkoutUrl,
         config: shopifyConfig as EcommerceShopifyConfigStoryblok
       }}
     >
@@ -225,4 +214,21 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
     </ShopifySdkContext.Provider>
   )
 }
-LmShopifySdkProvider.displayName = 'LmShopifySdkProvider'
+LmShopifySdkProviderComponent.displayName = 'LmShopifySdkProvider'
+
+export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
+  children,
+  settings
+}) => {
+  const ctx = useAppContext()
+  const apolloClient = useApollo(ctx.shopifyApolloState)
+
+  return (
+    <ApolloProvider client={apolloClient}>
+      <LmShopifySdkProviderComponent settings={settings}>
+        {children}
+      </LmShopifySdkProviderComponent>
+    </ApolloProvider>
+  )
+}
+LmShopifySdkProvider.displayName = 'ShopifyProviderContainer'

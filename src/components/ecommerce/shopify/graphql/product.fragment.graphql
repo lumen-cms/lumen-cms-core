@@ -1,0 +1,42 @@
+fragment product on Product {
+  handle
+  id
+  title
+  descriptionHtml
+  images(first: 1) {
+    edges {
+      node {
+        altText
+        transformedSrc
+      }
+    }
+  }
+  options {
+    id
+    name
+    values
+  }
+  variants(first: 250) {
+    edges {
+      node {
+        id
+        title
+        image{
+          transformedSrc
+        }
+        selectedOptions {
+          name
+          value
+        }
+        priceV2{
+          amount
+          currencyCode
+        }
+        compareAtPriceV2{
+          amount
+          currencyCode
+        }
+      }
+    }
+  }
+}

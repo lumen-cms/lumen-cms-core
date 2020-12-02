@@ -1,0 +1,6 @@
+# import product from './product.fragment.graphql'
+query product($handle: String!) {
+  productByHandle(handle: $handle) {
+    ...product
+  }
+}

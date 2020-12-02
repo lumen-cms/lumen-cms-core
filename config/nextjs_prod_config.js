@@ -40,7 +40,7 @@ module.exports = function (
 
       config.module.rules.push({
         test: /\.graphql$/,
-        exclude: /node_modules/,
+        exclude: /node_modules\/(?!(lumen-cms-core|lumen-cms-ecommerce|lumen-cms-travel)\/).*/,
         use: [options.defaultLoaders.babel, { loader: 'graphql-let/loader' }]
       })
 

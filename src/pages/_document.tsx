@@ -3,6 +3,11 @@ import React from 'react'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { LmCoreDocument } from '../components/CoreDocument'
 
+import { getShopifyPageProps } from '../components/ecommerce/shopify/lib/getShopifyPageProps'
+import { SSR_CONFIG } from '../utils/initial-props/ssrConfig'
+
+SSR_CONFIG.ssrHooks.pageProps.push(getShopifyPageProps)
+
 export default class MyDoc extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheets = new ServerStyleSheets()

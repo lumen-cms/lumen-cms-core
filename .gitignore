@@ -32,3 +32,7 @@ app-content*.json
 /credentials
 localhost.crt
 localhost.key
+
+#**.graphql.d.ts
+#**.graphqls.d.ts
+#__generated__

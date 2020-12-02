@@ -1,59 +1,57 @@
 import React from 'react'
-import { ProductVariant } from 'shopify-buy'
 import { makeStyles } from '@material-ui/core/styles'
 import Carousel from 'react-material-ui-carousel'
+import Image from 'next/image'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
+import { ShopifyProductItemProps } from '../shopifyTypes'
 
 const useStyles = makeStyles({
   flexboxCentering: {
     height: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    position: 'relative',
+    overflow: 'hidden'
   }
 })
 
-export function ShopifyProductSlider({
-  variants
-}: {
-  variants: ProductVariant[]
-}) {
+export function ShopifyProductCarousel({ item }: ShopifyProductItemProps) {
   const { selectedVariant, onVariantSelect, config } = useShopifySdkContext()
+  const variants = item.variants.edges
   const classes = useStyles()
   const height = config?.image_container_height
     ? Number(config.image_container_height)
     : 300
 
+  const currentCarouselIndex =
+    variants.findIndex((i) => i.node.id === selectedVariant?.id) < 0
+      ? 0
+      : variants.findIndex((i) => i.node.id === selectedVariant?.id) || 0
   return (
     <Carousel
       fullHeightHover
       indicators={!config.carousel_hide_indicator}
       autoPlay={!!config.carousel_auto_play}
       animation="slide"
-      index={
-        variants.findIndex((i) => i.id === selectedVariant?.id) < 0
-          ? 0
-          : variants.findIndex((i) => i.id === selectedVariant?.id)
-      }
+      index={currentCarouselIndex as number}
       onChange={(index: number) => {
-        onVariantSelect(variants[index])
+        onVariantSelect({ ...variants[index].node, productTitle: item.title })
       }}
     >
-      {(variants || []).map((item) => (
+      {(variants || []).map((currentItem) => (
         <div
-          key={item.id}
+          key={currentItem.node.id}
           style={{
             height
           }}
         >
           <div className={classes.flexboxCentering}>
-            <img
-              src={item.image.src}
-              alt={item.title}
-              style={{
-                width: 'auto',
-                height: '100%'
-              }}
+            <Image
+              src={currentItem.node.image?.transformedSrc}
+              alt={currentItem.node.title}
+              layout="fill"
+              objectFit="contain"
             />
           </div>
         </div>

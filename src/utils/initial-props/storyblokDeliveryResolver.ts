@@ -111,6 +111,7 @@ export const apiRequestResolver = async ({
     CONFIG.previewToken
   }&no_cache=true${locale ? `&locale=${locale}` : ''}`
   // console.log(locale, pageSlug)
+  const currentSlug = `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
   const [
     page,
     settings,
@@ -118,9 +119,7 @@ export const apiRequestResolver = async ({
     allStories,
     allStaticContent
   ] = await resolveAllPromises([
-    LmStoryblokService.get(
-      `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
-    ),
+    LmStoryblokService.get(currentSlug),
     LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
     insideStoryblok || process.env.NODE_ENV !== 'production'

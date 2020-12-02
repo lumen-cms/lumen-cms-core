@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
-import { ShopifyProductOptionProps } from '../shopifyTypes'
+import { ShopifyProductItemProps } from '../shopifyTypes'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import {
   ButtonStoryblok,
@@ -27,15 +27,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export function ShopifyProductOption({ option }: ShopifyProductOptionProps) {
+export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
   const { selectedVariant, onVariantSelect, config } = useShopifySdkContext()
+
   const { currency_prefix } = config
   const classes = useStyles()
   useEffect(() => {
     if (!selectedVariant) {
-      onVariantSelect(option.variants[0])
+      const edge = item.variants?.edges[0].node
+      onVariantSelect({ ...edge, productTitle: item.title })
     }
-  }, [selectedVariant, option.variants, onVariantSelect])
+  }, [selectedVariant, item.variants, item.title, onVariantSelect])
   return (
     <div>
       <div className={classes.buttonSpace}>
@@ -51,13 +53,14 @@ export function ShopifyProductOption({ option }: ShopifyProductOptionProps) {
               } as HeadlineStoryblok
             }
           >
-            {selectedVariant.compareAtPrice && (
+            {selectedVariant.compareAtPriceV2 && (
               <s className={classes.redColor}>
-                {currency_prefix || ''} {selectedVariant.compareAtPrice}
+                {currency_prefix || ''}{' '}
+                {selectedVariant.compareAtPriceV2?.amount}
               </s>
             )}{' '}
             <span>
-              {currency_prefix || ''} {selectedVariant.price}
+              {currency_prefix || ''} {selectedVariant.priceV2?.amount}
             </span>
           </LmComponentRender>
         )}
@@ -69,7 +72,9 @@ export function ShopifyProductOption({ option }: ShopifyProductOptionProps) {
               component: 'headline',
               _uid: '3453',
               align: 'center',
-              text: option.name,
+              text:
+                selectedVariant?.selectedOptions &&
+                selectedVariant?.selectedOptions[0]?.name,
               typography: 'headline6',
               color: 'textSecondary',
               ...(config?.product_variant_name || {})
@@ -78,27 +83,27 @@ export function ShopifyProductOption({ option }: ShopifyProductOptionProps) {
         />
       </div>
       <div className={classes.buttonContainer}>
-        {option.variants.map((variant) => (
+        {item.variants.edges?.map((variant) => (
           <LmComponentRender
-            key={variant.id}
+            key={variant.node.id}
             onClick={() => {
-              onVariantSelect(variant)
+              onVariantSelect({ ...variant.node, productTitle: item.title })
             }}
             content={
               {
                 component: 'button',
                 variant:
-                  selectedVariant?.id === variant.id
+                  selectedVariant?.id === variant.node.id
                     ? 'unelevated'
                     : 'outlined',
-                ...(selectedVariant?.id === variant.id
+                ...(selectedVariant?.id === variant.node.id
                   ? config?.product_active_variant?.length
                     ? config.product_active_variant[0]
                     : {}
                   : config?.product_variant?.length
                   ? config.product_variant[0]
                   : {}),
-                label: variant.title
+                label: variant.node.title
               } as ButtonStoryblok
             }
           />

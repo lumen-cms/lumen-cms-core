@@ -1,0 +1,32 @@
+fragment productsConnection on ProductConnection {
+  edges {
+    node {
+      title
+      handle
+      description
+      createdAt
+      images(first: 1) {
+        edges {
+          node {
+            transformedSrc
+            altText
+          }
+        }
+      }
+      priceRange {
+        minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
+      }
+    }
+    cursor
+  }
+  pageInfo {
+    hasNextPage
+  }
+}

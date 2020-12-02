@@ -10,7 +10,7 @@ import { LmAppContainer, LmComponentRender, LmCoreComponents } from '../src/'
 import * as React from 'react'
 // import { LmEcommerceCheckout } from '../src'
 // import { LmShopifyProduct } from '../src/components/shopify/ShopifyProduct'
-import { LmShopifySdkProvider } from '../src/components/ecommerce/shopify/ShopifySdkProvider'
+import { LmShopifySdkProvider } from '../src/components/ecommerce/shopify_old/ShopifySdkProvider'
 
 LmCoreComponents.lm_app_providers.push(LmShopifySdkProvider)
 // LmCoreComponents.ecommerce_checkout = LmEcommerceCheckout
