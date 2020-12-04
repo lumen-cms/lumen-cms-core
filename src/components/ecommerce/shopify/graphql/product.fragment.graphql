@@ -1,3 +1,5 @@
+# import VariantFragment from './productVariant.fragment.graphql'
+
 fragment product on Product {
   handle
   id
@@ -19,23 +21,7 @@ fragment product on Product {
   variants(first: 250) {
     edges {
       node {
-        id
-        title
-        image{
-          transformedSrc
-        }
-        selectedOptions {
-          name
-          value
-        }
-        priceV2{
-          amount
-          currencyCode
-        }
-        compareAtPriceV2{
-          amount
-          currencyCode
-        }
+        ...VariantFragment
       }
     }
   }

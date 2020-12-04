@@ -1,0 +1,19 @@
+fragment VariantFragment on ProductVariant{
+  id
+  title
+  image{
+    transformedSrc
+  }
+  selectedOptions {
+    name
+    value
+  }
+  priceV2{
+    amount
+    currencyCode
+  }
+  compareAtPriceV2{
+    amount
+    currencyCode
+  }
+}

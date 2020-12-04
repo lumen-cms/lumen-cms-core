@@ -6,7 +6,6 @@ export const getShopifyPageProps = async (props: AppPageProps) => {
     return // no page found
   }
   const { products } = await shopifyGraphqlSdk.allProducts()
-
   Object.assign(props, {
     allShopifyProducts: products.edges
   })
