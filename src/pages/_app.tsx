@@ -1,5 +1,5 @@
 import { CONFIG } from '@CONFIG'
-import '../components/ecommerce/shopify/ShopifyComponents'
+// import '../components/ecommerce/shopify/ShopifyComponents'
 // import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
 // import { LmShopifySdkProvider } from '../components/ecommerce/shopify/ShopifySdkProvider'
 

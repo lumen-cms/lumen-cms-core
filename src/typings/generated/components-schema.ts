@@ -1521,6 +1521,8 @@ export interface SliderStoryblok {
     | "pagination_bottom_right"
     | "pagination_circle"
     | "container-align-center"
+    | "arrows_beside_pagination"
+    | "pagination_below_content"
   )[];
   slides_per_view?: number;
   background_color?: {
@@ -1530,6 +1532,10 @@ export interface SliderStoryblok {
   disable_transition?: boolean;
   section_variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   body?: any[];
+  indicator_background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   _uid: string;
   component: "slider";
   [k: string]: any;

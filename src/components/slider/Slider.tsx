@@ -5,9 +5,13 @@ import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
+import CircleMedium from 'mdi-material-ui/CircleMedium'
+import CircleSmall from 'mdi-material-ui/CircleSmall'
+import Minus from 'mdi-material-ui/Minus'
+import MinusThick from 'mdi-material-ui/MinusThick'
 import { LmComponentRender } from '@LmComponentRender'
+import IconButton from '@material-ui/core/IconButton'
 import { LmSliderChild } from './SliderChild'
-import InvertedIndicator from './InvertedIndicator'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { SectionProps } from '../section/sectionTypes'
 import { LmSliderProps } from './sliderTypes'
@@ -47,12 +51,6 @@ export const useStyles = makeStyles({
         color: 'rgba(0,0,0,0.8)'
       }
     },
-    '& .carousel-indicators': {
-      position: 'absolute',
-      bottom: 0,
-      width: '100%',
-      textAlign: 'center'
-    },
     '& .carousel-control-next, & .carousel-control-prev': {
       position: 'absolute',
       height: '100%',
@@ -68,6 +66,20 @@ export const useStyles = makeStyles({
     '& .carousel-control-next': {
       right: 0
     }
+  },
+  carouselIndicators: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    textAlign: 'center',
+    color: 'rgba(255,255,255,0.8)'
+  },
+  darkColor: {
+    color: 'rgba(0,0,0,0.8)'
+  },
+  carouselIndicatorBelow: {
+    position: 'relative',
+    padding: '8px 0'
   }
 })
 
@@ -82,15 +94,6 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
     : contentBody
   const properties = content.property || []
   const styles: CSSProperties = {}
-  const paginationClasses = clsx('carousel-indicators', {
-    'd-none': properties.includes('hide_pagination')
-  })
-  const carouselPrevClasses = clsx('carousel-control-prev', {
-    'd-none': properties.includes('hide_arrows')
-  })
-  const carouselNextClasses = clsx('carousel-control-next', {
-    'd-none': properties.includes('hide_arrows')
-  })
 
   function handleChangeIndex(item: any) {
     setSlide(body.findIndex((i) => i._uid === item._uid))
@@ -101,6 +104,17 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
       content.background_color && content.background_color.rgba
   }
 
+  const ActiveIndicator = () =>
+    !properties.includes('pagination_circle') ? (
+      <CircleMedium />
+    ) : (
+      <MinusThick />
+    )
+  const DefaultIndicator = () =>
+    !properties.includes('pagination_circle') ? <CircleSmall /> : <Minus />
+
+  const onPrevClick = () => setSlide(slide === 0 ? body.length - 1 : slide - 1)
+  const onNextClick = () => setSlide(slide === body.length - 1 ? 0 : slide + 1)
   return (
     <div
       className={clsx(
@@ -138,33 +152,72 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
               return <LmComponentRender content={item} key={item._uid} />
             })}
       </SwipeableViews>
-      {/* eslint-disable-next-line */}
-      <a
-        className={carouselPrevClasses}
-        role="button"
-        onClick={() => setSlide(slide === 0 ? body.length - 1 : slide - 1)}
+      {!['hide_arrows', 'arrows_beside_pagination'].some((i) =>
+        properties.includes(i as any)
+      ) && (
+        <IconButton className="carousel-control-prev" onClick={onPrevClick}>
+          <ChevronLeft />
+          <Typography variant="srOnly">Previous</Typography>
+        </IconButton>
+      )}
+
+      {!['hide_arrows', 'arrows_beside_pagination'].some((i) =>
+        properties.includes(i as any)
+      ) && (
+        <IconButton
+          className="carousel-control-next"
+          role="button"
+          onClick={onNextClick}
+        >
+          <ChevronRight />
+          <Typography variant="srOnly">Next</Typography>
+        </IconButton>
+      )}
+      <div
+        className={clsx(classes.carouselIndicators, {
+          [classes.carouselIndicatorBelow]: properties.includes(
+            'pagination_below_content'
+          ),
+          [classes.darkColor]: properties.includes('pagination_dark'),
+          'd-none': properties.includes('hide_pagination')
+        })}
+        style={{
+          backgroundColor:
+            content.indicator_background_color?.rgba || undefined,
+          textAlign: properties.includes('pagination_bottom_right')
+            ? 'right'
+            : undefined
+        }}
       >
-        <ChevronLeft />
-        <Typography variant="srOnly">Previous</Typography>
-      </a>
-      {/* eslint-disable-next-line */}
-      <a
-        className={carouselNextClasses}
-        role="button"
-        onClick={() => setSlide(slide === body.length - 1 ? 0 : slide + 1)}
-      >
-        <ChevronRight />
-        <Typography variant="srOnly">Next</Typography>
-      </a>
-      <div className={paginationClasses}>
-        {body.map((item, i) => (
-          <InvertedIndicator
-            key={item._uid || `pagination_${i}`}
-            active={slide === i}
-            color={properties.includes('pagination_dark') ? 'dark' : 'light'}
-            onClick={() => handleChangeIndex(item)}
-          />
-        ))}
+        <IconButton
+          className={clsx({
+            'd-none': !properties.includes('arrows_beside_pagination')
+          })}
+          onClick={onPrevClick}
+          color="inherit"
+        >
+          <ChevronLeft />
+        </IconButton>
+        {body.map((item, i) => {
+          return (
+            <IconButton
+              color="inherit"
+              key={item._uid || `pagination_${i}`}
+              onClick={() => handleChangeIndex(item)}
+            >
+              {slide === i ? <ActiveIndicator /> : <DefaultIndicator />}
+            </IconButton>
+          )
+        })}
+        <IconButton
+          onClick={onNextClick}
+          color="inherit"
+          className={clsx({
+            'd-none': !properties.includes('arrows_beside_pagination')
+          })}
+        >
+          <ChevronRight />
+        </IconButton>
       </div>
     </div>
   )

@@ -5086,20 +5086,7 @@ export type ProductFragment = (
       { __typename?: 'ProductVariantEdge' }
       & { node: (
         { __typename?: 'ProductVariant' }
-        & Pick<ProductVariant, 'id' | 'title'>
-        & { image?: Maybe<(
-          { __typename?: 'Image' }
-          & Pick<Image, 'transformedSrc'>
-        )>, selectedOptions: Array<(
-          { __typename?: 'SelectedOption' }
-          & Pick<SelectedOption, 'name' | 'value'>
-        )>, priceV2: (
-          { __typename?: 'MoneyV2' }
-          & Pick<MoneyV2, 'amount' | 'currencyCode'>
-        ), compareAtPriceV2?: Maybe<(
-          { __typename?: 'MoneyV2' }
-          & Pick<MoneyV2, 'amount' | 'currencyCode'>
-        )> }
+        & VariantFragmentFragment
       ) }
     )> }
   ) }
@@ -5115,6 +5102,24 @@ export type ProductQuery = (
   & { productByHandle?: Maybe<(
     { __typename?: 'Product' }
     & ProductFragment
+  )> }
+);
+
+export type VariantFragmentFragment = (
+  { __typename?: 'ProductVariant' }
+  & Pick<ProductVariant, 'id' | 'title'>
+  & { image?: Maybe<(
+    { __typename?: 'Image' }
+    & Pick<Image, 'transformedSrc'>
+  )>, selectedOptions: Array<(
+    { __typename?: 'SelectedOption' }
+    & Pick<SelectedOption, 'name' | 'value'>
+  )>, priceV2: (
+    { __typename?: 'MoneyV2' }
+    & Pick<MoneyV2, 'amount' | 'currencyCode'>
+  ), compareAtPriceV2?: Maybe<(
+    { __typename?: 'MoneyV2' }
+    & Pick<MoneyV2, 'amount' | 'currencyCode'>
   )> }
 );
 
@@ -5168,6 +5173,27 @@ export type ProductsQuery = (
   ) }
 );
 
+export const VariantFragmentFragmentDoc = gql`
+    fragment VariantFragment on ProductVariant {
+  id
+  title
+  image {
+    transformedSrc
+  }
+  selectedOptions {
+    name
+    value
+  }
+  priceV2 {
+    amount
+    currencyCode
+  }
+  compareAtPriceV2 {
+    amount
+    currencyCode
+  }
+}
+    `;
 export const ProductFragmentDoc = gql`
     fragment product on Product {
   handle
@@ -5190,28 +5216,12 @@ export const ProductFragmentDoc = gql`
   variants(first: 250) {
     edges {
       node {
-        id
-        title
-        image {
-          transformedSrc
-        }
-        selectedOptions {
-          name
-          value
-        }
-        priceV2 {
-          amount
-          currencyCode
-        }
-        compareAtPriceV2 {
-          amount
-          currencyCode
-        }
+        ...VariantFragment
       }
     }
   }
 }
-    `;
+    ${VariantFragmentFragmentDoc}`;
 export const ProductsConnectionFragmentDoc = gql`
     fragment productsConnection on ProductConnection {
   edges {
