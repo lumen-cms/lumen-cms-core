@@ -16,18 +16,25 @@ const ElementMap = {
 
 type RteNodeProps = { content: RteProps }
 
-function RteNode({ content }: RteNodeProps): JSX.Element {
-  return React.createElement(
+function RteNode({ content }: RteNodeProps) {
+  const currentRteElement =
     content.type === 'heading'
       ? `h${content.attrs.level || '3'}`
-      : ElementMap[content.type],
-    {},
-    content.content &&
-      content.content.map((blok: RteContentProps, i) =>
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define,no-use-before-define
-        LmRteContentRenderer(blok, i)
+      : ElementMap[content.type]
+  if (!currentRteElement && typeof window !== 'undefined') {
+    console.warn('RTE Element not found:', content)
+  }
+  return currentRteElement
+    ? React.createElement(
+        currentRteElement,
+        {},
+        content.content &&
+          content.content.map((blok: RteContentProps, i) =>
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define,no-use-before-define
+            LmRteContentRenderer(blok, i)
+          )
       )
-  )
+    : null
 }
 
 const RteComponents = {
