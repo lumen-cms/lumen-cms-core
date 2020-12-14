@@ -80,13 +80,11 @@ export function AppSeo({
 }: AppSeoProps): JSX.Element {
   const router = useRouter()
   const appCtx = useAppContext()
-  const seoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
-    settings.seo_body || []
+  const seoBody = settings.seo_body || []
   if (appCtx?.pageNotFound || !page) {
     return <NextSeo title="Not Found" noindex nofollow />
   }
-  const pageSeoBody: (SeoTwitterStoryblok | SeoOpenGraphStoryblok)[] =
-    page.seo_body || []
+  const pageSeoBody = page.seo_body || []
   const robotsIndexFollow =
     CONFIG.overwriteDisableIndex ||
     page.meta_robots ||
@@ -114,7 +112,12 @@ export function AppSeo({
     ) as SeoOpenGraphStoryblok) || {}
   if (previewImage) {
     pageOpenGraphs.images = pageOpenGraphs.images || []
-    pageOpenGraphs.images.push({ url: previewImage })
+    pageOpenGraphs.images.push({
+      url: previewImage,
+      alt: 'image list',
+      _uid: previewImage,
+      component: 'image_core'
+    })
   }
 
   if (settingsOpenGraphs || pageOpenGraphs) {

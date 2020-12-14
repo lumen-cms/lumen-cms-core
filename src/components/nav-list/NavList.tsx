@@ -6,10 +6,12 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
+import { LmCoreComponents } from '@CONFIG'
+import MuiLink from '@material-ui/core/Link'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
-import { LmNavListItem } from './NavListItem'
 import LmIcon from '../icon/LmIcon'
 import { LmNavListProps } from './navListTypes'
+import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 
 const useStyles = makeStyles({
   root: {
@@ -60,9 +62,23 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
               classes.root
             )}
           >
-            {body.map((blok) => (
-              <LmNavListItem {...blok} key={blok._uid} />
-            ))}
+            {body.map((blok) => {
+              const btnProps: any = blok.link?.cached_url
+                ? {
+                    ...getLinkAttrs(blok.link as LinkType, {
+                      openExternal: !!blok.open_external
+                    }),
+                    naked: true,
+                    component: LmCoreComponents.lm_link_render
+                  }
+                : {}
+
+              return (
+                <MuiLink {...btnProps} key={blok._uid}>
+                  {blok.name}
+                </MuiLink>
+              )
+            })}
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -82,9 +98,18 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
     >
       {header && <h4>{header}</h4>}
       <nav className={navClassNames}>
-        {body.map((blok) => (
-          <LmNavListItem {...blok} key={blok._uid} />
-        ))}
+        {body.map((blok) => {
+          const btnProps: any = blok.link?.cached_url
+            ? {
+                ...getLinkAttrs(blok.link as LinkType, {
+                  openExternal: !!blok.open_external
+                }),
+                naked: true,
+                component: LmCoreComponents.lm_link_render
+              }
+            : {}
+          return <MuiLink {...btnProps}>{content.name}</MuiLink>
+        })}
       </nav>
     </div>
   )

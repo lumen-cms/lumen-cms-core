@@ -23,4 +23,4 @@ const nextConfig = {
   }
 }
 
-module.exports = config(nextConfig)
+module.exports = config(nextConfig, [], false)

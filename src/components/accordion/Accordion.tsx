@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
-import { AccordionItemStoryblok } from '../../typings/generated/components-schema'
 import { LmAccordionProps } from './accordionTypes'
 
 export default function LmAccordion({
@@ -9,7 +8,7 @@ export default function LmAccordion({
   const [opened, setOpen] = useState<string>('')
   return (
     <div className="lm-accordion">
-      {(content.body || []).map((blok: AccordionItemStoryblok, iteration) => (
+      {(content.body || []).map((blok, iteration) => (
         <LmComponentRender
           content={blok}
           options={content}

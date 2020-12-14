@@ -18,9 +18,9 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
   children,
   settings
 }) => {
-  const shopifyConfig: EcommerceShopifyConfigStoryblok | undefined = (
-    settings.ecommerce || []
-  ).find((i) => i.component === 'ecommerce_shopify_config')
+  const shopifyConfig = (settings.ecommerce || []).find(
+    (i) => i.component === 'ecommerce_shopify_config'
+  )
   const checkoutLinkRef = useRef<HTMLAnchorElement | null>(null)
   const [
     selectedVariant,

@@ -39,8 +39,9 @@ function DrawerElement({ settings }: DrawerElementProps): JSX.Element {
   const homepageHref = useHomepageLink()
   const { breakpoints } = useTheme()
   const classes = useStyles()
-  const background =
-    Array.isArray(settings.drawer_background) && settings.drawer_background[0]
+  const background = Array.isArray(settings.drawer_background)
+    ? settings.drawer_background[0]
+    : undefined
   const backgroundProps = useBackgroundBox({ background })
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo

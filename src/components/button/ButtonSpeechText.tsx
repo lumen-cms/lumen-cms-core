@@ -10,8 +10,9 @@ const locale = 'de'
 export default function ButtonSpeechText({ content }: LmButtonSpeechTextProps) {
   const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis()
   const currentVoices: SpeechSynthesisVoice[] = voices
-  const trigger: ButtonStoryblok | undefined =
-    Array.isArray(content.trigger) && content.trigger[0]
+  const trigger = Array.isArray(content.trigger)
+    ? content.trigger[0]
+    : undefined
 
   const onClick = () => {
     if (speaking) {

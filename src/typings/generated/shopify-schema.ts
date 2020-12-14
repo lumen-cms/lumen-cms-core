@@ -3933,7 +3933,7 @@ export type Product = Node & HasMetafields & {
    * A value of `null` indicates that the product is not published to the Online Store sales channel.
    */
   onlineStoreUrl?: Maybe<Scalars['URL']>;
-  /** List of custom product options (maximum of 3 per product). */
+  /** List of product options. */
   options: Array<ProductOption>;
   /** List of price ranges in the presentment currencies for this shop. */
   presentmentPriceRanges: ProductPriceRangeConnection;
@@ -4146,9 +4146,8 @@ export enum ProductImageSortKeys {
 }
 
 /**
- * Custom product property names like "Size", "Color", and "Material".
- * Products are based on permutations of these options.
- * A product may have a maximum of 3 options.
+ * Product property names like "Size", "Color", and "Material" that the customers can select.
+ * Variants are selected based on permutations of these options.
  * 255 characters limit each.
  */
 export type ProductOption = Node & {
@@ -4577,8 +4576,8 @@ export type ScriptDiscountApplication = DiscountApplication & {
 };
 
 /**
- * Custom properties that a shop owner can use to define product variants.
- * Multiple options can exist. Options are represented as: option1, option2, option3, etc.
+ * Properties used by customers to select a product variant.
+ * Products can have multiple options, like different sizes or colors.
  */
 export type SelectedOption = {
   __typename?: 'SelectedOption';

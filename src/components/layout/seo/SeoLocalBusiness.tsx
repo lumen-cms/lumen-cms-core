@@ -3,13 +3,12 @@ import React from 'react'
 import { AppSeoProps } from '../layoutTypes'
 import {
   ImageCoreStoryblok,
-  SeoLocalBusinessOpeningHourStoryblok,
-  SeoLocalBusinessStoryblok
+  SeoLocalBusinessOpeningHourStoryblok
 } from '../../../typings/generated/components-schema'
 import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
 
 export function SeoLocalBusiness({ settings, page }: AppSeoProps) {
-  const business: SeoLocalBusinessStoryblok | undefined =
+  const business =
     page?.seo_body?.find((i) => i.component === 'seo_local_business') ||
     settings.seo_body?.find((i) => i.component === 'seo_local_business')
   if (!business) {

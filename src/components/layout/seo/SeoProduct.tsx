@@ -3,13 +3,12 @@ import React from 'react'
 import { AppSeoProps } from '../layoutTypes'
 import {
   ImageCoreStoryblok,
-  SeoProductOfferStoryblok,
-  SeoProductStoryblok
+  SeoProductOfferStoryblok
 } from '../../../typings/generated/components-schema'
 import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
 
 export function SeoProduct({ settings, page }: AppSeoProps) {
-  const product: SeoProductStoryblok | undefined =
+  const product =
     page?.seo_body?.find((i) => i.component === 'seo_product') ||
     settings.seo_body?.find((i) => i.component === 'seo_product')
   if (!product) {

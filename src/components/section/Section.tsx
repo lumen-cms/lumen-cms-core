@@ -7,6 +7,7 @@ import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { LmComponentRender } from '../CoreComponents'
 import { LmSectionProps } from './sectionTypes'
+import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles({
   fullHeight: {
@@ -37,7 +38,11 @@ export function LmSection({
   const classes = useStyles()
   const theme = useTheme()
 
-  const background = Array.isArray(content.background) && content.background[0]
+  const background: BackgroundStoryblok | undefined = Array.isArray(
+    content.background
+  )
+    ? content.background[0]
+    : undefined
   const { style, className } = useBackgroundBox({
     variant: content.variant || content.presetVariant,
     background,

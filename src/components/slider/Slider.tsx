@@ -16,7 +16,7 @@ import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { SectionProps } from '../section/sectionTypes'
 import { LmSliderProps } from './sliderTypes'
 
-const chunkArray = (myArray: Element[], chunkSize: number) => {
+const chunkArray = (myArray: any, chunkSize: number) => {
   const results = []
   while (myArray.length) {
     results.push(myArray.splice(0, chunkSize))
@@ -56,6 +56,7 @@ export const useStyles = makeStyles({
       height: '100%',
       top: 0,
       display: 'flex',
+      borderRadius: 0,
       alignItems: 'center',
       cursor: 'pointer',
       '& .MuiSvgIcon-root': {
@@ -88,15 +89,15 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
   const wrapInColumns = content.slides_per_view && !isMobile
-  const contentBody = content.body || []
+  const contentBody: LmSliderProps['content']['body'] = content.body || []
   const body = wrapInColumns
     ? chunkArray(contentBody.slice(0), content.slides_per_view as number)
     : contentBody
   const properties = content.property || []
   const styles: CSSProperties = {}
 
-  function handleChangeIndex(item: any) {
-    setSlide(body.findIndex((i) => i._uid === item._uid))
+  function handleChangeIndex(i: number) {
+    setSlide(i)
   }
 
   if (content.background_color) {
@@ -203,7 +204,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
             <IconButton
               color="inherit"
               key={item._uid || `pagination_${i}`}
-              onClick={() => handleChangeIndex(item)}
+              onClick={() => handleChangeIndex(i)}
             >
               {slide === i ? <ActiveIndicator /> : <DefaultIndicator />}
             </IconButton>

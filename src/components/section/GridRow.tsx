@@ -67,8 +67,11 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
   const classes = useStyles()
   const spacing = Number(content.spacing || 3) as GridProps['spacing']
 
-  const background: BackgroundStoryblok | undefined =
-    Array.isArray(content.background) && content.background[0]
+  const background: BackgroundStoryblok | undefined = Array.isArray(
+    content.background
+  )
+    ? content.background[0]
+    : undefined
   const { direction } = content
   const { style, className } = useBackgroundBox({
     background,

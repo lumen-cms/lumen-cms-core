@@ -68,7 +68,7 @@ export function CollapsibleListSection({
   body.forEach((firstLevel) => {
     if (firstLevel.component === 'row') {
       // mega menu: consist of row / column / nav_list | button
-      firstLevel.body.forEach((secondLevel: any) => {
+      firstLevel.body?.forEach((secondLevel) => {
         if (secondLevel.body && secondLevel.body.length) {
           secondLevel.body.forEach((thirdLevel: any) => {
             items.push(thirdLevel)

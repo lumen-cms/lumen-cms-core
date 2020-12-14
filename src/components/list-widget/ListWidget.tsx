@@ -1,10 +1,5 @@
 import React from 'react'
 import { useAppContext } from '@context/AppContext'
-import {
-  CardListStoryblok,
-  ListsStoryblok,
-  NavListStoryblok
-} from '../../typings/generated/components-schema'
 import { useListSearch } from './useListSearch'
 import { ListWidgetContainer } from './ListWidgetContainer'
 import { LmListWidgetProps } from './listWidgetTypes'
@@ -18,10 +13,11 @@ export default function LmListWidget({
     !!content.enable_for_search
   )
 
-  const listOption: ListsStoryblok | CardListStoryblok | NavListStoryblok =
-    (content.list_options && content.list_options[0]) || {}
-
   return (
-    <ListWidgetContainer options={listOption} content={content} items={items} />
+    <ListWidgetContainer
+      options={content.list_options}
+      content={content}
+      items={items}
+    />
   )
 }

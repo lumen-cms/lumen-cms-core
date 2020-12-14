@@ -4,10 +4,7 @@ import useScript from '@charlietango/use-script'
 import { useRouter } from 'next/router'
 import { useAppContext } from '@context/AppContext'
 import { FastSpringContext } from './context/FastSpringContext'
-import {
-  EcommerceFastspringConfigStoryblok,
-  GlobalStoryblok
-} from '../../../typings/generated/components-schema'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 
 export const LmFastSpringProvider: FC<{
   settings: GlobalStoryblok
@@ -15,9 +12,9 @@ export const LmFastSpringProvider: FC<{
   const router = useRouter()
   const appCtx = useAppContext()
   const [currency, setCurrency] = useState('USD')
-  const fastSpring: EcommerceFastspringConfigStoryblok | undefined = (
-    settings.ecommerce || []
-  ).find((i) => i.component === 'ecommerce_fastspring_config')
+  const fastSpring = (settings.ecommerce || []).find(
+    (i) => i.component === 'ecommerce_fastspring_config'
+  )
   const [ready, status] = useScript(fastSpring?.url, {
     attributes: {
       id: 'fsc-api',

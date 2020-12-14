@@ -8,11 +8,10 @@ type DrawerNavListProps = { content: NavMenuStoryblok }
 
 export function DrawerNavList(props: DrawerNavListProps): JSX.Element {
   const { content } = props
-  const body = content.body || []
   return (
     <List subheader={<ListSubheader>{content.header}</ListSubheader>}>
-      {body.map((blok) => (
-        <DrawerButton content={blok} key={blok._uid} />
+      {content.body?.map((blok) => (
+        <DrawerButton content={blok as any} key={blok._uid} />
       ))}
     </List>
   )

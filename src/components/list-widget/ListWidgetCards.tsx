@@ -10,7 +10,7 @@ import { AppApiRequestPayload } from '../../typings/app'
 type ListWidgetCardsProps = {
   content: ListWidgetStoryblok
   items: AppApiRequestPayload['allStories']
-  options: CardListStoryblok
+  options?: CardListStoryblok
 }
 
 export function ListWidgetCards({
@@ -21,7 +21,7 @@ export function ListWidgetCards({
   return (
     <LmComponentRender
       content={{
-        ...options,
+        ...(options || {}),
         _uid: content._uid,
         component: 'card_list',
         body: items.map((item) => {

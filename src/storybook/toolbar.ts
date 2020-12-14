@@ -136,7 +136,7 @@ export const customSettings: GlobalStoryblok = {
 
 export const customSettingsWithDrawer: GlobalStoryblok = {
   ...customSettings,
-  drawer_body: toolbarItems,
+  drawer_body: toolbarItems as GlobalStoryblok['drawer_body'], // get rid of typing issues
   drawer_class_names: { values: ['bg-primary'] }
 }
 

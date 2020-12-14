@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAppSetup } from '@context/AppSetupContext'
-import {
-  GlobalStoryblok,
-  ToolbarRowStoryblok
-} from '../../../typings/generated/components-schema'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import { DrawerContentRender } from './CollapsibleListSection'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -61,14 +58,12 @@ export function DrawerContentList({
   ) {
     childs = []
     content.multi_toolbar.forEach((row) => {
-      const rowItems = row.body || []
-      rowItems.forEach((section: ToolbarRowStoryblok) => {
-        const sectionItems = section.body || []
-        sectionItems.forEach((item) => {
+      row.body?.forEach((section) => {
+        section.body?.forEach((item) => {
           if (
             ['toolbar_search', 'button', 'nav_menu'].includes(item.component)
           ) {
-            childs.push(item)
+            childs.push(item as any)
           }
         })
       })
@@ -80,13 +75,16 @@ export function DrawerContentList({
 
   return (
     <>
-      {childs.map((props) => (
-        <DrawerContentRender
-          content={props}
-          key={props._uid}
-          openedPath={openedPath}
-        />
-      ))}
+      {
+        // @ts-ignore
+        childs?.map((props) => (
+          <DrawerContentRender
+            content={props}
+            key={props._uid}
+            openedPath={openedPath}
+          />
+        ))
+      }
     </>
   )
 }

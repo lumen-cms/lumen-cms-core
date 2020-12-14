@@ -8,10 +8,7 @@ import React, { FunctionComponent, memo, useMemo } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import parseFont from '../../utils/parseFont'
 import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
-import {
-  GlobalStoryblok,
-  ToolbarRowStoryblok
-} from '../../typings/generated/components-schema'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
@@ -96,8 +93,9 @@ const GlobalTheme: FunctionComponent<{
           : settings.theme_container_width
     }
 
-    const firstMultiToolbar: ToolbarRowStoryblok | undefined =
-      Array.isArray(settings.multi_toolbar) && settings.multi_toolbar[0]
+    const firstMultiToolbar = Array.isArray(settings.multi_toolbar)
+      ? settings.multi_toolbar[0]
+      : undefined
     const globalTheme: ThemeOptions = {
       palette: {
         type: mapThemeType[(settings.theme_base as string) || 'base'],

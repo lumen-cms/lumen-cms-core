@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { render } from 'storyblok-rich-text-react-renderer-beta'
+import { render } from 'storyblok-rich-text-react-renderer-ts'
 import { LmCoreComponents } from '@CONFIG'
 import MuiLink from '@material-ui/core/Link'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
