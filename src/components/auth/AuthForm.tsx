@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react'
+import React, { useState } from 'react'
 import { FormContainer, TextFieldElement } from 'react-form-hook-mui'
 import { Button } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
@@ -11,7 +11,7 @@ import { auth0Endpoint } from '../../utils/auth0/auth0Helpers'
 export default function LmAuthForm({ content }: Auth0FormProps) {
   const appCtx = useAppContext()
   const { locale } = useRouter()
-  const { getAccessTokenSilently } = useAuth0()
+  const auth0Hook = useAuth0()
   const [updating, setUpdating] = useState(false)
   const defaults = {
     email: appCtx.user?.email || '',
@@ -57,7 +57,10 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
     Object.keys(data).forEach((key) => {
       params.append(key, data[key])
     })
-    const accessToken = await getAccessTokenSilently()
+    if (!auth0Hook) {
+      return // in case we are in backened of Storyblok
+    }
+    const accessToken = await auth0Hook.getAccessTokenSilently()
     try {
       await fetch(`${auth0Endpoint.api}/api/update-user?${params.toString()}`, {
         headers: {
@@ -71,7 +74,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
   }
 
   return (
-    <Suspense fallback={null}>
+    <>
       <FormContainer onSuccess={onSuccess as any} defaultValues={defaults}>
         <TextFieldElement
           name="given_name"
@@ -127,7 +130,10 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
           disabled={updating}
           onClick={async () => {
             setUpdating(true)
-            const accessToken = await getAccessTokenSilently()
+            if (!auth0Hook) {
+              return // inside of Storyblok
+            }
+            const accessToken = await auth0Hook.getAccessTokenSilently()
             try {
               await fetch(
                 `${auth0Endpoint.api}/api/delete-user?sub=${
@@ -147,6 +153,6 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
           }}
         />
       ))}
-    </Suspense>
+    </>
   )
 }

@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import Avatar from '@material-ui/core/Avatar'
+import Avatar, { AvatarProps } from '@material-ui/core/Avatar'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { useTheme } from '@material-ui/core/styles'
@@ -24,6 +24,15 @@ const sizeMap = {
     container: 64,
     icon: 32
   }
+}
+const mapVariants = {
+  circle: 'circular',
+  rounded: 'rounded',
+  square: 'square'
+}
+const getVariant = (variant: LmAvatarProps['content']['variant']) => {
+  if (!variant) return undefined
+  return mapVariants[variant] as AvatarProps['variant']
 }
 
 export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
@@ -58,7 +67,7 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
 
   return (
     <Avatar
-      variant={content.variant || 'circle'}
+      variant={getVariant(content.variant) ?? 'circular'}
       style={style}
       className={clsx(content.class_names?.values)}
     >

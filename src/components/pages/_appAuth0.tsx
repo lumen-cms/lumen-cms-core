@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
+import { CircularProgress } from '@material-ui/core'
 import { LmApp, LmAppProps } from './_app'
 
 export { reportWebVitals } from './_appDefault'
@@ -10,7 +11,22 @@ const onRedirectCallback = (appState: any) => {
 }
 
 function AppContainer(props: LmAppProps) {
-  const { user } = useAuth0()
+  const { locales, asPath, locale, push } = useRouter()
+  const { user, isLoading, error } = useAuth0()
+
+  useEffect(() => {
+    if (user && (asPath === '/' || asPath === '/home')) {
+      const currentUserLocale = (user.lang || user.locale || 'en').substr(0, 2)
+      if (
+        currentUserLocale &&
+        locale !== currentUserLocale &&
+        locales?.includes(currentUserLocale)
+      ) {
+        push(asPath, undefined, { locale: currentUserLocale })
+      }
+    }
+  }, [user, locales, asPath, locale, push])
+
   const newProps = {
     ...props,
     pageProps: {
@@ -18,7 +34,28 @@ function AppContainer(props: LmAppProps) {
       user
     }
   }
-  return <LmApp {...newProps} />
+  if (error) {
+    console.error(error)
+  }
+  return isLoading ? (
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#f5f5f5'
+      }}
+    >
+      <CircularProgress color="primary" />
+    </div>
+  ) : (
+    <LmApp {...newProps} />
+  )
 }
 
 export function Auth0App(props: LmAppProps) {
