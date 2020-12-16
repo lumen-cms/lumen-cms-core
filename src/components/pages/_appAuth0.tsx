@@ -13,7 +13,7 @@ const onRedirectCallback = (appState: any) => {
 
 function AppContainer(props: LmAppProps) {
   const { locales, asPath, locale, push } = useRouter()
-  const { user, error } = useAuth0()
+  const { user, error, isLoading } = useAuth0()
 
   useEffect(() => {
     if (user && (asPath === '/' || asPath === '/home')) {
@@ -38,12 +38,15 @@ function AppContainer(props: LmAppProps) {
   if (error) {
     console.error(error)
   }
-  return !user ? (
-    <Backdrop open>
-      <CircularProgress color="primary" />
-    </Backdrop>
-  ) : (
-    <LmApp {...newProps} />
+  return (
+    <>
+      {isLoading && (
+        <Backdrop open>
+          <CircularProgress color="primary" />
+        </Backdrop>
+      )}
+      <LmApp {...newProps} />
+    </>
   )
 }
 
