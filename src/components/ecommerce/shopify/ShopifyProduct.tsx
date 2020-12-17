@@ -11,7 +11,7 @@ export default function LmShopifyProduct({ content }: LmShopifyCheckoutProps) {
 
   // const { data } = useAllProductsQuery()
   // const edges = data?.products.edges || []
-  const product = products.find((p) => {
+  const product = products?.find((p) => {
     return p.node.handle === content.handle
   })
 

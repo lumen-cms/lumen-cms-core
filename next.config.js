@@ -3,7 +3,7 @@ const redirectFunc = require('./config/localeRedirect')
 
 const nextConfig = {
   i18n: {
-    locales: ['de', 'en'],
+    locales: ['de'],
     defaultLocale: 'de'
     // domains: [
     //   {
@@ -16,6 +16,7 @@ const nextConfig = {
     //   }
     // ]
   },
+  // strictMode: true // need to wait until v5 of material UI
   async redirects() {
     // const reds = await redirectFunc(['de', 'it', 'es'])
     // return reds

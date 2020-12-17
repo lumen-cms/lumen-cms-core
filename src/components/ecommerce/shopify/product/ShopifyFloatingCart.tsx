@@ -5,7 +5,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import Badge from '@material-ui/core/Badge'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { getTotalCartQuantity } from '../lib/shopifyHelpers'
+import { EcommerceShopifyConfigStoryblok } from '../../../../typings/generated/components-schema'
 
+type FloatingStylesProps = {
+  buttonColor: EcommerceShopifyConfigStoryblok['floating_button_color']
+  badgeColor: EcommerceShopifyConfigStoryblok['floating_badge_color']
+}
 const useStyles = makeStyles((theme: Theme) => ({
   sticky: {
     position: 'fixed',
@@ -15,34 +20,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: '24px 0 0 24px',
     minHeight: 70
   },
-  buttonColor: (props: { buttonColor: any }) => ({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    backgroundColor: theme.palette[props.buttonColor].main,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    color: theme.palette[props.buttonColor].contrastText,
+  buttonColor: ({ buttonColor = 'primary' }: FloatingStylesProps) => ({
+    backgroundColor: theme.palette[buttonColor]?.main,
+    color: theme.palette[buttonColor]?.contrastText,
     '&:hover': {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      backgroundColor: theme.palette[props.buttonColor].dark
+      backgroundColor: theme.palette[buttonColor]?.dark
     }
   }),
-  badgeColor: (props: { buttonColor: string; badgeColor: string }) => ({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    backgroundColor: theme.palette[props.badgeColor].main,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    color: theme.palette[props.badgeColor].contrastText
+  badgeColor: ({ badgeColor = 'warning' }: FloatingStylesProps) => ({
+    backgroundColor: theme.palette[badgeColor]?.main,
+    color: theme.palette[badgeColor]?.contrastText
   })
 }))
 
 export function ShopifyFloatingCart() {
   const { cartVariants, cartOpen, setCartOpen, config } = useShopifySdkContext()
   const classes = useStyles({
-    buttonColor: config?.floating_button_color || 'primary',
-    badgeColor: config?.floating_badge_color || 'warning'
+    buttonColor: config?.floating_button_color,
+    badgeColor: config?.floating_badge_color
   })
 
   const totalCartQuantity = getTotalCartQuantity(cartVariants)
