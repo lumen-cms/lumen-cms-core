@@ -30,7 +30,6 @@ export default function LmImageListItem({
   const [loaded, setLoaded] = useState<boolean>(false)
   const classes = useStyles()
   const imageSource = getRootImageUrl(content.source)
-
   const originalDimensions = getOriginalImageDimensions(content.source || '')
   const { breakpoints } = useTheme()
 
@@ -38,13 +37,6 @@ export default function LmImageListItem({
   const { height } = originalDimensions
 
   const respectImgRatio = listProps.masonry || !listProps.aspect_ratio
-  // const imageAttrs = getImageAttrs({
-  //   originalSource: imageSource || ''
-  // width,
-  // height,
-  // fitInColor: listProps.fit_in_color
-  // })
-
   const { column_count, column_count_phone, column_count_tablet } = listProps
 
   const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
@@ -54,13 +46,13 @@ export default function LmImageListItem({
   const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
   // console.log('inside of masonry', listProps)
   let imgProps: ImageProps = {
-    src: imageSource as string,
+    src: imageSource,
     layout: 'fill',
     objectFit: listProps.fit_in_color ? 'contain' : 'cover'
   }
   if (respectImgRatio) {
     imgProps = {
-      src: imageSource as string,
+      src: imageSource,
       width,
       height,
       layout: 'intrinsic'

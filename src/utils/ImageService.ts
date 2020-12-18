@@ -17,7 +17,8 @@ export function getOriginalImageDimensions(src = '') {
   }
 }
 
-export const getRootImageUrl = (src = '') => src.replace('//a.', 'https://a.')
+export const getRootImageUrl = (src = '') =>
+  src.replace(/^(https?:)?\/\/a.storyblok./, 'https://a.storyblok.')
 
 export const getVwByColCount = (count?: string | number): number => {
   const c = Number(count)

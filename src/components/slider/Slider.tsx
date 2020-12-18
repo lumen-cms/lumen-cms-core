@@ -194,6 +194,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
           className={clsx({
             'd-none': !properties.includes('arrows_beside_pagination')
           })}
+          size="small"
           onClick={onPrevClick}
           color="inherit"
         >
@@ -203,6 +204,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
           return (
             <IconButton
               color="inherit"
+              size="small"
               key={item._uid || `pagination_${i}`}
               onClick={() => handleChangeIndex(i)}
             >
@@ -213,6 +215,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
         <IconButton
           onClick={onNextClick}
           color="inherit"
+          size="small"
           className={clsx({
             'd-none': !properties.includes('arrows_beside_pagination')
           })}
