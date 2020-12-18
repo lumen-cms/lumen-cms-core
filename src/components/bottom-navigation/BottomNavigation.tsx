@@ -10,7 +10,7 @@ import {
   LmBottomNavigationItemProps,
   LmBottomNavigationProps
 } from './bottomNavigationTypes'
-import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,16 +46,15 @@ export default function LmBottomNavigation({
       }}
     >
       {bodyElements.map((item) => {
-        const btnProps: any =
-          item.link?.cached_url || item.link?.url || item.link?.email
-            ? {
-                ...getLinkAttrs(item.link as LinkType, {
-                  openExternal: !!item.open_external
-                }),
-                naked: true,
-                component: LmCoreComponents.lm_link_render
-              }
-            : {}
+        const btnProps: any = isValidLink(item.link as LinkType)
+          ? {
+              ...getLinkAttrs(item.link as LinkType, {
+                openExternal: !!item.open_external
+              }),
+              naked: true,
+              component: LmCoreComponents.lm_link_render
+            }
+          : {}
         return (
           <BottomNavigationAction
             key={item._uid}

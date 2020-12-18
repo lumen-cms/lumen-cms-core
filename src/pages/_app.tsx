@@ -1,6 +1,6 @@
-import { CONFIG, LmCoreComponents } from '@CONFIG'
-import dynamic from 'next/dynamic'
-import '../components/ecommerce/shopify/ShopifyComponents'
+import { CONFIG } from '@CONFIG'
+// import dynamic from 'next/dynamic'
+// import '../components/ecommerce/shopify/ShopifyComponents'
 // import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
 
 // export { Auth0App as default } from '../components/pages/_appAuth0'
@@ -11,12 +11,12 @@ export { LmDefaultApp as default } from '../components/pages/_appDefault'
 // }
 
 // LmCoreComponents.lm_app_providers.push(LmFastSpringProvider)
-LmCoreComponents.auth_form = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: 'bottomNavigation' */ '../components/auth/AuthForm'
-    )
-)
+// LmCoreComponents.auth_form = dynamic(
+//   () =>
+//     import(
+//       /* webpackChunkName: 'bottomNavigation' */ '../components/auth/AuthForm'
+//     )
+// )
 
 CONFIG.authPathRequiredRoles = [
   {

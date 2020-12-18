@@ -239,7 +239,7 @@ export default function LmListSearchAutocomplete({
         renderOption={(item) => {
           const { href } = getLinkAttrs(
             {
-              cached_url: item.full_slug as string,
+              cached_url: item.full_slug,
               linktype: 'story'
             },
             {}

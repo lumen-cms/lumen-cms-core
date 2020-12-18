@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import { LmCoreComponents } from '@CONFIG'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
-import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
 import { LmButtonProps } from './buttonTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 
@@ -126,7 +126,7 @@ export const LmButton: FC<LmButtonProps> = ({
     ? {
         onClick
       }
-    : content.link?.cached_url || content.link?.url || content.link?.email
+    : isValidLink(content.link as LinkType)
     ? {
         ...getLinkAttrs(content.link as LinkType, {
           openExternal: !!content.open_external

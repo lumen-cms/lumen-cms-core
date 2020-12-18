@@ -24,6 +24,8 @@ class LocalizedUtils extends DateFnsUtils {
   dateFormat = 'P'
 }
 
+// url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
+
 export default function LmGoogleForm({
   content
 }: LmGoogleFormProps): JSX.Element {
@@ -36,7 +38,6 @@ export default function LmGoogleForm({
     if (!formStructure?.formAction) {
       return
     }
-    // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
 
     const formData = new FormData()
 

@@ -2,11 +2,13 @@ import { internalLinkHandler } from 'lumen-cms-utils'
 
 export interface LinkType {
   cached_url?: string
-  linktype?: string
+  linktype?: 'url' | 'asset' | 'story' | 'email'
+  fieldtype?: 'multilink'
   id?: string
   anchor?: string
   url?: string
   email?: string
+  prep?: boolean
   story?: {
     name: string
     id: number
@@ -75,6 +77,16 @@ export const linkHandler = (
     props.href = href
   }
   return props
+}
+
+export const isValidLink = (link?: LinkType): boolean | string | undefined => {
+  if (!link) {
+    return false
+  }
+  if (link.prep && link?.linktype === 'story' && link?.cached_url) {
+    return link.cached_url.split('/').filter((i) => i).length > 1
+  }
+  return link?.cached_url || link?.url || link?.email
 }
 
 export const getLinkAttrs = (
