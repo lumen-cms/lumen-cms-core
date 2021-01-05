@@ -6,6 +6,7 @@ import { AppHeaderProps } from './toolbarTypes'
 function Header(props: AppHeaderProps): JSX.Element {
   const content = props.settings
   let rows = content.multi_toolbar || []
+  console.log('header rendered')
 
   let SystemBar = null
   const systemBarProps = rows.find((item) => item.is_system_bar)
@@ -25,4 +26,6 @@ function Header(props: AppHeaderProps): JSX.Element {
   )
 }
 
-export default memo(Header)
+const HeaderMemoized = memo(Header)
+
+export default HeaderMemoized
