@@ -149,4 +149,7 @@ function AppHead({ settings }: AppHeadProps): JSX.Element {
   )
 }
 
-export default memo(AppHead)
+const AppHeadMemoized = memo(AppHead)
+AppHeadMemoized.displayName = 'AppHeadMemo'
+
+export default AppHeadMemoized

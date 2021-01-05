@@ -4,11 +4,11 @@ import {
   ThemeProvider
 } from '@material-ui/core/styles'
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
-import React, { FunctionComponent, memo, useMemo } from 'react'
+import React, { FunctionComponent, useMemo } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import parseFont from '../../utils/parseFont'
-import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { GlobalStyles } from './GlobalStyles'
 
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
@@ -65,11 +65,6 @@ const mapThemeType = {
   base: 'light',
   dark: 'dark'
 }
-
-const GlobalStyles = memo(() => {
-  useGlobalStyles()
-  return null
-})
 
 const GlobalTheme: FunctionComponent<{
   settings: GlobalStoryblok
