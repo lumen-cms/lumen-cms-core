@@ -14,7 +14,6 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
 }) => {
   const [loaded, setLoaded] = useState<boolean>(false)
   const imageSource = content.image
-  const imageSize = options.image_size
   const { breakpoints } = useTheme()
   const storyblokImage = getRootImageUrl(imageSource)
 
@@ -26,38 +25,35 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   )
   const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
   return (
-    <>
-      <CardMedia
-        style={{
-          color: options.variant?.includes('font_white') ? 'white' : 'inherit',
-          backgroundSize: imageSize || 'cover',
-          position: 'relative'
-        }}
-      >
-        {!loaded && (
-          <Skeleton
-            style={{ position: 'absolute' }}
-            width="100%"
-            height="100%"
-            variant="rect"
-          />
-        )}
-        <Image
-          src={storyblokImage}
-          onLoad={() => setLoaded(true)}
-          loading="lazy"
-          layout="fill"
-          sizes={`(min-width: 0) and (max-width: ${
-            breakpoints.values.sm - 1
-          }px) ${phoneVw}vw, (min-width: ${
-            breakpoints.values.sm
-          }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
-            ${desktopVw}vw`}
-          objectFit="cover"
+    <CardMedia
+      style={{
+        color: options.variant?.includes('font_white') ? 'white' : 'inherit',
+        position: 'relative'
+      }}
+    >
+      {!loaded && (
+        <Skeleton
+          style={{ position: 'absolute' }}
+          width="100%"
+          height="100%"
+          variant="rect"
         />
-        {children}
-      </CardMedia>
-    </>
+      )}
+      <Image
+        src={storyblokImage}
+        onLoad={() => setLoaded(true)}
+        loading="lazy"
+        layout="fill"
+        sizes={`(min-width: 0) and (max-width: ${
+          breakpoints.values.sm - 1
+        }px) ${phoneVw}vw, (min-width: ${
+          breakpoints.values.sm
+        }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
+            ${desktopVw}vw`}
+        objectFit={options.image_size || 'cover'}
+      />
+      {children}
+    </CardMedia>
   )
 }
 CardMediaElement.displayName = 'CardMediaElement'

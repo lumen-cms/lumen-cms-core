@@ -1,3 +1,4 @@
+import '../utils/wdyr' // add why did you render
 import { CONFIG } from '@CONFIG'
 // import dynamic from 'next/dynamic'
 // import '../components/ecommerce/shopify/ShopifyComponents'
@@ -5,7 +6,6 @@ import { CONFIG } from '@CONFIG'
 
 // export { Auth0App as default } from '../components/pages/_appAuth0'
 export { LmDefaultApp as default } from '../components/pages/_appDefault'
-
 // if (process.env.NEXT_PUBLIC_AUTH_API_ASSIGN_ROLE) {
 //   LmCoreComponents.lm_app_providers.push(LmFastSpringProvider)
 // }
