@@ -5,14 +5,12 @@ import { CONFIG } from '@CONFIG'
 import Head from 'next/head'
 import { AppPageProps } from '../../typings/app'
 import { AppContainer } from '../layout/AppContainer'
-import { useStoryblokComposer } from '../../utils/hooks/useStoryblokComposer'
 import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 
 export type LmAppProps = AppProps<AppPageProps>
 
 export function LmApp({ Component, pageProps, router }: LmAppProps) {
-  const { settings, page } = pageProps as AppPageProps
-  const [statePage, stateSettings] = useStoryblokComposer({ settings, page })
+  const { settings } = pageProps as AppPageProps
 
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
@@ -50,13 +48,8 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
     return <div>loading...</div>
   }
 
-  const appProps = {
-    ...pageProps,
-    page: statePage,
-    settings: stateSettings
-  }
   return (
-    <AppContainer content={appProps}>
+    <AppContainer content={pageProps}>
       <Head>
         <meta
           name="viewport"
@@ -64,7 +57,7 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
           key="viewport"
         />
       </Head>
-      <Component {...appProps} />
+      <Component {...pageProps} />
     </AppContainer>
   )
 }

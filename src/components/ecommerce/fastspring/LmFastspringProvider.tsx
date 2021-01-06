@@ -3,12 +3,11 @@ import React, { FC, useState } from 'react'
 import useScript from '@charlietango/use-script'
 import { useRouter } from 'next/router'
 import { useAppContext } from '@context/AppContext'
+import { useAppSettings } from '@context/AppSettingsContext'
 import { FastSpringContext } from './context/FastSpringContext'
-import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 
-export const LmFastSpringProvider: FC<{
-  settings: GlobalStoryblok
-}> = ({ children, settings }) => {
+export const LmFastSpringProvider: FC = ({ children }) => {
+  const { settings } = useAppSettings()
   const router = useRouter()
   const appCtx = useAppContext()
   const [currency, setCurrency] = useState('USD')

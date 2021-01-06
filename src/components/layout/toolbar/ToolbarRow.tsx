@@ -3,12 +3,11 @@ import Container, { ContainerProps } from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core/styles'
 import { LmComponentRender } from '@LmComponentRender'
+import { useAppSettings } from '@context/AppSettingsContext'
 import { LmToolbarRowProps } from './toolbarTypes'
 
-export function LmToolbarRow({
-  content,
-  settings
-}: LmToolbarRowProps): JSX.Element {
+export function LmToolbarRow({ content }: LmToolbarRowProps): JSX.Element {
+  const { settings } = useAppSettings()
   const body = content.body || []
   const theme = useTheme()
 
@@ -44,11 +43,7 @@ export function LmToolbarRow({
             alignItems="center"
           >
             {body.map((blok) => (
-              <LmComponentRender
-                content={blok}
-                settings={settings}
-                key={blok._uid}
-              />
+              <LmComponentRender content={blok} key={blok._uid} />
             ))}
           </Grid>
         </Container>
@@ -64,7 +59,7 @@ export function LmToolbarRow({
       alignItems="center"
     >
       {body.map((blok) => (
-        <LmComponentRender content={blok} settings={settings} key={blok._uid} />
+        <LmComponentRender content={blok} key={blok._uid} />
       ))}
     </Grid>
   )

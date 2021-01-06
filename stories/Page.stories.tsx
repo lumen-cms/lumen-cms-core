@@ -211,7 +211,7 @@ export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
   } as GlobalStoryblok
   return (
     <AppSetupProvider settings={playgroundSettings} page={getPropsDrawer()}>
-      <GlobalTheme settings={playgroundSettings}>
+      <GlobalTheme>
         <Layout settings={playgroundSettings}>
           <LmPage content={getPropsDrawer()} />
         </Layout>

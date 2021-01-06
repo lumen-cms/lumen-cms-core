@@ -51,13 +51,9 @@ export function Auth0Page(props: LmPagesIndexProps) {
 
   return (
     <>
-      <AppSeo
-        settings={settings}
-        page={page}
-        previewImage={page?.preview_image}
-      />
-      <AppHead settings={settings} />
-      <Layout settings={settings}>
+      <AppSeo page={page} previewImage={page?.preview_image} />
+      <AppHead />
+      <Layout>
         {insideStoryblok ? (
           <LmComponentRender content={page} />
         ) : (

@@ -1,15 +1,25 @@
-import { createContext, useContext } from 'react'
+import { createContext, Dispatch, SetStateAction, useContext } from 'react'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 
-const defaultSettings: GlobalStoryblok = {
-  _uid: 'default_settings',
-  component: 'global',
-  theme_base: 'base'
+type AppSettingsProps = {
+  settings: GlobalStoryblok
+  setSettings: Dispatch<SetStateAction<GlobalStoryblok>>
+}
+const noop = () => {
+  //
+}
+const defaultSettings: AppSettingsProps = {
+  settings: {
+    _uid: 'default_settings',
+    component: 'global',
+    theme_base: 'base'
+  },
+  setSettings: noop
 }
 
-export const AppSettingsContext = createContext<GlobalStoryblok>(
+export const AppSettingsContext = createContext<AppSettingsProps>(
   defaultSettings
 )
 
 export const useAppSettings = () =>
-  useContext<GlobalStoryblok>(AppSettingsContext)
+  useContext<AppSettingsProps>(AppSettingsContext)

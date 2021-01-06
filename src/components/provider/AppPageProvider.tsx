@@ -1,27 +1,24 @@
-import { useEffect, useState } from 'react'
-import { AppPageProps } from '../../typings/app'
+import React, { FunctionComponent, useEffect, useState } from 'react'
+import { AppPageContext } from '@context/AppPageContext'
+import { useAppSettings } from '@context/AppSettingsContext'
 import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
 
-export function useStoryblokComposer({
-  page,
-  settings
-}: Pick<AppPageProps, 'settings' | 'page'>) {
-  const pageUid = page?.uuid
-
-  const [statePage, setPage] = useState<AppPageProps['page']>(page)
-  const [stateSettings, setSettings] = useState<AppPageProps['settings']>(
-    settings
-  )
+const AppPageProvider: FunctionComponent<{ page: PageStoryblok | null }> = ({
+  children,
+  page
+}) => {
+  const { settings, setSettings } = useAppSettings()
+  const [value, setPage] = useState<PageStoryblok | null>(page)
 
   useEffect(() => {
-    if (pageUid !== statePage?.uuid) {
+    if (value?.uuid !== page?.uuid) {
       // console.log('different page', pageUid, statePage.uuid)
       setPage(page)
     }
-  }, [pageUid, statePage, page])
+  }, [value, page, setPage])
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.storyblok) {
@@ -63,7 +60,18 @@ export function useStoryblokComposer({
         }
       })
     }
-  }, [page, settings])
+  }, [page, settings, setSettings, setPage])
 
-  return [statePage, stateSettings]
+  return (
+    <AppPageContext.Provider
+      value={{
+        page: value
+      }}
+    >
+      {children}
+    </AppPageContext.Provider>
+  )
 }
+AppPageProvider.displayName = 'AppPageProvider'
+
+export default AppPageProvider

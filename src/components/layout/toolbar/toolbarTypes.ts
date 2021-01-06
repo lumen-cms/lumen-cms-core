@@ -1,5 +1,4 @@
 import {
-  GlobalStoryblok,
   ToolbarLogoStoryblok,
   ToolbarNaviButtonStoryblok,
   ToolbarRowSectionStoryblok,
@@ -8,17 +7,12 @@ import {
 
 export type LmToolbarLogoProps = {
   content?: ToolbarLogoStoryblok
-  settings: GlobalStoryblok
 }
 export type LmToggleDrawerButtonProps = { content: ToolbarNaviButtonStoryblok }
-export type AppHeaderProps = {
-  settings: GlobalStoryblok
-}
+
 export type LmToolbarSectionProps = {
   content: ToolbarRowSectionStoryblok
-  settings: GlobalStoryblok
 }
 export type LmToolbarRowProps = {
   content: ToolbarRowStoryblok
-  settings: GlobalStoryblok
 }

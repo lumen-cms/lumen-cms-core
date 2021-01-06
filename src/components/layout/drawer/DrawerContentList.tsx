@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAppSetup } from '@context/AppSetupContext'
-import { GlobalStoryblok } from '../../../typings/generated/components-schema'
+import { useAppSettings } from '@context/AppSettingsContext'
 import { DrawerContentRender } from './CollapsibleListSection'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const findPathDeep = require('deepdash/findPathDeep')
-
-type DrawerContentListProps = { content: Partial<GlobalStoryblok> }
 
 /**
  * function to return uids of the current path. only called once
@@ -42,22 +40,17 @@ const getUidsOfSlug = (childs: any[], activeRoutePath?: string) => {
   return []
 }
 
-export function DrawerContentList({
-  content
-}: DrawerContentListProps): JSX.Element {
+export function DrawerContentList(): JSX.Element {
   const appSetup = useAppSetup()
+  const { settings } = useAppSettings()
   const router = useRouter()
   const activeRoutePath = router?.asPath
   let childs =
-    (appSetup.hasDrawer ? content.drawer_body : content.toolbar) || []
+    (appSetup.hasDrawer ? settings.drawer_body : settings.toolbar) || []
 
-  if (
-    !appSetup.hasDrawer &&
-    content.multi_toolbar &&
-    content.multi_toolbar.length
-  ) {
+  if (!appSetup.hasDrawer && settings.multi_toolbar?.length) {
     childs = []
-    content.multi_toolbar.forEach((row) => {
+    settings.multi_toolbar.forEach((row) => {
       row.body?.forEach((section) => {
         section.body?.forEach((item) => {
           if (
@@ -76,6 +69,7 @@ export function DrawerContentList({
   return (
     <>
       {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         childs?.map((props) => (
           <DrawerContentRender

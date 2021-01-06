@@ -4,7 +4,7 @@ import { useAppSetup } from '@context/AppSetupContext'
 import Image from 'next/image'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { GlobalStoryblok } from '../../../typings/generated/components-schema'
+import { useAppSettings } from '@context/AppSettingsContext'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
 import {
@@ -18,10 +18,6 @@ import MwcDrawer from './MwcDrawer'
 import useBackgroundBox from '../../section/useBackgroundBox'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 
-type DrawerElementProps = {
-  settings: GlobalStoryblok
-}
-
 const useStyles = makeStyles({
   logoRoot: {
     '& > div': {
@@ -34,7 +30,8 @@ const useStyles = makeStyles({
   }
 })
 
-function DrawerElement({ settings }: DrawerElementProps): JSX.Element {
+function DrawerElement(): JSX.Element {
+  const { settings } = useAppSettings()
   const appSetup = useAppSetup()
   const homepageHref = useHomepageLink()
   const { breakpoints } = useTheme()
@@ -80,7 +77,7 @@ function DrawerElement({ settings }: DrawerElementProps): JSX.Element {
             {websiteSlogan && <div>{websiteSlogan}</div>}
           </div>
         )}
-        <DrawerContentList content={settings} />
+        <DrawerContentList />
       </div>
     </MwcDrawer>
   )

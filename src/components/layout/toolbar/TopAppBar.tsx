@@ -8,10 +8,11 @@ import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { useDebounce } from 'use-debounce'
 import { useAppSetup } from '@context/AppSetupContext'
+import { useAppSettings } from '@context/AppSettingsContext'
 import { useGlobalState } from '../../../utils/state/state'
 import { ContentSpace } from '../ContentSpace'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
-import { AppHeaderProps } from './toolbarTypes'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -89,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: 0
       }
     },
-    toolbarCustom: (props: AppHeaderProps) => {
+    toolbarCustom: (props: { settings: GlobalStoryblok }) => {
       const options: CreateCSSProperties = {}
       const increasedFontSize = props.settings.toolbar_font_size
       if (increasedFontSize) {
@@ -123,13 +124,11 @@ const mapToolbarColor = {
   white: 'inherit'
 }
 
-const TopAppBar: FunctionComponent<
-  AppHeaderProps & {
-    SystemBar?: React.ReactNode
-  }
-> = (props) => {
-  const classes = useStyles(props)
-  const { settings } = props
+const TopAppBar: FunctionComponent<{
+  SystemBar?: React.ReactNode
+}> = (props) => {
+  const { settings } = useAppSettings()
+  const classes = useStyles({ settings })
   const toolbarConfig = settings.toolbar_config || []
   const appSetup = useAppSetup()
   const isScrolledTrigger = useScrollTrigger({ disableHysteresis: false })
@@ -176,11 +175,11 @@ const TopAppBar: FunctionComponent<
           ]]: showLeftShift
         })}
         style={{
-          background: props.settings.toolbar_background ?? undefined,
+          background: settings.toolbar_background ?? undefined,
           backgroundColor:
-            props.settings?.toolbar_color?.rgba &&
+            settings.toolbar_color?.rgba &&
             (!appSetup.hasFeatureImage || toolbarScrolled)
-              ? props.settings?.toolbar_color?.rgba
+              ? settings.toolbar_color?.rgba
               : undefined
         }}
         color={mapToolbarColor[toolbarVariant || 'default']}
@@ -190,7 +189,7 @@ const TopAppBar: FunctionComponent<
         <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
           <Toolbar
             className={clsx(classes.toolbar, {
-              [classes.toolbarCustom]: props.settings.toolbar_font_size
+              [classes.toolbarCustom]: settings.toolbar_font_size
             })}
           >
             {props.children}

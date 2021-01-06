@@ -1,17 +1,14 @@
 import React, { FunctionComponent, useMemo } from 'react'
 import { DrawerProps } from '@material-ui/core/Drawer'
 import { AppSetupContext, AppSetupProps } from '@context/AppSetupContext'
-import {
-  GlobalStoryblok,
-  PageStoryblok
-} from '../../typings/generated/components-schema'
+import { useAppSettings } from '@context/AppSettingsContext'
+import { useAppPage } from '@context/AppPageContext'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
-const AppSetupProvider: FunctionComponent<{
-  settings: GlobalStoryblok
-  page?: PageStoryblok | null
-}> = ({ children, settings, page }) => {
+const AppSetupProvider: FunctionComponent = ({ children }) => {
   const { isMobile } = useDeviceDimensions()
+  const { settings } = useAppSettings()
+  const { page } = useAppPage()
   const hasDrawer =
     Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0
   const hasFeatureImage =

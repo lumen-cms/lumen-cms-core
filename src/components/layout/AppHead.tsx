@@ -4,20 +4,17 @@ import GoogleFonts from 'next-google-fonts'
 import { useAppContext } from '@context/AppContext'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
+import { useAppSettings } from '@context/AppSettingsContext'
 import { imageServiceNoWebp } from '../../utils/ImageService'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-type AppHeadProps = {
-  settings: GlobalStoryblok
-}
-
-function AppHead({ settings }: AppHeadProps): JSX.Element {
+function AppHead(): JSX.Element {
+  const { settings } = useAppSettings()
   const favicon = settings.setup_favicon
   const appContext = useAppContext()
   const { insideStoryblok } = appContext

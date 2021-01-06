@@ -3,8 +3,8 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useAppSetup } from '@context/AppSetupContext'
 import { LmComponentRender } from '@LmComponentRender'
+import { useAppSettings } from '@context/AppSettingsContext'
 import { useGlobalState } from '../../utils/state/state'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,16 +47,11 @@ const FooterContainer: FunctionComponent = ({ children }) => {
 }
 FooterContainer.displayName = 'FooterContainer'
 
-type FooterProps = {
-  settings: GlobalStoryblok
-}
-
-function Footer({ settings }: FooterProps): JSX.Element {
-  const content = (settings && settings.footer) || []
-
+function Footer(): JSX.Element {
+  const { settings } = useAppSettings()
   return (
     <FooterContainer>
-      {content.map((blok) => (
+      {settings.footer?.map((blok) => (
         <LmComponentRender content={blok} key={blok._uid} />
       ))}
     </FooterContainer>

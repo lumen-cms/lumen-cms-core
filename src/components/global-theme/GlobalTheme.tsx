@@ -6,8 +6,9 @@ import {
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import React, { FunctionComponent, useMemo } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { useAppSettings } from '@context/AppSettingsContext'
+import { useAppPage } from '@context/AppPageContext'
 import parseFont from '../../utils/parseFont'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { GlobalStyles } from './GlobalStyles'
 
 declare module '@material-ui/core/styles/createMuiTheme' {
@@ -66,10 +67,11 @@ const mapThemeType = {
   dark: 'dark'
 }
 
-const GlobalTheme: FunctionComponent<{
-  settings: GlobalStoryblok
-  rightDrawerWidth?: number
-}> = ({ children, settings, rightDrawerWidth }) => {
+const GlobalTheme: FunctionComponent = ({ children }) => {
+  const { settings } = useAppSettings()
+  const { page } = useAppPage()
+  const rightDrawerWidth = page?.right_drawer_width
+
   const themeUid = settings && settings._uid
   const theme = useMemo(() => {
     if (!themeUid) {

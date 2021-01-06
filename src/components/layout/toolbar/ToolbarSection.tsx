@@ -41,14 +41,13 @@ const ToolbarSectionContainer: FunctionComponent<{
 ToolbarSectionContainer.displayName = 'ToolbarSectionContainer'
 
 export function LmToolbarSection({
-  settings,
   content
 }: LmToolbarSectionProps): JSX.Element {
   const body = content.body || []
   return (
     <ToolbarSectionContainer content={content}>
       {body.map((blok) => (
-        <LmComponentRender content={blok} settings={settings} key={blok._uid} />
+        <LmComponentRender content={blok} key={blok._uid} />
       ))}
     </ToolbarSectionContainer>
   )

@@ -5,12 +5,12 @@ import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
+import { useAppSettings } from '@context/AppSettingsContext'
 import {
   getOriginalImageDimensions,
   getRootImageUrl,
   imageSizesOnWidthAndBreakpoints
 } from '../../../utils/ImageService'
-import { LmToolbarLogoProps } from './toolbarTypes'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
+export function LmToolbarLogo(): JSX.Element {
+  const { settings } = useAppSettings()
   const classes = useStyles()
   const { breakpoints } = useTheme()
   const homepageHref = useHomepageLink()

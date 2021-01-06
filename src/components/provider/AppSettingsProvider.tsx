@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { AppSettingsContext } from '@context/AppSettingsContext'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
@@ -7,6 +7,14 @@ const AppSettingsProvider: FunctionComponent<{ settings: GlobalStoryblok }> = ({
   settings
 }) => {
   const [val, setValue] = useState<GlobalStoryblok>(settings)
+
+  useEffect(() => {
+    if (val?.uuid !== settings?.uuid) {
+      // console.log('different settings', settingsUid, stateSettings.uuid)
+      setValue(settings)
+    }
+  }, [val, settings, setValue])
+
   return (
     <AppSettingsContext.Provider
       value={{
@@ -18,6 +26,6 @@ const AppSettingsProvider: FunctionComponent<{ settings: GlobalStoryblok }> = ({
     </AppSettingsContext.Provider>
   )
 }
-AppSettingsProvider.displayName = 'AppProvider'
+AppSettingsProvider.displayName = 'AppSettingsProvider'
 
 export default AppSettingsProvider
