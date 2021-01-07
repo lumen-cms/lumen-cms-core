@@ -1,11 +1,10 @@
 import React, { memo } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
-import { useAppSettings } from '@context/AppSettingsContext'
 import TopAppBarWrap from './TopAppBar'
+import { useAppStore } from '../../../utils/state/appState'
 
 function Header(): JSX.Element {
-  const { settings } = useAppSettings()
-
+  const settings = useAppStore((state) => state.settings)
   let rows = settings.multi_toolbar || []
   console.log('header rendered')
 
@@ -25,6 +24,4 @@ function Header(): JSX.Element {
   )
 }
 
-const HeaderMemoized = memo(Header)
-
-export default HeaderMemoized
+export default memo(Header)

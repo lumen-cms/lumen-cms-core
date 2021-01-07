@@ -2,25 +2,12 @@ import React, { FunctionComponent, useMemo } from 'react'
 import { DrawerProps } from '@material-ui/core/Drawer'
 import { AppSetupContext, AppSetupProps } from '@context/AppSetupContext'
 import { useAppSettings } from '@context/AppSettingsContext'
-import { useAppPage } from '@context/AppPageContext'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 const AppSetupProvider: FunctionComponent = ({ children }) => {
   const { isMobile } = useDeviceDimensions()
   const { settings } = useAppSettings()
-  const { page } = useAppPage()
-  const hasDrawer =
-    Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0
-  const hasFeatureImage =
-    page &&
-    Array.isArray(page.property) &&
-    page.property.includes('has_feature')
-  const hasRightDrawer =
-    page && Array.isArray(page.right_body) && page.right_body?.length > 0
-  const hasScrollCollapse = !!(
-    settings.toolbar_config &&
-    settings.toolbar_config.includes('scroll_collapse')
-  )
+
   let drawerVariant: DrawerProps['variant'] =
     isMobile && settings.drawer_below_toolbar_xs ? 'persistent' : 'temporary'
   if (!isMobile) {
@@ -28,38 +15,12 @@ const AppSetupProvider: FunctionComponent = ({ children }) => {
       ? 'persistent'
       : settings.drawer_variant || 'temporary'
   }
-  const toolbarMainHeight = settings.toolbar_main_height
-  const drawerBelowToolbar =
-    settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
-  const drawerFullWidthMobile = !!settings.drawer_full_width_mobile
-  const rightDrawerMediaBreakpoint = page?.mobile_breakpoint
-  const leftDrawerMediaBreakpoint = settings?.mobile_nav_breakpoint
 
   const value = useMemo<AppSetupProps>(() => {
     return {
-      hasDrawer,
-      hasFeatureImage,
-      hasRightDrawer,
-      hasScrollCollapse,
-      toolbarMainHeight,
-      drawerVariant,
-      drawerBelowToolbar,
-      drawerFullWidthMobile,
-      rightDrawerMediaBreakpoint,
-      leftDrawerMediaBreakpoint
+      drawerVariant
     }
-  }, [
-    hasDrawer,
-    hasFeatureImage,
-    hasRightDrawer,
-    hasScrollCollapse,
-    toolbarMainHeight,
-    drawerVariant,
-    drawerBelowToolbar,
-    drawerFullWidthMobile,
-    rightDrawerMediaBreakpoint,
-    leftDrawerMediaBreakpoint
-  ])
+  }, [drawerVariant])
 
   return (
     <AppSetupContext.Provider value={value}>

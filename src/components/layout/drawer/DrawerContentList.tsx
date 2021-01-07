@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { useAppSetup } from '@context/AppSetupContext'
 import { useAppSettings } from '@context/AppSettingsContext'
 import { DrawerContentRender } from './CollapsibleListSection'
 
@@ -41,14 +40,13 @@ const getUidsOfSlug = (childs: any[], activeRoutePath?: string) => {
 }
 
 export function DrawerContentList(): JSX.Element {
-  const appSetup = useAppSetup()
   const { settings } = useAppSettings()
   const router = useRouter()
   const activeRoutePath = router?.asPath
-  let childs =
-    (appSetup.hasDrawer ? settings.drawer_body : settings.toolbar) || []
+  const hasDrawer = settings.drawer_body?.length
+  let childs = (hasDrawer ? settings.drawer_body : settings.toolbar) || []
 
-  if (!appSetup.hasDrawer && settings.multi_toolbar?.length) {
+  if (!hasDrawer && settings.multi_toolbar?.length) {
     childs = []
     settings.multi_toolbar.forEach((row) => {
       row.body?.forEach((section) => {

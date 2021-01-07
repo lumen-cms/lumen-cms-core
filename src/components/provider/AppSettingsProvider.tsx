@@ -7,13 +7,13 @@ const AppSettingsProvider: FunctionComponent<{ settings: GlobalStoryblok }> = ({
   settings
 }) => {
   const [val, setValue] = useState<GlobalStoryblok>(settings)
-
+  const uuid = val?.uuid
   useEffect(() => {
-    if (val?.uuid !== settings?.uuid) {
-      // console.log('different settings', settingsUid, stateSettings.uuid)
+    if (uuid !== settings?.uuid) {
       setValue(settings)
     }
-  }, [val, settings, setValue])
+  }, [uuid, settings, setValue])
+  console.log('render')
 
   return (
     <AppSettingsContext.Provider

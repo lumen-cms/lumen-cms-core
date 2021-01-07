@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const FooterContainer: FunctionComponent = ({ children }) => {
   const classes = useStyles()
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
+  const { settings } = useAppSettings()
   const appSetup = useAppSetup()
   const hasLeftShift =
     appSetup.drawerVariant !== 'temporary' && isLeftDrawerOpen
@@ -37,7 +38,7 @@ const FooterContainer: FunctionComponent = ({ children }) => {
       className={clsx(classes.footer, {
         [classes.leftShift]: hasLeftShift,
         [classes[
-          `left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`
+          `left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`
         ]]: hasLeftShift
       })}
     >

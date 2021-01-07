@@ -3,10 +3,13 @@ import { LmCoreComponents } from '@CONFIG'
 import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
 import { LmPageProps } from './pageTypes'
+import { useAppStore } from '../../utils/state/appState'
 
 export function LmPage({ content }: LmPageProps): JSX.Element {
-  const body = content.body || []
-  const rightBody = content.right_body || []
+  const page = useAppStore((state) => state.page)
+  const currentContent = page || content
+  const body = currentContent?.body || []
+  const rightBody = currentContent?.right_body || []
 
   if (!body.length) {
     return <div>There is no content yet...</div>

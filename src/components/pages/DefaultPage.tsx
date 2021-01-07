@@ -1,12 +1,22 @@
 import Error from 'next/error'
-import React from 'react'
-import { LmComponentRender } from '@LmComponentRender'
+import React, { memo } from 'react'
 import { AppPageProps } from '../../typings/app'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
+import { LmPage } from '../page/Page'
+import { useAppStore } from '../../utils/state/appState'
 
 export type LmPagesIndexProps = AppPageProps & Record<string, unknown>
+
+const Test = memo(() => {
+  const store = useAppStore((state) => state.settings)
+  console.log('im test hings')
+  // const ctx = useAppSettings()
+  console.log(store)
+  return <div />
+})
+Test.displayName = 'TestComponent'
 
 export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
   const { settings, page, error } = props
@@ -15,10 +25,11 @@ export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
   }
   return (
     <>
-      <AppSeo page={page} previewImage={page?.preview_image} />
+      <Test />
+      <AppSeo />
       <AppHead />
       <Layout>
-        <LmComponentRender content={page} />
+        <LmPage />
       </Layout>
     </>
   )

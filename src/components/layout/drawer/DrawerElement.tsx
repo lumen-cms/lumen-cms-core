@@ -1,6 +1,5 @@
 import React, { memo } from 'react'
 import Link from 'next/link'
-import { useAppSetup } from '@context/AppSetupContext'
 import Image from 'next/image'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
@@ -31,8 +30,8 @@ const useStyles = makeStyles({
 })
 
 function DrawerElement(): JSX.Element {
+  console.log('drwer element rendered')
   const { settings } = useAppSettings()
-  const appSetup = useAppSetup()
   const homepageHref = useHomepageLink()
   const { breakpoints } = useTheme()
   const classes = useStyles()
@@ -43,7 +42,8 @@ function DrawerElement(): JSX.Element {
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo
   const websiteSlogan = settings.website_slogan
-
+  const drawerBelowToolbar =
+    settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
   return (
     <MwcDrawer backgroundProps={backgroundProps}>
       {(background?.image || background?.background_elements) && (
@@ -54,8 +54,8 @@ function DrawerElement(): JSX.Element {
           <BackgroundElements elements={background.background_elements} />
         )}
       <div>
-        {appSetup.drawerBelowToolbar && <ContentSpace />}
-        {!appSetup.hasDrawer && !appSetup.drawerBelowToolbar && (
+        {drawerBelowToolbar && <ContentSpace />}
+        {!settings.drawer_body?.length && !drawerBelowToolbar && (
           <div>
             <Link href={homepageHref}>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

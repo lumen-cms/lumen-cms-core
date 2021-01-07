@@ -8,11 +8,11 @@ import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { useDebounce } from 'use-debounce'
 import { useAppSetup } from '@context/AppSetupContext'
-import { useAppSettings } from '@context/AppSettingsContext'
 import { useGlobalState } from '../../../utils/state/state'
 import { ContentSpace } from '../ContentSpace'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
+import { useAppStore } from '../../../utils/state/appState'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: 0
       }
     },
-    toolbarCustom: (props: { settings: GlobalStoryblok }) => {
+    toolbarCustom: (props: { settings: Partial<GlobalStoryblok> }) => {
       const options: CreateCSSProperties = {}
       const increasedFontSize = props.settings.toolbar_font_size
       if (increasedFontSize) {
@@ -127,10 +127,14 @@ const mapToolbarColor = {
 const TopAppBar: FunctionComponent<{
   SystemBar?: React.ReactNode
 }> = (props) => {
-  const { settings } = useAppSettings()
+  console.log('toppappbarr')
+  const appSetup = useAppSetup()
+  const { page, settings } = useAppStore((state) => ({
+    page: state.page,
+    settings: state.settings
+  }))
   const classes = useStyles({ settings })
   const toolbarConfig = settings.toolbar_config || []
-  const appSetup = useAppSetup()
   const isScrolledTrigger = useScrollTrigger({ disableHysteresis: false })
   const [isScrolled] = useDebounce(isScrolledTrigger, 100)
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
@@ -147,16 +151,17 @@ const TopAppBar: FunctionComponent<{
 
   const isFixedTop = toolbarConfig.includes('fixed')
   const isScrollCollapse = toolbarConfig.includes('scroll_collapse')
+  const hasFeatureImage = page?.property?.includes('has_feature')
+  const drawerBelowToolbar =
+    settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
   const showLeftShift =
     appSetup.drawerVariant !== 'temporary' &&
-    !appSetup.drawerBelowToolbar &&
+    !drawerBelowToolbar &&
     isLeftDrawerOpen
 
   const toolbarScrolled =
     scrolledWithoutHysteresis &&
-    (appSetup.toolbarMainHeight ||
-      appSetup.hasFeatureImage ||
-      !!props.SystemBar)
+    (settings.toolbar_main_height || hasFeatureImage || !!props.SystemBar)
   return (
     <>
       <AppBar
@@ -164,21 +169,22 @@ const TopAppBar: FunctionComponent<{
           'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
           'lm-toolbar__unelevated': toolbarConfig.includes('unelevated'),
           [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
-          'lm-toolbar__transparent': appSetup.hasFeatureImage,
+          'lm-toolbar__transparent': hasFeatureImage,
           'lm-toolbar__scrolled': toolbarScrolled,
-          'lm-toolbar__collapsed': isScrolled && appSetup.hasScrollCollapse,
+          'lm-toolbar__collapsed':
+            isScrolled && settings.toolbar_config?.includes('scroll_collapse'),
           'lm-toolbar__scroll-collapse': isScrollCollapse,
           'lm-toolbar__with-system-bar': !!props.SystemBar,
           [classes.leftShift]: showLeftShift,
           [classes[
-            `left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`
+            `left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`
           ]]: showLeftShift
         })}
         style={{
           background: settings.toolbar_background ?? undefined,
           backgroundColor:
             settings.toolbar_color?.rgba &&
-            (!appSetup.hasFeatureImage || toolbarScrolled)
+            (!hasFeatureImage || toolbarScrolled)
               ? settings.toolbar_color?.rgba
               : undefined
         }}
@@ -196,7 +202,7 @@ const TopAppBar: FunctionComponent<{
           </Toolbar>
         </Container>
       </AppBar>
-      {isFixedTop && !appSetup.hasFeatureImage && <ContentSpace isBlock />}
+      {isFixedTop && !hasFeatureImage && <ContentSpace isBlock />}
     </>
   )
 }

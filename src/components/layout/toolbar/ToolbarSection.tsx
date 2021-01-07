@@ -3,8 +3,8 @@ import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useAppSetup } from '@context/AppSetupContext'
 import { LmComponentRender } from '@LmComponentRender'
+import { useAppSettings } from '@context/AppSettingsContext'
 import { ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
 import { LmToolbarSectionProps } from './toolbarTypes'
 
@@ -13,9 +13,9 @@ const ToolbarSectionContainer: FunctionComponent<{
 }> = ({ children, content }) => {
   const { align } = content
   const theme = useTheme()
-  const appSetup = useAppSetup()
+  const { settings } = useAppSettings()
   const matches = useMediaQuery(
-    theme.breakpoints.up(appSetup.leftDrawerMediaBreakpoint || 'sm')
+    theme.breakpoints.up(settings?.mobile_nav_breakpoint || 'sm')
   )
 
   const hideOnMediaQuery = content.use_media_query && !matches

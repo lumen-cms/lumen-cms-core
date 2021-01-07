@@ -19,7 +19,7 @@ function AppHead(): JSX.Element {
   const appContext = useAppContext()
   const { insideStoryblok } = appContext
   if (process.env.NODE_ENV === 'development') {
-    console.log('render app head')
+    console.log('render app head better only once')
   }
   const additionalMetaTags: MetaTag[] = []
   if (settings?.pwa_app_name && settings?.pwa_app_description) {

@@ -1,9 +1,9 @@
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useAppSetup } from '@context/AppSetupContext'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 import { ContentSpaceProps } from './layoutTypes'
+import { useAppStore } from '../../utils/state/appState'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,7 +37,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
   const classes = useStyles()
-  const appSetup = useAppSetup()
+  const { page, settings } = useAppStore((state) => ({
+    page: state.page,
+    settings: state.settings
+  }))
   const scrolledWithoutHysteresis = useScrollTop()
 
   return (
@@ -46,7 +49,8 @@ export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
         'lm-is-table': !isBlock,
         'lm-scrolled':
           scrolledWithoutHysteresis &&
-          (appSetup.toolbarMainHeight || appSetup.hasFeatureImage)
+          (settings.toolbar_main_height ||
+            page?.property?.includes('has_feature'))
       })}
     />
   )
