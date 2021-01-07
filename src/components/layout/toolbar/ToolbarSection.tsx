@@ -4,16 +4,16 @@ import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
-import { useAppSettings } from '@context/AppSettingsContext'
 import { ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
 import { LmToolbarSectionProps } from './toolbarTypes'
+import { useAppStore } from '../../../utils/state/appState'
 
 const ToolbarSectionContainer: FunctionComponent<{
   content: ToolbarRowSectionStoryblok
 }> = ({ children, content }) => {
   const { align } = content
   const theme = useTheme()
-  const { settings } = useAppSettings()
+  const settings = useAppStore((state) => state.settings)
   const matches = useMediaQuery(
     theme.breakpoints.up(settings?.mobile_nav_breakpoint || 'sm')
   )

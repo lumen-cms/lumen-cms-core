@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from 'react'
-import { useAppSettings } from '@context/AppSettingsContext'
 import {
   ShopifyProductFragment,
   ShopifySdkContext
@@ -10,10 +9,11 @@ import { EcommerceShopifyConfigStoryblok } from '../../../typings/generated/comp
 import { getTotalCartAmount } from './lib/shopifyHelpers'
 import { shopifyGraphqlSdk } from './lib/shopify-graphql-request'
 import { CheckoutCreateInput } from '../../../typings/generated/shopify-schema'
+import { useAppStore } from '../../../utils/state/appState'
 
 let currencyCode = 'EUR'
 export const LmShopifySdkProvider: FC = ({ children }) => {
-  const { settings } = useAppSettings()
+  const settings = useAppStore((state) => state.settings)
   const shopifyConfig = (settings.ecommerce || []).find(
     (i) => i.component === 'ecommerce_shopify_config'
   )

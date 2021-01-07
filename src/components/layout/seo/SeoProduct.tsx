@@ -1,15 +1,17 @@
 import { ProductJsonLd } from 'next-seo'
 import React from 'react'
-import { useAppSettings } from '@context/AppSettingsContext'
-import { AppSeoProps } from '../layoutTypes'
 import {
   ImageCoreStoryblok,
   SeoProductOfferStoryblok
 } from '../../../typings/generated/components-schema'
 import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
+import { useAppStore } from '../../../utils/state/appState'
 
-export function SeoProduct({ page }: AppSeoProps) {
-  const { settings } = useAppSettings()
+export function SeoProduct() {
+  const { page, settings } = useAppStore((state) => ({
+    page: state.page,
+    settings: state.settings
+  }))
   const product =
     page?.seo_body?.find((i) => i.component === 'seo_product') ||
     settings.seo_body?.find((i) => i.component === 'seo_product')

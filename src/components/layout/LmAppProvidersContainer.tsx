@@ -1,9 +1,9 @@
 import React, { FC } from 'react'
 import { LmCoreComponents } from '@CONFIG'
-import { useAppSettings } from '@context/AppSettingsContext'
+import { useAppStore } from '../../utils/state/appState'
 
 export const LmAppProvidersContainer: FC = ({ children }) => {
-  const { settings } = useAppSettings()
+  const settings = useAppStore((state) => state.settings)
   const Providers = LmCoreComponents.lm_app_providers || []
   if (!Providers.length) {
     return <>{children}</>

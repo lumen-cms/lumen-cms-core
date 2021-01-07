@@ -151,10 +151,10 @@ export function AppSeo(): JSX.Element {
   return (
     <>
       <NextSeo {...seo} />
-      <SeoProduct page={page} />
-      <SeoSocialProfile page={page} />
-      <SeoLocalBusiness page={page} />
-      <SeoCorporateContact page={page} />
+      <SeoProduct />
+      <SeoSocialProfile />
+      <SeoLocalBusiness />
+      <SeoCorporateContact />
     </>
   )
 }

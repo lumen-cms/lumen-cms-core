@@ -5,9 +5,11 @@ import GlobalTheme from '../global-theme/GlobalTheme'
 import AppProvider from '../provider/AppProvider'
 import { LmAppProvidersContainer } from './LmAppProvidersContainer'
 import { AppContainerProps } from './layoutTypes'
-import AppSettingsProvider from '../provider/AppSettingsProvider'
-import AppPageProvider from '../provider/AppPageProvider'
 import { useAppStore } from '../../utils/state/appState'
+import {
+  GlobalStoryblok,
+  PageStoryblok
+} from '../../typings/generated/components-schema'
 
 export const AppContainer: FunctionComponent<AppContainerProps> = ({
   content,
@@ -25,6 +27,55 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
       useAppStore.setState({ page: {} }) // reset if page is not exist
     }
   }, [pag.uuid, page])
+  useEffect(() => {
+    if (settings && set.uuid !== settings?.uuid) {
+      useAppStore.setState({ settings })
+    }
+  }, [settings, set.uuid])
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.storyblok) {
+      window.storyblok.init()
+      window.storyblok.on(['change'], () => {
+        console.log('change::save triggered')
+        window.location.reload()
+      })
+      window.storyblok.on(['published', 'unpublished'], () => {
+        console.log('published triggered')
+        window.location.reload()
+      })
+
+      window.storyblok.on('input', (event) => {
+        const newContent = { ...event?.story.content, uuid: event?.story.uuid }
+        if (
+          event?.story.content.component === 'page' &&
+          event?.story.uuid === page?.uuid
+        ) {
+          console.log('input::input content changed')
+          const newPage = window.storyblok.addComments(
+            newContent,
+            event?.story.id
+          ) as PageStoryblok
+          useAppStore.setState({ page: newPage })
+          // setPage(newPage)
+        }
+        if (
+          event?.story.content.component === 'global' &&
+          event?.story.uuid === settings?.uuid
+        ) {
+          console.log('input::input settings changed')
+          const newSettings = window.storyblok.addComments(
+            newContent,
+            event?.story.id
+          ) as GlobalStoryblok
+          useAppStore.setState({ settings: newSettings })
+          // setSettings(
+          //   newSettings
+          // )
+        }
+      })
+    }
+  }, [page?.uuid, settings?.uuid])
+
   if (error) {
     return <Error statusCode={500} />
   }
@@ -33,17 +84,13 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
   }
 
   return (
-    <AppSettingsProvider settings={settings}>
-      <AppProvider content={{ ...rest }}>
-        <AppPageProvider page={page || null}>
-          <AppSetupProvider>
-            <GlobalTheme>
-              <LmAppProvidersContainer>{children}</LmAppProvidersContainer>
-            </GlobalTheme>
-          </AppSetupProvider>
-        </AppPageProvider>
-      </AppProvider>
-    </AppSettingsProvider>
+    <AppProvider content={{ ...rest }}>
+      <AppSetupProvider>
+        <GlobalTheme>
+          <LmAppProvidersContainer>{children}</LmAppProvidersContainer>
+        </GlobalTheme>
+      </AppSetupProvider>
+    </AppProvider>
   )
 }
 

@@ -1,13 +1,14 @@
 import React, { FC } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
-import { useAppSettings } from '@context/AppSettingsContext'
 import Header from './toolbar/Header'
 import Footer from './Footer'
 import { ChatTawktoStoryblok } from '../../typings/generated/components-schema'
 import DrawerElement from './drawer/DrawerElement'
+import { useAppStore } from '../../utils/state/appState'
 
 const Layout: FC = ({ children }) => {
-  const { settings } = useAppSettings()
+  const settings = useAppStore((state) => state.settings)
+
   // legacy code for old projects.. remove after all tawkto are integrated
   if (settings.tawkto) {
     settings.chat_button = [

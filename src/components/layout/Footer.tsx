@@ -1,10 +1,9 @@
 import React, { FunctionComponent, memo } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useAppSetup } from '@context/AppSetupContext'
 import { LmComponentRender } from '@LmComponentRender'
-import { useAppSettings } from '@context/AppSettingsContext'
 import { useGlobalState } from '../../utils/state/state'
+import { useAppStore } from '../../utils/state/appState'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,10 +28,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const FooterContainer: FunctionComponent = ({ children }) => {
   const classes = useStyles()
   const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
-  const { settings } = useAppSettings()
-  const appSetup = useAppSetup()
-  const hasLeftShift =
-    appSetup.drawerVariant !== 'temporary' && isLeftDrawerOpen
+  const { settings, drawerVariant } = useAppStore((state) => ({
+    settings: state.settings,
+    drawerVariant: state.drawerVariant
+  }))
+  const hasLeftShift = drawerVariant !== 'temporary' && isLeftDrawerOpen
   return (
     <footer
       className={clsx(classes.footer, {
@@ -49,7 +49,7 @@ const FooterContainer: FunctionComponent = ({ children }) => {
 FooterContainer.displayName = 'FooterContainer'
 
 function Footer(): JSX.Element {
-  const { settings } = useAppSettings()
+  const settings = useAppStore((state) => state.settings)
   return (
     <FooterContainer>
       {settings.footer?.map((blok) => (

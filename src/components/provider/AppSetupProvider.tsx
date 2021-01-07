@@ -1,32 +1,28 @@
-import React, { FunctionComponent, useMemo } from 'react'
+import React, { FC, useEffect } from 'react'
 import { DrawerProps } from '@material-ui/core/Drawer'
-import { AppSetupContext, AppSetupProps } from '@context/AppSetupContext'
-import { useAppSettings } from '@context/AppSettingsContext'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
+import { useAppStore } from '../../utils/state/appState'
 
-const AppSetupProvider: FunctionComponent = ({ children }) => {
+const AppSetupProvider: FC = ({ children }) => {
   const { isMobile } = useDeviceDimensions()
-  const { settings } = useAppSettings()
-
-  let drawerVariant: DrawerProps['variant'] =
-    isMobile && settings.drawer_below_toolbar_xs ? 'persistent' : 'temporary'
-  if (!isMobile) {
-    drawerVariant = settings.drawer_below_toolbar
-      ? 'persistent'
-      : settings.drawer_variant || 'temporary'
-  }
-
-  const value = useMemo<AppSetupProps>(() => {
-    return {
-      drawerVariant
+  const settings = useAppStore((state) => state.settings)
+  const {
+    drawer_variant,
+    drawer_below_toolbar,
+    drawer_below_toolbar_xs
+  } = settings
+  useEffect(() => {
+    let dV: DrawerProps['variant'] =
+      isMobile && drawer_below_toolbar_xs ? 'persistent' : 'temporary'
+    if (!isMobile) {
+      dV = drawer_below_toolbar ? 'persistent' : drawer_variant || 'temporary'
     }
-  }, [drawerVariant])
+    useAppStore.setState({
+      drawerVariant: dV
+    })
+  }, [isMobile, drawer_below_toolbar, drawer_variant, drawer_below_toolbar_xs])
 
-  return (
-    <AppSetupContext.Provider value={value}>
-      {children}
-    </AppSetupContext.Provider>
-  )
+  return <>{children}</>
 }
 AppSetupProvider.displayName = 'AppSetupProvider'
 

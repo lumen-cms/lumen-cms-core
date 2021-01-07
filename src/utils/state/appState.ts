@@ -1,4 +1,5 @@
 import create from 'zustand'
+import { DrawerProps } from '@material-ui/core/Drawer'
 import {
   GlobalStoryblok,
   PageStoryblok
@@ -7,15 +8,11 @@ import {
 type AppStore = {
   settings: Partial<GlobalStoryblok>
   page: Partial<PageStoryblok>
+  drawerVariant: DrawerProps['variant']
 }
 
 export const useAppStore = create<AppStore>(() => ({
   settings: {},
-  page: {}
-  // setSettings: (val) =>
-  //   set((state) => {
-  //     if (state.settings.uuid !== val.uuid) {
-  //       return { settings: val }
-  //     }
-  //   })
+  page: {},
+  drawerVariant: 'temporary'
 }))

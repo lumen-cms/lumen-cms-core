@@ -3,11 +3,11 @@ import React, { FC, useState } from 'react'
 import useScript from '@charlietango/use-script'
 import { useRouter } from 'next/router'
 import { useAppContext } from '@context/AppContext'
-import { useAppSettings } from '@context/AppSettingsContext'
 import { FastSpringContext } from './context/FastSpringContext'
+import { useAppStore } from '../../../utils/state/appState'
 
 export const LmFastSpringProvider: FC = ({ children }) => {
-  const { settings } = useAppSettings()
+  const settings = useAppStore((state) => state.settings)
   const router = useRouter()
   const appCtx = useAppContext()
   const [currency, setCurrency] = useState('USD')
