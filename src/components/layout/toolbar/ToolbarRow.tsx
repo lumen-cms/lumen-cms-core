@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid'
 import { useTheme } from '@material-ui/core/styles'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmToolbarRowProps } from './toolbarTypes'
-import { useAppStore } from '../../../utils/state/appState'
+import { settingsSelector, useAppStore } from '../../../utils/state/appState'
 
 export function LmToolbarRow({ content }: LmToolbarRowProps): JSX.Element {
-  const settings = useAppStore((state) => state.settings)
+  const settings = useAppStore(settingsSelector)
   const body = content.body || []
   const theme = useTheme()
 

@@ -3,10 +3,11 @@ import { LmCoreComponents } from '@CONFIG'
 import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
 import { LmPageProps } from './pageTypes'
-import { useAppStore } from '../../utils/state/appState'
+import { pageSelector, useAppStore } from '../../utils/state/appState'
 
 export function LmPage({ content }: LmPageProps): JSX.Element {
-  const page = useAppStore((state) => state.page)
+  const page = useAppStore(pageSelector)
+
   const currentContent = page || content
   const body = currentContent?.body || []
   const rightBody = currentContent?.right_body || []

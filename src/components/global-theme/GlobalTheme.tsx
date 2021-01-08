@@ -6,10 +6,13 @@ import {
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import React, { FunctionComponent, useMemo } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import shallow from 'zustand/shallow'
 import parseFont from '../../utils/parseFont'
 import { GlobalStyles } from './GlobalStyles'
-import { useAppStore } from '../../utils/state/appState'
+import {
+  pageSelector,
+  settingsSelector,
+  useAppStore
+} from '../../utils/state/appState'
 
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
@@ -68,13 +71,8 @@ const mapThemeType = {
 }
 
 const GlobalTheme: FunctionComponent = ({ children }) => {
-  const { page, settings } = useAppStore(
-    (state) => ({
-      page: state.page,
-      settings: state.settings
-    }),
-    shallow
-  )
+  const settings = useAppStore(settingsSelector)
+  const page = useAppStore(pageSelector)
   const rightDrawerWidth = page?.right_drawer_width
 
   const themeUid = settings && settings._uid

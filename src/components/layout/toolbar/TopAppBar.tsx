@@ -7,11 +7,15 @@ import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { useDebounce } from 'use-debounce'
-import shallow from 'zustand/shallow'
 import { ContentSpace } from '../ContentSpace'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
-import { useAppStore } from '../../../utils/state/appState'
+import {
+  drawerVariantSelector,
+  pageSelector,
+  settingsSelector,
+  useAppStore
+} from '../../../utils/state/appState'
 import {
   leftNavigationDrawerSelector,
   useNavigationStore
@@ -131,14 +135,10 @@ const TopAppBar: FunctionComponent<{
   SystemBar?: React.ReactNode
 }> = (props) => {
   console.log('toppappbarr')
-  const { page, settings, drawerVariant } = useAppStore(
-    (state) => ({
-      page: state.page,
-      settings: state.settings,
-      drawerVariant: state.drawerVariant
-    }),
-    shallow
-  )
+  const settings = useAppStore(settingsSelector)
+  const page = useAppStore(pageSelector)
+  const drawerVariant = useAppStore(drawerVariantSelector)
+
   const classes = useStyles({ settings })
   const toolbarConfig = settings.toolbar_config || []
   const isScrolledTrigger = useScrollTrigger({ disableHysteresis: false })

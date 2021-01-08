@@ -4,7 +4,11 @@ import clsx from 'clsx'
 import shallow from 'zustand/shallow'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 import { ContentSpaceProps } from './layoutTypes'
-import { useAppStore } from '../../utils/state/appState'
+import {
+  pageSelector,
+  settingsSelector,
+  useAppStore
+} from '../../utils/state/appState'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,13 +42,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
   const classes = useStyles()
-  const { page, settings } = useAppStore(
-    (state) => ({
-      page: state.page,
-      settings: state.settings
-    }),
-    shallow
-  )
+  const settings = useAppStore(settingsSelector)
+  const page = useAppStore(pageSelector)
   const scrolledWithoutHysteresis = useScrollTop()
 
   return (

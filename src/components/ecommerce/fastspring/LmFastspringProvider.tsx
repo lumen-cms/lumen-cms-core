@@ -4,14 +4,14 @@ import useScript from '@charlietango/use-script'
 import { useRouter } from 'next/router'
 import { useAppContext } from '@context/AppContext'
 import { FastSpringContext } from './context/FastSpringContext'
-import { useAppStore } from '../../../utils/state/appState'
+import { settingsSelector, useAppStore } from '../../../utils/state/appState'
 
 export const LmFastSpringProvider: FC = ({ children }) => {
-  const settings = useAppStore((state) => state.settings)
+  const settings = useAppStore(settingsSelector)
   const router = useRouter()
   const appCtx = useAppContext()
   const [currency, setCurrency] = useState('USD')
-  const fastSpring = (settings.ecommerce || []).find(
+  const fastSpring = settings.ecommerce?.find(
     (i) => i.component === 'ecommerce_fastspring_config'
   )
   const [ready, status] = useScript(fastSpring?.url, {

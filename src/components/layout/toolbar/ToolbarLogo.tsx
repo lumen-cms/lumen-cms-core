@@ -11,7 +11,7 @@ import {
   imageSizesOnWidthAndBreakpoints
 } from '../../../utils/ImageService'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
-import { useAppStore } from '../../../utils/state/appState'
+import { settingsSelector, useAppStore } from '../../../utils/state/appState'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 export function LmToolbarLogo(): JSX.Element {
-  const settings = useAppStore((state) => state.settings)
+  const settings = useAppStore(settingsSelector)
   const classes = useStyles()
   const { breakpoints } = useTheme()
   const homepageHref = useHomepageLink()

@@ -1,9 +1,13 @@
 import React, { FunctionComponent } from 'react'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
-import shallow from 'zustand/shallow'
 import { usePageStyles } from './usePageStyle'
-import { useAppStore } from '../../utils/state/appState'
+import {
+  drawerVariantSelector,
+  pageSelector,
+  settingsSelector,
+  useAppStore
+} from '../../utils/state/appState'
 import {
   leftNavigationDrawerSelector,
   useNavigationStore
@@ -11,14 +15,10 @@ import {
 
 const MainContentContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
-  const { page, settings, drawerVariant } = useAppStore(
-    (state) => ({
-      page: state.page,
-      settings: state.settings,
-      drawerVariant: state.drawerVariant
-    }),
-    shallow
-  )
+  const settings = useAppStore(settingsSelector)
+  const page = useAppStore(pageSelector)
+  const drawerVariant = useAppStore(drawerVariantSelector)
+
   const isOpen = useNavigationStore(leftNavigationDrawerSelector)
   const hasRightDrawer = page?.right_body?.length
 

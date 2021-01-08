@@ -5,7 +5,7 @@ import { useTheme } from '@material-ui/core/styles'
 import { LmComponentRender } from '@LmComponentRender'
 import { ContentSpace } from '../layout/ContentSpace'
 import { usePageStyles } from './usePageStyle'
-import { useAppStore } from '../../utils/state/appState'
+import { pageSelector, useAppStore } from '../../utils/state/appState'
 import {
   closeRightNavigationSelector,
   rightNavigationDrawerSelector,
@@ -16,7 +16,7 @@ const RightDrawerContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
   const theme = useTheme()
   const closeRightNavigation = useNavigationStore(closeRightNavigationSelector)
-  const page = useAppStore((state) => state.page)
+  const page = useAppStore(pageSelector)
   const matches = useMediaQuery(
     theme.breakpoints.up(page?.mobile_breakpoint || 'sm')
   )

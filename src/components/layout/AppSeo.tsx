@@ -4,7 +4,6 @@ import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types.d'
 import { NextRouter, useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
 import { useAppContext } from '@context/AppContext'
-import shallow from 'zustand/shallow'
 import {
   ImageCoreStoryblok,
   SeoOpenGraphStoryblok,
@@ -15,7 +14,11 @@ import { SeoProduct } from './seo/SeoProduct'
 import { SeoSocialProfile } from './seo/SeoSocialProfile'
 import { SeoLocalBusiness } from './seo/SeoLocalBusiness'
 import { SeoCorporateContact } from './seo/SeoCorporateContact'
-import { useAppStore } from '../../utils/state/appState'
+import {
+  pageSelector,
+  settingsSelector,
+  useAppStore
+} from '../../utils/state/appState'
 
 const parseOpenGraph = (
   settingsOpenGraph: Partial<SeoOpenGraphStoryblok> = {},
@@ -75,13 +78,8 @@ const getCanonicalUrl = (hostname = '', router: NextRouter) => {
 }
 
 export function AppSeo(): JSX.Element {
-  const { page, settings } = useAppStore(
-    (state) => ({
-      page: state.page,
-      settings: state.settings
-    }),
-    shallow
-  )
+  const settings = useAppStore(settingsSelector)
+  const page = useAppStore(pageSelector)
   const router = useRouter()
   const appCtx = useAppContext()
   const seoBody = settings.seo_body || []

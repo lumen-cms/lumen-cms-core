@@ -5,12 +5,12 @@ import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
 import { LmPage } from '../page/Page'
-import { useAppStore } from '../../utils/state/appState'
+import { settingsSelector, useAppStore } from '../../utils/state/appState'
 
 export type LmPagesIndexProps = AppPageProps & Record<string, unknown>
 
 const Test = memo(() => {
-  const store = useAppStore((state) => state.settings)
+  const store = useAppStore(settingsSelector)
   console.log('im test hings')
   // const ctx = useAppSettings()
   console.log(store)

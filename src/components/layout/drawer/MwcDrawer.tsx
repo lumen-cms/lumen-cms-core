@@ -4,10 +4,13 @@ import { useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import shallow from 'zustand/shallow'
 import { UseBackgroundPayload } from '../../section/useBackgroundBox'
 import { useStyles } from './useDrawerStyles'
-import { useAppStore } from '../../../utils/state/appState'
+import {
+  drawerVariantSelector,
+  settingsSelector,
+  useAppStore
+} from '../../../utils/state/appState'
 import {
   closeLeftNavigationSelector,
   leftNavigationDrawerSelector,
@@ -27,14 +30,8 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   // const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
   const leftNavigationDrawer = useNavigationStore(leftNavigationDrawerSelector)
   const closeDrawer = useNavigationStore(closeLeftNavigationSelector)
-
-  const { settings, drawerVariant } = useAppStore(
-    (state) => ({
-      settings: state.settings,
-      drawerVariant: state.drawerVariant
-    }),
-    shallow
-  )
+  const settings = useAppStore(settingsSelector)
+  const drawerVariant = useAppStore(drawerVariantSelector)
   const theme = useTheme()
   const matches = useMediaQuery(
     theme.breakpoints.down(settings?.mobile_nav_breakpoint || 'sm')

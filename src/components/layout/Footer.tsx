@@ -3,7 +3,12 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import shallow from 'zustand/shallow'
-import { useAppStore } from '../../utils/state/appState'
+import {
+  drawerVariantSelector,
+  pageSelector,
+  settingsSelector,
+  useAppStore
+} from '../../utils/state/appState'
 import {
   leftNavigationDrawerSelector,
   useNavigationStore
@@ -32,13 +37,9 @@ const useStyles = makeStyles((theme: Theme) =>
 const FooterContainer: FunctionComponent = ({ children }) => {
   const classes = useStyles()
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
-  const { settings, drawerVariant } = useAppStore(
-    (state) => ({
-      settings: state.settings,
-      drawerVariant: state.drawerVariant
-    }),
-    shallow
-  )
+  const drawerVariant = useAppStore(drawerVariantSelector)
+  const settings = useAppStore(settingsSelector)
+
   const hasLeftShift = drawerVariant !== 'temporary' && isLeftDrawerOpen
   return (
     <footer
@@ -56,7 +57,7 @@ const FooterContainer: FunctionComponent = ({ children }) => {
 FooterContainer.displayName = 'FooterContainer'
 
 function Footer(): JSX.Element {
-  const settings = useAppStore((state) => state.settings)
+  const settings = useAppStore(settingsSelector)
   return (
     <FooterContainer>
       {settings.footer?.map((blok) => (

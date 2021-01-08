@@ -15,7 +15,7 @@ import { DrawerContentList } from './DrawerContentList'
 import MwcDrawer from './MwcDrawer'
 import useBackgroundBox from '../../section/useBackgroundBox'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
-import { useAppStore } from '../../../utils/state/appState'
+import { settingsSelector, useAppStore } from '../../../utils/state/appState'
 
 const useStyles = makeStyles({
   logoRoot: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 
 function DrawerElement(): JSX.Element {
   console.log('drwer element rendered')
-  const settings = useAppStore((state) => state.settings)
+  const settings = useAppStore(settingsSelector)
   const homepageHref = useHomepageLink()
   const { breakpoints } = useTheme()
   const classes = useStyles()

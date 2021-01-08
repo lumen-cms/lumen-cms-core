@@ -9,12 +9,12 @@ import { getFontBasedOnSetting } from '../../utils/parseFont'
 import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
-import { useAppStore } from '../../utils/state/appState'
+import { settingsSelector, useAppStore } from '../../utils/state/appState'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 function AppHead(): JSX.Element {
-  const settings = useAppStore((state) => state.settings)
+  const settings = useAppStore(settingsSelector)
   const favicon = settings.setup_favicon
   const appContext = useAppContext()
   const { insideStoryblok } = appContext
