@@ -4,6 +4,7 @@ import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types.d'
 import { NextRouter, useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
 import { useAppContext } from '@context/AppContext'
+import shallow from 'zustand/shallow'
 import {
   ImageCoreStoryblok,
   SeoOpenGraphStoryblok,
@@ -74,10 +75,13 @@ const getCanonicalUrl = (hostname = '', router: NextRouter) => {
 }
 
 export function AppSeo(): JSX.Element {
-  const { page, settings } = useAppStore((state) => ({
-    page: state.page,
-    settings: state.settings
-  }))
+  const { page, settings } = useAppStore(
+    (state) => ({
+      page: state.page,
+      settings: state.settings
+    }),
+    shallow
+  )
   const router = useRouter()
   const appCtx = useAppContext()
   const seoBody = settings.seo_body || []

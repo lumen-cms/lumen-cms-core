@@ -7,11 +7,15 @@ import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { useDebounce } from 'use-debounce'
-import { useGlobalState } from '../../../utils/state/state'
+import shallow from 'zustand/shallow'
 import { ContentSpace } from '../ContentSpace'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import { useAppStore } from '../../../utils/state/appState'
+import {
+  leftNavigationDrawerSelector,
+  useNavigationStore
+} from '../../../utils/state/navigationState'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -127,16 +131,19 @@ const TopAppBar: FunctionComponent<{
   SystemBar?: React.ReactNode
 }> = (props) => {
   console.log('toppappbarr')
-  const { page, settings, drawerVariant } = useAppStore((state) => ({
-    page: state.page,
-    settings: state.settings,
-    drawerVariant: state.drawerVariant
-  }))
+  const { page, settings, drawerVariant } = useAppStore(
+    (state) => ({
+      page: state.page,
+      settings: state.settings,
+      drawerVariant: state.drawerVariant
+    }),
+    shallow
+  )
   const classes = useStyles({ settings })
   const toolbarConfig = settings.toolbar_config || []
   const isScrolledTrigger = useScrollTrigger({ disableHysteresis: false })
   const [isScrolled] = useDebounce(isScrolledTrigger, 100)
-  const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
+  const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const scrolledWithoutHysteresis = useScrollTop()
   const toolbarVariant = settings.toolbar_variant
   let toolbarWidth: ContainerProps['maxWidth'] = false

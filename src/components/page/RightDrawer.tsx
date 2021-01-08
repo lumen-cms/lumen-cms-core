@@ -3,20 +3,24 @@ import Drawer from '@material-ui/core/Drawer'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 import { LmComponentRender } from '@LmComponentRender'
-import { useGlobalState } from '../../utils/state/state'
-import { closeNavigationDrawers } from '../../utils/state/actions'
 import { ContentSpace } from '../layout/ContentSpace'
 import { usePageStyles } from './usePageStyle'
 import { useAppStore } from '../../utils/state/appState'
+import {
+  closeRightNavigationSelector,
+  rightNavigationDrawerSelector,
+  useNavigationStore
+} from '../../utils/state/navigationState'
 
 const RightDrawerContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
   const theme = useTheme()
+  const closeRightNavigation = useNavigationStore(closeRightNavigationSelector)
   const page = useAppStore((state) => state.page)
   const matches = useMediaQuery(
     theme.breakpoints.up(page?.mobile_breakpoint || 'sm')
   )
-  const [rightIsOpen] = useGlobalState('rightNavigationDrawer')
+  const rightIsOpen = useNavigationStore(rightNavigationDrawerSelector)
   return (
     <Drawer
       variant={!matches ? 'temporary' : 'permanent'}
@@ -27,7 +31,7 @@ const RightDrawerContainer: FunctionComponent = ({ children }) => {
         paperAnchorDockedRight: classes.rightDocked
       }}
       open={!matches ? rightIsOpen : true}
-      onClose={() => closeNavigationDrawers()}
+      onClose={closeRightNavigation}
     >
       {children}
     </Drawer>

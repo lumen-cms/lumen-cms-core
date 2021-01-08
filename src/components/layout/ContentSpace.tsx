@@ -1,6 +1,7 @@
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
+import shallow from 'zustand/shallow'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 import { ContentSpaceProps } from './layoutTypes'
 import { useAppStore } from '../../utils/state/appState'
@@ -37,10 +38,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
   const classes = useStyles()
-  const { page, settings } = useAppStore((state) => ({
-    page: state.page,
-    settings: state.settings
-  }))
+  const { page, settings } = useAppStore(
+    (state) => ({
+      page: state.page,
+      settings: state.settings
+    }),
+    shallow
+  )
   const scrolledWithoutHysteresis = useScrollTop()
 
   return (

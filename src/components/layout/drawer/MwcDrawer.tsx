@@ -4,10 +4,15 @@ import { useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useGlobalState } from '../../../utils/state/state'
+import shallow from 'zustand/shallow'
 import { UseBackgroundPayload } from '../../section/useBackgroundBox'
 import { useStyles } from './useDrawerStyles'
 import { useAppStore } from '../../../utils/state/appState'
+import {
+  closeLeftNavigationSelector,
+  leftNavigationDrawerSelector,
+  useNavigationStore
+} from '../../../utils/state/navigationState'
 
 type DrawerContainerProps = {
   backgroundProps?: UseBackgroundPayload
@@ -19,11 +24,17 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   const classes = useStyles()
   const router = useRouter()
   const asPath = router?.asPath
-  const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
-  const { settings, drawerVariant } = useAppStore((state) => ({
-    settings: state.settings,
-    drawerVariant: state.drawerVariant
-  }))
+  // const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
+  const leftNavigationDrawer = useNavigationStore(leftNavigationDrawerSelector)
+  const closeDrawer = useNavigationStore(closeLeftNavigationSelector)
+
+  const { settings, drawerVariant } = useAppStore(
+    (state) => ({
+      settings: state.settings,
+      drawerVariant: state.drawerVariant
+    }),
+    shallow
+  )
   const theme = useTheme()
   const matches = useMediaQuery(
     theme.breakpoints.down(settings?.mobile_nav_breakpoint || 'sm')
@@ -32,22 +43,22 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
 
   useEffect(() => {
     if (drawerVariant === 'temporary' || matches) {
-      setOpen(false)
+      closeDrawer()
     }
-  }, [asPath, drawerVariant, setOpen, matches])
+  }, [asPath, drawerVariant, closeDrawer, matches])
 
   useEffect(() => {
-    if (isOpen && !mountedOnce) {
+    if (leftNavigationDrawer && !mountedOnce) {
       setMountedOnce(true)
     }
-  }, [isOpen, mountedOnce])
+  }, [leftNavigationDrawer, mountedOnce])
 
   const classList = backgroundProps?.className
   const drawerBelowToolbar =
     settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
   return (
     <Drawer
-      open={isOpen}
+      open={leftNavigationDrawer}
       SlideProps={{
         unmountOnExit: !mountedOnce
       }}
@@ -66,7 +77,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
       PaperProps={{
         style: backgroundProps?.style ? backgroundProps.style : undefined
       }}
-      onClose={() => setOpen(false)}
+      onClose={closeDrawer}
       variant={drawerVariant}
     >
       {children}

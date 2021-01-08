@@ -1,18 +1,25 @@
 import React, { FunctionComponent } from 'react'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
+import shallow from 'zustand/shallow'
 import { usePageStyles } from './usePageStyle'
-import { useGlobalState } from '../../utils/state/state'
 import { useAppStore } from '../../utils/state/appState'
+import {
+  leftNavigationDrawerSelector,
+  useNavigationStore
+} from '../../utils/state/navigationState'
 
 const MainContentContainer: FunctionComponent = ({ children }) => {
   const classes = usePageStyles()
-  const { page, settings, drawerVariant } = useAppStore((state) => ({
-    page: state.page,
-    settings: state.settings,
-    drawerVariant: state.drawerVariant
-  }))
-  const [isOpen] = useGlobalState('leftNavigationDrawer')
+  const { page, settings, drawerVariant } = useAppStore(
+    (state) => ({
+      page: state.page,
+      settings: state.settings,
+      drawerVariant: state.drawerVariant
+    }),
+    shallow
+  )
+  const isOpen = useNavigationStore(leftNavigationDrawerSelector)
   const hasRightDrawer = page?.right_body?.length
 
   return (

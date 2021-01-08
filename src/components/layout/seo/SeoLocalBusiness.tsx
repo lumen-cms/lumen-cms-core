@@ -1,5 +1,6 @@
 import { LocalBusinessJsonLd } from 'next-seo'
 import React from 'react'
+import shallow from 'zustand/shallow'
 import {
   ImageCoreStoryblok,
   SeoLocalBusinessOpeningHourStoryblok
@@ -8,10 +9,13 @@ import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
 import { useAppStore } from '../../../utils/state/appState'
 
 export function SeoLocalBusiness() {
-  const { page, settings } = useAppStore((state) => ({
-    page: state.page,
-    settings: state.settings
-  }))
+  const { page, settings } = useAppStore(
+    (state) => ({
+      page: state.page,
+      settings: state.settings
+    }),
+    shallow
+  )
   const business =
     page?.seo_body?.find((i) => i.component === 'seo_local_business') ||
     settings.seo_body?.find((i) => i.component === 'seo_local_business')

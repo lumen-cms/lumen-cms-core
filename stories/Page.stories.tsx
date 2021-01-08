@@ -13,7 +13,6 @@ import {
   get3ColumnsSection
 } from '../src/storybook/section'
 import React from 'react'
-import { toggleRightNavigation } from '../src/utils/state/actions'
 import { simpleSettings } from '../src/storybook/toolbar'
 import Layout from '../src/components/layout/Layout'
 import {
@@ -33,6 +32,10 @@ import {
 import { CONFIG_STORYBOOK } from '../src/storybook/components/configStorybook'
 import GlobalTheme from '../src/components/global-theme/GlobalTheme'
 import AppSetupProvider from '../src/components/provider/AppSetupProvider'
+import {
+  toggleRightNavigationSelector,
+  useNavigationStore
+} from '../src/utils/state/navigationState'
 
 const getPropsDrawer = (): PageStoryblok => ({
   _uid: '123',
@@ -153,12 +156,17 @@ export const Basic = () => (
     }}
   />
 )
-export const WithDrawer = () => (
-  <>
-    <button onClick={() => toggleRightNavigation()}>open if mobile</button>
-    <LmPage content={getPropsDrawer()} />
-  </>
-)
+export const WithDrawer = () => {
+  const toggleRightNavigation = useNavigationStore(
+    toggleRightNavigationSelector
+  )
+  return (
+    <>
+      <button onClick={() => toggleRightNavigation()}>open if mobile</button>
+      <LmPage content={getPropsDrawer()} />
+    </>
+  )
+}
 
 export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
   const show = boolean('Show System Bar', true, 'System Bar')

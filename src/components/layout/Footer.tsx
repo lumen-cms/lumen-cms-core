@@ -2,8 +2,12 @@ import React, { FunctionComponent, memo } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
-import { useGlobalState } from '../../utils/state/state'
+import shallow from 'zustand/shallow'
 import { useAppStore } from '../../utils/state/appState'
+import {
+  leftNavigationDrawerSelector,
+  useNavigationStore
+} from '../../utils/state/navigationState'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,11 +31,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const FooterContainer: FunctionComponent = ({ children }) => {
   const classes = useStyles()
-  const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
-  const { settings, drawerVariant } = useAppStore((state) => ({
-    settings: state.settings,
-    drawerVariant: state.drawerVariant
-  }))
+  const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
+  const { settings, drawerVariant } = useAppStore(
+    (state) => ({
+      settings: state.settings,
+      drawerVariant: state.drawerVariant
+    }),
+    shallow
+  )
   const hasLeftShift = drawerVariant !== 'temporary' && isLeftDrawerOpen
   return (
     <footer

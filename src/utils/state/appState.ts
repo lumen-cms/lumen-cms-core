@@ -16,3 +16,8 @@ export const useAppStore = create<AppStore>(() => ({
   page: {},
   drawerVariant: 'temporary'
 }))
+
+// recommended way to memoize the selectors
+export const settingsSelector = (state: AppStore) => state.settings
+export const pageSelector = (state: AppStore) => state.page
+export const drawerVariantSelector = (state: AppStore) => state.drawerVariant

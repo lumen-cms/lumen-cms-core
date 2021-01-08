@@ -1,11 +1,11 @@
-import React, { ChangeEvent, CSSProperties, useState } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import { useAppContext } from '@context/AppContext'
-import { setSearchCategory } from '../../utils/state/actions'
 import { LmCategoryBoxProps } from './listWidgetTypes'
+import { useSearchStore } from '../../utils/state/searchState'
 
 export default function LmCategoryBox({
   content
@@ -19,6 +19,7 @@ export default function LmCategoryBox({
       : [query.search__categories]
   }
   const [selected, setSelected] = useState<string[]>(initialValues)
+  const setSearchCategory = useSearchStore((state) => state.setSearchCategory)
 
   const { allCategories } = useAppContext()
   let categories = allCategories
@@ -48,20 +49,6 @@ export default function LmCategoryBox({
     })
   }
 
-  function onChange(event: ChangeEvent<HTMLInputElement>) {
-    const isChecked = event.currentTarget.checked
-    const { value } = event.currentTarget
-    if (isChecked) {
-      const currentCategories = [...selected, value]
-      setSelected(currentCategories)
-      setSearchCategory(currentCategories)
-    } else {
-      const currentCategories = selected.filter((i) => i !== value)
-      setSelected(currentCategories)
-      setSearchCategory(currentCategories)
-    }
-  }
-
   const style: CSSProperties = {}
   // const style = { maxHeight: '500px', overflowY: 'auto' }
   return (
@@ -70,7 +57,7 @@ export default function LmCategoryBox({
       className={clsx(content.class_names && content.class_names.values)}
     >
       {categories.map((category) => {
-        const value =
+        const checkboxValue =
           category.content &&
           category.content.tag_reference &&
           category.content.tag_reference.values
@@ -81,9 +68,22 @@ export default function LmCategoryBox({
                 <Checkbox
                   id={category.uuid}
                   name={category.uuid}
-                  checked={selected.includes(value)}
-                  value={value}
-                  onChange={onChange}
+                  checked={selected.includes(checkboxValue)}
+                  value={checkboxValue}
+                  onChange={(event) => {
+                    const { value, checked } = event.currentTarget
+                    if (checked) {
+                      const currentCategories = [...selected, value]
+                      setSelected(currentCategories)
+                      setSearchCategory(currentCategories)
+                    } else {
+                      const currentCategories = selected.filter(
+                        (i) => i !== value
+                      )
+                      setSelected(currentCategories)
+                      setSearchCategory(currentCategories)
+                    }
+                  }}
                 />
               }
               label={category.content && category.content.name}
