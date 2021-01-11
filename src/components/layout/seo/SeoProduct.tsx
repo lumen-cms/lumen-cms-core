@@ -1,20 +1,15 @@
 import { ProductJsonLd } from 'next-seo'
 import React from 'react'
-import shallow from 'zustand/shallow'
 import {
   ImageCoreStoryblok,
   SeoProductOfferStoryblok
 } from '../../../typings/generated/components-schema'
 import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
-import {
-  pageSelector,
-  settingsSelector,
-  useAppStore
-} from '../../../utils/state/appState'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 
 export function SeoProduct() {
-  const settings = useAppStore(settingsSelector)
-  const page = useAppStore(pageSelector)
+  const settings = useSettings()
+  const page = usePage()
 
   const product =
     page?.seo_body?.find((i) => i.component === 'seo_product') ||

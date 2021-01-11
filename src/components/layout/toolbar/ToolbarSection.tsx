@@ -6,14 +6,14 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import { ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
 import { LmToolbarSectionProps } from './toolbarTypes'
-import { settingsSelector, useAppStore } from '../../../utils/state/appState'
+import { useSettings } from '../../provider/SettingsPageProvider'
 
 const ToolbarSectionContainer: FunctionComponent<{
   content: ToolbarRowSectionStoryblok
 }> = ({ children, content }) => {
   const { align } = content
   const theme = useTheme()
-  const settings = useAppStore(settingsSelector)
+  const settings = useSettings()
   const matches = useMediaQuery(
     theme.breakpoints.up(settings?.mobile_nav_breakpoint || 'sm')
   )

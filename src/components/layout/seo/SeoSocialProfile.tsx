@@ -1,15 +1,10 @@
 import { SocialProfileJsonLd } from 'next-seo'
 import React from 'react'
-import shallow from 'zustand/shallow'
-import {
-  pageSelector,
-  settingsSelector,
-  useAppStore
-} from '../../../utils/state/appState'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 
 export function SeoSocialProfile() {
-  const settings = useAppStore(settingsSelector)
-  const page = useAppStore(pageSelector)
+  const settings = useSettings()
+  const page = usePage()
 
   const profile =
     page?.seo_body?.find((i) => i.component === 'seo_social_profile') ||

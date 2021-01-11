@@ -10,13 +10,9 @@ import { useDebounce } from 'use-debounce'
 import { ContentSpace } from '../ContentSpace'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import {
   drawerVariantSelector,
-  pageSelector,
-  settingsSelector,
-  useAppStore
-} from '../../../utils/state/appState'
-import {
   leftNavigationDrawerSelector,
   useNavigationStore
 } from '../../../utils/state/navigationState'
@@ -134,10 +130,9 @@ const mapToolbarColor = {
 const TopAppBar: FunctionComponent<{
   SystemBar?: React.ReactNode
 }> = (props) => {
-  console.log('toppappbarr')
-  const settings = useAppStore(settingsSelector)
-  const page = useAppStore(pageSelector)
-  const drawerVariant = useAppStore(drawerVariantSelector)
+  const settings = useSettings()
+  const page = usePage()
+  const drawerVariant = useNavigationStore(drawerVariantSelector)
 
   const classes = useStyles({ settings })
   const toolbarConfig = settings.toolbar_config || []

@@ -1,7 +1,6 @@
 import NextHead from 'next/head'
 import React, { memo } from 'react'
 import GoogleFonts from 'next-google-fonts'
-import { useAppContext } from '@context/AppContext'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
 import { imageServiceNoWebp } from '../../utils/ImageService'
@@ -9,15 +8,18 @@ import { getFontBasedOnSetting } from '../../utils/parseFont'
 import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
-import { settingsSelector, useAppStore } from '../../utils/state/appState'
+import {
+  useInsideStoryblok,
+  useSettings
+} from '../provider/SettingsPageProvider'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 function AppHead(): JSX.Element {
-  const settings = useAppStore(settingsSelector)
+  const settings = useSettings()
   const favicon = settings.setup_favicon
-  const appContext = useAppContext()
-  const { insideStoryblok } = appContext
+  const insideStoryblok = useInsideStoryblok()
+
   if (process.env.NODE_ENV === 'development') {
     console.log('render app head better only once')
   }

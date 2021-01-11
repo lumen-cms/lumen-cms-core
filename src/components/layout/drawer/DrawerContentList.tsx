@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { DrawerContentRender } from './CollapsibleListSection'
-import { settingsSelector, useAppStore } from '../../../utils/state/appState'
+import { useSettings } from '../../provider/SettingsPageProvider'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const findPathDeep = require('deepdash/findPathDeep')
@@ -40,7 +40,7 @@ const getUidsOfSlug = (childs: any[], activeRoutePath?: string) => {
 }
 
 export function DrawerContentList(): JSX.Element {
-  const settings = useAppStore(settingsSelector)
+  const settings = useSettings()
   const router = useRouter()
   const activeRoutePath = router?.asPath
   const hasDrawer = settings.drawer_body?.length

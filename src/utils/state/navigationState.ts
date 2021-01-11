@@ -1,6 +1,8 @@
 import create from 'zustand'
+import { DrawerProps } from '@material-ui/core/Drawer'
 
 type NavigationStore = {
+  drawerVariant: DrawerProps['variant']
   leftNavigationDrawer: boolean
   closeLeftDrawer: () => void
   toggleLeftDrawer: () => void
@@ -10,6 +12,7 @@ type NavigationStore = {
 }
 
 export const useNavigationStore = create<NavigationStore>((set) => ({
+  drawerVariant: 'temporary',
   leftNavigationDrawer: false,
   closeLeftDrawer: () => set(() => ({ leftNavigationDrawer: false })),
   toggleLeftDrawer: () =>
@@ -19,6 +22,9 @@ export const useNavigationStore = create<NavigationStore>((set) => ({
   toggleRightDrawer: () =>
     set((state) => ({ rightNavigationDrawer: !state.rightNavigationDrawer }))
 }))
+
+export const drawerVariantSelector = (state: NavigationStore) =>
+  state.drawerVariant
 
 export const leftNavigationDrawerSelector = (state: NavigationStore) =>
   state.leftNavigationDrawer

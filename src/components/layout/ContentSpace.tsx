@@ -1,14 +1,9 @@
 import React from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import shallow from 'zustand/shallow'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 import { ContentSpaceProps } from './layoutTypes'
-import {
-  pageSelector,
-  settingsSelector,
-  useAppStore
-} from '../../utils/state/appState'
+import { usePage, useSettings } from '../provider/SettingsPageProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,8 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
   const classes = useStyles()
-  const settings = useAppStore(settingsSelector)
-  const page = useAppStore(pageSelector)
+  const settings = useSettings()
+  const page = usePage()
   const scrolledWithoutHysteresis = useScrollTop()
 
   return (

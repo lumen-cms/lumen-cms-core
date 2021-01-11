@@ -9,11 +9,11 @@ import { EcommerceShopifyConfigStoryblok } from '../../../typings/generated/comp
 import { getTotalCartAmount } from './lib/shopifyHelpers'
 import { shopifyGraphqlSdk } from './lib/shopify-graphql-request'
 import { CheckoutCreateInput } from '../../../typings/generated/shopify-schema'
-import { settingsSelector, useAppStore } from '../../../utils/state/appState'
+import { useSettings } from '../../provider/SettingsPageProvider'
 
 let currencyCode = 'EUR'
 export const LmShopifySdkProvider: FC = ({ children }) => {
-  const settings = useAppStore(settingsSelector)
+  const settings = useSettings()
   const shopifyConfig = (settings.ecommerce || []).find(
     (i) => i.component === 'ecommerce_shopify_config'
   )

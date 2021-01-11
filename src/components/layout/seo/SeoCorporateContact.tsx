@@ -1,15 +1,11 @@
 import React from 'react'
 import { CorporateContactJsonLd } from 'next-seo'
 import { SeoCorporateContactPointStoryblok } from '../../../typings/generated/components-schema'
-import {
-  pageSelector,
-  settingsSelector,
-  useAppStore
-} from '../../../utils/state/appState'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 
 export function SeoCorporateContact() {
-  const settings = useAppStore(settingsSelector)
-  const page = useAppStore(pageSelector)
+  const settings = useSettings()
+  const page = usePage()
 
   const business =
     page?.seo_body?.find((i) => i.component === 'seo_corporate_contact') ||

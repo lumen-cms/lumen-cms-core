@@ -1,14 +1,14 @@
 import React, { Attributes, ComponentClass, FC } from 'react'
 import SbEditable from 'storyblok-react'
-import { useAppContext } from '@context/AppContext'
 import { LmCoreComponents } from '@CONFIG'
 import { ComponentRenderFuncProps } from '../typings/app'
+import { useInsideStoryblok } from './provider/SettingsPageProvider'
 
 export function LmComponentRender<P>(
   props: ComponentRenderFuncProps
 ): JSX.Element {
-  const appContext = useAppContext()
-  const insideStoryblok = appContext?.insideStoryblok
+  const insideStoryblok = useInsideStoryblok()
+
   const { content, i, ...rest } = props
 
   if (typeof LmCoreComponents[content.component] !== 'undefined') {

@@ -5,11 +5,7 @@ import MenuUi from 'mdi-material-ui/Menu'
 import AppsIcon from 'mdi-material-ui/Apps'
 import LmIcon from '../../icon/LmIcon'
 import { LmToggleDrawerButtonProps } from './toolbarTypes'
-import {
-  pageSelector,
-  settingsSelector,
-  useAppStore
-} from '../../../utils/state/appState'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import {
   toggleLeftNavigationSelector,
   toggleRightNavigationSelector,
@@ -19,8 +15,8 @@ import {
 export function LmToggleDrawerButton({
   content
 }: LmToggleDrawerButtonProps): JSX.Element | null {
-  const settings = useAppStore(settingsSelector)
-  const page = useAppStore(pageSelector)
+  const settings = useSettings()
+  const page = usePage()
 
   const toggleLeftNavigation = useNavigationStore(toggleLeftNavigationSelector)
   const toggleRightNavigation = useNavigationStore(

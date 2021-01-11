@@ -14,11 +14,7 @@ import { SeoProduct } from './seo/SeoProduct'
 import { SeoSocialProfile } from './seo/SeoSocialProfile'
 import { SeoLocalBusiness } from './seo/SeoLocalBusiness'
 import { SeoCorporateContact } from './seo/SeoCorporateContact'
-import {
-  pageSelector,
-  settingsSelector,
-  useAppStore
-} from '../../utils/state/appState'
+import { usePage, useSettings } from '../provider/SettingsPageProvider'
 
 const parseOpenGraph = (
   settingsOpenGraph: Partial<SeoOpenGraphStoryblok> = {},
@@ -78,8 +74,8 @@ const getCanonicalUrl = (hostname = '', router: NextRouter) => {
 }
 
 export function AppSeo(): JSX.Element {
-  const settings = useAppStore(settingsSelector)
-  const page = useAppStore(pageSelector)
+  const settings = useSettings()
+  const page = usePage()
   const router = useRouter()
   const appCtx = useAppContext()
   const seoBody = settings.seo_body || []

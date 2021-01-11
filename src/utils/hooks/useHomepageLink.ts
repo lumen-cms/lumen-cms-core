@@ -1,5 +1,5 @@
-import { CONFIG } from '@CONFIG'
 import { useRouter } from 'next/router'
+import { CONFIG } from '@CONFIG'
 
 export function useHomepageLink() {
   const { locale, defaultLocale } = useRouter()

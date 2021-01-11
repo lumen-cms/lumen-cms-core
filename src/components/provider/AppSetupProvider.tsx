@@ -1,11 +1,12 @@
 import React, { FC, useEffect } from 'react'
 import { DrawerProps } from '@material-ui/core/Drawer'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
-import { settingsSelector, useAppStore } from '../../utils/state/appState'
+import { useSettings } from './SettingsPageProvider'
+import { useNavigationStore } from '../../utils/state/navigationState'
 
 const AppSetupProvider: FC = ({ children }) => {
   const { isMobile } = useDeviceDimensions()
-  const settings = useAppStore(settingsSelector)
+  const settings = useSettings()
   const {
     drawer_variant,
     drawer_below_toolbar,
@@ -17,10 +18,9 @@ const AppSetupProvider: FC = ({ children }) => {
     if (!isMobile) {
       dV = drawer_below_toolbar ? 'persistent' : drawer_variant || 'temporary'
     }
-    // todo!!!
-    // useAppStore.setState({
-    //   drawerVariant: dV
-    // })
+    useNavigationStore.setState({
+      drawerVariant: dV
+    })
   }, [isMobile, drawer_below_toolbar, drawer_variant, drawer_below_toolbar_xs])
 
   return <>{children}</>

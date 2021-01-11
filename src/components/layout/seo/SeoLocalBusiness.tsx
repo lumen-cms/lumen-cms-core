@@ -5,15 +5,11 @@ import {
   SeoLocalBusinessOpeningHourStoryblok
 } from '../../../typings/generated/components-schema'
 import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
-import {
-  pageSelector,
-  settingsSelector,
-  useAppStore
-} from '../../../utils/state/appState'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 
 export function SeoLocalBusiness() {
-  const settings = useAppStore(settingsSelector)
-  const page = useAppStore(pageSelector)
+  const settings = useSettings()
+  const page = usePage()
 
   const business =
     page?.seo_body?.find((i) => i.component === 'seo_local_business') ||

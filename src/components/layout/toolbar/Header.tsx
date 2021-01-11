@@ -1,10 +1,11 @@
 import React, { memo } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import TopAppBarWrap from './TopAppBar'
-import { settingsSelector, useAppStore } from '../../../utils/state/appState'
+import { useSettings } from '../../provider/SettingsPageProvider'
 
 function Header(): JSX.Element {
-  const settings = useAppStore(settingsSelector)
+  const settings = useSettings()
+
   let rows = settings.multi_toolbar || []
   console.log('header rendered')
 

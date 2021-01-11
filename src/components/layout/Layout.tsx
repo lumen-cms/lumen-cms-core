@@ -4,10 +4,10 @@ import Header from './toolbar/Header'
 import Footer from './Footer'
 import { ChatTawktoStoryblok } from '../../typings/generated/components-schema'
 import DrawerElement from './drawer/DrawerElement'
-import { settingsSelector, useAppStore } from '../../utils/state/appState'
+import { useSettings } from '../provider/SettingsPageProvider'
 
 const Layout: FC = ({ children }) => {
-  const settings = useAppStore(settingsSelector)
+  const settings = useSettings()
 
   // legacy code for old projects.. remove after all tawkto are integrated
   if (settings.tawkto) {
