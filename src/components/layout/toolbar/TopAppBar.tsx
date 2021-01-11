@@ -7,11 +7,15 @@ import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { useDebounce } from 'use-debounce'
-import { useAppSetup } from '@context/AppSetupContext'
-import { useGlobalState } from '../../../utils/state/state'
 import { ContentSpace } from '../ContentSpace'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
-import { AppHeaderProps } from './toolbarTypes'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
+import {
+  drawerVariantSelector,
+  leftNavigationDrawerSelector,
+  useNavigationStore
+} from '../../../utils/state/navigationState'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -89,7 +93,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: 0
       }
     },
-    toolbarCustom: (props: AppHeaderProps) => {
+    toolbarCustom: (props: { settings: Partial<GlobalStoryblok> }) => {
       const options: CreateCSSProperties = {}
       const increasedFontSize = props.settings.toolbar_font_size
       if (increasedFontSize) {
@@ -123,18 +127,18 @@ const mapToolbarColor = {
   white: 'inherit'
 }
 
-const TopAppBar: FunctionComponent<
-  AppHeaderProps & {
-    SystemBar?: React.ReactNode
-  }
-> = (props) => {
-  const classes = useStyles(props)
-  const { settings } = props
+const TopAppBar: FunctionComponent<{
+  SystemBar?: React.ReactNode
+}> = (props) => {
+  const settings = useSettings()
+  const page = usePage()
+  const drawerVariant = useNavigationStore(drawerVariantSelector)
+
+  const classes = useStyles({ settings })
   const toolbarConfig = settings.toolbar_config || []
-  const appSetup = useAppSetup()
   const isScrolledTrigger = useScrollTrigger({ disableHysteresis: false })
   const [isScrolled] = useDebounce(isScrolledTrigger, 100)
-  const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
+  const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const scrolledWithoutHysteresis = useScrollTop()
   const toolbarVariant = settings.toolbar_variant
   let toolbarWidth: ContainerProps['maxWidth'] = false
@@ -148,16 +152,15 @@ const TopAppBar: FunctionComponent<
 
   const isFixedTop = toolbarConfig.includes('fixed')
   const isScrollCollapse = toolbarConfig.includes('scroll_collapse')
+  const hasFeatureImage = page?.property?.includes('has_feature')
+  const drawerBelowToolbar =
+    settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
   const showLeftShift =
-    appSetup.drawerVariant !== 'temporary' &&
-    !appSetup.drawerBelowToolbar &&
-    isLeftDrawerOpen
+    drawerVariant !== 'temporary' && !drawerBelowToolbar && isLeftDrawerOpen
 
   const toolbarScrolled =
     scrolledWithoutHysteresis &&
-    (appSetup.toolbarMainHeight ||
-      appSetup.hasFeatureImage ||
-      !!props.SystemBar)
+    (settings.toolbar_main_height || hasFeatureImage || !!props.SystemBar)
   return (
     <>
       <AppBar
@@ -165,22 +168,23 @@ const TopAppBar: FunctionComponent<
           'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
           'lm-toolbar__unelevated': toolbarConfig.includes('unelevated'),
           [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
-          'lm-toolbar__transparent': appSetup.hasFeatureImage,
+          'lm-toolbar__transparent': hasFeatureImage,
           'lm-toolbar__scrolled': toolbarScrolled,
-          'lm-toolbar__collapsed': isScrolled && appSetup.hasScrollCollapse,
+          'lm-toolbar__collapsed':
+            isScrolled && settings.toolbar_config?.includes('scroll_collapse'),
           'lm-toolbar__scroll-collapse': isScrollCollapse,
           'lm-toolbar__with-system-bar': !!props.SystemBar,
           [classes.leftShift]: showLeftShift,
           [classes[
-            `left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`
+            `left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`
           ]]: showLeftShift
         })}
         style={{
-          background: props.settings.toolbar_background ?? undefined,
+          background: settings.toolbar_background ?? undefined,
           backgroundColor:
-            props.settings?.toolbar_color?.rgba &&
-            (!appSetup.hasFeatureImage || toolbarScrolled)
-              ? props.settings?.toolbar_color?.rgba
+            settings.toolbar_color?.rgba &&
+            (!hasFeatureImage || toolbarScrolled)
+              ? settings.toolbar_color?.rgba
               : undefined
         }}
         color={mapToolbarColor[toolbarVariant || 'default']}
@@ -190,14 +194,14 @@ const TopAppBar: FunctionComponent<
         <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
           <Toolbar
             className={clsx(classes.toolbar, {
-              [classes.toolbarCustom]: props.settings.toolbar_font_size
+              [classes.toolbarCustom]: settings.toolbar_font_size
             })}
           >
             {props.children}
           </Toolbar>
         </Container>
       </AppBar>
-      {isFixedTop && !appSetup.hasFeatureImage && <ContentSpace isBlock />}
+      {isFixedTop && !hasFeatureImage && <ContentSpace isBlock />}
     </>
   )
 }

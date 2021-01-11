@@ -1,28 +1,27 @@
 import NextHead from 'next/head'
 import React, { memo } from 'react'
 import GoogleFonts from 'next-google-fonts'
-import { useAppContext } from '@context/AppContext'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
 import { imageServiceNoWebp } from '../../utils/ImageService'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
+import {
+  useInsideStoryblok,
+  useSettings
+} from '../provider/SettingsPageProvider'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-type AppHeadProps = {
-  settings: GlobalStoryblok
-}
-
-function AppHead({ settings }: AppHeadProps): JSX.Element {
+function AppHead(): JSX.Element {
+  const settings = useSettings()
   const favicon = settings.setup_favicon
-  const appContext = useAppContext()
-  const { insideStoryblok } = appContext
+  const insideStoryblok = useInsideStoryblok()
+
   if (process.env.NODE_ENV === 'development') {
-    console.log('render app head')
+    console.log('render app head better only once')
   }
   const additionalMetaTags: MetaTag[] = []
   if (settings?.pwa_app_name && settings?.pwa_app_description) {

@@ -1,13 +1,16 @@
 import { ProductJsonLd } from 'next-seo'
 import React from 'react'
-import { AppSeoProps } from '../layoutTypes'
 import {
   ImageCoreStoryblok,
   SeoProductOfferStoryblok
 } from '../../../typings/generated/components-schema'
 import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 
-export function SeoProduct({ settings, page }: AppSeoProps) {
+export function SeoProduct() {
+  const settings = useSettings()
+  const page = usePage()
+
   const product =
     page?.seo_body?.find((i) => i.component === 'seo_product') ||
     settings.seo_body?.find((i) => i.component === 'seo_product')

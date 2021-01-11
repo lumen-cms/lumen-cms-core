@@ -1,13 +1,18 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import Drawer, { DrawerProps } from '@material-ui/core/Drawer'
+import Drawer from '@material-ui/core/Drawer'
 import { useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useAppSetup } from '@context/AppSetupContext'
-import { useGlobalState } from '../../../utils/state/state'
 import { UseBackgroundPayload } from '../../section/useBackgroundBox'
 import { useStyles } from './useDrawerStyles'
+import { useSettings } from '../../provider/SettingsPageProvider'
+import {
+  closeLeftNavigationSelector,
+  drawerVariantSelector,
+  leftNavigationDrawerSelector,
+  useNavigationStore
+} from '../../../utils/state/navigationState'
 
 type DrawerContainerProps = {
   backgroundProps?: UseBackgroundPayload
@@ -19,54 +24,55 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   const classes = useStyles()
   const router = useRouter()
   const asPath = router?.asPath
-  const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
-  const appSetup = useAppSetup()
+  // const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
+  const leftNavigationDrawer = useNavigationStore(leftNavigationDrawerSelector)
+  const closeDrawer = useNavigationStore(closeLeftNavigationSelector)
+  const drawerVariant = useNavigationStore(drawerVariantSelector)
+  const settings = useSettings()
   const theme = useTheme()
   const matches = useMediaQuery(
-    theme.breakpoints.down(appSetup.leftDrawerMediaBreakpoint || 'sm')
+    theme.breakpoints.down(settings?.mobile_nav_breakpoint || 'sm')
   )
   const [mountedOnce, setMountedOnce] = useState<boolean>(false)
 
-  const drawerProps: DrawerProps = {
-    variant: appSetup.drawerVariant
-  }
-
   useEffect(() => {
-    if (appSetup.drawerVariant === 'temporary' || matches) {
-      setOpen(false)
+    if (drawerVariant === 'temporary' || matches) {
+      closeDrawer()
     }
-  }, [asPath, appSetup, setOpen, matches])
+  }, [asPath, drawerVariant, closeDrawer, matches])
 
   useEffect(() => {
-    if (isOpen && !mountedOnce) {
+    if (leftNavigationDrawer && !mountedOnce) {
       setMountedOnce(true)
     }
-  }, [isOpen, mountedOnce])
+  }, [leftNavigationDrawer, mountedOnce])
 
   const classList = backgroundProps?.className
+  const drawerBelowToolbar =
+    settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
   return (
     <Drawer
-      open={isOpen}
+      open={leftNavigationDrawer}
       SlideProps={{
         unmountOnExit: !mountedOnce
       }}
       className={clsx('lm-main__drawer', classes.leftDrawer, {
-        [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
-        [classes.belowToolbar]: appSetup.drawerBelowToolbar,
-        [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile
+        [classes.aboveToolbar]: !drawerBelowToolbar,
+        [classes.belowToolbar]: drawerBelowToolbar,
+        [classes.fullWidthMobile]: !!settings.drawer_full_width_mobile
       })}
       classes={{
         paper: clsx('lm-main__drawer', classList, classes.leftDrawer, {
-          [classes.aboveToolbar]: !appSetup.drawerBelowToolbar,
-          [classes.belowToolbar]: appSetup.drawerBelowToolbar,
-          [classes.fullWidthMobile]: appSetup.drawerFullWidthMobile
+          [classes.aboveToolbar]: !drawerBelowToolbar,
+          [classes.belowToolbar]: drawerBelowToolbar,
+          [classes.fullWidthMobile]: !!settings.drawer_full_width_mobile
         })
       }}
       PaperProps={{
         style: backgroundProps?.style ? backgroundProps.style : undefined
       }}
-      onClose={() => setOpen(false)}
-      {...drawerProps}
+      onClose={closeDrawer}
+      variant={drawerVariant}
     >
       {children}
     </Drawer>

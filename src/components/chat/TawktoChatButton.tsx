@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
-import { useAppContext } from '@context/AppContext'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { TawktoProps } from './chatTypings'
+import { useInsideStoryblok } from '../provider/SettingsPageProvider'
 
 declare global {
   interface Window {
@@ -17,7 +17,8 @@ declare global {
 }
 
 export default function TawktoChatButton({ content }: TawktoProps) {
-  const { insideStoryblok } = useAppContext()
+  const insideStoryblok = useInsideStoryblok()
+
   const tawkToId = content.account
 
   const isScrolled = useScrollOnce()

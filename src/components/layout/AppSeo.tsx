@@ -9,12 +9,12 @@ import {
   SeoOpenGraphStoryblok,
   SeoTwitterStoryblok
 } from '../../typings/generated/components-schema'
-import { AppSeoProps } from './layoutTypes'
 import { mapOpenGraphImage } from '../../utils/mapOpenGraphImage'
 import { SeoProduct } from './seo/SeoProduct'
 import { SeoSocialProfile } from './seo/SeoSocialProfile'
 import { SeoLocalBusiness } from './seo/SeoLocalBusiness'
 import { SeoCorporateContact } from './seo/SeoCorporateContact'
+import { usePage, useSettings } from '../provider/SettingsPageProvider'
 
 const parseOpenGraph = (
   settingsOpenGraph: Partial<SeoOpenGraphStoryblok> = {},
@@ -73,11 +73,9 @@ const getCanonicalUrl = (hostname = '', router: NextRouter) => {
   return hostname + url
 }
 
-export function AppSeo({
-  settings,
-  page,
-  previewImage
-}: AppSeoProps): JSX.Element {
+export function AppSeo(): JSX.Element {
+  const settings = useSettings()
+  const page = usePage()
   const router = useRouter()
   const appCtx = useAppContext()
   const seoBody = settings.seo_body || []
@@ -110,12 +108,12 @@ export function AppSeo({
     (pageSeoBody.find(
       (i) => i.component === 'seo_open_graph'
     ) as SeoOpenGraphStoryblok) || {}
-  if (previewImage) {
+  if (page.preview_image) {
     pageOpenGraphs.images = pageOpenGraphs.images || []
     pageOpenGraphs.images.push({
-      url: previewImage,
+      url: page.preview_image,
       alt: 'image list',
-      _uid: previewImage,
+      _uid: page.preview_image,
       component: 'image_core'
     })
   }
@@ -151,10 +149,10 @@ export function AppSeo({
   return (
     <>
       <NextSeo {...seo} />
-      <SeoProduct settings={settings} page={page} />
-      <SeoSocialProfile settings={settings} page={page} />
-      <SeoLocalBusiness settings={settings} page={page} />
-      <SeoCorporateContact settings={settings} page={page} />
+      <SeoProduct />
+      <SeoSocialProfile />
+      <SeoLocalBusiness />
+      <SeoCorporateContact />
     </>
   )
 }

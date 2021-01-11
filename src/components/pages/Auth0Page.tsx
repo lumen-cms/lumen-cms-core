@@ -2,15 +2,15 @@ import React, { FC, useEffect } from 'react'
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react'
 import Error from 'next/error'
 import { useRouter } from 'next/router'
-import { LmComponentRender } from '@LmComponentRender'
 import { LinearProgress } from '@material-ui/core'
 import { LmPagesIndexProps } from './DefaultPage'
 import { hasAuth0PathCredentials } from '../../utils/auth0/auth0Helpers'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
+import { LmPage } from '../page/Page'
 
-function PageContainer({ page }: { page: LmPagesIndexProps['page'] }) {
+function PageContainer() {
   const { asPath, replace, locale, defaultLocale } = useRouter()
   const { error, isLoading, user } = useAuth0()
 
@@ -35,12 +35,10 @@ function PageContainer({ page }: { page: LmPagesIndexProps['page'] }) {
       </div>
     )
   }
-  return <LmComponentRender content={page} />
+  return <LmPage />
 }
 
-const PageAuthContainer: FC<{
-  page: LmPagesIndexProps['page']
-}> = withAuthenticationRequired(PageContainer)
+const PageAuthContainer: FC = withAuthenticationRequired(PageContainer)
 
 export function Auth0Page(props: LmPagesIndexProps) {
   const { settings, page, error, insideStoryblok } = props
@@ -51,19 +49,9 @@ export function Auth0Page(props: LmPagesIndexProps) {
 
   return (
     <>
-      <AppSeo
-        settings={settings}
-        page={page}
-        previewImage={page?.preview_image}
-      />
-      <AppHead settings={settings} />
-      <Layout settings={settings}>
-        {insideStoryblok ? (
-          <LmComponentRender content={page} />
-        ) : (
-          <PageAuthContainer page={page} />
-        )}
-      </Layout>
+      <AppSeo />
+      <AppHead />
+      <Layout>{insideStoryblok ? <LmPage /> : <PageAuthContainer />}</Layout>
     </>
   )
 }

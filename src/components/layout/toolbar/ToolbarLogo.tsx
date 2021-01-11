@@ -10,8 +10,8 @@ import {
   getRootImageUrl,
   imageSizesOnWidthAndBreakpoints
 } from '../../../utils/ImageService'
-import { LmToolbarLogoProps } from './toolbarTypes'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
+import { useSettings } from '../../provider/SettingsPageProvider'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }))
 
-export function LmToolbarLogo({ settings }: LmToolbarLogoProps): JSX.Element {
+export function LmToolbarLogo(): JSX.Element {
+  const settings = useSettings()
   const classes = useStyles()
   const { breakpoints } = useTheme()
   const homepageHref = useHomepageLink()

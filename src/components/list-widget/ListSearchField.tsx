@@ -4,13 +4,14 @@ import { useRouter } from 'next/router'
 import TextField from '@material-ui/core/TextField'
 import clsx from 'clsx'
 import Magnify from 'mdi-material-ui/Magnify'
-import { onSearchTextChange } from '../../utils/state/actions'
 import { LmListSearchFieldProps } from './listWidgetTypes'
+import { useSearchStore } from '../../utils/state/searchState'
 
 export default function LmListSearchField({
   content
 }: LmListSearchFieldProps): JSX.Element {
   const router = useRouter()
+  const onSearchTextChange = useSearchStore((state) => state.onSearchTextChange)
 
   const { callback } = useDebouncedCallback(
     (value: string) => {

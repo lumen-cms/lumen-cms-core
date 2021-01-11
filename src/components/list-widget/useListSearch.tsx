@@ -1,25 +1,29 @@
 import { useRouter } from 'next/router'
-import { useGlobalState } from '../../utils/state/state'
 import { AppApiRequestPayload } from '../../typings/app'
+import {
+  categorySelector,
+  searchTextSelector,
+  useSearchStore
+} from '../../utils/state/searchState'
 
 export function useListSearch(
   items: AppApiRequestPayload['allStories'],
   isEnabled: boolean
 ) {
   const router = useRouter()
-  const [searchParams] = useGlobalState('searchParams')
+  let searchParamsCategories = useSearchStore(categorySelector)
+  let searchText = useSearchStore(searchTextSelector)
+
   if (!isEnabled) {
     return items
   }
   const query = router?.query
-  let searchParamsCategories = searchParams.categories || []
-  if (!searchParams.categories && query?.search__categories) {
+  if (!searchParamsCategories.length && query?.search__categories) {
     searchParamsCategories = Array.isArray(query.search__categories)
       ? query.search__categories
       : [query.search__categories]
   }
-  let { searchText } = searchParams
-  if (!searchParams.searchText && query?.search__text) {
+  if (!searchText && query?.search__text) {
     searchText = query.search__text as string
   }
   if (searchParamsCategories.length || searchText) {

@@ -1,5 +1,4 @@
 import { LmCoreComponents } from '@CONFIG'
-import { LmPage } from './page/Page'
 import { LmStaticSection } from './static-section/StaticSection'
 import { LmStaticContainer } from './static-section/StaticContainer'
 import { LmDivider } from './divider/Divider'
@@ -24,8 +23,6 @@ import { LmToggleDrawerButton } from './layout/toolbar/ToggleDrawerButton'
 import { LmToolbarSection } from './layout/toolbar/ToolbarSection'
 import MuiNextLink from './link/MuiNextLink'
 import { LmToolbarRow } from './layout/toolbar/ToolbarRow'
-
-LmCoreComponents.page = LmPage
 
 LmCoreComponents.static_section = LmStaticSection
 LmCoreComponents.static_container = LmStaticContainer

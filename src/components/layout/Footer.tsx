@@ -1,10 +1,13 @@
 import React, { FunctionComponent, memo } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useAppSetup } from '@context/AppSetupContext'
 import { LmComponentRender } from '@LmComponentRender'
-import { useGlobalState } from '../../utils/state/state'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { useSettings } from '../provider/SettingsPageProvider'
+import {
+  drawerVariantSelector,
+  leftNavigationDrawerSelector,
+  useNavigationStore
+} from '../../utils/state/navigationState'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,16 +31,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const FooterContainer: FunctionComponent = ({ children }) => {
   const classes = useStyles()
-  const [isLeftDrawerOpen] = useGlobalState('leftNavigationDrawer')
-  const appSetup = useAppSetup()
-  const hasLeftShift =
-    appSetup.drawerVariant !== 'temporary' && isLeftDrawerOpen
+  const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
+  const drawerVariant = useNavigationStore(drawerVariantSelector)
+  const settings = useSettings()
+
+  const hasLeftShift = drawerVariant !== 'temporary' && isLeftDrawerOpen
   return (
     <footer
       className={clsx(classes.footer, {
         [classes.leftShift]: hasLeftShift,
         [classes[
-          `left-mobile-${appSetup.leftDrawerMediaBreakpoint || 'sm'}`
+          `left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`
         ]]: hasLeftShift
       })}
     >
@@ -47,16 +51,12 @@ const FooterContainer: FunctionComponent = ({ children }) => {
 }
 FooterContainer.displayName = 'FooterContainer'
 
-type FooterProps = {
-  settings: GlobalStoryblok
-}
-
-function Footer({ settings }: FooterProps): JSX.Element {
-  const content = (settings && settings.footer) || []
+function Footer(): JSX.Element {
+  const settings = useSettings()
 
   return (
     <FooterContainer>
-      {content.map((blok) => (
+      {settings.footer?.map((blok) => (
         <LmComponentRender content={blok} key={blok._uid} />
       ))}
     </FooterContainer>

@@ -3,13 +3,15 @@ import { LmComponentRender } from '@LmComponentRender'
 import { useAppContext } from '@context/AppContext'
 import { AuthContainerStoryblok } from '../../typings/generated/components-schema'
 import { hasAuth0Credentials } from '../../utils/auth0/auth0Helpers'
+import { useInsideStoryblok } from '../provider/SettingsPageProvider'
 
 export const AuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
   content,
   children
 }) => {
   const appContext = useAppContext()
-  const { user, insideStoryblok } = appContext
+  const { user } = appContext
+  const insideStoryblok = useInsideStoryblok()
   let hideOnRole = true
   let requireRole = true
   let showContent = true

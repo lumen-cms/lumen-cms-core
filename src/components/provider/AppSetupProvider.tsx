@@ -1,74 +1,29 @@
-import React, { FunctionComponent, useMemo } from 'react'
+import React, { FC, useEffect } from 'react'
 import { DrawerProps } from '@material-ui/core/Drawer'
-import { AppSetupContext, AppSetupProps } from '@context/AppSetupContext'
-import {
-  GlobalStoryblok,
-  PageStoryblok
-} from '../../typings/generated/components-schema'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
+import { useSettings } from './SettingsPageProvider'
+import { useNavigationStore } from '../../utils/state/navigationState'
 
-const AppSetupProvider: FunctionComponent<{
-  settings: GlobalStoryblok
-  page?: PageStoryblok | null
-}> = ({ children, settings, page }) => {
+const AppSetupProvider: FC = ({ children }) => {
   const { isMobile } = useDeviceDimensions()
-  const hasDrawer =
-    Array.isArray(settings.drawer_body) && settings.drawer_body.length > 0
-  const hasFeatureImage =
-    page &&
-    Array.isArray(page.property) &&
-    page.property.includes('has_feature')
-  const hasRightDrawer =
-    page && Array.isArray(page.right_body) && page.right_body?.length > 0
-  const hasScrollCollapse = !!(
-    settings.toolbar_config &&
-    settings.toolbar_config.includes('scroll_collapse')
-  )
-  let drawerVariant: DrawerProps['variant'] =
-    isMobile && settings.drawer_below_toolbar_xs ? 'persistent' : 'temporary'
-  if (!isMobile) {
-    drawerVariant = settings.drawer_below_toolbar
-      ? 'persistent'
-      : settings.drawer_variant || 'temporary'
-  }
-  const toolbarMainHeight = settings.toolbar_main_height
-  const drawerBelowToolbar =
-    settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
-  const drawerFullWidthMobile = !!settings.drawer_full_width_mobile
-  const rightDrawerMediaBreakpoint = page?.mobile_breakpoint
-  const leftDrawerMediaBreakpoint = settings?.mobile_nav_breakpoint
-
-  const value = useMemo<AppSetupProps>(() => {
-    return {
-      hasDrawer,
-      hasFeatureImage,
-      hasRightDrawer,
-      hasScrollCollapse,
-      toolbarMainHeight,
-      drawerVariant,
-      drawerBelowToolbar,
-      drawerFullWidthMobile,
-      rightDrawerMediaBreakpoint,
-      leftDrawerMediaBreakpoint
+  const settings = useSettings()
+  const {
+    drawer_variant,
+    drawer_below_toolbar,
+    drawer_below_toolbar_xs
+  } = settings
+  useEffect(() => {
+    let dV: DrawerProps['variant'] =
+      isMobile && drawer_below_toolbar_xs ? 'persistent' : 'temporary'
+    if (!isMobile) {
+      dV = drawer_below_toolbar ? 'persistent' : drawer_variant || 'temporary'
     }
-  }, [
-    hasDrawer,
-    hasFeatureImage,
-    hasRightDrawer,
-    hasScrollCollapse,
-    toolbarMainHeight,
-    drawerVariant,
-    drawerBelowToolbar,
-    drawerFullWidthMobile,
-    rightDrawerMediaBreakpoint,
-    leftDrawerMediaBreakpoint
-  ])
+    useNavigationStore.setState({
+      drawerVariant: dV
+    })
+  }, [isMobile, drawer_below_toolbar, drawer_variant, drawer_below_toolbar_xs])
 
-  return (
-    <AppSetupContext.Provider value={value}>
-      {children}
-    </AppSetupContext.Provider>
-  )
+  return <>{children}</>
 }
 AppSetupProvider.displayName = 'AppSetupProvider'
 

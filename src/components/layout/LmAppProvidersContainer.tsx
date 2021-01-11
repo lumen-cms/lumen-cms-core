@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
 import { LmCoreComponents } from '@CONFIG'
-import { GlobalStoryblok } from '../../typings/generated/components-schema'
+import { useSettings } from '../provider/SettingsPageProvider'
 
-export const LmAppProvidersContainer: FC<{ settings: GlobalStoryblok }> = ({
-  children,
-  settings
-}) => {
+export const LmAppProvidersContainer: FC = ({ children }) => {
+  const settings = useSettings()
   const Providers = LmCoreComponents.lm_app_providers || []
   if (!Providers.length) {
     return <>{children}</>

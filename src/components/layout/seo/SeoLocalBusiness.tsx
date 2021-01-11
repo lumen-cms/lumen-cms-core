@@ -1,13 +1,16 @@
 import { LocalBusinessJsonLd } from 'next-seo'
 import React from 'react'
-import { AppSeoProps } from '../layoutTypes'
 import {
   ImageCoreStoryblok,
   SeoLocalBusinessOpeningHourStoryblok
 } from '../../../typings/generated/components-schema'
 import { getImageCoreUrl } from '../../../utils/mapOpenGraphImage'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 
-export function SeoLocalBusiness({ settings, page }: AppSeoProps) {
+export function SeoLocalBusiness() {
+  const settings = useSettings()
+  const page = usePage()
+
   const business =
     page?.seo_body?.find((i) => i.component === 'seo_local_business') ||
     settings.seo_body?.find((i) => i.component === 'seo_local_business')

@@ -5,19 +5,15 @@ import {
 } from './context/ShopifySdkContext'
 import { ShopfiyCart } from './product/ShopifyCart'
 import { ShopifyFloatingCart } from './product/ShopifyFloatingCart'
-import {
-  EcommerceShopifyConfigStoryblok,
-  GlobalStoryblok
-} from '../../../typings/generated/components-schema'
+import { EcommerceShopifyConfigStoryblok } from '../../../typings/generated/components-schema'
 import { getTotalCartAmount } from './lib/shopifyHelpers'
 import { shopifyGraphqlSdk } from './lib/shopify-graphql-request'
 import { CheckoutCreateInput } from '../../../typings/generated/shopify-schema'
+import { useSettings } from '../../provider/SettingsPageProvider'
 
 let currencyCode = 'EUR'
-export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
-  children,
-  settings
-}) => {
+export const LmShopifySdkProvider: FC = ({ children }) => {
+  const settings = useSettings()
   const shopifyConfig = (settings.ecommerce || []).find(
     (i) => i.component === 'ecommerce_shopify_config'
   )
@@ -219,20 +215,3 @@ export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
   )
 }
 LmShopifySdkProvider.displayName = 'LmShopifySdkProvider'
-
-// export const LmShopifySdkProvider: FC<{ settings: GlobalStoryblok }> = ({
-//   children,
-//   settings
-// }) => {
-//   const ctx = useAppContext()
-//   const apolloClient = useApollo(ctx.shopifyApolloState)
-//
-//   return (
-//     <ApolloProvider client={apolloClient}>
-//       <LmShopifySdkProviderComponent settings={settings}>
-//         {children}
-//       </LmShopifySdkProviderComponent>
-//     </ApolloProvider>
-//   )
-// }
-// LmShopifySdkProvider.displayName = 'ShopifyProviderContainer'

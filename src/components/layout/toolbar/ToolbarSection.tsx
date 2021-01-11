@@ -3,19 +3,19 @@ import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import { useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useAppSetup } from '@context/AppSetupContext'
 import { LmComponentRender } from '@LmComponentRender'
 import { ToolbarRowSectionStoryblok } from '../../../typings/generated/components-schema'
 import { LmToolbarSectionProps } from './toolbarTypes'
+import { useSettings } from '../../provider/SettingsPageProvider'
 
 const ToolbarSectionContainer: FunctionComponent<{
   content: ToolbarRowSectionStoryblok
 }> = ({ children, content }) => {
   const { align } = content
   const theme = useTheme()
-  const appSetup = useAppSetup()
+  const settings = useSettings()
   const matches = useMediaQuery(
-    theme.breakpoints.up(appSetup.leftDrawerMediaBreakpoint || 'sm')
+    theme.breakpoints.up(settings?.mobile_nav_breakpoint || 'sm')
   )
 
   const hideOnMediaQuery = content.use_media_query && !matches
@@ -41,14 +41,13 @@ const ToolbarSectionContainer: FunctionComponent<{
 ToolbarSectionContainer.displayName = 'ToolbarSectionContainer'
 
 export function LmToolbarSection({
-  settings,
   content
 }: LmToolbarSectionProps): JSX.Element {
   const body = content.body || []
   return (
     <ToolbarSectionContainer content={content}>
       {body.map((blok) => (
-        <LmComponentRender content={blok} settings={settings} key={blok._uid} />
+        <LmComponentRender content={blok} key={blok._uid} />
       ))}
     </ToolbarSectionContainer>
   )
