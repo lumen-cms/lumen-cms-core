@@ -54,3 +54,16 @@ export function imageServiceNoWebp(image = '', option = '') {
   const path = image.replace('//a.storyblok.com', '')
   return imageService2 + option + path
 }
+
+export const storyblokImageLoader = ({ src, width, quality }) => {
+  if (src.endsWith('.svg')) {
+    return src
+  }
+  const storyblokRegex = /^(https?:)?\/\/a.storyblok.com\//
+  const originalPath = src.replace(storyblokRegex, '')
+  let opts = ''
+  if (width) {
+    opts += `/${width}x0/`
+  }
+  return `https://img2.storyblok.com${opts}${originalPath}`
+}

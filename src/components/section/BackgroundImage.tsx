@@ -6,7 +6,7 @@ import {
   BackgroundStoryblok,
   SectionStoryblok
 } from '../../typings/generated/components-schema'
-import { getRootImageUrl } from '../../utils/ImageService'
+import { getRootImageUrl, storyblokImageLoader } from '../../utils/ImageService'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -110,6 +110,7 @@ const BackgroundImage = ({
     }
     return (
       <Image
+        loader={storyblokImageLoader}
         src={props.src}
         priority={!!priority || sectionPosition === 0}
         loading={loading}
