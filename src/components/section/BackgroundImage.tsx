@@ -93,12 +93,12 @@ const BackgroundImage = ({
     disable_lazy_loading
   } = content
 
-  const loading =
-    priority || sectionPosition === 0
-      ? undefined
-      : disable_lazy_loading
-      ? 'eager'
-      : undefined
+  const priorityLoading = priority || sectionPosition === 0
+  const loading = priorityLoading
+    ? undefined
+    : disable_lazy_loading
+    ? 'eager'
+    : undefined
   const imageSource = getRootImageUrl(image)
   const imageSourcePortrait = alternative_image
     ? getRootImageUrl(alternative_image)
@@ -110,9 +110,8 @@ const BackgroundImage = ({
     }
     return (
       <Image
-        loader={storyblokImageLoader}
         src={props.src}
-        priority={!!priority || sectionPosition === 0}
+        priority={priorityLoading}
         loading={loading}
         objectFit={
           background_size !== 'auto' && background_size

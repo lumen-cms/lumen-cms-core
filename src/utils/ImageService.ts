@@ -55,7 +55,41 @@ export function imageServiceNoWebp(image = '', option = '') {
   return imageService2 + option + path
 }
 
+let hasWebpSupport: boolean | undefined
+
+const initWebpSupport = () => {
+  // https://github.com/ihordiachenko/supports-webp-sync
+  // Check FF, Edge by user agent
+  if (typeof navigator === 'undefined') {
+    return
+  }
+  const match = navigator?.userAgent.match(/(Edge|Firefox)\/(\d+)\./)
+  if (match) {
+    return (
+      (match[1] === 'Firefox' && +match[2] >= 65) ||
+      (match[1] === 'Edge' && +match[2] >= 18)
+    )
+  }
+
+  // Use canvas hack for webkit-based browsers
+  // Kudos to Rui Marques: https://stackoverflow.com/a/27232658/7897049
+  const e = document?.createElement('canvas')
+  return e && e.toDataURL
+    ? e.toDataURL('image/webp').indexOf('data:image/webp') == 0
+    : false
+}
+
+const checkWebpSupport = () => {
+  if (typeof hasWebpSupport === 'undefined') {
+    hasWebpSupport = initWebpSupport()
+    return hasWebpSupport
+  }
+  return hasWebpSupport
+}
+
 export const storyblokImageLoader = ({ src, width, quality }) => {
+  const webP = checkWebpSupport()
+  console.log(webP)
   if (src.endsWith('.svg')) {
     return src
   }
@@ -64,6 +98,9 @@ export const storyblokImageLoader = ({ src, width, quality }) => {
   let opts = ''
   if (width) {
     opts += `/${width}x0/`
+  }
+  if (webP) {
+    opts += '/filters:format(webp)/'
   }
   return `https://img2.storyblok.com${opts}${originalPath}`
 }

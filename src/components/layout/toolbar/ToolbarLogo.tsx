@@ -8,7 +8,8 @@ import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import {
   getOriginalImageDimensions,
   getRootImageUrl,
-  imageSizesOnWidthAndBreakpoints
+  imageSizesOnWidthAndBreakpoints,
+  storyblokImageLoader
 } from '../../../utils/ImageService'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import { useSettings } from '../../provider/SettingsPageProvider'
@@ -108,9 +109,9 @@ export function LmToolbarLogo(): JSX.Element {
               key={`${source}-${isMobile}-${isInvert}`}
             >
               <Image
+                loader={storyblokImageLoader}
                 src={source as string}
                 priority
-                loading="eager"
                 alt={websiteTitle || 'website logo'}
                 layout="intrinsic"
                 sizes={imageSizesOnWidthAndBreakpoints(
