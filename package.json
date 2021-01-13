@@ -21,7 +21,7 @@
     "build-test": "cross-env TEST=TRUE npm run build",
     "start": "next start",
     "serve": "ts-node server.ts",
-    "analyze": "cross-env ANALYZE=true npm run build",
+    "analyze": "cross-env BUNDLE_ANALYZE=true npm run build",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=82895",
     "update-storyblok": "npm run fetch-storyblok-components && npm run gen-ts-schema && npm run codegen",
