@@ -13,7 +13,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   image: {
     margin: 'auto',
     width: '100%',
-    height: 'auto',
+    height: 'auto'
+  },
+  imgAddons: {
     '&.img-thumbnail': {
       padding: '.25rem',
       backgroundColor: theme.palette.background.default,
@@ -111,6 +113,7 @@ export default function LmImage({
         }}
         className={clsx(
           content.class_names?.values,
+          classes.imgAddons,
           content.property,
           loaded ? 'loaded' : 'loading'
         )}
@@ -136,6 +139,7 @@ export default function LmImage({
       className={clsx(
         content.class_names?.values,
         classes.image,
+        classes.imgAddons,
         content.property,
         loaded ? 'loaded' : 'loading'
       )}
