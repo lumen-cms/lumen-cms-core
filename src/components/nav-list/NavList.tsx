@@ -108,7 +108,11 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
                 component: LmCoreComponents.lm_link_render
               }
             : {}
-          return <MuiLink {...btnProps}>{content.name}</MuiLink>
+          return (
+            <MuiLink {...btnProps} key={blok._uid}>
+              {blok.name}
+            </MuiLink>
+          )
         })}
       </nav>
     </div>
