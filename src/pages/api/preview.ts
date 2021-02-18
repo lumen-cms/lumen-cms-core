@@ -1,20 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-const IS_PROD = process.env.NODE_ENV === 'production'
-
-const setCookieSameSite = (res: NextApiResponse, value: string) => {
-  const cookies = res.getHeader('Set-Cookie') as string[]
-  res.setHeader(
-    'Set-Cookie',
-    cookies?.map((cookie: string) =>
-      cookie.replace(
-        'SameSite=Lax',
-        `SameSite=${value}; ${IS_PROD ? 'Secure;' : ''}`
-      )
-    )
-  )
-}
-
 export default function preview(req: NextApiRequest, res: NextApiResponse) {
   let currentSlug = req.query.slug
 
@@ -31,20 +16,16 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
 
   // console.log('inside preview', queryParams, currentSlug)
   res.setPreviewData(queryParams)
-  //  const searchParams = new URLSearchParams()
-  // Object.keys(queryParams).forEach((key) => {
-  //   searchParams.append(key, queryParams[key] as string)
-  // })
-  // console.log('inside preview', queryParams, searchParams.toString())
-  // res.writeHead(307, { Location: currentSlug })
-  // res.writeHead(307, { Location: `${currentSlug}?${searchParams.toString()}` })
 
-  // res.write(
-  //   `<!DOCTYPE html><html><head><meta http-equiv="Refresh" content="0; url=${currentSlug}" />
-  //   <script>window.location.href = '${currentSlug}'</script>
-  //   </head>`
-  // )
-  setCookieSameSite(res, 'None')
+  // Set cookie to None, so it can be read in the Storyblok iframe
+  const cookies = res.getHeader('Set-Cookie')
+  res.setHeader(
+    'Set-Cookie',
+    // @ts-ignore
+    (cookies || []).map((cookie) =>
+      cookie.replace('SameSite=Lax', 'SameSite=None')
+    )
+  )
 
   res.writeHead(307, { Location: currentSlug })
 
