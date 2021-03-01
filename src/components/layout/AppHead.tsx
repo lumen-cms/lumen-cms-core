@@ -1,6 +1,6 @@
 import NextHead from 'next/head'
 import React, { memo } from 'react'
-import GoogleFonts from 'next-google-fonts'
+import { GoogleFonts } from 'next-google-fonts'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
 import { imageServiceNoWebp } from '../../utils/ImageService'
