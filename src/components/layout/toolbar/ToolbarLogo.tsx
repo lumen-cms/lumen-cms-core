@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       '& .logo-img__mobile': {
         display: 'block'
       },
-      '& .logo-img__default, & .logo-img__desktop': {
+      '& .logo-img__desktop': {
         display: 'none'
       }
     }
