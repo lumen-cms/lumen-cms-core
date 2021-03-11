@@ -126,6 +126,7 @@ function AppHead(): JSX.Element {
         {insideStoryblok && (
           <script src="//app.storyblok.com/f/storyblok-latest.js" />
         )}
+        {settings?.custom_css && <style>{settings.custom_css}</style>}
       </NextHead>
       {!isDevelopment && !insideStoryblok && settings?.setup_facebook_pixel && (
         <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />

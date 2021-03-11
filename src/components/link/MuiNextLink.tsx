@@ -3,6 +3,7 @@ import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 import { useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
+import clsx from 'clsx'
 import { LinkProps, NextComposedProps } from './linkTypes'
 
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
@@ -41,17 +42,18 @@ NextComposed.displayName = 'NextComposedLink'
 function Link({
   href,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  activeClassName = 'active',
+  activeClassName = 'lm_active',
   className: classNameProps,
   innerRef,
   naked,
   ...other
 }: LinkProps): JSX.Element {
   //
-  // const className = clsx(classNameProps, {
-  //   [activeClassName]: router?.asPath === href && activeClassName
-  // })
-  const className = classNameProps
+  const router = useRouter()
+  const className = clsx(classNameProps, {
+    [activeClassName]: router?.asPath === href && activeClassName
+  })
+  // const className = classNameProps
   if (!href) {
     // console.log(props)
     // eslint-disable-next-line jsx-a11y/anchor-has-content
