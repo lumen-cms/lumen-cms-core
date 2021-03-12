@@ -4,7 +4,6 @@ import React from 'react'
 import GridList from '@material-ui/core/GridList'
 import { GridListTile } from '@material-ui/core'
 import clsx from 'clsx'
-import fetcher from '../../utils/fetcher'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { useGridListStyles } from '../card/cardListStyles'
 import useShadowStyles from '../jss/shadowStyles'
@@ -15,8 +14,7 @@ import {
 } from './instagramTypes'
 import { InstagramListItem } from './InstagramListItem'
 import { getNumber } from '../../utils/numberParser'
-
-const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+import fetcher from '../../utils/fetcher'
 
 export default function LmInstagramList({ content }: LmInstagramListProps) {
   const username = content.username.trim().replace('@', '')
@@ -25,8 +23,7 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
   )
   const classesShadow = useShadowStyles()
   const { data } = useSWR(
-    () =>
-      inView ? `${security}://www.instagram.com/${username}/?__a=1` : null,
+    () => (inView ? `/api/instagram/${username}` : null),
     fetcher
   )
   const posts: InstagramMappedProps[] = data?.graphql?.user?.edge_owner_to_timeline_media?.edges
