@@ -16,6 +16,11 @@ import { InstagramListItem } from './InstagramListItem'
 import { getNumber } from '../../utils/numberParser'
 import fetcher from '../../utils/fetcher'
 
+// here is the "pk" user ID of an account
+// https://www.instagram.com/web/search/topsearch/?query=studentsgoabroad
+
+// https://www.instagram.com/graphql/query?query_id=17888483320059182&variables={%22id%22:3086246170,%22first%22:10,%22after%22:null}
+
 export default function LmInstagramList({ content }: LmInstagramListProps) {
   const username = content.username.trim().replace('@', '')
   const [refIntersectionObserver, inView] = useInView(
@@ -23,10 +28,11 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
   )
   const classesShadow = useShadowStyles()
   const { data } = useSWR(
-    () => (inView ? `/api/instagram/${username}` : null),
+    () => (inView ? `/api/instagram/feed/${username}` : null),
     fetcher
   )
-  const posts: InstagramMappedProps[] = data?.graphql?.user?.edge_owner_to_timeline_media?.edges
+
+  const posts: InstagramMappedProps[] = data
     ?.filter((i: { node: EdgeProps }) => {
       if (content.hide_videos) {
         return !i.node.is_video
@@ -41,7 +47,8 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
         shortcode: i.node.shortcode,
         image_url: i.node.display_url,
         commented_count: i.node.edge_media_to_comment.count,
-        liked_by: i.node.edge_liked_by.count,
+        // liked_by: i.node.edge_liked_by.count,
+        liked_by: i.node.edge_media_preview_like.count,
         media_preview: i.node.media_preview,
         thumbnail:
           i.node.thumbnail_resources[i.node.thumbnail_resources.length - 1],
