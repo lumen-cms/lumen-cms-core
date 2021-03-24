@@ -136,10 +136,11 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
               if (
                 bString.includes(
                   `"full_slug":"${router.asPath.replace(/^\/+/, '')}"`
-                ) &&
-                !active
+                )
               ) {
-                setActive(true)
+                !active && setActive(true)
+              } else {
+                active && setActive(false)
               }
               return <LmComponentRender content={blok} key={blok._uid} />
             })}
@@ -168,8 +169,10 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
                     component: LmCoreComponents.lm_link_render
                   }
                 : {}
-            if (btnProps.href === router.asPath && !active) {
-              setActive(true)
+            if (btnProps.href === router.asPath) {
+              !active && setActive(true)
+            } else {
+              active && setActive(false)
             }
             return (
               <MenuItem
