@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import { makeStyles } from '@material-ui/core/styles'
@@ -22,7 +22,8 @@ const useStyles = makeStyles({
 
 export function LmMenu({ content }: LmMenuProps): JSX.Element {
   const classes = useStyles(content)
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [active, setActive] = useState<boolean>(false)
   const menuItems = content.body || []
   const isCustom =
     menuItems.length && menuItems[0].component !== 'nav_menu_item'
@@ -101,6 +102,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
             content={blok}
             key={blok._uid}
             onClick={handleClick}
+            className={active ? 'lm_menu_active' : ''}
           />
         ))
       ) : (
@@ -113,7 +115,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           }
           aria-controls="simple-menu"
           aria-haspopup="true"
-          className="lm-default-color"
+          className={`lm-default-color${active ? ` lm_menu_active` : ''}`}
           onClick={handleClick}
         >
           {content.title}
@@ -159,8 +161,15 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
                     component: LmCoreComponents.lm_link_render
                   }
                 : {}
+            if (btnProps.href === router.asPath && !active) {
+              setActive(true)
+            }
             return (
-              <MenuItem {...btnProps} key={nestedProps._uid}>
+              <MenuItem
+                {...btnProps}
+                key={nestedProps._uid}
+                className={btnProps.href === router.asPath ? 'lm_active' : ''}
+              >
                 {nestedProps.label}
               </MenuItem>
             )

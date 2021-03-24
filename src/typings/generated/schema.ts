@@ -46,6 +46,7 @@ export type CategoryItem = {
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<CategoryComponent>;
   created_at?: Maybe<Scalars['String']>;
+  default_full_slug?: Maybe<Scalars['String']>;
   first_published_at?: Maybe<Scalars['String']>;
   full_slug?: Maybe<Scalars['String']>;
   group_id?: Maybe<Scalars['Int']>;
@@ -78,6 +79,7 @@ export type ContentItem = {
   content?: Maybe<Scalars['JsonScalar']>;
   content_string?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['String']>;
+  default_full_slug?: Maybe<Scalars['String']>;
   first_published_at?: Maybe<Scalars['String']>;
   full_slug?: Maybe<Scalars['String']>;
   group_id?: Maybe<Scalars['Int']>;
@@ -148,6 +150,7 @@ export type ErrorpageItem = {
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<ErrorpageComponent>;
   created_at?: Maybe<Scalars['String']>;
+  default_full_slug?: Maybe<Scalars['String']>;
   first_published_at?: Maybe<Scalars['String']>;
   full_slug?: Maybe<Scalars['String']>;
   group_id?: Maybe<Scalars['Int']>;
@@ -210,6 +213,7 @@ export type GlobalComponent = {
   body_background_color?: Maybe<Scalars['JsonScalar']>;
   chat_button?: Maybe<Scalars['BlockScalar']>;
   component?: Maybe<Scalars['String']>;
+  custom_css?: Maybe<Scalars['String']>;
   drawer_background?: Maybe<Scalars['BlockScalar']>;
   drawer_below_toolbar?: Maybe<Scalars['Boolean']>;
   drawer_below_toolbar_xs?: Maybe<Scalars['Boolean']>;
@@ -320,6 +324,7 @@ export type GlobalItem = {
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<GlobalComponent>;
   created_at?: Maybe<Scalars['String']>;
+  default_full_slug?: Maybe<Scalars['String']>;
   first_published_at?: Maybe<Scalars['String']>;
   full_slug?: Maybe<Scalars['String']>;
   group_id?: Maybe<Scalars['Int']>;
@@ -402,6 +407,7 @@ export type PageItem = {
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<PageComponent>;
   created_at?: Maybe<Scalars['String']>;
+  default_full_slug?: Maybe<Scalars['String']>;
   first_published_at?: Maybe<Scalars['String']>;
   full_slug?: Maybe<Scalars['String']>;
   group_id?: Maybe<Scalars['Int']>;
@@ -722,6 +728,7 @@ export type StaticcontainerItem = {
   alternates?: Maybe<Array<Maybe<Alternate>>>;
   content?: Maybe<StaticcontainerComponent>;
   created_at?: Maybe<Scalars['String']>;
+  default_full_slug?: Maybe<Scalars['String']>;
   first_published_at?: Maybe<Scalars['String']>;
   full_slug?: Maybe<Scalars['String']>;
   group_id?: Maybe<Scalars['Int']>;
