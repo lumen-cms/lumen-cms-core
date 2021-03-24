@@ -14,7 +14,7 @@ import {
 } from './instagramTypes'
 import { InstagramListItem } from './InstagramListItem'
 import { getNumber } from '../../utils/numberParser'
-import fetcher from '../../utils/fetcher'
+// import fetcher from '../../utils/fetcher'
 import { fetchInstagramList } from '../../utils/instagram/instagramHelpers'
 
 // here is the "pk" user ID of an account

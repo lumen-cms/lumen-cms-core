@@ -13,17 +13,17 @@ export const fetchInstagramUserId = async (username: string) => {
   return foundUser?.user?.pk
 }
 
-const queryId = {
-  posts_for_tags: 17875800862117404,
-  user_following: 17874545323001329,
-  user_followers: 17851374694183129,
-  user_posts: 17888483320059182,
-  likes_on_posts: 17864450716183058,
-  comments_on_posts: 17852405266163336,
-  posts_on_feed: 17842794232208280,
-  feed_profile_suggestions: 17847560125201451,
-  post_suggestions: 17863787143139595
-}
+// const queryId = {
+//   posts_for_tags: 17875800862117404,
+//   user_following: 17874545323001329,
+//   user_followers: 17851374694183129,
+//   user_posts: 17888483320059182,
+//   likes_on_posts: 17864450716183058,
+//   comments_on_posts: 17852405266163336,
+//   posts_on_feed: 17842794232208280,
+//   feed_profile_suggestions: 17847560125201451,
+//   post_suggestions: 17863787143139595
+// }
 
 export async function fetchInstagramList<JSON = any>(
   username: string
