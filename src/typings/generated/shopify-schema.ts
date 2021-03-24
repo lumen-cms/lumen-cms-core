@@ -1,4 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
+import { HeadersInit } from 'graphql-request/dist/types.dom';
 import { print } from 'graphql';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
@@ -22,12 +23,13 @@ export type Scalars = {
   Money: any;
   /**
    * An RFC 3986 and RFC 3987 compliant URI string.
-   * 
+   *
    * Example value: `"https://johns-apparel.myshopify.com"`.
-   * 
+   *
    */
   URL: any;
 };
+
 
 /** A version of the API. */
 export type ApiVersion = {
@@ -151,6 +153,7 @@ export type ArticleAuthor = {
   name: Scalars['String'];
 };
 
+/** An auto-generated type for paginating through multiple Articles. */
 export type ArticleConnection = {
   __typename?: 'ArticleConnection';
   /** A list of edges. */
@@ -159,6 +162,7 @@ export type ArticleConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one Article and a cursor during pagination. */
 export type ArticleEdge = {
   __typename?: 'ArticleEdge';
   /** A cursor for use in pagination. */
@@ -271,6 +275,7 @@ export type BlogArticlesArgs = {
   query?: Maybe<Scalars['String']>;
 };
 
+/** An auto-generated type for paginating through multiple Blogs. */
 export type BlogConnection = {
   __typename?: 'BlogConnection';
   /** A list of edges. */
@@ -279,6 +284,7 @@ export type BlogConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one Blog and a cursor during pagination. */
 export type BlogEdge = {
   __typename?: 'BlogEdge';
   /** A cursor for use in pagination. */
@@ -902,6 +908,7 @@ export type CheckoutLineItem = Node & {
   variant?: Maybe<ProductVariant>;
 };
 
+/** An auto-generated type for paginating through multiple CheckoutLineItems. */
 export type CheckoutLineItemConnection = {
   __typename?: 'CheckoutLineItemConnection';
   /** A list of edges. */
@@ -910,6 +917,7 @@ export type CheckoutLineItemConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one CheckoutLineItem and a cursor during pagination. */
 export type CheckoutLineItemEdge = {
   __typename?: 'CheckoutLineItemEdge';
   /** A cursor for use in pagination. */
@@ -1094,6 +1102,7 @@ export type CollectionProductsArgs = {
   sortKey?: Maybe<ProductCollectionSortKeys>;
 };
 
+/** An auto-generated type for paginating through multiple Collections. */
 export type CollectionConnection = {
   __typename?: 'CollectionConnection';
   /** A list of edges. */
@@ -1102,6 +1111,7 @@ export type CollectionConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one Collection and a cursor during pagination. */
 export type CollectionEdge = {
   __typename?: 'CollectionEdge';
   /** A cursor for use in pagination. */
@@ -1154,6 +1164,7 @@ export type CommentAuthor = {
   name: Scalars['String'];
 };
 
+/** An auto-generated type for paginating through multiple Comments. */
 export type CommentConnection = {
   __typename?: 'CommentConnection';
   /** A list of edges. */
@@ -1162,6 +1173,7 @@ export type CommentConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one Comment and a cursor during pagination. */
 export type CommentEdge = {
   __typename?: 'CommentEdge';
   /** A cursor for use in pagination. */
@@ -1194,6 +1206,8 @@ export enum CountryCode {
   Am = 'AM',
   /** Aruba. */
   Aw = 'AW',
+  /** Ascension Island. */
+  Ac = 'AC',
   /** Australia. */
   Au = 'AU',
   /** Austria. */
@@ -1364,7 +1378,7 @@ export enum CountryCode {
   Va = 'VA',
   /** Honduras. */
   Hn = 'HN',
-  /** Hong Kong SAR China. */
+  /** Hong Kong SAR. */
   Hk = 'HK',
   /** Hungary. */
   Hu = 'HU',
@@ -1426,7 +1440,7 @@ export enum CountryCode {
   Lt = 'LT',
   /** Luxembourg. */
   Lu = 'LU',
-  /** Macao SAR China. */
+  /** Macao SAR. */
   Mo = 'MO',
   /** Madagascar. */
   Mg = 'MG',
@@ -1612,6 +1626,8 @@ export enum CountryCode {
   To = 'TO',
   /** Trinidad & Tobago. */
   Tt = 'TT',
+  /** Tristan da Cunha. */
+  Ta = 'TA',
   /** Tunisia. */
   Tn = 'TN',
   /** Turkey. */
@@ -1765,8 +1781,6 @@ export enum CurrencyCode {
   Bhd = 'BHD',
   /** Burundian Franc (BIF). */
   Bif = 'BIF',
-  /** Belarusian Ruble (BYR). */
-  Byr = 'BYR',
   /** Belize Dollar (BZD). */
   Bzd = 'BZD',
   /** Bermudian Dollar (BMD). */
@@ -1813,26 +1827,18 @@ export enum CurrencyCode {
   Czk = 'CZK',
   /** Danish Kroner (DKK). */
   Dkk = 'DKK',
-  /** Djiboutian Franc (DJF). */
-  Djf = 'DJF',
   /** Dominican Peso (DOP). */
   Dop = 'DOP',
   /** East Caribbean Dollar (XCD). */
   Xcd = 'XCD',
   /** Egyptian Pound (EGP). */
   Egp = 'EGP',
-  /** Eritrean Nakfa (ERN). */
-  Ern = 'ERN',
   /** Ethiopian Birr (ETB). */
   Etb = 'ETB',
-  /** Falkland Islands Pounds (FKP). */
-  Fkp = 'FKP',
   /** CFP Franc (XPF). */
   Xpf = 'XPF',
   /** Fijian Dollars (FJD). */
   Fjd = 'FJD',
-  /** Gibraltar Pounds (GIP). */
-  Gip = 'GIP',
   /** Gambian Dalasi (GMD). */
   Gmd = 'GMD',
   /** Ghanaian Cedi (GHS). */
@@ -1843,8 +1849,6 @@ export enum CurrencyCode {
   Gyd = 'GYD',
   /** Georgian Lari (GEL). */
   Gel = 'GEL',
-  /** Guinean Franc (GNF). */
-  Gnf = 'GNF',
   /** Haitian Gourde (HTG). */
   Htg = 'HTG',
   /** Honduran Lempira (HNL). */
@@ -1861,8 +1865,6 @@ export enum CurrencyCode {
   Idr = 'IDR',
   /** Israeli New Shekel (NIS). */
   Ils = 'ILS',
-  /** Iranian Rial (IRR). */
-  Irr = 'IRR',
   /** Iraqi Dinar (IQD). */
   Iqd = 'IQD',
   /** Jamaican Dollars (JMD). */
@@ -1877,8 +1879,6 @@ export enum CurrencyCode {
   Kzt = 'KZT',
   /** Kenyan Shilling (KES). */
   Kes = 'KES',
-  /** Kiribati Dollar (KID). */
-  Kid = 'KID',
   /** Kuwaiti Dinar (KWD). */
   Kwd = 'KWD',
   /** Kyrgyzstani Som (KGS). */
@@ -1893,8 +1893,6 @@ export enum CurrencyCode {
   Lsl = 'LSL',
   /** Liberian Dollar (LRD). */
   Lrd = 'LRD',
-  /** Libyan Dinar (LYD). */
-  Lyd = 'LYD',
   /** Lithuanian Litai (LTL). */
   Ltl = 'LTL',
   /** Malagasy Ariary (MGA). */
@@ -1907,8 +1905,6 @@ export enum CurrencyCode {
   Mwk = 'MWK',
   /** Maldivian Rufiyaa (MVR). */
   Mvr = 'MVR',
-  /** Mauritanian Ouguiya (MRU). */
-  Mru = 'MRU',
   /** Mexican Pesos (MXN). */
   Mxn = 'MXN',
   /** Malaysian Ringgits (MYR). */
@@ -1963,8 +1959,6 @@ export enum CurrencyCode {
   Rwf = 'RWF',
   /** Samoan Tala (WST). */
   Wst = 'WST',
-  /** Saint Helena Pounds (SHP). */
-  Shp = 'SHP',
   /** Saudi Riyal (SAR). */
   Sar = 'SAR',
   /** Sao Tome And Principe Dobra (STD). */
@@ -1973,14 +1967,10 @@ export enum CurrencyCode {
   Rsd = 'RSD',
   /** Seychellois Rupee (SCR). */
   Scr = 'SCR',
-  /** Sierra Leonean Leone (SLL). */
-  Sll = 'SLL',
   /** Singapore Dollars (SGD). */
   Sgd = 'SGD',
   /** Sudanese Pound (SDG). */
   Sdg = 'SDG',
-  /** Somali Shilling (SOS). */
-  Sos = 'SOS',
   /** Syrian Pound (SYP). */
   Syp = 'SYP',
   /** South African Rand (ZAR). */
@@ -2005,12 +1995,8 @@ export enum CurrencyCode {
   Twd = 'TWD',
   /** Thai baht (THB). */
   Thb = 'THB',
-  /** Tajikistani Somoni (TJS). */
-  Tjs = 'TJS',
   /** Tanzanian Shilling (TZS). */
   Tzs = 'TZS',
-  /** Tongan Pa'anga (TOP). */
-  Top = 'TOP',
   /** Trinidad and Tobago Dollars (TTD). */
   Ttd = 'TTD',
   /** Tunisian Dinar (TND). */
@@ -2031,10 +2017,6 @@ export enum CurrencyCode {
   Uzs = 'UZS',
   /** Vanuatu Vatu (VUV). */
   Vuv = 'VUV',
-  /** Venezuelan Bolivares (VEF). */
-  Vef = 'VEF',
-  /** Venezuelan Bolivares (VES). */
-  Ves = 'VES',
   /** Vietnamese đồng (VND). */
   Vnd = 'VND',
   /** West African CFA franc (XOF). */
@@ -2042,7 +2024,41 @@ export enum CurrencyCode {
   /** Yemeni Rial (YER). */
   Yer = 'YER',
   /** Zambian Kwacha (ZMW). */
-  Zmw = 'ZMW'
+  Zmw = 'ZMW',
+  /** Belarusian Ruble (BYR). */
+  Byr = 'BYR',
+  /** Djiboutian Franc (DJF). */
+  Djf = 'DJF',
+  /** Eritrean Nakfa (ERN). */
+  Ern = 'ERN',
+  /** Falkland Islands Pounds (FKP). */
+  Fkp = 'FKP',
+  /** Gibraltar Pounds (GIP). */
+  Gip = 'GIP',
+  /** Guinean Franc (GNF). */
+  Gnf = 'GNF',
+  /** Iranian Rial (IRR). */
+  Irr = 'IRR',
+  /** Kiribati Dollar (KID). */
+  Kid = 'KID',
+  /** Libyan Dinar (LYD). */
+  Lyd = 'LYD',
+  /** Mauritanian Ouguiya (MRU). */
+  Mru = 'MRU',
+  /** Sierra Leonean Leone (SLL). */
+  Sll = 'SLL',
+  /** Saint Helena Pounds (SHP). */
+  Shp = 'SHP',
+  /** Somali Shilling (SOS). */
+  Sos = 'SOS',
+  /** Tajikistani Somoni (TJS). */
+  Tjs = 'TJS',
+  /** Tongan Pa'anga (TOP). */
+  Top = 'TOP',
+  /** Venezuelan Bolivares (VEF). */
+  Vef = 'VEF',
+  /** Venezuelan Bolivares (VES). */
+  Ves = 'VES'
 }
 
 /** A customer represents a customer account with the shop. Customer accounts store contact information for the customer, saving logged-in customers the trouble of having to provide it at every checkout. */
@@ -2250,7 +2266,7 @@ export type CustomerCreateInput = {
   email: Scalars['String'];
   /**
    * A unique phone number for the customer.
-   * 
+   *
    * Formatted using E.164 standard. For example, _+16135551111_.
    */
   phone?: Maybe<Scalars['String']>;
@@ -2384,7 +2400,7 @@ export type CustomerUpdateInput = {
   email?: Maybe<Scalars['String']>;
   /**
    * A unique phone number for the customer.
-   * 
+   *
    * Formatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`.
    */
   phone?: Maybe<Scalars['String']>;
@@ -2472,6 +2488,7 @@ export enum DiscountApplicationAllocationMethod {
   One = 'ONE'
 }
 
+/** An auto-generated type for paginating through multiple DiscountApplications. */
 export type DiscountApplicationConnection = {
   __typename?: 'DiscountApplicationConnection';
   /** A list of edges. */
@@ -2480,6 +2497,7 @@ export type DiscountApplicationConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one DiscountApplication and a cursor during pagination. */
 export type DiscountApplicationEdge = {
   __typename?: 'DiscountApplicationEdge';
   /** A cursor for use in pagination. */
@@ -2602,6 +2620,7 @@ export type FulfillmentLineItem = {
   quantity: Scalars['Int'];
 };
 
+/** An auto-generated type for paginating through multiple FulfillmentLineItems. */
 export type FulfillmentLineItemConnection = {
   __typename?: 'FulfillmentLineItemConnection';
   /** A list of edges. */
@@ -2610,6 +2629,7 @@ export type FulfillmentLineItemConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one FulfillmentLineItem and a cursor during pagination. */
 export type FulfillmentLineItemEdge = {
   __typename?: 'FulfillmentLineItemEdge';
   /** A cursor for use in pagination. */
@@ -2663,7 +2683,7 @@ export type Image = {
   id?: Maybe<Scalars['ID']>;
   /**
    * The location of the original image as a URL.
-   * 
+   *
    * If there are any existing transformations in the original source URL, they will remain and not be stripped.
    */
   originalSrc: Scalars['URL'];
@@ -2671,16 +2691,16 @@ export type Image = {
    * The location of the image as a URL.
    * @deprecated Previously an image had a single `src` field. This could either return the original image
    * location or a URL that contained transformations such as sizing or scale.
-   * 
+   *
    * These transformations were specified by arguments on the parent field.
-   * 
+   *
    * Now an image has two distinct URL fields: `originalSrc` and `transformedSrc`.
-   * 
+   *
    * * `originalSrc` - the original unmodified image URL
    * * `transformedSrc` - the image URL with the specified transformations included
-   * 
+   *
    * To migrate to the new fields, image transformations should be moved from the parent field to `transformedSrc`.
-   * 
+   *
    * Before:
    * ```graphql
    * {
@@ -2695,7 +2715,7 @@ export type Image = {
    *   }
    * }
    * ```
-   * 
+   *
    * After:
    * ```graphql
    * {
@@ -2710,12 +2730,12 @@ export type Image = {
    *   }
    * }
    * ```
-   * 
+   *
    */
   src: Scalars['URL'];
   /**
    * The location of the transformed image as a URL.
-   * 
+   *
    * All transformation arguments are considered "best-effort". If they can be applied to an image, they will be.
    * Otherwise any transformations which an image type does not support will be ignored.
    */
@@ -2732,6 +2752,7 @@ export type ImageTransformedSrcArgs = {
   preferredContentType?: Maybe<ImageContentType>;
 };
 
+/** An auto-generated type for paginating through multiple Images. */
 export type ImageConnection = {
   __typename?: 'ImageConnection';
   /** A list of edges. */
@@ -2750,6 +2771,7 @@ export enum ImageContentType {
   Webp = 'WEBP'
 }
 
+/** An auto-generated type which holds one Image and a cursor during pagination. */
 export type ImageEdge = {
   __typename?: 'ImageEdge';
   /** A cursor for use in pagination. */
@@ -2773,14 +2795,14 @@ export type MailingAddress = Node & {
   country?: Maybe<Scalars['String']>;
   /**
    * The two-letter code for the country of the address.
-   * 
+   *
    * For example, US.
    * @deprecated Use `countryCodeV2` instead
    */
   countryCode?: Maybe<Scalars['String']>;
   /**
    * The two-letter code for the country of the address.
-   * 
+   *
    * For example, US.
    */
   countryCodeV2?: Maybe<CountryCode>;
@@ -2802,7 +2824,7 @@ export type MailingAddress = Node & {
   name?: Maybe<Scalars['String']>;
   /**
    * A unique phone number for the customer.
-   * 
+   *
    * Formatted using E.164 standard. For example, _+16135551111_.
    */
   phone?: Maybe<Scalars['String']>;
@@ -2810,7 +2832,7 @@ export type MailingAddress = Node & {
   province?: Maybe<Scalars['String']>;
   /**
    * The two-letter code for the region.
-   * 
+   *
    * For example, ON.
    */
   provinceCode?: Maybe<Scalars['String']>;
@@ -2825,6 +2847,7 @@ export type MailingAddressFormattedArgs = {
   withCompany?: Maybe<Scalars['Boolean']>;
 };
 
+/** An auto-generated type for paginating through multiple MailingAddresses. */
 export type MailingAddressConnection = {
   __typename?: 'MailingAddressConnection';
   /** A list of edges. */
@@ -2833,6 +2856,7 @@ export type MailingAddressConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one MailingAddress and a cursor during pagination. */
 export type MailingAddressEdge = {
   __typename?: 'MailingAddressEdge';
   /** A cursor for use in pagination. */
@@ -2859,7 +2883,7 @@ export type MailingAddressInput = {
   lastName?: Maybe<Scalars['String']>;
   /**
    * A unique phone number for the customer.
-   * 
+   *
    * Formatted using E.164 standard. For example, _+16135551111_.
    */
   phone?: Maybe<Scalars['String']>;
@@ -2896,6 +2920,7 @@ export type Media = {
   previewImage?: Maybe<Image>;
 };
 
+/** An auto-generated type for paginating through multiple Media. */
 export type MediaConnection = {
   __typename?: 'MediaConnection';
   /** A list of edges. */
@@ -2916,6 +2941,7 @@ export enum MediaContentType {
   Video = 'VIDEO'
 }
 
+/** An auto-generated type which holds one Media and a cursor during pagination. */
 export type MediaEdge = {
   __typename?: 'MediaEdge';
   /** A cursor for use in pagination. */
@@ -2965,6 +2991,7 @@ export type Metafield = Node & {
   valueType: MetafieldValueType;
 };
 
+/** An auto-generated type for paginating through multiple Metafields. */
 export type MetafieldConnection = {
   __typename?: 'MetafieldConnection';
   /** A list of edges. */
@@ -2973,6 +3000,7 @@ export type MetafieldConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one Metafield and a cursor during pagination. */
 export type MetafieldEdge = {
   __typename?: 'MetafieldEdge';
   /** A cursor for use in pagination. */
@@ -3033,24 +3061,24 @@ export type MoneyInput = {
 
 /**
  * A monetary value with currency.
- * 
+ *
  * To format currencies, combine this type's amount and currencyCode fields with your client's locale.
- * 
+ *
  * For example, in JavaScript you could use Intl.NumberFormat:
- * 
+ *
  * ```js
  * new Intl.NumberFormat(locale, {
  *   style: 'currency',
  *   currency: currencyCode
  * }).format(amount);
  * ```
- * 
+ *
  * Other formatting libraries include:
- * 
+ *
  * * iOS - [NumberFormatter](https://developer.apple.com/documentation/foundation/numberformatter)
  * * Android - [NumberFormat](https://developer.android.com/reference/java/text/NumberFormat.html)
  * * PHP - [NumberFormatter](http://php.net/manual/en/class.numberformatter.php)
- * 
+ *
  * For a more general solution, the [Unicode CLDR number formatting database] is available with many implementations
  * (such as [TwitterCldr](https://github.com/twitter/twitter-cldr-rb)).
  */
@@ -3062,6 +3090,7 @@ export type MoneyV2 = {
   currencyCode: CurrencyCode;
 };
 
+/** An auto-generated type for paginating through multiple MoneyV2s. */
 export type MoneyV2Connection = {
   __typename?: 'MoneyV2Connection';
   /** A list of edges. */
@@ -3070,6 +3099,7 @@ export type MoneyV2Connection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one MoneyV2 and a cursor during pagination. */
 export type MoneyV2Edge = {
   __typename?: 'MoneyV2Edge';
   /** A cursor for use in pagination. */
@@ -3187,7 +3217,7 @@ export type Mutation = {
   customerAccessTokenDelete?: Maybe<CustomerAccessTokenDeletePayload>;
   /**
    * Renews a customer access token.
-   * 
+   *
    * Access token renewal must happen *before* a token expires.
    * If a token has already expired, a new one should be created instead via `customerAccessTokenCreate`.
    */
@@ -3523,7 +3553,7 @@ export type Node = {
 /** An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information. */
 export type Order = Node & {
   __typename?: 'Order';
-  /** Represents the reason for the order's cancellation. Returns null if the order wasn't canceled. */
+  /** The reason for the order's cancellation. Returns `null` if the order wasn't canceled. */
   cancelReason?: Maybe<OrderCancelReason>;
   /** The date and time when the order was canceled. Returns null if the order wasn't canceled. */
   canceledAt?: Maybe<Scalars['DateTime']>;
@@ -3655,6 +3685,7 @@ export enum OrderCancelReason {
   Other = 'OTHER'
 }
 
+/** An auto-generated type for paginating through multiple Orders. */
 export type OrderConnection = {
   __typename?: 'OrderConnection';
   /** A list of edges. */
@@ -3663,6 +3694,7 @@ export type OrderConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one Order and a cursor during pagination. */
 export type OrderEdge = {
   __typename?: 'OrderEdge';
   /** A cursor for use in pagination. */
@@ -3728,6 +3760,7 @@ export type OrderLineItem = {
   variant?: Maybe<ProductVariant>;
 };
 
+/** An auto-generated type for paginating through multiple OrderLineItems. */
 export type OrderLineItemConnection = {
   __typename?: 'OrderLineItemConnection';
   /** A list of edges. */
@@ -3736,6 +3769,7 @@ export type OrderLineItemConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one OrderLineItem and a cursor during pagination. */
 export type OrderLineItemEdge = {
   __typename?: 'OrderLineItemEdge';
   /** A cursor for use in pagination. */
@@ -3781,6 +3815,7 @@ export type Page = Node & {
   url: Scalars['URL'];
 };
 
+/** An auto-generated type for paginating through multiple Pages. */
 export type PageConnection = {
   __typename?: 'PageConnection';
   /** A list of edges. */
@@ -3789,6 +3824,7 @@ export type PageConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one Page and a cursor during pagination. */
 export type PageEdge = {
   __typename?: 'PageEdge';
   /** A cursor for use in pagination. */
@@ -3952,7 +3988,12 @@ export type Product = Node & HasMetafields & {
   title: Scalars['String'];
   /** The total quantity of inventory in stock for this Product. */
   totalInventory?: Maybe<Scalars['Int']>;
-  /** The date and time when the product was last modified. */
+  /**
+   * The date and time when the product was last modified.
+   * A product's `updatedAt` value can change for different reasons. For example, if an order
+   * is placed for a product that has inventory tracking set up, then the inventory adjustment
+   * is counted as an update.
+   */
   updatedAt: Scalars['DateTime'];
   /**
    * Find a product’s variant based on its selected options.
@@ -4113,6 +4154,7 @@ export enum ProductCollectionSortKeys {
   Relevance = 'RELEVANCE'
 }
 
+/** An auto-generated type for paginating through multiple Products. */
 export type ProductConnection = {
   __typename?: 'ProductConnection';
   /** A list of edges. */
@@ -4121,6 +4163,7 @@ export type ProductConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one Product and a cursor during pagination. */
 export type ProductEdge = {
   __typename?: 'ProductEdge';
   /** A cursor for use in pagination. */
@@ -4169,6 +4212,7 @@ export type ProductPriceRange = {
   minVariantPrice: MoneyV2;
 };
 
+/** An auto-generated type for paginating through multiple ProductPriceRanges. */
 export type ProductPriceRangeConnection = {
   __typename?: 'ProductPriceRangeConnection';
   /** A list of edges. */
@@ -4177,6 +4221,7 @@ export type ProductPriceRangeConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one ProductPriceRange and a cursor during pagination. */
 export type ProductPriceRangeEdge = {
   __typename?: 'ProductPriceRangeEdge';
   /** A cursor for use in pagination. */
@@ -4320,6 +4365,7 @@ export type ProductVariantPresentmentUnitPricesArgs = {
   reverse?: Maybe<Scalars['Boolean']>;
 };
 
+/** An auto-generated type for paginating through multiple ProductVariants. */
 export type ProductVariantConnection = {
   __typename?: 'ProductVariantConnection';
   /** A list of edges. */
@@ -4328,6 +4374,7 @@ export type ProductVariantConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one ProductVariant and a cursor during pagination. */
 export type ProductVariantEdge = {
   __typename?: 'ProductVariantEdge';
   /** A cursor for use in pagination. */
@@ -4345,6 +4392,7 @@ export type ProductVariantPricePair = {
   price: MoneyV2;
 };
 
+/** An auto-generated type for paginating through multiple ProductVariantPricePairs. */
 export type ProductVariantPricePairConnection = {
   __typename?: 'ProductVariantPricePairConnection';
   /** A list of edges. */
@@ -4353,6 +4401,7 @@ export type ProductVariantPricePairConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one ProductVariantPricePair and a cursor during pagination. */
 export type ProductVariantPricePairEdge = {
   __typename?: 'ProductVariantPricePairEdge';
   /** A cursor for use in pagination. */
@@ -4394,7 +4443,9 @@ export type QueryRoot = {
   collections: CollectionConnection;
   /** Find a customer by its access token. */
   customer?: Maybe<Customer>;
+  /** Returns a specific node by ID. */
   node?: Maybe<Node>;
+  /** Returns the list of nodes with the given IDs. */
   nodes: Array<Maybe<Node>>;
   /** Find a page by its handle. */
   pageByHandle?: Maybe<Page>;
@@ -4774,6 +4825,7 @@ export type ShopPolicy = Node & {
   url: Scalars['URL'];
 };
 
+/** An auto-generated type for paginating through multiple Strings. */
 export type StringConnection = {
   __typename?: 'StringConnection';
   /** A list of edges. */
@@ -4782,6 +4834,7 @@ export type StringConnection = {
   pageInfo: PageInfo;
 };
 
+/** An auto-generated type which holds one String and a cursor during pagination. */
 export type StringEdge = {
   __typename?: 'StringEdge';
   /** A cursor for use in pagination. */
@@ -4876,18 +4929,32 @@ export type Transaction = {
   test: Scalars['Boolean'];
 };
 
+/** The different kinds of order transactions. */
 export enum TransactionKind {
+  /** An authorization and capture performed together in a single step. */
   Sale = 'SALE',
+  /** A transfer of the money that was reserved during the authorization stage. */
   Capture = 'CAPTURE',
+  /**
+   * An amount reserved against the cardholder's funding source.
+   * Money does not change hands until the authorization is captured.
+   */
   Authorization = 'AUTHORIZATION',
+  /** An authorization for a payment taken with an EMV credit card reader. */
   EmvAuthorization = 'EMV_AUTHORIZATION',
+  /** Money returned to the customer when they have paid too much. */
   Change = 'CHANGE'
 }
 
+/** Transaction statuses describe the status of a transaction. */
 export enum TransactionStatus {
+  /** The transaction is pending. */
   Pending = 'PENDING',
+  /** The transaction succeeded. */
   Success = 'SUCCESS',
+  /** The transaction failed. */
   Failure = 'FAILURE',
+  /** There was an error while processing the transaction. */
   Error = 'ERROR'
 }
 
@@ -5345,17 +5412,17 @@ export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    allProducts(variables?: AllProductsQueryVariables): Promise<AllProductsQuery> {
-      return withWrapper(() => client.request<AllProductsQuery>(print(AllProductsDocument), variables));
+    allProducts(variables?: AllProductsQueryVariables, requestHeaders?: HeadersInit): Promise<AllProductsQuery> {
+      return withWrapper(() => client.request<AllProductsQuery>(print(AllProductsDocument), variables, requestHeaders));
     },
-    checkoutCreate(variables: CheckoutCreateMutationVariables): Promise<CheckoutCreateMutation> {
-      return withWrapper(() => client.request<CheckoutCreateMutation>(print(CheckoutCreateDocument), variables));
+    checkoutCreate(variables: CheckoutCreateMutationVariables, requestHeaders?: HeadersInit): Promise<CheckoutCreateMutation> {
+      return withWrapper(() => client.request<CheckoutCreateMutation>(print(CheckoutCreateDocument), variables, requestHeaders));
     },
-    product(variables: ProductQueryVariables): Promise<ProductQuery> {
-      return withWrapper(() => client.request<ProductQuery>(print(ProductDocument), variables));
+    product(variables: ProductQueryVariables, requestHeaders?: HeadersInit): Promise<ProductQuery> {
+      return withWrapper(() => client.request<ProductQuery>(print(ProductDocument), variables, requestHeaders));
     },
-    products(variables: ProductsQueryVariables): Promise<ProductsQuery> {
-      return withWrapper(() => client.request<ProductsQuery>(print(ProductsDocument), variables));
+    products(variables: ProductsQueryVariables, requestHeaders?: HeadersInit): Promise<ProductsQuery> {
+      return withWrapper(() => client.request<ProductsQuery>(print(ProductsDocument), variables, requestHeaders));
     }
   };
 }

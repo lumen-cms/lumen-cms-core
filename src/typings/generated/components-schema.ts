@@ -352,7 +352,7 @@ export interface CardListStoryblok {
     | "text_align_right"
     | "overlay_content_no_space"
   )[];
-  image_size?: "cover" | "contain" | "initial" | "auto";
+  image_size?: "cover" | "contain" | "initial" | "auto" | "none";
   image_ratio?: "16x9" | "1x1" | "4x3" | "3x2" | "2x3" | "1x3" | "3x1" | "2.85x1";
   hide_image?: boolean;
   border_radius?: "0" | "2" | "4" | "";
@@ -985,6 +985,7 @@ export interface GlobalStoryblok {
     | EcommerceShopifyConfigStoryblok
     | EcommerceSnipcartConfigStoryblok
   )[];
+  custom_css?: string;
   _uid: string;
   component: "global";
   uuid?: string;
