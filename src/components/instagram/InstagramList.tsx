@@ -15,6 +15,7 @@ import {
 import { InstagramListItem } from './InstagramListItem'
 import { getNumber } from '../../utils/numberParser'
 import fetcher from '../../utils/fetcher'
+import { fetchInstagramList } from '../../utils/instagram/instagramHelpers'
 
 // here is the "pk" user ID of an account
 // https://www.instagram.com/web/search/topsearch/?query=studentsgoabroad
@@ -27,10 +28,21 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
     intersectionDefaultOptions
   )
   const classesShadow = useShadowStyles()
-  const { data } = useSWR(
-    () => (inView ? `/api/instagram/feed/${username}` : null),
-    fetcher
+  // const { data } = useSWR(
+  //   () => (inView ? `/api/instagram/feed/${username}` : null),
+  //   fetcher
+  // )
+  const { data, error } = useSWR(
+    () =>
+      inView
+        ? `${username || process.env.NEXT_PUBLIC_INSTAGRAM_USER_ID}`
+        : null,
+    fetchInstagramList
   )
+  if (error) {
+    console.error(error)
+  }
+  console.log(data)
 
   const posts: InstagramMappedProps[] = data
     ?.filter((i: { node: EdgeProps }) => {
