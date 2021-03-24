@@ -93,7 +93,6 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
       <ChevronUp />
     )
   // const StartIcon = content.start_icon?.name ? <LmIcon iconName={content.start_icon.name} /> : null
-
   return (
     <>
       {content.title_custom?.length ? (
@@ -121,7 +120,6 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           {content.title}
         </Button>
       )}
-
       {isCustom ? (
         <Popover
           open={Boolean(anchorEl)}
@@ -133,9 +131,18 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           {...addons}
         >
           <div style={{ padding: 16 }}>
-            {menuItems.map((blok) => (
-              <LmComponentRender content={blok} key={blok._uid} />
-            ))}
+            {menuItems.map((blok) => {
+              const bString = JSON.stringify(blok)
+              if (
+                bString.includes(
+                  `"full_slug":"${router.asPath.replace(/^\/+/, '')}"`
+                ) &&
+                !active
+              ) {
+                setActive(true)
+              }
+              return <LmComponentRender content={blok} key={blok._uid} />
+            })}
           </div>
         </Popover>
       ) : (
