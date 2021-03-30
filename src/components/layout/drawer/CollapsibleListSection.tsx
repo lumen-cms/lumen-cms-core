@@ -80,7 +80,6 @@ export function CollapsibleListSection({
       items.push(firstLevel)
     }
   })
-  console.log(open, items)
 
   const startIconName = content.start_icon && content.start_icon.name
   return (
