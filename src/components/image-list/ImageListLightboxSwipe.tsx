@@ -3,16 +3,51 @@ import SwipeableViews from 'react-swipeable-views'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
 import Image from 'next/image'
+import { makeStyles } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
 import { getRootImageUrl } from '../../utils/ImageService'
 import InvertedIndicator from '../slider/InvertedIndicator'
 import { ImageListLightboxProps } from './imageListTypes'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 
+const useStyles = makeStyles(() => ({
+  root: {
+    position: 'relative',
+    width: '100%',
+    height: '100%'
+  },
+  text: {
+    position: 'absolute',
+    width: '100%',
+    top: 0,
+    left: 0,
+    color: 'white',
+    flexDirection: 'column',
+    background: 'rgba(0,0,0,0.45)',
+    padding: '1rem 3rem 1rem 1rem'
+  }
+}))
+
 function CarouselImageItem({ content }: { content: ImageListItemStoryblok }) {
+  const classes = useStyles()
   const imageSource = getRootImageUrl(content.source)
+
   return (
     <div className="carousel-item">
-      <Image src={imageSource} layout="fill" objectFit="contain" />
+      <div className={classes.root}>
+        <Image
+          alt={content.alt || content.label || 'image list item'}
+          src={imageSource}
+          layout="fill"
+          objectFit="contain"
+        />
+        {(content.label || content.sub_title) && (
+          <div className={classes.text}>
+            <Typography>{content.label}</Typography>
+            <Typography variant="subtitle1">{content.sub_title}</Typography>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
