@@ -169,11 +169,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
                     component: LmCoreComponents.lm_link_render
                   }
                 : {}
-            if (btnProps.href === router.asPath) {
-              !active && setActive(true)
-            } else {
-              active && setActive(false)
-            }
+
             return (
               <MenuItem
                 {...btnProps}
