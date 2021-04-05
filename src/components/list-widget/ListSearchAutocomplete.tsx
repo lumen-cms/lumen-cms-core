@@ -134,7 +134,7 @@ export default function LmListSearchAutocomplete({
     prefixLocale = locale
   }
   const isMobileAction = content.mobile_breakpoint && matches
-  const { callback } = useDebouncedCallback((value: string) => {
+  const callback = useDebouncedCallback((value: string) => {
     if (value.length < 2) {
       return
     }
