@@ -66,7 +66,6 @@ export default function LmImage({
     : undefined
   const storyblokImage = getRootImageUrl(imageSource)
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
-
   const manualSquare =
     definedWidth && definedHeight && definedWidth === definedHeight
   const squareOrRoundedIsSet =

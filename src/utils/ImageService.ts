@@ -54,3 +54,16 @@ export function imageServiceNoWebp(image = '', option = '') {
   const path = image.replace('//a.storyblok.com', '')
   return imageService2 + option + path
 }
+
+export const getImageLoader = ({
+                                 src,
+                                 width,
+                                 quality
+                               }: {
+  src: string
+  width: number
+  quality?: number
+}) => {
+  const opts = `${width}x0/filters:quality(${quality || 75})/${src}`
+  return imageServiceNoWebp(src, opts)
+}
