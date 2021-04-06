@@ -56,14 +56,14 @@ export function imageServiceNoWebp(image = '', option = '') {
 }
 
 export const getImageLoader = ({
-                                 src,
-                                 width,
-                                 quality
-                               }: {
+  src,
+  width,
+  quality
+}: {
   src: string
   width: number
   quality?: number
 }) => {
-  const opts = `${width}x0/filters:quality(${quality || 75})/${src}`
-  return imageServiceNoWebp(src, opts)
+  const opts = `${width}x0/filters:quality(${quality || 75})`
+  return imageServiceNoWebp(src.replace('https:', ''), opts)
 }

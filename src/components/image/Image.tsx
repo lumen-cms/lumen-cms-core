@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import {
+  getImageLoader,
   getOriginalImageDimensions,
   getRootImageUrl,
   imageSizesOnWidthAndBreakpoints
@@ -119,6 +120,9 @@ export default function LmImage({
       >
         <div style={{ paddingBottom: '100%' }} />
         <Image
+          loader={({ src, width, quality }) =>
+            getImageLoader({ src, width, quality })
+          }
           src={storyblokImage}
           alt={content.alt || 'website image'}
           onLoad={() => setLoaded(true)}
@@ -157,6 +161,9 @@ export default function LmImage({
       }}
     >
       <Image
+        loader={({ src, width, quality }) =>
+          getImageLoader({ src, width, quality })
+        }
         src={storyblokImage}
         alt={content.alt || 'website image'}
         width={squareSize || originalDimensions.width}
