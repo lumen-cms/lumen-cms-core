@@ -32,8 +32,12 @@ export default function LmInstagramPost({ content }: LmInstagramPostProps) {
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
-  const swr = useSWR(() => (ready && inView ? urlStr : null), fetcher)
-  const swrHtml = swr.data?.html
+  const swr = useSWR<{ html: string }>(
+    () => (ready && inView ? urlStr : null),
+    fetcher,
+    { revalidateOnFocus: false }
+  )
+  const swrHtml = swr?.data?.html || ''
   useEffect(() => {
     if (swrHtml) {
       window.instgrm.Embeds.process()
@@ -43,7 +47,7 @@ export default function LmInstagramPost({ content }: LmInstagramPostProps) {
   return (
     <div
       ref={refIntersectionObserver}
-      dangerouslySetInnerHTML={{ __html: swr.data?.html || '<div/>' }}
+      dangerouslySetInnerHTML={{ __html: swrHtml || '<div/>' }}
     />
   )
 }

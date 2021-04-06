@@ -4,6 +4,9 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
   const config = {
     ...nextConfig,
+    // future: {
+    //   webpack5: true
+    // }, // todo not working because of transpile
     images: {
       domains: ['a.storyblok.com', 'img2.storyblok.com', 'cdn.shopify.com'],
       deviceSizes: [360, 420, 510, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],

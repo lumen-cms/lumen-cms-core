@@ -23,6 +23,7 @@ import { fetchInstagramList } from '../../utils/instagram/instagramHelpers'
 // https://www.instagram.com/graphql/query?query_id=17888483320059182&variables={%22id%22:3086246170,%22first%22:10,%22after%22:null}
 
 export default function LmInstagramList({ content }: LmInstagramListProps) {
+  const { max_posts } = content
   const username = content.username.trim().replace('@', '')
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
@@ -32,7 +33,7 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
   //   () => (inView ? `/api/instagram/feed/${username}` : null),
   //   fetcher
   // )
-  const { data, error } = useSWR(
+  const { data, error } = useSWR<{ node: EdgeProps }[]>(
     () =>
       inView
         ? `${username || process.env.NEXT_PUBLIC_INSTAGRAM_USER_ID}`
@@ -42,9 +43,8 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
   if (error) {
     console.error(error)
   }
-  console.log(data)
 
-  const posts: InstagramMappedProps[] = data
+  const posts: InstagramMappedProps[] | undefined = data
     ?.filter((i: { node: EdgeProps }) => {
       if (content.hide_videos) {
         return !i.node.is_video
@@ -69,7 +69,11 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
         alt: i.node.accessibility_caption
       } as InstagramMappedProps
     })
-    .splice(0, getNumber(content.max_posts, 12))
+    .splice(
+      0,
+      // @ts-ignore
+      getNumber(max_posts || 12, 12)
+    )
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
