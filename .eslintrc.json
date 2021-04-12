@@ -6,7 +6,8 @@
     "/src/storybook/**/*.*",
     "/__generated__/**/*.*",
     "**/*.graphql.d.ts",
-    "**/*.js"
+    "**/*.js",
+    "/jest*"
   ],
   "extends": [
     "airbnb-typescript-prettier"
