@@ -4,46 +4,50 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
   const config = {
     ...nextConfig,
-    // future: {
-    //   webpack5: true
-    // }, // todo not working because of transpile
+    future: {
+      webpack5: true
+    }, // todo not working because of transpile
     images: {
       domains: ['a.storyblok.com', 'img2.storyblok.com', 'cdn.shopify.com'],
       deviceSizes: [360, 420, 510, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
       imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
     },
+
     // reactStrictMode: true,
     async rewrites() {
       return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
     },
     // reactStrictMode: true, // => not working currently
-    webpack: (config, options) => {
-      // Fixes npm packages that depend on `fs` module
-      config.node = {
-        fs: 'empty'
+    webpack: (config, { isServer }) => {
+      if (!isServer) {
+        config.resolve.fallback.fs = false
       }
-
-      if (options.isServer) {
-        config.externals = ['react', ...config.externals]
-      }
-
-      config.resolve = config.resolve || {}
-      config.resolve.plugins = config.resolve.plugins || []
-      config.resolve.plugins.push(new TsconfigPathsPlugin())
-      if (!options.isServer) {
+      //     // Fixes npm packages that depend on `fs` module
+      //     // config.node = {
+      //     //   fs: 'empty'
+      //     // }
+      //
+      //     // if (options.isServer) {
+      //     //   config.externals = ['react', ...config.externals]
+      //     // }
+      //
+      //     config.resolve = config.resolve || {}
+      //     config.resolve.plugins = config.resolve.plugins || []
+      //     config.resolve.plugins.push(new TsconfigPathsPlugin())
+      if (!isServer) {
         config.resolve.alias['@sentry/node'] = '@sentry/browser'
       }
-
-      config.module.rules.push({
-        test: /\.graphql$/,
-        exclude: /node_modules\/(?!(lumen-cms-core|lumen-cms-ecommerce|lumen-cms-travel)\/).*/,
-        use: [
-          {
-            loader: 'graphql-tag/loader'
-          }
-        ]
-      })
-
+      //
+      //     config.module.rules.push({
+      //       test: /\.graphql$/,
+      //       exclude: /node_modules\/(?!(lumen-cms-core|lumen-cms-ecommerce|lumen-cms-travel)\/).*/,
+      //       use: [
+      //         {
+      //           loader: 'graphql-tag/loader'
+      //         }
+      //       ]
+      //     })
+      //
       const originalEntry = config.entry
       config.entry = async () => {
         const entries = await originalEntry()
