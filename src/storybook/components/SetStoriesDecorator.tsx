@@ -27,29 +27,29 @@ const SetStoriesDecorator = (Story: StoryType) => {
   // const [, setAllTags] = useGlobalState('allTags')
   useEffect(() => {
     const fetch = async () => {
-      const [categories, stories] = await Promise.all([
-        // TODO
-        LmStoryblokService.getAll('cdn/stories', {
-          per_page: 25,
-          sort_by: 'content.name:asc',
-          filter_query: {
-            component: {
-              in: 'category'
-            }
-          }
-        }),
-        LmStoryblokService.getAll(`cdn/stories`, {
-          per_page: 25,
-          excluding_fields:
-            'body,meta_robots,property,meta_title,meta_description,seo_body',
-          sort_by: 'published_at:desc',
-          filter_query: {
-            component: {
-              in: 'page'
-            }
-          }
-        })
-      ])
+      // const [categories, stories] = await Promise.all([
+      //   // TODO
+      //   LmStoryblokService.getAll('cdn/stories', {
+      //     per_page: 25,
+      //     sort_by: 'content.name:asc',
+      //     filter_query: {
+      //       component: {
+      //         in: 'category'
+      //       }
+      //     }
+      //   }),
+      //   LmStoryblokService.getAll(`cdn/stories`, {
+      //     per_page: 25,
+      //     excluding_fields:
+      //       'body,meta_robots,property,meta_title,meta_description,seo_body',
+      //     sort_by: 'published_at:desc',
+      //     filter_query: {
+      //       component: {
+      //         in: 'page'
+      //       }
+      //     }
+      //   })
+      // ])
       // const tagList =
       //   tags?.data?.tags.map(
       //     (item: { name: string; taggings_count: number }) => ({
@@ -57,8 +57,8 @@ const SetStoriesDecorator = (Story: StoryType) => {
       //       label: `${item.name} (${item.taggings_count})`
       //     })
       //   ) || []
-      // const stories = []
-      // const categories = []
+      const stories = []
+      const categories = []
       // setAllTags(tagList)
       setLoaded(true)
       setValues({

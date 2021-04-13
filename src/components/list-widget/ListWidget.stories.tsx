@@ -37,7 +37,7 @@ const linksOption: NavListStoryblok = {
 }
 
 export default {
-  title: 'ToDo/List Widget',
+  title: 'Design/Data Display/List Widget',
   decorators: [SetStoriesDecorator]
 }
 
