@@ -33,6 +33,13 @@ describe('Test Instagram', () => {
     console.log(res)
     expect(res.error).toBeUndefined()
   })
+
+  test('another try', async () => {
+    const res = await fetch(
+      `https://graph.facebook.com/v10.0/${user.biophilia.id}?fields=id,media_type,media_url,owner,timestamp&access_token=${user.biophilia.token}`
+    ).then((r) => r.json())
+    console.log(res)
+  })
   test('Fetch instagram posts based on user', async () => {
     const { media } = getInstagramApi({
       userId: user.biophilia.id,
