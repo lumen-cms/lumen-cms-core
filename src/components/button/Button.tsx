@@ -200,7 +200,8 @@ export const LmButton: FC<LmButtonProps> = ({
   }
   return (
     <Button
-      disabled={!!disabled || disableRipple}
+      disabled={!!disabled}
+      disableRipple={disableRipple}
       size={mapSize[content.size as string]}
       {...btnProps}
       className={className}

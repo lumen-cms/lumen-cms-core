@@ -33,7 +33,9 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
       //
       //     config.resolve = config.resolve || {}
       //     config.resolve.plugins = config.resolve.plugins || []
-      //     config.resolve.plugins.push(new TsconfigPathsPlugin())
+      if (transpileModules !== false) {
+        config.resolve.plugins.push(new TsconfigPathsPlugin())
+      }
       if (!isServer) {
         config.resolve.alias['@sentry/node'] = '@sentry/browser'
       }

@@ -20,7 +20,7 @@ declare global {
   }
 }
 
-export default function FacebookChatButton({
+export default function LmFacebookChatButton({
   content
 }: FacbookChatButtonProps) {
   const insideStoryblok = useInsideStoryblok()

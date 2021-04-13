@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { AppProps } from 'next/app'
 import NProgress from 'nprogress'
 import { CONFIG } from '@CONFIG'
 import Head from 'next/head'
 import { AppPageProps } from '../../typings/app'
-import { AppContainer } from '../layout/AppContainer'
+import { LmAppContainer } from '../layout/AppContainer'
 import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 
 export type LmAppProps = AppProps<AppPageProps>
@@ -49,7 +49,7 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
   }
 
   return (
-    <AppContainer content={pageProps}>
+    <LmAppContainer content={pageProps}>
       <Head>
         <meta
           name="viewport"
@@ -58,6 +58,6 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
         />
       </Head>
       <Component {...pageProps} />
-    </AppContainer>
+    </LmAppContainer>
   )
 }

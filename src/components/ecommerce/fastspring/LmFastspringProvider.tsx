@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import useScript from '@charlietango/use-script'
 import Router from 'next/router'
 import { useAppContext } from '@context/AppContext'

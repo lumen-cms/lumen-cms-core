@@ -7,7 +7,7 @@ import { LmAppProvidersContainer } from './LmAppProvidersContainer'
 import { AppContainerProps } from './layoutTypes'
 import { SettingsPageProvider } from '../provider/SettingsPageProvider'
 
-export const AppContainer: FunctionComponent<AppContainerProps> = ({
+export const LmAppContainer: FunctionComponent<AppContainerProps> = ({
   content,
   children
 }) => {
@@ -39,4 +39,4 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
   )
 }
 
-AppContainer.displayName = 'AppContainer'
+LmAppContainer.displayName = 'AppContainer'

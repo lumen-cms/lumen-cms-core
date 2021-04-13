@@ -1,7 +1,10 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
-  stories: ['../stories/**/*.stories.@(tsx)'],
+  core: {
+    builder: 'webpack5'
+  },
+  stories: ['../src/**/*.stories.@(tsx)'],
   addons: [
     '@storybook/addon-knobs',
     {
@@ -14,6 +17,8 @@ module.exports = {
     }
   ],
   webpackFinal: async (config, { configType }) => {
+    // config.resolve.fallback.fs = false
+
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
     // You can change the configuration based on that.
     // 'PRODUCTION' is used when building the static version of storybook.
@@ -24,7 +29,10 @@ module.exports = {
     //   use: ['style-loader', 'css-loader', 'sass-loader'],
     //   include: path.resolve(__dirname, '../')
     // })
-    config.resolve.plugins = [new TsconfigPathsPlugin()]
+    config.resolve.plugins = config.resolve.plugins || []
+    config.resolve.plugins.push(new TsconfigPathsPlugin())
+    // config.resolve.plugins.push(new CaseSensitivePathsPlugin())
+
     // Return the altered config
     return config
   }

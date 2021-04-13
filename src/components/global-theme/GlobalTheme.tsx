@@ -13,11 +13,11 @@ import { usePage, useSettings } from '../provider/SettingsPageProvider'
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
     defaultContainerWidth: string | boolean
-    drawer: {
+    drawer?: {
       left: string
       right: string
     }
-    toolbar: {
+    toolbar?: {
       progressColor?: string
       height: {
         mobile: number
@@ -75,7 +75,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
   const themeUid = settings && settings._uid
   const theme = useMemo(() => {
     if (!themeUid) {
-      return {}
+      return responsiveFontSizes(createMuiTheme())
     }
 
     if (!settings.theme_font_default) {

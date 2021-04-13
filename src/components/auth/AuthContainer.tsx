@@ -5,7 +5,7 @@ import { AuthContainerStoryblok } from '../../typings/generated/components-schem
 import { hasAuth0Credentials } from '../../utils/auth0/auth0Helpers'
 import { useInsideStoryblok } from '../provider/SettingsPageProvider'
 
-export const AuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
+const LmAuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
   content,
   children
 }) => {
@@ -54,6 +54,6 @@ export const AuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
   }
   return <>{children}</>
 }
-AuthContainer.displayName = 'AuthContainer'
+LmAuthContainer.displayName = 'AuthContainer'
 
-export default AuthContainer
+export default LmAuthContainer
