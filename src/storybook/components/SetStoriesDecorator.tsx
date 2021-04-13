@@ -4,7 +4,6 @@ import { Story as StoryType } from '@storybook/react/types-6-0.d'
 import { AppContextProps } from '@context/AppContext'
 import { LmComponentRender } from '@LmComponentRender'
 import AppProvider from '../../components/provider/AppProvider'
-import { LmStoryblokService } from '../../server'
 
 // todo...
 // interface StorybookState {
@@ -57,8 +56,8 @@ const SetStoriesDecorator = (Story: StoryType) => {
       //       label: `${item.name} (${item.taggings_count})`
       //     })
       //   ) || []
-      const stories = []
-      const categories = []
+      const stories: any[] = []
+      const categories: any[] = []
       // setAllTags(tagList)
       setLoaded(true)
       setValues({

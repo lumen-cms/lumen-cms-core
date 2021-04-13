@@ -9,7 +9,7 @@ import { storyHeadline } from '../../storybook/core/various'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 
 export default {
-  title: 'Todo/Section Video'
+  title: 'Design/Layout/Section Video'
 }
 
 export const Basic = () => (

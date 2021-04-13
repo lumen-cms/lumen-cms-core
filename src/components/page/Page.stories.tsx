@@ -1,4 +1,3 @@
-import { LmComponentRender as LmPage } from '@LmComponentRender'
 import { boolean } from '@storybook/addon-knobs'
 import {
   ButtonStoryblok,
@@ -29,13 +28,13 @@ import {
   storyParagraph
 } from '../../storybook/core/various'
 import { CONFIG_STORYBOOK } from '../../storybook/components/configStorybook'
-import GlobalTheme from '../global-theme/GlobalTheme'
 import AppSetupProvider from '../provider/AppSetupProvider'
 import {
   toggleRightNavigationSelector,
   useNavigationStore
 } from '../../utils/state/navigationState'
 import { SettingsPageProvider } from '../provider/SettingsPageProvider'
+import { LmPage } from './Page'
 
 const getPropsDrawer = (): PageStoryblok => ({
   _uid: '123',
@@ -144,17 +143,20 @@ const getToolbarSettings = () => {
 }
 
 export default {
-  title: 'ToDo/Page'
+  title: 'Design/Layout/Page'
 }
 
 export const Basic = () => (
-  <LmPage
-    content={{
+  <SettingsPageProvider
+    settings={simpleSettings}
+    page={{
       _uid: '123',
       component: 'page',
       body: [get3ColumnsSection({ knob: 'Body Section 1' })]
     }}
-  />
+  >
+    <LmPage />
+  </SettingsPageProvider>
 )
 export const WithDrawer = () => {
   const toggleRightNavigation = useNavigationStore(
@@ -165,7 +167,9 @@ export const WithDrawer = () => {
       <button type="button" onClick={() => toggleRightNavigation()}>
         open if mobile
       </button>
-      <LmPage content={getPropsDrawer()} />
+      <SettingsPageProvider settings={simpleSettings} page={getPropsDrawer()}>
+        <LmPage />
+      </SettingsPageProvider>
     </>
   )
 }
@@ -225,11 +229,9 @@ export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
         settings={playgroundSettings}
         page={getPropsDrawer()}
       >
-        <GlobalTheme>
-          <Layout>
-            <LmPage content={getPropsDrawer()} />
-          </Layout>
-        </GlobalTheme>
+        <Layout>
+          <LmPage />
+        </Layout>
       </SettingsPageProvider>
     </AppSetupProvider>
   )

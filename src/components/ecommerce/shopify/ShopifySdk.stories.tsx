@@ -1,6 +1,6 @@
-import * as React from 'react'
 import { LmCoreComponents } from '@CONFIG'
 import { LmComponentRender } from '@LmComponentRender'
+import { useEffect, useState } from 'react'
 import { appContext } from '../../../storybook/config'
 import {
   ButtonStoryblok,
@@ -12,6 +12,7 @@ import {
 import { LmShopifySdkProvider } from './ShopifySdkProvider'
 import { LmAppContainer } from '../../layout/AppContainer'
 import LmShopifyProduct from './ShopifyProduct'
+import { getShopifyPageProps } from './lib/getShopifyPageProps'
 // import { LmEcommerceCheckout } from '../src'
 // import { LmShopifyProduct } from '../src/components/shopify/ShopifyProduct'
 // import { LmShopifySdkProvider } from '../src/components/ecommerce/shopify_old/ShopifySdkProvider'
@@ -25,7 +26,7 @@ const ACCESS_TOKEN = '9e9a0888f96c95dc362ef9712e10b584'
 const DOMAIN = 'kembalisales.myshopify.com'
 
 export default {
-  title: 'Todo/Shopify SDK',
+  title: 'Ecommerce/Shopify',
   decorators: [
     (Story: any) => {
       appContext.content.settings = {
@@ -49,8 +50,24 @@ export default {
           } as EcommerceShopifyConfigStoryblok
         ]
       } as GlobalStoryblok
+
+      const [items, setItems] = useState({})
+      useEffect(() => {
+        const fetch = async () => {
+          const x = { page: {} }
+          await getShopifyPageProps(x as any)
+          setItems(x)
+        }
+        fetch()
+      }, [])
+
       return (
-        <LmAppContainer content={appContext.content}>
+        <LmAppContainer
+          content={{
+            ...items,
+            ...appContext.content
+          }}
+        >
           <Story />
         </LmAppContainer>
       )

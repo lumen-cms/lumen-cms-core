@@ -25,6 +25,8 @@ import LmTimeline from './timeline/Timeline'
 import LmTimelineItem from './timeline/TimelineItem'
 import LmCardListItem from './card/CardListItem'
 import LmListWidget from './list-widget/ListWidget'
+import LmSectionVideo from './section/SectionVideoBg'
+import LmSectionParallax from './section/SectionParallax'
 
 // assign all additional components non dynamic for Storybook
 LmCoreComponents.table = LmTable
@@ -40,14 +42,14 @@ LmCoreComponents.list_search_autocomplete = LmListSearchAutocomplete
 // LmCoreComponents.category_box = LmCategoryBox
 // LmCoreComponents.list_search_field = LmListSearchField
 LmCoreComponents.dialog = LmDialog
-// LmCoreComponents.section_parallax = LmSectionParallax
+LmCoreComponents.section_parallax = LmSectionParallax
 LmCoreComponents.accordion = LmAccordion
 LmCoreComponents.accordion_item = LmAccordionItem
 LmCoreComponents.snackbar = LmSnackbar
 LmCoreComponents.image_list = LmImageList
 LmCoreComponents.image_list_item = LmImageListItem
 LmCoreComponents.slider = LmSlider
-// LmCoreComponents.section_video_bg = LmSectionVideo // todo v5 broken
+LmCoreComponents.section_video_bg = LmSectionVideo
 LmCoreComponents.player = LmPlayer
 LmCoreComponents.timeline = LmTimeline
 LmCoreComponents.timeline_item = LmTimelineItem
