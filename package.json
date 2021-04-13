@@ -89,6 +89,7 @@
     "storyblok-js-client": "3.3.1",
     "storyblok-react": "0.1.2",
     "storyblok-rich-text-react-renderer-ts": "3.0.2",
+    "supports-webp-sync": "1.0.1",
     "swr": "0.5.5",
     "tsconfig-paths-webpack-plugin": "3.5.1",
     "use-count-up": "2.3.1",
