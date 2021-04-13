@@ -14,12 +14,12 @@ export default function LmCardListItem(props: CardListItemProps): JSX.Element {
   const variants = options.variant || []
   const btnProps: any = content.link?.cached_url
     ? {
-      ...getLinkAttrs(content.link as LinkType, {
-        openExternal: !!content.open_external
-      }),
-      naked: true,
-      component: LmCoreComponents.lm_link_render
-    }
+        ...getLinkAttrs(content.link as LinkType, {
+          openExternal: !!content.open_external
+        }),
+        naked: true,
+        component: LmCoreComponents.lm_link_render
+      }
     : {}
 
   // without media / text only

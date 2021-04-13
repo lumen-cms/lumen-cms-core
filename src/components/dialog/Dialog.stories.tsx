@@ -48,7 +48,6 @@ export const Iframe = () => (
           icon: {
             name: 'account-check-outline'
           },
-          // @ts-ignore
           label: 'Signup',
           variant: 'fab',
           color: 'primary'
