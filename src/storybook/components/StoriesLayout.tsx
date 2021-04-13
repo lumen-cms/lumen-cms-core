@@ -153,11 +153,7 @@ const StoriesLayout = (Story: StoryType) => {
         allStaticContent: []
       }}
     >
-      <SettingsPageProvider
-        settings={settings as any}
-        page={null}
-        insideStoryblok={false}
-      >
+      <SettingsPageProvider settings={settings as any} page={null}>
         <GlobalTheme>
           <LmAppProvidersContainer>
             <Container

@@ -13,11 +13,11 @@ import { usePage, useSettings } from '../provider/SettingsPageProvider'
 declare module '@material-ui/core/styles/createMuiTheme' {
   interface Theme {
     defaultContainerWidth: string | boolean
-    drawer?: {
+    drawer: {
       left: string
       right: string
     }
-    toolbar?: {
+    toolbar: {
       progressColor?: string
       height: {
         mobile: number

@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
+import { useRouter } from 'next/router'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { TawktoProps } from './chatTypings'
-import { useInsideStoryblok } from '../provider/SettingsPageProvider'
 
 declare global {
   interface Window {
@@ -17,7 +17,7 @@ declare global {
 }
 
 export default function LmTawktoChatButton({ content }: TawktoProps) {
-  const insideStoryblok = useInsideStoryblok()
+  const { isPreview } = useRouter() || {}
 
   const tawkToId = content.account
 
@@ -26,7 +26,7 @@ export default function LmTawktoChatButton({ content }: TawktoProps) {
   const startInclude = content.disable_lazy || isScrolled
 
   const tawkToScriptName =
-    !insideStoryblok && tawkToId && startInclude
+    !isPreview && tawkToId && startInclude
       ? `https://embed.tawk.to/${tawkToId}/default`
       : ''
   const [, status] = useScript(tawkToScriptName)

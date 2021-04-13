@@ -1,17 +1,17 @@
 import React, { FC } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { useAppContext } from '@context/AppContext'
+import { useRouter } from 'next/router'
 import { AuthContainerStoryblok } from '../../typings/generated/components-schema'
 import { hasAuth0Credentials } from '../../utils/auth0/auth0Helpers'
-import { useInsideStoryblok } from '../provider/SettingsPageProvider'
 
 const LmAuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
   content,
   children
 }) => {
-  const appContext = useAppContext()
-  const { user } = appContext
-  const insideStoryblok = useInsideStoryblok()
+  const { user } = useAppContext() || {}
+
+  const { isPreview } = useRouter() || {}
   let hideOnRole = true
   let requireRole = true
   let showContent = true
@@ -40,7 +40,7 @@ const LmAuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
     }
   }
 
-  if (!insideStoryblok && !(hideOnRole && showContent && requireRole)) {
+  if (!isPreview && !(hideOnRole && showContent && requireRole)) {
     return <span className="lm-empty__auth" /> // some condition is not matched
   }
   if (content.body?.length) {

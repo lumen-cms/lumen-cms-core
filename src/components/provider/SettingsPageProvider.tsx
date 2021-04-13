@@ -10,18 +10,13 @@ import {
   PageStoryblok
 } from '../../typings/generated/components-schema'
 
-// @ts-ignore
-const SettingsContext = createContext<GlobalStoryblok>(null)
-// @ts-ignore
-const PageContext = createContext<PageStoryblok>(null)
-//
-const InsideStoryblokContext = createContext<boolean | undefined>(false)
+const SettingsContext = createContext<GlobalStoryblok>({} as GlobalStoryblok)
+const PageContext = createContext<PageStoryblok>({} as PageStoryblok)
 
 export const SettingsPageProvider: FC<{
   settings: GlobalStoryblok
   page?: PageStoryblok | null
-  insideStoryblok?: boolean
-}> = ({ insideStoryblok, settings, page, children }) => {
+}> = ({ settings, page, children }) => {
   const [stateSettings, setSettings] = useState(settings)
   const [statePage, setPage] = useState<PageStoryblok | null>(page || null)
   useEffect(() => {
@@ -77,16 +72,13 @@ export const SettingsPageProvider: FC<{
     }
   }, [page?.uuid, settings?.uuid, setSettings, setPage])
   return (
-    <InsideStoryblokContext.Provider value={insideStoryblok}>
-      <SettingsContext.Provider value={stateSettings}>
-        <PageContext.Provider value={statePage as PageStoryblok}>
-          {children}
-        </PageContext.Provider>
-      </SettingsContext.Provider>
-    </InsideStoryblokContext.Provider>
+    <SettingsContext.Provider value={stateSettings}>
+      <PageContext.Provider value={statePage as PageStoryblok}>
+        {children}
+      </PageContext.Provider>
+    </SettingsContext.Provider>
   )
 }
 
 export const useSettings = () => useContext(SettingsContext)
 export const usePage = () => useContext(PageContext)
-export const useInsideStoryblok = () => useContext(InsideStoryblokContext)

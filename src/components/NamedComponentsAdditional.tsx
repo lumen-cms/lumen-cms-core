@@ -22,12 +22,15 @@ import LmSnackbar from './snackbar/Snackbar'
 import LmTable from './table/Table'
 import LmTabs from './tabs/Tabs'
 import LmTimeline from './timeline/Timeline'
+import LmTimelineItem from './timeline/TimelineItem'
+import LmCardListItem from './card/CardListItem'
+import LmListWidget from './list-widget/ListWidget'
 
 // assign all additional components non dynamic for Storybook
 LmCoreComponents.table = LmTable
 LmCoreComponents.card_list = LmCardList
-// LmCoreComponents.card_list_item = LmCardListItem // todo 5
-// LmCoreComponents.list_widget = LmListWidget // todo 5
+LmCoreComponents.card_list_item = LmCardListItem
+LmCoreComponents.list_widget = LmListWidget // todo 5
 LmCoreComponents.motion = LmMotion
 // LmCoreComponents.parallax_provider = ParallaxProviderDefaultExport
 // LmCoreComponents.instagram_post = LmInstagramPost
@@ -47,7 +50,7 @@ LmCoreComponents.slider = LmSlider
 // LmCoreComponents.section_video_bg = LmSectionVideo // todo v5 broken
 LmCoreComponents.player = LmPlayer
 LmCoreComponents.timeline = LmTimeline
-// LmCoreComponents.timeline_item = LmTimelineItem // todo v5 broken
+LmCoreComponents.timeline_item = LmTimelineItem
 LmCoreComponents.tabs = LmTabs
 LmCoreComponents.hubspot_meeting = LmHubspotMeeting
 LmCoreComponents.iframe = LmIframe

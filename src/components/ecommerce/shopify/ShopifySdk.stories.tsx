@@ -72,7 +72,7 @@ export const Luzide = () => {
                 component: 'ecommerce_shopify_checkout',
                 handle: 'lucid-dream-eye-mask-45185'
               } as EcommerceShopifyCheckoutStoryblok
-            ]
+            ] as any
           } as EcommerceCheckoutStoryblok
         }
       />
@@ -94,7 +94,7 @@ export const Cake = () => {
                 component: 'ecommerce_shopify_checkout',
                 handle: 'surprise-cake-stand-1-tier-81761'
               } as EcommerceShopifyCheckoutStoryblok
-            ]
+            ] as any
           } as EcommerceCheckoutStoryblok
         }
       />
@@ -116,7 +116,7 @@ export const CakeAlternative = () => {
                 component: 'ecommerce_shopify_checkout',
                 handle: 'surprise-cake-stand-19372'
               } as EcommerceShopifyCheckoutStoryblok
-            ]
+            ] as any
           } as EcommerceCheckoutStoryblok
         }
       />

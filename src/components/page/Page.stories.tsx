@@ -35,6 +35,7 @@ import {
   toggleRightNavigationSelector,
   useNavigationStore
 } from '../../utils/state/navigationState'
+import { SettingsPageProvider } from '../provider/SettingsPageProvider'
 
 const getPropsDrawer = (): PageStoryblok => ({
   _uid: '123',
@@ -161,7 +162,9 @@ export const WithDrawer = () => {
   )
   return (
     <>
-      <button onClick={() => toggleRightNavigation()}>open if mobile</button>
+      <button type="button" onClick={() => toggleRightNavigation()}>
+        open if mobile
+      </button>
       <LmPage content={getPropsDrawer()} />
     </>
   )
@@ -217,12 +220,17 @@ export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
     ]
   } as GlobalStoryblok
   return (
-    <AppSetupProvider settings={playgroundSettings} page={getPropsDrawer()}>
-      <GlobalTheme>
-        <Layout settings={playgroundSettings}>
-          <LmPage content={getPropsDrawer()} />
-        </Layout>
-      </GlobalTheme>
+    <AppSetupProvider>
+      <SettingsPageProvider
+        settings={playgroundSettings}
+        page={getPropsDrawer()}
+      >
+        <GlobalTheme>
+          <Layout>
+            <LmPage content={getPropsDrawer()} />
+          </Layout>
+        </GlobalTheme>
+      </SettingsPageProvider>
     </AppSetupProvider>
   )
 }

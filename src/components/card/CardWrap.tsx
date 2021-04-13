@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent } from 'react'
+import { CSSProperties, FunctionComponent } from 'react'
 import Card from '@material-ui/core/Card'
 import clsx from 'clsx'
 import CardWrapWithAction from './CardWrapWithAction'
@@ -16,6 +16,8 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({
   const style: CSSProperties = {
     borderRadius: options.border_radius ? options.border_radius : undefined
   }
+
+  console.log(content.body)
 
   if (content.body?.length) {
     return (

@@ -9,6 +9,7 @@ import {
   toggleLeftNavigationSelector,
   useNavigationStore
 } from '../../../utils/state/navigationState'
+import { SettingsPageProvider } from '../../provider/SettingsPageProvider'
 
 const props = {
   ...simpleSettings
@@ -19,7 +20,7 @@ const custom = {
 }
 
 export default {
-  title: 'ToDo/Drawer'
+  title: 'Design/Navigation/Drawer'
 }
 
 export const Basic = () => {
@@ -28,7 +29,9 @@ export const Basic = () => {
   return (
     <>
       <Button onClick={() => toggleLeftNavigation()}>Toggle Drawer</Button>
-      <MwcDrawer settings={props} />
+      <SettingsPageProvider settings={{ ...props }}>
+        <MwcDrawer />
+      </SettingsPageProvider>
     </>
   )
 }
@@ -38,7 +41,9 @@ export const Custom = () => {
   return (
     <>
       <Button onClick={() => toggleLeftNavigation()}>Toggle Drawer</Button>
-      <MwcDrawer settings={custom} />
+      <SettingsPageProvider settings={custom}>
+        <MwcDrawer />
+      </SettingsPageProvider>
     </>
   )
 }
@@ -48,7 +53,9 @@ export const DedicatedDrawer = () => {
   return (
     <div>
       <Button onClick={() => toggleLeftNavigation()}>Toggle Drawer</Button>
-      <MwcDrawer settings={customSettingsWithDrawer} />
+      <SettingsPageProvider settings={customSettingsWithDrawer}>
+        <MwcDrawer />
+      </SettingsPageProvider>
     </div>
   )
 }

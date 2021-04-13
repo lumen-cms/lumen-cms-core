@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Header from './Header'
 import { customSettings, simpleSettings } from '../../../storybook/toolbar'
+import { SettingsPageProvider } from '../../provider/SettingsPageProvider'
 
 export default {
   title: 'Design/Surfaces/Toolbar'
@@ -10,13 +11,31 @@ export default {
 export const Basic = () => (
   <>
     <h3>Default</h3>
-    <Header settings={simpleSettings} />
+    <SettingsPageProvider settings={simpleSettings}>
+      <Header />
+    </SettingsPageProvider>
     <h3>Secondary</h3>
-    <Header settings={{ ...simpleSettings, toolbar_variant: 'secondary' }} />
+    <SettingsPageProvider
+      settings={{ ...simpleSettings, toolbar_variant: 'secondary' }}
+    >
+      <Header />
+    </SettingsPageProvider>
     <h3>Dark</h3>
-    <Header settings={{ ...simpleSettings, toolbar_variant: 'dark' }} />
+    <SettingsPageProvider
+      settings={{ ...simpleSettings, toolbar_variant: 'dark' }}
+    >
+      <Header />
+    </SettingsPageProvider>
     <h3>White</h3>
-    <Header settings={{ ...simpleSettings, toolbar_variant: 'white' }} />
+    <SettingsPageProvider
+      settings={{ ...simpleSettings, toolbar_variant: 'white' }}
+    >
+      <Header />
+    </SettingsPageProvider>
   </>
 )
-export const Custom = () => <Header settings={customSettings} />
+export const Custom = () => (
+  <SettingsPageProvider settings={customSettings}>
+    <Header />
+  </SettingsPageProvider>
+)

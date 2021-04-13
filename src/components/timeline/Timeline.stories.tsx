@@ -9,7 +9,7 @@ import { storyImageUrls } from '../../storybook/core/sharedFunctions'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 
 export default {
-  title: 'Todo/Timeline'
+  title: 'Design/Layout/Timeline'
 }
 
 export const Playground = () => {

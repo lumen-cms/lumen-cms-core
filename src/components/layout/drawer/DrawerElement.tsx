@@ -44,7 +44,7 @@ function DrawerLogoArea() {
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a>
           <div className={clsx('p-3', classes.logoRoot)}>
-            {!websiteLogo && { websiteTitle }}
+            {!websiteLogo && websiteTitle && <>{websiteTitle}</>}
             {websiteLogo && (
               <Image
                 src={getRootImageUrl(websiteLogo)}
