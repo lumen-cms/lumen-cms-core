@@ -31,7 +31,6 @@ module.exports = {
     // })
     config.resolve.plugins = config.resolve.plugins || []
     config.resolve.plugins.push(new TsconfigPathsPlugin())
-    // config.resolve.plugins.push(new CaseSensitivePathsPlugin())
 
     // Return the altered config
     return config
