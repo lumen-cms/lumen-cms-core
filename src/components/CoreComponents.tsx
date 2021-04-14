@@ -1,13 +1,13 @@
 import React, { Attributes, ComponentClass, FC } from 'react'
 import SbEditable from 'storyblok-react'
 import { LmCoreComponents } from '@CONFIG'
+import { useRouter } from 'next/router'
 import { ComponentRenderFuncProps } from '../typings/app'
-import { useInsideStoryblok } from './provider/SettingsPageProvider'
 
 export function LmComponentRender<P>(
   props: ComponentRenderFuncProps
 ): JSX.Element {
-  const insideStoryblok = useInsideStoryblok()
+  const { isPreview } = useRouter() || {}
 
   const { content, i, ...rest } = props
 
@@ -23,7 +23,7 @@ export function LmComponentRender<P>(
         ...rest
       } as unknown) as Attributes & P
     )
-    if (insideStoryblok) {
+    if (isPreview) {
       return <SbEditable content={content}>{CurrentElement}</SbEditable>
     }
     return CurrentElement

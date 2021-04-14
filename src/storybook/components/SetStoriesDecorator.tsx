@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Story as StoryType } from '@storybook/react/types-6-0.d'
 import { AppContextProps } from '@context/AppContext'
 import { LmComponentRender } from '@LmComponentRender'
@@ -20,65 +20,57 @@ import AppProvider from '../../components/provider/AppProvider'
 // } = createGlobalState(storybookDefault)
 
 const SetStoriesDecorator = (Story: StoryType) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loaded, setLoaded] = useState<boolean>(false)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [values, setValues] = useState<AppContextProps>()
   // const [, setAllTags] = useGlobalState('allTags')
-  // useEffect(() => {
-  //   const fetch = async () => {
-  // const [categories, stories, tags] = await Promise.all([
-  // TODO
-  // LmStoryblokService.getAll('cdn/stories', {
-  //   per_page: 100,
-  //   sort_by: 'content.name:asc',
-  //   filter_query: {
-  //     component: {
-  //       in: 'category'
-  //     }
-  //   }
-  // }),
-  // LmStoryblokService.getAll(`cdn/stories`, {
-  //   per_page: 100,
-  //   excluding_fields:
-  //     'body,meta_robots,property,meta_title,meta_description,seo_body',
-  //   sort_by: 'published_at:desc',
-  //   filter_query: {
-  //     component: {
-  //       in: 'page'
-  //     }
-  //   }
-  // }),
-  // ])
-  // const tagList = []
-  // (tags &&
-  //   tags.data?.tags &&
-  //   tags.data?.tags.map(
-  //     (item: { name: string; taggings_count: number }) => ({
-  //       value: item.name,
-  //       label: `${item.name} (${item.taggings_count})`
-  //     })
-  //   )) ||
-  // []
-  // const stories = []
-  // const categories = []
-  // setAllTags(tagList)
-  // setLoaded(true)
-  // setValues({
-  //   listWidgetData: {
-  //     storyblok_list: stories
-  //   },
-  //   allCategories: categories,
-  //   allStaticContent: []
-  // })
-  //   }
-  //
-  //   fetch()
-  // }, [setAllTags])
+  useEffect(() => {
+    const fetch = async () => {
+      // const [categories, stories] = await Promise.all([
+      //   // TODO
+      //   LmStoryblokService.getAll('cdn/stories', {
+      //     per_page: 25,
+      //     sort_by: 'content.name:asc',
+      //     filter_query: {
+      //       component: {
+      //         in: 'category'
+      //       }
+      //     }
+      //   }),
+      //   LmStoryblokService.getAll(`cdn/stories`, {
+      //     per_page: 25,
+      //     excluding_fields:
+      //       'body,meta_robots,property,meta_title,meta_description,seo_body',
+      //     sort_by: 'published_at:desc',
+      //     filter_query: {
+      //       component: {
+      //         in: 'page'
+      //       }
+      //     }
+      //   })
+      // ])
+      // const tagList =
+      //   tags?.data?.tags.map(
+      //     (item: { name: string; taggings_count: number }) => ({
+      //       value: item.name,
+      //       label: `${item.name} (${item.taggings_count})`
+      //     })
+      //   ) || []
+      const stories: any[] = []
+      const categories: any[] = []
+      // setAllTags(tagList)
+      setLoaded(true)
+      setValues({
+        listWidgetData: {
+          storyblok_list: stories
+        },
+        allCategories: categories,
+        allStaticContent: []
+      })
+    }
+
+    fetch()
+  }, [])
   if (loaded && values) {
     return (
       <AppProvider
