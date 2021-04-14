@@ -11,11 +11,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import { useEffectOnce } from 'react-use'
 import LmIcon from '../icon/LmIcon'
-import {
-  NavMenuItemStoryblok,
-  NavMenuStoryblok,
-  RowStoryblok
-} from '../../typings/generated/components-schema'
+import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmMenuProps } from './menuTypes'
 

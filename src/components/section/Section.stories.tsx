@@ -17,6 +17,7 @@ import {
   storySection
 } from '../../storybook/core/section'
 import { storyButton, storyHeadline } from '../../storybook/core/various'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 
 const props: SectionStoryblok = {
   _uid: '34234',
@@ -60,6 +61,10 @@ const columnSectionWithImages: SectionStoryblok = {
 export default {
   title: 'Design/Layout/Grid Sections'
 }
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="section" />
+)
 
 export const Basic = () => (
   <>
