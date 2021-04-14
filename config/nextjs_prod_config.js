@@ -2,10 +2,12 @@ const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
+  const enableWebpack5 =
+    !transpileModules || process.env.NODE_ENV !== 'production'
   const config = {
     ...nextConfig,
     future: {
-      webpack5: true
+      webpack5: enableWebpack5
     }, // todo not working because of transpile
     images: {
       domains: ['a.storyblok.com', 'img2.storyblok.com', 'cdn.shopify.com'],
@@ -20,12 +22,14 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
     // reactStrictMode: true, // => not working currently
     webpack: (config, { isServer }) => {
       if (!isServer) {
-        config.resolve.fallback.fs = false
+        if (enableWebpack5) {
+          config.resolve.fallback.fs = false
+        } else {
+          config.node = {
+            fs: 'empty'
+          }
+        }
       }
-      //     // Fixes npm packages that depend on `fs` module
-      //     // config.node = {
-      //     //   fs: 'empty'
-      //     // }
       //
       //     // if (options.isServer) {
       //     //   config.externals = ['react', ...config.externals]
