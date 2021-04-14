@@ -3,7 +3,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
   const enableWebpack5 =
-    !transpileModules || process.env.NODE_ENV !== 'production'
+    transpileModules === false || process.env.NODE_ENV !== 'production'
   const config = {
     ...nextConfig,
     future: {
