@@ -43,10 +43,12 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
       menuItems.forEach((blok) => {
         const bString = JSON.stringify(blok)
         if (bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)) {
-          !active && setActive(true)
-        } else {
-          active && setActive(false)
+          // !active &&
+          setActive(true)
         }
+        // else {
+        //       active && setActive(false)
+        //     }
       })
     }
   })
