@@ -10,7 +10,11 @@ import { Popover } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import LmIcon from '../icon/LmIcon'
-import { NavMenuStoryblok } from '../../typings/generated/components-schema'
+import {
+  NavMenuItemStoryblok,
+  NavMenuStoryblok,
+  RowStoryblok
+} from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmMenuProps } from './menuTypes'
 
@@ -19,6 +23,27 @@ const useStyles = makeStyles({
     borderRadius: props.border_radius
   })
 })
+
+function CustomChild({
+  blok,
+  setActive,
+  active
+}: {
+  blok: NavMenuItemStoryblok | RowStoryblok | NavMenuStoryblok
+  active: boolean
+  setActive: (bool: boolean) => void
+}): JSX.Element {
+  const { asPath } = useRouter() || {}
+  useEffect(() => {
+    const bString = JSON.stringify(blok)
+    if (bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)) {
+      !active && setActive(true)
+    } else {
+      active && setActive(false)
+    }
+  }, [active, asPath, blok, setActive])
+  return <LmComponentRender content={blok} />
+}
 
 export function LmMenu({ content }: LmMenuProps): JSX.Element {
   const classes = useStyles(content)
@@ -130,17 +155,14 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           {...addons}
         >
           <div style={{ padding: 16 }}>
-            {menuItems.map((blok) => {
-              const bString = JSON.stringify(blok)
-              if (
-                bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)
-              ) {
-                !active && setActive(true)
-              } else {
-                active && setActive(false)
-              }
-              return <LmComponentRender content={blok} key={blok._uid} />
-            })}
+            {menuItems.map((blok) => (
+              <CustomChild
+                blok={blok}
+                active={active}
+                setActive={setActive}
+                key={blok._uid}
+              />
+            ))}
           </div>
         </Popover>
       ) : (

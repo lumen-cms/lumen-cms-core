@@ -1209,12 +1209,12 @@ export interface ImageListStoryblok {
   enable_lightbox?: boolean;
   masonry?: boolean;
   fit_in_color?: string;
+  label_position?: "top" | "bottom";
   column_gap?: "0" | "2" | "4" | "8" | "16" | "24" | "32";
   column_count?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
   column_count_tablet?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
   column_count_phone?: "1" | "2" | "3" | "4";
   body?: ImageListItemStoryblok[];
-  label_position?: "top" | "bottom";
   _uid: string;
   component: "image_list";
   [k: string]: any;
@@ -1231,6 +1231,7 @@ export interface ImageListItemStoryblok {
   sub_title?: string;
   open_external?: boolean;
   alt?: string;
+  show_text_in_dialog?: boolean;
   _uid: string;
   component: "image_list_item";
   [k: string]: any;
