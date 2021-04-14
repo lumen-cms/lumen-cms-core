@@ -10,3 +10,14 @@ export const findPresets = (componentName: string) => {
   }
   return []
 }
+
+// simple function to show which component has presets available
+// activate below and check the console log in browser inside of Storybook
+// @ts-ignore
+const displayAllComponentsWithPresets = () => {
+  const found = components
+    .filter((item: any) => item.all_presets?.length)
+    .map((item) => item.name)
+  console.log(found)
+}
+// displayAllComponentsWithPresets()

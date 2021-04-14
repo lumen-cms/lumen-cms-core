@@ -2,10 +2,15 @@ import { LmComponentRender as LmSlider } from '@LmComponentRender'
 import { storySlider } from '../../storybook/core/various'
 import { get3ColumnsSection } from '../../storybook/section'
 import { SliderStoryblok } from '../../typings/generated/components-schema'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 
 export default {
   title: 'Design/Surfaces/Carousel'
 }
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="slider" />
+)
 
 export const Playground = () => (
   <LmSlider
