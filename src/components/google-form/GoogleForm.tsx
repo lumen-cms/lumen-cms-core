@@ -120,8 +120,8 @@ export default function LmGoogleForm({
           // @ts-ignore
           onSuccess={onSubmit}
         >
-          {formStructure?.fields?.map((formField) => {
-            const key = `${formField.answerSubmitIdValue}`
+          {formStructure?.fields?.map((formField, index) => {
+            const key = `${formField.answerSubmitIdValue}_${index}`
             const hasVariant = ![9].includes(formField.questionTypeCode)
             const baseFieldProps = {
               key,

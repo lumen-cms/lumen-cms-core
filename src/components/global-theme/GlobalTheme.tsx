@@ -75,7 +75,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
   const themeUid = settings && settings._uid
   const theme = useMemo(() => {
     if (!themeUid) {
-      return {}
+      return responsiveFontSizes(createMuiTheme())
     }
 
     if (!settings.theme_font_default) {

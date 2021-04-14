@@ -7,7 +7,9 @@ import { LmButtonSpeechTextProps } from './buttonTypes'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 
 const locale = 'de'
-export default function ButtonSpeechText({ content }: LmButtonSpeechTextProps) {
+export default function LmButtonSpeechText({
+  content
+}: LmButtonSpeechTextProps) {
   const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis()
   const currentVoices: SpeechSynthesisVoice[] = voices
   const trigger = Array.isArray(content.trigger)

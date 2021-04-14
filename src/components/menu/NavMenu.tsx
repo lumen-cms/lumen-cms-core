@@ -27,8 +27,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
   const menuItems = content.body || []
   const isCustom =
     menuItems.length && menuItems[0].component !== 'nav_menu_item'
-  const router = useRouter()
-  const asPath = router?.asPath
+  const { asPath } = useRouter() || {}
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -134,9 +133,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
             {menuItems.map((blok) => {
               const bString = JSON.stringify(blok)
               if (
-                bString.includes(
-                  `"full_slug":"${router.asPath.replace(/^\/+/, '')}"`
-                )
+                bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)
               ) {
                 !active && setActive(true)
               } else {
@@ -174,7 +171,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
               <MenuItem
                 {...btnProps}
                 key={nestedProps._uid}
-                className={btnProps.href === router.asPath ? 'lm_active' : ''}
+                className={btnProps.href === asPath ? 'lm_active' : ''}
               >
                 {nestedProps.label}
               </MenuItem>

@@ -21,6 +21,7 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
   const cookies = res.getHeader('Set-Cookie')
   res.setHeader(
     'Set-Cookie',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     (cookies || []).map((cookie) =>
       cookie.replace('SameSite=Lax', 'SameSite=None')

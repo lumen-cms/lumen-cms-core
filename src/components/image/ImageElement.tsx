@@ -3,7 +3,10 @@ import Image from './Image'
 import ImageSvg from './ImageSvg'
 import { LmImageProps } from './imageTypes'
 
-export function LmImage({ content, onClick }: LmImageProps): JSX.Element {
+export function LmImageElement({
+  content,
+  onClick
+}: LmImageProps): JSX.Element {
   const isSvgImage = content.source?.endsWith('.svg')
   const containerProps: Partial<LmImageProps> = {}
   if (onClick) {

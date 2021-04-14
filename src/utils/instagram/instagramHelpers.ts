@@ -4,15 +4,6 @@
 // https://www.instagram.com/graphql/query?query_id=17888483320059182&variables={%22id%22:3086246170,%22first%22:10,%22after%22:null}
 // https://github.com/will-t-harris/use-instagram-feed
 
-export const fetchInstagramUserId = async (username: string) => {
-  const url = new URL(
-    `https://www.instagram.com/web/search/topsearch/?query=${username}`
-  )
-  const list = await fetch(url.toString()).then((r) => r.json())
-  const foundUser = list?.users?.find((i: any) => i.user.username === username)
-  return foundUser?.user?.pk
-}
-
 // const queryId = {
 //   posts_for_tags: 17875800862117404,
 //   user_following: 17874545323001329,
@@ -25,6 +16,39 @@ export const fetchInstagramUserId = async (username: string) => {
 //   post_suggestions: 17863787143139595
 // }
 
+type GetInstagramProps = {
+  username?: string
+  userId?: string
+  token?: string
+}
+export const getInstagramApi = ({
+  username,
+  userId,
+  token
+}: GetInstagramProps) => {
+  return {
+    media: new URL(
+      `https://graph.facebook.com/${
+        userId || process.env.NEXT_PUBLIC_INSTAGRAM_USER_ID
+      }/media/?access_token=${
+        token || process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN
+      }`
+    ).toString(),
+    channel: new URL(
+      `https://www.instagram.com/${username}/channel/?__a=1`
+    ).toString()
+  }
+}
+
+export const fetchInstagramUserId = async (username: string) => {
+  const url = new URL(
+    `https://www.instagram.com/web/search/topsearch/?query=${username}`
+  )
+  const list = await fetch(url.toString()).then((r) => r.json())
+  const foundUser = list?.users?.find((i: any) => i.user.username === username)
+  return foundUser?.user?.pk
+}
+
 export async function fetchInstagramList<JSON = any>(
   username: string
 ): Promise<JSON> {
@@ -34,9 +58,6 @@ export async function fetchInstagramList<JSON = any>(
   const getterUrl = new URL(
     `https://www.instagram.com/${username}/channel/?__a=1`
   ).toString()
-  // const getterUrl = new URL(
-  //   `https://graph.facebook.com/${process.env.NEXT_PUBLIC_INSTAGRAM_USER_ID}/media/?access_token=${process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN}`
-  // ).toString()
 
   // const getterUrl = new URL(
   //   `https://www.instagram.com/graphql/query?query_id=${
