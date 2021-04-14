@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { Popover } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
+import { useEffectOnce } from 'react-use'
 import LmIcon from '../icon/LmIcon'
 import {
   NavMenuItemStoryblok,
@@ -24,27 +25,6 @@ const useStyles = makeStyles({
   })
 })
 
-function CustomChild({
-  blok,
-  setActive,
-  active
-}: {
-  blok: NavMenuItemStoryblok | RowStoryblok | NavMenuStoryblok
-  active: boolean
-  setActive: (bool: boolean) => void
-}): JSX.Element {
-  const { asPath } = useRouter() || {}
-  useEffect(() => {
-    const bString = JSON.stringify(blok)
-    if (bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)) {
-      !active && setActive(true)
-    } else {
-      active && setActive(false)
-    }
-  }, [active, asPath, blok, setActive])
-  return <LmComponentRender content={blok} />
-}
-
 export function LmMenu({ content }: LmMenuProps): JSX.Element {
   const classes = useStyles(content)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -58,9 +38,25 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
     setAnchorEl(null)
   }
 
+  useEffectOnce(() => {
+    if (isCustom) {
+      menuItems.forEach((blok) => {
+        const bString = JSON.stringify(blok)
+        if (bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)) {
+          // !active &&
+          setActive(true)
+        }
+        // else {
+        //       active && setActive(false)
+        //     }
+      })
+    }
+  })
+
   useEffect(() => {
     handleClose()
   }, [asPath])
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -155,14 +151,9 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           {...addons}
         >
           <div style={{ padding: 16 }}>
-            {menuItems.map((blok) => (
-              <CustomChild
-                blok={blok}
-                active={active}
-                setActive={setActive}
-                key={blok._uid}
-              />
-            ))}
+            {menuItems.map((blok) => {
+              return <LmComponentRender content={blok} key={blok._uid} />
+            })}
           </div>
         </Popover>
       ) : (
