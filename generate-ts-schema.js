@@ -1,5 +1,6 @@
 const storyblokToTypescript = require('storyblok-generate-ts')
 const customParser = require('./generate-ts-schema-custom-types')
+// not in use any more .. replaced by CLI
 storyblokToTypescript({
   // required
   componentsJson: require('./components.82895.json'), // pull components with storyblok
@@ -12,7 +13,6 @@ storyblokToTypescript({
   // optional function for custom types (key, obj) => {}
   customTypeParser: customParser
 })
-
 
 //
 // const {compile} = require('json-schema-to-typescript')

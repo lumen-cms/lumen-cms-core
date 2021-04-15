@@ -261,11 +261,29 @@ export interface BottomNavigationItemStoryblok {
   label?: HeadlineStoryblok[];
   icon?: IconStoryblok[];
   show_label?: boolean;
-  link?: {
-    cached_url?: string;
-    linktype?: string;
-    [k: string]: any;
-  };
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
   open_external?: boolean;
   _uid: string;
   component: "bottom_navigation_item";
@@ -295,11 +313,29 @@ export interface ButtonStoryblok {
     name?: string;
     [k: string]: any;
   };
-  link?: {
-    cached_url?: string;
-    linktype?: string;
-    [k: string]: any;
-  };
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
   class_names?: {
     values?: string[];
     [k: string]: any;
@@ -414,11 +450,29 @@ export interface CardListItemStoryblok {
   body?: (ParagraphStoryblok | HeadlineStoryblok | RowStoryblok | TableStoryblok | ImageStoryblok | ButtonStoryblok)[];
   action_headline?: HeadlineStoryblok[];
   card_actions_body?: FlexRowStoryblok[];
-  link?: {
-    cached_url?: string;
-    linktype?: string;
-    [k: string]: any;
-  };
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
   open_external?: boolean;
   _uid: string;
   component: "card_list_item";
@@ -679,11 +733,29 @@ export interface EcommerceFastspringConfigStoryblok {
 export interface EcommerceFastspringProductStoryblok {
   path?: string;
   text_only?: boolean;
-  on_successful_redirect?: {
-    cached_url?: string;
-    linktype?: string;
-    [k: string]: any;
-  };
+  on_successful_redirect?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
   _uid: string;
   component: "ecommerce_fastspring_product";
   [k: string]: any;
@@ -1221,11 +1293,29 @@ export interface ImageListStoryblok {
 }
 
 export interface ImageListItemStoryblok {
-  link?: {
-    cached_url?: string;
-    linktype?: string;
-    [k: string]: any;
-  };
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
   source?: string;
   label?: string;
   sub_title?: string;
@@ -1281,11 +1371,29 @@ export interface ItemKeyValueStoryblok {
 }
 
 export interface LinkStoryblok {
-  link?: {
-    cached_url?: string;
-    linktype?: string;
-    [k: string]: any;
-  };
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
   open_external?: boolean;
   body?: (ImageStoryblok | HeadlineStoryblok | ParagraphStoryblok | IconStoryblok | PromotionStoryblok)[];
   class_names?: {
@@ -1432,11 +1540,29 @@ export interface MotionStoryblok {
 
 export interface NavItemStoryblok {
   name?: string;
-  link?: {
-    cached_url?: string;
-    linktype?: string;
-    [k: string]: any;
-  };
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
   open_external?: boolean;
   image?: string;
   _uid: string;
@@ -1490,11 +1616,29 @@ export interface NavMenuStoryblok {
 }
 
 export interface NavMenuItemStoryblok {
-  link?: {
-    cached_url?: string;
-    linktype?: string;
-    [k: string]: any;
-  };
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
   open_external?: boolean;
   label?: string;
   image?: string;
@@ -1508,6 +1652,7 @@ export interface PageStoryblok {
   preview_subtitle?: string;
   preview_image?: string;
   preview_teaser?: string;
+  preview_publish_date?: string;
   meta_title?: string;
   meta_description?: string;
   seo_body?: (
@@ -1857,6 +2002,8 @@ export interface SeoLocalBusinessOpeningHourStoryblok {
     | "Sunday"
     | "PublicHolidays"
   )[];
+  valid_from?: string;
+  valid_through?: string;
   _uid: string;
   component: "seo_local_business_opening_hour";
   [k: string]: any;
@@ -1891,6 +2038,7 @@ export interface SeoProductStoryblok {
 export interface SeoProductOfferStoryblok {
   price: number;
   price_currency: string;
+  price_valid_until?: string;
   item_condition?:
     | "https://schema.org/DamagedCondition"
     | "https://schema.org/NewCondition"
@@ -2320,11 +2468,29 @@ export interface TimelineItemStoryblok {
     | TabsStoryblok
     | TimelineStoryblok
   )[];
-  link?: {
-    cached_url?: string;
-    linktype?: string;
-    [k: string]: any;
-  };
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
   open_external?: boolean;
   opposite_body?: (
     | AccordionStoryblok
