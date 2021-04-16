@@ -9,7 +9,6 @@ import LmDialog from './dialog/Dialog'
 import LmIframe from './iframe/Iframe'
 import LmEcommerceCheckout from './ecommerce/EcommerceCheckout'
 import LmFastSpringCheckout from './ecommerce/fastspring/LmFastSpringCheckout'
-import LmGoogleForm from './google-form/GoogleForm'
 import LmHubspotMeeting from './hubspot-meeting/HubspotMeeting'
 import LmImageList from './image-list/ImageList'
 import LmImageListItem from './image-list/ImageListItem'
@@ -27,6 +26,7 @@ import LmCardListItem from './card/CardListItem'
 import LmListWidget from './list-widget/ListWidget'
 import LmSectionVideo from './section/SectionVideoBg'
 import LmSectionParallax from './section/SectionParallax'
+import LmGoogleFormContainer from './google-form/LmGoogleFormContainer'
 
 // assign all additional components non dynamic for Storybook
 LmCoreComponents.table = LmTable
@@ -60,7 +60,7 @@ LmCoreComponents.iframe_advanced = LmIframe as any
 LmCoreComponents.chat_tawkto = LmTawktoChatButton
 LmCoreComponents.chat_facebook = LmFacebookChatButton
 LmCoreComponents.paragraph = LmParagraph
-LmCoreComponents.form = LmGoogleForm
+LmCoreComponents.form = LmGoogleFormContainer
 LmCoreComponents.ecommerce_checkout = LmEcommerceCheckout
 LmCoreComponents.ecommerce_fastspring_product = LmFastSpringCheckout
 // LmCoreComponents.auth_container = AuthContainer

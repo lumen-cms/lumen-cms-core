@@ -7,14 +7,13 @@ import {
   SelectElement,
   TextFieldElement
 } from 'react-form-hook-mui'
-import LinearProgress from '@material-ui/core/LinearProgress'
 import Typography from '@material-ui/core/Typography'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import Alert from '@material-ui/lab/Alert'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmGoogleFormProps } from './googleFormProps'
-import { useGoogleForm } from '../../utils/hooks/googleForms/useGoogleForm'
+import { StructuredFormProps } from '../../utils/hooks/googleForms/useGoogleForm'
 import {
   ButtonStoryblok,
   RichTextEditorStoryblok
@@ -27,9 +26,12 @@ class LocalizedUtils extends DateFnsUtils {
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
 
 export default function LmGoogleForm({
+  formStructure,
   content
-}: LmGoogleFormProps): JSX.Element {
-  const { formStructure } = useGoogleForm(content.api || '')
+}: {
+  formStructure: StructuredFormProps
+  content: LmGoogleFormProps['content']
+}): JSX.Element {
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
   // @TODO mode is no-cors, can't detect result status
   // const [submitError, setSubmitError] = useState<boolean>(false)
@@ -70,9 +72,6 @@ export default function LmGoogleForm({
 
     setSubmitSuccess(true)
   }
-  if (!formStructure) {
-    return <LinearProgress variant="query" />
-  }
 
   const baseStyle: React.CSSProperties = {
     margin: `${Number(content.fields_gap) || 2}px`,
@@ -112,8 +111,8 @@ export default function LmGoogleForm({
 
   return (
     <div>
-      <Typography variant="h5">{formStructure.title}</Typography>
-      <Typography variant="subtitle1">{formStructure.description}</Typography>
+      <Typography variant="h5">{formStructure?.title}</Typography>
+      <Typography variant="subtitle1">{formStructure?.description}</Typography>
       <MuiPickersUtilsProvider utils={LocalizedUtils}>
         <FormContainer
           defaultValues={defaultValues}

@@ -37,7 +37,7 @@ export function useGoogleForm(formUrl: string) {
     undefined
   )
   useEffect(() => {
-    if (!formStructure) {
+    if (!formStructure && formUrl) {
       hijackGoogleFormsXHR(XMLHttpRequest)
       ;(() => {
         const xhr = new XMLHttpRequest()
@@ -95,8 +95,7 @@ export function useGoogleForm(formUrl: string) {
         xhr.send()
       })()
     }
-    // eslint-disable-next-line
-  }, [])
+  }, [formStructure, formUrl])
 
   return {
     formStructure
