@@ -122,7 +122,7 @@ function AppHead(): JSX.Element {
           <link rel="manifest" href="/manifest.json" />
         )}
         {isPreview && (
-          <script src="//app.storyblok.com/f/storyblok-latest.js" />
+          <script src="//app.storyblok.com/f/storyblok-v2-latest.js" />
         )}
         {settings?.custom_css && <style>{settings.custom_css}</style>}
       </NextHead>

@@ -13,6 +13,12 @@ import {
 const SettingsContext = createContext<GlobalStoryblok>({} as GlobalStoryblok)
 const PageContext = createContext<PageStoryblok>({} as PageStoryblok)
 
+declare global {
+  interface Window {
+    StoryblokBridge: any
+  }
+}
+
 export const SettingsPageProvider: FC<{
   settings: GlobalStoryblok
   page?: PageStoryblok | null
@@ -33,40 +39,47 @@ export const SettingsPageProvider: FC<{
   }, [settings, stateSettings.uuid, setSettings])
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.storyblok) {
-      window.storyblok.init()
-      window.storyblok.on(['change'], () => {
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.StoryblokBridge !== 'undefined'
+    ) {
+      const storyblokInstance = new window.StoryblokBridge()
+
+      // window.storyblok.init()
+      storyblokInstance.on(['change'], () => {
         console.log('change::save triggered')
         window.location.reload()
       })
-      window.storyblok.on(['published', 'unpublished'], () => {
+      storyblokInstance.on(['published', 'unpublished'], () => {
         console.log('published triggered')
         window.location.reload()
       })
 
-      window.storyblok.on('input', (event) => {
+      storyblokInstance.on('input', (event: any) => {
         const newContent = { ...event?.story.content, uuid: event?.story.uuid }
         if (
           event?.story.content.component === 'page' &&
           event?.story.uuid === page?.uuid
         ) {
           console.log('input::input content changed')
-          const newPage = window.storyblok.addComments(
-            newContent,
-            event?.story.id
-          ) as PageStoryblok
-          setPage(newPage)
+          // const newPage = window.storyblok.addComments(
+          //   newContent,
+          //   event?.story.id
+          // ) as PageStoryblok
+          // setPage(newPage)
+          setPage(newContent)
         }
         if (
           event?.story.content.component === 'global' &&
           event?.story.uuid === settings?.uuid
         ) {
           console.log('input::input settings changed')
-          const newSettings = window.storyblok.addComments(
-            newContent,
-            event?.story.id
-          ) as GlobalStoryblok
-          setSettings(newSettings)
+          // const newSettings = window.storyblok.addComments(
+          //   newContent,
+          //   event?.story.id
+          // ) as GlobalStoryblok
+          // setSettings(newSettings)
+          setSettings(newContent)
         }
       })
     }
