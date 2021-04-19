@@ -33,8 +33,7 @@ describe('Get page props of a certain URL', () => {
     expect(typeof currentFormToTest?.description).toBe('string')
     expect(typeof currentFormToTest?.title).toBe('string')
     expect(typeof currentFormToTest?.formAction).toBe('string')
-    // @ts-ignore
-    expect(currentFormToTest?.fields?.length > 1).toBeTruthy()
+    expect((currentFormToTest?.fields?.length || 0) > 1).toBeTruthy()
   })
   test('fetch url that consists form data in the footer', async () => {
     // commercentric uses it
@@ -49,7 +48,6 @@ describe('Get page props of a certain URL', () => {
     // expect(typeof currentFormToTest?.description).toBe('string') // has no description
     expect(typeof currentFormToTest?.title).toBe('string')
     expect(typeof currentFormToTest?.formAction).toBe('string')
-    // @ts-ignore
-    expect(currentFormToTest?.fields?.length > 1).toBeTruthy()
+    expect((currentFormToTest?.fields?.length || 0) > 1).toBeTruthy()
   })
 })

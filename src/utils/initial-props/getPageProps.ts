@@ -44,15 +44,7 @@ const getPageProps = async (
   } else if (!pageProps) {
     console.log('PAGE MISSNG')
   }
-  // let componentData = null
-  // if (pageProps) {
-  //   // traverse content and fetch list widget data
-  //   componentData = await collectComponentData(
-  //     pageProps,
-  //     allCategories,
-  //     allStories
-  //   )
-  // }
+
   const props: AppPageProps = {
     page: pageProps ? { ...pageProps, uuid: page?.data?.story?.uuid } : null,
     settings: settingsProps
@@ -63,7 +55,6 @@ const getPageProps = async (
     allStories,
     locale: options.locale || null,
     defaultLocale: options.defaultLocale,
-    // listWidgetData: componentData || null,
     insideStoryblok: !!options.insideStoryblok,
     notFoundLocale: notFoundLocale || null
   }

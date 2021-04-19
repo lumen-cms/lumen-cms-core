@@ -18,7 +18,7 @@ export default function LmGoogleFormContainer({ content }: LmGoogleFormProps) {
   const formStructure = formData?.[content._uid]
   return !elementInView ? (
     <LinearProgress variant="query" ref={inViewRef} />
-  ) : (
+  ) : formStructure ? (
     <GoogleFormEl formStructure={formStructure} content={content} />
-  )
+  ) : null
 }
