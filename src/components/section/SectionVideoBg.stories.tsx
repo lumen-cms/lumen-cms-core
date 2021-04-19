@@ -7,10 +7,15 @@ import {
 } from '../../storybook/core/section'
 import { storyHeadline } from '../../storybook/core/various'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 
 export default {
   title: 'Design/Layout/Section Video'
 }
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="section_video_bg" />
+)
 
 export const Basic = () => (
   <>

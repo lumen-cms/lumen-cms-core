@@ -12,7 +12,7 @@ module.exports = {
       options: {
         backgrounds: false,
         actions: false,
-        controls: false
+        controls: true
       }
     }
   ],

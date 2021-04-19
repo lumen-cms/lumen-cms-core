@@ -2,12 +2,16 @@ import * as React from 'react'
 import Header from './Header'
 import { customSettings, simpleSettings } from '../../../storybook/toolbar'
 import { SettingsPageProvider } from '../../provider/SettingsPageProvider'
+import StorybookPresetsContainer from '../../../storybook/components/StorybookPresetsContainer'
 
 export default {
   title: 'Design/Surfaces/Toolbar'
 }
 
-// todo need to showcase different settings
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="toolbar_row" />
+)
+
 export const Basic = () => (
   <>
     <h3>Default</h3>

@@ -9,13 +9,16 @@ import {
 } from '../../storybook/core/various'
 import { useGoogleForm } from '../../utils/hooks/googleForms/useGoogleForm'
 
-const props: FormStoryblok = {
-  _uid: '123098',
-  component: 'form',
-  api: GoogleFormExampleUrl,
-  fields_full_width: true,
-  submit_button: [storyButton()],
-  success_body: [storyParagraph()]
+const getProps = () => {
+  const props: FormStoryblok = {
+    _uid: '123098',
+    component: 'form',
+    api: GoogleFormExampleUrl,
+    fields_full_width: true,
+    submit_button: [storyButton()],
+    success_body: [storyParagraph()]
+  }
+  return props
 }
 
 export default {
@@ -25,7 +28,7 @@ export default {
 export const Component = () => {
   return (
     <>
-      <LmComponentRender content={{ ...props }} />
+      <LmComponentRender content={{ ...getProps() }} />
     </>
   )
 }

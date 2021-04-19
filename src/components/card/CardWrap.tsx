@@ -17,8 +17,6 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({
     borderRadius: options.border_radius ? options.border_radius : undefined
   }
 
-  console.log(content.body)
-
   if (content.body?.length) {
     return (
       <CardWrapWithAction

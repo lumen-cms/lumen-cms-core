@@ -16,61 +16,64 @@ export default {
   title: 'Design/Layout/Section Parallax'
 }
 
-const pageObj: PageStoryblok = {
-  _uid: 'page',
-  component: 'page',
-  body: [
-    {
-      ...storySectionParallax(),
-      body: [
-        {
-          ...storyRow({
-            knob: 'Content Parallax',
-            options: {
-              justify: 'center',
-              align_content: 'flex-end'
-            }
-          }),
-          background: [
-            storyBackground({
+const getObj = () => {
+  const pageObj: PageStoryblok = {
+    _uid: 'page',
+    component: 'page',
+    body: [
+      {
+        ...storySectionParallax(),
+        body: [
+          {
+            ...storyRow({
               knob: 'Content Parallax',
               options: {
-                classNames: { values: ['text-center', 'text-white'] }
+                justify: 'center',
+                align_content: 'flex-end'
               }
-            })
-          ],
-          body: [
-            {
-              ...storyColumn({ knob: 'Content Parallax' }),
-              body: [
-                storyHeadline({
-                  knob: 'Content Parallax',
-                  options: { typography: 'headline2' }
-                })
-              ]
-            }
-          ]
-        }
-      ],
-      elements: [
-        storyParallaxItem({
-          options: {
-            amount: 0.3,
-            image:
-              'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+            }),
+            background: [
+              storyBackground({
+                knob: 'Content Parallax',
+                options: {
+                  classNames: { values: ['text-center', 'text-white'] }
+                }
+              })
+            ],
+            body: [
+              {
+                ...storyColumn({ knob: 'Content Parallax' }),
+                body: [
+                  storyHeadline({
+                    knob: 'Content Parallax',
+                    options: { typography: 'headline2' }
+                  })
+                ]
+              }
+            ]
           }
-        })
-      ]
-    },
-    get3ColumnsSection({ knob: '3 Column Section', count: 1 }),
-    get3ColumnsSection({ knob: '3 Column Section', count: 2 }),
-    get3ColumnsSection({ knob: '3 Column Section', count: 3 })
-  ]
+        ],
+        elements: [
+          storyParallaxItem({
+            options: {
+              amount: 0.3,
+              image:
+                'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
+            }
+          })
+        ]
+      },
+      get3ColumnsSection({ knob: '3 Column Section', count: 1 }),
+      get3ColumnsSection({ knob: '3 Column Section', count: 2 }),
+      get3ColumnsSection({ knob: '3 Column Section', count: 3 })
+    ]
+  }
+  return pageObj
 }
 
 export const Playground = () => (
   <div className="lm-parallax__wrapper">
-    <SettingsPageProvider settings={simpleSettings} page={pageObj}>
+    <SettingsPageProvider settings={simpleSettings} page={getObj()}>
       <LmPage />
     </SettingsPageProvider>
   </div>

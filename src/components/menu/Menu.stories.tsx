@@ -6,6 +6,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { columns } from '../../storybook/section'
 import { storyMenu, storyMenuItem } from '../../storybook/core/various'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 
 const props: NavMenuStoryblok = {
   _uid: '123',
@@ -41,6 +42,10 @@ const columnSection: NavMenuStoryblok = {
 export default {
   title: 'Design/Navigation/Menu'
 }
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="nav_menu" />
+)
 
 export const Basic = () => (
   <>

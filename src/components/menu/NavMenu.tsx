@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { Popover } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
+import { useEffectOnce } from 'react-use'
 import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
@@ -33,9 +34,25 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
     setAnchorEl(null)
   }
 
+  useEffectOnce(() => {
+    if (isCustom) {
+      menuItems.forEach((blok) => {
+        const bString = JSON.stringify(blok)
+        if (bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)) {
+          // !active &&
+          setActive(true)
+        }
+        // else {
+        //       active && setActive(false)
+        //     }
+      })
+    }
+  })
+
   useEffect(() => {
     handleClose()
   }, [asPath])
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -131,14 +148,6 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
         >
           <div style={{ padding: 16 }}>
             {menuItems.map((blok) => {
-              const bString = JSON.stringify(blok)
-              if (
-                bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)
-              ) {
-                !active && setActive(true)
-              } else {
-                active && setActive(false)
-              }
               return <LmComponentRender content={blok} key={blok._uid} />
             })}
           </div>

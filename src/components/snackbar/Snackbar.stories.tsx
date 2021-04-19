@@ -8,10 +8,15 @@ import {
   ButtonStoryblok,
   HeadlineStoryblok
 } from '../../typings/generated/components-schema'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 
 export default {
   title: 'Design/Feedback/Snackbar'
 }
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="snackbar" />
+)
 
 export const HideOnScroll = () => (
   <div style={{ height: '150vh' }}>

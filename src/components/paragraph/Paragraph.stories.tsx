@@ -1,6 +1,7 @@
 import { LmComponentRender as LmParagraph } from '@LmComponentRender'
 import { ParagraphStoryblok } from '../../typings/generated/components-schema'
 import { storyParagraph } from '../../storybook/core/various'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 
 const props: ParagraphStoryblok = {
   _uid: '123',
@@ -219,6 +220,10 @@ const rte = {
 export default {
   title: 'Design/Data Display/Paragraph'
 }
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="paragraph" />
+)
 
 export const MarkdownParagraph = () => (
   <>

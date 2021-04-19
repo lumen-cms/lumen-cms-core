@@ -6,6 +6,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { storyFlexRow } from '../../storybook/core/section'
 import { storyHeadline, storyIcon } from '../../storybook/core/various'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 
 const icon: IconStoryblok = {
   _uid: '232123',
@@ -44,6 +45,10 @@ const props3: FlexRowStoryblok = {
 export default {
   title: 'Design/Layout/Flex Row'
 }
+
+export const Preset = () => (
+  <StorybookPresetsContainer componentName="flex_row" />
+)
 
 export const Basic = () => (
   <>
