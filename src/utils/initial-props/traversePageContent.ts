@@ -1,12 +1,15 @@
 import { StoryData } from 'storyblok-js-client'
 import {
+  FormStoryblok,
   ListWidgetStoryblok,
-  PageStoryblok
+  PageStoryblok,
+  RowStoryblok,
+  SectionStoryblok
 } from '../../typings/generated/components-schema'
-import {
-  CategoryComponent,
-  PageComponent
-} from '../../typings/generated/schema'
+import { PageComponent } from '../../typings/generated/schema'
+import { AppPageProps } from '../../typings/app'
+import parseHijackedFormData from '../hooks/googleForms/parseHijackedFormData'
+import { fetchGoogleFormData } from './fetchGoogleFormData'
 
 const listWidgetFilter = (
   content: ListWidgetStoryblok,
@@ -65,7 +68,7 @@ const listWidgetFilter = (
 }
 
 export const traversePageContent = (
-  page: PageStoryblok,
+  page: PageStoryblok | (RowStoryblok | SectionStoryblok)[],
   lookup = 'list_widget'
 ) => {
   if (!page) {
@@ -81,54 +84,54 @@ export const traversePageContent = (
       }
     })
   }
-
-  if (Array.isArray(page.body)) {
-    walkArray(page.body)
-  }
-  if (Array.isArray(page.right_body)) {
-    walkArray(page.right_body)
+  if (Array.isArray(page)) {
+    walkArray(page)
+  } else {
+    if (Array.isArray(page.body)) {
+      walkArray(page.body)
+    }
+    if (Array.isArray(page.right_body)) {
+      walkArray(page.right_body)
+    }
   }
   return listWidgets
 }
 
-// const prepareListStory = (listParams: ListWidgetStoryblok, allCategories: StoryData<CategoryComponent>[], locale?: string) => {
-//   console.log(listParams)
-//   const categories = Array.isArray(listParams.categories) && allCategories.filter(i => listParams.categories.includes(i.uuid))
-//   console.log(categories)
-//   const params: StoriesParams = {
-//     per_page: listParams.maximum_items || 25,
-//     excluding_fields: 'body,right_body,meta_robots,property,meta_description,seo_body',
-//     sort_by: 'published_at:desc',
-//     filter_query: {
-//       'component': {
-//         'in': 'page'
-//       }
-//     }
-//   }
-//   if (CONFIG.rootDirectory) {
-//     params.starts_with = `${CONFIG.rootDirectory}/`
-//   } else if (locale) {
-//     params.starts_with = `${locale}/`
-//   }
-//
-// }
-
-export const collectComponentData = async (
-  page: PageStoryblok,
-  _allCategories: StoryData<CategoryComponent>[],
-  allStories: StoryData<PageComponent>[] = []
-  // ,
-  // _locale?: string
-) => {
-  const listWidgets = traversePageContent(page)
-  const listData: { [k: string]: StoryData<PageComponent>[] } = {}
-  listWidgets.forEach((item) => {
-    listData[item._uid] = listWidgetFilter(item, allStories)
-  })
-  if (listWidgets.length !== Object.keys(listData).length) {
-    // make sure list widgets are all fetched and merged correctly (_uid might not be unique)
-    console.error('list widget has identical _uid')
+export const processListWidgetData = async (props: AppPageProps) => {
+  if (props.page) {
+    const listWidgets = traversePageContent(props.page)
+    const listData: { [k: string]: StoryData<PageComponent>[] } = {}
+    listWidgets.forEach((item) => {
+      listData[item._uid] = listWidgetFilter(item, props.allStories)
+    })
+    if (listWidgets.length !== Object.keys(listData).length) {
+      // make sure list widgets are all fetched and merged correctly (_uid might not be unique)
+      console.error('list widget has identical _uid')
+    }
+    if (Object.keys(listData).length) {
+      Object.assign(props, { listWidgetData: listData })
+    }
   }
+}
 
-  return listData
+export const processFormData = async (props: AppPageProps) => {
+  if (props.page) {
+    const formEl = [
+      ...traversePageContent(props.page, 'form'),
+      ...traversePageContent(props.settings?.footer as any, 'form')
+    ] as FormStoryblok[]
+    const formData: { [k: string]: any } = {}
+    // eslint-disable-next-line no-restricted-syntax
+    for (const formProps of formEl) {
+      if (formProps.api) {
+        // eslint-disable-next-line no-await-in-loop
+        const res = await fetchGoogleFormData(formProps.api)
+        const parsedData = parseHijackedFormData(res)
+        formData[formProps._uid] = parsedData
+      }
+    }
+    if (Object.keys(formData).length) {
+      Object.assign(props, { formData })
+    }
+  }
 }
