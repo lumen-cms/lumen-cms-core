@@ -134,22 +134,27 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
       },
       typography: {
         fontFamily:
-          settings.theme_font_default &&
-          (parseFont(settings.theme_font_default) as string)
+          process.env.NEXT_PUBLIC_FONT_DEFAULT ||
+          (settings.theme_font_default &&
+            (parseFont(settings.theme_font_default) as string))
       },
       alternativeFont: {
         alt1:
-          settings.theme_font_alt1 &&
-          (parseFont(settings.theme_font_alt1) as string),
+          process.env.NEXT_PUBLIC_FONT_ALT1 ||
+          (settings.theme_font_alt1 &&
+            (parseFont(settings.theme_font_alt1) as string)),
         alt2:
-          settings.theme_font_alt2 &&
-          (parseFont(settings.theme_font_alt2) as string),
+          process.env.NEXT_PUBLIC_FONT_ALT2 ||
+          (settings.theme_font_alt2 &&
+            (parseFont(settings.theme_font_alt2) as string)),
         alt3:
-          settings.theme_font_alt3 &&
-          (parseFont(settings.theme_font_alt3) as string),
+          process.env.NEXT_PUBLIC_FONT_ALT3 ||
+          (settings.theme_font_alt3 &&
+            (parseFont(settings.theme_font_alt3) as string)),
         alt4:
-          settings.theme_font_alt4 &&
-          (parseFont(settings.theme_font_alt4) as string)
+          process.env.NEXT_PUBLIC_FONT_ALT4 ||
+          (settings.theme_font_alt4 &&
+            (parseFont(settings.theme_font_alt4) as string))
       },
       defaultContainerWidth,
       overrides: {

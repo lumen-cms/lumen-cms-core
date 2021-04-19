@@ -41,7 +41,7 @@ const parseOpenGraph = (
     })
   }
   // settings images
-  if (settingsOpenGraph.images) {
+  if (settingsOpenGraph.images && !images.length) {
     settingsOpenGraph.images.forEach((img: ImageCoreStoryblok) => {
       const parsed = mapOpenGraphImage(img)
       parsed && images.push(parsed)
