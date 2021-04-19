@@ -40,9 +40,9 @@ const getPageProps = async (
     | undefined
 
   if (!settings) {
-    console.log('SETTINGS MISSNG')
+    console.log('SETTINGS MISSING', slug, pageSlug)
   } else if (!pageProps) {
-    console.log('PAGE MISSNG')
+    console.log('PAGE MISSING', slug, pageSlug)
   }
 
   const props: AppPageProps = {
