@@ -6,7 +6,7 @@ import {
   PageComponent,
   StaticcontainerComponent
 } from './generated/schema'
-import { ParseHijackGoogleFormPayload } from '../utils/hooks/googleForms/parseHijackedFormData'
+import { GoogleFormDataProps } from '../utils/hooks/googleForms/parseHijackedFormData'
 
 export interface IClaims {
   [key: string]: any // just a copy of the IClaim
@@ -30,7 +30,7 @@ export type AppApiRequestPayload = {
   allCategories: StoryData<CategoryComponent>[]
   allStaticContent: StoryData<StaticcontainerComponent>[]
   listWidgetData?: { [k: string]: StoryData<PageComponent>[] } | null
-  formData?: { [k: string]: ParseHijackGoogleFormPayload } | null
+  formData?: { [k: string]: GoogleFormDataProps } | null
   user?: IClaims
   notFoundLocale?: string
 }

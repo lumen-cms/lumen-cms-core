@@ -18,7 +18,7 @@ export const GoogleFormFieldTypes = {
   9: { name: 'Date' }
   // 10: { name: 'Time' }
 }
-export type ParseHijackGoogleFormPayload = {
+export type GoogleFormDataProps = {
   description: string
   title: string
   formId: string
@@ -28,7 +28,7 @@ export type ParseHijackGoogleFormPayload = {
 
 export default function parseHijackedFormData(
   form: string
-): ParseHijackGoogleFormPayload {
+): GoogleFormDataProps {
   // @see url(https://gist.github.com/UdaraAlwis/c338a9de4af4509ba0ff67e2c4f37f5c)
 
   const publicLoadDataString = form

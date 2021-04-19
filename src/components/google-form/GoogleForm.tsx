@@ -13,11 +13,11 @@ import DateFnsUtils from '@date-io/date-fns'
 import Alert from '@material-ui/lab/Alert'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmGoogleFormProps } from './googleFormProps'
-import { StructuredFormProps } from '../../utils/hooks/googleForms/useGoogleForm'
 import {
   ButtonStoryblok,
   RichTextEditorStoryblok
 } from '../../typings/generated/components-schema'
+import { GoogleFormDataProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 
 class LocalizedUtils extends DateFnsUtils {
   dateFormat = 'P'
@@ -29,7 +29,7 @@ export default function LmGoogleForm({
   formStructure,
   content
 }: {
-  formStructure: StructuredFormProps
+  formStructure: GoogleFormDataProps
   content: LmGoogleFormProps['content']
 }): JSX.Element {
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
