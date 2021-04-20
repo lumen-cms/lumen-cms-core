@@ -24,9 +24,9 @@ yarn-error.log*
 
 public_storybook
 
-components.*.json
+#components.*.json
 app-content*.json
-presets.*.json
+#presets.*.json
 
 .vercel
 /dist
@@ -38,3 +38,4 @@ localhost.key
 **.graphqls.d.ts
 __generated__
 /schema.graphql
+build-storybook.log

@@ -62,9 +62,9 @@ export default {
   title: 'Design/Layout/Grid Sections'
 }
 
-export const Presets = () => (
-  <StorybookPresetsContainer componentName="section" />
-)
+// export const Presets = () => (
+//   <StorybookPresetsContainer componentName="section" />
+// )
 
 export const Basic = () => (
   <>
