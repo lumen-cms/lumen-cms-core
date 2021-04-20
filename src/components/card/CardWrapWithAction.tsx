@@ -1,9 +1,9 @@
 import Drawer from '@material-ui/core/Drawer'
-import React, { CSSProperties, FunctionComponent } from 'react'
+import { CSSProperties, FunctionComponent, useState } from 'react'
 import Card from '@material-ui/core/Card'
 import { makeStyles, Theme } from '@material-ui/core/styles'
-import { Toolbar } from '@material-ui/core'
-import { Close } from 'mdi-material-ui'
+import Toolbar from '@material-ui/core/Toolbar'
+import Close from 'mdi-material-ui/Close'
 import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
 import { LmComponentRender } from '@LmComponentRender'
@@ -35,7 +35,7 @@ const CardWrapWithAction: FunctionComponent<CardWrapAction> = ({
 }) => {
   const classes = useStyles()
 
-  const [open, setOpen] = React.useState<boolean>(false)
+  const [open, setOpen] = useState<boolean>(false)
   const { isMobile } = useDeviceDimensions()
   const variants = options.variant || []
 

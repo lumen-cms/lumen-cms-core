@@ -4,7 +4,6 @@ import React from 'react'
 import GridList from '@material-ui/core/GridList'
 import { GridListTile } from '@material-ui/core'
 import clsx from 'clsx'
-import fetcher from '../../utils/fetcher'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { useGridListStyles } from '../card/cardListStyles'
 import useShadowStyles from '../jss/shadowStyles'
@@ -15,21 +14,37 @@ import {
 } from './instagramTypes'
 import { InstagramListItem } from './InstagramListItem'
 import { getNumber } from '../../utils/numberParser'
+// import fetcher from '../../utils/fetcher'
+import { fetchInstagramList } from '../../utils/instagram/instagramHelpers'
 
-const security = process.env.NODE_ENV === 'production' ? 'https' : 'http'
+// here is the "pk" user ID of an account
+// https://www.instagram.com/web/search/topsearch/?query=studentsgoabroad
+
+// https://www.instagram.com/graphql/query?query_id=17888483320059182&variables={%22id%22:3086246170,%22first%22:10,%22after%22:null}
 
 export default function LmInstagramList({ content }: LmInstagramListProps) {
+  const { max_posts } = content
   const username = content.username.trim().replace('@', '')
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
   const classesShadow = useShadowStyles()
-  const { data } = useSWR(
+  // const { data } = useSWR(
+  //   () => (inView ? `/api/instagram/feed/${username}` : null),
+  //   fetcher
+  // )
+  const { data, error } = useSWR<{ node: EdgeProps }[]>(
     () =>
-      inView ? `${security}://www.instagram.com/${username}/?__a=1` : null,
-    fetcher
+      inView
+        ? `${username || process.env.NEXT_PUBLIC_INSTAGRAM_USER_ID}`
+        : null,
+    fetchInstagramList
   )
-  const posts: InstagramMappedProps[] = data?.graphql?.user?.edge_owner_to_timeline_media?.edges
+  if (error) {
+    console.error(error)
+  }
+
+  const posts: InstagramMappedProps[] | undefined = data
     ?.filter((i: { node: EdgeProps }) => {
       if (content.hide_videos) {
         return !i.node.is_video
@@ -44,7 +59,8 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
         shortcode: i.node.shortcode,
         image_url: i.node.display_url,
         commented_count: i.node.edge_media_to_comment.count,
-        liked_by: i.node.edge_liked_by.count,
+        // liked_by: i.node.edge_liked_by.count,
+        liked_by: i.node.edge_media_preview_like.count,
         media_preview: i.node.media_preview,
         thumbnail:
           i.node.thumbnail_resources[i.node.thumbnail_resources.length - 1],
@@ -53,7 +69,12 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
         alt: i.node.accessibility_caption
       } as InstagramMappedProps
     })
-    .splice(0, getNumber(content.max_posts, 12))
+    .splice(
+      0,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      getNumber(max_posts || 12, 12)
+    )
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,

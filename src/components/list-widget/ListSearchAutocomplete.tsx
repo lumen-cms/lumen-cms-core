@@ -119,7 +119,7 @@ export default function LmListSearchAutocomplete({
 }: LmListSearchAutocompleteProps): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>()
   const classes = useStyles()
-  const { defaultLocale, locale } = useRouter()
+  const { defaultLocale, locale } = useRouter() || {}
   const inputRef: RefObject<HTMLInputElement> = createRef()
   const [open, setOpen] = useState<boolean | undefined>()
   const theme = useTheme()
@@ -134,7 +134,7 @@ export default function LmListSearchAutocomplete({
     prefixLocale = locale
   }
   const isMobileAction = content.mobile_breakpoint && matches
-  const { callback } = useDebouncedCallback((value: string) => {
+  const callback = useDebouncedCallback((value: string) => {
     if (value.length < 2) {
       return
     }

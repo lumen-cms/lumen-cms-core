@@ -6,7 +6,8 @@
     "/src/storybook/**/*.*",
     "/__generated__/**/*.*",
     "**/*.graphql.d.ts",
-    "**/*.js"
+    "**/*.js",
+    "/jest*"
   ],
   "extends": [
     "airbnb-typescript-prettier"
@@ -50,6 +51,8 @@
     "no-unused-expressions": "off",
     "react/no-array-index-key": 1,
     "jsx-a11y/anchor-is-valid": 1,
-    "react/require-default-props": 0
+    "react/require-default-props": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/no-danger": 0
   }
 }

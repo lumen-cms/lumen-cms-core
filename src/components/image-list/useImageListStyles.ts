@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 export const useImageListStyles = makeStyles({
   root: {
-    overflowX: 'hidden',
+    overflow: 'hidden',
     '&.with-lightbox .MuiGridListTile-root': {
       cursor: 'pointer'
     }

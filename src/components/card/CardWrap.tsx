@@ -1,4 +1,4 @@
-import React, { CSSProperties, FunctionComponent } from 'react'
+import { CSSProperties, FunctionComponent } from 'react'
 import Card from '@material-ui/core/Card'
 import clsx from 'clsx'
 import CardWrapWithAction from './CardWrapWithAction'

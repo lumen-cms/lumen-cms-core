@@ -1,14 +1,12 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import useScript from '@charlietango/use-script'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import { useAppContext } from '@context/AppContext'
 import { FastSpringContext } from './context/FastSpringContext'
 import { useSettings } from '../../provider/SettingsPageProvider'
 
 export const LmFastSpringProvider: FC = ({ children }) => {
   const settings = useSettings()
-  const router = useRouter()
   const appCtx = useAppContext()
   const [currency, setCurrency] = useState('USD')
   const fastSpring = settings.ecommerce?.find(
@@ -71,7 +69,7 @@ export const LmFastSpringProvider: FC = ({ children }) => {
           window.location.href = '/refetch'
           setRedirect('')
         } else if (redirect) {
-          await router.push(redirect)
+          await Router.push(redirect)
           setRedirect('')
         }
       } else {

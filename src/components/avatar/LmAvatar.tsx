@@ -7,9 +7,10 @@ import LmIcon from '../icon/LmIcon'
 import {
   getRootImageUrl,
   imageSizesOnWidthAndBreakpoints
-} from '../../utils/ImageService'
+} from '../../utils/imageServices'
 import { LmAvatarProps } from './avatarTypes'
 import { getNumber } from '../../utils/numberParser'
+import { storyblokImageLoader } from '../../utils/imageLoader'
 
 const sizeMap = {
   dense: {
@@ -73,13 +74,14 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
     >
       {content.image && (
         <Image
-          src={getRootImageUrl(content.image)}
+          src={content.image}
           layout="fill"
           objectFit="cover"
           sizes={imageSizesOnWidthAndBreakpoints(
             style.width ? Number(style.width) : 40,
             breakpoints
           )}
+          {...storyblokImageLoader(content.image)}
         />
       )}
       {content.letter}

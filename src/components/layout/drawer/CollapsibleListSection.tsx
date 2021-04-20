@@ -30,6 +30,7 @@ export function DrawerContentRender({
   openedPath
 }: DrawerContentRenderProps): JSX.Element | null {
   const { component } = content
+
   if (component === 'button' || component === 'nav_menu_item') {
     return <DrawerButton content={content} />
   }
@@ -53,7 +54,6 @@ export function CollapsibleListSection({
   const body = content.body || []
   const items: any[] = []
   const [open, setOpen] = React.useState(openedPath.includes(content._uid))
-
   // useEffect(() => {
   //   if (openedPath.includes(content._uid)) {
   //     setOpen(true)

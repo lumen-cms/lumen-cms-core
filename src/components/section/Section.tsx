@@ -87,17 +87,16 @@ export function LmSection({
       }}
       id={content.section_identifier || content._uid}
     >
-      {(background?.image || background?.background_elements) && (
+      {background?.image && (
         <BackgroundImage
           sectionPosition={sectionPosition}
           content={background}
           backgroundStyle={content.background_style}
         />
       )}
-      {background?.background_elements &&
-        background.background_elements.length > 0 && (
-          <BackgroundElements elements={background.background_elements} />
-        )}
+      {!!background?.background_elements?.length && (
+        <BackgroundElements elements={background.background_elements} />
+      )}
       <Container
         style={containerStyles}
         maxWidth={maxWidth as ContainerProps['maxWidth']}

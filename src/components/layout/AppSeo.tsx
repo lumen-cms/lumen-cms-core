@@ -33,17 +33,17 @@ const parseOpenGraph = (
     locale: pageOpenGraph.locale || settingsOpenGraph.locale
   }
   const images: OpenGraphImages[] = []
-  // settings images
-  if (settingsOpenGraph.images) {
-    settingsOpenGraph.images.forEach((img: ImageCoreStoryblok) => {
-      const parsed = mapOpenGraphImage(img)
-      parsed && images.push(parsed)
-    })
-  }
   // page images
   if (pageOpenGraph.images) {
     pageOpenGraph.images.forEach((item: ImageCoreStoryblok) => {
       const parsed = mapOpenGraphImage(item)
+      parsed && images.push(parsed)
+    })
+  }
+  // settings images
+  if (settingsOpenGraph.images && !images.length) {
+    settingsOpenGraph.images.forEach((img: ImageCoreStoryblok) => {
+      const parsed = mapOpenGraphImage(img)
       parsed && images.push(parsed)
     })
   }
@@ -108,15 +108,6 @@ export function AppSeo(): JSX.Element {
     (pageSeoBody.find(
       (i) => i.component === 'seo_open_graph'
     ) as SeoOpenGraphStoryblok) || {}
-  if (page.preview_image) {
-    pageOpenGraphs.images = pageOpenGraphs.images || []
-    pageOpenGraphs.images.push({
-      url: page.preview_image,
-      alt: 'image list',
-      _uid: page.preview_image,
-      component: 'image_core'
-    })
-  }
 
   if (settingsOpenGraphs || pageOpenGraphs) {
     seo.openGraph = parseOpenGraph(settingsOpenGraphs, pageOpenGraphs, seo)

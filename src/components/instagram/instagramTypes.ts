@@ -22,7 +22,10 @@ export type EdgeProps = {
   }
   display_url: string
   media_preview: string
-  edge_liked_by: {
+  // edge_liked_by: {
+  //   count: number
+  // }
+  edge_media_preview_like: {
     count: number
   }
   edge_media_to_comment: {

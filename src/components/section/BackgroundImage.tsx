@@ -6,7 +6,7 @@ import {
   BackgroundStoryblok,
   SectionStoryblok
 } from '../../typings/generated/components-schema'
-import { getRootImageUrl, storyblokImageLoader } from '../../utils/ImageService'
+import { storyblokImageLoader } from '../../utils/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -99,10 +99,8 @@ const BackgroundImage = ({
     : disable_lazy_loading
     ? 'eager'
     : undefined
-  const imageSource = getRootImageUrl(image)
-  const imageSourcePortrait = alternative_image
-    ? getRootImageUrl(alternative_image)
-    : undefined
+  const imageSource = image
+  const imageSourcePortrait = alternative_image || undefined
 
   const BgImage = (props: { src?: string }) => {
     if (!props.src) {
@@ -110,6 +108,7 @@ const BackgroundImage = ({
     }
     return (
       <Image
+        {...storyblokImageLoader(props.src)}
         src={props.src}
         priority={priorityLoading}
         loading={loading}

@@ -7,15 +7,15 @@ import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
 import {
   getOriginalImageDimensions,
-  getRootImageUrl,
   imageSizesOnWidthAndBreakpoints
-} from '../../../utils/ImageService'
+} from '../../../utils/imageServices'
 import { ContentSpace } from '../ContentSpace'
 import { DrawerContentList } from './DrawerContentList'
 import MwcDrawer from './MwcDrawer'
 import useBackgroundBox from '../../section/useBackgroundBox'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
+import { storyblokImageLoader } from '../../../utils/imageLoader'
 
 const useStyles = makeStyles({
   logoRoot: {
@@ -44,10 +44,11 @@ function DrawerLogoArea() {
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a>
           <div className={clsx('p-3', classes.logoRoot)}>
-            {!websiteLogo && { websiteTitle }}
+            {!websiteLogo && websiteTitle && <>{websiteTitle}</>}
             {websiteLogo && (
               <Image
-                src={getRootImageUrl(websiteLogo)}
+                {...storyblokImageLoader(websiteLogo)}
+                src={websiteLogo}
                 layout="intrinsic"
                 {...getOriginalImageDimensions(websiteLogo)}
                 className={classes.logo}

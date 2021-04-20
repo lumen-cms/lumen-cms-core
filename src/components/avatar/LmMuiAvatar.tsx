@@ -6,8 +6,9 @@ import Image from 'next/image'
 import {
   getRootImageUrl,
   imageSizesOnWidthAndBreakpoints
-} from '../../utils/ImageService'
+} from '../../utils/imageServices'
 import { LmMuiAvatarProps } from './avatarTypes'
+import { storyblokImageLoader } from '../../utils/imageLoader'
 
 const useStyles = makeStyles({
   avatar: {
@@ -38,10 +39,11 @@ export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
       })}
     >
       <Image
-        src={getRootImageUrl(src)}
+        src={src}
         layout="fill"
         objectFit="cover"
         sizes={imageSizesOnWidthAndBreakpoints(120, breakpoints)}
+        {...storyblokImageLoader(src)}
       />
     </Avatar>
   )

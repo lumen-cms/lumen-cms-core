@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import { makeStyles } from '@material-ui/core/styles'
@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { Popover } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
+import { useEffectOnce } from 'react-use'
 import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
@@ -22,20 +23,36 @@ const useStyles = makeStyles({
 
 export function LmMenu({ content }: LmMenuProps): JSX.Element {
   const classes = useStyles(content)
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [active, setActive] = useState<boolean>(false)
   const menuItems = content.body || []
   const isCustom =
     menuItems.length && menuItems[0].component !== 'nav_menu_item'
-  const router = useRouter()
-  const asPath = router?.asPath
+  const { asPath } = useRouter() || {}
 
   const handleClose = () => {
     setAnchorEl(null)
   }
 
+  useEffectOnce(() => {
+    if (isCustom) {
+      menuItems.forEach((blok) => {
+        const bString = JSON.stringify(blok)
+        if (bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)) {
+          // !active &&
+          setActive(true)
+        }
+        // else {
+        //       active && setActive(false)
+        //     }
+      })
+    }
+  })
+
   useEffect(() => {
     handleClose()
   }, [asPath])
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
@@ -92,7 +109,6 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
       <ChevronUp />
     )
   // const StartIcon = content.start_icon?.name ? <LmIcon iconName={content.start_icon.name} /> : null
-
   return (
     <>
       {content.title_custom?.length ? (
@@ -101,6 +117,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
             content={blok}
             key={blok._uid}
             onClick={handleClick}
+            className={active ? 'lm_menu_active' : ''}
           />
         ))
       ) : (
@@ -113,13 +130,12 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           }
           aria-controls="simple-menu"
           aria-haspopup="true"
-          className="lm-default-color"
+          className={`lm-default-color${active ? ` lm_menu_active` : ''}`}
           onClick={handleClick}
         >
           {content.title}
         </Button>
       )}
-
       {isCustom ? (
         <Popover
           open={Boolean(anchorEl)}
@@ -131,9 +147,9 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           {...addons}
         >
           <div style={{ padding: 16 }}>
-            {menuItems.map((blok) => (
-              <LmComponentRender content={blok} key={blok._uid} />
-            ))}
+            {menuItems.map((blok) => {
+              return <LmComponentRender content={blok} key={blok._uid} />
+            })}
           </div>
         </Popover>
       ) : (
@@ -159,8 +175,13 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
                     component: LmCoreComponents.lm_link_render
                   }
                 : {}
+
             return (
-              <MenuItem {...btnProps} key={nestedProps._uid}>
+              <MenuItem
+                {...btnProps}
+                key={nestedProps._uid}
+                className={btnProps.href === asPath ? 'lm_active' : ''}
+              >
                 {nestedProps.label}
               </MenuItem>
             )

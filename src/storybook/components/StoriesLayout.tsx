@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { FC, FunctionComponent } from 'react'
+import { FC } from 'react'
 import Container from '@material-ui/core/Container'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import {
   boolean,
   color,
@@ -15,21 +14,17 @@ import { LmCoreComponents } from '@CONFIG'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { CONFIG_STORYBOOK } from './configStorybook'
-import useGlobalStyles from '../../utils/hooks/useGlobalStyles'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import AppProvider from '../../components/provider/AppProvider'
 import '../../components/NamedComponents'
+import '../../components/NamedComponentsAdditional'
 import { LmAppProvidersContainer } from '../../components/layout/LmAppProvidersContainer'
+import { SettingsPageProvider } from '../../components/provider/SettingsPageProvider'
 
 const OverwriteLink: FC = ({ children }) => {
   return <a>{children}</a>
 }
 LmCoreComponents.lm_link_render = OverwriteLink
-
-const Layout: FunctionComponent = ({ children }) => {
-  useGlobalStyles()
-  return <>{children}</>
-}
 
 const StoriesLayout = (Story: StoryType) => {
   const isDark = boolean('Dark mode', false, CONFIG_STORYBOOK.KNOBS.THEME)
@@ -158,10 +153,9 @@ const StoriesLayout = (Story: StoryType) => {
         allStaticContent: []
       }}
     >
-      <GlobalTheme>
-        <LmAppProvidersContainer>
-          <CssBaseline />
-          <Layout>
+      <SettingsPageProvider settings={settings as any} page={null}>
+        <GlobalTheme>
+          <LmAppProvidersContainer>
             <Container
               component="main"
               maxWidth={false}
@@ -171,10 +165,10 @@ const StoriesLayout = (Story: StoryType) => {
                 <Story {...settings} />
               </>
             </Container>
-          </Layout>
-          <link href={getFontBasedOnSetting(settings)} rel="stylesheet" />
-        </LmAppProvidersContainer>
-      </GlobalTheme>
+            <link href={getFontBasedOnSetting(settings)} rel="stylesheet" />
+          </LmAppProvidersContainer>
+        </GlobalTheme>
+      </SettingsPageProvider>
     </AppProvider>
   )
 }

@@ -23,16 +23,15 @@ export default function LmCategoryBox({
 
   const { allCategories } = useAppContext()
   let categories = allCategories
-  const filterByTags =
-    (content.filter_by_tags && content.filter_by_tags.values) || []
+  const filterByTags = content.filter_by_tags?.values || []
   const filterByCategories = content.filter_categories || []
   if (filterByTags || filterByCategories.length) {
     categories = categories.filter((category) => {
       const categoryContent = category.content
-      if (
-        !(categoryContent.tag_reference && categoryContent.tag_reference.values)
-      )
-        return false // remove all categories without tag_reference
+      if (!categoryContent.tag_reference?.values) {
+        // remove all categories without tag_reference
+        return false
+      }
       let exists = true
       if (filterByTags.length) {
         const tagList = category.tag_list || []

@@ -6,7 +6,7 @@ import { LmButtonList } from './button-list/ButtonList'
 import { LmHeadline } from './headline/Headline'
 import { LmGridRow } from './section/GridRow'
 import { LmGridColumn } from './section/GridColumn'
-import { LmImage } from './image/ImageElement'
+import { LmImageElement } from './image/ImageElement'
 import { LmHtml } from './html/Html'
 import LmImageList from './image-list/ImageList'
 import { LmButton } from './button/Button'
@@ -43,7 +43,6 @@ export {
   LmHtml,
   LmIcon,
   LmIframe,
-  LmImage,
   LmImageList,
   LmSection,
   LmTimeline,
@@ -67,19 +66,12 @@ LmCoreComponents.accordion = LmAccordion
 LmCoreComponents.accordion_item = LmAccordionItem
 LmCoreComponents.divider = LmDivider
 LmCoreComponents.button_list = LmButtonList
-LmCoreComponents.section = LmSection
-LmCoreComponents.headline = LmHeadline
-LmCoreComponents.row = LmGridRow
-LmCoreComponents.column = LmGridColumn
-LmCoreComponents.image = LmImage
-LmCoreComponents.image_list = LmImageList
-LmCoreComponents.image_list_item = LmImageListItem
 LmCoreComponents.html = LmHtml
 LmCoreComponents.section = LmSection
 LmCoreComponents.headline = LmHeadline
 LmCoreComponents.row = LmGridRow
 LmCoreComponents.column = LmGridColumn
-LmCoreComponents.image = LmImage
+LmCoreComponents.image = LmImageElement
 LmCoreComponents.image_list = LmImageList
 LmCoreComponents.image_list_item = LmImageListItem
 LmCoreComponents.button = LmButton

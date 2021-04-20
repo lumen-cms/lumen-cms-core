@@ -11,7 +11,7 @@ import {
 import COMPONENT_JSON from '../../../components.82895.json'
 import { classNameOpts } from './utilityClassNamesHelper'
 import iconObj from './iconListHelper'
-import { getGlobalState } from '../components/SetStoriesDecorator'
+// import { getGlobalState } from '../components/SetStoriesDecorator'
 import {
   allAssetVideoOptions,
   allImageOptions,
@@ -161,9 +161,9 @@ const getKnobComponents = ({
       }
     } else if (currentSchema.field_type === 'tags-select') {
       if (!Object.keys(allTags).length) {
-        getGlobalState('allTags').forEach((item) => {
-          allTags[item.label] = item.value
-        })
+        // getGlobalState('allTags').forEach((item) => {
+        //   allTags[item.label] = item.value
+        // })
       }
       obj[schemaKey] = {
         values: optionsKnob(

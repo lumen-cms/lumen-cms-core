@@ -13,7 +13,7 @@ export default function LmListSearchField({
   const router = useRouter()
   const onSearchTextChange = useSearchStore((state) => state.onSearchTextChange)
 
-  const { callback } = useDebouncedCallback(
+  const callback = useDebouncedCallback(
     (value: string) => {
       onSearchTextChange(value)
     },

@@ -6,7 +6,7 @@ import { WhatsappChatButtonProps } from './chatTypings'
 
 const whatsappUrl = `https://wa.me`
 
-export default function WhatsappChatButton({
+export default function LmWhatsappChatButton({
   content
 }: WhatsappChatButtonProps) {
   let phoneNumber = content.phone_number || ''

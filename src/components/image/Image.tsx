@@ -4,16 +4,18 @@ import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import {
   getOriginalImageDimensions,
-  getRootImageUrl,
   imageSizesOnWidthAndBreakpoints
-} from '../../utils/ImageService'
+} from '../../utils/imageServices'
 import { LmImageProps } from './imageTypes'
+import { storyblokImageLoader } from '../../utils/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) => ({
   image: {
     margin: 'auto',
     width: '100%',
-    height: 'auto',
+    height: 'auto'
+  },
+  imgAddons: {
     '&.img-thumbnail': {
       padding: '.25rem',
       backgroundColor: theme.palette.background.default,
@@ -62,7 +64,6 @@ export default function LmImage({
     : disable_lazy_loading
     ? 'eager'
     : undefined
-  const storyblokImage = getRootImageUrl(imageSource)
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
 
   const manualSquare =
@@ -111,13 +112,15 @@ export default function LmImage({
         }}
         className={clsx(
           content.class_names?.values,
+          classes.imgAddons,
           content.property,
           loaded ? 'loaded' : 'loading'
         )}
       >
         <div style={{ paddingBottom: '100%' }} />
         <Image
-          src={storyblokImage}
+          {...storyblokImageLoader(imageSource)}
+          src={imageSource}
           alt={content.alt || 'website image'}
           onLoad={() => setLoaded(true)}
           loading={loading}
@@ -136,6 +139,7 @@ export default function LmImage({
       className={clsx(
         content.class_names?.values,
         classes.image,
+        classes.imgAddons,
         content.property,
         loaded ? 'loaded' : 'loading'
       )}
@@ -154,7 +158,8 @@ export default function LmImage({
       }}
     >
       <Image
-        src={storyblokImage}
+        {...storyblokImageLoader(imageSource)}
+        src={imageSource}
         alt={content.alt || 'website image'}
         width={squareSize || originalDimensions.width}
         height={squareSize || originalDimensions.height}

@@ -1,24 +1,22 @@
 import NextHead from 'next/head'
 import React, { memo } from 'react'
-import GoogleFonts from 'next-google-fonts'
+import { GoogleFonts } from 'next-google-fonts'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
-import { imageServiceNoWebp } from '../../utils/ImageService'
+import { useRouter } from 'next/router'
+import { imageServiceNoWebp } from '../../utils/imageServices'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
-import {
-  useInsideStoryblok,
-  useSettings
-} from '../provider/SettingsPageProvider'
+import { useSettings } from '../provider/SettingsPageProvider'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 function AppHead(): JSX.Element {
   const settings = useSettings()
   const favicon = settings.setup_favicon
-  const insideStoryblok = useInsideStoryblok()
+  const { isPreview } = useRouter() || {}
 
   if (process.env.NODE_ENV === 'development') {
     console.log('render app head better only once')
@@ -123,15 +121,16 @@ function AppHead(): JSX.Element {
         {settings?.pwa_app_name && settings?.pwa_app_description && (
           <link rel="manifest" href="/manifest.json" />
         )}
-        {insideStoryblok && (
+        {isPreview && (
           <script src="//app.storyblok.com/f/storyblok-latest.js" />
         )}
+        {settings?.custom_css && <style>{settings.custom_css}</style>}
       </NextHead>
-      {!isDevelopment && !insideStoryblok && settings?.setup_facebook_pixel && (
+      {!isDevelopment && !isPreview && settings?.setup_facebook_pixel && (
         <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />
       )}
       {!isDevelopment &&
-        !insideStoryblok &&
+        !isPreview &&
         settings?.setup_ad_roll_adv_id &&
         settings?.setup_ad_roll_pix_id && (
           <AdRoll
@@ -139,11 +138,9 @@ function AppHead(): JSX.Element {
             pixId={settings.setup_ad_roll_pix_id}
           />
         )}
-      {!isDevelopment &&
-        !insideStoryblok &&
-        settings?.setup_google_analytics && (
-          <Gtag googleAnalyticsId={settings.setup_google_analytics} />
-        )}
+      {!isDevelopment && !isPreview && settings?.setup_google_analytics && (
+        <Gtag googleAnalyticsId={settings.setup_google_analytics} />
+      )}
     </>
   )
 }

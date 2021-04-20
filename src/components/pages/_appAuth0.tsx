@@ -51,7 +51,7 @@ function AppContainer(props: LmAppProps) {
 }
 
 export function Auth0App(props: LmAppProps) {
-  if (props.pageProps.insideStoryblok) {
+  if (props.router?.isPreview) {
     return <LmApp {...props} />
   }
   return (

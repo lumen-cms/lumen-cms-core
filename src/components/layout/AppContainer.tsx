@@ -7,13 +7,13 @@ import { LmAppProvidersContainer } from './LmAppProvidersContainer'
 import { AppContainerProps } from './layoutTypes'
 import { SettingsPageProvider } from '../provider/SettingsPageProvider'
 
-export const AppContainer: FunctionComponent<AppContainerProps> = ({
+export const LmAppContainer: FunctionComponent<AppContainerProps> = ({
   content,
   children
 }) => {
   // const set = useAppStore.getState().settings
   // const pag = useAppStore.getState().page
-  const { page, settings, error, insideStoryblok, ...rest } = content
+  const { page, settings, error, ...rest } = content
 
   if (error) {
     return <Error statusCode={500} />
@@ -24,11 +24,7 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
 
   return (
     <AppProvider content={{ ...rest }}>
-      <SettingsPageProvider
-        settings={settings}
-        page={page}
-        insideStoryblok={insideStoryblok}
-      >
+      <SettingsPageProvider settings={settings} page={page}>
         <AppSetupProvider>
           <GlobalTheme>
             <LmAppProvidersContainer>{children}</LmAppProvidersContainer>
@@ -39,4 +35,4 @@ export const AppContainer: FunctionComponent<AppContainerProps> = ({
   )
 }
 
-AppContainer.displayName = 'AppContainer'
+LmAppContainer.displayName = 'AppContainer'
