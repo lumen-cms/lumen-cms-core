@@ -37,7 +37,9 @@
     "check-types": "tsc --noemit",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "lint:fix": "npm run lint --fix",
-    "codegen-let": "graphql-let"
+    "codegen-let": "graphql-let",
+    "init-chromatic": "npm run build-story && npx chromatic --project-token=60b756d637f7 --storybook-build-dir=./public_storybook --allow-console-errors",
+    "chromatic": "npx chromatic --allow-console-errors --project-token 60b756d637f7"
   },
   "author": "Dominic Garms",
   "license": "MIT",
