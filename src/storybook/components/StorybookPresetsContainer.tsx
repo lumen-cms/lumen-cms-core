@@ -17,10 +17,11 @@ export default function StorybookPresetsContainer({
   return (
     <>
       {items.map((item: any) => {
+        console.log(item)
         return (
-          <div key={item.id}>
-            <h3>{item.name}</h3>
-            <LmComponentRender content={item.preset} />
+          <div key={item._uid}>
+            <h3>{item.storybook_name}</h3>
+            <LmComponentRender content={item} />
           </div>
         )
       })}

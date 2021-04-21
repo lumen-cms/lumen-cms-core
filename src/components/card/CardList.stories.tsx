@@ -1,5 +1,4 @@
-import { loremIpsum } from 'lorem-ipsum'
-import { LmComponentRender as LmCardList } from '@LmComponentRender'
+import { Meta, Story } from '@storybook/react'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
@@ -8,17 +7,48 @@ import {
   ImageStoryblok,
   ParagraphStoryblok
 } from '../../typings/generated/components-schema'
-import { storyCardList, storyCardListItem } from '../../storybook/core/section'
-import { getRandomImage } from '../../storybook/core/various'
+import LmCardList from './CardList'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { findFirstPreset } from '../../storybook/findStorybookPresets'
+import { LmCardListProps } from './cardTypes'
+import { getStorybookImageOnIteration } from '../../storybook/contentHelper'
+
+const COMPONENT_NAME = 'card_list'
+
+export default {
+  title: 'Design/Surfaces/Cards',
+  component: LmCardList,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
+  }
+} as Meta
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName={COMPONENT_NAME} />
+)
+
+const Template: Story<LmCardListProps['content']> = (args) => (
+  <LmCardList content={args} />
+)
+
+const presetContent = findFirstPreset<LmCardListProps['content']>(
+  COMPONENT_NAME
+)
+
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent
+}
 
 const getCardListItemElement = (iteration: number) => {
   return {
-    _uid: `${loremIpsum()}_${iteration}`,
+    _uid: `${iteration}`,
     component: 'card_list_item',
-    image: getRandomImage(),
-    title: loremIpsum(),
-    subtitle: loremIpsum(),
-    description: loremIpsum({ units: 'sentences' })
+    image: getStorybookImageOnIteration(iteration),
+    title: 'Card-Title',
+    subtitle: 'Card-Subtitle',
+    description: 'This can be a longer description of a card.'
   } as CardListItemStoryblok
 }
 
@@ -28,7 +58,7 @@ let counter = 0
 
 function createItems() {
   if (counter < itemCount) {
-    items.push(getCardListItemElement(itemCount))
+    items.push(getCardListItemElement(counter))
     counter++
     createItems()
   }
@@ -107,34 +137,6 @@ const cardList: CardListStoryblok = {
   _uid: '12311',
   component: 'card_list',
   body: cardListBody
-}
-
-const cardListWithAction: CardListStoryblok = {
-  _uid: '12311',
-  component: 'card_list',
-  body: cardListBody.map((cardItem, i) => ({
-    ...cardItem,
-    action_headline: [
-      {
-        _uid: '543',
-        component: 'headline',
-        typography: 'headline5',
-        color: 'textSecondary',
-        text: `Some Sidebar Action`
-      } as HeadlineStoryblok
-    ],
-    body: [
-      {
-        _uid: '543',
-        component: 'headline',
-        text: `Headline ${i}`
-      }
-    ] as (HeadlineStoryblok | ParagraphStoryblok | ImageStoryblok)[]
-  }))
-}
-
-export default {
-  title: 'Design/Surfaces/Cards'
 }
 
 export const CardList = () => <LmCardList content={cardList} />
@@ -234,9 +236,9 @@ export const CardsOfTravels = () => {
             return {
               _uid: `elem-${num}`,
               component: 'card_list_item',
-              title: loremIpsum({ count: 1, units: 'words' }),
-              image: getRandomImage(),
-              description: loremIpsum({ count: 1, units: 'sentence' }),
+              title: 'Card Title',
+              image: getStorybookImageOnIteration(num),
+              description: 'Some long description of a card.',
               card_actions_body: [
                 {
                   _uid: 'asdfa',
@@ -248,13 +250,13 @@ export const CardsOfTravels = () => {
                       _uid: '123',
                       component: 'headline',
                       typography: 'body1',
-                      text: loremIpsum({ count: 1, units: 'words' })
+                      text: 'Some Headline'
                     },
                     {
-                      _uid: '123',
+                      _uid: '12332',
                       component: 'headline',
                       typography: 'body2',
-                      text: loremIpsum({ count: 1, units: 'words' })
+                      text: 'Another Headline'
                     }
                   ] as HeadlineStoryblok[]
                 }
@@ -281,25 +283,30 @@ export const CardIcons = () => (
 )
 export const CardActions = () => (
   <>
-    <LmCardList content={cardListWithAction} />
-  </>
-)
-export const Playground = () => {
-  return (
     <LmCardList
       content={{
-        ...storyCardList(),
-        body: [
-          storyCardListItem({ count: 1 }),
-          storyCardListItem({ count: 2 }),
-          storyCardListItem({ count: 3 }),
-          storyCardListItem({ count: 4 }),
-          storyCardListItem({ count: 5 }),
-          storyCardListItem({ count: 6 }),
-          storyCardListItem({ count: 7 }),
-          storyCardListItem({ count: 8 })
-        ]
+        _uid: '12311',
+        component: 'card_list',
+        body: cardListBody.map((cardItem, i) => ({
+          ...cardItem,
+          action_headline: [
+            {
+              _uid: '543',
+              component: 'headline',
+              typography: 'headline5',
+              color: 'textSecondary',
+              text: `Some Sidebar Action`
+            } as HeadlineStoryblok
+          ],
+          body: [
+            {
+              _uid: '543',
+              component: 'headline',
+              text: `Headline ${i}`
+            }
+          ] as (HeadlineStoryblok | ParagraphStoryblok | ImageStoryblok)[]
+        }))
       }}
     />
-  )
-}
+  </>
+)

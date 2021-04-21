@@ -1,64 +1,84 @@
-import React from 'react'
-import { LmComponentRender as LmButton } from '@LmComponentRender'
-import { ButtonStoryblok } from '../../typings/generated/components-schema'
-import { storyButton } from '../../storybook/core/various'
-
-const defaultProps: ButtonStoryblok = {
-  label: 'Text Button',
-  _uid: '123',
-  component: 'button'
-}
-
-const iconProps: ButtonStoryblok = {
-  icon: { name: 'home' },
-  _uid: '123',
-  component: 'button'
-}
-
-const twitterPng =
-  'https://img2.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
-
-const iconButton: ButtonStoryblok = {
-  _uid: '34334',
-  component: 'button',
-  image: twitterPng
-}
+import { Meta, Story } from '@storybook/react'
+import { LmButton } from './Button'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { LmButtonProps } from './buttonTypes'
+import { findFirstPreset } from '../../storybook/findStorybookPresets'
+import StorybookSpacingContainer from '../../storybook/components/StorybookSpacingContainer'
 
 export default {
-  title: 'Design/Inputs/Button'
+  title: 'Design/Inputs/Button',
+  component: LmButton,
+  argTypes: {
+    ...getComponentArgTypes('button')
+  }
+} as Meta
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="button" />
+)
+
+const Template: Story<LmButtonProps['content']> = (args) => (
+  <LmButton content={args} />
+)
+
+const presetContent = findFirstPreset<LmButtonProps['content']>('button')
+
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent
 }
 
-export const MaterialButton = () => (
+const iconProps = {
+  ...presetContent,
+  icon: { name: 'home' }
+}
+
+const imageProps = {
+  ...presetContent,
+  image:
+    'https://img2.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
+}
+
+export const ButtonVariants = () => (
   <>
     <h3>Default</h3>
-    <div className="p-2">
-      <LmButton content={defaultProps} />
+    <StorybookSpacingContainer>
+      <LmButton content={presetContent} />
       <LmButton
-        content={{ ...defaultProps, icon: { name: 'home' }, color: 'primary' }}
+        content={{ ...presetContent, ...iconProps, color: 'primary' }}
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           icon: { name: 'home' },
           color: 'secondary'
         }}
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           icon: { name: 'home' },
           custom_color: { rgba: '#219' }
         }}
       />
-      <LmButton content={{ ...iconProps, color: 'secondary' }} />
-      <LmButton content={{ ...iconProps, custom_color: { rgba: '#219' } }} />
-    </div>
+      <LmButton
+        content={{ ...presetContent, ...iconProps, color: 'secondary' }}
+      />
+      <LmButton
+        content={{
+          ...presetContent,
+          ...iconProps,
+          custom_color: { rgba: '#219' }
+        }}
+      />
+    </StorybookSpacingContainer>
     <h3>Fab</h3>
-    <div className="p-2">
-      <LmButton content={{ ...defaultProps, variant: 'fab' }} />
+    <StorybookSpacingContainer>
+      <LmButton content={{ ...presetContent, variant: 'fab' }} />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           icon: { name: 'home' },
           color: 'primary'
@@ -66,7 +86,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           icon: { name: 'home' },
           color: 'secondary',
@@ -74,23 +94,29 @@ export const MaterialButton = () => (
         }}
       />
       <LmButton
-        content={{ ...iconProps, variant: 'fab', color: 'secondary' }}
+        content={{
+          ...presetContent,
+          ...iconProps,
+          variant: 'fab',
+          color: 'secondary'
+        }}
       />
       <LmButton
         content={{
+          ...presetContent,
           ...iconProps,
           variant: 'fab',
           color: 'secondary',
           custom_color: { rgba: '#219' }
         }}
       />
-    </div>
+    </StorybookSpacingContainer>
     <h3>Dense</h3>
-    <div className="p-2">
-      <LmButton content={{ ...defaultProps, variant: 'fab', size: 'dense' }} />
+    <StorybookSpacingContainer>
+      <LmButton content={{ ...presetContent, variant: 'fab', size: 'dense' }} />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           size: 'dense',
           icon: { name: 'home' },
@@ -99,7 +125,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           size: 'dense',
           icon: { name: 'home' },
@@ -108,22 +134,23 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
+          ...presetContent,
           ...iconProps,
           variant: 'fab',
           size: 'dense',
           color: 'secondary'
         }}
       />
-    </div>
+    </StorybookSpacingContainer>
 
     <h3>Large</h3>
-    <div className="p-2">
+    <StorybookSpacingContainer>
       <LmButton
-        content={{ ...defaultProps, variant: 'fab', size: 'lm-button-large' }}
+        content={{ ...presetContent, variant: 'fab', size: 'lm-button-large' }}
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           size: 'lm-button-large',
           icon: { name: 'home' },
@@ -132,7 +159,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           size: 'lm-button-large',
           icon: { name: 'home' },
@@ -141,20 +168,21 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
+          ...presetContent,
           ...iconProps,
           variant: 'fab',
           size: 'lm-button-large',
           color: 'secondary'
         }}
       />
-    </div>
-    <div className="p-2">
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
       <LmButton
-        content={{ ...defaultProps, variant: 'fab', size: 'lm-button-xlarge' }}
+        content={{ ...presetContent, variant: 'fab', size: 'lm-button-xlarge' }}
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           size: 'lm-button-xlarge',
           icon: { name: 'home' },
@@ -163,7 +191,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           size: 'lm-button-xlarge',
           icon: { name: 'home' },
@@ -172,18 +200,19 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
+          ...presetContent,
           ...iconProps,
           variant: 'fab',
           size: 'lm-button-xlarge',
           color: 'secondary'
         }}
       />
-    </div>
-    <div className="p-2">
-      <LmButton content={{ ...defaultProps, variant: 'raised' }} />
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
+      <LmButton content={{ ...presetContent, variant: 'raised' }} />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'raised',
           icon: { name: 'home' },
           color: 'primary'
@@ -191,7 +220,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'raised',
           icon: { name: 'home' },
           color: 'secondary'
@@ -199,7 +228,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'raised',
           icon: { name: 'home' },
           color: 'secondary',
@@ -217,12 +246,12 @@ export const MaterialButton = () => (
           custom_color: { rgba: '#219' }
         }}
       />
-    </div>
-    <div className="p-2">
-      <LmButton content={{ ...defaultProps, variant: 'outlined' }} />
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
+      <LmButton content={{ ...presetContent, variant: 'outlined' }} />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'primary'
@@ -230,7 +259,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'secondary'
@@ -238,7 +267,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'secondary',
@@ -256,18 +285,18 @@ export const MaterialButton = () => (
           custom_color: { rgba: '#219' }
         }}
       />
-    </div>
-    <div className="p-2">
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           corners: 'lm-button-shaped'
         }}
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'primary',
@@ -276,7 +305,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'secondary',
@@ -291,11 +320,11 @@ export const MaterialButton = () => (
           corners: 'lm-button-shaped'
         }}
       />
-    </div>
-    <div className="p-2">
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           corners: 'lm-button-square',
           size: 'dense'
@@ -303,7 +332,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'primary',
@@ -313,7 +342,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'secondary',
@@ -329,11 +358,11 @@ export const MaterialButton = () => (
           corners: 'lm-button-square'
         }}
       />
-    </div>
-    <div className="p-2">
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           corners: 'lm-button-square',
           size: 'lm-button-large'
@@ -341,7 +370,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'primary',
@@ -351,7 +380,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'secondary',
@@ -368,11 +397,11 @@ export const MaterialButton = () => (
           size: 'lm-button-large'
         }}
       />
-    </div>
-    <div className="p-2">
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           corners: 'lm-button-square',
           size: 'lm-button-xlarge'
@@ -380,7 +409,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'primary',
@@ -390,7 +419,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'raised',
           icon: { name: 'home' },
           color: 'secondary',
@@ -407,12 +436,12 @@ export const MaterialButton = () => (
           size: 'lm-button-xlarge'
         }}
       />
-    </div>
+    </StorybookSpacingContainer>
     <h3>XLarge</h3>
-    <div className="p-2">
+    <StorybookSpacingContainer>
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           corners: 'lm-button-shaped',
           size: 'lm-button-xlarge'
@@ -420,7 +449,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'primary',
@@ -430,7 +459,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'raised',
           icon: { name: 'home' },
           color: 'secondary',
@@ -464,11 +493,11 @@ export const MaterialButton = () => (
           size: 'lm-button-xlarge'
         }}
       />
-    </div>
+    </StorybookSpacingContainer>
     <div className="p-2">
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           corners: 'lm-button-shaped',
           properties: ['disable-ripple'],
@@ -477,7 +506,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'outlined',
           icon: { name: 'home' },
           color: 'primary',
@@ -488,7 +517,7 @@ export const MaterialButton = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'raised',
           icon: { name: 'home' },
           color: 'secondary',
@@ -532,20 +561,22 @@ export const MaterialButton = () => (
 
 export const ButtonWithImage = () => (
   <>
-    <LmButton content={{ ...iconButton, size: 'dense' }} />
-    <LmButton content={iconButton} />
-    <LmButton content={{ ...iconButton, size: 'lm-button-large' }} />
-    <LmButton content={{ ...iconButton, size: 'lm-button-xlarge' }} />
-    <LmButton
-      content={{ ...iconButton, size: 'lm-button-xlarge', label: 'Label' }}
-    />
-    <div>
+    <StorybookSpacingContainer>
+      <LmButton content={{ ...imageProps, size: 'dense' }} />
+      <LmButton content={imageProps} />
+      <LmButton content={{ ...imageProps, size: 'lm-button-large' }} />
+      <LmButton content={{ ...imageProps, size: 'lm-button-xlarge' }} />
       <LmButton
-        content={{ ...iconButton, variant: 'outlined', label: 'Label' }}
+        content={{ ...imageProps, size: 'lm-button-xlarge', label: 'Label' }}
+      />
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
+      <LmButton
+        content={{ ...imageProps, variant: 'outlined', label: 'Label' }}
       />
       <LmButton
         content={{
-          ...iconButton,
+          ...imageProps,
           variant: 'outlined',
           label: 'Label',
           corners: 'lm-button-shaped'
@@ -553,17 +584,17 @@ export const ButtonWithImage = () => (
       />
       <LmButton
         content={{
-          ...iconButton,
+          ...imageProps,
           variant: 'outlined',
           label: 'Label',
           corners: 'lm-button-square'
         }}
       />
-    </div>
-    <div>
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
       <LmButton
         content={{
-          ...iconButton,
+          ...imageProps,
           variant: 'fab',
           label: 'Label',
           size: 'dense'
@@ -571,7 +602,7 @@ export const ButtonWithImage = () => (
       />
       <LmButton
         content={{
-          ...iconButton,
+          ...imageProps,
           variant: 'fab',
           label: 'Label',
           size: 'lm-button-large',
@@ -580,39 +611,39 @@ export const ButtonWithImage = () => (
       />
       <LmButton
         content={{
-          ...iconButton,
+          ...imageProps,
           variant: 'fab',
           label: 'Label',
           size: 'lm-button-xlarge',
           corners: 'lm-button-square'
         }}
       />
-    </div>
+    </StorybookSpacingContainer>
   </>
 )
 
 export const ButtonWithAddons = () => (
   <>
-    <div className="p-2">
-      <LmButton content={defaultProps} />
+    <StorybookSpacingContainer>
+      <LmButton content={presetContent} />
       <LmButton
-        content={{ ...defaultProps, icon: { name: 'home' }, color: 'primary' }}
+        content={{ ...presetContent, icon: { name: 'home' }, color: 'primary' }}
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           icon: { name: 'home' },
           color: 'secondary'
         }}
       />
-      <LmButton content={{ ...defaultProps, color: 'secondary' }} />
+      <LmButton content={{ ...presetContent, color: 'secondary' }} />
       <LmButton content={{ ...iconProps, color: 'secondary' }} />
-    </div>
-    <div className="p-2">
-      <LmButton content={defaultProps} />
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
+      <LmButton content={presetContent} />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           icon: { name: 'home' },
           color: 'primary',
           variant: 'outlined'
@@ -620,7 +651,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           icon: { name: 'home' },
           color: 'secondary',
           variant: 'raised'
@@ -628,7 +659,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'light',
           icon: { name: 'home' },
           color: 'light',
@@ -637,7 +668,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'dark',
           icon: { name: 'home' },
           color: 'dark',
@@ -646,7 +677,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'unelevated',
           color: 'secondary',
           variant: 'unelevated'
@@ -654,7 +685,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'unelevated',
           color: 'primary',
           variant: 'unelevated'
@@ -662,17 +693,17 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'unelevated',
           color: 'primary',
           variant: 'unelevated',
           custom_color: { rgba: '#219' }
         }}
       />
-      <LmButton content={{ ...defaultProps, variant: 'fab' }} />
+      <LmButton content={{ ...presetContent, variant: 'fab' }} />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           color: 'dark',
           properties: ['disable-shadow']
@@ -703,13 +734,13 @@ export const ButtonWithAddons = () => (
           custom_color: { rgba: '#219' }
         }}
       />
-    </div>
+    </StorybookSpacingContainer>
 
-    <div className="p-2">
-      <LmButton content={defaultProps} />
+    <StorybookSpacingContainer>
+      <LmButton content={presetContent} />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           icon: { name: 'home' },
           color: 'primary',
           variant: 'outlined',
@@ -718,7 +749,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           icon: { name: 'home' },
           color: 'secondary',
           variant: 'raised',
@@ -727,7 +758,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'light',
           icon: { name: 'home' },
           color: 'light',
@@ -737,7 +768,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'dark',
           icon: { name: 'home' },
           color: 'dark',
@@ -747,7 +778,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'unelevated',
           color: 'secondary',
           variant: 'unelevated',
@@ -756,7 +787,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'unelevated',
           color: 'primary',
           variant: 'unelevated',
@@ -764,11 +795,11 @@ export const ButtonWithAddons = () => (
         }}
       />
       <LmButton
-        content={{ ...defaultProps, variant: 'fab', size: 'lm-button-large' }}
+        content={{ ...presetContent, variant: 'fab', size: 'lm-button-large' }}
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           color: 'dark',
           properties: ['disable-shadow'],
@@ -793,12 +824,12 @@ export const ButtonWithAddons = () => (
           size: 'lm-button-large'
         }}
       />
-    </div>
-    <div className="p-2">
-      <LmButton content={defaultProps} />
+    </StorybookSpacingContainer>
+    <StorybookSpacingContainer>
+      <LmButton content={presetContent} />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           icon: { name: 'home' },
           color: 'primary',
           variant: 'outlined',
@@ -807,7 +838,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           icon: { name: 'home' },
           color: 'secondary',
           variant: 'raised',
@@ -816,7 +847,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'light',
           icon: { name: 'home' },
           color: 'light',
@@ -826,7 +857,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'dark',
           icon: { name: 'home' },
           color: 'dark',
@@ -836,7 +867,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'unelevated',
           color: 'secondary',
           variant: 'unelevated',
@@ -845,7 +876,7 @@ export const ButtonWithAddons = () => (
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           label: 'unelevated',
           color: 'primary',
           variant: 'unelevated',
@@ -853,11 +884,11 @@ export const ButtonWithAddons = () => (
         }}
       />
       <LmButton
-        content={{ ...defaultProps, variant: 'fab', size: 'lm-button-large' }}
+        content={{ ...presetContent, variant: 'fab', size: 'lm-button-large' }}
       />
       <LmButton
         content={{
-          ...defaultProps,
+          ...presetContent,
           variant: 'fab',
           color: 'dark',
           properties: ['disable-shadow'],
@@ -882,13 +913,6 @@ export const ButtonWithAddons = () => (
           size: 'lm-button-xlarge'
         }}
       />
-    </div>
+    </StorybookSpacingContainer>
   </>
 )
-export const Playground = () => {
-  return (
-    <div className="p-5">
-      <LmButton content={storyButton()} />
-    </div>
-  )
-}
