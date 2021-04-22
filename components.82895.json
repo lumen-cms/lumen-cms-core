@@ -4396,7 +4396,14 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 984773,
+          "name": "Basic Contact Form",
+          "component_id": 894833,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "Google Form",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",

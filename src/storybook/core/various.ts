@@ -33,7 +33,9 @@ import {
 import { StorybookOptionProps } from './storybook_typing'
 import getKnobComponents, { camelizeString } from '../helpers/getKnobComponent'
 import { storyImageUrls } from './sharedFunctions'
-import { GoogleFormExampleUrl } from '../../utils/config'
+
+const GoogleFormExampleUrl =
+  'https://docs.google.com/forms/d/e/1FAIpQLSdw3tdslj4k94OU6bluk0Yobe997r8gV5obEbEdiMs70SKQPw/viewform?embedded=true'
 
 const lorem = new LoremIpsum()
 

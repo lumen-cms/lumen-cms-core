@@ -1,46 +1,55 @@
-import { LmComponentRender } from '@LmComponentRender'
-import { GoogleFormExampleUrl } from '@CONFIG'
 import React from 'react'
-import { FormStoryblok } from '../../typings/generated/components-schema'
-import {
-  storyButton,
-  storyForm,
-  storyParagraph
-} from '../../storybook/core/various'
+import { Meta, Story } from '@storybook/react'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import LmGoogleFormContainer from './LmGoogleFormContainer'
+import { findFirstPreset } from '../../storybook/findStorybookPresets'
+import { LmGoogleFormProps } from './googleFormProps'
+import { fetchGoogleFormDataClient } from '../../utils/initial-props/fetchGoogleFormData'
+import parseHijackedFormData from '../../utils/hooks/googleForms/parseHijackedFormData'
+import { LmAppProvider } from '../../index'
 
-const getProps = () => {
-  const props: FormStoryblok = {
-    _uid: '123098',
-    component: 'form',
-    api: GoogleFormExampleUrl,
-    fields_full_width: true,
-    submit_button: [storyButton()],
-    success_body: [storyParagraph()]
-  }
-  return props
-}
+const COMPONENT_NAME = 'form'
+
+const presetContent = findFirstPreset<LmGoogleFormProps['content']>(
+  COMPONENT_NAME
+)
 
 export default {
-  title: 'Design/Inputs/GoogleForm'
-}
+  title: 'Design/Inputs/GoogleForm',
+  component: LmGoogleFormContainer,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
+  },
+  loaders: [
+    async () => {
+      const res = await fetchGoogleFormDataClient(presetContent.api as string)
+      const parsedData = parseHijackedFormData(res)
+      return {
+        formStructure: parsedData
+      }
+    }
+  ]
+} as Meta
 
-export const Component = () => {
+const Template: Story<LmGoogleFormProps['content']> = (
+  args,
+  { loaded: { formStructure } }
+) => {
   return (
-    <>
-      <LmComponentRender content={{ ...getProps() }} />
-    </>
+    <LmAppProvider
+      // @ts-ignore
+      content={{
+        formData: {
+          [presetContent._uid]: formStructure
+        }
+      }}
+    >
+      <LmGoogleFormContainer content={args} />
+    </LmAppProvider>
   )
 }
 
-export const Playground = () => {
-  return (
-    <>
-      <LmComponentRender
-        content={{
-          ...storyForm(),
-          submit_button: [storyButton({ options: { label: 'SubmitTest' } })]
-        }}
-      />
-    </>
-  )
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent
 }
