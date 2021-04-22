@@ -72,6 +72,14 @@ export function getComponentArgTypes(componentName: string): Meta['argTypes'] {
       // obj[schemaKey].control = {
       //   type: 'select'
       // }
+      // obj[schemaKey] = {
+      //   rgba: {
+      //     name: schemaKey + ' ' + 'pick',
+      //     control: {
+      //       type: 'color'
+      //     }
+      //   }
+      // }
       obj[schemaKey].control.type = 'object'
     }
 

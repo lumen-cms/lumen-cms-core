@@ -3260,7 +3260,26 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 984769,
+          "name": "Black Simple",
+          "component_id": 894836,
+          "image": ""
+        },
+        {
+          "id": 984770,
+          "name": "With Icon",
+          "component_id": 894836,
+          "image": ""
+        },
+        {
+          "id": 984771,
+          "name": "With Icon 50% width",
+          "component_id": 894836,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "divider",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",

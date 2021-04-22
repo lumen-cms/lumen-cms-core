@@ -1,120 +1,124 @@
-import { LmComponentRender as LmDivider } from '@LmComponentRender'
-import { storyDivider } from '../../storybook/core/various'
+import { Meta, Story } from '@storybook/react'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import {
+  findFirstPreset,
+  findPresets
+} from '../../storybook/findStorybookPresets'
+import { LmDividerProps } from './dividerTypes'
+import { LmDivider } from './Divider'
+
+const COMPONENT_NAME = 'divider'
 
 export default {
-  title: 'Design/Data Display/Divider'
+  title: 'Design/Data Display/Divider',
+  component: LmDivider,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
+  }
+} as Meta
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName={COMPONENT_NAME} />
+)
+
+const Template: Story<LmDividerProps['content']> = (args) => (
+  <LmDivider content={args} />
+)
+
+const presetContent = findFirstPreset<LmDividerProps['content']>(COMPONENT_NAME)
+const secondPreset = findPresets<LmDividerProps['content']>(COMPONENT_NAME)[1]
+
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent
 }
 
-export const Playground = () => (
+export const WithIcon = Template.bind({})
+WithIcon.args = {
+  ...secondPreset
+}
+
+export const Examples = () => (
   <>
     <div>
       <LmDivider
-        content={storyDivider({
-          count: 1,
-          options: { icon: { name: 'chevron_down' }, size: 24, width: 70 }
-        })}
+        content={{
+          ...presetContent,
+          icon: { name: 'chevron_down' },
+          size: 24,
+          width: 70
+        }}
       />
     </div>
     <div>
       <LmDivider
-        content={storyDivider({
-          count: 2,
-          options: { icon: { name: 'chevron_down' }, size: 30 }
-        })}
+        content={{
+          ...presetContent,
+          icon: { name: 'chevron_down' },
+          size: 30
+        }}
       />
     </div>
     <div>
       <LmDivider
-        content={storyDivider({
+        content={{
+          ...presetContent,
+          icon: {
+            name: 'chevron_down'
+          },
           count: 3,
-          options: {
-            color: {
-              rgba: 'rgba(121,121,121,1)'
-            }
-          }
-        })}
+          color: {
+            rgba: 'rgba(121,121,121,1)'
+          },
+          size: 40,
+          width: 15
+        }}
       />
     </div>
     <div>
       <LmDivider
-        content={storyDivider({
-          count: 4,
-          options: {
-            color: {
-              rgba: 'rgba(121,121,121,1)'
-            },
-            size: 40,
-            width: 70
-          }
-        })}
+        content={{
+          ...presetContent,
+          icon: {
+            name: 'chevron_down'
+          },
+          color: {
+            rgba: 'rgba(121,121,121,1)'
+          },
+          size: 50,
+          width: 30
+        }}
       />
     </div>
     <div>
       <LmDivider
-        content={storyDivider({
-          count: 5,
-          options: {
-            icon: {
-              name: 'chevron_down'
-            },
-            color: {
-              rgba: 'rgba(121,121,121,1)'
-            },
-            size: 40,
-            width: 15
-          }
-        })}
+        content={{
+          ...presetContent,
+          icon: {
+            name: 'chevron_down'
+          },
+          color: {
+            rgba: 'rgba(22,22,1212,1)'
+          },
+          size: 60,
+          width: 30
+        }}
       />
     </div>
     <div>
       <LmDivider
-        content={storyDivider({
-          count: 6,
-          options: {
-            icon: {
-              name: 'chevron_down'
-            },
-            color: {
-              rgba: 'rgba(121,121,121,1)'
-            },
-            size: 50,
-            width: 30
-          }
-        })}
-      />
-    </div>
-    <div>
-      <LmDivider
-        content={storyDivider({
-          count: 7,
-          options: {
-            icon: {
-              name: 'chevron_down'
-            },
-            color: {
-              rgba: 'rgba(22,333,1212,1)'
-            },
-            size: 60,
-            width: 30
-          }
-        })}
-      />
-    </div>
-    <div>
-      <LmDivider
-        content={storyDivider({
-          count: 8,
-          options: {
-            icon: {
-              name: 'chevron_down'
-            },
-            color: {
-              rgba: 'rgba(22,333,1212,1)'
-            },
-            size: 79,
-            width: 30
-          }
-        })}
+        content={{
+          ...presetContent,
+          icon: {
+            name: 'chevron_down'
+          },
+          color: {
+            rgba: 'rgba(22,333,1212,1)'
+          },
+          size: 79,
+          width: 30
+        }}
       />
     </div>
   </>
