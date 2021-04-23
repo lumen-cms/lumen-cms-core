@@ -1,16 +1,6 @@
 import { LmComponentRender as LmImage } from '@LmComponentRender'
-import {
-  ColumnStoryblok,
-  HeadlineStoryblok,
-  ImageStoryblok,
-  RowStoryblok
-} from '../../typings/generated/components-schema'
-import { storyHeadline, storyImage } from '../../storybook/core/various'
-import {
-  storyColumn,
-  storyRow,
-  storySection
-} from '../../storybook/core/section'
+import { ImageStoryblok } from '../../typings/generated/components-schema'
+import { storyImage } from '../../storybook/core/various'
 
 const props: ImageStoryblok = {
   _uid: '123',
@@ -151,56 +141,6 @@ export const ImageFocalPoint = () => {
   )
 }
 
-export const ImageInSections = () => (
-  <LmImage
-    content={{
-      ...storySection(),
-      body: [
-        {
-          ...storyRow(),
-          body: [
-            {
-              ...storyColumn({ count: 1 }),
-              width_general: 'auto',
-              body: [
-                {
-                  ...storyHeadline()
-                } as HeadlineStoryblok
-              ]
-            },
-            {
-              ...storyColumn({ count: 2 }),
-              width_general: 'auto',
-              body: [
-                {
-                  ...storyImage({ count: 1, options: { width: 120 } })
-                } as ImageStoryblok
-              ]
-            },
-            {
-              ...storyColumn({ count: 3 }),
-              width_general: '2',
-              body: [
-                {
-                  ...storyImage({ count: 2 })
-                } as ImageStoryblok
-              ]
-            },
-            {
-              ...storyColumn({ count: 4 }),
-              width_general: 'true',
-              body: [
-                {
-                  ...storyImage({ count: 3 })
-                } as ImageStoryblok
-              ]
-            }
-          ] as ColumnStoryblok[]
-        } as RowStoryblok
-      ]
-    }}
-  />
-)
 export const Playground = () => (
   <div
     style={{

@@ -18,14 +18,14 @@ import {
   TimelineItemStoryblok,
   TimelineStoryblok
 } from '../../typings/generated/components-schema'
-import { getLabel, getSentences, randomIntFromInterval } from './various'
+import { getLabel, getSentences } from './various'
 import getKnobComponents from '../helpers/getKnobComponent'
-import { storyImageUrls } from './sharedFunctions'
+import { getStorybookImageOnIteration } from '../contentHelper'
 
 export const storySectionVideoBg = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<SectionVideoBgStoryblok>
 } = {}) => {
@@ -40,7 +40,7 @@ export const storySectionVideoBg = ({
 export const storySection = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<SectionStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'section',
@@ -53,7 +53,7 @@ export const storySection = ({
 export const storyRow = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<RowStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'row',
@@ -66,7 +66,7 @@ export const storyRow = ({
 export const storyColumn = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<ColumnStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'column',
@@ -79,7 +79,7 @@ export const storyColumn = ({
 export const storyCardList = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<CardListStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'card_list',
@@ -92,15 +92,14 @@ export const storyCardList = ({
 export const storyCardListItem = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<CardListItemStoryblok>
 } = {}) => {
   return getKnobComponents({
     componentName: 'card_list_item',
     options: {
-      image:
-        storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)],
+      image: getStorybookImageOnIteration(count || 1),
       title: getLabel(),
       subtitle: getLabel(),
       description: getSentences(),
@@ -114,7 +113,7 @@ export const storyCardListItem = ({
 export const storyImageList = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<ImageListStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'image_list',
@@ -127,15 +126,14 @@ export const storyImageList = ({
 export const storyImageListItem = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<ImageListItemStoryblok>
 } = {}) => {
   return getKnobComponents({
     componentName: 'image_list_item',
     options: {
-      source:
-        storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)],
+      source: getStorybookImageOnIteration(count || 1),
       label: getLabel(3),
       ...options
     },
@@ -147,7 +145,7 @@ export const storyImageListItem = ({
 export const storyFlexRow = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<FlexRowStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'flex_row',
@@ -160,7 +158,7 @@ export const storyFlexRow = ({
 export const storyListWidget = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<ListWidgetStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'list_widget',
@@ -173,7 +171,7 @@ export const storyListWidget = ({
 export const storyBackground = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<BackgroundStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'background',
@@ -186,7 +184,7 @@ export const storyBackground = ({
 export const storyTabs = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<TabsStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'tabs',
@@ -199,7 +197,7 @@ export const storyTabs = ({
 export const storyTabsItem = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<TabsItemStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'tabs_item',
@@ -215,7 +213,7 @@ export const storyTabsItem = ({
 export const storySectionParallax = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<SectionParallaxStoryblok>
 } = {}) => {
@@ -230,7 +228,7 @@ export const storySectionParallax = ({
 export const storyParallaxItem = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<ParallaxItemStoryblok>
 } = {}) => {
@@ -245,7 +243,7 @@ export const storyParallaxItem = ({
 export const storyTimeline = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<TimelineStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'timeline',
@@ -258,7 +256,7 @@ export const storyTimeline = ({
 export const storyTimelineItem = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<TimelineItemStoryblok>
 } = {}) => {

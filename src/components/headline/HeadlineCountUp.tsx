@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer'
 import { LmHeadlineProps } from './headlineTypes'
 import { LmHeadlineCore } from './HeadlineCore'
 
-export function HeadlineCountUp({ content, onClick }: LmHeadlineProps) {
+export default function HeadlineCountUp({ content, onClick }: LmHeadlineProps) {
   const [refIntersectionObserver, inView] = useInView({
     triggerOnce: true
   })

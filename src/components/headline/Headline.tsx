@@ -1,7 +1,11 @@
 import React, { FC } from 'react'
+import dynamic from 'next/dynamic'
 import { LmHeadlineProps } from './headlineTypes'
 import { LmHeadlineCore } from './HeadlineCore'
-import { HeadlineCountUp } from './HeadlineCountUp'
+
+const HeadlineCountUp = dynamic(
+  () => import(/* webpackChunkName: 'countUp' */ './HeadlineCountUp')
+)
 
 export const LmHeadline: FC<LmHeadlineProps> = ({
   content,

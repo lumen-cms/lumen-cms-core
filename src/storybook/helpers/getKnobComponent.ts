@@ -49,12 +49,12 @@ const getKnobComponents = ({
   componentName,
   options = {},
   knob,
-  count = ''
+  count
 }: {
   componentName: any
   options?: any
   knob?: string
-  count?: number | string
+  count?: number
 }) => {
   const findComponents = COMPONENT_JSON.components.find((component) => {
     return component.name === componentName

@@ -1,12 +1,8 @@
 import { LmComponentRender as LmTimeline } from '@LmComponentRender'
-import { loremIpsum } from 'lorem-ipsum'
 import { storyTimeline, storyTimelineItem } from '../../storybook/core/section'
-import {
-  randomIntFromInterval,
-  storyAvatar
-} from '../../storybook/core/various'
-import { storyImageUrls } from '../../storybook/core/sharedFunctions'
+import { getSentences, storyAvatar } from '../../storybook/core/various'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
+import { getStorybookImageOnIteration } from '../../storybook/contentHelper'
 
 export default {
   title: 'Design/Layout/Timeline'
@@ -51,10 +47,7 @@ export const Playground = () => {
           storyAvatar({
             count: 3,
             options: {
-              image:
-                storyImageUrls[
-                  randomIntFromInterval(0, storyImageUrls.length - 1)
-                ]
+              image: getStorybookImageOnIteration(3)
             }
           })
         ]
@@ -71,7 +64,7 @@ export const Playground = () => {
             component: 'headline',
             _uid: 'dfgsfd',
             typography: 'headline5',
-            text: loremIpsum({ units: 'word' })
+            text: getSentences()
           } as HeadlineStoryblok
         ]
       },

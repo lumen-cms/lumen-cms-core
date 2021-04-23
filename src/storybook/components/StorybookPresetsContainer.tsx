@@ -2,11 +2,13 @@ import { findPresets } from '../findStorybookPresets'
 import { LmComponentRender } from '@LmComponentRender'
 
 export default function StorybookPresetsContainer({
-  componentName
+  componentName,
+  presetItems
 }: {
-  componentName: string
+  componentName?: string
+  presetItems?: any[]
 }): JSX.Element {
-  const items = findPresets(componentName)
+  const items = presetItems || (componentName ? findPresets(componentName) : [])
   if (!items.length) {
     return (
       <div>
@@ -16,11 +18,11 @@ export default function StorybookPresetsContainer({
   }
   return (
     <>
-      {items.map((item: any) => {
+      {items.map((item: any, i) => {
         return (
-          <div key={item.id}>
-            <h3>{item.name}</h3>
-            <LmComponentRender content={item.preset} />
+          <div key={item._uid + '_' + i}>
+            <h3>{item.storybook_name}</h3>
+            <LmComponentRender content={item} />
           </div>
         )
       })}

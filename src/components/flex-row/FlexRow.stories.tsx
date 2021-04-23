@@ -1,12 +1,38 @@
-import { LmComponentRender as LmFlexRow } from '@LmComponentRender'
+import { Meta, Story } from '@storybook/react'
 import {
   FlexRowStoryblok,
   HeadlineStoryblok,
   IconStoryblok
 } from '../../typings/generated/components-schema'
-import { storyFlexRow } from '../../storybook/core/section'
-import { storyHeadline, storyIcon } from '../../storybook/core/various'
 import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { LmFlexRow } from './FlexRow'
+import { findFirstPreset } from '../../storybook/findStorybookPresets'
+import { LmFlexRowProps } from './flexRowTypes'
+import { getComponentArgTypes } from '../../storybook/configControls'
+
+const COMPONENT_NAME = 'flex_row'
+export default {
+  title: 'Design/Layout/Flex Row',
+  component: LmFlexRow,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
+  }
+} as Meta
+
+const Template: Story<LmFlexRowProps['content']> = (args) => (
+  <LmFlexRow content={args} />
+)
+
+const presetContent = findFirstPreset<LmFlexRowProps['content']>(COMPONENT_NAME)
+
+export const Preset = () => (
+  <StorybookPresetsContainer componentName="flex_row" />
+)
+
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent
+}
 
 const icon: IconStoryblok = {
   _uid: '232123',
@@ -42,15 +68,7 @@ const props3: FlexRowStoryblok = {
   body: [icon, { ...headline, _uid: '123123' }, headline]
 }
 
-export default {
-  title: 'Design/Layout/Flex Row'
-}
-
-export const Preset = () => (
-  <StorybookPresetsContainer componentName="flex_row" />
-)
-
-export const Basic = () => (
+export const Examples = () => (
   <>
     <div style={{ width: '500px', height: '300px', backgroundColor: '#ccc' }}>
       <LmFlexRow content={props} />
@@ -83,18 +101,4 @@ export const Basic = () => (
       />
     </div>
   </>
-)
-
-export const Playground = () => (
-  <div className="bg-light m-5" style={{ height: '50vh' }}>
-    <LmFlexRow
-      content={{
-        ...storyFlexRow({ options: { align_items: 'center' } }),
-        body: [
-          storyIcon({ options: { name: { name: 'double_arrow' } } }),
-          storyHeadline()
-        ]
-      }}
-    />
-  </div>
 )

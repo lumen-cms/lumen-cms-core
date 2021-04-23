@@ -11,7 +11,7 @@ import { getUid } from '../core/sharedFunctions'
 export const storyToolbarRow = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<ToolbarRowStoryblok>
 } = {}): ToolbarRowStoryblok => {
@@ -26,7 +26,7 @@ export const storyToolbarRow = ({
 export const storyToolbarSection = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<ToolbarRowSectionStoryblok>
 }): ToolbarRowSectionStoryblok => {

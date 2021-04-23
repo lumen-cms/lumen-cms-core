@@ -1,113 +1,90 @@
 import React from 'react'
-import { LmComponentRender as LmAvatar } from '@LmComponentRender'
+import { Meta, Story } from '@storybook/react'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { LmAvatarProps } from './avatarTypes'
 import {
-  randomIntFromInterval,
-  storyAvatar
-} from '../../storybook/core/various'
-import { storyImageUrls } from '../../storybook/core/sharedFunctions'
+  findFirstPreset,
+  findPresets
+} from '../../storybook/findStorybookPresets'
+import { LmAvatar } from './LmAvatar'
+import StorybookSpacingContainer from '../../storybook/components/StorybookSpacingContainer'
 
 export default {
-  title: 'Design/Data Display/Avatar'
+  title: 'Design/Data Display/Avatar',
+  component: LmAvatar,
+  argTypes: {
+    ...getComponentArgTypes('avatar')
+  }
+} as Meta
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="avatar" />
+)
+Presets.parameters = {
+  controls: false
 }
 
-export const Playground = () => (
-  <>
+const Template: Story<LmAvatarProps['content']> = (args) => (
+  <LmAvatar content={args} />
+)
+
+const presetContent = findFirstPreset<LmAvatarProps['content']>('avatar')
+const secondPreset = findPresets<LmAvatarProps['content']>('avatar')[1]
+
+export const WithIcon = Template.bind({})
+WithIcon.args = {
+  ...presetContent
+}
+
+export const WithImage = Template.bind({})
+WithImage.args = {
+  ...secondPreset
+}
+
+export const Sizes = () => (
+  <StorybookSpacingContainer>
+    <LmAvatar content={{ ...presetContent, size: 'dense' }} />
+    <LmAvatar content={{ ...presetContent }} />
+    <LmAvatar content={{ ...presetContent, size: 'large' }} />
+    <LmAvatar content={{ ...presetContent, size: 'xlarge' }} />
+    <LmAvatar content={{ ...presetContent, custom_size: 120 }} />
+  </StorybookSpacingContainer>
+)
+
+export const Shapes = () => (
+  <StorybookSpacingContainer>
+    <LmAvatar content={{ ...presetContent }} />
+    <LmAvatar content={{ ...presetContent, variant: 'rounded' }} />
+    <LmAvatar content={{ ...presetContent, variant: 'square' }} />
+  </StorybookSpacingContainer>
+)
+
+export const Colors = () => (
+  <StorybookSpacingContainer>
+    <LmAvatar content={{ ...presetContent, color: { rgba: 'black' } }} />
     <LmAvatar
-      content={storyAvatar({
-        count: 1,
-        options: {
-          size: 'dense',
-          image:
-            storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)]
-        }
-      })}
+      content={{
+        ...presetContent,
+        color: { rgba: 'white' },
+        background_color: { rgba: 'black' }
+      }}
     />
-    <br />
     <LmAvatar
-      content={storyAvatar({
-        count: 2,
-        options: {
-          variant: 'square',
-          image:
-            storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)]
-        }
-      })}
+      content={{
+        ...presetContent,
+        variant: 'rounded',
+        color: { rgba: 'white' },
+        background_color: { rgba: 'black' }
+      }}
     />
-    <br />
     <LmAvatar
-      content={storyAvatar({
-        count: 3,
-        options: {
-          variant: 'rounded',
-          size: 'large',
-          image:
-            storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)]
-        }
-      })}
+      content={{
+        ...presetContent,
+        variant: 'square',
+        color: { rgba: 'white' },
+        background_color: { rgba: 'black' }
+      }}
     />
-    <br />
-    <LmAvatar
-      content={storyAvatar({
-        count: 4,
-        options: {
-          size: 'xlarge',
-          image:
-            storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)]
-        }
-      })}
-    />
-    <br />
-    <LmAvatar
-      content={storyAvatar({
-        count: 5,
-        options: {
-          size: 'dense',
-          icon: {
-            name: 'home'
-          }
-        }
-      })}
-    />
-    <br />
-    <LmAvatar
-      content={storyAvatar({
-        count: 6,
-        options: {
-          background_color: {
-            rgba: '#231233'
-          },
-          icon: {
-            name: 'ab-testing'
-          }
-        }
-      })}
-    />
-    <br />
-    <LmAvatar
-      content={storyAvatar({
-        count: 7,
-        options: {
-          size: 'large',
-          variant: 'square',
-          icon: {
-            name: 'account-box-outline'
-          }
-        }
-      })}
-    />
-    <br />
-    <LmAvatar
-      content={storyAvatar({
-        count: 8,
-        options: {
-          size: 'xlarge',
-          variant: 'rounded',
-          icon: {
-            name: 'airport'
-          }
-        }
-      })}
-    />
-    <br />
-  </>
+  </StorybookSpacingContainer>
 )

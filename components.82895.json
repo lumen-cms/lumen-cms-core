@@ -332,7 +332,20 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 983098,
+          "name": "Icon Circle",
+          "component_id": 894849,
+          "image": "//a.storyblok.com/f/82895/x/0b6d004e43/screenshot-2021-04-21-at-09-36-35.png"
+        },
+        {
+          "id": 983097,
+          "name": "Review Circle",
+          "component_id": 894849,
+          "image": "//a.storyblok.com/f/82895/x/f150d75a96/screenshot-2021-04-21-at-09-27-31.png"
+        }
+      ],
       "preset_id": null,
       "real_name": "avatar",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
@@ -1189,7 +1202,20 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 983141,
+          "name": "Link",
+          "component_id": 894783,
+          "image": "//a.storyblok.com/f/82895/x/7f684a420c/screenshot-2021-04-21-at-12-22-01.png"
+        },
+        {
+          "id": 983139,
+          "name": "Outline",
+          "component_id": 894783,
+          "image": "//a.storyblok.com/f/82895/x/bab0cef3fa/screenshot-2021-04-21-at-12-22-09.png"
+        }
+      ],
       "preset_id": null,
       "real_name": "button",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
@@ -1258,7 +1284,14 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 983190,
+          "name": "Vertical Social Buttons",
+          "component_id": 894843,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "button_list",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
@@ -1996,7 +2029,26 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 983192,
+          "name": "Card Action Rounded",
+          "component_id": 894842,
+          "image": ""
+        },
+        {
+          "id": 983193,
+          "name": "Card Action Square",
+          "component_id": 894842,
+          "image": ""
+        },
+        {
+          "id": 983191,
+          "name": "Our Team",
+          "component_id": 894842,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "card_list",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
@@ -3208,7 +3260,26 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 984769,
+          "name": "Black Simple",
+          "component_id": 894836,
+          "image": ""
+        },
+        {
+          "id": 984770,
+          "name": "With Icon",
+          "component_id": 894836,
+          "image": ""
+        },
+        {
+          "id": 984771,
+          "name": "With Icon 50% width",
+          "component_id": 894836,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "divider",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
@@ -4325,7 +4396,14 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 984773,
+          "name": "Basic Contact Form",
+          "component_id": 894833,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "Google Form",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
@@ -5674,7 +5752,14 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 983140,
+          "name": "Dark large",
+          "component_id": 894823,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "icon",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
@@ -7231,7 +7316,32 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 986304,
+          "name": "10 Pages",
+          "component_id": 894815,
+          "image": ""
+        },
+        {
+          "id": 986306,
+          "name": "10 Pages - Button Links",
+          "component_id": 894815,
+          "image": ""
+        },
+        {
+          "id": 986305,
+          "name": "10 Pages - Links",
+          "component_id": 894815,
+          "image": ""
+        },
+        {
+          "id": 986307,
+          "name": "Only Tagged",
+          "component_id": 894815,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "list_widget",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
@@ -11761,7 +11871,14 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 984969,
+          "name": "Tabs with Icons",
+          "component_id": 894792,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "tabs",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
