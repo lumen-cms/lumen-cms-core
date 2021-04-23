@@ -1,5 +1,4 @@
 import { text } from '@storybook/addon-knobs'
-import { LoremIpsum } from 'lorem-ipsum'
 import {
   AccordionItemStoryblok,
   AccordionStoryblok,
@@ -37,15 +36,20 @@ import { storyImageUrls } from './sharedFunctions'
 const GoogleFormExampleUrl =
   'https://docs.google.com/forms/d/e/1FAIpQLSdw3tdslj4k94OU6bluk0Yobe997r8gV5obEbEdiMs70SKQPw/viewform?embedded=true'
 
-const lorem = new LoremIpsum()
-
-const capitalize = (string: string) =>
-  string.charAt(0).toUpperCase() + string.slice(1)
-
-export const getLabel = (words = 1) => capitalize(lorem.generateWords(words))
-export const getSentences = (count = 2) => lorem.generateSentences(count)
-export const getParagraphs = (paragraphs = 2) =>
-  lorem.generateParagraphs(paragraphs)
+export const getLabel = (words = 1) => {
+  if (words === 1) {
+    return 'Lorem'
+  } else if (words === 2) {
+    return 'Lorem Ipsum'
+  } else if (words === 3) {
+    return 'Neque Porro Quisquam'
+  }
+  return 'Headline'
+}
+export const getSentences = () =>
+  'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit'
+export const getParagraphs = () =>
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus cursus lectus leo, vitae varius turpis ultrices at. Nulla ullamcorper neque vitae ligula placerat, in commodo ipsum varius. Curabitur in rutrum massa. Proin hendrerit hendrerit tristique. Sed efficitur nisi et nisi auctor tristique.'
 export const getOptions = (object: any) => {
   const obj = {}
   Object.keys(object).forEach((k) => {
