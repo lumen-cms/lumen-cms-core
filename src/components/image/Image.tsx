@@ -107,68 +107,29 @@ export default function LmImage({
       variant = 'rounded'
     }
     return (
-      <Avatar
-        {...containerProps}
-        variant={variant}
-        style={{
-          width: `${squareSize}px`,
-          height: `${squareSize}px`
-        }}
-      >
-        <LmSquareImage
-          image={imageSource}
-          width={squareSize}
-          imageProps={{
-            loading,
-            priority,
-            onLoad: () => setLoaded(true)
+      <div className={clsx(classes.image)}>
+        <Avatar
+          {...containerProps}
+          variant={variant}
+          style={{
+            margin: 'auto',
+            cursor: onClick ? 'pointer' : undefined,
+            width: `${squareSize}px`,
+            height: `${squareSize}px`
           }}
-        />
-      </Avatar>
+        >
+          <LmSquareImage
+            image={imageSource}
+            width={squareSize}
+            imageProps={{
+              loading,
+              priority,
+              onLoad: () => setLoaded(true)
+            }}
+          />
+        </Avatar>
+      </div>
     )
-    // return (
-    //   <div
-    //     {...containerProps}
-    //     style={{
-    //       margin: 'auto',
-    //       position: 'relative',
-    //       overflow: 'hidden',
-    //       display: 'block',
-    //       maxWidth: `${squareSize}px`,
-    //       maxHeight: `${squareSize}px`,
-    //       width: squareSize < 360 ? `${squareSize}px` : undefined,
-    //       height: squareSize < 360 ? `${squareSize}px` : undefined
-    //     }}
-    //     className={clsx(
-    //       content.class_names?.values,
-    //       classes.imgAddons,
-    //       content.property,
-    //       loaded ? 'loaded' : 'loading'
-    //     )}
-    //   >
-    //      <div style={{ paddingBottom: '100%' }} />
-    //     <LmSquareImage
-    //       image={imageSource}
-    //       width={squareSize}
-    //       imageProps={{
-    //         loading,
-    //         priority,
-    //         onLoad: () => setLoaded(true)
-    //       }}
-    //     />
-    //      <Image
-    //       {...storyblokImageLoader(imageSource)}
-    //       src={imageSource}
-    //       alt={content.alt || 'website image'}
-    //       onLoad={() => setLoaded(true)}
-    //       loading={loading}
-    //       priority={priority}
-    //       sizes={sizes}
-    //       layout="fill"
-    //       objectFit="cover"
-    //      />
-    //   </div>
-    // )
   }
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
@@ -206,7 +167,6 @@ export default function LmImage({
         priority={priority}
         layout="responsive"
         sizes={sizes}
-        unoptimized={imageSource.endsWith('.gif')}
       />
     </div>
   )
