@@ -5,8 +5,19 @@ export const storyImageUrls = [
   'https://a.storyblok.com/f/69529/6000x4000/3c29c3c039/img_5956.jpg'
 ]
 
+const getImageUrl = (i: number): number => {
+  if (Number.isInteger(i / 5)) {
+    return 3
+  } else if (Number.isInteger(i / 4)) {
+    return 2
+  } else if (Number.isInteger(i / 3)) {
+    return 1
+  }
+  return 0
+}
+
 export const getStorybookImageOnIteration = (i: number) => {
-  const item = i < 4 ? i : 0
+  const item = i < 4 ? i : getImageUrl(i)
 
   return storyImageUrls[item]
 }

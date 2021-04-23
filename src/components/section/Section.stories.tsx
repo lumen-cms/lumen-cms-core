@@ -17,7 +17,6 @@ import {
   storySection
 } from '../../storybook/core/section'
 import { storyButton, storyHeadline } from '../../storybook/core/various'
-import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 
 const props: SectionStoryblok = {
   _uid: '34234',

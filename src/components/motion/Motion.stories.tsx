@@ -1,4 +1,3 @@
-import { loremIpsum } from 'lorem-ipsum'
 import { LmComponentRender as LmMotion } from '@LmComponentRender'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import { storyMotion } from '../../storybook/core/various'
@@ -10,13 +9,13 @@ const body = [
     _uid: '21312',
     component: 'headline',
     typography: 'headline4',
-    text: loremIpsum({ count: 3, units: 'words' })
+    text: 'This is a Headline4'
   },
   {
     _uid: '2eqew',
     component: 'headline',
     typography: 'headline3',
-    text: loremIpsum({ count: 5, units: 'words' })
+    text: 'Some subtitle text headline3'
   }
 ] as HeadlineStoryblok[]
 

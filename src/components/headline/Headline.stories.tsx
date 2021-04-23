@@ -1,17 +1,40 @@
-import { LmComponentRender as LmHeadline } from '@LmComponentRender'
 import * as React from 'react'
+import { Meta, Story } from '@storybook/react'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
-import {
-  storyDateHeadline,
-  storyHeadline,
-  storyStyles
-} from '../../storybook/core/various'
+import { storyStyles } from '../../storybook/core/various'
+import { LmHeadline } from './Headline'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import { LmDateHeadlineProps, LmHeadlineProps } from './headlineTypes'
+import { LmDateHeadline } from './DateHeadline'
+
+const COMPONENT_NAME = 'headline'
+
+export default {
+  title: 'Design/Data Display/Headline',
+  component: LmHeadline,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
+  }
+} as Meta
+
+const Template: Story<LmHeadlineProps['content']> = (args) => (
+  <LmHeadline content={args} />
+)
+
+export const Preset = () => (
+  <StorybookPresetsContainer componentName={COMPONENT_NAME} />
+)
 
 const props: HeadlineStoryblok = {
   _uid: '12312',
   component: 'headline',
-  text: 'Headline1',
-  typography: 'headline1'
+  text: 'A Basic Headline'
+}
+
+export const Basic = Template.bind({})
+Basic.args = {
+  ...props
 }
 
 const props1: HeadlineStoryblok = {
@@ -56,11 +79,7 @@ const props7: HeadlineStoryblok = {
   typography: 'subtitle2'
 }
 
-export default {
-  title: 'Design/Data Display/Headline'
-}
-
-export const Basic = () => (
+export const Examples = () => (
   <>
     <LmHeadline content={props} />
     <LmHeadline content={props1} />
@@ -238,34 +257,31 @@ export const AlternativeConfig = () => (
   </>
 )
 
-export const HeadlineCounter = () => (
-  <LmHeadline
-    content={storyHeadline({
-      options: {
-        count_end: 10000,
-        prefix: '+ ',
-        suffix: ' Users'
-      }
-    })}
-  />
+export const HeadlineCounter = Template.bind({})
+HeadlineCounter.args = {
+  ...props,
+  count_end: 10000,
+  prefix: '+ ',
+  suffix: ' Users'
+}
+
+const HeadlineDateTemplate: Story<LmDateHeadlineProps['content']> = (args) => (
+  <LmDateHeadline content={args} />
 )
 
-export const HeadlineWithDate = () => (
-  <LmHeadline
-    content={storyDateHeadline({
-      options: {
-        text: '© {date} Copyright by Lumen Media'
-      }
-    })}
-  />
-)
+export const HeadlineWithDate = HeadlineDateTemplate.bind({})
+HeadlineWithDate.args = {
+  component: 'date_headline',
+  _uid: '123',
+  text: '© {date} Copyright by Lumen Media'
+}
 
-export const Playground = () => (
+export const WithStyles = () => (
   <div className="p-5 text-center">
     <LmHeadline
       content={
         {
-          ...storyHeadline(),
+          ...props,
           styles: [storyStyles({ knob: 'Styles', count: 1 })],
           styles_hover: [storyStyles({ knob: 'Styles Hover', count: 2 })]
         } as HeadlineStoryblok

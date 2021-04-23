@@ -1,70 +1,91 @@
-import { LmComponentRender as LmTabs } from '@LmComponentRender'
-import { loremIpsum } from 'lorem-ipsum'
+import { Meta, Story } from '@storybook/react'
 import {
   HeadlineStoryblok,
   ParagraphStoryblok,
   TabsItemStoryblok,
   TabsStoryblok
 } from '../../typings/generated/components-schema'
-import { storyTabs, storyTabsItem } from '../../storybook/core/section'
-import { storyHeadline, storyParagraph } from '../../storybook/core/various'
+import LmTabs from './Tabs'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import { findFirstPreset } from '../../storybook/findStorybookPresets'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { LmTabsProps } from './tabsTypes'
 
-const tabBodyItem = [
-  {
-    _uid: '123124',
-    component: 'headline',
-    text: loremIpsum({ units: 'sentences' })
-  },
-  {
-    _uid: '2323',
-    component: 'paragraph',
-    text: loremIpsum({ units: 'sentences', count: 8 })
+const COMPONENT_NAME = 'tabs'
+
+export default {
+  title: 'Design/Navigation/Tabs',
+  component: LmTabs,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
   }
-] as (ParagraphStoryblok | HeadlineStoryblok)[]
+} as Meta
+
+const Template: Story<LmTabsProps['content']> = (args) => (
+  <LmTabs content={args} />
+)
+
+const presetContent = findFirstPreset<LmTabsProps['content']>(COMPONENT_NAME)
+
+export const Preset = () => (
+  <StorybookPresetsContainer componentName={COMPONENT_NAME} />
+)
+
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent
+}
+
+const getBodyItem = (i: number) =>
+  [
+    {
+      _uid: '123124',
+      component: 'headline',
+      text: `Tab ${i}`
+    },
+    {
+      _uid: '123123',
+      component: 'paragraph',
+      text: `This is some content for the tab ${i}`
+    }
+  ] as (ParagraphStoryblok | HeadlineStoryblok)[]
 
 const tabBody: TabsItemStoryblok[] = [
   {
     _uid: '1231',
     component: 'tabs_item',
-    title: loremIpsum({ units: 'words', count: 2 }),
-    body: tabBodyItem
+    title: 'Tab Title 1',
+    body: getBodyItem(1)
   },
   {
     _uid: '123132',
     component: 'tabs_item',
-    title: loremIpsum({ units: 'words', count: 2 }),
-    body: [
-      ...tabBodyItem,
-      {
-        _uid: '1231123',
-        component: 'paragraph',
-        text: loremIpsum({ units: 'sentences', count: 10 })
-      }
-    ] as (ParagraphStoryblok | HeadlineStoryblok)[]
+    title: 'Tab Title 2',
+    body: getBodyItem(2)
   },
   {
     _uid: '53453453',
     component: 'tabs_item',
-    title: loremIpsum({ units: 'words', count: 2 }),
-    body: tabBodyItem
+    title: 'Tab Title 3',
+    body: getBodyItem(3)
   },
   {
     _uid: '3adsfas',
     component: 'tabs_item',
-    title: loremIpsum({ units: 'words', count: 2 }),
-    body: tabBodyItem
+    title: 'Tab Title 4',
+    body: getBodyItem(4)
   },
   {
     _uid: 'dgsda',
     component: 'tabs_item',
-    title: loremIpsum({ units: 'words', count: 2 }),
-    body: tabBodyItem
+    title: 'Tab Title 5',
+    body: getBodyItem(5)
   },
   {
     _uid: 'jdhfg',
     component: 'tabs_item',
-    title: loremIpsum({ units: 'words', count: 2 }),
-    body: tabBodyItem
+    title: 'Tab Title 6',
+    body: getBodyItem(6)
   }
 ]
 
@@ -94,11 +115,7 @@ const vertical: TabsStoryblok = {
   body: withIcons
 }
 
-export default {
-  title: 'Design/Navigation/Tabs'
-}
-
-export const Basic = () => (
+export const Variants = () => (
   <>
     <LmTabs content={props} />
     <LmTabs content={{ ...props, variant: 'scrollable' }} />
@@ -115,78 +132,59 @@ export const WithIcons = () => (
   </>
 )
 export const VerticalTabs = () => <LmTabs content={vertical} />
+
+const dynamicProps: LmTabsProps['content'] = {
+  _uid: '123',
+  component: 'tabs',
+  dynamic_height: true,
+  body: [
+    {
+      _uid: 'item-2',
+      component: 'tabs_item',
+      title: 'Second',
+      body: getBodyItem(2)
+    },
+    {
+      _uid: 'item-1',
+      component: 'tabs_item',
+      title: 'First',
+      body: [
+        {
+          component: 'headline',
+          _uid: 'head-1',
+          typography: 'headline1',
+          text: 'First Headline'
+        },
+        {
+          component: 'headline',
+          _uid: 'head-2',
+          typography: 'headline2',
+          text: 'Second Headline'
+        },
+        {
+          component: 'headline',
+          typography: 'headline3',
+          _uid: 'head-2',
+          text: 'Second Headline'
+        }
+      ] as HeadlineStoryblok[]
+    },
+
+    {
+      _uid: 'item-3',
+      component: 'tabs_item',
+      title: 'Third',
+      body: getBodyItem(3)
+    }
+  ] as TabsItemStoryblok[]
+}
 export const DynamicHeight = () => (
   <div>
-    <LmTabs
-      content={{
-        _uid: '123',
-        component: 'tabs',
-        dynamic_height: true,
-        body: [
-          {
-            _uid: 'item-1',
-            component: 'tabs_item',
-            title: 'First',
-            body: [
-              {
-                component: 'headline',
-                _uid: 'head-1',
-                text: 'First Headline'
-              },
-              {
-                component: 'headline',
-                _uid: 'head-2',
-                text: 'Second Headline'
-              }
-            ] as HeadlineStoryblok[]
-          },
-          {
-            _uid: 'item-2',
-            component: 'tabs_item',
-            title: 'Second',
-            body: tabBodyItem
-          },
-          {
-            _uid: 'item-3',
-            component: 'tabs_item',
-            title: 'Third',
-            body: tabBodyItem
-          }
-        ] as TabsItemStoryblok[]
-      }}
-    />
+    <h3>Dynamic height:</h3>
+    <LmTabs content={dynamicProps} />
     <h3>Next content element.</h3>
-  </div>
-)
-export const Playground = () => (
-  <div className="p-5">
-    <LmTabs
-      content={{
-        ...storyTabs(),
-        body: [
-          {
-            ...storyTabsItem({ knob: 'Tab 1' }),
-            body: [
-              storyHeadline({ knob: 'Tab 1' }),
-              storyParagraph({ knob: 'Tab 1' })
-            ]
-          },
-          {
-            ...storyTabsItem({ knob: 'Tab 2' }),
-            body: [
-              storyHeadline({ knob: 'Tab 2' }),
-              storyParagraph({ knob: 'Tab 2' })
-            ]
-          },
-          {
-            ...storyTabsItem({ knob: 'Tab 3' }),
-            body: [
-              storyHeadline({ knob: 'Tab 3' }),
-              storyParagraph({ knob: 'Tab 3' })
-            ]
-          }
-        ]
-      }}
-    />
+    <h3>Fixed height (default):</h3>
+    <LmTabs content={{ ...dynamicProps, dynamic_height: false }} />
+    <h3>Next content element.</h3>
   </div>
 )

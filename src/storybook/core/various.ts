@@ -42,11 +42,6 @@ const lorem = new LoremIpsum()
 const capitalize = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1)
 
-export function randomIntFromInterval(min: number, max: number) {
-  // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min)
-}
-
 export const getLabel = (words = 1) => capitalize(lorem.generateWords(words))
 export const getSentences = (count = 2) => lorem.generateSentences(count)
 export const getParagraphs = (paragraphs = 2) =>
@@ -58,13 +53,11 @@ export const getOptions = (object: any) => {
   })
   return obj
 }
-export const getRandomImage = () =>
-  storyImageUrls[randomIntFromInterval(0, storyImageUrls.length - 1)]
 
 export const storyButton = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<ButtonStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'button',
@@ -80,7 +73,7 @@ export const storyButton = ({
 export const storyMenu = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & { options?: Partial<NavMenuStoryblok> } = {}) => {
   return getKnobComponents({
     componentName: 'nav_menu',
@@ -96,7 +89,7 @@ export const storyMenu = ({
 export const storyMenuItem = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<NavMenuItemStoryblok>
 } = {}): NavMenuItemStoryblok => {
@@ -114,7 +107,7 @@ export const storyMenuItem = ({
 export const storyHeadline = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<HeadlineStoryblok>
 } = {}): HeadlineStoryblok => {
@@ -131,7 +124,7 @@ export const storyHeadline = ({
 export const storyDateHeadline = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<DateHeadlineStoryblok>
 } = {}): DateHeadlineStoryblok => {
@@ -149,7 +142,7 @@ export const storyDateHeadline = ({
 export const storyForm = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<FormStoryblok>
 } = {}): FormStoryblok => {
@@ -168,7 +161,7 @@ export const storyForm = ({
 export const storyParagraph = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<RichTextEditorStoryblok>
 } = {}): RichTextEditorStoryblok => {
@@ -220,7 +213,7 @@ export const storyAccordion = ({
 export const storyAccordionItem = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<AccordionItemStoryblok>
 } = {}): AccordionItemStoryblok => {
@@ -238,7 +231,7 @@ export const storyAccordionItem = ({
 export const storyButtonList = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<ButtonListStoryblok>
 } = {}): ButtonListStoryblok => {
@@ -253,7 +246,7 @@ export const storyButtonList = ({
 export const storyDivider = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<DividerStoryblok>
 } = {}): DividerStoryblok => {
@@ -268,7 +261,7 @@ export const storyDivider = ({
 export const storyIcon = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<IconStoryblok>
 } = {}): IconStoryblok => {
@@ -283,7 +276,7 @@ export const storyIcon = ({
 export const storyHtml = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<HtmlStoryblok>
 } = {}): HtmlStoryblok => {
@@ -297,7 +290,7 @@ export const storyHtml = ({
 export const storyIframe = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<IframeStoryblok>
 } = {}): IframeStoryblok => {
@@ -312,14 +305,14 @@ export const storyIframe = ({
 export const storyImage = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<ImageStoryblok>
 } = {}): ImageStoryblok => {
   return getKnobComponents({
     componentName: 'image',
     options: {
-      source: options?.source ? options.source : getRandomImage(),
+      source: options?.source ? options.source : storyImageUrls[1],
       ...options
     },
     knob,
@@ -330,7 +323,7 @@ export const storyImage = ({
 export const storyAvatar = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<AvatarStoryblok>
 } = {}): AvatarStoryblok => {
@@ -345,7 +338,7 @@ export const storyAvatar = ({
 export const storyTable = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<TableStoryblok>
 } = {}): TableStoryblok => {
@@ -360,7 +353,7 @@ export const storyTable = ({
 export const storySlider = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<SliderStoryblok>
 } = {}): SliderStoryblok => {
@@ -375,7 +368,7 @@ export const storySlider = ({
 export const storyHubspotMeeting = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<HubspotMeetingStoryblok>
 } = {}): HubspotMeetingStoryblok => {
@@ -390,7 +383,7 @@ export const storyHubspotMeeting = ({
 export const storyNavList = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<NavListStoryblok>
 } = {}): NavListStoryblok => {
@@ -408,7 +401,7 @@ export const storyNavList = ({
 export const storyNavItem = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<NavItemStoryblok>
 } = {}): NavItemStoryblok => {
@@ -426,7 +419,7 @@ export const storyNavItem = ({
 export const storyMotion = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<MotionStoryblok>
 } = {}): MotionStoryblok => {
@@ -441,7 +434,7 @@ export const storyMotion = ({
 export const storyPlayer = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<PlayerStoryblok>
 } = {}): PlayerStoryblok => {
@@ -456,7 +449,7 @@ export const storyPlayer = ({
 export const storyDialog = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<DialogStoryblok>
 } = {}): DialogStoryblok => {
@@ -471,7 +464,7 @@ export const storyDialog = ({
 export const storyInstagramPost = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<InstagramPostStoryblok>
 } = {}): InstagramPostStoryblok => {
@@ -486,7 +479,7 @@ export const storyInstagramPost = ({
 export const storyInstagramList = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<InstagramListStoryblok>
 } = {}): InstagramListStoryblok => {
@@ -501,7 +494,7 @@ export const storyInstagramList = ({
 export const storySnackbar = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<SnackbarStoryblok>
 } = {}): SnackbarStoryblok => {
@@ -516,7 +509,7 @@ export const storySnackbar = ({
 export const storyStyles = ({
   options = {},
   knob,
-  count = ''
+  count
 }: StorybookOptionProps & {
   options?: Partial<StylesStoryblok>
 } = {}): StylesStoryblok => {
