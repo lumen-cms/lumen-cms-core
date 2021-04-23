@@ -5,7 +5,9 @@ import '../src/storybook/mockNextRouter'
 const OriginalNextImage = NextImage.default
 Object.defineProperty(NextImage, 'default', {
   configurable: true,
-  value: (props: any) => <OriginalNextImage {...props} unoptimized />
+  value: (props: any) => (
+    <OriginalNextImage {...props} unoptimized loading={'eager'} />
+  )
 })
 
 export const parameters = {

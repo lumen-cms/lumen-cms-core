@@ -258,6 +258,9 @@ export const AlternativeConfig = () => (
 )
 
 export const HeadlineCounter = Template.bind({})
+HeadlineCounter.parameters = {
+  chromatic: { delay: 3000 }
+}
 HeadlineCounter.args = {
   ...props,
   count_end: 10000,

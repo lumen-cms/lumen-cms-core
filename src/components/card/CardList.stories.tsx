@@ -52,7 +52,7 @@ const getCardListItemElement = (iteration: number) => {
   } as CardListItemStoryblok
 }
 
-const itemCount = 32
+const itemCount = 12
 const items: CardListItemStoryblok[] = []
 let counter = 0
 

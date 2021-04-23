@@ -71,7 +71,7 @@ type TempType = LmSectionProps['content'][]
 let i
 let j
 const temparray: TempType[] = []
-const chunk = 20
+const chunk = 15
 for (i = 0, j = presets.length; i < j; i += chunk) {
   temparray.push(presets.slice(i, i + chunk))
 }
@@ -90,6 +90,10 @@ export const Presets_3 = () => (
 
 export const Presets_4 = () => (
   <StorybookPresetsContainer presetItems={temparray[3]} />
+)
+
+export const Presets_5 = () => (
+  <StorybookPresetsContainer presetItems={temparray[4]} />
 )
 
 export const Basic = () => (

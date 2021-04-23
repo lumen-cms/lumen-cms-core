@@ -132,6 +132,7 @@
     "@welldone-software/why-did-you-render": "6.1.1",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "cheerio": "*",
+    "chromatic": "^5.6.2",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "eslint": "^7.23.0",
