@@ -30,6 +30,23 @@ export const imageCalculateWidth = (
   originalDimensions: { width: number; height: number }
 ) => Math.round((height / originalDimensions.height) * originalDimensions.width)
 
+export const imageCalculateWidthHeight = (
+  size: number,
+  storyblokImageSource: string
+): { width: number; height: number } => {
+  const originalImageDimensions = getOriginalImageDimensions(
+    storyblokImageSource
+  )
+  const ratio = originalImageDimensions.height / originalImageDimensions.width
+  if (ratio < 1) {
+    return {
+      height: size,
+      width: imageCalculateWidth(size, originalImageDimensions)
+    } // make sure that image is at least width
+  }
+  return { width: size, height: Math.round(size * ratio) }
+}
+
 const calculatePxToVw = (absolute: number, breakpoint: number) =>
   absolute > breakpoint ? 100 : Math.round((absolute / breakpoint) * 100)
 
