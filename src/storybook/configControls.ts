@@ -67,7 +67,7 @@ export function getComponentArgTypes(componentName: string): Meta['argTypes'] {
       ]
     }
     if (type === 'options') {
-      obj[schemaKey].options.shift() // remove empty value
+      obj[schemaKey].options?.shift() // remove empty value
     } else if (currentSchema.field_type === 'vue-color-picker') {
       // obj[schemaKey].control = {
       //   type: 'select'
@@ -83,12 +83,12 @@ export function getComponentArgTypes(componentName: string): Meta['argTypes'] {
       obj[schemaKey].control.type = 'object'
     }
 
-    console.log(currentSchema, type, schemaKey, obj[schemaKey])
+    // console.log(currentSchema, type, schemaKey, obj[schemaKey])
   })
   let allTypes = {
     ...obj,
     ...genericArgTypes
   }
-  console.log(allTypes)
+  // console.log(allTypes)
   return allTypes
 }

@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/ban-ts-comment,react/no-array-index-key */
+
 import { CSSProperties, useState } from 'react'
 import { FormContainer } from 'react-form-hook-mui'
 import Typography from '@material-ui/core/Typography'

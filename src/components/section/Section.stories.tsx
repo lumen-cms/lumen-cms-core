@@ -17,6 +17,9 @@ import {
   storySection
 } from '../../storybook/core/section'
 import { storyButton, storyHeadline } from '../../storybook/core/various'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { findPresets } from '../../storybook/findStorybookPresets'
+import { LmSectionProps } from './sectionTypes'
 
 const props: SectionStoryblok = {
   _uid: '34234',
@@ -61,9 +64,33 @@ export default {
   title: 'Design/Layout/Grid Sections'
 }
 
-// export const Presets = () => (
-//   <StorybookPresetsContainer componentName="section" />
-// )
+const presets = findPresets<LmSectionProps['content']>('section')
+
+console.log(presets.length)
+type TempType = LmSectionProps['content'][]
+let i
+let j
+const temparray: TempType[] = []
+const chunk = 20
+for (i = 0, j = presets.length; i < j; i += chunk) {
+  temparray.push(presets.slice(i, i + chunk))
+}
+
+export const Presets_1 = () => (
+  <StorybookPresetsContainer presetItems={temparray[0]} />
+)
+
+export const Presets_2 = () => (
+  <StorybookPresetsContainer presetItems={temparray[1]} />
+)
+
+export const Presets_3 = () => (
+  <StorybookPresetsContainer presetItems={temparray[2]} />
+)
+
+export const Presets_4 = () => (
+  <StorybookPresetsContainer presetItems={temparray[3]} />
+)
 
 export const Basic = () => (
   <>

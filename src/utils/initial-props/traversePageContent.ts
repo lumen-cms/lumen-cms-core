@@ -11,7 +11,7 @@ import { AppPageProps } from '../../typings/app'
 import parseHijackedFormData from '../hooks/googleForms/parseHijackedFormData'
 import { fetchGoogleFormData } from './fetchGoogleFormData'
 
-const listWidgetFilter = (
+export const listWidgetFilter = (
   content: ListWidgetStoryblok,
   allStories: StoryData<PageComponent>[]
 ) => {

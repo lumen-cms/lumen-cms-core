@@ -3,13 +3,13 @@ import StorybookPresetsContainer from '../../storybook/components/StorybookPrese
 import LmAccordion from './Accordion'
 import { LmAccordionProps } from './accordionTypes'
 import { findFirstPreset } from '../../storybook/findStorybookPresets'
-import { genericArgTypes } from '../../storybook/configControls'
+import { getComponentArgTypes } from '../../storybook/configControls'
 
 export default {
   title: 'Design/Surfaces/Accordion',
   component: LmAccordion,
   argTypes: {
-    ...genericArgTypes
+    ...getComponentArgTypes('accordion')
   }
 } as Meta
 

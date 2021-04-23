@@ -7316,7 +7316,32 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 986304,
+          "name": "10 Pages",
+          "component_id": 894815,
+          "image": ""
+        },
+        {
+          "id": 986306,
+          "name": "10 Pages - Button Links",
+          "component_id": 894815,
+          "image": ""
+        },
+        {
+          "id": 986305,
+          "name": "10 Pages - Links",
+          "component_id": 894815,
+          "image": ""
+        },
+        {
+          "id": 986307,
+          "name": "Only Tagged",
+          "component_id": 894815,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "list_widget",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",

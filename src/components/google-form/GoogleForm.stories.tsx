@@ -1,12 +1,13 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react'
+import { AppContextProps } from '@context/AppContext'
 import { getComponentArgTypes } from '../../storybook/configControls'
 import LmGoogleFormContainer from './LmGoogleFormContainer'
 import { findFirstPreset } from '../../storybook/findStorybookPresets'
 import { LmGoogleFormProps } from './googleFormProps'
 import { fetchGoogleFormDataClient } from '../../utils/initial-props/fetchGoogleFormData'
 import parseHijackedFormData from '../../utils/hooks/googleForms/parseHijackedFormData'
-import { LmAppProvider } from '../../index'
+import AppProvider from '../provider/AppProvider'
 
 const COMPONENT_NAME = 'form'
 
@@ -36,16 +37,17 @@ const Template: Story<LmGoogleFormProps['content']> = (
   { loaded: { formStructure } }
 ) => {
   return (
-    <LmAppProvider
-      // @ts-ignore
-      content={{
-        formData: {
-          [presetContent._uid]: formStructure
-        }
-      }}
+    <AppProvider
+      content={
+        {
+          formData: {
+            [presetContent._uid]: formStructure
+          }
+        } as AppContextProps
+      }
     >
       <LmGoogleFormContainer content={args} />
-    </LmAppProvider>
+    </AppProvider>
   )
 }
 
