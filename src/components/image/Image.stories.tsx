@@ -1,6 +1,6 @@
-import { LmComponentRender as LmImage } from '@LmComponentRender'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { storyImage } from '../../storybook/core/various'
+import LmImage from './Image'
 
 const props: ImageStoryblok = {
   _uid: '123',
@@ -15,7 +15,8 @@ const svg: ImageStoryblok = {
 }
 
 export default {
-  title: 'Design/Data Display/Image'
+  title: 'Design/Data Display/Image',
+  component: LmImage
 }
 
 export const Basic = () => (
@@ -37,14 +38,33 @@ export const Basic = () => (
         } as ImageStoryblok
       }
     />
+    <h3>Square 150px height:</h3>
+    <LmImage
+      content={{ ...props, height: 150, property: ['square', 'rounded-0'] }}
+    />
+    <h3>Square 150px height rounded:</h3>
+    <LmImage
+      content={{ ...props, height: 150, property: ['square', 'rounded'] }}
+    />
     <h3>Not Round:</h3>
     <LmImage content={{ ...props, property: ['rounded-0'] }} />
     <h3>Rounded:</h3>
     <LmImage content={{ ...props, property: ['rounded'] }} />
     <h3>Thumbnail:</h3>
     <LmImage content={{ ...props, property: ['img-thumbnail'] }} />
+    <h3>Circle Thumbnail:</h3>
+    <LmImage
+      content={{
+        ...props,
+        height: 150,
+        property: ['rounded-circle', 'img-thumbnail']
+      }}
+    />
     <h3>Square:</h3>
-    <LmImage content={{ ...props, property: ['square'] }} />
+    <LmImage
+      content={{ ...props, height: 150, property: ['square', 'rounded'] }}
+    />
+
     <h3>Resized images with fixed height or width:</h3>
     <LmImage content={{ ...props, width: 140 }} />
     <LmImage content={{ ...props, height: 64 }} />
