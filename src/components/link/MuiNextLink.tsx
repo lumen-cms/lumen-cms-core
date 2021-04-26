@@ -8,7 +8,7 @@ import { LinkProps, NextComposedProps } from './linkTypes'
 
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
-    const { defaultLocale, locales, locale } = useRouter()
+    const { defaultLocale, locales, locale } = useRouter() || {}
     if (other.external) {
       delete other.external
       // eslint-disable-next-line jsx-a11y/anchor-has-content
@@ -37,53 +37,45 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
 )
 NextComposed.displayName = 'NextComposedLink'
 
-// A styled version of the Next.js Link component:
-// https://nextjs.org/docs/#with-link
-function Link({
-  href,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  activeClassName = 'lm_active',
-  className: classNameProps,
-  innerRef,
-  naked,
-  ...other
-}: LinkProps): JSX.Element {
-  //
-  const router = useRouter()
-  const className = clsx(classNameProps, {
-    [activeClassName]: router?.asPath === href && activeClassName
-  })
-  // const className = classNameProps
-  if (!href) {
-    // console.log(props)
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a {...other} className={className} />
-  }
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
+  (props, ref) => {
+    const {
+      href,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      activeClassName = 'lm_active',
+      className: classNameProps,
+      naked,
+      ...other
+    } = props
+    const { asPath } = useRouter() || {}
+    const className = clsx(classNameProps, {
+      [activeClassName]: asPath === href && activeClassName
+    })
+    // const className = classNameProps
+    if (!href) {
+      // console.log(props)
+      // eslint-disable-next-line jsx-a11y/anchor-has-content
+      return <a {...other} className={className} />
+    }
 
-  if (naked) {
+    if (naked) {
+      return (
+        <NextComposed className={className} ref={ref} href={href} {...other} />
+      )
+    }
+
     return (
-      <NextComposed
+      <MuiLink
+        component={NextComposed}
         className={className}
-        ref={innerRef}
+        ref={ref}
         href={href}
         {...other}
       />
     )
   }
-
-  return (
-    <MuiLink
-      component={NextComposed}
-      className={className}
-      ref={innerRef}
-      href={href}
-      {...other}
-    />
-  )
-}
-
-const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  (props, ref) => <Link {...props} innerRef={ref} />
 )
 MuiNextLink.displayName = 'MuiNextLink'
 

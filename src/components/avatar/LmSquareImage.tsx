@@ -6,7 +6,7 @@ import { storyblokImageLoader } from '../../utils/imageLoader'
 type LmSquareImageProps = {
   image: string
   width?: number | string
-  layout?: 'responsive' | 'intrinsic'
+  layout?: 'responsive' | 'intrinsic' | 'fixed'
   imageProps?: Pick<
     ImageProps,
     | 'loading'
