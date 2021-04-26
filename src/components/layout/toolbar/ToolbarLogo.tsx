@@ -3,16 +3,11 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import MuiLink from '@material-ui/core/Link'
 import clsx from 'clsx'
-import Image from 'next/image'
-import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
-import {
-  getOriginalImageDimensions,
-  getRootImageUrl,
-  imageSizesOnWidthAndBreakpoints
-} from '../../../utils/imageServices'
+import { makeStyles, Theme } from '@material-ui/core/styles'
+import { getRootImageUrl } from '../../../utils/imageServices'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import { useSettings } from '../../provider/SettingsPageProvider'
-import { storyblokImageLoader } from '../../../utils/imageLoader'
+import LmSquareImage from '../../avatar/LmSquareImage'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -20,11 +15,11 @@ const useStyles = makeStyles((theme: Theme) => ({
       position: 'relative',
       '& > div > div': {
         height: '100%' // need to set see if intrinsic image changes over time
-      },
-      '& img': {
-        objectFit: 'contain',
-        objectPosition: 'left'
       }
+      // '& img': {
+      //   objectFit: 'contain',
+      //   objectPosition: 'left'
+      // }
     },
     '& .MuiLink-root > div, & .MuiLink-root > div > div': {
       height: '100%'
@@ -46,7 +41,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 export function LmToolbarLogo(): JSX.Element {
   const settings = useSettings()
   const classes = useStyles()
-  const { breakpoints } = useTheme()
   const homepageHref = useHomepageLink()
   const websiteTitle = settings.website_title
   const websiteLogo = getRootImageUrl(settings.website_logo)
@@ -55,35 +49,30 @@ export function LmToolbarLogo(): JSX.Element {
   const websiteLogoInvertMobile = getRootImageUrl(
     settings.website_logo_invert_xs
   )
+  const toolbarHeight = settings.toolbar_main_height
+    ? Number(settings.toolbar_main_height) - 24
+    : 40
 
   const logoImageArray: {
     source?: string
     isMobile?: boolean
     isInvert?: boolean
-    dimensions: {
-      width: number
-      height: number
-    }
   }[] = [
     {
-      source: websiteLogo,
-      dimensions: getOriginalImageDimensions(websiteLogo)
+      source: websiteLogo
     },
     {
       source: websiteLogoMobile,
-      isMobile: true,
-      dimensions: getOriginalImageDimensions(websiteLogoMobile)
+      isMobile: true
     },
     {
       source: websiteLogoInvert,
-      isInvert: true,
-      dimensions: getOriginalImageDimensions(websiteLogoInvert)
+      isInvert: true
     },
     {
       source: websiteLogoInvertMobile,
       isInvert: true,
-      isMobile: true,
-      dimensions: getOriginalImageDimensions(websiteLogoInvertMobile)
+      isMobile: true
     }
   ].filter((i) => i.source)
 
@@ -94,7 +83,7 @@ export function LmToolbarLogo(): JSX.Element {
           className={clsx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
         >
           {!websiteLogo && <Typography>{websiteTitle}</Typography>}
-          {logoImageArray.map(({ isMobile, dimensions, source, isInvert }) => (
+          {logoImageArray.map(({ isMobile, source, isInvert }) => (
             <div
               className={clsx('logo-img', {
                 'logo-img__default':
@@ -108,19 +97,31 @@ export function LmToolbarLogo(): JSX.Element {
               })}
               key={`${source}-${isMobile}-${isInvert}`}
             >
-              <Image
-                {...storyblokImageLoader(source)}
-                src={source || ''}
-                priority
-                alt={websiteTitle || 'website logo'}
+              <LmSquareImage
+                image={source as string}
+                width={toolbarHeight}
                 layout="intrinsic"
-                sizes={imageSizesOnWidthAndBreakpoints(
-                  dimensions.width,
-                  breakpoints
-                )}
-                quality={95}
-                {...dimensions}
+                imageProps={{
+                  priority: true,
+                  quality: 95,
+                  alt: websiteTitle || 'website logo'
+                }}
               />
+              {/* <Image */}
+              {/*  {...storyblokImageLoader(source)} */}
+              {/*  src={source || ''} */}
+              {/*  priority */}
+              {/*  alt={websiteTitle || 'website logo'} */}
+              {/*  layout="intrinsic" */}
+              {/*  sizes={imageSizesOnWidthAndBreakpoints( */}
+              {/*    dimensions.width, */}
+              {/*    breakpoints */}
+              {/*  )} */}
+              {/*  quality={95} */}
+              {/*  objectFit="contain" */}
+              {/*  objectPosition="left" */}
+              {/*  {...dimensions} */}
+              {/* /> */}
             </div>
           ))}
         </MuiLink>

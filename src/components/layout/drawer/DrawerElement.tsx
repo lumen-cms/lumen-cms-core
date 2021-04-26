@@ -1,21 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
-import {
-  getOriginalImageDimensions,
-  imageSizesOnWidthAndBreakpoints
-} from '../../../utils/imageServices'
 import { ContentSpace } from '../ContentSpace'
 import { DrawerContentList } from './DrawerContentList'
 import MwcDrawer from './MwcDrawer'
 import useBackgroundBox from '../../section/useBackgroundBox'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
-import { storyblokImageLoader } from '../../../utils/imageLoader'
+import LmSquareImage from '../../avatar/LmSquareImage'
 
 const useStyles = makeStyles({
   logoRoot: {
@@ -32,7 +27,6 @@ const useStyles = makeStyles({
 function DrawerLogoArea() {
   const settings = useSettings()
   const homepageHref = useHomepageLink()
-  const { breakpoints } = useTheme()
   const classes = useStyles()
 
   const websiteTitle = settings.website_title
@@ -46,13 +40,11 @@ function DrawerLogoArea() {
           <div className={clsx('p-3', classes.logoRoot)}>
             {!websiteLogo && websiteTitle && <>{websiteTitle}</>}
             {websiteLogo && (
-              <Image
-                {...storyblokImageLoader(websiteLogo)}
-                src={websiteLogo}
+              <LmSquareImage
+                image={websiteLogo}
                 layout="intrinsic"
-                {...getOriginalImageDimensions(websiteLogo)}
-                className={classes.logo}
-                sizes={imageSizesOnWidthAndBreakpoints(360, breakpoints)}
+                imageProps={{ alt: websiteTitle || 'website logo' }}
+                width={40}
               />
             )}
           </div>

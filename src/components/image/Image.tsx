@@ -99,7 +99,7 @@ export default function LmImage({
     sizes = imageSizesOnWidthAndBreakpoints(currentWidth, breakpoints)
   }
   if (square && squareSize) {
-    let variant: AvatarProps['variant'] = 'circle'
+    let variant: AvatarProps['variant'] = 'circular'
     if (property.includes('square') || property.includes('rounded-0')) {
       variant = 'square'
     }

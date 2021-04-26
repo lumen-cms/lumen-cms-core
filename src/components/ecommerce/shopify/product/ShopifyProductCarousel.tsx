@@ -4,7 +4,6 @@ import Carousel from 'react-material-ui-carousel'
 import Image from 'next/image'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
-import { storyblokImageLoader } from '../../../../utils/imageLoader'
 
 const useStyles = makeStyles({
   flexboxCentering: {

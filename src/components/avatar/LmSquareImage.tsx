@@ -6,6 +6,7 @@ import { storyblokImageLoader } from '../../utils/imageLoader'
 type LmSquareImageProps = {
   image: string
   width?: number | string
+  layout?: 'responsive' | 'intrinsic'
   imageProps?: Pick<
     ImageProps,
     | 'loading'
@@ -14,19 +15,22 @@ type LmSquareImageProps = {
     | 'priority'
     | 'objectFit'
     | 'objectPosition'
+    | 'quality'
+    | 'alt'
   >
 }
 export default function LmSquareImage({
   width,
   image,
-  imageProps
+  imageProps,
+  layout
 }: LmSquareImageProps): JSX.Element {
   return (
     <Image
       src={image}
       {...(image.includes('a.storyblok.com')
         ? {
-            layout: 'fixed',
+            layout: layout || 'fixed',
             ...imageCalculateWidthHeight(width ? Number(width) : 40, image),
             objectFit: 'cover'
           }
