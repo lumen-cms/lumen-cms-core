@@ -15,7 +15,7 @@ import {
   EcommerceShopifyConfigStoryblok,
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
-import { imageSizesOnWidthAndBreakpoints } from '../../../../utils/ImageService'
+import { imageSizesOnWidthAndBreakpoints } from '../../../../utils/imageServices'
 
 type ShopifyCartVariantItemProps = {
   lineItem: ShopifySdkContextProps['cartVariants'][0]

@@ -35,10 +35,10 @@ Basic.args = {
 }
 
 const twitterPng =
-  'https://img2.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
+  'https://a.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
 const fcbkPng = 'https://a.storyblok.com/f/66717/273x256/1af4758e5f/fb-icon.png'
 const instaPng =
-  'https://img2.storyblok.com/f/66717/273x256/275fe57666/insta-icon.png'
+  'https://a.storyblok.com/f/66717/273x256/275fe57666/insta-icon.png'
 const defaultProps: ButtonStoryblok = {
   label: 'Text Button',
   _uid: '123',

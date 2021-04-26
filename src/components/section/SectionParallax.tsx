@@ -3,9 +3,9 @@ import clsx from 'clsx'
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Image from 'next/image'
-import { getRootImageUrl } from '../../utils/ImageService'
 import { LmComponentRender } from '../..'
 import { LmSectionParallaxProps } from './sectionTypes'
+import { storyblokImageLoader } from '../../utils/imageLoader'
 
 const useStyles = makeStyles({
   parallaxRoot: {
@@ -45,10 +45,11 @@ export default function LmSectionParallax({
                 <>
                   {item.image && (
                     <Image
+                      {...storyblokImageLoader(item.image)}
                       priority={
                         !!content.disable_lazy_load || sectionPosition === 0
                       }
-                      src={getRootImageUrl(item.image)}
+                      src={item.image}
                       layout="fill"
                       objectFit="cover"
                     />

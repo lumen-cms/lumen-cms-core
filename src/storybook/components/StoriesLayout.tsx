@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { FC } from 'react'
 import Container from '@material-ui/core/Container'
 import {
   boolean,
@@ -10,21 +9,20 @@ import {
   text
 } from '@storybook/addon-knobs'
 import { Story as StoryType } from '@storybook/react/types-6-0.d'
-import { LmCoreComponents } from '@CONFIG'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { CONFIG_STORYBOOK } from './configStorybook'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 import AppProvider from '../../components/provider/AppProvider'
 import '../../components/NamedComponents'
-import '../../components/NamedComponentsAdditional'
+import '../../components/LazyNamedComponents'
 import { LmAppProvidersContainer } from '../../components/layout/LmAppProvidersContainer'
 import { SettingsPageProvider } from '../../components/provider/SettingsPageProvider'
 
-const OverwriteLink: FC = ({ children }) => {
-  return <a>{children}</a>
-}
-LmCoreComponents.lm_link_render = OverwriteLink
+// const OverwriteLink: FC = ({ children }) => {
+//   return <a>{children}</a>
+// }
+// LmCoreComponents.lm_link_render = OverwriteLink
 
 const StoriesLayout = (Story: StoryType) => {
   const isDark = boolean('Dark mode', false, CONFIG_STORYBOOK.KNOBS.THEME)

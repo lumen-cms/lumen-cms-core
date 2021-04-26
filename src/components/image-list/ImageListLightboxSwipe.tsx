@@ -5,10 +5,10 @@ import ChevronRight from 'mdi-material-ui/ChevronRight'
 import Image from 'next/image'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
-import { getRootImageUrl } from '../../utils/ImageService'
 import InvertedIndicator from '../slider/InvertedIndicator'
 import { ImageListLightboxProps } from './imageListTypes'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
+import { storyblokImageLoader } from '../../utils/imageLoader'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -30,12 +30,13 @@ const useStyles = makeStyles(() => ({
 
 function CarouselImageItem({ content }: { content: ImageListItemStoryblok }) {
   const classes = useStyles()
-  const imageSource = getRootImageUrl(content.source)
+  const imageSource = content.source || ''
 
   return (
     <div className="carousel-item">
       <div className={classes.root}>
         <Image
+          {...storyblokImageLoader(imageSource)}
           alt={content.alt || content.label || 'image list item'}
           src={imageSource}
           layout="fill"

@@ -1,13 +1,9 @@
 import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import Image from 'next/image'
-import {
-  getRootImageUrl,
-  imageSizesOnWidthAndBreakpoints
-} from '../../utils/ImageService'
 import { LmMuiAvatarProps } from './avatarTypes'
+import LmSquareImage from './LmSquareImage'
 
 const useStyles = makeStyles({
   avatar: {
@@ -27,8 +23,15 @@ const useStyles = makeStyles({
   }
 })
 
+const sizeMap = {
+  xmall: 20,
+  xsmall: 20,
+  small: 24,
+  large: 52,
+  xlarge: 64
+}
+
 export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
-  const { breakpoints } = useTheme()
   const classes = useStyles()
 
   return (
@@ -37,12 +40,7 @@ export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
         [size as string]: !!size
       })}
     >
-      <Image
-        src={getRootImageUrl(src)}
-        layout="fill"
-        objectFit="cover"
-        sizes={imageSizesOnWidthAndBreakpoints(120, breakpoints)}
-      />
+      <LmSquareImage image={src} width={size ? sizeMap[size] : 40} />
     </Avatar>
   )
 }
