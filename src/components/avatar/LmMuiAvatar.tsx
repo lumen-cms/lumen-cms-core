@@ -23,6 +23,14 @@ const useStyles = makeStyles({
   }
 })
 
+const sizeMap = {
+  xmall: 20,
+  xsmall: 20,
+  small: 24,
+  large: 52,
+  xlarge: 64
+}
+
 export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
   const classes = useStyles()
 
@@ -32,7 +40,7 @@ export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
         [size as string]: !!size
       })}
     >
-      <LmSquareImage image={src} width={120} />
+      <LmSquareImage image={src} width={size ? sizeMap[size] : 40} />
     </Avatar>
   )
 }

@@ -6,7 +6,15 @@ import { storyblokImageLoader } from '../../utils/imageLoader'
 type LmSquareImageProps = {
   image: string
   width?: number | string
-  imageProps: Pick<ImageProps, 'loading' | 'onLoad' | 'onClick' | 'priority'>
+  imageProps?: Pick<
+    ImageProps,
+    | 'loading'
+    | 'onLoad'
+    | 'onClick'
+    | 'priority'
+    | 'objectFit'
+    | 'objectPosition'
+  >
 }
 export default function LmSquareImage({
   width,
