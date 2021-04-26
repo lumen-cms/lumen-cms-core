@@ -1,9 +1,9 @@
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { internalLinkHandler } from 'lumen-cms-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { SSR_CONFIG } from '@SSR_CONFIG'
 import { getAllStoriesOfProject } from '../../utils/initial-props/storyblokPagesConfig'
 import { PageItem } from '../../typings/generated/schema'
-import { SSR_CONFIG } from '../../utils/initial-props/ssrConfig'
 // import { createGzip } from 'zlib'
 
 export default async function sitemapApi(

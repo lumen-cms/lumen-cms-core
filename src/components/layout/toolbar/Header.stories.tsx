@@ -7,9 +7,7 @@ import {
 } from '../../../storybook/toolbar'
 import { SettingsPageProvider } from '../../provider/SettingsPageProvider'
 import StorybookPresetsContainer from '../../../storybook/components/StorybookPresetsContainer'
-import { findPresets } from '../../../storybook/findStorybookPresets'
 
-const COMPONENT_NAME = 'toolbar_row'
 export default {
   title: 'Design/Surfaces/Toolbar'
 }

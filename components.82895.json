@@ -8217,7 +8217,7 @@
       "name": "player",
       "display_name": "",
       "created_at": "2020-07-09T03:21:18.578Z",
-      "updated_at": "2020-09-16T07:20:17.716Z",
+      "updated_at": "2021-04-26T09:01:44.113Z",
       "id": 1002614,
       "schema": {
         "url": {
@@ -8234,9 +8234,18 @@
             "videos"
           ]
         },
+        "url_alternatives": {
+          "type": "multiasset",
+          "pos": 2,
+          "filetypes": [
+            "videos"
+          ],
+          "display_name": "Video alternatives",
+          "description": "Add different video format for cross-browser support like webm, mp4."
+        },
         "ratio": {
           "type": "option",
-          "pos": 2,
+          "pos": 3,
           "use_uuid": true,
           "options": [
             {
@@ -8259,41 +8268,41 @@
         },
         "width": {
           "type": "text",
-          "pos": 3
+          "pos": 4
         },
         "height": {
           "type": "text",
-          "pos": 4
+          "pos": 5
         },
         "controls": {
           "type": "boolean",
-          "pos": 5
+          "pos": 6
         },
         "playing": {
           "type": "boolean",
-          "pos": 6
+          "pos": 7
         },
         "loop": {
           "type": "boolean",
-          "pos": 7
+          "pos": 8
         },
         "muted": {
           "type": "boolean",
-          "pos": 8
+          "pos": 9
         },
         "playsinline": {
           "type": "boolean",
-          "pos": 9
+          "pos": 10
         },
         "volume": {
           "type": "number",
           "default_value": "",
           "description": "Value between 0 and 1. Defaults to 0",
-          "pos": 10
+          "pos": 11
         },
         "light": {
           "type": "boolean",
-          "pos": 11
+          "pos": 12
         },
         "tab-0656672f-894c-4ab9-b318-4de78fea3e5c": {
           "type": "tab",
@@ -8308,11 +8317,11 @@
             "playsinline",
             "fallback_image"
           ],
-          "pos": 12
+          "pos": 13
         },
         "fallback_image": {
           "type": "text",
-          "pos": 13
+          "pos": 14
         }
       },
       "image": null,
@@ -9664,6 +9673,12 @@
           "image": "//a.storyblok.com/f/82895/x/4d6534527e/instagram-grids.PNG"
         },
         {
+          "id": 989714,
+          "name": "[Content] Multi Column Blog",
+          "component_id": 894776,
+          "image": "//a.storyblok.com/f/82895/x/29f3ccb794/screenshot-2021-04-26-at-16-48-47.png"
+        },
+        {
           "id": 752633,
           "name": "[Content] Overlay Content Preview",
           "component_id": 894776,
@@ -9926,7 +9941,7 @@
       "name": "section_video_bg",
       "display_name": null,
       "created_at": "2020-05-01T08:40:31.828Z",
-      "updated_at": "2020-09-16T07:03:41.256Z",
+      "updated_at": "2021-04-26T09:01:57.054Z",
       "id": 894779,
       "schema": {
         "section_identifier": {
@@ -9948,18 +9963,27 @@
           ],
           "display_name": "Storyblok Video"
         },
+        "url_alternatives": {
+          "type": "multiasset",
+          "pos": 3,
+          "filetypes": [
+            "videos"
+          ],
+          "display_name": "Video alternatives",
+          "description": "Add different video format for cross-browser support like webm, mp4."
+        },
         "body": {
           "type": "bloks",
           "restrict_components": true,
           "component_whitelist": [
             "row"
           ],
-          "pos": 3,
+          "pos": 4,
           "component_group_whitelist": []
         },
         "fallback_image": {
           "type": "image",
-          "pos": 4
+          "pos": 5
         },
         "property": {
           "type": "options",
@@ -9993,7 +10017,7 @@
               "name": "light"
             }
           ],
-          "pos": 5
+          "pos": 6
         },
         "video_ratio": {
           "type": "option",
@@ -10016,12 +10040,12 @@
               "name": "16x6"
             }
           ],
-          "pos": 6,
+          "pos": 7,
           "description": "Set the video ratio of the element. Defaults to 16/9"
         },
         "height": {
           "type": "number",
-          "pos": 7,
+          "pos": 8,
           "description": "Height in % of the current viewport. Only use this on top-level sections. The Video will cover available space. Leave blank if you want the exact video ratio."
         },
         "tab-663661ba-d40a-4cbe-9968-b3e7cc1e37e1": {
@@ -10034,7 +10058,7 @@
             "fallback_image",
             "max_width"
           ],
-          "pos": 8
+          "pos": 9
         },
         "max_width": {
           "type": "option",
@@ -10065,7 +10089,7 @@
               "name": "none"
             }
           ],
-          "pos": 9
+          "pos": 10
         }
       },
       "image": null,

@@ -2,14 +2,12 @@ import React, { useState } from 'react'
 import clsx from 'clsx'
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import Image from 'next/image'
-import Avatar, { AvatarProps } from '@material-ui/core/Avatar'
 import {
   getOriginalImageDimensions,
   imageSizesOnWidthAndBreakpoints
 } from '../../utils/imageServices'
 import { LmImageProps } from './imageTypes'
 import { storyblokImageLoader } from '../../utils/imageLoader'
-import LmSquareImage from '../avatar/LmSquareImage'
 
 const useStyles = makeStyles((theme: Theme) => ({
   image: {
@@ -99,35 +97,45 @@ export default function LmImage({
     sizes = imageSizesOnWidthAndBreakpoints(currentWidth, breakpoints)
   }
   if (square && squareSize) {
-    let variant: AvatarProps['variant'] = 'circular'
-    if (property.includes('square') || property.includes('rounded-0')) {
-      variant = 'square'
-    }
-    if (property.includes('rounded')) {
-      variant = 'rounded'
-    }
+    // let variant: AvatarProps['variant'] = 'circular'
+    // if (property.includes('square') || property.includes('rounded-0')) {
+    //   variant = 'square'
+    // }
+    // if (property.includes('rounded')) {
+    //   variant = 'rounded'
+    // }
     return (
-      <div className={clsx(classes.image)}>
-        <Avatar
-          {...containerProps}
-          variant={variant}
-          style={{
-            margin: 'auto',
-            cursor: onClick ? 'pointer' : undefined,
-            width: `${squareSize}px`,
-            height: `${squareSize}px`
-          }}
-        >
-          <LmSquareImage
-            image={imageSource}
-            width={squareSize}
-            imageProps={{
-              loading,
-              priority,
-              onLoad: () => setLoaded(true)
-            }}
-          />
-        </Avatar>
+      <div
+        {...containerProps}
+        style={{
+          margin: 'auto',
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'block',
+          maxWidth: `${squareSize}px`,
+          maxHeight: `${squareSize}px`,
+          width: squareSize < 360 ? `${squareSize}px` : undefined,
+          height: squareSize < 360 ? `${squareSize}px` : undefined
+        }}
+        className={clsx(
+          content.class_names?.values,
+          classes.imgAddons,
+          content.property,
+          loaded ? 'loaded' : 'loading'
+        )}
+      >
+        <div style={{ paddingBottom: '100%' }} />
+        <Image
+          {...storyblokImageLoader(imageSource)}
+          src={imageSource}
+          alt={content.alt || 'website image'}
+          onLoad={() => setLoaded(true)}
+          loading={loading}
+          priority={priority}
+          sizes={sizes}
+          layout="fill"
+          objectFit="cover"
+        />
       </div>
     )
   }

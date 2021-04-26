@@ -1,4 +1,4 @@
-/* eslint-disable prefer-const */
+import { SSR_CONFIG } from '@SSR_CONFIG'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import { processFormData, processListWidgetData } from './traversePageContent'
@@ -7,7 +7,6 @@ import {
   PageStoryblok
 } from '../../typings/generated/components-schema'
 import { AppPageProps, PagePropsOptions } from '../../typings/app'
-import { SSR_CONFIG } from './ssrConfig'
 
 SSR_CONFIG.ssrHooks.pageProps = [
   processListWidgetData,
@@ -21,7 +20,7 @@ const getPageProps = async (
 ): Promise<AppPageProps> => {
   const { pageSlug } = prepareForStoryblok(slug, options)
 
-  let {
+  const {
     page,
     settings,
     allCategories = [],

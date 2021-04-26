@@ -18141,6 +18141,137 @@
       "image": "//a.storyblok.com/f/82895/x/d33d31755a/blog-preview.PNG"
     },
     {
+      "id": 768192,
+      "name": "[Content] Bouncy Preview Cards",
+      "preset": {
+        "_uid": "8a8da81c-c9d8-4098-a887-48842401f71b",
+        "body": [
+          {
+            "_uid": "b116d085-4618-4a60-822e-fcf7bac1eb72",
+            "body": [
+              {
+                "_uid": "e009c35d-6940-48e8-927a-3e107e88b24a",
+                "body": [],
+                "link": {
+                  "id": "",
+                  "url": "",
+                  "_uid": "1bf53175-ad50-42b6-8245-2bc05d207105",
+                  "linktype": "story",
+                  "fieldtype": "multilink",
+                  "cached_url": ""
+                },
+                "image": "//a.storyblok.com/f/82895/1920x1283/83f1a8bd93/barrel-maker-264254_1920.jpg",
+                "title": "Listen to Our Story",
+                "subtitle": "",
+                "component": "card_list_item",
+                "description": "",
+                "action_width": "",
+                "open_external": false,
+                "action_headline": [],
+                "card_actions_body": []
+              },
+              {
+                "_uid": "c9c8c289-430e-4e74-8ce0-2141e99badba",
+                "body": [],
+                "link": {
+                  "id": "",
+                  "url": "",
+                  "_uid": "4ea95fbd-e34c-444e-bf15-ab2c295c319c",
+                  "linktype": "story",
+                  "fieldtype": "multilink",
+                  "cached_url": ""
+                },
+                "image": "//a.storyblok.com/f/82895/1920x1280/2b44cc6333/fog-1535201_1920.jpg",
+                "title": "Create the Changes",
+                "subtitle": "",
+                "component": "card_list_item",
+                "description": "",
+                "action_width": "",
+                "open_external": false,
+                "action_headline": [],
+                "card_actions_body": []
+              },
+              {
+                "_uid": "9721a903-b56a-4782-9f60-d1f0b4cee3c1",
+                "body": [],
+                "link": {
+                  "id": "",
+                  "url": "",
+                  "_uid": "f39d5702-ee92-41fd-a949-2da0df65032c",
+                  "linktype": "story",
+                  "fieldtype": "multilink",
+                  "cached_url": ""
+                },
+                "image": "//a.storyblok.com/f/82895/640x360/124707fa03/evening-55067_640.png",
+                "title": "Make it Happen",
+                "subtitle": "",
+                "component": "card_list_item",
+                "description": "",
+                "action_width": "",
+                "open_external": false,
+                "action_headline": [],
+                "card_actions_body": []
+              }
+            ],
+            "variant": [
+              "over_media",
+              "overlay_content_no_space"
+            ],
+            "component": "card_list",
+            "elevation": "8",
+            "title_tag": "",
+            "column_gap": "",
+            "hide_image": false,
+            "image_size": "",
+            "image_ratio": "",
+            "column_count": "3",
+            "subtitle_tag": "",
+            "border_radius": "19px",
+            "shadow_effect": "bouncy",
+            "title_class_name": {
+              "_uid": "79d60744-9b17-4737-b799-dbc505edeb95",
+              "plugin": "bootstrap-utility-class-selector",
+              "values": [
+                "text-sm-center",
+                "badge-dark"
+              ]
+            },
+            "title_typography": "headline5",
+            "column_count_phone": "",
+            "column_count_tablet": "",
+            "subtitle_class_name": {
+              "_uid": "8adbdbaa-0b32-4377-8385-f1ba049e3e70",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "subtitle_typography": "",
+            "description_class_name": {
+              "_uid": "beeac938-da4a-429f-bf86-d6c4b23c52e4",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "description_typography": "",
+            "description_max_character": "",
+            "card_actions_disable_spacing": false
+          }
+        ],
+        "styles": [],
+        "justify": "",
+        "component": "column",
+        "background": [],
+        "align_items": "",
+        "width_phone": "",
+        "width_tablet": "",
+        "align_content": "",
+        "styles_mobile": [],
+        "styles_tablet": [],
+        "width_general": ""
+      },
+      "component_id": 894838,
+      "space_id": 82895,
+      "created_at": "2020-10-29T02:59:11.015Z",
+      "updated_at": "2020-10-29T02:59:11.015Z",
+      "image": ""
+    },
+    {
       "id": 726285,
       "name": "[Content] Bouncy Preview Cards",
       "preset": {
@@ -18293,137 +18424,6 @@
       "created_at": "2020-09-18T03:27:15.233Z",
       "updated_at": "2020-09-18T03:29:26.061Z",
       "image": "//a.storyblok.com/f/82895/x/702992ee14/bouncycards.PNG"
-    },
-    {
-      "id": 768192,
-      "name": "[Content] Bouncy Preview Cards",
-      "preset": {
-        "_uid": "8a8da81c-c9d8-4098-a887-48842401f71b",
-        "body": [
-          {
-            "_uid": "b116d085-4618-4a60-822e-fcf7bac1eb72",
-            "body": [
-              {
-                "_uid": "e009c35d-6940-48e8-927a-3e107e88b24a",
-                "body": [],
-                "link": {
-                  "id": "",
-                  "url": "",
-                  "_uid": "1bf53175-ad50-42b6-8245-2bc05d207105",
-                  "linktype": "story",
-                  "fieldtype": "multilink",
-                  "cached_url": ""
-                },
-                "image": "//a.storyblok.com/f/82895/1920x1283/83f1a8bd93/barrel-maker-264254_1920.jpg",
-                "title": "Listen to Our Story",
-                "subtitle": "",
-                "component": "card_list_item",
-                "description": "",
-                "action_width": "",
-                "open_external": false,
-                "action_headline": [],
-                "card_actions_body": []
-              },
-              {
-                "_uid": "c9c8c289-430e-4e74-8ce0-2141e99badba",
-                "body": [],
-                "link": {
-                  "id": "",
-                  "url": "",
-                  "_uid": "4ea95fbd-e34c-444e-bf15-ab2c295c319c",
-                  "linktype": "story",
-                  "fieldtype": "multilink",
-                  "cached_url": ""
-                },
-                "image": "//a.storyblok.com/f/82895/1920x1280/2b44cc6333/fog-1535201_1920.jpg",
-                "title": "Create the Changes",
-                "subtitle": "",
-                "component": "card_list_item",
-                "description": "",
-                "action_width": "",
-                "open_external": false,
-                "action_headline": [],
-                "card_actions_body": []
-              },
-              {
-                "_uid": "9721a903-b56a-4782-9f60-d1f0b4cee3c1",
-                "body": [],
-                "link": {
-                  "id": "",
-                  "url": "",
-                  "_uid": "f39d5702-ee92-41fd-a949-2da0df65032c",
-                  "linktype": "story",
-                  "fieldtype": "multilink",
-                  "cached_url": ""
-                },
-                "image": "//a.storyblok.com/f/82895/640x360/124707fa03/evening-55067_640.png",
-                "title": "Make it Happen",
-                "subtitle": "",
-                "component": "card_list_item",
-                "description": "",
-                "action_width": "",
-                "open_external": false,
-                "action_headline": [],
-                "card_actions_body": []
-              }
-            ],
-            "variant": [
-              "over_media",
-              "overlay_content_no_space"
-            ],
-            "component": "card_list",
-            "elevation": "8",
-            "title_tag": "",
-            "column_gap": "",
-            "hide_image": false,
-            "image_size": "",
-            "image_ratio": "",
-            "column_count": "3",
-            "subtitle_tag": "",
-            "border_radius": "19px",
-            "shadow_effect": "bouncy",
-            "title_class_name": {
-              "_uid": "79d60744-9b17-4737-b799-dbc505edeb95",
-              "plugin": "bootstrap-utility-class-selector",
-              "values": [
-                "text-sm-center",
-                "badge-dark"
-              ]
-            },
-            "title_typography": "headline5",
-            "column_count_phone": "",
-            "column_count_tablet": "",
-            "subtitle_class_name": {
-              "_uid": "8adbdbaa-0b32-4377-8385-f1ba049e3e70",
-              "plugin": "bootstrap-utility-class-selector"
-            },
-            "subtitle_typography": "",
-            "description_class_name": {
-              "_uid": "beeac938-da4a-429f-bf86-d6c4b23c52e4",
-              "plugin": "bootstrap-utility-class-selector"
-            },
-            "description_typography": "",
-            "description_max_character": "",
-            "card_actions_disable_spacing": false
-          }
-        ],
-        "styles": [],
-        "justify": "",
-        "component": "column",
-        "background": [],
-        "align_items": "",
-        "width_phone": "",
-        "width_tablet": "",
-        "align_content": "",
-        "styles_mobile": [],
-        "styles_tablet": [],
-        "width_general": ""
-      },
-      "component_id": 894838,
-      "space_id": 82895,
-      "created_at": "2020-10-29T02:59:11.015Z",
-      "updated_at": "2020-10-29T02:59:11.015Z",
-      "image": ""
     },
     {
       "id": 768190,
@@ -22316,6 +22316,2014 @@
       "created_at": "2020-10-29T02:40:37.647Z",
       "updated_at": "2020-10-29T02:40:53.932Z",
       "image": "//a.storyblok.com/f/82895/x/3ed4429fad/blogteaserminimalist.PNG"
+    },
+    {
+      "id": 989714,
+      "name": "[Content] Multi Column Blog",
+      "preset": {
+        "_uid": "41d5d05a-afc3-4322-871a-65cb7495fdb2",
+        "body": [
+          {
+            "_uid": "0cb0af1d-173b-4d0b-8e3d-13c23110b7e0",
+            "body": [
+              {
+                "_uid": "f543afab-aa16-406d-8451-865bf0f6fafe",
+                "body": [
+                  {
+                    "tag": "h2",
+                    "_uid": "1fbf6fc2-2bc1-49ee-96c6-0986adb82017",
+                    "font": "",
+                    "text": "Latest Stories ",
+                    "align": "center",
+                    "color": "",
+                    "style": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "headline3",
+                    "class_names": {
+                      "_uid": "ec304421-cd86-4305-ab32-72dd3f143169",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mb-5",
+                        "font-weight-lighter",
+                        "text-uppercase",
+                        "mt-5"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "0d726ba2-a4d8-47c0-9922-9598412d8da4",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  }
+                ],
+                "align": "",
+                "order": "",
+                "phone": "",
+                "style": "",
+                "styles": [],
+                "tablet": "",
+                "desktop": "",
+                "justify": "",
+                "component": "column",
+                "background": [],
+                "align_items": "",
+                "class_names": {
+                  "_uid": "d126f4bf-1beb-4b24-bc5a-639a431818a6",
+                  "plugin": "bootstrap-utility-class-selector",
+                  "values": [
+                    "text-center"
+                  ]
+                },
+                "start_phone": "",
+                "width_phone": "",
+                "start_tablet": "",
+                "styles_hover": [],
+                "width_tablet": "",
+                "align_content": "",
+                "start_desktop": "3",
+                "styles_mobile": [],
+                "styles_tablet": [],
+                "width_desktop": "",
+                "width_general": "8",
+                "background_color": ""
+              }
+            ],
+            "styles": [],
+            "justify": "center",
+            "spacing": "",
+            "component": "row",
+            "direction": "",
+            "background": [],
+            "align_items": "",
+            "styles_hover": [],
+            "align_content": "",
+            "styles_mobile": [],
+            "styles_tablet": [],
+            "reverse_on_mobile": false,
+            "reverse_on_tablet": false
+          },
+          {
+            "_uid": "6c38fb94-2bb8-45fc-a75d-5615792d2b0e",
+            "body": [
+              {
+                "_uid": "b78a9420-f68e-47df-8125-6c10ca327441",
+                "body": [
+                  {
+                    "_uid": "defc397c-c114-4db8-96a2-ab045b7ec55d",
+                    "body": [
+                      {
+                        "_uid": "7cb7856d-2e5d-4715-8f5c-aa273de699b0",
+                        "body": [
+                          {
+                            "_uid": "8ae7ff20-d6da-42be-9f57-77a5d6909848",
+                            "body": [
+                              {
+                                "url": "",
+                                "_uid": "ff0b923d-40f3-459f-906b-a95a52fff3b8",
+                                "loop": true,
+                                "light": false,
+                                "muted": true,
+                                "ratio": "16x9",
+                                "width": "",
+                                "height": "",
+                                "volume": "",
+                                "playing": true,
+                                "controls": false,
+                                "component": "player",
+                                "playsinline": false,
+                                "url_internal": {
+                                  "id": 2239873,
+                                  "alt": "",
+                                  "_uid": "8d547349-0e35-4f64-a8d0-0a087cde8a1f",
+                                  "name": "",
+                                  "focus": null,
+                                  "title": "",
+                                  "filename": "https://a.storyblok.com/f/69529/x/af8fac7d5d/video_travel_beach_mini.webm",
+                                  "copyright": "",
+                                  "fieldtype": "asset"
+                                },
+                                "fallback_image": {
+                                  "id": null,
+                                  "alt": null,
+                                  "_uid": "343a00e7-31e7-4e15-8a5f-64b6d90e5303",
+                                  "name": "",
+                                  "focus": null,
+                                  "title": null,
+                                  "filename": "",
+                                  "copyright": null,
+                                  "fieldtype": "asset"
+                                },
+                                "url_internal_fallback": {
+                                  "id": null,
+                                  "alt": null,
+                                  "_uid": "32d4a789-54a6-483d-b832-66a95fbe9fb7",
+                                  "name": "",
+                                  "focus": null,
+                                  "title": null,
+                                  "filename": null,
+                                  "copyright": null,
+                                  "fieldtype": "asset"
+                                }
+                              }
+                            ],
+                            "styles": [],
+                            "justify": "",
+                            "component": "column",
+                            "background": [],
+                            "align_items": "",
+                            "width_phone": "",
+                            "styles_hover": [],
+                            "width_tablet": "",
+                            "align_content": "",
+                            "styles_mobile": [],
+                            "styles_tablet": [],
+                            "width_general": ""
+                          }
+                        ],
+                        "styles": [],
+                        "justify": "",
+                        "spacing": "",
+                        "component": "row",
+                        "direction": "",
+                        "background": [],
+                        "align_items": "",
+                        "styles_hover": [],
+                        "align_content": "",
+                        "styles_mobile": [],
+                        "styles_tablet": [],
+                        "reverse_on_mobile": false,
+                        "reverse_on_tablet": false
+                      },
+                      {
+                        "_uid": "fd95ce6b-ce81-4486-b1f0-516489a0122a",
+                        "body": [
+                          {
+                            "_uid": "b3cab0af-f9ec-40b8-adab-a8fea03f94e7",
+                            "body": [
+                              {
+                                "alt": "",
+                                "_uid": "6ca0a907-8f8f-4e24-ad88-4a6137461d09",
+                                "color": {
+                                  "_uid": "e772959e-ae7d-4a2e-93f6-87875dd4b894",
+                                  "rgba": "rgba(0,0,0,1)",
+                                  "plugin": "vue-color-picker"
+                                },
+                                "style": "",
+                                "width": "",
+                                "height": "",
+                                "source": "//a.storyblok.com/f/69529/1920x1080/624a26c8af/chatlabs-blog-zegna-033021-100-1x.jpg",
+                                "priority": false,
+                                "property": [
+                                  "square"
+                                ],
+                                "component": "image",
+                                "height_xs": "",
+                                "source_xs": "",
+                                "image_crop": [],
+                                "class_names": {
+                                  "_uid": "0478557f-4280-4e69-8b4c-0659977c62ba",
+                                  "plugin": "bootstrap-utility-class-selector",
+                                  "values": [
+                                    "mt-3"
+                                  ]
+                                },
+                                "focal_point": "",
+                                "height_fill": false,
+                                "disable_lazy_loading": false,
+                                "disable_ratio_correction": false
+                              }
+                            ],
+                            "styles": [],
+                            "justify": "",
+                            "component": "column",
+                            "background": [],
+                            "align_items": "",
+                            "width_phone": "2",
+                            "styles_hover": [],
+                            "width_tablet": "4",
+                            "align_content": "",
+                            "styles_mobile": [],
+                            "styles_tablet": [],
+                            "width_general": "6"
+                          },
+                          {
+                            "_uid": "abf5edf2-fc2f-4584-8066-5361b564d4e8",
+                            "body": [
+                              {
+                                "alt": "",
+                                "_uid": "d015e861-0baa-4700-a9f1-8d42e225dad8",
+                                "color": {
+                                  "_uid": "b3a91d4c-84b0-4abe-a7c1-25fc5f3d6668",
+                                  "rgba": "rgba(0,0,0,1)",
+                                  "plugin": "vue-color-picker"
+                                },
+                                "style": "",
+                                "width": "",
+                                "height": "",
+                                "source": "//a.storyblok.com/f/69529/1920x1080/e0f1f7692d/chatlabs-blog-zegna-033021-101-1x.jpg",
+                                "priority": false,
+                                "property": [
+                                  "square"
+                                ],
+                                "component": "image",
+                                "height_xs": "",
+                                "source_xs": "",
+                                "image_crop": [],
+                                "class_names": {
+                                  "_uid": "343014eb-6c3a-49d7-b8fb-632d8fa95fe7",
+                                  "plugin": "bootstrap-utility-class-selector",
+                                  "values": [
+                                    "mt-3"
+                                  ]
+                                },
+                                "focal_point": "",
+                                "height_fill": false,
+                                "disable_lazy_loading": false,
+                                "disable_ratio_correction": false
+                              }
+                            ],
+                            "styles": [],
+                            "justify": "",
+                            "component": "column",
+                            "background": [],
+                            "align_items": "",
+                            "width_phone": "2",
+                            "styles_hover": [],
+                            "width_tablet": "4",
+                            "align_content": "",
+                            "styles_mobile": [],
+                            "styles_tablet": [],
+                            "width_general": "6"
+                          }
+                        ],
+                        "styles": [],
+                        "justify": "",
+                        "spacing": "",
+                        "component": "row",
+                        "direction": "",
+                        "background": [],
+                        "align_items": "",
+                        "styles_hover": [],
+                        "align_content": "",
+                        "styles_mobile": [],
+                        "styles_tablet": [],
+                        "reverse_on_mobile": false,
+                        "reverse_on_tablet": false
+                      }
+                    ],
+                    "column": false,
+                    "justify": "",
+                    "component": "flex_row",
+                    "align_items": "",
+                    "class_names": {
+                      "_uid": "522af935-5b30-4760-a085-f00a000c93df",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": []
+                    },
+                    "full_height": false,
+                    "align_content": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "f601c0a9-20b4-4c4e-8ed4-bb6d878642fe",
+                    "font": "",
+                    "text": "Marketing Digest",
+                    "align": "",
+                    "color": "",
+                    "style": "",
+                    "prefix": "",
+                    "styles": [
+                      {
+                        "top": "",
+                        "_uid": "e76f50b4-33f6-4eeb-8c52-f029e8532651",
+                        "left": "",
+                        "color": {
+                          "_uid": "8848e563-7354-45c1-a584-72850103decb",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "right": "",
+                        "width": "",
+                        "bottom": "",
+                        "height": "",
+                        "margin": "",
+                        "display": "",
+                        "padding": "",
+                        "z_index": "",
+                        "position": "",
+                        "component": "styles",
+                        "elevation": "",
+                        "transform": "",
+                        "background": "",
+                        "box_shadow": "",
+                        "transition": "",
+                        "color_theme": "",
+                        "border_color": {
+                          "_uid": "dec8ad8e-d2ec-48db-83b9-c9d050ff43cc",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_style": "",
+                        "border_width": "",
+                        "border_radius": "",
+                        "css_properties": [],
+                        "border_position": [],
+                        "background_color": {
+                          "_uid": "2d9ac877-f380-4860-ba7f-dbb46bc4305a",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_color_theme": "",
+                        "background_color_theme": ""
+                      }
+                    ],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "caption",
+                    "class_names": {
+                      "_uid": "2b41491d-4111-4865-8cb0-e83f4dd2a8bc",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "text-uppercase"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "d99769e0-2961-489c-9762-40eb02c7d27c",
+                      "rgba": "rgba(255,0,140,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "42fbcfc3-454f-412a-88ab-14d5e3e4ade0",
+                    "font": "alt1",
+                    "text": "Luxury x Gaming: A Match Made in Heaven",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "headline4",
+                    "class_names": {
+                      "_uid": "259b4ce7-088b-4d0d-9e7a-674e33f9b67d",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mt-0",
+                        "px-0",
+                        "mr-2"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "292d6a00-5416-4307-88aa-33a7488d27f5",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "5bc496ab-8413-4dce-b24d-24f6b1f4da9b",
+                    "font": "",
+                    "text": "March 30, 2021 | Danielle Sumerlin",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "subtitle1",
+                    "class_names": {
+                      "_uid": "44dc5621-c314-46f0-a59d-ee958fd2912b",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "font-weight-lighter",
+                        "mb-3"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "2152c46b-c96d-4af0-9676-490844baa36f",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  }
+                ],
+                "align": "",
+                "order": "",
+                "phone": "",
+                "style": "",
+                "styles": [
+                  {
+                    "top": "",
+                    "_uid": "001c89a4-9109-4ee8-83de-83ccc517012f",
+                    "left": "",
+                    "color": {
+                      "_uid": "c6c48bc2-86eb-48fb-9595-8e3e3eb97c69",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "right": "",
+                    "width": "",
+                    "bottom": "",
+                    "height": "",
+                    "margin": "",
+                    "display": "",
+                    "padding": "20px",
+                    "z_index": "",
+                    "position": "",
+                    "component": "styles",
+                    "elevation": "",
+                    "transform": "",
+                    "background": "",
+                    "box_shadow": "",
+                    "transition": "",
+                    "color_theme": "",
+                    "border_color": {
+                      "_uid": "1999ef73-0877-4d95-b29b-96a0a3d95860",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_style": "",
+                    "border_width": "",
+                    "border_radius": "",
+                    "css_properties": [],
+                    "border_position": [],
+                    "background_color": {
+                      "_uid": "2e4f908b-1975-45c9-891b-c85989c84c64",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_color_theme": "",
+                    "background_color_theme": ""
+                  }
+                ],
+                "tablet": "",
+                "desktop": "",
+                "justify": "",
+                "component": "column",
+                "background": [],
+                "align_items": "",
+                "class_names": {
+                  "_uid": "db23aec5-6a1f-4c77-baba-5a99d7cc658f",
+                  "plugin": "bootstrap-utility-class-selector"
+                },
+                "start_phone": "",
+                "width_phone": "",
+                "start_tablet": "",
+                "styles_hover": [],
+                "width_tablet": "4",
+                "align_content": "",
+                "start_desktop": "",
+                "styles_mobile": [],
+                "styles_tablet": [],
+                "width_desktop": "",
+                "width_general": "4",
+                "background_color": ""
+              },
+              {
+                "_uid": "89b13b48-6698-46c5-b32f-620e5c4b8ef6",
+                "body": [
+                  {
+                    "alt": "",
+                    "_uid": "012fdc76-ba89-4460-9102-326cb66f575f",
+                    "color": {
+                      "_uid": "a613393d-fabc-4689-8541-c0b2778d49ae",
+                      "rgba": "rgba(0,0,0,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "style": "",
+                    "width": "",
+                    "height": "",
+                    "source": "//a.storyblok.com/f/69529/1920x2360/c74ea69812/chatlabs-blog-wechat101-031621-102-1x.jpg",
+                    "priority": false,
+                    "property": [],
+                    "component": "image",
+                    "height_xs": "",
+                    "source_xs": "",
+                    "image_crop": [],
+                    "class_names": {
+                      "_uid": "816b8fd3-f0a3-4358-b9ee-c84caaefa774",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mb-2"
+                      ]
+                    },
+                    "focal_point": "",
+                    "height_fill": false,
+                    "disable_lazy_loading": false,
+                    "disable_ratio_correction": false
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "6a10eee4-26be-4982-97d1-32e864d3ebbc",
+                    "font": "",
+                    "text": "Resource",
+                    "align": "",
+                    "color": "",
+                    "style": "",
+                    "prefix": "",
+                    "styles": [
+                      {
+                        "top": "",
+                        "_uid": "1c8042d2-f55f-4b95-af24-8f36850ec5aa",
+                        "left": "",
+                        "color": {
+                          "_uid": "4514e9ab-c9b5-41e7-a774-cc9a84637713",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "right": "",
+                        "width": "",
+                        "bottom": "",
+                        "height": "",
+                        "margin": "",
+                        "display": "",
+                        "padding": "",
+                        "z_index": "",
+                        "position": "",
+                        "component": "styles",
+                        "elevation": "",
+                        "transform": "",
+                        "background": "",
+                        "box_shadow": "",
+                        "transition": "",
+                        "color_theme": "",
+                        "border_color": {
+                          "_uid": "9d084960-98d6-4410-a18c-883bb0fbb3ed",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_style": "",
+                        "border_width": "",
+                        "border_radius": "",
+                        "css_properties": [],
+                        "border_position": [],
+                        "background_color": {
+                          "_uid": "49709501-339a-4bf5-8fcd-d8bdf49227c4",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_color_theme": "",
+                        "background_color_theme": ""
+                      }
+                    ],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "caption",
+                    "class_names": {
+                      "_uid": "92e999d2-95be-4e80-8b9a-2f7adbf5bfda",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "text-uppercase"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "25b455f8-6ff2-4229-b395-f7feab9d64a3",
+                      "rgba": "rgba(255,0,140,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "e523f4cd-e1ea-4785-9209-576e416e2ef1",
+                    "font": "alt1",
+                    "text": "WeChat 101: WeChat Search Explainer and Best-in-Class Examples",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "headline4",
+                    "class_names": {
+                      "_uid": "31f243dd-7b0e-40a9-8b41-f9939ce2c006",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mt-0",
+                        "px-0",
+                        "mr-2"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "f2e40b49-949a-4c2b-a6d3-ad7b44f95714",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "6151d924-bb73-455d-ae82-8acd41053080",
+                    "font": "",
+                    "text": "March 30, 2021 | Danielle Sumerlin",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "subtitle1",
+                    "class_names": {
+                      "_uid": "206894eb-5d5f-41db-9c65-c162340a0146",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "font-weight-lighter",
+                        "mb-3"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "87b89c41-831b-40c8-8c54-8c11a51141a2",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  }
+                ],
+                "align": "",
+                "order": "",
+                "phone": "",
+                "style": "",
+                "styles": [
+                  {
+                    "top": "",
+                    "_uid": "c2726bb5-e599-4638-b4d0-9cd83babbaf1",
+                    "left": "",
+                    "color": {
+                      "_uid": "10471249-47b3-457b-8704-3845ac5d24e9",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "right": "",
+                    "width": "",
+                    "bottom": "",
+                    "height": "",
+                    "margin": "",
+                    "display": "",
+                    "padding": "20px",
+                    "z_index": "",
+                    "position": "",
+                    "component": "styles",
+                    "elevation": "",
+                    "transform": "",
+                    "background": "",
+                    "box_shadow": "",
+                    "transition": "",
+                    "color_theme": "",
+                    "border_color": {
+                      "_uid": "99074aeb-0387-47e3-959b-f5408b4a53cf",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_style": "",
+                    "border_width": "",
+                    "border_radius": "",
+                    "css_properties": [],
+                    "border_position": [],
+                    "background_color": {
+                      "_uid": "81cb71fa-c178-47b8-84a2-1c9e380164b4",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_color_theme": "",
+                    "background_color_theme": ""
+                  }
+                ],
+                "tablet": "",
+                "desktop": "",
+                "justify": "",
+                "component": "column",
+                "background": [],
+                "align_items": "",
+                "class_names": {
+                  "_uid": "8805ac92-99c4-4df0-a620-503774b98775",
+                  "plugin": "bootstrap-utility-class-selector"
+                },
+                "start_phone": "",
+                "width_phone": "",
+                "start_tablet": "",
+                "styles_hover": [],
+                "width_tablet": "4",
+                "align_content": "",
+                "start_desktop": "",
+                "styles_mobile": [],
+                "styles_tablet": [],
+                "width_desktop": "",
+                "width_general": "4",
+                "background_color": ""
+              },
+              {
+                "_uid": "12d2837a-c9fb-4812-adf6-2c001cb17423",
+                "body": [
+                  {
+                    "url": "",
+                    "_uid": "657fcb9a-3eea-4692-a506-3c750c72b1c8",
+                    "loop": true,
+                    "light": false,
+                    "muted": true,
+                    "ratio": "1x1",
+                    "width": "",
+                    "height": "",
+                    "volume": "",
+                    "playing": true,
+                    "controls": false,
+                    "component": "player",
+                    "playsinline": false,
+                    "url_internal": {
+                      "id": 2239897,
+                      "alt": null,
+                      "_uid": "b2f96323-8a96-4edb-8c0b-ea9c10086da9",
+                      "name": "",
+                      "focus": null,
+                      "title": null,
+                      "filename": "https://a.storyblok.com/f/69529/x/f310d16136/device-square2_lowlow.webm",
+                      "copyright": null,
+                      "fieldtype": "asset"
+                    },
+                    "fallback_image": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "2f5e330f-6644-4a0e-8286-5104a9f6dc38",
+                    "font": "",
+                    "text": "Special Edition",
+                    "align": "",
+                    "color": "",
+                    "style": "",
+                    "prefix": "",
+                    "styles": [
+                      {
+                        "top": "",
+                        "_uid": "b18a3084-feff-4491-867c-8ab511d4d014",
+                        "left": "",
+                        "color": {
+                          "_uid": "d486549b-c1b3-437f-8a17-efe7ce16081f",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "right": "",
+                        "width": "",
+                        "bottom": "",
+                        "height": "",
+                        "margin": "",
+                        "display": "",
+                        "padding": "",
+                        "z_index": "",
+                        "position": "",
+                        "component": "styles",
+                        "elevation": "",
+                        "transform": "",
+                        "background": "",
+                        "box_shadow": "",
+                        "transition": "",
+                        "color_theme": "",
+                        "border_color": {
+                          "_uid": "423682bc-6fab-4116-9464-27d5e6e12c2e",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_style": "",
+                        "border_width": "",
+                        "border_radius": "",
+                        "css_properties": [],
+                        "border_position": [],
+                        "background_color": {
+                          "_uid": "59af6023-d550-4ca4-9223-f7f0649fc66b",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_color_theme": "",
+                        "background_color_theme": ""
+                      }
+                    ],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "caption",
+                    "class_names": {
+                      "_uid": "f2d6049b-069a-4f87-82db-83b121a178bc",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "text-uppercase"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "4018dc60-f659-4a0f-979a-624c6e6ae83a",
+                      "rgba": "rgba(255,0,140,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "dfde0734-7acd-43cc-8a14-63193b6fe442",
+                    "font": "alt1",
+                    "text": "2021 Chinese New Year Campaign Highlights: Luxury Brands on WeChat",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "headline4",
+                    "class_names": {
+                      "_uid": "e42b3685-77f2-4f96-9b7f-16370d1b3d1e",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mt-0",
+                        "px-0",
+                        "mr-2"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "d0ec765c-a969-4202-bb3a-0b5db2f93558",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "dcba1352-d909-4a78-8fea-47b2efb6d154",
+                    "font": "",
+                    "text": "March 14, 2021 | Danielle Sumerlin",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "subtitle1",
+                    "class_names": {
+                      "_uid": "938b2ba2-68e7-458d-984f-3897ed124fb2",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "font-weight-lighter",
+                        "mb-3"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "ccd19ced-c884-4345-9267-233db1a1e9d8",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  }
+                ],
+                "align": "",
+                "order": "",
+                "phone": "",
+                "style": "",
+                "styles": [
+                  {
+                    "top": "",
+                    "_uid": "012bc1ae-3247-4fd6-ad49-ef7a7327375a",
+                    "left": "",
+                    "color": {
+                      "_uid": "b3929f8c-38ea-4c3a-918e-ea0019972dcf",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "right": "",
+                    "width": "",
+                    "bottom": "",
+                    "height": "",
+                    "margin": "",
+                    "display": "",
+                    "padding": "20px",
+                    "z_index": "",
+                    "position": "",
+                    "component": "styles",
+                    "elevation": "",
+                    "transform": "",
+                    "background": "",
+                    "box_shadow": "",
+                    "transition": "",
+                    "color_theme": "",
+                    "border_color": {
+                      "_uid": "bf50ad40-1d11-4b99-8b97-dbf024cb9334",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_style": "",
+                    "border_width": "",
+                    "border_radius": "",
+                    "css_properties": [],
+                    "border_position": [],
+                    "background_color": {
+                      "_uid": "256472c8-57cb-4563-adab-2a3de824367d",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_color_theme": "",
+                    "background_color_theme": ""
+                  }
+                ],
+                "tablet": "",
+                "desktop": "",
+                "justify": "",
+                "component": "column",
+                "background": [],
+                "align_items": "",
+                "class_names": {
+                  "_uid": "d8a1f8b0-fa89-4f26-bcab-efb46522c9f7",
+                  "plugin": "bootstrap-utility-class-selector"
+                },
+                "start_phone": "",
+                "width_phone": "",
+                "start_tablet": "",
+                "styles_hover": [],
+                "width_tablet": "4",
+                "align_content": "",
+                "start_desktop": "",
+                "styles_mobile": [],
+                "styles_tablet": [],
+                "width_desktop": "",
+                "width_general": "4",
+                "background_color": ""
+              },
+              {
+                "_uid": "54cb8883-fbff-4189-adc1-6bf1f3ca7fdc",
+                "body": [
+                  {
+                    "alt": "",
+                    "_uid": "f706bb80-2d3f-4434-9d3c-16e563396cbd",
+                    "color": {
+                      "_uid": "18c80e3b-b374-466b-8427-0b0a3b7124e5",
+                      "rgba": "rgba(0,0,0,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "style": "",
+                    "width": "",
+                    "height": "",
+                    "source": "//a.storyblok.com/f/69529/1920x1080/137ed68921/chatlabs-blog-digest-031621-100-1x.jpg",
+                    "priority": false,
+                    "property": [
+                      "square"
+                    ],
+                    "component": "image",
+                    "height_xs": "",
+                    "source_xs": "",
+                    "image_crop": [],
+                    "class_names": {
+                      "_uid": "108b032d-7200-4e26-9180-bc0a7ffa6ef7",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mb-2"
+                      ]
+                    },
+                    "focal_point": "",
+                    "height_fill": false,
+                    "disable_lazy_loading": false,
+                    "disable_ratio_correction": false
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "ff2b5713-220a-4e66-8726-e8be7194c686",
+                    "font": "",
+                    "text": "Marketing Digest",
+                    "align": "",
+                    "color": "",
+                    "style": "",
+                    "prefix": "",
+                    "styles": [
+                      {
+                        "top": "",
+                        "_uid": "a462acdf-f1ec-456b-8e05-a6792a856cfa",
+                        "left": "",
+                        "color": {
+                          "_uid": "126bc664-e783-479e-b2df-55edc83358b8",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "right": "",
+                        "width": "",
+                        "bottom": "",
+                        "height": "",
+                        "margin": "",
+                        "display": "",
+                        "padding": "",
+                        "z_index": "",
+                        "position": "",
+                        "component": "styles",
+                        "elevation": "",
+                        "transform": "",
+                        "background": "",
+                        "box_shadow": "",
+                        "transition": "",
+                        "color_theme": "",
+                        "border_color": {
+                          "_uid": "b3556193-0138-43c5-b5b5-f00dbedee1c5",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_style": "",
+                        "border_width": "",
+                        "border_radius": "",
+                        "css_properties": [],
+                        "border_position": [],
+                        "background_color": {
+                          "_uid": "61fb512b-624d-4d6c-91ed-e6b5cabb287e",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_color_theme": "",
+                        "background_color_theme": ""
+                      }
+                    ],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "caption",
+                    "class_names": {
+                      "_uid": "64d74755-72f3-466c-8d32-2088c548a017",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "text-uppercase"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "9dd5c0d4-8e0d-4acc-8292-7665b54b98df",
+                      "rgba": "rgba(255,0,140,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "68228d18-3786-411a-987b-590a02443655",
+                    "font": "alt1",
+                    "text": "Goddess Day Campaigns & Innovative User-Generated Content in Mini Programs",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "headline5",
+                    "class_names": {
+                      "_uid": "5c533a77-ccbf-4e7e-bddb-997d435d70cc",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mt-0",
+                        "px-0",
+                        "mr-2"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "25c94a8f-0f9f-4b7b-8bb2-84e851aff326",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "e0135006-41f1-4d04-a441-505395f47775",
+                    "font": "",
+                    "text": "March 16, 2021 | Danielle Sumerlin",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "subtitle1",
+                    "class_names": {
+                      "_uid": "4d6e6bf0-fb48-4d96-81fb-38216d563426",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "font-weight-lighter",
+                        "mb-3"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "f2057fae-ac8a-405d-abbb-bfc3d79437ec",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  }
+                ],
+                "align": "",
+                "order": "",
+                "phone": "",
+                "style": "",
+                "styles": [
+                  {
+                    "top": "",
+                    "_uid": "06a2da63-42f8-4355-85fd-f1948ae637a9",
+                    "left": "",
+                    "color": {
+                      "_uid": "59c6d76b-ee3a-4545-9ca0-7372466290ed",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "right": "",
+                    "width": "",
+                    "bottom": "",
+                    "height": "",
+                    "margin": "",
+                    "display": "",
+                    "padding": "20px",
+                    "z_index": "",
+                    "position": "",
+                    "component": "styles",
+                    "elevation": "",
+                    "transform": "",
+                    "background": "",
+                    "box_shadow": "",
+                    "transition": "",
+                    "color_theme": "",
+                    "border_color": {
+                      "_uid": "7dc24f87-2442-4753-a2a1-fd3ef6bf53a1",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_style": "",
+                    "border_width": "",
+                    "border_radius": "",
+                    "css_properties": [],
+                    "border_position": [],
+                    "background_color": {
+                      "_uid": "6e8f108a-7e5c-4573-be74-0636c9741824",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_color_theme": "",
+                    "background_color_theme": ""
+                  }
+                ],
+                "tablet": "",
+                "desktop": "",
+                "justify": "",
+                "component": "column",
+                "background": [],
+                "align_items": "",
+                "class_names": {
+                  "_uid": "bd9f78c8-4d7f-40f8-8d89-62c30d14c787",
+                  "plugin": "bootstrap-utility-class-selector"
+                },
+                "start_phone": "",
+                "width_phone": "",
+                "start_tablet": "",
+                "styles_hover": [],
+                "width_tablet": "4",
+                "align_content": "",
+                "start_desktop": "",
+                "styles_mobile": [],
+                "styles_tablet": [],
+                "width_desktop": "",
+                "width_general": "3",
+                "background_color": ""
+              },
+              {
+                "_uid": "eac39393-a136-4597-a7eb-7dbf662d1440",
+                "body": [
+                  {
+                    "alt": "",
+                    "_uid": "e1f8192c-7c36-46d1-b34a-9e73e18eb083",
+                    "color": {
+                      "_uid": "1b23fe74-3337-4368-b0c0-f5c912230ca5",
+                      "rgba": "rgba(0,0,0,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "style": "",
+                    "width": "",
+                    "height": "",
+                    "source": "//a.storyblok.com/f/69529/1920x1080/0ca628a58a/chatlabs-blog-wechat101-031621-101-1x.jpg",
+                    "priority": false,
+                    "property": [],
+                    "component": "image",
+                    "height_xs": "",
+                    "source_xs": "",
+                    "image_crop": [],
+                    "class_names": {
+                      "_uid": "d50cab6e-a368-45aa-b9ea-d2ec5680cb24",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mb-2"
+                      ]
+                    },
+                    "focal_point": "",
+                    "height_fill": false,
+                    "disable_lazy_loading": false,
+                    "disable_ratio_correction": false
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "cb0e9fe9-f763-4142-9249-cf6879e539d8",
+                    "font": "",
+                    "text": "Resource",
+                    "align": "",
+                    "color": "",
+                    "style": "",
+                    "prefix": "",
+                    "styles": [
+                      {
+                        "top": "",
+                        "_uid": "51fd3544-c28f-465a-aeca-c8111d1db04f",
+                        "left": "",
+                        "color": {
+                          "_uid": "ef2ed98e-6b10-4518-91f3-3c92d6f407b6",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "right": "",
+                        "width": "",
+                        "bottom": "",
+                        "height": "",
+                        "margin": "",
+                        "display": "",
+                        "padding": "",
+                        "z_index": "",
+                        "position": "",
+                        "component": "styles",
+                        "elevation": "",
+                        "transform": "",
+                        "background": "",
+                        "box_shadow": "",
+                        "transition": "",
+                        "color_theme": "",
+                        "border_color": {
+                          "_uid": "1baf459b-9a6f-4fde-a3bf-cb96b53c9d76",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_style": "",
+                        "border_width": "",
+                        "border_radius": "",
+                        "css_properties": [],
+                        "border_position": [],
+                        "background_color": {
+                          "_uid": "d1f0b562-627b-4b27-8a8d-a97180157f4f",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_color_theme": "",
+                        "background_color_theme": ""
+                      }
+                    ],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "caption",
+                    "class_names": {
+                      "_uid": "4460a694-8f9a-48a5-b33f-a334462a57e6",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "text-uppercase"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "74d15d9e-f2c2-47ee-9e20-26e6ac24525b",
+                      "rgba": "rgba(255,0,140,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "0a031b0a-c6cb-409e-91d5-e76409737101",
+                    "font": "alt1",
+                    "text": "Hublot’s & Estée Lauder’s Livestream Strategies & How Longchamp Got Personalization Right",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "headline4",
+                    "class_names": {
+                      "_uid": "48d24131-e2f6-424d-a19b-deeadec715e9",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mt-0",
+                        "px-0",
+                        "mr-2"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "612fae19-dec5-4811-87da-f5abdba5deff",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "f7b84368-7808-4734-8f2e-7750bf83315c",
+                    "font": "",
+                    "text": "March 30, 2021 | Danielle Sumerlin",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "subtitle1",
+                    "class_names": {
+                      "_uid": "1c4d03f8-42f9-4401-95ed-48a793638d08",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "font-weight-lighter",
+                        "mb-3"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "9e8a4445-3b88-40f4-90ce-b74c334aa4e1",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  }
+                ],
+                "align": "",
+                "order": "",
+                "phone": "",
+                "style": "",
+                "styles": [
+                  {
+                    "top": "",
+                    "_uid": "2992e0bc-4c3c-4cbd-a6e0-b1f7716860e6",
+                    "left": "",
+                    "color": {
+                      "_uid": "5c63be6c-932f-4708-9f73-696e63d4a39e",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "right": "",
+                    "width": "",
+                    "bottom": "",
+                    "height": "",
+                    "margin": "",
+                    "display": "",
+                    "padding": "20px",
+                    "z_index": "",
+                    "position": "",
+                    "component": "styles",
+                    "elevation": "",
+                    "transform": "",
+                    "background": "",
+                    "box_shadow": "",
+                    "transition": "",
+                    "color_theme": "",
+                    "border_color": {
+                      "_uid": "13f17068-1fbf-4642-b9d1-5dd708aba09f",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_style": "",
+                    "border_width": "",
+                    "border_radius": "",
+                    "css_properties": [],
+                    "border_position": [],
+                    "background_color": {
+                      "_uid": "dea94848-cfda-4dc2-8f4a-e5654908cce4",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_color_theme": "",
+                    "background_color_theme": ""
+                  }
+                ],
+                "tablet": "",
+                "desktop": "",
+                "justify": "",
+                "component": "column",
+                "background": [],
+                "align_items": "",
+                "class_names": {
+                  "_uid": "8d37f4c7-19bd-4e14-a21a-34f7f31156fe",
+                  "plugin": "bootstrap-utility-class-selector"
+                },
+                "start_phone": "",
+                "width_phone": "",
+                "start_tablet": "",
+                "styles_hover": [],
+                "width_tablet": "4",
+                "align_content": "",
+                "start_desktop": "",
+                "styles_mobile": [],
+                "styles_tablet": [],
+                "width_desktop": "",
+                "width_general": "6",
+                "background_color": ""
+              },
+              {
+                "_uid": "79c0bfb8-251a-486b-823e-35b4c3b67dda",
+                "body": [
+                  {
+                    "alt": "",
+                    "_uid": "e4044289-fd52-4254-9e55-a780b1fa7322",
+                    "color": {
+                      "_uid": "c7d823f6-3601-4ad9-b682-1dbaba2d5745",
+                      "rgba": "rgba(0,0,0,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "style": "",
+                    "width": "",
+                    "height": "",
+                    "source": "//a.storyblok.com/f/69529/1920x1080/ab56d1dea1/chatlabs-blog-wechat101-030121-100-1x.jpg",
+                    "priority": false,
+                    "property": [
+                      "square"
+                    ],
+                    "component": "image",
+                    "height_xs": "",
+                    "source_xs": "",
+                    "image_crop": [],
+                    "class_names": {
+                      "_uid": "f5fdf7ba-1c91-4b7e-82e3-612676a92d47",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mb-2"
+                      ]
+                    },
+                    "focal_point": "",
+                    "height_fill": false,
+                    "disable_lazy_loading": false,
+                    "disable_ratio_correction": false
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "ddc3a94e-c2ee-4469-873c-1f7346a06364",
+                    "font": "",
+                    "text": "Resource",
+                    "align": "",
+                    "color": "",
+                    "style": "",
+                    "prefix": "",
+                    "styles": [
+                      {
+                        "top": "",
+                        "_uid": "32f327b6-0e4e-412e-ab58-10a2c00e5cc3",
+                        "left": "",
+                        "color": {
+                          "_uid": "a5f18e9c-3569-460a-8a04-cd5ec541b803",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "right": "",
+                        "width": "",
+                        "bottom": "",
+                        "height": "",
+                        "margin": "",
+                        "display": "",
+                        "padding": "",
+                        "z_index": "",
+                        "position": "",
+                        "component": "styles",
+                        "elevation": "",
+                        "transform": "",
+                        "background": "",
+                        "box_shadow": "",
+                        "transition": "",
+                        "color_theme": "",
+                        "border_color": {
+                          "_uid": "e4b54848-cd53-423c-91b8-1ff231b7ca16",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_style": "",
+                        "border_width": "",
+                        "border_radius": "",
+                        "css_properties": [],
+                        "border_position": [],
+                        "background_color": {
+                          "_uid": "4786b610-1def-4873-baec-c431e1a25f08",
+                          "rgba": "",
+                          "plugin": "vue-color-picker"
+                        },
+                        "border_color_theme": "",
+                        "background_color_theme": ""
+                      }
+                    ],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "caption",
+                    "class_names": {
+                      "_uid": "3777cb0e-5cc7-444d-90af-fcd60a2dc12d",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "text-uppercase"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "cc3148e0-2c70-4710-8392-ddec5b907472",
+                      "rgba": "rgba(255,0,140,1)",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "8d4bf20a-3d47-4311-934e-379f486c0997",
+                    "font": "alt1",
+                    "text": "WeChat 101: WeChat Search & WeChat News Highlights",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "headline5",
+                    "class_names": {
+                      "_uid": "e22f4059-fb62-4c67-93e6-108a3141caaf",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "mt-0",
+                        "px-0",
+                        "mr-2"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "a7582cce-5568-4fd4-b945-4881a4af03bd",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  },
+                  {
+                    "tag": "",
+                    "_uid": "2aa9f36c-ea12-4029-9fca-85a90fdfe484",
+                    "font": "",
+                    "text": "March 30, 2021 | Danielle Sumerlin",
+                    "align": "",
+                    "color": "",
+                    "prefix": "",
+                    "styles": [],
+                    "suffix": "",
+                    "text_xs": "",
+                    "animation": "",
+                    "component": "headline",
+                    "count_end": "",
+                    "font_size": "",
+                    "typography": "subtitle1",
+                    "class_names": {
+                      "_uid": "8e1cecef-5dbe-42e9-aaf7-fe83910f8ea6",
+                      "plugin": "bootstrap-utility-class-selector",
+                      "values": [
+                        "font-weight-lighter",
+                        "mb-3"
+                      ]
+                    },
+                    "count_start": "",
+                    "line_height": "",
+                    "custom_color": {
+                      "_uid": "da2487b2-502c-4435-a200-8bd8efd91498",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "styles_hover": [],
+                    "styles_mobile": [],
+                    "styles_tablet": [],
+                    "count_duration": "",
+                    "letter_spacing": ""
+                  }
+                ],
+                "align": "",
+                "order": "",
+                "phone": "",
+                "style": "",
+                "styles": [
+                  {
+                    "top": "",
+                    "_uid": "8cc82392-02fb-463b-a691-cde37209deed",
+                    "left": "",
+                    "color": {
+                      "_uid": "cffad7de-459e-4db9-b9e6-d1f3c403f785",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "right": "",
+                    "width": "",
+                    "bottom": "",
+                    "height": "",
+                    "margin": "",
+                    "display": "",
+                    "padding": "20px",
+                    "z_index": "",
+                    "position": "",
+                    "component": "styles",
+                    "elevation": "",
+                    "transform": "",
+                    "background": "",
+                    "box_shadow": "",
+                    "transition": "",
+                    "color_theme": "",
+                    "border_color": {
+                      "_uid": "54b88711-7103-4676-9afc-8482bb1f4e13",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_style": "",
+                    "border_width": "",
+                    "border_radius": "",
+                    "css_properties": [],
+                    "border_position": [],
+                    "background_color": {
+                      "_uid": "a002b10b-eeae-4a46-bba8-f0d8056af50f",
+                      "rgba": "",
+                      "plugin": "vue-color-picker"
+                    },
+                    "border_color_theme": "",
+                    "background_color_theme": ""
+                  }
+                ],
+                "tablet": "",
+                "desktop": "",
+                "justify": "",
+                "component": "column",
+                "background": [],
+                "align_items": "",
+                "class_names": {
+                  "_uid": "99ac5230-25d4-4646-a9e1-69b64a124068",
+                  "plugin": "bootstrap-utility-class-selector"
+                },
+                "start_phone": "",
+                "width_phone": "",
+                "start_tablet": "",
+                "styles_hover": [],
+                "width_tablet": "4",
+                "align_content": "",
+                "start_desktop": "",
+                "styles_mobile": [],
+                "styles_tablet": [],
+                "width_desktop": "",
+                "width_general": "3",
+                "background_color": ""
+              }
+            ],
+            "align": "",
+            "phone": "",
+            "style": "",
+            "styles": [],
+            "tablet": "",
+            "desktop": "",
+            "justify": "",
+            "spacing": "",
+            "component": "row",
+            "direction": "",
+            "background": [],
+            "align_items": "",
+            "class_names": {
+              "_uid": "bf7ac455-97a0-4a49-bc96-1eef53df65e6",
+              "plugin": "bootstrap-utility-class-selector",
+              "values": [
+                "text-center",
+                "text-left",
+                "text-right"
+              ]
+            },
+            "fluid_width": false,
+            "style_inner": "",
+            "styles_hover": [],
+            "align_content": "",
+            "styles_mobile": [],
+            "styles_tablet": [],
+            "background_color": "",
+            "grid_gutter_phone": "",
+            "grid_margin_phone": "",
+            "reverse_on_mobile": false,
+            "reverse_on_tablet": false,
+            "grid_gutter_tablet": "",
+            "grid_margin_tablet": "",
+            "grid_gutter_desktop": "",
+            "grid_margin_desktop": ""
+          }
+        ],
+        "style": "",
+        "styles": [
+          {
+            "top": "",
+            "_uid": "86cc9e75-793f-45e9-b4f2-5332190635d7",
+            "left": "",
+            "color": {
+              "_uid": "cb5dcdd0-88d4-4e92-ae87-d560115560cb",
+              "rgba": "",
+              "plugin": "vue-color-picker"
+            },
+            "right": "",
+            "width": "",
+            "bottom": "",
+            "height": "",
+            "margin": "",
+            "display": "",
+            "padding": "15px",
+            "z_index": "",
+            "position": "",
+            "component": "styles",
+            "elevation": "",
+            "transform": "",
+            "background": "",
+            "box_shadow": "",
+            "transition": "",
+            "color_theme": "",
+            "border_color": {
+              "_uid": "a48b2be4-40c3-4473-bc72-a2a8117ea581",
+              "rgba": "",
+              "plugin": "vue-color-picker"
+            },
+            "border_style": "",
+            "border_width": "",
+            "border_radius": "",
+            "css_properties": [],
+            "border_position": [],
+            "background_color": {
+              "_uid": "75932e4c-1962-43bc-92c4-d2266ddbdc7a",
+              "rgba": "",
+              "plugin": "vue-color-picker"
+            },
+            "border_color_theme": "",
+            "background_color_theme": ""
+          }
+        ],
+        "padding": "",
+        "variant": "primary",
+        "property": [],
+        "component": "section",
+        "max_width": "none",
+        "background": [
+          {
+            "_uid": "32137731-7554-4917-b25f-6c0d32278ea3",
+            "image": "",
+            "height": "",
+            "priority": false,
+            "component": "background",
+            "elevation": "",
+            "classNames": {
+              "_uid": "d9cad28f-f398-4de3-82c7-cabaf1ae9f8d",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "border_size": "",
+            "border_color": {
+              "_uid": "18ec0600-818a-4ead-ae65-fd7e7cb0ae77",
+              "rgba": "",
+              "plugin": "vue-color-picker"
+            },
+            "border_style": "",
+            "border_radius": "",
+            "shadow_effect": "",
+            "background_size": "",
+            "background_color": {
+              "_uid": "168c7694-eee0-4bc8-99f1-f2142518a504",
+              "rgba": "rgba(0,0,0,1)",
+              "plugin": "vue-color-picker"
+            },
+            "alternative_image": "",
+            "image_focal_point": "",
+            "disable_smart_crop": false,
+            "background_elements": [],
+            "background_position": "",
+            "disable_lazy_loading": false,
+            "hide_image_on_breakpoint": ""
+          }
+        ],
+        "class_names": {
+          "_uid": "a2d7a3d7-8143-4210-b153-0a9607a44e61",
+          "plugin": "bootstrap-utility-class-selector"
+        },
+        "styles_hover": [],
+        "styles_mobile": [],
+        "styles_tablet": [],
+        "background_color": "",
+        "background_image": "",
+        "background_style": "",
+        "background_section": "",
+        "section_identifier": "",
+        "background_image_style": "",
+        "background_image_position": "",
+        "background_image_property": []
+      },
+      "component_id": 894776,
+      "space_id": 82895,
+      "created_at": "2021-04-26T08:48:00.962Z",
+      "updated_at": "2021-04-26T08:49:21.173Z",
+      "image": "//a.storyblok.com/f/82895/x/29f3ccb794/screenshot-2021-04-26-at-16-48-47.png"
     },
     {
       "id": 768185,
