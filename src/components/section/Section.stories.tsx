@@ -79,22 +79,39 @@ for (i = 0, j = presets.length; i < j; i += chunk) {
 export const Presets_1 = () => (
   <StorybookPresetsContainer presetItems={temparray[0]} />
 )
-
+Presets_1.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}
 export const Presets_2 = () => (
   <StorybookPresetsContainer presetItems={temparray[1]} />
 )
-
+Presets_2.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}
 export const Presets_3 = () => (
   <StorybookPresetsContainer presetItems={temparray[2]} />
 )
+Presets_3.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
+}
 
 export const Presets_4 = () => (
   <StorybookPresetsContainer presetItems={temparray[3]} />
 )
-
+Presets_4.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
+}
 export const Presets_5 = () => (
   <StorybookPresetsContainer presetItems={temparray[4]} />
 )
+Presets_5.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}
 
 export const Basic = () => (
   <>
