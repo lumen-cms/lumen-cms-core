@@ -24,7 +24,7 @@ export default function FullscreenVideoBg(
   // let fixedToRatio = content.fixedToRatio
   const [error, setError] = useState(false)
   const className = clsx('react-player')
-  const videoUrl = content.url_internal?.filename || content.url
+  const videoUrl = content.url_internal?.filename || content.url || ''
 
   if (!videoUrl) {
     return <div>please insert a video URL</div>
@@ -52,10 +52,16 @@ export default function FullscreenVideoBg(
   }
 
   // cover the available space
-  const url =
-    videoUrl && videoUrl.indexOf(',') !== -1
+
+  let url =
+    videoUrl.indexOf(',') !== -1
       ? videoUrl.split(',').map((i) => i.trim())
       : videoUrl
+  const internalUrl = content.url_internal?.filename
+
+  if (content.url_alternatives?.length && internalUrl) {
+    url = [internalUrl, ...content.url_alternatives.map((i) => i.filename)]
+  }
 
   return (
     <>

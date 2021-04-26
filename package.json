@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.86.0",
+  "version": "0.86.1",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -150,7 +150,7 @@
     "qawolf": "2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "storyblok-generate-ts": "^1.1.1",
+    "storyblok-generate-ts": "^1.2.1",
     "ts-jest": "26.5.4",
     "ts-node": "^9.1.1",
     "tslib": "^2.2.0",
