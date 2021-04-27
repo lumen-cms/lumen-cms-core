@@ -1,24 +1,19 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import React, { useState } from 'react'
-import {
-  DatePickerElement,
-  FormContainer,
-  MultiSelectElement,
-  SelectElement,
-  TextFieldElement
-} from 'react-form-hook-mui'
-import LinearProgress from '@material-ui/core/LinearProgress'
+/* eslint-disable @typescript-eslint/ban-ts-comment,react/no-array-index-key */
+
+import { CSSProperties, useState } from 'react'
+import { FormContainer } from 'react-form-hook-mui'
 import Typography from '@material-ui/core/Typography'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import Alert from '@material-ui/lab/Alert'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmGoogleFormProps } from './googleFormProps'
-import { useGoogleForm } from '../../utils/hooks/googleForms/useGoogleForm'
 import {
   ButtonStoryblok,
   RichTextEditorStoryblok
 } from '../../typings/generated/components-schema'
+import { GoogleFormDataProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
+import GoogleFormElement from './GoogleFormElement'
 
 class LocalizedUtils extends DateFnsUtils {
   dateFormat = 'P'
@@ -27,9 +22,12 @@ class LocalizedUtils extends DateFnsUtils {
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
 
 export default function LmGoogleForm({
+  formStructure,
   content
-}: LmGoogleFormProps): JSX.Element {
-  const { formStructure } = useGoogleForm(content.api || '')
+}: {
+  formStructure: GoogleFormDataProps
+  content: LmGoogleFormProps['content']
+}): JSX.Element {
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
   // @TODO mode is no-cors, can't detect result status
   // const [submitError, setSubmitError] = useState<boolean>(false)
@@ -70,11 +68,8 @@ export default function LmGoogleForm({
 
     setSubmitSuccess(true)
   }
-  if (!formStructure) {
-    return <LinearProgress variant="query" />
-  }
 
-  const baseStyle: React.CSSProperties = {
+  const baseStyle: CSSProperties = {
     margin: `${Number(content.fields_gap) || 2}px`,
     maxWidth: `calc(100% - ${Number(content.fields_gap || 2) * 2}px)`,
     minWidth: `${content.fields_min_width || 180}px`
@@ -112,130 +107,22 @@ export default function LmGoogleForm({
 
   return (
     <div>
-      <Typography variant="h5">{formStructure.title}</Typography>
-      <Typography variant="subtitle1">{formStructure.description}</Typography>
+      <Typography variant="h5">{formStructure?.title}</Typography>
+      <Typography variant="subtitle1">{formStructure?.description}</Typography>
       <MuiPickersUtilsProvider utils={LocalizedUtils}>
         <FormContainer
           defaultValues={defaultValues}
           // @ts-ignore
           onSuccess={onSubmit}
         >
-          {formStructure?.fields?.map((formField, index) => {
-            const key = `${formField.answerSubmitIdValue}_${index}`
-            const hasVariant = ![9].includes(formField.questionTypeCode)
-            const baseFieldProps = {
-              key,
-              label: formField.questionTextValue,
-              name: `${formField.answerSubmitIdValue}`,
-              fullWidth: content.fields_full_width,
-              style:
-                formField.questionTypeCode === 4
-                  ? {
-                      maxWidth: baseStyle.maxWidth,
-                      minWidth: baseStyle.minWidth
-                    }
-                  : baseStyle
-            }
-            const additionalProps: Record<string, any> = {}
-            if (hasVariant) {
-              additionalProps.variant = content.fields_border
-            }
-
-            if ([0, 1].includes(formField.questionTypeCode)) {
-              if (formField.questionTypeCode === 1) {
-                additionalProps.multiline = true
-                additionalProps.rows = 2
-              }
-              return (
-                <TextFieldElement
-                  {...baseFieldProps}
-                  {...additionalProps}
-                  required={formField.isRequired}
-                  parseError={
-                    content?.error_msg_required
-                      ? () => content.error_msg_required
-                      : undefined
-                  }
-                />
-              )
-            }
-            if ([2, 3].includes(formField.questionTypeCode)) {
-              return (
-                <>
-                  {formField.questionTypeCode === 2 && (
-                    <TextFieldElement
-                      name={`${formField.answerSubmitIdValue}_sentinel`}
-                      hidden
-                      style={{ display: 'none' }}
-                      key={`${key}_sentinel`}
-                    />
-                  )}
-
-                  <SelectElement
-                    required={formField.isRequired}
-                    parseError={
-                      content?.error_msg_required
-                        ? () => content.error_msg_required
-                        : undefined
-                    }
-                    options={formField.answerOptionsList.sort().map((opt) => ({
-                      id: opt,
-                      title: opt || '--'
-                    }))}
-                    {...baseFieldProps}
-                    {...additionalProps}
-                  />
-                </>
-              )
-            }
-            if (formField.questionTypeCode === 4) {
-              return (
-                <div
-                  key={`${key}_parent`}
-                  style={{
-                    margin: baseStyle.margin,
-                    display: 'inline-flex',
-                    width: baseFieldProps.fullWidth ? '100%' : 'inherit'
-                  }}
-                >
-                  <TextFieldElement
-                    name={`${formField.answerSubmitIdValue}_sentinel`}
-                    hidden
-                    style={{ display: 'none' }}
-                    key={`${key}_sentinel`}
-                  />
-                  <MultiSelectElement
-                    required={formField.isRequired}
-                    parseError={
-                      content?.error_msg_required
-                        ? () => content.error_msg_required
-                        : undefined
-                    }
-                    menuItems={formField.answerOptionsList
-                      .sort()
-                      .filter((opt) => !!opt)}
-                    {...baseFieldProps}
-                    {...additionalProps}
-                  />
-                </div>
-              )
-            }
-            if (formField.questionTypeCode === 9) {
-              return (
-                <DatePickerElement
-                  required={formField.isRequired}
-                  parseError={
-                    content?.error_msg_required
-                      ? () => content.error_msg_required
-                      : undefined
-                  }
-                  {...baseFieldProps}
-                  inputVariant={content.fields_border}
-                />
-              )
-            }
-            return null
-          })}
+          {formStructure?.fields?.map((formField, index) => (
+            <GoogleFormElement
+              formField={formField}
+              options={content}
+              baseStyle={baseStyle}
+              key={`${formField.answerSubmitIdValue}_${index}`}
+            />
+          ))}
           {content?.submit_button?.length && (
             <div
               style={{

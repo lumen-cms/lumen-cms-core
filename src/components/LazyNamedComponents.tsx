@@ -113,9 +113,6 @@ LmCoreComponents.chat_facebook = dynamic(
 LmCoreComponents.paragraph = dynamic(
   () => import(/* webpackChunkName: 'paragraph' */ './paragraph/Paragraph')
 )
-LmCoreComponents.form = dynamic(
-  () => import(/* webpackChunkName: 'googleForm' */ './google-form/GoogleForm')
-)
 
 LmCoreComponents.ecommerce_checkout = dynamic(
   () =>

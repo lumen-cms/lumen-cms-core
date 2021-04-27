@@ -1,110 +1,63 @@
-import { LmComponentRender as LmListWidget } from '@LmComponentRender'
-import {
-  CategoryBoxStoryblok,
-  HeadlineStoryblok,
-  ListsStoryblok,
-  ListWidgetStoryblok,
-  NavListStoryblok,
-  PageStoryblok
-} from '../../typings/generated/components-schema'
-import SetStoriesDecorator from '../../storybook/components/SetStoriesDecorator'
-import { storyCardList, storyListWidget } from '../../storybook/core/section'
+import { Meta, Story } from '@storybook/react'
+import { AppContextProps } from '@context/AppContext'
+import { LmListWidgetProps } from './listWidgetTypes'
+import { findPresets } from '../../storybook/findStorybookPresets'
+import LmListWidget from './ListWidget'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import { fetchStoryblokContent } from '../../storybook/fetchStoryblokContent'
+import AppProvider from '../provider/AppProvider'
+import { listWidgetFilter } from '../../utils/initial-props/traversePageContent'
 
-const props: ListWidgetStoryblok = {
-  _uid: 'storyblok_list',
-  component: 'list_widget',
-  maximum_items: 4
-}
-
-const filtered: ListWidgetStoryblok = {
-  _uid: 'storyblok_list',
-  component: 'list_widget',
-  maximum_items: 10,
-  tags: {
-    values: ['testimonial']
-  }
-}
-
-const listsOption: ListsStoryblok = {
-  component: 'lists',
-  _uid: 'storyblok_lists'
-}
-
-const linksOption: NavListStoryblok = {
-  component: 'nav_list',
-  _uid: 'storyblok_navlist',
-  properties: ['flex-column']
-}
-
+const COMPONENT_NAME = 'list_widget'
 export default {
   title: 'Design/Data Display/List Widget',
-  decorators: [SetStoriesDecorator]
+  component: LmListWidget,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
+  },
+  // decorators: [SetStoriesDecorator],
+  loaders: [
+    async () => {
+      const storyblokContent = await fetchStoryblokContent()
+      return {
+        storyblokContent
+      }
+    }
+  ]
+} as Meta
+
+const presets = findPresets<LmListWidgetProps['content']>(COMPONENT_NAME)
+
+const Template: Story<LmListWidgetProps['content']> = (
+  args,
+  { loaded: { storyblokContent } }
+) => {
+  const listWidgetData = {}
+  presets.forEach((preset) => {
+    listWidgetData[preset._uid] = listWidgetFilter(
+      preset,
+      storyblokContent.stories
+    )
+  })
+  return (
+    <AppProvider content={{ listWidgetData } as AppContextProps}>
+      {' '}
+      <LmListWidget content={args} />
+    </AppProvider>
+  )
+}
+//
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presets[0]
 }
 
-export const Basic = () => (
-  <div className="p-3">
-    <h2>Limit is set to 4:</h2>
-    <h4>Default:</h4>
-    <LmListWidget content={props} />
-    <h4>List type:</h4>
-    <LmListWidget content={{ ...props, list_options: [listsOption] }} />
-    <h4>Links type:</h4>
-    <LmListWidget content={{ ...props, list_options: [linksOption] }} />
-  </div>
-)
-export const Filtered = () => (
-  <div className="p-3">
-    <h2>Limit is set to 10:</h2>
-    <h4>Default:</h4>
-    <LmListWidget content={filtered} />
-    <h4>List type:</h4>
-    <LmListWidget content={{ ...filtered, list_options: [listsOption] }} />
-    <h4>Links type:</h4>
-    <LmListWidget content={{ ...filtered, list_options: [linksOption] }} />
-  </div>
-)
+export const Variant_1 = Template.bind({})
+Variant_1.args = {
+  ...presets[1]
+}
 
-export const Search = () => (
-  <div className="p-3">
-    <LmListWidget
-      content={
-        {
-          _uid: '2342',
-          component: 'page',
-          body: [
-            {
-              ...props,
-              enable_for_search: true,
-              only_tagged: true,
-              maximum_items: 20
-            } as ListWidgetStoryblok
-          ] as any,
-          right_body: [
-            { component: 'headline', text: 'Search...' } as HeadlineStoryblok,
-            {
-              component: 'category_box'
-            } as CategoryBoxStoryblok
-          ]
-        } as PageStoryblok
-      }
-    />
-  </div>
-)
-
-export const Playground = () => {
-  const listOpts = storyListWidget({
-    options: {
-      tags: {
-        values: ['testimonial']
-      },
-      maximum_items: 10,
-      list_options: [storyCardList()]
-    }
-  })
-
-  return (
-    <div className="p-5">
-      <LmListWidget content={{ ...listOpts }} />
-    </div>
-  )
+export const Variant_2 = Template.bind({})
+Variant_2.args = {
+  ...presets[2]
 }

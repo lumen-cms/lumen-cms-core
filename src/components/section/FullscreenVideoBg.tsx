@@ -3,6 +3,7 @@ import ReactPlayer, { ReactPlayerProps } from 'react-player/lazy'
 import React, { useState } from 'react'
 import BackgroundImageContainer from './BackgroundImage'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
+import videoUrlHelper from '../../utils/videoUrlHelper'
 
 type ContainerDimensions = {
   width: number
@@ -24,7 +25,7 @@ export default function FullscreenVideoBg(
   // let fixedToRatio = content.fixedToRatio
   const [error, setError] = useState(false)
   const className = clsx('react-player')
-  const videoUrl = content.url_internal?.filename || content.url
+  const videoUrl = content.url_internal?.filename || content.url || ''
 
   if (!videoUrl) {
     return <div>please insert a video URL</div>
@@ -51,12 +52,6 @@ export default function FullscreenVideoBg(
     vidBgWidth = `${((windowAspect / videoAspect) * 100).toFixed(2)}%`
   }
 
-  // cover the available space
-  const url =
-    videoUrl && videoUrl.indexOf(',') !== -1
-      ? videoUrl.split(',').map((i) => i.trim())
-      : videoUrl
-
   return (
     <>
       <div
@@ -71,7 +66,7 @@ export default function FullscreenVideoBg(
         >
           <div className="videobg-make-height">
             <ReactPlayer
-              url={url}
+              url={videoUrlHelper(content)}
               className={className}
               width="100%"
               height="100%"

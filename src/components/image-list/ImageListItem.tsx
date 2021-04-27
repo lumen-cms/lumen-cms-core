@@ -5,11 +5,11 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { GridListTileBar } from '@material-ui/core'
 import {
   getOriginalImageDimensions,
-  getRootImageUrl,
   getVwByColCount
-} from '../../utils/ImageService'
+} from '../../utils/imageServices'
 import { LmImageListItemProps } from './imageListTypes'
 import { COLUMN_COUNT } from '../card/cardListStyles'
+import { storyblokImageLoader } from '../../utils/imageLoader'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -29,7 +29,7 @@ export default function LmImageListItem({
 }: LmImageListItemProps): JSX.Element {
   const [loaded, setLoaded] = useState<boolean>(false)
   const classes = useStyles()
-  const imageSource = getRootImageUrl(content.source)
+  const imageSource = content.source || ''
   const originalDimensions = getOriginalImageDimensions(content.source || '')
   const { breakpoints } = useTheme()
 
@@ -85,6 +85,7 @@ export default function LmImageListItem({
         />
       )}
       <Image
+        {...storyblokImageLoader(imageSource)}
         {...imgProps}
         alt={content.alt || content.label || 'image list item'}
         onLoad={() => setLoaded(true)}

@@ -1,15 +1,44 @@
-import { LmComponentRender as LmButtonList } from '@LmComponentRender'
+import { Meta, Story } from '@storybook/react'
 import {
   ButtonListStoryblok,
   ButtonStoryblok
 } from '../../typings/generated/components-schema'
-import { storyButton, storyButtonList } from '../../storybook/core/various'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { findFirstPreset } from '../../storybook/findStorybookPresets'
+import { LmButtonListProps } from './buttonListTypes'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import { LmButtonList } from './ButtonList'
+
+export default {
+  title: 'Design/Inputs/Button List',
+  component: LmButtonList,
+  argTypes: {
+    ...getComponentArgTypes('button_list')
+  }
+} as Meta
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName="button_list" />
+)
+
+const Template: Story<LmButtonListProps['content']> = (args) => (
+  <LmButtonList content={args} />
+)
+
+const presetContent = findFirstPreset<LmButtonListProps['content']>(
+  'button_list'
+)
+
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent
+}
 
 const twitterPng =
-  'https://img2.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
+  'https://a.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
 const fcbkPng = 'https://a.storyblok.com/f/66717/273x256/1af4758e5f/fb-icon.png'
 const instaPng =
-  'https://img2.storyblok.com/f/66717/273x256/275fe57666/insta-icon.png'
+  'https://a.storyblok.com/f/66717/273x256/275fe57666/insta-icon.png'
 const defaultProps: ButtonStoryblok = {
   label: 'Text Button',
   _uid: '123',
@@ -83,10 +112,6 @@ const images: ButtonListStoryblok = {
   ] as ButtonStoryblok[]
 }
 
-export default {
-  title: 'Design/Inputs/Button List'
-}
-
 export const TextList = () => (
   <>
     <div>
@@ -97,6 +122,7 @@ export const TextList = () => (
     </div>
   </>
 )
+
 export const IconList = () => (
   <>
     <div>
@@ -300,21 +326,3 @@ export const ImageListFab = () => (
     </div>
   </>
 )
-
-export const Playground = () => {
-  return (
-    <div className="p-5">
-      <LmButtonList
-        content={{
-          ...storyButtonList(),
-          body: [
-            storyButton({ count: 1 }),
-            storyButton({ count: 2 }),
-            storyButton({ count: 3 }),
-            storyButton({ count: 4 })
-          ]
-        }}
-      />
-    </div>
-  )
-}

@@ -1,6 +1,10 @@
 import * as React from 'react'
 import Header from './Header'
-import { customSettings, simpleSettings } from '../../../storybook/toolbar'
+import {
+  companyLogos,
+  customSettings,
+  simpleSettings
+} from '../../../storybook/toolbar'
 import { SettingsPageProvider } from '../../provider/SettingsPageProvider'
 import StorybookPresetsContainer from '../../../storybook/components/StorybookPresetsContainer'
 
@@ -39,7 +43,32 @@ export const Basic = () => (
   </>
 )
 export const Custom = () => (
-  <SettingsPageProvider settings={customSettings}>
-    <Header />
-  </SettingsPageProvider>
+  <>
+    <h3>Lumen Media</h3>
+    <SettingsPageProvider
+      settings={{ ...customSettings, website_logo: companyLogos[0] }}
+    >
+      <Header />
+    </SettingsPageProvider>
+    <h3>Baliinternships</h3>
+    <SettingsPageProvider
+      settings={{
+        ...customSettings,
+        toolbar_variant: 'secondary',
+        website_logo: companyLogos[1]
+      }}
+    >
+      <Header />
+    </SettingsPageProvider>
+    <h3>planet.training</h3>
+    <SettingsPageProvider
+      settings={{
+        ...customSettings,
+        toolbar_variant: 'secondary',
+        website_logo: companyLogos[2]
+      }}
+    >
+      <Header />
+    </SettingsPageProvider>
+  </>
 )

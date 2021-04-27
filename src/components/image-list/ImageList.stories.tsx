@@ -84,8 +84,20 @@ export const Basic = () => (
     <LmImageList content={{ ...content, column_gap: '32' }} />
   </>
 )
+Basic.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}
 export const WithLightbox = () => <LmImageList content={content2} />
+WithLightbox.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}
 export const WithImageProtect = () => <LmImageList content={content3} />
+WithImageProtect.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}
 export const ImageRatio = () => (
   <>
     <h3>Masonry</h3>
@@ -131,6 +143,10 @@ export const ImageRatio = () => (
     />
   </>
 )
+ImageRatio.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}
 export const Playground = () => (
   <div>
     <LmImageList
@@ -155,3 +171,7 @@ export const Playground = () => (
     />
   </div>
 )
+Playground.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}

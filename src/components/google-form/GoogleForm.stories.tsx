@@ -1,69 +1,57 @@
-import { LmComponentRender } from '@LmComponentRender'
-import { GoogleFormExampleUrl } from '@CONFIG'
 import React from 'react'
-import { FormStoryblok } from '../../typings/generated/components-schema'
-import {
-  storyButton,
-  storyForm,
-  storyParagraph
-} from '../../storybook/core/various'
-import { useGoogleForm } from '../../utils/hooks/googleForms/useGoogleForm'
+import { Meta, Story } from '@storybook/react'
+import { AppContextProps } from '@context/AppContext'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import LmGoogleFormContainer from './LmGoogleFormContainer'
+import { findFirstPreset } from '../../storybook/findStorybookPresets'
+import { LmGoogleFormProps } from './googleFormProps'
+import { fetchGoogleFormDataClient } from '../../utils/initial-props/fetchGoogleFormData'
+import parseHijackedFormData from '../../utils/hooks/googleForms/parseHijackedFormData'
+import AppProvider from '../provider/AppProvider'
 
-const getProps = () => {
-  const props: FormStoryblok = {
-    _uid: '123098',
-    component: 'form',
-    api: GoogleFormExampleUrl,
-    fields_full_width: true,
-    submit_button: [storyButton()],
-    success_body: [storyParagraph()]
-  }
-  return props
-}
+const COMPONENT_NAME = 'form'
+
+const presetContent = findFirstPreset<LmGoogleFormProps['content']>(
+  COMPONENT_NAME
+)
 
 export default {
-  title: 'Design/Inputs/GoogleForm'
+  title: 'Design/Inputs/GoogleForm',
+  component: LmGoogleFormContainer,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
+  },
+  loaders: [
+    async () => {
+      const res = await fetchGoogleFormDataClient(presetContent.api as string)
+      const parsedData = parseHijackedFormData(res)
+      return {
+        formStructure: parsedData
+      }
+    }
+  ]
+} as Meta
+
+const Template: Story<LmGoogleFormProps['content']> = (
+  args,
+  { loaded: { formStructure } }
+) => {
+  return (
+    <AppProvider
+      content={
+        {
+          formData: {
+            [presetContent._uid]: formStructure
+          }
+        } as AppContextProps
+      }
+    >
+      <LmGoogleFormContainer content={args} />
+    </AppProvider>
+  )
 }
 
-export const Component = () => {
-  return (
-    <>
-      <LmComponentRender content={{ ...getProps() }} />
-    </>
-  )
-}
-
-export const Playground = () => {
-  return (
-    <>
-      <LmComponentRender
-        content={{
-          ...storyForm(),
-          submit_button: [storyButton({ options: { label: 'SubmitTest' } })]
-        }}
-      />
-    </>
-  )
-}
-
-export const Hook = () => {
-  const { formStructure } = useGoogleForm(
-    'https://docs.google.com/forms/d/e/1FAIpQLSdw3tdslj4k94OU6bluk0Yobe997r8gV5obEbEdiMs70SKQPw/viewform?embedded=true'
-  )
-
-  return (
-    <>
-      <h3>{formStructure?.title}</h3>
-      <h2>{formStructure?.description}</h2>
-      <p>FormAction: {formStructure?.formAction}</p>
-      <>
-        {formStructure?.fields.map((f) => (
-          <div key={f.answerSubmitIdValue}>
-            <p>{f.questionTypeName.name}</p>
-            <small>{JSON.stringify(f)}</small>
-          </div>
-        ))}
-      </>
-    </>
-  )
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent
 }

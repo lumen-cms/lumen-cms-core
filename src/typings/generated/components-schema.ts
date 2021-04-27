@@ -1768,12 +1768,19 @@ export interface PlayerStoryblok {
   url_internal?: {
     alt?: string;
     copyright?: string;
-    id?: number;
-    filename?: string;
-    name?: string;
+    id: number;
+    filename: string;
+    name: string;
     title?: string;
-    [k: string]: any;
   };
+  url_alternatives?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  }[];
   ratio?: "16x9" | "4x3" | "3x2" | "1x1";
   width?: string;
   height?: string;
@@ -1932,12 +1939,19 @@ export interface SectionVideoBgStoryblok {
   url_internal?: {
     alt?: string;
     copyright?: string;
-    id?: number;
-    filename?: string;
-    name?: string;
+    id: number;
+    filename: string;
+    name: string;
     title?: string;
-    [k: string]: any;
   };
+  url_alternatives?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  }[];
   body?: RowStoryblok[];
   fallback_image?: string;
   property?: ("muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline" | "light")[];

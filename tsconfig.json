@@ -16,7 +16,6 @@
     "resolveJsonModule": true,
     "downlevelIteration": true,
     "isolatedModules": true,
-    //
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -27,7 +26,6 @@
     "baseUrl": "./",
     "rootDir": "./src",
     "strict": true,
-    //
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -47,6 +45,9 @@
       ],
       "@context/*": [
         "src/components/provider/context/*"
+      ],
+      "@SSR_CONFIG": [
+        "src/utils/initial-props/ssrConfig"
       ]
     }
   },

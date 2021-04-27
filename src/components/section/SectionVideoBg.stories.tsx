@@ -25,6 +25,8 @@ export const Basic = () => (
           ...storySectionVideoBg({
             options: {
               url_internal: {
+                id: 123,
+                name: 'union-klischee-leiterbahn',
                 filename:
                   'https://a.storyblok.com/f/82895/x/a266d33556/union-klischee-leiterbahn.mp4'
               }

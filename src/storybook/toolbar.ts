@@ -4,10 +4,17 @@ import {
   ListSearchAutocompleteStoryblok,
   NavMenuItemStoryblok,
   NavMenuStoryblok,
+  ToolbarLogoStoryblok,
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
 } from '../typings/generated/components-schema'
 import { darkSectionWithColumns } from './section'
+
+export const companyLogos = [
+  '//a.storyblok.com/f/69069/192x192/d3ba0e3858/logo-fav-lumen.png',
+  '//a.storyblok.com/f/66717/672x160/db392f6ffa/logo-white.png',
+  '//a.storyblok.com/f/73553/1500x300/24cdd8ad64/planet-training-logo-wide-white.png'
+]
 
 const menuItem: NavMenuStoryblok = {
   _uid: '1231231',
@@ -93,6 +100,16 @@ const multiToolbar = [
     _uid: '23',
     component: 'toolbar_row',
     body: [
+      {
+        _uid: '2323',
+        component: 'toolbar_row_section',
+        body: [
+          {
+            _uid: '23231',
+            component: 'toolbar_logo'
+          }
+        ] as ToolbarLogoStoryblok[]
+      },
       {
         _uid: '123',
         component: 'toolbar_row_section',

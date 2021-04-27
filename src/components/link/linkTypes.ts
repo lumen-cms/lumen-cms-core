@@ -14,14 +14,11 @@ export type NextComposedProps = Omit<
     external?: boolean
   }
 
-interface LinkPropsBase {
-  activeClassName?: string
-  innerRef?: React.Ref<HTMLAnchorElement>
-  naked?: boolean
-}
-
-export type LinkProps = LinkPropsBase &
-  Omit<NextComposedProps, 'href'> &
+export type LinkProps = Omit<NextComposedProps, 'href'> &
   Omit<MuiLinkProps, 'href'> & {
     href?: string
+  } & {
+    activeClassName?: string
+    innerRef?: React.Ref<HTMLAnchorElement>
+    naked?: boolean
   }

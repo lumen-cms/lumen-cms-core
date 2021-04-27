@@ -1,11 +1,17 @@
 import * as NextImage from 'next/image'
 import StoriesLayout from '../src/storybook/components/StoriesLayout'
 import '../src/storybook/mockNextRouter'
+import isChromatic from 'chromatic/isChromatic'
 
 const OriginalNextImage = NextImage.default
 Object.defineProperty(NextImage, 'default', {
   configurable: true,
-  value: (props: any) => <OriginalNextImage {...props} unoptimized />
+  value: (props: any) => (
+    <OriginalNextImage
+      {...props}
+      loading={isChromatic() ? 'eager' : props.loading}
+    />
+  )
 })
 
 export const parameters = {

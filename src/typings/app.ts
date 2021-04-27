@@ -6,6 +6,7 @@ import {
   PageComponent,
   StaticcontainerComponent
 } from './generated/schema'
+import { GoogleFormDataProps } from '../utils/hooks/googleForms/parseHijackedFormData'
 
 export interface IClaims {
   [key: string]: any // just a copy of the IClaim
@@ -28,14 +29,19 @@ export type AppApiRequestPayload = {
   locale?: string | null
   allCategories: StoryData<CategoryComponent>[]
   allStaticContent: StoryData<StaticcontainerComponent>[]
-  listWidgetData: { [k: string]: StoryData<PageComponent>[] } | null
+  listWidgetData?: { [k: string]: StoryData<PageComponent>[] } | null
+  formData?: { [k: string]: GoogleFormDataProps } | null
   user?: IClaims
   notFoundLocale?: string
 }
 
 type SubProps = Pick<
   AppApiRequestPayload,
-  'allStaticContent' | 'locale' | 'allCategories' | 'listWidgetData'
+  | 'allStaticContent'
+  | 'locale'
+  | 'allCategories'
+  | 'listWidgetData'
+  | 'formData'
 >
 
 export type AppPageProps = SubProps & {

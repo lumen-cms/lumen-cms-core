@@ -4,10 +4,10 @@ import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import Image from 'next/image'
 import {
   getOriginalImageDimensions,
-  getRootImageUrl,
   imageSizesOnWidthAndBreakpoints
-} from '../../utils/ImageService'
+} from '../../utils/imageServices'
 import { LmImageProps } from './imageTypes'
+import { storyblokImageLoader } from '../../utils/imageLoader'
 
 const useStyles = makeStyles((theme: Theme) => ({
   image: {
@@ -64,7 +64,6 @@ export default function LmImage({
     : disable_lazy_loading
     ? 'eager'
     : undefined
-  const storyblokImage = getRootImageUrl(imageSource)
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
 
   const manualSquare =
@@ -98,6 +97,13 @@ export default function LmImage({
     sizes = imageSizesOnWidthAndBreakpoints(currentWidth, breakpoints)
   }
   if (square && squareSize) {
+    // let variant: AvatarProps['variant'] = 'circular'
+    // if (property.includes('square') || property.includes('rounded-0')) {
+    //   variant = 'square'
+    // }
+    // if (property.includes('rounded')) {
+    //   variant = 'rounded'
+    // }
     return (
       <div
         {...containerProps}
@@ -120,7 +126,8 @@ export default function LmImage({
       >
         <div style={{ paddingBottom: '100%' }} />
         <Image
-          src={storyblokImage}
+          {...storyblokImageLoader(imageSource)}
+          src={imageSource}
           alt={content.alt || 'website image'}
           onLoad={() => setLoaded(true)}
           loading={loading}
@@ -158,7 +165,8 @@ export default function LmImage({
       }}
     >
       <Image
-        src={storyblokImage}
+        {...storyblokImageLoader(imageSource)}
+        src={imageSource}
         alt={content.alt || 'website image'}
         width={squareSize || originalDimensions.width}
         height={squareSize || originalDimensions.height}
@@ -167,7 +175,6 @@ export default function LmImage({
         priority={priority}
         layout="responsive"
         sizes={sizes}
-        unoptimized={imageSource.endsWith('.gif')}
       />
     </div>
   )

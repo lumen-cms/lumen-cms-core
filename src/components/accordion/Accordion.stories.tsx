@@ -1,29 +1,15 @@
-import { LmComponentRender } from '@LmComponentRender'
 import { Meta, Story } from '@storybook/react'
-import {
-  storyAccordion,
-  storyAccordionItem
-} from '../../storybook/core/various'
-import { get3ColumnsSection } from '../../storybook/section'
 import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 import LmAccordion from './Accordion'
 import { LmAccordionProps } from './accordionTypes'
-import { findPresets } from '../../storybook/findStorybookPresets'
-
-const genericArgTypes = {
-  component: {
-    control: false
-  },
-  _uid: {
-    control: false
-  }
-} as Meta['argTypes']
+import { findFirstPreset } from '../../storybook/findStorybookPresets'
+import { getComponentArgTypes } from '../../storybook/configControls'
 
 export default {
   title: 'Design/Surfaces/Accordion',
   component: LmAccordion,
   argTypes: {
-    ...genericArgTypes
+    ...getComponentArgTypes('accordion')
   }
 } as Meta
 
@@ -31,32 +17,29 @@ export const Presets = () => (
   <StorybookPresetsContainer componentName="accordion" />
 )
 
-const Template: Story<LmAccordionProps> = (args) => (
-  <LmAccordion content={args as any} />
+const Template: Story<LmAccordionProps['content']> = (args) => (
+  <LmAccordion content={args} />
 )
 
-const presetContent = findPresets('accordion')[0].preset
-export const WithControls = Template.bind({})
-WithControls.args = {
-  ...(presetContent as any)
+const presetContent = findFirstPreset<LmAccordionProps['content']>('accordion')
+
+export const Base = Template.bind({})
+Base.args = {
+  ...presetContent
 }
 
-export const Playground = () => {
-  return (
-    <LmComponentRender
-      content={{
-        ...storyAccordion(),
-        body: [
-          {
-            ...storyAccordionItem({ count: 1 }),
-            body: [get3ColumnsSection({ count: 1, knob: 'Column Content' })]
-          },
-          {
-            ...storyAccordionItem({ count: 2 }),
-            body: [get3ColumnsSection({ count: 2, knob: 'Column Content' })]
-          }
-        ]
-      }}
-    />
-  )
+export const Square = Template.bind({})
+Square.args = {
+  ...Base.args,
+  square: true
+}
+export const Plus = Template.bind({})
+Plus.args = {
+  ...Base.args,
+  use_plus: true
+}
+export const RestrictOne = Template.bind({})
+RestrictOne.args = {
+  ...Base.args,
+  restrict_one: true
 }

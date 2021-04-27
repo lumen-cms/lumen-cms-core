@@ -1,15 +1,10 @@
 import React, { CSSProperties } from 'react'
 import Avatar, { AvatarProps } from '@material-ui/core/Avatar'
 import clsx from 'clsx'
-import Image from 'next/image'
-import { useTheme } from '@material-ui/core/styles'
 import LmIcon from '../icon/LmIcon'
-import {
-  getRootImageUrl,
-  imageSizesOnWidthAndBreakpoints
-} from '../../utils/ImageService'
 import { LmAvatarProps } from './avatarTypes'
 import { getNumber } from '../../utils/numberParser'
+import LmSquareImage from './LmSquareImage'
 
 const sizeMap = {
   dense: {
@@ -36,8 +31,6 @@ const getVariant = (variant: LmAvatarProps['content']['variant']) => {
 }
 
 export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
-  const { breakpoints } = useTheme()
-
   const iconName = content.icon?.name
   const customSize = getNumber(content.custom_size) as number
 
@@ -72,15 +65,7 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
       className={clsx(content.class_names?.values)}
     >
       {content.image && (
-        <Image
-          src={getRootImageUrl(content.image)}
-          layout="fill"
-          objectFit="cover"
-          sizes={imageSizesOnWidthAndBreakpoints(
-            style.width ? Number(style.width) : 40,
-            breakpoints
-          )}
-        />
+        <LmSquareImage image={content.image} width={style.width} />
       )}
       {content.letter}
       {iconName && <LmIcon iconName={iconName} />}

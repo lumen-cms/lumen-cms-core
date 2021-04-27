@@ -1,5 +1,4 @@
-import { LmComponentRender as Element } from '@LmComponentRender'
-import { storyDialog } from '../../storybook/core/various'
+import { Meta, Story } from '@storybook/react'
 import {
   ButtonStoryblok,
   DialogStoryblok,
@@ -8,10 +7,18 @@ import {
   IframeStoryblok,
   ImageStoryblok
 } from '../../typings/generated/components-schema'
+import LmDialog from './Dialog'
+import { LmDialogProps } from './dialogTypes'
+import { getComponentArgTypes } from '../../storybook/configControls'
 
+const COMPONENT_NAME = 'dialog'
 export default {
-  title: 'Design/Feedback/Dialog'
-}
+  title: 'Design/Feedback/Dialog',
+  component: LmDialog,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
+  }
+} as Meta
 
 const body = [
   {
@@ -26,72 +33,67 @@ const body = [
   }
 ] as (HeadlineStoryblok | ImageStoryblok)[]
 
-export const Iframe = () => (
-  <Element
-    content={{
-      component: 'dialog',
-      _uid: 'dialog-register',
-      fullscreen: 'xl',
-      no_padding: true,
-      body: [
-        {
-          component: 'iframe',
-          _uid: 'iframex',
-          full_height: true,
-          url: `https://students-react-iframe-signup.now.sh?light=1`
-        } as IframeStoryblok
-      ],
-      trigger: [
-        {
-          _uid: 'outline-checked',
-          component: 'button',
-          icon: {
-            name: 'account-check-outline'
-          },
-          label: 'Signup',
-          variant: 'fab',
-          color: 'primary'
-        } as ButtonStoryblok
-      ]
-    }}
-  />
+const basicProps = {
+  body,
+  trigger: [
+    {
+      component: 'button',
+      _uid: 'adfasfasfasdfas',
+      label: 'A button trigger'
+    } as ButtonStoryblok
+  ]
+} as DialogStoryblok
+
+const Template: Story<LmDialogProps['content']> = (args) => (
+  <LmDialog content={args} />
 )
 
-export const Playground = () => (
+export const Basic = Template.bind({})
+Basic.args = {
+  ...basicProps
+}
+
+export const Fullscreen = Template.bind({})
+Fullscreen.args = {
+  ...{
+    component: 'dialog',
+    _uid: 'dialog-register',
+    fullscreen: 'xl',
+    no_padding: true,
+    body: [
+      {
+        component: 'iframe',
+        _uid: 'iframex',
+        full_height: true,
+        url: `https://students-react-iframe-signup.now.sh?light=1`
+      } as IframeStoryblok
+    ],
+    trigger: [
+      {
+        _uid: 'outline-checked',
+        component: 'button',
+        icon: {
+          name: 'account-check-outline'
+        },
+        label: 'Signup',
+        variant: 'fab',
+        color: 'primary'
+      } as ButtonStoryblok
+    ]
+  }
+}
+
+export const Trigger = () => (
   <div
     style={{
       margin: '50px auto',
       width: '300px'
     }}
   >
-    <Element
-      content={
-        {
-          ...storyDialog({
-            options: {
-              title: 'Dialog Title'
-            }
-          }),
-          body,
-          trigger: [
-            {
-              component: 'button',
-              _uid: 'adfasfasfasdfas',
-              label: 'A button trigger'
-            } as ButtonStoryblok
-          ]
-        } as DialogStoryblok
-      }
-    />
     <div style={{ padding: '10px' }} />
-    <Element
+    <LmDialog
       content={
         {
-          ...storyDialog({
-            options: {
-              title: 'Dialog Title'
-            }
-          }),
           body,
           trigger: [
             {
@@ -104,15 +106,9 @@ export const Playground = () => (
       }
     />
     <div style={{ padding: '10px' }} />
-    <Element
+    <LmDialog
       content={
         {
-          ...storyDialog({
-            count: 1,
-            options: {
-              title: 'Dialog Title'
-            }
-          }),
           body,
           trigger: [
             {
@@ -126,15 +122,12 @@ export const Playground = () => (
       }
     />
     <div style={{ padding: '10px' }} />
-    <Element
+    <LmDialog
       content={
         {
           no_padding: true,
           slide_up: true,
           body,
-          ...storyDialog({
-            count: 4
-          }),
           prevent_close_button: true,
           trigger: [
             {

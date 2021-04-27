@@ -1,16 +1,6 @@
-import { LmComponentRender as LmImage } from '@LmComponentRender'
-import {
-  ColumnStoryblok,
-  HeadlineStoryblok,
-  ImageStoryblok,
-  RowStoryblok
-} from '../../typings/generated/components-schema'
-import { storyHeadline, storyImage } from '../../storybook/core/various'
-import {
-  storyColumn,
-  storyRow,
-  storySection
-} from '../../storybook/core/section'
+import { ImageStoryblok } from '../../typings/generated/components-schema'
+import { storyImage } from '../../storybook/core/various'
+import { LmImageElement } from './ImageElement'
 
 const props: ImageStoryblok = {
   _uid: '123',
@@ -25,7 +15,8 @@ const svg: ImageStoryblok = {
 }
 
 export default {
-  title: 'Design/Data Display/Image'
+  title: 'Design/Data Display/Image',
+  component: LmImageElement
 }
 
 export const Basic = () => (
@@ -36,9 +27,9 @@ export const Basic = () => (
     }}
   >
     <h3>Default:</h3>
-    <LmImage content={props} />
+    <LmImageElement content={props} />
     <h3>Rounded Circle 150px height:</h3>
-    <LmImage
+    <LmImageElement
       content={
         {
           ...props,
@@ -47,22 +38,47 @@ export const Basic = () => (
         } as ImageStoryblok
       }
     />
+    <h3>Square 150px height:</h3>
+    <LmImageElement
+      content={{ ...props, height: 150, property: ['square', 'rounded-0'] }}
+    />
+    <h3>Square 150px height rounded:</h3>
+    <LmImageElement
+      content={{ ...props, height: 150, property: ['square', 'rounded'] }}
+    />
     <h3>Not Round:</h3>
-    <LmImage content={{ ...props, property: ['rounded-0'] }} />
+    <LmImageElement content={{ ...props, property: ['rounded-0'] }} />
     <h3>Rounded:</h3>
-    <LmImage content={{ ...props, property: ['rounded'] }} />
+    <LmImageElement content={{ ...props, property: ['rounded'] }} />
     <h3>Thumbnail:</h3>
-    <LmImage content={{ ...props, property: ['img-thumbnail'] }} />
+    <LmImageElement content={{ ...props, property: ['img-thumbnail'] }} />
+    <h3>Circle Thumbnail:</h3>
+    <LmImageElement
+      content={{
+        ...props,
+        height: 150,
+        property: ['rounded-circle', 'img-thumbnail']
+      }}
+    />
     <h3>Square:</h3>
-    <LmImage content={{ ...props, property: ['square'] }} />
+    <LmImageElement
+      content={{ ...props, height: 150, property: ['square', 'rounded'] }}
+    />
+
     <h3>Resized images with fixed height or width:</h3>
-    <LmImage content={{ ...props, width: 140 }} />
-    <LmImage content={{ ...props, height: 64 }} />
-    <LmImage content={{ ...props, property: ['rounded-circle'], width: 100 }} />
-    <LmImage content={{ ...props, property: ['rounded-circle'], height: 64 }} />
-    <LmImage content={{ ...props, property: ['square'], height: 64 }} />
-    <LmImage content={{ ...props, property: ['img-thumbnail'], height: 64 }} />
-    <LmImage content={{ ...props, property: ['rounded'], height: 64 }} />
+    <LmImageElement content={{ ...props, width: 140 }} />
+    <LmImageElement content={{ ...props, height: 64 }} />
+    <LmImageElement
+      content={{ ...props, property: ['rounded-circle'], width: 100 }}
+    />
+    <LmImageElement
+      content={{ ...props, property: ['rounded-circle'], height: 64 }}
+    />
+    <LmImageElement content={{ ...props, property: ['square'], height: 64 }} />
+    <LmImageElement
+      content={{ ...props, property: ['img-thumbnail'], height: 64 }}
+    />
+    <LmImageElement content={{ ...props, property: ['rounded'], height: 64 }} />
   </div>
 )
 export const ImageSVG = () => (
@@ -73,21 +89,10 @@ export const ImageSVG = () => (
       overflow: 'hidden'
     }}
   >
-    <LmImage content={{ ...svg, height: 64 }} />
-    <LmImage content={{ ...svg, color: { rgba: '#ccc' }, height: 64 }} />
-    <LmImage content={{ ...svg, color: { rgba: '#eee' }, height: 64 }} />
-    <LmImage content={{ ...svg, color: { rgba: '#ccc' }, height: 64 }} />
-    <div className="p-4">
-      <h4>Playground:</h4>
-      <LmImage
-        content={storyImage({
-          options: {
-            source:
-              'https://a.storyblok.com/f/57008/x/7dea868beb/cc_icons-badge_029.svg'
-          }
-        })}
-      />
-    </div>
+    <LmImageElement content={{ ...svg, height: 64 }} />
+    <LmImageElement content={{ ...svg, color: { rgba: '#ccc' }, height: 64 }} />
+    <LmImageElement content={{ ...svg, color: { rgba: '#eee' }, height: 64 }} />
+    <LmImageElement content={{ ...svg, color: { rgba: '#ccc' }, height: 64 }} />
   </div>
 )
 export const ImageFocalPoint = () => {
@@ -106,7 +111,7 @@ export const ImageFocalPoint = () => {
           overflow: 'hidden'
         }}
       >
-        <LmImage
+        <LmImageElement
           content={storyImage({
             knob: 'Image width/height parent container',
             options: {
@@ -123,7 +128,7 @@ export const ImageFocalPoint = () => {
           overflow: 'hidden'
         }}
       >
-        <LmImage
+        <LmImageElement
           content={storyImage({
             knob: 'Same as 1. image different focal',
             options: {
@@ -135,7 +140,7 @@ export const ImageFocalPoint = () => {
       </div>
       <br />
       <div>
-        <LmImage
+        <LmImageElement
           content={storyImage({
             knob: 'Image with height & width',
             options: {
@@ -151,56 +156,6 @@ export const ImageFocalPoint = () => {
   )
 }
 
-export const ImageInSections = () => (
-  <LmImage
-    content={{
-      ...storySection(),
-      body: [
-        {
-          ...storyRow(),
-          body: [
-            {
-              ...storyColumn({ count: 1 }),
-              width_general: 'auto',
-              body: [
-                {
-                  ...storyHeadline()
-                } as HeadlineStoryblok
-              ]
-            },
-            {
-              ...storyColumn({ count: 2 }),
-              width_general: 'auto',
-              body: [
-                {
-                  ...storyImage({ count: 1, options: { width: 120 } })
-                } as ImageStoryblok
-              ]
-            },
-            {
-              ...storyColumn({ count: 3 }),
-              width_general: '2',
-              body: [
-                {
-                  ...storyImage({ count: 2 })
-                } as ImageStoryblok
-              ]
-            },
-            {
-              ...storyColumn({ count: 4 }),
-              width_general: 'true',
-              body: [
-                {
-                  ...storyImage({ count: 3 })
-                } as ImageStoryblok
-              ]
-            }
-          ] as ColumnStoryblok[]
-        } as RowStoryblok
-      ]
-    }}
-  />
-)
 export const Playground = () => (
   <div
     style={{
@@ -208,6 +163,6 @@ export const Playground = () => (
       margin: '0 auto'
     }}
   >
-    <LmImage content={storyImage()} />
+    <LmImageElement content={storyImage()} />
   </div>
 )

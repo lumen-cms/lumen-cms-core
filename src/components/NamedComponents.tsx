@@ -23,6 +23,7 @@ import { LmToolbarSection } from './layout/toolbar/ToolbarSection'
 import MuiNextLink from './link/MuiNextLink'
 import { LmToolbarRow } from './layout/toolbar/ToolbarRow'
 import { LmImageElement } from './image/ImageElement'
+import LmGoogleFormContainer from './google-form/LmGoogleFormContainer'
 
 LmCoreComponents.static_section = LmStaticSection
 LmCoreComponents.static_container = LmStaticContainer
@@ -48,3 +49,4 @@ LmCoreComponents.toolbar_navi_button = LmToggleDrawerButton
 LmCoreComponents.toolbar_row_section = LmToolbarSection
 LmCoreComponents.toolbar_row = LmToolbarRow
 LmCoreComponents.lm_link_render = MuiNextLink
+LmCoreComponents.form = LmGoogleFormContainer
