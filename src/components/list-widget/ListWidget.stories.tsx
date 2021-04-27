@@ -9,6 +9,7 @@ import AppProvider from '../provider/AppProvider'
 import { listWidgetFilter } from '../../utils/initial-props/traversePageContent'
 
 const COMPONENT_NAME = 'list_widget'
+
 export default {
   title: 'Design/Data Display/List Widget',
   component: LmListWidget,

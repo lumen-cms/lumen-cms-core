@@ -107,10 +107,9 @@ export const apiRequestResolver = async ({
   const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
     pageSlug.includes(path)
   )
-  const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
-    CONFIG.previewToken
-  }&no_cache=true${locale ? `&locale=${locale}` : ''}`
-  // console.log(locale, pageSlug)
+  // const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
+  //   CONFIG.previewToken
+  // }&no_cache=true${locale ? `&locale=${locale}` : ''}`
   const currentSlug = `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
   const [
     page,
@@ -122,9 +121,10 @@ export const apiRequestResolver = async ({
     LmStoryblokService.get(currentSlug),
     LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    insideStoryblok || process.env.NODE_ENV !== 'production'
-      ? fetch(cdnUrl).then((r) => r.json())
-      : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
+    // insideStoryblok || process.env.NODE_ENV !== 'production'
+    //   ? fetch(cdnUrl).then((r) => r.json())
+    //   : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
+    LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
     LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])
   let notFoundLocale
