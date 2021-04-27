@@ -97,6 +97,7 @@ export const fetchSettings = async ({
 
 export const apiRequestResolver = async ({
   pageSlug,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   insideStoryblok,
   ...options
 }: ApiProps): Promise<AppApiRequestPayload> => {
