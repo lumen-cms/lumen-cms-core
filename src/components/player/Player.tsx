@@ -6,6 +6,7 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import React from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmPlayerProps } from './playerTypes'
+import videoUrlHelper from '../../utils/videoUrlHelper'
 
 const useStyles = makeStyles({
   videoContainer: {
@@ -30,18 +31,7 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
-  const videoUrl = content.url || ''
-  const internalUrl = content.url_internal?.filename
-  let url =
-    videoUrl.indexOf(',') !== -1
-      ? videoUrl.split(',').map((i) => i.trim())
-      : videoUrl
-  if (internalUrl) {
-    url = internalUrl
-  }
-  if (content.url_alternatives?.length && internalUrl) {
-    url = [internalUrl, ...content.url_alternatives.map((i) => i.filename)]
-  }
+
   return (
     <div
       ref={refIntersectionObserver}
@@ -56,7 +46,7 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
             top: content.ratio ? 0 : undefined,
             left: content.ratio ? 0 : undefined
           }}
-          url={url}
+          url={videoUrlHelper(content)}
           volume={content.muted ? 0 : Number(content.volume || 0)}
           loop={content.loop}
           muted={content.muted}
