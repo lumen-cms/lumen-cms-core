@@ -1,3 +1,4 @@
+import { ParallaxProvider } from 'react-scroll-parallax'
 import { get3ColumnsSection } from '../../storybook/section'
 import {
   storyBackground,
@@ -10,7 +11,16 @@ import { storyHeadline } from '../../storybook/core/various'
 import { SettingsPageProvider } from '../provider/SettingsPageProvider'
 import { simpleSettings } from '../../storybook/toolbar'
 import { LmPage } from '../page/Page'
-import { PageStoryblok } from '../../typings/generated/components-schema'
+import {
+  BackgroundStoryblok,
+  ColumnStoryblok,
+  HeadlineStoryblok,
+  PageStoryblok,
+  ParallaxItemStoryblok,
+  RowStoryblok
+} from '../../typings/generated/components-schema'
+import LmSectionParallax from './SectionParallax'
+import { storyImageUrls } from '../../storybook/contentHelper'
 
 export default {
   title: 'Design/Layout/Section Parallax'
@@ -70,6 +80,62 @@ const getObj = () => {
   }
   return pageObj
 }
+
+export const Basic = () => (
+  <div style={{ height: '1000px' }}>
+    <ParallaxProvider>
+      <LmSectionParallax
+        content={{
+          _uid: 'section_parallax_headline',
+          component: 'section_parallax',
+          height: 80,
+          elements: [
+            {
+              _uid: '14213',
+              component: 'parallax_item',
+              amount: 0.3,
+              image: storyImageUrls[1]
+            }
+          ] as ParallaxItemStoryblok[],
+          body: [
+            {
+              _uid: 'row-1',
+              component: 'row',
+              justify: 'center',
+              align_content: 'flex-end',
+              body: [
+                {
+                  _uid: 'column-1',
+                  component: 'column',
+                  width_general: '11',
+                  width_phone: '4',
+                  background: [
+                    {
+                      _uid: '1231',
+                      component: 'background',
+                      background_color: { rgba: 'rgba(0,0,0,0.6)' }
+                    }
+                  ] as BackgroundStoryblok[],
+                  body: [
+                    {
+                      _uid: 'headline-1',
+                      component: 'headline',
+                      tag: 'h1',
+                      typography: 'headline3',
+                      align: 'center',
+                      text: 'Some Headline Title',
+                      custom_color: { rgba: '#fff' }
+                    } as HeadlineStoryblok
+                  ]
+                } as ColumnStoryblok
+              ]
+            } as RowStoryblok
+          ]
+        }}
+      />
+    </ParallaxProvider>
+  </div>
+)
 
 export const Playground = () => (
   <div className="lm-parallax__wrapper">
