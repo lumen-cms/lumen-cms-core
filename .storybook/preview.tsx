@@ -2,11 +2,12 @@ import * as NextImage from 'next/image'
 import StoriesLayout from '../src/storybook/components/StoriesLayout'
 import '../src/storybook/mockNextRouter'
 import isChromatic from 'chromatic/isChromatic'
+import { CONFIG } from '@CONFIG'
 
-// overwrite and make sure ENV always same
-process.env.NEXT_PUBLIC_PUBLIC_TOKEN = 'm85LRUo0sX4yo9Q96VMQlQtt'
-process.env.NEXT_PUBLIC_PREVIEW_TOKEN = 'qASJXPT2cwH76pA9vpJbxAtt'
-process.env.NEXT_PUBLIC_ROOT_DIRECTORY = 'en'
+// overwrite and make sure ENV always same (studentsgoabroad)
+CONFIG.publicToken = 'm85LRUo0sX4yo9Q96VMQlQtt'
+CONFIG.previewToken = 'qASJXPT2cwH76pA9vpJbxAtt'
+CONFIG.rootDirectory = 'en'
 
 const OriginalNextImage = NextImage.default
 Object.defineProperty(NextImage, 'default', {

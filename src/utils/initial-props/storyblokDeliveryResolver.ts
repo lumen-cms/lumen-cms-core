@@ -3,8 +3,6 @@ import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
 
-const { rootDirectory, enableLocaleSuffix } = CONFIG
-
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map((p) =>
@@ -23,7 +21,7 @@ const getSettingsPath = ({
   overwriteSettingPath?: string
 }) => {
   return `cdn/stories/${locale ? `${locale}/` : ''}${
-    rootDirectory ? `${rootDirectory}/` : ''
+    CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
   }${overwriteSettingPath || ''}settings`
 }
 
@@ -37,9 +35,9 @@ const getCategoryParams = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (rootDirectory || locale) {
+  if (CONFIG.rootDirectory || locale) {
     params.starts_with = `${locale ? `${locale}/` : ''}${
-      rootDirectory ? `${rootDirectory}/` : ''
+      CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
     }`
   }
   return params
@@ -55,9 +53,9 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (rootDirectory || locale) {
+  if (CONFIG.rootDirectory || locale) {
     params.starts_with = `${locale ? `${locale}/` : ''}${
-      rootDirectory ? `${rootDirectory}/` : ''
+      CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
     }`
   }
   return params
@@ -75,9 +73,9 @@ const getStoriesParams = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (rootDirectory || locale) {
+  if (CONFIG.rootDirectory || locale) {
     params.starts_with = `${locale ? `${locale}/` : ''}${
-      rootDirectory ? `${rootDirectory}/` : ''
+      CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
     }`
   }
   return params
@@ -102,7 +100,7 @@ export const apiRequestResolver = async ({
   ...options
 }: ApiProps): Promise<AppApiRequestPayload> => {
   const locale =
-    options.locale !== options.defaultLocale || enableLocaleSuffix
+    options.locale !== options.defaultLocale || CONFIG.enableLocaleSuffix
       ? options.locale
       : undefined
   const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>

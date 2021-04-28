@@ -61,6 +61,11 @@ class StoryblokServiceClass {
       params.version = 'draft'
       this.client.setToken(CONFIG.previewToken)
     }
+    if (process.env.STORYBOOK) {
+      params.version = 'published'
+      this.client.setToken(CONFIG.publicToken)
+      this.devMode = false
+    }
     return params
   }
 

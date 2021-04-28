@@ -1,12 +1,11 @@
 import { CONFIG } from '@CONFIG'
 import { PagePropsOptions } from '../../typings/app'
 
-const { rootDirectory } = CONFIG
-
 export const prepareForStoryblok = (
   slug: string | string[] = 'home',
   options: PagePropsOptions
 ) => {
+  const { rootDirectory } = CONFIG
   const slugAsArray = Array.isArray(slug) ? slug : [slug]
   const [first] = slugAsArray
   if (
@@ -23,10 +22,10 @@ export const prepareForStoryblok = (
   if (rootDirectory) {
     // if the first entry is not root directory append root directory
     first !== rootDirectory && slugAsArray.unshift(rootDirectory)
-    console.log(first, rootDirectory, slugAsArray)
   }
 
   const pageSlug = slugAsArray.join('/')
+
   return {
     pageSlug
   }
