@@ -18,7 +18,7 @@ const defaultOptions = {
 }
 
 export default {
-  title: 'Landing Page/Home/Page'
+  title: 'Landing Page/Website'
 }
 
 const StoryWrap = (data: any) => (
@@ -44,8 +44,7 @@ const StoryWrap = (data: any) => (
   </AppProvider>
 )
 
-const Template: Story<any> = (args, { loaded: { data } }) => {
-  console.log(args, data)
+const Template: Story<any> = (_args, { loaded: { data } }) => {
   return <StoryWrap {...data} />
 }
 
