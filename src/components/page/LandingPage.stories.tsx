@@ -49,6 +49,7 @@ const Template: Story<any> = (_args, { loaded: { data } }) => {
 }
 
 export const Studentsgoabroad = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 Studentsgoabroad.loaders = [
   async () => {
@@ -64,6 +65,7 @@ Studentsgoabroad.parameters = {
   chromatic: { delay: 10000 }
 }
 export const PlanetTraining = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 PlanetTraining.loaders = [
   async () => {
@@ -84,6 +86,7 @@ PlanetTraining.parameters = {
 }
 
 export const UpskillStudy = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 UpskillStudy.loaders = [
   async () => {
@@ -104,6 +107,7 @@ UpskillStudy.parameters = {
 }
 
 export const Baliinternships = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 Baliinternships.loaders = [
   async () => {
