@@ -10,6 +10,7 @@ import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
 import { useSettings } from '../provider/SettingsPageProvider'
+import GtmManager from '../tracking/GtmManager'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -141,6 +142,9 @@ function AppHead(): JSX.Element {
       {!isDevelopment && !isPreview && settings?.setup_google_analytics && (
         <Gtag googleAnalyticsId={settings.setup_google_analytics} />
       )}
+      {!isDevelopment &&
+        !isPreview &&
+        process.env.NEXT_PUBLIC_GTM_CONTAINER && <GtmManager />}
     </>
   )
 }

@@ -16,10 +16,10 @@ export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
   return (
     <>
       <AppSeo />
-      <AppHead />
       <Layout>
         <LmPage />
       </Layout>
+      <AppHead />
     </>
   )
 }
