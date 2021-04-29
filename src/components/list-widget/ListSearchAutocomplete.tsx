@@ -97,7 +97,6 @@ const fetcher = async (
   searchterm: string,
   locale?: string
 ): Promise<StoryData<PageComponent>[]> => {
-  console.log(searchterm, locale)
   const isDev = process.env.NODE_ENV === 'development'
   const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
   const url = new URL(`https://cdn-api.lumen.media${path}`)

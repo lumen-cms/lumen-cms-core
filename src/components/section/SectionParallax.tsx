@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Image from 'next/image'
-import { LmComponentRender } from '../..'
+import { LmComponentRender } from '@LmComponentRender'
 import { LmSectionParallaxProps } from './sectionTypes'
 import { storyblokImageLoader } from '../../utils/imageLoader'
 

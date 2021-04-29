@@ -3,8 +3,6 @@ import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
 
-const { rootDirectory, enableLocaleSuffix } = CONFIG
-
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map((p) =>
@@ -23,7 +21,7 @@ const getSettingsPath = ({
   overwriteSettingPath?: string
 }) => {
   return `cdn/stories/${locale ? `${locale}/` : ''}${
-    rootDirectory ? `${rootDirectory}/` : ''
+    CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
   }${overwriteSettingPath || ''}settings`
 }
 
@@ -37,9 +35,9 @@ const getCategoryParams = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (rootDirectory || locale) {
+  if (CONFIG.rootDirectory || locale) {
     params.starts_with = `${locale ? `${locale}/` : ''}${
-      rootDirectory ? `${rootDirectory}/` : ''
+      CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
     }`
   }
   return params
@@ -55,9 +53,9 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (rootDirectory || locale) {
+  if (CONFIG.rootDirectory || locale) {
     params.starts_with = `${locale ? `${locale}/` : ''}${
-      rootDirectory ? `${rootDirectory}/` : ''
+      CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
     }`
   }
   return params
@@ -75,9 +73,9 @@ const getStoriesParams = ({ locale }: { locale?: string }) => {
       }
     }
   }
-  if (rootDirectory || locale) {
+  if (CONFIG.rootDirectory || locale) {
     params.starts_with = `${locale ? `${locale}/` : ''}${
-      rootDirectory ? `${rootDirectory}/` : ''
+      CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
     }`
   }
   return params
@@ -97,20 +95,20 @@ export const fetchSettings = async ({
 
 export const apiRequestResolver = async ({
   pageSlug,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   insideStoryblok,
   ...options
 }: ApiProps): Promise<AppApiRequestPayload> => {
   const locale =
-    options.locale !== options.defaultLocale || enableLocaleSuffix
+    options.locale !== options.defaultLocale || CONFIG.enableLocaleSuffix
       ? options.locale
       : undefined
   const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
     pageSlug.includes(path)
   )
-  const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
-    CONFIG.previewToken
-  }&no_cache=true${locale ? `&locale=${locale}` : ''}`
-  // console.log(locale, pageSlug)
+  // const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
+  //   CONFIG.previewToken
+  // }&no_cache=true${locale ? `&locale=${locale}` : ''}`
   const currentSlug = `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
   const [
     page,
@@ -122,9 +120,10 @@ export const apiRequestResolver = async ({
     LmStoryblokService.get(currentSlug),
     LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    insideStoryblok || process.env.NODE_ENV !== 'production'
-      ? fetch(cdnUrl).then((r) => r.json())
-      : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
+    // insideStoryblok || process.env.NODE_ENV !== 'production'
+    //   ? fetch(cdnUrl).then((r) => r.json())
+    //   : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
+    LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
     LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])
   let notFoundLocale

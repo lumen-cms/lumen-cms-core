@@ -2,11 +2,11 @@ import React from 'react'
 import Grid, { GridProps } from '@material-ui/core/Grid'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
+import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
-import { LmComponentRender } from '../CoreComponents'
 import { LmGridRowProps } from './sectionTypes'
 
 const useStyles = makeStyles((theme: Theme) =>

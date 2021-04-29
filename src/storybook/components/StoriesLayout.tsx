@@ -8,7 +8,7 @@ import {
   select,
   text
 } from '@storybook/addon-knobs'
-import { Story as StoryType } from '@storybook/react/types-6-0.d'
+import { Story as StoryType, StoryContext } from '@storybook/react/types-6-0.d'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { CONFIG_STORYBOOK } from './configStorybook'
@@ -24,7 +24,13 @@ import { SettingsPageProvider } from '../../components/provider/SettingsPageProv
 // }
 // LmCoreComponents.lm_link_render = OverwriteLink
 
-const StoriesLayout = (Story: StoryType) => {
+const ignoreOnKind = ['Landing Page/Website']
+
+const StoriesLayout = (Story: StoryType, { kind }: StoryContext) => {
+  if (ignoreOnKind.includes(kind)) {
+    // we don't add additional markup on landing pages
+    return <Story />
+  }
   const isDark = boolean('Dark mode', false, CONFIG_STORYBOOK.KNOBS.THEME)
 
   const toolbarConfig = optionsKnob(
