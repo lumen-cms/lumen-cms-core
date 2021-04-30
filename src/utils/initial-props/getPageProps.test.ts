@@ -51,6 +51,7 @@ describe('Get page props of a certain URL', () => {
     expect(typeof currentFormToTest?.title).toBe('string')
     expect(typeof currentFormToTest?.formAction).toBe('string')
     expect((currentFormToTest?.fields?.length || 0) > 1).toBeTruthy()
+    expect(typeof data.googleFontString).toBe('string')
   })
   test('fetch planet training page', async () => {
     // commercentric uses it
@@ -61,5 +62,6 @@ describe('Get page props of a certain URL', () => {
       defaultOptions
     )
     expect(!!data.page).toBeTruthy()
+    expect(typeof data.googleFontString).toBe('string')
   })
 })

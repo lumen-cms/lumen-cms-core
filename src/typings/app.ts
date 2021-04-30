@@ -33,6 +33,7 @@ export type AppApiRequestPayload = {
   formData?: { [k: string]: GoogleFormDataProps } | null
   user?: IClaims
   notFoundLocale?: string
+  googleFontString?: string
 }
 
 type SubProps = Pick<
@@ -42,6 +43,7 @@ type SubProps = Pick<
   | 'allCategories'
   | 'listWidgetData'
   | 'formData'
+  | 'googleFontString'
 >
 
 export type AppPageProps = SubProps & {

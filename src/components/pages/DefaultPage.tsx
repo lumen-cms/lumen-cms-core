@@ -5,11 +5,12 @@ import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
 import { LmPage } from '../page/Page'
+import GoogleFont from '../layout/GoogleFont'
 
 export type LmPagesIndexProps = AppPageProps & Record<string, unknown>
 
 export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
-  const { settings, page, error } = props
+  const { settings, page, error, googleFontString } = props
   if (error || !settings || !page) {
     return <Error statusCode={500} />
   }
@@ -20,6 +21,7 @@ export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
         <LmPage />
       </Layout>
       <AppHead />
+      <GoogleFont googleFontString={googleFontString} />
     </>
   )
 }

@@ -7,10 +7,12 @@ import {
   PageStoryblok
 } from '../../typings/generated/components-schema'
 import { AppPageProps, PagePropsOptions } from '../../typings/app'
+import { processGoogleFonts } from './processGoogleFonts'
 
 SSR_CONFIG.ssrHooks.pageProps = [
   processListWidgetData,
   processFormData,
+  processGoogleFonts,
   ...SSR_CONFIG.ssrHooks.pageProps
 ]
 

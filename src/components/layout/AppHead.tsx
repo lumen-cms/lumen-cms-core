@@ -4,7 +4,6 @@ import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
 import { imageServiceNoWebp } from '../../utils/imageServices'
-import { getFontBasedOnSetting } from '../../utils/parseFont'
 import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
@@ -74,20 +73,6 @@ function AppHead(): JSX.Element {
         />
       )}
       <NextHead>
-        {!process.env.NEXT_PUBLIC_DISABLE_GOOGLE_FONTS && (
-          <>
-            <link
-              rel="preconnect"
-              href="https://fonts.gstatic.com/"
-              crossOrigin="anonymous"
-            />
-            <link
-              href={getFontBasedOnSetting(settings)}
-              rel="stylesheet"
-              media="all"
-            />
-          </>
-        )}
         {additionalMetaTags.map((item) => (
           <meta content={item.content} name={item.name} key={item.name} />
         ))}

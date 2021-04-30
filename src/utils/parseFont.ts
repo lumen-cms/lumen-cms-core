@@ -22,20 +22,15 @@ export const getFontBasedOnSetting = (settings: Partial<GlobalStoryblok>) => {
       if (fontValue.includes('wght') || !fontValue.includes(':')) {
         loadFonts.push(fontValue.trim())
       } else {
+        // css1
         const [name, weights] = fontValue.trim().split(':')
         loadFonts.push(`${name}:wght@${weights.split(',').join(';')}`)
-        // css1
       }
     }
   })
-  // Object.keys(settings).forEach((key) => {
-  //   if (settingsFonts.includes(key) && settings[key]) {
-  //     if (settings[key].includes('wght')) {
-  //       isCss2 = true
-  //     }
-  //     loadFonts.push(settings[key])
-  //   }
-  // })
+  if (!loadFonts.length) {
+    loadFonts.push('Nunito:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700')
+  }
   const googleFontsString = loadFonts.join('&family=')
   return `https://fonts.googleapis.com/css2?family=${googleFontsString}${
     process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE ? '' : '&display=swap'
