@@ -6,7 +6,9 @@ import { LmStoryblokService } from './StoryblokService'
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map((p) =>
-      p.catch(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      p.catch((_error) => {
+        // console.log(e)
         return null
       })
     )

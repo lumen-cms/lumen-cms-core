@@ -1,6 +1,5 @@
 import NextHead from 'next/head'
 import React, { memo } from 'react'
-import { GoogleFonts } from 'next-google-fonts'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -68,9 +67,6 @@ function AppHead(): JSX.Element {
 
   return (
     <>
-      {!process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE && (
-        <GoogleFonts href={getFontBasedOnSetting(settings)} />
-      )}
       {settings.website_logo && settings.seo_website_url && (
         <LogoJsonLd
           logo={imageServiceNoWebp(settings.website_logo)}
@@ -78,12 +74,19 @@ function AppHead(): JSX.Element {
         />
       )}
       <NextHead>
-        {process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE && (
-          <link
-            href={getFontBasedOnSetting(settings)}
-            rel="stylesheet"
-            media="all"
-          />
+        {!process.env.NEXT_PUBLIC_DISABLE_GOOGLE_FONTS && (
+          <>
+            <link
+              rel="preconnect"
+              href="https://fonts.gstatic.com/"
+              crossOrigin="anonymous"
+            />
+            <link
+              href={getFontBasedOnSetting(settings)}
+              rel="stylesheet"
+              media="all"
+            />
+          </>
         )}
         {additionalMetaTags.map((item) => (
           <meta content={item.content} name={item.name} key={item.name} />

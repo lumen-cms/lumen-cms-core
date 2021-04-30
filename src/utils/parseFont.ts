@@ -15,19 +15,29 @@ export const getFontBasedOnSetting = (settings: Partial<GlobalStoryblok>) => {
     'theme_font_alt4'
   ]
   const loadFonts: string[] = []
-  let isCss2 = false
-  Object.keys(settings).forEach((key) => {
-    if (settingsFonts.includes(key) && settings[key]) {
-      if (settings[key].includes('wght')) {
-        isCss2 = true
+  // let isCss2 = false
+  settingsFonts.forEach((key) => {
+    const fontValue = settings[key]
+    if (fontValue) {
+      if (fontValue.includes('wght') || !fontValue.includes(':')) {
+        loadFonts.push(fontValue.trim())
+      } else {
+        const [name, weights] = fontValue.trim().split(':')
+        loadFonts.push(`${name}:wght@${weights.split(',').join(';')}`)
+        // css1
       }
-      loadFonts.push(settings[key])
     }
   })
-  const googleFontsString = loadFonts.join(isCss2 ? '&family=' : '|')
-  return `https://fonts.googleapis.com/${
-    isCss2 ? 'css2' : 'css'
-  }?family=${googleFontsString}${
+  // Object.keys(settings).forEach((key) => {
+  //   if (settingsFonts.includes(key) && settings[key]) {
+  //     if (settings[key].includes('wght')) {
+  //       isCss2 = true
+  //     }
+  //     loadFonts.push(settings[key])
+  //   }
+  // })
+  const googleFontsString = loadFonts.join('&family=')
+  return `https://fonts.googleapis.com/css2?family=${googleFontsString}${
     process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE ? '' : '&display=swap'
   }`
 }
