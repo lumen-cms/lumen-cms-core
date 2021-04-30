@@ -1,4 +1,3 @@
-import React from 'react'
 import NextHead from 'next/head'
 
 export default function GoogleFont({
