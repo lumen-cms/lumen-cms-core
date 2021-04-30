@@ -89,6 +89,7 @@ type AppConfigProps = {
   hostname?: string
   excluding_slugs?: string // exclude slugs for sitemap, getStaticPaths. wildcards allowed: "auth/*,demo-content/*"
   overwriteSettingsPaths: string[] // overwrite paths which are in route, add trailing slash: some/special/,other/special/
+  languages: string[]
   authPathRequiredRoles?: {
     path: string
     roles: string[]
@@ -104,14 +105,14 @@ export const CONFIG: AppConfigProps = {
   rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
   enableLocaleSuffix: !!process.env.NEXT_PUBLIC_ENABLE_LOCALE_SUFFIX,
   overwriteLocale: process.env.NEXT_PUBLIC_OVERWRITE_LOCALE,
-  suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE,
+  suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE, // only in combination with NEXT_PUBLIC_LANGUAGES
   overwriteDisableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,
   GA: process.env.NEXT_PUBLIC_GA,
+  languages: process.env.NEXT_PUBLIC_LANGUAGES?.split(',') || [],
   TAWKTO: process.env.NEXT_PUBLIC_TAWKTO,
   prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH,
-  overwriteSettingsPaths: process.env.NEXT_PUBLIC_OVERWRITE_SETTINGS_PATHS
-    ? process.env.NEXT_PUBLIC_OVERWRITE_SETTINGS_PATHS.split(',')
-    : [],
+  overwriteSettingsPaths:
+    process.env.NEXT_PUBLIC_OVERWRITE_SETTINGS_PATHS?.split(',') || [],
   excluding_slugs: process.env.NEXT_PUBLIC_EXCLUDING_SLUGS || ''
 }
 

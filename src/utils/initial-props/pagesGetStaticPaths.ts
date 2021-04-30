@@ -1,8 +1,8 @@
 import { GetStaticPaths } from 'next'
-import { internalLinkHandler } from 'lumen-cms-utils'
 import { ParsedUrlQuery } from 'querystring'
 import { getAllStoriesOfProject } from './storyblokPagesConfig'
 import { PageItem } from '../../typings/generated/schema'
+import { internalLinkHandler } from '../internalLinkHandler'
 
 const getFallbackMode = () => {
   if (process.env.NEXT_FALLBACK_MODE === 'true') {

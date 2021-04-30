@@ -1,4 +1,4 @@
-import { internalLinkHandler } from 'lumen-cms-utils'
+import { internalLinkHandler } from './internalLinkHandler'
 
 export interface LinkType {
   cached_url?: string
