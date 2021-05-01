@@ -7,7 +7,7 @@ import {
   IframeStoryblok,
   ImageStoryblok
 } from '../../typings/generated/components-schema'
-import LmDialog from './Dialog'
+import LmDialog from './DialogElement'
 import { LmDialogProps } from './dialogTypes'
 import { getComponentArgTypes } from '../../storybook/configControls'
 

@@ -2,10 +2,11 @@ const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
-  const enableWebpack5 =
+  const enableWebpack5 = !!(
+    process.env.ENABLE_WEBPACK5 ||
     transpileModules === false ||
-    process.env.NODE_ENV !== 'production' ||
-    process.env.ENABLE_WEBPACK5
+    process.env.NODE_ENV !== 'production'
+  )
   const config = {
     ...nextConfig,
     future: {

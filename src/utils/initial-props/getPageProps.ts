@@ -7,14 +7,19 @@ import {
   PageStoryblok
 } from '../../typings/generated/components-schema'
 import { AppPageProps, PagePropsOptions } from '../../typings/app'
-import { processGoogleFonts } from './processGoogleFonts'
+// import { processGoogleFonts } from './processGoogleFonts'
 
 SSR_CONFIG.ssrHooks.pageProps = [
   processListWidgetData,
   processFormData,
-  processGoogleFonts,
   ...SSR_CONFIG.ssrHooks.pageProps
 ]
+if (!process.env.STORYBOOK) {
+  // build of storybook fails..
+  // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require
+  const { processGoogleFonts } = require('./processGoogleFonts')
+  SSR_CONFIG.ssrHooks.pageProps.push(processGoogleFonts)
+}
 
 const getPageProps = async (
   slug: string | string[],

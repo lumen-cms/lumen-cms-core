@@ -4,11 +4,13 @@ import GridListTile from '@material-ui/core/GridListTile'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
-import ImageListLightbox from './ImageListLightbox'
+import dynamic from 'next/dynamic'
 import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmImageListProps } from './imageListTypes'
+
+const ImageListLightbox = dynamic(() => import('./ImageListLightbox'))
 
 export default function LmImageList({
   content
