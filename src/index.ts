@@ -10,4 +10,4 @@ export { LmAppContainer } from './components/layout/AppContainer'
 export { useAppContext } from '@context/AppContext'
 export { default as LmAppSetupProvider } from './components/provider/AppSetupProvider'
 
-export { internalLinkHandler as lmInternalLinkHandler } from './utils/internalLinkHandler'
+// export { internalLinkHandler as lmInternalLinkHandler } from './utils/internalLinkHandler'

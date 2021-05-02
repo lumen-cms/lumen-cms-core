@@ -66,7 +66,6 @@ export default {
 
 const presets = findPresets<LmSectionProps['content']>('section')
 
-console.log(presets.length)
 type TempType = LmSectionProps['content'][]
 let i
 let j
@@ -112,6 +111,14 @@ Presets_5.parameters = {
   // Sets the delay for a specific story.
   chromatic: { delay: 10000 }
 }
+
+export const ComplexWithSquare = () => (
+  <StorybookPresetsContainer
+    presetItems={presets.filter(
+      (i) => i._uid === '41d5d05a-afc3-4322-871a-65cb7495fdb2'
+    )}
+  />
+)
 
 export const Basic = () => (
   <>

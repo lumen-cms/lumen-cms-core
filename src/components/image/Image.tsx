@@ -8,20 +8,16 @@ import {
 } from '../../utils/imageServices'
 import { LmImageProps } from './imageTypes'
 import { storyblokImageLoader } from '../../utils/imageLoader'
+import LmAspectRatio from './LmAspectRatio'
+import LmSquareImage from '../avatar/LmSquareImage'
 
 const useStyles = makeStyles((theme: Theme) => ({
   image: {
-    margin: 'auto',
-    width: '100%',
-    height: 'auto'
+    margin: 'auto'
+    // width: '100%',
+    // height: 'auto'
   },
   imgAddons: {
-    '&.img-thumbnail': {
-      padding: '.25rem',
-      backgroundColor: theme.palette.background.default,
-      border: `1px solid ${theme.palette.divider}!important`,
-      borderRadius: theme.shape.borderRadius
-    },
     '&.square, &.rounded-0 img': {
       borderRadius: 0
     },
@@ -97,48 +93,72 @@ export default function LmImage({
     sizes = imageSizesOnWidthAndBreakpoints(currentWidth, breakpoints)
   }
   if (square && squareSize) {
-    // let variant: AvatarProps['variant'] = 'circular'
-    // if (property.includes('square') || property.includes('rounded-0')) {
-    //   variant = 'square'
-    // }
-    // if (property.includes('rounded')) {
-    //   variant = 'rounded'
-    // }
+    console.log('inisde square', squareSize)
+
     return (
-      <div
-        {...containerProps}
-        style={{
-          margin: 'auto',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'block',
-          maxWidth: `${squareSize}px`,
-          maxHeight: `${squareSize}px`,
-          width: squareSize < 360 ? `${squareSize}px` : undefined,
-          height: squareSize < 360 ? `${squareSize}px` : undefined
-        }}
-        className={clsx(
-          content.class_names?.values,
-          classes.imgAddons,
-          content.property,
-          loaded ? 'loaded' : 'loading'
-        )}
-      >
-        <div style={{ paddingBottom: '100%' }} />
-        <Image
-          {...storyblokImageLoader(imageSource)}
-          src={imageSource}
-          alt={content.alt || 'website image'}
-          onLoad={() => setLoaded(true)}
-          loading={loading}
-          priority={priority}
-          sizes={sizes}
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
+      <>
+        <LmAspectRatio
+          {...containerProps}
+          width={squareSize}
+          height={squareSize}
+          style={{
+            maxWidth: `${squareSize}px`,
+            margin: 'auto'
+          }}
+          className={clsx(
+            content.class_names?.values,
+            classes.imgAddons,
+            content.property,
+            loaded ? 'loaded' : 'loading'
+          )}
+        >
+          <LmSquareImage
+            image={imageSource}
+            width={squareSize}
+            layout="intrinsic"
+            imageProps={{
+              alt: content.alt || 'website image',
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          />
+        </LmAspectRatio>
+        {/* <div */}
+        {/*  {...containerProps} */}
+        {/*  style={{ */}
+        {/*    margin: 'auto', */}
+        {/*    position: 'relative', */}
+        {/*    overflow: 'hidden', */}
+        {/*    display: 'block', */}
+        {/*    maxWidth: `${squareSize}px`, */}
+        {/*    maxHeight: `${squareSize}px`, */}
+        {/*    width: squareSize < 360 ? `${squareSize}px` : undefined, */}
+        {/*    height: squareSize < 360 ? `${squareSize}px` : undefined */}
+        {/*  }} */}
+        {/*  className={clsx( */}
+        {/*    content.class_names?.values, */}
+        {/*    classes.imgAddons, */}
+        {/*    content.property, */}
+        {/*    loaded ? 'loaded' : 'loading' */}
+        {/*  )} */}
+        {/* > */}
+        {/*  <div style={{ paddingBottom: '100%' }} /> */}
+        {/*  <Image */}
+        {/*    {...storyblokImageLoader(imageSource)} */}
+        {/*    src={imageSource} */}
+        {/*    alt={content.alt || 'website image'} */}
+        {/*    onLoad={() => setLoaded(true)} */}
+        {/*    loading={loading} */}
+        {/*    priority={priority} */}
+        {/*    sizes={sizes} */}
+        {/*    layout="fill" */}
+        {/*    objectFit="cover" */}
+        {/*  /> */}
+        {/* </div> */}
+      </>
     )
   }
+  console.log(proportionalHeight, proportionalWidth)
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
     <div
@@ -152,30 +172,41 @@ export default function LmImage({
       )}
       style={{
         cursor: onClick ? 'pointer' : undefined,
-        maxWidth: squareSize
-          ? `${squareSize}px`
-          : isProportional
+        maxWidth: isProportional
           ? Math.max(proportionalWidth, proportionalHeight)
-          : '100%',
-        maxHeight: squareSize
-          ? `${squareSize}px`
-          : isProportional
+          : undefined,
+        maxHeight: isProportional
           ? Math.max(proportionalHeight, proportionalWidth)
-          : '100%'
+          : undefined
       }}
     >
-      <Image
-        {...storyblokImageLoader(imageSource)}
-        src={imageSource}
-        alt={content.alt || 'website image'}
-        width={squareSize || originalDimensions.width}
-        height={squareSize || originalDimensions.height}
-        onLoad={() => setLoaded(true)}
-        loading={loading}
-        priority={priority}
-        layout="responsive"
-        sizes={sizes}
+      <LmSquareImage
+        image={imageSource}
+        width={
+          isProportional
+            ? Math.max(proportionalWidth, proportionalHeight)
+            : Math.min(originalDimensions.width, originalDimensions.height)
+        }
+        layout="intrinsic"
+        imageProps={{
+          loading,
+          priority,
+          onLoad: () => setLoaded(true),
+          alt: content.alt || 'website image'
+        }}
       />
+      {/* <Image */}
+      {/*  {...storyblokImageLoader(imageSource)} */}
+      {/*  src={imageSource} */}
+      {/*  alt={content.alt || 'website image'} */}
+      {/*  width={proportionalWidth || originalDimensions.width} */}
+      {/*  height={proportionalHeight || originalDimensions.height} */}
+      {/*  onLoad={() => setLoaded(true)} */}
+      {/*  loading={loading} */}
+      {/*  priority={priority} */}
+      {/*  layout="intrinsic" */}
+      {/*  sizes={sizes} */}
+      {/* /> */}
     </div>
   )
 }

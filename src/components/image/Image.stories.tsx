@@ -28,6 +28,8 @@ export const Basic = () => (
   >
     <h3>Default:</h3>
     <LmImageElement content={props} />
+    <h3>Fixed width 150px</h3>
+    <LmImageElement content={{ ...props, width: 150 }} />
     <h3>Rounded Circle 150px height:</h3>
     <LmImageElement
       content={
@@ -50,21 +52,10 @@ export const Basic = () => (
     <LmImageElement content={{ ...props, property: ['rounded-0'] }} />
     <h3>Rounded:</h3>
     <LmImageElement content={{ ...props, property: ['rounded'] }} />
-    <h3>Thumbnail:</h3>
-    <LmImageElement content={{ ...props, property: ['img-thumbnail'] }} />
-    <h3>Circle Thumbnail:</h3>
-    <LmImageElement
-      content={{
-        ...props,
-        height: 150,
-        property: ['rounded-circle', 'img-thumbnail']
-      }}
-    />
     <h3>Square:</h3>
     <LmImageElement
       content={{ ...props, height: 150, property: ['square', 'rounded'] }}
     />
-
     <h3>Resized images with fixed height or width:</h3>
     <LmImageElement content={{ ...props, width: 140 }} />
     <LmImageElement content={{ ...props, height: 64 }} />
@@ -75,10 +66,27 @@ export const Basic = () => (
       content={{ ...props, property: ['rounded-circle'], height: 64 }}
     />
     <LmImageElement content={{ ...props, property: ['square'], height: 64 }} />
-    <LmImageElement
-      content={{ ...props, property: ['img-thumbnail'], height: 64 }}
-    />
+
     <LmImageElement content={{ ...props, property: ['rounded'], height: 64 }} />
+  </div>
+)
+
+export const DefinedHeight = () => (
+  <div>
+    <LmImageElement
+      content={{
+        ...props,
+        source: '//a.storyblok.com/f/69069/112x180/3bb1b505d4/elements-2.png',
+        height: 70
+      }}
+    />
+    <LmImageElement
+      content={{
+        ...props,
+        source: '//a.storyblok.com/f/69069/15x180/0c3a0ffb9e/elements-7.png',
+        height: 70
+      }}
+    />
   </div>
 )
 export const ImageSVG = () => (
