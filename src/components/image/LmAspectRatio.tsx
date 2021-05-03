@@ -42,12 +42,12 @@ const LmAspectRatio: FC<LmAspectRatioProps> = ({
   children
 }) => {
   const classes = useStyles()
-  console.log(width, height)
   return (
     <div
       className={clsx(className, classes.root)}
       style={{
         ...style,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         '--aspect-ratio': `(${width / height})`
       }}

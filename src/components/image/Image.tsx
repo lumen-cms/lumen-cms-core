@@ -80,8 +80,6 @@ export default function LmImage({
   }
 
   if (square && squareSize) {
-    console.log('inisde square', squareSize)
-
     return (
       <>
         <LmAspectRatio
@@ -115,7 +113,6 @@ export default function LmImage({
       </>
     )
   }
-  console.log(proportionalHeight, proportionalWidth)
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
     <div
