@@ -1,12 +1,12 @@
 import clsx from 'clsx'
-import React, { FunctionComponent } from 'react'
+import React, { FC, FunctionComponent } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import { useDebounce } from 'use-debounce'
+import Slide from '@material-ui/core/Slide'
 import { ContentSpace } from '../ContentSpace'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
@@ -20,14 +20,14 @@ import {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     topAppBar: {
-      '& .lm-system-bar': {
-        transitionDuration: '500ms',
-        overflow: 'hidden',
-        height: theme.toolbar.height.systemBar,
-        [theme.breakpoints.only('xs')]: {
-          display: 'none'
-        }
-      },
+      // '& .lm-system-bar': {
+      // transitionDuration: '500ms',
+      // overflow: 'hidden',
+      // height: theme.toolbar.height.systemBar,
+      // [theme.breakpoints.only('xs')]: {
+      //   display: 'none'
+      // }
+      // },
       '& .logo-img__invert': {
         display: 'none'
       },
@@ -57,13 +57,9 @@ const useStyles = makeStyles((theme: Theme) =>
         }
       },
       '&.lm-toolbar__scrolled': {
-        '& .lm-system-bar': {
-          // transform: `translate(0, ${-1 * theme.toolbar.height.systemBar}px)`,
-          // transition: 'transform .5s',
-          // paddingTop: theme.toolbar.height.systemBar,
-          marginTop: -1 * theme.toolbar.height.systemBar
-          // height: '0 !important'
-        },
+        // '& .lm-system-bar': {
+        //   marginTop: -1 * theme.toolbar.height.systemBar
+        // },
         '& .MuiToolbar-root': {
           height: theme.toolbar.height.mobile,
           [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
@@ -127,6 +123,21 @@ const mapToolbarColor = {
   white: 'inherit'
 }
 
+const HideOnScroll: FC<{
+  isScrollCollapse?: boolean
+}> = ({ children, isScrollCollapse }) => {
+  const trigger = useScrollTrigger({ disableHysteresis: false })
+
+  if (!isScrollCollapse) {
+    return <>{children}</>
+  }
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children as any}
+    </Slide>
+  )
+}
+
 const TopAppBar: FunctionComponent<{
   SystemBar?: React.ReactNode
 }> = (props) => {
@@ -136,8 +147,6 @@ const TopAppBar: FunctionComponent<{
 
   const classes = useStyles({ settings })
   const toolbarConfig = settings.toolbar_config || []
-  const isScrolledTrigger = useScrollTrigger({ disableHysteresis: false })
-  const [isScrolled] = useDebounce(isScrolledTrigger, 100)
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const scrolledWithoutHysteresis = useScrollTop()
   const toolbarVariant = settings.toolbar_variant
@@ -151,7 +160,6 @@ const TopAppBar: FunctionComponent<{
   }
 
   const isFixedTop = toolbarConfig.includes('fixed')
-  const isScrollCollapse = toolbarConfig.includes('scroll_collapse')
   const hasFeatureImage = page?.property?.includes('has_feature')
   const drawerBelowToolbar =
     settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
@@ -163,44 +171,47 @@ const TopAppBar: FunctionComponent<{
     (settings.toolbar_main_height || hasFeatureImage || !!props.SystemBar)
   return (
     <>
-      <AppBar
-        className={clsx(classes.topAppBar, {
-          'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
-          'lm-toolbar__unelevated': toolbarConfig.includes('unelevated'),
-          [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
-          'lm-toolbar__transparent': hasFeatureImage,
-          'lm-toolbar__scrolled': toolbarScrolled,
-          'lm-toolbar__collapsed':
-            isScrolled && settings.toolbar_config?.includes('scroll_collapse'),
-          'lm-toolbar__scroll-collapse': isScrollCollapse,
-          'lm-toolbar__with-system-bar': !!props.SystemBar,
-          [classes.leftShift]: showLeftShift,
-          [classes[
-            `left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`
-          ]]: showLeftShift
-        })}
-        style={{
-          background: settings.toolbar_background ?? undefined,
-          backgroundColor:
-            settings.toolbar_color?.rgba &&
-            (!hasFeatureImage || toolbarScrolled)
-              ? settings.toolbar_color?.rgba
-              : undefined
-        }}
-        color={mapToolbarColor[toolbarVariant || 'default']}
-        position={isFixedTop ? 'fixed' : 'relative'}
+      <HideOnScroll
+        isScrollCollapse={toolbarConfig.includes('scroll_collapse')}
       >
-        {props.SystemBar}
-        <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
-          <Toolbar
-            className={clsx(classes.toolbar, {
-              [classes.toolbarCustom]: settings.toolbar_font_size
-            })}
-          >
-            {props.children}
-          </Toolbar>
-        </Container>
-      </AppBar>
+        <AppBar
+          className={clsx(classes.topAppBar, {
+            'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
+            'lm-toolbar__unelevated': toolbarConfig.includes('unelevated'),
+            [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
+            'lm-toolbar__transparent': hasFeatureImage,
+            'lm-toolbar__scrolled': toolbarScrolled,
+            // 'lm-toolbar__collapsed': isScrolled && isScrollCollapse,
+            // 'lm-toolbar__scroll-collapse': isScrollCollapse,
+            'lm-toolbar__with-system-bar': !!props.SystemBar,
+            [classes.leftShift]: showLeftShift,
+            [classes[
+              `left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`
+            ]]: showLeftShift
+          })}
+          style={{
+            background: settings.toolbar_background ?? undefined,
+            backgroundColor:
+              settings.toolbar_color?.rgba &&
+              (!hasFeatureImage || toolbarScrolled)
+                ? settings.toolbar_color?.rgba
+                : undefined
+          }}
+          color={mapToolbarColor[toolbarVariant || 'default']}
+          position={isFixedTop ? 'fixed' : 'relative'}
+        >
+          {props.SystemBar}
+          <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
+            <Toolbar
+              className={clsx(classes.toolbar, {
+                [classes.toolbarCustom]: settings.toolbar_font_size
+              })}
+            >
+              {props.children}
+            </Toolbar>
+          </Container>
+        </AppBar>
+      </HideOnScroll>
       {isFixedTop && !hasFeatureImage && <ContentSpace isBlock />}
     </>
   )

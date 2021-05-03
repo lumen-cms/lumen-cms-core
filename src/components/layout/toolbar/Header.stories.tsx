@@ -3,10 +3,12 @@ import Header from './Header'
 import {
   companyLogos,
   customSettings,
+  customSettingsSystemBar,
   simpleSettings
 } from '../../../storybook/toolbar'
 import { SettingsPageProvider } from '../../provider/SettingsPageProvider'
 import StorybookPresetsContainer from '../../../storybook/components/StorybookPresetsContainer'
+import GlobalTheme from '../../global-theme/GlobalTheme'
 
 export default {
   title: 'Design/Surfaces/Toolbar'
@@ -71,4 +73,60 @@ export const Custom = () => (
       <Header />
     </SettingsPageProvider>
   </>
+)
+
+export const ScrollCollapse = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettings,
+      toolbar_variant: 'dark',
+      toolbar_config: ['scroll_collapse', 'fixed', 'unelevated'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <Header />
+    <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+  </SettingsPageProvider>
+)
+
+export const FixedToolbar = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettings,
+      toolbar_variant: 'dark',
+      toolbar_config: ['fixed', 'unelevated'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <Header />
+    <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+  </SettingsPageProvider>
+)
+
+export const WithSystemBar = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <Header />
+    <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+  </SettingsPageProvider>
+)
+
+export const WithSystemBarScrollCollapse = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_config: ['fixed', 'enable_system_bar', 'scroll_collapse'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <Header />
+    <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+  </SettingsPageProvider>
 )
