@@ -125,6 +125,23 @@ export const Trigger = () => (
     <LmDialog
       content={
         {
+          body,
+          trigger: [
+            {
+              component: 'image',
+              _uid: 'sgsfdgsdfg',
+              property: ['square'],
+              source:
+                'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
+            } as ImageStoryblok
+          ]
+        } as DialogStoryblok
+      }
+    />
+    <div style={{ padding: '10px' }} />
+    <LmDialog
+      content={
+        {
           no_padding: true,
           slide_up: true,
           body,

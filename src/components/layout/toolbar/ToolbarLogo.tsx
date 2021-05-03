@@ -99,7 +99,7 @@ export function LmToolbarLogo(): JSX.Element {
             >
               <LmSquareImage
                 image={source as string}
-                width={toolbarHeight}
+                size={toolbarHeight}
                 layout="intrinsic"
                 imageProps={{
                   priority: true,

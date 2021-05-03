@@ -44,7 +44,7 @@ function DrawerLogoArea() {
                 image={websiteLogo}
                 layout="intrinsic"
                 imageProps={{ alt: websiteTitle || 'website logo' }}
-                width={40}
+                size={40}
               />
             )}
           </div>

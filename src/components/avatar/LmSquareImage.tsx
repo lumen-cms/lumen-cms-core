@@ -5,7 +5,8 @@ import { storyblokImageLoader } from '../../utils/imageLoader'
 
 type LmSquareImageProps = {
   image: string
-  width?: number | string
+  size?: number | string
+  sizeIsHeight?: boolean
   layout?: 'responsive' | 'intrinsic' | 'fixed'
   imageProps?: Pick<
     ImageProps,
@@ -20,18 +21,23 @@ type LmSquareImageProps = {
   >
 }
 export default function LmSquareImage({
-  width,
+  size,
   image,
   imageProps,
-  layout
+  layout,
+  sizeIsHeight
 }: LmSquareImageProps): JSX.Element {
+  console.log(size)
+
   return (
     <Image
       src={image}
       {...(image.includes('a.storyblok.com')
         ? {
             layout: layout || 'fixed',
-            ...imageCalculateWidthHeight(width ? Number(width) : 40, image),
+            ...imageCalculateWidthHeight(size ? Number(size) : 40, image, {
+              sizeIsHeight
+            }),
             objectFit: 'cover'
           }
         : {

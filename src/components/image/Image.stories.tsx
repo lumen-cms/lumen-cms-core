@@ -72,7 +72,7 @@ export const Basic = () => (
 )
 
 export const DefinedHeight = () => (
-  <div>
+  <div style={{ backgroundColor: '#ccc' }}>
     <LmImageElement
       content={{
         ...props,
@@ -87,6 +87,9 @@ export const DefinedHeight = () => (
         height: 70
       }}
     />
+    <LmImageElement content={{ ...props, height: 100 }} />
+    <LmImageElement content={{ ...props, width: 64 }} />
+    <LmImageElement content={{ ...props, property: ['square'], height: 64 }} />
   </div>
 )
 export const ImageSVG = () => (

@@ -65,7 +65,6 @@ export default {
 }
 
 const presets = findPresets<LmSectionProps['content']>('section')
-
 type TempType = LmSectionProps['content'][]
 let i
 let j
@@ -115,7 +114,15 @@ Presets_5.parameters = {
 export const ComplexWithSquare = () => (
   <StorybookPresetsContainer
     presetItems={presets.filter(
-      (i) => i._uid === '41d5d05a-afc3-4322-871a-65cb7495fdb2'
+      (item) => item._uid === '41d5d05a-afc3-4322-871a-65cb7495fdb2'
+    )}
+  />
+)
+
+export const NegativeMargin = () => (
+  <StorybookPresetsContainer
+    presetItems={presets.filter(
+      (item) => item._uid === '1a6e8ad3-5a21-4ad5-ac78-56616837c923'
     )}
   />
 )

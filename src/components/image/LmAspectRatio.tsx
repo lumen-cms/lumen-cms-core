@@ -10,29 +10,27 @@ type LmAspectRatioProps = {
 }
 
 const useStyles = makeStyles(() => ({
-  ratio: {
-    content: '',
-    display: 'block',
-    '@supports not (aspect-ratio: 1/1)': {
-      height: 0,
-      paddingBottom: 'calc(100% / (var(--aspect-ratio)))'
-    },
-    '@supports (aspect-ratio: 1/1)': {
-      aspectRatio: 'calc(var(--aspect-ratio))'
-    }
-  },
-  absolute: {
-    width: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
-    '& > div': {
-      height: '100%'
-    }
-  },
   root: {
-    position: 'relative'
+    position: 'relative',
+    '& > div': {
+      width: '100%',
+      position: 'absolute!important',
+      top: 0,
+      left: 0,
+      height: '100%'
+    },
+    '&:before': {
+      content: '""',
+      display: 'block',
+      width: '100%',
+      '@supports not (aspect-ratio: 1/1)': {
+        height: 0,
+        paddingBottom: 'calc(100% / (var(--aspect-ratio)))'
+      },
+      '@supports (aspect-ratio: 1/1)': {
+        aspectRatio: 'calc(var(--aspect-ratio))'
+      }
+    }
   }
 }))
 
@@ -44,6 +42,7 @@ const LmAspectRatio: FC<LmAspectRatioProps> = ({
   children
 }) => {
   const classes = useStyles()
+  console.log(width, height)
   return (
     <div
       className={clsx(className, classes.root)}
@@ -53,8 +52,7 @@ const LmAspectRatio: FC<LmAspectRatioProps> = ({
         '--aspect-ratio': `(${width / height})`
       }}
     >
-      <div className={classes.ratio} />
-      <div className={classes.absolute}>{children}</div>
+      {children}
     </div>
   )
 }
