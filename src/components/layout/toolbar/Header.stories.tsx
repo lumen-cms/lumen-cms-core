@@ -15,32 +15,44 @@ export default {
 }
 
 export const Presets = () => (
-  <StorybookPresetsContainer componentName="toolbar_row" />
+  <SettingsPageProvider settings={simpleSettings}>
+    <GlobalTheme>
+      <StorybookPresetsContainer componentName="toolbar_row" />
+    </GlobalTheme>
+  </SettingsPageProvider>
 )
 
 export const Basic = () => (
   <>
     <h3>Default</h3>
     <SettingsPageProvider settings={simpleSettings}>
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>Secondary</h3>
     <SettingsPageProvider
       settings={{ ...simpleSettings, toolbar_variant: 'secondary' }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>Dark</h3>
     <SettingsPageProvider
       settings={{ ...simpleSettings, toolbar_variant: 'dark' }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>White</h3>
     <SettingsPageProvider
       settings={{ ...simpleSettings, toolbar_variant: 'white' }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
   </>
 )
@@ -50,7 +62,9 @@ export const Custom = () => (
     <SettingsPageProvider
       settings={{ ...customSettings, website_logo: companyLogos[0] }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>Baliinternships</h3>
     <SettingsPageProvider
@@ -60,7 +74,9 @@ export const Custom = () => (
         website_logo: companyLogos[1]
       }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>planet.training</h3>
     <SettingsPageProvider
@@ -70,7 +86,9 @@ export const Custom = () => (
         website_logo: companyLogos[2]
       }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
   </>
 )
@@ -84,8 +102,10 @@ export const ScrollCollapse = () => (
       website_logo: companyLogos[3]
     }}
   >
-    <Header />
-    <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
   </SettingsPageProvider>
 )
 
@@ -98,8 +118,10 @@ export const FixedToolbar = () => (
       website_logo: companyLogos[3]
     }}
   >
-    <Header />
-    <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
   </SettingsPageProvider>
 )
 
@@ -112,8 +134,10 @@ export const WithSystemBar = () => (
       website_logo: companyLogos[3]
     }}
   >
-    <Header />
-    <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
   </SettingsPageProvider>
 )
 
@@ -126,7 +150,43 @@ export const WithSystemBarScrollCollapse = () => (
       website_logo: companyLogos[3]
     }}
   >
-    <Header />
-    <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const CustomHeightSystemBar = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_main_height: 80,
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const CustomBaliinternships = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_main_height: 80,
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[1]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
   </SettingsPageProvider>
 )

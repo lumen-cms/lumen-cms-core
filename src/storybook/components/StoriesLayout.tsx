@@ -3,7 +3,6 @@ import Container from '@material-ui/core/Container'
 import {
   boolean,
   color,
-  number,
   optionsKnob,
   select,
   text
@@ -24,7 +23,7 @@ import { SettingsPageProvider } from '../../components/provider/SettingsPageProv
 // }
 // LmCoreComponents.lm_link_render = OverwriteLink
 
-const ignoreOnKind = ['Landing Page/Website']
+const ignoreOnKind = ['Landing Page/Website', 'Design/Surfaces/Toolbar']
 
 const StoriesLayout = (Story: StoryType, { kind }: StoryContext) => {
   if (ignoreOnKind.includes(kind)) {
@@ -107,12 +106,6 @@ const StoriesLayout = (Story: StoryType, { kind }: StoryContext) => {
       CONFIG_STORYBOOK.KNOBS.THEME
     ),
     toolbar_config: (toolbarConfig as unknown) as GlobalStoryblok['toolbar_config'],
-    toolbar_main_height: number(
-      'Custom Toolbar Height',
-      56,
-      {},
-      CONFIG_STORYBOOK.KNOBS.TOOLBAR
-    ),
     toolbar_color: {
       rgba: color('Toolbar Color', '', CONFIG_STORYBOOK.KNOBS.TOOLBAR)
     } as GlobalStoryblok['toolbar_color'],

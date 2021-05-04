@@ -2,11 +2,17 @@ import clsx from 'clsx'
 import React, { FC, FunctionComponent } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  useTheme
+} from '@material-ui/core/styles'
 import Container, { ContainerProps } from '@material-ui/core/Container'
 import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import Slide from '@material-ui/core/Slide'
+import { Collapse } from '@material-ui/core'
 import { ContentSpace } from '../ContentSpace'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
@@ -20,14 +26,6 @@ import {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     topAppBar: {
-      // '& .lm-system-bar': {
-      // transitionDuration: '500ms',
-      // overflow: 'hidden',
-      // height: theme.toolbar.height.systemBar,
-      // [theme.breakpoints.only('xs')]: {
-      //   display: 'none'
-      // }
-      // },
       '& .logo-img__invert': {
         display: 'none'
       },
@@ -57,25 +55,15 @@ const useStyles = makeStyles((theme: Theme) =>
         }
       },
       '&.lm-toolbar__scrolled': {
-        // '& .lm-system-bar': {
-        //   marginTop: -1 * theme.toolbar.height.systemBar
-        // },
         '& .MuiToolbar-root': {
-          height: theme.toolbar.height.mobile,
-          [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-            height: theme.toolbar.height.landscape
-          },
-          [theme.breakpoints.up('sm')]: {
-            height: theme.toolbar.height.desktop
-          }
+          // height: theme.toolbar.height.mobile,
+          // [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
+          //   height: theme.toolbar.height.landscape
+          // },
+          // [theme.breakpoints.up('sm')]: {
+          //   height: theme.toolbar.height.desktop
+          // }
         }
-      },
-      '&.lm-toolbar__scroll-collapse.lm-toolbar__collapsed .MuiToolbar-root': {
-        height: 0,
-        minHeight: 0,
-        padding: 0,
-        overflow: 'hidden',
-        transitionDuration: '300ms'
       }
     },
     leftShift: {
@@ -100,18 +88,18 @@ const useStyles = makeStyles((theme: Theme) =>
       return options
     },
     toolbar: {
-      transitionDuration: '500ms',
-      height: theme.toolbar.height.mobile,
-      [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-        height: theme.toolbar.height.custom
-          ? Math.round(theme.toolbar.height.custom * 0.86)
-          : theme.toolbar.height.landscape
-      },
-      [theme.breakpoints.up('sm')]: {
-        height: theme.toolbar.height.custom
-          ? Math.round(theme.toolbar.height.custom * 1.15)
-          : theme.toolbar.height.desktop
-      }
+      // transitionDuration: '500ms',
+      // ...(theme.toolbar.height.custom
+      //   ? {}
+      //   : {
+      // minHeight: theme.toolbar.height.mobile,
+      //   [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
+      //     minHeight: theme.toolbar.height.landscape
+      //   },
+      //   [theme.breakpoints.up('sm')]: {
+      //     minHeight: theme.toolbar.height.desktop
+      //   }
+      // })
     }
   })
 )
@@ -135,6 +123,60 @@ const HideOnScroll: FC<{
     <Slide appear={false} direction="down" in={!trigger}>
       {children as any}
     </Slide>
+  )
+}
+
+const collapsedStyles = makeStyles((theme) =>
+  createStyles({
+    wrapper: {
+      height: '100%'
+    },
+    collapsed: {
+      '&.lm-collapsed': {
+        '& .logo-img': {
+          maxHeight: '40px'
+        }
+      }
+    },
+    beforeCollapse: {
+      '& .lm-toolbar__main': {
+        minHeight: theme.toolbar.height.custom
+          ? `${theme.toolbar.height.custom}px`
+          : `${theme.toolbar.height.mobile}px`,
+        [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
+          minHeight: theme.toolbar.height.custom
+            ? `${Math.round(theme.toolbar.height.custom * 0.86)}px`
+            : `${theme.toolbar.height.landscape}px`
+        },
+        [theme.breakpoints.up('sm')]: {
+          minHeight: theme.toolbar.height.custom
+            ? `${Math.round(theme.toolbar.height.custom * 1.15)}px`
+            : `${theme.toolbar.height.desktop}px`
+        }
+      }
+    }
+  })
+)
+
+const CollapseCustomHeight: FC = ({ children }) => {
+  const trigger = useScrollTrigger({ disableHysteresis: true })
+  const theme = useTheme()
+  const classes = collapsedStyles()
+  if (!theme.toolbar.height.custom) {
+    return <>{children}</>
+  }
+  return (
+    <Collapse
+      in={!trigger}
+      className={clsx(classes.collapsed, { 'lm-collapsed': trigger })}
+      classes={{
+        wrapper: classes.wrapper,
+        entered: classes.beforeCollapse
+      }}
+      collapsedHeight={theme.toolbar.height.desktop}
+    >
+      {children}
+    </Collapse>
   )
 }
 
@@ -201,15 +243,18 @@ const TopAppBar: FunctionComponent<{
           position={isFixedTop ? 'fixed' : 'relative'}
         >
           {props.SystemBar}
-          <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
-            <Toolbar
-              className={clsx(classes.toolbar, {
-                [classes.toolbarCustom]: settings.toolbar_font_size
-              })}
-            >
-              {props.children}
-            </Toolbar>
-          </Container>
+          <CollapseCustomHeight>
+            <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
+              <Toolbar
+                disableGutters
+                className={clsx('lm-toolbar__main', classes.toolbar, {
+                  [classes.toolbarCustom]: settings.toolbar_font_size
+                })}
+              >
+                {props.children}
+              </Toolbar>
+            </Container>
+          </CollapseCustomHeight>
         </AppBar>
       </HideOnScroll>
       {isFixedTop && !hasFeatureImage && <ContentSpace isBlock />}
