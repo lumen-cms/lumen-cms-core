@@ -27,7 +27,10 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const HideOnScroll: FC = ({ children }) => {
-  const trigger = useScrollTrigger({ disableHysteresis: true })
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 500
+  })
   return <Collapse in={!trigger}>{children as any}</Collapse>
 }
 

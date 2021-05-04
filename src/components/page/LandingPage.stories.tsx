@@ -18,7 +18,10 @@ const defaultOptions = {
 }
 
 export default {
-  title: 'Landing Page/Website'
+  title: 'Landing Page/Website',
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 const StoryWrap = (data: any) => (

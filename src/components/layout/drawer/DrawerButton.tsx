@@ -11,8 +11,7 @@ import { getLinkAttrs, LinkType } from '../../../utils/linkHandler'
 type DrawerButtonProps = { content: ButtonStoryblok }
 
 export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
-  const router = useRouter()
-  const activeRoutePath = router?.asPath
+  const router = useRouter() || {}
   const buttonProps = {
     text: content.label || content.name,
     graphic: content.icon?.name
@@ -30,7 +29,7 @@ export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
     : {}
 
   const isActiveRoute = cachedUrl
-    ? activeRoutePath.includes(`/${cachedUrl}`)
+    ? router.asPath?.includes(`/${cachedUrl}`) ?? false
     : false
 
   return (

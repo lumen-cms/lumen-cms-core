@@ -177,8 +177,6 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
           root: {
             '& .MuiToolbar-root, & .MuiContainer-root': {
               height: '100%'
-              // paddingTop: '12px',
-              // paddingBottom: '12px'
             },
 
             '& .lm-logo-header': {
@@ -207,6 +205,21 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
             '&.lm-toolbar__dark': {
               backgroundColor: '#424242',
               color: 'white'
+            },
+            '&.lm-toolbar__has-feature': {
+              backgroundColor: 'transparent',
+              '& .MuiButtonBase-root': {
+                color: '#fff'
+              },
+              '& .lm-system-bar': {
+                backgroundColor: 'transparent !important'
+              },
+              '& .logo-img__default': {
+                display: 'none'
+              },
+              '& .logo-img__invert': {
+                display: 'block'
+              }
             }
           }
         },

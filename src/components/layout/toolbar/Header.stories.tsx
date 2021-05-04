@@ -11,7 +11,10 @@ import StorybookPresetsContainer from '../../../storybook/components/StorybookPr
 import GlobalTheme from '../../global-theme/GlobalTheme'
 
 export default {
-  title: 'Design/Surfaces/Toolbar'
+  title: 'Design/Surfaces/Toolbar',
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 export const Presets = () => (
@@ -174,7 +177,7 @@ export const CustomHeightSystemBar = () => (
   </SettingsPageProvider>
 )
 
-export const CustomBaliinternships = () => (
+export const VariantLogo = () => (
   <SettingsPageProvider
     settings={{
       ...customSettingsSystemBar,
@@ -187,6 +190,28 @@ export const CustomBaliinternships = () => (
     <GlobalTheme>
       <Header />
       <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const HasFeature = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_main_height: 80,
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[1]
+    }}
+    page={{
+      _uid: '2312',
+      component: 'page',
+      property: ['has_feature']
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#bbb' }} />
     </GlobalTheme>
   </SettingsPageProvider>
 )

@@ -27,8 +27,6 @@ export default function LmSquareImage({
   layout,
   sizeIsHeight
 }: LmSquareImageProps): JSX.Element {
-  console.log(size)
-
   return (
     <Image
       src={image}
