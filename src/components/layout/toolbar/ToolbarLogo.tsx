@@ -9,13 +9,14 @@ import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import LmSquareImage from '../../avatar/LmSquareImage'
 
-const heightCalculation = (value: number) => value - 24
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       // height: '100%',
       display: 'flex',
+      '& .logo-img__mobile': {
+        display: 'none'
+      },
       [theme.breakpoints.only('xs')]: {
         '& .logo-img__mobile': {
           display: 'block'
