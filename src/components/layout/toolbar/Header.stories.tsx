@@ -194,6 +194,24 @@ export const VariantLogo = () => (
   </SettingsPageProvider>
 )
 
+export const VariantSize = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_font_size: '20px',
+      toolbar_main_height: 80,
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[1]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
 export const HasFeature = () => (
   <SettingsPageProvider
     settings={{
