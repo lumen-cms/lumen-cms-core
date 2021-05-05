@@ -12,7 +12,7 @@ const LmScrollCollapse: FC<{
   }
   return (
     <Slide appear={false} direction="down" in={!trigger}>
-      {children as any}
+      <div>{children}</div>
     </Slide>
   )
 }

@@ -4,7 +4,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { Collapse } from '@material-ui/core'
 import clsx from 'clsx'
 
-const collapsedStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     wrapper: {
       height: '100%'
@@ -39,7 +39,7 @@ const collapsedStyles = makeStyles((theme) =>
 const LmAppBarCollapse: FC = ({ children }) => {
   const trigger = useScrollTrigger({ disableHysteresis: true })
   const theme = useTheme()
-  const classes = collapsedStyles()
+  const classes = useStyles()
   if (!theme.toolbar.height.custom) {
     return <>{children}</>
   }

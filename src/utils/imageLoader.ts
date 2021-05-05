@@ -8,19 +8,20 @@ const initWebpSupport = () => {
   if (typeof navigator === 'undefined') {
     return true // in nodejs we set true
   }
-  const match = navigator?.userAgent.match(/(Edge|Firefox)\/(\d+)\./)
+  const match = navigator?.userAgent.match(/(Edge|Firefox|Safari)\/(\d+)\./)
   if (match) {
     return (
       (match[1] === 'Firefox' && +match[2] >= 65) ||
-      (match[1] === 'Edge' && +match[2] >= 18)
+      (match[1] === 'Edge' && +match[2] >= 18) ||
+      (match[1] === 'Safari' && +match[2] >= 14)
     )
   }
 
   // Use canvas hack for webkit-based browsers
   // Kudos to Rui Marques: https://stackoverflow.com/a/27232658/7897049
-  const e = document?.createElement('canvas')
-  return e && e.toDataURL
-    ? e.toDataURL('image/webp').indexOf('data:image/webp') === 0
+  const el = document?.createElement('canvas')
+  return el?.toDataURL
+    ? el.toDataURL('image/webp').indexOf('data:image/webp') === 0
     : false
 }
 
