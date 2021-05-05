@@ -9,6 +9,15 @@ import '../../components/LazyNamedComponents'
 import { LmAppProvidersContainer } from '../../components/layout/LmAppProvidersContainer'
 import { SettingsPageProvider } from '../../components/provider/SettingsPageProvider'
 import getBasicSettings from './basicSettings'
+import {
+  boolean,
+  color,
+  optionsKnob,
+  select,
+  text
+} from '@storybook/addon-knobs'
+import { CONFIG_STORYBOOK } from './configStorybook'
+import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
 // const OverwriteLink: FC = ({ children }) => {
 //   return <a>{children}</a>
@@ -38,16 +47,14 @@ const StoriesLayout = (Story: StoryType, { kind }: StoryContext) => {
       <SettingsPageProvider settings={settings as any} page={null}>
         <GlobalTheme>
           <LmAppProvidersContainer>
-            <GlobalTheme>
-              <Container
-                component="main"
-                maxWidth={false}
-                style={{ padding: '0px' }}
-              >
-                <Story {...settings} />
-              </Container>
-              <link href={getFontBasedOnSetting(settings)} rel="stylesheet" />
-            </GlobalTheme>
+            <Container
+              component="main"
+              maxWidth={false}
+              style={{ padding: '0px' }}
+            >
+              <Story {...settings} />
+            </Container>
+            <link href={getFontBasedOnSetting(settings)} rel="stylesheet" />
           </LmAppProvidersContainer>
         </GlobalTheme>
       </SettingsPageProvider>
