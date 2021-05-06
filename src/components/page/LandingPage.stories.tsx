@@ -40,6 +40,13 @@ const StoryWrap = (data: any) => (
             <Layout>
               <LmPage />
             </Layout>
+            {data.settings?.custom_css && (
+              <style
+                dangerouslySetInnerHTML={{
+                  __html: data.settings.custom_css
+                }}
+              />
+            )}
           </LmAppProvidersContainer>
         </GlobalTheme>
       </AppSetupProvider>

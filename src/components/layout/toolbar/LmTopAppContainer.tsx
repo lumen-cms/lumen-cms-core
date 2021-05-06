@@ -63,14 +63,16 @@ const LmTopAppContainer: FC = ({ children }) => {
 
   const toolbarScrolled = scrolledWithoutHysteresis && hasFeatureImage
 
+  const elevation =
+    !scrolledWithoutHysteresis &&
+    (hasFeatureImage || toolbarConfig.includes('unelevated'))
+      ? 0
+      : settings.toolbar_elevation
+      ? Number(settings.toolbar_elevation)
+      : 4
   return (
     <AppBar
-      elevation={
-        !scrolledWithoutHysteresis &&
-        (hasFeatureImage || toolbarConfig.includes('unelevated'))
-          ? 0
-          : 4
-      }
+      elevation={elevation}
       className={clsx(classes.topAppBar, {
         'lm-toolbar__has-feature':
           !scrolledWithoutHysteresis && hasFeatureImage,

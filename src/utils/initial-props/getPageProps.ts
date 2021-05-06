@@ -51,11 +51,13 @@ const getPageProps = async (
     console.log('PAGE MISSING', slug, pageSlug)
   }
 
+  const finalSettings = settingsProps
+    ? { ...settingsProps, uuid: settings?.data?.story?.uuid }
+    : null
+
   const props: AppPageProps = {
     page: pageProps ? { ...pageProps, uuid: page?.data?.story?.uuid } : null,
-    settings: settingsProps
-      ? { ...settingsProps, uuid: settings?.data?.story?.uuid }
-      : null,
+    settings: finalSettings,
     allCategories,
     allStaticContent,
     allStories,

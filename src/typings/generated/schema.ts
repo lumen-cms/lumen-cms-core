@@ -262,6 +262,7 @@ export type GlobalComponent = {
   toolbar_background?: Maybe<Scalars['String']>;
   toolbar_color?: Maybe<Scalars['JsonScalar']>;
   toolbar_config?: Maybe<Array<Maybe<Scalars['String']>>>;
+  toolbar_elevation?: Maybe<Scalars['String']>;
   toolbar_font_size?: Maybe<Scalars['String']>;
   toolbar_main_height?: Maybe<Scalars['String']>;
   toolbar_progress_color?: Maybe<Scalars['String']>;
@@ -317,6 +318,7 @@ export type GlobalFilterQuery = {
   seo_title?: Maybe<FilterQueryOperations>;
   seo_website_url?: Maybe<FilterQueryOperations>;
   seo_robots?: Maybe<FilterQueryOperations>;
+  toolbar_elevation?: Maybe<FilterQueryOperations>;
 };
 
 export type GlobalItem = {
