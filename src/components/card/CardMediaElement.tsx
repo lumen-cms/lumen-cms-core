@@ -3,10 +3,9 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Image from 'next/image'
 import { useTheme } from '@material-ui/core/styles'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { getVwByColCount } from '../../utils/imageServices'
+import { getRootImageUrl, getVwByColCount } from '../../utils/imageServices'
 import { CardListItemProps } from './cardTypes'
 import { COLUMN_COUNT } from './cardListStyles'
-import { storyblokImageLoader } from '../../utils/imageLoader'
 
 const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   children,
@@ -39,8 +38,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
         />
       )}
       <Image
-        {...storyblokImageLoader(content.image)}
-        src={content.image || ''}
+        src={getRootImageUrl(content.image)}
         onLoad={() => setLoaded(true)}
         loading="lazy"
         layout="fill"
