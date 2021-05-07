@@ -298,17 +298,17 @@ export const getCreatedStyles = (theme: Theme) => {
       },
       '.lm-font-alt2': {
         fontFamily: theme.alternativeFont?.alt2
-          ? `${theme.alternativeFont.alt1}!important`
+          ? `${theme.alternativeFont.alt2}!important`
           : undefined
       },
       '.lm-font-alt3': {
         fontFamily: theme.alternativeFont?.alt3
-          ? `${theme.alternativeFont.alt1}!important`
+          ? `${theme.alternativeFont.alt3}!important`
           : undefined
       },
       '.lm-font-alt4': {
         fontFamily: theme.alternativeFont?.alt4
-          ? `${theme.alternativeFont.alt1}!important`
+          ? `${theme.alternativeFont.alt4}!important`
           : undefined
       },
       '.d-none': {
