@@ -1,6 +1,9 @@
 import Image, { ImageProps } from 'next/image'
 import React from 'react'
-import { imageCalculateWidthHeight } from '../../utils/imageServices'
+import {
+  getRootImageUrl,
+  imageCalculateWidthHeight
+} from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/imageLoader'
 
 type LmSquareImageProps = {
@@ -29,7 +32,7 @@ export default function LmSquareImage({
 }: LmSquareImageProps): JSX.Element {
   return (
     <Image
-      src={image}
+      src={getRootImageUrl(image)}
       {...(image.includes('a.storyblok.com')
         ? {
             layout: layout || 'fixed',
@@ -42,8 +45,8 @@ export default function LmSquareImage({
             layout: 'fill',
             objectFit: 'cover'
           })}
-      {...storyblokImageLoader(image)}
       {...imageProps}
     />
+    // {...storyblokImageLoader(image)}
   )
 }
