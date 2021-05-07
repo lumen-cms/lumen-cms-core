@@ -69,6 +69,7 @@ const getPageProps = async (
 
   await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
   delete props.allStories // make sure that allStories is not part of props (bloat..)
+  console.log('inside page props')
   return props
 }
 

@@ -84,7 +84,6 @@ export const CheckoutButtons = () => {
                   _uid: '2432',
                   component: 'image',
                   width: 300,
-                  property: ['img-thumbnail'],
                   source:
                     'https://a.storyblok.com/f/82895/1280x1044/d20df0f536/buy-now-606685_1280.png'
                 } as ImageStoryblok
