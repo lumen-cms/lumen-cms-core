@@ -1,7 +1,6 @@
 import { LmCoreComponents } from '@CONFIG'
 import { LmComponentRender } from '@LmComponentRender'
-import { useEffect, useState } from 'react'
-import { appContext } from '../../../storybook/config'
+import { FC, useEffect, useMemo, useState } from 'react'
 import {
   ButtonStoryblok,
   EcommerceCheckoutStoryblok,
@@ -10,9 +9,10 @@ import {
   GlobalStoryblok
 } from '../../../typings/generated/components-schema'
 import { LmShopifySdkProvider } from './ShopifySdkProvider'
-import { LmAppContainer } from '../../layout/AppContainer'
 import LmShopifyProduct from './ShopifyProduct'
 import { getShopifyPageProps } from './lib/getShopifyPageProps'
+import CoreDecorator from '../../../storybook/components/CoreDecorator'
+import getBasicSettings from '../../../storybook/components/basicSettings'
 // import { LmEcommerceCheckout } from '../src'
 // import { LmShopifyProduct } from '../src/components/shopify/ShopifyProduct'
 // import { LmShopifySdkProvider } from '../src/components/ecommerce/shopify_old/ShopifySdkProvider'
@@ -25,19 +25,21 @@ LmCoreComponents.ecommerce_shopify_checkout = LmShopifyProduct
 const ACCESS_TOKEN = '9e9a0888f96c95dc362ef9712e10b584'
 const DOMAIN = 'kembalisales.myshopify.com'
 
-export default {
-  title: 'Ecommerce/Shopify',
-  decorators: [
-    (Story: any) => {
-      appContext.content.settings = {
-        ...appContext.content.settings,
+const ShopifyStoryContainer: FC<{
+  domain?: string
+  accessToken?: string
+}> = ({ children, domain, accessToken }) => {
+  const settings = useMemo(
+    () =>
+      ({
+        ...getBasicSettings(),
         ecommerce: [
           {
             _uid: '23',
             component: 'ecommerce_shopify_config',
             // sdk_url: sdk,
-            domain: DOMAIN,
-            access_token: ACCESS_TOKEN,
+            domain: domain || DOMAIN,
+            access_token: accessToken || ACCESS_TOKEN,
             currency_prefix: '€',
             image_container_height: 250,
             product_active_variant: [
@@ -49,35 +51,32 @@ export default {
             ]
           } as EcommerceShopifyConfigStoryblok
         ]
-      } as GlobalStoryblok
+      } as GlobalStoryblok),
+    []
+  )
 
-      const [items, setItems] = useState({})
-      useEffect(() => {
-        const fetch = async () => {
-          const x = { page: {} }
-          await getShopifyPageProps(x as any)
-          setItems(x)
-        }
-        fetch()
-      }, [])
-
-      return (
-        <LmAppContainer
-          content={{
-            ...items,
-            ...appContext.content
-          }}
-        >
-          <Story />
-        </LmAppContainer>
-      )
+  const [items, setItems] = useState({})
+  useEffect(() => {
+    const fetch = async () => {
+      const x = { page: {}, settings }
+      await getShopifyPageProps(x as any)
+      setItems(x)
     }
-  ]
+    fetch()
+  }, [settings])
+  return (
+    <CoreDecorator settings={settings} {...items}>
+      {children}
+    </CoreDecorator>
+  )
+}
+export default {
+  title: 'Ecommerce/Shopify'
 }
 
 export const Luzide = () => {
   return (
-    <div>
+    <ShopifyStoryContainer>
       <LmComponentRender
         content={
           {
@@ -93,13 +92,13 @@ export const Luzide = () => {
           } as EcommerceCheckoutStoryblok
         }
       />
-    </div>
+    </ShopifyStoryContainer>
   )
 }
 
 export const Cake = () => {
   return (
-    <div>
+    <ShopifyStoryContainer>
       <LmComponentRender
         content={
           {
@@ -115,13 +114,13 @@ export const Cake = () => {
           } as EcommerceCheckoutStoryblok
         }
       />
-    </div>
+    </ShopifyStoryContainer>
   )
 }
 
 export const CakeAlternative = () => {
   return (
-    <div>
+    <ShopifyStoryContainer>
       <LmComponentRender
         content={
           {
@@ -137,6 +136,31 @@ export const CakeAlternative = () => {
           } as EcommerceCheckoutStoryblok
         }
       />
-    </div>
+    </ShopifyStoryContainer>
+  )
+}
+
+export const BaliShivaEye = () => {
+  return (
+    <ShopifyStoryContainer
+      domain="shimmy-creations.myshopify.com"
+      accessToken="88efcb67ee87736026853608d38041f4"
+    >
+      <LmComponentRender
+        content={
+          {
+            _uid: '123',
+            component: 'ecommerce_checkout',
+            integration: [
+              {
+                _uid: 'gjhkghjkhfgjh',
+                component: 'ecommerce_shopify_checkout',
+                handle: 'bali-shiva-eye-necklace'
+              } as EcommerceShopifyCheckoutStoryblok
+            ] as any
+          } as EcommerceCheckoutStoryblok
+        }
+      />
+    </ShopifyStoryContainer>
   )
 }

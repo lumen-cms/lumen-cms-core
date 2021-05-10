@@ -1,14 +1,9 @@
 import * as React from 'react'
-import Container from '@material-ui/core/Container'
 import { Story as StoryType, StoryContext } from '@storybook/react/types-6-0.d'
-import GlobalTheme from '../../components/global-theme/GlobalTheme'
-import { getFontBasedOnSetting } from '../../utils/parseFont'
-import AppProvider from '../../components/provider/AppProvider'
 import '../../components/NamedComponents'
 import '../../components/LazyNamedComponents'
-import { LmAppProvidersContainer } from '../../components/layout/LmAppProvidersContainer'
-import { SettingsPageProvider } from '../../components/provider/SettingsPageProvider'
 import getBasicSettings from './basicSettings'
+import CoreDecorator from './CoreDecorator'
 
 // const OverwriteLink: FC = ({ children }) => {
 //   return <a>{children}</a>
@@ -18,7 +13,8 @@ import getBasicSettings from './basicSettings'
 const ignoreOnKind = [
   'Landing Page/Website',
   'Design/Surfaces/Toolbar',
-  'Design/Layout/Page'
+  'Design/Layout/Page',
+  'Ecommerce/Shopify'
 ]
 
 const StoriesLayout = (Story: StoryType, { kind }: StoryContext) => {
@@ -28,28 +24,9 @@ const StoriesLayout = (Story: StoryType, { kind }: StoryContext) => {
   }
   const settings = getBasicSettings()
   return (
-    <AppProvider
-      content={{
-        allCategories: [],
-        listWidgetData: {},
-        allStaticContent: []
-      }}
-    >
-      <SettingsPageProvider settings={settings as any} page={null}>
-        <GlobalTheme>
-          <LmAppProvidersContainer>
-            <Container
-              component="main"
-              maxWidth={false}
-              style={{ padding: '0px' }}
-            >
-              <Story {...settings} />
-            </Container>
-            <link href={getFontBasedOnSetting(settings)} rel="stylesheet" />
-          </LmAppProvidersContainer>
-        </GlobalTheme>
-      </SettingsPageProvider>
-    </AppProvider>
+    <CoreDecorator settings={settings}>
+      <Story {...settings} />
+    </CoreDecorator>
   )
 }
 
