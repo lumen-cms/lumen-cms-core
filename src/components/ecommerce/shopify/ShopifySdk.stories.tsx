@@ -13,15 +13,8 @@ import LmShopifyProduct from './ShopifyProduct'
 import { getShopifyPageProps } from './lib/getShopifyPageProps'
 import CoreDecorator from '../../../storybook/components/CoreDecorator'
 import getBasicSettings from '../../../storybook/components/basicSettings'
-// import { LmEcommerceCheckout } from '../src'
-// import { LmShopifyProduct } from '../src/components/shopify/ShopifyProduct'
-// import { LmShopifySdkProvider } from '../src/components/ecommerce/shopify_old/ShopifySdkProvider'
+import './ShopifyComponents'
 
-LmCoreComponents.lm_app_providers.push(LmShopifySdkProvider)
-// LmCoreComponents.ecommerce_checkout = LmEcommerceCheckout
-LmCoreComponents.ecommerce_shopify_checkout = LmShopifyProduct
-
-// const sdk = 'http://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js'
 const ACCESS_TOKEN = '9e9a0888f96c95dc362ef9712e10b584'
 const DOMAIN = 'kembalisales.myshopify.com'
 
