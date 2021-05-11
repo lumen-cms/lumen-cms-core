@@ -31,9 +31,10 @@ export function ShopifyProductCarousel({ item }: ShopifyProductItemProps) {
   return (
     <Carousel
       fullHeightHover
-      indicators={!config.carousel_hide_indicator}
+      indicators={!config.carousel_hide_indicator && variants.length > 1}
       autoPlay={!!config.carousel_auto_play}
       animation="slide"
+      navButtonsAlwaysInvisible={variants.length === 1}
       index={currentCarouselIndex as number}
       onChange={(index: number) => {
         onVariantSelect({ ...variants[index].node, productTitle: item.title })
