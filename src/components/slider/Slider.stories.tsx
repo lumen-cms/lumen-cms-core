@@ -1,52 +1,78 @@
-import { LmComponentRender as LmSlider } from '@LmComponentRender'
-import { storySlider } from '../../storybook/core/various'
+import { Story } from '@storybook/react'
 import { get3ColumnsSection } from '../../storybook/section'
-import { SliderStoryblok } from '../../typings/generated/components-schema'
 import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import LmSlider from './Slider'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import { findFirstPreset } from '../../storybook/findStorybookPresets'
+import { LmSliderProps } from './sliderTypes'
 
 export default {
-  title: 'Design/Surfaces/Carousel'
+  title: 'Design/Surfaces/Carousel',
+  component: LmSlider,
+  argTypes: {
+    ...getComponentArgTypes('slider')
+  }
 }
 
 export const Presets = () => (
   <StorybookPresetsContainer componentName="slider" />
 )
 
-export const Playground = () => (
-  <LmSlider
-    content={{
-      ...storySlider({
-        options: {
-          property: ['arrows_dark', 'pagination_dark']
-        }
-      }),
-      body: [
-        get3ColumnsSection({ count: 1 }),
-        get3ColumnsSection({ count: 2 }),
-        get3ColumnsSection({ count: 3 })
-      ]
-    }}
-  />
+const presetContent = findFirstPreset<LmSliderProps['content']>('slider')
+
+const Template: Story<LmSliderProps['content']> = (args) => (
+  <LmSlider content={args} />
 )
-export const PlaygroundDark = () => (
-  <LmSlider
-    content={
-      {
-        ...storySlider({
-          options: {
-            background_color: {
-              rgba: 'black'
-            },
-            section_variant: 'dark'
-          }
-        }),
-        section_variant: 'dark',
-        body: [
-          get3ColumnsSection({ count: 1 }),
-          get3ColumnsSection({ count: 2 }),
-          get3ColumnsSection({ count: 3 })
-        ]
-      } as SliderStoryblok
-    }
-  />
-)
+
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent
+}
+
+export const NavigationBelow = Template.bind({})
+NavigationBelow.args = {
+  ...presetContent,
+  property: [
+    'arrows_beside_pagination',
+    'arrows_dark',
+    'pagination_below_content'
+  ]
+}
+
+export const Light = Template.bind({})
+Light.args = {
+  ...presetContent,
+  property: ['arrows_dark'],
+  body: [
+    get3ColumnsSection({ count: 1 }),
+    get3ColumnsSection({ count: 2 }),
+    get3ColumnsSection({ count: 3 })
+  ]
+}
+
+export const Dark = Template.bind({})
+Dark.args = {
+  ...presetContent,
+  section_variant: 'dark',
+  body: [
+    get3ColumnsSection({ count: 1 }),
+    get3ColumnsSection({ count: 2 }),
+    get3ColumnsSection({ count: 3 })
+  ]
+}
+
+export const DarkBelow = Template.bind({})
+DarkBelow.args = {
+  ...presetContent,
+  section_variant: 'dark',
+  property: [
+    'pagination_below_content',
+    'pagination_dark',
+    'arrows_beside_pagination'
+  ],
+  body: [
+    get3ColumnsSection({ count: 1 }),
+    get3ColumnsSection({ count: 2 }),
+    get3ColumnsSection({ count: 3 })
+  ]
+}

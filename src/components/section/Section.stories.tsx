@@ -10,13 +10,6 @@ import {
   row,
   rowWithImage
 } from '../../storybook/section'
-import {
-  storyBackground,
-  storyColumn,
-  storyRow,
-  storySection
-} from '../../storybook/core/section'
-import { storyButton, storyHeadline } from '../../storybook/core/various'
 import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 import { findPresets } from '../../storybook/findStorybookPresets'
 import { LmSectionProps } from './sectionTypes'
@@ -344,55 +337,4 @@ export const SectionAlignments = () => (
       }}
     />
   </>
-)
-export const Playground = () => (
-  <div>
-    <LmSection
-      content={{
-        ...storySection(),
-        presetVariant: 'dark',
-        background: [
-          storyBackground({
-            knob: 'Section',
-            options: {
-              image:
-                'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
-            }
-          })
-        ],
-        body: [
-          {
-            ...storyRow({ options: { justify: 'center' } }),
-            background: [storyBackground({ knob: 'Row' })],
-            body: [
-              {
-                ...storyColumn({
-                  knob: 'Column 1',
-                  options: { width_general: 'auto' }
-                }),
-                background: [storyBackground({ knob: 'Column 1' })],
-                body: [
-                  storyHeadline({ count: 1, knob: 'Column 1' }),
-                  storyHeadline({ count: 2, knob: 'Column 1' }),
-                  storyButton({ knob: 'Column 1' })
-                ]
-              },
-              {
-                ...storyColumn({
-                  knob: 'Column 2',
-                  options: { width_general: 'auto' }
-                }),
-                background: [storyBackground({ knob: 'Column 2' })],
-                body: [
-                  storyHeadline({ count: 1, knob: 'Column 2' }),
-                  storyHeadline({ count: 2, knob: 'Column 2' }),
-                  storyButton({ knob: 'Column 2' })
-                ]
-              }
-            ]
-          }
-        ]
-      }}
-    />
-  </div>
 )
