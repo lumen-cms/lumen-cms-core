@@ -1,181 +1,61 @@
-import { LmComponentRender as LmSnackbar } from '@LmComponentRender'
-import {
-  storyButton,
-  storyHeadline,
-  storySnackbar
-} from '../../storybook/core/various'
-import {
-  ButtonStoryblok,
-  HeadlineStoryblok
-} from '../../typings/generated/components-schema'
+import { Story } from '@storybook/react'
+import { storySnackbar } from '../../storybook/core/various'
+import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import LmSnackbar from './Snackbar'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import { findPresets } from '../../storybook/findStorybookPresets'
+import { LmSnackbarProps } from './snackbarTypes'
 
 export default {
-  title: 'Design/Feedback/Snackbar'
+  title: 'Design/Feedback/Snackbar',
+  component: LmSnackbar,
+  argTypes: {
+    ...getComponentArgTypes('snackbar')
+  }
 }
 
 export const Presets = () => (
   <StorybookPresetsContainer componentName="snackbar" />
 )
 
-export const HideOnScroll = () => (
+const presetContent = findPresets<LmSnackbarProps['content']>('snackbar')
+
+const Template: Story<LmSnackbarProps['content']> = (args) => (
   <div style={{ height: '150vh' }}>
-    <h3>Start scroll to hide the snackbar.</h3>
-    <LmSnackbar
-      content={{
-        ...storySnackbar(),
-        display: 'hide_on_scroll',
-        descriptions: [
-          storyHeadline({
-            options: {
-              typography: 'body1'
-            }
-          })
-        ],
-        close_action: [
-          {
-            component: 'button',
-            _uid: '3qewqeq',
-            icon: {
-              name: 'close'
-            }
-          } as ButtonStoryblok
-        ]
-      }}
-    />
+    <LmSnackbar content={args} />
   </div>
 )
 
-export const ShowOnScroll = () => (
-  <div style={{ height: '150vh' }}>
-    <h3>Start scroll to show the snackbar.</h3>
-    <LmSnackbar
-      content={{
-        ...storySnackbar(),
-        display: 'show_on_scroll',
-        descriptions: [
-          storyHeadline({
-            options: {
-              typography: 'body1'
-            }
-          })
-        ],
-        close_action: [
-          {
-            component: 'button',
-            _uid: '3qewqeq',
-            icon: {
-              name: 'close'
-            }
-          } as ButtonStoryblok
-        ]
-      }}
-    />
-  </div>
-)
+export const Basic = Template.bind({})
+Basic.args = {
+  ...presetContent[2]
+}
 
-export const Autohide = () => (
-  <>
-    <h3>The snackbar autohides after 4 seconds</h3>
-    <LmSnackbar
-      content={{
-        ...storySnackbar(),
-        auto_close: 4000,
-        descriptions: [
-          storyHeadline({
-            options: {
-              typography: 'body1'
-            }
-          })
-        ],
-        close_action: [
-          {
-            component: 'button',
-            _uid: '3qewqeq',
-            icon: {
-              name: 'close'
-            }
-          } as ButtonStoryblok
-        ]
-      }}
-    />
-  </>
-)
+export const HideOnScroll = Template.bind({})
+HideOnScroll.args = {
+  ...presetContent[1],
+  display: 'hide_on_scroll'
+}
 
-export const Autoshow = () => (
-  <>
-    <h3>The snackbar shows after 4 seconds</h3>
-    <LmSnackbar
-      content={{
-        ...storySnackbar(),
-        auto_show: 4000,
-        descriptions: [
-          storyHeadline({
-            options: {
-              typography: 'body1'
-            }
-          })
-        ],
-        close_action: [
-          {
-            component: 'button',
-            _uid: '3qewqeq',
-            icon: {
-              name: 'close'
-            }
-          } as ButtonStoryblok
-        ]
-      }}
-    />
-  </>
-)
+export const ShowOnScroll = Template.bind({})
+ShowOnScroll.args = {
+  ...presetContent[2],
+  display: 'show_on_scroll'
+}
 
-export const Promotion = () => (
-  <>
-    <h3>More complex promotion snackbar.</h3>
-    <LmSnackbar
-      content={{
-        ...storySnackbar({
-          options: {
-            button_top_align: true
-          }
-        }),
-        descriptions: [
-          storyHeadline({
-            count: 1,
-            options: {
-              text: 'Promotion',
-              typography: 'headline5'
-            }
-          }),
-          storyHeadline({
-            count: 2,
-            options: {
-              text: 'You should get your hands on it.',
-              typography: 'headline6'
-            }
-          }),
-          storyButton({
-            options: {
-              label: 'Get it!',
-              variant: 'raised',
-              color: 'primary'
-            }
-          })
-        ] as (HeadlineStoryblok | ButtonStoryblok)[],
-        close_action: [
-          {
-            component: 'button',
-            _uid: '3qewqeq',
-            icon: {
-              name: 'close'
-            }
-          } as ButtonStoryblok
-        ]
-      }}
-    />
-  </>
-)
+export const Autohide = Template.bind({})
+Autohide.args = {
+  ...presetContent[1],
+  auto_show: 0,
+  auto_close: 4000
+}
+
+export const Autoshow = Template.bind({})
+Autoshow.args = {
+  ...presetContent[1],
+  auto_show: 4000
+}
 
 export const Dialog = () => (
   <>
@@ -185,11 +65,11 @@ export const Dialog = () => (
         ...storySnackbar(),
         dialog: true,
         descriptions: [
-          storyHeadline({
-            options: {
-              typography: 'body1'
-            }
-          })
+          {
+            component: 'headline',
+            _uid: '123',
+            text: 'Hello Dialog'
+          }
         ],
         close_action: [
           {
@@ -210,11 +90,11 @@ export const Playground = () => (
     content={{
       ...storySnackbar(),
       descriptions: [
-        storyHeadline({
-          options: {
-            typography: 'body1'
-          }
-        })
+        {
+          component: 'headline',
+          _uid: '123',
+          text: 'Hello Snackbar'
+        }
       ],
       close_action: [
         {

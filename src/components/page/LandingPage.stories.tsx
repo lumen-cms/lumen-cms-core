@@ -18,7 +18,10 @@ const defaultOptions = {
 }
 
 export default {
-  title: 'Landing Page/Website'
+  title: 'Landing Page/Website',
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 const StoryWrap = (data: any) => (
@@ -37,6 +40,13 @@ const StoryWrap = (data: any) => (
             <Layout>
               <LmPage />
             </Layout>
+            {data.settings?.custom_css && (
+              <style
+                dangerouslySetInnerHTML={{
+                  __html: data.settings.custom_css
+                }}
+              />
+            )}
           </LmAppProvidersContainer>
         </GlobalTheme>
       </AppSetupProvider>
@@ -123,6 +133,27 @@ Baliinternships.loaders = [
   }
 ]
 Baliinternships.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}
+
+export const Session = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+Session.loaders = [
+  async () => {
+    CONFIG.publicToken = 'M6FMSs1PwBZARqJIrI7LDwtt'
+    CONFIG.previewToken = 'EI7JZ8ZBbjLWyN8dijyoSAtt'
+    CONFIG.rootDirectory = ''
+    const data = await getPageProps('', {
+      ...defaultOptions,
+      locale: 'de',
+      defaultLocale: 'de'
+    })
+    return { data }
+  }
+]
+Session.parameters = {
   // Sets the delay for a specific story.
   chromatic: { delay: 10000 }
 }

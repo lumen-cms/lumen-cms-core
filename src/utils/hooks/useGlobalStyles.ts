@@ -292,24 +292,24 @@ export const getCreatedStyles = (theme: Theme) => {
         color: 'inherit'
       },
       '.lm-font-alt1': {
-        fontFamily:
-          (theme.alternativeFont && theme.alternativeFont.alt1) ||
-          theme.typography.fontFamily
+        fontFamily: theme.alternativeFont?.alt1
+          ? `${theme.alternativeFont.alt1}!important`
+          : undefined
       },
       '.lm-font-alt2': {
-        fontFamily:
-          (theme.alternativeFont && theme.alternativeFont.alt2) ||
-          theme.typography.fontFamily
+        fontFamily: theme.alternativeFont?.alt2
+          ? `${theme.alternativeFont.alt2}!important`
+          : undefined
       },
       '.lm-font-alt3': {
-        fontFamily:
-          (theme.alternativeFont && theme.alternativeFont.alt3) ||
-          theme.typography.fontFamily
+        fontFamily: theme.alternativeFont?.alt3
+          ? `${theme.alternativeFont.alt3}!important`
+          : undefined
       },
       '.lm-font-alt4': {
-        fontFamily:
-          (theme.alternativeFont && theme.alternativeFont.alt4) ||
-          theme.typography.fontFamily
+        fontFamily: theme.alternativeFont?.alt4
+          ? `${theme.alternativeFont.alt4}!important`
+          : undefined
       },
       '.d-none': {
         display: 'none'

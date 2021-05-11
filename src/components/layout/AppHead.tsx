@@ -1,5 +1,5 @@
 import NextHead from 'next/head'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -113,7 +113,13 @@ function AppHead(): JSX.Element {
         {isPreview && (
           <script src="//app.storyblok.com/f/storyblok-latest.js" />
         )}
-        {settings?.custom_css && <style>{settings.custom_css}</style>}
+        {settings?.custom_css && (
+          <style
+            dangerouslySetInnerHTML={{
+              __html: settings.custom_css
+            }}
+          />
+        )}
       </NextHead>
       {!isDevelopment && !isPreview && settings?.setup_facebook_pixel && (
         <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />

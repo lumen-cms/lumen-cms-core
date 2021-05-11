@@ -94,6 +94,8 @@ type AppConfigProps = {
     path: string
     roles: string[]
   }[]
+  shopifyGql: string
+  shopifyAccessToken: string
 }
 
 export const CONFIG: AppConfigProps = {
@@ -113,7 +115,11 @@ export const CONFIG: AppConfigProps = {
   prefetch: !process.env.NEXT_PUBLIC_DISABLE_PREFETCH,
   overwriteSettingsPaths:
     process.env.NEXT_PUBLIC_OVERWRITE_SETTINGS_PATHS?.split(',') || [],
-  excluding_slugs: process.env.NEXT_PUBLIC_EXCLUDING_SLUGS || ''
+  excluding_slugs: process.env.NEXT_PUBLIC_EXCLUDING_SLUGS || '',
+  shopifyGql: process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN
+    ? `https://${process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN}/api/2020-10/graphql.json`
+    : '',
+  shopifyAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN || ''
 }
 
 type LmCoreComponentsProps = {

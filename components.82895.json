@@ -4577,7 +4577,7 @@
       "name": "global",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.852Z",
-      "updated_at": "2021-03-11T02:55:42.746Z",
+      "updated_at": "2021-05-06T06:14:13.515Z",
       "id": 894828,
       "schema": {
         "website_title": {
@@ -4866,7 +4866,8 @@
             "toolbar_main_height",
             "toolbar_font_size",
             "toolbar_progress_color",
-            "toolbar_background"
+            "toolbar_background",
+            "toolbar_elevation"
           ],
           "pos": 38
         },
@@ -5141,6 +5142,10 @@
         },
         "custom_css": {
           "type": "textarea"
+        },
+        "toolbar_elevation": {
+          "type": "number",
+          "description": "A value between 0-24. Defaults to \"4\". Disable elevation with \"0\"."
         }
       },
       "image": null,
@@ -5994,7 +5999,7 @@
       "name": "image",
       "display_name": null,
       "created_at": "2020-05-01T08:40:31.420Z",
-      "updated_at": "2020-11-30T06:18:05.105Z",
+      "updated_at": "2021-05-03T02:08:21.255Z",
       "id": 894777,
       "schema": {
         "source": {
@@ -6041,10 +6046,6 @@
           "type": "options",
           "options": [
             {
-              "value": "img-thumbnail",
-              "name": "Thumbnail"
-            },
-            {
               "value": "rounded",
               "name": "Rounded"
             },
@@ -6067,7 +6068,7 @@
         "height": {
           "type": "number",
           "pos": 7,
-          "description": "[DEPRECATED] not in use"
+          "description": ""
         },
         "height_xs": {
           "type": "number",
@@ -9288,7 +9289,7 @@
       "name": "section",
       "display_name": null,
       "created_at": "2020-05-01T08:40:31.224Z",
-      "updated_at": "2020-12-11T05:04:08.695Z",
+      "updated_at": "2021-04-29T07:40:20.074Z",
       "id": 894776,
       "schema": {
         "section_identifier": {
@@ -9481,7 +9482,7 @@
         }
       },
       "image": null,
-      "preview_field": null,
+      "preview_field": "section_identifier",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,

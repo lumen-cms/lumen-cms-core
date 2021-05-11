@@ -175,8 +175,8 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
         },
         MuiAppBar: {
           root: {
-            '& .MuiToolbar-root': {
-              padding: '12px 0'
+            '& .MuiToolbar-root, & .MuiContainer-root': {
+              height: '100%'
             },
 
             '& .lm-logo-header': {
@@ -187,14 +187,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
                 display: 'inline-flex',
                 alignItems: 'center'
               },
-              '& figure': {
-                boxSizing: 'border-box'
-              },
               '& .MuiCollapse-wrapper': {
-                height: '100%'
-              },
-              '& img': {
-                display: 'block',
                 height: '100%'
               }
             },
@@ -212,6 +205,21 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
             '&.lm-toolbar__dark': {
               backgroundColor: '#424242',
               color: 'white'
+            },
+            '&.lm-toolbar__has-feature': {
+              backgroundColor: 'transparent',
+              '& .MuiButtonBase-root': {
+                color: '#fff'
+              },
+              '& .lm-system-bar': {
+                backgroundColor: 'transparent !important'
+              },
+              '& .logo-img__default': {
+                display: 'none'
+              },
+              '& .logo-img__invert': {
+                display: 'block'
+              }
             }
           }
         },

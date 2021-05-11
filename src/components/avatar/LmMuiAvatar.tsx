@@ -28,7 +28,7 @@ const sizeMap = {
   xsmall: 20,
   small: 24,
   large: 52,
-  xlarge: 64
+  xlarge: 56
 }
 
 export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {

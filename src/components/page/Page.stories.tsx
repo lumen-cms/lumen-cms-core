@@ -35,12 +35,18 @@ import {
 } from '../../utils/state/navigationState'
 import { SettingsPageProvider } from '../provider/SettingsPageProvider'
 import { LmPage } from './Page'
+import getBasicSettings from '../../storybook/components/basicSettings'
+import GlobalTheme from '../global-theme/GlobalTheme'
+
+export default {
+  title: 'Design/Layout/Page'
+}
 
 const getPropsDrawer = (): PageStoryblok => ({
   _uid: '123',
   component: 'page',
   uuid: '231231',
-  property: ['has_feature'],
+  property: [],
   body: [
     get3ColumnsSection({
       count: 1,
@@ -142,10 +148,6 @@ const getToolbarSettings = () => {
   ] as ToolbarRowStoryblok[]
 }
 
-export default {
-  title: 'Design/Layout/Page'
-}
-
 export const Basic = () => (
   <SettingsPageProvider
     settings={simpleSettings}
@@ -155,7 +157,9 @@ export const Basic = () => (
       body: [get3ColumnsSection({ knob: 'Body Section 1' })]
     }}
   >
-    <LmPage />
+    <GlobalTheme>
+      <LmPage />
+    </GlobalTheme>
   </SettingsPageProvider>
 )
 export const WithDrawer = () => {
@@ -168,13 +172,15 @@ export const WithDrawer = () => {
         open if mobile
       </button>
       <SettingsPageProvider settings={simpleSettings} page={getPropsDrawer()}>
-        <LmPage />
+        <GlobalTheme>
+          <LmPage />
+        </GlobalTheme>
       </SettingsPageProvider>
     </>
   )
 }
 
-export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
+export const Playground = () => {
   const show = boolean('Show System Bar', true, 'System Bar')
   const customSettingsSystemBar: GlobalStoryblok = {
     ...simpleSettings,
@@ -186,7 +192,7 @@ export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
       customSettingsSystemBar.multi_toolbar.shift()
   }
   const playgroundSettings = {
-    ...settings,
+    ...getBasicSettings(),
     multi_toolbar: customSettingsSystemBar.multi_toolbar,
     footer: customSettingsSystemBar.footer,
     toolbar_main_height: 70,
@@ -229,9 +235,11 @@ export const Playground = ({ settings }: { settings: GlobalStoryblok }) => {
         settings={playgroundSettings}
         page={getPropsDrawer()}
       >
-        <Layout>
-          <LmPage />
-        </Layout>
+        <GlobalTheme>
+          <Layout>
+            <LmPage />
+          </Layout>
+        </GlobalTheme>
       </SettingsPageProvider>
     </AppSetupProvider>
   )

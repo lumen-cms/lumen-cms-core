@@ -8,7 +8,7 @@ import { Typography } from '@material-ui/core'
 import InvertedIndicator from '../slider/InvertedIndicator'
 import { ImageListLightboxProps } from './imageListTypes'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
-import { storyblokImageLoader } from '../../utils/imageLoader'
+import { getRootImageUrl } from '../../utils/imageServices'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -36,9 +36,8 @@ function CarouselImageItem({ content }: { content: ImageListItemStoryblok }) {
     <div className="carousel-item">
       <div className={classes.root}>
         <Image
-          {...storyblokImageLoader(imageSource)}
           alt={content.alt || content.label || 'image list item'}
-          src={imageSource}
+          src={getRootImageUrl(imageSource)}
           layout="fill"
           objectFit="contain"
         />
