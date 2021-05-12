@@ -67,6 +67,41 @@ const props3: FlexRowStoryblok = {
   component: 'flex_row',
   body: [icon, { ...headline, _uid: '123123' }, headline]
 }
+const flexRowProps = {
+  _uid: '2we',
+  component: 'flex_row',
+  gap: 2,
+  align_items: 'center',
+  body: [{ ...icon, size: 'small' }, headline]
+} as FlexRowStoryblok
+export const FlexGap = () => {
+  return (
+    <>
+      <div>
+        <h3>Gap 1:</h3>
+        <LmFlexRow
+          content={{
+            ...flexRowProps,
+            gap: 1
+          }}
+        />
+      </div>
+      <div>
+        <h3>Gap 2:</h3>
+        <LmFlexRow content={flexRowProps} />
+      </div>
+      <div>
+        <h3>Gap 3:</h3>
+        <LmFlexRow
+          content={{
+            ...flexRowProps,
+            gap: 3
+          }}
+        />
+      </div>
+    </>
+  )
+}
 
 export const Examples = () => (
   <>
