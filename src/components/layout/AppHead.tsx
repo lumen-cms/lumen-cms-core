@@ -1,5 +1,4 @@
 import NextHead from 'next/head'
-import { memo } from 'react'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -110,9 +109,7 @@ function AppHead(): JSX.Element {
         {settings?.pwa_app_name && settings?.pwa_app_description && (
           <link rel="manifest" href="/manifest.json" />
         )}
-        {isPreview && (
-          <script src="//app.storyblok.com/f/storyblok-v2-latest.js" />
-        )}
+
         {settings?.custom_css && (
           <style
             dangerouslySetInnerHTML={{
@@ -143,7 +140,4 @@ function AppHead(): JSX.Element {
   )
 }
 
-const AppHeadMemoized = memo(AppHead)
-AppHeadMemoized.displayName = 'AppHeadMemo'
-
-export default AppHeadMemoized
+export default AppHead
