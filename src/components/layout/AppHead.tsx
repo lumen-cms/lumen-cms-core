@@ -109,7 +109,9 @@ function AppHead(): JSX.Element {
         {settings?.pwa_app_name && settings?.pwa_app_description && (
           <link rel="manifest" href="/manifest.json" />
         )}
-
+        {isPreview && (
+          <script src="//app.storyblok.com/f/storyblok-v2-latest.js" />
+        )}
         {settings?.custom_css && (
           <style
             dangerouslySetInnerHTML={{

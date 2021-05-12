@@ -35,77 +35,48 @@ export const SettingsPageProvider: FC<{
     }
   }, [settings, stateSettings.uuid, setSettings])
 
-  function addBridge(callback: () => void) {
-    // check if the script is already present
-    const existingScript = document.getElementById('storyblokBridge')
-    if (!existingScript) {
-      const script = document.createElement('script')
-      script.src = '//app.storyblok.com/f/storyblok-v2-latest.js'
-      script.id = 'storyblokBridge'
-      document.body.appendChild(script)
-      script.onload = () => {
-        // once the scrip is loaded, init the event listeners
-        callback()
-      }
-    } else {
-      callback()
-    }
-  }
-
   useEffect(() => {
     // only load inside preview mode
-    if (isPreview) {
+    if (isPreview && typeof window !== 'undefined') {
       // first load the bridge, then initialize the event listeners
-      const initEventListeners = () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const { StoryblokBridge } = window
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (typeof StoryblokBridge !== 'undefined') {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        if (typeof StoryblokBridge !== 'undefined') {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          const storyblokInstance = new StoryblokBridge()
+        const storyblokInstance = new StoryblokBridge()
 
-          storyblokInstance.on(['change', 'published', 'unpublished'], () => {
-            console.log('published triggered')
-            window.location.reload()
-          })
+        storyblokInstance.on(['change', 'published', 'unpublished'], () => {
+          console.log('published triggered')
+          window.location.reload()
+        })
 
-          storyblokInstance.on('input', (event: any) => {
-            console.log(event)
-            const newContent = {
-              ...event?.story.content,
-              uuid: event?.story.uuid
-            }
-            if (
-              event?.story.content.component === 'page' &&
-              event?.story.uuid === page?.uuid
-            ) {
-              console.log('input::input content changed')
-              // const newPage = window.storyblok.addComments(
-              //   newContent,
-              //   event?.story.id
-              // ) as PageStoryblok
-              // setPage(newPage)
-              setPage(newContent)
-            }
-            if (
-              event?.story.content.component === 'global' &&
-              event?.story.uuid === settings?.uuid
-            ) {
-              console.log('input::input settings changed')
-              // const newSettings = window.storyblok.addComments(
-              //   newContent,
-              //   event?.story.id
-              // ) as GlobalStoryblok
-              // setSettings(newSettings)
-              setSettings(newContent)
-            }
-          })
-        }
+        storyblokInstance.on('input', (event: any) => {
+          const newContent = {
+            ...event?.story.content,
+            uuid: event?.story.uuid
+          }
+          if (
+            event?.story.content.component === 'page' &&
+            event?.story.uuid === page?.uuid
+          ) {
+            setPage(newContent)
+          }
+          if (
+            event?.story.content.component === 'global' &&
+            event?.story.uuid === settings?.uuid
+          ) {
+            setSettings(newContent)
+          }
+        })
       }
-
-      addBridge(initEventListeners)
     }
-  }, [isPreview, page?.uuid, settings?.uuid])
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <SettingsContext.Provider value={stateSettings}>
