@@ -5,41 +5,53 @@ import LmIconMwc from './LmIcon'
 import { LmIconProps } from './iconTypes'
 
 const useStyles = makeStyles({
+  xmall: {
+    fontSize: '1rem',
+    height: '1rem'
+  },
+  small: {
+    fontSize: '1.25rem',
+    height: '1.25rem'
+  },
+  medium: {
+    fontSize: '1.5rem',
+    height: '1.5rem'
+  },
+  large: {
+    fontSize: '2.25rem',
+    height: '2.25rem'
+  },
+  xlarge: {
+    fontSize: '2.5rem',
+    height: '2.5rem'
+  },
+  xxlarge: {
+    fontSize: '3rem',
+    height: '3rem'
+  },
+  xxxlarge: {
+    fontSize: '4rem',
+    height: '4rem'
+  },
   icon: {
-    '&.xmall': {
-      fontSize: '1rem'
-    },
-    '&.small': {
-      fontSize: '1.25rem'
-    },
-    '&.medium': {
-      fontSize: '1.5rem'
-    },
-    '&.large': {
-      fontSize: '2.25rem'
-    },
-    '&.xlarge': {
-      fontSize: '2.5rem'
-    },
-    '&.xxlarge': {
-      fontSize: '3rem'
-    },
-    '&.xxxlarge': {
-      fontSize: '4rem'
-    }
+    margin: 'auto'
   }
 })
 
 export function LmIcon({ content, onClick }: LmIconProps): JSX.Element {
   const classes = useStyles()
   return (
-    <div className={clsx(content.class_names && content.class_names.values)}>
+    <div
+      className={clsx(content.class_names?.values, {
+        [classes[content.size as string]]: !!content.size
+      })}
+    >
       <LmIconMwc
         onClick={() => {
           onClick && onClick()
         }}
         className={clsx(classes.icon, {
-          [content.size as string]: !!content.size
+          [classes[content.size as string]]: !!content.size
         })}
         iconUrl={content.icon_url}
         style={{

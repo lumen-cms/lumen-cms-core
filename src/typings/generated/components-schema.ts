@@ -909,6 +909,7 @@ export interface FlexRowStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  gap?: number;
   _uid: string;
   component: "flex_row";
   [k: string]: any;

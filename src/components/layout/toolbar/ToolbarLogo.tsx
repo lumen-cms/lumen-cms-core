@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { getRootImageUrl } from '../../../utils/imageServices'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
-import { useSettings } from '../../provider/SettingsPageProvider'
+import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import LmSquareImage from '../../avatar/LmSquareImage'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
         '& .logo-img__mobile': {
           display: 'block'
         },
-        '& .logo-img__desktop': {
+        '& .logo-img:not(.logo-img__mobile)': {
           display: 'none'
         }
       }
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function LmToolbarLogo(): JSX.Element {
   const settings = useSettings()
+  const { property } = usePage() || {}
   const classes = useStyles()
   const homepageHref = useHomepageLink()
   const websiteTitle = settings.website_title
@@ -43,6 +44,7 @@ export function LmToolbarLogo(): JSX.Element {
   const websiteLogoInvertMobile = getRootImageUrl(
     settings.website_logo_invert_xs
   )
+  const hasFeature = property?.includes('has_feature')
   const toolbarHeight = settings.toolbar_main_height
     ? Number(settings.toolbar_main_height) - 24
     : 40
@@ -77,34 +79,33 @@ export function LmToolbarLogo(): JSX.Element {
           className={clsx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
         >
           {!websiteLogo && <Typography>{websiteTitle}</Typography>}
-          {logoImageArray.map(({ isMobile, source, isInvert }) => (
-            <div
-              className={clsx('logo-img', classes.imageContainer, {
-                'logo-img__default':
-                  (websiteLogoInvert && !isInvert) ||
-                  (websiteLogoInvertMobile && !isInvert),
-                'logo-img__invert': isInvert,
-                'logo-img__mobile': isMobile,
-                'logo-img__desktop':
-                  (source === websiteLogo && websiteLogoMobile) ||
-                  (source === websiteLogoInvert && !isInvert)
-              })}
-              key={`${source}-${isMobile}-${isInvert}`}
-            >
-              <LmSquareImage
-                image={source as string}
-                size={toolbarHeight}
-                layout="intrinsic"
-                imageProps={{
-                  priority: true,
-                  quality: 95,
-                  objectFit: 'contain',
-                  objectPosition: 'left',
-                  alt: websiteTitle || 'website logo'
-                }}
-              />
-            </div>
-          ))}
+          {logoImageArray.map(({ isMobile, source, isInvert }) =>
+            isInvert && !hasFeature ? null : (
+              <div
+                className={clsx('logo-img', classes.imageContainer, {
+                  'logo-img__default':
+                    (websiteLogoInvert && !isInvert) ||
+                    (websiteLogoInvertMobile && !isInvert),
+                  'logo-img__invert': isInvert,
+                  'logo-img__mobile': isMobile
+                })}
+                key={`${source}-${isMobile}-${isInvert}`}
+              >
+                <LmSquareImage
+                  image={source as string}
+                  size={toolbarHeight}
+                  layout="intrinsic"
+                  imageProps={{
+                    priority: true,
+                    quality: 95,
+                    objectFit: 'contain',
+                    objectPosition: 'left',
+                    alt: websiteTitle || 'website logo'
+                  }}
+                />
+              </div>
+            )
+          )}
         </MuiLink>
       </Link>
     </div>

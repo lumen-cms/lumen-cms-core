@@ -23,6 +23,29 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .logo-img__invert': {
         display: 'none'
       },
+      '&.lm-toolbar__has-feature': {
+        backgroundColor: 'transparent',
+        '& .MuiButtonBase-root': {
+          color: '#fff'
+        },
+        '& .lm-system-bar': {
+          backgroundColor: 'transparent !important'
+        },
+        '& .logo-img__default': {
+          display: 'none'
+        },
+        '& .logo-img__invert:not(.logo-img__mobile)': {
+          display: 'block'
+        },
+        [theme.breakpoints.only('xs')]: {
+          '& .logo-img__mobile.logo-img__invert': {
+            display: 'block'
+          },
+          '& .logo-img__invert:not(.logo-img__mobile)': {
+            display: 'none'
+          }
+        }
+      },
       '& .MuiIconButton-root': {
         color: 'inherit'
       },
