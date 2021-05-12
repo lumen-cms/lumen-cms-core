@@ -4094,7 +4094,7 @@
       "name": "flex_row",
       "display_name": "Flex Box",
       "created_at": "2020-05-01T08:40:43.097Z",
-      "updated_at": "2021-05-11T08:12:31.496Z",
+      "updated_at": "2021-05-11T08:22:24.158Z",
       "id": 894834,
       "schema": {
         "column": {
@@ -4237,7 +4237,7 @@
         },
         "gap": {
           "type": "number",
-          "description": "Gap between elements in \"px\""
+          "description": "Gap between elements in 1, 2, 3 etc."
         }
       },
       "image": null,
@@ -10698,7 +10698,7 @@
       "name": "slider",
       "display_name": null,
       "created_at": "2020-05-01T08:40:35.489Z",
-      "updated_at": "2020-12-07T08:00:15.188Z",
+      "updated_at": "2021-05-12T07:26:19.386Z",
       "id": 894797,
       "schema": {
         "property": {
@@ -10815,7 +10815,8 @@
             "background_color",
             "section_variant",
             "disable_transition",
-            "indicator_background_color"
+            "indicator_background_color",
+            "autoslide"
           ],
           "pos": 6
         },
@@ -10823,6 +10824,10 @@
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": []
+        },
+        "autoslide": {
+          "type": "number",
+          "description": "Autoslides in ms. Example: 5000 (5 sek)"
         }
       },
       "image": null,

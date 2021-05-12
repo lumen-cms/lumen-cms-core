@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.88.5",
+  "version": "0.88.8",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -60,6 +60,7 @@
     "@types/marked": "^2.0.1",
     "@types/nprogress": "0.2.0",
     "@types/react-swipeable-views": "^0.13.0",
+    "@types/react-swipeable-views-utils": "^0.13.2",
     "axios": "0.21.1",
     "clsx": "1.1.1",
     "date-fns": "2.20.2",

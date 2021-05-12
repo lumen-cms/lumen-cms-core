@@ -39,6 +39,12 @@ NavigationBelow.args = {
   ]
 }
 
+export const Autoslide = Template.bind({})
+Autoslide.args = {
+  ...presetContent,
+  autoslide: 5000
+}
+
 export const Light = Template.bind({})
 Light.args = {
   ...presetContent,
