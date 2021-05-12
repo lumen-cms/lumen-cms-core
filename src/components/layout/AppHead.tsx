@@ -1,15 +1,14 @@
 import NextHead from 'next/head'
-import React, { memo } from 'react'
-import { GoogleFonts } from 'next-google-fonts'
+import { memo } from 'react'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
 import { imageServiceNoWebp } from '../../utils/imageServices'
-import { getFontBasedOnSetting } from '../../utils/parseFont'
 import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
 import { useSettings } from '../provider/SettingsPageProvider'
+import GtmManager from '../tracking/GtmManager'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -67,9 +66,6 @@ function AppHead(): JSX.Element {
 
   return (
     <>
-      {!process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE && (
-        <GoogleFonts href={getFontBasedOnSetting(settings)} />
-      )}
       {settings.website_logo && settings.seo_website_url && (
         <LogoJsonLd
           logo={imageServiceNoWebp(settings.website_logo)}
@@ -77,13 +73,6 @@ function AppHead(): JSX.Element {
         />
       )}
       <NextHead>
-        {process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE && (
-          <link
-            href={getFontBasedOnSetting(settings)}
-            rel="stylesheet"
-            media="all"
-          />
-        )}
         {additionalMetaTags.map((item) => (
           <meta content={item.content} name={item.name} key={item.name} />
         ))}
@@ -124,7 +113,13 @@ function AppHead(): JSX.Element {
         {isPreview && (
           <script src="//app.storyblok.com/f/storyblok-v2-latest.js" />
         )}
-        {settings?.custom_css && <style>{settings.custom_css}</style>}
+        {settings?.custom_css && (
+          <style
+            dangerouslySetInnerHTML={{
+              __html: settings.custom_css
+            }}
+          />
+        )}
       </NextHead>
       {!isDevelopment && !isPreview && settings?.setup_facebook_pixel && (
         <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />
@@ -141,6 +136,9 @@ function AppHead(): JSX.Element {
       {!isDevelopment && !isPreview && settings?.setup_google_analytics && (
         <Gtag googleAnalyticsId={settings.setup_google_analytics} />
       )}
+      {!isDevelopment &&
+        !isPreview &&
+        process.env.NEXT_PUBLIC_GTM_CONTAINER && <GtmManager />}
     </>
   )
 }

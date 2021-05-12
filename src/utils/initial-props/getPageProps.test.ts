@@ -2,8 +2,6 @@ import { CONFIG } from '@CONFIG'
 import getPageProps from './getPageProps'
 
 // make sure tokens of theme.lumen.media
-CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
-CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
 const defaultOptions = {
   locale: 'en',
   insideStoryblok: false,
@@ -12,6 +10,8 @@ const defaultOptions = {
 }
 describe('Get page props of a certain URL', () => {
   test('fetch url that consists list widget data', async () => {
+    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
+    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
     const data = await getPageProps(
       'demo-content/playground/testing-list-widget',
       defaultOptions
@@ -24,6 +24,8 @@ describe('Get page props of a certain URL', () => {
   })
 
   test('fetch url that consists form data', async () => {
+    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
+    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
     const data = await getPageProps('request-demo', defaultOptions)
     expect(!!data.page).toBeTruthy()
     const currentFormToTest =
@@ -49,5 +51,17 @@ describe('Get page props of a certain URL', () => {
     expect(typeof currentFormToTest?.title).toBe('string')
     expect(typeof currentFormToTest?.formAction).toBe('string')
     expect((currentFormToTest?.fields?.length || 0) > 1).toBeTruthy()
+    expect(typeof data.googleFontString).toBe('string')
+  })
+  test('fetch planet training page', async () => {
+    // commercentric uses it
+    CONFIG.previewToken = 'MbZE9l5hGQp6BHIMkooB9Qtt'
+    CONFIG.publicToken = 'itXwOvXYhANlzgPbwrA2Nwtt'
+    const data = await getPageProps(
+      'support/team-management/add-members',
+      defaultOptions
+    )
+    expect(!!data.page).toBeTruthy()
+    expect(typeof data.googleFontString).toBe('string')
   })
 })

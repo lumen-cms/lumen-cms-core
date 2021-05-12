@@ -3,42 +3,59 @@ import Header from './Header'
 import {
   companyLogos,
   customSettings,
+  customSettingsSystemBar,
   simpleSettings
 } from '../../../storybook/toolbar'
 import { SettingsPageProvider } from '../../provider/SettingsPageProvider'
 import StorybookPresetsContainer from '../../../storybook/components/StorybookPresetsContainer'
+import GlobalTheme from '../../global-theme/GlobalTheme'
 
 export default {
-  title: 'Design/Surfaces/Toolbar'
+  title: 'Design/Surfaces/Toolbar',
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 export const Presets = () => (
-  <StorybookPresetsContainer componentName="toolbar_row" />
+  <SettingsPageProvider settings={simpleSettings}>
+    <GlobalTheme>
+      <StorybookPresetsContainer componentName="toolbar_row" />
+    </GlobalTheme>
+  </SettingsPageProvider>
 )
 
 export const Basic = () => (
   <>
     <h3>Default</h3>
     <SettingsPageProvider settings={simpleSettings}>
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>Secondary</h3>
     <SettingsPageProvider
       settings={{ ...simpleSettings, toolbar_variant: 'secondary' }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>Dark</h3>
     <SettingsPageProvider
       settings={{ ...simpleSettings, toolbar_variant: 'dark' }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>White</h3>
     <SettingsPageProvider
       settings={{ ...simpleSettings, toolbar_variant: 'white' }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
   </>
 )
@@ -48,7 +65,9 @@ export const Custom = () => (
     <SettingsPageProvider
       settings={{ ...customSettings, website_logo: companyLogos[0] }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>Baliinternships</h3>
     <SettingsPageProvider
@@ -58,7 +77,9 @@ export const Custom = () => (
         website_logo: companyLogos[1]
       }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
     <h3>planet.training</h3>
     <SettingsPageProvider
@@ -68,7 +89,147 @@ export const Custom = () => (
         website_logo: companyLogos[2]
       }}
     >
-      <Header />
+      <GlobalTheme>
+        <Header />
+      </GlobalTheme>
     </SettingsPageProvider>
   </>
+)
+
+export const ScrollCollapse = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettings,
+      toolbar_variant: 'dark',
+      toolbar_config: ['scroll_collapse', 'fixed', 'unelevated'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const FixedToolbar = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettings,
+      toolbar_variant: 'dark',
+      toolbar_config: ['fixed', 'unelevated'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const WithSystemBar = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const WithSystemBarScrollCollapse = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_config: ['fixed', 'enable_system_bar', 'scroll_collapse'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const CustomHeightSystemBar = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_main_height: 80,
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[3]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const VariantLogo = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_main_height: 80,
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[1]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const VariantSize = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_font_size: '20px',
+      toolbar_main_height: 80,
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[1]
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#ccc' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
+)
+
+export const HasFeature = () => (
+  <SettingsPageProvider
+    settings={{
+      ...customSettingsSystemBar,
+      toolbar_variant: 'dark',
+      toolbar_main_height: 80,
+      toolbar_config: ['fixed', 'enable_system_bar'],
+      website_logo: companyLogos[1]
+    }}
+    page={{
+      _uid: '2312',
+      component: 'page',
+      property: ['has_feature']
+    }}
+  >
+    <GlobalTheme>
+      <Header />
+      <div style={{ height: '2000px', backgroundColor: '#bbb' }} />
+    </GlobalTheme>
+  </SettingsPageProvider>
 )

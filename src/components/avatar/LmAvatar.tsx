@@ -65,7 +65,7 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
       className={clsx(content.class_names?.values)}
     >
       {content.image && (
-        <LmSquareImage image={content.image} width={style.width} />
+        <LmSquareImage image={content.image} size={style.width} />
       )}
       {content.letter}
       {iconName && <LmIcon iconName={iconName} />}

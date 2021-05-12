@@ -14,9 +14,11 @@ import { useSettings } from '../../provider/SettingsPageProvider'
 let currencyCode = 'EUR'
 export const LmShopifySdkProvider: FC = ({ children }) => {
   const settings = useSettings()
-  const shopifyConfig = (settings.ecommerce || []).find(
+  const shopifyConfig: EcommerceShopifyConfigStoryblok | undefined = (
+    settings.ecommerce || []
+  ).find(
     (i) => i.component === 'ecommerce_shopify_config'
-  )
+  ) as EcommerceShopifyConfigStoryblok
   const checkoutLinkRef = useRef<HTMLAnchorElement | null>(null)
   const [
     selectedVariant,
@@ -37,7 +39,10 @@ export const LmShopifySdkProvider: FC = ({ children }) => {
   }, [cartOpen, setCartVariants])
 
   const initCheckout = async (input: CheckoutCreateInput) => {
-    const { checkoutCreate } = await shopifyGraphqlSdk.checkoutCreate({ input })
+    const { checkoutCreate } = await shopifyGraphqlSdk({
+      domain: shopifyConfig?.domain,
+      accessToken: shopifyConfig?.access_token
+    }).checkoutCreate({ input })
 
     return checkoutCreate?.checkout
   }

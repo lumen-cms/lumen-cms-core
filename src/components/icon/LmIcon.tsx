@@ -81,7 +81,7 @@ function IconCore({
           src={iconSrc}
         />
       )}
-      <span ref={refIntersectionObserver} />
+      {!iconSrc && <span ref={refIntersectionObserver} />}
     </>
   ) : (
     <span />

@@ -2,26 +2,63 @@ import { ImageLoaderProps, ImageProps } from 'next/image'
 
 let hasWebpSupport: boolean | undefined
 
+const browserDet = (): { name: string; version: number } => {
+  const ua = navigator.userAgent
+  let tem
+  let M =
+    ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) ||
+    []
+  if (/trident/i.test(M[1])) {
+    tem = /\brv[ :]+(\d+)/g.exec(ua) || []
+    return {
+      name: 'ie',
+      version: tem[1] ? Number(tem[1]) : 0
+    }
+  }
+  if (M[1] === 'Chrome') {
+    tem = ua.match(/\b(OPR|Edge)\/(\d+)/)
+    if (tem != null) {
+      const x = tem.slice(1)
+      return {
+        name: x[0].replace('OPR', 'Opera'),
+        version: x[1] ? Number(x[1]) : 0
+      }
+    }
+  }
+  M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?']
+  // eslint-disable-next-line no-cond-assign
+  if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1])
+  return {
+    name: M[0].toLowerCase(),
+    version: Number(M[1])
+  }
+}
+
 const initWebpSupport = () => {
   // https://github.com/ihordiachenko/supports-webp-sync
   // Check FF, Edge by user agent
   if (typeof navigator === 'undefined') {
     return true // in nodejs we set true
   }
-  const match = navigator?.userAgent.match(/(Edge|Firefox)\/(\d+)\./)
-  if (match) {
-    return (
-      (match[1] === 'Firefox' && +match[2] >= 65) ||
-      (match[1] === 'Edge' && +match[2] >= 18)
-    )
+  const { name, version } = browserDet()
+  if (name === 'ie') {
+    return false
+  }
+  if (
+    (name === 'safari' && Number(version) >= 14) ||
+    (name === 'firefox' && Number(version) >= 14) ||
+    (name === 'edge' && Number(version) >= 18)
+  ) {
+    return true
   }
 
   // Use canvas hack for webkit-based browsers
   // Kudos to Rui Marques: https://stackoverflow.com/a/27232658/7897049
-  const e = document?.createElement('canvas')
-  return e && e.toDataURL
-    ? e.toDataURL('image/webp').indexOf('data:image/webp') === 0
+  const el = document?.createElement('canvas')
+  const canWebp = el?.toDataURL
+    ? el.toDataURL('image/webp').indexOf('data:image/webp') === 0
     : false
+  return canWebp
 }
 
 const checkWebpSupport = () => {

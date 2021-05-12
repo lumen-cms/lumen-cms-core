@@ -2,14 +2,18 @@ const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
-  const enableWebpack5 =
-    transpileModules === false || process.env.NODE_ENV !== 'production'
+  const enableWebpack5 = !!(
+    process.env.ENABLE_WEBPACK5 ||
+    transpileModules === false ||
+    process.env.NODE_ENV !== 'production'
+  )
   const config = {
     ...nextConfig,
     future: {
       webpack5: enableWebpack5
     }, // todo not working because of transpile
     images: {
+      path: 'https://img-10-2.lumen.media/_next/image/',
       domains: ['a.storyblok.com', 'img2.storyblok.com', 'cdn.shopify.com'],
       deviceSizes: [360, 420, 510, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
       imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]

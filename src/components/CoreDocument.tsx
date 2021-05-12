@@ -10,6 +10,7 @@ type CoreDocumentProps = {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function LmCoreDocument(_ctx: CoreDocumentProps): JSX.Element {
+  const cacheVersion = LmStoryblokService.getCacheVersion()
   return (
     <Html>
       <Head />
@@ -17,7 +18,7 @@ export function LmCoreDocument(_ctx: CoreDocumentProps): JSX.Element {
         <Main />
         <script
           dangerouslySetInnerHTML={{
-            __html: `var StoryblokCacheVersion = '${LmStoryblokService.getCacheVersion()}';`
+            __html: `var StoryblokCacheVersion = '${cacheVersion}';`
           }}
         />
         <NextScript />

@@ -909,6 +909,7 @@ export interface FlexRowStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  gap?: number;
   _uid: string;
   component: "flex_row";
   [k: string]: any;
@@ -1058,6 +1059,7 @@ export interface GlobalStoryblok {
     | EcommerceSnipcartConfigStoryblok
   )[];
   custom_css?: string;
+  toolbar_elevation?: number;
   _uid: string;
   component: "global";
   uuid?: string;
@@ -1246,7 +1248,7 @@ export interface ImageStoryblok {
   disable_lazy_loading?: boolean;
   image_crop?: ("image_crop" | "smart_crop")[];
   focal_point?: string;
-  property?: ("img-thumbnail" | "rounded" | "rounded-circle" | "square" | "rounded-0")[];
+  property?: ("rounded" | "rounded-circle" | "square" | "rounded-0")[];
   height?: number;
   height_xs?: number;
   width?: number;

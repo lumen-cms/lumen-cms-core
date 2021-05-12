@@ -7,7 +7,7 @@ import {
   IframeStoryblok,
   ImageStoryblok
 } from '../../typings/generated/components-schema'
-import LmDialog from './Dialog'
+import LmDialog from './DialogElement'
 import { LmDialogProps } from './dialogTypes'
 import { getComponentArgTypes } from '../../storybook/configControls'
 
@@ -114,6 +114,23 @@ export const Trigger = () => (
             {
               component: 'image',
               _uid: 'sgsfdgsdfg',
+              source:
+                'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
+            } as ImageStoryblok
+          ]
+        } as DialogStoryblok
+      }
+    />
+    <div style={{ padding: '10px' }} />
+    <LmDialog
+      content={
+        {
+          body,
+          trigger: [
+            {
+              component: 'image',
+              _uid: 'sgsfdgsdfg',
+              property: ['square'],
               source:
                 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
             } as ImageStoryblok

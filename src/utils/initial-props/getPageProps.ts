@@ -7,12 +7,19 @@ import {
   PageStoryblok
 } from '../../typings/generated/components-schema'
 import { AppPageProps, PagePropsOptions } from '../../typings/app'
+// import { processGoogleFonts } from './processGoogleFonts'
 
 SSR_CONFIG.ssrHooks.pageProps = [
   processListWidgetData,
   processFormData,
   ...SSR_CONFIG.ssrHooks.pageProps
 ]
+if (!process.env.STORYBOOK) {
+  // build of storybook fails..
+  // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require
+  const { processGoogleFonts } = require('./processGoogleFonts')
+  SSR_CONFIG.ssrHooks.pageProps.push(processGoogleFonts)
+}
 
 const getPageProps = async (
   slug: string | string[],
@@ -44,11 +51,13 @@ const getPageProps = async (
     console.log('PAGE MISSING', slug, pageSlug)
   }
 
+  const finalSettings = settingsProps
+    ? { ...settingsProps, uuid: settings?.data?.story?.uuid }
+    : null
+
   const props: AppPageProps = {
     page: pageProps ? { ...pageProps, uuid: page?.data?.story?.uuid } : null,
-    settings: settingsProps
-      ? { ...settingsProps, uuid: settings?.data?.story?.uuid }
-      : null,
+    settings: finalSettings,
     allCategories,
     allStaticContent,
     allStories,

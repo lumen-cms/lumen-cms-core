@@ -1,27 +1,21 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
-import Image from 'next/image'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import {
   getOriginalImageDimensions,
-  imageSizesOnWidthAndBreakpoints
+  imageCalculateHeight
 } from '../../utils/imageServices'
 import { LmImageProps } from './imageTypes'
-import { storyblokImageLoader } from '../../utils/imageLoader'
+import LmAspectRatio from './LmAspectRatio'
+import LmSquareImage from '../avatar/LmSquareImage'
 
 const useStyles = makeStyles((theme: Theme) => ({
   image: {
-    margin: 'auto',
-    width: '100%',
-    height: 'auto'
+    margin: 'auto'
+    // width: '100%',
+    // height: 'auto'
   },
   imgAddons: {
-    '&.img-thumbnail': {
-      padding: '.25rem',
-      backgroundColor: theme.palette.background.default,
-      border: `1px solid ${theme.palette.divider}!important`,
-      borderRadius: theme.shape.borderRadius
-    },
     '&.square, &.rounded-0 img': {
       borderRadius: 0
     },
@@ -44,8 +38,6 @@ export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element | null {
-  const { breakpoints } = useTheme()
-
   const classes = useStyles()
   const definedWidth = content.width
   const definedHeight = content.height
@@ -87,62 +79,43 @@ export default function LmImage({
     proportionalHeight = definedHeight || 0
   }
 
-  const containerProps: React.HTMLAttributes<HTMLDivElement> = {}
-  if (onClick) {
-    containerProps.onClick = () => onClick()
-  }
-  let sizes
-  if (squareSize || definedWidth) {
-    const currentWidth = squareSize || (definedWidth as number)
-    sizes = imageSizesOnWidthAndBreakpoints(currentWidth, breakpoints)
-  }
   if (square && squareSize) {
-    // let variant: AvatarProps['variant'] = 'circular'
-    // if (property.includes('square') || property.includes('rounded-0')) {
-    //   variant = 'square'
-    // }
-    // if (property.includes('rounded')) {
-    //   variant = 'rounded'
-    // }
     return (
-      <div
-        {...containerProps}
-        style={{
-          margin: 'auto',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'block',
-          maxWidth: `${squareSize}px`,
-          maxHeight: `${squareSize}px`,
-          width: squareSize < 360 ? `${squareSize}px` : undefined,
-          height: squareSize < 360 ? `${squareSize}px` : undefined
-        }}
-        className={clsx(
-          content.class_names?.values,
-          classes.imgAddons,
-          content.property,
-          loaded ? 'loaded' : 'loading'
-        )}
-      >
-        <div style={{ paddingBottom: '100%' }} />
-        <Image
-          {...storyblokImageLoader(imageSource)}
-          src={imageSource}
-          alt={content.alt || 'website image'}
-          onLoad={() => setLoaded(true)}
-          loading={loading}
-          priority={priority}
-          sizes={sizes}
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
+      <>
+        <LmAspectRatio
+          width={squareSize}
+          height={squareSize}
+          style={{
+            height: squareSize <= 360 ? `${squareSize}px` : undefined,
+            width: squareSize <= 360 ? `${squareSize}px` : undefined,
+            margin: 'auto'
+          }}
+          className={clsx(
+            content.class_names?.values,
+            classes.imgAddons,
+            content.property,
+            loaded ? 'loaded' : 'loading'
+          )}
+        >
+          <LmSquareImage
+            image={imageSource}
+            size={squareSize}
+            layout="intrinsic"
+            imageProps={{
+              onClick: onClick ? () => onClick() : undefined,
+              alt: content.alt || 'website image',
+              onLoad: () => setLoaded(true),
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          />
+        </LmAspectRatio>
+      </>
     )
   }
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
     <div
-      {...containerProps}
       className={clsx(
         content.class_names?.values,
         classes.image,
@@ -151,31 +124,33 @@ export default function LmImage({
         loaded ? 'loaded' : 'loading'
       )}
       style={{
-        cursor: onClick ? 'pointer' : undefined,
-        maxWidth: squareSize
-          ? `${squareSize}px`
-          : isProportional
-          ? Math.max(proportionalWidth, proportionalHeight)
-          : '100%',
-        maxHeight: squareSize
-          ? `${squareSize}px`
-          : isProportional
-          ? Math.max(proportionalHeight, proportionalWidth)
-          : '100%'
+        maxWidth: (isProportional && proportionalWidth) || undefined,
+        maxHeight:
+          (isProportional &&
+            (proportionalHeight ||
+              imageCalculateHeight(proportionalWidth, originalDimensions))) ||
+          undefined
       }}
     >
-      <Image
-        {...storyblokImageLoader(imageSource)}
-        src={imageSource}
-        alt={content.alt || 'website image'}
-        width={squareSize || originalDimensions.width}
-        height={squareSize || originalDimensions.height}
-        onLoad={() => setLoaded(true)}
-        loading={loading}
-        priority={priority}
-        layout="responsive"
-        sizes={sizes}
-      />
+      <div style={{ textAlign: 'center' }}>
+        <LmSquareImage
+          image={imageSource}
+          size={
+            isProportional
+              ? Math.max(proportionalWidth, proportionalHeight)
+              : Math.min(originalDimensions.width, originalDimensions.height)
+          }
+          layout="intrinsic"
+          sizeIsHeight={!!content.height}
+          imageProps={{
+            loading,
+            priority,
+            onClick: onClick ? () => onClick() : undefined,
+            onLoad: () => setLoaded(true),
+            alt: content.alt || 'website image'
+          }}
+        />
+      </div>
     </div>
   )
 }

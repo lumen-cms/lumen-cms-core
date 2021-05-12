@@ -1,6 +1,8 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 
+const cv = Date.now()
+
 class StoryblokServiceClass {
   private devMode: boolean
 
@@ -18,6 +20,7 @@ class StoryblokServiceClass {
         ? CONFIG.publicToken
         : CONFIG.previewToken
     this.devMode = process.env.NODE_ENV !== 'production' // If true it always loads draft
+    this.cv = cv
     this.client = new StoryblokClient({
       accessToken: this.token,
       cache: {
@@ -34,13 +37,11 @@ class StoryblokServiceClass {
   }
 
   getCacheVersion() {
-    return this.client.cacheVersion
+    return this.cv
   }
 
   getDefaultParams() {
-    const params: StoriesParams = {
-      cv: this.cv
-    }
+    const params: StoriesParams = {}
 
     if (
       typeof window !== 'undefined' &&
@@ -53,19 +54,23 @@ class StoryblokServiceClass {
     if (getFromRelease) {
       params.from_release = getFromRelease
     }
-    if (
+
+    if (process.env.STORYBOOK) {
+      params.version = 'published'
+      // params.cv = this.cv
+      this.client.setToken(CONFIG.publicToken)
+      this.devMode = false
+    } else if (
       this.getQuery('_storyblok') ||
       this.devMode ||
       (typeof window !== 'undefined' && window.StoryblokBridge)
     ) {
       params.version = 'draft'
       this.client.setToken(CONFIG.previewToken)
+    } else {
+      // params.cv = this.cv
     }
-    if (process.env.STORYBOOK) {
-      params.version = 'published'
-      this.client.setToken(CONFIG.publicToken)
-      this.devMode = false
-    }
+    // console.log(this.client.getToken())
     return params
   }
 
@@ -81,14 +86,13 @@ class StoryblokServiceClass {
   }
 
   async get(slug: string, params = {}) {
-    const defaultParams = {
+    const currentParams = {
       resolve_links: 'url',
-      ...params
-    }
-    return this.client.get(slug, {
-      ...defaultParams,
+      ...params,
       ...this.getDefaultParams()
-    })
+    }
+    const page = await this.client.get(slug, currentParams)
+    return page
   }
 
   setDevMode() {

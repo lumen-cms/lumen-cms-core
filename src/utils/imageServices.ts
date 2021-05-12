@@ -30,15 +30,21 @@ export const imageCalculateWidth = (
   originalDimensions: { width: number; height: number }
 ) => Math.round((height / originalDimensions.height) * originalDimensions.width)
 
+export const imageCalculateHeight = (
+  width: number,
+  originalImageDimensions: { width: number; height: number }
+) => width * (originalImageDimensions.height / originalImageDimensions.width)
+
 export const imageCalculateWidthHeight = (
   size: number,
-  storyblokImageSource: string
+  storyblokImageSource: string,
+  options?: { sizeIsHeight?: boolean }
 ): { width: number; height: number } => {
   const originalImageDimensions = getOriginalImageDimensions(
     storyblokImageSource
   )
   const ratio = originalImageDimensions.height / originalImageDimensions.width
-  if (ratio < 1) {
+  if (ratio < 1 || options?.sizeIsHeight) {
     return {
       height: size,
       width: imageCalculateWidth(size, originalImageDimensions)

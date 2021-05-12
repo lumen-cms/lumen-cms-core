@@ -18,7 +18,10 @@ const defaultOptions = {
 }
 
 export default {
-  title: 'Landing Page/Website'
+  title: 'Landing Page/Website',
+  parameters: {
+    layout: 'fullscreen'
+  }
 }
 
 const StoryWrap = (data: any) => (
@@ -37,6 +40,13 @@ const StoryWrap = (data: any) => (
             <Layout>
               <LmPage />
             </Layout>
+            {data.settings?.custom_css && (
+              <style
+                dangerouslySetInnerHTML={{
+                  __html: data.settings.custom_css
+                }}
+              />
+            )}
           </LmAppProvidersContainer>
         </GlobalTheme>
       </AppSetupProvider>
@@ -49,6 +59,7 @@ const Template: Story<any> = (_args, { loaded: { data } }) => {
 }
 
 export const Studentsgoabroad = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 Studentsgoabroad.loaders = [
   async () => {
@@ -64,6 +75,7 @@ Studentsgoabroad.parameters = {
   chromatic: { delay: 10000 }
 }
 export const PlanetTraining = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 PlanetTraining.loaders = [
   async () => {
@@ -84,6 +96,7 @@ PlanetTraining.parameters = {
 }
 
 export const UpskillStudy = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 UpskillStudy.loaders = [
   async () => {
@@ -104,6 +117,7 @@ UpskillStudy.parameters = {
 }
 
 export const Baliinternships = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 Baliinternships.loaders = [
   async () => {
@@ -119,6 +133,27 @@ Baliinternships.loaders = [
   }
 ]
 Baliinternships.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 10000 }
+}
+
+export const Session = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+Session.loaders = [
+  async () => {
+    CONFIG.publicToken = 'M6FMSs1PwBZARqJIrI7LDwtt'
+    CONFIG.previewToken = 'EI7JZ8ZBbjLWyN8dijyoSAtt'
+    CONFIG.rootDirectory = ''
+    const data = await getPageProps('', {
+      ...defaultOptions,
+      locale: 'de',
+      defaultLocale: 'de'
+    })
+    return { data }
+  }
+]
+Session.parameters = {
   // Sets the delay for a specific story.
   chromatic: { delay: 10000 }
 }

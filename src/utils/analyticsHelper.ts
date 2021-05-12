@@ -5,6 +5,9 @@ declare global {
     adroll: {
       track: (k: string, opts?: any) => void
     }
+    dataLayer?: {
+      push: (context: any) => void
+    }
   }
 }
 
@@ -18,6 +21,12 @@ export const analyticsOnPageChange = ({
   facebookPixelId?: string
 }) => {
   if (!isDev()) {
+    if (process.env.NEXT_PUBLIC_GTM_CONTAINER) {
+      window.dataLayer?.push({
+        event: 'pageview',
+        page: url
+      })
+    }
     if (googleAnaliyticsId) {
       window.gtag &&
         gtag('config', googleAnaliyticsId, {

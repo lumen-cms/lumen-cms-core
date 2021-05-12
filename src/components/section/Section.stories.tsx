@@ -10,13 +10,6 @@ import {
   row,
   rowWithImage
 } from '../../storybook/section'
-import {
-  storyBackground,
-  storyColumn,
-  storyRow,
-  storySection
-} from '../../storybook/core/section'
-import { storyButton, storyHeadline } from '../../storybook/core/various'
 import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 import { findPresets } from '../../storybook/findStorybookPresets'
 import { LmSectionProps } from './sectionTypes'
@@ -65,8 +58,6 @@ export default {
 }
 
 const presets = findPresets<LmSectionProps['content']>('section')
-
-console.log(presets.length)
 type TempType = LmSectionProps['content'][]
 let i
 let j
@@ -112,6 +103,22 @@ Presets_5.parameters = {
   // Sets the delay for a specific story.
   chromatic: { delay: 10000 }
 }
+
+export const ComplexWithSquare = () => (
+  <StorybookPresetsContainer
+    presetItems={presets.filter(
+      (item) => item._uid === '41d5d05a-afc3-4322-871a-65cb7495fdb2'
+    )}
+  />
+)
+
+export const NegativeMargin = () => (
+  <StorybookPresetsContainer
+    presetItems={presets.filter(
+      (item) => item._uid === '1a6e8ad3-5a21-4ad5-ac78-56616837c923'
+    )}
+  />
+)
 
 export const Basic = () => (
   <>
@@ -330,55 +337,4 @@ export const SectionAlignments = () => (
       }}
     />
   </>
-)
-export const Playground = () => (
-  <div>
-    <LmSection
-      content={{
-        ...storySection(),
-        presetVariant: 'dark',
-        background: [
-          storyBackground({
-            knob: 'Section',
-            options: {
-              image:
-                'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
-            }
-          })
-        ],
-        body: [
-          {
-            ...storyRow({ options: { justify: 'center' } }),
-            background: [storyBackground({ knob: 'Row' })],
-            body: [
-              {
-                ...storyColumn({
-                  knob: 'Column 1',
-                  options: { width_general: 'auto' }
-                }),
-                background: [storyBackground({ knob: 'Column 1' })],
-                body: [
-                  storyHeadline({ count: 1, knob: 'Column 1' }),
-                  storyHeadline({ count: 2, knob: 'Column 1' }),
-                  storyButton({ knob: 'Column 1' })
-                ]
-              },
-              {
-                ...storyColumn({
-                  knob: 'Column 2',
-                  options: { width_general: 'auto' }
-                }),
-                background: [storyBackground({ knob: 'Column 2' })],
-                body: [
-                  storyHeadline({ count: 1, knob: 'Column 2' }),
-                  storyHeadline({ count: 2, knob: 'Column 2' }),
-                  storyButton({ knob: 'Column 2' })
-                ]
-              }
-            ]
-          }
-        ]
-      }}
-    />
-  </div>
 )

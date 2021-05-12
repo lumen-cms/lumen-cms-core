@@ -13,7 +13,8 @@ import { darkSectionWithColumns } from './section'
 export const companyLogos = [
   '//a.storyblok.com/f/69069/192x192/d3ba0e3858/logo-fav-lumen.png',
   '//a.storyblok.com/f/66717/672x160/db392f6ffa/logo-white.png',
-  '//a.storyblok.com/f/73553/1500x300/24cdd8ad64/planet-training-logo-wide-white.png'
+  '//a.storyblok.com/f/73553/1500x300/24cdd8ad64/planet-training-logo-wide-white.png',
+  '//a.storyblok.com/f/69529/1076x500/aeb2c104c2/etherhill_logo_white_001.png'
 ]
 
 const menuItem: NavMenuStoryblok = {
@@ -122,6 +123,9 @@ const multiToolbar = [
 
 const multiToolbarWithSystemBar = [
   {
+    _uid: 'q3e234',
+    component: 'toolbar_row',
+    is_system_bar: true,
     body: [
       {
         _uid: '123',
@@ -131,18 +135,7 @@ const multiToolbarWithSystemBar = [
       }
     ] as ToolbarRowSectionStoryblok[]
   },
-  {
-    _uid: '23',
-    component: 'toolbar_row',
-    body: [
-      {
-        _uid: '123',
-        component: 'toolbar_row_section',
-        align_end: true,
-        body: toolbarItems
-      }
-    ] as ToolbarRowSectionStoryblok[]
-  }
+  ...multiToolbar
 ] as ToolbarRowStoryblok[]
 
 export const customSettings: GlobalStoryblok = {

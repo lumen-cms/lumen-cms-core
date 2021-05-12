@@ -28,7 +28,7 @@ const sizeMap = {
   xsmall: 20,
   small: 24,
   large: 52,
-  xlarge: 64
+  xlarge: 56
 }
 
 export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
@@ -40,7 +40,7 @@ export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
         [size as string]: !!size
       })}
     >
-      <LmSquareImage image={src} width={size ? sizeMap[size] : 40} />
+      <LmSquareImage image={src} size={size ? sizeMap[size] : 40} />
     </Avatar>
   )
 }

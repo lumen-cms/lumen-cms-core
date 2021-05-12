@@ -18,9 +18,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
     marginTop: theme.spacing(2),
-    '& > button': {
-      marginRight: theme.spacing(2)
-    }
+    columnGap: theme.spacing(2),
+    rowGap: theme.spacing(1)
   },
   buttonSpace: {
     marginTop: theme.spacing(2)
@@ -38,6 +37,7 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
       onVariantSelect({ ...edge, productTitle: item.title })
     }
   }, [selectedVariant, item.variants, item.title, onVariantSelect])
+  const hasMultipleOptions = item.variants.edges?.length > 1
   return (
     <div>
       <div className={classes.buttonSpace}>
@@ -65,50 +65,54 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
           </LmComponentRender>
         )}
       </div>
-      <div className={classes.buttonSpace}>
-        <LmComponentRender
-          content={
-            {
-              component: 'headline',
-              _uid: '3453',
-              align: 'center',
-              text:
-                selectedVariant?.selectedOptions &&
-                selectedVariant?.selectedOptions[0]?.name,
-              typography: 'headline6',
-              color: 'textSecondary',
-              ...(config?.product_variant_name || {})
-            } as HeadlineStoryblok
-          }
-        />
-      </div>
-      <div className={classes.buttonContainer}>
-        {item.variants.edges?.map((variant) => (
-          <LmComponentRender
-            key={variant.node.id}
-            onClick={() => {
-              onVariantSelect({ ...variant.node, productTitle: item.title })
-            }}
-            content={
-              {
-                component: 'button',
-                variant:
-                  selectedVariant?.id === variant.node.id
-                    ? 'unelevated'
-                    : 'outlined',
-                ...(selectedVariant?.id === variant.node.id
-                  ? config?.product_active_variant?.length
-                    ? config.product_active_variant[0]
-                    : {}
-                  : config?.product_variant?.length
-                  ? config.product_variant[0]
-                  : {}),
-                label: variant.node.title
-              } as ButtonStoryblok
-            }
-          />
-        ))}
-      </div>
+      {hasMultipleOptions && (
+        <>
+          <div className={classes.buttonSpace}>
+            <LmComponentRender
+              content={
+                {
+                  component: 'headline',
+                  _uid: '3453',
+                  align: 'center',
+                  text:
+                    selectedVariant?.selectedOptions &&
+                    selectedVariant?.selectedOptions[0]?.name,
+                  typography: 'headline6',
+                  color: 'textSecondary',
+                  ...(config?.product_variant_name || {})
+                } as HeadlineStoryblok
+              }
+            />
+          </div>
+          <div className={classes.buttonContainer}>
+            {item.variants.edges.map((variant) => (
+              <LmComponentRender
+                key={variant.node.id}
+                onClick={() => {
+                  onVariantSelect({ ...variant.node, productTitle: item.title })
+                }}
+                content={
+                  {
+                    component: 'button',
+                    variant:
+                      selectedVariant?.id === variant.node.id
+                        ? 'unelevated'
+                        : 'outlined',
+                    ...(selectedVariant?.id === variant.node.id
+                      ? config?.product_active_variant?.length
+                        ? config.product_active_variant[0]
+                        : {}
+                      : config?.product_variant?.length
+                      ? config.product_variant[0]
+                      : {}),
+                    label: variant.node.title
+                  } as ButtonStoryblok
+                }
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   )
 }

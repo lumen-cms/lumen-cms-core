@@ -9,6 +9,7 @@ import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
 import { LmPage } from '../page/Page'
+import GoogleFont from '../layout/GoogleFont'
 
 function PageContainer() {
   const { asPath, replace, locale, defaultLocale } = useRouter()
@@ -42,7 +43,7 @@ const PageAuthContainer: FC = withAuthenticationRequired(PageContainer)
 
 export function Auth0Page(props: LmPagesIndexProps) {
   const { isPreview } = useRouter() || {}
-  const { settings, page, error } = props
+  const { settings, page, error, googleFontString } = props
 
   if (error || !settings || !page) {
     return <Error statusCode={500} title="Error occured or no settings found" />
@@ -53,6 +54,7 @@ export function Auth0Page(props: LmPagesIndexProps) {
       <AppSeo />
       <AppHead />
       <Layout>{isPreview ? <LmPage /> : <PageAuthContainer />}</Layout>
+      <GoogleFont googleFontString={googleFontString} />
     </>
   )
 }

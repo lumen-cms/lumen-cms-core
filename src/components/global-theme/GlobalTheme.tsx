@@ -175,8 +175,8 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
         },
         MuiAppBar: {
           root: {
-            '& .MuiToolbar-root': {
-              padding: '12px 0'
+            '& .MuiToolbar-root, & .MuiContainer-root': {
+              height: '100%'
             },
 
             '& .lm-logo-header': {
@@ -187,14 +187,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
                 display: 'inline-flex',
                 alignItems: 'center'
               },
-              '& figure': {
-                boxSizing: 'border-box'
-              },
               '& .MuiCollapse-wrapper': {
-                height: '100%'
-              },
-              '& img': {
-                display: 'block',
                 height: '100%'
               }
             },
