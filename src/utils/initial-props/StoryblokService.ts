@@ -63,7 +63,7 @@ class StoryblokServiceClass {
     } else if (
       this.getQuery('_storyblok') ||
       this.devMode ||
-      (typeof window !== 'undefined' && window.storyblok)
+      (typeof window !== 'undefined' && window.StoryblokBridge)
     ) {
       params.version = 'draft'
       this.client.setToken(CONFIG.previewToken)

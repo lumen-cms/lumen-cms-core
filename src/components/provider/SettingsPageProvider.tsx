@@ -5,6 +5,7 @@ import React, {
   useEffect,
   useState
 } from 'react'
+import { useRouter } from 'next/router'
 import {
   GlobalStoryblok,
   PageStoryblok
@@ -17,8 +18,10 @@ export const SettingsPageProvider: FC<{
   settings: GlobalStoryblok
   page?: PageStoryblok | null
 }> = ({ settings, page, children }) => {
+  const { isPreview } = useRouter() || {}
   const [stateSettings, setSettings] = useState(settings)
   const [statePage, setPage] = useState<PageStoryblok | null>(page || null)
+
   useEffect(() => {
     if (page && statePage?.uuid !== page?.uuid) {
       setPage(page)
@@ -33,44 +36,48 @@ export const SettingsPageProvider: FC<{
   }, [settings, stateSettings.uuid, setSettings])
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && window.storyblok) {
-      window.storyblok.init()
-      window.storyblok.on(['change'], () => {
-        console.log('change::save triggered')
-        window.location.reload()
-      })
-      window.storyblok.on(['published', 'unpublished'], () => {
-        console.log('published triggered')
-        window.location.reload()
-      })
+    // only load inside preview mode
+    if (isPreview && typeof window !== 'undefined') {
+      // first load the bridge, then initialize the event listeners
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const { StoryblokBridge } = window
 
-      window.storyblok.on('input', (event) => {
-        const newContent = { ...event?.story.content, uuid: event?.story.uuid }
-        if (
-          event?.story.content.component === 'page' &&
-          event?.story.uuid === page?.uuid
-        ) {
-          console.log('input::input content changed')
-          const newPage = window.storyblok.addComments(
-            newContent,
-            event?.story.id
-          ) as PageStoryblok
-          setPage(newPage)
-        }
-        if (
-          event?.story.content.component === 'global' &&
-          event?.story.uuid === settings?.uuid
-        ) {
-          console.log('input::input settings changed')
-          const newSettings = window.storyblok.addComments(
-            newContent,
-            event?.story.id
-          ) as GlobalStoryblok
-          setSettings(newSettings)
-        }
-      })
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (typeof StoryblokBridge !== 'undefined') {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const storyblokInstance = new StoryblokBridge()
+
+        storyblokInstance.on(['change', 'published', 'unpublished'], () => {
+          console.log('published triggered')
+          window.location.reload()
+        })
+
+        storyblokInstance.on('input', (event: any) => {
+          const newContent = {
+            ...event?.story.content,
+            uuid: event?.story.uuid
+          }
+          if (
+            event?.story.content.component === 'page' &&
+            event?.story.uuid === page?.uuid
+          ) {
+            setPage(newContent)
+          }
+          if (
+            event?.story.content.component === 'global' &&
+            event?.story.uuid === settings?.uuid
+          ) {
+            setSettings(newContent)
+          }
+        })
+      }
     }
-  }, [page?.uuid, settings?.uuid, setSettings, setPage])
+    // eslint-disable-next-line
+  }, [])
+
   return (
     <SettingsContext.Provider value={stateSettings}>
       <PageContext.Provider value={statePage as PageStoryblok}>

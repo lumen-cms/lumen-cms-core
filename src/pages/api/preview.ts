@@ -19,5 +19,13 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
       cookie.replace('SameSite=Lax', 'SameSite=None')
     )
   )
-  res.redirect(`${slug.startsWith('/') ? slug : `/${slug}`}`)
+  const params = new URLSearchParams()
+  Object.keys(req.query).forEach((key) => {
+    if (!['secret', 'slug'].includes(key)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      params.append(key, req.query[key])
+    }
+  })
+  res.redirect(`/${slug}?${params.toString()}`)
 }
