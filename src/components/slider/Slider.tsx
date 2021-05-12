@@ -1,5 +1,6 @@
 import SwipeableViews from 'react-swipeable-views'
-import React, { CSSProperties, useState } from 'react'
+import { autoPlay } from 'react-swipeable-views-utils'
+import { CSSProperties, useState } from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -23,6 +24,8 @@ const chunkArray = (myArray: any, chunkSize: number) => {
   }
   return results
 }
+
+const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
 export const useStyles = makeStyles({
   carousel: {
@@ -125,10 +128,12 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
       )}
       style={styles}
     >
-      <SwipeableViews
+      <AutoPlaySwipeableViews
         index={slide}
         animateTransitions={!content.disable_transition}
-        onChangeIndex={(i) => setSlide(i)}
+        autoplay={!!content.autoslide}
+        interval={content.autoslide ? Number(content.autoslide) : undefined}
+        onChangeIndex={(i: any) => setSlide(i)}
       >
         {wrapInColumns
           ? body.map((child, index) => {
@@ -152,7 +157,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
               }
               return <LmComponentRender content={item} key={item._uid} />
             })}
-      </SwipeableViews>
+      </AutoPlaySwipeableViews>
       {!['hide_arrows', 'arrows_beside_pagination'].some((i) =>
         properties.includes(i as any)
       ) && (

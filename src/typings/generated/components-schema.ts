@@ -2120,6 +2120,7 @@ export interface SliderStoryblok {
     rgba?: string;
     [k: string]: any;
   };
+  autoslide?: number;
   _uid: string;
   component: "slider";
   [k: string]: any;
