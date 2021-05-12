@@ -14,6 +14,12 @@ import {
 const SettingsContext = createContext<GlobalStoryblok>({} as GlobalStoryblok)
 const PageContext = createContext<PageStoryblok>({} as PageStoryblok)
 
+declare global {
+  interface Window {
+    StoryblokBridge: any
+  }
+}
+
 export const SettingsPageProvider: FC<{
   settings: GlobalStoryblok
   page?: PageStoryblok | null
@@ -39,15 +45,10 @@ export const SettingsPageProvider: FC<{
     // only load inside preview mode
     if (isPreview && typeof window !== 'undefined') {
       // first load the bridge, then initialize the event listeners
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+
       const { StoryblokBridge } = window
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       if (typeof StoryblokBridge !== 'undefined') {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         const storyblokInstance = new StoryblokBridge()
 
         storyblokInstance.on(['change', 'published', 'unpublished'], () => {
