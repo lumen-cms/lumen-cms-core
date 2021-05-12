@@ -43,7 +43,7 @@ export function LmIcon({ content, onClick }: LmIconProps): JSX.Element {
   return (
     <div
       className={clsx(content.class_names?.values, {
-        [classes[content.size as string]]: !!content.size
+        [classes[content.size || 'medium']]: true
       })}
     >
       <LmIconMwc
@@ -51,7 +51,7 @@ export function LmIcon({ content, onClick }: LmIconProps): JSX.Element {
           onClick && onClick()
         }}
         className={clsx(classes.icon, {
-          [classes[content.size as string]]: !!content.size
+          [classes[content.size || 'medium']]: true
         })}
         iconUrl={content.icon_url}
         style={{
