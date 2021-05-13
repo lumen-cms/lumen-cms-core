@@ -1,4 +1,3 @@
-import { LmComponentRender as LmMenu } from '@LmComponentRender'
 import {
   NavMenuItemStoryblok,
   NavMenuStoryblok,
@@ -7,6 +6,12 @@ import {
 import { columns } from '../../storybook/section'
 import { storyMenu, storyMenuItem } from '../../storybook/core/various'
 import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { LmMenu } from './NavMenu'
+
+export default {
+  title: 'Design/Navigation/Menu',
+  component: LmMenu
+}
 
 const props: NavMenuStoryblok = {
   _uid: '123',
@@ -37,10 +42,6 @@ const columnSection: NavMenuStoryblok = {
       component: 'row'
     }
   ] as RowStoryblok[]
-}
-
-export default {
-  title: 'Design/Navigation/Menu'
 }
 
 export const Presets = () => (
@@ -89,6 +90,74 @@ export const Basic = () => (
     </div>
   </>
 )
+
+export const Alignment = () => (
+  <div>
+    <LmMenu
+      content={{
+        ...props
+      }}
+      initialOpen
+    />
+    <div className="text-center">
+      <LmMenu
+        content={{
+          ...props,
+          _uid: 'randasdfas',
+          alignment: 'bottomEnd',
+          border_radius: '16px 0px'
+        }}
+        initialOpen
+      />
+    </div>
+    <div className="text-right">
+      <LmMenu
+        content={{
+          ...props,
+          _uid: '23234',
+          alignment: 'bottomStart',
+          border_radius: '0px'
+        }}
+        initialOpen
+      />
+    </div>
+    <div className="mt-5">
+      <LmMenu
+        content={{
+          ...props,
+          _uid: '123123',
+          alignment: 'bottomEnd',
+          outlined: true
+        }}
+        initialOpen
+      />
+    </div>
+    <div className="text-center">
+      <LmMenu
+        content={{
+          ...props,
+          _uid: '1221123234',
+          alignment: 'bottomStart',
+          border_radius: '0px',
+          outlined: true
+        }}
+        initialOpen
+      />
+    </div>
+    <div className="text-right">
+      <LmMenu
+        content={{
+          ...props,
+          _uid: '45345',
+          alignment: 'bottomStart',
+          elevation: 1
+        }}
+        initialOpen
+      />
+    </div>
+  </div>
+)
+
 export const MegaMenu = () => (
   <>
     <LmMenu
@@ -100,6 +169,34 @@ export const MegaMenu = () => (
     />
   </>
 )
+
+export const MegaMenuOpened = () => (
+  <div>
+    <LmMenu
+      content={{
+        ...columnSection,
+        alignment: 'bottomEnd',
+        border_radius: '16px 0px'
+      }}
+      initialOpen
+    />
+  </div>
+)
+
+export const OnHover = () => (
+  <div>
+    <LmMenu
+      content={{
+        ...props,
+        _uid: '45345',
+        alignment: 'bottomStart',
+        elevation: 4,
+        open_on_hover: true
+      }}
+    />
+  </div>
+)
+
 export const Playground = () => (
   <div className="text-center p-5">
     <LmMenu

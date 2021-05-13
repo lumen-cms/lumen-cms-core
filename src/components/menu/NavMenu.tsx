@@ -6,10 +6,11 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import { useRouter } from 'next/router'
-import { Popover } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import { useEffectOnce } from 'react-use'
+import clsx from 'clsx'
+import { Popover } from '@material-ui/core'
 import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
@@ -21,11 +22,13 @@ const useStyles = makeStyles({
   })
 })
 
-export function LmMenu({ content }: LmMenuProps): JSX.Element {
+export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
   const classes = useStyles(content)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [active, setActive] = useState<boolean>(false)
   const menuItems = content.body || []
+  const triggerClassName = `lm-menu-trigger_${content._uid}`
+
   const isCustom =
     menuItems.length && menuItems[0].component !== 'nav_menu_item'
   const { asPath } = useRouter() || {}
@@ -33,7 +36,18 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
   const handleClose = () => {
     setAnchorEl(null)
   }
-
+  useEffect(() => {
+    if (initialOpen) {
+      const el = document.querySelector<HTMLButtonElement>(
+        `.${triggerClassName}`
+      )
+      if (el) {
+        setTimeout(() => {
+          setAnchorEl(el)
+        })
+      }
+    }
+  }, [initialOpen, setAnchorEl, triggerClassName])
   useEffectOnce(() => {
     if (isCustom) {
       menuItems.forEach((blok) => {
@@ -54,7 +68,7 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
   }, [asPath])
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
+    setAnchorEl(anchorEl ? null : event.currentTarget)
   }
 
   let addons = {}
@@ -109,17 +123,22 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
       <ChevronUp />
     )
   // const StartIcon = content.start_icon?.name ? <LmIcon iconName={content.start_icon.name} /> : null
+  const Wrap = isCustom ? Popover : Menu
   return (
     <>
       {content.title_custom?.length ? (
-        content.title_custom.map((blok) => (
-          <LmComponentRender
-            content={blok}
-            key={blok._uid}
-            onClick={handleClick}
-            className={active ? 'lm_menu_active' : ''}
-          />
-        ))
+        content.title_custom.map((blok) => {
+          return (
+            <LmComponentRender
+              content={blok}
+              key={blok._uid}
+              onClick={handleClick}
+              className={clsx(triggerClassName, {
+                lm_menu_active: active
+              })}
+            />
+          )
+        })
       ) : (
         <Button
           endIcon={anchorEl ? CloseIcon : ExpandIcon}
@@ -130,39 +149,36 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
           }
           aria-controls="simple-menu"
           aria-haspopup="true"
-          className={`lm-default-color${active ? ` lm_menu_active` : ''}`}
+          className={clsx(triggerClassName, 'lm-default-color', {
+            lm_menu_active: active
+          })}
+          onMouseOver={content.open_on_hover ? handleClick : undefined}
           onClick={handleClick}
         >
           {content.title}
         </Button>
       )}
-      {isCustom ? (
-        <Popover
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          anchorEl={anchorEl}
-          classes={{
-            paper: classes.paper
-          }}
-          {...addons}
-        >
+      <Wrap
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        anchorEl={anchorEl}
+        PaperProps={{
+          variant: content.outlined ? 'outlined' : undefined,
+          elevation: content.elevation ? Number(content.elevation) : 8
+        }}
+        classes={{
+          paper: classes.paper
+        }}
+        {...addons}
+      >
+        {isCustom ? (
           <div style={{ padding: 16 }}>
             {menuItems.map((blok) => {
               return <LmComponentRender content={blok} key={blok._uid} />
             })}
           </div>
-        </Popover>
-      ) : (
-        <Menu
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          anchorEl={anchorEl}
-          classes={{
-            paper: classes.paper
-          }}
-          {...addons}
-        >
-          {menuItems.map((nestedProps) => {
+        ) : (
+          menuItems.map((nestedProps) => {
             const btnProps: any =
               nestedProps.link?.cached_url ||
               nestedProps.link?.url ||
@@ -185,9 +201,9 @@ export function LmMenu({ content }: LmMenuProps): JSX.Element {
                 {nestedProps.label}
               </MenuItem>
             )
-          })}
-        </Menu>
-      )}
+          })
+        )}
+      </Wrap>
     </>
   )
 }
