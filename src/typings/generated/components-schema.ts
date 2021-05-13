@@ -1591,11 +1591,11 @@ export interface NavListStoryblok {
 }
 
 export interface NavMenuStoryblok {
-  title?: string;
-  title_custom?: (ButtonStoryblok | HeadlineStoryblok | ImageStoryblok)[];
-  body?: (NavMenuItemStoryblok | RowStoryblok | NavMenuStoryblok)[];
   alignment?: "bottomStart" | "bottomEnd" | "bottomCenter";
+  open_on_hover?: boolean;
+  outlined?: boolean;
   border_radius?: string;
+  elevation?: number;
   start_icon?: {
     name?: string;
     [k: string]: any;
@@ -1608,6 +1608,9 @@ export interface NavMenuStoryblok {
     name?: string;
     [k: string]: any;
   };
+  title?: string;
+  title_custom?: (ButtonStoryblok | HeadlineStoryblok | ImageStoryblok)[];
+  body?: (NavMenuItemStoryblok | RowStoryblok | NavMenuStoryblok)[];
   class_names?: {
     values?: string[];
     [k: string]: any;

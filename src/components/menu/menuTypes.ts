@@ -1,3 +1,6 @@
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 
-export type LmMenuProps = { content: NavMenuStoryblok }
+export type LmMenuProps = {
+  content: NavMenuStoryblok
+  initialOpen?: boolean
+}
