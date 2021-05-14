@@ -34,6 +34,17 @@ describe('Test Instagram', () => {
     expect(res.error).toBeUndefined()
   })
 
+  test('test old school', async () => {
+    const url = `https://www.instagram.com/upskillbali/?__a=1`
+    const response = await fetch(url, {
+      headers: {
+        'user-agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36'
+      }
+    }).then((r) => r.json())
+    console.log(response)
+  })
+
   test('another try', async () => {
     const res = await fetch(
       `https://graph.facebook.com/v10.0/${user.biophilia.id}?fields=id,media_type,media_url,owner,timestamp&access_token=${user.biophilia.token}`
