@@ -16,7 +16,7 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     (cookies || []).map((cookie) =>
-      cookie.replace('SameSite=Lax', 'SameSite=None')
+      cookie.replace('SameSite=Lax', 'SameSite=None;Secure')
     )
   )
   const params = new URLSearchParams()

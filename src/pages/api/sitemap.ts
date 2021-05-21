@@ -14,7 +14,7 @@ export default async function sitemapApi(
   try {
     const stories: PageItem[] = await getAllStoriesOfProject()
     const smStream = new SitemapStream({
-      hostname: `https://${req.headers.host}`
+      hostname: `https://${process.env.SITEMAP_HOSTNAME || req.headers.host}`
     })
     let locale: string
     if (process.env.LOCALE_DOMAIN_MAP) {
