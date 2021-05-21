@@ -34,10 +34,8 @@ export const ListSearchAutocompleteContainer: FunctionComponent<{
   const [bgColor, setBgColor] = useState<string | undefined>()
   useEffect(() => {
     if (isMobileAction) {
-      const toolbar:
-        | HTMLDivElement
-        | null
-        | undefined = inputRef.current?.closest('.MuiAppBar-root')
+      const toolbar: HTMLDivElement | null | undefined =
+        inputRef.current?.closest('.MuiAppBar-root')
       const bg =
         toolbar && window.getComputedStyle(toolbar, null).backgroundColor
       setBgColor(bg || undefined)

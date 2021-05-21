@@ -40,9 +40,8 @@ export const imageCalculateWidthHeight = (
   storyblokImageSource: string,
   options?: { sizeIsHeight?: boolean }
 ): { width: number; height: number } => {
-  const originalImageDimensions = getOriginalImageDimensions(
-    storyblokImageSource
-  )
+  const originalImageDimensions =
+    getOriginalImageDimensions(storyblokImageSource)
   const ratio = originalImageDimensions.height / originalImageDimensions.width
   if (ratio < 1 || options?.sizeIsHeight) {
     return {

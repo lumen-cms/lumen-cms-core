@@ -50,9 +50,8 @@ export default function useBackgroundBox(
       : {}
 
   const className = clsx(background?.classNames?.values, {
-    [shadowClasses[
-      background?.shadow_effect || ''
-    ]]: !!background?.shadow_effect,
+    [shadowClasses[background?.shadow_effect || '']]:
+      !!background?.shadow_effect,
     [customClasses.advanced]: styles?.length,
     [customClasses.advancedMobile]: stylesMobile?.length,
     [customClasses.advancedTablet]: stylesTablet?.length,

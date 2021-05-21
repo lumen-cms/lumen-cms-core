@@ -107,9 +107,8 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
             component="a"
             classes={{
               tile: clsx({
-                [classesShadow[
-                  content.shadow_effect || ''
-                ]]: !!content.shadow_effect
+                [classesShadow[content.shadow_effect || '']]:
+                  !!content.shadow_effect
               })
             }}
             href={`https://instagram.com/p/${item.shortcode}`}

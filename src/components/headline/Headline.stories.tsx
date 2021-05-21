@@ -248,8 +248,7 @@ export const AlternativeConfig = () => (
     <LmHeadline
       content={{
         ...props3,
-        text:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam enim nulla, ultricies eget posuere vel, accumsan quis eros. Nulla mattis risus sed sapien feugiat malesuada. Suspendisse porta nisi non risus efficitur, ac blandit orci cursus. Integer congue nulla massa, ac commodo lorem sollicitudin et. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis eget feugiat lacus. Ut vehicula in lectus sed hendrerit.',
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam enim nulla, ultricies eget posuere vel, accumsan quis eros. Nulla mattis risus sed sapien feugiat malesuada. Suspendisse porta nisi non risus efficitur, ac blandit orci cursus. Integer congue nulla massa, ac commodo lorem sollicitudin et. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis eget feugiat lacus. Ut vehicula in lectus sed hendrerit.',
         tag: 'p',
         line_height: '2em'
       }}

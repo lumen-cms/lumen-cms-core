@@ -102,9 +102,8 @@ const LmTopAppContainer: FC = ({ children }) => {
         'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
         [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
         [classes.leftShift]: showLeftShift,
-        [classes[
-          `left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`
-        ]]: showLeftShift
+        [classes[`left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`]]:
+          showLeftShift
       })}
       style={{
         background: settings.toolbar_background ?? undefined,

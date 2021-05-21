@@ -40,9 +40,8 @@ const FooterContainer: FunctionComponent = ({ children }) => {
     <footer
       className={clsx(classes.footer, {
         [classes.leftShift]: hasLeftShift,
-        [classes[
-          `left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`
-        ]]: hasLeftShift
+        [classes[`left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`]]:
+          hasLeftShift
       })}
     >
       {children}

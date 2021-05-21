@@ -20,10 +20,8 @@ export const LmShopifySdkProvider: FC = ({ children }) => {
     (i) => i.component === 'ecommerce_shopify_config'
   ) as EcommerceShopifyConfigStoryblok
   const checkoutLinkRef = useRef<HTMLAnchorElement | null>(null)
-  const [
-    selectedVariant,
-    setSelectedVariant
-  ] = useState<ShopifyProductFragment>()
+  const [selectedVariant, setSelectedVariant] =
+    useState<ShopifyProductFragment>()
   const [cartVariants, setCartVariants] = useState<
     {
       quantity: number

@@ -2,9 +2,10 @@ import { createContext, useContext } from 'react'
 import { EcommerceShopifyConfigStoryblok } from '../../../../typings/generated/components-schema'
 import { ProductFragment } from '../../../../typings/generated/shopify-schema'
 
-export type ShopifyProductFragment = ProductFragment['variants']['edges'][0]['node'] & {
-  productTitle: string
-}
+export type ShopifyProductFragment =
+  ProductFragment['variants']['edges'][0]['node'] & {
+    productTitle: string
+  }
 export type ShopifySdkContextProps = {
   selectedVariant?: ShopifyProductFragment
   onVariantSelect: (data: ShopifyProductFragment) => void

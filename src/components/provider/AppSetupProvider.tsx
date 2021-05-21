@@ -7,11 +7,8 @@ import { useNavigationStore } from '../../utils/state/navigationState'
 const AppSetupProvider: FC = ({ children }) => {
   const { isMobile } = useDeviceDimensions()
   const settings = useSettings()
-  const {
-    drawer_variant,
-    drawer_below_toolbar,
-    drawer_below_toolbar_xs
-  } = settings
+  const { drawer_variant, drawer_below_toolbar, drawer_below_toolbar_xs } =
+    settings
   useEffect(() => {
     let dV: DrawerProps['variant'] =
       isMobile && drawer_below_toolbar_xs ? 'persistent' : 'temporary'
