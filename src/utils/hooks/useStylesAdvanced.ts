@@ -117,7 +117,7 @@ export const useStylesAdvanced = makeStyles((theme: Theme) => ({
       return {} as CreateCSSProperties
     }
     return {
-      [theme.breakpoints.between('sm', 'md')]: {
+      [theme.breakpoints.only('sm')]: {
         ...getStyles(propsTablet[0], theme)
       }
     }
