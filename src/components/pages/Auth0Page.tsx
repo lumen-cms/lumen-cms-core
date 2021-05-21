@@ -17,6 +17,7 @@ function PageContainer() {
 
   useEffect(() => {
     if (
+      user &&
       !hasAuth0PathCredentials(asPath, user, {
         locale,
         defaultLocale

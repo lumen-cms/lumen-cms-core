@@ -14,14 +14,14 @@ export function LmComponentRender<P>(
   if (typeof LmCoreComponents[content.component] !== 'undefined') {
     const CurrentElement = React.createElement(
       LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,
-      ({
+      {
         content,
         key:
           typeof i === 'number'
             ? `${content.component}_${content._uid || i}`
             : undefined,
         ...rest
-      } as unknown) as Attributes & P
+      } as unknown as Attributes & P
     )
     if (isPreview) {
       return <SbEditable content={content}>{CurrentElement}</SbEditable>

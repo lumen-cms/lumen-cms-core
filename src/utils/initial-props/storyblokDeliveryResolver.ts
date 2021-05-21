@@ -112,22 +112,17 @@ export const apiRequestResolver = async ({
   //   CONFIG.previewToken
   // }&no_cache=true${locale ? `&locale=${locale}` : ''}`
   const currentSlug = `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
-  const [
-    page,
-    settings,
-    allCategories,
-    allStories,
-    allStaticContent
-  ] = await resolveAllPromises([
-    LmStoryblokService.get(currentSlug),
-    LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath })),
-    LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    // insideStoryblok || process.env.NODE_ENV !== 'production'
-    //   ? fetch(cdnUrl).then((r) => r.json())
-    //   : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
-    LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
-    LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
-  ])
+  const [page, settings, allCategories, allStories, allStaticContent] =
+    await resolveAllPromises([
+      LmStoryblokService.get(currentSlug),
+      LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath })),
+      LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
+      // insideStoryblok || process.env.NODE_ENV !== 'production'
+      //   ? fetch(cdnUrl).then((r) => r.json())
+      //   : LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
+      LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),
+      LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
+    ])
   let notFoundLocale
   if (CONFIG.suppressSlugLocale && !page && Array.isArray(options.locales)) {
     const [, ...languagesWithoutDefault] = options.locales // make sure default language is always first of array

@@ -66,9 +66,8 @@ const getStyles = (
     }`
     if (content.border_position?.length) {
       content.border_position.forEach((key) => {
-        cssRules[`border${capitalizeFirstLetter(key)}`] = addImportant(
-          borderStr
-        )
+        cssRules[`border${capitalizeFirstLetter(key)}`] =
+          addImportant(borderStr)
       })
     } else {
       cssRules.border = addImportant(borderStr)
@@ -117,7 +116,7 @@ export const useStylesAdvanced = makeStyles((theme: Theme) => ({
       return {} as CreateCSSProperties
     }
     return {
-      [theme.breakpoints.between('sm', 'md')]: {
+      [theme.breakpoints.only('sm')]: {
         ...getStyles(propsTablet[0], theme)
       }
     }

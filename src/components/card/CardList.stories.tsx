@@ -32,9 +32,8 @@ const Template: Story<LmCardListProps['content']> = (args) => (
   <LmCardList content={args} />
 )
 
-const presetContent = findFirstPreset<LmCardListProps['content']>(
-  COMPONENT_NAME
-)
+const presetContent =
+  findFirstPreset<LmCardListProps['content']>(COMPONENT_NAME)
 
 export const Basic = Template.bind({})
 Basic.args = {

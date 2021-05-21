@@ -22,12 +22,13 @@ const useStyles = makeStyles({
     }
   },
   dark: {
-    '& .MuiButton-root.lm-default-color, & .MuiIconButton-root.lm-default-color': {
-      color: 'inherit',
-      '&.MuiButton-outlined,&.lm-outlined': {
-        borderColor: 'currentColor'
+    '& .MuiButton-root.lm-default-color, & .MuiIconButton-root.lm-default-color':
+      {
+        color: 'inherit',
+        '&.MuiButton-outlined,&.lm-outlined': {
+          borderColor: 'currentColor'
+        }
       }
-    }
   }
 })
 

@@ -11,9 +11,8 @@ import AppProvider from '../provider/AppProvider'
 
 const COMPONENT_NAME = 'form'
 
-const presetContent = findFirstPreset<LmGoogleFormProps['content']>(
-  COMPONENT_NAME
-)
+const presetContent =
+  findFirstPreset<LmGoogleFormProps['content']>(COMPONENT_NAME)
 
 export default {
   title: 'Design/Inputs/GoogleForm',

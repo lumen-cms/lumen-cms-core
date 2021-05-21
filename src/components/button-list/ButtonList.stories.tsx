@@ -25,9 +25,8 @@ const Template: Story<LmButtonListProps['content']> = (args) => (
   <LmButtonList content={args} />
 )
 
-const presetContent = findFirstPreset<LmButtonListProps['content']>(
-  'button_list'
-)
+const presetContent =
+  findFirstPreset<LmButtonListProps['content']>('button_list')
 
 export const Basic = Template.bind({})
 Basic.args = {

@@ -25,7 +25,8 @@ export default function LmIframe({ content }: LmIframeProps): JSX.Element {
       ref={refIntersectionObserver}
       className={clsx({
         'embed-responsive': !!content.responsive_ratio,
-        [`embed-responsive-${content.responsive_ratio}`]: !!content.responsive_ratio
+        [`embed-responsive-${content.responsive_ratio}`]:
+          !!content.responsive_ratio
       })}
       style={{
         height: content.full_height ? '100%' : undefined

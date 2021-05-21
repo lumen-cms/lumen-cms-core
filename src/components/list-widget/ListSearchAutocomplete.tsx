@@ -95,10 +95,12 @@ const useStyles = makeStyles((theme: Theme) =>
 const fetcher = async (
   path: string,
   searchterm: string,
-  locale?: string
+  locale?: string,
+  locales?: string
 ): Promise<StoryData<PageComponent>[]> => {
   const isDev = process.env.NODE_ENV === 'development'
   const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
+  // const url = new URL(`http://localhost:3001${path}`)
   const url = new URL(`https://cdn-api.lumen.media${path}`)
   url.searchParams.append('token', token)
   url.searchParams.append('searchterm', searchterm)
@@ -108,6 +110,10 @@ const fetcher = async (
   if (locale) {
     url.searchParams.append('locale', locale)
   }
+  if (locales) {
+    url.searchParams.append('locales', locales)
+  }
+  console.log(url.toString())
 
   const stories = await fetch(url.toString()).then((r) => r.json())
   return stories
@@ -118,7 +124,7 @@ export default function LmListSearchAutocomplete({
 }: LmListSearchAutocompleteProps): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>()
   const classes = useStyles()
-  const { defaultLocale, locale } = useRouter() || {}
+  const { defaultLocale, locale, locales } = useRouter() || {}
   const inputRef: RefObject<HTMLInputElement> = createRef()
   const [open, setOpen] = useState<boolean | undefined>()
   const theme = useTheme()
@@ -140,8 +146,13 @@ export default function LmListSearchAutocomplete({
     setSearchTerm(value)
     setOpen(true)
   }, 400)
+  const additionalLocales = locales
+    ?.filter((i) => i !== defaultLocale)
+    .join(',')
   const { data } = useSWR(
-    searchTerm ? [`/api/search-stories`, searchTerm, prefixLocale] : null,
+    searchTerm
+      ? [`/api/search-stories`, searchTerm, prefixLocale, additionalLocales]
+      : null,
     fetcher
   )
   const allStories = data || []

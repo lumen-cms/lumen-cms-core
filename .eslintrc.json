@@ -10,7 +10,8 @@
     "/jest*"
   ],
   "extends": [
-    "airbnb-typescript-prettier"
+    "airbnb-typescript-prettier",
+    "plugin:prettier/recommended"
   ],
   "globals": {
     "gtag": false,

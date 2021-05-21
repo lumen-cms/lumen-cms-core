@@ -1,7 +1,7 @@
 import { CONFIG } from '@CONFIG'
-import { IClaims } from '../../typings/app'
+import { User } from '@auth0/auth0-react'
 
-export const hasAuth0Credentials = (roles: string[], user: IClaims) => {
+export const hasAuth0Credentials = (roles: string[], user: User) => {
   const userCurrentRoles =
     user[process.env.NEXT_PUBLIC_AUTH_PERMISSION as string] || []
   if (!userCurrentRoles.length) {
@@ -23,7 +23,7 @@ export const hasAuth0Credentials = (roles: string[], user: IClaims) => {
 
 export const hasAuth0PathCredentials = (
   routeParams: string | string[] | undefined,
-  user: IClaims,
+  user: User,
   options: { locale?: string; defaultLocale?: string }
 ) => {
   let currentPath = Array.isArray(routeParams)

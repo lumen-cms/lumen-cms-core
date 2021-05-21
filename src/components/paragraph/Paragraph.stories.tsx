@@ -53,8 +53,7 @@ const rte = {
             {
               type: 'link',
               attrs: {
-                href:
-                  '/interning-to-bali-have-you-got-these-documents-prepared',
+                href: '/interning-to-bali-have-you-got-these-documents-prepared',
                 uuid: '2b53d62f-7420-4eb6-aff1-1a79b01fd6f3',
                 target: null,
                 linktype: 'story'
@@ -69,8 +68,7 @@ const rte = {
             {
               type: 'link',
               attrs: {
-                href:
-                  '/interning-to-bali-have-you-got-these-documents-prepared',
+                href: '/interning-to-bali-have-you-got-these-documents-prepared',
                 uuid: '2b53d62f-7420-4eb6-aff1-1a79b01fd6f3',
                 target: null,
                 linktype: 'story'
