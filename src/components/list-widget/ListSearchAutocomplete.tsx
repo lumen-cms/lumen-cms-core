@@ -100,8 +100,8 @@ const fetcher = async (
 ): Promise<StoryData<PageComponent>[]> => {
   const isDev = process.env.NODE_ENV === 'development'
   const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
-  const url = new URL(`http://localhost:3001${path}`)
-  // const url = new URL(`https://cdn-api.lumen.media${path}`)
+  // const url = new URL(`http://localhost:3001${path}`)
+  const url = new URL(`https://cdn-api.lumen.media${path}`)
   url.searchParams.append('token', token)
   url.searchParams.append('searchterm', searchterm)
   if (isDev) {
@@ -153,10 +153,7 @@ export default function LmListSearchAutocomplete({
     searchTerm
       ? [`/api/search-stories`, searchTerm, prefixLocale, additionalLocales]
       : null,
-    fetcher,
-    {
-      shouldRetryOnError: false
-    }
+    fetcher
   )
   const allStories = data || []
 
