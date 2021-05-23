@@ -1,12 +1,18 @@
-import {
-  DatePickerElement,
-  MultiSelectElement,
-  SelectElement,
-  TextFieldElement
-} from 'react-form-hook-mui'
 import React, { CSSProperties } from 'react'
+import dynamic from 'next/dynamic'
 import { StructuredFormFieldProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 import { LmGoogleFormProps } from './googleFormProps'
+
+const TextFieldElement = dynamic(
+  () => import('react-form-hook-mui/TextFieldElement')
+)
+const SelectElement = dynamic(() => import('react-form-hook-mui/SelectElement'))
+const DatePickerElement = dynamic(
+  () => import('react-form-hook-mui/DatePickerElement')
+)
+const MultiSelectElement = dynamic(
+  () => import('react-form-hook-mui/MultiSelectElement')
+)
 
 type GoogleFormElementProps = {
   formField: StructuredFormFieldProps
@@ -49,7 +55,7 @@ export default function GoogleFormElement({
         required={formField.isRequired}
         parseError={
           options?.error_msg_required
-            ? () => options.error_msg_required
+            ? () => options.error_msg_required as string
             : undefined
         }
       />
@@ -70,7 +76,7 @@ export default function GoogleFormElement({
           required={formField.isRequired}
           parseError={
             options?.error_msg_required
-              ? () => options.error_msg_required
+              ? () => options.error_msg_required as string
               : undefined
           }
           options={formField.answerOptionsList.sort().map((opt) => ({
@@ -101,7 +107,7 @@ export default function GoogleFormElement({
           required={formField.isRequired}
           parseError={
             options?.error_msg_required
-              ? () => options.error_msg_required
+              ? () => options.error_msg_required as string
               : undefined
           }
           menuItems={formField.answerOptionsList.sort().filter((opt) => !!opt)}
@@ -117,7 +123,7 @@ export default function GoogleFormElement({
         required={formField.isRequired}
         parseError={
           options?.error_msg_required
-            ? () => options.error_msg_required
+            ? () => options.error_msg_required as string
             : undefined
         }
         {...baseFieldProps}

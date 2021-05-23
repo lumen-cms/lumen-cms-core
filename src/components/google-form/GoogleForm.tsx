@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment,react/no-array-index-key */
-
 import { CSSProperties, useState } from 'react'
-import { FormContainer } from 'react-form-hook-mui'
+import FormContainer from 'react-form-hook-mui/FormContainer'
+import DateFnsProvider from 'react-form-hook-mui/DateFnsProvider'
 import Typography from '@material-ui/core/Typography'
-import { MuiPickersUtilsProvider } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
 import Alert from '@material-ui/lab/Alert'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmGoogleFormProps } from './googleFormProps'
@@ -14,10 +12,6 @@ import {
 } from '../../typings/generated/components-schema'
 import { GoogleFormDataProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 import GoogleFormElement from './GoogleFormElement'
-
-class LocalizedUtils extends DateFnsUtils {
-  dateFormat = 'P'
-}
 
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
 
@@ -109,7 +103,7 @@ export default function LmGoogleForm({
     <div>
       <Typography variant="h5">{formStructure?.title}</Typography>
       <Typography variant="subtitle1">{formStructure?.description}</Typography>
-      <MuiPickersUtilsProvider utils={LocalizedUtils}>
+      <DateFnsProvider>
         <FormContainer
           defaultValues={defaultValues}
           // @ts-ignore
@@ -146,7 +140,7 @@ export default function LmGoogleForm({
             </div>
           )}
         </FormContainer>
-      </MuiPickersUtilsProvider>
+      </DateFnsProvider>
     </div>
   )
 }
