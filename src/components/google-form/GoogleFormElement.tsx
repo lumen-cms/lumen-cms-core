@@ -1,17 +1,29 @@
 import React, { CSSProperties } from 'react'
 import dynamic from 'next/dynamic'
+import {
+  DatePickerElementProps,
+  MultiSelectElementProps,
+  SelectElementProps,
+  TextFieldElementProps
+} from 'react-form-hook-mui'
 import { StructuredFormFieldProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 import { LmGoogleFormProps } from './googleFormProps'
 
-const TextFieldElement = dynamic(
-  () => import('react-form-hook-mui/TextFieldElement')
+// @ts-ignore
+const TextFieldElement = dynamic<TextFieldElementProps>(() =>
+  import('react-form-hook-mui').then((mod) => mod.TextFieldElement)
 )
-const SelectElement = dynamic(() => import('react-form-hook-mui/SelectElement'))
-const DatePickerElement = dynamic(
-  () => import('react-form-hook-mui/DatePickerElement')
+// @ts-ignore
+const SelectElement = dynamic<SelectElementProps>(() =>
+  import('react-form-hook-mui').then((mod) => mod.SelectElement)
 )
-const MultiSelectElement = dynamic(
-  () => import('react-form-hook-mui/MultiSelectElement')
+// @ts-ignore
+const DatePickerElement = dynamic<DatePickerElementProps>(() =>
+  import('react-form-hook-mui').then((mod) => mod.DatePickerElement)
+)
+// @ts-ignore
+const MultiSelectElement = dynamic<MultiSelectElementProps>(() =>
+  import('react-form-hook-mui').then((mod) => mod.MultiSelectElement)
 )
 
 type GoogleFormElementProps = {

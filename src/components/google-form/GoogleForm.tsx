@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment,react/no-array-index-key */
-import { CSSProperties, useState } from 'react'
-import FormContainer from 'react-form-hook-mui/FormContainer'
-import DateFnsProvider from 'react-form-hook-mui/DateFnsProvider'
+import { CSSProperties, FC, useState } from 'react'
+import { FormContainer } from 'react-form-hook-mui'
 import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import { LmComponentRender } from '@LmComponentRender'
+import dynamic from 'next/dynamic'
 import { LmGoogleFormProps } from './googleFormProps'
 import {
   ButtonStoryblok,
@@ -13,8 +13,10 @@ import {
 import { GoogleFormDataProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 import GoogleFormElement from './GoogleFormElement'
 
+const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
 
+const SimpleWrap: FC = ({ children }) => <>{children}</>
 export default function LmGoogleForm({
   formStructure,
   content
@@ -98,12 +100,15 @@ export default function LmGoogleForm({
       </Alert>
     )
   }
-
+  const hasDateField = formStructure?.fields?.find(
+    (field) => field.questionTypeCode === 9
+  )
+  const Wrap = hasDateField ? DateFnsProvider : SimpleWrap
   return (
     <div>
       <Typography variant="h5">{formStructure?.title}</Typography>
       <Typography variant="subtitle1">{formStructure?.description}</Typography>
-      <DateFnsProvider>
+      <Wrap>
         <FormContainer
           defaultValues={defaultValues}
           // @ts-ignore
@@ -140,7 +145,7 @@ export default function LmGoogleForm({
             </div>
           )}
         </FormContainer>
-      </DateFnsProvider>
+      </Wrap>
     </div>
   )
 }
