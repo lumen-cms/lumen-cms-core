@@ -51,13 +51,21 @@ const getPageProps = async (
     console.log('PAGE MISSING', slug, pageSlug)
   }
 
-  const finalSettings = settingsProps
-    ? { ...settingsProps, uuid: settings?.data?.story?.uuid }
-    : null
-
-  const props: AppPageProps = {
+  const pageSettingsProps = {
     page: pageProps ? { ...pageProps, uuid: page?.data?.story?.uuid } : null,
-    settings: finalSettings,
+    settings: settingsProps
+      ? { ...settingsProps, uuid: settings?.data?.story?.uuid }
+      : null
+  }
+
+  // @ts-ignore
+  if (pageSettingsProps.page?.component === 'global') {
+    // edge case: in case settings page gets build overwrite default settings
+    // @ts-ignore
+    pageSettingsProps.settings = pageSettingsProps.page
+  }
+  const props: AppPageProps = {
+    ...pageSettingsProps,
     allCategories,
     allStaticContent,
     allStories,

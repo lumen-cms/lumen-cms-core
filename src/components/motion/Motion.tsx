@@ -13,7 +13,11 @@ export default function LmMotion({ content }: LmMotionProps): JSX.Element {
   const options: IntersectionOptions = {
     triggerOnce: true
   }
-  if (content.threshold) {
+  if (
+    content.threshold &&
+    Number(content.threshold) > 0 &&
+    Number(content.threshold) <= 100
+  ) {
     options.threshold = Number((Number(content.threshold) / 100).toFixed(2))
   }
   const [viewRef, inView] = useInView(options)
