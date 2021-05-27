@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useRouter } from 'next/router'
+import { FieldError } from 'react-hook-form'
 import { useAppContext } from '../provider/context/AppContext'
 import { Auth0FormProps } from './authTypes'
 import { auth0Endpoint } from '../../utils/auth0/auth0Helpers'
@@ -39,15 +40,15 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
     }
   }
   const currentLocale = locale || 'de'
-  const parseError = (errorType: string) => {
-    switch (errorType) {
+  const parseError = (fieldError: FieldError) => {
+    switch (fieldError.type) {
       case 'required':
         return translations[currentLocale].error_required
       case 'pattern': {
         return translations[currentLocale].error_email
       }
       default:
-        return `Error: ${errorType}`
+        return fieldError.message
     }
   }
   const onSuccess = async (data: any) => {
