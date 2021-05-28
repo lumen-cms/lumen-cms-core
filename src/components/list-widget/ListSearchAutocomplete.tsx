@@ -26,6 +26,7 @@ import { getLinkAttrs } from '../../utils/linkHandler'
 import { LmListSearchAutocompleteProps } from './listWidgetTypes'
 
 import { ListSearchAutocompleteContainer } from './ListSearchAutocompleteContainer'
+import { match, parse } from './autosuggest'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -91,6 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
+let cacheVersion: number | undefined
 
 const fetcher = async (
   path: string,
@@ -98,25 +100,38 @@ const fetcher = async (
   locale?: string,
   locales?: string
 ): Promise<StoryData<PageComponent>[]> => {
-  const isDev = process.env.NODE_ENV === 'development'
-  const token = isDev ? CONFIG.previewToken : CONFIG.publicToken
-  // const url = new URL(`http://localhost:3001${path}`)
-  const url = new URL(`https://cdn-api.lumen.media${path}`)
-  url.searchParams.append('token', token)
-  url.searchParams.append('searchterm', searchterm)
-  if (isDev) {
-    url.searchParams.append('no_cache', 'true')
+  if (!searchterm) {
+    return []
   }
-  if (locale) {
-    url.searchParams.append('locale', locale)
-  }
-  if (locales) {
-    url.searchParams.append('locales', locales)
-  }
-  console.log(url.toString())
 
-  const stories = await fetch(url.toString()).then((r) => r.json())
-  return stories
+  const v2Url = new URL(`https://api.storyblok.com/v2${path}`)
+  if (cacheVersion) {
+    v2Url.searchParams.append('cv', `${cacheVersion}`)
+  }
+  v2Url.searchParams.append('token', CONFIG.publicToken)
+  v2Url.searchParams.append('filter_query[component][in]', 'page')
+  v2Url.searchParams.append('per_page', '25')
+  v2Url.searchParams.append('sort_by', 'content.preview_title:desc')
+  v2Url.searchParams.append(
+    'excluding_fields',
+    'body,right_body,meta_robots,property,seo_body'
+  )
+  v2Url.searchParams.append('search_term', searchterm)
+  let excluding_slugs = 'demo-content*'
+  if (locale) {
+    v2Url.searchParams.append('starts_with', `${locale}/`)
+  } else if (locales) {
+    excluding_slugs = `${excluding_slugs},${locales
+      .split(',')
+      .map((lang) => `${lang}/*`)
+      .join(',')}`
+  }
+  v2Url.searchParams.append('excluding_slugs', excluding_slugs)
+  const result = await fetch(v2Url.toString()).then((r) => r.json())
+  if (!cacheVersion) {
+    cacheVersion = result.cv
+  }
+  return result.stories || []
 }
 
 export default function LmListSearchAutocomplete({
@@ -151,7 +166,7 @@ export default function LmListSearchAutocomplete({
     .join(',')
   const { data } = useSWR(
     searchTerm
-      ? [`/api/search-stories`, searchTerm, prefixLocale, additionalLocales]
+      ? [`/cdn/stories`, searchTerm, prefixLocale, additionalLocales]
       : null,
     fetcher
   )
@@ -165,6 +180,7 @@ export default function LmListSearchAutocomplete({
       isMobileAction={!!isMobileAction}
     >
       <Autocomplete
+        autoComplete
         fullWidth={content.fullwidth}
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
@@ -192,42 +208,44 @@ export default function LmListSearchAutocomplete({
             [classes.variableWidth]: !isMobileAction
           })
         }}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            size={content.large ? 'medium' : 'small'}
-            variant="outlined"
-            label={content.label || undefined}
-            placeholder={content.placeholder}
-            fullWidth={!!(content.fullwidth || isMobileAction)}
-            inputRef={inputRef}
-            InputProps={{
-              ...params.InputProps,
-              style: {
-                height: content.height ? Number(content.height) : undefined
-              },
-              onFocus: () => {
-                setOpen(true)
-              },
-              onBlur: () => {
-                setOpen(false)
-              },
-              onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
-                callback(event.currentTarget.value),
-              autoComplete: 'new-password',
-              startAdornment: (
-                <InputAdornment position="start">
-                  {' '}
-                  {content.icon?.name ? (
-                    <LmIcon iconName={content.icon.name} />
-                  ) : (
-                    <Magnify />
-                  )}
-                </InputAdornment>
-              )
-            }}
-          />
-        )}
+        renderInput={(params) => {
+          return (
+            <TextField
+              {...params}
+              size={content.large ? 'medium' : 'small'}
+              variant="outlined"
+              label={content.label || undefined}
+              placeholder={content.placeholder}
+              fullWidth={!!(content.fullwidth || isMobileAction)}
+              inputRef={inputRef}
+              InputProps={{
+                ...params.InputProps,
+                style: {
+                  height: content.height ? Number(content.height) : undefined
+                },
+                onFocus: () => {
+                  setOpen(true)
+                },
+                onBlur: () => {
+                  setOpen(false)
+                },
+                onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+                  callback(event.currentTarget.value),
+                autoComplete: 'new-password',
+                startAdornment: (
+                  <InputAdornment position="start">
+                    {' '}
+                    {content.icon?.name ? (
+                      <LmIcon iconName={content.icon.name} />
+                    ) : (
+                      <Magnify />
+                    )}
+                  </InputAdornment>
+                )
+              }}
+            />
+          )
+        }}
         noOptionsText={content.not_found_label}
         getOptionLabel={(option) => option.label}
         PaperComponent={(props) => (
@@ -246,7 +264,7 @@ export default function LmListSearchAutocomplete({
             }}
           />
         )}
-        renderOption={(item) => {
+        renderOption={(item, { inputValue }) => {
           const { href } = getLinkAttrs(
             {
               cached_url: item.full_slug,
@@ -254,6 +272,9 @@ export default function LmListSearchAutocomplete({
             },
             {}
           )
+          const matchValue = match(item.label, inputValue)
+          const parts = parse(item.label, matchValue)
+
           return (
             <MuiNextLink
               href={href}
@@ -261,7 +282,18 @@ export default function LmListSearchAutocomplete({
               key={item.uuid as string}
               prefetch={false}
             >
-              {item.label}
+              {parts.map((part, index) => (
+                <span
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={`${index}`}
+                  style={{
+                    fontWeight: part.highlight ? 700 : undefined,
+                    backgroundColor: part.highlight ? '#fff59d' : undefined
+                  }}
+                >
+                  {part.text}
+                </span>
+              ))}
             </MuiNextLink>
           )
         }}

@@ -1,6 +1,6 @@
-import { LmComponentRender as LmListSearchAutocomplete } from '@LmComponentRender'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 import { storyListSearchAutocomplete } from '../../storybook/layout/toolbar'
+import LmListSearchAutocomplete from './ListSearchAutocomplete'
 
 const props: ListSearchAutocompleteStoryblok = {
   _uid: '123',
@@ -59,6 +59,7 @@ export const Mobile = () => (
     />
   </div>
 )
+
 export const Shaped = () => (
   <div className="p-3">
     <h3>Default:</h3>
@@ -92,7 +93,7 @@ export const Shaped = () => (
         menu_border_radius: '0px',
         large: true,
         shape: 'square',
-        height: '80'
+        height: 80
       }}
     />
     <h3>Fullwidth:</h3>
