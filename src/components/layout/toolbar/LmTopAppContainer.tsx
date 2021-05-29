@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
           '& .logo-img__mobile.logo-img__invert': {
             display: 'block'
           },
-          '& .logo-img__invert:not(.logo-img__mobile)': {
+          '& .logo-img__invert.logo-img__desktop:not(.logo-img__mobile)': {
             display: 'none'
           }
         }
