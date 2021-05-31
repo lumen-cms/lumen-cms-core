@@ -19,9 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.only('xs')]: {
         '& .logo-img__mobile': {
-          display: 'block'
+          display: 'flex'
         },
-        '& .logo-img:not(.logo-img__mobile)': {
+        '& .logo-img__desktop': {
           display: 'none'
         }
       }
@@ -87,7 +87,10 @@ export function LmToolbarLogo(): JSX.Element {
                     (websiteLogoInvert && !isInvert) ||
                     (websiteLogoInvertMobile && !isInvert),
                   'logo-img__invert': isInvert,
-                  'logo-img__mobile': isMobile
+                  'logo-img__mobile': isMobile,
+                  'logo-img__desktop':
+                    (source === websiteLogo && websiteLogoMobile) ||
+                    (source === websiteLogoInvert && !isInvert)
                 })}
                 key={`${source}-${isMobile}-${isInvert}`}
               >

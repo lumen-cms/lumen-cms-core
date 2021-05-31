@@ -3,6 +3,7 @@ import React, { FC } from 'react'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { Collapse } from '@material-ui/core'
 import clsx from 'clsx'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -18,15 +19,11 @@ const useStyles = makeStyles((theme) =>
     },
     beforeCollapse: {
       '& .lm-toolbar__main': {
-        minHeight: theme.toolbar.height.custom
-          ? `${theme.toolbar.height.custom}px`
-          : `${theme.toolbar.height.mobile}px`,
+        minHeight: `${theme.toolbar.height.mobile}px`,
         [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-          minHeight: theme.toolbar.height.custom
-            ? `${Math.round(theme.toolbar.height.custom * 0.86)}px`
-            : `${theme.toolbar.height.landscape}px`
+          minHeight: `${theme.toolbar.height.landscape}px`
         },
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
           minHeight: theme.toolbar.height.custom
             ? `${Math.round(theme.toolbar.height.custom * 1.15)}px`
             : `${theme.toolbar.height.desktop}px`
@@ -40,7 +37,8 @@ const LmAppBarCollapse: FC = ({ children }) => {
   const trigger = useScrollTrigger({ disableHysteresis: true })
   const theme = useTheme()
   const classes = useStyles()
-  if (!theme.toolbar.height.custom) {
+  const matches = useMediaQuery(theme.breakpoints.up('md'))
+  if (!theme.toolbar.height.custom || !matches) {
     return <>{children}</>
   }
   return (

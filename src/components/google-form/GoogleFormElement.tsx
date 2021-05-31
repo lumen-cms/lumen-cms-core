@@ -1,12 +1,30 @@
-import {
-  DatePickerElement,
-  MultiSelectElement,
-  SelectElement,
-  TextFieldElement
-} from 'react-form-hook-mui'
 import React, { CSSProperties } from 'react'
+import dynamic from 'next/dynamic'
+import {
+  DatePickerElementProps,
+  MultiSelectElementProps,
+  SelectElementProps,
+  TextFieldElementProps
+} from 'react-form-hook-mui'
 import { StructuredFormFieldProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 import { LmGoogleFormProps } from './googleFormProps'
+
+// @ts-ignore
+const TextFieldElement = dynamic<TextFieldElementProps>(() =>
+  import('react-form-hook-mui').then((mod) => mod.TextFieldElement)
+)
+// @ts-ignore
+const SelectElement = dynamic<SelectElementProps>(() =>
+  import('react-form-hook-mui').then((mod) => mod.SelectElement)
+)
+// @ts-ignore
+const DatePickerElement = dynamic<DatePickerElementProps>(() =>
+  import('react-form-hook-mui').then((mod) => mod.DatePickerElement)
+)
+// @ts-ignore
+const MultiSelectElement = dynamic<MultiSelectElementProps>(() =>
+  import('react-form-hook-mui').then((mod) => mod.MultiSelectElement)
+)
 
 type GoogleFormElementProps = {
   formField: StructuredFormFieldProps
@@ -49,7 +67,7 @@ export default function GoogleFormElement({
         required={formField.isRequired}
         parseError={
           options?.error_msg_required
-            ? () => options.error_msg_required
+            ? () => options.error_msg_required as string
             : undefined
         }
       />
@@ -70,7 +88,7 @@ export default function GoogleFormElement({
           required={formField.isRequired}
           parseError={
             options?.error_msg_required
-              ? () => options.error_msg_required
+              ? () => options.error_msg_required as string
               : undefined
           }
           options={formField.answerOptionsList.sort().map((opt) => ({
@@ -101,7 +119,7 @@ export default function GoogleFormElement({
           required={formField.isRequired}
           parseError={
             options?.error_msg_required
-              ? () => options.error_msg_required
+              ? () => options.error_msg_required as string
               : undefined
           }
           menuItems={formField.answerOptionsList.sort().filter((opt) => !!opt)}
@@ -117,7 +135,7 @@ export default function GoogleFormElement({
         required={formField.isRequired}
         parseError={
           options?.error_msg_required
-            ? () => options.error_msg_required
+            ? () => options.error_msg_required as string
             : undefined
         }
         {...baseFieldProps}

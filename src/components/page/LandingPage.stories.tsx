@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Story } from '@storybook/react'
 import { CONFIG } from '@CONFIG'
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
 import { SettingsPageProvider } from '../provider/SettingsPageProvider'
 import GlobalTheme from '../global-theme/GlobalTheme'
 import AppProvider from '../provider/AppProvider'
@@ -20,7 +21,14 @@ const defaultOptions = {
 export default {
   title: 'Landing Page/Website',
   parameters: {
-    layout: 'fullscreen'
+    layout: 'fullscreen',
+    // 👇 The viewports object from the Essentials addon
+    viewport: {
+      // 👇 The viewports you want to use
+      viewports: INITIAL_VIEWPORTS
+      // 👇 Your own default viewport
+      // defaultViewport: 'responsive'
+    }
   }
 }
 
@@ -72,8 +80,20 @@ Studentsgoabroad.loaders = [
 ]
 Studentsgoabroad.parameters = {
   // Sets the delay for a specific story.
-  chromatic: { delay: 10000 }
+  chromatic: { delay: 15000 }
 }
+
+export const StudentsgoabroadMobile = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+StudentsgoabroadMobile.loaders = Studentsgoabroad.loaders
+StudentsgoabroadMobile.parameters = {
+  viewport: {
+    defaultViewport: 'iphone6'
+  },
+  chromatic: { delay: 15000 }
+}
+
 export const PlanetTraining = Template.bind({})
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -92,7 +112,7 @@ PlanetTraining.loaders = [
 ]
 PlanetTraining.parameters = {
   // Sets the delay for a specific story.
-  chromatic: { delay: 10000 }
+  chromatic: { delay: 15000 }
 }
 
 export const UpskillStudy = Template.bind({})
@@ -113,7 +133,7 @@ UpskillStudy.loaders = [
 ]
 UpskillStudy.parameters = {
   // Sets the delay for a specific story.
-  chromatic: { delay: 10000 }
+  chromatic: { delay: 15000 }
 }
 
 export const Baliinternships = Template.bind({})
@@ -134,7 +154,19 @@ Baliinternships.loaders = [
 ]
 Baliinternships.parameters = {
   // Sets the delay for a specific story.
-  chromatic: { delay: 10000 }
+  chromatic: { delay: 15000 }
+}
+
+export const BaliinternshipsMobile = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+BaliinternshipsMobile.loaders = Baliinternships.loaders
+BaliinternshipsMobile.parameters = {
+  viewport: {
+    defaultViewport: 'iphone6'
+  },
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
 }
 
 export const Session = Template.bind({})
@@ -155,5 +187,49 @@ Session.loaders = [
 ]
 Session.parameters = {
   // Sets the delay for a specific story.
-  chromatic: { delay: 10000 }
+  chromatic: { delay: 15000 }
+}
+export const SessionMobile = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+SessionMobile.loaders = Session.loaders
+SessionMobile.parameters = {
+  viewport: {
+    defaultViewport: 'iphone6'
+  },
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
+}
+
+export const GameMarketer = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+GameMarketer.loaders = [
+  async () => {
+    CONFIG.publicToken = '1N2PMM9b5injDsNfTyn7cQtt'
+    CONFIG.previewToken = 'H903zyNHgIrEmoePMTKc7gtt'
+    CONFIG.rootDirectory = ''
+    const data = await getPageProps('', {
+      ...defaultOptions,
+      locale: 'en',
+      locales: ['en'],
+      defaultLocale: 'en'
+    })
+    return { data }
+  }
+]
+GameMarketer.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
+}
+export const GameMarketerMobile = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+GameMarketerMobile.loaders = GameMarketer.loaders
+GameMarketerMobile.parameters = {
+  viewport: {
+    defaultViewport: 'iphone6'
+  },
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
 }

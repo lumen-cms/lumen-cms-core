@@ -8,12 +8,7 @@ module.exports = {
   addons: [
     '@storybook/addon-knobs',
     {
-      name: '@storybook/addon-essentials',
-      options: {
-        backgrounds: false,
-        actions: false,
-        controls: true
-      }
+      name: '@storybook/addon-essentials'
     }
   ],
   webpackFinal: async (config, { configType }) => {
