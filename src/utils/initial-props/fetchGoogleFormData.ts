@@ -1,4 +1,7 @@
 export const fetchGoogleFormData = async (url: string) => {
+  if (typeof window !== 'undefined') {
+    return fetchGoogleFormDataClient(url)
+  }
   if (url.indexOf('docs.google.com') !== -1) {
     return fetch(
       `https://googleformrestyler.apixml.net/corsProxy.aspx?base64Url=${Buffer.from(

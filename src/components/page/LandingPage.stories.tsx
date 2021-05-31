@@ -25,9 +25,9 @@ export default {
     // 👇 The viewports object from the Essentials addon
     viewport: {
       // 👇 The viewports you want to use
-      viewports: INITIAL_VIEWPORTS,
+      viewports: INITIAL_VIEWPORTS
       // 👇 Your own default viewport
-      defaultViewport: 'responsive'
+      // defaultViewport: 'responsive'
     }
   }
 }
@@ -186,6 +186,50 @@ Session.loaders = [
   }
 ]
 Session.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
+}
+export const SessionMobile = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+SessionMobile.loaders = Session.loaders
+SessionMobile.parameters = {
+  viewport: {
+    defaultViewport: 'iphone6'
+  },
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
+}
+
+export const GameMarketer = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+GameMarketer.loaders = [
+  async () => {
+    CONFIG.publicToken = '1N2PMM9b5injDsNfTyn7cQtt'
+    CONFIG.previewToken = 'H903zyNHgIrEmoePMTKc7gtt'
+    CONFIG.rootDirectory = ''
+    const data = await getPageProps('', {
+      ...defaultOptions,
+      locale: 'en',
+      locales: ['en'],
+      defaultLocale: 'en'
+    })
+    return { data }
+  }
+]
+GameMarketer.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
+}
+export const GameMarketerMobile = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+GameMarketerMobile.loaders = GameMarketer.loaders
+GameMarketerMobile.parameters = {
+  viewport: {
+    defaultViewport: 'iphone6'
+  },
   // Sets the delay for a specific story.
   chromatic: { delay: 15000 }
 }
