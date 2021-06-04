@@ -4,6 +4,7 @@ import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
 import { LmPageProps } from './pageTypes'
 import { usePage } from '../provider/SettingsPageProvider'
+import EmptyContent from './EmptyContent'
 
 export function LmPage({ content }: LmPageProps): JSX.Element {
   const page = usePage()
@@ -13,7 +14,7 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
   const rightBody = currentContent?.right_body || []
 
   if (!body.length) {
-    return <div>There is no content yet...</div>
+    return <EmptyContent />
   }
 
   if (!body.some((i) => i.component === 'section_parallax')) {

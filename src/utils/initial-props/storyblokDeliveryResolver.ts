@@ -22,6 +22,12 @@ const getSettingsPath = ({
   locale?: string
   overwriteSettingPath?: string
 }) => {
+  if (overwriteSettingPath) {
+    // ensure trailing slash
+    overwriteSettingPath = overwriteSettingPath.endsWith('/')
+      ? overwriteSettingPath
+      : `${overwriteSettingPath}/`
+  }
   return `cdn/stories/${locale ? `${locale}/` : ''}${
     CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
   }${overwriteSettingPath || ''}settings`

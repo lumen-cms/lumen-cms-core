@@ -226,6 +226,7 @@ export type GlobalComponent = {
   footer_config?: Maybe<Array<Maybe<Scalars['String']>>>;
   mobile_nav_breakpoint?: Maybe<Scalars['String']>;
   multi_toolbar?: Maybe<Scalars['BlockScalar']>;
+  promotion?: Maybe<Scalars['BlockScalar']>;
   pwa_app_description?: Maybe<Scalars['String']>;
   pwa_app_name?: Maybe<Scalars['String']>;
   seo_body?: Maybe<Scalars['BlockScalar']>;
@@ -276,6 +277,7 @@ export type GlobalComponent = {
 };
 
 export type GlobalFilterQuery = {
+  tawkto?: Maybe<FilterQueryOperations>;
   website_title?: Maybe<FilterQueryOperations>;
   website_slogan?: Maybe<FilterQueryOperations>;
   setup_language?: Maybe<FilterQueryOperations>;
@@ -307,7 +309,6 @@ export type GlobalFilterQuery = {
   theme_font_alt3?: Maybe<FilterQueryOperations>;
   theme_font_alt4?: Maybe<FilterQueryOperations>;
   theme_container_width?: Maybe<FilterQueryOperations>;
-  tawkto?: Maybe<FilterQueryOperations>;
   drawer_variant?: Maybe<FilterQueryOperations>;
   mobile_nav_breakpoint?: Maybe<FilterQueryOperations>;
   drawer_width?: Maybe<FilterQueryOperations>;

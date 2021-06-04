@@ -973,6 +973,15 @@ export interface FormTextfieldStoryblok {
 }
 
 export interface GlobalStoryblok {
+  promotion?: (SliderStoryblok | SectionStoryblok | SectionVideoBgStoryblok)[];
+  tawkto?: string;
+  chat_button?: (ChatFacebookStoryblok | ChatTawktoStoryblok | ChatWhatsappStoryblok)[];
+  snackbars?: SnackbarStoryblok[];
+  ecommerce?: (
+    | EcommerceFastspringConfigStoryblok
+    | EcommerceShopifyConfigStoryblok
+    | EcommerceSnipcartConfigStoryblok
+  )[];
   website_title?: string;
   website_slogan?: string;
   setup_language?: string;
@@ -1015,14 +1024,11 @@ export interface GlobalStoryblok {
   theme_font_alt3?: string;
   theme_font_alt4?: string;
   theme_container_width?: "xs" | "sm" | "md" | "lg" | "xl" | "none";
-  tawkto?: string;
-  chat_button?: (ChatFacebookStoryblok | ChatTawktoStoryblok | ChatWhatsappStoryblok)[];
   setup_favicon?: string;
   website_logo?: string;
   website_logo_xs?: string;
   website_logo_invert_xs?: string;
   website_logo_invert?: string;
-  snackbars?: SnackbarStoryblok[];
   drawer_body?: (
     | ButtonStoryblok
     | NavMenuStoryblok
@@ -1052,11 +1058,6 @@ export interface GlobalStoryblok {
     | SeoProductStoryblok
     | SeoSocialProfileStoryblok
     | SeoCorporateContactStoryblok
-  )[];
-  ecommerce?: (
-    | EcommerceFastspringConfigStoryblok
-    | EcommerceShopifyConfigStoryblok
-    | EcommerceSnipcartConfigStoryblok
   )[];
   custom_css?: string;
   toolbar_elevation?: number;
@@ -1668,7 +1669,7 @@ export interface PageStoryblok {
     | SeoCorporateContactStoryblok
   )[];
   meta_robots?: boolean;
-  property?: "has_feature"[];
+  property?: ("has_feature" | "disable_promotion")[];
   body?: (
     | SectionStoryblok
     | SectionVideoBgStoryblok

@@ -27,6 +27,11 @@ const MainContentContainer: FunctionComponent = ({ children }) => {
           drawerVariant !== 'temporary' && isOpen
       })}
     >
+      {!page.property?.includes('has_feature') &&
+        !page.property?.includes('disable_promotion') &&
+        settings.promotion?.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
       {children}
     </main>
   )

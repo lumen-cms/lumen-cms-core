@@ -37,14 +37,14 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
         }
       }
     }
-    if (!(pageProps.page && pageProps.settings)) {
+    if (!pageProps.page || !pageProps.settings) {
       return {
         notFound: true
       }
     }
     return {
       props: pageProps,
-      revalidate: 300
+      revalidate: 600
     }
   } catch (e) {
     console.log('error', e)

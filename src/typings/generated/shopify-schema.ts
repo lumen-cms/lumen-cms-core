@@ -5409,24 +5409,24 @@ export const ProductsDocument = gql`
 }
     ${ProductsConnectionFragmentDoc}`;
 
-export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
+export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string) => Promise<T>;
 
 
-const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
+const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
     allProducts(variables?: AllProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllProductsQuery> {
-      return withWrapper(() => client.request<AllProductsQuery>(AllProductsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<AllProductsQuery>(AllProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'allProducts');
     },
     checkoutCreate(variables: CheckoutCreateMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CheckoutCreateMutation> {
-      return withWrapper(() => client.request<CheckoutCreateMutation>(CheckoutCreateDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<CheckoutCreateMutation>(CheckoutCreateDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'checkoutCreate');
     },
     product(variables: ProductQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductQuery> {
-      return withWrapper(() => client.request<ProductQuery>(ProductDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<ProductQuery>(ProductDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'product');
     },
     products(variables: ProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductsQuery> {
-      return withWrapper(() => client.request<ProductsQuery>(ProductsDocument, variables, requestHeaders));
+      return withWrapper((wrappedRequestHeaders) => client.request<ProductsQuery>(ProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'products');
     }
   };
 }
