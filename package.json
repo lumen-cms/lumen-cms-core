@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.90.3",
+  "version": "0.91.0",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -136,7 +136,7 @@
     "@types/uuid": "^8.3.0",
     "@welldone-software/why-did-you-render": "^6.1.4",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
-    "chromatic": "^5.6.2",
+    "chromatic": "^5.9.0",
     "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "eslint": "^7.23.0",

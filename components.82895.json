@@ -4582,63 +4582,108 @@
       "name": "global",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.852Z",
-      "updated_at": "2021-05-06T06:14:13.515Z",
+      "updated_at": "2021-06-04T01:33:37.545Z",
       "id": 894828,
       "schema": {
+        "promotion": {
+          "type": "bloks",
+          "description": "Top page content visible on every page. You can disable the content on page level.",
+          "restrict_components": true,
+          "component_whitelist": [
+            "slider",
+            "section",
+            "section_video_bg"
+          ],
+          "pos": 0
+        },
+        "tawkto": {
+          "type": "text",
+          "pos": 1
+        },
+        "chat_button": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "chat_facebook",
+            "chat_tawkto",
+            "chat_whatsapp"
+          ],
+          "maximum": "1",
+          "pos": 2
+        },
+        "snackbars": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "snackbar"
+          ],
+          "pos": 3,
+          "component_group_whitelist": []
+        },
+        "ecommerce": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "ecommerce_fastspring_config",
+            "ecommerce_shopify_config",
+            "ecommerce_snipcart_config"
+          ],
+          "pos": 4
+        },
         "website_title": {
           "type": "text",
-          "pos": 0
+          "pos": 5
         },
         "website_slogan": {
           "type": "text",
-          "pos": 1
+          "pos": 6
         },
         "setup_language": {
           "type": "text",
           "translatable": true,
           "description": "Set language for the project. Sets <html lang=\"[language]\">",
-          "pos": 2,
+          "pos": 7,
           "display_name": "Language"
         },
         "setup_supported_languages": {
           "type": "text",
           "description": "Comma separated list of all supported languages. Sets header response \"Content-Language\".",
-          "pos": 3,
+          "pos": 8,
           "display_name": "Supported Languages",
           "translatable": true
         },
         "setup_google_analytics": {
           "type": "text",
-          "pos": 4
+          "pos": 9
         },
         "setup_google_site_verification": {
           "type": "text",
-          "pos": 5
+          "pos": 10
         },
         "setup_facebook_pixel": {
           "type": "text",
-          "pos": 6,
+          "pos": 11,
           "description": "Pixel, can be multiple IDs comma separated."
         },
         "setup_ad_roll_adv_id": {
           "type": "text",
-          "pos": 7
+          "pos": 12
         },
         "setup_ad_roll_pix_id": {
           "type": "text",
-          "pos": 8
+          "pos": 13
         },
         "pwa_app_name": {
           "type": "text",
-          "pos": 9
+          "pos": 14
         },
         "pwa_app_description": {
           "type": "textarea",
-          "pos": 10
+          "pos": 15
         },
         "toolbar": {
           "type": "bloks",
-          "pos": 11,
+          "pos": 16,
           "restrict_components": true,
           "component_whitelist": [
             "nav_menu",
@@ -4649,7 +4694,7 @@
         },
         "multi_toolbar": {
           "type": "bloks",
-          "pos": 12,
+          "pos": 17,
           "restrict_components": true,
           "component_whitelist": [
             "toolbar_row"
@@ -4658,7 +4703,7 @@
         },
         "toolbar_variant": {
           "type": "option",
-          "pos": 13,
+          "pos": 18,
           "options": [
             {
               "value": "primary",
@@ -4680,7 +4725,7 @@
         },
         "toolbar_config": {
           "type": "options",
-          "pos": 14,
+          "pos": 19,
           "options": [
             {
               "value": "fixed",
@@ -4710,26 +4755,26 @@
         },
         "toolbar_progress_color": {
           "type": "text",
-          "pos": 15
+          "pos": 20
         },
         "toolbar_color": {
           "type": "custom",
-          "pos": 16,
+          "pos": 21,
           "field_type": "vue-color-picker",
           "options": []
         },
         "toolbar_background": {
           "type": "text",
-          "pos": 17,
+          "pos": 22,
           "description": "Enable CSS background property for using gradients or any other background setting."
         },
         "toolbar_main_height": {
           "type": "number",
-          "pos": 18
+          "pos": 23
         },
         "toolbar_font_size": {
           "type": "text",
-          "pos": 19
+          "pos": 24
         },
         "theme_base": {
           "type": "option",
@@ -4744,74 +4789,74 @@
               "name": "dark"
             }
           ],
-          "pos": 20,
+          "pos": 25,
           "default_value": "base",
           "required": true
         },
         "theme_primary": {
           "type": "text",
-          "pos": 21,
+          "pos": 26,
           "description": "",
           "display_name": "Primary color"
         },
         "theme_primary_contrast": {
           "type": "text",
-          "pos": 22
+          "pos": 27
         },
         "theme_secondary": {
           "type": "text",
-          "pos": 23,
+          "pos": 28,
           "display_name": "Secondary color"
         },
         "theme_secondary_contrast": {
           "type": "text",
-          "pos": 24
+          "pos": 29
         },
         "theme_error": {
           "type": "text",
-          "pos": 25,
+          "pos": 30,
           "display_name": "Error Color"
         },
         "theme_error_contrast": {
           "type": "text",
-          "pos": 26,
+          "pos": 31,
           "display_name": "Error Color Contrast"
         },
         "theme_link": {
           "type": "text",
-          "pos": 27,
+          "pos": 32,
           "display_name": "Link color"
         },
         "theme_link_hover": {
           "type": "text",
-          "pos": 28,
+          "pos": 33,
           "display_name": "Link hover color"
         },
         "body_background_color": {
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 29
+          "pos": 34
         },
         "theme_font_default": {
           "type": "text",
-          "pos": 30
+          "pos": 35
         },
         "theme_font_alt1": {
           "type": "text",
-          "pos": 31
+          "pos": 36
         },
         "theme_font_alt2": {
           "type": "text",
-          "pos": 32
+          "pos": 37
         },
         "theme_font_alt3": {
           "type": "text",
-          "pos": 33
+          "pos": 38
         },
         "theme_font_alt4": {
           "type": "text",
-          "pos": 34
+          "pos": 39
         },
         "theme_container_width": {
           "type": "option",
@@ -4842,22 +4887,7 @@
               "name": "fluid"
             }
           ],
-          "pos": 35
-        },
-        "tawkto": {
-          "type": "text",
-          "pos": 36
-        },
-        "chat_button": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "chat_facebook",
-            "chat_tawkto",
-            "chat_whatsapp"
-          ],
-          "maximum": "1",
-          "pos": 37
+          "pos": 40
         },
         "tab-ba513796-d84a-4c57-9d20-1ec43f74588c": {
           "type": "tab",
@@ -4874,7 +4904,7 @@
             "toolbar_background",
             "toolbar_elevation"
           ],
-          "pos": 38
+          "pos": 41
         },
         "tab-b01c9ce8-3217-4b21-b7b5-612bef6a87dd": {
           "type": "tab",
@@ -4883,7 +4913,7 @@
             "footer",
             "footer_config"
           ],
-          "pos": 39
+          "pos": 42
         },
         "tab-2a4e4ff6-219f-415c-a3c6-6d7cf39f1c0d": {
           "type": "tab",
@@ -4902,7 +4932,7 @@
             "drawer_below_toolbar_xs",
             "mobile_nav_breakpoint"
           ],
-          "pos": 40
+          "pos": 43
         },
         "tab-f85e0a00-bc66-45af-9035-3190c653d091": {
           "type": "tab",
@@ -4914,7 +4944,7 @@
             "website_logo_invert_xs",
             "setup_favicon"
           ],
-          "pos": 41
+          "pos": 44
         },
         "tab-179390ed-4cd4-47bd-bd94-8902f461c9bc": {
           "type": "tab",
@@ -4926,7 +4956,7 @@
             "seo_robots",
             "seo_body"
           ],
-          "pos": 42
+          "pos": 45
         },
         "tab-629da2b1-ac23-431b-b9e7-c838674c0106": {
           "type": "tab",
@@ -4950,7 +4980,7 @@
             "body_background_color",
             "custom_css"
           ],
-          "pos": 43
+          "pos": 46
         },
         "tab-8f5f1837-e112-4bde-966b-9473b63a72f1": {
           "type": "tab",
@@ -4960,39 +4990,31 @@
             "snackbars",
             "chat_button",
             "tawkto",
-            "ecommerce"
+            "ecommerce",
+            "promotion"
           ],
-          "pos": 44
+          "pos": 47
         },
         "setup_favicon": {
           "type": "image",
-          "pos": 45,
+          "pos": 48,
           "description": "Size should be 192x192 as PNG"
         },
         "website_logo": {
           "type": "image",
-          "pos": 46
+          "pos": 49
         },
         "website_logo_xs": {
           "type": "image",
-          "pos": 47
+          "pos": 50
         },
         "website_logo_invert_xs": {
           "type": "image",
-          "pos": 48
+          "pos": 51
         },
         "website_logo_invert": {
           "type": "image",
-          "pos": 49
-        },
-        "snackbars": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "snackbar"
-          ],
-          "pos": 50,
-          "component_group_whitelist": []
+          "pos": 52
         },
         "drawer_body": {
           "type": "bloks",
@@ -5007,7 +5029,7 @@
             "divider",
             "toolbar_navi_button"
           ],
-          "pos": 51,
+          "pos": 53,
           "component_group_whitelist": []
         },
         "drawer_variant": {
@@ -5023,7 +5045,7 @@
               "name": "temporary"
             }
           ],
-          "pos": 52
+          "pos": 54
         },
         "mobile_nav_breakpoint": {
           "type": "option",
@@ -5046,24 +5068,24 @@
               "name": "xl"
             }
           ],
-          "pos": 53,
+          "pos": 55,
           "description": "Default breakpoint is sm (mobile only)"
         },
         "drawer_width": {
           "type": "number",
-          "pos": 54
+          "pos": 56
         },
         "drawer_below_toolbar": {
           "type": "boolean",
-          "pos": 55
+          "pos": 57
         },
         "drawer_below_toolbar_xs": {
           "type": "boolean",
-          "pos": 56
+          "pos": 58
         },
         "drawer_full_width_mobile": {
           "type": "boolean",
-          "pos": 57
+          "pos": 59
         },
         "drawer_background": {
           "type": "bloks",
@@ -5072,12 +5094,12 @@
           "component_whitelist": [
             "background"
           ],
-          "pos": 58,
+          "pos": 60,
           "component_group_whitelist": []
         },
         "footer": {
           "type": "bloks",
-          "pos": 59,
+          "pos": 61,
           "restrict_components": true,
           "component_whitelist": [
             "row",
@@ -5087,7 +5109,7 @@
         },
         "footer_config": {
           "type": "options",
-          "pos": 60,
+          "pos": 62,
           "options": [
             {
               "value": "footer-large",
@@ -5101,29 +5123,29 @@
         },
         "seo_title": {
           "type": "text",
-          "pos": 61,
+          "pos": 63,
           "translatable": true
         },
         "seo_description": {
           "type": "textarea",
-          "pos": 62,
+          "pos": 64,
           "translatable": true
         },
         "seo_website_url": {
           "type": "text",
-          "pos": 63,
+          "pos": 65,
           "description": "Full website URL without leading slash: https://google.com"
         },
         "seo_robots": {
           "type": "boolean",
           "description": "Set robots 'index,follow'. Important if site goes public",
-          "pos": 64,
+          "pos": 66,
           "display_name": "Enable page index for robots",
           "translatable": true
         },
         "seo_body": {
           "type": "bloks",
-          "pos": 65,
+          "pos": 67,
           "restrict_components": true,
           "component_whitelist": [
             "seo_twitter",
@@ -5135,22 +5157,14 @@
           ],
           "component_group_whitelist": []
         },
-        "ecommerce": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "ecommerce_fastspring_config",
-            "ecommerce_shopify_config",
-            "ecommerce_snipcart_config"
-          ],
-          "pos": 66
-        },
         "custom_css": {
-          "type": "textarea"
+          "type": "textarea",
+          "pos": 68
         },
         "toolbar_elevation": {
           "type": "number",
-          "description": "A value between 0-24. Defaults to \"4\". Disable elevation with \"0\"."
+          "description": "A value between 0-24. Defaults to \"4\". Disable elevation with \"0\".",
+          "pos": 69
         }
       },
       "image": null,
@@ -7819,7 +7833,7 @@
       "name": "page",
       "display_name": null,
       "created_at": "2020-05-01T08:40:37.942Z",
-      "updated_at": "2020-12-11T05:04:53.736Z",
+      "updated_at": "2021-06-04T01:56:32.306Z",
       "id": 894809,
       "schema": {
         "preview_title": {
@@ -7883,6 +7897,10 @@
             {
               "value": "has_feature",
               "name": "Has Feature"
+            },
+            {
+              "value": "disable_promotion",
+              "name": "Disable Promotion"
             }
           ],
           "pos": 9

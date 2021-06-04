@@ -7,7 +7,6 @@ export const getStaticPropsError: GetStaticProps<AppPageProps> = async (
   context
 ) => {
   const { locale, defaultLocale, locales } = context
-
   try {
     const pageProps = await getPageProps('error-404', {
       locale,
