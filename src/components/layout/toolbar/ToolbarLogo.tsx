@@ -90,7 +90,7 @@ export function LmToolbarLogo(): JSX.Element {
                   'logo-img__mobile': isMobile,
                   'logo-img__desktop':
                     (source === websiteLogo && websiteLogoMobile) ||
-                    (source === websiteLogoInvert && !isInvert)
+                    (source === websiteLogoInvert && websiteLogoInvertMobile)
                 })}
                 key={`${source}-${isMobile}-${isInvert}`}
               >

@@ -1328,7 +1328,7 @@
       "name": "card_list",
       "display_name": null,
       "created_at": "2020-05-01T08:40:44.719Z",
-      "updated_at": "2021-01-05T04:58:24.539Z",
+      "updated_at": "2021-06-11T09:08:03.239Z",
       "id": 894842,
       "schema": {
         "column_gap": {
@@ -2022,6 +2022,40 @@
           ],
           "description": "Leave empty if used as options of \"List Widget\" element.",
           "component_group_whitelist": []
+        },
+        "tab-b5685df4-930c-4baa-aa30-d7cf1030cd3b": {
+          "type": "tab",
+          "display_name": "Custom",
+          "keys": [
+            "title_custom",
+            "subtitle_custom",
+            "description_custom"
+          ],
+          "pos": 0
+        },
+        "title_custom": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
+        },
+        "subtitle_custom": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ],
+          "maximum": "1"
+        },
+        "description_custom": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
         }
       },
       "image": null,
@@ -10894,6 +10928,12 @@
           "name": "Neat Sliders with Brief Taglines",
           "component_id": 894797,
           "image": "//a.storyblok.com/f/82895/x/b94e427b92/neat-sliders-with-brief-taglines.PNG"
+        },
+        {
+          "id": 1036249,
+          "name": "Promotion Slider",
+          "component_id": 894797,
+          "image": ""
         },
         {
           "id": 703385,

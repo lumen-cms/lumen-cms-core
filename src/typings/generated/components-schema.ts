@@ -436,6 +436,9 @@ export interface CardListStoryblok {
     [k: string]: any;
   };
   body?: CardListItemStoryblok[];
+  title_custom?: HeadlineStoryblok[];
+  subtitle_custom?: HeadlineStoryblok[];
+  description_custom?: HeadlineStoryblok[];
   _uid: string;
   component: "card_list";
   [k: string]: any;
