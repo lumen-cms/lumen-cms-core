@@ -267,6 +267,81 @@ export const CardsOfTravels = () => {
     </div>
   )
 }
+
+export const CardsCustomText = () => {
+  const elements = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  return (
+    <div>
+      <LmCardList
+        content={{
+          _uid: '23123',
+          component: 'card_list',
+          shadow_effect: 'soft',
+          title_custom: [
+            {
+              _uid: '23423',
+              component: 'headline',
+              typography: 'caption',
+              align: 'right'
+            }
+          ],
+          subtitle_custom: [
+            {
+              _uid: '23423',
+              component: 'headline',
+              typography: 'subtitle2',
+              align: 'center'
+            }
+          ],
+          description_custom: [
+            {
+              _uid: '23423',
+              component: 'headline',
+              typography: 'body2',
+              color: 'textSecondary',
+              max_lines: 2
+            }
+          ],
+          card_actions_disable_spacing: true,
+          body: elements.map((num) => {
+            return {
+              _uid: `elem-${num}`,
+              component: 'card_list_item',
+              title: `Card Title ${num}`,
+              image: getStorybookImageOnIteration(num),
+              subtitle: `Subtitle #${num}`,
+              description:
+                'Some long description of a card. This would go over multiple rows for sure and can be clamped',
+              card_actions_body: [
+                {
+                  _uid: 'asdfa',
+                  component: 'flex_row',
+                  justify: 'space-between',
+                  align_items: 'center',
+                  body: [
+                    {
+                      _uid: '123',
+                      component: 'headline',
+                      typography: 'body1',
+                      text: 'Some Headline'
+                    },
+                    {
+                      _uid: '12332',
+                      component: 'headline',
+                      typography: 'body2',
+                      text: 'Another Headline'
+                    }
+                  ] as HeadlineStoryblok[]
+                }
+              ] as FlexRowStoryblok[]
+            } as CardListItemStoryblok
+          })
+        }}
+      />
+    </div>
+  )
+}
+
 export const CardIcons = () => (
   <>
     <LmCardList

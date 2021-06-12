@@ -1328,7 +1328,7 @@
       "name": "card_list",
       "display_name": null,
       "created_at": "2020-05-01T08:40:44.719Z",
-      "updated_at": "2021-01-05T04:58:24.539Z",
+      "updated_at": "2021-06-11T09:08:03.239Z",
       "id": 894842,
       "schema": {
         "column_gap": {
@@ -2022,6 +2022,40 @@
           ],
           "description": "Leave empty if used as options of \"List Widget\" element.",
           "component_group_whitelist": []
+        },
+        "tab-b5685df4-930c-4baa-aa30-d7cf1030cd3b": {
+          "type": "tab",
+          "display_name": "Custom",
+          "keys": [
+            "title_custom",
+            "subtitle_custom",
+            "description_custom"
+          ],
+          "pos": 0
+        },
+        "title_custom": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
+        },
+        "subtitle_custom": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ],
+          "maximum": "1"
+        },
+        "description_custom": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
         }
       },
       "image": null,
@@ -5182,28 +5216,52 @@
       "name": "headline",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.644Z",
-      "updated_at": "2020-11-26T02:46:01.448Z",
+      "updated_at": "2021-06-12T15:01:05.065Z",
       "id": 894827,
       "schema": {
-        "count_start": {
-          "type": "number",
+        "custom_color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": [],
           "pos": 0
         },
-        "count_end": {
+        "max_lines": {
           "type": "number",
+          "description": "The max number of lines use \"line-clamp\" property and truncates text at a specific number of lines.",
           "pos": 1
         },
-        "prefix": {
+        "font_size": {
           "type": "text",
-          "pos": 2
+          "pos": 2,
+          "description": "Example: 25px, 3vh, 3rem"
         },
-        "suffix": {
+        "line_height": {
           "type": "text",
           "pos": 3
         },
+        "letter_spacing": {
+          "type": "text",
+          "pos": 4
+        },
+        "count_start": {
+          "type": "number",
+          "pos": 5
+        },
+        "count_end": {
+          "type": "number",
+          "pos": 6
+        },
+        "prefix": {
+          "type": "text",
+          "pos": 7
+        },
+        "suffix": {
+          "type": "text",
+          "pos": 8
+        },
         "count_duration": {
           "type": "number",
-          "pos": 4
+          "pos": 9
         },
         "animation": {
           "type": "option",
@@ -5222,16 +5280,16 @@
               "name": "easeOutCubic"
             }
           ],
-          "pos": 5
+          "pos": 10
         },
         "text": {
           "type": "text",
-          "pos": 6,
+          "pos": 11,
           "translatable": true
         },
         "text_xs": {
           "type": "text",
-          "pos": 7,
+          "pos": 12,
           "translatable": true
         },
         "typography": {
@@ -5290,7 +5348,7 @@
               "name": "Overline"
             }
           ],
-          "pos": 8
+          "pos": 13
         },
         "font": {
           "type": "option",
@@ -5313,7 +5371,7 @@
               "name": "Font 4"
             }
           ],
-          "pos": 9
+          "pos": 14
         },
         "tag": {
           "type": "option",
@@ -5351,7 +5409,7 @@
               "name": "span"
             }
           ],
-          "pos": 10,
+          "pos": 15,
           "required": false,
           "default_value": "h2"
         },
@@ -5380,7 +5438,7 @@
               "name": "error"
             }
           ],
-          "pos": 11
+          "pos": 16
         },
         "align": {
           "type": "option",
@@ -5403,7 +5461,7 @@
               "name": "justify"
             }
           ],
-          "pos": 12
+          "pos": 17
         },
         "tab-cfb87b06-9ecf-4cff-8fb6-0d283c26ce35": {
           "type": "tab",
@@ -5412,9 +5470,10 @@
             "font_size",
             "letter_spacing",
             "line_height",
-            "custom_color"
+            "custom_color",
+            "max_lines"
           ],
-          "pos": 13
+          "pos": 18
         },
         "tab-e0f18aa4-81d5-425e-a885-2cf37ac9981f": {
           "type": "tab",
@@ -5428,7 +5487,7 @@
             "prefix",
             "suffix"
           ],
-          "pos": 14
+          "pos": 19
         },
         "tab-40312329-b9c4-4a19-9d56-aefa8406912d": {
           "type": "tab",
@@ -5440,7 +5499,7 @@
             "styles_tablet",
             "styles_hover"
           ],
-          "pos": 15
+          "pos": 20
         },
         "class_names": {
           "type": "custom",
@@ -5455,27 +5514,8 @@
               "name": "mui"
             }
           ],
-          "pos": 16,
+          "pos": 21,
           "required": false
-        },
-        "custom_color": {
-          "type": "custom",
-          "field_type": "vue-color-picker",
-          "options": [],
-          "pos": 17
-        },
-        "font_size": {
-          "type": "text",
-          "pos": 18,
-          "description": "Example: 25px, 3vh, 3rem"
-        },
-        "line_height": {
-          "type": "text",
-          "pos": 19
-        },
-        "letter_spacing": {
-          "type": "text",
-          "pos": 20
         },
         "styles": {
           "type": "bloks",
@@ -5483,7 +5523,8 @@
           "component_whitelist": [
             "styles"
           ],
-          "maximum": "1"
+          "maximum": "1",
+          "pos": 22
         },
         "styles_mobile": {
           "type": "bloks",
@@ -5491,7 +5532,8 @@
           "restrict_components": true,
           "component_whitelist": [
             "styles"
-          ]
+          ],
+          "pos": 23
         },
         "styles_tablet": {
           "type": "bloks",
@@ -5499,7 +5541,8 @@
           "restrict_components": true,
           "component_whitelist": [
             "styles"
-          ]
+          ],
+          "pos": 24
         },
         "styles_hover": {
           "type": "bloks",
@@ -5507,10 +5550,12 @@
           "component_whitelist": [
             "styles"
           ],
-          "maximum": "1"
+          "maximum": "1",
+          "pos": 25
         },
         "enable_speech": {
-          "type": "boolean"
+          "type": "boolean",
+          "pos": 26
         }
       },
       "image": null,
@@ -10894,6 +10939,12 @@
           "name": "Neat Sliders with Brief Taglines",
           "component_id": 894797,
           "image": "//a.storyblok.com/f/82895/x/b94e427b92/neat-sliders-with-brief-taglines.PNG"
+        },
+        {
+          "id": 1036249,
+          "name": "Promotion Slider",
+          "component_id": 894797,
+          "image": ""
         },
         {
           "id": 703385,

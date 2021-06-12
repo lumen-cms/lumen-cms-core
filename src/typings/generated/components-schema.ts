@@ -436,6 +436,9 @@ export interface CardListStoryblok {
     [k: string]: any;
   };
   body?: CardListItemStoryblok[];
+  title_custom?: HeadlineStoryblok[];
+  subtitle_custom?: HeadlineStoryblok[];
+  description_custom?: HeadlineStoryblok[];
   _uid: string;
   component: "card_list";
   [k: string]: any;
@@ -1068,6 +1071,14 @@ export interface GlobalStoryblok {
 }
 
 export interface HeadlineStoryblok {
+  custom_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  max_lines?: number;
+  font_size?: string;
+  line_height?: string;
+  letter_spacing?: string;
   count_start?: number;
   count_end?: number;
   prefix?: string;
@@ -1098,13 +1109,6 @@ export interface HeadlineStoryblok {
     values?: string[];
     [k: string]: any;
   };
-  custom_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  font_size?: string;
-  line_height?: string;
-  letter_spacing?: string;
   styles?: StylesStoryblok[];
   styles_mobile?: StylesStoryblok[];
   styles_tablet?: StylesStoryblok[];

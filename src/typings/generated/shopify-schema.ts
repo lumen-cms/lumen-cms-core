@@ -2649,7 +2649,7 @@ export type FulfillmentTrackingInfo = {
 
 /** Represents information about the metafields associated to the specified resource. */
 export type HasMetafields = {
-  /** The metafield associated with the resource. */
+  /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
   /** A paginated list of metafields associated with the resource. */
   metafields: MetafieldConnection;
@@ -3963,7 +3963,7 @@ export type Product = Node & HasMetafields & {
   images: ImageConnection;
   /** The media associated with the product. */
   media: MediaConnection;
-  /** The metafield associated with the resource. */
+  /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
   /** A paginated list of metafields associated with the resource. */
   metafields: MetafieldConnection;
@@ -4282,7 +4282,7 @@ export type ProductVariant = Node & HasMetafields & {
   id: Scalars['ID'];
   /** Image associated with the product variant. This field falls back to the product image if no image is available. */
   image?: Maybe<Image>;
-  /** The metafield associated with the resource. */
+  /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;
   /** A paginated list of metafields associated with the resource. */
   metafields: MetafieldConnection;

@@ -233,3 +233,36 @@ GameMarketerMobile.parameters = {
   // Sets the delay for a specific story.
   chromatic: { delay: 15000 }
 }
+
+export const Chatlabs = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+Chatlabs.loaders = [
+  async () => {
+    CONFIG.publicToken = 'gfiuPfTDZQPeYwgnhOSSjwtt'
+    CONFIG.previewToken = 'GQ4XH9a9sMoYg4NWGWv3awtt'
+    CONFIG.rootDirectory = ''
+    const data = await getPageProps('demo-library/content-mn-001', {
+      ...defaultOptions,
+      locale: 'en',
+      locales: ['en'],
+      defaultLocale: 'en'
+    })
+    return { data }
+  }
+]
+Chatlabs.parameters = {
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
+}
+export const ChatlabsMobile = Template.bind({})
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+ChatlabsMobile.loaders = Chatlabs.loaders
+ChatlabsMobile.parameters = {
+  viewport: {
+    defaultViewport: 'iphone6'
+  },
+  // Sets the delay for a specific story.
+  chromatic: { delay: 15000 }
+}
