@@ -1,8 +1,6 @@
-import Typography from '@material-ui/core/Typography'
 import React from 'react'
-import clsx from 'clsx'
-import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { CardListItemProps } from './cardTypes'
+import { LmHeadlineCore } from '../headline/HeadlineCore'
 
 function CardListActionTitles({
   content,
@@ -11,38 +9,32 @@ function CardListActionTitles({
   return (
     <>
       {content.title && (
-        <Typography
-          component={options.title_tag || 'h3'}
-          className={clsx(
-            options.title_class_name && options.title_class_name.values
-          )}
-          variant={
-            mapTypographyVariant[
-              options.title_typography
-                ? (options.title_typography as string)
-                : 'headline6'
-            ]
-          }
+        <LmHeadlineCore
+          content={{
+            _uid: `${content._uid}_title`,
+            component: 'headline',
+            typography: options.title_typography || 'headline6',
+            tag: options.title_tag || 'h3',
+            class_names: options.title_class_name,
+            ...options.title_custom?.[0]
+          }}
         >
           {content.title}
-        </Typography>
+        </LmHeadlineCore>
       )}
       {content.subtitle && (
-        <Typography
-          component={options.subtitle_tag || 'h4'}
-          className={clsx(
-            options.subtitle_class_name && options.subtitle_class_name.values
-          )}
-          variant={
-            mapTypographyVariant[
-              options.subtitle_typography
-                ? (options.subtitle_typography as string)
-                : 'subtitle2'
-            ]
-          }
+        <LmHeadlineCore
+          content={{
+            _uid: `${content._uid}_subtitle`,
+            component: 'headline',
+            typography: options.subtitle_typography || 'subtitle2',
+            tag: options.subtitle_tag || 'h4',
+            class_names: options.subtitle_class_name,
+            ...options.subtitle_custom?.[0]
+          }}
         >
           {content.subtitle}
-        </Typography>
+        </LmHeadlineCore>
       )}
     </>
   )

@@ -4157,7 +4157,7 @@ export enum ProductCollectionSortKeys {
   Relevance = 'RELEVANCE'
 }
 
-/** An auto-generated type for paginating through multiple products. */
+/** An auto-generated type for paginating through multiple Products. */
 export type ProductConnection = {
   __typename?: 'ProductConnection';
   /** A list of edges. */
