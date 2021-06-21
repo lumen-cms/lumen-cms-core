@@ -857,10 +857,12 @@ export interface ErrorPageStoryblok {
 
 export interface FlexRowStoryblok {
   column?: boolean;
+  column_mobile_only?: boolean;
   full_height?: boolean;
   justify?: "space-around" | "center" | "space-between" | "space-evenly" | "flex-start" | "flex-end";
   align_content?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around";
   align_items?: "center" | "baseline" | "flex-start" | "flex-end" | "stretch";
+  gap?: number;
   body?: (
     | AccordionStoryblok
     | AuthContainerStoryblok
@@ -912,7 +914,10 @@ export interface FlexRowStoryblok {
     values?: string[];
     [k: string]: any;
   };
-  gap?: number;
+  styles?: StylesStoryblok[];
+  styles_mobile?: StylesStoryblok[];
+  styles_tablet?: StylesStoryblok[];
+  styles_hover?: StylesStoryblok[];
   _uid: string;
   component: "flex_row";
   [k: string]: any;

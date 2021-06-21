@@ -4128,16 +4128,20 @@
       "name": "flex_row",
       "display_name": "Flex Box",
       "created_at": "2020-05-01T08:40:43.097Z",
-      "updated_at": "2021-05-11T08:22:24.158Z",
+      "updated_at": "2021-06-21T03:29:12.909Z",
       "id": 894834,
       "schema": {
         "column": {
           "type": "boolean",
           "pos": 0
         },
-        "full_height": {
+        "column_mobile_only": {
           "type": "boolean",
           "pos": 1
+        },
+        "full_height": {
+          "type": "boolean",
+          "pos": 2
         },
         "justify": {
           "type": "option",
@@ -4168,11 +4172,11 @@
               "name": "end"
             }
           ],
-          "pos": 2
+          "pos": 3
         },
         "align_content": {
           "type": "option",
-          "pos": 3,
+          "pos": 4,
           "use_uuid": true,
           "options": [
             {
@@ -4226,7 +4230,12 @@
               "name": "stretch"
             }
           ],
-          "pos": 4
+          "pos": 5
+        },
+        "gap": {
+          "type": "number",
+          "description": "Gap between elements in 1, 2, 3 etc.",
+          "pos": 6
         },
         "body": {
           "type": "bloks",
@@ -4235,7 +4244,7 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 5
+          "pos": 7
         },
         "class_names": {
           "type": "custom",
@@ -4246,7 +4255,7 @@
               "name": "mui"
             }
           ],
-          "pos": 6
+          "pos": 8
         },
         "tab-af203829-6b44-4062-91c9-c6387d5d0476": {
           "type": "tab",
@@ -4257,21 +4266,54 @@
             "full_height",
             "align_items",
             "align_content",
-            "gap"
+            "gap",
+            "column_mobile_only"
           ],
-          "pos": 7
+          "pos": 9
         },
         "tab-3471b988-61c3-41eb-a50a-6211c0d0b47e": {
           "type": "tab",
-          "display_name": "Classes",
+          "display_name": "Styles",
           "keys": [
-            "class_names"
+            "class_names",
+            "styles",
+            "styles_mobile",
+            "styles_tablet",
+            "styles_hover"
           ],
-          "pos": 8
+          "pos": 10
         },
-        "gap": {
-          "type": "number",
-          "description": "Gap between elements in 1, 2, 3 etc."
+        "styles": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ]
+        },
+        "styles_mobile": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ]
+        },
+        "styles_tablet": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ],
+          "maximum": "1"
+        },
+        "styles_hover": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ],
+          "maximum": "1"
         }
       },
       "image": null,

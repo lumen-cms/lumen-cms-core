@@ -760,7 +760,7 @@ export enum CheckoutErrorCode {
   Invalid = 'INVALID',
   /** Input value is too long. */
   TooLong = 'TOO_LONG',
-  /** Input value is not present. */
+  /** Input value must be blank. */
   Present = 'PRESENT',
   /** Input value should be less than maximum allowed value. */
   LessThan = 'LESS_THAN',
