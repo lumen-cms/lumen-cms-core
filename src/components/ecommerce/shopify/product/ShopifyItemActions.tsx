@@ -30,9 +30,7 @@ function AddToCartButton() {
             variant: 'outlined',
             color: 'secondary',
             class_names: { values: ['w-100'] },
-            ...((config?.product_add_to_cart &&
-              config.product_add_to_cart[0]) ||
-              {})
+            ...(config?.product_add_to_cart?.[0] || {})
           } as ButtonStoryblok
         }
         onClick={() => {

@@ -49,7 +49,7 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
                 component: 'headline',
                 typography: 'headline5',
                 align: 'center',
-                ...(config?.product_price || {})
+                ...(config?.product_price?.[0] || {})
               } as HeadlineStoryblok
             }
           >
