@@ -12,11 +12,11 @@ export function ShopifyProductTitle({ item }: ShopifyProductItemProps) {
       content={
         {
           component: 'headline',
-          text: item.title,
           _uid: '123',
           align: 'center',
           typography: 'headline4',
-          ...((config?.product_title && config.product_title[0]) || {})
+          ...((config?.product_title && config.product_title[0]) || {}),
+          text: item.title
         } as HeadlineStoryblok
       }
     />
