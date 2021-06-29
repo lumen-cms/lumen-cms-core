@@ -916,3 +916,28 @@ export const ButtonWithAddons = () => (
     </StorybookSpacingContainer>
   </>
 )
+
+export const ButtonLinkObfuscating = () => (
+  <StorybookSpacingContainer>
+    <LmButton
+      content={{
+        ...presetContent,
+        label: 'Email',
+        link: {
+          email: 'info@lumen.media',
+          linktype: 'email'
+        }
+      }}
+    />
+    <LmButton
+      content={{
+        ...presetContent,
+        label: 'Telefon',
+        link: {
+          cached_url: '+4912345678',
+          linktype: 'url'
+        }
+      }}
+    />
+  </StorybookSpacingContainer>
+)
