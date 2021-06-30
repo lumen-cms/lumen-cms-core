@@ -1601,11 +1601,6 @@ export interface NavListStoryblok {
 }
 
 export interface NavMenuStoryblok {
-  alignment?: "bottomStart" | "bottomEnd" | "bottomCenter";
-  open_on_hover?: boolean;
-  outlined?: boolean;
-  border_radius?: string;
-  elevation?: number;
   start_icon?: {
     name?: string;
     [k: string]: any;
@@ -1614,10 +1609,17 @@ export interface NavMenuStoryblok {
     name?: string;
     [k: string]: any;
   };
+  icon_custom?: IconStoryblok[];
   icon_collapse?: {
     name?: string;
     [k: string]: any;
   };
+  icon_collapse_custom?: IconStoryblok[];
+  alignment?: "bottomStart" | "bottomEnd" | "bottomCenter";
+  open_on_hover?: boolean;
+  outlined?: boolean;
+  border_radius?: string;
+  elevation?: number;
   title?: string;
   title_custom?: (ButtonStoryblok | HeadlineStoryblok | ImageStoryblok)[];
   body?: (NavMenuItemStoryblok | RowStoryblok | NavMenuStoryblok)[];

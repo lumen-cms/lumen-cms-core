@@ -64,5 +64,13 @@ export const Playground = () => (
         size: 'xxxlarge'
       }}
     />
+    <LmIcon
+      content={{
+        ...icon,
+        icon_url:
+          'https://a.storyblok.com/f/106896/x/3993a9addc/arrow_down.svg',
+        size: 'medium'
+      }}
+    />
   </>
 )

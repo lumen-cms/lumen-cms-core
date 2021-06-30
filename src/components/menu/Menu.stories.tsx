@@ -91,6 +91,47 @@ export const Basic = () => (
   </>
 )
 
+export const CustomIcons = () => (
+  <div>
+    <div>
+      <LmMenu
+        content={{
+          ...props,
+          icon: {
+            name: 'plus'
+          },
+          icon_collapse: {
+            name: 'minus'
+          }
+        }}
+      />
+    </div>
+    <div style={{ marginTop: 3 }}>
+      <LmMenu
+        content={{
+          ...props,
+          icon_custom: [
+            {
+              component: 'icon',
+              _uid: '123213',
+              icon_url:
+                'https://a.storyblok.com/f/106896/x/3993a9addc/arrow_down.svg'
+            }
+          ],
+          icon_collapse_custom: [
+            {
+              component: 'icon',
+              _uid: '23423e4',
+              icon_url:
+                'https://a.storyblok.com/f/106896/x/94de40e2dc/arrow_up.svg'
+            }
+          ]
+        }}
+      />
+    </div>
+  </div>
+)
+
 export const Alignment = () => (
   <div>
     <LmMenu
