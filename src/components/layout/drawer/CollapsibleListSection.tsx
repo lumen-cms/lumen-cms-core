@@ -81,7 +81,23 @@ export function CollapsibleListSection({
     }
   })
 
-  const startIconName = content.start_icon && content.start_icon.name
+  const startIconName = content.start_icon?.name
+
+  const ExpandIcon = () =>
+    content.icon?.name || content.icon_custom?.[0] ? (
+      <LmIcon iconName={content.icon?.name} {...content.icon_custom?.[0]} />
+    ) : (
+      <ChevronDown />
+    )
+  const CloseIcon = () =>
+    content.icon_collapse?.name || content.icon_collapse_custom?.[0] ? (
+      <LmIcon
+        iconName={content.icon_collapse?.name}
+        {...content.icon_collapse_custom?.[0]}
+      />
+    ) : (
+      <ChevronUp />
+    )
   return (
     <>
       <ListItem button onClick={handleClick}>
@@ -97,7 +113,7 @@ export function CollapsibleListSection({
           </ListItemIcon>
         )}
         <ListItemText primary={content.title} />
-        {open ? <ChevronUp /> : <ChevronDown />}
+        {open ? <CloseIcon /> : <ExpandIcon />}
       </ListItem>
       <Collapse in={open} timeout="auto">
         <List
