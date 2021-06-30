@@ -3,25 +3,39 @@ import IconButton from '@material-ui/core/IconButton'
 import clsx from 'clsx'
 import MenuUi from 'mdi-material-ui/Menu'
 import AppsIcon from 'mdi-material-ui/Apps'
+import CloseIcon from 'mdi-material-ui/Close'
+import shallow from 'zustand/shallow'
 import LmIcon from '../../icon/LmIcon'
 import { LmToggleDrawerButtonProps } from './toolbarTypes'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
-import {
-  toggleLeftNavigationSelector,
-  toggleRightNavigationSelector,
-  useNavigationStore
-} from '../../../utils/state/navigationState'
+import { useNavigationStore } from '../../../utils/state/navigationState'
+
+const useDrawer = () =>
+  useNavigationStore(
+    (state) => ({
+      toggleLeftNavigation: state.toggleLeftDrawer,
+      toggleRightNavigation: state.toggleRightDrawer,
+      isLeftOpen: state.leftNavigationDrawer,
+      isRightOpen: state.rightNavigationDrawer
+    }),
+    shallow
+  )
 
 export function LmToggleDrawerButton({
   content
 }: LmToggleDrawerButtonProps): JSX.Element | null {
   const settings = useSettings()
   const page = usePage()
-
-  const toggleLeftNavigation = useNavigationStore(toggleLeftNavigationSelector)
-  const toggleRightNavigation = useNavigationStore(
-    toggleRightNavigationSelector
-  )
+  const {
+    isLeftOpen,
+    isRightOpen,
+    toggleLeftNavigation,
+    toggleRightNavigation
+  } = useDrawer()
+  // const toggleLeftNavigation = useNavigationStore(toggleLeftNavigationSelector)
+  // const toggleRightNavigation = useNavigationStore(
+  //   toggleRightNavigationSelector
+  // )
   const rightDrawerMediaBreakpoint = page?.mobile_breakpoint
   const leftDrawerMediaBreakpoint = settings.mobile_nav_breakpoint
   const rightDrawer = content.is_right_drawer
@@ -34,6 +48,14 @@ export function LmToggleDrawerButton({
     ? rightDrawerMediaBreakpoint || 'sm'
     : leftDrawerMediaBreakpoint || 'sm'
 
+  const ActiveIcon = () =>
+    content.icon?.name ? (
+      <LmIcon iconName={content.icon.name} />
+    ) : rightDrawer ? (
+      <AppsIcon />
+    ) : (
+      <MenuUi />
+    )
   return (
     <IconButton
       aria-label={rightDrawer ? 'Drawer right toggle' : 'Drawer left toggle'}
@@ -47,12 +69,16 @@ export function LmToggleDrawerButton({
         rightDrawer ? toggleRightNavigation() : toggleLeftNavigation()
       }
     >
-      {content.icon?.name ? (
-        <LmIcon iconName={content.icon.name} />
-      ) : rightDrawer ? (
-        <AppsIcon />
+      {rightDrawer ? (
+        isRightOpen ? (
+          <CloseIcon />
+        ) : (
+          <ActiveIcon />
+        )
+      ) : isLeftOpen ? (
+        <CloseIcon />
       ) : (
-        <MenuUi />
+        <ActiveIcon />
       )}
     </IconButton>
   )
