@@ -57,34 +57,28 @@ function IconCore({
   let iconSrc = ''
   if (inView && (iconUrl || iconName)) {
     iconSrc =
-      iconUrl ||
+      iconUrl?.replace('a.storyblok.com', 's3.amazonaws.com/a.storyblok.com') ||
       `https://cdn.jsdelivr.net/npm/@mdi/svg/svg/${underscoreToMinus(
         iconName as string
       )}.svg`
   }
-
-  return iconName || iconUrl ? (
-    <>
-      {iconSrc && (
-        <InlineSVG
-          onClick={() => {
-            onClick && onClick()
-          }}
-          style={style}
-          className={clsx(classes.icon, 'lm-svg-icon', className, {
-            [`size__${buttonSize}`]: buttonSize
-          })}
-          onError={() => {
-            console.error(`Icon not found: ${iconName}`)
-            // console.error(e)
-          }}
-          src={iconSrc}
-        />
-      )}
-      {!iconSrc && <span ref={refIntersectionObserver} />}
-    </>
+  return iconSrc ? (
+    <InlineSVG
+      onClick={() => {
+        onClick && onClick()
+      }}
+      style={style}
+      className={clsx(classes.icon, 'lm-svg-icon', className, {
+        [`size__${buttonSize}`]: buttonSize
+      })}
+      onError={() => {
+        console.error(`Icon not found: ${iconName}`)
+        // console.error(e)
+      }}
+      src={iconSrc}
+    />
   ) : (
-    <span />
+    <span ref={refIntersectionObserver} />
   )
 }
 

@@ -85,13 +85,18 @@ export function CollapsibleListSection({
 
   const ExpandIcon = () =>
     content.icon?.name || content.icon_custom?.[0] ? (
-      <LmIcon iconName={content.icon?.name} {...content.icon_custom?.[0]} />
+      <LmIcon
+        iconName={content.icon?.name}
+        iconUrl={content.icon_custom?.[0].icon_url}
+        {...content.icon_custom?.[0]}
+      />
     ) : (
       <ChevronDown />
     )
   const CloseIcon = () =>
     content.icon_collapse?.name || content.icon_collapse_custom?.[0] ? (
       <LmIcon
+        iconUrl={content.icon_collapse_custom?.[0].icon_url}
         iconName={content.icon_collapse?.name}
         {...content.icon_collapse_custom?.[0]}
       />

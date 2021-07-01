@@ -55,10 +55,9 @@ export function LmIcon({ content, onClick }: LmIconProps): JSX.Element {
         })}
         iconUrl={content.icon_url}
         style={{
-          color:
-            content.color && content.color.rgba ? content.color.rgba : undefined
+          color: content.color?.rgba || undefined
         }}
-        iconName={content.name && content.name.name}
+        iconName={content.name?.name}
       />
     </div>
   )

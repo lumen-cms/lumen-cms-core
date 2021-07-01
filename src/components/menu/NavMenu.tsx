@@ -112,7 +112,11 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
   }
   const ExpandIcon =
     content.icon?.name || content.icon_custom?.[0] ? (
-      <LmIcon iconName={content.icon?.name} {...content.icon_custom?.[0]} />
+      <LmIcon
+        iconName={content.icon?.name}
+        iconUrl={content.icon_custom?.[0].icon_url}
+        {...content.icon_custom?.[0]}
+      />
     ) : (
       <ChevronDown />
     )
@@ -120,6 +124,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
     content.icon_collapse?.name || content.icon_collapse_custom?.[0] ? (
       <LmIcon
         iconName={content.icon_collapse?.name}
+        iconUrl={content.icon_collapse_custom?.[0].icon_url}
         {...content.icon_collapse_custom?.[0]}
       />
     ) : (

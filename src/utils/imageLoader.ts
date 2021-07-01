@@ -71,8 +71,7 @@ const checkWebpSupport = () => {
 
 const loader = ({ src, width, quality }: ImageLoaderProps) => {
   const webP = checkWebpSupport()
-  const storyblokRegex = /^(https?:)?\/\/a.storyblok.com\//
-  const originalPath = src.replace(storyblokRegex, '')
+  const originalPath = src.replace(/^(https?:)?\/\/a.storyblok.com\//, '')
   let opts = ''
   if (width) {
     opts += `/${width}x0`
