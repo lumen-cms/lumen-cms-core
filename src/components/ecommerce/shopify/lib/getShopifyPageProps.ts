@@ -11,11 +11,18 @@ export const getShopifyPageProps = async (props: AppPageProps) => {
   ).find(
     (i) => i.component === 'ecommerce_shopify_config'
   ) as EcommerceShopifyConfigStoryblok
-  const { products } = await shopifyGraphqlSdk({
-    domain: shopifyConfig?.domain,
-    accessToken: shopifyConfig?.access_token
-  }).allProducts()
-  Object.assign(props, {
-    allShopifyProducts: products.edges
-  })
+  if (shopifyConfig?.domain && shopifyConfig?.access_token) {
+    const { products } = await shopifyGraphqlSdk({
+      domain: shopifyConfig.domain,
+      accessToken: shopifyConfig.access_token
+    }).allProducts()
+    Object.assign(props, {
+      allShopifyProducts: products.edges
+    })
+  } else {
+    console.log('domain and/or access token not set')
+    Object.assign(props, {
+      allShopifyProducts: []
+    })
+  }
 }
