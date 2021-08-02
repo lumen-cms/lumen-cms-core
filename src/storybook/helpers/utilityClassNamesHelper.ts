@@ -1,8 +1,8 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createTheme } from '@material-ui/core/styles'
 import { getCreatedStyles } from '../../utils/hooks/useGlobalStyles'
 
 const generateUtilityClassNames = (): string[] => {
-  const globalStyles = getCreatedStyles(createMuiTheme())
+  const globalStyles = getCreatedStyles(createTheme())
 
   const blacklist: string[] = [
     '.fonts-loaded',

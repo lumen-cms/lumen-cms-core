@@ -52,7 +52,7 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
           muted={content.muted}
           playsinline={content.playsinline}
           playing={content.playing}
-          light={content.fallback_image || content.light}
+          light={!!(content.fallback_image || content.light)}
           controls={content.controls}
           height={content.ratio ? '100%' : content.height || undefined}
           width={content.ratio ? '100%' : content.width || undefined}

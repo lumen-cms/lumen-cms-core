@@ -1,5 +1,5 @@
 import React from 'react'
-import GridListTileBar from '@material-ui/core/GridListTileBar'
+import ImageListItemBar from '@material-ui/core/ImageListItemBar'
 import Comment from 'mdi-material-ui/Comment'
 import Heart from 'mdi-material-ui/Heart'
 import LmInstagramPost from './InstagramPost'
@@ -44,12 +44,12 @@ export function InstagramListItem({
           height={content.thumbnail.config_height}
         />
         {(!options.hide_comments || !options.hide_likes) && (
-          <GridListTileBar subtitle={<Social />} titlePosition="top" />
+          <ImageListItemBar subtitle={<Social />} titlePosition="top" />
         )}
         {!options.hide_description && (
-          <GridListTileBar
+          <ImageListItemBar
             subtitle={content.description.split('#')[0]}
-            titlePosition="bottom"
+            position="bottom"
           />
         )}
       </>

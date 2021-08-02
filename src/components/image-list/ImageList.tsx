@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import GridList, { GridListProps } from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
+import ImageList, { ImageListProps } from '@material-ui/core/ImageList'
+import ImageListItem from '@material-ui/core/ImageListItem'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
@@ -32,11 +32,11 @@ export default function LmImageList({
   }
 
   const body = content.body || []
-  const gridListProps: GridListProps = {
-    spacing: gutterSize
+  const gridListProps: ImageListProps = {
+    gap: gutterSize
   }
   if (content.masonry) {
-    gridListProps.spacing = 0
+    gridListProps.gap = 0
     gridListProps.style = {
       columnGap: `${gutterSize}px`
     }
@@ -53,8 +53,8 @@ export default function LmImageList({
           'with-lightbox': content.enable_lightbox
         })}
       >
-        <GridList
-          cellHeight="auto"
+        <ImageList
+          rowHeight="auto"
           className={clsx(gridClasses.gridList, classes.rootGrid)}
           {...gridListProps}
         >
@@ -70,7 +70,7 @@ export default function LmImageList({
                   }
                 : {}
             return (
-              <GridListTile
+              <ImageListItem
                 key={item._uid}
                 {...btnProps}
                 style={{
@@ -82,10 +82,10 @@ export default function LmImageList({
                 }
               >
                 <LmComponentRender content={item} listProps={content} />
-              </GridListTile>
+              </ImageListItem>
             )
           })}
-        </GridList>
+        </ImageList>
       </div>
       {lightbox && (
         <ImageListLightbox

@@ -67,7 +67,7 @@ export default function ToolbarSystemBarRow({
           <Grid
             container
             className="h-100"
-            justify={content.justify || 'space-between'}
+            justifyContent={content.justify || 'space-between'}
             alignContent="center"
             alignItems="center"
           >

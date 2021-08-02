@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react'
 import Image, { ImageProps } from 'next/image'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { GridListTileBar } from '@material-ui/core'
+import ImageListItemBar from '@material-ui/core/ImageListItemBar'
 import {
   getOriginalImageDimensions,
   getRootImageUrl,
@@ -96,10 +96,10 @@ export default function LmImageListItem({
             ${desktopVw}vw`}
       />
       {(content.label || content.sub_title) && (
-        <GridListTileBar
+        <ImageListItemBar
           title={content.label}
           subtitle={content.sub_title}
-          titlePosition={listProps.label_position || 'bottom'}
+          position={listProps.label_position || 'bottom'}
         />
       )}
     </ImageWrap>

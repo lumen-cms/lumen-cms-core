@@ -13,13 +13,17 @@ function ImageListLightbox(props: ImageListLightboxProps): JSX.Element {
     <Dialog
       fullScreen
       className={classes.lightbox}
-      onEscapeKeyDown={() => props.setLightbox('')}
+      onClose={() => {
+        props.setLightbox('')
+      }}
       open={!!props.lightbox}
     >
       <DialogTitle>
         <IconButton
           className="text-white"
-          onClick={() => props.setLightbox('')}
+          onClick={() => {
+            props.setLightbox('')
+          }}
         >
           <Close />
         </IconButton>

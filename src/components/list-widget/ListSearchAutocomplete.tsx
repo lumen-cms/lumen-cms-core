@@ -1,7 +1,7 @@
 import React, { createRef, RefObject, useState } from 'react'
 import {
   createStyles,
-  fade,
+  alpha,
   makeStyles,
   Theme,
   useTheme
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inputRoot: {
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade('rgba(0,0,0,.05)', 0.15),
+      backgroundColor: alpha('rgba(0,0,0,.05)', 0.15),
       color: 'inherit',
       '& .MuiOutlinedInput-notchedOutline': {
         borderColor: theme.palette.divider
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
         borderColor: theme.palette.action.focus
       },
       '&:hover': {
-        backgroundColor: fade('rgba(0,0,0,.05)', 0.25),
+        backgroundColor: alpha('rgba(0,0,0,.05)', 0.25),
         '& .MuiOutlinedInput-notchedOutline': {
           borderColor: theme.palette.action.focus
         }

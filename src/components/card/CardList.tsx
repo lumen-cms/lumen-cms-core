@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import GridList from '@material-ui/core/GridList'
-import GridListTile from '@material-ui/core/GridListTile'
+import ImageList from '@material-ui/core/ImageList'
+import ImageListItem from '@material-ui/core/ImageListItem'
 import { useInView } from 'react-intersection-observer'
 import { LmComponentRender } from '@LmComponentRender'
 import { useGridListStyles } from './cardListStyles'
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   cardBase: {
     overflow: 'visible',
     flexGrow: 1,
-    '& .MuiGridListTile-tile': {
+    '& .Mui-tile': {
       overflow: 'visible'
     },
     '&.card__text_align_center .MuiCardMedia-root .MuiCardContent-root': {
@@ -110,24 +110,24 @@ export default function LmCardList({ content }: LmCardListProps): JSX.Element {
         }
       )}
     >
-      <GridList
-        spacing={gutterSize}
-        cellHeight="auto"
+      <ImageList
+        gap={gutterSize}
+        rowHeight="auto"
         style={{
           overflow: 'visible'
         }}
         className={gridClasses.gridList}
       >
         {data.map((item) => (
-          <GridListTile key={`${item.component}_${item._uid}`}>
+          <ImageListItem key={`${item.component}_${item._uid}`}>
             <LmComponentRender
               content={item}
               options={rest}
               inView={elementInView}
             />
-          </GridListTile>
+          </ImageListItem>
         ))}
-      </GridList>
+      </ImageList>
       <div
         ref={
           enableInView && data.length < body.length

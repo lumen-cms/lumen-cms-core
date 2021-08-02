@@ -1,16 +1,16 @@
 import {
-  createMuiTheme,
+  createTheme,
   responsiveFontSizes,
-  ThemeProvider
+  ThemeProvider,
+  ThemeOptions
 } from '@material-ui/core/styles'
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import React, { FunctionComponent, useMemo } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import parseFont from '../../utils/parseFont'
 import { GlobalStyles } from './GlobalStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
 
-declare module '@material-ui/core/styles/createMuiTheme' {
+declare module '@material-ui/core/styles/createTheme' {
   interface Theme {
     defaultContainerWidth: string | boolean
     drawer: {
@@ -75,7 +75,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
   const themeUid = settings && settings._uid
   const theme = useMemo(() => {
     if (!themeUid) {
-      return responsiveFontSizes(createMuiTheme())
+      return responsiveFontSizes(createTheme())
     }
 
     if (!settings.theme_font_default) {
@@ -231,7 +231,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
       }
     }
 
-    return responsiveFontSizes(createMuiTheme(globalTheme))
+    return responsiveFontSizes(createTheme(globalTheme))
   }, [rightDrawerWidth, settings, themeUid])
 
   return (
