@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   cardBase: {
     overflow: 'visible',
     flexGrow: 1,
-    '& .Mui-tile': {
+    '& .MuiImageListItem-item': {
       overflow: 'visible'
     },
     '&.card__text_align_center .MuiCardMedia-root .MuiCardContent-root': {
