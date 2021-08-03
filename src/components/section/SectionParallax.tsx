@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmSectionParallaxProps } from './sectionTypes'
 import { getRootImageUrl } from '../../utils/imageServices'
+import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 
 const useStyles = makeStyles({
   parallaxRoot: {
@@ -48,6 +49,7 @@ export default function LmSectionParallax({
                       priority={
                         !!content.disable_lazy_load || sectionPosition === 0
                       }
+                      {...storyblokImageLoader(item.image)}
                       src={getRootImageUrl(item.image)}
                       layout="fill"
                       objectFit="cover"

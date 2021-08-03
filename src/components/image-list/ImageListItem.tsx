@@ -10,6 +10,7 @@ import {
 } from '../../utils/imageServices'
 import { LmImageListItemProps } from './imageListTypes'
 import { COLUMN_COUNT } from '../card/cardListStyles'
+import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -86,6 +87,7 @@ export default function LmImageListItem({
       )}
       <Image
         {...imgProps}
+        {...storyblokImageLoader(imageSource)}
         alt={content.alt || content.label || 'image list item'}
         onLoad={() => setLoaded(true)}
         sizes={`(min-width: 0) and (max-width: ${
