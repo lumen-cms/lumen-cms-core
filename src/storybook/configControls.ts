@@ -1,4 +1,5 @@
 import { ArgTypes, Meta } from '@storybook/react'
+// @ts-ignore
 import COMPONENT_JSON from '../../components.82895.json'
 
 export const genericArgTypes = {

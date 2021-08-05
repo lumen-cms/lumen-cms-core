@@ -95,7 +95,7 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
         [classes.xsColumnReverse]: content.reverse_on_mobile,
         [classes.smColumnReverse]: content.reverse_on_tablet
       })}
-      justify={content.justify ? content.justify : undefined}
+      justifyContent={content.justify ? content.justify : undefined}
       alignContent={content.align_content ? content.align_content : undefined}
     >
       {background?.image && (

@@ -27,12 +27,14 @@ LmCoreComponents.parallax_provider = dynamic(
       /* webpackChunkName: 'parallax' */ './section/helper/ParallaxProviderDefaultExport'
     )
 )
-LmCoreComponents.instagram_post = dynamic(
-  () => import(/* webpackChunkName: 'instagram' */ './instagram/InstagramPost')
-)
-LmCoreComponents.instagram_list = dynamic(
-  () => import(/* webpackChunkName: 'instagram' */ './instagram/InstagramList')
-)
+// LmCoreComponents.instagram_post = dynamic(
+//   () => import(/* webpackChunkName: 'instagram' */ './instagram/InstagramPost')
+// )
+// LmCoreComponents.instagram_list = dynamic(
+//   () => import(/* webpackChunkName: 'instagram' */ './instagram/InstagramList')
+// )
+LmCoreComponents.instagram_post = () => null // instagram disabled for now
+LmCoreComponents.instagram_list = () => null // instagram disabled for now
 
 LmCoreComponents.list_search_autocomplete = dynamic(
   () =>

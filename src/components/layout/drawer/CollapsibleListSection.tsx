@@ -38,7 +38,6 @@ export function DrawerContentRender({
     return <DrawerNavList content={content} />
   }
   if (component === 'nav_menu') {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     return <CollapsibleListSection content={content} openedPath={openedPath} />
   }
   if (component === 'list_search_autocomplete') {
@@ -81,7 +80,28 @@ export function CollapsibleListSection({
     }
   })
 
-  const startIconName = content.start_icon && content.start_icon.name
+  const startIconName = content.start_icon?.name
+
+  const ExpandIcon = () =>
+    content.icon?.name || content.icon_custom?.[0] ? (
+      <LmIcon
+        iconName={content.icon?.name}
+        iconUrl={content.icon_custom?.[0].icon_url}
+        {...content.icon_custom?.[0]}
+      />
+    ) : (
+      <ChevronDown />
+    )
+  const CloseIcon = () =>
+    content.icon_collapse?.name || content.icon_collapse_custom?.[0] ? (
+      <LmIcon
+        iconUrl={content.icon_collapse_custom?.[0].icon_url}
+        iconName={content.icon_collapse?.name}
+        {...content.icon_collapse_custom?.[0]}
+      />
+    ) : (
+      <ChevronUp />
+    )
   return (
     <>
       <ListItem button onClick={handleClick}>
@@ -97,7 +117,7 @@ export function CollapsibleListSection({
           </ListItemIcon>
         )}
         <ListItemText primary={content.title} />
-        {open ? <ChevronUp /> : <ChevronDown />}
+        {open ? <CloseIcon /> : <ExpandIcon />}
       </ListItem>
       <Collapse in={open} timeout="auto">
         <List

@@ -94,7 +94,7 @@ export function LmGridColumn({
           container
           direction="column"
           className="mh-100"
-          justify={content.justify ? content.justify : undefined}
+          justifyContent={content.justify ? content.justify : undefined}
           alignItems={content.align_items ? content.align_items : undefined}
           alignContent={
             content.align_content ? content.align_content : undefined

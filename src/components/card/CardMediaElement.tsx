@@ -6,6 +6,7 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { getRootImageUrl, getVwByColCount } from '../../utils/imageServices'
 import { CardListItemProps } from './cardTypes'
 import { COLUMN_COUNT } from './cardListStyles'
+import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 
 const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   children,
@@ -39,6 +40,7 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
       )}
       <Image
         src={getRootImageUrl(content.image)}
+        {...storyblokImageLoader(content.image)}
         onLoad={() => setLoaded(true)}
         loading="lazy"
         layout="fill"

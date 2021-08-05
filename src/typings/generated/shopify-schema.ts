@@ -760,7 +760,7 @@ export enum CheckoutErrorCode {
   Invalid = 'INVALID',
   /** Input value is too long. */
   TooLong = 'TOO_LONG',
-  /** Input value is not present. */
+  /** Input value must be blank. */
   Present = 'PRESENT',
   /** Input value should be less than maximum allowed value. */
   LessThan = 'LESS_THAN',
@@ -2986,7 +2986,10 @@ export type Metafield = Node & {
   updatedAt: Scalars['DateTime'];
   /** The value of a metafield. */
   value: Scalars['String'];
-  /** Represents the metafield value type. */
+  /**
+   * Represents the metafield value type.
+   * @deprecated `valueType` is deprecated and replaced by `type` in API version 2021-07.
+   */
   valueType: MetafieldValueType;
 };
 

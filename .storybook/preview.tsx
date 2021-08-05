@@ -3,7 +3,7 @@ import StoriesLayout from '../src/storybook/components/StoriesLayout'
 import '../src/storybook/mockNextRouter'
 import isChromatic from 'chromatic/isChromatic'
 import { CONFIG } from '@CONFIG'
-import { storyblokImageLoader } from '../src/utils/imageLoader'
+import { storyblokImageLoader } from '../src/utils/storyblokImageLoader'
 
 // overwrite and make sure ENV always same (studentsgoabroad)
 CONFIG.publicToken = 'm85LRUo0sX4yo9Q96VMQlQtt'

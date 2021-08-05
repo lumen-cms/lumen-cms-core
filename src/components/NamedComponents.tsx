@@ -59,7 +59,7 @@ LmCoreComponents.lm_link_render = MuiNextLink
 LmCoreComponents.form = LmGoogleFormContainer
 // moving components back
 LmCoreComponents.iframe = LmIframe
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 LmCoreComponents.iframe_advanced = LmIframe
 LmCoreComponents.chat_tawkto = LmTawktoChatButton

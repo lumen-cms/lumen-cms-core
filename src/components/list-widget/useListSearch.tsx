@@ -40,7 +40,7 @@ export function useListSearch(
       const pageContent = item.content
       const inSearchText = searchText
         ? [item.full_slug, pageContent.preview_title].some(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // eslint-disable-next-line
             // @ts-ignore
             (term) => term && term.search(new RegExp(searchText, 'i')) !== -1
           )

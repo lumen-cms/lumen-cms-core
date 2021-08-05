@@ -1,6 +1,7 @@
 import { LmIcon } from './Icon'
 import { IconStoryblok } from '../../typings/generated/components-schema'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Icons'
 }
@@ -62,6 +63,14 @@ export const Playground = () => (
         icon_url:
           'https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/airbnb.svg',
         size: 'xxxlarge'
+      }}
+    />
+    <LmIcon
+      content={{
+        ...icon,
+        icon_url:
+          'https://a.storyblok.com/f/106896/x/3993a9addc/arrow_down.svg',
+        size: 'medium'
       }}
     />
   </>

@@ -10,6 +10,7 @@ const props: ListSearchAutocompleteStoryblok = {
   not_found_label: 'There is no item found...'
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Inputs/Autocomplete Search'
 }

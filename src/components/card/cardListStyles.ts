@@ -17,7 +17,7 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
     }) => {
       if (!props.isMasonry) {
         const opts: CreateCSSProperties = {
-          '& .MuiGridListTile-root': {
+          '& .MuiImageListItem-root': {
             width: `${
               100 / Number(props.columnCount || COLUMN_COUNT.DESKTOP)
             }% !important`,
@@ -61,10 +61,10 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
       //   width: '100%',
       //   height: 'auto'
       // },
-      '& .MuiGridList-root': {
+      '& .MuiImageList-root': {
         display: 'block'
       },
-      '& .MuiGridListTile-root': {
+      '& .MuiImageListItem-root': {
         width: 'auto !important',
         breakInside: 'avoid-column',
         position: 'relative'

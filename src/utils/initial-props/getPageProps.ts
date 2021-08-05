@@ -16,7 +16,6 @@ SSR_CONFIG.ssrHooks.pageProps = [
 ]
 if (!process.env.STORYBOOK) {
   // build of storybook fails..
-  // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require
   const { processGoogleFonts } = require('./processGoogleFonts')
   SSR_CONFIG.ssrHooks.pageProps.push(processGoogleFonts)
 }

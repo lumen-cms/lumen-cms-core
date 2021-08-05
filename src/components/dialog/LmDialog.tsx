@@ -19,11 +19,15 @@ const useStyles = makeStyles({
   }
 })
 
-const TransitionSlideUp = React.forwardRef((props, ref) => (
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  <Slide direction="up" ref={ref} {...props} />
-))
+const TransitionSlideUp = React.forwardRef(function TransitionSlideUp(
+  props,
+  ref
+) {
+  return (
+    // @ts-ignore
+    <Slide direction="up" ref={ref} {...props} />
+  )
+})
 
 export default function LmDialog({
   dialogProps,
@@ -32,7 +36,7 @@ export default function LmDialog({
 }: LmDialogAsyncProps) {
   const classes = useStyles()
   if (content.slide_up) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // eslint-disable-next-line
     // @ts-ignore
     dialogProps.TransitionComponent = TransitionSlideUp
   }

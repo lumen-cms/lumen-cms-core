@@ -2,6 +2,7 @@ import { LmComponentRender as LmHtml } from '@LmComponentRender'
 import React from 'react'
 import { storyHtml } from '../../storybook/core/various'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/HTML',
   parameters: {

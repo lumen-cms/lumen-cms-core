@@ -13,7 +13,7 @@ export default async function exitPreview(
   const cookies = res.getHeader('Set-Cookie')
   res.setHeader(
     'Set-Cookie',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // eslint-disable-next-line
     // @ts-ignore
     cookies.map((cookie) =>
       cookie.replace('SameSite=Lax', 'SameSite=None;Secure')

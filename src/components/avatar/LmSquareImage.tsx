@@ -4,6 +4,7 @@ import {
   getRootImageUrl,
   imageCalculateWidthHeight
 } from '../../utils/imageServices'
+import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 
 type LmSquareImageProps = {
   image: string
@@ -33,6 +34,7 @@ export default function LmSquareImage({
   return (
     <Image
       src={getRootImageUrl(image)}
+      {...storyblokImageLoader(image)}
       {...(image.includes('a.storyblok.com')
         ? {
             layout: layout || 'fixed',

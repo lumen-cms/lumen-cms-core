@@ -32,7 +32,7 @@ export function ShopifyProductContainer({
     <Grid
       direction="row"
       container
-      justify={config?.columns_justify || 'center'}
+      justifyContent={config?.columns_justify || 'center'}
       alignItems={config?.columns_align_items || 'center'}
     >
       <Grid

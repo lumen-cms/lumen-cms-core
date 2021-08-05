@@ -7,6 +7,7 @@ import { getComponentArgTypes } from '../../storybook/configControls'
 import { findPresets } from '../../storybook/findStorybookPresets'
 import { LmSnackbarProps } from './snackbarTypes'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Feedback/Snackbar',
   component: LmSnackbar,

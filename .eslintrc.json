@@ -10,7 +10,7 @@
     "/jest*"
   ],
   "extends": [
-    "airbnb-typescript-prettier",
+    "next",
     "plugin:prettier/recommended"
   ],
   "globals": {
@@ -40,11 +40,9 @@
     "no-alert": "off",
     "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": 0,
-    "@typescript-eslint/ban-ts-comment": 1,
     "no-plusplus": "off",
     "no-nested-ternary": "off",
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
     // @TODO
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-explicit-any": 0,

@@ -16,6 +16,7 @@ import './ShopifyComponents'
 const ACCESS_TOKEN = '9e9a0888f96c95dc362ef9712e10b584'
 const DOMAIN = 'kembalisales.myshopify.com'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Ecommerce/Shopify'
 }
@@ -87,7 +88,7 @@ export const LuzideNew = Template.bind({})
 LuzideNew.args = {
   handle: 'lucid-dream-eye-mask-45185'
 }
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 LuzideNew.loaders = [
   async () => {
@@ -102,7 +103,7 @@ export const Cake = Template.bind({})
 Cake.args = {
   handle: 'surprise-cake-stand-1-tier-81761'
 }
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 Cake.loaders = [
   async () => {
@@ -117,7 +118,7 @@ export const CakeAlternative = Template.bind({})
 CakeAlternative.args = {
   handle: 'surprise-cake-stand-19372'
 }
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 CakeAlternative.loaders = [
   async () => {
@@ -132,7 +133,7 @@ export const BaliShivaEye = Template.bind({})
 BaliShivaEye.args = {
   handle: 'bali-shiva-eye-necklace'
 }
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 BaliShivaEye.loaders = [
   async () => {

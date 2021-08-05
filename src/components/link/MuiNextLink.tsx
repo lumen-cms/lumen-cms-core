@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { AnchorHTMLAttributes } from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 import { useRouter } from 'next/router'
@@ -6,13 +6,34 @@ import { CONFIG } from '@CONFIG'
 import clsx from 'clsx'
 import { LinkProps, NextComposedProps } from './linkTypes'
 
+const base64encode =
+  typeof btoa !== 'undefined'
+    ? btoa
+    : (b: string) => Buffer.from(b).toString('base64')
+
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
     const { defaultLocale, locales, locale } = useRouter() || {}
     if (other.external) {
       delete other.external
+      const currentLinkProps =
+        href.startsWith('mailto:') || href.startsWith('tel:')
+          ? ({
+              href: '/#',
+              'data-href': base64encode(href),
+              onClick: (event) => {
+                event.preventDefault()
+                window.location.href = atob(
+                  event.currentTarget.getAttribute('data-href') as string
+                )
+              }
+            } as AnchorHTMLAttributes<HTMLAnchorElement>)
+          : {
+              href: href as string
+            }
+
       // eslint-disable-next-line jsx-a11y/anchor-has-content
-      return <a ref={ref} {...other} href={href} />
+      return <a ref={ref} {...other} {...currentLinkProps} />
     }
     const detectedLocale =
       locales?.find((l) => l === href.split('/')[1]) || defaultLocale
@@ -37,13 +58,12 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
 )
 NextComposed.displayName = 'NextComposedLink'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (props, ref) => {
     const {
       href,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       activeClassName = 'lm_active',
       className: classNameProps,
       naked,

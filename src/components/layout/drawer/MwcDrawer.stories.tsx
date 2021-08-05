@@ -19,6 +19,7 @@ const custom = {
   ...customSettings
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Navigation/Drawer'
 }

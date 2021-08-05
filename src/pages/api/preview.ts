@@ -13,7 +13,7 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
   const cookies = res.getHeader('Set-Cookie')
   res.setHeader(
     'Set-Cookie',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // eslint-disable-next-line
     // @ts-ignore
     (cookies || []).map((cookie) =>
       cookie.replace('SameSite=Lax', 'SameSite=None;Secure')
@@ -22,7 +22,7 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
   const params = new URLSearchParams()
   Object.keys(req.query).forEach((key) => {
     if (!['secret', 'slug'].includes(key)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // eslint-disable-next-line
       // @ts-ignore
       params.append(key, req.query[key])
     }

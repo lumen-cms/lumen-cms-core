@@ -1,8 +1,8 @@
 import useSWR from 'swr'
 import { useInView } from 'react-intersection-observer'
 import React from 'react'
-import GridList from '@material-ui/core/GridList'
-import { GridListTile } from '@material-ui/core'
+import ImageList from '@material-ui/core/ImageList'
+import ImageListItem from '@material-ui/core/ImageListItem'
 import clsx from 'clsx'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { useGridListStyles } from '../card/cardListStyles'
@@ -71,7 +71,7 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
     })
     .splice(
       0,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // eslint-disable-next-line
       // @ts-ignore
       getNumber(max_posts || 12, 12)
     )
@@ -93,20 +93,20 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
         [gridClasses.masonry]: content.masonry
       })}
     >
-      <GridList
+      <ImageList
         className={gridClasses.gridList}
-        cellHeight={content.height || 'auto'}
+        rowHeight={content.height || 'auto'}
         style={{
           columnGap: content.masonry ? `${content.column_gap}px` : undefined
         }}
-        spacing={!content.masonry ? Number(content.column_gap || 2) : 0}
+        gap={!content.masonry ? Number(content.column_gap || 2) : 0}
       >
         {(posts || []).map((item) => (
-          <GridListTile
+          <ImageListItem
             key={item.shortcode}
             component="a"
             classes={{
-              tile: clsx({
+              item: clsx({
                 [classesShadow[content.shadow_effect || '']]:
                   !!content.shadow_effect
               })
@@ -115,9 +115,9 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
             target="_blank"
           >
             <InstagramListItem content={item} options={content} />
-          </GridListTile>
+          </ImageListItem>
         ))}
-      </GridList>
+      </ImageList>
     </div>
   )
 }

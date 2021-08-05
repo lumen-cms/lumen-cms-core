@@ -6,7 +6,7 @@ import {
   select,
   text
 } from '@storybook/addon-knobs'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 import COMPONENT_JSON from '../../../components.82895.json'
 import { classNameOpts } from './utilityClassNamesHelper'

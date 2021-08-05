@@ -9,6 +9,7 @@ import InvertedIndicator from '../slider/InvertedIndicator'
 import { ImageListLightboxProps } from './imageListTypes'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 import { getRootImageUrl } from '../../utils/imageServices'
+import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -38,6 +39,7 @@ function CarouselImageItem({ content }: { content: ImageListItemStoryblok }) {
         <Image
           alt={content.alt || content.label || 'image list item'}
           src={getRootImageUrl(imageSource)}
+          {...storyblokImageLoader(imageSource)}
           layout="fill"
           objectFit="contain"
         />

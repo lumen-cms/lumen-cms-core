@@ -6,6 +6,7 @@ import { getComponentArgTypes } from '../../storybook/configControls'
 import { findFirstPreset } from '../../storybook/findStorybookPresets'
 import { LmSliderProps } from './sliderTypes'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Surfaces/Carousel',
   component: LmSlider,

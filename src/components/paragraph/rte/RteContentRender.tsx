@@ -30,7 +30,6 @@ function RteNode({ content }: RteNodeProps) {
         {},
         content.content &&
           content.content.map((blok: RteContentProps, i) =>
-            // eslint-disable-next-line @typescript-eslint/no-use-before-define,no-use-before-define
             LmRteContentRenderer(blok, i)
           )
       )
@@ -45,7 +44,9 @@ const RteComponents = {
   bullet_list: RteNode,
   list_item: RteNode,
   ordered_list: RteNode,
-  horizontal_rule: () => <hr />,
+  horizontal_rule: function HorizontalRule() {
+    return <hr />
+  },
   hard_break: RteNode,
   image: RteNode,
   code_block: RteNode

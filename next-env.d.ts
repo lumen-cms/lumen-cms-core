@@ -1,3 +1,3 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
-/// <reference types="@welldone-software/why-did-you-render" />
+/// <reference types="next/image-types/global" />

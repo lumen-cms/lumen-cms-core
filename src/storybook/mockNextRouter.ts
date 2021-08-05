@@ -5,7 +5,7 @@ const actionWithPromise = (): Promise<boolean> =>
 const actionWithPromiseVoid = (): Promise<void> =>
   new Promise((_, reject) => reject())
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 Router.router = {
   push: actionWithPromise,

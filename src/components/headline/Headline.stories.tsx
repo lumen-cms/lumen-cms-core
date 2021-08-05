@@ -10,6 +10,7 @@ import { LmDateHeadline } from './DateHeadline'
 
 const COMPONENT_NAME = 'headline'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Headline',
   component: LmHeadline,

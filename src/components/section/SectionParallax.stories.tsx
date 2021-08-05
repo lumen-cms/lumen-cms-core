@@ -22,6 +22,7 @@ import {
 import LmSectionParallax from './SectionParallax'
 import { storyImageUrls } from '../../storybook/contentHelper'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Layout/Section Parallax'
 }

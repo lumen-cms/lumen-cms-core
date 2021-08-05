@@ -1,6 +1,7 @@
 import { LmComponentRender as LmPlayer } from '@LmComponentRender'
 import { storyPlayer } from '../../storybook/core/various'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Player'
 }

@@ -6,6 +6,7 @@ import { LmButtonProps } from './buttonTypes'
 import { findFirstPreset } from '../../storybook/findStorybookPresets'
 import StorybookSpacingContainer from '../../storybook/components/StorybookSpacingContainer'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Inputs/Button',
   component: LmButton,
@@ -915,4 +916,29 @@ export const ButtonWithAddons = () => (
       />
     </StorybookSpacingContainer>
   </>
+)
+
+export const ButtonLinkObfuscating = () => (
+  <StorybookSpacingContainer>
+    <LmButton
+      content={{
+        ...presetContent,
+        label: 'Email',
+        link: {
+          email: 'info@lumen.media',
+          linktype: 'email'
+        }
+      }}
+    />
+    <LmButton
+      content={{
+        ...presetContent,
+        label: 'Telefon',
+        link: {
+          cached_url: '+4912345678',
+          linktype: 'url'
+        }
+      }}
+    />
+  </StorybookSpacingContainer>
 )

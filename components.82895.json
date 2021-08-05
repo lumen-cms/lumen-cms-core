@@ -4128,16 +4128,20 @@
       "name": "flex_row",
       "display_name": "Flex Box",
       "created_at": "2020-05-01T08:40:43.097Z",
-      "updated_at": "2021-05-11T08:22:24.158Z",
+      "updated_at": "2021-06-21T03:29:12.909Z",
       "id": 894834,
       "schema": {
         "column": {
           "type": "boolean",
           "pos": 0
         },
-        "full_height": {
+        "column_mobile_only": {
           "type": "boolean",
           "pos": 1
+        },
+        "full_height": {
+          "type": "boolean",
+          "pos": 2
         },
         "justify": {
           "type": "option",
@@ -4168,11 +4172,11 @@
               "name": "end"
             }
           ],
-          "pos": 2
+          "pos": 3
         },
         "align_content": {
           "type": "option",
-          "pos": 3,
+          "pos": 4,
           "use_uuid": true,
           "options": [
             {
@@ -4226,7 +4230,12 @@
               "name": "stretch"
             }
           ],
-          "pos": 4
+          "pos": 5
+        },
+        "gap": {
+          "type": "number",
+          "description": "Gap between elements in 1, 2, 3 etc.",
+          "pos": 6
         },
         "body": {
           "type": "bloks",
@@ -4235,7 +4244,7 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 5
+          "pos": 7
         },
         "class_names": {
           "type": "custom",
@@ -4246,7 +4255,7 @@
               "name": "mui"
             }
           ],
-          "pos": 6
+          "pos": 8
         },
         "tab-af203829-6b44-4062-91c9-c6387d5d0476": {
           "type": "tab",
@@ -4257,21 +4266,54 @@
             "full_height",
             "align_items",
             "align_content",
-            "gap"
+            "gap",
+            "column_mobile_only"
           ],
-          "pos": 7
+          "pos": 9
         },
         "tab-3471b988-61c3-41eb-a50a-6211c0d0b47e": {
           "type": "tab",
-          "display_name": "Classes",
+          "display_name": "Styles",
           "keys": [
-            "class_names"
+            "class_names",
+            "styles",
+            "styles_mobile",
+            "styles_tablet",
+            "styles_hover"
           ],
-          "pos": 8
+          "pos": 10
         },
-        "gap": {
-          "type": "number",
-          "description": "Gap between elements in 1, 2, 3 etc."
+        "styles": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ]
+        },
+        "styles_mobile": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ]
+        },
+        "styles_tablet": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ],
+          "maximum": "1"
+        },
+        "styles_hover": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ],
+          "maximum": "1"
         }
       },
       "image": null,
@@ -7673,9 +7715,46 @@
       "name": "nav_menu",
       "display_name": "",
       "created_at": "2020-05-01T08:40:38.344Z",
-      "updated_at": "2021-05-13T06:06:23.715Z",
+      "updated_at": "2021-06-30T03:59:28.914Z",
       "id": 894811,
       "schema": {
+        "start_icon": {
+          "type": "custom",
+          "pos": 0,
+          "field_type": "material-icons-selector",
+          "display_name": ""
+        },
+        "icon": {
+          "type": "custom",
+          "field_type": "material-icons-selector",
+          "options": [],
+          "pos": 1,
+          "display_name": "Trailing Icon"
+        },
+        "icon_custom": {
+          "type": "bloks",
+          "pos": 2,
+          "restrict_components": true,
+          "component_whitelist": [
+            "icon"
+          ],
+          "maximum": "1"
+        },
+        "icon_collapse": {
+          "type": "custom",
+          "field_type": "material-icons-selector",
+          "options": [],
+          "pos": 3
+        },
+        "icon_collapse_custom": {
+          "type": "bloks",
+          "pos": 4,
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "icon"
+          ]
+        },
         "alignment": {
           "type": "option",
           "use_uuid": true,
@@ -7693,43 +7772,24 @@
               "name": "Bottom Center"
             }
           ],
-          "pos": 0
+          "pos": 5
         },
         "open_on_hover": {
           "type": "boolean",
-          "pos": 1
+          "pos": 6
         },
         "outlined": {
           "type": "boolean",
-          "pos": 2
+          "pos": 7
         },
         "border_radius": {
           "type": "text",
-          "pos": 3
+          "pos": 8
         },
         "elevation": {
           "type": "number",
           "description": "Elevation number between 0 - 24. Default is \"8\"",
-          "pos": 4
-        },
-        "start_icon": {
-          "type": "custom",
-          "pos": 5,
-          "field_type": "material-icons-selector",
-          "display_name": ""
-        },
-        "icon": {
-          "type": "custom",
-          "field_type": "material-icons-selector",
-          "options": [],
-          "pos": 6,
-          "display_name": "Trailing Icon"
-        },
-        "icon_collapse": {
-          "type": "custom",
-          "field_type": "material-icons-selector",
-          "options": [],
-          "pos": 7
+          "pos": 9
         },
         "tab-07c71d56-115e-4fc5-bd37-1846cdf7f19d": {
           "type": "tab",
@@ -7737,9 +7797,11 @@
           "keys": [
             "icon",
             "icon_collapse",
-            "start_icon"
+            "start_icon",
+            "icon_custom",
+            "icon_collapse_custom"
           ],
-          "pos": 8
+          "pos": 10
         },
         "tab-0e6761af-2fdf-41cb-81c4-e2b4bad87b68": {
           "type": "tab",
@@ -7751,7 +7813,7 @@
             "outlined",
             "open_on_hover"
           ],
-          "pos": 9
+          "pos": 11
         },
         "tab-91f28b93-acd2-475f-b11b-9c69849f3c29": {
           "type": "tab",
@@ -7759,16 +7821,16 @@
           "keys": [
             "class_names"
           ],
-          "pos": 10
+          "pos": 12
         },
         "title": {
           "type": "text",
-          "pos": 11,
+          "pos": 13,
           "translatable": true
         },
         "title_custom": {
           "type": "bloks",
-          "pos": 12,
+          "pos": 14,
           "max_length": "",
           "maximum": "1",
           "restrict_components": true,
@@ -7780,7 +7842,7 @@
         },
         "body": {
           "type": "bloks",
-          "pos": 13,
+          "pos": 15,
           "restrict_components": true,
           "component_whitelist": [
             "nav_menu_item",
@@ -7798,7 +7860,7 @@
               "name": "mui"
             }
           ],
-          "pos": 14
+          "pos": 16
         }
       },
       "image": null,

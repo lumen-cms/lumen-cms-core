@@ -14,6 +14,7 @@ const COMPONENT_NAME = 'form'
 const presetContent =
   findFirstPreset<LmGoogleFormProps['content']>(COMPONENT_NAME)
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Inputs/GoogleForm',
   component: LmGoogleFormContainer,

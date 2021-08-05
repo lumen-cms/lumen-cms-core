@@ -111,14 +111,22 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
     }
   }
   const ExpandIcon =
-    content.icon && content.icon.name ? (
-      <LmIcon iconName={content.icon.name} />
+    content.icon?.name || content.icon_custom?.[0] ? (
+      <LmIcon
+        iconName={content.icon?.name}
+        iconUrl={content.icon_custom?.[0].icon_url}
+        {...content.icon_custom?.[0]}
+      />
     ) : (
       <ChevronDown />
     )
   const CloseIcon =
-    content.icon_collapse && content.icon_collapse.name ? (
-      <LmIcon iconName={content.icon_collapse.name} />
+    content.icon_collapse?.name || content.icon_collapse_custom?.[0] ? (
+      <LmIcon
+        iconName={content.icon_collapse?.name}
+        iconUrl={content.icon_collapse_custom?.[0].icon_url}
+        {...content.icon_collapse_custom?.[0]}
+      />
     ) : (
       <ChevronUp />
     )

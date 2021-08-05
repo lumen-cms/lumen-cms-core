@@ -8,7 +8,6 @@ type CoreDocumentProps = {
   props: AppPageProps
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function LmCoreDocument(_ctx: CoreDocumentProps): JSX.Element {
   const cacheVersion = LmStoryblokService.getCacheVersion()
   return (

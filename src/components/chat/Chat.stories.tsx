@@ -6,6 +6,7 @@ import {
   ChatWhatsappStoryblok
 } from '../../typings/generated/components-schema'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Interaction/Chat'
 }

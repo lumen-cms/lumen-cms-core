@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { DrawerContentRender } from './CollapsibleListSection'
 import { useSettings } from '../../provider/SettingsPageProvider'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const findPathDeep = require('deepdash/findPathDeep')
 
 /**
@@ -67,7 +66,7 @@ export function DrawerContentList(): JSX.Element {
   return (
     <>
       {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // eslint-disable-next-line
         // @ts-ignore
         childs?.map((props) => (
           <DrawerContentRender

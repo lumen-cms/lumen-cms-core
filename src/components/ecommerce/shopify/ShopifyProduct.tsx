@@ -14,6 +14,9 @@ export default function LmShopifyProduct({ content }: LmShopifyCheckoutProps) {
   const product = products?.find((p) => {
     return p.node.handle === content.handle
   })
+  if (!product && typeof window !== 'undefined') {
+    console.info(products)
+  }
 
   return product?.node ? (
     <ShopifyProductItem item={product.node} />

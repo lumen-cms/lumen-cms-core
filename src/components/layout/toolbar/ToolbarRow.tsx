@@ -11,7 +11,7 @@ export function LmToolbarRow({ content }: LmToolbarRowProps): JSX.Element {
   return (
     <Grid
       container
-      justify={content.justify || 'space-between'}
+      justifyContent={content.justify || 'space-between'}
       className="h-100"
       alignItems="center"
     >
