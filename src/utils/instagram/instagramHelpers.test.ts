@@ -1,5 +1,9 @@
 import { getMediaByUsername } from 'nanogram.js'
-import { fetchInstagramUserId, getInstagramApi } from './instagramHelpers'
+import {
+  fetchInstagramUserId,
+  getInstagramApi,
+  scrapeInstagramUser
+} from './instagramHelpers'
 
 const user = {
   upskill: {
@@ -64,5 +68,11 @@ describe('Test Instagram', () => {
   test('Get media by username', async () => {
     const res = await getMediaByUsername(user.upskill.name)
     console.log(res)
+  })
+
+  test('scrape instagram user', async () => {
+    const res = await scrapeInstagramUser(user.upskill.name)
+    console.log(res)
+    expect(res.total).toBe(12)
   })
 })

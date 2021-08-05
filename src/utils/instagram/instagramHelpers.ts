@@ -1,3 +1,6 @@
+// @ts-ignore
+import ig from 'instagram-scraping'
+
 // here is the "pk" user ID of an account
 // https://www.instagram.com/web/search/topsearch/?query=studentsgoabroad
 
@@ -78,4 +81,9 @@ export async function fetchInstagramList<JSON = any>(
     // }
   })
   return res.json()
+}
+
+export const scrapeInstagramUser = async (user: string) => {
+  const data = await ig.scrapeUserPage(user)
+  return data
 }

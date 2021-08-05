@@ -6,6 +6,7 @@ import { LmButtonProps } from './buttonTypes'
 import { findFirstPreset } from '../../storybook/findStorybookPresets'
 import StorybookSpacingContainer from '../../storybook/components/StorybookSpacingContainer'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Inputs/Button',
   component: LmButton,

@@ -2,6 +2,7 @@ import { LmComponentRender as LmMotion } from '@LmComponentRender'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import { storyMotion } from '../../storybook/core/various'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default { title: 'Design/Utils/Transitions' }
 
 const body = [

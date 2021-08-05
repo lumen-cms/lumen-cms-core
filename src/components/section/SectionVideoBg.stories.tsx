@@ -9,6 +9,7 @@ import { storyHeadline } from '../../storybook/core/various'
 import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Layout/Section Video'
 }

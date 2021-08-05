@@ -11,6 +11,7 @@ import { LmFlexRowProps } from './flexRowTypes'
 import { getComponentArgTypes } from '../../storybook/configControls'
 
 const COMPONENT_NAME = 'flex_row'
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Layout/Flex Row',
   component: LmFlexRow,

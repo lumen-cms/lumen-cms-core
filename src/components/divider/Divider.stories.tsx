@@ -10,6 +10,7 @@ import { LmDivider } from './Divider'
 
 const COMPONENT_NAME = 'divider'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Divider',
   component: LmDivider,

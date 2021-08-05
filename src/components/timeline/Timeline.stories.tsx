@@ -4,6 +4,7 @@ import { getSentences, storyAvatar } from '../../storybook/core/various'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import { getStorybookImageOnIteration } from '../../storybook/contentHelper'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Layout/Timeline'
 }

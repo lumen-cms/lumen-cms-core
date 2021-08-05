@@ -23,6 +23,7 @@ const advanced2: IframeAdvancedStoryblok = {
   url: 'https://mysga.studentsgoabroad.com/?id=cj9sl3csjyn7z0160hnehn855&fluid'
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/IFrame'
 }

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment,react/no-array-index-key */
+/* eslint-disable react/no-array-index-key */
 import { CSSProperties, FC, useState } from 'react'
 import { FormContainer } from 'react-form-hook-mui'
 import Typography from '@material-ui/core/Typography'
@@ -71,7 +71,7 @@ export default function LmGoogleForm({
     minWidth: `${content.fields_min_width || 180}px`
   }
   const defaultValues = {}
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // eslint-disable-next-line
   // @ts-ignore
   formStructure.fields.forEach((formField) => {
     if ([2, 4].includes(formField.questionTypeCode)) {

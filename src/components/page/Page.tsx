@@ -26,7 +26,7 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
     )
   }
   return (
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // eslint-disable-next-line
     // @ts-ignore
     // eslint-disable-next-line react/jsx-pascal-case
     <LmCoreComponents.parallax_provider>

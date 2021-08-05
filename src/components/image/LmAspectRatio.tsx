@@ -47,7 +47,7 @@ const LmAspectRatio: FC<LmAspectRatioProps> = ({
       className={clsx(className, classes.root)}
       style={{
         ...style,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // eslint-disable-next-line
         // @ts-ignore
         '--aspect-ratio': `(${width / height})`
       }}

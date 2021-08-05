@@ -14,6 +14,7 @@ const svg: ImageStoryblok = {
   source: 'https://a.storyblok.com/f/57008/x/7dea868beb/cc_icons-badge_029.svg'
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Image',
   component: LmImageElement

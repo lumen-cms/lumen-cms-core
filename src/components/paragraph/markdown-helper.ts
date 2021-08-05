@@ -16,7 +16,7 @@ function linkRendererFunc(href = '', title = '', text = '') {
   return `<a href="${href}" title="${title}">${text}</a>`
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 renderer.link = linkRendererFunc
 

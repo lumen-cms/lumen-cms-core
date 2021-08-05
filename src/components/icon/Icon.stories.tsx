@@ -1,6 +1,7 @@
 import { LmIcon } from './Icon'
 import { IconStoryblok } from '../../typings/generated/components-schema'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Icons'
 }

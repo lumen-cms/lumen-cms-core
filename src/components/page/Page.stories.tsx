@@ -38,6 +38,7 @@ import { LmPage } from './Page'
 import getBasicSettings from '../../storybook/components/basicSettings'
 import GlobalTheme from '../global-theme/GlobalTheme'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Layout/Page'
 }

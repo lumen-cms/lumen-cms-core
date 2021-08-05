@@ -20,6 +20,7 @@ const url =
 
 LmCoreComponents.lm_app_providers.push(LmFastSpringProvider)
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Ecommerce/Fastspring',
   decorators: [

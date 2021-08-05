@@ -8,6 +8,7 @@ import { storyMenu, storyMenuItem } from '../../storybook/core/various'
 import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
 import { LmMenu } from './NavMenu'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Navigation/Menu',
   component: LmMenu

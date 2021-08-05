@@ -58,13 +58,12 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
 )
 NextComposed.displayName = 'NextComposedLink'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (props, ref) => {
     const {
       href,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       activeClassName = 'lm_active',
       className: classNameProps,
       naked,

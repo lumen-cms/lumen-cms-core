@@ -12,6 +12,7 @@ import { LmDialogProps } from './dialogTypes'
 import { getComponentArgTypes } from '../../storybook/configControls'
 
 const COMPONENT_NAME = 'dialog'
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Feedback/Dialog',
   component: LmDialog,

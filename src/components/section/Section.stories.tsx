@@ -53,6 +53,7 @@ const columnSectionWithImages: SectionStoryblok = {
   ] as RowStoryblok[]
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Layout/Grid Sections'
 }

@@ -16,6 +16,7 @@ import { getStorybookImageOnIteration } from '../../storybook/contentHelper'
 
 const COMPONENT_NAME = 'card_list'
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Surfaces/Cards',
   component: LmCardList,

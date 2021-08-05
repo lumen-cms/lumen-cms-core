@@ -37,7 +37,6 @@ const storiesRssXML = (stories: PageItem[], host: string) => {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getLocaleFromSlug = (_: string) => {
   // TODO need to write a function for this
   return ''

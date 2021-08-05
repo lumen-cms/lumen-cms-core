@@ -71,7 +71,7 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
     })
     .splice(
       0,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // eslint-disable-next-line
       // @ts-ignore
       getNumber(max_posts || 12, 12)
     )

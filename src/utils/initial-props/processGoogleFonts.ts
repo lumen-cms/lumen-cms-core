@@ -1,5 +1,5 @@
 import postcss from 'postcss'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-next-line
 // @ts-ignore
 import minifier from 'cssnano-simple'
 

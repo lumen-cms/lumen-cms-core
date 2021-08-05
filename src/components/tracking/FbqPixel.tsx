@@ -28,6 +28,7 @@ export default function FbqPixel({ facebookPixelId }: PixelProps) {
       />
       <noscript>
         {multiPixel.map((id) => (
+          // eslint-disable-next-line  @next/next/no-img-element
           <img
             key={id}
             height="1"

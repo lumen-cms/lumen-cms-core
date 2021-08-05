@@ -58,7 +58,7 @@ export function LmRichTextParagraph({
     >
       {render(content.body, {
         markResolvers: {
-          link: (children, props) => {
+          link: function RichtTextLink(children, props) {
             const { href, linktype } = props
             const btnProps: any = {
               ...getLinkAttrs(

@@ -65,7 +65,7 @@ export default function LmFacebookChatButton({
     // />
     <div
       className="fb-customerchat"
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // eslint-disable-next-line
       // @ts-ignore
       attribution="setup_tool"
       page_id={content.page_id}
