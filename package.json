@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "0.94.0",
+  "version": "0.94.1",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -143,6 +143,7 @@
     "eslint": "^7.23.0",
     "eslint-config-next": "^11.0.1",
     "eslint-import-resolver-typescript": "2.4.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "express-jwt": "^6.0.0",
     "install": "0.13.0",
     "jest": "^27.0.6",

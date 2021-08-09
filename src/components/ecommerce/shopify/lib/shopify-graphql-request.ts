@@ -9,7 +9,7 @@ type ShopifyGqlContext = {
 const shopifyClient = (ctx?: ShopifyGqlContext) =>
   new GraphQLClient(
     (ctx?.domain
-      ? `https://${ctx.domain}/api/2020-10/graphql.json`
+      ? `https://${ctx.domain}/api/2021-07/graphql.json`
       : process.env.NEXT_PUBLIC_SHOPIFY_GQL) as string,
     {
       headers: {

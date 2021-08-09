@@ -8,8 +8,13 @@ import {
 } from '../../typings/generated/components-schema'
 import { PageComponent } from '../../typings/generated/schema'
 import { AppPageProps } from '../../typings/app'
-import parseHijackedFormData from '../hooks/googleForms/parseHijackedFormData'
+import parseHijackedFormData, {
+  GoogleFormDataProps
+} from '../hooks/googleForms/parseHijackedFormData'
 import { fetchGoogleFormData } from './fetchGoogleFormData'
+import { LmStoryblokService } from './StoryblokService'
+import { LmListWidgetProps } from '../../components/list-widget/listWidgetTypes'
+import { getListWidgetParams } from '../universal/getListWidgetParams'
 
 export const listWidgetFilter = (
   content: ListWidgetStoryblok,
@@ -67,71 +72,74 @@ export const listWidgetFilter = (
   return stories
 }
 
-export const traversePageContent = (
+export const traversePageContent = async (
   page: PageStoryblok | (RowStoryblok | SectionStoryblok)[],
-  lookup = 'list_widget'
+  lookup = 'list_widget',
+  callback: (item: any) => Promise<any>
 ) => {
   if (!page) {
-    return []
+    return //[]
   }
-  const listWidgets: any[] = []
-  const walkArray = (elements: any[]) => {
-    elements.forEach((item) => {
+  // const listWidgets: any[] = []
+  const walkArray = async (elements: any[]) => {
+    for (const item of elements) {
       if (item.component === lookup) {
-        listWidgets.push(item)
+        item[lookup + '_data'] = await callback(item)
+        // listWidgets.push(item)
       } else if (Array.isArray(item.body)) {
-        walkArray(item.body)
+        await walkArray(item.body)
       }
-    })
+    }
   }
   if (Array.isArray(page)) {
-    walkArray(page)
+    await walkArray(page)
   } else {
     if (Array.isArray(page.body)) {
-      walkArray(page.body)
+      await walkArray(page.body)
     }
     if (Array.isArray(page.right_body)) {
-      walkArray(page.right_body)
+      await walkArray(page.right_body)
     }
   }
-  return listWidgets
 }
 
 export const processListWidgetData = async (props: AppPageProps) => {
   if (props.page) {
-    const listWidgets = traversePageContent(props.page)
-    const listData: { [k: string]: StoryData<PageComponent>[] } = {}
-    listWidgets.forEach((item) => {
-      listData[item._uid] = listWidgetFilter(item, props.allStories)
-    })
-    if (listWidgets.length !== Object.keys(listData).length) {
-      // make sure list widgets are all fetched and merged correctly (_uid might not be unique)
-      console.error('list widget has identical _uid')
+    const callback = async (
+      item: ListWidgetStoryblok
+    ): Promise<LmListWidgetProps['content']['list_widget_data']> => {
+      const params = getListWidgetParams(item, {
+        locale: props.locale,
+        defaultLocale: props.defaultLocale
+      })
+      const storyData = await LmStoryblokService.get('cdn/stories', params)
+      return {
+        items: storyData.data.stories || [],
+        total: storyData.total,
+        perPage: storyData.perPage,
+        cv: storyData.data.cv
+      }
     }
-    if (Object.keys(listData).length) {
-      Object.assign(props, { listWidgetData: listData })
-    }
+
+    await traversePageContent(props.page, 'list_widget', callback)
   }
 }
 
 export const processFormData = async (props: AppPageProps) => {
   if (props.page) {
-    const formEl = [
-      ...traversePageContent(props.page, 'form'),
-      ...traversePageContent(props.settings?.footer as any, 'form')
-    ] as FormStoryblok[]
-    const formData: { [k: string]: any } = {}
-    // eslint-disable-next-line no-restricted-syntax
-    for (const formProps of formEl) {
-      if (formProps.api) {
-        // eslint-disable-next-line no-await-in-loop
-        const res = await fetchGoogleFormData(formProps.api)
-        const parsedData = parseHijackedFormData(res)
-        formData[formProps._uid] = parsedData
+    const callback = async (
+      formProps: FormStoryblok
+    ): Promise<GoogleFormDataProps | undefined> => {
+      if (!formProps.api) {
+        return
       }
+      const res = await fetchGoogleFormData(formProps.api)
+      const parsedData = parseHijackedFormData(res)
+      return parsedData
     }
-    if (Object.keys(formData).length) {
-      Object.assign(props, { formData })
-    }
+    await Promise.all([
+      traversePageContent(props.page, 'form', callback),
+      traversePageContent(props.settings?.footer as any, 'form', callback)
+    ])
   }
 }

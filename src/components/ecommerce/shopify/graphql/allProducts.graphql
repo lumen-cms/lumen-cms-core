@@ -1,7 +1,7 @@
 # import product from './product.fragment.graphql'
 
 query allProducts{
-  products(first: 24){
+  products(first: 50){
     pageInfo{
       hasNextPage
       hasPreviousPage
