@@ -5,15 +5,19 @@ import { LmListWidgetProps } from './listWidgetTypes'
 import useSWR from 'swr'
 import { CONFIG } from '@CONFIG'
 import { useRouter } from 'next/router'
-import { getListWidgetParams } from '../../utils/universal/getListWidgetParams'
+import {
+  getListWidgetParams,
+  getQueryStringOfParams,
+  getStringOfParams
+} from '../../utils/universal/getListWidgetParams'
 import { StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../typings/generated/schema'
 
-const fetcher = async (_url: string, cv: number) => {
+const fetcher = async (url: string, cv: number) => {
   const storyblokApi = new URL('https://api.storyblok.com/v2/cdn/stories')
   storyblokApi.searchParams.append('cv', `${cv}`)
   storyblokApi.searchParams.append('token', CONFIG.publicToken)
-  let input = storyblokApi.toString()
+  let input = storyblokApi.toString() + '&' + url
   console.log(input)
   let storyData = await fetch(input).then((r) => r.json())
   console.log(storyData)
@@ -30,10 +34,10 @@ export default function LmListWidget({
     !!content.enable_for_search
   )
   const { locale, defaultLocale } = useRouter()
-  const params = getListWidgetParams(content, { locale, defaultLocale })
+  const params = getQueryStringOfParams(content, { locale, defaultLocale })
   console.log(params)
   const { data, isValidating, error } = useSWR<StoryData<PageComponent>[]>(
-    ['/', content.list_widget_data?.cv],
+    [params, content.list_widget_data?.cv],
     fetcher,
     {
       initialData: content.list_widget_data?.items ?? []
@@ -45,7 +49,7 @@ export default function LmListWidget({
     <ListWidgetContainer
       options={content.list_options}
       content={content}
-      items={data}
+      items={data || []}
     />
   )
 }
