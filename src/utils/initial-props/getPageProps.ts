@@ -31,14 +31,7 @@ const getPageProps = async (
 ): Promise<AppPageProps> => {
   const { pageSlug } = prepareForStoryblok(slug, options)
 
-  const {
-    page,
-    settings,
-    // allCategories = [],
-    // allStories = [],
-    allStaticContent = [],
-    notFoundLocale
-  } = await apiRequestResolver({
+  const { page, settings, notFoundLocale } = await apiRequestResolver({
     ...options,
     pageSlug
   })
@@ -70,9 +63,6 @@ const getPageProps = async (
   }
   const props: AppPageProps = {
     ...pageSettingsProps,
-    // allCategories,
-    allStaticContent,
-    // allStories,
     locale: options.locale || null,
     defaultLocale: options.defaultLocale,
     insideStoryblok: !!options.insideStoryblok,
