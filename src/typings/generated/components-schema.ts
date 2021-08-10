@@ -1478,6 +1478,7 @@ export interface ListWidgetStoryblok {
   match_all_tags?: boolean;
   only_tagged?: boolean;
   list_options?: (CardListStoryblok | ListsStoryblok | NavListStoryblok)[];
+  not_found_content?: (RichTextEditorStoryblok | HeadlineStoryblok)[];
   _uid: string;
   component: "list_widget";
   [k: string]: any;
@@ -1665,11 +1666,6 @@ export interface NavMenuItemStoryblok {
 }
 
 export interface PageStoryblok {
-  preview_title?: string;
-  preview_subtitle?: string;
-  preview_image?: string;
-  preview_teaser?: string;
-  preview_publish_date?: string;
   meta_title?: string;
   meta_description?: string;
   seo_body?: (
@@ -1679,7 +1675,13 @@ export interface PageStoryblok {
     | SeoLocalBusinessStoryblok
     | SeoCorporateContactStoryblok
   )[];
+  categories?: any[];
   meta_robots?: boolean;
+  preview_title?: string;
+  preview_subtitle?: string;
+  preview_image?: string;
+  preview_teaser?: string;
+  preview_publish_date?: string;
   property?: ("has_feature" | "disable_promotion")[];
   body?: (
     | SectionStoryblok

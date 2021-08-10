@@ -7325,7 +7325,7 @@
       "name": "list_widget",
       "display_name": null,
       "created_at": "2020-05-01T08:40:39.153Z",
-      "updated_at": "2021-02-08T07:31:14.713Z",
+      "updated_at": "2021-08-10T07:25:36.046Z",
       "id": 894815,
       "schema": {
         "categories": {
@@ -7416,6 +7416,15 @@
           "pos": 10,
           "display_name": "List Option Type",
           "component_group_whitelist": []
+        },
+        "not_found_content": {
+          "type": "bloks",
+          "maximum": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "rich_text_editor",
+            "headline"
+          ]
         }
       },
       "image": null,
@@ -7940,40 +7949,17 @@
       "name": "page",
       "display_name": null,
       "created_at": "2020-05-01T08:40:37.942Z",
-      "updated_at": "2021-06-04T01:56:32.306Z",
+      "updated_at": "2021-08-09T07:32:50.312Z",
       "id": 894809,
       "schema": {
-        "preview_title": {
+        "meta_title": {
           "type": "text",
           "pos": 0,
           "translatable": true
         },
-        "preview_subtitle": {
-          "type": "text",
-          "pos": 1,
-          "translatable": true
-        },
-        "preview_image": {
-          "type": "image",
-          "pos": 2
-        },
-        "preview_teaser": {
-          "type": "textarea",
-          "pos": 3,
-          "translatable": true
-        },
-        "preview_publish_date": {
-          "type": "datetime",
-          "pos": 4
-        },
-        "meta_title": {
-          "type": "text",
-          "pos": 5,
-          "translatable": true
-        },
         "meta_description": {
           "type": "textarea",
-          "pos": 6,
+          "pos": 1,
           "translatable": true
         },
         "seo_body": {
@@ -7986,17 +7972,46 @@
             "seo_local_business",
             "seo_corporate_contact"
           ],
-          "pos": 7,
+          "pos": 2,
           "description": "Add a SEO open graph object. Only one per type.",
           "component_group_whitelist": []
+        },
+        "categories": {
+          "type": "options",
+          "pos": 3,
+          "source": "internal_stories",
+          "filter_content_type": "category"
         },
         "meta_robots": {
           "type": "boolean",
           "max_length": "",
           "description": "Disable page index (overwrite the website setting)",
           "display_name": "Disable Index for robots",
+          "pos": 4,
+          "translatable": true
+        },
+        "preview_title": {
+          "type": "text",
+          "pos": 5,
+          "translatable": true
+        },
+        "preview_subtitle": {
+          "type": "text",
+          "pos": 6,
+          "translatable": true
+        },
+        "preview_image": {
+          "type": "image",
+          "pos": 7
+        },
+        "preview_teaser": {
+          "type": "textarea",
           "pos": 8,
           "translatable": true
+        },
+        "preview_publish_date": {
+          "type": "datetime",
+          "pos": 9
         },
         "property": {
           "type": "options",
@@ -8010,7 +8025,7 @@
               "name": "Disable Promotion"
             }
           ],
-          "pos": 9
+          "pos": 10
         },
         "body": {
           "type": "bloks",
@@ -8024,7 +8039,7 @@
             "snackbar",
             "bottom_navigation"
           ],
-          "pos": 10,
+          "pos": 11,
           "component_group_whitelist": []
         },
         "right_body": {
@@ -8034,7 +8049,7 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 11
+          "pos": 12
         },
         "tab-24fdc516-6599-436f-a013-24981438a700": {
           "type": "tab",
@@ -8043,9 +8058,10 @@
             "meta_title",
             "meta_description",
             "seo_body",
-            "meta_robots"
+            "meta_robots",
+            "categories"
           ],
-          "pos": 12
+          "pos": 13
         },
         "tab-716546e4-a663-498d-b1eb-4a0daf9920fd": {
           "type": "tab",
@@ -8057,7 +8073,7 @@
             "preview_publish_date",
             "preview_image"
           ],
-          "pos": 13
+          "pos": 14
         },
         "tab-04fe8a2e-7a97-4410-b098-25c543179e40": {
           "type": "tab",
@@ -8067,7 +8083,7 @@
             "mobile_breakpoint",
             "right_drawer_width"
           ],
-          "pos": 14
+          "pos": 15
         },
         "mobile_breakpoint": {
           "type": "option",
@@ -8090,10 +8106,12 @@
               "name": "xl"
             }
           ],
-          "description": "Default breakpoint is sm (mobile only)"
+          "description": "Default breakpoint is sm (mobile only)",
+          "pos": 16
         },
         "right_drawer_width": {
-          "type": "number"
+          "type": "number",
+          "pos": 17
         }
       },
       "image": null,

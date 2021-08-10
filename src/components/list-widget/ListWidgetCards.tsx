@@ -5,11 +5,11 @@ import {
   CardListStoryblok,
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
-import { AppApiRequestPayload } from '../../typings/app'
+import { AllStoryData } from '../../typings/app'
 
 type ListWidgetCardsProps = {
   content: ListWidgetStoryblok
-  items: AppApiRequestPayload['allStories']
+  items: AllStoryData
   options?: CardListStoryblok
 }
 

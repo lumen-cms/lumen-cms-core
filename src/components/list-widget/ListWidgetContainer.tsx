@@ -5,7 +5,7 @@ import {
   CardListStoryblok,
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
-import { AppApiRequestPayload } from '../../typings/app'
+import { AllStoryData } from '../../typings/app'
 import { ListWidgetCards } from './ListWidgetCards'
 import { ListWidgetLinks } from './ListWidgetLinks'
 import { LmListWidgetProps } from './listWidgetTypes'
@@ -13,7 +13,7 @@ import { LmListWidgetProps } from './listWidgetTypes'
 type ListWidgetContainerProps = {
   options: LmListWidgetProps['content']['list_options']
   content: ListWidgetStoryblok
-  items: AppApiRequestPayload['allStories']
+  items: AllStoryData
 }
 
 export function ListWidgetContainer(

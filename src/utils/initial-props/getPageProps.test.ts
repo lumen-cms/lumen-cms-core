@@ -57,6 +57,31 @@ describe('Get page props of a certain URL', () => {
     recursiveTestCallback(data.page?.body ?? [], 'list_widget', callback)
   })
 
+  test('fetch url that consists list widget data search', async () => {
+    CONFIG.previewToken = 'IQrhrTP6aL0WYgDXmersbgtt'
+    CONFIG.publicToken = 'Xzl0aUdUwWqtCsD37fHMmQtt'
+    const data = await getPageProps('search', defaultOptions)
+    expect(!!data.page).toBeTruthy()
+    const callback = (item: any) => {
+      expect(typeof item.list_widget_data?.total).toBe('number')
+      expect(typeof item.list_widget_data?.cv).toBe('number')
+      expect(typeof item.list_widget_data?.perPage).toBe('number')
+      expect(item.list_widget_data?.items?.length > 0).toBeTruthy()
+    }
+    recursiveTestCallback(data.page?.body ?? [], 'list_widget', callback)
+  })
+
+  test('fetch url that consists category data', async () => {
+    CONFIG.previewToken = 'IQrhrTP6aL0WYgDXmersbgtt'
+    CONFIG.publicToken = 'Xzl0aUdUwWqtCsD37fHMmQtt'
+    const data = await getPageProps('search', defaultOptions)
+    expect(!!data.page).toBeTruthy()
+    const callback = (item: any) => {
+      expect(item.category_box_data?.length).toBeGreaterThan(0)
+    }
+    recursiveTestCallback(data.page?.right_body ?? [], 'category_box', callback)
+  })
+
   test('fetch url that consists form data', async () => {
     CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
     CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'

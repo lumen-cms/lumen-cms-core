@@ -6,6 +6,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../typings/generated/schema'
+import { AllCategoryData } from '../../typings/app'
 
 export type LmListWidgetProps = {
   content: ListWidgetStoryblok & {
@@ -17,7 +18,11 @@ export type LmListWidgetProps = {
     }
   }
 }
-export type LmCategoryBoxProps = { content: CategoryBoxStoryblok }
+export type LmCategoryBoxProps = {
+  content: CategoryBoxStoryblok & {
+    category_box_data: AllCategoryData
+  }
+}
 export type LmListSearchAutocompleteProps = {
   content: ListSearchAutocompleteStoryblok
 }

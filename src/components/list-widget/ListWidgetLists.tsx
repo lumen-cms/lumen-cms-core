@@ -6,11 +6,11 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import { ListsStoryblok } from '../../typings/generated/components-schema'
-import { AppApiRequestPayload } from '../../typings/app'
+import { AllStoryData } from '../../typings/app'
 import { internalLinkHandler } from '../../utils/internalLinkHandler'
 
 type ListWidgetListsProps = {
-  items: AppApiRequestPayload['allStories']
+  items: AllStoryData
   options: ListsStoryblok
   // content: ListWidgetStoryblok
 }

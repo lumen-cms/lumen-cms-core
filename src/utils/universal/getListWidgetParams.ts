@@ -34,7 +34,7 @@ export const getListWidgetParams = (
   if (item.tags?.values?.length) {
     params.with_tag = item.tags.values.join(',')
   }
-  if (item.categories) {
+  if (item.categories?.length) {
     params.filter_query.categories = {
       [item.match_all_tags ? 'all_in_array' : 'in_array']:
         item.categories.join(',')

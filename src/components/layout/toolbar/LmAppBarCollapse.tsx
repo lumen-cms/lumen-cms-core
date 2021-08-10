@@ -49,7 +49,7 @@ const LmAppBarCollapse: FC = ({ children }) => {
         wrapper: classes.wrapper, // we cant use hidden because its not entirely hidden..
         entered: classes.beforeCollapse
       }}
-      collapsedHeight={theme.toolbar.height.desktop}
+      collapsedSize={theme.toolbar.height.desktop}
     >
       {children}
     </Collapse>

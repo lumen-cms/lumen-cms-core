@@ -379,6 +379,7 @@ export type PageComponent = {
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['BlockScalar']>;
+  categories?: Maybe<Array<Maybe<Story>>>;
   component?: Maybe<Scalars['String']>;
   meta_description?: Maybe<Scalars['String']>;
   meta_robots?: Maybe<Scalars['Boolean']>;
@@ -395,11 +396,18 @@ export type PageComponent = {
   seo_body?: Maybe<Scalars['BlockScalar']>;
 };
 
+
+export type PageComponentCategoriesArgs = {
+  fields?: Maybe<Array<Maybe<Scalars['String']>>>;
+  language?: Maybe<Scalars['String']>;
+};
+
 export type PageFilterQuery = {
+  meta_title?: Maybe<FilterQueryOperations>;
+  categories?: Maybe<FilterQueryOperations>;
+  meta_robots?: Maybe<FilterQueryOperations>;
   preview_title?: Maybe<FilterQueryOperations>;
   preview_subtitle?: Maybe<FilterQueryOperations>;
-  meta_title?: Maybe<FilterQueryOperations>;
-  meta_robots?: Maybe<FilterQueryOperations>;
   property?: Maybe<FilterQueryOperations>;
   mobile_breakpoint?: Maybe<FilterQueryOperations>;
   right_drawer_width?: Maybe<FilterQueryOperations>;
@@ -756,6 +764,31 @@ export type StaticcontainerItems = {
   __typename?: 'StaticcontainerItems';
   items?: Maybe<Array<Maybe<StaticcontainerItem>>>;
   total?: Maybe<Scalars['Int']>;
+};
+
+export type Story = {
+  __typename?: 'Story';
+  alternates?: Maybe<Array<Maybe<Alternate>>>;
+  content?: Maybe<Scalars['JsonScalar']>;
+  createdAt?: Maybe<Scalars['String']>;
+  firstPublishedAt?: Maybe<Scalars['String']>;
+  fullSlug?: Maybe<Scalars['String']>;
+  groupId?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  isStartpage?: Maybe<Scalars['Boolean']>;
+  lang?: Maybe<Scalars['String']>;
+  metaData?: Maybe<Scalars['JsonScalar']>;
+  name?: Maybe<Scalars['String']>;
+  parentId?: Maybe<Scalars['Int']>;
+  path?: Maybe<Scalars['String']>;
+  position?: Maybe<Scalars['Int']>;
+  publishedAt?: Maybe<Scalars['String']>;
+  releaseId?: Maybe<Scalars['Int']>;
+  slug?: Maybe<Scalars['String']>;
+  sortByDate?: Maybe<Scalars['String']>;
+  tagList?: Maybe<Array<Maybe<Scalars['String']>>>;
+  translatedSlugs?: Maybe<Array<Maybe<TranslatedSlug>>>;
+  uuid?: Maybe<Scalars['String']>;
 };
 
 export type Tag = {

@@ -22,12 +22,15 @@ type ErrorProps = {
   url: string
 }
 
+export type AllStoryData = StoryData<PageComponent>[]
+export type AllCategoryData = StoryData<CategoryComponent>[]
+
 export type AppApiRequestPayload = {
   page: Story
-  allStories: StoryData<PageComponent>[]
+  // allStories: StoryData<PageComponent>[]
   settings: Story
   locale?: string | null
-  allCategories: StoryData<CategoryComponent>[]
+  // allCategories: StoryData<CategoryComponent>[]
   allStaticContent: StoryData<StaticcontainerComponent>[]
   listWidgetData?: { [k: string]: StoryData<PageComponent>[] } | null
   formData?: { [k: string]: GoogleFormDataProps } | null
@@ -40,10 +43,10 @@ type SubProps = Pick<
   AppApiRequestPayload,
   | 'allStaticContent'
   | 'locale'
-  | 'allCategories'
   | 'listWidgetData'
   | 'formData'
   | 'googleFontString'
+  // | 'allCategories'
 >
 
 export type AppPageProps = SubProps & {
