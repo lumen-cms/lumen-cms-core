@@ -58,7 +58,7 @@ class StoryblokServiceClass {
     if (process.env.STORYBOOK) {
       params.version = 'published'
       // params.cv = this.cv
-      this.client.setToken(CONFIG.publicToken)
+      params.token = CONFIG.publicToken
       this.devMode = false
     } else if (
       this.getQuery('_storyblok') ||
@@ -66,11 +66,8 @@ class StoryblokServiceClass {
       (typeof window !== 'undefined' && window.StoryblokBridge)
     ) {
       params.version = 'draft'
-      this.client.setToken(CONFIG.previewToken)
-    } else {
-      // params.cv = this.cv
+      params.token = CONFIG.previewToken
     }
-    // console.log(this.client.getToken())
     return params
   }
 
@@ -88,6 +85,7 @@ class StoryblokServiceClass {
   async get(slug: string, params = {}) {
     const currentParams = {
       resolve_links: 'url',
+      resolve_relations: 'static_section.container',
       ...params,
       ...this.getDefaultParams()
     }

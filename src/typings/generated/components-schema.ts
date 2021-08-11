@@ -48,6 +48,7 @@ export interface AuthContainerStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -101,6 +102,7 @@ export interface AuthFormStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -556,6 +558,7 @@ export interface ColumnStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -657,6 +660,7 @@ export interface DialogStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -880,6 +884,7 @@ export interface FlexRowStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -939,6 +944,28 @@ export interface FormStoryblok {
   [k: string]: any;
 }
 
+export interface FormBuilderStoryblok {
+  variant?: "standard" | "filled" | "outlined";
+  margin?: "dense" | "normal" | "none";
+  full_width?: boolean;
+  spacing?: number;
+  form_inline?: boolean;
+  endpoint?: string;
+  fields?: (
+    | FormCheckboxStoryblok
+    | FormSelectStoryblok
+    | FormTextfieldStoryblok
+    | RichTextEditorStoryblok
+    | DividerStoryblok
+    | HeadlineStoryblok
+  )[];
+  submit?: ButtonStoryblok[];
+  success_message?: (HeadlineStoryblok | RichTextEditorStoryblok | FlexRowStoryblok)[];
+  _uid: string;
+  component: "form_builder";
+  [k: string]: any;
+}
+
 export interface FormCheckboxStoryblok {
   name: string;
   label?: string;
@@ -952,6 +979,7 @@ export interface FormCheckboxStoryblok {
 export interface FormSelectStoryblok {
   name: string;
   label?: string;
+  placeholder?: string;
   required?: boolean;
   options?: FormSelectOptionStoryblok[];
   _uid: string;
@@ -970,11 +998,13 @@ export interface FormSelectOptionStoryblok {
 export interface FormTextfieldStoryblok {
   name: string;
   label?: string;
+  placeholder?: string;
   type?: "email" | "number";
   textarea?: boolean;
   required?: boolean;
   help_text?: string;
-  help_text_persistent?: boolean;
+  rows?: number;
+  max_rows?: number;
   _uid: string;
   component: "form_textfield";
   [k: string]: any;
@@ -1144,6 +1174,7 @@ export interface HtmlStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1516,6 +1547,7 @@ export interface MotionStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1709,6 +1741,7 @@ export interface PageStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2179,6 +2212,7 @@ export interface SnackbarStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2238,6 +2272,7 @@ export interface StaticContainerStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2405,6 +2440,7 @@ export interface TabsItemStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2472,6 +2508,7 @@ export interface TimelineItemStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2543,6 +2580,7 @@ export interface TimelineItemStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok

@@ -4491,6 +4491,127 @@
       "component_group_name": "General"
     },
     {
+      "name": "form_builder",
+      "display_name": null,
+      "created_at": "2021-08-11T02:08:34.430Z",
+      "updated_at": "2021-08-11T04:33:13.558Z",
+      "id": 1701695,
+      "schema": {
+        "variant": {
+          "type": "option",
+          "pos": 0,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "standard",
+              "name": "standard"
+            },
+            {
+              "value": "filled",
+              "name": "filled"
+            },
+            {
+              "value": "outlined",
+              "name": "outlined"
+            }
+          ]
+        },
+        "margin": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "dense",
+              "name": "dense"
+            },
+            {
+              "value": "normal",
+              "name": "normal"
+            },
+            {
+              "value": "none",
+              "name": "none"
+            }
+          ],
+          "pos": 1
+        },
+        "full_width": {
+          "type": "boolean",
+          "pos": 2
+        },
+        "spacing": {
+          "type": "number",
+          "default_value": "",
+          "description": "Space between fields. Allowed values: 0 - 10",
+          "pos": 3
+        },
+        "form_inline": {
+          "type": "boolean",
+          "description": "Show all form fields in one row.",
+          "pos": 4
+        },
+        "endpoint": {
+          "type": "textarea",
+          "pos": 5
+        },
+        "fields": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "form_checkbox",
+            "form_select",
+            "form_textfield",
+            "rich_text_editor",
+            "divider",
+            "headline"
+          ],
+          "pos": 6
+        },
+        "submit": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "button"
+          ],
+          "pos": 7
+        },
+        "tab-e3e7c18f-31a7-4beb-a85f-ebd9a47ed7e0": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "margin",
+            "full_width",
+            "spacing",
+            "vertical_form",
+            "form_inline",
+            "variant"
+          ],
+          "pos": 8
+        },
+        "success_message": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline",
+            "rich_text_editor",
+            "flex_row"
+          ],
+          "pos": 9
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "form_builder",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "component_group_name": "General"
+    },
+    {
       "name": "form_checkbox",
       "display_name": null,
       "created_at": "2020-05-01T08:40:42.674Z",
@@ -4530,7 +4651,7 @@
       "name": "form_select",
       "display_name": null,
       "created_at": "2020-05-01T08:40:42.482Z",
-      "updated_at": "2020-07-23T00:30:56.251Z",
+      "updated_at": "2021-08-11T04:07:36.106Z",
       "id": 894831,
       "schema": {
         "name": {
@@ -4543,13 +4664,17 @@
           "pos": 1,
           "translatable": true
         },
+        "placeholder": {
+          "type": "text",
+          "pos": 2
+        },
         "required": {
           "type": "boolean",
-          "pos": 2
+          "pos": 3
         },
         "options": {
           "type": "bloks",
-          "pos": 3,
+          "pos": 4,
           "maximum": "",
           "restrict_components": true,
           "component_whitelist": [
@@ -4559,7 +4684,7 @@
         }
       },
       "image": null,
-      "preview_field": null,
+      "preview_field": "name",
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
@@ -4599,7 +4724,7 @@
       "name": "form_textfield",
       "display_name": null,
       "created_at": "2020-05-01T08:40:42.077Z",
-      "updated_at": "2020-05-01T08:40:42.077Z",
+      "updated_at": "2021-08-11T04:08:35.859Z",
       "id": 894829,
       "schema": {
         "name": {
@@ -4612,9 +4737,13 @@
           "pos": 1,
           "translatable": true
         },
+        "placeholder": {
+          "type": "text",
+          "pos": 2
+        },
         "type": {
           "type": "option",
-          "pos": 2,
+          "pos": 3,
           "use_uuid": true,
           "options": [
             {
@@ -4629,19 +4758,25 @@
         },
         "textarea": {
           "type": "boolean",
-          "pos": 3
+          "pos": 4
         },
         "required": {
           "type": "boolean",
-          "pos": 4
+          "pos": 5
         },
         "help_text": {
           "type": "text",
-          "pos": 5
-        },
-        "help_text_persistent": {
-          "type": "boolean",
           "pos": 6
+        },
+        "rows": {
+          "type": "number",
+          "description": "Number of rows for textarea",
+          "pos": 7
+        },
+        "max_rows": {
+          "type": "number",
+          "description": "Maximum rows for textarea fields",
+          "pos": 8
         }
       },
       "image": null,

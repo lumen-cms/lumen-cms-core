@@ -61,9 +61,7 @@ export const apiRequestResolver = async ({
   // }&no_cache=true${locale ? `&locale=${locale}` : ''}`
   const currentSlug = `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
   const [page, settings] = await resolveAllPromises([
-    LmStoryblokService.get(currentSlug, {
-      resolve_relations: 'static_section.container'
-    }),
+    LmStoryblokService.get(currentSlug),
     LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath }))
   ])
   let notFoundLocale
