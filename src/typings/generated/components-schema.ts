@@ -977,11 +977,12 @@ export interface FormCheckboxStoryblok {
 }
 
 export interface FormSelectStoryblok {
+  required?: boolean;
   name: string;
   label?: string;
   placeholder?: string;
-  required?: boolean;
   options?: FormSelectOptionStoryblok[];
+  type?: "multi-select" | "checkbox" | "radio";
   _uid: string;
   component: "form_select";
   [k: string]: any;

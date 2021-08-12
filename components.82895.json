@@ -4651,25 +4651,25 @@
       "name": "form_select",
       "display_name": null,
       "created_at": "2020-05-01T08:40:42.482Z",
-      "updated_at": "2021-08-11T04:07:36.106Z",
+      "updated_at": "2021-08-12T02:09:44.759Z",
       "id": 894831,
       "schema": {
+        "required": {
+          "type": "boolean",
+          "pos": 0
+        },
         "name": {
           "type": "text",
           "required": true,
-          "pos": 0
+          "pos": 1
         },
         "label": {
           "type": "text",
-          "pos": 1,
+          "pos": 2,
           "translatable": true
         },
         "placeholder": {
           "type": "text",
-          "pos": 2
-        },
-        "required": {
-          "type": "boolean",
           "pos": 3
         },
         "options": {
@@ -4681,6 +4681,34 @@
             "form_select_option"
           ],
           "component_group_whitelist": []
+        },
+        "type": {
+          "type": "option",
+          "pos": 5,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "multi-select",
+              "name": "multi-select"
+            },
+            {
+              "value": "checkbox",
+              "name": "checkbox"
+            },
+            {
+              "value": "radio",
+              "name": "radio"
+            }
+          ]
+        },
+        "tab-ad49ee42-5d27-46a8-96d1-7dfe893a40b4": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "type",
+            "required"
+          ],
+          "pos": 6
         }
       },
       "image": null,

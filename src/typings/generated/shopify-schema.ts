@@ -5062,162 +5062,27 @@ export enum WeightUnit {
 export type AllProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AllProductsQuery = (
-  { __typename?: 'QueryRoot' }
-  & { products: (
-    { __typename?: 'ProductConnection' }
-    & { pageInfo: (
-      { __typename?: 'PageInfo' }
-      & Pick<PageInfo, 'hasNextPage' | 'hasPreviousPage'>
-    ), edges: Array<(
-      { __typename?: 'ProductEdge' }
-      & { node: (
-        { __typename?: 'Product' }
-        & ProductFragment
-      ) }
-    )> }
-  ) }
-);
+export type AllProductsQuery = { __typename?: 'QueryRoot', products: { __typename?: 'ProductConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'ProductEdge', node: { __typename?: 'Product', handle: string, id: string, title: string, descriptionHtml: any, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', altText?: Maybe<string>, transformedSrc: any } }> }, options: Array<{ __typename?: 'ProductOption', id: string, name: string, values: Array<string> }>, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, image?: Maybe<{ __typename?: 'Image', transformedSrc: any }>, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, compareAtPriceV2?: Maybe<{ __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }> } }> } } }> } };
 
 export type CheckoutCreateMutationVariables = Exact<{
   input: CheckoutCreateInput;
 }>;
 
 
-export type CheckoutCreateMutation = (
-  { __typename?: 'Mutation' }
-  & { checkoutCreate?: Maybe<(
-    { __typename?: 'CheckoutCreatePayload' }
-    & { checkoutUserErrors: Array<(
-      { __typename?: 'CheckoutUserError' }
-      & Pick<CheckoutUserError, 'message' | 'code' | 'field'>
-    )>, checkout?: Maybe<(
-      { __typename?: 'Checkout' }
-      & Pick<Checkout, 'id' | 'webUrl' | 'completedAt' | 'currencyCode'>
-      & { lineItemsSubtotalPrice: (
-        { __typename?: 'MoneyV2' }
-        & Pick<MoneyV2, 'amount' | 'currencyCode'>
-      ), subtotalPriceV2: (
-        { __typename?: 'MoneyV2' }
-        & Pick<MoneyV2, 'amount' | 'currencyCode'>
-      ), paymentDueV2: (
-        { __typename?: 'MoneyV2' }
-        & Pick<MoneyV2, 'amount' | 'currencyCode'>
-      ), lineItems: (
-        { __typename?: 'CheckoutLineItemConnection' }
-        & { pageInfo: (
-          { __typename?: 'PageInfo' }
-          & Pick<PageInfo, 'hasNextPage' | 'hasPreviousPage'>
-        ), edges: Array<(
-          { __typename?: 'CheckoutLineItemEdge' }
-          & { node: (
-            { __typename?: 'CheckoutLineItem' }
-            & Pick<CheckoutLineItem, 'id' | 'quantity' | 'title'>
-            & { variant?: Maybe<(
-              { __typename?: 'ProductVariant' }
-              & { compareAtPriceV2?: Maybe<(
-                { __typename?: 'MoneyV2' }
-                & Pick<MoneyV2, 'amount' | 'currencyCode'>
-              )> }
-            )> }
-          ) }
-        )> }
-      ) }
-    )> }
-  )> }
-);
+export type CheckoutCreateMutation = { __typename?: 'Mutation', checkoutCreate?: Maybe<{ __typename?: 'CheckoutCreatePayload', checkoutUserErrors: Array<{ __typename?: 'CheckoutUserError', message: string, code?: Maybe<CheckoutErrorCode>, field?: Maybe<Array<string>> }>, checkout?: Maybe<{ __typename?: 'Checkout', id: string, webUrl: any, completedAt?: Maybe<any>, currencyCode: CurrencyCode, lineItemsSubtotalPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, subtotalPriceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, paymentDueV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, lineItems: { __typename?: 'CheckoutLineItemConnection', pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean }, edges: Array<{ __typename?: 'CheckoutLineItemEdge', node: { __typename?: 'CheckoutLineItem', id: string, quantity: number, title: string, variant?: Maybe<{ __typename?: 'ProductVariant', compareAtPriceV2?: Maybe<{ __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }> }> } }> } }> }> };
 
-export type ProductFragment = (
-  { __typename?: 'Product' }
-  & Pick<Product, 'handle' | 'id' | 'title' | 'descriptionHtml'>
-  & { images: (
-    { __typename?: 'ImageConnection' }
-    & { edges: Array<(
-      { __typename?: 'ImageEdge' }
-      & { node: (
-        { __typename?: 'Image' }
-        & Pick<Image, 'altText' | 'transformedSrc'>
-      ) }
-    )> }
-  ), options: Array<(
-    { __typename?: 'ProductOption' }
-    & Pick<ProductOption, 'id' | 'name' | 'values'>
-  )>, variants: (
-    { __typename?: 'ProductVariantConnection' }
-    & { edges: Array<(
-      { __typename?: 'ProductVariantEdge' }
-      & { node: (
-        { __typename?: 'ProductVariant' }
-        & VariantFragmentFragment
-      ) }
-    )> }
-  ) }
-);
+export type ProductFragment = { __typename?: 'Product', handle: string, id: string, title: string, descriptionHtml: any, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', altText?: Maybe<string>, transformedSrc: any } }> }, options: Array<{ __typename?: 'ProductOption', id: string, name: string, values: Array<string> }>, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, image?: Maybe<{ __typename?: 'Image', transformedSrc: any }>, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, compareAtPriceV2?: Maybe<{ __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }> } }> } };
 
 export type ProductQueryVariables = Exact<{
   handle: Scalars['String'];
 }>;
 
 
-export type ProductQuery = (
-  { __typename?: 'QueryRoot' }
-  & { productByHandle?: Maybe<(
-    { __typename?: 'Product' }
-    & ProductFragment
-  )> }
-);
+export type ProductQuery = { __typename?: 'QueryRoot', productByHandle?: Maybe<{ __typename?: 'Product', handle: string, id: string, title: string, descriptionHtml: any, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', altText?: Maybe<string>, transformedSrc: any } }> }, options: Array<{ __typename?: 'ProductOption', id: string, name: string, values: Array<string> }>, variants: { __typename?: 'ProductVariantConnection', edges: Array<{ __typename?: 'ProductVariantEdge', node: { __typename?: 'ProductVariant', id: string, title: string, image?: Maybe<{ __typename?: 'Image', transformedSrc: any }>, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, compareAtPriceV2?: Maybe<{ __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }> } }> } }> };
 
-export type VariantFragmentFragment = (
-  { __typename?: 'ProductVariant' }
-  & Pick<ProductVariant, 'id' | 'title'>
-  & { image?: Maybe<(
-    { __typename?: 'Image' }
-    & Pick<Image, 'transformedSrc'>
-  )>, selectedOptions: Array<(
-    { __typename?: 'SelectedOption' }
-    & Pick<SelectedOption, 'name' | 'value'>
-  )>, priceV2: (
-    { __typename?: 'MoneyV2' }
-    & Pick<MoneyV2, 'amount' | 'currencyCode'>
-  ), compareAtPriceV2?: Maybe<(
-    { __typename?: 'MoneyV2' }
-    & Pick<MoneyV2, 'amount' | 'currencyCode'>
-  )> }
-);
+export type VariantFragmentFragment = { __typename?: 'ProductVariant', id: string, title: string, image?: Maybe<{ __typename?: 'Image', transformedSrc: any }>, selectedOptions: Array<{ __typename?: 'SelectedOption', name: string, value: string }>, priceV2: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, compareAtPriceV2?: Maybe<{ __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }> };
 
-export type ProductsConnectionFragment = (
-  { __typename?: 'ProductConnection' }
-  & { edges: Array<(
-    { __typename?: 'ProductEdge' }
-    & Pick<ProductEdge, 'cursor'>
-    & { node: (
-      { __typename?: 'Product' }
-      & Pick<Product, 'title' | 'handle' | 'description' | 'createdAt'>
-      & { images: (
-        { __typename?: 'ImageConnection' }
-        & { edges: Array<(
-          { __typename?: 'ImageEdge' }
-          & { node: (
-            { __typename?: 'Image' }
-            & Pick<Image, 'transformedSrc' | 'altText'>
-          ) }
-        )> }
-      ), priceRange: (
-        { __typename?: 'ProductPriceRange' }
-        & { minVariantPrice: (
-          { __typename?: 'MoneyV2' }
-          & Pick<MoneyV2, 'amount' | 'currencyCode'>
-        ), maxVariantPrice: (
-          { __typename?: 'MoneyV2' }
-          & Pick<MoneyV2, 'amount' | 'currencyCode'>
-        ) }
-      ) }
-    ) }
-  )>, pageInfo: (
-    { __typename?: 'PageInfo' }
-    & Pick<PageInfo, 'hasNextPage'>
-  ) }
-);
+export type ProductsConnectionFragment = { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', title: string, handle: string, description: string, createdAt: any, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', transformedSrc: any, altText?: Maybe<string> } }> }, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean } };
 
 export type ProductsQueryVariables = Exact<{
   cursor?: Maybe<Scalars['String']>;
@@ -5227,13 +5092,7 @@ export type ProductsQueryVariables = Exact<{
 }>;
 
 
-export type ProductsQuery = (
-  { __typename?: 'QueryRoot' }
-  & { products: (
-    { __typename?: 'ProductConnection' }
-    & ProductsConnectionFragment
-  ) }
-);
+export type ProductsQuery = { __typename?: 'QueryRoot', products: { __typename?: 'ProductConnection', edges: Array<{ __typename?: 'ProductEdge', cursor: string, node: { __typename?: 'Product', title: string, handle: string, description: string, createdAt: any, images: { __typename?: 'ImageConnection', edges: Array<{ __typename?: 'ImageEdge', node: { __typename?: 'Image', transformedSrc: any, altText?: Maybe<string> } }> }, priceRange: { __typename?: 'ProductPriceRange', minVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode }, maxVariantPrice: { __typename?: 'MoneyV2', amount: any, currencyCode: CurrencyCode } } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean } } };
 
 export const VariantFragmentFragmentDoc = gql`
     fragment VariantFragment on ProductVariant {

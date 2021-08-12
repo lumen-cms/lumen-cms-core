@@ -1,6 +1,9 @@
 import { Meta } from '@storybook/react'
 import LmFormBuilder from './FormBuilder'
-import { FormBuilderStoryblok } from '../../typings/generated/components-schema'
+import {
+  FormBuilderStoryblok,
+  FormSelectOptionStoryblok
+} from '../../typings/generated/components-schema'
 
 export default {
   title: 'Design/Inputs/FormBuilder'
@@ -115,3 +118,70 @@ export const InlineForm = () => (
     }}
   />
 )
+
+export const SelectVariants = () => {
+  let options: FormSelectOptionStoryblok[] = [
+    {
+      _uid: '1',
+      component: 'form_select_option',
+      value: '1',
+      label: 'Option 1'
+    },
+    {
+      _uid: '2',
+      component: 'form_select_option',
+      value: '2',
+      label: 'Option 2'
+    },
+    {
+      _uid: '3',
+      component: 'form_select_option',
+      value: '3',
+      label: 'Option 3'
+    }
+  ]
+  return (
+    <LmFormBuilder
+      content={{
+        _uid: 'inline',
+        component: 'form_builder',
+        endpoint,
+        spacing: 2,
+        submit: submit,
+        fields: [
+          {
+            _uid: '1',
+            label: 'Single Select',
+            name: 'single_select',
+            component: 'form_select',
+            options
+          },
+          {
+            _uid: '2',
+            label: 'Multi Select',
+            name: 'multi_select',
+            type: 'multi-select',
+            component: 'form_select',
+            options
+          },
+          {
+            _uid: '3',
+            label: 'Checkbox',
+            name: 'multi_select',
+            type: 'checkbox',
+            component: 'form_select',
+            options
+          },
+          {
+            _uid: '4',
+            label: 'Radio',
+            name: 'multi_select',
+            type: 'radio',
+            component: 'form_select',
+            options
+          }
+        ]
+      }}
+    />
+  )
+}
