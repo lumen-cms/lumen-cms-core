@@ -9,7 +9,6 @@ import {
 import { StructuredFormFieldProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 import { LmGoogleFormProps } from './googleFormProps'
 
-// @ts-ignore
 const TextFieldElement = dynamic<TextFieldElementProps>(() =>
   import('react-hook-form-mui').then((mod) => mod.TextFieldElement)
 )

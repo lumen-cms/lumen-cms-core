@@ -14,20 +14,21 @@ export default function LmFormTextField({
     required,
     type,
     rows,
-    max_rows
+    max_rows,
+    _uid
   } = content
   const { margin, full_width, variant } = options
   return (
     <TextFieldElement
-      name={name}
-      variant={variant}
-      label={label}
-      placeholder={placeholder}
+      name={name || _uid}
+      variant={variant || 'standard'}
+      label={label || undefined}
+      placeholder={placeholder || undefined}
       required={required}
-      helperText={help_text}
-      multiline={textarea}
-      type={type}
-      margin={margin}
+      helperText={help_text || undefined}
+      multiline={textarea || undefined}
+      type={type || 'text'}
+      margin={margin || undefined}
       rows={textarea ? (rows ? Number(rows) : 3) : undefined}
       maxRows={textarea && max_rows ? Number(max_rows) : undefined}
       fullWidth={full_width}

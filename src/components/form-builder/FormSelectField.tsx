@@ -6,25 +6,20 @@ import {
   SelectElement
 } from 'react-hook-form-mui'
 
-export default function LmFormTextField({
+export default function LmFormSelectField({
   content,
   ...rest
 }: LmSelectFieldProps) {
-  const {
-    label,
-    name,
-    placeholder,
-    help_text,
-    required,
-    options,
-    type = 'single'
-  } = content
+  const { label, name, placeholder, help_text, required, options, type, _uid } =
+    content
   const currentOptions =
     options?.map((option) => ({
       id: option.value || option.label,
       title: option.label || option.id,
       label: option.label || option.id
     })) || []
+  console.log('values', name, label, type)
+
   return {
     checkbox: (
       <CheckboxButtonGroup
@@ -32,7 +27,7 @@ export default function LmFormTextField({
         required={required}
         helperText={help_text}
         options={currentOptions}
-        name={name}
+        name={name || _uid}
       />
     ),
     radio: (
@@ -40,13 +35,13 @@ export default function LmFormTextField({
         label={label}
         required={required}
         options={currentOptions}
-        name={name}
+        name={name || _uid}
         helperText={help_text}
       />
     ),
     'multi-select': (
       <MultiSelectElement
-        name={name}
+        name={name || _uid}
         label={label}
         placeholder={placeholder}
         required={required}
@@ -54,25 +49,26 @@ export default function LmFormTextField({
         itemKey={'id'}
         itemValue={'id'}
         itemLabel={'label'}
-        variant={rest.options.variant}
-        margin={rest.options.margin}
+        type={'text'}
+        variant={rest.options.variant || 'standard'}
+        margin={rest.options.margin || undefined}
         fullWidth={rest.options.full_width}
         helperText={help_text}
       />
     ),
     single: (
       <SelectElement
-        name={name}
-        label={label}
+        name={name || _uid}
+        label={label || undefined}
         style={{ minWidth: '168px' }}
-        variant={rest.options.variant}
+        variant={rest.options.variant || 'standard'}
         options={currentOptions}
-        placeholder={placeholder}
+        placeholder={placeholder || undefined}
         required={required}
-        helperText={help_text}
-        margin={rest.options.margin}
+        helperText={help_text || undefined}
+        margin={rest.options.margin || undefined}
         fullWidth={rest.options.full_width}
       />
     )
-  }[type]
+  }[type || 'single']
 }

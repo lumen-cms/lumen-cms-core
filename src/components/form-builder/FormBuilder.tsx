@@ -16,11 +16,23 @@ export default function LmFormBuilder({ content }: LmFormBuilderProps) {
     form_inline,
     ...options
   } = content
+
+  // const renderField = (field: FormBuilderStoryblok['fields'][0]) => {
+  //   switch (field.component) {
+  //     case 'form_textfield':
+  //       return <LmFormTextField content={field} options={options} />
+  //     default:
+  //       return <LmComponentRender content={field} />
+  //   }
+  // }
+
   return success ? (
     <div>
-      {success_message?.map((blok) => (
-        <LmComponentRender key={blok._uid} content={blok} />
-      )) ?? 'successful submit..'}
+      {success_message?.length
+        ? success_message.map((blok) => (
+            <LmComponentRender key={blok._uid} content={blok} />
+          ))
+        : 'successful submit..'}
     </div>
   ) : (
     <FormContainer
@@ -63,6 +75,7 @@ export default function LmFormBuilder({ content }: LmFormBuilderProps) {
             <LmComponentRender content={field} options={options} />
           </Grid>
         ))}
+
         {submit?.map((blok) => (
           <Grid
             item
