@@ -2,10 +2,10 @@ import postcss from 'postcss'
 // eslint-disable-next-line
 // @ts-ignore
 import minifier from 'cssnano-simple'
-
-import { getFontDefinitionFromNetwork } from 'next/dist/next-server/server/font-utils'
 import { AppPageProps } from '../../typings/app'
 import { getFontBasedOnSetting } from '../parseFont'
+// import { getFontDefinitionFromNetwork } from 'next/dist/next-server/server/font-utils'
+import { getFontDefinitionFromNetwork } from 'next/dist/server/font-utils'
 
 // cache response
 const googleFontString = {}

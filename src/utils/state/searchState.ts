@@ -29,3 +29,5 @@ export const useSearchStore = create<SearchStore>((set) => ({
 
 export const searchTextSelector = (state: SearchStore) => state.searchText
 export const categorySelector = (state: SearchStore) => state.categories
+export const setSearchCategorySelector = (state: SearchStore) =>
+  state.setSearchCategory

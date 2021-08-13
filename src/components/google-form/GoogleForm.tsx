@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { CSSProperties, FC, useState } from 'react'
-import { FormContainer } from 'react-form-hook-mui'
+import { FormContainer } from 'react-hook-form-mui'
 import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import { LmComponentRender } from '@LmComponentRender'

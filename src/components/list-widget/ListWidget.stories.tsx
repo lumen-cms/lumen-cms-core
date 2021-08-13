@@ -6,7 +6,7 @@ import LmListWidget from './ListWidget'
 import { getComponentArgTypes } from '../../storybook/configControls'
 import { fetchStoryblokContent } from '../../storybook/fetchStoryblokContent'
 import AppProvider from '../provider/AppProvider'
-import { listWidgetFilter } from '../../utils/initial-props/traversePageContent'
+import { legacyFilterAllStories } from '../../utils/initial-props/legacyFilterAllStories'
 
 const COMPONENT_NAME = 'list_widget'
 
@@ -36,7 +36,7 @@ const Template: Story<LmListWidgetProps['content']> = (
 ) => {
   const listWidgetData = {}
   presets.forEach((preset) => {
-    listWidgetData[preset._uid] = listWidgetFilter(
+    listWidgetData[preset._uid] = legacyFilterAllStories(
       preset,
       storyblokContent.stories
     )

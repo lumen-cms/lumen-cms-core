@@ -5,6 +5,7 @@ import { MainContent } from './MainContent'
 import { LmPageProps } from './pageTypes'
 import { usePage } from '../provider/SettingsPageProvider'
 import EmptyContent from './EmptyContent'
+import { LmComponentRender } from '@LmComponentRender'
 
 export function LmPage({ content }: LmPageProps): JSX.Element {
   const page = usePage()
@@ -12,7 +13,13 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
   const currentContent = page || content
   const body = currentContent?.body || []
   const rightBody = currentContent?.right_body || []
-
+  if (page.component !== 'page') {
+    return (
+      <LmComponentRender
+        content={{ component: 'section', _uid: page._uid, body: [page] }}
+      />
+    )
+  }
   if (!body.length) {
     return <EmptyContent />
   }

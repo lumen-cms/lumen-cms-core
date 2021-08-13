@@ -48,6 +48,8 @@ export interface AuthContainerStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -101,6 +103,8 @@ export interface AuthFormStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -556,6 +560,8 @@ export interface ColumnStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -657,6 +663,8 @@ export interface DialogStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -880,6 +888,8 @@ export interface FlexRowStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -939,6 +949,28 @@ export interface FormStoryblok {
   [k: string]: any;
 }
 
+export interface FormBuilderStoryblok {
+  variant?: "standard" | "filled" | "outlined";
+  margin?: "dense" | "normal" | "none";
+  full_width?: boolean;
+  spacing?: number;
+  form_inline?: boolean;
+  endpoint?: string;
+  fields?: (
+    | FormCheckboxStoryblok
+    | FormSelectStoryblok
+    | FormTextfieldStoryblok
+    | RichTextEditorStoryblok
+    | DividerStoryblok
+    | HeadlineStoryblok
+  )[];
+  submit?: ButtonStoryblok[];
+  success_message?: (HeadlineStoryblok | RichTextEditorStoryblok | FlexRowStoryblok)[];
+  _uid: string;
+  component: "form_builder";
+  [k: string]: any;
+}
+
 export interface FormCheckboxStoryblok {
   name: string;
   label?: string;
@@ -949,11 +981,20 @@ export interface FormCheckboxStoryblok {
   [k: string]: any;
 }
 
+export interface FormContainerStoryblok {
+  form?: string;
+  _uid: string;
+  component: "form_container";
+  [k: string]: any;
+}
+
 export interface FormSelectStoryblok {
+  options?: FormSelectOptionStoryblok[];
   name: string;
   label?: string;
+  placeholder?: string;
   required?: boolean;
-  options?: FormSelectOptionStoryblok[];
+  type?: "multi-select" | "checkbox" | "radio";
   _uid: string;
   component: "form_select";
   [k: string]: any;
@@ -968,13 +1009,15 @@ export interface FormSelectOptionStoryblok {
 }
 
 export interface FormTextfieldStoryblok {
+  textarea?: boolean;
+  rows?: number;
+  max_rows?: number;
   name: string;
   label?: string;
+  placeholder?: string;
   type?: "email" | "number";
-  textarea?: boolean;
   required?: boolean;
   help_text?: string;
-  help_text_persistent?: boolean;
   _uid: string;
   component: "form_textfield";
   [k: string]: any;
@@ -1069,6 +1112,7 @@ export interface GlobalStoryblok {
   )[];
   custom_css?: string;
   toolbar_elevation?: number;
+  scripts?: ScriptStoryblok[];
   _uid: string;
   component: "global";
   uuid?: string;
@@ -1144,6 +1188,8 @@ export interface HtmlStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1478,6 +1524,7 @@ export interface ListWidgetStoryblok {
   match_all_tags?: boolean;
   only_tagged?: boolean;
   list_options?: (CardListStoryblok | ListsStoryblok | NavListStoryblok)[];
+  not_found_content?: (RichTextEditorStoryblok | HeadlineStoryblok)[];
   _uid: string;
   component: "list_widget";
   [k: string]: any;
@@ -1515,6 +1562,8 @@ export interface MotionStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1665,11 +1714,6 @@ export interface NavMenuItemStoryblok {
 }
 
 export interface PageStoryblok {
-  preview_title?: string;
-  preview_subtitle?: string;
-  preview_image?: string;
-  preview_teaser?: string;
-  preview_publish_date?: string;
   meta_title?: string;
   meta_description?: string;
   seo_body?: (
@@ -1679,7 +1723,13 @@ export interface PageStoryblok {
     | SeoLocalBusinessStoryblok
     | SeoCorporateContactStoryblok
   )[];
+  categories?: any[];
   meta_robots?: boolean;
+  preview_title?: string;
+  preview_subtitle?: string;
+  preview_image?: string;
+  preview_teaser?: string;
+  preview_publish_date?: string;
   property?: ("has_feature" | "disable_promotion")[];
   body?: (
     | SectionStoryblok
@@ -1707,6 +1757,8 @@ export interface PageStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1915,6 +1967,18 @@ export interface RowStoryblok {
   styles_hover?: StylesStoryblok[];
   _uid: string;
   component: "row";
+  [k: string]: any;
+}
+
+export interface ScriptStoryblok {
+  after_loading?: string;
+  url?: string;
+  script_body?: string;
+  attributes?: string;
+  strategy?: "beforeInteractive" | "lazyOnload" | "afterInteractive";
+  id?: string;
+  _uid: string;
+  component: "script";
   [k: string]: any;
 }
 
@@ -2177,6 +2241,8 @@ export interface SnackbarStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2236,6 +2302,8 @@ export interface StaticContainerStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2403,6 +2471,8 @@ export interface TabsItemStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2470,6 +2540,8 @@ export interface TimelineItemStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2541,6 +2613,8 @@ export interface TimelineItemStoryblok {
     | EcommerceCheckoutStoryblok
     | FlexRowStoryblok
     | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok

@@ -1,4 +1,5 @@
 import NextHead from 'next/head'
+import NextScript from 'next/script'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
 import { useRouter } from 'next/router'
@@ -138,6 +139,23 @@ function AppHead(): JSX.Element {
       {!isDevelopment &&
         !isPreview &&
         process.env.NEXT_PUBLIC_GTM_CONTAINER && <GtmManager />}
+      {settings.scripts?.map((item) =>
+        item.url ? (
+          <NextScript
+            key={item._uid}
+            id={item.id || item._uid}
+            src={item.url || undefined}
+            strategy={item.strategy || 'afterInteractive'}
+          />
+        ) : (
+          <NextScript
+            key={item._uid}
+            id={item.id || item._uid}
+            dangerouslySetInnerHTML={{ __html: item.script_body || '' }}
+            strategy={item.strategy || 'afterInteractive'}
+          />
+        )
+      )}
     </>
   )
 }

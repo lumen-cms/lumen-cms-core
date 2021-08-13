@@ -206,6 +206,62 @@ export type FilterQueryOperations = {
   lt_float?: Maybe<Scalars['Float']>;
 };
 
+export type FormbuilderComponent = {
+  __typename?: 'FormbuilderComponent';
+  _editable?: Maybe<Scalars['String']>;
+  _uid?: Maybe<Scalars['String']>;
+  component?: Maybe<Scalars['String']>;
+  endpoint?: Maybe<Scalars['String']>;
+  fields?: Maybe<Scalars['BlockScalar']>;
+  form_inline?: Maybe<Scalars['Boolean']>;
+  full_width?: Maybe<Scalars['Boolean']>;
+  margin?: Maybe<Scalars['String']>;
+  spacing?: Maybe<Scalars['String']>;
+  submit?: Maybe<Scalars['BlockScalar']>;
+  success_message?: Maybe<Scalars['BlockScalar']>;
+  variant?: Maybe<Scalars['String']>;
+};
+
+export type FormbuilderFilterQuery = {
+  variant?: Maybe<FilterQueryOperations>;
+  margin?: Maybe<FilterQueryOperations>;
+  full_width?: Maybe<FilterQueryOperations>;
+  spacing?: Maybe<FilterQueryOperations>;
+  form_inline?: Maybe<FilterQueryOperations>;
+};
+
+export type FormbuilderItem = {
+  __typename?: 'FormbuilderItem';
+  alternates?: Maybe<Array<Maybe<Alternate>>>;
+  content?: Maybe<FormbuilderComponent>;
+  created_at?: Maybe<Scalars['String']>;
+  default_full_slug?: Maybe<Scalars['String']>;
+  first_published_at?: Maybe<Scalars['String']>;
+  full_slug?: Maybe<Scalars['String']>;
+  group_id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  is_startpage?: Maybe<Scalars['Boolean']>;
+  lang?: Maybe<Scalars['String']>;
+  meta_data?: Maybe<Scalars['JsonScalar']>;
+  name?: Maybe<Scalars['String']>;
+  parent_id?: Maybe<Scalars['Int']>;
+  path?: Maybe<Scalars['String']>;
+  position?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['String']>;
+  release_id?: Maybe<Scalars['Int']>;
+  slug?: Maybe<Scalars['String']>;
+  sort_by_date?: Maybe<Scalars['String']>;
+  tag_list?: Maybe<Array<Maybe<Scalars['String']>>>;
+  translated_slugs?: Maybe<Array<Maybe<TranslatedSlug>>>;
+  uuid?: Maybe<Scalars['String']>;
+};
+
+export type FormbuilderItems = {
+  __typename?: 'FormbuilderItems';
+  items?: Maybe<Array<Maybe<FormbuilderItem>>>;
+  total?: Maybe<Scalars['Int']>;
+};
+
 export type GlobalComponent = {
   __typename?: 'GlobalComponent';
   _editable?: Maybe<Scalars['String']>;
@@ -229,6 +285,7 @@ export type GlobalComponent = {
   promotion?: Maybe<Scalars['BlockScalar']>;
   pwa_app_description?: Maybe<Scalars['String']>;
   pwa_app_name?: Maybe<Scalars['String']>;
+  scripts?: Maybe<Scalars['BlockScalar']>;
   seo_body?: Maybe<Scalars['BlockScalar']>;
   seo_description?: Maybe<Scalars['String']>;
   seo_robots?: Maybe<Scalars['Boolean']>;
@@ -379,6 +436,7 @@ export type PageComponent = {
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['BlockScalar']>;
+  categories?: Maybe<Array<Maybe<Story>>>;
   component?: Maybe<Scalars['String']>;
   meta_description?: Maybe<Scalars['String']>;
   meta_robots?: Maybe<Scalars['Boolean']>;
@@ -395,11 +453,18 @@ export type PageComponent = {
   seo_body?: Maybe<Scalars['BlockScalar']>;
 };
 
+
+export type PageComponentCategoriesArgs = {
+  fields?: Maybe<Array<Maybe<Scalars['String']>>>;
+  language?: Maybe<Scalars['String']>;
+};
+
 export type PageFilterQuery = {
+  meta_title?: Maybe<FilterQueryOperations>;
+  categories?: Maybe<FilterQueryOperations>;
+  meta_robots?: Maybe<FilterQueryOperations>;
   preview_title?: Maybe<FilterQueryOperations>;
   preview_subtitle?: Maybe<FilterQueryOperations>;
-  meta_title?: Maybe<FilterQueryOperations>;
-  meta_robots?: Maybe<FilterQueryOperations>;
   property?: Maybe<FilterQueryOperations>;
   mobile_breakpoint?: Maybe<FilterQueryOperations>;
   right_drawer_width?: Maybe<FilterQueryOperations>;
@@ -447,6 +512,8 @@ export type QueryType = {
   Datasources?: Maybe<Datasources>;
   ErrorpageItem?: Maybe<ErrorpageItem>;
   ErrorpageItems?: Maybe<ErrorpageItems>;
+  FormbuilderItem?: Maybe<FormbuilderItem>;
+  FormbuilderItems?: Maybe<FormbuilderItems>;
   GlobalItem?: Maybe<GlobalItem>;
   GlobalItems?: Maybe<GlobalItems>;
   Links?: Maybe<LinkEntries>;
@@ -583,6 +650,44 @@ export type QueryTypeErrorpageItemsArgs = {
   per_page?: Maybe<Scalars['Int']>;
   filter_query?: Maybe<Scalars['JsonScalar']>;
   filter_query_v2?: Maybe<ErrorpageFilterQuery>;
+};
+
+
+export type QueryTypeFormbuilderItemArgs = {
+  id: Scalars['ID'];
+  find_by?: Maybe<Scalars['String']>;
+  from_release?: Maybe<Scalars['Int']>;
+  resolve_links?: Maybe<Scalars['String']>;
+  resolve_relations?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryTypeFormbuilderItemsArgs = {
+  first_published_at_gt?: Maybe<Scalars['String']>;
+  first_published_at_lt?: Maybe<Scalars['String']>;
+  published_at_gt?: Maybe<Scalars['String']>;
+  published_at_lt?: Maybe<Scalars['String']>;
+  starts_with?: Maybe<Scalars['String']>;
+  by_slugs?: Maybe<Scalars['String']>;
+  excluding_slugs?: Maybe<Scalars['String']>;
+  fallback_lang?: Maybe<Scalars['String']>;
+  by_uuids?: Maybe<Scalars['String']>;
+  by_uuids_ordered?: Maybe<Scalars['String']>;
+  excluding_ids?: Maybe<Scalars['String']>;
+  excluding_fields?: Maybe<Scalars['String']>;
+  resolve_links?: Maybe<Scalars['String']>;
+  resolve_relations?: Maybe<Scalars['String']>;
+  from_release?: Maybe<Scalars['String']>;
+  sort_by?: Maybe<Scalars['String']>;
+  search_term?: Maybe<Scalars['String']>;
+  is_startpage?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  with_tag?: Maybe<Scalars['String']>;
+  page?: Maybe<Scalars['Int']>;
+  per_page?: Maybe<Scalars['Int']>;
+  filter_query?: Maybe<Scalars['JsonScalar']>;
+  filter_query_v2?: Maybe<FormbuilderFilterQuery>;
 };
 
 
@@ -756,6 +861,31 @@ export type StaticcontainerItems = {
   __typename?: 'StaticcontainerItems';
   items?: Maybe<Array<Maybe<StaticcontainerItem>>>;
   total?: Maybe<Scalars['Int']>;
+};
+
+export type Story = {
+  __typename?: 'Story';
+  alternates?: Maybe<Array<Maybe<Alternate>>>;
+  content?: Maybe<Scalars['JsonScalar']>;
+  createdAt?: Maybe<Scalars['String']>;
+  firstPublishedAt?: Maybe<Scalars['String']>;
+  fullSlug?: Maybe<Scalars['String']>;
+  groupId?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  isStartpage?: Maybe<Scalars['Boolean']>;
+  lang?: Maybe<Scalars['String']>;
+  metaData?: Maybe<Scalars['JsonScalar']>;
+  name?: Maybe<Scalars['String']>;
+  parentId?: Maybe<Scalars['Int']>;
+  path?: Maybe<Scalars['String']>;
+  position?: Maybe<Scalars['Int']>;
+  publishedAt?: Maybe<Scalars['String']>;
+  releaseId?: Maybe<Scalars['Int']>;
+  slug?: Maybe<Scalars['String']>;
+  sortByDate?: Maybe<Scalars['String']>;
+  tagList?: Maybe<Array<Maybe<Scalars['String']>>>;
+  translatedSlugs?: Maybe<Array<Maybe<TranslatedSlug>>>;
+  uuid?: Maybe<Scalars['String']>;
 };
 
 export type Tag = {

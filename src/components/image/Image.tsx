@@ -124,7 +124,10 @@ export default function LmImage({
         loaded ? 'loaded' : 'loading'
       )}
       style={{
-        maxWidth: (isProportional && proportionalWidth) || undefined,
+        maxWidth:
+          isProportional && proportionalWidth
+            ? `${proportionalWidth}px`
+            : undefined,
         maxHeight:
           (isProportional &&
             (proportionalHeight ||

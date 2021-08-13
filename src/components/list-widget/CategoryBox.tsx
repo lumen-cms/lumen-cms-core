@@ -3,9 +3,11 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
-import { useAppContext } from '@context/AppContext'
 import { LmCategoryBoxProps } from './listWidgetTypes'
-import { useSearchStore } from '../../utils/state/searchState'
+import {
+  setSearchCategorySelector,
+  useSearchStore
+} from '../../utils/state/searchState'
 
 export default function LmCategoryBox({
   content
@@ -19,35 +21,9 @@ export default function LmCategoryBox({
       : [query.search__categories]
   }
   const [selected, setSelected] = useState<string[]>(initialValues)
-  const setSearchCategory = useSearchStore((state) => state.setSearchCategory)
+  const setSearchCategory = useSearchStore(setSearchCategorySelector)
 
-  const { allCategories } = useAppContext()
-  let categories = allCategories
-  const filterByTags = content.filter_by_tags?.values || []
-  const filterByCategories = content.filter_categories || []
-  if (filterByTags || filterByCategories.length) {
-    categories = categories.filter((category) => {
-      const categoryContent = category.content
-      if (!categoryContent.tag_reference?.values) {
-        // remove all categories without tag_reference
-        return false
-      }
-      let exists = true
-      if (filterByTags.length) {
-        const tagList = category.tag_list || []
-        exists =
-          tagList.length && content.match_all_tags
-            ? filterByTags.every((element) => tagList.includes(element))
-            : filterByTags.some((element) => tagList.includes(element))
-        if (exists) return true
-      }
-      if (filterByCategories.length) {
-        return filterByCategories.includes(category.uuid)
-      }
-      return exists
-    })
-  }
-
+  const categories = content.category_box_data || [] //allCategories
   const style: CSSProperties = {}
   // const style = { maxHeight: '500px', overflowY: 'auto' }
   return (

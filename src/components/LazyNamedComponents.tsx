@@ -119,3 +119,29 @@ LmCoreComponents.button_speech_text = dynamic(
 // LmCoreComponents.auth_form = dynamic(
 //   () => import(/* webpackChunkName: 'bottomNavigation' */ './auth/AuthForm')
 // )
+
+LmCoreComponents.form_container = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: 'formBuilder' */ './form-builder/LmFormContainer'
+    )
+)
+
+LmCoreComponents.form_builder = dynamic(
+  () =>
+    import(/* webpackChunkName: 'formBuilder' */ './form-builder/FormBuilder')
+)
+LmCoreComponents.form_textfield = dynamic(
+  () =>
+    import(/* webpackChunkName: 'formBuilder' */ './form-builder/FormTextField')
+)
+LmCoreComponents.form_select = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: 'formBuilder' */ './form-builder/FormSelectField'
+    )
+)
+LmCoreComponents.form_checkbox = dynamic(
+  () =>
+    import(/* webpackChunkName: 'formBuilder' */ './form-builder/FormCheckbox')
+)

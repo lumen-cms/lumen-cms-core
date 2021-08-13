@@ -5,10 +5,10 @@ import {
   NavItemStoryblok,
   NavListStoryblok
 } from '../../typings/generated/components-schema'
-import { AppApiRequestPayload } from '../../typings/app'
+import { AllStoryData } from '../../typings/app'
 
 type ListWidgetLinksProps = {
-  items: AppApiRequestPayload['allStories']
+  items: AllStoryData
   options: NavListStoryblok
   content: ListWidgetStoryblok
 }

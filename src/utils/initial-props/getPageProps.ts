@@ -1,7 +1,11 @@
 import { SSR_CONFIG } from '@SSR_CONFIG'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
-import { processFormData, processListWidgetData } from './traversePageContent'
+import {
+  processCategoryData,
+  processFormData,
+  processListWidgetData
+} from './traversePageContent'
 import {
   GlobalStoryblok,
   PageStoryblok
@@ -12,6 +16,7 @@ import { AppPageProps, PagePropsOptions } from '../../typings/app'
 SSR_CONFIG.ssrHooks.pageProps = [
   processListWidgetData,
   processFormData,
+  processCategoryData,
   ...SSR_CONFIG.ssrHooks.pageProps
 ]
 if (!process.env.STORYBOOK) {
@@ -26,14 +31,7 @@ const getPageProps = async (
 ): Promise<AppPageProps> => {
   const { pageSlug } = prepareForStoryblok(slug, options)
 
-  const {
-    page,
-    settings,
-    allCategories = [],
-    allStories = [],
-    allStaticContent = [],
-    notFoundLocale
-  } = await apiRequestResolver({
+  const { page, settings, notFoundLocale } = await apiRequestResolver({
     ...options,
     pageSlug
   })
@@ -65,9 +63,6 @@ const getPageProps = async (
   }
   const props: AppPageProps = {
     ...pageSettingsProps,
-    allCategories,
-    allStaticContent,
-    allStories,
     locale: options.locale || null,
     defaultLocale: options.defaultLocale,
     insideStoryblok: !!options.insideStoryblok,
@@ -75,7 +70,7 @@ const getPageProps = async (
   }
 
   await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
-  delete props.allStories // make sure that allStories is not part of props (bloat..)
+  // delete props.allStories // make sure that allStories is not part of props (bloat..)
   return props
 }
 

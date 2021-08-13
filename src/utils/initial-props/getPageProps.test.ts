@@ -8,6 +8,37 @@ const defaultOptions = {
   defaultLocale: 'en',
   locales: ['en']
 }
+
+const recursiveTestCallback = (
+  elements: any[],
+  lookup: string,
+  callback: (item: any) => void
+) => {
+  let found = false
+  const walkArray = (elements: any[]) => {
+    for (const item of elements) {
+      if (item.component === lookup) {
+        callback(item)
+        found = true
+        // listWidgets.push(item)
+      } else if (Array.isArray(item.body)) {
+        walkArray(item.body)
+      }
+    }
+  }
+  walkArray(elements)
+  expect(found).toBeTruthy()
+}
+
+const callbackFormTest = (item: any) => {
+  const currentFormToTest = item.form_data
+  expect(!!currentFormToTest).toBeTruthy()
+  expect(typeof currentFormToTest?.formId).toBe('string')
+  expect(typeof currentFormToTest?.title).toBe('string')
+  expect(typeof currentFormToTest?.formAction).toBe('string')
+  expect((currentFormToTest?.fields?.length || 0) > 1).toBeTruthy()
+}
+
 describe('Get page props of a certain URL', () => {
   test('fetch url that consists list widget data', async () => {
     CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
@@ -17,10 +48,38 @@ describe('Get page props of a certain URL', () => {
       defaultOptions
     )
     expect(!!data.page).toBeTruthy()
-    expect(!!data.listWidgetData).toBeTruthy()
-    expect(
-      !!data.listWidgetData?.['6fb9accb-0c7f-4f43-95bb-66d642b304ab']
-    ).toBeTruthy() // make sure that the _uid of the list widget actually exist and did not change
+    const callback = (item: any) => {
+      expect(typeof item.list_widget_data?.total).toBe('number')
+      expect(typeof item.list_widget_data?.cv).toBe('number')
+      expect(typeof item.list_widget_data?.perPage).toBe('number')
+      expect(item.list_widget_data?.items?.length > 0).toBeTruthy()
+    }
+    recursiveTestCallback(data.page?.body ?? [], 'list_widget', callback)
+  })
+
+  test('fetch url that consists list widget data search', async () => {
+    CONFIG.previewToken = 'IQrhrTP6aL0WYgDXmersbgtt'
+    CONFIG.publicToken = 'Xzl0aUdUwWqtCsD37fHMmQtt'
+    const data = await getPageProps('search', defaultOptions)
+    expect(!!data.page).toBeTruthy()
+    const callback = (item: any) => {
+      expect(typeof item.list_widget_data?.total).toBe('number')
+      expect(typeof item.list_widget_data?.cv).toBe('number')
+      expect(typeof item.list_widget_data?.perPage).toBe('number')
+      expect(item.list_widget_data?.items?.length > 0).toBeTruthy()
+    }
+    recursiveTestCallback(data.page?.body ?? [], 'list_widget', callback)
+  })
+
+  test('fetch url that consists category data', async () => {
+    CONFIG.previewToken = 'IQrhrTP6aL0WYgDXmersbgtt'
+    CONFIG.publicToken = 'Xzl0aUdUwWqtCsD37fHMmQtt'
+    const data = await getPageProps('search', defaultOptions)
+    expect(!!data.page).toBeTruthy()
+    const callback = (item: any) => {
+      expect(item.category_box_data?.length).toBeGreaterThan(0)
+    }
+    recursiveTestCallback(data.page?.right_body ?? [], 'category_box', callback)
   })
 
   test('fetch url that consists form data', async () => {
@@ -28,14 +87,8 @@ describe('Get page props of a certain URL', () => {
     CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
     const data = await getPageProps('request-demo', defaultOptions)
     expect(!!data.page).toBeTruthy()
-    const currentFormToTest =
-      data.formData?.['a5597a5f-96d4-4cc1-b2a2-389f6c02e0c2']
-    expect(!!currentFormToTest).toBeTruthy()
-    expect(typeof currentFormToTest?.formId).toBe('string')
-    expect(typeof currentFormToTest?.description).toBe('string')
-    expect(typeof currentFormToTest?.title).toBe('string')
-    expect(typeof currentFormToTest?.formAction).toBe('string')
-    expect((currentFormToTest?.fields?.length || 0) > 1).toBeTruthy()
+
+    recursiveTestCallback(data.page?.body ?? [], 'form', callbackFormTest)
   })
   test('fetch url that consists form data in the footer', async () => {
     // commercentric uses it
@@ -43,15 +96,8 @@ describe('Get page props of a certain URL', () => {
     CONFIG.publicToken = 'ogW5NFWib7hFRkHdzc56ewtt'
     const data = await getPageProps('/', defaultOptions)
     expect(!!data.page).toBeTruthy()
-    const currentFormToTest =
-      data.formData?.['63584b1a-06be-425a-a48c-da9accd8d440']
-    expect(!!currentFormToTest).toBeTruthy()
-    expect(typeof currentFormToTest?.formId).toBe('string')
-    // expect(typeof currentFormToTest?.description).toBe('string') // has no description
-    expect(typeof currentFormToTest?.title).toBe('string')
-    expect(typeof currentFormToTest?.formAction).toBe('string')
-    expect((currentFormToTest?.fields?.length || 0) > 1).toBeTruthy()
-    expect(typeof data.googleFontString).toBe('string')
+
+    recursiveTestCallback(data.settings?.footer ?? [], 'form', callbackFormTest)
   })
   test('fetch planet training page', async () => {
     // commercentric uses it

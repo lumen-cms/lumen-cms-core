@@ -1,6 +1,6 @@
 # import productsConnection from './products.fragment.graphql'
 query products($cursor: String, $query: String!, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
-  products(first: 12, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
+  products(first: 24, after: $cursor, query: $query, sortKey: $sortKey, reverse: $reverse) {
     ...productsConnection
   }
 }

@@ -1,7 +1,13 @@
-import Document, { DocumentContext } from 'next/document'
+import Document, {
+  DocumentContext,
+  Head,
+  Html,
+  Main,
+  NextScript
+} from 'next/document'
 import React from 'react'
 import { ServerStyleSheets } from '@material-ui/core/styles'
-import { LmCoreDocument } from '../CoreDocument'
+import { LmStoryblokService } from '../../utils/initial-props/StoryblokService'
 
 export default class AppDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -23,6 +29,22 @@ export default class AppDocument extends Document {
   }
 
   render() {
-    return <LmCoreDocument props={this.props.__NEXT_DATA__.props.pageProps} />
+    const cacheVersion = LmStoryblokService.getCacheVersion()
+    return (
+      <Html>
+        <Head />
+        <body className="lm-body__root">
+          <Main />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `var StoryblokCacheVersion = '${cacheVersion}';`
+            }}
+          />
+          <NextScript />
+        </body>
+      </Html>
+    )
+
+    // return <LmCoreDocument props={this.props.__NEXT_DATA__.props.pageProps} />
   }
 }
