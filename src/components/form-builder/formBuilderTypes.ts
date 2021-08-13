@@ -8,6 +8,7 @@ import { StoryData } from 'storyblok-js-client'
 
 export type LmFormBuilderProps = {
   content: FormBuilderStoryblok
+  onSubmit?: (data: any) => void
 }
 
 export type LmFormTextFieldProps = {

@@ -285,6 +285,7 @@ export type GlobalComponent = {
   promotion?: Maybe<Scalars['BlockScalar']>;
   pwa_app_description?: Maybe<Scalars['String']>;
   pwa_app_name?: Maybe<Scalars['String']>;
+  scripts?: Maybe<Scalars['BlockScalar']>;
   seo_body?: Maybe<Scalars['BlockScalar']>;
   seo_description?: Maybe<Scalars['String']>;
   seo_robots?: Maybe<Scalars['Boolean']>;

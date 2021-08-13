@@ -4,7 +4,10 @@ import { LmFormBuilderProps } from './formBuilderTypes'
 import { useState } from 'react'
 import Grid, { GridSpacing } from '@material-ui/core/Grid'
 
-export default function LmFormBuilder({ content }: LmFormBuilderProps) {
+export default function LmFormBuilder({
+  content,
+  onSubmit
+}: LmFormBuilderProps) {
   const [success, setSuccess] = useState<boolean>()
   const [loading, setLoading] = useState<boolean>()
   const {
@@ -58,6 +61,9 @@ export default function LmFormBuilder({ content }: LmFormBuilderProps) {
           } else {
             console.log('data submitted, no endpoint given.', data)
             setSuccess(true)
+          }
+          if (typeof onSubmit === 'function') {
+            onSubmit(data)
           }
         } catch (e) {
           console.error(e)

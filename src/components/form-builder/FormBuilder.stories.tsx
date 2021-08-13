@@ -4,10 +4,23 @@ import {
   FormBuilderStoryblok,
   FormSelectOptionStoryblok
 } from '../../typings/generated/components-schema'
+import { getComponentArgTypes } from '../../storybook/configControls'
+import StorybookPresetsContainer from '../../storybook/components/StorybookPresetsContainer'
+import { action } from '@storybook/addon-actions'
+
+const COMPONENT_NAME = 'form_builder'
 
 export default {
-  title: 'Design/Inputs/FormBuilder'
+  title: 'Design/Inputs/FormBuilder',
+  component: LmFormBuilder,
+  argTypes: {
+    ...getComponentArgTypes(COMPONENT_NAME)
+  }
 } as Meta
+
+export const Presets = () => (
+  <StorybookPresetsContainer componentName={COMPONENT_NAME} />
+)
 
 const endpoint = 'http://localhost:3000/api/form-endpoint'
 
@@ -90,6 +103,7 @@ export const Basic = () => {
 export const Spacing = () => {
   return (
     <LmFormBuilder
+      onSubmit={(data) => action('submit', data)}
       content={{
         _uid: 'spacing',
         component: 'form_builder',
@@ -103,6 +117,7 @@ export const Spacing = () => {
 }
 export const InlineForm = () => (
   <LmFormBuilder
+    onSubmit={(data) => action('submit', data)}
     content={{
       _uid: 'inline',
       component: 'form_builder',
@@ -142,6 +157,7 @@ export const SelectVariants = () => {
   ]
   return (
     <LmFormBuilder
+      onSubmit={(data) => action('submit', data)}
       content={{
         _uid: 'inline',
         component: 'form_builder',

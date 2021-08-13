@@ -4871,7 +4871,7 @@
       "name": "global",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.852Z",
-      "updated_at": "2021-06-04T01:33:37.545Z",
+      "updated_at": "2021-08-13T08:24:44.924Z",
       "id": 894828,
       "schema": {
         "promotion": {
@@ -5280,7 +5280,8 @@
             "chat_button",
             "tawkto",
             "ecommerce",
-            "promotion"
+            "promotion",
+            "scripts"
           ],
           "pos": 47
         },
@@ -5454,6 +5455,13 @@
           "type": "number",
           "description": "A value between 0-24. Defaults to \"4\". Disable elevation with \"0\".",
           "pos": 69
+        },
+        "scripts": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "script"
+          ]
         }
       },
       "image": null,
@@ -9668,6 +9676,74 @@
       "real_name": "row",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
       "component_group_name": "General"
+    },
+    {
+      "name": "script",
+      "display_name": null,
+      "created_at": "2021-08-13T08:20:32.148Z",
+      "updated_at": "2021-08-13T08:41:17.493Z",
+      "id": 1707309,
+      "schema": {
+        "after_loading": {
+          "type": "textarea",
+          "pos": 0
+        },
+        "url": {
+          "type": "text",
+          "pos": 1
+        },
+        "script_body": {
+          "type": "textarea",
+          "pos": 2
+        },
+        "attributes": {
+          "type": "textarea",
+          "pos": 3
+        },
+        "strategy": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "beforeInteractive",
+              "name": "beforeInteractive"
+            },
+            {
+              "value": "lazyOnload",
+              "name": "lazyOnload"
+            },
+            {
+              "value": "afterInteractive",
+              "name": "afterInteractive (default)"
+            }
+          ],
+          "pos": 4
+        },
+        "id": {
+          "type": "text",
+          "pos": 5
+        },
+        "tab-93cb4356-cef9-4956-8f89-4f0647ee77ef": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "id",
+            "strategy",
+            "attributes",
+            "after_loading"
+          ],
+          "pos": 6
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "script",
+      "component_group_uuid": null
     },
     {
       "name": "section",

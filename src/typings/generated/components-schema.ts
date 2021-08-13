@@ -1112,6 +1112,7 @@ export interface GlobalStoryblok {
   )[];
   custom_css?: string;
   toolbar_elevation?: number;
+  scripts?: ScriptStoryblok[];
   _uid: string;
   component: "global";
   uuid?: string;
@@ -1966,6 +1967,18 @@ export interface RowStoryblok {
   styles_hover?: StylesStoryblok[];
   _uid: string;
   component: "row";
+  [k: string]: any;
+}
+
+export interface ScriptStoryblok {
+  after_loading?: string;
+  url?: string;
+  script_body?: string;
+  attributes?: string;
+  strategy?: "beforeInteractive" | "lazyOnload" | "afterInteractive";
+  id?: string;
+  _uid: string;
+  component: "script";
   [k: string]: any;
 }
 
