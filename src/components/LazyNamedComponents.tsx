@@ -120,6 +120,13 @@ LmCoreComponents.button_speech_text = dynamic(
 //   () => import(/* webpackChunkName: 'bottomNavigation' */ './auth/AuthForm')
 // )
 
+LmCoreComponents.form_container = dynamic(
+  () =>
+    import(
+      /* webpackChunkName: 'formBuilder' */ './form-builder/LmFormContainer'
+    )
+)
+
 LmCoreComponents.form_builder = dynamic(
   () =>
     import(/* webpackChunkName: 'formBuilder' */ './form-builder/FormBuilder')

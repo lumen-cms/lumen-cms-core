@@ -49,6 +49,7 @@ export interface AuthContainerStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -103,6 +104,7 @@ export interface AuthFormStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -559,6 +561,7 @@ export interface ColumnStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -661,6 +664,7 @@ export interface DialogStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -885,6 +889,7 @@ export interface FlexRowStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -976,12 +981,19 @@ export interface FormCheckboxStoryblok {
   [k: string]: any;
 }
 
+export interface FormContainerStoryblok {
+  form?: string;
+  _uid: string;
+  component: "form_container";
+  [k: string]: any;
+}
+
 export interface FormSelectStoryblok {
-  required?: boolean;
+  options?: FormSelectOptionStoryblok[];
   name: string;
   label?: string;
   placeholder?: string;
-  options?: FormSelectOptionStoryblok[];
+  required?: boolean;
   type?: "multi-select" | "checkbox" | "radio";
   _uid: string;
   component: "form_select";
@@ -997,15 +1009,15 @@ export interface FormSelectOptionStoryblok {
 }
 
 export interface FormTextfieldStoryblok {
+  textarea?: boolean;
+  rows?: number;
+  max_rows?: number;
   name: string;
   label?: string;
   placeholder?: string;
   type?: "email" | "number";
-  textarea?: boolean;
   required?: boolean;
   help_text?: string;
-  rows?: number;
-  max_rows?: number;
   _uid: string;
   component: "form_textfield";
   [k: string]: any;
@@ -1176,6 +1188,7 @@ export interface HtmlStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1549,6 +1562,7 @@ export interface MotionStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1743,6 +1757,7 @@ export interface PageStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2214,6 +2229,7 @@ export interface SnackbarStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2274,6 +2290,7 @@ export interface StaticContainerStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2442,6 +2459,7 @@ export interface TabsItemStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2510,6 +2528,7 @@ export interface TimelineItemStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2582,6 +2601,7 @@ export interface TimelineItemStoryblok {
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
+    | FormContainerStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok

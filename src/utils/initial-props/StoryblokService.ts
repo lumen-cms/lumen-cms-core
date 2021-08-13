@@ -85,7 +85,7 @@ class StoryblokServiceClass {
   async get(slug: string, params = {}) {
     const currentParams = {
       resolve_links: 'url',
-      resolve_relations: 'static_section.container',
+      resolve_relations: 'static_section.container,form_container.form',
       ...params,
       ...this.getDefaultParams()
     }

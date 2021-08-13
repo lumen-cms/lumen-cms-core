@@ -4,6 +4,7 @@ import {
   FormSelectStoryblok,
   FormTextfieldStoryblok
 } from '../../typings/generated/components-schema'
+import { StoryData } from 'storyblok-js-client'
 
 export type LmFormBuilderProps = {
   content: FormBuilderStoryblok
@@ -30,4 +31,10 @@ export type LmFormCheckboxProps = {
     FormBuilderStoryblok,
     'success_message' | 'fields' | 'submit' | 'endpoint'
   >
+}
+
+export type LmFormContainerProps = {
+  content: LmFormContainerProps & {
+    form: StoryData<FormBuilderStoryblok>
+  }
 }
