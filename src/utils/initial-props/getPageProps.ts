@@ -2,23 +2,23 @@ import { SSR_CONFIG } from '@SSR_CONFIG'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import {
-  processCategoryData,
-  processFormData,
-  processListWidgetData
+  fetchComponentData,
+  getCategoryData,
+  googleFormGetData,
+  listWidgetGetData
 } from './traversePageContent'
 import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
 import { AppPageProps, PagePropsOptions } from '../../typings/app'
-// import { processGoogleFonts } from './processGoogleFonts'
 
-SSR_CONFIG.ssrHooks.pageProps = [
-  processListWidgetData,
-  processFormData,
-  processCategoryData,
-  ...SSR_CONFIG.ssrHooks.pageProps
-]
+SSR_CONFIG.ssrHooks.componentData = {
+  list_widget: listWidgetGetData,
+  form: googleFormGetData,
+  category_box: getCategoryData
+}
+
 if (!process.env.STORYBOOK) {
   // build of storybook fails..
   const { processGoogleFonts } = require('./processGoogleFonts')
@@ -69,8 +69,8 @@ const getPageProps = async (
     notFoundLocale: notFoundLocale || null
   }
 
+  await fetchComponentData(props)
   await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
-  // delete props.allStories // make sure that allStories is not part of props (bloat..)
   return props
 }
 
