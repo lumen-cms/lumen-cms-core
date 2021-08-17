@@ -110,4 +110,14 @@ describe('Get page props of a certain URL', () => {
     expect(!!data.page).toBeTruthy()
     expect(typeof data.googleFontString).toBe('string')
   })
+
+  test('fetch calendar entries', async () => {
+    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
+    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
+    const data = await getPageProps(
+      'demo-content/event-calendar',
+      defaultOptions
+    )
+    console.log(data)
+  })
 })

@@ -1,22 +1,22 @@
 import { SSR_CONFIG } from '@SSR_CONFIG'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
-import {
-  fetchComponentData,
-  getCategoryData,
-  googleFormGetData,
-  listWidgetGetData
-} from './traversePageContent'
+import { fetchComponentData } from './component-data/traversePageContent'
 import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
 import { AppPageProps, PagePropsOptions } from '../../typings/app'
+import { listWidgetGetData } from './component-data/listWidgetData'
+import { googleFormGetData } from './component-data/googleFormData'
+import { getCategoryData } from './component-data/categoryData'
+import { getEventData } from './component-data/eventData'
 
 SSR_CONFIG.ssrHooks.componentData = {
   list_widget: listWidgetGetData,
   form: googleFormGetData,
-  category_box: getCategoryData
+  category_box: getCategoryData,
+  event_calendar: getEventData
 }
 
 if (!process.env.STORYBOOK) {

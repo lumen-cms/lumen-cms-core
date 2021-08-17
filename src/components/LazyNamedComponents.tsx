@@ -145,3 +145,6 @@ LmCoreComponents.form_checkbox = dynamic(
   () =>
     import(/* webpackChunkName: 'formBuilder' */ './form-builder/FormCheckbox')
 )
+
+LmCoreComponents.event_calendar = dynamic(() => import('./event/EventCalendar'))
+LmCoreComponents.event = dynamic(() => import('./event/Event'))

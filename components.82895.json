@@ -4125,6 +4125,195 @@
       "component_group_name": "Settings"
     },
     {
+      "name": "event",
+      "display_name": null,
+      "created_at": "2021-08-16T03:42:59.429Z",
+      "updated_at": "2021-08-17T04:07:22.083Z",
+      "id": 1710816,
+      "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0,
+          "required": true
+        },
+        "start": {
+          "type": "datetime",
+          "pos": 1,
+          "required": true
+        },
+        "end": {
+          "type": "datetime",
+          "pos": 2,
+          "description": "End date can be empty in case of full day events."
+        },
+        "all_day": {
+          "type": "boolean",
+          "pos": 3
+        },
+        "category": {
+          "type": "option",
+          "use_uuid": true,
+          "source": "internal_stories",
+          "filter_content_type": "event_category",
+          "pos": 4
+        },
+        "multiple_event_dates": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "event_date"
+          ],
+          "pos": 5,
+          "description": "If an event has mutliple dates, the start and end should select the first and last possible event date."
+        },
+        "description": {
+          "type": "richtext",
+          "pos": 6,
+          "customize_toolbar": true,
+          "toolbar": [
+            "bold",
+            "italic",
+            "underline",
+            "paragraph",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "list",
+            "olist",
+            "quote",
+            "link"
+          ]
+        },
+        "image": {
+          "type": "asset",
+          "filetypes": [
+            "images"
+          ],
+          "pos": 7
+        },
+        "media": {
+          "type": "multiasset",
+          "filetypes": [],
+          "pos": 8
+        },
+        "tab-19449cf4-ecf4-4375-8116-1123f0c2269f": {
+          "type": "tab",
+          "display_name": "Content",
+          "keys": [
+            "image",
+            "media",
+            "description"
+          ],
+          "pos": 9
+        },
+        "color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": []
+        },
+        "background_color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": []
+        }
+      },
+      "image": null,
+      "preview_field": "title",
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "event",
+      "component_group_uuid": null
+    },
+    {
+      "name": "event_calendar",
+      "display_name": null,
+      "created_at": "2021-08-16T05:52:07.851Z",
+      "updated_at": "2021-08-16T05:52:07.851Z",
+      "id": 1710917,
+      "schema": {},
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "event_calendar",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "component_group_name": "General"
+    },
+    {
+      "name": "event_category",
+      "display_name": null,
+      "created_at": "2021-08-17T02:12:01.232Z",
+      "updated_at": "2021-08-17T04:06:51.284Z",
+      "id": 1713292,
+      "schema": {
+        "title": {
+          "type": "text"
+        },
+        "color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": []
+        },
+        "background_color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": []
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "event_category",
+      "component_group_uuid": null
+    },
+    {
+      "name": "event_date",
+      "display_name": null,
+      "created_at": "2021-08-16T05:41:52.969Z",
+      "updated_at": "2021-08-17T03:03:54.945Z",
+      "id": 1710888,
+      "schema": {
+        "start": {
+          "type": "datetime",
+          "pos": 0
+        },
+        "end": {
+          "type": "datetime",
+          "pos": 1
+        },
+        "all_day": {
+          "type": "boolean",
+          "pos": 2
+        },
+        "title": {
+          "type": "text",
+          "pos": 3
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "event_date",
+      "component_group_uuid": null
+    },
+    {
       "name": "flex_row",
       "display_name": "Flex Box",
       "created_at": "2020-05-01T08:40:43.097Z",
@@ -9681,24 +9870,12 @@
       "name": "script",
       "display_name": null,
       "created_at": "2021-08-13T08:20:32.148Z",
-      "updated_at": "2021-08-13T08:41:17.493Z",
+      "updated_at": "2021-08-13T09:05:31.490Z",
       "id": 1707309,
       "schema": {
-        "after_loading": {
-          "type": "textarea",
-          "pos": 0
-        },
-        "url": {
+        "id": {
           "type": "text",
-          "pos": 1
-        },
-        "script_body": {
-          "type": "textarea",
-          "pos": 2
-        },
-        "attributes": {
-          "type": "textarea",
-          "pos": 3
+          "pos": 0
         },
         "strategy": {
           "type": "option",
@@ -9717,11 +9894,19 @@
               "name": "afterInteractive (default)"
             }
           ],
-          "pos": 4
+          "pos": 1
         },
-        "id": {
+        "attributes": {
+          "type": "textarea",
+          "pos": 2
+        },
+        "url": {
           "type": "text",
-          "pos": 5
+          "pos": 3
+        },
+        "script_body": {
+          "type": "textarea",
+          "pos": 4
         },
         "tab-93cb4356-cef9-4956-8f89-4f0647ee77ef": {
           "type": "tab",
@@ -9732,7 +9917,7 @@
             "attributes",
             "after_loading"
           ],
-          "pos": 6
+          "pos": 5
         }
       },
       "image": null,

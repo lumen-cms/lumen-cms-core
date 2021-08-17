@@ -46,6 +46,7 @@ export interface AuthContainerStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -101,6 +102,7 @@ export interface AuthFormStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -558,6 +560,7 @@ export interface ColumnStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -661,6 +664,7 @@ export interface DialogStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -863,6 +867,74 @@ export interface ErrorPageStoryblok {
   [k: string]: any;
 }
 
+export interface EventStoryblok {
+  title: string;
+  start: string;
+  end?: string;
+  all_day?: boolean;
+  category?: string;
+  multiple_event_dates?: EventDateStoryblok[];
+  description?: any;
+  image?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  };
+  media?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  }[];
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  _uid: string;
+  component: "event";
+  [k: string]: any;
+}
+
+export interface EventCalendarStoryblok {
+  _uid: string;
+  component: "event_calendar";
+  [k: string]: any;
+}
+
+export interface EventCategoryStoryblok {
+  title?: string;
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  _uid: string;
+  component: "event_category";
+  [k: string]: any;
+}
+
+export interface EventDateStoryblok {
+  start?: string;
+  end?: string;
+  all_day?: boolean;
+  title?: string;
+  _uid: string;
+  component: "event_date";
+  [k: string]: any;
+}
+
 export interface FlexRowStoryblok {
   column?: boolean;
   column_mobile_only?: boolean;
@@ -886,6 +958,7 @@ export interface FlexRowStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -1186,6 +1259,7 @@ export interface HtmlStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -1560,6 +1634,7 @@ export interface MotionStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -1755,6 +1830,7 @@ export interface PageStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -1971,12 +2047,11 @@ export interface RowStoryblok {
 }
 
 export interface ScriptStoryblok {
-  after_loading?: string;
+  id?: string;
+  strategy?: "beforeInteractive" | "lazyOnload" | "afterInteractive";
+  attributes?: string;
   url?: string;
   script_body?: string;
-  attributes?: string;
-  strategy?: "beforeInteractive" | "lazyOnload" | "afterInteractive";
-  id?: string;
   _uid: string;
   component: "script";
   [k: string]: any;
@@ -2239,6 +2314,7 @@ export interface SnackbarStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -2300,6 +2376,7 @@ export interface StaticContainerStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -2469,6 +2546,7 @@ export interface TabsItemStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -2538,6 +2616,7 @@ export interface TimelineItemStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok
@@ -2611,6 +2690,7 @@ export interface TimelineItemStoryblok {
     | DialogStoryblok
     | DividerStoryblok
     | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
     | FlexRowStoryblok
     | FormStoryblok
     | FormBuilderStoryblok

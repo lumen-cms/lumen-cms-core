@@ -1,5 +1,5 @@
 import parseHijackedFormData from './parseHijackedFormData'
-import { fetchGoogleFormData } from '../../initial-props/fetchGoogleFormData'
+import { fetchGoogleFormData } from '../../initial-props/component-data/fetchGoogleFormData'
 
 const url =
   'https://docs.google.com/forms/d/e/1FAIpQLSes6yWGcxLs8whdFm4G0peQi0RxNvWsiUkn9jhT93rE9nLwUQ/viewform?embedded=true'

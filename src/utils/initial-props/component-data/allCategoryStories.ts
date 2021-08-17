@@ -1,8 +1,8 @@
 import { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
-import { LmStoryblokService } from './StoryblokService'
-import { AllCategoryData } from '../../typings/app'
-import { CategoryBoxStoryblok } from '../../typings/generated/components-schema'
+import { LmStoryblokService } from '../StoryblokService'
+import { AllCategoryData } from '../../../typings/app'
+import { CategoryBoxStoryblok } from '../../../typings/generated/components-schema'
 
 let allCategories: AllCategoryData
 
