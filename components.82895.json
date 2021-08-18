@@ -2903,7 +2903,7 @@
       "name": "date_headline",
       "display_name": null,
       "created_at": "2020-05-01T08:40:43.698Z",
-      "updated_at": "2020-07-09T03:23:44.176Z",
+      "updated_at": "2021-08-18T05:45:55.236Z",
       "id": 894837,
       "schema": {
         "custom_color": {
@@ -3129,7 +3129,8 @@
             "tag",
             "color",
             "align",
-            "font"
+            "font",
+            "support_linebreak"
           ],
           "pos": 12
         },
@@ -3151,6 +3152,9 @@
             "class_names"
           ],
           "pos": 14
+        },
+        "support_linebreak": {
+          "type": "boolean"
         }
       },
       "image": null,
@@ -4128,7 +4132,7 @@
       "name": "event",
       "display_name": null,
       "created_at": "2021-08-16T03:42:59.429Z",
-      "updated_at": "2021-08-17T04:07:22.083Z",
+      "updated_at": "2021-08-18T05:06:12.134Z",
       "id": 1710816,
       "schema": {
         "title": {
@@ -4194,18 +4198,14 @@
           ],
           "pos": 7
         },
-        "media": {
-          "type": "multiasset",
-          "filetypes": [],
-          "pos": 8
-        },
         "tab-19449cf4-ecf4-4375-8116-1123f0c2269f": {
           "type": "tab",
           "display_name": "Content",
           "keys": [
             "image",
             "media",
-            "description"
+            "description",
+            "body"
           ],
           "pos": 9
         },
@@ -4218,6 +4218,14 @@
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": []
+        },
+        "body": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ]
         }
       },
       "image": null,
@@ -5668,52 +5676,56 @@
       "name": "headline",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.644Z",
-      "updated_at": "2021-06-12T15:01:05.065Z",
+      "updated_at": "2021-08-18T05:45:19.037Z",
       "id": 894827,
       "schema": {
+        "support_linebreak": {
+          "type": "boolean",
+          "pos": 0
+        },
         "custom_color": {
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 0
+          "pos": 1
         },
         "max_lines": {
           "type": "number",
           "description": "The max number of lines use \"line-clamp\" property and truncates text at a specific number of lines.",
-          "pos": 1
+          "pos": 2
         },
         "font_size": {
           "type": "text",
-          "pos": 2,
+          "pos": 3,
           "description": "Example: 25px, 3vh, 3rem"
         },
         "line_height": {
           "type": "text",
-          "pos": 3
+          "pos": 4
         },
         "letter_spacing": {
           "type": "text",
-          "pos": 4
+          "pos": 5
         },
         "count_start": {
           "type": "number",
-          "pos": 5
+          "pos": 6
         },
         "count_end": {
           "type": "number",
-          "pos": 6
+          "pos": 7
         },
         "prefix": {
           "type": "text",
-          "pos": 7
+          "pos": 8
         },
         "suffix": {
           "type": "text",
-          "pos": 8
+          "pos": 9
         },
         "count_duration": {
           "type": "number",
-          "pos": 9
+          "pos": 10
         },
         "animation": {
           "type": "option",
@@ -5732,16 +5744,16 @@
               "name": "easeOutCubic"
             }
           ],
-          "pos": 10
+          "pos": 11
         },
         "text": {
           "type": "text",
-          "pos": 11,
+          "pos": 12,
           "translatable": true
         },
         "text_xs": {
           "type": "text",
-          "pos": 12,
+          "pos": 13,
           "translatable": true
         },
         "typography": {
@@ -5800,7 +5812,7 @@
               "name": "Overline"
             }
           ],
-          "pos": 13
+          "pos": 14
         },
         "font": {
           "type": "option",
@@ -5823,7 +5835,7 @@
               "name": "Font 4"
             }
           ],
-          "pos": 14
+          "pos": 15
         },
         "tag": {
           "type": "option",
@@ -5861,7 +5873,7 @@
               "name": "span"
             }
           ],
-          "pos": 15,
+          "pos": 16,
           "required": false,
           "default_value": "h2"
         },
@@ -5890,7 +5902,7 @@
               "name": "error"
             }
           ],
-          "pos": 16
+          "pos": 17
         },
         "align": {
           "type": "option",
@@ -5913,7 +5925,7 @@
               "name": "justify"
             }
           ],
-          "pos": 17
+          "pos": 18
         },
         "tab-cfb87b06-9ecf-4cff-8fb6-0d283c26ce35": {
           "type": "tab",
@@ -5923,9 +5935,10 @@
             "letter_spacing",
             "line_height",
             "custom_color",
-            "max_lines"
+            "max_lines",
+            "support_linebreak"
           ],
-          "pos": 18
+          "pos": 19
         },
         "tab-e0f18aa4-81d5-425e-a885-2cf37ac9981f": {
           "type": "tab",
@@ -5939,7 +5952,7 @@
             "prefix",
             "suffix"
           ],
-          "pos": 19
+          "pos": 20
         },
         "tab-40312329-b9c4-4a19-9d56-aefa8406912d": {
           "type": "tab",
@@ -5951,7 +5964,7 @@
             "styles_tablet",
             "styles_hover"
           ],
-          "pos": 20
+          "pos": 21
         },
         "class_names": {
           "type": "custom",
@@ -5966,7 +5979,7 @@
               "name": "mui"
             }
           ],
-          "pos": 21,
+          "pos": 22,
           "required": false
         },
         "styles": {
@@ -5976,7 +5989,7 @@
             "styles"
           ],
           "maximum": "1",
-          "pos": 22
+          "pos": 23
         },
         "styles_mobile": {
           "type": "bloks",
@@ -5985,7 +5998,7 @@
           "component_whitelist": [
             "styles"
           ],
-          "pos": 23
+          "pos": 24
         },
         "styles_tablet": {
           "type": "bloks",
@@ -5994,7 +6007,7 @@
           "component_whitelist": [
             "styles"
           ],
-          "pos": 24
+          "pos": 25
         },
         "styles_hover": {
           "type": "bloks",
@@ -6003,11 +6016,11 @@
             "styles"
           ],
           "maximum": "1",
-          "pos": 25
+          "pos": 26
         },
         "enable_speech": {
           "type": "boolean",
-          "pos": 26
+          "pos": 27
         }
       },
       "image": null,

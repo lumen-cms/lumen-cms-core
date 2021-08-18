@@ -194,13 +194,13 @@ export type EventComponent = {
   _uid?: Maybe<Scalars['String']>;
   all_day?: Maybe<Scalars['Boolean']>;
   background_color?: Maybe<Scalars['JsonScalar']>;
+  body?: Maybe<Scalars['BlockScalar']>;
   category?: Maybe<Story>;
   color?: Maybe<Scalars['JsonScalar']>;
   component?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['JsonScalar']>;
   end?: Maybe<Scalars['String']>;
   image?: Maybe<Asset>;
-  media?: Maybe<Array<Maybe<Asset>>>;
   multiple_event_dates?: Maybe<Scalars['BlockScalar']>;
   start?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;

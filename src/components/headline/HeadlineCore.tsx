@@ -59,6 +59,7 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({
             : undefined,
         lineHeight: content.line_height ? content.line_height : undefined,
         fontSize: content.font_size ? content.font_size : undefined,
+        whiteSpace: content.support_linebreak ? 'pre-line' : undefined,
         letterSpacing: content.letter_spacing
           ? content.letter_spacing
           : undefined

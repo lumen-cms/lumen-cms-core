@@ -640,6 +640,7 @@ export interface DateHeadlineStoryblok {
     [k: string]: any;
   };
   text_xs?: string;
+  support_linebreak?: boolean;
   _uid: string;
   component: "date_headline";
   [k: string]: any;
@@ -883,14 +884,6 @@ export interface EventStoryblok {
     name: string;
     title?: string;
   };
-  media?: {
-    alt?: string;
-    copyright?: string;
-    id: number;
-    filename: string;
-    name: string;
-    title?: string;
-  }[];
   color?: {
     rgba?: string;
     [k: string]: any;
@@ -899,6 +892,56 @@ export interface EventStoryblok {
     rgba?: string;
     [k: string]: any;
   };
+  body?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListWidgetStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+  )[];
   _uid: string;
   component: "event";
   [k: string]: any;
@@ -1193,6 +1236,7 @@ export interface GlobalStoryblok {
 }
 
 export interface HeadlineStoryblok {
+  support_linebreak?: boolean;
   custom_color?: {
     rgba?: string;
     [k: string]: any;
