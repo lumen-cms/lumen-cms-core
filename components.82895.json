@@ -4132,7 +4132,7 @@
       "name": "event",
       "display_name": null,
       "created_at": "2021-08-16T03:42:59.429Z",
-      "updated_at": "2021-08-18T05:06:12.134Z",
+      "updated_at": "2021-08-18T08:10:20.717Z",
       "id": 1710816,
       "schema": {
         "title": {
@@ -4191,13 +4191,6 @@
             "link"
           ]
         },
-        "image": {
-          "type": "asset",
-          "filetypes": [
-            "images"
-          ],
-          "pos": 7
-        },
         "tab-19449cf4-ecf4-4375-8116-1123f0c2269f": {
           "type": "tab",
           "display_name": "Content",
@@ -4242,9 +4235,55 @@
       "name": "event_calendar",
       "display_name": null,
       "created_at": "2021-08-16T05:52:07.851Z",
-      "updated_at": "2021-08-16T05:52:07.851Z",
+      "updated_at": "2021-08-18T14:18:24.455Z",
       "id": 1710917,
-      "schema": {},
+      "schema": {
+        "view": {
+          "type": "option",
+          "pos": 0,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "month",
+              "name": "month"
+            },
+            {
+              "value": "week",
+              "name": "week"
+            },
+            {
+              "value": "day",
+              "name": "day"
+            },
+            {
+              "value": "agenda",
+              "name": "agenda"
+            }
+          ]
+        },
+        "views": {
+          "type": "options",
+          "options": [
+            {
+              "value": "month",
+              "name": "month"
+            },
+            {
+              "value": "week",
+              "name": "week"
+            },
+            {
+              "value": "day",
+              "name": "day"
+            },
+            {
+              "value": "agenda",
+              "name": "agenda"
+            }
+          ],
+          "pos": 1
+        }
+      },
       "image": null,
       "preview_field": null,
       "is_root": false,
@@ -9942,6 +9981,47 @@
       "preset_id": null,
       "real_name": "script",
       "component_group_uuid": null
+    },
+    {
+      "name": "search_story",
+      "display_name": null,
+      "created_at": "2021-08-18T07:20:18.931Z",
+      "updated_at": "2021-08-18T07:20:47.706Z",
+      "id": 1716001,
+      "schema": {
+        "type": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "page",
+              "name": "page"
+            },
+            {
+              "value": "document",
+              "name": "document"
+            },
+            {
+              "value": "event",
+              "name": "event"
+            },
+            {
+              "value": "news",
+              "name": "news"
+            }
+          ]
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "search_story",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "component_group_name": "General"
     },
     {
       "name": "section",

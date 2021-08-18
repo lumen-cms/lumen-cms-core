@@ -26,17 +26,6 @@ export type Alternate = {
   slug: Scalars['String'];
 };
 
-export type Asset = {
-  __typename?: 'Asset';
-  alt?: Maybe<Scalars['String']>;
-  copyright?: Maybe<Scalars['String']>;
-  filename: Scalars['String'];
-  focus?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  name?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
 
 export type CategoryComponent = {
   __typename?: 'CategoryComponent';
@@ -200,7 +189,6 @@ export type EventComponent = {
   component?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['JsonScalar']>;
   end?: Maybe<Scalars['String']>;
-  image?: Maybe<Asset>;
   multiple_event_dates?: Maybe<Scalars['BlockScalar']>;
   start?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;

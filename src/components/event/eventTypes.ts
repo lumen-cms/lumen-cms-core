@@ -6,7 +6,7 @@ import {
 import { Event } from 'react-big-calendar'
 import { StoryData } from 'storyblok-js-client'
 
-type LmEventStoryblok = EventStoryblok & {
+export type LmEventStoryblok = EventStoryblok & {
   category: StoryData<EventCategoryStoryblok>
 }
 

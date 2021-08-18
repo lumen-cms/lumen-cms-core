@@ -75,6 +75,7 @@ export interface AuthContainerStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -131,6 +132,7 @@ export interface AuthFormStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -589,6 +591,7 @@ export interface ColumnStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -694,6 +697,7 @@ export interface DialogStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -876,14 +880,6 @@ export interface EventStoryblok {
   category?: string;
   multiple_event_dates?: EventDateStoryblok[];
   description?: any;
-  image?: {
-    alt?: string;
-    copyright?: string;
-    id: number;
-    filename: string;
-    name: string;
-    title?: string;
-  };
   color?: {
     rgba?: string;
     [k: string]: any;
@@ -936,6 +932,7 @@ export interface EventStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -948,6 +945,8 @@ export interface EventStoryblok {
 }
 
 export interface EventCalendarStoryblok {
+  view?: "month" | "week" | "day" | "agenda";
+  views?: ("month" | "week" | "day" | "agenda")[];
   _uid: string;
   component: "event_calendar";
   [k: string]: any;
@@ -1030,6 +1029,7 @@ export interface FlexRowStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -1332,6 +1332,7 @@ export interface HtmlStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -1707,6 +1708,7 @@ export interface MotionStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -1903,6 +1905,7 @@ export interface PageStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2098,6 +2101,13 @@ export interface ScriptStoryblok {
   script_body?: string;
   _uid: string;
   component: "script";
+  [k: string]: any;
+}
+
+export interface SearchStoryStoryblok {
+  type?: "page" | "document" | "event" | "news";
+  _uid: string;
+  component: "search_story";
   [k: string]: any;
 }
 
@@ -2387,6 +2397,7 @@ export interface SnackbarStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2449,6 +2460,7 @@ export interface StaticContainerStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2619,6 +2631,7 @@ export interface TabsItemStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2689,6 +2702,7 @@ export interface TimelineItemStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2763,6 +2777,7 @@ export interface TimelineItemStoryblok {
     | PromotionStoryblok
     | RichTextEditorStoryblok
     | RowStoryblok
+    | SearchStoryStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
