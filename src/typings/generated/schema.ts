@@ -374,7 +374,10 @@ export type GlobalComponent = {
   __typename?: 'GlobalComponent';
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
+  body_background_color?: Maybe<Scalars['JsonScalar']>;
+  chat_button?: Maybe<Scalars['BlockScalar']>;
   component?: Maybe<Scalars['String']>;
+  custom_css?: Maybe<Scalars['String']>;
   drawer_background?: Maybe<Scalars['BlockScalar']>;
   drawer_below_toolbar?: Maybe<Scalars['Boolean']>;
   drawer_below_toolbar_xs?: Maybe<Scalars['Boolean']>;
@@ -382,20 +385,29 @@ export type GlobalComponent = {
   drawer_full_width_mobile?: Maybe<Scalars['Boolean']>;
   drawer_variant?: Maybe<Scalars['String']>;
   drawer_width?: Maybe<Scalars['String']>;
+  ecommerce?: Maybe<Scalars['BlockScalar']>;
   footer?: Maybe<Scalars['BlockScalar']>;
   footer_config?: Maybe<Array<Maybe<Scalars['String']>>>;
   mobile_nav_breakpoint?: Maybe<Scalars['String']>;
   multi_toolbar?: Maybe<Scalars['BlockScalar']>;
+  promotion?: Maybe<Scalars['BlockScalar']>;
+  pwa_app_description?: Maybe<Scalars['String']>;
+  pwa_app_name?: Maybe<Scalars['String']>;
+  scripts?: Maybe<Scalars['BlockScalar']>;
   seo_body?: Maybe<Scalars['BlockScalar']>;
   seo_description?: Maybe<Scalars['String']>;
   seo_robots?: Maybe<Scalars['Boolean']>;
   seo_title?: Maybe<Scalars['String']>;
   seo_website_url?: Maybe<Scalars['String']>;
+  setup_ad_roll_adv_id?: Maybe<Scalars['String']>;
+  setup_ad_roll_pix_id?: Maybe<Scalars['String']>;
+  setup_facebook_pixel?: Maybe<Scalars['String']>;
   setup_favicon?: Maybe<Scalars['String']>;
   setup_google_analytics?: Maybe<Scalars['String']>;
   setup_google_site_verification?: Maybe<Scalars['String']>;
   setup_language?: Maybe<Scalars['String']>;
   setup_supported_languages?: Maybe<Scalars['String']>;
+  snackbars?: Maybe<Scalars['BlockScalar']>;
   tawkto?: Maybe<Scalars['String']>;
   theme_base?: Maybe<Scalars['String']>;
   theme_container_width?: Maybe<Scalars['String']>;
@@ -413,8 +425,10 @@ export type GlobalComponent = {
   theme_secondary?: Maybe<Scalars['String']>;
   theme_secondary_contrast?: Maybe<Scalars['String']>;
   toolbar?: Maybe<Scalars['BlockScalar']>;
+  toolbar_background?: Maybe<Scalars['String']>;
   toolbar_color?: Maybe<Scalars['JsonScalar']>;
   toolbar_config?: Maybe<Array<Maybe<Scalars['String']>>>;
+  toolbar_elevation?: Maybe<Scalars['String']>;
   toolbar_font_size?: Maybe<Scalars['String']>;
   toolbar_main_height?: Maybe<Scalars['String']>;
   toolbar_progress_color?: Maybe<Scalars['String']>;
@@ -428,27 +442,23 @@ export type GlobalComponent = {
 };
 
 export type GlobalFilterQuery = {
-  drawer_variant?: Maybe<FilterQueryOperations>;
-  mobile_nav_breakpoint?: Maybe<FilterQueryOperations>;
-  drawer_width?: Maybe<FilterQueryOperations>;
-  drawer_below_toolbar?: Maybe<FilterQueryOperations>;
-  drawer_below_toolbar_xs?: Maybe<FilterQueryOperations>;
-  drawer_full_width_mobile?: Maybe<FilterQueryOperations>;
-  toolbar_variant?: Maybe<FilterQueryOperations>;
-  toolbar_config?: Maybe<FilterQueryOperations>;
-  toolbar_progress_color?: Maybe<FilterQueryOperations>;
-  toolbar_main_height?: Maybe<FilterQueryOperations>;
-  toolbar_font_size?: Maybe<FilterQueryOperations>;
+  tawkto?: Maybe<FilterQueryOperations>;
   website_title?: Maybe<FilterQueryOperations>;
   website_slogan?: Maybe<FilterQueryOperations>;
   setup_language?: Maybe<FilterQueryOperations>;
   setup_supported_languages?: Maybe<FilterQueryOperations>;
   setup_google_analytics?: Maybe<FilterQueryOperations>;
   setup_google_site_verification?: Maybe<FilterQueryOperations>;
-  footer_config?: Maybe<FilterQueryOperations>;
-  seo_title?: Maybe<FilterQueryOperations>;
-  seo_website_url?: Maybe<FilterQueryOperations>;
-  seo_robots?: Maybe<FilterQueryOperations>;
+  setup_facebook_pixel?: Maybe<FilterQueryOperations>;
+  setup_ad_roll_adv_id?: Maybe<FilterQueryOperations>;
+  setup_ad_roll_pix_id?: Maybe<FilterQueryOperations>;
+  pwa_app_name?: Maybe<FilterQueryOperations>;
+  toolbar_variant?: Maybe<FilterQueryOperations>;
+  toolbar_config?: Maybe<FilterQueryOperations>;
+  toolbar_progress_color?: Maybe<FilterQueryOperations>;
+  toolbar_background?: Maybe<FilterQueryOperations>;
+  toolbar_main_height?: Maybe<FilterQueryOperations>;
+  toolbar_font_size?: Maybe<FilterQueryOperations>;
   theme_base?: Maybe<FilterQueryOperations>;
   theme_primary?: Maybe<FilterQueryOperations>;
   theme_primary_contrast?: Maybe<FilterQueryOperations>;
@@ -464,7 +474,17 @@ export type GlobalFilterQuery = {
   theme_font_alt3?: Maybe<FilterQueryOperations>;
   theme_font_alt4?: Maybe<FilterQueryOperations>;
   theme_container_width?: Maybe<FilterQueryOperations>;
-  tawkto?: Maybe<FilterQueryOperations>;
+  drawer_variant?: Maybe<FilterQueryOperations>;
+  mobile_nav_breakpoint?: Maybe<FilterQueryOperations>;
+  drawer_width?: Maybe<FilterQueryOperations>;
+  drawer_below_toolbar?: Maybe<FilterQueryOperations>;
+  drawer_below_toolbar_xs?: Maybe<FilterQueryOperations>;
+  drawer_full_width_mobile?: Maybe<FilterQueryOperations>;
+  footer_config?: Maybe<FilterQueryOperations>;
+  seo_title?: Maybe<FilterQueryOperations>;
+  seo_website_url?: Maybe<FilterQueryOperations>;
+  seo_robots?: Maybe<FilterQueryOperations>;
+  toolbar_elevation?: Maybe<FilterQueryOperations>;
 };
 
 export type GlobalItem = {
@@ -524,6 +544,7 @@ export type PageComponent = {
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['BlockScalar']>;
+  categories?: Maybe<Array<Maybe<Story>>>;
   component?: Maybe<Scalars['String']>;
   meta_description?: Maybe<Scalars['String']>;
   meta_robots?: Maybe<Scalars['Boolean']>;
@@ -540,11 +561,18 @@ export type PageComponent = {
   seo_body?: Maybe<Scalars['BlockScalar']>;
 };
 
+
+export type PageComponentCategoriesArgs = {
+  fields?: Maybe<Array<Maybe<Scalars['String']>>>;
+  language?: Maybe<Scalars['String']>;
+};
+
 export type PageFilterQuery = {
+  meta_title?: Maybe<FilterQueryOperations>;
+  categories?: Maybe<FilterQueryOperations>;
+  meta_robots?: Maybe<FilterQueryOperations>;
   preview_title?: Maybe<FilterQueryOperations>;
   preview_subtitle?: Maybe<FilterQueryOperations>;
-  meta_title?: Maybe<FilterQueryOperations>;
-  meta_robots?: Maybe<FilterQueryOperations>;
   property?: Maybe<FilterQueryOperations>;
   mobile_breakpoint?: Maybe<FilterQueryOperations>;
   right_drawer_width?: Maybe<FilterQueryOperations>;

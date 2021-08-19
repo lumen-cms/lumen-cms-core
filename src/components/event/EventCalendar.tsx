@@ -52,6 +52,7 @@ const messages: CalendarProps['messages'] = {
 }
 
 const CalendarToolbar: FC<ToolbarProps<Event>> = (props) => {
+  let currentViews = Array.isArray(props.views) ? props.views : []
   return (
     <div
       style={{
@@ -84,15 +85,15 @@ const CalendarToolbar: FC<ToolbarProps<Event>> = (props) => {
       >
         <NavigateNextIcon />
       </IconButton>
-      {props.views.length > 1 && (
+      {currentViews.length > 1 && (
         <TextField
           SelectProps={{ native: true, displayEmpty: true }}
           select
           onChange={(val) => {
-            props.onView(val.target.value)
+            props.onView(val.target.value as any)
           }}
         >
-          {props.views.map((v) => (
+          {currentViews.map((v) => (
             <option value={v} key={v}>
               {messages[v]}
             </option>
@@ -128,7 +129,7 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
             : []
         }
         onSelectEvent={(event) => {
-          setSelectedEvent(event)
+          setSelectedEvent(event as EventCalendar)
         }}
         eventPropGetter={(event) => {
           const bgColor =
