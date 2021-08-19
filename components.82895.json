@@ -4235,12 +4235,39 @@
       "name": "event_calendar",
       "display_name": null,
       "created_at": "2021-08-16T05:52:07.851Z",
-      "updated_at": "2021-08-18T14:18:24.455Z",
+      "updated_at": "2021-08-19T08:32:44.795Z",
       "id": 1710917,
       "schema": {
-        "view": {
+        "language": {
           "type": "option",
           "pos": 0,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "de",
+              "name": "german"
+            },
+            {
+              "value": "en",
+              "name": "english"
+            },
+            {
+              "value": "fr",
+              "name": "french"
+            },
+            {
+              "value": "it",
+              "name": "italian"
+            },
+            {
+              "value": "es",
+              "name": "spanish"
+            }
+          ]
+        },
+        "view": {
+          "type": "option",
+          "pos": 1,
           "use_uuid": true,
           "options": [
             {
@@ -4281,7 +4308,7 @@
               "name": "agenda"
             }
           ],
-          "pos": 1
+          "pos": 2
         }
       },
       "image": null,

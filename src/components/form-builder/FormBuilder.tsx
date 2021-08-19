@@ -3,6 +3,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import { LmFormBuilderProps } from './formBuilderTypes'
 import { useState } from 'react'
 import Grid, { GridSpacing } from '@material-ui/core/Grid'
+import { TextFieldElement } from '../google-form/GoogleFormElement'
 
 export default function LmFormBuilder({
   content,
@@ -39,9 +40,24 @@ export default function LmFormBuilder({
     </div>
   ) : (
     <FormContainer
+      FormProps={{
+        ...(content.full_width
+          ? {
+              style: {
+                width: '100%'
+              }
+            }
+          : {})
+      }}
       onSuccess={async (data) => {
         setLoading(true)
         try {
+          if (data.current_address) {
+            setSuccess(true)
+            setLoading(false)
+            return
+          }
+          delete data.current_address
           if (endpoint) {
             const res = await fetch(
               endpoint.startsWith('http')
@@ -76,6 +92,12 @@ export default function LmFormBuilder({
         container
         direction={form_inline ? 'row' : 'column'}
       >
+        <Grid item style={{ display: 'none' }}>
+          <TextFieldElement
+            name={'current_address'}
+            label={'Current Address'}
+          />
+        </Grid>
         {fields?.map((field) => (
           <Grid item key={field._uid}>
             <LmComponentRender content={field} options={options} />

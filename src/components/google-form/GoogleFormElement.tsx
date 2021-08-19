@@ -9,18 +9,15 @@ import {
 import { StructuredFormFieldProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 import { LmGoogleFormProps } from './googleFormProps'
 
-const TextFieldElement = dynamic<TextFieldElementProps>(() =>
+export const TextFieldElement = dynamic<TextFieldElementProps>(() =>
   import('react-hook-form-mui').then((mod) => mod.TextFieldElement)
 )
-// @ts-ignore
 const SelectElement = dynamic<SelectElementProps>(() =>
   import('react-hook-form-mui').then((mod) => mod.SelectElement)
 )
-// @ts-ignore
 const DatePickerElement = dynamic<DatePickerElementProps>(() =>
   import('react-hook-form-mui').then((mod) => mod.DatePickerElement)
 )
-// @ts-ignore
 const MultiSelectElement = dynamic<MultiSelectElementProps>(() =>
   import('react-hook-form-mui').then((mod) => mod.MultiSelectElement)
 )

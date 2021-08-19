@@ -945,6 +945,7 @@ export interface EventStoryblok {
 }
 
 export interface EventCalendarStoryblok {
+  language?: "de" | "en" | "fr" | "it" | "es";
   view?: "month" | "week" | "day" | "agenda";
   views?: ("month" | "week" | "day" | "agenda")[];
   _uid: string;

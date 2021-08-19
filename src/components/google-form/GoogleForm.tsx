@@ -11,7 +11,7 @@ import {
   RichTextEditorStoryblok
 } from '../../typings/generated/components-schema'
 import { GoogleFormDataProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
-import GoogleFormElement from './GoogleFormElement'
+import GoogleFormElement, { TextFieldElement } from './GoogleFormElement'
 
 const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
@@ -30,8 +30,13 @@ export default function LmGoogleForm({
 
   const onSubmit = async (data: any) => {
     if (!formStructure?.formAction) {
+      console.log(data)
       return
     }
+    if (data.current_address) {
+      return
+    }
+    delete data.current_address
 
     const formData = new FormData()
 
@@ -114,6 +119,11 @@ export default function LmGoogleForm({
           // @ts-ignore
           onSuccess={onSubmit}
         >
+          <TextFieldElement
+            name={'current_address'}
+            label={'Current Address'}
+            className={'d-none'}
+          />
           {formStructure?.fields?.map((formField, index) => (
             <GoogleFormElement
               formField={formField}
