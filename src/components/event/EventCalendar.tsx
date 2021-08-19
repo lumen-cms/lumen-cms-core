@@ -154,8 +154,6 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
   const locales: any = {}
   if (content.language === 'de') {
     locales.de = require('date-fns/locale/de/index')
-  } else if (content.language === 'en') {
-    locales.en = require('date-fns/locale/en-US/index')
   } else if (content.language === 'fr') {
     locales.fr = require('date-fns/locale/fr/index')
   } else if (content.language === 'it') {
@@ -164,7 +162,6 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
     locales.es = require('date-fns/locale/es/index')
   }
 
-  console.log(locales)
   const localizer = dateFnsLocalizer({
     format,
     parse,
@@ -181,9 +178,22 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
     ? content.view || Views.MONTH
     : views[0]
 
+  let [currentEvents] = useState(
+    content.event_calendar_data?.length
+      ? parseEventsToCalendar(content.event_calendar_data)
+      : []
+  )
   return (
     <>
       <Calendar
+        scrollToTime={
+          new Date(
+            1970,
+            1,
+            1,
+            content.scroll_to_time ? Number(content.scroll_to_time) : 7
+          )
+        }
         localizer={localizer}
         culture={content.language || 'de'}
         views={views}
@@ -191,11 +201,7 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
         components={{
           toolbar: CalendarToolbar
         }}
-        events={
-          content.event_calendar_data?.length
-            ? parseEventsToCalendar(content.event_calendar_data)
-            : []
-        }
+        events={currentEvents}
         onSelectEvent={(event) => {
           setSelectedEvent(event as EventCalendar)
         }}

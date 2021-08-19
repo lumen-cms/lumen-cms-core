@@ -948,6 +948,7 @@ export interface EventCalendarStoryblok {
   language?: "de" | "en" | "fr" | "it" | "es";
   view?: "month" | "week" | "day" | "agenda";
   views?: ("month" | "week" | "day" | "agenda")[];
+  scroll_to_time?: number;
   _uid: string;
   component: "event_calendar";
   [k: string]: any;
