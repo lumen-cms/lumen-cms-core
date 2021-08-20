@@ -3,6 +3,12 @@ import { CONFIG } from '@CONFIG'
 
 const cv = Date.now()
 
+const rootParams = {
+  resolve_links: 'url',
+  resolve_relations:
+    'static_section.container,form_container.form,event.category,news.category'
+}
+
 class StoryblokServiceClass {
   private devMode: boolean
 
@@ -13,6 +19,8 @@ class StoryblokServiceClass {
   private client: StoryblokClient
 
   private query: any
+
+  public richTextResolver: any
 
   constructor() {
     this.token =
@@ -28,6 +36,7 @@ class StoryblokServiceClass {
         type: 'memory'
       }
     })
+    this.richTextResolver = this.client.richTextResolver
 
     this.query = {}
   }
@@ -75,9 +84,7 @@ class StoryblokServiceClass {
     return this.client.getAll(
       slug,
       {
-        resolve_links: 'url',
-        resolve_relations:
-          'static_section.container,form_container.form,event.category',
+        ...rootParams,
         ...params,
         ...this.getDefaultParams()
       },
@@ -87,9 +94,7 @@ class StoryblokServiceClass {
 
   async get(slug: string, params = {}) {
     const currentParams = {
-      resolve_links: 'url',
-      resolve_relations:
-        'static_section.container,form_container.form,event.category',
+      ...rootParams,
       ...params,
       ...this.getDefaultParams()
     }

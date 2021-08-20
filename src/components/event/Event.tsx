@@ -5,27 +5,11 @@ import {
   RichTextEditorStoryblok,
   SectionStoryblok
 } from '../../typings/generated/components-schema'
-
-const getEventDate = (start: string, end: string, allDay?: boolean) => {
-  const [startDate, startTime] = start.split(' ')
-  const [endDate, endTime] = end.split(' ')
-  const startStr = new Intl.DateTimeFormat('de').format(new Date(startDate))
-  const endStrIntl =
-    endDate !== startDate
-      ? new Intl.DateTimeFormat('de').format(new Date(endDate))
-      : ''
-  if (allDay) {
-    return startStr
-  }
-  const endStr = endTime
-    ? endStrIntl
-      ? ' - ' + endStrIntl + ' ' + endTime
-      : ' - ' + endTime
-    : ''
-  return `${startStr} ${startTime}${endStr}`
-}
+import { useRouter } from 'next/router'
+import { getDateLocalized } from '../../utils/intlDateHelper'
 
 export default function LmEvent({ content }: LmEventProps) {
+  const { locale } = useRouter()
   const body: (HeadlineStoryblok | RichTextEditorStoryblok)[] = [
     {
       component: 'headline',
@@ -37,7 +21,7 @@ export default function LmEvent({ content }: LmEventProps) {
     },
     {
       component: 'headline',
-      _uid: 'headline',
+      _uid: 'subtitle1',
       tag: 'h5',
       typography: 'subtitle1',
       align: 'center',
@@ -45,10 +29,20 @@ export default function LmEvent({ content }: LmEventProps) {
       text: content.multiple_event_dates?.length
         ? content.multiple_event_dates
             .map((date) =>
-              getEventDate(date.start || '', date.end || '', date.all_day)
+              getDateLocalized({
+                locale,
+                start: date.start,
+                end: date.end,
+                allDay: date.all_day
+              })
             )
             .join('\n')
-        : getEventDate(content.start, content.end || '', content.all_day)
+        : getDateLocalized({
+            start: content.start,
+            end: content.end,
+            allDay: content.all_day,
+            locale
+          })
     }
   ]
   if (content.description) {

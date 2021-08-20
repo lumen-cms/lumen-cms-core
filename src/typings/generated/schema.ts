@@ -26,6 +26,17 @@ export type Alternate = {
   slug: Scalars['String'];
 };
 
+export type Asset = {
+  __typename?: 'Asset';
+  alt?: Maybe<Scalars['String']>;
+  copyright?: Maybe<Scalars['String']>;
+  filename: Scalars['String'];
+  focus?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
 
 export type CategoryComponent = {
   __typename?: 'CategoryComponent';
@@ -539,6 +550,107 @@ export type LinkEntry = {
   uuid?: Maybe<Scalars['String']>;
 };
 
+export type NewsComponent = {
+  __typename?: 'NewsComponent';
+  _editable?: Maybe<Scalars['String']>;
+  _uid?: Maybe<Scalars['String']>;
+  category?: Maybe<Story>;
+  component?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['JsonScalar']>;
+  description?: Maybe<Scalars['String']>;
+  image?: Maybe<Asset>;
+  published?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+
+export type NewsComponentCategoryArgs = {
+  fields?: Maybe<Array<Maybe<Scalars['String']>>>;
+  language?: Maybe<Scalars['String']>;
+  resolve_relations?: Maybe<Scalars['String']>;
+};
+
+export type NewsFilterQuery = {
+  title?: Maybe<FilterQueryOperations>;
+  category?: Maybe<FilterQueryOperations>;
+};
+
+export type NewsItem = {
+  __typename?: 'NewsItem';
+  alternates?: Maybe<Array<Maybe<Alternate>>>;
+  content?: Maybe<NewsComponent>;
+  created_at?: Maybe<Scalars['String']>;
+  default_full_slug?: Maybe<Scalars['String']>;
+  first_published_at?: Maybe<Scalars['String']>;
+  full_slug?: Maybe<Scalars['String']>;
+  group_id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  is_startpage?: Maybe<Scalars['Boolean']>;
+  lang?: Maybe<Scalars['String']>;
+  meta_data?: Maybe<Scalars['JsonScalar']>;
+  name?: Maybe<Scalars['String']>;
+  parent_id?: Maybe<Scalars['Int']>;
+  path?: Maybe<Scalars['String']>;
+  position?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['String']>;
+  release_id?: Maybe<Scalars['Int']>;
+  slug?: Maybe<Scalars['String']>;
+  sort_by_date?: Maybe<Scalars['String']>;
+  tag_list?: Maybe<Array<Maybe<Scalars['String']>>>;
+  translated_slugs?: Maybe<Array<Maybe<TranslatedSlug>>>;
+  uuid?: Maybe<Scalars['String']>;
+};
+
+export type NewsItems = {
+  __typename?: 'NewsItems';
+  items?: Maybe<Array<Maybe<NewsItem>>>;
+  total?: Maybe<Scalars['Int']>;
+};
+
+export type NewscategoryComponent = {
+  __typename?: 'NewscategoryComponent';
+  _editable?: Maybe<Scalars['String']>;
+  _uid?: Maybe<Scalars['String']>;
+  component?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type NewscategoryFilterQuery = {
+  name?: Maybe<FilterQueryOperations>;
+};
+
+export type NewscategoryItem = {
+  __typename?: 'NewscategoryItem';
+  alternates?: Maybe<Array<Maybe<Alternate>>>;
+  content?: Maybe<NewscategoryComponent>;
+  created_at?: Maybe<Scalars['String']>;
+  default_full_slug?: Maybe<Scalars['String']>;
+  first_published_at?: Maybe<Scalars['String']>;
+  full_slug?: Maybe<Scalars['String']>;
+  group_id?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']>;
+  is_startpage?: Maybe<Scalars['Boolean']>;
+  lang?: Maybe<Scalars['String']>;
+  meta_data?: Maybe<Scalars['JsonScalar']>;
+  name?: Maybe<Scalars['String']>;
+  parent_id?: Maybe<Scalars['Int']>;
+  path?: Maybe<Scalars['String']>;
+  position?: Maybe<Scalars['Int']>;
+  published_at?: Maybe<Scalars['String']>;
+  release_id?: Maybe<Scalars['Int']>;
+  slug?: Maybe<Scalars['String']>;
+  sort_by_date?: Maybe<Scalars['String']>;
+  tag_list?: Maybe<Array<Maybe<Scalars['String']>>>;
+  translated_slugs?: Maybe<Array<Maybe<TranslatedSlug>>>;
+  uuid?: Maybe<Scalars['String']>;
+};
+
+export type NewscategoryItems = {
+  __typename?: 'NewscategoryItems';
+  items?: Maybe<Array<Maybe<NewscategoryItem>>>;
+  total?: Maybe<Scalars['Int']>;
+};
+
 export type PageComponent = {
   __typename?: 'PageComponent';
   _editable?: Maybe<Scalars['String']>;
@@ -629,6 +741,10 @@ export type QueryType = {
   GlobalItem?: Maybe<GlobalItem>;
   GlobalItems?: Maybe<GlobalItems>;
   Links?: Maybe<LinkEntries>;
+  NewsItem?: Maybe<NewsItem>;
+  NewsItems?: Maybe<NewsItems>;
+  NewscategoryItem?: Maybe<NewscategoryItem>;
+  NewscategoryItems?: Maybe<NewscategoryItems>;
   PageItem?: Maybe<PageItem>;
   PageItems?: Maybe<PageItems>;
   Space?: Maybe<Space>;
@@ -920,6 +1036,82 @@ export type QueryTypeGlobalItemsArgs = {
 export type QueryTypeLinksArgs = {
   starts_with?: Maybe<Scalars['String']>;
   paginated?: Maybe<Scalars['Boolean']>;
+};
+
+
+export type QueryTypeNewsItemArgs = {
+  id: Scalars['ID'];
+  find_by?: Maybe<Scalars['String']>;
+  from_release?: Maybe<Scalars['Int']>;
+  resolve_links?: Maybe<Scalars['String']>;
+  resolve_relations?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryTypeNewsItemsArgs = {
+  first_published_at_gt?: Maybe<Scalars['String']>;
+  first_published_at_lt?: Maybe<Scalars['String']>;
+  published_at_gt?: Maybe<Scalars['String']>;
+  published_at_lt?: Maybe<Scalars['String']>;
+  starts_with?: Maybe<Scalars['String']>;
+  by_slugs?: Maybe<Scalars['String']>;
+  excluding_slugs?: Maybe<Scalars['String']>;
+  fallback_lang?: Maybe<Scalars['String']>;
+  by_uuids?: Maybe<Scalars['String']>;
+  by_uuids_ordered?: Maybe<Scalars['String']>;
+  excluding_ids?: Maybe<Scalars['String']>;
+  excluding_fields?: Maybe<Scalars['String']>;
+  resolve_links?: Maybe<Scalars['String']>;
+  resolve_relations?: Maybe<Scalars['String']>;
+  from_release?: Maybe<Scalars['String']>;
+  sort_by?: Maybe<Scalars['String']>;
+  search_term?: Maybe<Scalars['String']>;
+  is_startpage?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  with_tag?: Maybe<Scalars['String']>;
+  page?: Maybe<Scalars['Int']>;
+  per_page?: Maybe<Scalars['Int']>;
+  filter_query?: Maybe<Scalars['JsonScalar']>;
+  filter_query_v2?: Maybe<NewsFilterQuery>;
+};
+
+
+export type QueryTypeNewscategoryItemArgs = {
+  id: Scalars['ID'];
+  find_by?: Maybe<Scalars['String']>;
+  from_release?: Maybe<Scalars['Int']>;
+  resolve_links?: Maybe<Scalars['String']>;
+  resolve_relations?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+};
+
+
+export type QueryTypeNewscategoryItemsArgs = {
+  first_published_at_gt?: Maybe<Scalars['String']>;
+  first_published_at_lt?: Maybe<Scalars['String']>;
+  published_at_gt?: Maybe<Scalars['String']>;
+  published_at_lt?: Maybe<Scalars['String']>;
+  starts_with?: Maybe<Scalars['String']>;
+  by_slugs?: Maybe<Scalars['String']>;
+  excluding_slugs?: Maybe<Scalars['String']>;
+  fallback_lang?: Maybe<Scalars['String']>;
+  by_uuids?: Maybe<Scalars['String']>;
+  by_uuids_ordered?: Maybe<Scalars['String']>;
+  excluding_ids?: Maybe<Scalars['String']>;
+  excluding_fields?: Maybe<Scalars['String']>;
+  resolve_links?: Maybe<Scalars['String']>;
+  resolve_relations?: Maybe<Scalars['String']>;
+  from_release?: Maybe<Scalars['String']>;
+  sort_by?: Maybe<Scalars['String']>;
+  search_term?: Maybe<Scalars['String']>;
+  is_startpage?: Maybe<Scalars['String']>;
+  language?: Maybe<Scalars['String']>;
+  with_tag?: Maybe<Scalars['String']>;
+  page?: Maybe<Scalars['Int']>;
+  per_page?: Maybe<Scalars['Int']>;
+  filter_query?: Maybe<Scalars['JsonScalar']>;
+  filter_query_v2?: Maybe<NewscategoryFilterQuery>;
 };
 
 

@@ -8453,6 +8453,136 @@
       "component_group_uuid": null
     },
     {
+      "name": "news",
+      "display_name": null,
+      "created_at": "2021-08-19T23:57:28.691Z",
+      "updated_at": "2021-08-20T00:50:35.360Z",
+      "id": 1719809,
+      "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0
+        },
+        "description": {
+          "type": "textarea",
+          "pos": 1
+        },
+        "content": {
+          "type": "richtext",
+          "customize_toolbar": true,
+          "toolbar": [
+            "bold",
+            "italic",
+            "underline",
+            "paragraph",
+            "h1",
+            "h2",
+            "h4",
+            "h3",
+            "h5",
+            "list",
+            "olist",
+            "link",
+            "paste"
+          ],
+          "pos": 2
+        },
+        "image": {
+          "type": "asset",
+          "pos": 3,
+          "filetypes": [
+            "images"
+          ]
+        },
+        "published": {
+          "type": "datetime",
+          "pos": 4
+        },
+        "category": {
+          "type": "option",
+          "use_uuid": true,
+          "source": "internal_stories",
+          "filter_content_type": "news_category",
+          "pos": 5
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "news",
+      "component_group_uuid": null
+    },
+    {
+      "name": "news_category",
+      "display_name": null,
+      "created_at": "2021-08-19T23:57:51.889Z",
+      "updated_at": "2021-08-19T23:58:13.206Z",
+      "id": 1719810,
+      "schema": {
+        "name": {
+          "type": "text"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "news_category",
+      "component_group_uuid": null
+    },
+    {
+      "name": "news_list",
+      "display_name": null,
+      "created_at": "2021-08-20T01:29:23.561Z",
+      "updated_at": "2021-08-20T03:29:06.684Z",
+      "id": 1719915,
+      "schema": {
+        "categories": {
+          "type": "options",
+          "source": "internal_stories",
+          "filter_content_type": "news_category",
+          "pos": 0
+        },
+        "max_items": {
+          "type": "number",
+          "pos": 1
+        },
+        "hide_category": {
+          "type": "boolean",
+          "pos": 3
+        },
+        "read_more_label": {
+          "type": "text",
+          "pos": 4
+        },
+        "pagination": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "pagination"
+          ],
+          "maximum": "1"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "news_list",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "component_group_name": "General"
+    },
+    {
       "name": "page",
       "display_name": null,
       "created_at": "2020-05-01T08:40:37.942Z",
@@ -8728,6 +8858,92 @@
       "real_name": "page",
       "component_group_uuid": "34c29cf6-2ebb-4deb-b201-65723050f989",
       "component_group_name": "Global"
+    },
+    {
+      "name": "pagination",
+      "display_name": null,
+      "created_at": "2021-08-20T03:23:07.013Z",
+      "updated_at": "2021-08-20T03:34:29.675Z",
+      "id": 1720037,
+      "schema": {
+        "items_per_page": {
+          "type": "number",
+          "pos": 0
+        },
+        "variant": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "text",
+              "name": "text"
+            },
+            {
+              "value": "outlined",
+              "name": "outlined"
+            }
+          ],
+          "pos": 1
+        },
+        "color": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "primary",
+              "name": "primary"
+            },
+            {
+              "value": "secondary",
+              "name": "secondary"
+            }
+          ],
+          "pos": 2
+        },
+        "shape": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "rounded",
+              "name": "rounded"
+            },
+            {
+              "value": "round",
+              "name": "round"
+            }
+          ],
+          "pos": 3
+        },
+        "size": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "large",
+              "name": "large"
+            },
+            {
+              "value": "medium",
+              "name": "medium"
+            },
+            {
+              "value": "small",
+              "name": "small"
+            }
+          ],
+          "pos": 4
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "pagination",
+      "component_group_uuid": null
     },
     {
       "name": "paragraph",

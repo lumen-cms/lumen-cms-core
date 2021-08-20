@@ -69,6 +69,7 @@ export interface AuthContainerStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -126,6 +127,7 @@ export interface AuthFormStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -585,6 +587,7 @@ export interface ColumnStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -691,6 +694,7 @@ export interface DialogStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -926,6 +930,7 @@ export interface EventStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -1032,6 +1037,7 @@ export interface FlexRowStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -1335,6 +1341,7 @@ export interface HtmlStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -1711,6 +1718,7 @@ export interface MotionStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -1843,6 +1851,43 @@ export interface NavMenuItemStoryblok {
   [k: string]: any;
 }
 
+export interface NewsStoryblok {
+  title?: string;
+  description?: string;
+  content?: any;
+  image?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  };
+  published?: string;
+  category?: string;
+  _uid: string;
+  component: "news";
+  [k: string]: any;
+}
+
+export interface NewsCategoryStoryblok {
+  name?: string;
+  _uid: string;
+  component: "news_category";
+  [k: string]: any;
+}
+
+export interface NewsListStoryblok {
+  categories?: any[];
+  max_items?: number;
+  hide_category?: boolean;
+  read_more_label?: string;
+  pagination?: PaginationStoryblok[];
+  _uid: string;
+  component: "news_list";
+  [k: string]: any;
+}
+
 export interface PageStoryblok {
   meta_title?: string;
   meta_description?: string;
@@ -1908,6 +1953,7 @@ export interface PageStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -1926,6 +1972,17 @@ export interface PageStoryblok {
   _uid: string;
   component: "page";
   uuid?: string;
+  [k: string]: any;
+}
+
+export interface PaginationStoryblok {
+  items_per_page?: number;
+  variant?: "text" | "outlined";
+  color?: "primary" | "secondary";
+  shape?: "rounded" | "round";
+  size?: "large" | "medium" | "small";
+  _uid: string;
+  component: "pagination";
   [k: string]: any;
 }
 
@@ -2418,6 +2475,7 @@ export interface SnackbarStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -2481,6 +2539,7 @@ export interface StaticContainerStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -2652,6 +2711,7 @@ export interface TabsItemStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -2723,6 +2783,7 @@ export interface TimelineItemStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok
@@ -2798,6 +2859,7 @@ export interface TimelineItemStoryblok {
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
+    | NewsListStoryblok
     | ParagraphStoryblok
     | PlayerStoryblok
     | PricingStoryblok

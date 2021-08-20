@@ -148,3 +148,6 @@ LmCoreComponents.form_checkbox = dynamic(
 
 LmCoreComponents.event_calendar = dynamic(() => import('./event/EventCalendar'))
 LmCoreComponents.event = dynamic(() => import('./event/Event'))
+
+LmCoreComponents.news = dynamic(() => import('./news/News'))
+LmCoreComponents.news_list = dynamic(() => import('./news/NewsList'))

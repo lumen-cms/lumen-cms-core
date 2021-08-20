@@ -85,7 +85,6 @@ export default function LmCardList({ content }: LmCardListProps): JSX.Element {
   const [inViewRef, elementInView] = useInView(intersectionDefaultOptions)
   // useDeviceDimensions() // make sure images rescale on resize
   const [page, setPage] = useState<number>(1)
-
   const data = body.slice(0, page * chunkSize) || []
 
   useEffect(() => {
