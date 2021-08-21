@@ -11,7 +11,7 @@ import { getLinkAttrs, LinkType } from '../../../utils/linkHandler'
 type DrawerButtonProps = { content: ButtonStoryblok }
 
 export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
-  const router = useRouter() || {}
+  const router = useRouter()
   const buttonProps = {
     text: content.label || content.name,
     graphic: content.icon?.name

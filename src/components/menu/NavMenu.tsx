@@ -31,7 +31,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
 
   const isCustom =
     menuItems.length && menuItems[0].component !== 'nav_menu_item'
-  const { asPath } = useRouter() || {}
+  const { asPath } = useRouter()
 
   const handleClose = () => {
     setAnchorEl(null)

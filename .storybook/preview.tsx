@@ -4,6 +4,7 @@ import '../src/storybook/mockNextRouter'
 import isChromatic from 'chromatic/isChromatic'
 import { CONFIG } from '@CONFIG'
 import { storyblokImageLoader } from '../src/utils/storyblokImageLoader'
+import { RouterContext } from 'next/dist/shared/lib/router-context'
 
 // overwrite and make sure ENV always same (studentsgoabroad)
 CONFIG.publicToken = 'm85LRUo0sX4yo9Q96VMQlQtt'
@@ -23,6 +24,9 @@ Object.defineProperty(NextImage, 'default', {
 })
 
 export const parameters = {
+  nextRouter: {
+    Provider: RouterContext.Provider
+  },
   options: {
     storySort: (a: any, b: any) =>
       a[1].kind === b[1].kind

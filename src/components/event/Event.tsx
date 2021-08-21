@@ -33,7 +33,8 @@ export default function LmEvent({ content }: LmEventProps) {
                 locale,
                 start: date.start,
                 end: date.end,
-                allDay: date.all_day
+                allDay: date.all_day,
+                options: content.date_format?.[0]
               })
             )
             .join('\n')
@@ -41,7 +42,8 @@ export default function LmEvent({ content }: LmEventProps) {
             start: content.start,
             end: content.end,
             allDay: content.all_day,
-            locale
+            locale,
+            options: content.date_format?.[0]
           })
     }
   ]

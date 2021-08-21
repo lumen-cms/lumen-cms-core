@@ -65,6 +65,7 @@ export interface AuthContainerStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -123,6 +124,7 @@ export interface AuthFormStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -583,6 +585,7 @@ export interface ColumnStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -652,6 +655,31 @@ export interface DateHeadlineStoryblok {
   [k: string]: any;
 }
 
+export interface DateTimeFormatStoryblok {
+  dateStyle?: "full" | "long" | "medium" | "short";
+  year?: "2-digit" | "numeric";
+  month?: "long" | "short" | "narrow" | "numeric" | "2-digit";
+  day?: "2-digit" | "numeric";
+  hour?: "2-digit" | "numeric";
+  minute?: "2-digit" | "numeric";
+  weekday?: "short" | "long" | "narrow";
+  dayPeriod?: "long" | "short" | "narrow";
+  timeStyle?: "full" | "long" | "medium" | "short";
+  hide_time?: boolean;
+  _uid: string;
+  component: "date_time_format";
+  [k: string]: any;
+}
+
+export interface DateTimeHeadlineStoryblok {
+  date?: string;
+  headline?: HeadlineStoryblok[];
+  date_format?: DateTimeFormatStoryblok[];
+  _uid: string;
+  component: "date_time_headline";
+  [k: string]: any;
+}
+
 export interface DialogStoryblok {
   title?: string;
   fullscreen?: "xs" | "sm" | "md" | "lg" | "xl";
@@ -690,6 +718,7 @@ export interface DialogStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -926,6 +955,7 @@ export interface EventStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -944,6 +974,7 @@ export interface EventStoryblok {
     | TabsStoryblok
     | TimelineStoryblok
   )[];
+  date_format?: DateTimeFormatStoryblok[];
   _uid: string;
   component: "event";
   [k: string]: any;
@@ -1033,6 +1064,7 @@ export interface FlexRowStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -1337,6 +1369,7 @@ export interface HtmlStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -1646,6 +1679,13 @@ export interface ListSearchFieldStoryblok {
   [k: string]: any;
 }
 
+export interface ListStoriesStoryblok {
+  story_type?: ("page" | "event" | "news")[];
+  _uid: string;
+  component: "list_stories";
+  [k: string]: any;
+}
+
 export interface ListWidgetStoryblok {
   categories?: any[];
   enable_for_search?: boolean;
@@ -1714,6 +1754,7 @@ export interface MotionStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -1865,6 +1906,7 @@ export interface NewsStoryblok {
   };
   published?: string;
   category?: string;
+  date_format?: DateTimeFormatStoryblok[];
   _uid: string;
   component: "news";
   [k: string]: any;
@@ -1883,6 +1925,7 @@ export interface NewsListStoryblok {
   hide_category?: boolean;
   read_more_label?: string;
   pagination?: PaginationStoryblok[];
+  date_format?: DateTimeFormatStoryblok[];
   _uid: string;
   component: "news_list";
   [k: string]: any;
@@ -1949,6 +1992,7 @@ export interface PageStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -2471,6 +2515,7 @@ export interface SnackbarStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -2535,6 +2580,7 @@ export interface StaticContainerStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -2707,6 +2753,7 @@ export interface TabsItemStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -2779,6 +2826,7 @@ export interface TimelineItemStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok
@@ -2855,6 +2903,7 @@ export interface TimelineItemStoryblok {
     | LinkStoryblok
     | ListSearchAutocompleteStoryblok
     | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
     | ListWidgetStoryblok
     | MotionStoryblok
     | NavListStoryblok

@@ -17,7 +17,7 @@ declare global {
 }
 
 export default function LmTawktoChatButton({ content }: TawktoProps) {
-  const { isPreview } = useRouter() || {}
+  const { isPreview } = useRouter()
 
   const tawkToId = content.account
 

@@ -23,7 +23,7 @@ declare global {
 export default function LmFacebookChatButton({
   content
 }: FacbookChatButtonProps) {
-  const { isPreview } = useRouter() || {}
+  const { isPreview } = useRouter()
   const isScrolled = useScrollOnce()
   const startInclude =
     !isPreview && content.page_id && (content.disable_lazy || isScrolled)

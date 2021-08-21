@@ -43,7 +43,7 @@ function PageContainer() {
 const PageAuthContainer: FC = withAuthenticationRequired(PageContainer)
 
 export function Auth0Page(props: LmPagesIndexProps) {
-  const { isPreview } = useRouter() || {}
+  const { isPreview } = useRouter()
   const { settings, page, error, googleFontString } = props
 
   if (error || !settings || !page) {

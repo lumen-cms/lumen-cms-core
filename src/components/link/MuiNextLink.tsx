@@ -13,7 +13,7 @@ const base64encode =
 
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
-    const { defaultLocale, locales, locale } = useRouter() || {}
+    const { defaultLocale, locales, locale } = useRouter()
     if (other.external) {
       delete other.external
       const currentLinkProps =
@@ -70,7 +70,7 @@ const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
       naked,
       ...other
     } = props
-    const { asPath } = useRouter() || {}
+    const { asPath } = useRouter()
     const className = clsx(classNameProps, {
       [activeClassName]: asPath === href && activeClassName
     })

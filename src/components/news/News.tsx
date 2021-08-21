@@ -31,7 +31,11 @@ export default function LmNews({ content }: LmNewsProps) {
         tag: 'h5',
         typography: 'subtitle1',
         text: [
-          getDateLocalized({ start: content.published, locale }),
+          getDateLocalized({
+            start: content.published,
+            locale,
+            options: content.date_format?.[0]
+          }),
           content.category?.content?.name
         ]
           .filter((i) => i)

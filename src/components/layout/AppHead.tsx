@@ -15,7 +15,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 function AppHead(): JSX.Element {
   const settings = useSettings()
   const favicon = settings.setup_favicon
-  const { isPreview } = useRouter() || {}
+  const { isPreview } = useRouter()
 
   if (process.env.NODE_ENV === 'development') {
     console.log('render app head better only once')

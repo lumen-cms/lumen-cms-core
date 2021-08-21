@@ -198,6 +198,7 @@ export type EventComponent = {
   category?: Maybe<Story>;
   color?: Maybe<Scalars['JsonScalar']>;
   component?: Maybe<Scalars['String']>;
+  date_format?: Maybe<Scalars['BlockScalar']>;
   description?: Maybe<Scalars['JsonScalar']>;
   end?: Maybe<Scalars['String']>;
   multiple_event_dates?: Maybe<Scalars['BlockScalar']>;
@@ -557,6 +558,7 @@ export type NewsComponent = {
   category?: Maybe<Story>;
   component?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['JsonScalar']>;
+  date_format?: Maybe<Scalars['BlockScalar']>;
   description?: Maybe<Scalars['String']>;
   image?: Maybe<Asset>;
   published?: Maybe<Scalars['String']>;

@@ -11,7 +11,7 @@ const LmAuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
 }) => {
   const { user } = useAppContext() || {}
 
-  const { isPreview } = useRouter() || {}
+  const { isPreview } = useRouter()
   let hideOnRole = true
   let requireRole = true
   let showContent = true

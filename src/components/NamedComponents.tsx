@@ -31,6 +31,8 @@ import LmTawktoChatButton from './chat/TawktoChatButton'
 import LmSectionVideo from './section/SectionVideoBg'
 import Player from './player/Player'
 import LmDialogElement from './dialog/DialogElement'
+import LmNews from './news/News'
+import LmEvent from './event/Event'
 
 LmCoreComponents.static_section = LmStaticSection
 LmCoreComponents.static_container = LmStaticContainer
@@ -68,3 +70,5 @@ LmCoreComponents.chat_whatsapp = LmWhatsappChatButton
 LmCoreComponents.section_video_bg = LmSectionVideo
 LmCoreComponents.player = Player
 LmCoreComponents.dialog = LmDialogElement
+LmCoreComponents.news = LmNews
+LmCoreComponents.event = LmEvent

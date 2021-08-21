@@ -7,6 +7,7 @@ module.exports = {
   stories: ['../src/**/*.stories.@(tsx)'],
   addons: [
     '@storybook/addon-knobs',
+    'storybook-addon-next-router',
     {
       name: '@storybook/addon-essentials'
     }

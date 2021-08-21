@@ -7,7 +7,7 @@ import { ComponentRenderFuncProps } from '../typings/app'
 export function LmComponentRender<P>(
   props: ComponentRenderFuncProps
 ): JSX.Element {
-  const { isPreview } = useRouter() || {}
+  const { isPreview } = useRouter()
 
   const { content, i, ...rest } = props
 

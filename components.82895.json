@@ -3169,6 +3169,247 @@
       "component_group_name": "General"
     },
     {
+      "name": "date_time_format",
+      "display_name": null,
+      "created_at": "2021-08-21T01:11:55.176Z",
+      "updated_at": "2021-08-21T02:22:47.870Z",
+      "id": 1722056,
+      "schema": {
+        "dateStyle": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "full",
+              "name": "full"
+            },
+            {
+              "value": "long",
+              "name": "long"
+            },
+            {
+              "value": "medium",
+              "name": "medium"
+            },
+            {
+              "value": "short",
+              "name": "short"
+            }
+          ],
+          "pos": 0,
+          "description": "If any date time style is used, all other properties will be ignored - they can not be mixed."
+        },
+        "year": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "2-digit",
+              "name": "2-digit"
+            },
+            {
+              "value": "numeric",
+              "name": "numeric"
+            }
+          ],
+          "pos": 1
+        },
+        "month": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "long",
+              "name": "long"
+            },
+            {
+              "value": "short",
+              "name": "short"
+            },
+            {
+              "value": "narrow",
+              "name": "narrow"
+            },
+            {
+              "value": "numeric",
+              "name": "numeric"
+            },
+            {
+              "value": "2-digit",
+              "name": "2-digit"
+            }
+          ],
+          "pos": 2
+        },
+        "day": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "2-digit",
+              "name": "2-digit"
+            },
+            {
+              "value": "numeric",
+              "name": "numeric"
+            }
+          ],
+          "pos": 3
+        },
+        "hour": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "2-digit",
+              "name": "2-digit"
+            },
+            {
+              "value": "numeric",
+              "name": "numeric"
+            }
+          ],
+          "pos": 4
+        },
+        "minute": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "2-digit",
+              "name": "2-digit"
+            },
+            {
+              "value": "numeric",
+              "name": "numeric"
+            }
+          ],
+          "pos": 5
+        },
+        "weekday": {
+          "type": "option",
+          "pos": 6,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "short",
+              "name": "short"
+            },
+            {
+              "value": "long",
+              "name": "long"
+            },
+            {
+              "value": "narrow",
+              "name": "narrow"
+            }
+          ]
+        },
+        "dayPeriod": {
+          "type": "option",
+          "pos": 7,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "long",
+              "name": "long"
+            },
+            {
+              "value": "short",
+              "name": "short"
+            },
+            {
+              "value": "narrow",
+              "name": "narrow"
+            }
+          ]
+        },
+        "timeStyle": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "full",
+              "name": "full"
+            },
+            {
+              "value": "long",
+              "name": "long"
+            },
+            {
+              "value": "medium",
+              "name": "medium"
+            },
+            {
+              "value": "short",
+              "name": "short"
+            }
+          ],
+          "pos": 8
+        },
+        "tab-9b86862d-1ff5-47df-926b-e75207e2a69a": {
+          "type": "tab",
+          "display_name": "Date Time Style",
+          "keys": [
+            "time_style",
+            "date_style",
+            "timeStyle",
+            "dateStyle"
+          ],
+          "pos": 9
+        },
+        "hide_time": {
+          "type": "boolean"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "date_time_format",
+      "component_group_uuid": null
+    },
+    {
+      "name": "date_time_headline",
+      "display_name": null,
+      "created_at": "2021-08-21T01:48:17.430Z",
+      "updated_at": "2021-08-21T01:49:21.440Z",
+      "id": 1722057,
+      "schema": {
+        "date": {
+          "type": "datetime"
+        },
+        "headline": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
+        },
+        "date_format": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "date_time_format"
+          ]
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "date_time_headline",
+      "component_group_uuid": null
+    },
+    {
       "name": "dialog",
       "display_name": null,
       "created_at": "2020-07-17T00:52:29.169Z",
@@ -4132,7 +4373,7 @@
       "name": "event",
       "display_name": null,
       "created_at": "2021-08-16T03:42:59.429Z",
-      "updated_at": "2021-08-18T08:10:20.717Z",
+      "updated_at": "2021-08-21T02:48:00.253Z",
       "id": 1710816,
       "schema": {
         "title": {
@@ -4219,6 +4460,14 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ]
+        },
+        "date_format": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "date_time_format"
+          ]
         }
       },
       "image": null,
@@ -4226,7 +4475,32 @@
       "is_root": true,
       "preview_tmpl": null,
       "is_nestable": false,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 1119114,
+          "name": "All Day Event",
+          "component_id": 1710816,
+          "image": ""
+        },
+        {
+          "id": 1119115,
+          "name": "Basic Event",
+          "component_id": 1710816,
+          "image": ""
+        },
+        {
+          "id": 1119116,
+          "name": "Event Custom Dateformat",
+          "component_id": 1710816,
+          "image": ""
+        },
+        {
+          "id": 1119113,
+          "name": "Multi Date Event",
+          "component_id": 1710816,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "event",
       "component_group_uuid": null
@@ -7829,6 +8103,42 @@
       "component_group_name": "General"
     },
     {
+      "name": "list_stories",
+      "display_name": null,
+      "created_at": "2021-08-20T06:33:37.926Z",
+      "updated_at": "2021-08-20T06:43:22.506Z",
+      "id": 1720175,
+      "schema": {
+        "story_type": {
+          "type": "options",
+          "options": [
+            {
+              "value": "page",
+              "name": "page"
+            },
+            {
+              "value": "event",
+              "name": "event"
+            },
+            {
+              "value": "news",
+              "name": "news"
+            }
+          ]
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "list_stories",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "component_group_name": "General"
+    },
+    {
       "name": "list_widget",
       "display_name": null,
       "created_at": "2020-05-01T08:40:39.153Z",
@@ -8456,7 +8766,7 @@
       "name": "news",
       "display_name": null,
       "created_at": "2021-08-19T23:57:28.691Z",
-      "updated_at": "2021-08-20T00:50:35.360Z",
+      "updated_at": "2021-08-21T01:36:35.499Z",
       "id": 1719809,
       "schema": {
         "title": {
@@ -8504,6 +8814,14 @@
           "source": "internal_stories",
           "filter_content_type": "news_category",
           "pos": 5
+        },
+        "date_format": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "date_time_format"
+          ]
         }
       },
       "image": null,
@@ -8511,7 +8829,14 @@
       "is_root": true,
       "preview_tmpl": null,
       "is_nestable": false,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 1119112,
+          "name": "Standard News",
+          "component_id": 1719809,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "news",
       "component_group_uuid": null
@@ -8541,7 +8866,7 @@
       "name": "news_list",
       "display_name": null,
       "created_at": "2021-08-20T01:29:23.561Z",
-      "updated_at": "2021-08-20T03:29:06.684Z",
+      "updated_at": "2021-08-21T01:37:03.966Z",
       "id": 1719915,
       "schema": {
         "categories": {
@@ -8569,6 +8894,14 @@
             "pagination"
           ],
           "maximum": "1"
+        },
+        "date_format": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "date_time_format"
+          ]
         }
       },
       "image": null,
