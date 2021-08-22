@@ -16,3 +16,7 @@ export default {
 export const Presets = () => {
   return <StorybookPresetsContainer componentName={COMPONENT_NAME} />
 }
+
+export const NewsList = () => {
+  return <StorybookPresetsContainer componentName={'news_list'} />
+}

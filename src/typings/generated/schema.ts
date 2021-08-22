@@ -198,8 +198,9 @@ export type EventComponent = {
   category?: Maybe<Story>;
   color?: Maybe<Scalars['JsonScalar']>;
   component?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['JsonScalar']>;
   date_format?: Maybe<Scalars['BlockScalar']>;
-  description?: Maybe<Scalars['JsonScalar']>;
+  description?: Maybe<Scalars['String']>;
   end?: Maybe<Scalars['String']>;
   multiple_event_dates?: Maybe<Scalars['BlockScalar']>;
   start?: Maybe<Scalars['String']>;

@@ -4373,47 +4373,16 @@
       "name": "event",
       "display_name": null,
       "created_at": "2021-08-16T03:42:59.429Z",
-      "updated_at": "2021-08-21T02:48:00.253Z",
+      "updated_at": "2021-08-22T12:46:57.482Z",
       "id": 1710816,
       "schema": {
-        "title": {
-          "type": "text",
-          "pos": 0,
-          "required": true
-        },
-        "start": {
-          "type": "datetime",
-          "pos": 1,
-          "required": true
-        },
-        "end": {
-          "type": "datetime",
-          "pos": 2,
-          "description": "End date can be empty in case of full day events."
-        },
-        "all_day": {
-          "type": "boolean",
-          "pos": 3
-        },
-        "category": {
-          "type": "option",
-          "use_uuid": true,
-          "source": "internal_stories",
-          "filter_content_type": "event_category",
-          "pos": 4
-        },
-        "multiple_event_dates": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "event_date"
-          ],
-          "pos": 5,
-          "description": "If an event has mutliple dates, the start and end should select the first and last possible event date."
-        },
         "description": {
+          "type": "textarea",
+          "pos": 0
+        },
+        "content": {
           "type": "richtext",
-          "pos": 6,
+          "pos": 1,
           "customize_toolbar": true,
           "toolbar": [
             "bold",
@@ -4432,34 +4401,61 @@
             "link"
           ]
         },
-        "tab-19449cf4-ecf4-4375-8116-1123f0c2269f": {
-          "type": "tab",
-          "display_name": "Content",
-          "keys": [
-            "image",
-            "media",
-            "description",
-            "body"
-          ],
-          "pos": 9
-        },
-        "color": {
-          "type": "custom",
-          "field_type": "vue-color-picker",
-          "options": []
-        },
-        "background_color": {
-          "type": "custom",
-          "field_type": "vue-color-picker",
-          "options": []
-        },
         "body": {
           "type": "bloks",
           "restrict_components": true,
           "restrict_type": "groups",
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
-          ]
+          ],
+          "pos": 2
+        },
+        "title": {
+          "type": "text",
+          "pos": 3,
+          "required": true
+        },
+        "start": {
+          "type": "datetime",
+          "pos": 4,
+          "required": true
+        },
+        "end": {
+          "type": "datetime",
+          "pos": 5,
+          "description": "End date can be empty in case of full day events."
+        },
+        "all_day": {
+          "type": "boolean",
+          "pos": 6
+        },
+        "category": {
+          "type": "option",
+          "use_uuid": true,
+          "source": "internal_stories",
+          "filter_content_type": "event_category",
+          "pos": 7
+        },
+        "multiple_event_dates": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "event_date"
+          ],
+          "pos": 8,
+          "description": "If an event has mutliple dates, the start and end should select the first and last possible event date."
+        },
+        "color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": [],
+          "pos": 9
+        },
+        "background_color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": [],
+          "pos": 10
         },
         "date_format": {
           "type": "bloks",
@@ -4467,7 +4463,21 @@
           "restrict_components": true,
           "component_whitelist": [
             "date_time_format"
-          ]
+          ],
+          "pos": 11
+        },
+        "tab-19449cf4-ecf4-4375-8116-1123f0c2269f": {
+          "type": "tab",
+          "display_name": "Content",
+          "keys": [
+            "image",
+            "media",
+            "description",
+            "body",
+            "content",
+            "description"
+          ],
+          "pos": 12
         }
       },
       "image": null,
@@ -8963,7 +8973,14 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 1120116,
+          "name": "News List Basic",
+          "component_id": 1719915,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "news_list",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",

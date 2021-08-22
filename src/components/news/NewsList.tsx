@@ -1,13 +1,9 @@
 import { NewsListProps } from './newsTypes'
 import { useState } from 'react'
-import Typography from '@material-ui/core/Typography'
-import { useRouter } from 'next/router'
-import { getDateLocalized } from '../../utils/intlDateHelper'
-import MuiNextLink from '../link/MuiNextLink'
 import Pagination from '@material-ui/lab/Pagination'
+import LmNewsListItem from './NewsListItem'
 
 export default function LmNewsList({ content }: NewsListProps) {
-  const { locale } = useRouter()
   const paginate = content.pagination?.[0]
   const chunkSize = paginate?.items_per_page
     ? Number(paginate.items_per_page)
@@ -22,33 +18,17 @@ export default function LmNewsList({ content }: NewsListProps) {
   let paginationCount = chunkSize ? Math.ceil(list.length / chunkSize) : 0
   return (
     <div id={'news_' + content._uid} style={{ scrollMarginTop: '100px' }}>
-      {data.map((i) => (
-        <div key={i.uuid} className={'my-3'}>
-          <MuiNextLink href={`/${i.full_slug}`}>
-            <Typography variant={'h4'}>{i.content.title}</Typography>
-          </MuiNextLink>
-          <Typography variant={'body2'}>
-            <strong>
-              {[
-                getDateLocalized({
-                  start: i.content.published,
-                  locale,
-                  options: content.date_format?.[0]
-                }),
-                content.hide_category ? null : i.content.category?.content?.name
-              ]
-                .filter((i) => i)
-                .join(' - ')}
-            </strong>
-          </Typography>
-          <Typography variant={'body1'}>{i.content.description}</Typography>
-          <MuiNextLink href={`/${i.full_slug}`}>
-            <Typography variant={'caption'}>
-              {content.read_more_label || 'read more..'}
-            </Typography>
-          </MuiNextLink>
-        </div>
-      ))}
+      <div className={'mb-2'}>
+        {data.map((blok) => (
+          <LmNewsListItem
+            content={blok}
+            date_format={content.date_format}
+            hide_category={content.hide_category}
+            read_more_label={content.read_more_label}
+            key={blok.uuid}
+          />
+        ))}
+      </div>
       {showPagination && (
         <Pagination
           count={paginationCount}

@@ -906,21 +906,8 @@ export interface ErrorPageStoryblok {
 }
 
 export interface EventStoryblok {
-  title: string;
-  start: string;
-  end?: string;
-  all_day?: boolean;
-  category?: string;
-  multiple_event_dates?: EventDateStoryblok[];
-  description?: any;
-  color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  background_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
+  description?: string;
+  content?: any;
   body?: (
     | AccordionStoryblok
     | AuthContainerStoryblok
@@ -974,6 +961,20 @@ export interface EventStoryblok {
     | TabsStoryblok
     | TimelineStoryblok
   )[];
+  title: string;
+  start: string;
+  end?: string;
+  all_day?: boolean;
+  category?: string;
+  multiple_event_dates?: EventDateStoryblok[];
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   date_format?: DateTimeFormatStoryblok[];
   _uid: string;
   component: "event";

@@ -42,12 +42,22 @@ export type LmListStoriesPayload = {
   rels: any
   links: any
   total: number
+  page: number
 }
 
 export type LmListStoriesData = {
   data: {
     stories: ListStoriesData[]
     cv: number
+    rels: any[]
+    links: {
+      name: string
+      id: number
+      uuid: string
+      slug: string
+      url: string
+      full_slug: string
+    }[]
   }
   perPage: number
   total: number
