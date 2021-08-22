@@ -1,9 +1,15 @@
 import { LmStoryblokService } from '../StoryblokService'
 import { NewsListStoryblok } from '../../../typings/generated/components-schema'
 import { StoriesParams } from 'storyblok-js-client'
+import { getStoriesDefaultParams } from '../../universal/storyblokParamsHelper'
+import { AppPageProps } from '../../../typings/app'
 
-export const getNewsData = async (item: NewsListStoryblok) => {
+export const getNewsData = async (
+  item: NewsListStoryblok,
+  pageProps: AppPageProps
+) => {
   const params: StoriesParams = {
+    ...getStoriesDefaultParams(pageProps),
     filter_query: {
       component: {
         in: 'news'

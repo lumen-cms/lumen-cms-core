@@ -1,13 +1,8 @@
 import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
+import { rootParams } from '../universal/storyblokParamsHelper'
 
 const cv = Date.now()
-
-const rootParams = {
-  resolve_links: 'url',
-  resolve_relations:
-    'static_section.container,form_container.form,event.category,news.category'
-}
 
 class StoryblokServiceClass {
   private devMode: boolean

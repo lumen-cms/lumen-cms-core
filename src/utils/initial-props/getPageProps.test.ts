@@ -120,4 +120,20 @@ describe('Get page props of a certain URL', () => {
     )
     console.log(data)
   })
+
+  test('fetch list_stories entries', async () => {
+    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
+    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
+    const data = await getPageProps(
+      'demo-content/demo-list-stories',
+      defaultOptions
+    )
+    const callback = (item: any) => {
+      expect(typeof item.list_stories?.total).toBe('number')
+      expect(typeof item.list_widget_data?.cv).toBe('number')
+      expect(typeof item.list_widget_data?.perPage).toBe('number')
+      expect(item.list_widget_data?.items?.length > 0).toBeTruthy()
+    }
+    recursiveTestCallback(data.page?.body ?? [], 'list_stories', callback)
+  })
 })

@@ -1,14 +1,19 @@
 import { StoriesParams } from 'storyblok-js-client'
 import { LmStoryblokService } from '../StoryblokService'
+import { ListStoriesStoryblok } from '../../../typings/generated/components-schema'
+import { AppPageProps } from '../../../typings/app'
+import { LmListStoriesData } from '../../../components/list-widget/listWidgetTypes'
+import { getListStoriesParams } from '../../universal/getListStoriesParams'
 
-export const listStoriesData = async () => {
-  const params: StoriesParams = {
-    filter_query: {
-      component: {
-        in: 'page,event,news'
-      }
-    }
-  }
-  const storiesResult = await LmStoryblokService.get('cdn/stories', params)
-  return storiesResult.data
+export const listStoriesData = async (
+  item: ListStoriesStoryblok,
+  pageProps: AppPageProps
+) => {
+  const params: StoriesParams = getListStoriesParams(item, pageProps)
+  const storiesResult: LmListStoriesData = await LmStoryblokService.get(
+    'cdn/stories',
+    params
+  )
+  delete storiesResult.headers
+  return storiesResult
 }

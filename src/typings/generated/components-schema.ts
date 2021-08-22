@@ -1680,7 +1680,11 @@ export interface ListSearchFieldStoryblok {
 }
 
 export interface ListStoriesStoryblok {
-  story_type?: ("page" | "event" | "news")[];
+  page_categories?: any[];
+  event_categories?: any[];
+  news_categories?: any[];
+  view_types?: ("page" | "event" | "news")[];
+  pagination?: PaginationStoryblok[];
   _uid: string;
   component: "list_stories";
   [k: string]: any;

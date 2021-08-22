@@ -19,7 +19,7 @@ export default function LmNewsList({ content }: NewsListProps) {
     ? list.slice((page - 1) * chunkSize, page * chunkSize)
     : list
 
-  let paginationCount = chunkSize ? list.length / chunkSize : 0
+  let paginationCount = chunkSize ? Math.ceil(list.length / chunkSize) : 0
   return (
     <div id={'news_' + content._uid} style={{ scrollMarginTop: '100px' }}>
       {data.map((i) => (
