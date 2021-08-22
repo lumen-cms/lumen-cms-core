@@ -34008,6 +34008,23 @@
       "image": ""
     },
     {
+      "id": 1119922,
+      "name": "Event Calendar Basic",
+      "preset": {
+        "_uid": "525ef5a8-fc82-4a15-a222-b81396688959",
+        "view": "",
+        "views": [],
+        "language": "",
+        "component": "event_calendar",
+        "scroll_to_time": ""
+      },
+      "component_id": 1710917,
+      "space_id": 82895,
+      "created_at": "2021-08-22T02:33:38.744Z",
+      "updated_at": "2021-08-22T02:33:38.744Z",
+      "image": ""
+    },
+    {
       "id": 1119116,
       "name": "Event Custom Dateformat",
       "preset": {

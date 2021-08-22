@@ -30,7 +30,11 @@ export default function LmNewsList({ content }: NewsListProps) {
           <Typography variant={'body2'}>
             <strong>
               {[
-                getDateLocalized({ start: i.content.published, locale }),
+                getDateLocalized({
+                  start: i.content.published,
+                  locale,
+                  options: content.date_format?.[0]
+                }),
                 content.hide_category ? null : i.content.category?.content?.name
               ]
                 .filter((i) => i)
