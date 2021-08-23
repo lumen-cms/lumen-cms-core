@@ -11,7 +11,6 @@ import { listWidgetGetData } from './component-data/listWidgetData'
 import { googleFormGetData } from './component-data/googleFormData'
 import { getCategoryData } from './component-data/categoryData'
 import { getEventData } from './component-data/eventData'
-import { getNewsData } from './component-data/newsData'
 import { listStoriesData } from './component-data/listStoriesData'
 
 SSR_CONFIG.ssrHooks.componentData = {
@@ -19,7 +18,6 @@ SSR_CONFIG.ssrHooks.componentData = {
   form: googleFormGetData,
   category_box: getCategoryData,
   event_calendar: getEventData,
-  news_list: getNewsData,
   list_stories: listStoriesData
 }
 

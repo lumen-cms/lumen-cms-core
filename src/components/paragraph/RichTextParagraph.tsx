@@ -1,14 +1,11 @@
 import clsx from 'clsx'
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
-import { render } from 'storyblok-rich-text-react-renderer-ts'
-import { LmCoreComponents } from '@CONFIG'
-import MuiLink from '@material-ui/core/Link'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { useRichTextStyles } from './richTextStyles'
 import { LmRichTextParagraphProps } from './paragraphTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
-import { getLinkAttrs } from '../../utils/linkHandler'
+import { renderRichText } from './renderRichText'
 
 export function LmRichTextParagraph({
   content
@@ -56,25 +53,7 @@ export function LmRichTextParagraph({
         ]
       }
     >
-      {render(content.body, {
-        markResolvers: {
-          link: function RichtTextLink(children, props) {
-            const { href, linktype } = props
-            const btnProps: any = {
-              ...getLinkAttrs(
-                {
-                  cached_url: href,
-                  linktype
-                },
-                {}
-              ),
-              naked: true,
-              component: LmCoreComponents.lm_link_render
-            }
-            return <MuiLink {...btnProps}>{children}</MuiLink>
-          }
-        }
-      })}
+      {renderRichText(content.body)}
     </Typography>
   )
 }

@@ -14,11 +14,6 @@ export const listStoriesData = async (
     'cdn/stories',
     params
   )
-  storiesResult.data.stories.forEach((story) => {
-    if (story.content.categories) {
-      console.log(story)
-    }
-  })
   // not in use
   delete storiesResult.headers
   storiesResult.data.rels = []

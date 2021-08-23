@@ -6,6 +6,7 @@ import { LmNewsListItemProps } from './listWidgetTypes'
 import { LmComponentRender } from '@LmComponentRender'
 import { StoryData } from 'storyblok-js-client'
 import { CategoryStoryblok } from '../../typings/generated/components-schema'
+import { renderRichText } from '../paragraph/renderRichText'
 
 export default function LmNewsListItem({
   content,
@@ -16,6 +17,11 @@ export default function LmNewsListItem({
   const { locale } = useRouter()
   let publishedAt =
     content.content.published || content.content.preview_publish_date
+  let currentContent =
+    content.content.description ||
+    content.content.preview_teaser ||
+    content.content.preview_subtitle ||
+    content.content.meta_description
   return (
     <div key={content.uuid} className={'my-3'}>
       <MuiNextLink href={`/${content.full_slug}`}>
@@ -48,10 +54,9 @@ export default function LmNewsListItem({
         </strong>
       </Typography>
       <Typography variant={'body1'}>
-        {content.content.description ||
-          content.content.preview_teaser ||
-          content.content.preview_subtitle ||
-          content.content.meta_description}
+        {typeof currentContent === 'string'
+          ? currentContent
+          : renderRichText(currentContent)}
       </Typography>
       {read_more_label && (
         <MuiNextLink href={`/${content.full_slug}`}>
