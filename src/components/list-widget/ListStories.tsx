@@ -32,18 +32,19 @@ export default function LmListStories({ content }: LmListStoriesProps) {
 
   const params = getListStoriesParams(content, { locale, defaultLocale })
   const paramString = createDeepNestedQueryString(params)
+  const [storyData] = useState<
+    LmListStoriesProps['content']['list_stories_data']
+  >(content.list_stories_data)
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
-    content.max_items
-      ? null
-      : [paramString, content.list_stories_data?.data.cv, page],
+    content.max_items ? null : [paramString, storyData?.data.cv, page],
     fetcher,
     {
       initialData: {
-        stories: content.list_stories_data?.data?.stories ?? [],
-        cv: content.list_stories_data.data.cv,
-        links: content.list_stories_data.data.links,
-        rels: content.list_stories_data.data.rels,
-        total: content.list_stories_data?.total ?? 0,
+        stories: storyData?.data?.stories ?? [],
+        cv: storyData.data.cv,
+        links: storyData.data.links,
+        rels: storyData.data.rels,
+        total: storyData?.total ?? 0,
         page: 1
       }
     }
@@ -70,11 +71,11 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   if (error) {
     console.error(error)
   }
-  const currentTotal = data?.total ?? content.list_stories_data.total
-  const totalCount = Math.ceil(currentTotal / content.list_stories_data.perPage)
+  const currentTotal = data?.total ?? storyData.total
+  const totalCount = Math.ceil(currentTotal / storyData.perPage)
   const showPagination = content.max_items
     ? false
-    : currentTotal > content.list_stories_data.perPage
+    : currentTotal > storyData.perPage
   return (
     <div>
       <div
