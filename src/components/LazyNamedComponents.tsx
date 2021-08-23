@@ -147,7 +147,6 @@ LmCoreComponents.list_widget = dynamic(
 )
 
 LmCoreComponents.event_calendar = dynamic(() => import('./event/EventCalendar'))
-LmCoreComponents.news_list = dynamic(() => import('./news/NewsList'))
 
 LmCoreComponents.list_stories = dynamic(
   () => import('./list-widget/ListStories')

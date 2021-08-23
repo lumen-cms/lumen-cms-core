@@ -2,24 +2,20 @@ import MuiNextLink from '../link/MuiNextLink'
 import Typography from '@material-ui/core/Typography'
 import { getDateLocalized } from '../../utils/intlDateHelper'
 import { useRouter } from 'next/router'
-import { DateTimeFormatStoryblok } from '../../typings/generated/components-schema'
-import { ListStoriesData } from '../list-widget/listWidgetTypes'
+import { LmNewsListItemProps } from './listWidgetTypes'
+import { LmComponentRender } from '@LmComponentRender'
+import { StoryData } from 'storyblok-js-client'
+import { CategoryStoryblok } from '../../typings/generated/components-schema'
 
-type LmNewsListItemProps = {
-  content: ListStoriesData
-  date_format?: DateTimeFormatStoryblok[]
-  read_more_label?: string
-  hide_category?: boolean
-  hide_read_more?: boolean
-}
 export default function LmNewsListItem({
   content,
   date_format,
   read_more_label,
-  hide_category,
-  hide_read_more
+  hide_category
 }: LmNewsListItemProps) {
   const { locale } = useRouter()
+  let publishedAt =
+    content.content.published || content.content.preview_publish_date
   return (
     <div key={content.uuid} className={'my-3'}>
       <MuiNextLink href={`/${content.full_slug}`}>
@@ -33,14 +29,19 @@ export default function LmNewsListItem({
       <Typography variant={'body2'}>
         <strong>
           {[
-            getDateLocalized({
-              start:
-                content.content.published ||
-                content.content.preview_publish_date,
-              locale,
-              options: date_format?.[0]
-            }),
-            hide_category ? null : content.content.category?.content?.name
+            publishedAt
+              ? getDateLocalized({
+                  start: publishedAt,
+                  locale,
+                  options: date_format?.[0]
+                })
+              : null,
+            hide_category
+              ? null
+              : content.content.category?.content?.name ??
+                content.content.categories
+                  ?.map((i: StoryData<CategoryStoryblok>) => i.content?.name)
+                  .join(', ')
           ]
             .filter((i) => i)
             .join(' - ')}
@@ -52,11 +53,9 @@ export default function LmNewsListItem({
           content.content.preview_subtitle ||
           content.content.meta_description}
       </Typography>
-      {!hide_read_more && (
+      {read_more_label && (
         <MuiNextLink href={`/${content.full_slug}`}>
-          <Typography variant={'caption'}>
-            {read_more_label || 'read more..'}
-          </Typography>
+          <LmComponentRender content={read_more_label} />
         </MuiNextLink>
       )}
     </div>

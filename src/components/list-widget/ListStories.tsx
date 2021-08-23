@@ -6,7 +6,7 @@ import Pagination from '@material-ui/lab/Pagination'
 import { getListStoriesParams } from '../../utils/universal/getListStoriesParams'
 import { useRouter } from 'next/router'
 import { createDeepNestedQueryString } from '../../utils/universal/paramsToQueryString'
-import LmNewsListItem from '../news/NewsListItem'
+import LmNewsListItem from './NewsListItem'
 
 const fetcher = async (url: string, cv: number, page: number) => {
   const storyblokApi = new URL('https://api.storyblok.com/v2/cdn/stories')
@@ -33,7 +33,9 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const params = getListStoriesParams(content, { locale, defaultLocale })
   const paramString = createDeepNestedQueryString(params)
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
-    [paramString, content.list_stories_data?.data.cv, page],
+    content.max_items
+      ? null
+      : [paramString, content.list_stories_data?.data.cv, page],
     fetcher,
     {
       initialData: {
@@ -70,7 +72,9 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   }
   const currentTotal = data?.total ?? content.list_stories_data.total
   const totalCount = Math.ceil(currentTotal / content.list_stories_data.perPage)
-  const showPagination = currentTotal > content.list_stories_data.perPage
+  const showPagination = content.max_items
+    ? false
+    : currentTotal > content.list_stories_data.perPage
   return (
     <div>
       <div
@@ -79,7 +83,14 @@ export default function LmListStories({ content }: LmListStoriesProps) {
       ></div>
       <div className={'mb-2'}>
         {data?.stories.map((story) => {
-          return <LmNewsListItem content={story} key={story.uuid} />
+          return (
+            <LmNewsListItem
+              content={story}
+              date_format={content.date_format}
+              read_more_label={content.read_more_label?.[0]}
+              key={story.uuid}
+            />
+          )
         })}
       </div>
       {showPagination && (

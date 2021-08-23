@@ -906,6 +906,14 @@ export interface ErrorPageStoryblok {
 }
 
 export interface EventStoryblok {
+  image?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  };
   description?: string;
   content?: any;
   body?: (
@@ -1686,6 +1694,10 @@ export interface ListStoriesStoryblok {
   news_categories?: any[];
   view_types?: ("page" | "event" | "news")[];
   pagination?: PaginationStoryblok[];
+  hide_category?: boolean;
+  max_items?: number;
+  read_more_label?: HeadlineStoryblok[];
+  date_format?: DateTimeFormatStoryblok[];
   _uid: string;
   component: "list_stories";
   [k: string]: any;

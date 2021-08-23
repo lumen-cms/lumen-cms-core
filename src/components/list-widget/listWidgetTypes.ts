@@ -1,10 +1,15 @@
 import {
   CategoryBoxStoryblok,
+  CategoryStoryblok,
+  DateTimeFormatStoryblok,
+  EventCategoryStoryblok,
   EventStoryblok,
+  HeadlineStoryblok,
   ListSearchAutocompleteStoryblok,
   ListSearchFieldStoryblok,
   ListStoriesStoryblok,
   ListWidgetStoryblok,
+  NewsCategoryStoryblok,
   NewsStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
@@ -32,8 +37,19 @@ export type LmListSearchAutocompleteProps = {
 }
 export type LmListSearchFieldProps = { content: ListSearchFieldStoryblok }
 
+type LmPageStoryblok = PageStoryblok & {
+  categories?: StoryData<CategoryStoryblok>[]
+}
+type LmNewsStoryblok = NewsStoryblok & {
+  category?: StoryData<NewsCategoryStoryblok>
+}
+
+type LmEventStoryblok = EventStoryblok & {
+  category?: StoryData<EventCategoryStoryblok>
+}
+
 export type ListStoriesData = StoryData<
-  PageStoryblok | NewsStoryblok | EventStoryblok
+  LmPageStoryblok | LmNewsStoryblok | LmEventStoryblok
 >
 
 export type LmListStoriesPayload = {
@@ -68,4 +84,10 @@ export type LmListStoriesProps = {
   content: ListStoriesStoryblok & {
     list_stories_data: LmListStoriesData
   }
+}
+export type LmNewsListItemProps = {
+  content: ListStoriesData
+  date_format?: DateTimeFormatStoryblok[]
+  read_more_label?: HeadlineStoryblok
+  hide_category?: boolean
 }

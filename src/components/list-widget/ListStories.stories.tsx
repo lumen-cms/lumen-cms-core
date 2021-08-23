@@ -21,13 +21,11 @@ export default {
       CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
       CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
       CONFIG.rootDirectory = ''
-      console.log(args)
-      const data = await listStoriesData(args, {
-        locale: 'en',
-        defaultLocale: 'en'
-      })
       return {
-        list_stories_data: data
+        list_stories_data: await listStoriesData(args, {
+          locale: 'en',
+          defaultLocale: 'en'
+        })
       }
     }
   ]
@@ -46,9 +44,38 @@ AllStories.args = {
   ...presetContent
 }
 
+export const MaxItems = Template.bind({})
+MaxItems.args = {
+  ...presetContent,
+  max_items: 5
+}
+
+export const CustomPagination = Template.bind({})
+CustomPagination.args = {
+  ...presetContent,
+  pagination: [
+    {
+      component: 'pagination',
+      _uid: 'pagination',
+      items_per_page: 5,
+      size: 'large',
+      color: 'secondary',
+      shape: 'rounded'
+    }
+  ]
+}
+
 export const News = Template.bind({})
 News.args = {
   ...presetContent,
+  read_more_label: [
+    {
+      component: 'headline',
+      _uid: 'headline',
+      text: 'Read more...',
+      typography: 'caption'
+    }
+  ],
   view_types: ['news']
 }
 

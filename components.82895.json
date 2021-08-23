@@ -4373,16 +4373,23 @@
       "name": "event",
       "display_name": null,
       "created_at": "2021-08-16T03:42:59.429Z",
-      "updated_at": "2021-08-22T12:46:57.482Z",
+      "updated_at": "2021-08-23T08:28:05.147Z",
       "id": 1710816,
       "schema": {
+        "image": {
+          "type": "asset",
+          "filetypes": [
+            "images"
+          ],
+          "pos": 0
+        },
         "description": {
           "type": "textarea",
-          "pos": 0
+          "pos": 1
         },
         "content": {
           "type": "richtext",
-          "pos": 1,
+          "pos": 2,
           "customize_toolbar": true,
           "toolbar": [
             "bold",
@@ -4408,33 +4415,33 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 2
+          "pos": 3
         },
         "title": {
           "type": "text",
-          "pos": 3,
+          "pos": 4,
           "required": true
         },
         "start": {
           "type": "datetime",
-          "pos": 4,
+          "pos": 5,
           "required": true
         },
         "end": {
           "type": "datetime",
-          "pos": 5,
+          "pos": 6,
           "description": "End date can be empty in case of full day events."
         },
         "all_day": {
           "type": "boolean",
-          "pos": 6
+          "pos": 7
         },
         "category": {
           "type": "option",
           "use_uuid": true,
           "source": "internal_stories",
           "filter_content_type": "event_category",
-          "pos": 7
+          "pos": 8
         },
         "multiple_event_dates": {
           "type": "bloks",
@@ -4442,20 +4449,20 @@
           "component_whitelist": [
             "event_date"
           ],
-          "pos": 8,
+          "pos": 9,
           "description": "If an event has mutliple dates, the start and end should select the first and last possible event date."
         },
         "color": {
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 9
+          "pos": 10
         },
         "background_color": {
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 10
+          "pos": 11
         },
         "date_format": {
           "type": "bloks",
@@ -4464,7 +4471,7 @@
           "component_whitelist": [
             "date_time_format"
           ],
-          "pos": 11
+          "pos": 12
         },
         "tab-19449cf4-ecf4-4375-8116-1123f0c2269f": {
           "type": "tab",
@@ -4477,7 +4484,7 @@
             "content",
             "description"
           ],
-          "pos": 12
+          "pos": 13
         }
       },
       "image": null,
@@ -8123,7 +8130,7 @@
       "name": "list_stories",
       "display_name": null,
       "created_at": "2021-08-20T06:33:37.926Z",
-      "updated_at": "2021-08-22T02:54:37.128Z",
+      "updated_at": "2021-08-23T06:55:47.654Z",
       "id": 1720175,
       "schema": {
         "tab-4129d63f-760d-481d-8cc2-3728f21bcbfa": {
@@ -8188,6 +8195,29 @@
           "restrict_components": true,
           "component_whitelist": [
             "pagination"
+          ]
+        },
+        "hide_category": {
+          "type": "boolean"
+        },
+        "max_items": {
+          "type": "number"
+        },
+        "read_more_label": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ],
+          "description": "Only visible in list views"
+        },
+        "date_format": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "date_time_format"
           ]
         }
       },

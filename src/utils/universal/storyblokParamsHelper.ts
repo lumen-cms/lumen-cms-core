@@ -5,7 +5,7 @@ import { CONFIG } from '@CONFIG'
 export const rootParams: StoriesParams = {
   resolve_links: 'url',
   resolve_relations:
-    'static_section.container,form_container.form,event.category,news.category'
+    'static_section.container,form_container.form,event.category,news.category,page.categories'
 }
 
 export const getStoriesDefaultParams = (props: AppPageProps): StoriesParams => {
