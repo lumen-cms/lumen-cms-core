@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { LmListStoriesPayload, LmListStoriesProps } from './listWidgetTypes'
 import useSWR from 'swr'
 import { CONFIG } from '@CONFIG'
@@ -25,6 +25,7 @@ const fetcher = async (url: string, cv: number, page: number) => {
 }
 
 export default function LmListStories({ content }: LmListStoriesProps) {
+  const initRef = useRef<boolean>(false)
   const { locale, defaultLocale } = useRouter()
   const paginate = content.pagination?.[0]
   const [page, setPage] = useState(1)
@@ -46,7 +47,12 @@ export default function LmListStories({ content }: LmListStoriesProps) {
     }
   )
   useEffect(() => {
-    if (typeof document !== 'undefined' && !isValidating && page) {
+    if (
+      typeof document !== 'undefined' &&
+      !isValidating &&
+      page &&
+      initRef.current
+    ) {
       const destination = document.getElementById(
         'list_stories_' + content._uid
       )
@@ -57,14 +63,14 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         // initRef.current = 1
       }
     }
-  }, [page, isValidating])
+    initRef.current = true
+  }, [page, isValidating, content._uid])
   if (error) {
     console.error(error)
   }
-  const totalCount = Math.ceil(
-    (data?.total ?? content.list_stories_data.total) /
-      content.list_stories_data.perPage
-  )
+  const currentTotal = data?.total ?? content.list_stories_data.total
+  const totalCount = Math.ceil(currentTotal / content.list_stories_data.perPage)
+  const showPagination = currentTotal > content.list_stories_data.perPage
   return (
     <div>
       <div
@@ -76,18 +82,20 @@ export default function LmListStories({ content }: LmListStoriesProps) {
           return <LmNewsListItem content={story} key={story.uuid} />
         })}
       </div>
-      <Pagination
-        disabled={isValidating}
-        page={page}
-        count={totalCount}
-        onChange={(_event, page) => {
-          setPage(page)
-        }}
-        size={paginate?.size}
-        color={paginate?.color}
-        shape={paginate?.shape}
-        variant={paginate?.variant}
-      />
+      {showPagination && (
+        <Pagination
+          disabled={isValidating}
+          page={page}
+          count={totalCount}
+          onChange={(_event, page) => {
+            setPage(page)
+          }}
+          size={paginate?.size}
+          color={paginate?.color}
+          shape={paginate?.shape}
+          variant={paginate?.variant}
+        />
+      )}
     </div>
   )
 }

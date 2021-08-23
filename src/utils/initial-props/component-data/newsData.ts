@@ -28,5 +28,6 @@ export const getNewsData = async (
   const news = item.max_items
     ? await LmStoryblokService.get('cdn/stories', params)
     : await LmStoryblokService.getAll('cdn/stories', params)
+  console.log(params, news)
   return Array.isArray(news) ? news : news.data?.stories
 }

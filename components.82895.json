@@ -8196,7 +8196,14 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [],
+      "all_presets": [
+        {
+          "id": 1120767,
+          "name": "List Stories Basic",
+          "component_id": 1720175,
+          "image": ""
+        }
+      ],
       "preset_id": null,
       "real_name": "list_stories",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",

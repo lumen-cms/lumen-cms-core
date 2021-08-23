@@ -1,5 +1,3 @@
-import { LmNews } from './newsTypes'
-import { StoryData } from 'storyblok-js-client'
 import MuiNextLink from '../link/MuiNextLink'
 import Typography from '@material-ui/core/Typography'
 import { getDateLocalized } from '../../utils/intlDateHelper'
@@ -12,12 +10,14 @@ type LmNewsListItemProps = {
   date_format?: DateTimeFormatStoryblok[]
   read_more_label?: string
   hide_category?: boolean
+  hide_read_more?: boolean
 }
 export default function LmNewsListItem({
   content,
   date_format,
   read_more_label,
-  hide_category
+  hide_category,
+  hide_read_more
 }: LmNewsListItemProps) {
   const { locale } = useRouter()
   return (
@@ -49,13 +49,16 @@ export default function LmNewsListItem({
       <Typography variant={'body1'}>
         {content.content.description ||
           content.content.preview_teaser ||
-          content.content.preview_subtitle}
+          content.content.preview_subtitle ||
+          content.content.meta_description}
       </Typography>
-      <MuiNextLink href={`/${content.full_slug}`}>
-        <Typography variant={'caption'}>
-          {read_more_label || 'read more..'}
-        </Typography>
-      </MuiNextLink>
+      {!hide_read_more && (
+        <MuiNextLink href={`/${content.full_slug}`}>
+          <Typography variant={'caption'}>
+            {read_more_label || 'read more..'}
+          </Typography>
+        </MuiNextLink>
+      )}
     </div>
   )
 }
