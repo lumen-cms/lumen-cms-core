@@ -2959,6 +2959,7 @@ export interface ToolbarNaviButtonStoryblok {
     name?: string;
     [k: string]: any;
   };
+  button?: ButtonStoryblok[];
   class_names?: {
     values?: string[];
     [k: string]: any;

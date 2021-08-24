@@ -9,6 +9,7 @@ import LmIcon from '../../icon/LmIcon'
 import { LmToggleDrawerButtonProps } from './toolbarTypes'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import { useNavigationStore } from '../../../utils/state/navigationState'
+import { LmComponentRender } from '@LmComponentRender'
 
 const useDrawer = () =>
   useNavigationStore(
@@ -56,7 +57,17 @@ export function LmToggleDrawerButton({
     ) : (
       <MenuUi />
     )
-  return (
+  return content.button?.length ? (
+    <LmComponentRender
+      content={content.button[0]}
+      additionalClassName={clsx({
+        [`d-${breakpointClass}-none`]: !content.force_show
+      })}
+      onClick={() => {
+        rightDrawer ? toggleRightNavigation() : toggleLeftNavigation()
+      }}
+    />
+  ) : (
     <IconButton
       aria-label={rightDrawer ? 'Drawer right toggle' : 'Drawer left toggle'}
       className={clsx(content.class_names?.values, {

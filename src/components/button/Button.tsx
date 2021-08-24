@@ -94,7 +94,8 @@ export const LmButton: FC<LmButtonProps> = ({
   content,
   onClick,
   type,
-  disabled
+  disabled,
+  additionalClassName
 }) => {
   const classes = useStyles()
   const advancedClasses = useStylesAdvanced({
@@ -106,21 +107,27 @@ export const LmButton: FC<LmButtonProps> = ({
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')
   const color = content.color ? mapColor[content.color] : undefined
-  const className = clsx(classes.button, content.class_names?.values, {
-    [advancedClasses.advanced]: content.styles?.length,
-    [advancedClasses.advancedMobile]: content.styles_mobile?.length,
-    [advancedClasses.advancedTablet]: content.styles_tablet?.length,
-    [advancedClasses.advancedHover]: content.styles_hover?.length,
-    [classes.noWhitespace]: properties.includes('no-linebreak'),
-    'lm-default-color': !content.color,
-    [content.corners as string]: !!content.corners,
-    'lm-unelevated':
-      properties.includes('disable-shadow') || content.variant === 'unelevated',
-    'lm-outlined': content.variant === 'outlined',
-    [content.size as string]: !!content.size,
-    [`lm-font-${content.font}`]: content.font,
-    'w-100': properties.includes('fullWidth')
-  })
+  const className = clsx(
+    classes.button,
+    content.class_names?.values,
+    additionalClassName,
+    {
+      [advancedClasses.advanced]: content.styles?.length,
+      [advancedClasses.advancedMobile]: content.styles_mobile?.length,
+      [advancedClasses.advancedTablet]: content.styles_tablet?.length,
+      [advancedClasses.advancedHover]: content.styles_hover?.length,
+      [classes.noWhitespace]: properties.includes('no-linebreak'),
+      'lm-default-color': !content.color,
+      [content.corners as string]: !!content.corners,
+      'lm-unelevated':
+        properties.includes('disable-shadow') ||
+        content.variant === 'unelevated',
+      'lm-outlined': content.variant === 'outlined',
+      [content.size as string]: !!content.size,
+      [`lm-font-${content.font}`]: content.font,
+      'w-100': properties.includes('fullWidth')
+    }
+  )
 
   const btnProps: any = onClick
     ? {

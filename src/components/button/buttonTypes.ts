@@ -8,6 +8,7 @@ export type LmButtonProps = {
   onClick?: () => void
   type?: string
   disabled?: boolean
+  additionalClassName?: string
 }
 
 export type LmButtonSpeechTextProps = {

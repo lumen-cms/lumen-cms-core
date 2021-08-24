@@ -41,9 +41,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
     {
       initialData: {
         stories: storyData?.data?.stories ?? [],
-        cv: storyData.data.cv,
-        links: storyData.data.links,
-        rels: storyData.data.rels,
+        cv: storyData?.data.cv,
         total: storyData?.total ?? 0,
         page: 1
       }
@@ -71,11 +69,10 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   if (error) {
     console.error(error)
   }
-  const currentTotal = data?.total ?? storyData.total
-  const totalCount = Math.ceil(currentTotal / storyData.perPage)
-  const showPagination = content.max_items
-    ? false
-    : currentTotal > storyData.perPage
+  const currentTotal = data?.total ?? storyData?.total ?? 0
+  const perPage = storyData?.perPage ?? 25
+  const totalCount = Math.ceil(currentTotal / perPage)
+  const showPagination = content.max_items ? false : currentTotal > perPage
   return (
     <div>
       <div

@@ -13729,7 +13729,7 @@
       "name": "toolbar_navi_button",
       "display_name": "Drawer open/close button",
       "created_at": "2020-05-01T08:40:33.440Z",
-      "updated_at": "2020-07-09T03:21:27.183Z",
+      "updated_at": "2021-08-24T07:33:33.266Z",
       "id": 894787,
       "schema": {
         "icon": {
@@ -13737,6 +13737,16 @@
           "field_type": "material-icons-selector",
           "options": [],
           "pos": 0
+        },
+        "button": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "button"
+          ],
+          "pos": 1,
+          "description": "Customize button"
         },
         "class_names": {
           "type": "custom",
@@ -13746,13 +13756,16 @@
               "value": "true",
               "name": "mui"
             }
-          ]
+          ],
+          "pos": 2
         },
         "is_right_drawer": {
-          "type": "boolean"
+          "type": "boolean",
+          "pos": 3
         },
         "force_show": {
-          "type": "boolean"
+          "type": "boolean",
+          "pos": 4
         }
       },
       "image": null,
