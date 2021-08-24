@@ -5,6 +5,7 @@ export { default as pagesGetServerSideProps } from './utils/initial-props/pagesG
 export { default as pagesGetStaticProps } from './utils/initial-props/pagesGetStaticProps'
 export { getStaticPropsError } from './utils/initial-props/pagesGetStaticPropsError'
 export { default as LmDefaultDocument } from './components/pages/_document'
+export { corsMiddleware } from './utils/universal/serverHelper'
 export {
   writeCacheFile,
   readCacheFile,
