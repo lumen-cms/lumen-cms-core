@@ -5,17 +5,19 @@ import React from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { LmListSearchFieldProps } from './listWidgetTypes'
 import { useRouter } from 'next/router'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
 export default function LmSearchField({
-  content
+  content,
+  onChange
 }: LmListSearchFieldProps & {
-  callback: (value: string) => void
+  onChange: (value: string) => void
 }) {
   const { query } = useRouter()
   const callback = useDebouncedCallback(
     (value: string) => {
       // onSearchTextChange(value)
-      callback(value)
+      onChange(value)
     },
     // delay in ms
     500
@@ -24,14 +26,20 @@ export default function LmSearchField({
     <div className={clsx(content.class_names && content.class_names.values)}>
       <TextField
         InputProps={{
-          startAdornment: <Magnify />
+          startAdornment: (
+            <InputAdornment position="start">
+              <Magnify />
+            </InputAdornment>
+          )
         }}
         id={content._uid}
         defaultValue={query?.search__text || ''}
         label={content.label}
         type="search"
+        size={content.size ? content.size : undefined}
+        fullWidth={content.fullwidth}
         placeholder={content.placeholder}
-        variant="outlined"
+        variant={content.variant || 'outlined'}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
           callback(event.currentTarget.value)
         }

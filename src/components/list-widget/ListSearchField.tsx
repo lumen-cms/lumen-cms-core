@@ -1,16 +1,19 @@
 import React from 'react'
 import { LmListSearchFieldProps } from './listWidgetTypes'
-import { useSearchStore } from '../../utils/state/searchState'
+import {
+  onSearchTextSelector,
+  useSearchStore
+} from '../../utils/state/searchState'
 import LmSearchField from './LmSearchField'
 
 export default function LmListSearchField({
   content
 }: LmListSearchFieldProps): JSX.Element {
-  const onSearchTextChange = useSearchStore((state) => state.onSearchTextChange)
+  const onSearchTextChange = useSearchStore(onSearchTextSelector)
   return (
     <LmSearchField
       content={content}
-      callback={(value) => {
+      onChange={(value) => {
         onSearchTextChange(value)
       }}
     />

@@ -1676,13 +1676,14 @@ export interface ListSearchAutocompleteStoryblok {
 
 export interface ListSearchFieldStoryblok {
   label?: string;
+  placeholder?: string;
+  variant?: "outlined" | "filled" | "standard";
+  fullwidth?: boolean;
   class_names?: {
     values?: string[];
     [k: string]: any;
   };
-  placeholder?: string;
-  fullwidth?: boolean;
-  outlined?: boolean;
+  size?: "small" | "medium";
   _uid: string;
   component: "list_search_field";
   [k: string]: any;

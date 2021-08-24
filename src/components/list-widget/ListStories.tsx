@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { LmListStoriesPayload, LmListStoriesProps } from './listWidgetTypes'
 import useSWR from 'swr'
 import { CONFIG } from '@CONFIG'
@@ -7,12 +7,24 @@ import { getListStoriesParams } from '../../utils/universal/getListStoriesParams
 import { useRouter } from 'next/router'
 import { createDeepNestedQueryString } from '../../utils/universal/paramsToQueryString'
 import LmNewsListItem from './NewsListItem'
+import {
+  searchTextSelector,
+  useSearchStore
+} from '../../utils/state/searchState'
 
-const fetcher = async (url: string, cv: number, page: number) => {
+const fetcher = async (
+  url: string,
+  cv: number,
+  page: number,
+  searchText: string
+) => {
   const storyblokApi = new URL('https://api.storyblok.com/v2/cdn/stories')
   storyblokApi.searchParams.append('cv', `${cv}`)
   storyblokApi.searchParams.append('token', CONFIG.publicToken)
   storyblokApi.searchParams.append('page', `${page}`)
+  if (searchText) {
+    storyblokApi.searchParams.append('search_term', searchText)
+  }
   let input = storyblokApi.toString() + '&' + url
   let storyReq = await fetch(input)
   const data = await storyReq.json()
@@ -25,18 +37,19 @@ const fetcher = async (url: string, cv: number, page: number) => {
 }
 
 export default function LmListStories({ content }: LmListStoriesProps) {
-  const initRef = useRef<boolean>(false)
   const { locale, defaultLocale } = useRouter()
   const paginate = content.pagination?.[0]
   const [page, setPage] = useState(1)
-
+  const searchText = useSearchStore(searchTextSelector)
   const params = getListStoriesParams(content, { locale, defaultLocale })
   const paramString = createDeepNestedQueryString(params)
   const [storyData] = useState<
     LmListStoriesProps['content']['list_stories_data']
   >(content.list_stories_data)
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
-    content.max_items ? null : [paramString, storyData?.data.cv, page],
+    content.max_items
+      ? null
+      : [paramString, storyData?.data.cv, page, searchText],
     fetcher,
     {
       initialData: {
@@ -47,25 +60,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
       }
     }
   )
-  useEffect(() => {
-    if (
-      typeof document !== 'undefined' &&
-      !isValidating &&
-      page &&
-      initRef.current
-    ) {
-      const destination = document.getElementById(
-        'list_stories_' + content._uid
-      )
-      if (destination) {
-        destination.scrollIntoView({
-          behavior: 'smooth'
-        })
-        // initRef.current = 1
-      }
-    }
-    initRef.current = true
-  }, [page, isValidating, content._uid])
+
   if (error) {
     console.error(error)
   }
@@ -97,6 +92,14 @@ export default function LmListStories({ content }: LmListStoriesProps) {
           page={page}
           count={totalCount}
           onChange={(_event, page) => {
+            const destination = document.getElementById(
+              'list_stories_' + content._uid
+            )
+            if (destination) {
+              destination.scrollIntoView({
+                behavior: 'auto'
+              })
+            }
             setPage(page)
           }}
           size={paginate?.size}

@@ -8074,13 +8074,40 @@
       "name": "list_search_field",
       "display_name": null,
       "created_at": "2020-05-01T08:40:39.353Z",
-      "updated_at": "2020-07-09T03:23:52.674Z",
+      "updated_at": "2021-08-24T08:40:13.644Z",
       "id": 894816,
       "schema": {
         "label": {
           "type": "text",
           "translatable": true,
           "pos": 0
+        },
+        "placeholder": {
+          "type": "text",
+          "pos": 1
+        },
+        "variant": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "outlined",
+              "name": "outlined"
+            },
+            {
+              "value": "filled",
+              "name": "filled"
+            },
+            {
+              "value": "standard",
+              "name": "standard"
+            }
+          ],
+          "pos": 2
+        },
+        "fullwidth": {
+          "type": "boolean",
+          "pos": 3
         },
         "class_names": {
           "type": "custom",
@@ -8091,19 +8118,6 @@
               "name": "mui"
             }
           ],
-          "pos": 1
-        },
-        "placeholder": {
-          "type": "text",
-          "pos": 2
-        },
-        "fullwidth": {
-          "type": "boolean",
-          "pos": 3
-        },
-        "outlined": {
-          "type": "boolean",
-          "translatable": false,
           "pos": 4
         },
         "tab-1d341a6e-065f-475e-baf6-e5f7c1b87a30": {
@@ -8113,6 +8127,20 @@
             "class_names"
           ],
           "pos": 5
+        },
+        "size": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "small",
+              "name": "small"
+            },
+            {
+              "value": "medium",
+              "name": "medium"
+            }
+          ]
         }
       },
       "image": null,
