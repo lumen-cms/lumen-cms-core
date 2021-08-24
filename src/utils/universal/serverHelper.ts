@@ -1,5 +1,6 @@
 import Cors from 'cors'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { SSR_CONFIG } from '@SSR_CONFIG'
 
 // Helper method to wait for a middleware to execute before continuing
 // And to throw an error when an error happens in a middleware
@@ -18,6 +19,9 @@ export const corsMiddleware = initMiddleware(
   Cors({
     // Only allow requests with GET, POST and OPTIONS
     methods: ['GET', 'OPTIONS', 'POST'],
-    origin: ['http://localhost:6006', 'http://localhost:3000']
+    origin: [
+      ...SSR_CONFIG.corsWhitelistDomains,
+      ...['http://localhost:6006', 'http://localhost:3000']
+    ]
   })
 )
