@@ -49,7 +49,12 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
     content.max_items
       ? null
-      : [paramString, storyData?.data.cv, page, searchText],
+      : [
+          paramString,
+          storyData?.data.cv,
+          page,
+          content.enable_search ? searchText : ''
+        ],
     fetcher,
     {
       initialData: {

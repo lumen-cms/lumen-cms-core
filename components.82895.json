@@ -8158,47 +8158,12 @@
       "name": "list_stories",
       "display_name": null,
       "created_at": "2021-08-20T06:33:37.926Z",
-      "updated_at": "2021-08-23T06:55:47.654Z",
+      "updated_at": "2021-08-24T09:05:08.075Z",
       "id": 1720175,
       "schema": {
-        "tab-4129d63f-760d-481d-8cc2-3728f21bcbfa": {
-          "type": "tab",
-          "display_name": "Page",
-          "keys": [
-            "page_categories"
-          ],
+        "enable_search": {
+          "type": "boolean",
           "pos": 0
-        },
-        "tab-bbb03c32-1da3-4e5e-a29c-40b0e8f27221": {
-          "type": "tab",
-          "display_name": "Event",
-          "keys": [
-            "event_categories"
-          ],
-          "pos": 0
-        },
-        "tab-38b502b0-0408-49f3-8357-09064a273f98": {
-          "type": "tab",
-          "display_name": "News",
-          "keys": [
-            "news_categories"
-          ],
-          "pos": 0
-        },
-        "page_categories": {
-          "type": "options",
-          "source": "internal_stories",
-          "filter_content_type": "category"
-        },
-        "event_categories": {
-          "type": "options",
-          "source": "internal_stories",
-          "filter_content_type": "event_category"
-        },
-        "news_categories": {
-          "type": "options",
-          "source": "internal_stories",
-          "filter_content_type": "news_category"
         },
         "view_types": {
           "type": "options",
@@ -8215,7 +8180,8 @@
               "value": "news",
               "name": "news"
             }
-          ]
+          ],
+          "pos": 1
         },
         "pagination": {
           "type": "bloks",
@@ -8223,13 +8189,16 @@
           "restrict_components": true,
           "component_whitelist": [
             "pagination"
-          ]
+          ],
+          "pos": 2
         },
         "hide_category": {
-          "type": "boolean"
+          "type": "boolean",
+          "pos": 3
         },
         "max_items": {
-          "type": "number"
+          "type": "number",
+          "pos": 4
         },
         "read_more_label": {
           "type": "bloks",
@@ -8238,7 +8207,8 @@
           "component_whitelist": [
             "headline"
           ],
-          "description": "Only visible in list views"
+          "description": "Only visible in list views",
+          "pos": 5
         },
         "date_format": {
           "type": "bloks",
@@ -8246,7 +8216,50 @@
           "restrict_components": true,
           "component_whitelist": [
             "date_time_format"
-          ]
+          ],
+          "pos": 6
+        },
+        "tab-4129d63f-760d-481d-8cc2-3728f21bcbfa": {
+          "type": "tab",
+          "display_name": "Page",
+          "keys": [
+            "page_categories"
+          ],
+          "pos": 7
+        },
+        "tab-bbb03c32-1da3-4e5e-a29c-40b0e8f27221": {
+          "type": "tab",
+          "display_name": "Event",
+          "keys": [
+            "event_categories"
+          ],
+          "pos": 8
+        },
+        "tab-38b502b0-0408-49f3-8357-09064a273f98": {
+          "type": "tab",
+          "display_name": "News",
+          "keys": [
+            "news_categories"
+          ],
+          "pos": 9
+        },
+        "page_categories": {
+          "type": "options",
+          "source": "internal_stories",
+          "filter_content_type": "category",
+          "pos": 10
+        },
+        "event_categories": {
+          "type": "options",
+          "source": "internal_stories",
+          "filter_content_type": "event_category",
+          "pos": 11
+        },
+        "news_categories": {
+          "type": "options",
+          "source": "internal_stories",
+          "filter_content_type": "news_category",
+          "pos": 12
         }
       },
       "image": null,
