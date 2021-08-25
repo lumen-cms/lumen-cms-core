@@ -4,10 +4,12 @@ import { LmFormBuilderProps } from './formBuilderTypes'
 import { useState } from 'react'
 import Grid, { GridSpacing } from '@material-ui/core/Grid'
 import { TextFieldElement } from '../google-form/GoogleFormElement'
+import { FormHiddenFieldStoryblok } from '../../typings/generated/components-schema'
 
 export default function LmFormBuilder({
   content,
-  onSubmit
+  onSubmit,
+  additional_fields
 }: LmFormBuilderProps) {
   const [success, setSuccess] = useState<boolean>()
   const [loading, setLoading] = useState<boolean>()
@@ -20,15 +22,6 @@ export default function LmFormBuilder({
     form_inline,
     ...options
   } = content
-
-  // const renderField = (field: FormBuilderStoryblok['fields'][0]) => {
-  //   switch (field.component) {
-  //     case 'form_textfield':
-  //       return <LmFormTextField content={field} options={options} />
-  //     default:
-  //       return <LmComponentRender content={field} />
-  //   }
-  // }
 
   return success ? (
     <div>
@@ -58,6 +51,23 @@ export default function LmFormBuilder({
             return
           }
           delete data.current_address
+          const additionalData =
+            [
+              ...(content.additional_fields || []),
+              ...(additional_fields || [])
+            ]?.reduce<FormHiddenFieldStoryblok>(
+              (previousValue, currentValue) => ({
+                ...previousValue,
+                [currentValue.name]: currentValue.is_number
+                  ? Number(currentValue.value)
+                  : currentValue.value
+              }),
+              {} as FormHiddenFieldStoryblok
+            ) || {}
+          const body = { ...data, ...additionalData }
+          const cleanObj = Object.fromEntries(
+            Object.entries(body).filter(([_, v]) => !!v)
+          )
           if (endpoint) {
             const res = await fetch(
               endpoint.startsWith('http')
@@ -69,13 +79,13 @@ export default function LmFormBuilder({
                   'Content-Type': 'application/json'
                   // 'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(cleanObj)
               }
             ).then((r) => r.json())
             console.log(res)
             setSuccess(true)
           } else {
-            console.log('data submitted, no endpoint given.', data)
+            console.log('data submitted, no endpoint given.', cleanObj)
             setSuccess(true)
           }
           if (typeof onSubmit === 'function') {

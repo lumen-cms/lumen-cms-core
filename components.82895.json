@@ -5073,12 +5073,70 @@
       "name": "form_builder",
       "display_name": null,
       "created_at": "2021-08-11T02:08:34.430Z",
-      "updated_at": "2021-08-13T02:35:37.404Z",
+      "updated_at": "2021-08-25T08:34:12.196Z",
       "id": 1701695,
       "schema": {
+        "endpoint": {
+          "type": "textarea",
+          "pos": 0
+        },
+        "success_message": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline",
+            "rich_text_editor",
+            "flex_row"
+          ],
+          "pos": 1
+        },
+        "fields": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "form_checkbox",
+            "form_select",
+            "form_textfield",
+            "rich_text_editor",
+            "divider",
+            "headline"
+          ],
+          "pos": 2
+        },
+        "submit": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "button"
+          ],
+          "pos": 3
+        },
+        "tab-5ecc729a-8742-4c28-a0a1-558b01dc2bfe": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "success_message",
+            "additional_fields"
+          ],
+          "pos": 4
+        },
+        "tab-e3e7c18f-31a7-4beb-a85f-ebd9a47ed7e0": {
+          "type": "tab",
+          "display_name": "Style",
+          "keys": [
+            "margin",
+            "full_width",
+            "spacing",
+            "vertical_form",
+            "form_inline",
+            "variant"
+          ],
+          "pos": 5
+        },
         "variant": {
           "type": "option",
-          "pos": 0,
+          "pos": 6,
           "use_uuid": true,
           "options": [
             {
@@ -5112,71 +5170,29 @@
               "name": "none"
             }
           ],
-          "pos": 1
+          "pos": 7
         },
         "full_width": {
           "type": "boolean",
-          "pos": 2
+          "pos": 8
         },
         "spacing": {
           "type": "number",
           "default_value": "",
           "description": "Space between fields. Allowed values: 0 - 10",
-          "pos": 3
+          "pos": 9
         },
         "form_inline": {
           "type": "boolean",
           "description": "Show all form fields in one row.",
-          "pos": 4
+          "pos": 10
         },
-        "endpoint": {
-          "type": "textarea",
-          "pos": 5
-        },
-        "fields": {
+        "additional_fields": {
           "type": "bloks",
           "restrict_components": true,
           "component_whitelist": [
-            "form_checkbox",
-            "form_select",
-            "form_textfield",
-            "rich_text_editor",
-            "divider",
-            "headline"
-          ],
-          "pos": 6
-        },
-        "submit": {
-          "type": "bloks",
-          "maximum": "1",
-          "restrict_components": true,
-          "component_whitelist": [
-            "button"
-          ],
-          "pos": 7
-        },
-        "tab-e3e7c18f-31a7-4beb-a85f-ebd9a47ed7e0": {
-          "type": "tab",
-          "display_name": "Settings",
-          "keys": [
-            "margin",
-            "full_width",
-            "spacing",
-            "vertical_form",
-            "form_inline",
-            "variant"
-          ],
-          "pos": 8
-        },
-        "success_message": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "headline",
-            "rich_text_editor",
-            "flex_row"
-          ],
-          "pos": 9
+            "form_hidden_field"
+          ]
         }
       },
       "image": null,
@@ -5237,7 +5253,7 @@
       "name": "form_container",
       "display_name": null,
       "created_at": "2021-08-13T03:09:25.593Z",
-      "updated_at": "2021-08-13T03:09:57.475Z",
+      "updated_at": "2021-08-25T08:34:39.206Z",
       "id": 1706866,
       "schema": {
         "form": {
@@ -5245,6 +5261,13 @@
           "use_uuid": true,
           "source": "internal_stories",
           "filter_content_type": "form_builder"
+        },
+        "additional_fields": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "form_hidden_field"
+          ]
         }
       },
       "image": null,
@@ -5257,6 +5280,35 @@
       "real_name": "form_container",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
       "component_group_name": "General"
+    },
+    {
+      "name": "form_hidden_field",
+      "display_name": null,
+      "created_at": "2021-08-25T08:33:03.681Z",
+      "updated_at": "2021-08-25T08:33:36.762Z",
+      "id": 1731641,
+      "schema": {
+        "name": {
+          "type": "text",
+          "required": true
+        },
+        "value": {
+          "type": "text",
+          "required": true
+        },
+        "is_number": {
+          "type": "boolean"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "form_hidden_field",
+      "component_group_uuid": null
     },
     {
       "name": "form_select",

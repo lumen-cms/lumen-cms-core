@@ -1122,12 +1122,8 @@ export interface FormStoryblok {
 }
 
 export interface FormBuilderStoryblok {
-  variant?: "standard" | "filled" | "outlined";
-  margin?: "dense" | "normal" | "none";
-  full_width?: boolean;
-  spacing?: number;
-  form_inline?: boolean;
   endpoint?: string;
+  success_message?: (HeadlineStoryblok | RichTextEditorStoryblok | FlexRowStoryblok)[];
   fields?: (
     | FormCheckboxStoryblok
     | FormSelectStoryblok
@@ -1137,7 +1133,12 @@ export interface FormBuilderStoryblok {
     | HeadlineStoryblok
   )[];
   submit?: ButtonStoryblok[];
-  success_message?: (HeadlineStoryblok | RichTextEditorStoryblok | FlexRowStoryblok)[];
+  variant?: "standard" | "filled" | "outlined";
+  margin?: "dense" | "normal" | "none";
+  full_width?: boolean;
+  spacing?: number;
+  form_inline?: boolean;
+  additional_fields?: FormHiddenFieldStoryblok[];
   _uid: string;
   component: "form_builder";
   [k: string]: any;
@@ -1155,8 +1156,18 @@ export interface FormCheckboxStoryblok {
 
 export interface FormContainerStoryblok {
   form?: string;
+  additional_fields?: FormHiddenFieldStoryblok[];
   _uid: string;
   component: "form_container";
+  [k: string]: any;
+}
+
+export interface FormHiddenFieldStoryblok {
+  name: string;
+  value: string;
+  is_number?: boolean;
+  _uid: string;
+  component: "form_hidden_field";
   [k: string]: any;
 }
 

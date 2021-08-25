@@ -332,6 +332,7 @@ export type FormbuilderComponent = {
   __typename?: 'FormbuilderComponent';
   _editable?: Maybe<Scalars['String']>;
   _uid?: Maybe<Scalars['String']>;
+  additional_fields?: Maybe<Scalars['BlockScalar']>;
   component?: Maybe<Scalars['String']>;
   endpoint?: Maybe<Scalars['String']>;
   fields?: Maybe<Scalars['BlockScalar']>;

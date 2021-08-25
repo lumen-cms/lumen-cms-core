@@ -5,11 +5,12 @@ import React from 'react'
 import { useSpeechSynthesis } from 'react-speech-kit'
 import { LmButtonSpeechTextProps } from './buttonTypes'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
+import { useRouter } from 'next/router'
 
-const locale = 'de'
 export default function LmButtonSpeechText({
   content
 }: LmButtonSpeechTextProps) {
+  const { locale } = useRouter()
   const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis()
   const currentVoices: SpeechSynthesisVoice[] = voices
   const trigger = Array.isArray(content.trigger)
@@ -21,7 +22,9 @@ export default function LmButtonSpeechText({
       cancel()
       return
     }
-    const selectedVoice = currentVoices.find((v) => v.lang.startsWith(locale))
+    const selectedVoice = currentVoices.find((v) =>
+      v.lang.startsWith(locale || 'de')
+    )
     const allNodes = document.querySelectorAll('.enable__speech')
     const texts: string[] = []
     allNodes.forEach((node) => {

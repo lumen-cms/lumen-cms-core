@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { legacyClientListWidgetSearch, useListSearch } from './useListSearch'
 import { ListWidgetContainer } from './ListWidgetContainer'
 import { LmListWidgetProps } from './listWidgetTypes'
@@ -8,7 +8,8 @@ export default function LmListWidget({
   content
 }: LmListWidgetProps): JSX.Element {
   const clientSideSearch = useListSearch(!!content.enable_for_search)
-  let data = content.list_widget_data?.items ?? []
+  let [data] = useState(content.list_widget_data?.items ?? [])
+
   if (
     content.enable_for_search &&
     (clientSideSearch.searchParamsCategories?.length ||

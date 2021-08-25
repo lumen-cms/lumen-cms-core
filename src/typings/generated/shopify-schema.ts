@@ -88,7 +88,10 @@ export type Article = Node & {
   excerpt?: Maybe<Scalars['String']>;
   /** The excerpt of the article, complete with HTML formatting. */
   excerptHtml?: Maybe<Scalars['HTML']>;
-  /** A human-friendly unique string for the Article automatically generated from its title. */
+  /**
+   * A human-friendly unique string for the Article automatically generated from its title.
+   *
+   */
   handle: Scalars['String'];
   /** Globally unique identifier. */
   id: Scalars['ID'];
@@ -152,7 +155,10 @@ export type ArticleAuthor = {
   name: Scalars['String'];
 };
 
-/** An auto-generated type for paginating through multiple Articles. */
+/**
+ * An auto-generated type for paginating through multiple Articles.
+ *
+ */
 export type ArticleConnection = {
   __typename?: 'ArticleConnection';
   /** A list of edges. */
@@ -161,7 +167,10 @@ export type ArticleConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one Article and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Article and a cursor during pagination.
+ *
+ */
 export type ArticleEdge = {
   __typename?: 'ArticleEdge';
   /** A cursor for use in pagination. */
@@ -188,6 +197,7 @@ export enum ArticleSortKeys {
    * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
    * results by relevance to the search term(s). When no search query is specified, this sort key is not
    * deterministic and should not be used.
+   *
    */
   Relevance = 'RELEVANCE'
 }
@@ -209,7 +219,10 @@ export type AttributeInput = {
   value: Scalars['String'];
 };
 
-/** Automatic discount applications capture the intentions of a discount that was automatically applied. */
+/**
+ * Automatic discount applications capture the intentions of a discount that was automatically applied.
+ *
+ */
 export type AutomaticDiscountApplication = DiscountApplication & {
   __typename?: 'AutomaticDiscountApplication';
   /** The method by which the discount's value is allocated to its entitled items. */
@@ -231,6 +244,7 @@ export type AvailableShippingRates = {
    * Whether or not the shipping rates are ready.
    * The `shippingRates` field is `null` when this value is `false`.
    * This field should be polled until its value becomes `true`.
+   *
    */
   ready: Scalars['Boolean'];
   /** The fetched shipping rates. `null` until the `ready` field is `true`. */
@@ -246,7 +260,10 @@ export type Blog = Node & {
   articles: ArticleConnection;
   /** The authors who have contributed to the blog. */
   authors: Array<ArticleAuthor>;
-  /** A human-friendly unique string for the Blog automatically generated from its title. */
+  /**
+   * A human-friendly unique string for the Blog automatically generated from its title.
+   *
+   */
   handle: Scalars['String'];
   /** Globally unique identifier. */
   id: Scalars['ID'];
@@ -274,7 +291,10 @@ export type BlogArticlesArgs = {
   query?: Maybe<Scalars['String']>;
 };
 
-/** An auto-generated type for paginating through multiple Blogs. */
+/**
+ * An auto-generated type for paginating through multiple Blogs.
+ *
+ */
 export type BlogConnection = {
   __typename?: 'BlogConnection';
   /** A list of edges. */
@@ -283,7 +303,10 @@ export type BlogConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one Blog and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Blog and a cursor during pagination.
+ *
+ */
 export type BlogEdge = {
   __typename?: 'BlogEdge';
   /** A cursor for use in pagination. */
@@ -304,6 +327,7 @@ export enum BlogSortKeys {
    * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
    * results by relevance to the search term(s). When no search query is specified, this sort key is not
    * deterministic and should not be used.
+   *
    */
   Relevance = 'RELEVANCE'
 }
@@ -333,6 +357,7 @@ export type Checkout = Node & {
    * The available shipping rates for this Checkout.
    * Should only be used when checkout `requiresShipping` is `true` and
    * the shipping address is valid.
+   *
    */
   availableShippingRates?: Maybe<AvailableShippingRates>;
   /** The date and time when the checkout was completed. */
@@ -376,13 +401,17 @@ export type Checkout = Node & {
    * have asynchronous operations that can take time to finish. If you want
    * to complete a checkout or ensure all the fields are populated and up to
    * date, polling is required until the value is true.
+   *
    */
   ready: Scalars['Boolean'];
   /** States whether or not the fulfillment requires shipping. */
   requiresShipping: Scalars['Boolean'];
   /** The shipping address to where the line items will be shipped. */
   shippingAddress?: Maybe<MailingAddress>;
-  /** The discounts that have been allocated onto the shipping line by discount applications. */
+  /**
+   * The discounts that have been allocated onto the shipping line by discount applications.
+   *
+   */
   shippingDiscountAllocations: Array<DiscountAllocation>;
   /** Once a shipping rate is selected by the customer it is transitioned to a `shipping_line` object. */
   shippingLine?: Maybe<ShippingRate>;
@@ -448,6 +477,7 @@ export type CheckoutAttributesUpdateInput = {
    * The required attributes are city, province, and country.
    * Full validation of the addresses is still done at completion time. Defaults to `false` with
    * each operation.
+   *
    */
   allowPartialAddresses?: Maybe<Scalars['Boolean']>;
 };
@@ -477,6 +507,7 @@ export type CheckoutAttributesUpdateV2Input = {
    * The required attributes are city, province, and country.
    * Full validation of the addresses is still done at completion time. Defaults to `false` with
    * each operation.
+   *
    */
   allowPartialAddresses?: Maybe<Scalars['Boolean']>;
 };
@@ -605,6 +636,7 @@ export type CheckoutCreateInput = {
    * Allows setting partial addresses on a Checkout, skipping the full validation of attributes.
    * The required attributes are city, province, and country.
    * Full validation of addresses is still done at completion time. Defaults to `null`.
+   *
    */
   allowPartialAddresses?: Maybe<Scalars['Boolean']>;
   /**
@@ -910,7 +942,10 @@ export type CheckoutLineItem = Node & {
   variant?: Maybe<ProductVariant>;
 };
 
-/** An auto-generated type for paginating through multiple CheckoutLineItems. */
+/**
+ * An auto-generated type for paginating through multiple CheckoutLineItems.
+ *
+ */
 export type CheckoutLineItemConnection = {
   __typename?: 'CheckoutLineItemConnection';
   /** A list of edges. */
@@ -919,7 +954,10 @@ export type CheckoutLineItemConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one CheckoutLineItem and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one CheckoutLineItem and a cursor during pagination.
+ *
+ */
 export type CheckoutLineItemEdge = {
   __typename?: 'CheckoutLineItemEdge';
   /** A cursor for use in pagination. */
@@ -1064,6 +1102,7 @@ export type Collection = Node & {
   /**
    * A human-friendly unique string for the collection automatically generated from its title.
    * Limit of 255 characters.
+   *
    */
   handle: Scalars['String'];
   /** Globally unique identifier. */
@@ -1104,7 +1143,10 @@ export type CollectionProductsArgs = {
   sortKey?: Maybe<ProductCollectionSortKeys>;
 };
 
-/** An auto-generated type for paginating through multiple Collections. */
+/**
+ * An auto-generated type for paginating through multiple Collections.
+ *
+ */
 export type CollectionConnection = {
   __typename?: 'CollectionConnection';
   /** A list of edges. */
@@ -1113,7 +1155,10 @@ export type CollectionConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one Collection and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Collection and a cursor during pagination.
+ *
+ */
 export type CollectionEdge = {
   __typename?: 'CollectionEdge';
   /** A cursor for use in pagination. */
@@ -1134,6 +1179,7 @@ export enum CollectionSortKeys {
    * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
    * results by relevance to the search term(s). When no search query is specified, this sort key is not
    * deterministic and should not be used.
+   *
    */
   Relevance = 'RELEVANCE'
 }
@@ -1166,7 +1212,10 @@ export type CommentAuthor = {
   name: Scalars['String'];
 };
 
-/** An auto-generated type for paginating through multiple Comments. */
+/**
+ * An auto-generated type for paginating through multiple Comments.
+ *
+ */
 export type CommentConnection = {
   __typename?: 'CommentConnection';
   /** A list of edges. */
@@ -1175,7 +1224,10 @@ export type CommentConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one Comment and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Comment and a cursor during pagination.
+ *
+ */
 export type CommentEdge = {
   __typename?: 'CommentEdge';
   /** A cursor for use in pagination. */
@@ -1700,6 +1752,7 @@ export type CreditCard = {
 /**
  * Specifies the fields required to complete a checkout with
  * a Shopify vaulted credit card payment.
+ *
  */
 export type CreditCardPaymentInput = {
   /** The amount of the payment. */
@@ -1717,6 +1770,7 @@ export type CreditCardPaymentInput = {
 /**
  * Specifies the fields required to complete a checkout with
  * a Shopify vaulted credit card payment.
+ *
  */
 export type CreditCardPaymentInputV2 = {
   /** The amount and currency of the payment. */
@@ -2093,6 +2147,7 @@ export type Customer = {
   /**
    * A comma separated list of tags that have been added to the customer.
    * Additional access scope required: unauthenticated_read_customer_tags.
+   *
    */
   tags: Array<Scalars['String']>;
   /** The date and time when the customer information was updated. */
@@ -2270,6 +2325,7 @@ export type CustomerCreateInput = {
    * A unique phone number for the customer.
    *
    * Formatted using E.164 standard. For example, _+16135551111_.
+   *
    */
   phone?: Maybe<Scalars['String']>;
   /** The login password used by the customer. */
@@ -2404,6 +2460,7 @@ export type CustomerUpdateInput = {
    * A unique phone number for the customer.
    *
    * Formatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`.
+   *
    */
   phone?: Maybe<Scalars['String']>;
   /** The login password used by the customer. */
@@ -2420,6 +2477,7 @@ export type CustomerUpdatePayload = {
   /**
    * The newly created customer access token. If the customer's password is updated, all previous access tokens
    * (including the one used to perform this mutation) become invalid, and a new token is generated.
+   *
    */
   customerAccessToken?: Maybe<CustomerAccessToken>;
   /** The list of errors that occurred from executing the mutation. */
@@ -2456,7 +2514,10 @@ export enum DigitalWallet {
   ShopifyPay = 'SHOPIFY_PAY'
 }
 
-/** An amount discounting the line that has been allocated by a discount. */
+/**
+ * An amount discounting the line that has been allocated by a discount.
+ *
+ */
 export type DiscountAllocation = {
   __typename?: 'DiscountAllocation';
   /** Amount of discount allocated. */
@@ -2468,6 +2529,7 @@ export type DiscountAllocation = {
 /**
  * Discount applications capture the intentions of a discount source at
  * the time of application.
+ *
  */
 export type DiscountApplication = {
   /** The method by which the discount's value is allocated to its entitled items. */
@@ -2490,7 +2552,10 @@ export enum DiscountApplicationAllocationMethod {
   One = 'ONE'
 }
 
-/** An auto-generated type for paginating through multiple DiscountApplications. */
+/**
+ * An auto-generated type for paginating through multiple DiscountApplications.
+ *
+ */
 export type DiscountApplicationConnection = {
   __typename?: 'DiscountApplicationConnection';
   /** A list of edges. */
@@ -2499,7 +2564,10 @@ export type DiscountApplicationConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one DiscountApplication and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one DiscountApplication and a cursor during pagination.
+ *
+ */
 export type DiscountApplicationEdge = {
   __typename?: 'DiscountApplicationEdge';
   /** A cursor for use in pagination. */
@@ -2511,6 +2579,7 @@ export type DiscountApplicationEdge = {
 /**
  * Which lines on the order that the discount is allocated over, of the type
  * defined by the Discount Application's target_type.
+ *
  */
 export enum DiscountApplicationTargetSelection {
   /** The discount is allocated onto all the lines. */
@@ -2521,7 +2590,10 @@ export enum DiscountApplicationTargetSelection {
   Explicit = 'EXPLICIT'
 }
 
-/** The type of line (i.e. line item or shipping line) on an order that the discount is applicable towards. */
+/**
+ * The type of line (i.e. line item or shipping line) on an order that the discount is applicable towards.
+ *
+ */
 export enum DiscountApplicationTargetType {
   /** The discount applies onto line items. */
   LineItem = 'LINE_ITEM',
@@ -2532,6 +2604,7 @@ export enum DiscountApplicationTargetType {
 /**
  * Discount code applications capture the intentions of a discount code at
  * the time that it is applied.
+ *
  */
 export type DiscountCodeApplication = DiscountApplication & {
   __typename?: 'DiscountCodeApplication';
@@ -2593,6 +2666,7 @@ export type Fulfillment = {
   /**
    * Tracking information associated with the fulfillment,
    * such as the tracking number and tracking URL.
+   *
    */
   trackingInfo: Array<FulfillmentTrackingInfo>;
 };
@@ -2622,7 +2696,10 @@ export type FulfillmentLineItem = {
   quantity: Scalars['Int'];
 };
 
-/** An auto-generated type for paginating through multiple FulfillmentLineItems. */
+/**
+ * An auto-generated type for paginating through multiple FulfillmentLineItems.
+ *
+ */
 export type FulfillmentLineItemConnection = {
   __typename?: 'FulfillmentLineItemConnection';
   /** A list of edges. */
@@ -2631,7 +2708,10 @@ export type FulfillmentLineItemConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one FulfillmentLineItem and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one FulfillmentLineItem and a cursor during pagination.
+ *
+ */
 export type FulfillmentLineItemEdge = {
   __typename?: 'FulfillmentLineItemEdge';
   /** A cursor for use in pagination. */
@@ -2687,6 +2767,7 @@ export type Image = {
    * The location of the original image as a URL.
    *
    * If there are any existing transformations in the original source URL, they will remain and not be stripped.
+   *
    */
   originalSrc: Scalars['URL'];
   /**
@@ -2740,6 +2821,7 @@ export type Image = {
    *
    * All transformation arguments are considered "best-effort". If they can be applied to an image, they will be.
    * Otherwise any transformations which an image type does not support will be ignored.
+   *
    */
   transformedSrc: Scalars['URL'];
 };
@@ -2754,7 +2836,10 @@ export type ImageTransformedSrcArgs = {
   preferredContentType?: Maybe<ImageContentType>;
 };
 
-/** An auto-generated type for paginating through multiple Images. */
+/**
+ * An auto-generated type for paginating through multiple Images.
+ *
+ */
 export type ImageConnection = {
   __typename?: 'ImageConnection';
   /** A list of edges. */
@@ -2773,7 +2858,10 @@ export enum ImageContentType {
   Webp = 'WEBP'
 }
 
-/** An auto-generated type which holds one Image and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Image and a cursor during pagination.
+ *
+ */
 export type ImageEdge = {
   __typename?: 'ImageEdge';
   /** A cursor for use in pagination. */
@@ -2785,20 +2873,36 @@ export type ImageEdge = {
 /** Represents a mailing address for customers and shipping. */
 export type MailingAddress = Node & {
   __typename?: 'MailingAddress';
-  /** The first line of the address. Typically the street address or PO Box number. */
+  /**
+   * The first line of the address. Typically the street address or PO Box number.
+   *
+   */
   address1?: Maybe<Scalars['String']>;
-  /** The second line of the address. Typically the number of the apartment, suite, or unit. */
+  /**
+   * The second line of the address. Typically the number of the apartment, suite, or unit.
+   *
+   */
   address2?: Maybe<Scalars['String']>;
-  /** The name of the city, district, village, or town. */
+  /**
+   * The name of the city, district, village, or town.
+   *
+   */
   city?: Maybe<Scalars['String']>;
-  /** The name of the customer's company or organization. */
+  /**
+   * The name of the customer's company or organization.
+   *
+   */
   company?: Maybe<Scalars['String']>;
-  /** The name of the country. */
+  /**
+   * The name of the country.
+   *
+   */
   country?: Maybe<Scalars['String']>;
   /**
    * The two-letter code for the country of the address.
    *
    * For example, US.
+   *
    * @deprecated Use `countryCodeV2` instead
    */
   countryCode?: Maybe<Scalars['String']>;
@@ -2806,6 +2910,7 @@ export type MailingAddress = Node & {
    * The two-letter code for the country of the address.
    *
    * For example, US.
+   *
    */
   countryCodeV2?: Maybe<CountryCode>;
   /** The first name of the customer. */
@@ -2822,12 +2927,16 @@ export type MailingAddress = Node & {
   latitude?: Maybe<Scalars['Float']>;
   /** The longitude coordinate of the customer address. */
   longitude?: Maybe<Scalars['Float']>;
-  /** The full name of the customer, based on firstName and lastName. */
+  /**
+   * The full name of the customer, based on firstName and lastName.
+   *
+   */
   name?: Maybe<Scalars['String']>;
   /**
    * A unique phone number for the customer.
    *
    * Formatted using E.164 standard. For example, _+16135551111_.
+   *
    */
   phone?: Maybe<Scalars['String']>;
   /** The region of the address, such as the province, state, or district. */
@@ -2836,6 +2945,7 @@ export type MailingAddress = Node & {
    * The two-letter code for the region.
    *
    * For example, ON.
+   *
    */
   provinceCode?: Maybe<Scalars['String']>;
   /** The zip or postal code of the address. */
@@ -2849,7 +2959,10 @@ export type MailingAddressFormattedArgs = {
   withCompany?: Maybe<Scalars['Boolean']>;
 };
 
-/** An auto-generated type for paginating through multiple MailingAddresses. */
+/**
+ * An auto-generated type for paginating through multiple MailingAddresses.
+ *
+ */
 export type MailingAddressConnection = {
   __typename?: 'MailingAddressConnection';
   /** A list of edges. */
@@ -2858,7 +2971,10 @@ export type MailingAddressConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one MailingAddress and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one MailingAddress and a cursor during pagination.
+ *
+ */
 export type MailingAddressEdge = {
   __typename?: 'MailingAddressEdge';
   /** A cursor for use in pagination. */
@@ -2869,13 +2985,25 @@ export type MailingAddressEdge = {
 
 /** Specifies the fields accepted to create or update a mailing address. */
 export type MailingAddressInput = {
-  /** The first line of the address. Typically the street address or PO Box number. */
+  /**
+   * The first line of the address. Typically the street address or PO Box number.
+   *
+   */
   address1?: Maybe<Scalars['String']>;
-  /** The second line of the address. Typically the number of the apartment, suite, or unit. */
+  /**
+   * The second line of the address. Typically the number of the apartment, suite, or unit.
+   *
+   */
   address2?: Maybe<Scalars['String']>;
-  /** The name of the city, district, village, or town. */
+  /**
+   * The name of the city, district, village, or town.
+   *
+   */
   city?: Maybe<Scalars['String']>;
-  /** The name of the customer's company or organization. */
+  /**
+   * The name of the customer's company or organization.
+   *
+   */
   company?: Maybe<Scalars['String']>;
   /** The name of the country. */
   country?: Maybe<Scalars['String']>;
@@ -2887,6 +3015,7 @@ export type MailingAddressInput = {
    * A unique phone number for the customer.
    *
    * Formatted using E.164 standard. For example, _+16135551111_.
+   *
    */
   phone?: Maybe<Scalars['String']>;
   /** The region of the address, such as the province, state, or district. */
@@ -2895,7 +3024,10 @@ export type MailingAddressInput = {
   zip?: Maybe<Scalars['String']>;
 };
 
-/** Manual discount applications capture the intentions of a discount that was manually created. */
+/**
+ * Manual discount applications capture the intentions of a discount that was manually created.
+ *
+ */
 export type ManualDiscountApplication = DiscountApplication & {
   __typename?: 'ManualDiscountApplication';
   /** The method by which the discount's value is allocated to its entitled items. */
@@ -2922,7 +3054,10 @@ export type Media = {
   previewImage?: Maybe<Image>;
 };
 
-/** An auto-generated type for paginating through multiple Media. */
+/**
+ * An auto-generated type for paginating through multiple Media.
+ *
+ */
 export type MediaConnection = {
   __typename?: 'MediaConnection';
   /** A list of edges. */
@@ -2943,7 +3078,10 @@ export enum MediaContentType {
   Video = 'VIDEO'
 }
 
-/** An auto-generated type which holds one Media and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Media and a cursor during pagination.
+ *
+ */
 export type MediaEdge = {
   __typename?: 'MediaEdge';
   /** A cursor for use in pagination. */
@@ -2970,6 +3108,7 @@ export type MediaImage = Node & Media & {
 /**
  * Metafields represent custom metadata attached to a resource. Metafields can be sorted into namespaces and are
  * comprised of keys, values, and value types.
+ *
  */
 export type Metafield = Node & {
   __typename?: 'Metafield';
@@ -2996,7 +3135,10 @@ export type Metafield = Node & {
   valueType: MetafieldValueType;
 };
 
-/** An auto-generated type for paginating through multiple Metafields. */
+/**
+ * An auto-generated type for paginating through multiple Metafields.
+ *
+ */
 export type MetafieldConnection = {
   __typename?: 'MetafieldConnection';
   /** A list of edges. */
@@ -3005,7 +3147,10 @@ export type MetafieldConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one Metafield and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Metafield and a cursor during pagination.
+ *
+ */
 export type MetafieldEdge = {
   __typename?: 'MetafieldEdge';
   /** A cursor for use in pagination. */
@@ -3064,7 +3209,10 @@ export type MoneyInput = {
   currencyCode: CurrencyCode;
 };
 
-/** A monetary value with currency. */
+/**
+ * A monetary value with currency.
+ *
+ */
 export type MoneyV2 = {
   __typename?: 'MoneyV2';
   /** Decimal money amount. */
@@ -3073,7 +3221,10 @@ export type MoneyV2 = {
   currencyCode: CurrencyCode;
 };
 
-/** An auto-generated type for paginating through multiple MoneyV2s. */
+/**
+ * An auto-generated type for paginating through multiple MoneyV2s.
+ *
+ */
 export type MoneyV2Connection = {
   __typename?: 'MoneyV2Connection';
   /** A list of edges. */
@@ -3082,7 +3233,10 @@ export type MoneyV2Connection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one MoneyV2 and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one MoneyV2 and a cursor during pagination.
+ *
+ */
 export type MoneyV2Edge = {
   __typename?: 'MoneyV2Edge';
   /** A cursor for use in pagination. */
@@ -3188,12 +3342,14 @@ export type Mutation = {
   /**
    * Creates a customer access token.
    * The customer access token is required to modify the customer object in any way.
+   *
    */
   customerAccessTokenCreate?: Maybe<CustomerAccessTokenCreatePayload>;
   /**
    * Creates a customer access token using a multipass token instead of email and password.
    * A customer record is created if customer does not exist. If a customer record already
    * exists but the record is disabled, then it's enabled.
+   *
    */
   customerAccessTokenCreateWithMultipass?: Maybe<CustomerAccessTokenCreateWithMultipassPayload>;
   /** Permanently destroys a customer access token. */
@@ -3203,6 +3359,7 @@ export type Mutation = {
    *
    * Access token renewal must happen *before* a token expires.
    * If a token has already expired, a new one should be created instead via `customerAccessTokenCreate`.
+   *
    */
   customerAccessTokenRenew?: Maybe<CustomerAccessTokenRenewPayload>;
   /** Activates a customer. */
@@ -3569,6 +3726,7 @@ export type Order = Node & {
   /**
    * Unique identifier for the order that appears on the order.
    * For example, _#1000_ or _Store1001.
+   *
    */
   name: Scalars['String'];
   /** A unique numeric identifier for the order for use by shop owner and customer. */
@@ -3581,11 +3739,15 @@ export type Order = Node & {
    * The date and time when the order was imported.
    * This value can be set to dates in the past when importing from other systems.
    * If no value is provided, it will be auto-generated based on current date and time.
+   *
    */
   processedAt: Scalars['DateTime'];
   /** The address to where the order will be shipped. */
   shippingAddress?: Maybe<MailingAddress>;
-  /** The discounts that have been allocated onto the shipping line by discount applications. */
+  /**
+   * The discounts that have been allocated onto the shipping line by discount applications.
+   *
+   */
   shippingDiscountAllocations: Array<DiscountAllocation>;
   /** The unique URL for the order's status page. */
   statusUrl: Scalars['URL'];
@@ -3668,7 +3830,10 @@ export enum OrderCancelReason {
   Other = 'OTHER'
 }
 
-/** An auto-generated type for paginating through multiple Orders. */
+/**
+ * An auto-generated type for paginating through multiple Orders.
+ *
+ */
 export type OrderConnection = {
   __typename?: 'OrderConnection';
   /** A list of edges. */
@@ -3677,7 +3842,10 @@ export type OrderConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one Order and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Order and a cursor during pagination.
+ *
+ */
 export type OrderEdge = {
   __typename?: 'OrderEdge';
   /** A cursor for use in pagination. */
@@ -3743,7 +3911,10 @@ export type OrderLineItem = {
   variant?: Maybe<ProductVariant>;
 };
 
-/** An auto-generated type for paginating through multiple OrderLineItems. */
+/**
+ * An auto-generated type for paginating through multiple OrderLineItems.
+ *
+ */
 export type OrderLineItemConnection = {
   __typename?: 'OrderLineItemConnection';
   /** A list of edges. */
@@ -3752,7 +3923,10 @@ export type OrderLineItemConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one OrderLineItem and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one OrderLineItem and a cursor during pagination.
+ *
+ */
 export type OrderLineItemEdge = {
   __typename?: 'OrderLineItemEdge';
   /** A cursor for use in pagination. */
@@ -3773,6 +3947,7 @@ export enum OrderSortKeys {
    * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
    * results by relevance to the search term(s). When no search query is specified, this sort key is not
    * deterministic and should not be used.
+   *
    */
   Relevance = 'RELEVANCE'
 }
@@ -3798,7 +3973,10 @@ export type Page = Node & {
   url: Scalars['URL'];
 };
 
-/** An auto-generated type for paginating through multiple Pages. */
+/**
+ * An auto-generated type for paginating through multiple Pages.
+ *
+ */
 export type PageConnection = {
   __typename?: 'PageConnection';
   /** A list of edges. */
@@ -3807,7 +3985,10 @@ export type PageConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one Page and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Page and a cursor during pagination.
+ *
+ */
 export type PageEdge = {
   __typename?: 'PageEdge';
   /** A cursor for use in pagination. */
@@ -3837,6 +4018,7 @@ export enum PageSortKeys {
    * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
    * results by relevance to the search term(s). When no search query is specified, this sort key is not
    * deterministic and should not be used.
+   *
    */
   Relevance = 'RELEVANCE'
 }
@@ -3865,6 +4047,7 @@ export type Payment = Node & {
    * A client-side generated token to identify a payment and perform idempotent operations.
    * For more information, refer to
    * [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+   *
    */
   idempotencyKey?: Maybe<Scalars['String']>;
   /** The URL where the customer needs to be redirected so they can complete the 3D Secure payment flow. */
@@ -3939,6 +4122,7 @@ export type Product = Node & HasMetafields & {
   /**
    * A human-friendly unique string for the Product automatically generated from its title.
    * They are used by the Liquid templating language to refer to objects.
+   *
    */
   handle: Scalars['String'];
   /** Globally unique identifier. */
@@ -3951,10 +4135,7 @@ export type Product = Node & HasMetafields & {
   metafield?: Maybe<Metafield>;
   /** A paginated list of metafields associated with the resource. */
   metafields: MetafieldConnection;
-  /**
-   * The online store URL for the product.
-   * A value of `null` indicates that the product is not published to the Online Store sales channel.
-   */
+  /** The URL used for viewing the resource on the shop's Online Store. May be null if the resource is currently not published to the Online Store sales channel. */
   onlineStoreUrl?: Maybe<Scalars['URL']>;
   /** List of product options. */
   options: Array<ProductOption>;
@@ -3972,6 +4153,7 @@ export type Product = Node & HasMetafields & {
   /**
    * A comma separated list of tags that have been added to the product.
    * Additional access scope required for private apps: unauthenticated_read_product_tags.
+   *
    */
   tags: Array<Scalars['String']>;
   /** The product’s title. */
@@ -3983,12 +4165,14 @@ export type Product = Node & HasMetafields & {
    * A product's `updatedAt` value can change for different reasons. For example, if an order
    * is placed for a product that has inventory tracking set up, then the inventory adjustment
    * is counted as an update.
+   *
    */
   updatedAt: Scalars['DateTime'];
   /**
    * Find a product’s variant based on its selected options.
    * This is useful for converting a user’s selection of product options into a single matching variant.
    * If there is not a variant for the selected options, `null` will be returned.
+   *
    */
   variantBySelectedOptions?: Maybe<ProductVariant>;
   /** List of the product’s variants. */
@@ -4140,11 +4324,15 @@ export enum ProductCollectionSortKeys {
    * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
    * results by relevance to the search term(s). When no search query is specified, this sort key is not
    * deterministic and should not be used.
+   *
    */
   Relevance = 'RELEVANCE'
 }
 
-/** An auto-generated type for paginating through multiple Products. */
+/**
+ * An auto-generated type for paginating through multiple Products.
+ *
+ */
 export type ProductConnection = {
   __typename?: 'ProductConnection';
   /** A list of edges. */
@@ -4153,7 +4341,10 @@ export type ProductConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one Product and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one Product and a cursor during pagination.
+ *
+ */
 export type ProductEdge = {
   __typename?: 'ProductEdge';
   /** A cursor for use in pagination. */
@@ -4174,6 +4365,7 @@ export enum ProductImageSortKeys {
    * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
    * results by relevance to the search term(s). When no search query is specified, this sort key is not
    * deterministic and should not be used.
+   *
    */
   Relevance = 'RELEVANCE'
 }
@@ -4182,6 +4374,7 @@ export enum ProductImageSortKeys {
  * Product property names like "Size", "Color", and "Material" that the customers can select.
  * Variants are selected based on permutations of these options.
  * 255 characters limit each.
+ *
  */
 export type ProductOption = Node & {
   __typename?: 'ProductOption';
@@ -4202,7 +4395,10 @@ export type ProductPriceRange = {
   minVariantPrice: MoneyV2;
 };
 
-/** An auto-generated type for paginating through multiple ProductPriceRanges. */
+/**
+ * An auto-generated type for paginating through multiple ProductPriceRanges.
+ *
+ */
 export type ProductPriceRangeConnection = {
   __typename?: 'ProductPriceRangeConnection';
   /** A list of edges. */
@@ -4211,7 +4407,10 @@ export type ProductPriceRangeConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one ProductPriceRange and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one ProductPriceRange and a cursor during pagination.
+ *
+ */
 export type ProductPriceRangeEdge = {
   __typename?: 'ProductPriceRangeEdge';
   /** A cursor for use in pagination. */
@@ -4242,6 +4441,7 @@ export enum ProductSortKeys {
    * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
    * results by relevance to the search term(s). When no search query is specified, this sort key is not
    * deterministic and should not be used.
+   *
    */
   Relevance = 'RELEVANCE'
 }
@@ -4361,7 +4561,10 @@ export type ProductVariantPresentmentUnitPricesArgs = {
   reverse?: Maybe<Scalars['Boolean']>;
 };
 
-/** An auto-generated type for paginating through multiple ProductVariants. */
+/**
+ * An auto-generated type for paginating through multiple ProductVariants.
+ *
+ */
 export type ProductVariantConnection = {
   __typename?: 'ProductVariantConnection';
   /** A list of edges. */
@@ -4370,7 +4573,10 @@ export type ProductVariantConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one ProductVariant and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one ProductVariant and a cursor during pagination.
+ *
+ */
 export type ProductVariantEdge = {
   __typename?: 'ProductVariantEdge';
   /** A cursor for use in pagination. */
@@ -4379,7 +4585,10 @@ export type ProductVariantEdge = {
   node: ProductVariant;
 };
 
-/** The compare-at price and price of a variant sharing a currency. */
+/**
+ * The compare-at price and price of a variant sharing a currency.
+ *
+ */
 export type ProductVariantPricePair = {
   __typename?: 'ProductVariantPricePair';
   /** The compare-at price of the variant with associated currency. */
@@ -4388,7 +4597,10 @@ export type ProductVariantPricePair = {
   price: MoneyV2;
 };
 
-/** An auto-generated type for paginating through multiple ProductVariantPricePairs. */
+/**
+ * An auto-generated type for paginating through multiple ProductVariantPricePairs.
+ *
+ */
 export type ProductVariantPricePairConnection = {
   __typename?: 'ProductVariantPricePairConnection';
   /** A list of edges. */
@@ -4397,7 +4609,10 @@ export type ProductVariantPricePairConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one ProductVariantPricePair and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one ProductVariantPricePair and a cursor during pagination.
+ *
+ */
 export type ProductVariantPricePairEdge = {
   __typename?: 'ProductVariantPricePairEdge';
   /** A cursor for use in pagination. */
@@ -4420,6 +4635,7 @@ export enum ProductVariantSortKeys {
    * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
    * results by relevance to the search term(s). When no search query is specified, this sort key is not
    * deterministic and should not be used.
+   *
    */
   Relevance = 'RELEVANCE'
 }
@@ -4453,11 +4669,13 @@ export type QueryRoot = {
    * Find recommended products related to a given `product_id`.
    * To learn more about how recommendations are generated, see
    * [*Showing product recommendations on product pages*](https://help.shopify.com/themes/development/recommended-products).
+   *
    */
   productRecommendations?: Maybe<Array<Product>>;
   /**
    * Tags added to products.
    * Additional access scope required: unauthenticated_read_product_tags.
+   *
    */
   productTags: StringConnection;
   /** List of product types for the shop's products that are published to your app. */
@@ -4602,6 +4820,7 @@ export type Seo = {
 /**
  * Script discount applications capture the intentions of a discount that
  * was created by a Shopify Script.
+ *
  */
 export type ScriptDiscountApplication = DiscountApplication & {
   __typename?: 'ScriptDiscountApplication';
@@ -4625,6 +4844,7 @@ export type ScriptDiscountApplication = DiscountApplication & {
 /**
  * Properties used by customers to select a product variant.
  * Products can have multiple options, like different sizes or colors.
+ *
  */
 export type SelectedOption = {
   __typename?: 'SelectedOption';
@@ -4706,6 +4926,7 @@ export type Shop = {
   /**
    * A list of tags that have been added to products.
    * Additional access scope required: unauthenticated_read_product_tags.
+   *
    * @deprecated Use `QueryRoot.productTags` instead.
    */
   productTags: StringConnection;
@@ -4821,7 +5042,10 @@ export type ShopPolicy = Node & {
   url: Scalars['URL'];
 };
 
-/** An auto-generated type for paginating through multiple Strings. */
+/**
+ * An auto-generated type for paginating through multiple Strings.
+ *
+ */
 export type StringConnection = {
   __typename?: 'StringConnection';
   /** A list of edges. */
@@ -4830,7 +5054,10 @@ export type StringConnection = {
   pageInfo: PageInfo;
 };
 
-/** An auto-generated type which holds one String and a cursor during pagination. */
+/**
+ * An auto-generated type which holds one String and a cursor during pagination.
+ *
+ */
 export type StringEdge = {
   __typename?: 'StringEdge';
   /** A cursor for use in pagination. */
@@ -4842,6 +5069,7 @@ export type StringEdge = {
 /**
  * Specifies the fields required to complete a checkout with
  * a tokenized payment.
+ *
  */
 export type TokenizedPaymentInput = {
   /** The amount of the payment. */
@@ -4863,6 +5091,7 @@ export type TokenizedPaymentInput = {
 /**
  * Specifies the fields required to complete a checkout with
  * a tokenized payment.
+ *
  */
 export type TokenizedPaymentInputV2 = {
   /** The amount and currency of the payment. */
@@ -4884,6 +5113,7 @@ export type TokenizedPaymentInputV2 = {
 /**
  * Specifies the fields required to complete a checkout with
  * a tokenized payment.
+ *
  */
 export type TokenizedPaymentInputV3 = {
   /** The amount and currency of the payment. */
@@ -4934,6 +5164,7 @@ export enum TransactionKind {
   /**
    * An amount reserved against the cardholder's funding source.
    * Money does not change hands until the authorization is captured.
+   *
    */
   Authorization = 'AUTHORIZATION',
   /** An authorization for a payment taken with an EMV credit card reader. */
@@ -4955,7 +5186,10 @@ export enum TransactionStatus {
 }
 
 
-/** The measurement used to calculate a unit price for a product variant (e.g. $9.99 / 100ml). */
+/**
+ * The measurement used to calculate a unit price for a product variant (e.g. $9.99 / 100ml).
+ *
+ */
 export type UnitPriceMeasurement = {
   __typename?: 'UnitPriceMeasurement';
   /** The type of unit of measurement for the unit price measurement. */
