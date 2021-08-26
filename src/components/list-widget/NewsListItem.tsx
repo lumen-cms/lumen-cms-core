@@ -1,5 +1,4 @@
 import MuiNextLink from '../link/MuiNextLink'
-import Typography from '@material-ui/core/Typography'
 import { useRouter } from 'next/router'
 import { LmNewsListItemProps } from './listWidgetTypes'
 import { LmComponentRender } from '@LmComponentRender'

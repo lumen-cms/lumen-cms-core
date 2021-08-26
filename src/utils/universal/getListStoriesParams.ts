@@ -32,7 +32,7 @@ export const getListStoriesParams = (
   }
   if (item.page_categories?.length) {
     params.filter_query.categories = {
-      [item.match_all_tags ? 'all_in_array' : 'in_array']:
+      [item.match_all_categories ? 'all_in_array' : 'in_array']:
         item.page_categories.join(',')
     }
   }
