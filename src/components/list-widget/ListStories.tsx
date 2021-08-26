@@ -1,40 +1,25 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { LmListStoriesPayload, LmListStoriesProps } from './listWidgetTypes'
 import useSWR from 'swr'
-import { CONFIG } from '@CONFIG'
 import Pagination from '@material-ui/lab/Pagination'
 import { getListStoriesParams } from '../../utils/universal/getListStoriesParams'
 import { useRouter } from 'next/router'
 import { createDeepNestedQueryString } from '../../utils/universal/paramsToQueryString'
-import LmNewsListItem from './NewsListItem'
 import {
   searchTextSelector,
   useSearchStore
 } from '../../utils/state/searchState'
-
-const fetcher = async (
-  url: string,
-  cv: number,
-  page: number,
-  searchText: string
-) => {
-  const storyblokApi = new URL('https://api.storyblok.com/v2/cdn/stories')
-  storyblokApi.searchParams.append('cv', `${cv}`)
-  storyblokApi.searchParams.append('token', CONFIG.publicToken)
-  storyblokApi.searchParams.append('page', `${page}`)
-  if (searchText) {
-    storyblokApi.searchParams.append('search_term', searchText)
-  }
-  let input = storyblokApi.toString() + '&' + url
-  let storyReq = await fetch(input)
-  const data = await storyReq.json()
-  const resData = {
-    total: Number(storyReq.headers.get('total')),
-    page: Number(storyReq.headers.get('page')),
-    ...data
-  }
-  return resData
-}
+import LmNewsList from './NewsList'
+import {
+  CardListStoryblok,
+  ListsStoryblok,
+  NavListStoryblok,
+  NewsListStoryblok
+} from '../../typings/generated/components-schema'
+import { fetchListStories } from './listUtils/fetchListStories'
+import ListWidgetLists from './ListWidgetLists'
+import { ListWidgetLinks } from './ListWidgetLinks'
+import { ListWidgetCards } from './ListWidgetCards'
 
 export default function LmListStories({ content }: LmListStoriesProps) {
   const { locale, defaultLocale } = useRouter()
@@ -43,6 +28,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const searchText = useSearchStore(searchTextSelector)
   const params = getListStoriesParams(content, { locale, defaultLocale })
   const paramString = createDeepNestedQueryString(params)
+  const layout = content.layout?.[0]
   const [storyData] = useState<
     LmListStoriesProps['content']['list_stories_data']
   >(content.list_stories_data)
@@ -55,7 +41,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
           page,
           content.enable_search ? searchText : ''
         ],
-    fetcher,
+    fetchListStories,
     {
       initialData: {
         stories: storyData?.data?.stories ?? [],
@@ -74,25 +60,44 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const totalCount = Math.ceil(currentTotal / perPage)
   const showPagination = content.max_items ? false : currentTotal > perPage
   return (
-    <div>
-      <div
-        id={`list_stories_${content._uid}`}
-        style={{ scrollMarginTop: '100px' }}
-      ></div>
-      <div className={'mb-2'}>
-        {data?.stories.map((story) => {
-          return (
-            <LmNewsListItem
-              content={story}
-              date_format={content.date_format}
-              read_more_label={content.read_more_label?.[0]}
-              key={story.uuid}
+    <div
+      id={`list_stories_${content._uid}`}
+      style={{ scrollMarginTop: '100px' }}
+    >
+      {
+        {
+          news_list: (
+            <LmNewsList
+              items={data?.stories || []}
+              options={(layout || {}) as NewsListStoryblok}
+            />
+          ),
+          card_list: (
+            <ListWidgetCards
+              disablePagination={true}
+              _uid={content._uid}
+              options={(layout || {}) as CardListStoryblok}
+              items={data?.stories || []}
+            />
+          ),
+          lists: (
+            <ListWidgetLists
+              options={(layout || {}) as ListsStoryblok}
+              items={data?.stories || []}
+            />
+          ),
+          nav_list: (
+            <ListWidgetLinks
+              _uid={content._uid}
+              options={(layout || {}) as NavListStoryblok}
+              items={data?.stories || []}
             />
           )
-        })}
-      </div>
+        }[layout?.component || 'news_list']
+      }
       {showPagination && (
         <Pagination
+          className={'mt-2'}
           disabled={isValidating}
           page={page}
           count={totalCount}

@@ -2984,205 +2984,6 @@
       "image": "//a.storyblok.com/f/82895/x/63cade9821/feature-cards.PNG"
     },
     {
-      "id": 766974,
-      "name": "[Action] Floating Box",
-      "preset": {
-        "_uid": "6489ac50-4a2a-46b3-9d3a-360f3a241673",
-        "body": [
-          {
-            "tag": "h2",
-            "_uid": "749891b4-fa6f-4ddf-88df-02373bd249f7",
-            "font": "",
-            "text": "CHECK THE AVAILABILITY NOW",
-            "align": "center",
-            "color": "",
-            "text_xs": "",
-            "component": "headline",
-            "font_size": "",
-            "typography": "",
-            "class_names": {
-              "_uid": "8f040b33-1ad7-4576-a56a-f99ddf1e0e71",
-              "plugin": "bootstrap-utility-class-selector",
-              "values": [
-                "font-weight-bold",
-                "mt-2"
-              ]
-            },
-            "line_height": "",
-            "custom_color": {
-              "_uid": "8c8c71d7-0e18-48e5-a437-1f53bd99c2d8",
-              "rgba": "rgba(32,82,127,1)",
-              "plugin": "vue-color-picker"
-            },
-            "letter_spacing": ""
-          },
-          {
-            "tag": "h2",
-            "_uid": "ffa150aa-0d6c-4204-bc40-8577a970ed08",
-            "font": "",
-            "text": "Let us know when's best for you, and we will get back to you with arranged schedule!",
-            "align": "center",
-            "color": "",
-            "text_xs": "",
-            "component": "headline",
-            "font_size": "",
-            "typography": "headline5",
-            "class_names": {
-              "_uid": "15b2cd5d-e9ac-4572-a110-1b66e28e2896",
-              "plugin": "bootstrap-utility-class-selector"
-            },
-            "line_height": "",
-            "custom_color": {
-              "_uid": "33678fbf-5bbb-4c42-af0b-911885be9466",
-              "rgba": "rgba(32,82,127,1)",
-              "plugin": "vue-color-picker"
-            },
-            "letter_spacing": ""
-          },
-          {
-            "_uid": "8710567a-1cbc-4472-89b0-42bf699ac948",
-            "body": {
-              "_uid": "450e868d-a304-425d-ad5a-ec4901cd074b",
-              "type": "doc",
-              "content": [
-                {
-                  "_uid": "8a71f88a-1c07-48a3-a21d-b270cc6e5583",
-                  "type": "paragraph",
-                  "content": [
-                    {
-                      "_uid": "9ee967db-7f3f-459a-9ebe-0e3e4afe9d49",
-                      "text": "Feel free to ask us about ongoing discount and such, who knows you might be lucky!",
-                      "type": "text",
-                      "marks": [
-                        {
-                          "_uid": "b4fab901-5584-4921-bdba-aed1d3886004",
-                          "type": "styled",
-                          "attrs": {
-                            "_uid": "979f768e-0dae-4e3b-b112-91b58554a42a",
-                            "class": ""
-                          }
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            "font": "",
-            "align": "center",
-            "color": "",
-            "component": "rich_text_editor",
-            "font_size": "",
-            "typography": "headline6",
-            "class_names": {
-              "_uid": "226802c1-d0a8-461a-8e76-391e9cc89cad",
-              "plugin": "bootstrap-utility-class-selector"
-            },
-            "line_height": "",
-            "custom_color": {
-              "_uid": "892943be-20b9-4860-b666-cf9b9e4a10b2",
-              "rgba": "rgba(0,0,0,1)",
-              "plugin": "vue-color-picker"
-            },
-            "letter_spacing": ""
-          },
-          {
-            "_uid": "6def84d1-ca97-4bec-b889-e5ecf53a944b",
-            "file": "",
-            "font": "",
-            "icon": {
-              "_uid": "32fdfa5b-04bf-4f13-aab0-0c7481f310fd",
-              "plugin": "material-icons-selector"
-            },
-            "link": {
-              "id": "",
-              "url": "",
-              "_uid": "1539693b-2ca9-4d3a-aa93-6399ed25cabc",
-              "linktype": "story",
-              "fieldtype": "multilink",
-              "cached_url": ""
-            },
-            "size": "lm-button-large",
-            "color": "primary",
-            "image": "",
-            "label": "CONTACT US",
-            "corners": "",
-            "variant": "raised",
-            "component": "button",
-            "properties": [],
-            "class_names": {
-              "_uid": "a5d118a6-55d7-4b3b-bd4d-981c15a92989",
-              "plugin": "bootstrap-utility-class-selector",
-              "values": [
-                "font-weight-bold",
-                "text-white",
-                "mb-2"
-              ]
-            },
-            "custom_color": {
-              "_uid": "8d2a8aa1-0398-4203-9ddc-6eb5ef64ed3d",
-              "rgba": "",
-              "plugin": "vue-color-picker"
-            },
-            "open_external": false,
-            "trailing_icon": {
-              "_uid": "2deabca5-c304-4bec-90be-d91764f3141b",
-              "plugin": "material-icons-selector"
-            }
-          }
-        ],
-        "styles": [],
-        "justify": "",
-        "component": "column",
-        "background": [
-          {
-            "_uid": "b34e17cc-aa0b-4733-aaa0-a9d5ec439c47",
-            "image": "",
-            "height": "",
-            "component": "background",
-            "elevation": "",
-            "classNames": {
-              "_uid": "bf6fd1fb-142c-403f-a8e0-9afbf47ed23f",
-              "plugin": "bootstrap-utility-class-selector"
-            },
-            "border_size": "",
-            "border_color": {
-              "_uid": "dcec1e28-f515-4ffb-9654-272b249f01ab",
-              "rgba": "",
-              "plugin": "vue-color-picker"
-            },
-            "border_style": "",
-            "border_radius": "",
-            "shadow_effect": "hover",
-            "background_size": "",
-            "background_color": {
-              "_uid": "eb6abc6a-e66b-4fbc-b8c3-24dfa65a53e5",
-              "rgba": "rgba(133,147,165,0.17)",
-              "plugin": "vue-color-picker"
-            },
-            "alternative_image": "",
-            "image_focal_point": "",
-            "disable_smart_crop": false,
-            "background_elements": [],
-            "background_position": "",
-            "hide_image_on_breakpoint": ""
-          }
-        ],
-        "align_items": "center",
-        "width_phone": "",
-        "width_tablet": "",
-        "align_content": "",
-        "styles_mobile": [],
-        "styles_tablet": [],
-        "width_general": ""
-      },
-      "component_id": 894838,
-      "space_id": 82895,
-      "created_at": "2020-10-28T07:23:52.814Z",
-      "updated_at": "2020-10-28T07:24:32.097Z",
-      "image": "//a.storyblok.com/f/82895/x/ab04f00d8c/floatingbox.PNG"
-    },
-    {
       "id": 703408,
       "name": "[Action] Floating Box",
       "preset": {
@@ -3398,6 +3199,205 @@
       "created_at": "2020-08-24T06:44:34.578Z",
       "updated_at": "2020-09-02T08:17:38.889Z",
       "image": "//a.storyblok.com/f/82895/x/f4c8d367fc/floating-box.PNG"
+    },
+    {
+      "id": 766974,
+      "name": "[Action] Floating Box",
+      "preset": {
+        "_uid": "6489ac50-4a2a-46b3-9d3a-360f3a241673",
+        "body": [
+          {
+            "tag": "h2",
+            "_uid": "749891b4-fa6f-4ddf-88df-02373bd249f7",
+            "font": "",
+            "text": "CHECK THE AVAILABILITY NOW",
+            "align": "center",
+            "color": "",
+            "text_xs": "",
+            "component": "headline",
+            "font_size": "",
+            "typography": "",
+            "class_names": {
+              "_uid": "8f040b33-1ad7-4576-a56a-f99ddf1e0e71",
+              "plugin": "bootstrap-utility-class-selector",
+              "values": [
+                "font-weight-bold",
+                "mt-2"
+              ]
+            },
+            "line_height": "",
+            "custom_color": {
+              "_uid": "8c8c71d7-0e18-48e5-a437-1f53bd99c2d8",
+              "rgba": "rgba(32,82,127,1)",
+              "plugin": "vue-color-picker"
+            },
+            "letter_spacing": ""
+          },
+          {
+            "tag": "h2",
+            "_uid": "ffa150aa-0d6c-4204-bc40-8577a970ed08",
+            "font": "",
+            "text": "Let us know when's best for you, and we will get back to you with arranged schedule!",
+            "align": "center",
+            "color": "",
+            "text_xs": "",
+            "component": "headline",
+            "font_size": "",
+            "typography": "headline5",
+            "class_names": {
+              "_uid": "15b2cd5d-e9ac-4572-a110-1b66e28e2896",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "line_height": "",
+            "custom_color": {
+              "_uid": "33678fbf-5bbb-4c42-af0b-911885be9466",
+              "rgba": "rgba(32,82,127,1)",
+              "plugin": "vue-color-picker"
+            },
+            "letter_spacing": ""
+          },
+          {
+            "_uid": "8710567a-1cbc-4472-89b0-42bf699ac948",
+            "body": {
+              "_uid": "450e868d-a304-425d-ad5a-ec4901cd074b",
+              "type": "doc",
+              "content": [
+                {
+                  "_uid": "8a71f88a-1c07-48a3-a21d-b270cc6e5583",
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "_uid": "9ee967db-7f3f-459a-9ebe-0e3e4afe9d49",
+                      "text": "Feel free to ask us about ongoing discount and such, who knows you might be lucky!",
+                      "type": "text",
+                      "marks": [
+                        {
+                          "_uid": "b4fab901-5584-4921-bdba-aed1d3886004",
+                          "type": "styled",
+                          "attrs": {
+                            "_uid": "979f768e-0dae-4e3b-b112-91b58554a42a",
+                            "class": ""
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "font": "",
+            "align": "center",
+            "color": "",
+            "component": "rich_text_editor",
+            "font_size": "",
+            "typography": "headline6",
+            "class_names": {
+              "_uid": "226802c1-d0a8-461a-8e76-391e9cc89cad",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "line_height": "",
+            "custom_color": {
+              "_uid": "892943be-20b9-4860-b666-cf9b9e4a10b2",
+              "rgba": "rgba(0,0,0,1)",
+              "plugin": "vue-color-picker"
+            },
+            "letter_spacing": ""
+          },
+          {
+            "_uid": "6def84d1-ca97-4bec-b889-e5ecf53a944b",
+            "file": "",
+            "font": "",
+            "icon": {
+              "_uid": "32fdfa5b-04bf-4f13-aab0-0c7481f310fd",
+              "plugin": "material-icons-selector"
+            },
+            "link": {
+              "id": "",
+              "url": "",
+              "_uid": "1539693b-2ca9-4d3a-aa93-6399ed25cabc",
+              "linktype": "story",
+              "fieldtype": "multilink",
+              "cached_url": ""
+            },
+            "size": "lm-button-large",
+            "color": "primary",
+            "image": "",
+            "label": "CONTACT US",
+            "corners": "",
+            "variant": "raised",
+            "component": "button",
+            "properties": [],
+            "class_names": {
+              "_uid": "a5d118a6-55d7-4b3b-bd4d-981c15a92989",
+              "plugin": "bootstrap-utility-class-selector",
+              "values": [
+                "font-weight-bold",
+                "text-white",
+                "mb-2"
+              ]
+            },
+            "custom_color": {
+              "_uid": "8d2a8aa1-0398-4203-9ddc-6eb5ef64ed3d",
+              "rgba": "",
+              "plugin": "vue-color-picker"
+            },
+            "open_external": false,
+            "trailing_icon": {
+              "_uid": "2deabca5-c304-4bec-90be-d91764f3141b",
+              "plugin": "material-icons-selector"
+            }
+          }
+        ],
+        "styles": [],
+        "justify": "",
+        "component": "column",
+        "background": [
+          {
+            "_uid": "b34e17cc-aa0b-4733-aaa0-a9d5ec439c47",
+            "image": "",
+            "height": "",
+            "component": "background",
+            "elevation": "",
+            "classNames": {
+              "_uid": "bf6fd1fb-142c-403f-a8e0-9afbf47ed23f",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "border_size": "",
+            "border_color": {
+              "_uid": "dcec1e28-f515-4ffb-9654-272b249f01ab",
+              "rgba": "",
+              "plugin": "vue-color-picker"
+            },
+            "border_style": "",
+            "border_radius": "",
+            "shadow_effect": "hover",
+            "background_size": "",
+            "background_color": {
+              "_uid": "eb6abc6a-e66b-4fbc-b8c3-24dfa65a53e5",
+              "rgba": "rgba(133,147,165,0.17)",
+              "plugin": "vue-color-picker"
+            },
+            "alternative_image": "",
+            "image_focal_point": "",
+            "disable_smart_crop": false,
+            "background_elements": [],
+            "background_position": "",
+            "hide_image_on_breakpoint": ""
+          }
+        ],
+        "align_items": "center",
+        "width_phone": "",
+        "width_tablet": "",
+        "align_content": "",
+        "styles_mobile": [],
+        "styles_tablet": [],
+        "width_general": ""
+      },
+      "component_id": 894838,
+      "space_id": 82895,
+      "created_at": "2020-10-28T07:23:52.814Z",
+      "updated_at": "2020-10-28T07:24:32.097Z",
+      "image": "//a.storyblok.com/f/82895/x/ab04f00d8c/floatingbox.PNG"
     },
     {
       "id": 768195,
@@ -50270,35 +50270,6 @@
       "created_at": "2020-08-24T06:27:40.860Z",
       "updated_at": "2020-10-15T08:18:48.946Z",
       "image": "//a.storyblok.com/f/82895/x/b94e427b92/neat-sliders-with-brief-taglines.PNG"
-    },
-    {
-      "id": 1120116,
-      "name": "News List Basic",
-      "preset": {
-        "_uid": "82ce0218-3759-4ff7-a8d3-75529f8a8487",
-        "component": "news_list",
-        "max_items": "",
-        "categories": [],
-        "pagination": [
-          {
-            "_uid": "6466abb8-ed73-4b35-88e0-4398ea70bbc4",
-            "size": "small",
-            "color": "primary",
-            "shape": "rounded",
-            "variant": "outlined",
-            "component": "pagination",
-            "items_per_page": "3"
-          }
-        ],
-        "date_format": [],
-        "hide_category": false,
-        "read_more_label": "Mehr erfahren..."
-      },
-      "component_id": 1719915,
-      "space_id": 82895,
-      "created_at": "2021-08-22T12:30:44.109Z",
-      "updated_at": "2021-08-22T12:30:44.109Z",
-      "image": ""
     },
     {
       "id": 986307,

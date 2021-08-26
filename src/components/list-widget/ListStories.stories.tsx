@@ -68,12 +68,18 @@ CustomPagination.args = {
 export const News = Template.bind({})
 News.args = {
   ...presetContent,
-  read_more_label: [
+  layout: [
     {
-      component: 'headline',
-      _uid: 'headline',
-      text: 'Read more...',
-      typography: 'caption'
+      component: 'news_list',
+      _uid: 'news_list',
+      read_more_label: [
+        {
+          component: 'headline',
+          _uid: 'headline',
+          text: 'Read more...',
+          typography: 'caption'
+        }
+      ]
     }
   ],
   view_types: ['news']
@@ -83,4 +89,40 @@ export const Events = Template.bind({})
 Events.args = {
   ...presetContent,
   view_types: ['event']
+}
+
+export const ListsView = Template.bind({})
+ListsView.args = {
+  ...presetContent,
+  layout: [
+    {
+      component: 'lists',
+      _uid: 'lists'
+    }
+  ],
+  view_types: ['news']
+}
+
+export const NavListView = Template.bind({})
+NavListView.args = {
+  ...presetContent,
+  layout: [
+    {
+      component: 'nav_list',
+      _uid: 'nav_list',
+      properties: ['flex-column']
+    }
+  ],
+  view_types: ['news']
+}
+export const CardListView = Template.bind({})
+CardListView.args = {
+  ...presetContent,
+  layout: [
+    {
+      component: 'card_list',
+      _uid: 'card_list'
+    }
+  ],
+  view_types: ['news']
 }

@@ -2313,7 +2313,7 @@ export type CustomerAddressUpdatePayload = {
   userErrors: Array<UserError>;
 };
 
-/** Specifies the fields required to create a new customer. */
+/** The fields required to create a new customer. */
 export type CustomerCreateInput = {
   /** The customer’s first name. */
   firstName?: Maybe<Scalars['String']>;

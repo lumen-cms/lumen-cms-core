@@ -1,28 +1,31 @@
 import { Meta, Story } from '@storybook/react'
-import { AppContextProps } from '@context/AppContext'
 import { LmListWidgetProps } from './listWidgetTypes'
 import { findPresets } from '../../storybook/findStorybookPresets'
 import LmListWidget from './ListWidget'
 import { getComponentArgTypes } from '../../storybook/configControls'
-import { fetchStoryblokContent } from '../../storybook/fetchStoryblokContent'
-import AppProvider from '../provider/AppProvider'
-import { legacyFilterAllStories } from '../../utils/initial-props/legacyFilterAllStories'
+import { CONFIG } from '@CONFIG'
+import { listWidgetGetData } from '../../utils/initial-props/component-data/listWidgetData'
 
 const COMPONENT_NAME = 'list_widget'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  title: 'Design/Data Display/List Widget',
+  title: 'Content/List Widget',
   component: LmListWidget,
   argTypes: {
     ...getComponentArgTypes(COMPONENT_NAME)
   },
-  // decorators: [SetStoriesDecorator],
   loaders: [
-    async () => {
-      const storyblokContent = await fetchStoryblokContent()
+    // @ts-ignore
+    async ({ args }) => {
+      CONFIG.publicToken = 'm85LRUo0sX4yo9Q96VMQlQtt'
+      CONFIG.previewToken = 'qASJXPT2cwH76pA9vpJbxAtt'
+      CONFIG.rootDirectory = 'en'
       return {
-        storyblokContent
+        list_widget_data: await listWidgetGetData(args, {
+          locale: 'en',
+          defaultLocale: 'en'
+        })
       }
     }
   ]
@@ -32,21 +35,9 @@ const presets = findPresets<LmListWidgetProps['content']>(COMPONENT_NAME)
 
 const Template: Story<LmListWidgetProps['content']> = (
   args,
-  { loaded: { storyblokContent } }
+  { loaded: { list_widget_data } }
 ) => {
-  const listWidgetData = {}
-  presets.forEach((preset) => {
-    listWidgetData[preset._uid] = legacyFilterAllStories(
-      preset,
-      storyblokContent.stories
-    )
-  })
-  return (
-    <AppProvider content={{ listWidgetData } as AppContextProps}>
-      {' '}
-      <LmListWidget content={args} />
-    </AppProvider>
-  )
+  return <LmListWidget content={{ ...args, list_widget_data }} />
 }
 //
 export const Basic = Template.bind({})

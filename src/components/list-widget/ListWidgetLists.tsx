@@ -6,48 +6,48 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import { ListsStoryblok } from '../../typings/generated/components-schema'
-import { AllStoryData } from '../../typings/app'
 import { internalLinkHandler } from '../../utils/internalLinkHandler'
+import { ListStoriesData } from './listWidgetTypes'
+import { getContentFields } from './listUtils/getContentFields'
+import { useRouter } from 'next/router'
 
 type ListWidgetListsProps = {
-  items: AllStoryData
+  items: ListStoriesData[]
   options: ListsStoryblok
-  // content: ListWidgetStoryblok
 }
 
 function ListWidgetLists({
   items,
   options
 }: ListWidgetListsProps): JSX.Element {
+  const { locale } = useRouter()
   const imageSize = options.image_size || 'large'
   const hideImage = options.hide_image
   return (
     <List>
-      {items.map((item) => (
-        <Link
-          href={internalLinkHandler(item.full_slug)}
-          key={item.uuid}
-          passHref
-          prefetch={false}
-        >
-          <ListItem component="a">
-            {!hideImage && item.content.preview_image && (
-              <ListItemAvatar>
-                <LmMuiAvatar
-                  src={item.content.preview_image}
-                  size={imageSize}
-                />
-              </ListItemAvatar>
-            )}
-            <ListItemText
-              primary={item.content.preview_title || item.name}
-              secondary={
-                !options.hide_subtitle && item.content.preview_subtitle
-              }
-            />
-          </ListItem>
-        </Link>
-      ))}
+      {items.map((item) => {
+        const { image, title, description } = getContentFields(item, { locale })
+        return (
+          <Link
+            href={internalLinkHandler(item.full_slug)}
+            key={item.uuid}
+            passHref
+            prefetch={false}
+          >
+            <ListItem component="a">
+              {!hideImage && image && (
+                <ListItemAvatar>
+                  <LmMuiAvatar src={image} size={imageSize} />
+                </ListItemAvatar>
+              )}
+              <ListItemText
+                primary={title}
+                secondary={!options.hide_subtitle && description}
+              />
+            </ListItem>
+          </Link>
+        )
+      })}
     </List>
   )
 }

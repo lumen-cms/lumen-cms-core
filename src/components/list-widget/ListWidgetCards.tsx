@@ -2,41 +2,45 @@ import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import {
   CardListItemStoryblok,
-  CardListStoryblok,
-  ListWidgetStoryblok
+  CardListStoryblok
 } from '../../typings/generated/components-schema'
-import { AllStoryData } from '../../typings/app'
+import { ListStoriesData } from './listWidgetTypes'
+import { getContentFields } from './listUtils/getContentFields'
+import { useRouter } from 'next/router'
 
 type ListWidgetCardsProps = {
-  content: ListWidgetStoryblok
-  items: AllStoryData
+  _uid: string
+  items: ListStoriesData[]
   options?: CardListStoryblok
+  disablePagination?: boolean
 }
 
 export function ListWidgetCards({
   items,
-  content,
-  options
+  _uid,
+  options,
+  disablePagination
 }: ListWidgetCardsProps): JSX.Element {
+  const { locale } = useRouter()
   return (
     <LmComponentRender
+      disablePagination={disablePagination}
       content={{
         ...(options || {}),
-        _uid: content._uid,
+        _uid: _uid,
         component: 'card_list',
         body: items.map((item) => {
-          const itemContent = item.content
-          if (content.sort === 'publish' && !itemContent.preview_publish_date) {
-            console.info('missing preview publish date:', item.full_slug)
-          }
+          const { title, image, subtitle, description } = getContentFields(
+            item,
+            { locale, date_format: options?.date_format }
+          )
           return {
             _uid: item.uuid,
             component: 'card_list_item',
-            title:
-              itemContent.preview_title || itemContent.meta_title || item.name,
-            subtitle: itemContent.preview_subtitle,
-            description: itemContent.preview_teaser,
-            image: itemContent.preview_image,
+            title,
+            subtitle,
+            description,
+            image,
             link: {
               cached_url: item.full_slug,
               linktype: 'story'

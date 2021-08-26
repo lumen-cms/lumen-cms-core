@@ -1328,7 +1328,7 @@
       "name": "card_list",
       "display_name": null,
       "created_at": "2020-05-01T08:40:44.719Z",
-      "updated_at": "2021-08-19T04:37:14.479Z",
+      "updated_at": "2021-08-26T05:53:12.163Z",
       "id": 894842,
       "schema": {
         "column_gap": {
@@ -2029,7 +2029,8 @@
           "keys": [
             "title_custom",
             "subtitle_custom",
-            "description_custom"
+            "description_custom",
+            "date_format"
           ],
           "pos": 0
         },
@@ -2055,6 +2056,14 @@
           "restrict_components": true,
           "component_whitelist": [
             "headline"
+          ]
+        },
+        "date_format": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "date_time_format"
           ]
         }
       },
@@ -8210,7 +8219,7 @@
       "name": "list_stories",
       "display_name": null,
       "created_at": "2021-08-20T06:33:37.926Z",
-      "updated_at": "2021-08-24T09:05:08.075Z",
+      "updated_at": "2021-08-26T01:27:21.765Z",
       "id": 1720175,
       "schema": {
         "enable_search": {
@@ -8235,6 +8244,10 @@
           ],
           "pos": 1
         },
+        "max_items": {
+          "type": "number",
+          "pos": 2
+        },
         "pagination": {
           "type": "bloks",
           "maximum": "1",
@@ -8242,42 +8255,29 @@
           "component_whitelist": [
             "pagination"
           ],
-          "pos": 2
+          "pos": 3,
+          "description": "Make Pagination visible to show more content. Disabled if \"Max Items\" is in use."
         },
-        "hide_category": {
-          "type": "boolean",
-          "pos": 3
-        },
-        "max_items": {
-          "type": "number",
-          "pos": 4
-        },
-        "read_more_label": {
+        "layout": {
           "type": "bloks",
           "maximum": "1",
           "restrict_components": true,
           "component_whitelist": [
-            "headline"
+            "card_list",
+            "news_list",
+            "lists",
+            "nav_list"
           ],
-          "description": "Only visible in list views",
-          "pos": 5
-        },
-        "date_format": {
-          "type": "bloks",
-          "maximum": "1",
-          "restrict_components": true,
-          "component_whitelist": [
-            "date_time_format"
-          ],
-          "pos": 6
+          "pos": 7
         },
         "tab-4129d63f-760d-481d-8cc2-3728f21bcbfa": {
           "type": "tab",
           "display_name": "Page",
           "keys": [
-            "page_categories"
+            "page_categories",
+            "match_all_categories"
           ],
-          "pos": 7
+          "pos": 8
         },
         "tab-bbb03c32-1da3-4e5e-a29c-40b0e8f27221": {
           "type": "tab",
@@ -8285,7 +8285,7 @@
           "keys": [
             "event_categories"
           ],
-          "pos": 8
+          "pos": 9
         },
         "tab-38b502b0-0408-49f3-8357-09064a273f98": {
           "type": "tab",
@@ -8293,25 +8293,28 @@
           "keys": [
             "news_categories"
           ],
-          "pos": 9
+          "pos": 10
         },
         "page_categories": {
           "type": "options",
           "source": "internal_stories",
           "filter_content_type": "category",
-          "pos": 10
+          "pos": 11
         },
         "event_categories": {
           "type": "options",
           "source": "internal_stories",
           "filter_content_type": "event_category",
-          "pos": 11
+          "pos": 12
         },
         "news_categories": {
           "type": "options",
           "source": "internal_stories",
           "filter_content_type": "news_category",
-          "pos": 12
+          "pos": 13
+        },
+        "match_all_categories": {
+          "type": "boolean"
         }
       },
       "image": null,
@@ -9060,34 +9063,21 @@
       "name": "news_list",
       "display_name": null,
       "created_at": "2021-08-20T01:29:23.561Z",
-      "updated_at": "2021-08-21T01:37:03.966Z",
+      "updated_at": "2021-08-26T05:56:46.524Z",
       "id": 1719915,
       "schema": {
-        "categories": {
-          "type": "options",
-          "source": "internal_stories",
-          "filter_content_type": "news_category",
-          "pos": 0
-        },
-        "max_items": {
-          "type": "number",
-          "pos": 1
-        },
         "hide_category": {
           "type": "boolean",
           "pos": 3
         },
         "read_more_label": {
-          "type": "text",
-          "pos": 4
-        },
-        "pagination": {
           "type": "bloks",
+          "pos": 4,
+          "maximum": "1",
           "restrict_components": true,
           "component_whitelist": [
-            "pagination"
-          ],
-          "maximum": "1"
+            "headline"
+          ]
         },
         "date_format": {
           "type": "bloks",
@@ -9096,6 +9086,40 @@
           "component_whitelist": [
             "date_time_format"
           ]
+        },
+        "tab-0d3ca75a-1b59-40d7-9765-b9ef27aad14f": {
+          "type": "tab",
+          "display_name": "Style",
+          "keys": [
+            "title",
+            "subtitle",
+            "description"
+          ],
+          "pos": 0
+        },
+        "title": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
+        },
+        "subtitle": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ],
+          "maximum": "1"
+        },
+        "description": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
         }
       },
       "image": null,
@@ -9103,18 +9127,11 @@
       "is_root": false,
       "preview_tmpl": null,
       "is_nestable": true,
-      "all_presets": [
-        {
-          "id": 1120116,
-          "name": "News List Basic",
-          "component_id": 1719915,
-          "image": ""
-        }
-      ],
+      "all_presets": [],
       "preset_id": null,
       "real_name": "news_list",
-      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
-      "component_group_name": "General"
+      "component_group_uuid": "5ca9c71a-078b-4bae-85e3-3b165eb43dd3",
+      "component_group_name": ""
     },
     {
       "name": "page",

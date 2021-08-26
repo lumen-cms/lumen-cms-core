@@ -71,7 +71,10 @@ const useStyles = makeStyles({
 
 const chunkSize = 30
 
-export default function LmCardList({ content }: LmCardListProps): JSX.Element {
+export default function LmCardList({
+  content,
+  disablePagination
+}: LmCardListProps): JSX.Element {
   const { body = [], ...rest } = content
   const classes = useStyles(content)
   const gridClasses = useGridListStyles({
@@ -80,18 +83,18 @@ export default function LmCardList({ content }: LmCardListProps): JSX.Element {
     columnCountTablet: content.column_count_tablet
   })
   const gutterSize = content.column_gap ? Number(content.column_gap) : 24
-  const enableInView = body.length > chunkSize
-  const [intersectionRef, inView] = useInView()
+  const enableInView = !disablePagination && body.length > chunkSize
+  const [intersectionLoadMoreRef, loadMoreInView] = useInView()
   const [inViewRef, elementInView] = useInView(intersectionDefaultOptions)
-  // useDeviceDimensions() // make sure images rescale on resize
   const [page, setPage] = useState<number>(1)
-  const data = body.slice(0, page * chunkSize) || []
+  const data =
+    (!disablePagination ? body.slice(0, page * chunkSize) : body) || []
 
   useEffect(() => {
-    if (inView) {
+    if (!disablePagination && loadMoreInView) {
       setPage((v) => v + 1)
     }
-  }, [inView, setPage])
+  }, [disablePagination, loadMoreInView, setPage])
 
   const variant = content.variant || []
 
@@ -130,7 +133,7 @@ export default function LmCardList({ content }: LmCardListProps): JSX.Element {
       <div
         ref={
           enableInView && data.length < body.length
-            ? intersectionRef
+            ? intersectionLoadMoreRef
             : undefined
         }
       />

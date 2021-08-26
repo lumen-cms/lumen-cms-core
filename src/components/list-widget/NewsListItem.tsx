@@ -1,66 +1,63 @@
 import MuiNextLink from '../link/MuiNextLink'
 import Typography from '@material-ui/core/Typography'
-import { getDateLocalized } from '../../utils/intlDateHelper'
 import { useRouter } from 'next/router'
 import { LmNewsListItemProps } from './listWidgetTypes'
 import { LmComponentRender } from '@LmComponentRender'
-import { StoryData } from 'storyblok-js-client'
-import { CategoryStoryblok } from '../../typings/generated/components-schema'
 import { renderRichText } from '../paragraph/renderRichText'
+import { getContentFields } from './listUtils/getContentFields'
+import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 
 export default function LmNewsListItem({
   content,
-  date_format,
-  read_more_label,
-  hide_category
+  options
 }: LmNewsListItemProps) {
   const { locale } = useRouter()
-  let publishedAt =
-    content.content.published || content.content.preview_publish_date
-  let currentContent =
-    content.content.description ||
-    content.content.preview_teaser ||
-    content.content.preview_subtitle ||
-    content.content.meta_description
+  const { title, description, subtitle } = getContentFields(content, {
+    locale,
+    hide_category: options.hide_category,
+    date_format: options.date_format
+  })
+
   return (
     <div key={content.uuid} className={'my-3'}>
       <MuiNextLink href={`/${content.full_slug}`}>
-        <Typography variant={'h4'}>
-          {content.content.title ||
-            content.content.preview_title ||
-            content.content.meta_title ||
-            content.name}
-        </Typography>
+        <LmComponentRender
+          content={
+            {
+              component: 'headline',
+              text: title,
+              typography: 'headline4',
+              ...options.title?.[0]
+            } as HeadlineStoryblok
+          }
+        />
       </MuiNextLink>
-      <Typography variant={'body2'}>
-        <strong>
-          {[
-            publishedAt
-              ? getDateLocalized({
-                  start: publishedAt,
-                  locale,
-                  options: date_format?.[0]
-                })
-              : null,
-            hide_category
-              ? null
-              : content.content.category?.content?.name ??
-                content.content.categories
-                  ?.map((i: StoryData<CategoryStoryblok>) => i.content?.name)
-                  .join(', ')
-          ]
-            .filter((i) => i)
-            .join(' - ')}
-        </strong>
-      </Typography>
-      <Typography variant={'body1'}>
-        {typeof currentContent === 'string'
-          ? currentContent
-          : renderRichText(currentContent)}
-      </Typography>
-      {read_more_label && (
+      <LmComponentRender
+        content={
+          {
+            component: 'headline',
+            text: subtitle,
+            typography: 'body2',
+            ...options.subtitle?.[0]
+          } as HeadlineStoryblok
+        }
+      />
+      <LmComponentRender
+        content={
+          {
+            component: 'headline',
+            text:
+              typeof description === 'string'
+                ? description
+                : renderRichText(description),
+            typography: 'body1',
+            ...options.description?.[0]
+          } as HeadlineStoryblok
+        }
+      />
+      {options.read_more_label?.length && (
         <MuiNextLink href={`/${content.full_slug}`}>
-          <LmComponentRender content={read_more_label} />
+          <LmComponentRender content={options.read_more_label?.[0]} />
         </MuiNextLink>
       )}
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { legacyClientListWidgetSearch, useListSearch } from './useListSearch'
 import { ListWidgetContainer } from './ListWidgetContainer'
-import { LmListWidgetProps } from './listWidgetTypes'
+import { ListStoriesData, LmListWidgetProps } from './listWidgetTypes'
 import { LmComponentRender } from '@LmComponentRender'
 
 export default function LmListWidget({
@@ -35,7 +35,7 @@ export default function LmListWidget({
       <ListWidgetContainer
         options={content.list_options}
         content={content}
-        items={data || []}
+        items={(data || []) as ListStoriesData[]}
       />
     </div>
   )

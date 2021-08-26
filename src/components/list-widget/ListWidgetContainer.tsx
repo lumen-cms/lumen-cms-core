@@ -5,28 +5,34 @@ import {
   CardListStoryblok,
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
-import { AllStoryData } from '../../typings/app'
 import { ListWidgetCards } from './ListWidgetCards'
 import { ListWidgetLinks } from './ListWidgetLinks'
-import { LmListWidgetProps } from './listWidgetTypes'
+import { ListStoriesData, LmListWidgetProps } from './listWidgetTypes'
 
 type ListWidgetContainerProps = {
   options: LmListWidgetProps['content']['list_options']
   content: ListWidgetStoryblok
-  items: AllStoryData
+  items: ListStoriesData[]
 }
 
 export function ListWidgetContainer(
   props: ListWidgetContainerProps
 ): JSX.Element {
-  const { options, ...rest } = props
+  const { options, content, items } = props
   const listOption = options?.[0]
 
   if (listOption?.component === 'lists') {
-    return <ListWidgetLists options={listOption} {...rest} />
+    return <ListWidgetLists options={listOption} items={items} />
+  } else if (listOption?.component === 'nav_list') {
+    return (
+      <ListWidgetLinks _uid={content._uid} options={listOption} items={items} />
+    )
   }
-  if (listOption?.component === 'nav_list') {
-    return <ListWidgetLinks options={listOption} {...rest} />
-  }
-  return <ListWidgetCards options={listOption as CardListStoryblok} {...rest} />
+  return (
+    <ListWidgetCards
+      _uid={content._uid}
+      options={listOption as CardListStoryblok}
+      items={items}
+    />
+  )
 }

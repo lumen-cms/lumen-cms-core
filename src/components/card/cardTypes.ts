@@ -4,6 +4,7 @@ import {
 } from '../../typings/generated/components-schema'
 
 export type LmCardListProps = {
+  disablePagination?: boolean
   content: CardListStoryblok
 }
 export type CardListItemProps = {
