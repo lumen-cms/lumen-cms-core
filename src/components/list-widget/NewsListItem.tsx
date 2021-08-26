@@ -17,6 +17,7 @@ export default function LmNewsListItem({
     date_format: options.date_format
   })
 
+  const readMoreLabel = options.read_more_label?.[0]
   return (
     <div key={content.uuid} className={'my-3'}>
       <MuiNextLink href={`/${content.full_slug}`}>
@@ -24,9 +25,9 @@ export default function LmNewsListItem({
           content={
             {
               component: 'headline',
-              text: title,
               typography: 'headline4',
-              ...options.title?.[0]
+              ...options.title?.[0],
+              text: title
             } as HeadlineStoryblok
           }
         />
@@ -35,9 +36,9 @@ export default function LmNewsListItem({
         content={
           {
             component: 'headline',
-            text: subtitle,
             typography: 'body2',
-            ...options.subtitle?.[0]
+            ...options.subtitle?.[0],
+            text: subtitle
           } as HeadlineStoryblok
         }
       />
@@ -45,18 +46,18 @@ export default function LmNewsListItem({
         content={
           {
             component: 'headline',
+            typography: 'body1',
+            ...options.description?.[0],
             text:
               typeof description === 'string'
                 ? description
-                : renderRichText(description),
-            typography: 'body1',
-            ...options.description?.[0]
+                : renderRichText(description)
           } as HeadlineStoryblok
         }
       />
-      {options.read_more_label?.length && (
+      {readMoreLabel && (
         <MuiNextLink href={`/${content.full_slug}`}>
-          <LmComponentRender content={options.read_more_label?.[0]} />
+          <LmComponentRender content={readMoreLabel} />
         </MuiNextLink>
       )}
     </div>
