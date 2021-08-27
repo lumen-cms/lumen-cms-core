@@ -9,17 +9,10 @@ import {
   searchTextSelector,
   useSearchStore
 } from '../../utils/state/searchState'
-import LmNewsList from './NewsList'
-import {
-  CardListStoryblok,
-  ListsStoryblok,
-  NavListStoryblok,
-  NewsListStoryblok
-} from '../../typings/generated/components-schema'
 import { fetchListStories } from './listUtils/fetchListStories'
-import ListWidgetLists from './ListWidgetLists'
-import { ListWidgetLinks } from './ListWidgetLinks'
-import { ListWidgetCards } from './ListWidgetCards'
+import { LmComponentRender } from '@LmComponentRender'
+import LmListStoriesContainer from './ListStoriesContainer'
+import { CircularProgress } from '@material-ui/core'
 
 export default function LmListStories({ content }: LmListStoriesProps) {
   const { locale, defaultLocale } = useRouter()
@@ -28,7 +21,6 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const searchText = useSearchStore(searchTextSelector)
   const params = getListStoriesParams(content, { locale, defaultLocale })
   const paramString = createDeepNestedQueryString(params)
-  const layout = content.layout?.[0]
   const [storyData] = useState<
     LmListStoriesProps['content']['list_stories_data']
   >(content.list_stories_data)
@@ -48,7 +40,8 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         cv: storyData?.data.cv,
         total: storyData?.total ?? 0,
         page: 1
-      }
+      },
+      revalidateOnMount: content.enable_search && !storyData?.data?.stories
     }
   )
 
@@ -62,39 +55,40 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   return (
     <div
       id={`list_stories_${content._uid}`}
-      style={{ scrollMarginTop: '100px' }}
+      style={{
+        position: 'relative',
+        scrollMarginTop: '100px',
+        minHeight: content.enable_min_height ? 'calc(100vh - 120px)' : undefined
+      }}
     >
-      {
-        {
-          news_list: (
-            <LmNewsList
-              items={data?.stories || []}
-              options={(layout || {}) as NewsListStoryblok}
-            />
-          ),
-          card_list: (
-            <ListWidgetCards
-              disablePagination={true}
-              _uid={content._uid}
-              options={(layout || {}) as CardListStoryblok}
-              items={data?.stories || []}
-            />
-          ),
-          lists: (
-            <ListWidgetLists
-              options={(layout || {}) as ListsStoryblok}
-              items={data?.stories || []}
-            />
-          ),
-          nav_list: (
-            <ListWidgetLinks
-              _uid={content._uid}
-              options={(layout || {}) as NavListStoryblok}
-              items={data?.stories || []}
-            />
-          )
-        }[layout?.component || 'news_list']
-      }
+      {isValidating && (
+        <div
+          style={{
+            minHeight: '150px',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <CircularProgress size={40} />
+        </div>
+      )}
+      {!isValidating && !data?.stories?.length && (
+        <div>
+          {content.not_found_message?.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
+        </div>
+      )}
+      {!isValidating && !!data?.stories?.length && (
+        <LmListStoriesContainer
+          layout={content.layout}
+          _uid={content._uid}
+          items={data?.stories || []}
+        />
+      )}
       {showPagination && (
         <Pagination
           className={'mt-2'}
@@ -112,10 +106,10 @@ export default function LmListStories({ content }: LmListStoriesProps) {
             }
             setPage(page)
           }}
-          size={paginate?.size}
-          color={paginate?.color}
-          shape={paginate?.shape}
-          variant={paginate?.variant}
+          size={paginate?.size || 'medium'}
+          color={paginate?.color || 'standard'}
+          shape={paginate?.shape || 'round'}
+          variant={paginate?.variant || 'text'}
         />
       )}
     </div>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import dynamic from 'next/dynamic'
 import { LmDialogAsyncProps, LmDialogProps } from './dialogTypes'
+import { useRouter } from 'next/router'
 
 const LmDialog = dynamic(() => import('./LmDialog'))
 const useStyles = makeStyles({
@@ -23,6 +24,7 @@ export default function LmDialogElement({
   content
 }: LmDialogProps): JSX.Element | null {
   const theme = useTheme()
+  const { events } = useRouter()
   const classes = useStyles()
   const mediaQueryResult = useMediaQuery(
     theme.breakpoints.down(content.fullscreen || 'sm')
@@ -37,6 +39,17 @@ export default function LmDialogElement({
     fullScreen,
     onClose: content.prevent_click_outside ? undefined : () => setOpen(false)
   }
+  useEffect(() => {
+    const onRouteChange = () => {
+      setOpen(false)
+    }
+    events.on('routeChangeComplete', onRouteChange)
+    events.on('routeChangeError', onRouteChange)
+    return () => {
+      events.off('routeChangeComplete', onRouteChange)
+      events.on('routeChangeError', onRouteChange)
+    }
+  }, [events, setOpen])
 
   return (
     <>

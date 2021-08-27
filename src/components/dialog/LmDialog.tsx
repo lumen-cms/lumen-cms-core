@@ -8,6 +8,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Slide from '@material-ui/core/Slide'
 import { LmDialogAsyncProps } from './dialogTypes'
+import clsx from 'clsx'
 
 const useStyles = makeStyles({
   dialogTitle: {
@@ -42,21 +43,25 @@ export default function LmDialog({
   }
   return (
     <Dialog {...dialogProps}>
-      {!!content.title ||
-        (!content.prevent_close_button && (
-          <DialogTitle
-            classes={{
-              root: classes.dialogTitle
-            }}
-          >
-            <span>{content.title}</span>
-            {!content.prevent_close_button && (
-              <IconButton onClick={() => setOpen(false)}>
-                <Close />
-              </IconButton>
-            )}
-          </DialogTitle>
+      <DialogTitle
+        className={clsx({
+          'd-none': content.prevent_close_button && !content.title
+        })}
+        classes={{
+          root: classes.dialogTitle
+        }}
+      >
+        {!content.custom_title?.length && <span>{content.title}</span>}
+        {content.custom_title?.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
         ))}
+        {!content.prevent_close_button && (
+          <IconButton onClick={() => setOpen(false)}>
+            <Close />
+          </IconButton>
+        )}
+      </DialogTitle>
+
       {content.no_padding ? (
         <>
           {content.body?.map((blok) => (

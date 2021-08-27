@@ -18,23 +18,31 @@ export const getListStoriesParams = (
           : 'page,event,news'
       }
     },
-    sort_by: 'content.published_at:desc'
+    sort_by:
+      'content.published_at:desc,content.preview_publish_date:desc,content.start:desc,content.title:asc'
   }
-  if (item.event_categories?.length) {
-    params.filter_query.category = {
-      in: item.event_categories.join(',')
-    }
-  }
-  if (item.news_categories?.length) {
-    params.filter_query.category = {
-      in: item.news_categories.join(',')
-    }
+  params.filter_query.__or = []
+  const categoryFilters: string[] = [
+    ...(item.event_categories || []),
+    ...(item.news_categories || [])
+  ]
+  if (categoryFilters.length) {
+    params.filter_query.__or.push({
+      category: {
+        in: categoryFilters.join(',')
+      }
+    })
   }
   if (item.page_categories?.length) {
-    params.filter_query.categories = {
-      [item.match_all_categories ? 'all_in_array' : 'in_array']:
-        item.page_categories.join(',')
-    }
+    params.filter_query.__or.push({
+      categories: {
+        [item.match_all_categories ? 'all_in_array' : 'in_array']:
+          item.page_categories.join(',')
+      }
+    })
+  }
+  if (!params.filter_query.__or.length) {
+    delete params.filter_query.__or
   }
 
   return params

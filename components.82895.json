@@ -3422,16 +3422,25 @@
       "name": "dialog",
       "display_name": null,
       "created_at": "2020-07-17T00:52:29.169Z",
-      "updated_at": "2021-08-19T04:37:28.330Z",
+      "updated_at": "2021-08-27T02:56:24.176Z",
       "id": 1016259,
       "schema": {
         "title": {
           "type": "text",
           "pos": 0
         },
+        "custom_title": {
+          "type": "bloks",
+          "pos": 1,
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ]
+        },
         "fullscreen": {
           "type": "option",
-          "pos": 1,
+          "pos": 2,
           "use_uuid": true,
           "options": [
             {
@@ -3456,6 +3465,22 @@
             }
           ]
         },
+        "prevent_click_outside": {
+          "type": "boolean",
+          "pos": 3
+        },
+        "slide_up": {
+          "type": "boolean",
+          "pos": 4
+        },
+        "no_padding": {
+          "type": "boolean",
+          "pos": 5
+        },
+        "prevent_close_button": {
+          "type": "boolean",
+          "pos": 6
+        },
         "trigger": {
           "type": "bloks",
           "maximum": "1",
@@ -3466,12 +3491,12 @@
             "image",
             "icon"
           ],
-          "pos": 2,
+          "pos": 7,
           "component_group_whitelist": []
         },
         "body": {
           "type": "bloks",
-          "pos": 3,
+          "pos": 8,
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
@@ -3487,21 +3512,10 @@
             "prevent_click_outside",
             "slide_up",
             "no_padding",
-            "prevent_close_button"
+            "prevent_close_button",
+            "custom_title"
           ],
-          "pos": 4
-        },
-        "prevent_click_outside": {
-          "type": "boolean"
-        },
-        "slide_up": {
-          "type": "boolean"
-        },
-        "no_padding": {
-          "type": "boolean"
-        },
-        "prevent_close_button": {
-          "type": "boolean"
+          "pos": 9
         }
       },
       "image": null,
@@ -8219,7 +8233,7 @@
       "name": "list_stories",
       "display_name": null,
       "created_at": "2021-08-20T06:33:37.926Z",
-      "updated_at": "2021-08-26T01:27:21.765Z",
+      "updated_at": "2021-08-27T01:12:55.889Z",
       "id": 1720175,
       "schema": {
         "enable_search": {
@@ -8315,6 +8329,20 @@
         },
         "match_all_categories": {
           "type": "boolean"
+        },
+        "enable_min_height": {
+          "type": "boolean",
+          "description": "Useful to set this option if the list is part of a search with an enabled right navigation drawer."
+        },
+        "not_found_message": {
+          "type": "bloks",
+          "maximum": "",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_whitelist": [],
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ]
         }
       },
       "image": null,

@@ -1,11 +1,13 @@
 import clsx from 'clsx'
 import TextField from '@material-ui/core/TextField'
 import Magnify from 'mdi-material-ui/Magnify'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { LmListSearchFieldProps } from './listWidgetTypes'
 import { useRouter } from 'next/router'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import CloseCircle from 'mdi-material-ui/CloseCircle'
+import IconButton from '@material-ui/core/IconButton'
 
 export default function LmSearchField({
   content,
@@ -14,6 +16,9 @@ export default function LmSearchField({
   onChange: (value: string) => void
 }) {
   const { query } = useRouter()
+  const [inputValue, setValue] = useState<string>(
+    (query?.search__text as string) || ''
+  )
   const callback = useDebouncedCallback(
     (value: string) => {
       // onSearchTextChange(value)
@@ -23,26 +28,48 @@ export default function LmSearchField({
     500
   )
   return (
-    <div className={clsx(content.class_names && content.class_names.values)}>
+    <div
+      className={clsx(content.class_names?.values, {
+        'w-100': !!content.fullwidth
+      })}
+    >
       <TextField
+        inputProps={{
+          autoComplete: 'off'
+        }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <Magnify />
             </InputAdornment>
-          )
+          ),
+          endAdornment: inputValue.length ? (
+            <InputAdornment position="end">
+              <IconButton
+                size={'small'}
+                onClick={() => {
+                  setValue('')
+                  onChange('')
+                }}
+              >
+                <CloseCircle />
+              </IconButton>
+            </InputAdornment>
+          ) : null
         }}
         id={content._uid}
-        defaultValue={query?.search__text || ''}
+        value={inputValue}
         label={content.label}
-        type="search"
+        type="text"
         size={content.size ? content.size : undefined}
         fullWidth={content.fullwidth}
         placeholder={content.placeholder}
         variant={content.variant || 'outlined'}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          callback(event.currentTarget.value)
-        }
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          const val = event.currentTarget.value
+          setValue(val)
+          callback(val)
+        }}
       />
     </div>
   )
