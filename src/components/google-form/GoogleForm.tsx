@@ -119,11 +119,12 @@ export default function LmGoogleForm({
           // @ts-ignore
           onSuccess={onSubmit}
         >
-          <TextFieldElement
-            name={'current_address'}
-            label={'Current Address'}
-            className={'d-none'}
-          />
+          <div className={'d-none'}>
+            <TextFieldElement
+              name={'current_address'}
+              label={'Current Address'}
+            />
+          </div>
           {formStructure?.fields?.map((formField, index) => (
             <GoogleFormElement
               formField={formField}

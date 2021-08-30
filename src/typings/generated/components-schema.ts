@@ -3106,6 +3106,7 @@ export interface ToolbarRowSectionStoryblok {
     | HeadlineStoryblok
     | AuthContainerStoryblok
     | ButtonSpeechTextStoryblok
+    | DialogStoryblok
   )[];
   class_names?: {
     values?: string[];

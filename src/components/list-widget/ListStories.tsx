@@ -35,7 +35,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         ],
     fetchListStories,
     {
-      initialData: {
+      fallbackData: {
         stories: storyData?.data?.stories ?? [],
         cv: storyData?.data.cv,
         total: storyData?.total ?? 0,
