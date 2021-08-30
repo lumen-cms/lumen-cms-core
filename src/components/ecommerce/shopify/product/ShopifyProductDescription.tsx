@@ -21,9 +21,7 @@ export function ShopifyProductDescription({ item }: ShopifyProductItemProps) {
             component: 'button',
             label: 'About this item',
             _uid: '1321',
-            ...((config?.product_description_trigger &&
-              config?.product_description_trigger[0]) ||
-              {})
+            ...config?.product_description_trigger?.[0]
           } as ButtonStoryblok
         }
         onClick={() => {

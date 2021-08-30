@@ -1,13 +1,7 @@
-import {
-  RowStoryblok,
-  SectionStoryblok
-} from '../../../typings/generated/components-schema'
 import { AppPageProps } from '../../../typings/app'
 import { SSR_CONFIG } from '@SSR_CONFIG'
 
-export const fetchComponentData = async (
-  props: AppPageProps | (RowStoryblok | SectionStoryblok)[]
-) => {
+export const fetchComponentData = async (props: AppPageProps) => {
   const walkArray = async (elements: any[]) => {
     for (const item of elements) {
       const callback = SSR_CONFIG.ssrHooks.componentData[item.component]

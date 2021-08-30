@@ -10,7 +10,13 @@ export function hijackGoogleFormsXHR(XHR: {
   const { open } = XHR.prototype
   // eslint-disable-next-line
   // @ts-ignore
-  XHR.prototype.open = function openXhr(method, url, async, user, pass) {
+  XHR.prototype.open = function openXhr(
+    method,
+    url: string,
+    async,
+    user,
+    pass
+  ) {
     // eslint-disable-next-line
     // @ts-ignore
     this._url = url

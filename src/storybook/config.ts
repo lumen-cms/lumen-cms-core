@@ -11,10 +11,6 @@ export const appContext: AppContainerProps = {
       theme_base: 'base',
       component: 'global'
     },
-    listWidgetData: {},
-    allStaticContent: [],
-    allCategories: [],
-    insideStoryblok: false,
     locale: 'en'
   }
 }

@@ -8,7 +8,7 @@ export interface IClaims {
   [key: string]: any // just a copy of the IClaim
 }
 
-type ErrorProps = {
+export type LmErrorProps = {
   type:
     | 'not_supported'
     | 'page_not_found'
@@ -24,28 +24,26 @@ export type AllCategoryData = StoryData<CategoryComponent>[]
 export type AppApiRequestPayload = {
   page: Story
   settings: Story
-  locale?: string | null
+  // locale?: string | null
   formData?: { [k: string]: GoogleFormDataProps } | null
   user?: IClaims
-  notFoundLocale?: string
+  notFoundLocale?: string | null
   googleFontString?: string
 }
 
-type SubProps = Pick<
+export type AppPageProps = Pick<
   AppApiRequestPayload,
-  'locale' | 'formData' | 'googleFontString'
-  // | 'allCategories'
->
-
-export type AppPageProps = SubProps & {
-  page?: PageStoryblok | null
-  settings?: GlobalStoryblok | null
-  error?: ErrorProps
-  query?: any
-  user?: IClaims
-  pageNotFound?: boolean
-  [k: string]: any
-}
+  'formData' | 'googleFontString' | 'notFoundLocale'
+> &
+  Pick<GetStaticPropsContext, 'locales' | 'locale' | 'defaultLocale'> & {
+    page?: PageStoryblok | null
+    settings?: GlobalStoryblok | null
+    error?: LmErrorProps
+    query?: any
+    user?: IClaims
+    pageNotFound?: boolean
+    // [k: string]: any
+  }
 
 export type ComponentRenderFuncProps = {
   content?: any

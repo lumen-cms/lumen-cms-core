@@ -56,9 +56,6 @@ export const apiRequestResolver = async ({
   const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
     pageSlug.includes(path)
   )
-  // const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${
-  //   CONFIG.previewToken
-  // }&no_cache=true${locale ? `&locale=${locale}` : ''}`
   const currentSlug = `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
   const [page, settings] = await resolveAllPromises([
     LmStoryblokService.get(currentSlug),

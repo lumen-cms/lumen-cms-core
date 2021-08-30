@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
 import getPageProps from './getPageProps'
-import { AppPageProps } from '../../typings/app'
+import { AppPageProps, LmErrorProps } from '../../typings/app'
 import { getBaseProps } from './getBaseProps'
 
 export const getStaticPropsError: GetStaticProps<AppPageProps> = async (
@@ -26,7 +26,7 @@ export const getStaticPropsError: GetStaticProps<AppPageProps> = async (
     return {
       props: {
         ...getBaseProps(),
-        error: e
+        error: e as LmErrorProps
       }
     }
   }

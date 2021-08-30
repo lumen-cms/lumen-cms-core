@@ -38,7 +38,6 @@ const getPageProps = async (
     pageSlug
   })
 
-  // const url = `https://${CONFIG.HOSTNAME}${seoSlug ? `/${seoSlug}` : ''}` // for seo purpose
   const pageProps = page?.data?.story?.content as PageStoryblok | undefined
   const settingsProps = settings?.data?.story?.content as
     | GlobalStoryblok
@@ -65,14 +64,15 @@ const getPageProps = async (
   }
   const props: AppPageProps = {
     ...pageSettingsProps,
-    locale: options.locale || null,
-    defaultLocale: options.defaultLocale,
-    insideStoryblok: !!options.insideStoryblok,
     notFoundLocale: notFoundLocale || null
   }
+  const apiProps = {
+    ...props,
+    ...options
+  }
 
-  await fetchComponentData(props)
-  await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
+  await fetchComponentData(apiProps)
+  await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(apiProps)))
   return props
 }
 

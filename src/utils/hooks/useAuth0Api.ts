@@ -3,7 +3,11 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 export const useAuth0Api = (url: string, options: any) => {
   const { getAccessTokenSilently } = useAuth0()
-  const [state, setState] = useState({
+  const [state, setState] = useState<{
+    error: any
+    loading: boolean
+    data: any
+  }>({
     error: null,
     loading: true,
     data: null

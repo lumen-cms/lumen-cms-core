@@ -7,8 +7,8 @@ export const getCategoryData = async (
   props: AppPageProps
 ) => {
   const allItems = await getAllCategories({
-    locale: props.locale as string,
-    defaultLocale: props.defaultLocale
+    locale: props.locale || '',
+    defaultLocale: props.defaultLocale || ''
   })
   return filterAllCategory(allItems, item)
 }
