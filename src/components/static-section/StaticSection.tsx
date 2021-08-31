@@ -12,7 +12,7 @@ export function LmStaticSection({
   // is related resolve_relations: 'static_section.container'
   const body: any[] = content.container.content?.body ?? []
   return (
-    <div className={clsx(content.class_names && content.class_names.values)}>
+    <div className={clsx(content.class_names?.values)}>
       {body.map((blok) => (
         <LmComponentRender content={blok} key={blok._uid} />
       ))}

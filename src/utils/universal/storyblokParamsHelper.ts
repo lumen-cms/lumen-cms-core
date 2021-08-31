@@ -1,6 +1,5 @@
 import { AppPageProps } from '../../typings/app'
 import { StoriesParams } from 'storyblok-js-client'
-import { CONFIG } from '@CONFIG'
 import { localeStoriesHelper } from '../initial-props/component-data/localeStoriesHelper'
 
 export const defaultResolveRelations =
