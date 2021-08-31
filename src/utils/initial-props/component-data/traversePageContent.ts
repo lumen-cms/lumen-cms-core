@@ -10,6 +10,8 @@ export const fetchComponentData = async (props: AppPageProps) => {
         // listWidgets.push(item)
       } else if (Array.isArray(item.body)) {
         await walkArray(item.body)
+      } else if (Array.isArray(item.container?.content?.body)) {
+        await walkArray(item.container.content.body)
       }
     }
   }

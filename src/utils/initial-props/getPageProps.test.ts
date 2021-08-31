@@ -146,6 +146,17 @@ describe('Get page props of a certain URL', () => {
       defaultLocale: 'de',
       locales: ['en', 'de']
     })
-    console.log(data)
+    expect(!!data.page).toBeTruthy()
+    expect(!!data.settings).toBeTruthy()
+  })
+  test('support list widget in static content', async () => {
+    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
+    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
+    const data = await getPageProps(
+      'demo-content/example-of-static-content',
+      defaultOptions
+    )
+    expect(!!data.page).toBeTruthy()
+    expect(!!data.settings).toBeTruthy()
   })
 })
