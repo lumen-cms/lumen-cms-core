@@ -47,7 +47,6 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
   if (router.isFallback) {
     return <div>loading...</div>
   }
-
   return (
     <LmAppContainer content={pageProps}>
       <Head>

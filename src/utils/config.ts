@@ -80,6 +80,7 @@ type AppConfigProps = {
   rootDirectory?: string
   overwriteLocale?: string
   enableLocaleSuffix?: boolean
+  fieldLevelTranslation?: boolean
   suppressSlugLocale?: boolean
   suppressSlugIncludeDefault?: boolean
   overwriteDisableIndex?: boolean
@@ -106,6 +107,7 @@ export const CONFIG: AppConfigProps = {
       : process.env.NEXT_PUBLIC_PUBLIC_TOKEN) || '',
   rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
   enableLocaleSuffix: !!process.env.NEXT_PUBLIC_ENABLE_LOCALE_SUFFIX,
+  fieldLevelTranslation: !!process.env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION,
   overwriteLocale: process.env.NEXT_PUBLIC_OVERWRITE_LOCALE,
   suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE, // only in combination with NEXT_PUBLIC_LANGUAGES
   overwriteDisableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,

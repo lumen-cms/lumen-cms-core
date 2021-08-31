@@ -71,7 +71,6 @@ const LmTopAppContainer: FC = ({ children }) => {
   const settings = useSettings()
   const page = usePage() || {}
   const drawerVariant = useNavigationStore(drawerVariantSelector)
-
   const classes = useStyles()
   const toolbarConfig = settings.toolbar_config || []
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)

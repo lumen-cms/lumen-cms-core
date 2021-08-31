@@ -1,13 +1,17 @@
 import { DateTimeFormatStoryblok } from '../typings/generated/components-schema'
 
-const getDateTime = (date: string, time: string) =>
-  new Date(
-    // @ts-ignore
-    ...[
-      ...date.split('-').map((i) => Number(i)),
-      ...time.split(':').map((i) => Number(i))
-    ]
+const getDateTime = (date: string, time: string) => {
+  const [year, month, day] = date.split('-')
+  const [hour, minute] = time.split(':')
+  return new Date(
+    Number(year),
+    Number(month) - 1,
+    Number(day),
+    Number(hour),
+    Number(minute)
   )
+}
+
 export const getDateLocalized = ({
   locale = 'en',
   start = '',
@@ -54,12 +58,14 @@ export const getDateLocalized = ({
     }
   }
   const dateTimeFormat = new Intl.DateTimeFormat(locale, startOptions)
+  let startDateTime = getDateTime(startDate, startTime)
   if (!endDate || allDay) {
-    return dateTimeFormat.format(getDateTime(startDate, startTime))
+    return dateTimeFormat.format(startDateTime)
   }
-  // @ts-ignore
-  return dateTimeFormat.formatRange(
-    getDateTime(startDate, startTime),
-    getDateTime(endDate, endTime)
-  )
+  let endDateTime = getDateTime(endDate, endTime)
+  return startDateTime < endDateTime
+    ? // @ts-ignore
+      dateTimeFormat.formatRange(startDateTime, endDateTime)
+    : // @ts-ignore
+      dateTimeFormat.formatRange(endDateTime, startDateTime)
 }

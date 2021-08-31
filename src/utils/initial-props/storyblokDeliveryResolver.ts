@@ -1,4 +1,4 @@
-import { StoryblokResult } from 'storyblok-js-client'
+import { StoriesParams, StoryblokResult } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
@@ -27,9 +27,11 @@ const getSettingsPath = ({
       ? overwriteSettingPath
       : `${overwriteSettingPath}/`
   }
-  return `cdn/stories/${locale ? `${locale}/` : ''}${
-    CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
-  }${overwriteSettingPath || ''}settings`
+  return `cdn/stories/${
+    locale && !CONFIG.fieldLevelTranslation ? `${locale}/` : ''
+  }${CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''}${
+    overwriteSettingPath || ''
+  }settings`
 }
 
 type ApiProps = PagePropsOptions & {
@@ -56,10 +58,23 @@ export const apiRequestResolver = async ({
   const overwriteSettingPath = CONFIG.overwriteSettingsPaths.find((path) =>
     pageSlug.includes(path)
   )
-  const currentSlug = `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
+  const currentSlug = CONFIG.fieldLevelTranslation
+    ? `cdn/stories/${pageSlug}`
+    : `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
+
+  const params: StoriesParams = {
+    ...(CONFIG.fieldLevelTranslation && locale
+      ? {
+          language: locale
+        }
+      : {})
+  }
   const [page, settings] = await resolveAllPromises([
-    LmStoryblokService.get(currentSlug),
-    LmStoryblokService.get(getSettingsPath({ locale, overwriteSettingPath }))
+    LmStoryblokService.get(currentSlug, params),
+    LmStoryblokService.get(
+      getSettingsPath({ locale, overwriteSettingPath }),
+      params
+    )
   ])
   let notFoundLocale
   if (CONFIG.suppressSlugLocale && !page && Array.isArray(options.locales)) {

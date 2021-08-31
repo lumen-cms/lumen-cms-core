@@ -54,13 +54,7 @@ export default function LmEvent({ content }: LmEventProps) {
             })
       }
     ]
-  if (content.description) {
-    body.push({
-      component: 'rich_text_editor',
-      _uid: 'richtext',
-      body: content.description
-    })
-  }
+
   const items: SectionStoryblok = {
     _uid: content._uid,
     component: 'section',

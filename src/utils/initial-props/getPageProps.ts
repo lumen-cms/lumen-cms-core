@@ -64,16 +64,18 @@ const getPageProps = async (
   }
   const props: AppPageProps = {
     ...pageSettingsProps,
+    ...options,
     notFoundLocale: notFoundLocale || null
   }
-  const apiProps = {
-    ...props,
-    ...options
-  }
 
-  await fetchComponentData(apiProps)
-  await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(apiProps)))
-  return props
+  await fetchComponentData(props)
+  await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
+  Object.keys(props).forEach((k) => {
+    if (typeof props[k] === 'undefined') {
+      delete props[k]
+    }
+  })
+  return props //cleanObj(props)
 }
 
 export default getPageProps

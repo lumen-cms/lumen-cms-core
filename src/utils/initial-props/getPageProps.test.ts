@@ -99,7 +99,7 @@ describe('Get page props of a certain URL', () => {
 
     recursiveTestCallback(data.settings?.footer ?? [], 'form', callbackFormTest)
   })
-  test('fetch planet training page', async () => {
+  test('fetch planet training and check existence of google font string', async () => {
     // commercentric uses it
     CONFIG.previewToken = 'MbZE9l5hGQp6BHIMkooB9Qtt'
     CONFIG.publicToken = 'itXwOvXYhANlzgPbwrA2Nwtt'
@@ -135,5 +135,17 @@ describe('Get page props of a certain URL', () => {
       expect(item.list_widget_data?.items?.length > 0).toBeTruthy()
     }
     recursiveTestCallback(data.page?.body ?? [], 'list_stories', callback)
+  })
+
+  test('test translated page of home in ladenburg', async () => {
+    CONFIG.previewToken = 'GFikQ82LaPjNVcPNQVJzQgtt'
+    CONFIG.publicToken = 'pe6FESyaNxKq7t1NpxZ0hwtt'
+    CONFIG.fieldLevelTranslation = true
+    const data = await getPageProps('home', {
+      locale: 'en',
+      defaultLocale: 'de',
+      locales: ['en', 'de']
+    })
+    console.log(data)
   })
 })

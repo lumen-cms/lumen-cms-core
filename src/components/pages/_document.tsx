@@ -15,6 +15,7 @@ export default class AppDocument extends Document {
     const originalRenderPage = ctx.renderPage
     ctx.renderPage = () =>
       originalRenderPage({
+        // eslint-disable-next-line react/display-name
         enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
       })
     const initialProps = await Document.getInitialProps(ctx)
@@ -44,7 +45,5 @@ export default class AppDocument extends Document {
         </body>
       </Html>
     )
-
-    // return <LmCoreDocument props={this.props.__NEXT_DATA__.props.pageProps} />
   }
 }
