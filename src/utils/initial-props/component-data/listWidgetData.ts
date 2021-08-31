@@ -1,7 +1,7 @@
 import { ListWidgetStoryblok } from '../../../typings/generated/components-schema'
 import { AppPageProps } from '../../../typings/app'
 import { LmListWidgetProps } from '../../../components/list-widget/listWidgetTypes'
-import { legacyAllStories } from '../legacyAllStories'
+import { legacyAllStories } from './legacyAllStories'
 import { legacyFilterAllStories } from '../legacyFilterAllStories'
 
 export const listWidgetGetData = async (

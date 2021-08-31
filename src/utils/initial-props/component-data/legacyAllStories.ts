@@ -1,7 +1,8 @@
 import { StoriesParams, StoryData } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
-import { PageComponent } from '../../typings/generated/schema'
-import { LmStoryblokService } from './StoryblokService'
+import { PageComponent } from '../../../typings/generated/schema'
+import { LmStoryblokService } from '../StoryblokService'
+import { localeStoriesHelper } from './localeStoriesHelper'
 
 let allStories: StoryData<PageComponent>[]
 
@@ -21,16 +22,12 @@ export const legacyAllStories = async (options: {
     excluding_fields:
       'body,right_body,meta_robots,property,meta_description,seo_body',
     sort_by: 'published_at:desc',
+    ...localeStoriesHelper(locale),
     filter_query: {
       component: {
         in: 'page'
       }
     }
-  }
-  if (CONFIG.rootDirectory || locale) {
-    params.starts_with = `${locale ? `${locale}/` : ''}${
-      CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
-    }`
   }
   allStories = await LmStoryblokService.getAll('cdn/stories', params)
   return allStories

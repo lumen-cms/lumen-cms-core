@@ -12,6 +12,10 @@ const getDateTime = (date: string, time: string) => {
   )
 }
 
+const exceptionDates = {
+  de_easy: 'de'
+}
+
 export const getDateLocalized = ({
   locale = 'en',
   start = '',
@@ -25,6 +29,7 @@ export const getDateLocalized = ({
   allDay?: boolean
   options?: DateTimeFormatStoryblok
 }) => {
+  locale = exceptionDates[locale] || locale // support special locales
   const [startDate, startTime] = start.split(' ')
   const [endDate, endTime] = (end || '').split(' ')
   if (!startDate) {
