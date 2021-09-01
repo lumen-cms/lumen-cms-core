@@ -1,6 +1,5 @@
 import { ImageLoaderProps, ImageProps } from 'next/image'
-import { checkWebpSupport } from './webpSupport'
-
+/*
 const loader = ({ src, width, quality }: ImageLoaderProps) => {
   const webP = checkWebpSupport()
   const originalPath = src.replace(/^(https?:)?\/\/a.storyblok.com\//, '')
@@ -19,19 +18,30 @@ const loader = ({ src, width, quality }: ImageLoaderProps) => {
   }
   return `https://img2.storyblok.com${opts}${originalPath}`
 }
+*/
+
+const loaderRaw = ({ src, width, quality }: ImageLoaderProps) => {
+  const url = new URL('https://prx-11-1.lumen.media/_next/image')
+  url.searchParams.set('url', src)
+  if (width) {
+    url.searchParams.set('w', `${width}`)
+  }
+  url.searchParams.set('q', `${quality || 75}`)
+  return url.toString()
+}
 
 export const storybookImgLoader = (
-  src: string | undefined
+  _src: string | undefined
 ): Pick<ImageProps, 'loader' | 'unoptimized'> => {
-  if (!src || src.endsWith('.svg')) {
-    return {
-      unoptimized: true
-    }
-  }
-  if (src.indexOf('a.storyblok.com') === -1) {
-    return { unoptimized: true }
-  }
+  // if (!src || src.endsWith('.svg')) {
+  //   return {
+  //     unoptimized: true
+  //   }
+  // }
+  // if (src.indexOf('a.storyblok.com') === -1) {
+  //   return { unoptimized: true }
+  // }
   return {
-    loader
+    loader: loaderRaw
   }
 }
