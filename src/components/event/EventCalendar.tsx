@@ -1,154 +1,19 @@
 import { EventCalendar, LmEventCalendarProps } from './eventTypes'
-import {
-  Calendar,
-  CalendarProps,
-  dateFnsLocalizer,
-  Event,
-  ToolbarProps,
-  Views
-} from 'react-big-calendar'
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
-import TodayIcon from '@material-ui/icons/Today'
-import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext'
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
-import CalendarViewWeek from '@material-ui/icons/ViewWeek'
-import ViewAgenda from '@material-ui/icons/ViewAgenda'
+import { Calendar, dateFnsLocalizer, Views } from 'react-big-calendar'
 import format from 'date-fns/format'
 import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek'
 import getDay from 'date-fns/getDay'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { parseEventsToCalendar } from './eventCalendarHelper'
-import React, { FC, useState } from 'react'
+import React, { useState } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import IconButton from '@material-ui/core/IconButton'
 import Close from 'mdi-material-ui/Close'
 import LmEvent from './Event'
-import Typography from '@material-ui/core/Typography'
-import Menu from '@material-ui/core/Menu'
-import Button from '@material-ui/core/Button'
-import MenuItem from '@material-ui/core/MenuItem'
-import ViewComfy from '@material-ui/icons/ViewComfy'
-
-const messages: CalendarProps['messages'] = {
-  next: 'nächste',
-  previous: 'vorherige',
-  today: 'Heute',
-  month: 'Monat',
-  day: 'Tag',
-  week: 'Woche',
-  agenda: 'Liste',
-  time: 'Zeit',
-  date: 'Datum',
-  event: 'Event'
-}
-
-const SelectCalendarView: FC<{
-  onView: ToolbarProps['onView']
-  views: ToolbarProps['views']
-  view: ToolbarProps['view']
-}> = ({ onView, views, view }) => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
-  return (
-    <div>
-      <Button
-        aria-controls="simple-menu"
-        aria-haspopup="true"
-        onClick={(event) => {
-          setAnchorEl(event.currentTarget)
-        }}
-      >
-        {
-          {
-            month: <ViewComfy />,
-            week: <CalendarViewWeek />,
-            day: <CalendarViewDayIcon />,
-            agenda: <ViewAgenda />
-          }[view as string]
-        }
-        <ArrowDropDown />
-      </Button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {(Array.isArray(views) ? views : []).map((currentView) => (
-          <MenuItem
-            onClick={() => {
-              onView(currentView)
-              handleClose()
-            }}
-            key={currentView}
-          >
-            {
-              {
-                month: <ViewComfy />,
-                week: <CalendarViewWeek />,
-                day: <CalendarViewDayIcon />,
-                agenda: <ViewAgenda />
-              }[currentView as string]
-            }
-          </MenuItem>
-        ))}
-      </Menu>
-    </div>
-  )
-}
-
-const CalendarToolbar: FC<ToolbarProps<Event>> = (props) => {
-  let currentViews = Array.isArray(props.views) ? props.views : []
-  return (
-    <div
-      style={{
-        display: 'flex',
-        alignContent: 'center',
-        alignItems: 'center',
-        padding: '8px 0'
-      }}
-    >
-      <Typography>{props.label}</Typography>
-      <div style={{ flex: 1 }}></div>
-      <IconButton
-        onClick={() => {
-          props.onNavigate('TODAY')
-        }}
-      >
-        <TodayIcon />
-      </IconButton>
-      <IconButton
-        onClick={() => {
-          props.onNavigate('PREV')
-        }}
-      >
-        <NavigateBeforeIcon />
-      </IconButton>
-      <IconButton
-        onClick={() => {
-          props.onNavigate('NEXT')
-        }}
-      >
-        <NavigateNextIcon />
-      </IconButton>
-      {currentViews.length > 1 && (
-        <SelectCalendarView
-          onView={props.onView}
-          views={props.views}
-          view={props.view}
-        />
-      )}
-    </div>
-  )
-}
+import { CalendarToolbar } from './EventCalendarToolbar'
+import { eventMessages } from './eventMessages'
 
 export default function LmEventCalendar({ content }: LmEventCalendarProps) {
   const locales: any = {}
@@ -222,7 +87,7 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500, width: '100%' }}
-        messages={messages}
+        messages={eventMessages}
       />
       <Dialog
         fullScreen
