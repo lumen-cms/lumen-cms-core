@@ -29,7 +29,6 @@ export type Scalars = {
   URL: any;
 };
 
-
 /** A version of the API. */
 export type ApiVersion = {
   __typename?: 'ApiVersion';
@@ -58,7 +57,7 @@ export type AppliedGiftCard = Node & {
   balance: Scalars['Money'];
   /** The amount left on the gift card. */
   balanceV2: MoneyV2;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The last characters of the gift card. */
   lastCharacters: Scalars['String'];
@@ -93,7 +92,7 @@ export type Article = Node & {
    *
    */
   handle: Scalars['String'];
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The image associated with the article. */
   image?: Maybe<Image>;
@@ -265,7 +264,7 @@ export type Blog = Node & {
    *
    */
   handle: Scalars['String'];
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The blogs’s title. */
   title: Scalars['String'];
@@ -377,7 +376,7 @@ export type Checkout = Node & {
   discountApplications: DiscountApplicationConnection;
   /** The email attached to this checkout. */
   email?: Maybe<Scalars['String']>;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** A list of line item objects, each one containing information about an item in the checkout. */
   lineItems: CheckoutLineItemConnection;
@@ -930,7 +929,7 @@ export type CheckoutLineItem = Node & {
   customAttributes: Array<Attribute>;
   /** The discounts that have been allocated onto the checkout line item by discount applications. */
   discountAllocations: Array<DiscountAllocation>;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The quantity of the line item. */
   quantity: Scalars['Int'];
@@ -1105,7 +1104,7 @@ export type Collection = Node & {
    *
    */
   handle: Scalars['String'];
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** Image associated with the collection. */
   image?: Maybe<Image>;
@@ -1193,7 +1192,7 @@ export type Comment = Node & {
   content: Scalars['String'];
   /** The content of the comment, complete with HTML formatting. */
   contentHtml: Scalars['HTML'];
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
 };
 
@@ -2500,8 +2499,6 @@ export type CustomerUserError = DisplayableError & {
   message: Scalars['String'];
 };
 
-
-
 /** Digital wallet, such as Apple Pay, which can be used for accelerated checkouts. */
 export enum DigitalWallet {
   /** Apple Pay. */
@@ -2648,7 +2645,7 @@ export type ExternalVideo = Node & Media & {
   alt?: Maybe<Scalars['String']>;
   /** The URL. */
   embeddedUrl: Scalars['URL'];
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The media content type. */
   mediaContentType: MediaContentType;
@@ -2728,7 +2725,6 @@ export type FulfillmentTrackingInfo = {
   /** The URL to track the fulfillment. */
   url?: Maybe<Scalars['URL']>;
 };
-
 
 /** Represents information about the metafields associated to the specified resource. */
 export type HasMetafields = {
@@ -2919,7 +2915,7 @@ export type MailingAddress = Node & {
   formatted: Array<Scalars['String']>;
   /** A comma-separated list of the values for city, province, and country. */
   formattedArea?: Maybe<Scalars['String']>;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The last name of the customer. */
   lastName?: Maybe<Scalars['String']>;
@@ -3095,7 +3091,7 @@ export type MediaImage = Node & Media & {
   __typename?: 'MediaImage';
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']>;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The image for the media. */
   image?: Maybe<Image>;
@@ -3116,7 +3112,7 @@ export type Metafield = Node & {
   createdAt: Scalars['DateTime'];
   /** The description of a metafield. */
   description?: Maybe<Scalars['String']>;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The key name for a metafield. */
   key: Scalars['String'];
@@ -3177,7 +3173,7 @@ export type Model3d = Node & Media & {
   __typename?: 'Model3d';
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']>;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The media content type. */
   mediaContentType: MediaContentType;
@@ -3199,7 +3195,6 @@ export type Model3dSource = {
   /** The URL of the 3d model. */
   url: Scalars['String'];
 };
-
 
 /** Specifies the fields for a monetary value with currency. */
 export type MoneyInput = {
@@ -3686,7 +3681,7 @@ export type MutationCustomerUpdateArgs = {
 
 /** An object with an ID to support global identification. */
 export type Node = {
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
 };
 
@@ -3719,7 +3714,7 @@ export type Order = Node & {
   financialStatus?: Maybe<OrderFinancialStatus>;
   /** The fulfillment status for the order. */
   fulfillmentStatus: OrderFulfillmentStatus;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** List of the order’s line items. */
   lineItems: OrderLineItemConnection;
@@ -3963,7 +3958,7 @@ export type Page = Node & {
   createdAt: Scalars['DateTime'];
   /** A human-friendly unique string for the page automatically generated from its title. */
   handle: Scalars['String'];
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The title of the page. */
   title: Scalars['String'];
@@ -4041,7 +4036,7 @@ export type Payment = Node & {
   creditCard?: Maybe<CreditCard>;
   /** A message describing a processing error during asynchronous processing. */
   errorMessage?: Maybe<Scalars['String']>;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /**
    * A client-side generated token to identify a payment and perform idempotent operations.
@@ -4125,7 +4120,7 @@ export type Product = Node & HasMetafields & {
    *
    */
   handle: Scalars['String'];
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** List of images associated with the product. */
   images: ImageConnection;
@@ -4378,7 +4373,7 @@ export enum ProductImageSortKeys {
  */
 export type ProductOption = Node & {
   __typename?: 'ProductOption';
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The product option’s name. */
   name: Scalars['String'];
@@ -4465,7 +4460,7 @@ export type ProductVariant = Node & HasMetafields & {
   compareAtPriceV2?: Maybe<MoneyV2>;
   /** Whether a product is out of stock but still available for purchase (used for backorders). */
   currentlyNotInStock: Scalars['Boolean'];
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** Image associated with the product variant. This field falls back to the product image if no image is available. */
   image?: Maybe<Image>;
@@ -5034,7 +5029,7 @@ export type ShopPolicy = Node & {
   body: Scalars['String'];
   /** Policy’s handle. */
   handle: Scalars['String'];
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** Policy’s title. */
   title: Scalars['String'];
@@ -5185,7 +5180,6 @@ export enum TransactionStatus {
   Error = 'ERROR'
 }
 
-
 /**
  * The measurement used to calculate a unit price for a product variant (e.g. $9.99 / 100ml).
  *
@@ -5256,7 +5250,7 @@ export type Video = Node & Media & {
   __typename?: 'Video';
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']>;
-  /** Globally unique identifier. */
+  /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The media content type. */
   mediaContentType: MediaContentType;

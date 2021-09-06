@@ -1,21 +1,31 @@
-// https://stackoverflow.com/questions/56173848/want-to-convert-a-nested-object-to-query-parameter-for-attaching-to-url
-const getPairs = (obj: any, keys = []) =>
-  Object.entries(obj).reduce((pairs, [key, value]) => {
-    if (typeof value === 'object') {
-      // @ts-ignore
-      pairs.push(...getPairs(value, [...keys, key]))
-    } else {
-      // @ts-ignore
-      pairs.push([[...keys, key], value])
-    }
-    return pairs
-  }, [])
+const has = Object.prototype.hasOwnProperty
 
-export const createDeepNestedQueryString = (obj: any) =>
-  getPairs(obj)
-    .map(
-      // @ts-ignore
-      ([[key0, ...keysRest], value]) =>
-        `${key0}${keysRest.map((a) => `[${a}]`).join('')}=${value}`
-    )
-    .join('&')
+export const queryStringify = (
+  obj: any,
+  prefix?: string,
+  isArray?: boolean
+): string => {
+  const pairs = []
+  for (const key in obj) {
+    if (!has.call(obj, key)) {
+      continue
+    }
+    const value = obj[key]
+    const enkey = isArray ? '' : encodeURIComponent(key) // no index array
+    let pair
+    if (typeof value === 'object') {
+      pair = queryStringify(
+        value,
+        prefix ? prefix + '[' + enkey + ']' : enkey,
+        Array.isArray(value)
+      )
+    } else {
+      pair =
+        (prefix ? prefix + '[' + enkey + ']' : enkey) +
+        '=' +
+        encodeURIComponent(value)
+    }
+    pairs.push(pair)
+  }
+  return pairs.join('&')
+}

@@ -2151,6 +2151,7 @@ export interface PaginationStoryblok {
   color?: "primary" | "secondary";
   shape?: "rounded" | "round";
   size?: "large" | "medium" | "small";
+  position?: "top" | "bottom" | "top_bottom";
   _uid: string;
   component: "pagination";
   [k: string]: any;
@@ -2367,7 +2368,58 @@ export interface SearchStoryStoryblok {
 
 export interface SectionStoryblok {
   section_identifier?: string;
-  body?: (RowStoryblok | CardListStoryblok | PricingStoryblok | ImageStoryblok)[];
+  body?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+  )[];
   variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   background?: BackgroundStoryblok[];
   property?: ("is_full_height" | "allow_overflow")[];

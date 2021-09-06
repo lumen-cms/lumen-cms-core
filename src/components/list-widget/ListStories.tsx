@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { LmListStoriesPayload, LmListStoriesProps } from './listWidgetTypes'
 import useSWR from 'swr'
-import Pagination from '@material-ui/lab/Pagination'
 import { getListStoriesParams } from '../../utils/universal/getListStoriesParams'
 import { useRouter } from 'next/router'
-import { createDeepNestedQueryString } from '../../utils/universal/paramsToQueryString'
+import { queryStringify } from '../../utils/universal/paramsToQueryString'
 import {
   searchTextSelector,
   useSearchStore
@@ -13,17 +12,19 @@ import { fetchListStories } from './listUtils/fetchListStories'
 import { LmComponentRender } from '@LmComponentRender'
 import LmListStoriesContainer from './ListStoriesContainer'
 import { CircularProgress } from '@material-ui/core'
+import LmListStoriesPagination from './ListStoriesPagination'
 
 export default function LmListStories({ content }: LmListStoriesProps) {
   const { locale, defaultLocale } = useRouter()
   const paginate = content.pagination?.[0]
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState<number>(1)
   const searchText = useSearchStore(searchTextSelector)
   const params = getListStoriesParams(content, { locale, defaultLocale })
-  const paramString = createDeepNestedQueryString(params)
+  const paramString = queryStringify(params)
   const [storyData] = useState<
     LmListStoriesProps['content']['list_stories_data']
   >(content.list_stories_data)
+  let revalidateOnMount = content.enable_search && !storyData?.data?.stories
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
     content.max_items
       ? null
@@ -41,10 +42,10 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         total: storyData?.total ?? 0,
         page: 1
       },
-      revalidateOnMount: content.enable_search && !storyData?.data?.stories
+      revalidateOnFocus: false,
+      revalidateOnMount: revalidateOnMount
     }
   )
-
   if (error) {
     console.error(error)
   }
@@ -52,9 +53,11 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const perPage = storyData?.perPage ?? 25
   const totalCount = Math.ceil(currentTotal / perPage)
   const showPagination = content.max_items ? false : currentTotal > perPage
+  const anchorId = `list_stories_${content._uid}`
+  const paginationPosition = paginate?.position || 'bottom'
   return (
     <div
-      id={`list_stories_${content._uid}`}
+      id={anchorId}
       style={{
         position: 'relative',
         scrollMarginTop: '100px',
@@ -75,6 +78,18 @@ export default function LmListStories({ content }: LmListStoriesProps) {
           <CircularProgress size={40} />
         </div>
       )}
+      {showPagination && paginationPosition.includes('top') && (
+        <LmListStoriesPagination
+          page={page}
+          options={paginate}
+          disabled={isValidating}
+          totalCount={totalCount}
+          className={'mb-2'}
+          onChange={(val) => {
+            setPage(val)
+          }}
+        />
+      )}
       {!isValidating && !data?.stories?.length && (
         <div>
           {content.not_found_message?.map((blok) => (
@@ -89,27 +104,16 @@ export default function LmListStories({ content }: LmListStoriesProps) {
           items={data?.stories || []}
         />
       )}
-      {showPagination && (
-        <Pagination
-          className={'mt-2'}
-          disabled={isValidating}
+      {showPagination && paginationPosition.includes('bottom') && (
+        <LmListStoriesPagination
           page={page}
-          count={totalCount}
-          onChange={(_event, page) => {
-            const destination = document.getElementById(
-              'list_stories_' + content._uid
-            )
-            if (destination) {
-              destination.scrollIntoView({
-                behavior: 'auto'
-              })
-            }
-            setPage(page)
+          options={paginate}
+          disabled={isValidating}
+          totalCount={totalCount}
+          className={'mt-3'}
+          onChange={(val) => {
+            setPage(val)
           }}
-          size={paginate?.size || 'medium'}
-          color={paginate?.color || 'standard'}
-          shape={paginate?.shape || 'round'}
-          variant={paginate?.variant || 'text'}
         />
       )}
     </div>

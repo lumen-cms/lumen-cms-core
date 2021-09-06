@@ -8,15 +8,6 @@ export default function HeadlineCountUp({ content, onClick }: LmHeadlineProps) {
   const [refIntersectionObserver, inView] = useInView({
     triggerOnce: true
   })
-  // const { value } = useCountUp({
-  //   isCounting: true,
-  //   start: content.count_start || 0,
-  //   end: content.count_end || 1000,
-  //   duration: content.count_duration || 2.5,
-  //   suffix: content.suffix || undefined,
-  //   prefix: content.prefix || undefined,
-  //   easing: content.animation || undefined
-  // })
   return (
     <LmHeadlineCore content={content} onClick={onClick}>
       <span ref={refIntersectionObserver}>
@@ -27,9 +18,12 @@ export default function HeadlineCountUp({ content, onClick }: LmHeadlineProps) {
           }
           end={content.count_end ? Number(content.count_end) : 1000}
           start={content.count_start ? Number(content.count_start) : 0}
-          suffix={content.suffix || undefined}
-          prefix={content.prefix || undefined}
-          // easing={content.animation || undefined}
+          formatter={(value) =>
+            `${content.prefix ? content.prefix + ' ' : ''}${Math.round(value)}${
+              content.suffix ? ' ' + content.suffix : ''
+            }`
+          }
+          easing={content.animation || undefined}
         />
       </span>
     </LmHeadlineCore>

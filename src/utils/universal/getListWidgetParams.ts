@@ -1,7 +1,7 @@
 import { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
-import { createDeepNestedQueryString } from './paramsToQueryString'
+import { queryStringify } from './paramsToQueryString'
 
 export const getListWidgetParams = (
   item: ListWidgetStoryblok,
@@ -54,6 +54,6 @@ export const getQueryStringOfParams = (
   props: { locale?: string | null; defaultLocale?: string }
 ) => {
   const params = getListWidgetParams(item, props)
-  const checked = createDeepNestedQueryString(params)
+  const checked = queryStringify(params)
   return checked
 }

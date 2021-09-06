@@ -37,7 +37,6 @@ export type Asset = {
   title?: Maybe<Scalars['String']>;
 };
 
-
 export type CategoryComponent = {
   __typename?: 'CategoryComponent';
   _editable?: Maybe<Scalars['String']>;
@@ -533,8 +532,6 @@ export type GlobalItems = {
   items?: Maybe<Array<Maybe<GlobalItem>>>;
   total?: Maybe<Scalars['Int']>;
 };
-
-
 
 export type LinkEntries = {
   __typename?: 'LinkEntries';

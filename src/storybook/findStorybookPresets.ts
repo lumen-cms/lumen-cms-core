@@ -7,9 +7,6 @@ export function findPresets<T = undefined>(componentName: string): T[] {
   const found = components.find((item) => item.name === componentName)
   const componentId = found?.id
   if (componentId) {
-    if (componentName === 'form') {
-      console.log(componentId, found)
-    }
     // @ts-ignore
     return presets
       .filter((i) => i.component_id === componentId)

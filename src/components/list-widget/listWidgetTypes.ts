@@ -10,7 +10,8 @@ import {
   NewsCategoryStoryblok,
   NewsListStoryblok,
   NewsStoryblok,
-  PageStoryblok
+  PageStoryblok,
+  PaginationStoryblok
 } from '../../typings/generated/components-schema'
 import { StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../typings/generated/schema'
@@ -99,4 +100,14 @@ export type LmNewsListItemProps = {
 export type LmNewsListProps = {
   items: ListStoriesData[]
   options: NewsListStoryblok
+}
+
+export type LmListStoriesPaginationProps = {
+  totalCount: number
+  page: number
+  options?: PaginationStoryblok
+  className?: string
+  disabled?: boolean
+  onChange: (page: number) => void
+  anchorId?: string
 }

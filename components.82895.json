@@ -8247,7 +8247,7 @@
       "name": "list_stories",
       "display_name": null,
       "created_at": "2021-08-20T06:33:37.926Z",
-      "updated_at": "2021-08-27T01:12:55.889Z",
+      "updated_at": "2021-09-06T12:11:01.656Z",
       "id": 1720175,
       "schema": {
         "enable_search": {
@@ -8274,7 +8274,8 @@
         },
         "max_items": {
           "type": "number",
-          "pos": 2
+          "pos": 2,
+          "description": "Shows amount of {x} items. Disables pagination. "
         },
         "pagination": {
           "type": "bloks",
@@ -8296,7 +8297,8 @@
             "lists",
             "nav_list"
           ],
-          "pos": 7
+          "pos": 7,
+          "description": "Modify look and feel of the list. Switches between \"news\", \"lists\", \"card\" and \"links\""
         },
         "tab-4129d63f-760d-481d-8cc2-3728f21bcbfa": {
           "type": "tab",
@@ -9456,7 +9458,7 @@
       "name": "pagination",
       "display_name": null,
       "created_at": "2021-08-20T03:23:07.013Z",
-      "updated_at": "2021-08-20T03:34:29.675Z",
+      "updated_at": "2021-09-06T12:08:29.892Z",
       "id": 1720037,
       "schema": {
         "items_per_page": {
@@ -9526,6 +9528,25 @@
             }
           ],
           "pos": 4
+        },
+        "position": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "top",
+              "name": "top"
+            },
+            {
+              "value": "bottom",
+              "name": "bottom"
+            },
+            {
+              "value": "top_bottom",
+              "name": "top and bottom"
+            }
+          ],
+          "description": "Position of the pagination. Default: \"bottom\""
         }
       },
       "image": null,
@@ -10993,7 +11014,7 @@
       "name": "section",
       "display_name": null,
       "created_at": "2020-05-01T08:40:31.224Z",
-      "updated_at": "2021-08-19T04:38:44.210Z",
+      "updated_at": "2021-08-31T05:11:30.338Z",
       "id": 894776,
       "schema": {
         "section_identifier": {
@@ -11012,7 +11033,10 @@
             "image"
           ],
           "default_value": "row",
-          "component_group_whitelist": []
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ],
+          "restrict_type": "groups"
         },
         "variant": {
           "type": "option",
