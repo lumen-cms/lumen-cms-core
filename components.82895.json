@@ -5290,7 +5290,7 @@
       "name": "form_container",
       "display_name": null,
       "created_at": "2021-08-13T03:09:25.593Z",
-      "updated_at": "2021-08-25T08:34:39.206Z",
+      "updated_at": "2021-09-07T03:48:54.747Z",
       "id": 1706866,
       "schema": {
         "form": {
@@ -5304,6 +5304,14 @@
           "restrict_components": true,
           "component_whitelist": [
             "form_hidden_field"
+          ]
+        },
+        "success_message": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
           ]
         }
       },

@@ -6,6 +6,7 @@ export default function LmFormContainer({ content }: LmFormContainerProps) {
     <LmComponentRender
       content={content.form?.content}
       additional_fields={content.additional_fields}
+      success_message={content.success_message}
     />
   ) : null
 }
