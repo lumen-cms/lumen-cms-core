@@ -3,7 +3,6 @@ import { LmListStoriesPayload, LmListStoriesProps } from './listWidgetTypes'
 import useSWR from 'swr'
 import { getListStoriesParams } from '../../utils/universal/getListStoriesParams'
 import { useRouter } from 'next/router'
-import { queryStringify } from '../../utils/universal/paramsToQueryString'
 import {
   searchTextSelector,
   useSearchStore
@@ -15,25 +14,25 @@ import { CircularProgress } from '@material-ui/core'
 import LmListStoriesPagination from './ListStoriesPagination'
 
 export default function LmListStories({ content }: LmListStoriesProps) {
-  const { locale, defaultLocale } = useRouter()
+  const { locale, defaultLocale, isPreview } = useRouter()
   const paginate = content.pagination?.[0]
   const [page, setPage] = useState<number>(1)
   const searchText = useSearchStore(searchTextSelector)
-  const params = getListStoriesParams(content, { locale, defaultLocale })
-  const paramString = queryStringify(params)
+  const paramString = JSON.stringify({
+    ...getListStoriesParams(content, { locale, defaultLocale }),
+    page,
+    ...(content.enable_search && searchText
+      ? {
+          search_term: searchText
+        }
+      : {})
+  })
   const [storyData] = useState<
     LmListStoriesProps['content']['list_stories_data']
   >(content.list_stories_data)
   let revalidateOnMount = content.enable_search && !storyData?.data?.stories
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
-    content.max_items
-      ? null
-      : [
-          paramString,
-          storyData?.data.cv,
-          page,
-          content.enable_search ? searchText : ''
-        ],
+    content.max_items ? null : [paramString, storyData?.data.cv, isPreview],
     fetchListStories,
     {
       fallbackData: {
@@ -61,6 +60,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
       style={{
         position: 'relative',
         scrollMarginTop: '100px',
+        width: '100%',
         minHeight: content.enable_min_height ? 'calc(100vh - 120px)' : undefined
       }}
     >

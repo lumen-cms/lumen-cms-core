@@ -85,9 +85,15 @@ export default function LmFormBuilder({
                 },
                 body: JSON.stringify(cleanObj)
               }
-            ).then((r) => r.json())
-            console.log(res)
-            setSuccess(true)
+            )
+            const fetchResult = await res.json()
+            if (res.status !== 200) {
+              console.error(fetchResult)
+              setError(fetchResult)
+            } else {
+              console.log(fetchResult)
+              setSuccess(true)
+            }
           } else {
             console.log('data submitted, no endpoint given.', cleanObj)
             setSuccess(true)

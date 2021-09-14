@@ -16,12 +16,12 @@ export const queryStringify = (
     if (typeof value === 'object') {
       pair = queryStringify(
         value,
-        prefix ? prefix + '[' + enkey + ']' : enkey,
+        prefix ? prefix + encodeURIComponent('[' + enkey + ']') : enkey,
         Array.isArray(value)
       )
     } else {
       pair =
-        (prefix ? prefix + '[' + enkey + ']' : enkey) +
+        (prefix ? prefix + encodeURIComponent('[' + enkey + ']') : enkey) +
         '=' +
         encodeURIComponent(value)
     }
