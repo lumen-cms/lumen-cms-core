@@ -67,24 +67,24 @@ class StoryblokServiceClass {
     } else if (
       this.getQuery('_storyblok') ||
       this.devMode ||
-      (typeof window !== 'undefined' && window.StoryblokBridge)
+      (typeof window !== 'undefined' && window.StoryblokBridge) ||
+      params.version === 'draft'
     ) {
+      delete params.cv
       params.version = 'draft'
       params.token = CONFIG.previewToken
+      this.client.setToken(params.token)
     }
     return params
   }
 
   async getAll(slug: string, params = {}) {
-    return this.client.getAll(
-      slug,
-      {
-        ...rootParams,
-        ...params,
-        ...this.getDefaultParams()
-      },
-      'stories'
-    )
+    let getAllParams = {
+      ...rootParams,
+      ...params,
+      ...this.getDefaultParams()
+    }
+    return this.client.getAll(slug, getAllParams, 'stories')
   }
 
   async get(slug: string, params = {}) {

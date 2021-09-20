@@ -35,7 +35,7 @@ export type AppPageProps = Pick<
   AppApiRequestPayload,
   'formData' | 'googleFontString' | 'notFoundLocale'
 > &
-  Pick<GetStaticPropsContext, 'locales' | 'locale' | 'defaultLocale'> & {
+  PagePropsOptions & {
     page?: PageStoryblok | null
     settings?: GlobalStoryblok | null
     error?: LmErrorProps

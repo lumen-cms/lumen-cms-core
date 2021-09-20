@@ -9,10 +9,7 @@ export const listWidgetGetData = async (
   props: AppPageProps
 ): Promise<LmListWidgetProps['content']['list_widget_data']> => {
   // legacy code for BI and all projects where category is not part of the page schema
-  const allStories = await legacyAllStories({
-    locale: props.locale || '',
-    defaultLocale: props.defaultLocale || ''
-  })
+  const allStories = await legacyAllStories(props)
   const filtered = legacyFilterAllStories(item, allStories)
   return {
     items: filtered,

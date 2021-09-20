@@ -18,7 +18,6 @@ export default function LmListWidget({
     // if its legacy category system search over all data
     data = legacyClientListWidgetSearch(data || [], clientSideSearch)
   }
-
   return (
     <div
       style={{

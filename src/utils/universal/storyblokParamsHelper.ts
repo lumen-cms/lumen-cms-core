@@ -18,10 +18,9 @@ export const rootParams: StoriesParams = {
 }
 
 export const getStoriesDefaultParams = (props: AppPageProps): StoriesParams => {
-  const locale = props.locale !== props.defaultLocale ? props.locale : null
   const params: StoriesParams = {
     ...rootParams,
-    ...localeStoriesHelper(locale)
+    ...localeStoriesHelper(props)
   }
   return params
 }
