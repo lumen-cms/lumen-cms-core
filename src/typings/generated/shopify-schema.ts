@@ -104,7 +104,10 @@ export type Article = Node & {
   tags: Array<Scalars['String']>;
   /** The article’s name. */
   title: Scalars['String'];
-  /** The url pointing to the article accessible from the web. */
+  /**
+   * The url pointing to the article accessible from the web.
+   * @deprecated Use `onlineStoreUrl` instead
+   */
   url: Scalars['URL'];
 };
 
@@ -268,7 +271,10 @@ export type Blog = Node & {
   id: Scalars['ID'];
   /** The blogs’s title. */
   title: Scalars['String'];
-  /** The url pointing to the blog accessible from the web. */
+  /**
+   * The url pointing to the blog accessible from the web.
+   * @deprecated Use `onlineStoreUrl` instead
+   */
   url: Scalars['URL'];
 };
 
@@ -3964,7 +3970,10 @@ export type Page = Node & {
   title: Scalars['String'];
   /** The timestamp of the latest page update. */
   updatedAt: Scalars['DateTime'];
-  /** The url pointing to the page accessible from the web. */
+  /**
+   * The url pointing to the page accessible from the web.
+   * @deprecated Use `onlineStoreUrl` instead
+   */
   url: Scalars['URL'];
 };
 
@@ -4130,7 +4139,7 @@ export type Product = Node & HasMetafields & {
   metafield?: Maybe<Metafield>;
   /** A paginated list of metafields associated with the resource. */
   metafields: MetafieldConnection;
-  /** The URL used for viewing the resource on the shop's Online Store. May be null if the resource is currently not published to the Online Store sales channel. */
+  /** The URL used for viewing the resource on the shop's Online Store. Returns `null` if the resource is currently not published to the Online Store sales channel. */
   onlineStoreUrl?: Maybe<Scalars['URL']>;
   /** List of product options. */
   options: Array<ProductOption>;
@@ -4640,11 +4649,17 @@ export type QueryRoot = {
   __typename?: 'QueryRoot';
   /** List of the shop's articles. */
   articles: ArticleConnection;
-  /** Find a blog by its handle. */
+  /**
+   * Find a blog by its handle.
+   * @deprecated Use `blog` instead
+   */
   blogByHandle?: Maybe<Blog>;
   /** List of the shop's blogs. */
   blogs: BlogConnection;
-  /** Find a collection by its handle. */
+  /**
+   * Find a collection by its handle.
+   * @deprecated Use `collection` instead
+   */
   collectionByHandle?: Maybe<Collection>;
   /** List of the shop’s collections. */
   collections: CollectionConnection;
@@ -4654,11 +4669,17 @@ export type QueryRoot = {
   node?: Maybe<Node>;
   /** Returns the list of nodes with the given IDs. */
   nodes: Array<Maybe<Node>>;
-  /** Find a page by its handle. */
+  /**
+   * Find a page by its handle.
+   * @deprecated Use `page` instead
+   */
   pageByHandle?: Maybe<Page>;
   /** List of the shop's pages. */
   pages: PageConnection;
-  /** Find a product by its handle. */
+  /**
+   * Find a product by its handle.
+   * @deprecated Use `product` instead
+   */
   productByHandle?: Maybe<Product>;
   /**
    * Find recommended products related to a given `product_id`.

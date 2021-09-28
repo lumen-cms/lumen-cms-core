@@ -54,6 +54,8 @@
       "preset_id": null,
       "real_name": "accordion",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -106,7 +108,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "accordion_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "auth_container",
@@ -171,6 +175,8 @@
       "preset_id": null,
       "real_name": "auth_container",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -218,6 +224,8 @@
       "preset_id": null,
       "real_name": "auth_form",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -349,6 +357,8 @@
       "preset_id": null,
       "real_name": "avatar",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -593,7 +603,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "background",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "background_element_color",
@@ -616,7 +628,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "background_element_color",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "background_element_gradient",
@@ -638,7 +652,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "background_element_gradient",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "background_element_item",
@@ -747,7 +763,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "Background Element Picture",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "booking",
@@ -769,7 +787,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "booking",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "Booking Form",
@@ -786,7 +806,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "Booking Form",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "bottom_navigation",
@@ -859,6 +881,8 @@
       "preset_id": null,
       "real_name": "bottom_navigation",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -915,7 +939,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "bottom_navigation_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "button",
@@ -1219,6 +1245,8 @@
       "preset_id": null,
       "real_name": "button",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -1295,13 +1323,15 @@
       "preset_id": null,
       "real_name": "button_list",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
       "name": "button_speech_text",
       "display_name": null,
       "created_at": "2020-11-26T02:55:59.517Z",
-      "updated_at": "2020-11-26T02:56:20.927Z",
+      "updated_at": "2021-09-28T11:35:11.978Z",
       "id": 1207887,
       "schema": {
         "trigger": {
@@ -1311,6 +1341,9 @@
           "component_whitelist": [
             "button"
           ]
+        },
+        "full_page": {
+          "type": "boolean"
         }
       },
       "image": null,
@@ -1322,6 +1355,8 @@
       "preset_id": null,
       "real_name": "button_speech_text",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -2095,6 +2130,8 @@
       "preset_id": null,
       "real_name": "card_list",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -2223,7 +2260,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "card_list_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "category",
@@ -2265,6 +2304,8 @@
       "preset_id": null,
       "real_name": "category",
       "component_group_uuid": "34c29cf6-2ebb-4deb-b201-65723050f989",
+      "color": null,
+      "icon": null,
       "component_group_name": "Global"
     },
     {
@@ -2309,6 +2350,8 @@
       "preset_id": null,
       "real_name": "category_box",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -2334,7 +2377,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "chat_facebook",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "chat_tawkto",
@@ -2359,7 +2404,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "chat_tawkto",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "chat_whatsapp",
@@ -2405,7 +2452,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "chat_whatsapp",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "column",
@@ -2906,7 +2955,9 @@
       ],
       "preset_id": null,
       "real_name": "column",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "date_headline",
@@ -3175,6 +3226,8 @@
       "preset_id": null,
       "real_name": "date_headline",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -3379,7 +3432,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "date_time_format",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "date_time_headline",
@@ -3416,7 +3471,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "date_time_headline",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "dialog",
@@ -3534,6 +3591,8 @@
       "preset_id": null,
       "real_name": "dialog",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -3592,7 +3651,67 @@
       "preset_id": null,
       "real_name": "divider",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
+    },
+    {
+      "name": "document",
+      "display_name": null,
+      "created_at": "2021-09-20T13:52:17.880Z",
+      "updated_at": "2021-09-20T13:55:51.490Z",
+      "id": 1799721,
+      "schema": {
+        "title": {
+          "type": "text"
+        },
+        "description": {
+          "type": "textarea"
+        },
+        "file": {
+          "type": "asset",
+          "filetypes": []
+        },
+        "categories": {
+          "type": "options",
+          "source": "internal_stories",
+          "filter_content_type": "document_category"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "document",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "document_category",
+      "display_name": null,
+      "created_at": "2021-09-20T13:53:49.568Z",
+      "updated_at": "2021-09-20T13:54:15.304Z",
+      "id": 1799724,
+      "schema": {
+        "name": {
+          "type": "text"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": true,
+      "preview_tmpl": null,
+      "is_nestable": false,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "document_category",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "ecommerce_checkout",
@@ -3632,6 +3751,8 @@
       "preset_id": null,
       "real_name": "ecommerce_checkout",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -3660,6 +3781,8 @@
       "preset_id": null,
       "real_name": "ecommerce_fastspring_config",
       "component_group_uuid": "4effe22f-7d82-4514-8d3e-820c129cb8ca",
+      "color": null,
+      "icon": null,
       "component_group_name": "Ecommerce"
     },
     {
@@ -3689,6 +3812,8 @@
       "preset_id": null,
       "real_name": "ecommerce_fastspring_product",
       "component_group_uuid": "4effe22f-7d82-4514-8d3e-820c129cb8ca",
+      "color": null,
+      "icon": null,
       "component_group_name": "Ecommerce"
     },
     {
@@ -3714,6 +3839,8 @@
       "preset_id": null,
       "real_name": "ecommerce_paypal_config",
       "component_group_uuid": "4effe22f-7d82-4514-8d3e-820c129cb8ca",
+      "color": null,
+      "icon": null,
       "component_group_name": "Ecommerce"
     },
     {
@@ -3736,6 +3863,8 @@
       "preset_id": null,
       "real_name": "ecommerce_paypal_product",
       "component_group_uuid": "4effe22f-7d82-4514-8d3e-820c129cb8ca",
+      "color": null,
+      "icon": null,
       "component_group_name": "Ecommerce"
     },
     {
@@ -3759,6 +3888,8 @@
       "preset_id": null,
       "real_name": "ecommerce_shopify_checkout",
       "component_group_uuid": "4effe22f-7d82-4514-8d3e-820c129cb8ca",
+      "color": null,
+      "icon": null,
       "component_group_name": "Ecommerce"
     },
     {
@@ -4232,6 +4363,8 @@
       "preset_id": null,
       "real_name": "ecommerce_shopify_config",
       "component_group_uuid": "4effe22f-7d82-4514-8d3e-820c129cb8ca",
+      "color": null,
+      "icon": null,
       "component_group_name": "Ecommerce"
     },
     {
@@ -4298,6 +4431,8 @@
       "preset_id": null,
       "real_name": "ecommerce_shopify_iframe",
       "component_group_uuid": "4effe22f-7d82-4514-8d3e-820c129cb8ca",
+      "color": null,
+      "icon": null,
       "component_group_name": "Ecommerce"
     },
     {
@@ -4325,6 +4460,8 @@
       "preset_id": null,
       "real_name": "ecommerce_snipcart_config",
       "component_group_uuid": "4effe22f-7d82-4514-8d3e-820c129cb8ca",
+      "color": null,
+      "icon": null,
       "component_group_name": "Ecommerce"
     },
     {
@@ -4362,6 +4499,8 @@
       "preset_id": null,
       "real_name": "ecommerce_snipcart_product",
       "component_group_uuid": "4effe22f-7d82-4514-8d3e-820c129cb8ca",
+      "color": null,
+      "icon": null,
       "component_group_name": "Ecommerce"
     },
     {
@@ -4397,6 +4536,8 @@
       "preset_id": null,
       "real_name": "error_page",
       "component_group_uuid": "5d7b52be-04e6-41cc-b411-5e45e3e2d871",
+      "color": null,
+      "icon": null,
       "component_group_name": "Settings"
     },
     {
@@ -4550,7 +4691,9 @@
       ],
       "preset_id": null,
       "real_name": "event",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "event_calendar",
@@ -4652,6 +4795,8 @@
       "preset_id": null,
       "real_name": "event_calendar",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -4683,7 +4828,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "event_category",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "event_date",
@@ -4717,7 +4864,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "event_date",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "fastspring_product",
@@ -4738,7 +4887,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "fastspring_product",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "flex_row",
@@ -4948,6 +5099,8 @@
       "preset_id": null,
       "real_name": "Flex Box",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -5104,6 +5257,8 @@
       "preset_id": null,
       "real_name": "Google Form",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -5248,6 +5403,8 @@
       "preset_id": null,
       "real_name": "form_builder",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -5284,7 +5441,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "form_checkbox",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "form_container",
@@ -5324,6 +5483,8 @@
       "preset_id": null,
       "real_name": "form_container",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -5353,7 +5514,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "form_hidden_field",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "form_select",
@@ -5435,7 +5598,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "form_select",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "form_select_option",
@@ -5462,7 +5627,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "form_select_option",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "form_textfield",
@@ -5541,7 +5708,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "form_textfield",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "global",
@@ -6149,6 +6318,8 @@
       "preset_id": null,
       "real_name": "global",
       "component_group_uuid": "5d7b52be-04e6-41cc-b411-5e45e3e2d871",
+      "color": null,
+      "icon": null,
       "component_group_name": "Settings"
     },
     {
@@ -6511,6 +6682,8 @@
       "preset_id": null,
       "real_name": "headline",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -6591,6 +6764,8 @@
       "preset_id": null,
       "real_name": "HTML/Container",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -6657,6 +6832,8 @@
       "preset_id": null,
       "real_name": "hubspot_form",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -6680,6 +6857,8 @@
       "preset_id": null,
       "real_name": "hubspot_meeting",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -6776,6 +6955,8 @@
       "preset_id": null,
       "real_name": "icon",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -6898,6 +7079,8 @@
       "preset_id": null,
       "real_name": "iframe",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -7001,6 +7184,8 @@
       "preset_id": null,
       "real_name": "iframe_advanced",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -7148,6 +7333,8 @@
       "preset_id": null,
       "real_name": "image",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -7184,7 +7371,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "Open Gaph Images",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "image_list",
@@ -7477,6 +7666,8 @@
       "preset_id": null,
       "real_name": "image_list",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -7535,7 +7726,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "image_list_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "instagram_list",
@@ -7830,6 +8023,8 @@
       "preset_id": null,
       "real_name": "instagram_list",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -7861,6 +8056,8 @@
       "preset_id": null,
       "real_name": "instagram_post",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -7890,7 +8087,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "item_key_value",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "link",
@@ -7962,6 +8161,8 @@
       "preset_id": null,
       "real_name": "link",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -8024,7 +8225,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "lists",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "list_search_autocomplete",
@@ -8165,6 +8368,8 @@
       "preset_id": null,
       "real_name": "list_search_autocomplete",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -8249,13 +8454,15 @@
       "preset_id": null,
       "real_name": "list_search_field",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
       "name": "list_stories",
       "display_name": null,
       "created_at": "2021-08-20T06:33:37.926Z",
-      "updated_at": "2021-09-06T12:11:01.656Z",
+      "updated_at": "2021-09-20T13:59:47.360Z",
       "id": 1720175,
       "schema": {
         "enable_search": {
@@ -8367,6 +8574,23 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ]
+        },
+        "tab-c9ce5ac1-b141-40e2-8d17-33fc102b5ed7": {
+          "type": "tab",
+          "display_name": "Document",
+          "keys": [
+            "document_categories",
+            "match_all_document_categories"
+          ],
+          "pos": 0
+        },
+        "document_categories": {
+          "type": "options",
+          "source": "internal_stories",
+          "filter_content_type": "document_category"
+        },
+        "match_all_document_categories": {
+          "type": "boolean"
         }
       },
       "image": null,
@@ -8385,6 +8609,8 @@
       "preset_id": null,
       "real_name": "list_stories",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -8527,6 +8753,8 @@
       "preset_id": null,
       "real_name": "list_widget",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -8557,7 +8785,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "logo",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "motion",
@@ -8662,6 +8892,8 @@
       "preset_id": null,
       "real_name": "motion",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -8697,7 +8929,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "nav_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "nav_list",
@@ -8784,6 +9018,8 @@
       "preset_id": null,
       "real_name": "nav_list",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -8960,6 +9196,8 @@
       "preset_id": null,
       "real_name": "nav_menu",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -9009,7 +9247,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "nav_menu_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "news",
@@ -9088,7 +9328,9 @@
       ],
       "preset_id": null,
       "real_name": "news",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "news_category",
@@ -9109,7 +9351,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "news_category",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "news_list",
@@ -9183,6 +9427,8 @@
       "preset_id": null,
       "real_name": "news_list",
       "component_group_uuid": "5ca9c71a-078b-4bae-85e3-3b165eb43dd3",
+      "color": null,
+      "icon": null,
       "component_group_name": ""
     },
     {
@@ -9460,6 +9706,8 @@
       "preset_id": null,
       "real_name": "page",
       "component_group_uuid": "34c29cf6-2ebb-4deb-b201-65723050f989",
+      "color": null,
+      "icon": null,
       "component_group_name": "Global"
     },
     {
@@ -9565,7 +9813,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "pagination",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "paragraph",
@@ -9684,6 +9934,8 @@
       "preset_id": null,
       "real_name": "Paragraph-Deprecated",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -9728,7 +9980,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "parallax_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "player",
@@ -9850,6 +10104,8 @@
       "preset_id": null,
       "real_name": "player",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -9921,6 +10177,8 @@
       "preset_id": null,
       "real_name": "pricing",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -10008,7 +10266,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "pricing_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "promotion",
@@ -10046,6 +10306,8 @@
       "preset_id": null,
       "real_name": "promotion",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -10152,7 +10414,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "promotion_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "rich_text_editor",
@@ -10509,6 +10773,8 @@
       "preset_id": null,
       "real_name": "rich_text_editor",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -10799,6 +11065,8 @@
       "preset_id": null,
       "real_name": "row",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -10911,6 +11179,8 @@
       "preset_id": null,
       "real_name": "row_nested",
       "component_group_uuid": "d743c163-bc2f-4a1d-bc74-ff4d439ca045",
+      "color": null,
+      "icon": null,
       "component_group_name": "Nested"
     },
     {
@@ -10975,7 +11245,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "script",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "search_story",
@@ -11016,6 +11288,8 @@
       "preset_id": null,
       "real_name": "search_story",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -11610,7 +11884,9 @@
       ],
       "preset_id": null,
       "real_name": "section",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "section_parallax",
@@ -11672,7 +11948,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "section_parallax",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "section_video_bg",
@@ -11856,7 +12134,9 @@
       ],
       "preset_id": null,
       "real_name": "section_video_bg",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "seo_corporate_contact",
@@ -11890,6 +12170,8 @@
       "preset_id": null,
       "real_name": "seo_corporate_contact",
       "component_group_uuid": "2b98e248-58bf-4019-a861-0af16cd45f42",
+      "color": null,
+      "icon": null,
       "component_group_name": "Seo"
     },
     {
@@ -11925,6 +12207,8 @@
       "preset_id": null,
       "real_name": "seo_corporate_contact_point",
       "component_group_uuid": "2b98e248-58bf-4019-a861-0af16cd45f42",
+      "color": null,
+      "icon": null,
       "component_group_name": "Seo"
     },
     {
@@ -12023,6 +12307,8 @@
       "preset_id": null,
       "real_name": "seo_local_business",
       "component_group_uuid": "2b98e248-58bf-4019-a861-0af16cd45f42",
+      "color": null,
+      "icon": null,
       "component_group_name": "Seo"
     },
     {
@@ -12096,6 +12382,8 @@
       "preset_id": null,
       "real_name": "seo_local_business_opening_hour",
       "component_group_uuid": "2b98e248-58bf-4019-a861-0af16cd45f42",
+      "color": null,
+      "icon": null,
       "component_group_name": "Seo"
     },
     {
@@ -12158,6 +12446,8 @@
       "preset_id": null,
       "real_name": "seo_open_graph",
       "component_group_uuid": "2b98e248-58bf-4019-a861-0af16cd45f42",
+      "color": null,
+      "icon": null,
       "component_group_name": "Seo"
     },
     {
@@ -12211,6 +12501,8 @@
       "preset_id": null,
       "real_name": "seo_product",
       "component_group_uuid": "2b98e248-58bf-4019-a861-0af16cd45f42",
+      "color": null,
+      "icon": null,
       "component_group_name": "Seo"
     },
     {
@@ -12320,6 +12612,8 @@
       "preset_id": null,
       "real_name": "seo_product_offer",
       "component_group_uuid": "2b98e248-58bf-4019-a861-0af16cd45f42",
+      "color": null,
+      "icon": null,
       "component_group_name": "Seo"
     },
     {
@@ -12371,6 +12665,8 @@
       "preset_id": null,
       "real_name": "seo_social_profile",
       "component_group_uuid": "2b98e248-58bf-4019-a861-0af16cd45f42",
+      "color": null,
+      "icon": null,
       "component_group_name": "Seo"
     },
     {
@@ -12423,6 +12719,8 @@
       "preset_id": null,
       "real_name": "seo_twitter",
       "component_group_uuid": "2b98e248-58bf-4019-a861-0af16cd45f42",
+      "color": null,
+      "icon": null,
       "component_group_name": "Seo"
     },
     {
@@ -12601,6 +12899,8 @@
       "preset_id": null,
       "real_name": "slider",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -12853,7 +13153,9 @@
       ],
       "preset_id": null,
       "real_name": "snackbar",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "static_container",
@@ -12880,6 +13182,8 @@
       "preset_id": null,
       "real_name": "static_container",
       "component_group_uuid": "34c29cf6-2ebb-4deb-b201-65723050f989",
+      "color": null,
+      "icon": null,
       "component_group_name": "Global"
     },
     {
@@ -12912,6 +13216,8 @@
       "preset_id": null,
       "real_name": "static_section",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -13330,7 +13636,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "styles",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "style_variants_bg",
@@ -13356,7 +13664,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "style_variants_bg",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "table",
@@ -13431,6 +13741,8 @@
       "preset_id": null,
       "real_name": "table",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -13654,6 +13966,8 @@
       "preset_id": null,
       "real_name": "tabs",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -13689,7 +14003,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "tabs_item",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "timeline",
@@ -13756,6 +14072,8 @@
       "preset_id": null,
       "real_name": "timeline",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
       "component_group_name": "General"
     },
     {
@@ -13878,6 +14196,8 @@
       "preset_id": null,
       "real_name": "timeline_item",
       "component_group_uuid": "ba55eb93-c3ad-4f56-aaf7-25a0fcf6e08c",
+      "color": null,
+      "icon": null,
       "component_group_name": ""
     },
     {
@@ -13907,7 +14227,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "toolbar_logo",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "toolbar_navi_button",
@@ -13960,7 +14282,10 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "Drawer open/close button",
-      "component_group_uuid": null
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
+      "component_group_name": "General"
     },
     {
       "name": "toolbar_row",
@@ -14112,7 +14437,9 @@
       ],
       "preset_id": null,
       "real_name": "toolbar_row",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "toolbar_row_section",
@@ -14207,7 +14534,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "Toolbar Section",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "toolbar_search",
@@ -14239,7 +14568,9 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "toolbar_search",
-      "component_group_uuid": null
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     }
   ]
 }

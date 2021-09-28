@@ -76,6 +76,7 @@ export function LmSection({
   return (
     <div
       className={clsx(
+        'lm-section',
         classes.background,
         { [classes.dark]: !!content.variant },
         className

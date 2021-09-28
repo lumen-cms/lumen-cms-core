@@ -82,6 +82,7 @@ export interface AuthContainerStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   _uid: string;
   component: "auth_container";
@@ -140,6 +141,7 @@ export interface AuthFormStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   account_update_button?: ButtonStoryblok[];
   account_delete_button?: ButtonStoryblok[];
@@ -373,6 +375,7 @@ export interface ButtonListStoryblok {
 
 export interface ButtonSpeechTextStoryblok {
   trigger?: ButtonStoryblok[];
+  full_page?: boolean;
   _uid: string;
   component: "button_speech_text";
   [k: string]: any;
@@ -601,6 +604,7 @@ export interface ColumnStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   background?: BackgroundStoryblok[];
   justify?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
@@ -731,6 +735,7 @@ export interface DialogStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   fullscreen?: "xs" | "sm" | "md" | "lg" | "xl";
   prevent_click_outside?: boolean;
@@ -789,6 +794,7 @@ export interface DialogStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   _uid: string;
   component: "dialog";
@@ -808,6 +814,30 @@ export interface DividerStoryblok {
   size?: number;
   _uid: string;
   component: "divider";
+  [k: string]: any;
+}
+
+export interface DocumentStoryblok {
+  title?: string;
+  description?: string;
+  file?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  };
+  categories?: any[];
+  _uid: string;
+  component: "document";
+  [k: string]: any;
+}
+
+export interface DocumentCategoryStoryblok {
+  name?: string;
+  _uid: string;
+  component: "document_category";
   [k: string]: any;
 }
 
@@ -1016,6 +1046,7 @@ export interface EventStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   title: string;
   start: string;
@@ -1138,6 +1169,7 @@ export interface FlexRowStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   class_names?: {
     values?: string[];
@@ -1255,6 +1287,7 @@ export interface FormContainerStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   _uid: string;
   component: "form_container";
@@ -1505,6 +1538,7 @@ export interface HtmlStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   lazy_load?: boolean;
   styles_mobile?: StylesStoryblok[];
@@ -1860,7 +1894,10 @@ export interface ListStoriesStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
+  document_categories?: any[];
+  match_all_document_categories?: boolean;
   _uid: string;
   component: "list_stories";
   [k: string]: any;
@@ -1951,6 +1988,7 @@ export interface MotionStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   _uid: string;
   component: "motion";
@@ -2188,6 +2226,7 @@ export interface PageStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   mobile_breakpoint?: "sm" | "md" | "lg" | "xl";
   right_drawer_width?: number;
@@ -2471,6 +2510,7 @@ export interface SectionStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   background?: BackgroundStoryblok[];
@@ -2762,6 +2802,7 @@ export interface SnackbarStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   close_action?: ButtonStoryblok[];
   additional_actions?: ButtonStoryblok[];
@@ -2826,6 +2867,7 @@ export interface StaticContainerStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   _uid: string;
   component: "static_container";
@@ -2998,6 +3040,7 @@ export interface TabsItemStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   _uid: string;
   component: "tabs_item";
@@ -3070,6 +3113,7 @@ export interface TimelineItemStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   link?:
     | {
@@ -3146,6 +3190,7 @@ export interface TimelineItemStoryblok {
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
   )[];
   _uid: string;
   component: "timeline_item";

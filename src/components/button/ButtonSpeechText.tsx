@@ -1,5 +1,5 @@
 import { LmComponentRender } from '@LmComponentRender'
-import React from 'react'
+import React, { useRef } from 'react'
 // eslint-disable-next-line
 // @ts-ignore
 import { useSpeechSynthesis } from 'react-speech-kit'
@@ -11,11 +11,11 @@ export default function LmButtonSpeechText({
   content
 }: LmButtonSpeechTextProps) {
   const { locale } = useRouter()
+  const ref = useRef<HTMLDivElement>(null)
   const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis()
   const currentVoices: SpeechSynthesisVoice[] = voices
-  const trigger = Array.isArray(content.trigger)
-    ? content.trigger[0]
-    : undefined
+  const { full_page, ...props } = content
+  const trigger = Array.isArray(props.trigger) ? props.trigger[0] : undefined
 
   const onClick = () => {
     if (speaking) {
@@ -25,7 +25,13 @@ export default function LmButtonSpeechText({
     const selectedVoice = currentVoices.find((v) =>
       v.lang.startsWith(locale || 'de')
     )
-    const allNodes = document.querySelectorAll('.enable__speech')
+
+    const allNodes = full_page
+      ? document.querySelectorAll('.enable__speech') || []
+      : ref.current
+          ?.closest('.lm-section')
+          ?.querySelectorAll('.enable__speech') || []
+
     const texts: string[] = []
     allNodes.forEach((node) => {
       // eslint-disable-next-line
@@ -38,23 +44,26 @@ export default function LmButtonSpeechText({
     return <div>not supported..</div>
   }
   return (
-    <LmComponentRender
-      content={
-        {
-          _uid: content._uid,
-          component: 'button',
-          label: 'Click to speech',
-          ...(trigger || {}),
-          ...(speaking
-            ? {
-                trailing_icon: {
-                  name: 'account-voice'
+    <div ref={ref}>
+      <LmComponentRender
+        content={
+          {
+            id: content._uid,
+            _uid: content._uid,
+            component: 'button',
+            label: 'Click to speech',
+            ...(trigger || {}),
+            ...(speaking
+              ? {
+                  trailing_icon: {
+                    name: 'account-voice'
+                  }
                 }
-              }
-            : {})
-        } as ButtonStoryblok
-      }
-      onClick={onClick}
-    />
+              : {})
+          } as ButtonStoryblok
+        }
+        onClick={onClick}
+      />
+    </div>
   )
 }
