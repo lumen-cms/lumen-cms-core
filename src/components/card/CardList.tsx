@@ -8,6 +8,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import { useGridListStyles } from './cardListStyles'
 import { LmCardListProps } from './cardTypes'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { CardListStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles({
   cardBase: {
@@ -66,7 +67,12 @@ const useStyles = makeStyles({
         flexDirection: 'column'
       }
     }
-  }
+  },
+  gridCustom: (content: CardListStoryblok) => ({
+    '& .MuiCardMedia-root > div': {
+      borderRadius: content.image_border_radius
+    }
+  })
 })
 
 const chunkSize = 30
@@ -76,7 +82,7 @@ export default function LmCardList({
   disablePagination
 }: LmCardListProps): JSX.Element {
   const { body = [], ...rest } = content
-  const classes = useStyles(content)
+  const classes = useStyles(rest)
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,
@@ -106,6 +112,7 @@ export default function LmCardList({
       }}
       className={clsx(
         classes.cardBase,
+        classes.gridCustom,
         variant.map((i) => `card__${i}`),
         {
           [`ratio-${content.image_ratio}`]: content.image_ratio

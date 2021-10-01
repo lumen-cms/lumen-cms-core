@@ -1363,168 +1363,47 @@
       "name": "card_list",
       "display_name": null,
       "created_at": "2020-05-01T08:40:44.719Z",
-      "updated_at": "2021-08-26T05:53:12.163Z",
+      "updated_at": "2021-10-01T09:29:17.746Z",
       "id": 894842,
       "schema": {
-        "column_gap": {
+        "image_ratio": {
           "type": "option",
           "use_uuid": true,
           "options": [
             {
-              "value": "0",
-              "name": "0"
+              "value": "16x9",
+              "name": "16x9"
             },
             {
-              "value": "2",
-              "name": "2"
+              "value": "1x1",
+              "name": "1x1"
             },
             {
-              "value": "4",
-              "name": "4"
+              "value": "4x3",
+              "name": "4x3"
             },
             {
-              "value": "8",
-              "name": "8"
+              "value": "3x2",
+              "name": "3x2"
             },
             {
-              "value": "16",
-              "name": "16"
+              "value": "2x3",
+              "name": "2x3"
             },
             {
-              "value": "24",
-              "name": "24"
+              "value": "1x3",
+              "name": "1x3"
             },
             {
-              "value": "32",
-              "name": "32"
+              "value": "3x1",
+              "name": "3x1"
+            },
+            {
+              "value": "2.85x1",
+              "name": "2.85x1"
             }
           ],
           "pos": 0
-        },
-        "column_count": {
-          "type": "option",
-          "use_uuid": true,
-          "options": [
-            {
-              "value": "1",
-              "name": "1"
-            },
-            {
-              "value": "2",
-              "name": "2"
-            },
-            {
-              "value": "3",
-              "name": "3"
-            },
-            {
-              "value": "4",
-              "name": "4"
-            },
-            {
-              "value": "5",
-              "name": "5"
-            },
-            {
-              "value": "6",
-              "name": "6"
-            },
-            {
-              "value": "7",
-              "name": "7"
-            },
-            {
-              "value": "8",
-              "name": "8"
-            },
-            {
-              "value": "9",
-              "name": "9"
-            },
-            {
-              "value": "10",
-              "name": "10"
-            },
-            {
-              "value": "11",
-              "name": "11"
-            },
-            {
-              "value": "12",
-              "name": "12"
-            }
-          ],
-          "pos": 1
-        },
-        "column_count_tablet": {
-          "type": "option",
-          "pos": 2,
-          "use_uuid": true,
-          "options": [
-            {
-              "value": "1",
-              "name": "1"
-            },
-            {
-              "value": "2",
-              "name": "2"
-            },
-            {
-              "value": "3",
-              "name": "3"
-            },
-            {
-              "value": "4",
-              "name": "4"
-            },
-            {
-              "value": "5",
-              "name": "5"
-            },
-            {
-              "value": "6",
-              "name": "6"
-            },
-            {
-              "value": "7",
-              "name": "7"
-            },
-            {
-              "value": "8",
-              "name": "8"
-            }
-          ]
-        },
-        "column_count_phone": {
-          "type": "option",
-          "pos": 3,
-          "use_uuid": true,
-          "options": [
-            {
-              "value": "1",
-              "name": "1"
-            },
-            {
-              "value": "2",
-              "name": "2"
-            },
-            {
-              "value": "3",
-              "name": "3"
-            },
-            {
-              "value": "4",
-              "name": "4"
-            }
-          ]
-        },
-        "description_max_character": {
-          "type": "number",
-          "pos": 4
-        },
-        "card_actions_disable_spacing": {
-          "type": "boolean",
-          "pos": 5
         },
         "variant": {
           "type": "options",
@@ -1575,77 +1454,7 @@
               "name": "Content overlay without space"
             }
           ],
-          "pos": 6
-        },
-        "image_size": {
-          "type": "option",
-          "use_uuid": true,
-          "options": [
-            {
-              "value": "cover",
-              "name": "Cover"
-            },
-            {
-              "value": "contain",
-              "name": "Contain"
-            },
-            {
-              "value": "initial",
-              "name": "Initial"
-            },
-            {
-              "value": "auto",
-              "name": "Auto"
-            },
-            {
-              "value": "none",
-              "name": "None"
-            }
-          ],
-          "pos": 7
-        },
-        "image_ratio": {
-          "type": "option",
-          "use_uuid": true,
-          "options": [
-            {
-              "value": "16x9",
-              "name": "16x9"
-            },
-            {
-              "value": "1x1",
-              "name": "1x1"
-            },
-            {
-              "value": "4x3",
-              "name": "4x3"
-            },
-            {
-              "value": "3x2",
-              "name": "3x2"
-            },
-            {
-              "value": "2x3",
-              "name": "2x3"
-            },
-            {
-              "value": "1x3",
-              "name": "1x3"
-            },
-            {
-              "value": "3x1",
-              "name": "3x1"
-            },
-            {
-              "value": "2.85x1",
-              "name": "2.85x1"
-            }
-          ],
-          "pos": 8
-        },
-        "hide_image": {
-          "type": "boolean",
-          "pos": 9
+          "pos": 1
         },
         "border_radius": {
           "type": "text",
@@ -1668,7 +1477,7 @@
               "name": ""
             }
           ],
-          "pos": 10,
+          "pos": 2,
           "description": "Set border radius like: \"4px\" or any other style. Order is: top-left,top-right,bottom-right,bottom-left. To remove use \"0\""
         },
         "shadow_effect": {
@@ -1704,7 +1513,7 @@
               "name": "flow-up"
             }
           ],
-          "pos": 11
+          "pos": 3
         },
         "elevation": {
           "type": "option",
@@ -1763,11 +1572,264 @@
               "name": "22"
             }
           ],
+          "pos": 4
+        },
+        "image_size": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "cover",
+              "name": "Cover"
+            },
+            {
+              "value": "contain",
+              "name": "Contain"
+            },
+            {
+              "value": "initial",
+              "name": "Initial"
+            },
+            {
+              "value": "auto",
+              "name": "Auto"
+            },
+            {
+              "value": "none",
+              "name": "None"
+            }
+          ],
+          "pos": 5
+        },
+        "hide_image": {
+          "type": "boolean",
+          "pos": 6
+        },
+        "column_gap": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "0",
+              "name": "0"
+            },
+            {
+              "value": "2",
+              "name": "2"
+            },
+            {
+              "value": "4",
+              "name": "4"
+            },
+            {
+              "value": "8",
+              "name": "8"
+            },
+            {
+              "value": "16",
+              "name": "16"
+            },
+            {
+              "value": "24",
+              "name": "24"
+            },
+            {
+              "value": "32",
+              "name": "32"
+            }
+          ],
+          "pos": 7
+        },
+        "column_count": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "1",
+              "name": "1"
+            },
+            {
+              "value": "2",
+              "name": "2"
+            },
+            {
+              "value": "3",
+              "name": "3"
+            },
+            {
+              "value": "4",
+              "name": "4"
+            },
+            {
+              "value": "5",
+              "name": "5"
+            },
+            {
+              "value": "6",
+              "name": "6"
+            },
+            {
+              "value": "7",
+              "name": "7"
+            },
+            {
+              "value": "8",
+              "name": "8"
+            },
+            {
+              "value": "9",
+              "name": "9"
+            },
+            {
+              "value": "10",
+              "name": "10"
+            },
+            {
+              "value": "11",
+              "name": "11"
+            },
+            {
+              "value": "12",
+              "name": "12"
+            }
+          ],
+          "pos": 8
+        },
+        "column_count_tablet": {
+          "type": "option",
+          "pos": 9,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "1",
+              "name": "1"
+            },
+            {
+              "value": "2",
+              "name": "2"
+            },
+            {
+              "value": "3",
+              "name": "3"
+            },
+            {
+              "value": "4",
+              "name": "4"
+            },
+            {
+              "value": "5",
+              "name": "5"
+            },
+            {
+              "value": "6",
+              "name": "6"
+            },
+            {
+              "value": "7",
+              "name": "7"
+            },
+            {
+              "value": "8",
+              "name": "8"
+            }
+          ]
+        },
+        "column_count_phone": {
+          "type": "option",
+          "pos": 10,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "1",
+              "name": "1"
+            },
+            {
+              "value": "2",
+              "name": "2"
+            },
+            {
+              "value": "3",
+              "name": "3"
+            },
+            {
+              "value": "4",
+              "name": "4"
+            }
+          ]
+        },
+        "description_max_character": {
+          "type": "number",
+          "pos": 11
+        },
+        "card_actions_disable_spacing": {
+          "type": "boolean",
           "pos": 12
+        },
+        "tab-44e0d184-7b4a-4c0e-b4d7-7ffbaaa7b68b": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "variant",
+            "elevation",
+            "border_radius",
+            "shadow_effect"
+          ],
+          "pos": 13
+        },
+        "tab-36e45858-5221-4b11-9930-8dc29fcfcf6a": {
+          "type": "tab",
+          "display_name": "Column",
+          "keys": [
+            "column_count",
+            "column_count_tablet",
+            "column_count_phone",
+            "column_gap",
+            "description_max_character",
+            "card_actions_disable_spacing"
+          ],
+          "pos": 14
+        },
+        "tab-d1222ed2-ba7c-4bbd-8c4c-71f5badbd308": {
+          "type": "tab",
+          "display_name": "Media",
+          "keys": [
+            "hide_image",
+            "image_size",
+            "image_ratio",
+            "image_border_radius",
+            "image_margin"
+          ],
+          "pos": 15
+        },
+        "tab-d07832ad-2830-4604-bc24-84eebc57c051": {
+          "type": "tab",
+          "display_name": "Text",
+          "keys": [
+            "title_typography",
+            "title_tag",
+            "title_class_name",
+            "subtitle_typography",
+            "subtitle_tag",
+            "description_typography",
+            "subtitle_class_name",
+            "description_class_name"
+          ],
+          "pos": 16
+        },
+        "tab-b5685df4-930c-4baa-aa30-d7cf1030cd3b": {
+          "type": "tab",
+          "display_name": "Custom",
+          "keys": [
+            "title_custom",
+            "subtitle_custom",
+            "description_custom",
+            "date_format"
+          ],
+          "pos": 17
         },
         "title_typography": {
           "type": "option",
-          "pos": 13,
+          "pos": 18,
           "use_uuid": true,
           "options": [
             {
@@ -1822,7 +1884,7 @@
         },
         "title_tag": {
           "type": "option",
-          "pos": 14,
+          "pos": 19,
           "use_uuid": true,
           "options": [
             {
@@ -1853,7 +1915,7 @@
         },
         "title_class_name": {
           "type": "custom",
-          "pos": 15,
+          "pos": 20,
           "field_type": "bootstrap-utility-class-selector",
           "options": [
             {
@@ -1864,7 +1926,7 @@
         },
         "subtitle_typography": {
           "type": "option",
-          "pos": 16,
+          "pos": 21,
           "use_uuid": true,
           "options": [
             {
@@ -1919,7 +1981,7 @@
         },
         "subtitle_tag": {
           "type": "option",
-          "pos": 17,
+          "pos": 22,
           "use_uuid": true,
           "options": [
             {
@@ -1950,7 +2012,7 @@
         },
         "subtitle_class_name": {
           "type": "custom",
-          "pos": 18,
+          "pos": 23,
           "field_type": "bootstrap-utility-class-selector",
           "options": [
             {
@@ -1962,7 +2024,7 @@
         "description_typography": {
           "type": "option",
           "use_uuid": true,
-          "pos": 19,
+          "pos": 24,
           "options": [
             {
               "value": "headline4",
@@ -1996,7 +2058,7 @@
         },
         "description_class_name": {
           "type": "custom",
-          "pos": 20,
+          "pos": 25,
           "field_type": "bootstrap-utility-class-selector",
           "options": [
             {
@@ -2005,51 +2067,9 @@
             }
           ]
         },
-        "tab-44e0d184-7b4a-4c0e-b4d7-7ffbaaa7b68b": {
-          "type": "tab",
-          "display_name": "Settings",
-          "keys": [
-            "variant",
-            "hide_image",
-            "image_ratio",
-            "image_size",
-            "elevation",
-            "border_radius",
-            "shadow_effect"
-          ],
-          "pos": 21
-        },
-        "tab-36e45858-5221-4b11-9930-8dc29fcfcf6a": {
-          "type": "tab",
-          "display_name": "Column",
-          "keys": [
-            "column_count",
-            "column_count_tablet",
-            "column_count_phone",
-            "column_gap",
-            "description_max_character",
-            "card_actions_disable_spacing"
-          ],
-          "pos": 22
-        },
-        "tab-d07832ad-2830-4604-bc24-84eebc57c051": {
-          "type": "tab",
-          "display_name": "Text",
-          "keys": [
-            "title_typography",
-            "title_tag",
-            "title_class_name",
-            "subtitle_typography",
-            "subtitle_tag",
-            "description_typography",
-            "subtitle_class_name",
-            "description_class_name"
-          ],
-          "pos": 23
-        },
         "body": {
           "type": "bloks",
-          "pos": 24,
+          "pos": 26,
           "maximum": "",
           "restrict_components": true,
           "component_whitelist": [
@@ -2058,24 +2078,14 @@
           "description": "Leave empty if used as options of \"List Widget\" element.",
           "component_group_whitelist": []
         },
-        "tab-b5685df4-930c-4baa-aa30-d7cf1030cd3b": {
-          "type": "tab",
-          "display_name": "Custom",
-          "keys": [
-            "title_custom",
-            "subtitle_custom",
-            "description_custom",
-            "date_format"
-          ],
-          "pos": 0
-        },
         "title_custom": {
           "type": "bloks",
           "maximum": "1",
           "restrict_components": true,
           "component_whitelist": [
             "headline"
-          ]
+          ],
+          "pos": 27
         },
         "subtitle_custom": {
           "type": "bloks",
@@ -2083,7 +2093,8 @@
           "component_whitelist": [
             "headline"
           ],
-          "maximum": "1"
+          "maximum": "1",
+          "pos": 28
         },
         "description_custom": {
           "type": "bloks",
@@ -2091,7 +2102,8 @@
           "restrict_components": true,
           "component_whitelist": [
             "headline"
-          ]
+          ],
+          "pos": 29
         },
         "date_format": {
           "type": "bloks",
@@ -2099,7 +2111,14 @@
           "restrict_components": true,
           "component_whitelist": [
             "date_time_format"
-          ]
+          ],
+          "pos": 30
+        },
+        "image_border_radius": {
+          "type": "text"
+        },
+        "image_margin": {
+          "type": "text"
         }
       },
       "image": null,

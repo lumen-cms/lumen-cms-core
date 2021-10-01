@@ -1,8 +1,7 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 import CardMedia from '@material-ui/core/CardMedia'
 import Image from 'next/image'
 import { useTheme } from '@material-ui/core/styles'
-import Skeleton from '@material-ui/lab/Skeleton'
 import { getRootImageUrl, getVwByColCount } from '../../utils/imageServices'
 import { CardListItemProps } from './cardTypes'
 import { COLUMN_COUNT } from './cardListStyles'
@@ -13,7 +12,6 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
   content,
   options
 }) => {
-  const [loaded, setLoaded] = useState<boolean>(false)
   const { breakpoints } = useTheme()
 
   const { column_count, column_count_phone, column_count_tablet } = options
@@ -27,21 +25,13 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
     <CardMedia
       style={{
         color: options.variant?.includes('font_white') ? 'white' : 'inherit',
-        position: 'relative'
+        position: 'relative',
+        margin: options.image_margin ? options.image_margin : undefined
       }}
     >
-      {!loaded && (
-        <Skeleton
-          style={{ position: 'absolute' }}
-          width="100%"
-          height="100%"
-          variant="rect"
-        />
-      )}
       <Image
         src={getRootImageUrl(content.image)}
         {...storyblokImageLoader(content.image)}
-        onLoad={() => setLoaded(true)}
         loading="lazy"
         layout="fill"
         sizes={`(min-width: 0) and (max-width: ${
