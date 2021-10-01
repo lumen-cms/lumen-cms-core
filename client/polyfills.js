@@ -1,6 +1,7 @@
 import 'intersection-observer'
+// import '@formatjs/intl-datetimeformat/polyfill'
+// import '@formatjs/intl-datetimeformat/locale-data/de'
 import closest from 'element-closest'
-
 
 closest(window) // enable closest match polyfill
 // import includes from 'core-js/library/fn/string/virtual/includes'

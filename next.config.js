@@ -1,10 +1,14 @@
 const config = require('./config/nextjs_dev_config')
 const redirectFunc = require('./config/localeRedirect')
 
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
   i18n: {
     locales: ['en', 'de'],
-    defaultLocale: 'en'
+    defaultLocale: 'de',
+    localeDetection: false
     // domains: [
     //   {
     //     domain: 'studentsgoabroad.org',

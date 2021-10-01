@@ -76,9 +76,7 @@ export default function LmGoogleForm({
     minWidth: `${content.fields_min_width || 180}px`
   }
   const defaultValues = {}
-  // eslint-disable-next-line
-  // @ts-ignore
-  formStructure.fields.forEach((formField) => {
+  formStructure?.fields.forEach((formField) => {
     if ([2, 4].includes(formField.questionTypeCode)) {
       defaultValues[`${formField.answerSubmitIdValue}_sentinel`] = ''
     }
@@ -133,7 +131,7 @@ export default function LmGoogleForm({
               key={`${formField.answerSubmitIdValue}_${index}`}
             />
           ))}
-          {content?.submit_button?.length && (
+          {content?.submit_button?.length > 0 && (
             <div
               style={{
                 display: 'flex',
