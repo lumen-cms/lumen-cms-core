@@ -20,9 +20,9 @@ export const fetchGoogleFormData = async (url: string) => {
 
 export const googleFormGetData = async (
   formProps: FormStoryblok
-): Promise<GoogleFormDataProps | undefined> => {
+): Promise<GoogleFormDataProps | undefined | null> => {
   if (!formProps.api) {
-    return
+    return null
   }
   const res = await fetchGoogleFormData(formProps.api)
   return parseHijackedFormData(res)

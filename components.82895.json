@@ -5107,7 +5107,7 @@
       "name": "form",
       "display_name": "Google Form",
       "created_at": "2021-08-19T04:07:53.937Z",
-      "updated_at": "2021-08-19T04:37:54.798Z",
+      "updated_at": "2021-10-01T07:30:15.588Z",
       "id": 1717807,
       "schema": {
         "api": {
@@ -5205,7 +5205,9 @@
             "fields_full_width",
             "fields_gap",
             "fields_border",
-            "fields_gap"
+            "fields_gap",
+            "inline",
+            "label_as_placeholder"
           ],
           "pos": 9
         },
@@ -5239,6 +5241,12 @@
             }
           ],
           "pos": 10
+        },
+        "inline": {
+          "type": "boolean"
+        },
+        "label_as_placeholder": {
+          "type": "boolean"
         }
       },
       "image": null,

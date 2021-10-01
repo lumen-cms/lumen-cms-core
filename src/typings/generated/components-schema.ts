@@ -1195,6 +1195,8 @@ export interface FormStoryblok {
   fields_border?: "standard" | "filled" | "outlined";
   fields_full_width?: boolean;
   fields_gap?: "0" | "2" | "4" | "8" | "16" | "24";
+  inline?: boolean;
+  label_as_placeholder?: boolean;
   _uid: string;
   component: "form";
   [k: string]: any;

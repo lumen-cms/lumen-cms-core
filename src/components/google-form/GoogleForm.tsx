@@ -114,45 +114,65 @@ export default function LmGoogleForm({
           // @ts-ignore
           onSuccess={onSubmit}
         >
-          <div className={'d-none'}>
-            <TextFieldElement
-              name={'current_address'}
-              label={'Current Address'}
-            />
-          </div>
-          {formStructure?.fields?.map((formField, index) => (
-            <GoogleFormElement
-              formField={formField}
-              options={content}
-              baseStyle={baseStyle}
-              key={`${formField.answerSubmitIdValue}_${index}`}
-            />
-          ))}
-          {content?.submit_button?.length > 0 && (
-            <div
-              style={{
-                display: 'flex',
-                width: '100%',
-                justifyContent: content.submit_button[0].align || 'center',
-                marginTop: content.fields_gap
-                  ? Number(content.fields_gap)
-                  : '8px'
-              }}
-            >
-              <LmComponentRender
-                content={
-                  {
-                    color: 'primary',
-                    variant: 'contained',
-                    label: 'Submit',
-                    ...content.submit_button[0]
-                  } as ButtonStoryblok
-                }
-                type="submit"
-                key={content.submit_button[0]._uid}
+          <div
+            style={{
+              ...(content.inline
+                ? {
+                    display: 'flex'
+                  }
+                : {})
+            }}
+          >
+            <div className={'d-none'}>
+              <TextFieldElement
+                name={'current_address'}
+                label={'Current Address'}
               />
             </div>
-          )}
+            {formStructure?.fields?.map((formField, index) => (
+              <GoogleFormElement
+                formField={formField}
+                options={content}
+                baseStyle={baseStyle}
+                key={`${formField.answerSubmitIdValue}_${index}`}
+              />
+            ))}
+            {content?.submit_button?.length > 0 && (
+              <div
+                style={{
+                  ...(content.inline
+                    ? {
+                        alignSelf: 'center',
+                        marginLeft: content.fields_gap
+                          ? Number(content.fields_gap)
+                          : '8px'
+                      }
+                    : {
+                        display: 'flex',
+                        width: '100%',
+                        justifyContent:
+                          content.submit_button[0].align || 'center',
+                        marginTop: content.fields_gap
+                          ? Number(content.fields_gap)
+                          : '8px'
+                      })
+                }}
+              >
+                <LmComponentRender
+                  content={
+                    {
+                      color: 'primary',
+                      variant: 'contained',
+                      label: 'Submit',
+                      ...content.submit_button[0]
+                    } as ButtonStoryblok
+                  }
+                  type="submit"
+                  key={content.submit_button[0]._uid}
+                />
+              </div>
+            )}
+          </div>
         </FormContainer>
       </Wrap>
     </div>

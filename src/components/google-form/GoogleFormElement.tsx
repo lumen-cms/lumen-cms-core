@@ -35,7 +35,13 @@ export default function GoogleFormElement({
 }: GoogleFormElementProps): JSX.Element | null {
   const hasVariant = ![9].includes(formField.questionTypeCode)
   const baseFieldProps = {
-    label: formField.questionTextValue,
+    ...(options.label_as_placeholder
+      ? {
+          placeholder: formField.questionTextValue
+        }
+      : {
+          label: formField.questionTextValue
+        }),
     name: `${formField.answerSubmitIdValue}`,
     fullWidth: options.fields_full_width,
     style:
