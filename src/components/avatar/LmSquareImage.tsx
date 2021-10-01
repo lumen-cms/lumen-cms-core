@@ -21,6 +21,7 @@ type LmSquareImageProps = {
     | 'objectPosition'
     | 'quality'
     | 'alt'
+    | 'className'
   >
 }
 export default function LmSquareImage({

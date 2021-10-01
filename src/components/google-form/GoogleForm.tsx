@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import { CSSProperties, FC, useState } from 'react'
 import { FormContainer } from 'react-hook-form-mui'
-import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import { LmComponentRender } from '@LmComponentRender'
 import dynamic from 'next/dynamic'
@@ -109,8 +108,6 @@ export default function LmGoogleForm({
   const Wrap = hasDateField ? DateFnsProvider : SimpleWrap
   return (
     <div>
-      <Typography variant="h5">{formStructure?.title}</Typography>
-      <Typography variant="subtitle1">{formStructure?.description}</Typography>
       <Wrap>
         <FormContainer
           defaultValues={defaultValues}
@@ -136,7 +133,10 @@ export default function LmGoogleForm({
               style={{
                 display: 'flex',
                 width: '100%',
-                justifyContent: content.submit_button[0].align || 'center'
+                justifyContent: content.submit_button[0].align || 'center',
+                marginTop: content.fields_gap
+                  ? Number(content.fields_gap)
+                  : '8px'
               }}
             >
               <LmComponentRender

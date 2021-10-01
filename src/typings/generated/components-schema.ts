@@ -1618,26 +1618,27 @@ export interface IframeAdvancedStoryblok {
 }
 
 export interface ImageStoryblok {
+  class_names?: {
+    values?: string[];
+    [k: string]: any;
+  };
+  border_radius?: string;
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  disable_ratio_correction?: boolean;
+  property?: ("rounded" | "rounded-circle" | "square" | "rounded-0")[];
+  height?: number;
+  height_xs?: number;
+  width?: number;
+  height_fill?: boolean;
   source?: string;
   alt?: string;
   priority?: boolean;
   disable_lazy_loading?: boolean;
   image_crop?: ("image_crop" | "smart_crop")[];
   focal_point?: string;
-  property?: ("rounded" | "rounded-circle" | "square" | "rounded-0")[];
-  height?: number;
-  height_xs?: number;
-  width?: number;
-  height_fill?: boolean;
-  disable_ratio_correction?: boolean;
-  color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  class_names?: {
-    values?: string[];
-    [k: string]: any;
-  };
   _uid: string;
   component: "image";
   [k: string]: any;

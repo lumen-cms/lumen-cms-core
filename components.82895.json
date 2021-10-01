@@ -7192,48 +7192,35 @@
       "name": "image",
       "display_name": null,
       "created_at": "2020-05-01T08:40:31.420Z",
-      "updated_at": "2021-08-19T04:38:16.200Z",
+      "updated_at": "2021-10-01T03:18:38.473Z",
       "id": 894777,
       "schema": {
-        "source": {
-          "type": "image",
-          "pos": 0,
-          "translatable": true
-        },
-        "alt": {
-          "type": "text",
-          "pos": 1,
-          "translatable": true
-        },
-        "priority": {
-          "type": "boolean",
-          "description": "When true, the image will be considered high priority and preload. Should only be used when the image is visible above the fold.",
-          "pos": 2
-        },
-        "disable_lazy_loading": {
-          "type": "boolean",
-          "description": "Note: if priority is enabled lazy loading will always be disabled.",
-          "pos": 3
-        },
-        "image_crop": {
-          "type": "options",
+        "class_names": {
+          "type": "custom",
+          "field_type": "bootstrap-utility-class-selector",
           "options": [
             {
-              "value": "image_crop",
-              "name": "Crop"
-            },
-            {
-              "value": "smart_crop",
-              "name": "Smart Crop"
+              "value": "true",
+              "name": "mui"
             }
           ],
-          "pos": 4,
-          "description": "DEPRECATED - will be ignored in future releases"
+          "pos": 0
         },
-        "focal_point": {
+        "border_radius": {
           "type": "text",
-          "description": "DEPRECATED - will be ignored in future releases\n-----------------\nFocal point in X,Y coordinates in % of the original image. Example center top: \"50x0\", center bottom: \"50x100\", top left: \"0x0\", right middle: \"100x50\"",
-          "pos": 5
+          "pos": 1
+        },
+        "color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": [],
+          "pos": 2,
+          "description": "If SVG image is used sets the fill color. If PNG is used it sets background color for fit-in image crop. Hex or \"transparent\""
+        },
+        "disable_ratio_correction": {
+          "type": "boolean",
+          "pos": 3,
+          "description": "DEPRECATED - not in use\nSometimes the pixel/percentage conversion is not accurate. Use this to disable the correction (in case height is not matching with option \"fill height\")"
         },
         "property": {
           "type": "options",
@@ -7255,51 +7242,68 @@
               "name": "No-Rounded"
             }
           ],
-          "pos": 6,
+          "pos": 4,
           "default_value": "['img-fluid']"
         },
         "height": {
           "type": "number",
-          "pos": 7,
+          "pos": 5,
           "description": ""
         },
         "height_xs": {
           "type": "number",
-          "pos": 8,
+          "pos": 6,
           "description": "[DEPRECATED] not in use"
         },
         "width": {
           "type": "number",
-          "pos": 9,
+          "pos": 7,
           "description": ""
         },
         "height_fill": {
           "type": "boolean",
-          "pos": 10,
+          "pos": 8,
           "description": "[DEPRECATED] not in use"
         },
-        "disable_ratio_correction": {
+        "source": {
+          "type": "image",
+          "pos": 9,
+          "translatable": true
+        },
+        "alt": {
+          "type": "text",
+          "pos": 10,
+          "translatable": true
+        },
+        "priority": {
           "type": "boolean",
-          "pos": 11,
-          "description": "DEPRECATED - not in use\nSometimes the pixel/percentage conversion is not accurate. Use this to disable the correction (in case height is not matching with option \"fill height\")"
+          "description": "When true, the image will be considered high priority and preload. Should only be used when the image is visible above the fold.",
+          "pos": 11
         },
-        "color": {
-          "type": "custom",
-          "field_type": "vue-color-picker",
-          "options": [],
-          "pos": 12,
-          "description": "If SVG image is used sets the fill color. If PNG is used it sets background color for fit-in image crop. Hex or \"transparent\""
+        "disable_lazy_loading": {
+          "type": "boolean",
+          "description": "Note: if priority is enabled lazy loading will always be disabled.",
+          "pos": 12
         },
-        "class_names": {
-          "type": "custom",
-          "field_type": "bootstrap-utility-class-selector",
+        "image_crop": {
+          "type": "options",
           "options": [
             {
-              "value": "true",
-              "name": "mui"
+              "value": "image_crop",
+              "name": "Crop"
+            },
+            {
+              "value": "smart_crop",
+              "name": "Smart Crop"
             }
           ],
-          "pos": 13
+          "pos": 13,
+          "description": "DEPRECATED - will be ignored in future releases"
+        },
+        "focal_point": {
+          "type": "text",
+          "description": "DEPRECATED - will be ignored in future releases\n-----------------\nFocal point in X,Y coordinates in % of the original image. Example center top: \"50x0\", center bottom: \"50x100\", top left: \"0x0\", right middle: \"100x50\"",
+          "pos": 14
         },
         "tab-03f351c2-caa5-473c-baf9-f022264cfb4c": {
           "type": "tab",
@@ -7309,19 +7313,20 @@
             "height",
             "height_xs",
             "height_fill",
-            "property",
-            "color",
-            "disable_ratio_correction"
+            "property"
           ],
-          "pos": 14
+          "pos": 15
         },
         "tab-f2fa68d4-aefb-4429-91ea-e806cf72b068": {
           "type": "tab",
-          "display_name": "Classes",
+          "display_name": "Styles",
           "keys": [
-            "class_names"
+            "class_names",
+            "color",
+            "border_radius",
+            "disable_ratio_correction"
           ],
-          "pos": 15
+          "pos": 16
         }
       },
       "image": null,

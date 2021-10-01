@@ -8,6 +8,7 @@ import {
 import { LmImageProps } from './imageTypes'
 import LmAspectRatio from './LmAspectRatio'
 import LmSquareImage from '../avatar/LmSquareImage'
+import { ImageStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles((theme: Theme) => ({
   image: {
@@ -31,14 +32,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&.loading': {
       backgroundColor: 'rgb(74,74,74, 0.3)'
     }
-  }
+  },
+  customImage: (props: ImageStoryblok) => ({
+    borderRadius: props.border_radius ? props.border_radius : undefined
+  })
 }))
 
 export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element | null {
-  const classes = useStyles()
+  const classes = useStyles(content)
   const definedWidth = content.width
   const definedHeight = content.height
   const property = content.property || []
@@ -106,7 +110,8 @@ export default function LmImage({
               alt: content.alt || 'website image',
               onLoad: () => setLoaded(true),
               objectFit: 'cover',
-              objectPosition: 'center'
+              objectPosition: 'center',
+              className: classes.customImage
             }}
           />
         </LmAspectRatio>
@@ -150,7 +155,8 @@ export default function LmImage({
             priority,
             onClick: onClick ? () => onClick() : undefined,
             onLoad: () => setLoaded(true),
-            alt: content.alt || 'website image'
+            alt: content.alt || 'website image',
+            className: classes.customImage
           }}
         />
       </div>
