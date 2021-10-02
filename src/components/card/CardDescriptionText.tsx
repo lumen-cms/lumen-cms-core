@@ -1,13 +1,14 @@
 import React from 'react'
 import { CardListItemProps } from './cardTypes'
-import { LmHeadlineCore } from '../headline/HeadlineCore'
+import { LmHeadline } from '../headline/Headline'
 
 function CardDescriptionText({
   content,
   options
 }: CardListItemProps): JSX.Element | null {
-  let { description } = content
   const descriptionMaxCharacter = options.description_max_character
+  const descriptionCustomElement = options.description_custom?.[0]
+  let description = descriptionCustomElement?.text || content.description
   if (!description || descriptionMaxCharacter === 0) {
     return null
   }
@@ -15,18 +16,17 @@ function CardDescriptionText({
     description = `${description.substr(0, descriptionMaxCharacter)}..`
   }
   return (
-    <LmHeadlineCore
+    <LmHeadline
       content={{
         _uid: `${content._uid}_description`,
         component: 'headline',
         typography: options.description_typography || 'body1',
         tag: 'p',
         class_names: options.description_class_name,
-        ...options.description_custom?.[0]
+        ...descriptionCustomElement,
+        text: description
       }}
-    >
-      {description}
-    </LmHeadlineCore>
+    />
   )
 }
 

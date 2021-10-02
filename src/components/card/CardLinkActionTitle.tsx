@@ -1,40 +1,40 @@
 import React from 'react'
 import { CardListItemProps } from './cardTypes'
-import { LmHeadlineCore } from '../headline/HeadlineCore'
+import { LmHeadline } from '../headline/Headline'
 
 function CardListActionTitles({
   content,
   options
 }: CardListItemProps): JSX.Element {
+  const subtitleCustomElement = options.subtitle_custom?.[0]
+  const titleCustomElement = options.title_custom?.[0]
   return (
     <>
       {content.title && (
-        <LmHeadlineCore
+        <LmHeadline
           content={{
             _uid: `${content._uid}_title`,
             component: 'headline',
             typography: options.title_typography || 'headline6',
             tag: options.title_tag || 'h3',
             class_names: options.title_class_name,
-            ...options.title_custom?.[0]
+            ...titleCustomElement,
+            text: titleCustomElement?.text || content.title
           }}
-        >
-          {content.title}
-        </LmHeadlineCore>
+        />
       )}
       {content.subtitle && (
-        <LmHeadlineCore
+        <LmHeadline
           content={{
             _uid: `${content._uid}_subtitle`,
             component: 'headline',
             typography: options.subtitle_typography || 'subtitle2',
             tag: options.subtitle_tag || 'h4',
             class_names: options.subtitle_class_name,
-            ...options.subtitle_custom?.[0]
+            ...subtitleCustomElement,
+            text: subtitleCustomElement?.text || content.subtitle
           }}
-        >
-          {content.subtitle}
-        </LmHeadlineCore>
+        />
       )}
     </>
   )
