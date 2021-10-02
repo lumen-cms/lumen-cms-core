@@ -23,7 +23,7 @@ const getStyles = (
     if (['component', '_uid', 'elevation', 'box_shadow'].includes(key)) {
       return // dont get unnecessary fields or edge cases
     }
-    if (key.startsWith('border_')) {
+    if (key.startsWith('border_') && !key.startsWith('border_radius')) {
       return // we handle border differently
     }
     if (key.startsWith('color')) {

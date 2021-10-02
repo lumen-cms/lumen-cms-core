@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import React, { HTMLAttributes } from 'react'
 import { useInView } from 'react-intersection-observer'
 import clsx from 'clsx'
