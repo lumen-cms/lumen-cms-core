@@ -1363,48 +1363,9 @@
       "name": "card_list",
       "display_name": null,
       "created_at": "2020-05-01T08:40:44.719Z",
-      "updated_at": "2021-10-01T09:29:17.746Z",
+      "updated_at": "2021-10-04T06:03:30.086Z",
       "id": 894842,
       "schema": {
-        "image_ratio": {
-          "type": "option",
-          "use_uuid": true,
-          "options": [
-            {
-              "value": "16x9",
-              "name": "16x9"
-            },
-            {
-              "value": "1x1",
-              "name": "1x1"
-            },
-            {
-              "value": "4x3",
-              "name": "4x3"
-            },
-            {
-              "value": "3x2",
-              "name": "3x2"
-            },
-            {
-              "value": "2x3",
-              "name": "2x3"
-            },
-            {
-              "value": "1x3",
-              "name": "1x3"
-            },
-            {
-              "value": "3x1",
-              "name": "3x1"
-            },
-            {
-              "value": "2.85x1",
-              "name": "2.85x1"
-            }
-          ],
-          "pos": 0
-        },
         "variant": {
           "type": "options",
           "use_uuid": true,
@@ -1454,7 +1415,7 @@
               "name": "Content overlay without space"
             }
           ],
-          "pos": 1
+          "pos": 0
         },
         "border_radius": {
           "type": "text",
@@ -1477,7 +1438,7 @@
               "name": ""
             }
           ],
-          "pos": 2,
+          "pos": 1,
           "description": "Set border radius like: \"4px\" or any other style. Order is: top-left,top-right,bottom-right,bottom-left. To remove use \"0\""
         },
         "shadow_effect": {
@@ -1513,7 +1474,7 @@
               "name": "flow-up"
             }
           ],
-          "pos": 3
+          "pos": 2
         },
         "elevation": {
           "type": "option",
@@ -1572,7 +1533,63 @@
               "name": "22"
             }
           ],
-          "pos": 4
+          "pos": 3
+        },
+        "background_color": {
+          "type": "custom",
+          "pos": 4,
+          "field_type": "vue-color-picker",
+          "options": []
+        },
+        "body": {
+          "type": "bloks",
+          "pos": 5,
+          "maximum": "",
+          "restrict_components": true,
+          "component_whitelist": [
+            "card_list_item"
+          ],
+          "description": "Leave empty if used as options of \"List Widget\" element.",
+          "component_group_whitelist": []
+        },
+        "image_ratio": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "16x9",
+              "name": "16x9"
+            },
+            {
+              "value": "1x1",
+              "name": "1x1"
+            },
+            {
+              "value": "4x3",
+              "name": "4x3"
+            },
+            {
+              "value": "3x2",
+              "name": "3x2"
+            },
+            {
+              "value": "2x3",
+              "name": "2x3"
+            },
+            {
+              "value": "1x3",
+              "name": "1x3"
+            },
+            {
+              "value": "3x1",
+              "name": "3x1"
+            },
+            {
+              "value": "2.85x1",
+              "name": "2.85x1"
+            }
+          ],
+          "pos": 6
         },
         "image_size": {
           "type": "option",
@@ -1599,11 +1616,11 @@
               "name": "None"
             }
           ],
-          "pos": 5
+          "pos": 7
         },
         "hide_image": {
           "type": "boolean",
-          "pos": 6
+          "pos": 8
         },
         "column_gap": {
           "type": "option",
@@ -1638,7 +1655,7 @@
               "name": "32"
             }
           ],
-          "pos": 7
+          "pos": 9
         },
         "column_count": {
           "type": "option",
@@ -1693,11 +1710,11 @@
               "name": "12"
             }
           ],
-          "pos": 8
+          "pos": 10
         },
         "column_count_tablet": {
           "type": "option",
-          "pos": 9,
+          "pos": 11,
           "use_uuid": true,
           "options": [
             {
@@ -1736,7 +1753,7 @@
         },
         "column_count_phone": {
           "type": "option",
-          "pos": 10,
+          "pos": 12,
           "use_uuid": true,
           "options": [
             {
@@ -1759,11 +1776,11 @@
         },
         "description_max_character": {
           "type": "number",
-          "pos": 11
+          "pos": 13
         },
         "card_actions_disable_spacing": {
           "type": "boolean",
-          "pos": 12
+          "pos": 14
         },
         "tab-44e0d184-7b4a-4c0e-b4d7-7ffbaaa7b68b": {
           "type": "tab",
@@ -1772,9 +1789,10 @@
             "variant",
             "elevation",
             "border_radius",
-            "shadow_effect"
+            "shadow_effect",
+            "background_color"
           ],
-          "pos": 13
+          "pos": 15
         },
         "tab-36e45858-5221-4b11-9930-8dc29fcfcf6a": {
           "type": "tab",
@@ -1787,7 +1805,7 @@
             "description_max_character",
             "card_actions_disable_spacing"
           ],
-          "pos": 14
+          "pos": 16
         },
         "tab-d1222ed2-ba7c-4bbd-8c4c-71f5badbd308": {
           "type": "tab",
@@ -1799,7 +1817,7 @@
             "image_border_radius",
             "image_margin"
           ],
-          "pos": 15
+          "pos": 17
         },
         "tab-d07832ad-2830-4604-bc24-84eebc57c051": {
           "type": "tab",
@@ -1814,7 +1832,7 @@
             "subtitle_class_name",
             "description_class_name"
           ],
-          "pos": 16
+          "pos": 18
         },
         "tab-b5685df4-930c-4baa-aa30-d7cf1030cd3b": {
           "type": "tab",
@@ -1825,11 +1843,11 @@
             "description_custom",
             "date_format"
           ],
-          "pos": 17
+          "pos": 19
         },
         "title_typography": {
           "type": "option",
-          "pos": 18,
+          "pos": 20,
           "use_uuid": true,
           "options": [
             {
@@ -1884,7 +1902,7 @@
         },
         "title_tag": {
           "type": "option",
-          "pos": 19,
+          "pos": 21,
           "use_uuid": true,
           "options": [
             {
@@ -1915,7 +1933,7 @@
         },
         "title_class_name": {
           "type": "custom",
-          "pos": 20,
+          "pos": 22,
           "field_type": "bootstrap-utility-class-selector",
           "options": [
             {
@@ -1926,7 +1944,7 @@
         },
         "subtitle_typography": {
           "type": "option",
-          "pos": 21,
+          "pos": 23,
           "use_uuid": true,
           "options": [
             {
@@ -1981,7 +1999,7 @@
         },
         "subtitle_tag": {
           "type": "option",
-          "pos": 22,
+          "pos": 24,
           "use_uuid": true,
           "options": [
             {
@@ -2012,7 +2030,7 @@
         },
         "subtitle_class_name": {
           "type": "custom",
-          "pos": 23,
+          "pos": 25,
           "field_type": "bootstrap-utility-class-selector",
           "options": [
             {
@@ -2024,7 +2042,7 @@
         "description_typography": {
           "type": "option",
           "use_uuid": true,
-          "pos": 24,
+          "pos": 26,
           "options": [
             {
               "value": "headline4",
@@ -2058,7 +2076,7 @@
         },
         "description_class_name": {
           "type": "custom",
-          "pos": 25,
+          "pos": 27,
           "field_type": "bootstrap-utility-class-selector",
           "options": [
             {
@@ -2067,17 +2085,6 @@
             }
           ]
         },
-        "body": {
-          "type": "bloks",
-          "pos": 26,
-          "maximum": "",
-          "restrict_components": true,
-          "component_whitelist": [
-            "card_list_item"
-          ],
-          "description": "Leave empty if used as options of \"List Widget\" element.",
-          "component_group_whitelist": []
-        },
         "title_custom": {
           "type": "bloks",
           "maximum": "1",
@@ -2085,7 +2092,7 @@
           "component_whitelist": [
             "headline"
           ],
-          "pos": 27
+          "pos": 28
         },
         "subtitle_custom": {
           "type": "bloks",
@@ -2094,7 +2101,7 @@
             "headline"
           ],
           "maximum": "1",
-          "pos": 28
+          "pos": 29
         },
         "description_custom": {
           "type": "bloks",
@@ -2103,7 +2110,7 @@
           "component_whitelist": [
             "headline"
           ],
-          "pos": 29
+          "pos": 30
         },
         "date_format": {
           "type": "bloks",
@@ -2112,13 +2119,15 @@
           "component_whitelist": [
             "date_time_format"
           ],
-          "pos": 30
+          "pos": 31
         },
         "image_border_radius": {
-          "type": "text"
+          "type": "text",
+          "pos": 32
         },
         "image_margin": {
-          "type": "text"
+          "type": "text",
+          "pos": 33
         }
       },
       "image": null,
@@ -10020,7 +10029,7 @@
       "name": "player",
       "display_name": "",
       "created_at": "2020-07-09T03:21:18.578Z",
-      "updated_at": "2021-08-19T04:38:34.173Z",
+      "updated_at": "2021-10-04T02:03:12.121Z",
       "id": 1002614,
       "schema": {
         "url": {
@@ -10125,6 +10134,9 @@
         "fallback_image": {
           "type": "text",
           "pos": 14
+        },
+        "border_radius": {
+          "type": "text"
         }
       },
       "image": null,

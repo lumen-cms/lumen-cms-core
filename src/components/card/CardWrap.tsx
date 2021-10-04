@@ -14,7 +14,10 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({
   const styles = useShadowStyles()
   const variants = options.variant || []
   const style: CSSProperties = {
-    borderRadius: options.border_radius ? options.border_radius : undefined
+    borderRadius: options.border_radius ? options.border_radius : undefined,
+    backgroundColor: options.background_color?.rgba
+      ? options.background_color.rgba
+      : undefined
   }
 
   if (content.body?.length) {

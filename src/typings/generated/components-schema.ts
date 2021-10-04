@@ -382,7 +382,6 @@ export interface ButtonSpeechTextStoryblok {
 }
 
 export interface CardListStoryblok {
-  image_ratio?: "16x9" | "1x1" | "4x3" | "3x2" | "2x3" | "1x3" | "3x1" | "2.85x1";
   variant?: (
     | "over_media"
     | "title_top"
@@ -399,6 +398,12 @@ export interface CardListStoryblok {
   border_radius?: "0" | "2" | "4" | "";
   shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft" | "flowUp";
   elevation?: "0" | "1" | "2" | "4" | "8" | "12" | "16" | "20" | "3" | "5" | "6" | "24" | "22";
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  body?: CardListItemStoryblok[];
+  image_ratio?: "16x9" | "1x1" | "4x3" | "3x2" | "2x3" | "1x3" | "3x1" | "2.85x1";
   image_size?: "cover" | "contain" | "initial" | "auto" | "none";
   hide_image?: boolean;
   column_gap?: "0" | "2" | "4" | "8" | "16" | "24" | "32";
@@ -448,7 +453,6 @@ export interface CardListStoryblok {
     values?: string[];
     [k: string]: any;
   };
-  body?: CardListItemStoryblok[];
   title_custom?: HeadlineStoryblok[];
   subtitle_custom?: HeadlineStoryblok[];
   description_custom?: HeadlineStoryblok[];
@@ -2317,6 +2321,7 @@ export interface PlayerStoryblok {
   volume?: number;
   light?: boolean;
   fallback_image?: string;
+  border_radius?: string;
   _uid: string;
   component: "player";
   [k: string]: any;

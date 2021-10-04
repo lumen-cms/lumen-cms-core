@@ -23,6 +23,11 @@ const useStyles = makeStyles({
   },
   ratio1x1: {
     paddingTop: `100%`
+  },
+  borderRadius: {
+    '& iframe, & > div > div': {
+      borderRadius: 'inherit'
+    }
   }
 })
 
@@ -36,7 +41,8 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
     <div
       ref={refIntersectionObserver}
       className={clsx(classes.videoContainer, {
-        [classes[`ratio${content.ratio}`]]: !!content.ratio
+        [classes[`ratio${content.ratio}`]]: !!content.ratio,
+        [classes.borderRadius]: !!content.border_radius
       })}
     >
       {inView ? (
@@ -44,7 +50,10 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
           style={{
             position: content.ratio ? 'absolute' : undefined,
             top: content.ratio ? 0 : undefined,
-            left: content.ratio ? 0 : undefined
+            left: content.ratio ? 0 : undefined,
+            borderRadius: content.border_radius
+              ? content.border_radius
+              : undefined
           }}
           url={videoUrlHelper(content)}
           volume={content.muted ? 0 : Number(content.volume || 0)}
