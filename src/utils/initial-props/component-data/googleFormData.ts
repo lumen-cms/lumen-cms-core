@@ -24,6 +24,11 @@ export const googleFormGetData = async (
   if (!formProps.api) {
     return null
   }
-  const res = await fetchGoogleFormData(formProps.api)
-  return parseHijackedFormData(res)
+  try {
+    const res = await fetchGoogleFormData(formProps.api)
+    return parseHijackedFormData(res)
+  } catch (e) {
+    console.error(e)
+    return null
+  }
 }
