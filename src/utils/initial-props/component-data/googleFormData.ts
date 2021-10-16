@@ -2,6 +2,7 @@ import { fetchGoogleFormDataClient } from './fetchGoogleFormData'
 import { FormStoryblok } from '../../../typings/generated/components-schema'
 import { GoogleForm } from 'react-google-forms-hooks'
 import { googleFormsToJson } from './googleFormsToJson'
+import { GoogleFormWithDate } from './googleFormsToJsonTypes'
 
 export const fetchGoogleFormData = async (url: string) => {
   if (typeof window !== 'undefined') {
@@ -19,7 +20,7 @@ export const fetchGoogleFormData = async (url: string) => {
 
 export const googleFormGetData = async (
   formProps: FormStoryblok
-): Promise<GoogleForm | undefined | null> => {
+): Promise<GoogleFormWithDate | undefined | null> => {
   if (!formProps.api) {
     return null
   }
