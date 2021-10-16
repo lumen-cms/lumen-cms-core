@@ -9,8 +9,8 @@ import {
   ButtonStoryblok,
   RichTextEditorStoryblok
 } from '../../typings/generated/components-schema'
-import { GoogleFormDataProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 import GoogleFormElement, { TextFieldElement } from './GoogleFormElement'
+import { GoogleFormWithDate } from '../../utils/initial-props/component-data/googleFormsToJsonTypes'
 
 const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
@@ -20,7 +20,7 @@ export default function LmGoogleForm({
   formStructure,
   content
 }: {
-  formStructure: GoogleFormDataProps
+  formStructure: GoogleFormWithDate
   content: LmGoogleFormProps['content']
 }): JSX.Element {
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
@@ -28,7 +28,7 @@ export default function LmGoogleForm({
   // const [submitError, setSubmitError] = useState<boolean>(false)
 
   const onSubmit = async (data: any) => {
-    if (!formStructure?.formAction) {
+    if (!(formStructure?.action && content.api)) {
       console.log(data)
       return
     }
@@ -60,11 +60,14 @@ export default function LmGoogleForm({
 
     window.gtag && gtag('event', 'generate_lead')
     window.fbq && fbq('track', 'Lead')
-    await fetch(formStructure.formAction, {
-      method: 'POST',
-      body: formData,
-      mode: 'no-cors'
-    })
+    await fetch(
+      `https://docs.google.com/forms/d/${formStructure.action}/formResponse?embedded=true`,
+      {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      }
+    )
 
     setSubmitSuccess(true)
   }
@@ -75,6 +78,8 @@ export default function LmGoogleForm({
     minWidth: `${content.fields_min_width || 180}px`
   }
   const defaultValues = {}
+
+  /* todo
   formStructure?.fields.forEach((formField) => {
     if ([2, 4].includes(formField.questionTypeCode)) {
       defaultValues[`${formField.answerSubmitIdValue}_sentinel`] = ''
@@ -82,7 +87,7 @@ export default function LmGoogleForm({
     defaultValues[`${formField.answerSubmitIdValue}`] =
       formField.questionTypeCode === 9 ? null : ''
   })
-
+  */
   if (submitSuccess) {
     return (
       <Alert severity="success">
@@ -103,7 +108,7 @@ export default function LmGoogleForm({
     )
   }
   const hasDateField = formStructure?.fields?.find(
-    (field) => field.questionTypeCode === 9
+    (field) => field.type === 'DATE'
   )
   const Wrap = hasDateField ? DateFnsProvider : SimpleWrap
   return (
@@ -129,12 +134,12 @@ export default function LmGoogleForm({
                 label={'Current Address'}
               />
             </div>
-            {formStructure?.fields?.map((formField, index) => (
+            {formStructure?.fields?.map((formField) => (
               <GoogleFormElement
                 formField={formField}
                 options={content}
                 baseStyle={baseStyle}
-                key={`${formField.answerSubmitIdValue}_${index}`}
+                key={`${formField.id}`}
               />
             ))}
             {content?.submit_button?.length > 0 && (

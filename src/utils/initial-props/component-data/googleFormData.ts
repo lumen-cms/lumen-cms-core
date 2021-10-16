@@ -1,8 +1,7 @@
 import { fetchGoogleFormDataClient } from './fetchGoogleFormData'
 import { FormStoryblok } from '../../../typings/generated/components-schema'
-import parseHijackedFormData, {
-  GoogleFormDataProps
-} from '../../hooks/googleForms/parseHijackedFormData'
+import { GoogleForm } from 'react-google-forms-hooks'
+import { googleFormsToJson } from './googleFormsToJson'
 
 export const fetchGoogleFormData = async (url: string) => {
   if (typeof window !== 'undefined') {
@@ -20,15 +19,15 @@ export const fetchGoogleFormData = async (url: string) => {
 
 export const googleFormGetData = async (
   formProps: FormStoryblok
-): Promise<GoogleFormDataProps | undefined | null> => {
+): Promise<GoogleForm | undefined | null> => {
   if (!formProps.api) {
     return null
   }
+
   try {
-    const res = await fetchGoogleFormData(formProps.api)
-    return parseHijackedFormData(res)
-  } catch (e) {
-    console.error(e)
+    return googleFormsToJson(formProps.api)
+  } catch (err) {
+    console.error(err)
     return null
   }
 }

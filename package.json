@@ -90,6 +90,7 @@
     "postcss": "^8.2.13",
     "react-aspect-ratio": "1.0.49",
     "react-big-calendar": "0.35.0",
+    "react-google-forms-hooks": "^1.0.4",
     "react-hook-form": "7.15.0",
     "react-hook-form-mui": "2.1.0",
     "react-inlinesvg": "2.3.0",
