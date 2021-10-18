@@ -6,8 +6,8 @@ import {
   SelectElementProps,
   TextFieldElementProps
 } from 'react-hook-form-mui'
-import { StructuredFormFieldProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
 import { LmGoogleFormProps } from './googleFormProps'
+import { FieldWithDate } from '../../utils/initial-props/component-data/googleFormsToJsonTypes'
 
 export const TextFieldElement = dynamic<TextFieldElementProps>(() =>
   import('react-hook-form-mui').then((mod) => mod.TextFieldElement)
@@ -23,42 +23,55 @@ const MultiSelectElement = dynamic<MultiSelectElementProps>(() =>
 )
 
 type GoogleFormElementProps = {
-  formField: StructuredFormFieldProps
+  formField: FieldWithDate
   options: LmGoogleFormProps['content']
   baseStyle: CSSProperties
 }
+
+/*
+
+questionTypeCode 4: multi select
+questionTypeCode 9: date picker
+questionTypeCode 1: textarea
+questionTypeCode 0: text field
+questionTypeCode 2,3: select
+4 = DROPDOWN
+
+
+ */
 
 export default function GoogleFormElement({
   formField,
   options,
   baseStyle
 }: GoogleFormElementProps): JSX.Element | null {
-  const hasVariant = ![9].includes(formField.questionTypeCode)
+  const hasVariant = !['DATE'].includes(formField.type)
   const baseFieldProps = {
     ...(options.label_as_placeholder
       ? {
-          placeholder: formField.questionTextValue
+          placeholder: formField.label
         }
       : {
-          label: formField.questionTextValue
+          label: formField.label
         }),
-    name: `${formField.answerSubmitIdValue}`,
+    name: `${formField.id}`,
     fullWidth: options.fields_full_width,
-    style:
-      formField.questionTypeCode === 4
+    style: baseStyle
+    /* formField.questionTypeCode === 4
+      formField.type === 'DROPDOWN'
         ? {
             maxWidth: baseStyle.maxWidth,
             minWidth: baseStyle.minWidth
           }
-        : baseStyle
+        : baseStyle*/
   }
   const additionalProps: Record<string, any> = {}
   if (hasVariant) {
     additionalProps.variant = options.fields_border
   }
 
-  if ([0, 1].includes(formField.questionTypeCode)) {
-    if (formField.questionTypeCode === 1) {
+  if (formField.type === 'SHORT_ANSWER' || formField.type === 'LONG_ANSWER') {
+    if (formField.type === 'LONG_ANSWER') {
       additionalProps.multiline = true
       additionalProps.rows = 2
     }
@@ -66,7 +79,7 @@ export default function GoogleFormElement({
       <TextFieldElement
         {...baseFieldProps}
         {...additionalProps}
-        required={formField.isRequired}
+        required={formField.required}
         parseError={
           options?.error_msg_required
             ? () => options.error_msg_required as string
@@ -75,66 +88,48 @@ export default function GoogleFormElement({
       />
     )
   }
-  if ([2, 3].includes(formField.questionTypeCode)) {
+  if (formField.type === 'DROPDOWN' || formField.type === 'RADIO') {
     return (
-      <>
-        {formField.questionTypeCode === 2 && (
-          <TextFieldElement
-            name={`${formField.answerSubmitIdValue}_sentinel`}
-            hidden
-            style={{ display: 'none' }}
-          />
-        )}
+      <SelectElement
+        {...baseFieldProps}
+        {...additionalProps}
+        options={formField.options.sort().map((opt) => ({
+          id: opt.label,
+          title: opt.label || '--'
+        }))}
+        required={formField.required}
+        parseError={
+          options?.error_msg_required
+            ? () => options.error_msg_required as string
+            : undefined
+        }
+      />
+    )
+  }
 
-        <SelectElement
-          required={formField.isRequired}
-          parseError={
-            options?.error_msg_required
-              ? () => options.error_msg_required as string
-              : undefined
-          }
-          options={formField.answerOptionsList.sort().map((opt) => ({
-            id: opt,
-            title: opt || '--'
-          }))}
-          {...baseFieldProps}
-          {...additionalProps}
-        />
-      </>
-    )
-  }
-  if (formField.questionTypeCode === 4) {
+  if (formField.type === 'CHECKBOX') {
     return (
-      <div
-        style={{
-          margin: baseStyle.margin,
-          display: 'inline-flex',
-          width: baseFieldProps.fullWidth ? '100%' : 'inherit'
-        }}
-      >
-        <TextFieldElement
-          name={`${formField.answerSubmitIdValue}_sentinel`}
-          hidden
-          style={{ display: 'none' }}
-        />
-        <MultiSelectElement
-          required={formField.isRequired}
-          parseError={
-            options?.error_msg_required
-              ? () => options.error_msg_required as string
-              : undefined
-          }
-          menuItems={formField.answerOptionsList.sort().filter((opt) => !!opt)}
-          {...baseFieldProps}
-          {...additionalProps}
-        />
-      </div>
+      <MultiSelectElement
+        required={formField.required}
+        parseError={
+          options?.error_msg_required
+            ? () => options.error_msg_required as string
+            : undefined
+        }
+        menuItems={formField.options
+          .sort()
+          .filter((opt) => !!opt.label)
+          .map((opt) => opt.label)}
+        {...baseFieldProps}
+        {...additionalProps}
+      />
     )
   }
-  if (formField.questionTypeCode === 9) {
+
+  if (formField.type === 'DATE') {
     return (
       <DatePickerElement
-        required={formField.isRequired}
+        required={formField.required}
         parseError={
           options?.error_msg_required
             ? () => options.error_msg_required as string
@@ -145,5 +140,96 @@ export default function GoogleFormElement({
       />
     )
   }
+  /*
+    if ([0, 1].includes(formField.questionTypeCode)) {
+      if (formField.questionTypeCode === 1) {
+        additionalProps.multiline = true
+        additionalProps.rows = 2
+      }
+      return (
+        <TextFieldElement
+          {...baseFieldProps}
+          {...additionalProps}
+          required={formField.required}
+          parseError={
+            options?.error_msg_required
+              ? () => options.error_msg_required as string
+              : undefined
+          }
+        />
+      )
+    }
+    if ([2, 3].includes(formField.questionTypeCode)) {
+      return (
+        <>
+          {formField.questionTypeCode === 2 && (
+            <TextFieldElement
+              name={`${formField.answerSubmitIdValue}_sentinel`}
+              hidden
+              style={{ display: 'none' }}
+            />
+          )}
+
+          <SelectElement
+            required={formField.isRequired}
+            parseError={
+              options?.error_msg_required
+                ? () => options.error_msg_required as string
+                : undefined
+            }
+            options={formField.answerOptionsList.sort().map((opt) => ({
+              id: opt,
+              title: opt || '--'
+            }))}
+            {...baseFieldProps}
+            {...additionalProps}
+          />
+        </>
+      )
+    }
+    if (formField.questionTypeCode === 4) {
+      return (
+        <div
+          style={{
+            margin: baseStyle.margin,
+            display: 'inline-flex',
+            width: baseFieldProps.fullWidth ? '100%' : 'inherit'
+          }}
+        >
+          <TextFieldElement
+            name={`${formField.answerSubmitIdValue}_sentinel`}
+            hidden
+            style={{ display: 'none' }}
+          />
+          <MultiSelectElement
+            required={formField.isRequired}
+            parseError={
+              options?.error_msg_required
+                ? () => options.error_msg_required as string
+                : undefined
+            }
+            menuItems={formField.answerOptionsList.sort().filter((opt) => !!opt)}
+            {...baseFieldProps}
+            {...additionalProps}
+          />
+        </div>
+      )
+    }
+    if (formField.questionTypeCode === 9) {
+      return (
+        <DatePickerElement
+          required={formField.isRequired}
+          parseError={
+            options?.error_msg_required
+              ? () => options.error_msg_required as string
+              : undefined
+          }
+          {...baseFieldProps}
+          inputVariant={options.fields_border}
+        />
+      )
+    }
+
+   */
   return null
 }

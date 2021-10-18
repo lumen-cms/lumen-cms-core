@@ -1,8 +1,8 @@
 import { FormStoryblok } from '../../typings/generated/components-schema'
-import { GoogleFormDataProps } from '../../utils/hooks/googleForms/parseHijackedFormData'
+import { GoogleFormWithDate } from '../../utils/initial-props/component-data/googleFormsToJsonTypes'
 
 export type LmGoogleFormProps = {
   content: FormStoryblok & {
-    form_data: GoogleFormDataProps
+    form_data: GoogleFormWithDate
   }
 }

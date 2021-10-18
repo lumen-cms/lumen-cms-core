@@ -4,8 +4,7 @@ import { getComponentArgTypes } from '../../storybook/configControls'
 import LmGoogleFormContainer from './LmGoogleFormContainer'
 import { findFirstPreset } from '../../storybook/findStorybookPresets'
 import { LmGoogleFormProps } from './googleFormProps'
-import { fetchGoogleFormDataClient } from '../../utils/initial-props/component-data/fetchGoogleFormData'
-import parseHijackedFormData from '../../utils/hooks/googleForms/parseHijackedFormData'
+import { googleFormGetData } from '../../utils/initial-props/component-data/googleFormData'
 
 const COMPONENT_NAME = 'form'
 
@@ -21,8 +20,10 @@ export default {
   loaders: [
     // @ts-ignore
     async ({ args }) => {
-      const res = await fetchGoogleFormDataClient(args.api as string)
-      const parsedData = parseHijackedFormData(res)
+      // const res = await fetchGoogleFormDataClient(args.api as string)
+      // const parsedData = parseHijackedFormData(res)
+      const parsedData = await googleFormGetData(args)
+      console.log(parsedData, args)
       return {
         formStructure: parsedData
       }
