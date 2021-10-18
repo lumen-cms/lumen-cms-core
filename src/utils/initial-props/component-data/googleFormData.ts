@@ -1,6 +1,5 @@
 import { fetchGoogleFormDataClient } from './fetchGoogleFormData'
 import { FormStoryblok } from '../../../typings/generated/components-schema'
-import { GoogleForm } from 'react-google-forms-hooks'
 import { googleFormsToJson } from './googleFormsToJson'
 import { GoogleFormWithDate } from './googleFormsToJsonTypes'
 
@@ -26,7 +25,8 @@ export const googleFormGetData = async (
   }
 
   try {
-    return googleFormsToJson(formProps.api)
+    const result = await googleFormsToJson(formProps.api)
+    return result
   } catch (err) {
     console.error(err)
     return null

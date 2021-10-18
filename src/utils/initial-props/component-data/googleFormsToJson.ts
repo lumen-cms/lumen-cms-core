@@ -33,7 +33,9 @@ const assertValidUrl = (formUrl: string): void => {
   }
 
   if (url.host === googleFormsHosts[0] && !url.pathname.endsWith('/viewform')) {
-    throw new Error(`Please use the form's public URL.`)
+    throw new Error(
+      `Please use the form's public URL. Starts with "docs.google.com" | "forms.gle" and ends with "/viewform". Submitted: ${url.toString()}`
+    )
   }
 }
 

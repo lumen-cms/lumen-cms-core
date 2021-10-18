@@ -4,12 +4,7 @@ import { getComponentArgTypes } from '../../storybook/configControls'
 import LmGoogleFormContainer from './LmGoogleFormContainer'
 import { findFirstPreset } from '../../storybook/findStorybookPresets'
 import { LmGoogleFormProps } from './googleFormProps'
-import { fetchGoogleFormDataClient } from '../../utils/initial-props/component-data/fetchGoogleFormData'
-import parseHijackedFormData from '../../utils/hooks/googleForms/parseHijackedFormData'
-import {
-  fetchGoogleFormData,
-  googleFormGetData
-} from '../../utils/initial-props/component-data/googleFormData'
+import { googleFormGetData } from '../../utils/initial-props/component-data/googleFormData'
 
 const COMPONENT_NAME = 'form'
 
