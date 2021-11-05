@@ -67,6 +67,7 @@ export interface AuthContainerStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -126,6 +127,7 @@ export interface AuthFormStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -595,6 +597,7 @@ export interface ColumnStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -726,6 +729,7 @@ export interface DialogStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -785,6 +789,7 @@ export interface DialogStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1037,6 +1042,7 @@ export interface EventStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1160,6 +1166,7 @@ export interface FlexRowStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1280,6 +1287,7 @@ export interface FormContainerStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1531,6 +1539,7 @@ export interface HtmlStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1888,6 +1897,7 @@ export interface ListStoriesStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1940,6 +1950,22 @@ export interface LogoStoryblok {
   [k: string]: any;
 }
 
+export interface MoralisStoryblok {
+  body?: MoralisButtonStoryblok[];
+  _uid: string;
+  component: "moralis";
+  [k: string]: any;
+}
+
+export interface MoralisButtonStoryblok {
+  login?: (ButtonStoryblok | ImageStoryblok)[];
+  logout?: (ButtonStoryblok | ImageStoryblok)[];
+  user?: HeadlineStoryblok[];
+  _uid: string;
+  component: "moralis_button";
+  [k: string]: any;
+}
+
 export interface MotionStoryblok {
   type?: "fade" | "grow" | "slide" | "zoom" | "collapse";
   duration?: number;
@@ -1982,6 +2008,7 @@ export interface MotionStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -2220,6 +2247,7 @@ export interface PageStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -2505,6 +2533,7 @@ export interface SectionStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -2797,6 +2826,7 @@ export interface SnackbarStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -2862,6 +2892,7 @@ export interface StaticContainerStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -3035,6 +3066,7 @@ export interface TabsItemStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -3108,6 +3140,7 @@ export interface TimelineItemStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -3185,6 +3218,7 @@ export interface TimelineItemStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok

@@ -8831,6 +8831,81 @@
       "icon": null
     },
     {
+      "name": "moralis",
+      "display_name": null,
+      "created_at": "2021-11-05T05:38:56.578Z",
+      "updated_at": "2021-11-05T06:40:57.402Z",
+      "id": 1924539,
+      "schema": {
+        "body": {
+          "type": "bloks",
+          "restrict_components": true,
+          "maximum": "1",
+          "component_whitelist": [
+            "moralis_button"
+          ]
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "moralis",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
+      "component_group_name": "General"
+    },
+    {
+      "name": "moralis_button",
+      "display_name": null,
+      "created_at": "2021-11-05T06:03:24.785Z",
+      "updated_at": "2021-11-05T06:40:28.435Z",
+      "id": 1924541,
+      "schema": {
+        "login": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "button",
+            "image"
+          ]
+        },
+        "logout": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "button",
+            "image"
+          ]
+        },
+        "user": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "moralis_button",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
       "name": "motion",
       "display_name": null,
       "created_at": "2020-07-09T03:21:15.710Z",

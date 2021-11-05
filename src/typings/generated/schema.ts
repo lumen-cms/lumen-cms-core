@@ -851,6 +851,7 @@ export type QueryType = {
   NewscategoryItems?: Maybe<NewscategoryItems>;
   PageItem?: Maybe<PageItem>;
   PageItems?: Maybe<PageItems>;
+  RateLimit?: Maybe<RateLimit>;
   Space?: Maybe<Space>;
   StaticcontainerItem?: Maybe<StaticcontainerItem>;
   StaticcontainerItems?: Maybe<StaticcontainerItems>;
@@ -1372,6 +1373,11 @@ export type QueryTypeStaticcontainerItemsArgs = {
 
 export type QueryTypeTagsArgs = {
   starts_with?: Maybe<Scalars['String']>;
+};
+
+export type RateLimit = {
+  __typename?: 'RateLimit';
+  maxCost: Scalars['Int'];
 };
 
 export type Space = {

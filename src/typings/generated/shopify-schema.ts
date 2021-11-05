@@ -12,24 +12,46 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** An ISO-8601 encoded UTC date time string. Example value: `"2019-07-03T20:47:55Z"`. */
+  /**
+   * Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.
+   * For example, 3:30 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is
+   * represented as `"2019-09-07T15:50:00Z`".
+   *
+   */
   DateTime: any;
-  /** A signed decimal number, which supports arbitrary precision and is serialized as a string. Example value: `"29.99"`. */
+  /**
+   * A signed decimal number, which supports arbitrary precision and is serialized as a string.
+   *
+   * Example values: `"29.99"`, `"29.999"`.
+   *
+   */
   Decimal: any;
-  /** A string containing HTML code. Example value: `"<p>Grey cotton knit sweater.</p>"`. */
+  /**
+   * A string containing HTML code. Refer to the [HTML spec](https://html.spec.whatwg.org/#elements-3) for a
+   * complete list of HTML elements.
+   *
+   * Example value: `"<p>Grey cotton knit sweater.</p>"`.
+   *
+   */
   HTML: any;
   /** A monetary value string. Example value: `"100.57"`. */
   Money: any;
   /**
-   * An RFC 3986 and RFC 3987 compliant URI string.
+   * Represents an [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986) and
+   * [RFC 3987](https://datatracker.ietf.org/doc/html/rfc3987)-compliant URI string.
    *
-   * Example value: `"https://johns-apparel.myshopify.com"`.
+   * For example, `"https://johns-apparel.myshopify.com"` is a valid URL. It includes a scheme (`https`) and a host
+   * (`johns-apparel.myshopify.com`).
    *
    */
   URL: any;
 };
 
-/** A version of the API. */
+/**
+ * A version of the API, as defined by [Shopify API versioning](https://shopify.dev/api/usage/versioning).
+ * Versions are commonly referred to by their handle (for example, `2021-10`).
+ *
+ */
 export type ApiVersion = {
   __typename?: 'ApiVersion';
   /** The human-readable name of the version. */
@@ -269,6 +291,8 @@ export type Blog = Node & {
   handle: Scalars['String'];
   /** A globally-unique identifier. */
   id: Scalars['ID'];
+  /** The blog's SEO information. */
+  seo?: Maybe<Seo>;
   /** The blogs’s title. */
   title: Scalars['String'];
   /**
@@ -2086,6 +2110,8 @@ export enum CurrencyCode {
   Yer = 'YER',
   /** Zambian Kwacha (ZMW). */
   Zmw = 'ZMW',
+  /** Belarusian Ruble (BYN). */
+  Byn = 'BYN',
   /** Belarusian Ruble (BYR). */
   Byr = 'BYR',
   /** Djiboutian Franc (DJF). */
@@ -2763,6 +2789,8 @@ export type Image = {
   __typename?: 'Image';
   /** A word or phrase to share the nature or contents of an image. */
   altText?: Maybe<Scalars['String']>;
+  /** The original height of the image in pixels. Returns `null` if the image is not hosted by Shopify. */
+  height?: Maybe<Scalars['Int']>;
   /** A unique identifier for the image. */
   id?: Maybe<Scalars['ID']>;
   /**
@@ -2770,52 +2798,12 @@ export type Image = {
    *
    * If there are any existing transformations in the original source URL, they will remain and not be stripped.
    *
+   * @deprecated Use `url` instead
    */
   originalSrc: Scalars['URL'];
   /**
    * The location of the image as a URL.
-   * @deprecated Previously an image had a single `src` field. This could either return the original image
-   * location or a URL that contained transformations such as sizing or scale.
-   *
-   * These transformations were specified by arguments on the parent field.
-   *
-   * Now an image has two distinct URL fields: `originalSrc` and `transformedSrc`.
-   *
-   * * `originalSrc` - the original unmodified image URL
-   * * `transformedSrc` - the image URL with the specified transformations included
-   *
-   * To migrate to the new fields, image transformations should be moved from the parent field to `transformedSrc`.
-   *
-   * Before:
-   * ```graphql
-   * {
-   *   shop {
-   *     productImages(maxWidth: 200, scale: 2) {
-   *       edges {
-   *         node {
-   *           src
-   *         }
-   *       }
-   *     }
-   *   }
-   * }
-   * ```
-   *
-   * After:
-   * ```graphql
-   * {
-   *   shop {
-   *     productImages {
-   *       edges {
-   *         node {
-   *           transformedSrc(maxWidth: 200, scale: 2)
-   *         }
-   *       }
-   *     }
-   *   }
-   * }
-   * ```
-   *
+   * @deprecated Use `url` instead
    */
   src: Scalars['URL'];
   /**
@@ -2824,8 +2812,11 @@ export type Image = {
    * All transformation arguments are considered "best-effort". If they can be applied to an image, they will be.
    * Otherwise any transformations which an image type does not support will be ignored.
    *
+   * @deprecated Use `url(transform:)` instead
    */
   transformedSrc: Scalars['URL'];
+  /** The original width of the image in pixels. Returns `null` if the image is not hosted by Shopify. */
+  width?: Maybe<Scalars['Int']>;
 };
 
 
@@ -3171,7 +3162,9 @@ export enum MetafieldValueType {
   /** An integer metafield. */
   Integer = 'INTEGER',
   /** A json string metafield. */
-  JsonString = 'JSON_STRING'
+  JsonString = 'JSON_STRING',
+  /** A boolean metafield. */
+  Boolean = 'BOOLEAN'
 }
 
 /** Represents a Shopify hosted 3D model. */
@@ -3685,7 +3678,13 @@ export type MutationCustomerUpdateArgs = {
   customer: CustomerUpdateInput;
 };
 
-/** An object with an ID to support global identification. */
+/**
+ * An object with an ID field to support global identification, in accordance with the
+ * [Relay specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface).
+ * This interface is used by the [node](https://shopify.dev/api/admin-graphql/unstable/queries/node)
+ * and [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) queries.
+ *
+ */
 export type Node = {
   /** A globally-unique identifier. */
   id: Scalars['ID'];
@@ -3888,7 +3887,9 @@ export enum OrderFulfillmentStatus {
   /** Displayed as **Open**. */
   Open = 'OPEN',
   /** Displayed as **In progress**. */
-  InProgress = 'IN_PROGRESS'
+  InProgress = 'IN_PROGRESS',
+  /** Displayed as **Scheduled**. */
+  Scheduled = 'SCHEDULED'
 }
 
 /** Represents a single line in an order. There is one line item for each distinct product variant. */
@@ -3966,6 +3967,8 @@ export type Page = Node & {
   handle: Scalars['String'];
   /** A globally-unique identifier. */
   id: Scalars['ID'];
+  /** The page's SEO information. */
+  seo?: Maybe<Seo>;
   /** The title of the page. */
   title: Scalars['String'];
   /** The timestamp of the latest page update. */
@@ -4001,12 +4004,16 @@ export type PageEdge = {
   node: Page;
 };
 
-/** Information about pagination in a connection. */
+/**
+ * Returns information about pagination in a connection, in accordance with the
+ * [Relay specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
+ *
+ */
 export type PageInfo = {
   __typename?: 'PageInfo';
-  /** Indicates if there are more pages to fetch. */
+  /** Whether there are more pages to fetch following the current page. */
   hasNextPage: Scalars['Boolean'];
-  /** Indicates if there are any pages prior to the current page. */
+  /** Whether there are any pages prior to the current page. */
   hasPreviousPage: Scalars['Boolean'];
 };
 
@@ -4154,6 +4161,8 @@ export type Product = Node & HasMetafields & {
   productType: Scalars['String'];
   /** The date and time when the product was published to the channel. */
   publishedAt: Scalars['DateTime'];
+  /** The product's SEO information. */
+  seo: Seo;
   /**
    * A comma separated list of tags that have been added to the product.
    * Additional access scope required for private apps: unauthenticated_read_product_tags.
@@ -4236,6 +4245,7 @@ export type ProductMediaArgs = {
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
   reverse?: Maybe<Scalars['Boolean']>;
+  sortKey?: Maybe<ProductMediaSortKeys>;
 };
 
 
@@ -4361,6 +4371,21 @@ export type ProductEdge = {
 export enum ProductImageSortKeys {
   /** Sort by the `created_at` value. */
   CreatedAt = 'CREATED_AT',
+  /** Sort by the `position` value. */
+  Position = 'POSITION',
+  /** Sort by the `id` value. */
+  Id = 'ID',
+  /**
+   * During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the
+   * results by relevance to the search term(s). When no search query is specified, this sort key is not
+   * deterministic and should not be used.
+   *
+   */
+  Relevance = 'RELEVANCE'
+}
+
+/** The set of valid sort keys for the ProductMedia query. */
+export enum ProductMediaSortKeys {
   /** Sort by the `position` value. */
   Position = 'POSITION',
   /** Sort by the `id` value. */
@@ -5059,7 +5084,7 @@ export type ShopPolicy = Node & {
 };
 
 /**
- * An auto-generated type for paginating through multiple Strings.
+ * An auto-generated type for paginating through a list of Strings.
  *
  */
 export type StringConnection = {

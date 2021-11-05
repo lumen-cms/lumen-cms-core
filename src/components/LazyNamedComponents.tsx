@@ -151,3 +151,5 @@ LmCoreComponents.event_calendar = dynamic(() => import('./event/EventCalendar'))
 LmCoreComponents.list_stories = dynamic(
   () => import('./list-widget/ListStories')
 )
+
+LmCoreComponents.moralis = dynamic(() => import('./dapp/Moralis'))
