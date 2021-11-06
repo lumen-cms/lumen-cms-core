@@ -12,10 +12,26 @@ import {
 import GoogleFormElement, { TextFieldElement } from './GoogleFormElement'
 import { GoogleFormWithDate } from '../../utils/initial-props/component-data/googleFormsToJsonTypes'
 
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d'
+
 const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
-
 const SimpleWrap: FC = ({ children }) => <>{children}</>
+
+const OTHER_OPTION = '__other_option__'
+const OTHER_OPTION_RESPONSE = 'other_option_response'
+
+const formatQuestionName = (id: string) => {
+  if (id.includes(OTHER_OPTION_RESPONSE)) {
+    return `entry.${id.replace(
+      `-${OTHER_OPTION}-${OTHER_OPTION_RESPONSE}`,
+      ''
+    )}.${OTHER_OPTION_RESPONSE}`
+  }
+
+  return `entry.${id}`
+}
+
 export default function LmGoogleForm({
   formStructure,
   content
@@ -37,35 +53,25 @@ export default function LmGoogleForm({
     }
     delete data.current_address
 
-    const formData = new FormData()
-
-    Object.keys(data).forEach((entryId) => {
-      if (Array.isArray(data[entryId])) {
-        data[entryId].forEach((str: string) => {
-          formData.append(`entry.${entryId}`, str)
-        })
-      } else if (typeof data[entryId] === 'string') {
-        formData.append(`entry.${entryId}`, data[entryId])
-      } else if (typeof data[entryId] === 'object') {
-        const d = new Date(data[entryId])
-        if (!d) {
-          // setError(true)
-          return
-        }
-        formData.append(`entry.${entryId}_year`, `${d.getFullYear()}`)
-        formData.append(`entry.${entryId}_month`, `${d.getMonth()}`)
-        formData.append(`entry.${entryId}_day`, `${d.getDay()}`)
+    const urlParams = new URLSearchParams()
+    // const fields = {}
+    Object.keys(data).forEach((key) => {
+      if (data[key]) {
+        urlParams.append(formatQuestionName(key), data[key])
       }
     })
-
     window.gtag && gtag('event', 'generate_lead')
     window.fbq && fbq('track', 'Lead')
     await fetch(
-      `https://docs.google.com/forms/d/${formStructure.action}/formResponse?embedded=true`,
+      `${GOOGLE_FORM_URL}/${
+        formStructure.action
+      }/formResponse?submit=Submit&${urlParams.toString()}`,
       {
-        method: 'POST',
-        body: formData,
-        mode: 'no-cors'
+        method: 'GET',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       }
     )
 
@@ -79,15 +85,15 @@ export default function LmGoogleForm({
   }
   const defaultValues = {}
 
-  /* todo
   formStructure?.fields.forEach((formField) => {
-    if ([2, 4].includes(formField.questionTypeCode)) {
-      defaultValues[`${formField.answerSubmitIdValue}_sentinel`] = ''
-    }
-    defaultValues[`${formField.answerSubmitIdValue}`] =
-      formField.questionTypeCode === 9 ? null : ''
+    // if ([2, 4].includes(formField.questionTypeCode)) {
+    //   defaultValues[`${formField.answerSubmitIdValue}_sentinel`] = ''
+    // }
+    // defaultValues[`${formField.answerSubmitIdValue}`] =
+    //   formField.questionTypeCode === 9 ? null : ''
+    defaultValues[formField.id] = formField.type === 'DATE' ? null : ''
   })
-  */
+
   if (submitSuccess) {
     return (
       <Alert severity="success">
@@ -111,6 +117,8 @@ export default function LmGoogleForm({
     (field) => field.type === 'DATE'
   )
   const Wrap = hasDateField ? DateFnsProvider : SimpleWrap
+  let submitButtonEl = content.submit_button[0]
+
   return (
     <div>
       <Wrap>
@@ -155,8 +163,7 @@ export default function LmGoogleForm({
                     : {
                         display: 'flex',
                         width: '100%',
-                        justifyContent:
-                          content.submit_button[0].align || 'center',
+                        justifyContent: submitButtonEl.align || 'center',
                         marginTop: content.fields_gap
                           ? Number(content.fields_gap)
                           : '8px'
@@ -169,11 +176,12 @@ export default function LmGoogleForm({
                       color: 'primary',
                       variant: 'contained',
                       label: 'Submit',
-                      ...content.submit_button[0]
+                      ...submitButtonEl,
+                      link: undefined
                     } as ButtonStoryblok
                   }
                   type="submit"
-                  key={content.submit_button[0]._uid}
+                  key={submitButtonEl._uid}
                 />
               </div>
             )}
