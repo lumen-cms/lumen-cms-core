@@ -2693,7 +2693,7 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-essentials@^6.3.8":
+"@storybook/addon-essentials@^6.3.12":
   version "6.3.12"
   resolved "https://registry.yarnpkg.com/@storybook/addon-essentials/-/addon-essentials-6.3.12.tgz#445cc4bc2eb9168a9e5de1fdfb5ef3b92974e74b"
   integrity sha512-PK0pPE0xkq00kcbBcFwu/5JGHQTu4GvLIHfwwlEGx6GWNQ05l6Q+1Z4nE7xJGv2PSseSx3CKcjn8qykNLe6O6g==
@@ -2882,7 +2882,7 @@
     webpack-hot-middleware "^2.25.0"
     webpack-virtual-modules "^0.2.2"
 
-"@storybook/builder-webpack5@^6.3.8":
+"@storybook/builder-webpack5@^6.3.12":
   version "6.3.12"
   resolved "https://registry.yarnpkg.com/@storybook/builder-webpack5/-/builder-webpack5-6.3.12.tgz#a096d55f5ae56de718144fb457a5beb81d2ce31d"
   integrity sha512-+9uVSW2LFpdWnYKKcdH5sW1HqcKwbqyBJV46oN94ZlUw3fyZgz8TsOI+ZpWgCNqmBtXDr+X54deast9f443Mzw==
@@ -3230,7 +3230,7 @@
     webpack-dev-middleware "^3.7.3"
     webpack-virtual-modules "^0.2.2"
 
-"@storybook/manager-webpack5@^6.3.8":
+"@storybook/manager-webpack5@^6.3.12":
   version "6.3.12"
   resolved "https://registry.yarnpkg.com/@storybook/manager-webpack5/-/manager-webpack5-6.3.12.tgz#85dcef6dda66aff93c97b22e2e222e6f76e55103"
   integrity sha512-wMZYNBAUomlGSGsDFuATgiWRGF8g6TEk33VCESWrMnKLZZyq80KT+EiL/0+edfIbdrgalaqXwch38+tRwErg2A==
@@ -3302,7 +3302,7 @@
     react-docgen-typescript "^2.0.0"
     tslib "^2.0.0"
 
-"@storybook/react@^6.3.7":
+"@storybook/react@^6.3.12":
   version "6.3.12"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-6.3.12.tgz#2e172cbfc06f656d2890743dcf49741a10fa1629"
   integrity sha512-c1Y/3/eNzye+ZRwQ3BXJux6pUMVt3lhv1/M9Qagl9JItP3jDSj5Ed3JHCgwEqpprP8mvNNXwEJ8+M7vEQyDuHg==
