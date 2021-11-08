@@ -72,7 +72,7 @@ const getPageProps = async (
   await Promise.all(
     SSR_CONFIG.ssrHooks.pageProps.map((func) => {
       if (typeof func === 'function') {
-        return func(props)
+        func(props)
       } else {
         console.log('func is not a function', func)
       }
