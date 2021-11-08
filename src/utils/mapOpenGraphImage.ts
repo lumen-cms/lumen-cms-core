@@ -1,6 +1,6 @@
-import { OpenGraphImages } from 'next-seo/lib/types'
 import { ImageCoreStoryblok } from '../typings/generated/components-schema'
 import { getOriginalImageDimensions, imageServiceNoWebp } from './imageServices'
+import { OpenGraphMedia } from 'next-seo/lib/types.d'
 
 export const getImageCoreUrl = (item: ImageCoreStoryblok) => {
   let imgPath =
@@ -13,7 +13,7 @@ export const getImageCoreUrl = (item: ImageCoreStoryblok) => {
 
 export const mapOpenGraphImage = (
   item: ImageCoreStoryblok
-): OpenGraphImages | undefined => {
+): OpenGraphMedia | undefined => {
   if (!item.url) return undefined
   const dimensions = getOriginalImageDimensions(item.url)
   if (dimensions.width > 1200 && dimensions.height > 630) {

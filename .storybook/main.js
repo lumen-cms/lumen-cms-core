@@ -30,14 +30,14 @@ module.exports = {
 
     // Return the altered config
     return config
+  },
+  typescript: {
+    //   check: true,
+    //   checkOptions: {},
+    reactDocgen: false
+    //   reactDocgenTypescriptOptions: {
+    //     shouldExtractLiteralValuesFromEnum: true,
+    //     propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true)
+    //   }
   }
-  // typescript: {
-  //   check: true,
-  //   checkOptions: {},
-  //   reactDocgen: 'react-docgen-typescript',
-  //   reactDocgenTypescriptOptions: {
-  //     shouldExtractLiteralValuesFromEnum: true,
-  //     propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true)
-  //   }
-  // }
 }

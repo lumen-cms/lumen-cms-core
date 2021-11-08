@@ -1,6 +1,6 @@
 import { NextSeo, NextSeoProps } from 'next-seo'
 import React from 'react'
-import { OpenGraph, OpenGraphImages, Twitter } from 'next-seo/lib/types.d'
+import { OpenGraph, OpenGraphMedia, Twitter } from 'next-seo/lib/types.d'
 import { NextRouter, useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
 import { useAppContext } from '@context/AppContext'
@@ -32,7 +32,7 @@ const parseOpenGraph = (
     site_name: pageOpenGraph.site_name || settingsOpenGraph.site_name,
     locale: pageOpenGraph.locale || settingsOpenGraph.locale
   }
-  const images: OpenGraphImages[] = []
+  const images: OpenGraphMedia[] = []
   // page images
   if (pageOpenGraph.images) {
     pageOpenGraph.images.forEach((item: ImageCoreStoryblok) => {

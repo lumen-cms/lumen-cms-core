@@ -12,12 +12,12 @@ type LmAspectRatioProps = {
 const useStyles = makeStyles(() => ({
   root: {
     position: 'relative',
-    '& > div': {
-      width: '100%',
+    '& > span': {
+      width: '100%!important',
       position: 'absolute!important',
       top: 0,
       left: 0,
-      height: '100%'
+      height: '100%!important'
     },
     '&:before': {
       content: '""',

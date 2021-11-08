@@ -69,7 +69,15 @@ const getPageProps = async (
   }
 
   await fetchComponentData(props)
-  await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
+  await Promise.all(
+    SSR_CONFIG.ssrHooks.pageProps.map((func) => {
+      if (typeof func === 'function') {
+        func(props)
+      } else {
+        console.log('func is not a function', func)
+      }
+    })
+  )
   Object.keys(props).forEach((k) => {
     if (typeof props[k] === 'undefined') {
       delete props[k]
