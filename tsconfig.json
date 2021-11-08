@@ -49,7 +49,8 @@
       "@SSR_CONFIG": [
         "src/utils/initial-props/ssrConfig"
       ]
-    }
+    },
+    "incremental": true
   },
   "exclude": [
     "node_modules",
