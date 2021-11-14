@@ -97,6 +97,7 @@ type AppConfigProps = {
   }[]
   shopifyGql: string
   shopifyAccessToken: string
+  [k: string]: any
 }
 
 export const CONFIG: AppConfigProps = {
