@@ -7,14 +7,16 @@ export const renderRichText = (body: any) =>
   render(body, {
     markResolvers: {
       link: function RichtTextLink(children, props) {
-        const { href, linktype } = props
+        const { href, linktype, target } = props
         const btnProps: any = {
           ...getLinkAttrs(
             {
               cached_url: href,
               linktype
             },
-            {}
+            {
+              openExternal: target === '_blank'
+            }
           ),
           naked: true,
           component: LmCoreComponents.lm_link_render

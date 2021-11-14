@@ -41,6 +41,9 @@ export const linkHandler = (
   const props: LinkHandlerProps = {
     href: '/'
   }
+  if (options?.openExternal) {
+    props.target = '_blank'
+  }
   const cachedUrl = link.story?.url || link.cached_url
 
   if (!cachedUrl) {
