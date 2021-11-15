@@ -279,6 +279,13 @@ HeadlineWithDate.args = {
   text: '© {date} Copyright by Lumen Media'
 }
 
+export const HeadlineWithCountdown = Template.bind({})
+HeadlineWithCountdown.args = {
+  component: 'headline',
+  _uid: '123456',
+  countdown_time: '2023-12-24 20:00'
+}
+
 export const WithStyles = () => (
   <div className="p-5 text-center">
     <LmHeadline

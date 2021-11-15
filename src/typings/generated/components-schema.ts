@@ -67,6 +67,7 @@ export interface AuthContainerStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -126,6 +127,7 @@ export interface AuthFormStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -595,6 +597,7 @@ export interface ColumnStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -664,16 +667,17 @@ export interface DateHeadlineStoryblok {
 }
 
 export interface DateTimeFormatStoryblok {
-  dateStyle?: "full" | "long" | "medium" | "short";
   year?: "2-digit" | "numeric";
   month?: "long" | "short" | "narrow" | "numeric" | "2-digit";
   day?: "2-digit" | "numeric";
   hour?: "2-digit" | "numeric";
   minute?: "2-digit" | "numeric";
+  second?: "long";
   weekday?: "short" | "long" | "narrow";
   dayPeriod?: "long" | "short" | "narrow";
-  timeStyle?: "full" | "long" | "medium" | "short";
   hide_time?: boolean;
+  dateStyle?: "full" | "long" | "medium" | "short";
+  timeStyle?: "full" | "long" | "medium" | "short";
   _uid: string;
   component: "date_time_format";
   [k: string]: any;
@@ -726,6 +730,7 @@ export interface DialogStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -785,6 +790,7 @@ export interface DialogStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1037,6 +1043,7 @@ export interface EventStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1160,6 +1167,7 @@ export interface FlexRowStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1280,6 +1288,7 @@ export interface FormContainerStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1443,21 +1452,62 @@ export interface GlobalStoryblok {
 }
 
 export interface HeadlineStoryblok {
-  support_linebreak?: boolean;
-  custom_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  max_lines?: number;
-  font_size?: string;
-  line_height?: string;
-  letter_spacing?: string;
-  count_start?: number;
-  count_end?: number;
-  prefix?: string;
-  suffix?: string;
-  count_duration?: number;
-  animation?: "linear" | "easeInCubic" | "easeOutCubic";
+  countdown_time?: string;
+  countdown_interval?: number;
+  countdown_finished?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
   text?: string;
   text_xs?: string;
   typography?:
@@ -1478,6 +1528,22 @@ export interface HeadlineStoryblok {
   tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
   color?: "primary" | "secondary" | "textPrimary" | "textSecondary" | "error";
   align?: "left" | "center" | "right" | "justify";
+  enable_speech?: boolean;
+  support_linebreak?: boolean;
+  custom_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  max_lines?: number;
+  font_size?: string;
+  line_height?: string;
+  letter_spacing?: string;
+  count_start?: number;
+  count_end?: number;
+  prefix?: string;
+  suffix?: string;
+  count_duration?: number;
+  animation?: "linear" | "easeInCubic" | "easeOutCubic";
   class_names?: {
     values?: string[];
     [k: string]: any;
@@ -1486,7 +1552,6 @@ export interface HeadlineStoryblok {
   styles_mobile?: StylesStoryblok[];
   styles_tablet?: StylesStoryblok[];
   styles_hover?: StylesStoryblok[];
-  enable_speech?: boolean;
   _uid: string;
   component: "headline";
   [k: string]: any;
@@ -1531,6 +1596,7 @@ export interface HtmlStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1888,6 +1954,7 @@ export interface ListStoriesStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -1940,6 +2007,245 @@ export interface LogoStoryblok {
   [k: string]: any;
 }
 
+export interface MoralisStoryblok {
+  body?: (MoralisButtonStoryblok | MoralisMintStoryblok)[];
+  _uid: string;
+  component: "moralis";
+  [k: string]: any;
+}
+
+export interface MoralisButtonStoryblok {
+  login?: (ButtonStoryblok | ImageStoryblok)[];
+  logout?: (ButtonStoryblok | ImageStoryblok)[];
+  user?: HeadlineStoryblok[];
+  _uid: string;
+  component: "moralis_button";
+  [k: string]: any;
+}
+
+export interface MoralisMintStoryblok {
+  contract_token?: string;
+  fallback_login_message?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  fallback_not_whitelisted?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  fallback_presale?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  fallback_sale?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  _uid: string;
+  component: "moralis_mint";
+  [k: string]: any;
+}
+
 export interface MotionStoryblok {
   type?: "fade" | "grow" | "slide" | "zoom" | "collapse";
   duration?: number;
@@ -1982,6 +2288,7 @@ export interface MotionStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -2220,6 +2527,7 @@ export interface PageStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -2505,6 +2813,7 @@ export interface SectionStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -2797,6 +3106,7 @@ export interface SnackbarStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -2862,6 +3172,7 @@ export interface StaticContainerStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -3035,6 +3346,7 @@ export interface TabsItemStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -3108,6 +3420,7 @@ export interface TimelineItemStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
@@ -3185,6 +3498,7 @@ export interface TimelineItemStoryblok {
     | ListSearchFieldStoryblok
     | ListStoriesStoryblok
     | ListWidgetStoryblok
+    | MoralisStoryblok
     | MotionStoryblok
     | NavListStoryblok
     | NavMenuStoryblok
