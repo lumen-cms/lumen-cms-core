@@ -8,6 +8,11 @@ import Document, {
 import React from 'react'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { LmStoryblokService } from '../../utils/initial-props/StoryblokService'
+import { SSR_CONFIG } from '@SSR_CONFIG'
+import { processGoogleFonts } from '../../utils/initial-props/processGoogleFonts'
+
+// build of storybook fails..
+SSR_CONFIG.ssrHooks.pageProps.push(processGoogleFonts)
 
 export default class AppDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
