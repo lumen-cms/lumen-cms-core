@@ -1,9 +1,7 @@
-import { useInView } from 'react-intersection-observer'
 import { LmHeadlineCore } from './HeadlineCore'
 import { LmHeadlineProps } from './headlineTypes'
 import { useMemo } from 'react'
 import { getDateTime } from '../../utils/intlDateHelper'
-import { useRouter } from 'next/router'
 import Countdown from 'react-countdown'
 import { LmComponentRender } from '@LmComponentRender'
 
