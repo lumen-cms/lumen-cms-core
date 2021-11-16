@@ -1,4 +1,4 @@
-import React, { AnchorHTMLAttributes } from 'react'
+import React, { AnchorHTMLAttributes, useCallback } from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
 import { useRouter } from 'next/router'
@@ -14,6 +14,24 @@ const base64encode =
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
     const { defaultLocale, locales, locale } = useRouter()
+    // enable smooth scroll
+    const handleClick = useCallback(
+      (e) => {
+        const [, anchorName] = href.split('#')
+        if (anchorName) {
+          const destination = document.getElementById(anchorName)
+          if (destination) {
+            e.preventDefault()
+            if (destination) {
+              destination.scrollIntoView({
+                behavior: 'smooth'
+              })
+            }
+          }
+        }
+      },
+      [href]
+    )
     if (other.external) {
       delete other.external
       const currentLinkProps =
@@ -52,7 +70,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
         locale={detectedLocale !== locale ? false : undefined}
       >
         {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-        <a ref={ref} {...other} />
+        <a ref={ref} {...other} onClick={handleClick} />
       </NextLink>
     )
   }
