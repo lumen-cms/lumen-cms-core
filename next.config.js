@@ -2,7 +2,7 @@ const config = require('./config/nextjs_dev_config')
 const redirectFunc = require('./config/localeRedirect')
 
 /**
- * @type {import('next').NextConfig}
+ * @type {import("next").NextConfig}
  */
 const nextConfig = {
   i18n: {
@@ -24,7 +24,21 @@ const nextConfig = {
   async redirects() {
     // const reds = await redirectFunc(['de', 'it', 'es'])
     // return reds
-    return []
+    return [
+      {
+        source:
+          '/blog/top-5-ways-western-financial-services-firms-are-failing-on-wechat',
+        destination:
+          '/case-study/top-5-ways-western-financial-services-firms-are-failing-on-wechat',
+        permanent: true,
+        locale: false
+      }
+    ]
+  },
+  async rewrites() {
+    return {
+      beforeFiles: [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
+    }
   }
 }
 

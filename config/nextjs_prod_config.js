@@ -13,9 +13,11 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
     },
 
     // reactStrictMode: true,
-    async rewrites() {
-      return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
-    },
+    ...(nextConfig.rewrites || {
+      async rewrites() {
+        return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
+      }
+    }),
     // reactStrictMode: true, // => not working currently
     webpack: (config, { isServer }) => {
       if (!isServer) {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import Grid from '@material-ui/core/Grid'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export function LmFlexRow({ content }: LmFlexRowProps): JSX.Element {
+export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
   const body = content.body || []
   const theme = useTheme()
   const flexClasses = useStyles()
@@ -50,9 +50,11 @@ export function LmFlexRow({ content }: LmFlexRowProps): JSX.Element {
         gap: content.gap ? theme.spacing(Number(content.gap)) : 0
       }}
     >
-      {body.map((item) => (
-        <LmComponentRender content={item} key={item._uid} />
-      ))}
+      {children ? (
+        <>{children}</>
+      ) : (
+        body.map((item) => <LmComponentRender content={item} key={item._uid} />)
+      )}
     </Grid>
   )
 }
