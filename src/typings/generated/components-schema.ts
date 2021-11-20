@@ -51,6 +51,7 @@ export interface AuthContainerStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -111,6 +112,7 @@ export interface AuthFormStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -581,6 +583,7 @@ export interface ColumnStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -714,6 +717,7 @@ export interface DialogStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -774,6 +778,7 @@ export interface DialogStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1027,6 +1032,7 @@ export interface EventStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1151,6 +1157,7 @@ export interface FlexRowStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1272,6 +1279,7 @@ export interface FormContainerStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1352,6 +1360,26 @@ export interface FormTextfieldStoryblok {
   help_text?: string;
   _uid: string;
   component: "form_textfield";
+  [k: string]: any;
+}
+
+export interface GalleryStoryblok {
+  space_between_images?: number;
+  space_between_rows?: number;
+  image_height?: number;
+  content?: GalleryRowStoryblok[];
+  rotate?: number;
+  image_style?: StylesStoryblok[];
+  _uid: string;
+  component: "gallery";
+  [k: string]: any;
+}
+
+export interface GalleryRowStoryblok {
+  content?: ImageCoreStoryblok[];
+  scroll_to_left?: boolean;
+  _uid: string;
+  component: "gallery_row";
   [k: string]: any;
 }
 
@@ -1474,6 +1502,7 @@ export interface HeadlineStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1580,6 +1609,7 @@ export interface HtmlStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -1938,6 +1968,7 @@ export interface ListStoriesStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2024,61 +2055,10 @@ export interface MoralisButtonStoryblok {
 }
 
 export interface MoralisMintStoryblok {
-  contract_token?: string;
-  fallback_login_message?: (
-    | AccordionStoryblok
-    | AuthContainerStoryblok
-    | AuthFormStoryblok
-    | AvatarStoryblok
-    | BottomNavigationStoryblok
-    | ButtonStoryblok
-    | ButtonListStoryblok
-    | ButtonSpeechTextStoryblok
-    | CardListStoryblok
-    | CategoryBoxStoryblok
-    | DateHeadlineStoryblok
-    | DialogStoryblok
-    | DividerStoryblok
-    | EcommerceCheckoutStoryblok
-    | EventCalendarStoryblok
-    | FlexRowStoryblok
-    | FormStoryblok
-    | FormBuilderStoryblok
-    | FormContainerStoryblok
-    | HeadlineStoryblok
-    | HtmlStoryblok
-    | HubspotFormStoryblok
-    | HubspotMeetingStoryblok
-    | IconStoryblok
-    | IframeStoryblok
-    | IframeAdvancedStoryblok
-    | ImageStoryblok
-    | ImageListStoryblok
-    | InstagramListStoryblok
-    | InstagramPostStoryblok
-    | LinkStoryblok
-    | ListSearchAutocompleteStoryblok
-    | ListSearchFieldStoryblok
-    | ListStoriesStoryblok
-    | ListWidgetStoryblok
-    | MoralisStoryblok
-    | MotionStoryblok
-    | NavListStoryblok
-    | NavMenuStoryblok
-    | ParagraphStoryblok
-    | PlayerStoryblok
-    | PricingStoryblok
-    | PromotionStoryblok
-    | RichTextEditorStoryblok
-    | RowStoryblok
-    | SearchStoryStoryblok
-    | SliderStoryblok
-    | StaticSectionStoryblok
-    | TableStoryblok
-    | TabsStoryblok
-    | TimelineStoryblok
-    | ToolbarNaviButtonStoryblok
-  )[];
+  contract_token: string;
+  counter_style?: HeadlineStoryblok[];
+  owner_token: string;
+  chain?: "mainnet" | "goerli" | "kovan" | "rinkeby" | "ropsten";
   fallback_not_whitelisted?: (
     | AccordionStoryblok
     | AuthContainerStoryblok
@@ -2099,6 +2079,7 @@ export interface MoralisMintStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2153,6 +2134,7 @@ export interface MoralisMintStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2207,6 +2189,7 @@ export interface MoralisMintStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2241,6 +2224,64 @@ export interface MoralisMintStoryblok {
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
+  fallback_login_message?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | GalleryStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  mint_style?: (ButtonStoryblok | ImageStoryblok)[];
+  mint_flexbox_container?: FlexRowStoryblok[];
+  style_options?: "dark"[];
   _uid: string;
   component: "moralis_mint";
   [k: string]: any;
@@ -2272,6 +2313,7 @@ export interface MotionStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2511,6 +2553,7 @@ export interface PageStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -2797,6 +2840,7 @@ export interface SectionStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -3090,6 +3134,7 @@ export interface SnackbarStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -3156,6 +3201,7 @@ export interface StaticContainerStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -3330,6 +3376,7 @@ export interface TabsItemStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -3404,6 +3451,7 @@ export interface TimelineItemStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok
@@ -3482,6 +3530,7 @@ export interface TimelineItemStoryblok {
     | FormStoryblok
     | FormBuilderStoryblok
     | FormContainerStoryblok
+    | GalleryStoryblok
     | HeadlineStoryblok
     | HtmlStoryblok
     | HubspotFormStoryblok

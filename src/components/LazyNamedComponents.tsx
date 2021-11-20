@@ -15,6 +15,7 @@ LmCoreComponents.parallax_provider = dynamic(
       /* webpackChunkName: 'parallax' */ './section/helper/ParallaxProviderDefaultExport'
     )
 )
+LmCoreComponents.gallery = dynamic(() => import('./gallery/LmGallery'))
 // LmCoreComponents.instagram_post = dynamic(
 //   () => import(/* webpackChunkName: 'instagram' */ './instagram/InstagramPost')
 // )
