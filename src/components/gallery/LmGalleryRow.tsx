@@ -4,8 +4,7 @@ import {
 } from '../../typings/generated/components-schema'
 import LmGalleryImage from './LmGalleryImage'
 import { Grid } from '@material-ui/core'
-import { FC, useRef } from 'react'
-import useScrollPosition from '@react-hook/window-scroll'
+import { FC, useEffect, useRef, useState } from 'react'
 import { ClassNameMap } from '@material-ui/core/styles/withStyles'
 
 type LmGalleryRowProps = {
@@ -22,7 +21,7 @@ const ContainerWrap: FC<LmGalleryRowProps> = ({
   content
 }) => {
   const initMinus = useRef<number>()
-  const scrollY = useScrollPosition(60 /*fps*/)
+  const [scrollY, setScrollY] = useState<number>(0)
   if (!initMinus.current && inView) {
     initMinus.current = scrollY
   }
@@ -31,6 +30,15 @@ const ContainerWrap: FC<LmGalleryRowProps> = ({
   if (content.scroll_to_left) {
     starting = starting * -1
   }
+  useEffect(() => {
+    const cb: EventListenerOrEventListenerObject = () => {
+      setScrollY(window.scrollY)
+    }
+    window.addEventListener('scroll', cb)
+    return () => {
+      window.removeEventListener('scroll', cb)
+    }
+  }, [])
   return (
     <div
       style={{
