@@ -105,6 +105,7 @@
     "react-swipeable-views-utils": "0.14.0",
     "react-use": "17.3.1",
     "sitemap": "7.0.0",
+    "smoothscroll-polyfill": "^0.4.4",
     "storyblok-js-client": "4.1.4",
     "storyblok-react": "0.1.2",
     "storyblok-rich-text-react-renderer-ts": "3.1.3",

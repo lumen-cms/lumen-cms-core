@@ -70,7 +70,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
         locale={detectedLocale !== locale ? false : undefined}
       >
         {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-        <a ref={ref} {...other} onClick={handleClick} />
+        <a ref={ref} {...other} onClick={handleClick} onKeyDown={handleClick} />
       </NextLink>
     )
   }
