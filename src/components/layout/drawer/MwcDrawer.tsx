@@ -34,7 +34,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
     theme.breakpoints.down(settings?.mobile_nav_breakpoint || 'sm')
   )
   const [mountedOnce, setMountedOnce] = useState<boolean>(false)
-
+  console.log()
   useEffect(() => {
     if (drawerVariant === 'temporary' || matches) {
       closeDrawer()

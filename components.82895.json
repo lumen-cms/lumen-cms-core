@@ -9215,7 +9215,7 @@
       "name": "motion",
       "display_name": null,
       "created_at": "2020-07-09T03:21:15.710Z",
-      "updated_at": "2021-08-19T04:38:27.795Z",
+      "updated_at": "2021-11-21T09:49:38.588Z",
       "id": 1002613,
       "schema": {
         "type": {
@@ -9245,15 +9245,6 @@
           ],
           "pos": 0
         },
-        "duration": {
-          "type": "number",
-          "pos": 1
-        },
-        "threshold": {
-          "type": "number",
-          "description": "Percentage of the target's visibility the observer's callback should be executed. Value between 0 - 100",
-          "pos": 2
-        },
         "slide_direction": {
           "type": "option",
           "use_uuid": true,
@@ -9276,11 +9267,24 @@
               "name": "up"
             }
           ],
+          "pos": 1
+        },
+        "duration": {
+          "type": "number",
+          "pos": 2
+        },
+        "threshold": {
+          "type": "number",
+          "description": "Percentage of the target's visibility the observer's callback should be executed. Value between 0 - 100",
           "pos": 3
+        },
+        "delay": {
+          "type": "number",
+          "pos": 4
         },
         "enable_overflow": {
           "type": "boolean",
-          "pos": 4,
+          "pos": 5,
           "description": "Enable slide overflow from website body and not content section"
         },
         "body": {
@@ -9288,7 +9292,7 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 5,
+          "pos": 6,
           "restrict_components": true,
           "restrict_type": "groups"
         },
@@ -9300,9 +9304,10 @@
             "duration",
             "slide_direction",
             "threshold",
-            "enable_overflow"
+            "enable_overflow",
+            "delay"
           ],
-          "pos": 6
+          "pos": 7
         }
       },
       "image": null,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IntersectionOptions, useInView } from 'react-intersection-observer'
 import Slide, { SlideProps } from '@material-ui/core/Slide'
 import Fade, { FadeProps } from '@material-ui/core/Fade'
@@ -9,6 +9,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import { LmMotionProps } from './motionTypes'
 
 export default function LmMotion({ content }: LmMotionProps): JSX.Element {
+  const timeoutRef = useRef<number>()
   const type = content.type || 'fade'
   const options: IntersectionOptions = {
     triggerOnce: true
@@ -21,11 +22,33 @@ export default function LmMotion({ content }: LmMotionProps): JSX.Element {
     options.threshold = Number((Number(content.threshold) / 100).toFixed(2))
   }
   const [viewRef, inView] = useInView(options)
+  const [start, setStart] = useState<boolean>()
+  const delay = content.delay ? Number(content.delay) : 0
+
+  useEffect(() => {
+    if (inView) {
+      if (delay) {
+        timeoutRef.current = window.setTimeout(() => {
+          setStart(true)
+        }, delay)
+      } else {
+        setStart(true)
+      }
+    } else {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current)
+      }
+    }
+    return () => {
+      window.clearTimeout(timeoutRef.current)
+    }
+  }, [inView, delay])
+
   const transitionProps: FadeProps | SlideProps | ZoomProps | GrowProps = {}
   if (content.duration) {
     transitionProps.timeout = Number(content.duration)
   }
-  const start = inView
+  // const start = inView
   return (
     <div
       ref={viewRef}

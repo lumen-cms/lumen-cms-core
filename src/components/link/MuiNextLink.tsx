@@ -14,19 +14,20 @@ const base64encode =
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
     const { defaultLocale, locales, locale } = useRouter()
+
     // enable smooth scroll
     const handleClick = useCallback(
-      (e) => {
+      async (e) => {
         const [, anchorName] = href.split('#')
         if (anchorName) {
           const destination = document.getElementById(anchorName)
           if (destination) {
+            if (e.target.closest('.MuiDrawer-root')) return
             e.preventDefault()
-            if (destination) {
-              destination.scrollIntoView({
-                behavior: 'smooth'
-              })
-            }
+            window.location.hash = anchorName
+            destination.scrollIntoView({
+              behavior: 'smooth'
+            })
           }
         }
       },

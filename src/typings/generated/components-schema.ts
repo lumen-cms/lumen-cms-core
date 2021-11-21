@@ -2289,9 +2289,10 @@ export interface MoralisMintStoryblok {
 
 export interface MotionStoryblok {
   type?: "fade" | "grow" | "slide" | "zoom" | "collapse";
+  slide_direction?: "left" | "right" | "down" | "up";
   duration?: number;
   threshold?: number;
-  slide_direction?: "left" | "right" | "down" | "up";
+  delay?: number;
   enable_overflow?: boolean;
   body?: (
     | AccordionStoryblok
