@@ -36,7 +36,6 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
       [href]
     )
     if (other.external) {
-      console.log('link', href, other)
       delete other.external
       const currentLinkProps =
         href.startsWith('mailto:') || href.startsWith('tel:')

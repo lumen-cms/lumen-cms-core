@@ -39,12 +39,13 @@ const ContainerWrap: FC<LmGalleryRowProps> = ({
       window.removeEventListener('scroll', cb)
     }
   }, [])
+  console.log(starting, inView)
   return (
     <div
       style={{
         ...(content.scroll_to_left
           ? {}
-          : { transform: 'translateX(-160%)!important' })
+          : { transform: 'translateX(-1300px)!important' })
       }}
     >
       <Grid
@@ -54,7 +55,9 @@ const ContainerWrap: FC<LmGalleryRowProps> = ({
         className={'lm-gallery-row'}
         style={{
           gap: options.space_between_images + 'px',
-          transform: `translate3d(${starting}px, 0px, 0px)`
+          transform: inView
+            ? `translate3d(${starting}px, 0px, 0px)`
+            : 'matrix(1, 0, 0, 1, 0, 0)'
         }}
       >
         {children}
