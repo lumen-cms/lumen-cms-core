@@ -14,17 +14,19 @@ const base64encode =
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
     const { defaultLocale, locales, locale } = useRouter()
-
     // enable smooth scroll
     const handleClick = useCallback(
       async (e) => {
         const [, anchorName] = href.split('#')
+        debugger
         if (anchorName) {
           const destination = document.getElementById(anchorName)
           if (destination) {
-            if (e.target.closest('.MuiDrawer-root')) return
+            if (e.target.closest('.MuiDrawer-root')) {
+              return
+            }
             e.preventDefault()
-            window.location.hash = anchorName
+            // window.location.hash = anchorName // this causes not working on /#myValue on home
             destination.scrollIntoView({
               behavior: 'smooth'
             })
@@ -34,6 +36,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
       [href]
     )
     if (other.external) {
+      console.log('link', href, other)
       delete other.external
       const currentLinkProps =
         href.startsWith('mailto:') || href.startsWith('tel:')

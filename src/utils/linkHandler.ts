@@ -76,7 +76,7 @@ export const linkHandler = (
       props.target = '_blank'
       props.rel = 'noopener noreferrer'
     }
-    props.external = true
+    props.external = !href.startsWith('#')
     props.href = href
   }
   return props
