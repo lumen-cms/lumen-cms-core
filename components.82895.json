@@ -232,29 +232,9 @@
       "name": "avatar",
       "display_name": null,
       "created_at": "2020-05-01T08:40:46.185Z",
-      "updated_at": "2020-07-09T03:23:38.983Z",
+      "updated_at": "2021-11-23T03:39:17.780Z",
       "id": 894849,
       "schema": {
-        "tab-d8a586d9-9bdf-4f88-ad22-a8157f8c8235": {
-          "type": "tab",
-          "display_name": "Settings",
-          "keys": [
-            "variant",
-            "size",
-            "custom_size",
-            "color",
-            "background_color"
-          ],
-          "pos": 0
-        },
-        "tab-2b38315c-24e9-439c-9b2a-e764e2bad231": {
-          "type": "tab",
-          "display_name": "Classes",
-          "keys": [
-            "class_names"
-          ],
-          "pos": 1
-        },
         "variant": {
           "type": "option",
           "use_uuid": true,
@@ -309,19 +289,44 @@
           "type": "number",
           "pos": 4
         },
+        "font_size": {
+          "type": "number",
+          "pos": 5
+        },
         "icon": {
           "type": "custom",
           "field_type": "material-icons-selector",
           "options": [],
-          "pos": 5
+          "pos": 6
         },
         "image": {
           "type": "image",
-          "pos": 6
+          "pos": 7
         },
         "letter": {
           "type": "text",
-          "pos": 7
+          "pos": 8
+        },
+        "tab-d8a586d9-9bdf-4f88-ad22-a8157f8c8235": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "variant",
+            "size",
+            "custom_size",
+            "color",
+            "background_color",
+            "font_size"
+          ],
+          "pos": 9
+        },
+        "tab-2b38315c-24e9-439c-9b2a-e764e2bad231": {
+          "type": "tab",
+          "display_name": "Classes",
+          "keys": [
+            "class_names"
+          ],
+          "pos": 10
         },
         "class_names": {
           "type": "custom",
@@ -332,7 +337,7 @@
               "value": ""
             }
           ],
-          "pos": 8
+          "pos": 11
         }
       },
       "image": null,
@@ -14441,7 +14446,7 @@
       "name": "timeline",
       "display_name": null,
       "created_at": "2020-05-01T08:40:34.062Z",
-      "updated_at": "2021-08-19T04:39:05.434Z",
+      "updated_at": "2021-11-23T08:39:08.550Z",
       "id": 894790,
       "schema": {
         "align": {
@@ -14474,13 +14479,53 @@
           ],
           "pos": 1
         },
+        "connect_separator": {
+          "type": "boolean",
+          "pos": 2
+        },
+        "disable_card": {
+          "type": "boolean",
+          "pos": 3
+        },
+        "card_variant": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "elevation",
+              "name": "elevation"
+            },
+            {
+              "value": "outlined",
+              "name": "outlined"
+            }
+          ],
+          "pos": 4
+        },
+        "card_elevation": {
+          "type": "number",
+          "pos": 5
+        },
+        "card_square": {
+          "type": "boolean",
+          "pos": 6
+        },
+        "card_background_color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "pos": 7
+        },
+        "show_last_line": {
+          "type": "boolean",
+          "pos": 8
+        },
         "body": {
           "type": "bloks",
           "restrict_components": true,
           "component_whitelist": [
             "timeline_item"
           ],
-          "pos": 2,
+          "pos": 9,
           "component_group_whitelist": []
         },
         "tab-d46bb7fa-d8a9-4622-985e-ad950285a1f4": {
@@ -14488,9 +14533,16 @@
           "display_name": "Settings",
           "keys": [
             "variant",
-            "align"
+            "align",
+            "connect_separator",
+            "card_variant",
+            "card_elevation",
+            "card_square",
+            "disable_card",
+            "card_background_color",
+            "show_last_line"
           ],
-          "pos": 3
+          "pos": 10
         }
       },
       "image": null,

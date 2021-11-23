@@ -6,6 +6,7 @@ import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 
 export default function LmTimeline({ content }: LmTimelineProps): JSX.Element {
   const { isMobile } = useDeviceDimensions()
+  // const x = useTween({})
   return (
     <Timeline align={isMobile ? 'left' : content.align || 'alternate'}>
       {content.body?.map((blok, i) => (
@@ -14,7 +15,6 @@ export default function LmTimeline({ content }: LmTimelineProps): JSX.Element {
           options={content}
           key={blok._uid}
           isLast={i + 1 === content.body?.length}
-          isMobile={isMobile}
         />
       ))}
     </Timeline>

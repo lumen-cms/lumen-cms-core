@@ -45,7 +45,7 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
     if (individualSize) {
       style.width = individualSize.container
       style.height = individualSize.container
-      style.fontSize = individualSize.icon
+      style.fontSize = iconName ? individualSize.icon : individualSize.icon - 4
     } else {
       console.error(
         `Size of avatar is not defined inside of LmAvatar: ${content.size}`
@@ -55,7 +55,10 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
   if (customSize) {
     style.width = customSize
     style.height = customSize
-    style.fontSize = customSize / 2
+    style.fontSize = iconName ? customSize / 2 : customSize / 3
+  }
+  if (content.font_size) {
+    style.fontSize = Number(content.font_size)
   }
 
   return (

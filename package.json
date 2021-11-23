@@ -65,6 +65,7 @@
     "@types/react-big-calendar": "0.33.1",
     "@types/react-swipeable-views": "^0.13.1",
     "@types/react-swipeable-views-utils": "^0.13.3",
+    "@types/scrollmagic": "^2.0.2",
     "axios": "0.21.3",
     "clsx": "1.1.1",
     "cors": "^2.8.5",

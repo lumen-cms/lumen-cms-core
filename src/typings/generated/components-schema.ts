@@ -166,6 +166,7 @@ export interface AvatarStoryblok {
   };
   size?: "dense" | "large" | "xlarge";
   custom_size?: number;
+  font_size?: number;
   icon?: {
     name?: string;
     [k: string]: any;
@@ -3420,6 +3421,16 @@ export interface TabsItemStoryblok {
 export interface TimelineStoryblok {
   align?: "left" | "right";
   variant?: "outlined" | "naked";
+  connect_separator?: boolean;
+  disable_card?: boolean;
+  card_variant?: "elevation" | "outlined";
+  card_elevation?: number;
+  card_square?: boolean;
+  card_background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  show_last_line?: boolean;
   body?: TimelineItemStoryblok[];
   _uid: string;
   component: "timeline";

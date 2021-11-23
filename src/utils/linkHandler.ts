@@ -1,4 +1,5 @@
 import { internalLinkHandler } from './internalLinkHandler'
+import { ReactElement } from 'react'
 
 export interface LinkType {
   cached_url?: string
@@ -25,13 +26,15 @@ interface LinkOptions {
   openExternal?: boolean
 }
 
-type LinkHandlerProps = {
+export type LinkHandlerProps = {
   href?: string
   target?: string
   rel?: string
   external?: boolean
   download?: string
   email?: string
+  naked?: boolean
+  component?: ReactElement
 }
 
 export const linkHandler = (
