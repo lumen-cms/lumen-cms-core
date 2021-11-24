@@ -13,6 +13,7 @@ const LmGalleryRowContainer: FC<LmGalleryRowProps> = ({
   const [ref, inView, refElement] = useInView()
   const galleryRowRef = useRef<HTMLDivElement>(null)
   const galleryTarget = refElement?.target
+  const [scrollY, setScrollY] = useState<number>(0)
 
   useEffect(() => {
     const setOffset = () => {
@@ -32,7 +33,7 @@ const LmGalleryRowContainer: FC<LmGalleryRowProps> = ({
     return () => {
       window.removeEventListener('resize', setOffset)
     }
-  }, [content.scroll_to_left, galleryRowRef.current])
+  }, [content.scroll_to_left, galleryTarget])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,9 +41,8 @@ const LmGalleryRowContainer: FC<LmGalleryRowProps> = ({
         return
       }
       const y = window.scrollY + window.innerHeight - offset.current
-      galleryRowRef.current.style.transform = `translate3d(${
-        content.scroll_to_left ? y * -1 : y
-      }px, 0px, 0px)`
+      let number = content.scroll_to_left ? y * -1 : y
+      setScrollY(number)
     }
     const cleanUp = () => {
       window.removeEventListener('scroll', handleScroll)
@@ -60,7 +60,7 @@ const LmGalleryRowContainer: FC<LmGalleryRowProps> = ({
     return () => {
       cleanUp()
     }
-  }, [inView, galleryTarget, galleryRowRef.current, content.scroll_to_left])
+  }, [inView, galleryTarget, content.scroll_to_left])
   return (
     <div
       id={'row-' + content._uid}

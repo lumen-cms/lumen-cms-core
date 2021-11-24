@@ -9,6 +9,7 @@ import {
   imageCalculateWidth
 } from '../../utils/imageServices'
 import { ClassNameMap } from '@material-ui/core/styles/withStyles'
+import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 
 type LmGalleryImageProps = {
   content: ImageCoreStoryblok
@@ -39,6 +40,7 @@ export default function LmGalleryImage({
     >
       <Image
         src={getRootImageUrl(imageSource)}
+        {...storyblokImageLoader(imageSource)}
         width={width}
         height={height}
         layout={'intrinsic'}
