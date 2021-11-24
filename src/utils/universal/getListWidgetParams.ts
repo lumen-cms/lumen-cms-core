@@ -2,30 +2,19 @@ import { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { queryStringify } from './paramsToQueryString'
+import { getStoriesSortHelper } from './storyblokParamsHelper'
 
 export const getListWidgetParams = (
   item: ListWidgetStoryblok,
   props: { locale?: string | null; defaultLocale?: string }
 ) => {
   const locale = props.locale !== props.defaultLocale ? props.locale : null
-  const sort = item.sort
-  const sortOrder = item.sort_descending ? 'desc' : 'asc'
-  let sortBy = `published_at:desc`
-  if (sort === 'created') {
-    sortBy = `created_at:${sortOrder}`
-  } else if (sort === 'updated') {
-    sortBy = `updated_at:${sortOrder}`
-  } else if (sort === 'publish') {
-    sortBy = `content.preview_publish_date:${sortOrder}`
-  } else if (sort === 'title') {
-    sortBy = `content.previewTitle:${sortOrder}`
-  }
 
   const params: StoriesParams = {
     per_page: item.maximum_items || 25,
     excluding_fields:
       'body,right_body,meta_robots,property,meta_description,seo_body',
-    sort_by: sortBy,
+    sort_by: getStoriesSortHelper(item),
     filter_query: {
       component: {
         in: 'page'

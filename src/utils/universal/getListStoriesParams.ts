@@ -1,7 +1,10 @@
 import { ListStoriesStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../typings/app'
 import { StoriesParams } from 'storyblok-js-client'
-import { getStoriesDefaultParams } from './storyblokParamsHelper'
+import {
+  getStoriesDefaultParams,
+  getStoriesSortHelper
+} from './storyblokParamsHelper'
 
 export const getListStoriesParams = (
   item: ListStoriesStoryblok,
@@ -18,8 +21,13 @@ export const getListStoriesParams = (
           : 'page,event,news'
       }
     },
-    sort_by:
-      'content.published_at:desc,content.preview_publish_date:desc,content.start:desc,content.title:asc'
+    sort_by: item.sort
+      ? getStoriesSortHelper(item)
+      : 'content.published_at:desc,content.preview_publish_date:desc,content.start:desc,content.title:asc'
+  }
+  if (item.sort) {
+    if (item.sort === 'created') {
+    }
   }
   params.filter_query.__or = []
   const categoryFilters: string[] = [

@@ -8659,7 +8659,7 @@
       "name": "list_stories",
       "display_name": null,
       "created_at": "2021-08-20T06:33:37.926Z",
-      "updated_at": "2021-09-20T13:59:47.360Z",
+      "updated_at": "2021-11-24T05:57:06.198Z",
       "id": 1720175,
       "schema": {
         "enable_search": {
@@ -8684,9 +8684,36 @@
           ],
           "pos": 1
         },
+        "sort": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "publish",
+              "name": "Publish Date"
+            },
+            {
+              "value": "updated",
+              "name": "Updated Date"
+            },
+            {
+              "value": "created",
+              "name": "Created Date"
+            },
+            {
+              "value": "title",
+              "name": "Title"
+            }
+          ],
+          "pos": 2
+        },
+        "sort_descending": {
+          "type": "boolean",
+          "pos": 3
+        },
         "max_items": {
           "type": "number",
-          "pos": 2,
+          "pos": 4,
           "description": "Shows amount of {x} items. Disables pagination. "
         },
         "pagination": {
@@ -8696,7 +8723,7 @@
           "component_whitelist": [
             "pagination"
           ],
-          "pos": 3,
+          "pos": 5,
           "description": "Make Pagination visible to show more content. Disabled if \"Max Items\" is in use."
         },
         "layout": {
@@ -8709,58 +8736,13 @@
             "lists",
             "nav_list"
           ],
-          "pos": 7,
+          "pos": 6,
           "description": "Modify look and feel of the list. Switches between \"news\", \"lists\", \"card\" and \"links\""
-        },
-        "tab-4129d63f-760d-481d-8cc2-3728f21bcbfa": {
-          "type": "tab",
-          "display_name": "Page",
-          "keys": [
-            "page_categories",
-            "match_all_categories"
-          ],
-          "pos": 8
-        },
-        "tab-bbb03c32-1da3-4e5e-a29c-40b0e8f27221": {
-          "type": "tab",
-          "display_name": "Event",
-          "keys": [
-            "event_categories"
-          ],
-          "pos": 9
-        },
-        "tab-38b502b0-0408-49f3-8357-09064a273f98": {
-          "type": "tab",
-          "display_name": "News",
-          "keys": [
-            "news_categories"
-          ],
-          "pos": 10
-        },
-        "page_categories": {
-          "type": "options",
-          "source": "internal_stories",
-          "filter_content_type": "category",
-          "pos": 11
-        },
-        "event_categories": {
-          "type": "options",
-          "source": "internal_stories",
-          "filter_content_type": "event_category",
-          "pos": 12
-        },
-        "news_categories": {
-          "type": "options",
-          "source": "internal_stories",
-          "filter_content_type": "news_category",
-          "pos": 13
-        },
-        "match_all_categories": {
-          "type": "boolean"
         },
         "enable_min_height": {
           "type": "boolean",
-          "description": "Useful to set this option if the list is part of a search with an enabled right navigation drawer."
+          "description": "Useful to set this option if the list is part of a search with an enabled right navigation drawer.",
+          "pos": 7
         },
         "not_found_message": {
           "type": "bloks",
@@ -8770,7 +8752,55 @@
           "component_whitelist": [],
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
-          ]
+          ],
+          "pos": 8
+        },
+        "tab-4129d63f-760d-481d-8cc2-3728f21bcbfa": {
+          "type": "tab",
+          "display_name": "Page",
+          "keys": [
+            "page_categories",
+            "match_all_categories"
+          ],
+          "pos": 9
+        },
+        "tab-bbb03c32-1da3-4e5e-a29c-40b0e8f27221": {
+          "type": "tab",
+          "display_name": "Event",
+          "keys": [
+            "event_categories"
+          ],
+          "pos": 10
+        },
+        "tab-38b502b0-0408-49f3-8357-09064a273f98": {
+          "type": "tab",
+          "display_name": "News",
+          "keys": [
+            "news_categories"
+          ],
+          "pos": 11
+        },
+        "page_categories": {
+          "type": "options",
+          "source": "internal_stories",
+          "filter_content_type": "category",
+          "pos": 12
+        },
+        "event_categories": {
+          "type": "options",
+          "source": "internal_stories",
+          "filter_content_type": "event_category",
+          "pos": 13
+        },
+        "news_categories": {
+          "type": "options",
+          "source": "internal_stories",
+          "filter_content_type": "news_category",
+          "pos": 14
+        },
+        "match_all_categories": {
+          "type": "boolean",
+          "pos": 15
         },
         "tab-c9ce5ac1-b141-40e2-8d17-33fc102b5ed7": {
           "type": "tab",
@@ -8779,15 +8809,17 @@
             "document_categories",
             "match_all_document_categories"
           ],
-          "pos": 0
+          "pos": 16
         },
         "document_categories": {
           "type": "options",
           "source": "internal_stories",
-          "filter_content_type": "document_category"
+          "filter_content_type": "document_category",
+          "pos": 17
         },
         "match_all_document_categories": {
-          "type": "boolean"
+          "type": "boolean",
+          "pos": 18
         }
       },
       "image": null,

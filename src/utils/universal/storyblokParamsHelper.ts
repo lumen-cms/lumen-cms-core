@@ -1,6 +1,10 @@
 import { AppPageProps } from '../../typings/app'
 import { StoriesParams } from 'storyblok-js-client'
 import { localeStoriesHelper } from '../initial-props/component-data/localeStoriesHelper'
+import {
+  ListStoriesStoryblok,
+  ListWidgetStoryblok
+} from '../../typings/generated/components-schema'
 
 export const defaultResolveRelations =
   'static_section.container,form_container.form,event.category,news.category,page.categories'
@@ -23,4 +27,22 @@ export const getStoriesDefaultParams = (props: AppPageProps): StoriesParams => {
     ...localeStoriesHelper(props)
   }
   return params
+}
+
+export const getStoriesSortHelper = ({
+  sort,
+  sort_descending
+}: ListWidgetStoryblok | ListStoriesStoryblok) => {
+  const sortOrder = sort_descending ? 'desc' : 'asc'
+  let sortBy = `published_at:desc`
+  if (sort === 'created') {
+    sortBy = `created_at:${sortOrder}`
+  } else if (sort === 'updated') {
+    sortBy = `updated_at:${sortOrder}`
+  } else if (sort === 'publish') {
+    sortBy = `content.preview_publish_date:${sortOrder},published_at:desc`
+  } else if (sort === 'title') {
+    sortBy = `content.preview_title:${sortOrder},content.meta_title:${sortOrder},name:${sortOrder}`
+  }
+  return sortBy
 }

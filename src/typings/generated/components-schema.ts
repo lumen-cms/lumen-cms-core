@@ -1941,13 +1941,11 @@ export interface ListSearchFieldStoryblok {
 export interface ListStoriesStoryblok {
   enable_search?: boolean;
   view_types?: ("page" | "event" | "news")[];
+  sort?: "publish" | "updated" | "created" | "title";
+  sort_descending?: boolean;
   max_items?: number;
   pagination?: PaginationStoryblok[];
   layout?: (CardListStoryblok | NewsListStoryblok | ListsStoryblok | NavListStoryblok)[];
-  page_categories?: any[];
-  event_categories?: any[];
-  news_categories?: any[];
-  match_all_categories?: boolean;
   enable_min_height?: boolean;
   not_found_message?: (
     | AccordionStoryblok
@@ -2004,6 +2002,10 @@ export interface ListStoriesStoryblok {
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
+  page_categories?: any[];
+  event_categories?: any[];
+  news_categories?: any[];
+  match_all_categories?: boolean;
   document_categories?: any[];
   match_all_document_categories?: boolean;
   _uid: string;
