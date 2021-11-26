@@ -79,7 +79,8 @@ type BackgroundImageProps = {
 
 const BackgroundImage = ({
   content,
-  backgroundStyle
+  backgroundStyle,
+  sectionPosition
 }: BackgroundImageProps): JSX.Element | null => {
   const classes = useStyles()
 
@@ -93,7 +94,7 @@ const BackgroundImage = ({
     disable_lazy_loading
   } = content
 
-  const priorityLoading = priority
+  const priorityLoading = priority || sectionPosition === 0
   const loading = priorityLoading
     ? undefined
     : disable_lazy_loading
@@ -119,6 +120,10 @@ const BackgroundImage = ({
         }
         objectPosition={background_position || 'center'}
         layout="fill"
+        {...(content.background_data && {
+          placeholder: 'blur',
+          blurDataURL: content.background_data
+        })}
       />
     )
   }

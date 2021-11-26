@@ -58,7 +58,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
     }
     const detectedLocale =
       locales?.find((l) => l === href.split('/')[1]) || defaultLocale
-
+    delete other.external
     // to improve scroll to anchor check this: https://github.com/vercel/next.js/issues/5136#issuecomment-900144671
     return (
       <NextLink

@@ -8,10 +8,18 @@ export const fetchComponentData = async (props: AppPageProps) => {
       if (typeof callback === 'function') {
         item[item.component + '_data'] = await callback(item, props)
         // listWidgets.push(item)
-      } else if (Array.isArray(item.body)) {
+      }
+      if (Array.isArray(item.elements)) {
+        await walkArray(item.elements)
+      }
+      if (Array.isArray(item.body)) {
         await walkArray(item.body)
-      } else if (Array.isArray(item.container?.content?.body)) {
+      }
+      if (Array.isArray(item.container?.content?.body)) {
         await walkArray(item.container.content.body)
+      }
+      if (Array.isArray(item.background)) {
+        await walkArray(item.background)
       }
     }
   }

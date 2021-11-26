@@ -13,13 +13,16 @@ import { googleFormGetData } from './component-data/googleFormData'
 import { getCategoryData } from './component-data/categoryData'
 import { getEventData } from './component-data/eventData'
 import { listStoriesData } from './component-data/listStoriesData'
+import { createPlaceholderImages } from './component-data/createPlaceholderImages'
 
 SSR_CONFIG.ssrHooks.componentData = {
   list_widget: listWidgetGetData,
   form: googleFormGetData,
   category_box: getCategoryData,
   event_calendar: getEventData,
-  list_stories: listStoriesData
+  list_stories: listStoriesData,
+  parallax_item: createPlaceholderImages,
+  background: createPlaceholderImages
 }
 
 const getPageProps = async (

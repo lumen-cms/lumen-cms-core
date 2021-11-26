@@ -50,6 +50,10 @@ export default function LmSectionParallax({
                       src={getRootImageUrl(item.image)}
                       layout="fill"
                       objectFit="cover"
+                      {...(item.parallax_item_data && {
+                        placeholder: 'blur',
+                        blurDataURL: item.parallax_item_data
+                      })}
                     />
                   )}
                   {item.children?.map((child: any) => (

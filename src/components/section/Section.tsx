@@ -39,11 +39,7 @@ export function LmSection({
   const classes = useStyles()
   const theme = useTheme()
 
-  const background: BackgroundStoryblok | undefined = Array.isArray(
-    content.background
-  )
-    ? content.background[0]
-    : undefined
+  const background: BackgroundStoryblok | undefined = content.background?.[0]
   const { style, className } = useBackgroundBox({
     variant: content.variant || content.presetVariant,
     background,
