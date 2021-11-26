@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import clsx from 'clsx'
 import { makeStyles, Theme } from '@material-ui/core/styles'
 import {
@@ -28,9 +28,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     '&.rounded-circle': {
       borderRadius: '50%'
-    },
-    '&.loading': {
-      backgroundColor: 'rgb(74,74,74, 0.3)'
     }
   },
   customImage: (props: ImageStoryblok) => ({
