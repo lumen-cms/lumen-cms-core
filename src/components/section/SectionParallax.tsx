@@ -25,8 +25,7 @@ const useStyles = makeStyles({
 })
 
 export default function LmSectionParallax({
-  content,
-  sectionPosition
+  content
 }: LmSectionParallaxProps): JSX.Element {
   const classes = useStyles()
   const contentHeight = content.height

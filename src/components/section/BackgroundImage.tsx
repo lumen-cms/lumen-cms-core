@@ -79,8 +79,7 @@ type BackgroundImageProps = {
 
 const BackgroundImage = ({
   content,
-  backgroundStyle,
-  sectionPosition
+  backgroundStyle
 }: BackgroundImageProps): JSX.Element | null => {
   const classes = useStyles()
 
