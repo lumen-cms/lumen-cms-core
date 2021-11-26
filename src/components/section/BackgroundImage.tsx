@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -15,24 +15,13 @@ const useStyles = makeStyles((theme: Theme) =>
       '@media (orientation: landscape)': {
         '&.portrait': {
           display: 'none !important'
-        },
-        '&.portrait div, &.portrait img, &.portrait div img': {
-          display: 'none !important'
         }
       },
       '@media (orientation: portrait)': {
         '&.landscape': {
           display: 'none !important'
-        },
-        '&.landscape div, &.landscape img, &.landscape div img': {
-          display: 'none !important'
         }
       },
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
       '&.hide__xs': {
         [theme.breakpoints.only('xs')]: {
           display: 'none !important'
@@ -50,6 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     rootFixedImage: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      zIndex: -1,
       // disable for mobile
       [theme.breakpoints.up('sm')]: {
         clip: 'rect(0,auto,auto,0)!important',
@@ -103,79 +98,52 @@ const BackgroundImage = ({
   const imageSource = image
   const imageSourcePortrait = alternative_image || undefined
 
-  const BgImage = (props: { src?: string }) => {
-    if (!props.src) {
-      return null
-    }
-    return (
-      <Image
-        src={getRootImageUrl(props.src)}
-        {...storyblokImageLoader(props.src)}
-        priority={priorityLoading}
-        loading={loading}
-        objectFit={
-          background_size !== 'auto' && background_size
-            ? background_size
-            : 'cover'
-        }
-        objectPosition={background_position || 'center'}
-        layout="fill"
-        {...(content.background_data && {
-          placeholder: 'blur',
-          blurDataURL: content.background_data
-        })}
-      />
+  const BgImage = ({ src, className }: { src: string; className: string }) => (
+    <Image
+      className={className}
+      src={getRootImageUrl(src)}
+      {...storyblokImageLoader(src)}
+      priority={priorityLoading}
+      loading={loading}
+      objectFit={background_size || 'cover'}
+      objectPosition={background_position || 'center'}
+      layout="fill"
+      {...(content.background_data && {
+        placeholder: 'blur',
+        blurDataURL: content.background_data
+      })}
+    />
+  )
+  const Wrap: FC = ({ children }) => {
+    return ['fixed_cover', 'fixed_image'].includes(backgroundStyle || '') ? (
+      <div className={classes.rootFixedImage}>
+        <div className={classes.fixedCoverImageWrap}>{children}</div>
+      </div>
+    ) : (
+      <>{children}</>
     )
   }
 
-  if (['fixed_cover', 'fixed_image'].includes(backgroundStyle || '')) {
-    return (
-      <>
-        <div
-          className={clsx(
-            classes.root,
-            classes.rootFixedImage,
-            imageSourcePortrait ? 'landscape' : undefined,
-            hide_image_on_breakpoint
-              ? `hide__${hide_image_on_breakpoint}`
-              : undefined
-          )}
-        >
-          <div className={classes.fixedCoverImageWrap}>
-            <BgImage src={imageSource} />
-          </div>
-        </div>
-        {imageSourcePortrait && (
-          <div
-            className={clsx(classes.root, classes.rootFixedImage, 'portrait')}
-          >
-            <div className={classes.fixedCoverImageWrap}>
-              <BgImage src={imageSourcePortrait} />
-            </div>
-          </div>
-        )}
-      </>
-    )
-  }
+  const defaultImgClassNames = clsx(classes.root, {
+    [`hide__${hide_image_on_breakpoint}`]: hide_image_on_breakpoint
+  })
   return (
-    <>
-      <div
-        className={clsx(
-          classes.root,
-          imageSourcePortrait ? 'landscape' : undefined,
-          hide_image_on_breakpoint
-            ? `hide__${hide_image_on_breakpoint}`
-            : undefined
-        )}
-      >
-        <BgImage src={imageSource} />
-      </div>
-      {imageSourcePortrait && (
-        <div className={clsx(classes.root, 'portrait')}>
-          <BgImage src={imageSourcePortrait} />
-        </div>
+    <Wrap>
+      {imageSource && (
+        <BgImage
+          src={imageSource}
+          className={clsx(defaultImgClassNames, {
+            landscape: imageSourcePortrait
+          })}
+        />
       )}
-    </>
+      {imageSourcePortrait && (
+        <BgImage
+          src={imageSourcePortrait}
+          className={clsx(defaultImgClassNames, 'portrait')}
+        />
+      )}
+    </Wrap>
   )
 }
 

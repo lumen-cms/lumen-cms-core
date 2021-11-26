@@ -22,7 +22,8 @@ SSR_CONFIG.ssrHooks.componentData = {
   event_calendar: getEventData,
   list_stories: listStoriesData,
   parallax_item: createPlaceholderImages,
-  background: createPlaceholderImages
+  background: createPlaceholderImages,
+  image: createPlaceholderImages
 }
 
 const getPageProps = async (

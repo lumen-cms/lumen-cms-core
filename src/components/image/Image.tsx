@@ -49,9 +49,6 @@ export default function LmImage({
   const imageSource = content.source
 
   const { priority, disable_lazy_loading } = content
-  const [loaded, setLoaded] = useState<boolean>(
-    !!(priority || disable_lazy_loading)
-  )
   if (!imageSource) {
     return <div /> // don't need to render anything
   }
@@ -97,18 +94,17 @@ export default function LmImage({
           className={clsx(
             content.class_names?.values,
             classes.imgAddons,
-            content.property,
-            loaded ? 'loaded' : 'loading'
+            content.property
           )}
         >
           <LmSquareImage
             image={imageSource}
             size={squareSize}
             layout="intrinsic"
+            base64={content.image_data}
             imageProps={{
               onClick: onClick ? () => onClick() : undefined,
               alt: content.alt || 'website image',
-              onLoad: () => setLoaded(true),
               objectFit: 'cover',
               objectPosition: 'center',
               className: classes.customImage
@@ -125,8 +121,7 @@ export default function LmImage({
         content.class_names?.values,
         classes.image,
         classes.imgAddons,
-        content.property,
-        loaded ? 'loaded' : 'loading'
+        content.property
       )}
       style={{
         maxWidth:
@@ -150,11 +145,11 @@ export default function LmImage({
           }
           layout="intrinsic"
           sizeIsHeight={!!content.height}
+          base64={content.image_data}
           imageProps={{
             loading,
             priority,
             onClick: onClick ? () => onClick() : undefined,
-            onLoad: () => setLoaded(true),
             alt: content.alt || 'website image',
             className: classes.customImage
           }}

@@ -1,5 +1,6 @@
 import {
   BackgroundStoryblok,
+  ImageStoryblok,
   ParallaxItemStoryblok
 } from '../../../typings/generated/components-schema'
 import { AppPageProps } from '../../../typings/app'
@@ -7,11 +8,13 @@ import { getPlaiceholder } from 'plaiceholder'
 import { getRootImageUrl } from '../../imageServices'
 
 export const createPlaceholderImages = async (
-  item: ParallaxItemStoryblok | BackgroundStoryblok,
+  item: ParallaxItemStoryblok | BackgroundStoryblok | ImageStoryblok,
   _props: AppPageProps
 ) => {
-  if (item.image) {
-    const { base64 } = await getPlaiceholder(getRootImageUrl(item.image))
+  if (item.image || item.source) {
+    const { base64 } = await getPlaiceholder(
+      getRootImageUrl(item.image || item.source)
+    )
     return base64
   }
   return null

@@ -11,6 +11,7 @@ type LmSquareImageProps = {
   size?: number | string
   sizeIsHeight?: boolean
   layout?: 'responsive' | 'intrinsic' | 'fixed'
+  base64?: string
   imageProps?: Pick<
     ImageProps,
     | 'loading'
@@ -29,9 +30,9 @@ export default function LmSquareImage({
   image,
   imageProps,
   layout,
-  sizeIsHeight
+  sizeIsHeight,
+  base64
 }: LmSquareImageProps): JSX.Element {
-  // src={getRootImageUrl(image)}
   return (
     <Image
       src={getRootImageUrl(image)}
@@ -49,6 +50,10 @@ export default function LmSquareImage({
             objectFit: 'cover'
           })}
       {...imageProps}
+      {...(base64 && {
+        placeholder: 'blur',
+        blurDataURL: base64
+      })}
     />
   )
 }
