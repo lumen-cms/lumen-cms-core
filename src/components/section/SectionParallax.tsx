@@ -46,9 +46,7 @@ export default function LmSectionParallax({
                 <>
                   {item.image && (
                     <Image
-                      priority={
-                        !!content.disable_lazy_load || sectionPosition === 0
-                      }
+                      priority={!!content.disable_lazy_load}
                       {...storyblokImageLoader(item.image)}
                       src={getRootImageUrl(item.image)}
                       layout="fill"

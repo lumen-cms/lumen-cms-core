@@ -94,7 +94,7 @@ const BackgroundImage = ({
     disable_lazy_loading
   } = content
 
-  const priorityLoading = priority || sectionPosition === 0
+  const priorityLoading = priority
   const loading = priorityLoading
     ? undefined
     : disable_lazy_loading
