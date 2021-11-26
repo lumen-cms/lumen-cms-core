@@ -83,6 +83,11 @@ function AppHead(): JSX.Element {
         />
         <link
           rel="preconnect"
+          href="https://a.storyblok.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
           href="https://img2.storyblok.com"
           crossOrigin="anonymous"
         />

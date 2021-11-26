@@ -4,7 +4,7 @@ export const loader = ({ src, width, quality }: ImageLoaderProps) => {
   const originalPath = src.replace(/^(https?:)?\/\/a.storyblok.com\//, '')
   let opts = ''
   if (width) {
-    opts += `/${width}x0`
+    opts += `${width}x0`
   }
 
   opts += `/filters:quality(${
