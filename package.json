@@ -67,6 +67,7 @@
     "@types/react-swipeable-views-utils": "^0.13.3",
     "@types/scrollmagic": "^2.0.2",
     "axios": "0.21.3",
+    "clean-deep": "^3.4.0",
     "clsx": "1.1.1",
     "cors": "^2.8.5",
     "cssnano-simple": "3.0.0",

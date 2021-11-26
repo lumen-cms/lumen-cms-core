@@ -1,4 +1,5 @@
 import { SSR_CONFIG } from '@SSR_CONFIG'
+import cleanDeep from 'clean-deep'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import { fetchComponentData } from './component-data/traversePageContent'
@@ -64,12 +65,10 @@ const getPageProps = async (
 
   await fetchComponentData(props)
   await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
-  Object.keys(props).forEach((k) => {
-    if (typeof props[k] === 'undefined') {
-      delete props[k]
-    }
+
+  return cleanDeep(props, {
+    emptyObjects: false
   })
-  return props //cleanObj(props)
 }
 
 export default getPageProps
