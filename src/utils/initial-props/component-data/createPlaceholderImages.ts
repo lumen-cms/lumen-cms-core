@@ -12,10 +12,11 @@ export const createPlaceholderImages = async (
   _props: AppPageProps
 ) => {
   if (item.image || item.source) {
-    const { base64 } = await getPlaiceholder(
-      getRootImageUrl(item.image || item.source)
-    )
-    return base64
+    const {
+      base64,
+      img: { width, height }
+    } = await getPlaiceholder(getRootImageUrl(item.image || item.source))
+    return { base64, width, height }
   }
   return null
 }

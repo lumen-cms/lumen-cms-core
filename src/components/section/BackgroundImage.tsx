@@ -8,6 +8,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
+import { LmImagePlaceholder } from '../image/imageTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,7 +68,9 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 type BackgroundImageProps = {
-  content: BackgroundStoryblok
+  content: BackgroundStoryblok & {
+    background_data?: LmImagePlaceholder
+  }
   backgroundStyle?: SectionStoryblok['background_style']
   sectionPosition?: number
 }
@@ -105,12 +108,12 @@ const BackgroundImage = ({
       {...storyblokImageLoader(src)}
       priority={priorityLoading}
       loading={loading}
-      objectFit={background_size || 'cover'}
+      objectFit={background_size === 'auto' ? 'cover' : background_size}
       objectPosition={background_position || 'center'}
       layout="fill"
       {...(content.background_data && {
         placeholder: 'blur',
-        blurDataURL: content.background_data
+        blurDataURL: content.background_data.base64
       })}
     />
   )

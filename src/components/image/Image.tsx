@@ -54,7 +54,8 @@ export default function LmImage({
     : disable_lazy_loading
     ? 'eager'
     : undefined
-  const originalDimensions = getOriginalImageDimensions(imageSource || '')
+  const originalDimensions =
+    content.image_data || getOriginalImageDimensions(imageSource || '')
 
   const manualSquare =
     definedWidth && definedHeight && definedWidth === definedHeight
@@ -98,7 +99,7 @@ export default function LmImage({
             image={imageSource}
             size={squareSize}
             layout="intrinsic"
-            base64={content.image_data}
+            base64={content.image_data?.base64}
             imageProps={{
               onClick: onClick ? () => onClick() : undefined,
               alt: content.alt || 'website image',
@@ -142,7 +143,7 @@ export default function LmImage({
           }
           layout="intrinsic"
           sizeIsHeight={!!content.height}
-          base64={content.image_data}
+          base64={content.image_data?.base64}
           imageProps={{
             loading,
             priority,
