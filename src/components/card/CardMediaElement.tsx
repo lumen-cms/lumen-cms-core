@@ -34,6 +34,10 @@ const CardMediaElement: FunctionComponent<CardListItemProps> = ({
         {...storyblokImageLoader(content.image)}
         loading="lazy"
         layout="fill"
+        {...(content.story_data && {
+          placeholder: 'blur',
+          blurDataURL: content.story_data.base64
+        })}
         sizes={`(min-width: 0) and (max-width: ${
           breakpoints.values.sm - 1
         }px) ${phoneVw}vw, (min-width: ${

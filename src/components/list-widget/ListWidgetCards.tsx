@@ -7,6 +7,7 @@ import {
 import { ListStoriesData } from './listWidgetTypes'
 import { getContentFields } from './listUtils/getContentFields'
 import { useRouter } from 'next/router'
+import { LmImagePlaceholder } from '../image/imageTypes'
 
 type ListWidgetCardsProps = {
   _uid: string
@@ -41,11 +42,14 @@ export function ListWidgetCards({
             subtitle,
             description,
             image,
+            story_data: item.content.story_data,
             link: {
               cached_url: item.full_slug,
               linktype: 'story'
             }
-          } as CardListItemStoryblok
+          } as CardListItemStoryblok & {
+            story_data?: LmImagePlaceholder
+          }
         })
       }}
     />

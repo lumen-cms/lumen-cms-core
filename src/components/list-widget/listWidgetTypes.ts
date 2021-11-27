@@ -48,9 +48,9 @@ type LmEventStoryblok = EventStoryblok & {
   category?: StoryData<EventCategoryStoryblok>
 }
 
-export type ListStoriesData = StoryData<
-  LmPageStoryblok | LmNewsStoryblok | LmEventStoryblok
->
+type ListStoriesTypes = LmPageStoryblok | LmNewsStoryblok | LmEventStoryblok
+
+export type ListStoriesData = StoryData<ListStoriesTypes>
 
 export type LmListStoriesPayload = {
   stories: ListStoriesData[]
