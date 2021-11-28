@@ -23,7 +23,9 @@ SSR_CONFIG.ssrHooks.componentData = {
   list_stories: listStoriesData,
   parallax_item: createPlaceholderImages,
   background: createPlaceholderImages,
-  image: createPlaceholderImages
+  image: createPlaceholderImages,
+  section_video_bg: createPlaceholderImages,
+  player: createPlaceholderImages
 }
 
 const getPageProps = async (

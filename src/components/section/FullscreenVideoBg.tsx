@@ -2,28 +2,30 @@ import clsx from 'clsx'
 import ReactPlayer, { ReactPlayerProps } from 'react-player/lazy'
 import React, { useState } from 'react'
 import BackgroundImageContainer from './BackgroundImage'
-import { SectionVideoBgStoryblok } from '../../typings/generated/components-schema'
 import videoUrlHelper from '../../utils/videoUrlHelper'
+import { LmSectionVideoProps } from './sectionTypes'
 
 type ContainerDimensions = {
   width: number
   height: number
 }
 
-type FullscreenVideoBgProps = SectionVideoBgStoryblok & {
+type FullscreenVideoBgProps = LmSectionVideoProps['content'] & {
   containerDimensions: ContainerDimensions
   fixedToRatio: boolean
   ratioHeight: number
   ratioWidth: number
+  inView: boolean
 }
 
 export default function FullscreenVideoBg(
   content: FullscreenVideoBgProps
 ): JSX.Element {
-  const properties = content.property || []
-  const videoAspect = content.ratioHeight / content.ratioWidth
+  const { inView, property, ratioHeight, ratioWidth } = content
+  const properties = property || []
+  const videoAspect = ratioHeight / ratioWidth
   // let fixedToRatio = content.fixedToRatio
-  const [error, setError] = useState(false)
+  const [error, setError] = useState<any>()
   const className = clsx('react-player')
   const videoUrl = content.url_internal?.filename || content.url || ''
 
@@ -38,8 +40,10 @@ export default function FullscreenVideoBg(
     muted,
     controls: properties.includes('controls'),
     playsinline: properties.includes('playsinline'),
-    light: content.fallback_image || properties.includes('light'),
-    onError: () => setError(true),
+    light: properties.includes('light')
+      ? content.fallback_image || true
+      : false,
+    onError: (error) => setError(error),
     volume: muted ? 0 : undefined
   }
 
@@ -50,6 +54,9 @@ export default function FullscreenVideoBg(
   let vidBgWidth = '100%'
   if (windowAspect > videoAspect) {
     vidBgWidth = `${((windowAspect / videoAspect) * 100).toFixed(2)}%`
+  }
+  if (error) {
+    console.error(error)
   }
 
   return (
@@ -66,7 +73,7 @@ export default function FullscreenVideoBg(
         >
           <div className="videobg-make-height">
             <ReactPlayer
-              url={videoUrlHelper(content)}
+              {...videoUrlHelper(content, inView)}
               className={className}
               width="100%"
               height="100%"
@@ -79,6 +86,7 @@ export default function FullscreenVideoBg(
         <BackgroundImageContainer
           content={{
             image: content.fallback_image,
+            background_data: content.section_video_bg_data,
             _uid: `bg_fallback_${content._uid}`,
             component: 'background'
           }}

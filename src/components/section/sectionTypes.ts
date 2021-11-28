@@ -6,6 +6,7 @@ import {
   SectionStoryblok,
   SectionVideoBgStoryblok
 } from '../../typings/generated/components-schema'
+import { LmImagePlaceholder } from '../image/imageTypes'
 
 export interface SectionProps extends SectionStoryblok {
   presetVariant?: SectionStoryblok['variant']
@@ -16,7 +17,9 @@ export type LmSectionParallaxProps = {
   sectionPosition?: number
 }
 export type LmSectionVideoProps = {
-  content: SectionVideoBgStoryblok
+  content: SectionVideoBgStoryblok & {
+    section_video_bg_data: LmImagePlaceholder
+  }
   sectionPosition?: number
 }
 export type LmGridRowProps = { content: RowStoryblok }

@@ -1,21 +1,27 @@
 import {
   BackgroundStoryblok,
   ImageStoryblok,
-  ParallaxItemStoryblok
+  ParallaxItemStoryblok,
+  SectionVideoBgStoryblok
 } from '../../../typings/generated/components-schema'
 import { AppPageProps } from '../../../typings/app'
 import { getPlaiceholder } from 'plaiceholder'
 import { getRootImageUrl } from '../../imageServices'
 
 export const createPlaceholderImages = async (
-  item: ParallaxItemStoryblok | BackgroundStoryblok | ImageStoryblok,
+  item:
+    | ParallaxItemStoryblok
+    | BackgroundStoryblok
+    | ImageStoryblok
+    | SectionVideoBgStoryblok,
   _props: AppPageProps
 ) => {
-  if (item.image || item.source) {
+  let src = item.image || item.source || item.fallback_image
+  if (src) {
     const {
       base64,
       img: { width, height }
-    } = await getPlaiceholder(getRootImageUrl(item.image || item.source))
+    } = await getPlaiceholder(getRootImageUrl(src))
     return { base64, width, height }
   }
   return null

@@ -128,9 +128,10 @@ export default function LmSectionVideo({
       ref={intersectionRef}
       id={content.section_identifier || content._uid}
     >
-      {hasSrc && inView && (
+      {hasSrc && (
         <FullscreenVideoBg
           {...content}
+          inView={inView}
           containerDimensions={containerDimensions}
           fixedToRatio={fixedToRatio}
           ratioHeight={ratioHeight}

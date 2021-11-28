@@ -2,7 +2,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useInView } from 'react-intersection-observer'
 import ReactPlayer from 'react-player/lazy'
 import clsx from 'clsx'
-import Skeleton from '@material-ui/lab/Skeleton'
 import React from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmPlayerProps } from './playerTypes'
@@ -45,35 +44,26 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
         [classes.borderRadius]: !!content.border_radius
       })}
     >
-      {inView ? (
-        <ReactPlayer
-          style={{
-            position: content.ratio ? 'absolute' : undefined,
-            top: content.ratio ? 0 : undefined,
-            left: content.ratio ? 0 : undefined,
-            borderRadius: content.border_radius
-              ? content.border_radius
-              : undefined
-          }}
-          url={videoUrlHelper(content)}
-          volume={content.muted ? 0 : Number(content.volume || 0)}
-          loop={content.loop}
-          muted={content.muted}
-          playsinline={content.playsinline}
-          playing={content.playing}
-          light={!!(content.fallback_image || content.light)}
-          controls={content.controls}
-          height={content.ratio ? '100%' : content.height || undefined}
-          width={content.ratio ? '100%' : content.width || undefined}
-        />
-      ) : (
-        <Skeleton
-          style={{ position: 'absolute' }}
-          width="100%"
-          height="100%"
-          variant="rect"
-        />
-      )}
+      <ReactPlayer
+        style={{
+          position: content.ratio ? 'absolute' : undefined,
+          top: content.ratio ? 0 : undefined,
+          left: content.ratio ? 0 : undefined,
+          borderRadius: content.border_radius
+            ? content.border_radius
+            : undefined
+        }}
+        {...videoUrlHelper(content, inView)}
+        volume={content.muted ? 0 : Number(content.volume || 0)}
+        loop={content.loop}
+        muted={content.muted}
+        playsinline={content.playsinline}
+        playing={content.playing}
+        light={content.light ? content.fallback_image || true : false}
+        controls={content.controls}
+        height={content.ratio ? '100%' : content.height || undefined}
+        width={content.ratio ? '100%' : content.width || undefined}
+      />
     </div>
   )
 }

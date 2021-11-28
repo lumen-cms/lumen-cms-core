@@ -5,6 +5,14 @@ LmCoreComponents.table = dynamic(
   () => import(/* webpackChunkName: 'table' */ './table/Table')
 )
 
+LmCoreComponents.section_video_bg = dynamic(
+  () => import(/* webpackChunkName: 'video' */ './section/SectionVideoBg')
+)
+
+LmCoreComponents.player = dynamic(
+  () => import(/* webpackChunkName: 'video' */ './player/Player')
+)
+
 LmCoreComponents.motion = dynamic(
   () => import(/* webpackChunkName: 'motion' */ './motion/Motion')
 )
