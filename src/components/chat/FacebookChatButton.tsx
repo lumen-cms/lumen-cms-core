@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
-import { useRouter } from 'next/router'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { FacbookChatButtonProps } from './chatTypings'
+import { useAppContext } from '@context/AppContext'
 
 declare global {
   interface Window {
@@ -23,10 +23,10 @@ declare global {
 export default function LmFacebookChatButton({
   content
 }: FacbookChatButtonProps) {
-  const { isPreview } = useRouter()
+  const { insideStoryblok } = useAppContext()
   const isScrolled = useScrollOnce()
   const startInclude =
-    !isPreview && content.page_id && (content.disable_lazy || isScrolled)
+    !insideStoryblok && content.page_id && (content.disable_lazy || isScrolled)
   const [initialized, setInitialized] = useState<boolean>(false)
   const [, status] = useScript(
     startInclude

@@ -33,7 +33,7 @@ import {
   toggleRightNavigationSelector,
   useNavigationStore
 } from '../../utils/state/navigationState'
-import { SettingsPageProvider } from '../provider/SettingsPageProvider'
+import SettingsPageProvider from '../provider/SettingsPageProvider'
 import { LmPage } from './Page'
 import getBasicSettings from '../../storybook/components/basicSettings'
 import GlobalTheme from '../global-theme/GlobalTheme'

@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import TopAppBarWrap from './TopAppBar'
 import { useSettings } from '../../provider/SettingsPageProvider'
@@ -25,4 +25,4 @@ function Header(): JSX.Element {
   )
 }
 
-export default memo(Header)
+export default Header

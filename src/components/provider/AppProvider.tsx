@@ -1,11 +1,19 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { AppContext, AppContextProps } from '@context/AppContext'
 
 const AppProvider: FunctionComponent<{ content: AppContextProps }> = ({
   children,
   content
 }) => {
-  return <AppContext.Provider value={content}>{children}</AppContext.Provider>
+  const [appContent, setAppContent] = useState<AppContextProps>(content)
+  useEffect(() => {
+    if (content.locale !== appContent.locale) {
+      setAppContent((prevState) => ({ ...prevState, locale: content.locale }))
+    }
+  }, [appContent.locale, content.locale])
+  return (
+    <AppContext.Provider value={appContent}>{children}</AppContext.Provider>
+  )
 }
 AppProvider.displayName = 'AppProvider'
 

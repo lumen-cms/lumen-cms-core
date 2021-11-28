@@ -40,6 +40,9 @@ export function LmSection({
   const theme = useTheme()
 
   const background: BackgroundStoryblok | undefined = content.background?.[0]
+  if (background?.image) {
+    console.log('inside LM SECTION', content._uid)
+  }
   const { style, className } = useBackgroundBox({
     variant: content.variant || content.presetVariant,
     background,

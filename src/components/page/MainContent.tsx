@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import { FunctionComponent } from 'react'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import { usePageStyles } from './usePageStyle'
@@ -16,7 +16,6 @@ const MainContentContainer: FunctionComponent = ({ children }) => {
   const drawerVariant = useNavigationStore(drawerVariantSelector)
   const isOpen = useNavigationStore(leftNavigationDrawerSelector)
   const hasRightDrawer = page?.right_body?.length
-
   return (
     <main
       className={clsx(classes.content, {
@@ -43,15 +42,18 @@ type MainContentProps = {
 }
 
 export function MainContent({ body }: MainContentProps): JSX.Element {
+  console.log('whyy bodyy')
   return (
     <MainContentContainer>
-      {body.map((blok, iteration) => (
-        <LmComponentRender
-          content={blok}
-          key={blok._uid}
-          sectionPosition={iteration}
-        />
-      ))}
+      {body.map((blok, iteration) => {
+        return (
+          <LmComponentRender
+            content={blok}
+            key={blok._uid}
+            sectionPosition={iteration}
+          />
+        )
+      })}
     </MainContentContainer>
   )
 }

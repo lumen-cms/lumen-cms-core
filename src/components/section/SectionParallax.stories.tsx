@@ -8,7 +8,7 @@ import {
   storySectionParallax
 } from '../../storybook/core/section'
 import { storyHeadline } from '../../storybook/core/various'
-import { SettingsPageProvider } from '../provider/SettingsPageProvider'
+import SettingsPageProvider from '../provider/SettingsPageProvider'
 import { simpleSettings } from '../../storybook/toolbar'
 import { LmPage } from '../page/Page'
 import {

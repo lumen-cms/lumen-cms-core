@@ -5,16 +5,17 @@ import GlobalTheme from '../global-theme/GlobalTheme'
 import AppProvider from '../provider/AppProvider'
 import { LmAppProvidersContainer } from './LmAppProvidersContainer'
 import { AppContainerProps } from './layoutTypes'
-import { SettingsPageProvider } from '../provider/SettingsPageProvider'
+import SettingsPageProvider from '../provider/SettingsPageProvider'
 
 export const LmAppContainer: FunctionComponent<AppContainerProps> = ({
   content,
+  shallowRouter,
   children
 }) => {
   // const set = useAppStore.getState().settings
   // const pag = useAppStore.getState().page
   const { page, settings, error, ...rest } = content
-
+  console.log('app container render')
   if (error) {
     return <Error statusCode={500} />
   }
@@ -23,7 +24,7 @@ export const LmAppContainer: FunctionComponent<AppContainerProps> = ({
   }
 
   return (
-    <AppProvider content={{ ...rest }}>
+    <AppProvider content={{ ...rest, ...shallowRouter }}>
       <SettingsPageProvider settings={settings} page={page}>
         <AppSetupProvider>
           <GlobalTheme>

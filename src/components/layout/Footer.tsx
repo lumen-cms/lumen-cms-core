@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from 'react'
+import React, { FunctionComponent } from 'react'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
@@ -50,9 +50,8 @@ const FooterContainer: FunctionComponent = ({ children }) => {
 }
 FooterContainer.displayName = 'FooterContainer'
 
-function Footer(): JSX.Element {
+export default function Footer(): JSX.Element {
   const settings = useSettings()
-
   return (
     <FooterContainer>
       {settings.footer?.map((blok) => (
@@ -61,5 +60,3 @@ function Footer(): JSX.Element {
     </FooterContainer>
   )
 }
-
-export default memo(Footer)

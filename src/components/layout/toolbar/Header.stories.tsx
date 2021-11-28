@@ -6,7 +6,7 @@ import {
   customSettingsSystemBar,
   simpleSettings
 } from '../../../storybook/toolbar'
-import { SettingsPageProvider } from '../../provider/SettingsPageProvider'
+import SettingsPageProvider from '../../provider/SettingsPageProvider'
 import StorybookPresetsContainer from '../../../storybook/components/StorybookPresetsContainer'
 import GlobalTheme from '../../global-theme/GlobalTheme'
 

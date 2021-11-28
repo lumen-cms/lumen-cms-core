@@ -9,9 +9,8 @@ const LmAuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
   content,
   children
 }) => {
-  const { user } = useAppContext() || {}
+  const { user, insideStoryblok } = useAppContext() || {}
 
-  const { isPreview } = useRouter()
   let hideOnRole = true
   let requireRole = true
   let showContent = true
@@ -40,7 +39,7 @@ const LmAuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
     }
   }
 
-  if (!isPreview && !(hideOnRole && showContent && requireRole)) {
+  if (!insideStoryblok && !(hideOnRole && showContent && requireRole)) {
     return <span className="lm-empty__auth" /> // some condition is not matched
   }
   if (content.body?.length) {

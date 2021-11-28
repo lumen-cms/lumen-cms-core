@@ -10,11 +10,11 @@ import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
 import { LmPage } from '../page/Page'
 import GoogleFont from '../layout/GoogleFont'
+import { useAppContext } from '@context/AppContext'
 
 function PageContainer() {
   const { asPath, replace, locale, defaultLocale } = useRouter()
   const { error, isLoading, user } = useAuth0()
-
   useEffect(() => {
     if (
       user &&
@@ -43,7 +43,7 @@ function PageContainer() {
 const PageAuthContainer: FC = withAuthenticationRequired(PageContainer)
 
 export function Auth0Page(props: LmPagesIndexProps) {
-  const { isPreview } = useRouter()
+  const { insideStoryblok } = useAppContext()
   const { settings, page, error, googleFontString } = props
 
   if (error || !settings || !page) {
@@ -54,7 +54,7 @@ export function Auth0Page(props: LmPagesIndexProps) {
     <>
       <AppSeo />
       <AppHead />
-      <Layout>{isPreview ? <LmPage /> : <PageAuthContainer />}</Layout>
+      <Layout>{insideStoryblok ? <LmPage /> : <PageAuthContainer />}</Layout>
       <GoogleFont googleFontString={googleFontString} />
     </>
   )

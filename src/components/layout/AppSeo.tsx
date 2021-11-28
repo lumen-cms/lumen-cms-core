@@ -1,9 +1,8 @@
 import { NextSeo, NextSeoProps } from 'next-seo'
 import React from 'react'
 import { OpenGraph, OpenGraphMedia, Twitter } from 'next-seo/lib/types.d'
-import { NextRouter, useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
-import { useAppContext } from '@context/AppContext'
+import { AppContextProps, useAppContext } from '@context/AppContext'
 import {
   ImageCoreStoryblok,
   SeoOpenGraphStoryblok,
@@ -60,7 +59,7 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
   return twitter
 }
 
-const getCanonicalUrl = (hostname = '', router: NextRouter) => {
+const getCanonicalUrl = (hostname = '', router: AppContextProps) => {
   let url =
     router.locale && router.defaultLocale !== router.locale
       ? `/${router.locale}${router.asPath}`
@@ -76,18 +75,16 @@ const getCanonicalUrl = (hostname = '', router: NextRouter) => {
 export function AppSeo(): JSX.Element {
   const settings = useSettings()
   const page = usePage()
-  const router = useRouter()
+  console.log('inside app seo')
   const appCtx = useAppContext()
+  // const router = useRouter()
   const seoBody = settings.seo_body || []
   if (appCtx?.pageNotFound || !page) {
     return <NextSeo title="Not Found" noindex nofollow />
   }
   const pageSeoBody = page.seo_body || []
   const robotsIndexFollow =
-    CONFIG.overwriteDisableIndex ||
-    page.meta_robots ||
-    !settings.seo_robots ||
-    router.asPath.startsWith('/_dev_/') // todo additionally disable .now.sh domains
+    CONFIG.overwriteDisableIndex || page.meta_robots || !settings.seo_robots
 
   const seo: NextSeoProps = {
     title:
@@ -127,7 +124,7 @@ export function AppSeo(): JSX.Element {
   }
 
   if (settings.seo_website_url) {
-    const canonicalUrl = getCanonicalUrl(settings.seo_website_url, router)
+    const canonicalUrl = getCanonicalUrl(settings.seo_website_url, appCtx)
     seo.canonical = canonicalUrl
     if (seo.openGraph) {
       seo.openGraph.url = canonicalUrl

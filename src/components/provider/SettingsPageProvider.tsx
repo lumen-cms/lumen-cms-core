@@ -5,12 +5,12 @@ import React, {
   useEffect,
   useState
 } from 'react'
-import { useRouter } from 'next/router'
 import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
 import NextScript from 'next/script'
+import { useAppContext } from '@context/AppContext'
 
 const SettingsContext = createContext<GlobalStoryblok>({} as GlobalStoryblok)
 const PageContext = createContext<PageStoryblok>({} as PageStoryblok)
@@ -21,30 +21,34 @@ declare global {
   }
 }
 
-export const SettingsPageProvider: FC<{
+const SettingsPageProvider: FC<{
   settings: GlobalStoryblok
   page?: PageStoryblok | null
 }> = ({ settings, page, children }) => {
-  const { isPreview } = useRouter() || {}
+  const { insideStoryblok } = useAppContext()
   const [stateSettings, setSettings] = useState(settings)
   const [statePage, setPage] = useState<PageStoryblok | null>(page || null)
   useEffect(() => {
     if (page && statePage?.uuid !== page?.uuid) {
+      console.log('settings page provider USE EFFECT ')
       setPage(page)
     } else if (!page) {
+      console.log('settings page provider USE EFFECT NULL')
       setPage(null)
     }
   }, [statePage?.uuid, page, setPage])
   useEffect(() => {
     if (settings && stateSettings?.uuid !== settings?.uuid) {
+      console.log('settings page provider USE EFFECT ')
       setSettings(settings)
     }
   }, [settings, stateSettings.uuid, setSettings])
 
+  console.log('settings page provider', insideStoryblok)
   return (
     <SettingsContext.Provider value={stateSettings}>
       <PageContext.Provider value={statePage as PageStoryblok}>
-        {isPreview && (
+        {insideStoryblok && (
           <NextScript
             strategy={'lazyOnload'}
             src="//app.storyblok.com/f/storyblok-v2-latest.js"
@@ -87,6 +91,8 @@ export const SettingsPageProvider: FC<{
     </SettingsContext.Provider>
   )
 }
+
+export default SettingsPageProvider
 
 export const useSettings = () => useContext(SettingsContext)
 export const usePage = () => useContext(PageContext)

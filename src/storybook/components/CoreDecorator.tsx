@@ -1,5 +1,5 @@
 import AppProvider from '../../components/provider/AppProvider'
-import { SettingsPageProvider } from '../../components/provider/SettingsPageProvider'
+import SettingsPageProvider from '../../components/provider/SettingsPageProvider'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { LmAppProvidersContainer } from '../../components/layout/LmAppProvidersContainer'
 import { getFontBasedOnSetting } from '../../utils/parseFont'

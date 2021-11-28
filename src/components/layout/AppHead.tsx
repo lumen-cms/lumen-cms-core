@@ -2,20 +2,20 @@ import NextHead from 'next/head'
 import NextScript from 'next/script'
 import { MetaTag } from 'next-seo/lib/types'
 import { LogoJsonLd } from 'next-seo'
-import { useRouter } from 'next/router'
 import { imageServiceNoWebp } from '../../utils/imageServices'
 import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
 import { useSettings } from '../provider/SettingsPageProvider'
 import GtmManager from '../tracking/GtmManager'
+import { useAppContext } from '@context/AppContext'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 function AppHead(): JSX.Element {
   const settings = useSettings()
   const favicon = settings.setup_favicon
-  const { isPreview } = useRouter()
+  const { insideStoryblok } = useAppContext()
 
   if (process.env.NODE_ENV === 'development') {
     console.log('render app head better only once')
@@ -123,11 +123,11 @@ function AppHead(): JSX.Element {
           />
         )}
       </NextHead>
-      {!isDevelopment && !isPreview && settings?.setup_facebook_pixel && (
+      {!isDevelopment && !insideStoryblok && settings?.setup_facebook_pixel && (
         <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />
       )}
       {!isDevelopment &&
-        !isPreview &&
+        !insideStoryblok &&
         settings?.setup_ad_roll_adv_id &&
         settings?.setup_ad_roll_pix_id && (
           <AdRoll
@@ -135,11 +135,13 @@ function AppHead(): JSX.Element {
             pixId={settings.setup_ad_roll_pix_id}
           />
         )}
-      {!isDevelopment && !isPreview && settings?.setup_google_analytics && (
-        <Gtag googleAnalyticsId={settings.setup_google_analytics} />
-      )}
       {!isDevelopment &&
-        !isPreview &&
+        !insideStoryblok &&
+        settings?.setup_google_analytics && (
+          <Gtag googleAnalyticsId={settings.setup_google_analytics} />
+        )}
+      {!isDevelopment &&
+        !insideStoryblok &&
         process.env.NEXT_PUBLIC_GTM_CONTAINER && <GtmManager />}
       {settings.scripts?.map((item) =>
         item.url ? (

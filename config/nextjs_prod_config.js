@@ -3,8 +3,12 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
   const enableWebpack5 = true
+  /**
+   * @type {import("next").NextConfig}
+   */
   const config = {
     ...nextConfig,
+    swcMinify: true,
     webpack5: enableWebpack5,
     images: {
       domains: ['a.storyblok.com', 'img2.storyblok.com', 'cdn.shopify.com'],

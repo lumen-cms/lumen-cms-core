@@ -10,6 +10,7 @@ import { LmComponentRender } from '@LmComponentRender'
 export function LmPage({ content }: LmPageProps): JSX.Element {
   const page = usePage()
 
+  console.log('render page', content?._uid)
   const currentContent = page || content
   const body = currentContent?.body || []
   const rightBody = currentContent?.right_body || []

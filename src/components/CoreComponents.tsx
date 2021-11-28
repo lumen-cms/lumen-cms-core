@@ -1,18 +1,20 @@
-import React, { Attributes, ComponentClass, FC } from 'react'
-import SbEditable from 'storyblok-react'
+import { Attributes, ComponentClass, createElement, FC } from 'react'
 import { LmCoreComponents } from '@CONFIG'
-import { useRouter } from 'next/router'
 import { ComponentRenderFuncProps } from '../typings/app'
+import { useAppContext } from '@context/AppContext'
+import SbEditable from 'storyblok-react'
 
 export function LmComponentRender<P>(
   props: ComponentRenderFuncProps
 ): JSX.Element {
-  const { isPreview } = useRouter()
+  const { insideStoryblok } = useAppContext()
 
   const { content, i, ...rest } = props
-
+  if (props.content.background?.[0]?.image) {
+    console.log(props.content._uid, insideStoryblok)
+  }
   if (typeof LmCoreComponents[content.component] !== 'undefined') {
-    const CurrentElement = React.createElement(
+    const CurrentElement = createElement(
       LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,
       {
         content,
@@ -23,7 +25,7 @@ export function LmComponentRender<P>(
         ...rest
       } as unknown as Attributes & P
     )
-    if (isPreview) {
+    if (insideStoryblok) {
       return <SbEditable content={content}>{CurrentElement}</SbEditable>
     }
     return CurrentElement

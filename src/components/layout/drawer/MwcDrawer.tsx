@@ -22,8 +22,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   backgroundProps
 }) => {
   const classes = useStyles()
-  const router = useRouter()
-  const asPath = router?.asPath
+  const { asPath } = useRouter() || {}
   // const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
   const leftNavigationDrawer = useNavigationStore(leftNavigationDrawerSelector)
   const closeDrawer = useNavigationStore(closeLeftNavigationSelector)
@@ -34,7 +33,6 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
     theme.breakpoints.down(settings?.mobile_nav_breakpoint || 'sm')
   )
   const [mountedOnce, setMountedOnce] = useState<boolean>(false)
-  console.log()
   useEffect(() => {
     if (drawerVariant === 'temporary' || matches) {
       closeDrawer()

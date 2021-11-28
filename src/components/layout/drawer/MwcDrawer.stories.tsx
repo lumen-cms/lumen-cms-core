@@ -9,7 +9,7 @@ import {
   toggleLeftNavigationSelector,
   useNavigationStore
 } from '../../../utils/state/navigationState'
-import { SettingsPageProvider } from '../../provider/SettingsPageProvider'
+import SettingsPageProvider from '../../provider/SettingsPageProvider'
 
 const props = {
   ...simpleSettings

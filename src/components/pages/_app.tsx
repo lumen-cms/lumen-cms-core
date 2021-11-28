@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { AppProps } from 'next/app'
+import { useEffect, useMemo } from 'react'
+import App, { AppContext, AppProps } from 'next/app'
 import NProgress from 'nprogress'
 import { CONFIG } from '@CONFIG'
 import Head from 'next/head'
@@ -9,8 +9,15 @@ import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 
 export type LmAppProps = AppProps<AppPageProps>
 
-export function LmApp({ Component, pageProps, router }: LmAppProps) {
+export function LmApp(appProps: LmAppProps) {
+  const {
+    Component,
+    pageProps,
+    router: { locales, locale, defaultLocale, events, isFallback, asPath }
+  } = appProps
   const { settings } = pageProps as AppPageProps
+
+  console.log('first APPPPP')
 
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
@@ -26,15 +33,15 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
     const handleRouteError = () => {
       NProgress.done()
     }
-    router.events.on('routeChangeComplete', handleRouteChange)
-    router.events.on('routeChangeStart', handleRouteStart)
-    router.events.on('routeChangeError', handleRouteError)
+    events.on('routeChangeComplete', handleRouteChange)
+    events.on('routeChangeStart', handleRouteStart)
+    events.on('routeChangeError', handleRouteError)
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-      router.events.off('routeChangeStart', handleRouteStart)
-      router.events.off('routeChangeError', handleRouteError)
+      events.off('routeChangeComplete', handleRouteChange)
+      events.off('routeChangeStart', handleRouteStart)
+      events.off('routeChangeError', handleRouteError)
     }
-  }, [router.events, googleAnaliyticsId, facebookPixelId])
+  }, [events, googleAnaliyticsId, facebookPixelId])
 
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -44,19 +51,32 @@ export function LmApp({ Component, pageProps, router }: LmAppProps) {
     }
   }, [])
 
-  if (router.isFallback) {
-    return <div>loading...</div>
-  }
-  return (
-    <LmAppContainer content={pageProps}>
-      <Head>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-          key="viewport"
-        />
-      </Head>
-      <Component {...pageProps} />
-    </LmAppContainer>
+  return useMemo(
+    () =>
+      isFallback ? (
+        <div>loading..</div>
+      ) : (
+        <LmAppContainer
+          content={pageProps}
+          shallowRouter={{ locale, locales, defaultLocale, asPath }}
+        >
+          <Head>
+            <meta
+              name="viewport"
+              content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+              key="viewport"
+            />
+          </Head>
+          <Component {...pageProps} />
+        </LmAppContainer>
+      ),
+    [pageProps, isFallback, locale, locales, defaultLocale, asPath]
   )
+}
+
+LmApp.getInitialProps = async (appContext: AppContext) => {
+  // calls page's `getInitialProps` and fills `appProps.pageProps`
+  const appProps = await App.getInitialProps(appContext)
+
+  return { ...appProps }
 }

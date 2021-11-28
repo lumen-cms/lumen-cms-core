@@ -118,6 +118,7 @@ const BackgroundImage = ({
       })}
     />
   )
+  console.log('render background image', content._uid)
   const Wrap: FC = ({ children }) => {
     return ['fixed_cover', 'fixed_image'].includes(backgroundStyle || '') ? (
       <div className={classes.rootFixedImage}>
