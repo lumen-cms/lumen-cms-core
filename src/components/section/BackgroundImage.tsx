@@ -49,7 +49,8 @@ const useStyles = makeStyles((theme: Theme) =>
       // disable for mobile
       [theme.breakpoints.up('sm')]: {
         clip: 'rect(0,auto,auto,0)!important',
-        clipPath: 'polygon(0px 0px,100% 0px,100% 100%,0px 100%)!important'
+        clipPath: 'polygon(0px 0px,100% 0px,100% 100%,0px 100%)!important',
+        zIndex: 0
       }
     },
     fixedCoverImageWrap: {
