@@ -10,10 +10,11 @@ export const getPlaiceholderCached = async (
   if (cache[source]) {
     return cache[source]
   }
+  let rootImageUrl = getRootImageUrl(source)
   const {
     base64,
     img: { width, height }
-  } = await getPlaiceholder(getRootImageUrl(source))
+  } = await getPlaiceholder(rootImageUrl + '/m/')
   const cacheVal = {
     base64,
     width,
