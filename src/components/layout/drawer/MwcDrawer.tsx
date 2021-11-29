@@ -2,7 +2,6 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import { useTheme } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { UseBackgroundPayload } from '../../section/useBackgroundBox'
 import { useStyles } from './useDrawerStyles'
@@ -13,6 +12,7 @@ import {
   leftNavigationDrawerSelector,
   useNavigationStore
 } from '../../../utils/state/navigationState'
+import { useAppContext } from '@context/AppContext'
 
 type DrawerContainerProps = {
   backgroundProps?: UseBackgroundPayload
@@ -22,8 +22,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   backgroundProps
 }) => {
   const classes = useStyles()
-  const { asPath } = useRouter() || {}
-  // const [isOpen, setOpen] = useGlobalState('leftNavigationDrawer')
+  const { slug } = useAppContext()
   const leftNavigationDrawer = useNavigationStore(leftNavigationDrawerSelector)
   const closeDrawer = useNavigationStore(closeLeftNavigationSelector)
   const drawerVariant = useNavigationStore(drawerVariantSelector)
@@ -37,7 +36,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
     if (drawerVariant === 'temporary' || matches) {
       closeDrawer()
     }
-  }, [asPath, drawerVariant, closeDrawer, matches])
+  }, [slug, drawerVariant, closeDrawer, matches])
 
   useEffect(() => {
     if (leftNavigationDrawer && !mountedOnce) {

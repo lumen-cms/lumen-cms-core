@@ -11,6 +11,11 @@ const AppProvider: FunctionComponent<{ content: AppContextProps }> = ({
       setAppContent((prevState) => ({ ...prevState, locale: content.locale }))
     }
   }, [appContent.locale, content.locale])
+  useEffect(() => {
+    if (content.slug !== appContent.slug) {
+      setAppContent((prevState) => ({ ...prevState, slug: content.slug }))
+    }
+  }, [appContent.slug, content.slug])
   return (
     <AppContext.Provider value={appContent}>{children}</AppContext.Provider>
   )

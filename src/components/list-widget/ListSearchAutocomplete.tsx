@@ -1,7 +1,7 @@
 import React, { createRef, RefObject, useState } from 'react'
 import {
-  createStyles,
   alpha,
+  createStyles,
   makeStyles,
   Theme,
   useTheme
@@ -17,7 +17,6 @@ import { useDebouncedCallback } from 'use-debounce'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import useSWR from 'swr'
 import { CONFIG } from '@CONFIG'
-import { useRouter } from 'next/router'
 import { PageComponent } from '../../typings/generated/schema'
 import LmIcon from '../icon/LmIcon'
 import MuiNextLink from '../link/MuiNextLink'
@@ -27,6 +26,7 @@ import { LmListSearchAutocompleteProps } from './listWidgetTypes'
 
 import { ListSearchAutocompleteContainer } from './ListSearchAutocompleteContainer'
 import { match, parse } from './autosuggest'
+import { useAppContext } from '@context/AppContext'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -139,7 +139,7 @@ export default function LmListSearchAutocomplete({
 }: LmListSearchAutocompleteProps): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>()
   const classes = useStyles()
-  const { defaultLocale, locale, locales } = useRouter()
+  const { defaultLocale, locale, locales } = useAppContext()
   const inputRef: RefObject<HTMLInputElement> = createRef()
   const [open, setOpen] = useState<boolean | undefined>()
   const theme = useTheme()

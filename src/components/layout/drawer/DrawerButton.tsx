@@ -2,16 +2,16 @@ import React from 'react'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
-import { useRouter } from 'next/router'
 import { LmCoreComponents } from '@CONFIG'
 import { ButtonStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../../utils/linkHandler'
+import { useAppContext } from '@context/AppContext'
 
 type DrawerButtonProps = { content: ButtonStoryblok }
 
 export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
-  const router = useRouter()
+  const { slug } = useAppContext()
   const buttonProps = {
     text: content.label || content.name,
     graphic: content.icon?.name
@@ -29,7 +29,7 @@ export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
     : {}
 
   const isActiveRoute = cachedUrl
-    ? router.asPath?.includes(`/${cachedUrl}`) ?? false
+    ? slug?.includes(`/${cachedUrl}`) ?? false
     : false
 
   return (

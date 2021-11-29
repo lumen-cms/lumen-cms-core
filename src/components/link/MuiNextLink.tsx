@@ -1,10 +1,10 @@
 import React, { AnchorHTMLAttributes, useCallback } from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@material-ui/core/Link'
-import { useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
 import clsx from 'clsx'
 import { LinkProps, NextComposedProps } from './linkTypes'
+import { useAppContext } from '@context/AppContext'
 
 const base64encode =
   typeof btoa !== 'undefined'
@@ -13,12 +13,11 @@ const base64encode =
 
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
-    const { defaultLocale, locales, locale } = useRouter()
+    const { defaultLocale, locales, locale } = useAppContext()
     // enable smooth scroll
     const handleClick = useCallback(
       async (e) => {
         const [, anchorName] = href.split('#')
-        debugger
         if (anchorName) {
           const destination = document.getElementById(anchorName)
           if (destination) {
@@ -91,9 +90,9 @@ const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
       naked,
       ...other
     } = props
-    const { asPath } = useRouter()
+    const { slug } = useAppContext()
     const className = clsx(classNameProps, {
-      [activeClassName]: asPath === href && activeClassName
+      [activeClassName]: slug === href && activeClassName
     })
     // const className = classNameProps
     if (!href) {

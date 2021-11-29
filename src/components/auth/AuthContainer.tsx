@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { useAppContext } from '@context/AppContext'
-import { useRouter } from 'next/router'
 import { AuthContainerStoryblok } from '../../typings/generated/components-schema'
 import { hasAuth0Credentials } from '../../utils/auth0/auth0Helpers'
 

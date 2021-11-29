@@ -3,7 +3,6 @@ import { FormContainer, TextFieldElement } from 'react-hook-form-mui'
 import { Button } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useRouter } from 'next/router'
 import { FieldError } from 'react-hook-form'
 import { useAppContext } from '../provider/context/AppContext'
 import { Auth0FormProps } from './authTypes'
@@ -11,7 +10,7 @@ import { auth0Endpoint } from '../../utils/auth0/auth0Helpers'
 
 export default function LmAuthForm({ content }: Auth0FormProps) {
   const appCtx = useAppContext()
-  const { locale } = useRouter()
+  const locale = appCtx.locale
   const auth0Hook = useAuth0()
   const [updating, setUpdating] = useState(false)
   const defaults = {

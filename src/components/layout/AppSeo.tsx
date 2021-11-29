@@ -62,8 +62,8 @@ const parseTwitter = (values: SeoTwitterStoryblok): Twitter => {
 const getCanonicalUrl = (hostname = '', router: AppContextProps) => {
   let url =
     router.locale && router.defaultLocale !== router.locale
-      ? `/${router.locale}${router.asPath}`
-      : router.asPath
+      ? `/${router.locale}${router.slug || ''}`
+      : router.slug || ''
   if (url.endsWith('home')) {
     url = url.replace('/home', '')
   } else if (url.endsWith('home/')) {
@@ -75,9 +75,7 @@ const getCanonicalUrl = (hostname = '', router: AppContextProps) => {
 export function AppSeo(): JSX.Element {
   const settings = useSettings()
   const page = usePage()
-  console.log('inside app seo')
   const appCtx = useAppContext()
-  // const router = useRouter()
   const seoBody = settings.seo_body || []
   if (appCtx?.pageNotFound || !page) {
     return <NextSeo title="Not Found" noindex nofollow />

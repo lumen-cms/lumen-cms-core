@@ -1,16 +1,16 @@
 import MuiNextLink from '../link/MuiNextLink'
-import { useRouter } from 'next/router'
 import { LmNewsListItemProps } from './listWidgetTypes'
 import { LmComponentRender } from '@LmComponentRender'
 import { renderRichText } from '../paragraph/renderRichText'
 import { getContentFields } from './listUtils/getContentFields'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
+import { useAppContext } from '@context/AppContext'
 
 export default function LmNewsListItem({
   content,
   options
 }: LmNewsListItemProps) {
-  const { locale } = useRouter()
+  const { locale } = useAppContext()
   const { title, description, subtitle } = getContentFields(content, {
     locale,
     hide_category: options.hide_category,

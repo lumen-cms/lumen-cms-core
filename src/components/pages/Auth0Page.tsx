@@ -13,7 +13,7 @@ import GoogleFont from '../layout/GoogleFont'
 import { useAppContext } from '@context/AppContext'
 
 function PageContainer() {
-  const { asPath, replace, locale, defaultLocale } = useRouter()
+  const { asPath, replace, locale, defaultLocale, isReady } = useRouter()
   const { error, isLoading, user } = useAuth0()
   useEffect(() => {
     if (
@@ -30,7 +30,7 @@ function PageContainer() {
     return <Error statusCode={401} title={error?.message || 'Error occured'} />
   }
 
-  if (isLoading) {
+  if (isLoading || !isReady) {
     return (
       <div style={{ minHeight: '30vh' }}>
         <LinearProgress />

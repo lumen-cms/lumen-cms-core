@@ -10,8 +10,7 @@ import GoogleFont from '../layout/GoogleFont'
 export type LmPagesIndexProps = AppPageProps & Record<string, unknown>
 
 export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
-  const { settings, page, error, googleFontString, ...rest } = props
-  console.log('INIT DEFAULT PAGE', rest)
+  const { settings, page, error, googleFontString } = props
   if (error || !settings || !page) {
     return <Error statusCode={500} />
   }

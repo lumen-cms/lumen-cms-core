@@ -8,7 +8,6 @@ import { useSettings } from '../provider/SettingsPageProvider'
 
 const Layout: FC = ({ children }) => {
   const settings = useSettings()
-  console.log('layout')
   // legacy code for old projects.. remove after all tawkto are integrated
   if (settings.tawkto) {
     settings.chat_button = [

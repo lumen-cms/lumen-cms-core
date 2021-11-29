@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { LmListStoriesPayload, LmListStoriesProps } from './listWidgetTypes'
 import useSWR from 'swr'
 import { getListStoriesParams } from '../../utils/universal/getListStoriesParams'
-import { useRouter } from 'next/router'
 import {
   searchTextSelector,
   useSearchStore
@@ -12,9 +11,10 @@ import { LmComponentRender } from '@LmComponentRender'
 import LmListStoriesContainer from './ListStoriesContainer'
 import { CircularProgress } from '@material-ui/core'
 import LmListStoriesPagination from './ListStoriesPagination'
+import { useAppContext } from '@context/AppContext'
 
 export default function LmListStories({ content }: LmListStoriesProps) {
-  const { locale, defaultLocale, isPreview } = useRouter()
+  const { locale, defaultLocale, insideStoryblok } = useAppContext()
   const paginate = content.pagination?.[0]
   const [page, setPage] = useState<number>(1)
   const searchText = useSearchStore(searchTextSelector)
@@ -32,7 +32,9 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   >(content.list_stories_data)
   let revalidateOnMount = content.enable_search && !storyData?.data?.stories
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
-    content.max_items ? null : [paramString, storyData?.data.cv, isPreview],
+    content.max_items
+      ? null
+      : [paramString, storyData?.data.cv, insideStoryblok],
     fetchListStories,
     {
       fallbackData: {

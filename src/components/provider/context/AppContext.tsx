@@ -1,25 +1,24 @@
 import { createContext, useContext } from 'react'
-import { AppApiRequestPayload } from '../../../typings/app'
-import { NextRouter } from 'next/router'
+import { AppPageProps } from '../../../typings/app'
 
-export type AppContextProps = Omit<
-  AppApiRequestPayload,
-  'settings' | 'page' | 'allStories'
-> &
-  Pick<NextRouter, 'locale' | 'locales' | 'defaultLocale' | 'asPath'> & {
-    insideStoryblok?: boolean
-    [k: string]: any
-  }
+export type AppContextProps = Pick<
+  AppPageProps,
+  | 'locale'
+  | 'notFoundLocale'
+  | 'defaultLocale'
+  | 'slug'
+  | 'insideStoryblok'
+  | 'locales'
+> & {
+  [k: string]: any
+}
 
 const defaultValue: AppContextProps = {
-  allCategories: [],
-  allStaticContent: [],
-  listWidgetData: {},
   insideStoryblok: false,
   locale: 'en',
   defaultLocale: 'en',
   locales: ['en'],
-  asPath: ''
+  slug: ''
 }
 
 export const AppContext = createContext<AppContextProps>(defaultValue)

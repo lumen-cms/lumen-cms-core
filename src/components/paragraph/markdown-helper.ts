@@ -1,6 +1,6 @@
-import marked from 'marked'
+import { Renderer, marked } from 'marked'
 
-const renderer = new marked.Renderer()
+const renderer = new Renderer()
 
 function linkRendererFunc(href = '', title = '', text = '') {
   if (!href) {
@@ -21,7 +21,7 @@ function linkRendererFunc(href = '', title = '', text = '') {
 renderer.link = linkRendererFunc
 
 export default function parseMarkdownContent(content: string) {
-  const rawMarkup = marked(content, {
+  const rawMarkup = marked.parse(content, {
     // sanitize: true,
     renderer
   })

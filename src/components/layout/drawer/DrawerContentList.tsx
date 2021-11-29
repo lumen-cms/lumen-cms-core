@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
 import { DrawerContentRender } from './CollapsibleListSection'
 import { useSettings } from '../../provider/SettingsPageProvider'
+import { useAppContext } from '@context/AppContext'
 
 const findPathDeep = require('deepdash/findPathDeep')
 
@@ -40,8 +40,8 @@ const getUidsOfSlug = (childs: any[], activeRoutePath?: string) => {
 
 export function DrawerContentList(): JSX.Element {
   const settings = useSettings()
-  const router = useRouter()
-  const activeRoutePath = router?.asPath
+  const { slug } = useAppContext()
+  const activeRoutePath = slug
   const hasDrawer = settings.drawer_body?.length
   let childs = (hasDrawer ? settings.drawer_body : settings.toolbar) || []
 

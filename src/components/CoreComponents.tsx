@@ -8,11 +8,8 @@ export function LmComponentRender<P>(
   props: ComponentRenderFuncProps
 ): JSX.Element {
   const { insideStoryblok } = useAppContext()
-
   const { content, i, ...rest } = props
-  if (props.content.background?.[0]?.image) {
-    console.log(props.content._uid, insideStoryblok)
-  }
+
   if (typeof LmCoreComponents[content.component] !== 'undefined') {
     const CurrentElement = createElement(
       LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,

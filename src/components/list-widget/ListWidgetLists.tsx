@@ -9,7 +9,7 @@ import { ListsStoryblok } from '../../typings/generated/components-schema'
 import { internalLinkHandler } from '../../utils/internalLinkHandler'
 import { ListStoriesData } from './listWidgetTypes'
 import { getContentFields } from './listUtils/getContentFields'
-import { useRouter } from 'next/router'
+import { useAppContext } from '@context/AppContext'
 
 type ListWidgetListsProps = {
   items: ListStoriesData[]
@@ -20,7 +20,7 @@ function ListWidgetLists({
   items,
   options
 }: ListWidgetListsProps): JSX.Element {
-  const { locale } = useRouter()
+  const { locale } = useAppContext()
   const imageSize = options.image_size || 'large'
   const hideImage = options.hide_image
   return (

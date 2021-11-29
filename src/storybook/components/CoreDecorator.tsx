@@ -16,7 +16,6 @@ const CoreDecorator: FC<{ settings: Partial<GlobalStoryblok> }> = ({
       content={{
         allCategories: [],
         listWidgetData: {},
-        allStaticContent: [],
         ...rest
       }}
     >

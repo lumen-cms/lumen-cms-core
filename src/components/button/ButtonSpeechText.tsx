@@ -5,12 +5,12 @@ import React, { useRef } from 'react'
 import { useSpeechSynthesis } from 'react-speech-kit'
 import { LmButtonSpeechTextProps } from './buttonTypes'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
-import { useRouter } from 'next/router'
+import { useAppContext } from '@context/AppContext'
 
 export default function LmButtonSpeechText({
   content
 }: LmButtonSpeechTextProps) {
-  const { locale } = useRouter()
+  const { locale } = useAppContext()
   const ref = useRef<HTMLDivElement>(null)
   const { speak, cancel, speaking, supported, voices } = useSpeechSynthesis()
   const currentVoices: SpeechSynthesisVoice[] = voices

@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router'
 import { CONFIG } from '@CONFIG'
+import { useAppContext } from '@context/AppContext'
 
 export function useHomepageLink() {
-  const { locale, defaultLocale } = useRouter() || {}
+  const { locale, defaultLocale } = useAppContext()
   if (CONFIG.rootDirectory) {
     return '/home'
   }

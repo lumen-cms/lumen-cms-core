@@ -6,8 +6,7 @@ import {
   SectionVideoBgStoryblok
 } from '../../../typings/generated/components-schema'
 import { AppPageProps } from '../../../typings/app'
-import { getPlaiceholder } from 'plaiceholder'
-import { getRootImageUrl } from '../../imageServices'
+import { getPlaiceholderCached } from './plaiceholderCached'
 
 export const createPlaceholderImages = async (
   item:
@@ -23,12 +22,5 @@ export const createPlaceholderImages = async (
     // @ts-ignore
     src = item.fallback_image?.filename
   }
-  if (src) {
-    const {
-      base64,
-      img: { width, height }
-    } = await getPlaiceholder(getRootImageUrl(src))
-    return { base64, width, height }
-  }
-  return null
+  return getPlaiceholderCached(src)
 }

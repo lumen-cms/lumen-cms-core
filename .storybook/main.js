@@ -1,10 +1,15 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
+  staticDirs: ['../public'],
   core: {
     builder: 'webpack5'
   },
-  stories: ['../src/**/*.stories.@(tsx)'],
+  features: {
+    // storyStoreV7: true
+  },
+  framework: '@storybook/react',
+  stories: ['../src/stories/**/*.stories.@(tsx)'],
   addons: [
     '@storybook/addon-knobs',
     'storybook-addon-next-router',

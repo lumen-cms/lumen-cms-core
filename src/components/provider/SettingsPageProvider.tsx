@@ -30,21 +30,17 @@ const SettingsPageProvider: FC<{
   const [statePage, setPage] = useState<PageStoryblok | null>(page || null)
   useEffect(() => {
     if (page && statePage?.uuid !== page?.uuid) {
-      console.log('settings page provider USE EFFECT ')
       setPage(page)
     } else if (!page) {
-      console.log('settings page provider USE EFFECT NULL')
       setPage(null)
     }
   }, [statePage?.uuid, page, setPage])
   useEffect(() => {
     if (settings && stateSettings?.uuid !== settings?.uuid) {
-      console.log('settings page provider USE EFFECT ')
       setSettings(settings)
     }
   }, [settings, stateSettings.uuid, setSettings])
 
-  console.log('settings page provider', insideStoryblok)
   return (
     <SettingsContext.Provider value={stateSettings}>
       <PageContext.Provider value={statePage as PageStoryblok}>

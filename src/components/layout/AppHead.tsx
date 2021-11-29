@@ -17,9 +17,6 @@ function AppHead(): JSX.Element {
   const favicon = settings.setup_favicon
   const { insideStoryblok } = useAppContext()
 
-  if (process.env.NODE_ENV === 'development') {
-    console.log('render app head better only once')
-  }
   const additionalMetaTags: MetaTag[] = []
   if (settings?.pwa_app_name && settings?.pwa_app_description) {
     additionalMetaTags.push(

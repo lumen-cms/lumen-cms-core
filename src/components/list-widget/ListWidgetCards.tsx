@@ -6,8 +6,8 @@ import {
 } from '../../typings/generated/components-schema'
 import { ListStoriesData } from './listWidgetTypes'
 import { getContentFields } from './listUtils/getContentFields'
-import { useRouter } from 'next/router'
 import { LmImagePlaceholder } from '../image/imageTypes'
+import { useAppContext } from '@context/AppContext'
 
 type ListWidgetCardsProps = {
   _uid: string
@@ -22,7 +22,7 @@ export function ListWidgetCards({
   options,
   disablePagination
 }: ListWidgetCardsProps): JSX.Element {
-  const { locale } = useRouter()
+  const { locale } = useAppContext()
   return (
     <LmComponentRender
       disablePagination={disablePagination}

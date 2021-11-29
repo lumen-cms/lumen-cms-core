@@ -6,11 +6,11 @@ import {
   RichTextEditorStoryblok,
   SectionStoryblok
 } from '../../typings/generated/components-schema'
-import { useRouter } from 'next/router'
 import { getDateLocalized } from '../../utils/intlDateHelper'
+import { useAppContext } from '@context/AppContext'
 
 export default function LmEvent({ content }: LmEventProps) {
-  const { locale } = useRouter()
+  const { locale } = useAppContext()
   const body: (HeadlineStoryblok | RichTextEditorStoryblok | ImageStoryblok)[] =
     [
       {

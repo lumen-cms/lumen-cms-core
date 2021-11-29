@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
-import { useRouter } from 'next/router'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import { useEffectOnce } from 'react-use'
@@ -15,6 +14,7 @@ import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmMenuProps } from './menuTypes'
+import { useAppContext } from '@context/AppContext'
 
 const useStyles = makeStyles({
   paper: (props: NavMenuStoryblok) => ({
@@ -31,7 +31,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
 
   const isCustom =
     menuItems.length && menuItems[0].component !== 'nav_menu_item'
-  const { asPath } = useRouter()
+  const { slug } = useAppContext()
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -52,7 +52,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
     if (isCustom) {
       menuItems.forEach((blok) => {
         const bString = JSON.stringify(blok)
-        if (bString.includes(`"full_slug":"${asPath?.replace(/^\/+/, '')}"`)) {
+        if (bString.includes(`"full_slug":"${slug?.replace(/^\/+/, '')}"`)) {
           // !active &&
           setActive(true)
         }
@@ -65,7 +65,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
 
   useEffect(() => {
     handleClose()
-  }, [asPath])
+  }, [slug])
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget)
@@ -204,7 +204,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
               <MenuItem
                 {...btnProps}
                 key={nestedProps._uid}
-                className={btnProps.href === asPath ? 'lm_active' : ''}
+                className={btnProps.href === slug ? 'lm_active' : ''}
               >
                 {nestedProps.label}
               </MenuItem>

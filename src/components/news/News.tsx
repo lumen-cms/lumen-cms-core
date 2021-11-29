@@ -7,10 +7,10 @@ import {
 } from '../../typings/generated/components-schema'
 import { LmComponentRender } from '@LmComponentRender'
 import { getDateLocalized } from '../../utils/intlDateHelper'
-import { useRouter } from 'next/router'
+import { useAppContext } from '@context/AppContext'
 
 export default function LmNews({ content }: LmNewsProps) {
-  const { locale } = useRouter()
+  const { locale } = useAppContext()
   const body: (HeadlineStoryblok | RichTextEditorStoryblok | ImageStoryblok)[] =
     [
       {

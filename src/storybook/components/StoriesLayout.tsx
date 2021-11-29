@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Story as StoryType, StoryContext } from '@storybook/react/types-6-0.d'
+import { Story as StoryType, StoryContext } from '@storybook/react/types-6-0'
 import '../../components/NamedComponents'
 import '../../components/LazyNamedComponents'
 import getBasicSettings from './basicSettings'

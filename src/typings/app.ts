@@ -2,7 +2,6 @@ import { Story, StoryData } from 'storyblok-js-client'
 import { GetStaticPropsContext } from 'next'
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import { CategoryComponent, PageComponent } from './generated/schema'
-import { GoogleFormDataProps } from '../utils/hooks/googleForms/parseHijackedFormData'
 
 export interface IClaims {
   [key: string]: any // just a copy of the IClaim
@@ -24,8 +23,6 @@ export type AllCategoryData = StoryData<CategoryComponent>[]
 export type AppApiRequestPayload = {
   page: Story
   settings: Story
-  // locale?: string | null
-  formData?: { [k: string]: GoogleFormDataProps } | null
   user?: IClaims
   notFoundLocale?: string | null
   googleFontString?: string
@@ -33,7 +30,7 @@ export type AppApiRequestPayload = {
 
 export type AppPageProps = Pick<
   AppApiRequestPayload,
-  'formData' | 'googleFontString' | 'notFoundLocale'
+  'googleFontString' | 'notFoundLocale'
 > &
   PagePropsOptions & {
     page?: PageStoryblok | null
@@ -42,6 +39,7 @@ export type AppPageProps = Pick<
     query?: any
     user?: IClaims
     pageNotFound?: boolean
+    slug?: string
     // [k: string]: any
   }
 

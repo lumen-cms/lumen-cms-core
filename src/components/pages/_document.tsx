@@ -10,9 +10,19 @@ import { ServerStyleSheets } from '@material-ui/core/styles'
 import { LmStoryblokService } from '../../utils/initial-props/StoryblokService'
 import { SSR_CONFIG } from '@SSR_CONFIG'
 import { processGoogleFonts } from '../../utils/initial-props/processGoogleFonts'
+import { listStoriesDataEnriched } from '../../utils/initial-props/component-data/listStoriesDataEnriched'
+import { createPlaceholderImages } from '../../utils/initial-props/component-data/createPlaceholderImages'
 
 // build of storybook fails..
 SSR_CONFIG.ssrHooks.pageProps.push(processGoogleFonts)
+SSR_CONFIG.ssrHooks.componentData = {
+  list_stories: listStoriesDataEnriched,
+  parallax_item: createPlaceholderImages,
+  background: createPlaceholderImages,
+  image: createPlaceholderImages,
+  section_video_bg: createPlaceholderImages,
+  player: createPlaceholderImages
+}
 
 export default class AppDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

@@ -13,11 +13,9 @@ export function LmApp(appProps: LmAppProps) {
   const {
     Component,
     pageProps,
-    router: { locales, locale, defaultLocale, events, isFallback, asPath }
+    router: { events, isFallback }
   } = appProps
   const { settings } = pageProps as AppPageProps
-
-  console.log('first APPPPP')
 
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
@@ -56,10 +54,7 @@ export function LmApp(appProps: LmAppProps) {
       isFallback ? (
         <div>loading..</div>
       ) : (
-        <LmAppContainer
-          content={pageProps}
-          shallowRouter={{ locale, locales, defaultLocale, asPath }}
-        >
+        <LmAppContainer content={pageProps}>
           <Head>
             <meta
               name="viewport"
@@ -70,13 +65,6 @@ export function LmApp(appProps: LmAppProps) {
           <Component {...pageProps} />
         </LmAppContainer>
       ),
-    [pageProps, isFallback, locale, locales, defaultLocale, asPath]
+    [pageProps, isFallback]
   )
-}
-
-LmApp.getInitialProps = async (appContext: AppContext) => {
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
-  const appProps = await App.getInitialProps(appContext)
-
-  return { ...appProps }
 }
