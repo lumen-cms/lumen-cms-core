@@ -10,7 +10,7 @@ import {
   RichTextEditorStoryblok
 } from '../../typings/generated/components-schema'
 import GoogleFormElement, { TextFieldElement } from './GoogleFormElement'
-import { GoogleFormWithDate } from '../../utils/initial-props/component-data/googleFormsToJsonTypes'
+import { GoogleForm, submitToGoogleForms } from 'react-google-forms-hooks'
 
 const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d'
 
@@ -36,7 +36,7 @@ export default function LmGoogleForm({
   formStructure,
   content
 }: {
-  formStructure: GoogleFormWithDate
+  formStructure: GoogleForm
   content: LmGoogleFormProps['content']
 }): JSX.Element {
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
@@ -53,28 +53,12 @@ export default function LmGoogleForm({
     }
     delete data.current_address
 
-    const urlParams = new URLSearchParams()
-    // const fields = {}
-    Object.keys(data).forEach((key) => {
-      if (data[key]) {
-        urlParams.append(formatQuestionName(key), data[key])
-      }
-    })
+    const success = await submitToGoogleForms(formStructure, data)
     window.gtag && gtag('event', 'generate_lead')
     window.fbq && fbq('track', 'Lead')
-    await fetch(
-      `${GOOGLE_FORM_URL}/${
-        formStructure.action
-      }/formResponse?submit=Submit&${urlParams.toString()}`,
-      {
-        method: 'GET',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
-    )
-
+    if (!success) {
+      console.error('not successful submitted')
+    }
     setSubmitSuccess(true)
   }
 

@@ -109,7 +109,9 @@ const BackgroundImage = ({
       {...storyblokImageLoader(src)}
       priority={priorityLoading}
       loading={loading}
-      objectFit={background_size === 'auto' ? 'cover' : background_size}
+      objectFit={
+        background_size === 'auto' ? 'cover' : background_size || 'cover'
+      }
       objectPosition={background_position || 'center'}
       layout="fill"
       {...(content.background_data && {

@@ -19,7 +19,7 @@ export default {
   },
   loaders: [
     // @ts-ignore
-    async ({ args }) => {
+    async ({ args }: any) => {
       // const res = await fetchGoogleFormDataClient(args.api as string)
       // const parsedData = parseHijackedFormData(res)
       const parsedData = await googleFormGetData(args)

@@ -19,8 +19,7 @@ SSR_CONFIG.ssrHooks.componentData = {
   form: googleFormGetData,
   category_box: getCategoryData,
   event_calendar: getEventData,
-  list_stories: listStoriesData,
-  ...SSR_CONFIG.ssrHooks.componentData
+  list_stories: listStoriesData
 }
 
 const getPageProps = async (

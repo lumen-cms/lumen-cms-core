@@ -5,6 +5,7 @@ export const fetchComponentData = async (props: AppPageProps) => {
   const walkArray = async (elements: any[]) => {
     for (const item of elements) {
       const callback = SSR_CONFIG.ssrHooks.componentData[item.component]
+
       if (typeof callback === 'function') {
         item[item.component + '_data'] = await callback(item, props)
         // listWidgets.push(item)

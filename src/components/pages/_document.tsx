@@ -16,6 +16,7 @@ import { createPlaceholderImages } from '../../utils/initial-props/component-dat
 // build of storybook fails..
 SSR_CONFIG.ssrHooks.pageProps.push(processGoogleFonts)
 SSR_CONFIG.ssrHooks.componentData = {
+  ...SSR_CONFIG.ssrHooks.componentData,
   list_stories: listStoriesDataEnriched,
   parallax_item: createPlaceholderImages,
   background: createPlaceholderImages,

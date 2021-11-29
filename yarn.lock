@@ -13859,7 +13859,7 @@ react-from-dom@^0.6.0:
   resolved "https://registry.yarnpkg.com/react-from-dom/-/react-from-dom-0.6.1.tgz#6740f5a3d79e0c354703e5c096b8fdfe0db71b0f"
   integrity sha512-7aAZx7LhRnmR51W5XtmTBYHGFl2n1AdEk1uoXLuzHa1OoGXrxOW/iwLcudvgp6BGX/l4Yh1rtMrIzvhlvbVddg==
 
-react-google-forms-hooks@^1.0.4:
+react-google-forms-hooks@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-google-forms-hooks/-/react-google-forms-hooks-1.2.0.tgz#b8103d5cedac513f06ad5148f9f2135fe6e0990a"
   integrity sha512-8uWP0xRjWWb/51Kjl84D+LSXBUIjCF8l57suJkH6N4EzoH5PjnzYh/yBO5mUb3dzmzupZc+9QighIQd1sDsZZw==
