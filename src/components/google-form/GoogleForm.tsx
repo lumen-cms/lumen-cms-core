@@ -12,25 +12,9 @@ import {
 import GoogleFormElement, { TextFieldElement } from './GoogleFormElement'
 import { GoogleForm, submitToGoogleForms } from 'react-google-forms-hooks'
 
-const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d'
-
 const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
 const SimpleWrap: FC = ({ children }) => <>{children}</>
-
-const OTHER_OPTION = '__other_option__'
-const OTHER_OPTION_RESPONSE = 'other_option_response'
-
-const formatQuestionName = (id: string) => {
-  if (id.includes(OTHER_OPTION_RESPONSE)) {
-    return `entry.${id.replace(
-      `-${OTHER_OPTION}-${OTHER_OPTION_RESPONSE}`,
-      ''
-    )}.${OTHER_OPTION_RESPONSE}`
-  }
-
-  return `entry.${id}`
-}
 
 export default function LmGoogleForm({
   formStructure,

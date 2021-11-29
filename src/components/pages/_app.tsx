@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import App, { AppContext, AppProps } from 'next/app'
+import { AppProps } from 'next/app'
 import NProgress from 'nprogress'
 import { CONFIG } from '@CONFIG'
 import Head from 'next/head'
