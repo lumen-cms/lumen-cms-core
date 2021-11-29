@@ -1,4 +1,4 @@
-import { Renderer, marked } from 'marked'
+import { marked, Renderer } from 'marked'
 
 const renderer = new Renderer()
 
@@ -21,7 +21,10 @@ function linkRendererFunc(href = '', title = '', text = '') {
 renderer.link = linkRendererFunc
 
 export default function parseMarkdownContent(content: string) {
-  const rawMarkup = marked.parse(content, {
+  if (!content) {
+    return ''
+  }
+  const rawMarkup = marked(content, {
     // sanitize: true,
     renderer
   })
