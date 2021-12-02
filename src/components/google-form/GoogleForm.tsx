@@ -38,10 +38,12 @@ export default function LmGoogleForm({
     delete data.current_address
 
     const success = await submitToGoogleForms(formStructure, data)
-    window.gtag && gtag('event', 'generate_lead')
-    window.fbq && fbq('track', 'Lead')
+
     if (!success) {
       console.error('not successful submitted')
+    } else {
+      window.gtag && gtag('event', 'generate_lead')
+      window.fbq && fbq('track', 'Lead')
     }
     setSubmitSuccess(true)
   }
