@@ -42,7 +42,12 @@ export default function LmGoogleForm({
     if (!success) {
       console.error('not successful submitted')
     } else {
-      window.gtag && gtag('event', 'generate_lead')
+      window.gtag &&
+        gtag('event', 'generate_lead', {
+          event_category: 'Google Form Submit',
+          event_label: formStructure.action,
+          content_id: window.location.pathname
+        })
       window.fbq && fbq('track', 'Lead')
     }
     setSubmitSuccess(true)
