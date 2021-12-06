@@ -5152,7 +5152,7 @@
       "name": "form",
       "display_name": "Google Form",
       "created_at": "2021-08-19T04:07:53.937Z",
-      "updated_at": "2021-10-01T07:30:15.588Z",
+      "updated_at": "2021-12-06T08:38:14.821Z",
       "id": 1717807,
       "schema": {
         "api": {
@@ -5252,7 +5252,8 @@
             "fields_border",
             "fields_gap",
             "inline",
-            "label_as_placeholder"
+            "label_as_placeholder",
+            "color"
           ],
           "pos": 9
         },
@@ -5292,6 +5293,11 @@
         },
         "label_as_placeholder": {
           "type": "boolean"
+        },
+        "color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": []
         }
       },
       "image": null,
@@ -5303,6 +5309,12 @@
         {
           "id": 1131121,
           "name": "About Your Company",
+          "component_id": 1717807,
+          "image": ""
+        },
+        {
+          "id": 1298269,
+          "name": "Inline Form",
           "component_id": 1717807,
           "image": ""
         }
@@ -9052,7 +9064,7 @@
       "name": "moralis_button",
       "display_name": null,
       "created_at": "2021-11-05T06:03:24.785Z",
-      "updated_at": "2021-11-05T06:40:28.435Z",
+      "updated_at": "2021-11-25T07:40:31.800Z",
       "id": 1924541,
       "schema": {
         "login": {
@@ -9060,8 +9072,17 @@
           "maximum": "1",
           "restrict_components": true,
           "component_whitelist": [
-            "button",
-            "image"
+            "button"
+          ],
+          "pos": 0
+        },
+        "login_walletconnect": {
+          "type": "bloks",
+          "pos": 1,
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "button"
           ]
         },
         "logout": {
@@ -9071,15 +9092,8 @@
           "component_whitelist": [
             "button",
             "image"
-          ]
-        },
-        "user": {
-          "type": "bloks",
-          "maximum": "1",
-          "restrict_components": true,
-          "component_whitelist": [
-            "headline"
-          ]
+          ],
+          "pos": 2
         }
       },
       "image": null,
@@ -13337,6 +13351,12 @@
           "name": "Clean Slider (Title Bottom, Centered)",
           "component_id": 894797,
           "image": "//a.storyblok.com/f/82895/x/774d4ba6bc/clean-slider-title-bottom-centered.PNG"
+        },
+        {
+          "id": 1286640,
+          "name": "Global Promotion Slider",
+          "component_id": 894797,
+          "image": ""
         },
         {
           "id": 703391,

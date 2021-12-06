@@ -8,6 +8,7 @@ import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { LmSectionProps } from './sectionTypes'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
+import { useFormColorStyles } from '../../utils/jss/formColorStyles'
 
 const useStyles = makeStyles({
   fullHeight: {
@@ -20,23 +21,6 @@ const useStyles = makeStyles({
     '& .MuiGrid-root': {
       position: 'relative'
     }
-  },
-  dark: {
-    '& .MuiButton-root.lm-default-color, & .MuiIconButton-root.lm-default-color, & .MuiInputBase-root, & .MuiFormLabel-root':
-      {
-        color: 'inherit',
-        '&.MuiInput-underline:before, &.MuiFilledInput-underline:before, &.MuiFilledInput-underline:after':
-          {
-            borderBottom: '1px solid currentColor'
-          },
-        '& .MuiOutlinedInput-notchedOutline, &:hover .MuiOutlinedInput-notchedOutline':
-          {
-            borderColor: 'currentColor'
-          },
-        '&.MuiButton-outlined,&.lm-outlined': {
-          borderColor: 'currentColor'
-        }
-      }
   }
 })
 
@@ -46,7 +30,7 @@ export function LmSection({
 }: LmSectionProps): JSX.Element {
   const classes = useStyles()
   const theme = useTheme()
-
+  const classesForms = useFormColorStyles()
   const background: BackgroundStoryblok | undefined = content.background?.[0]
 
   const { style, className } = useBackgroundBox({
@@ -83,7 +67,7 @@ export function LmSection({
       className={clsx(
         'lm-section',
         classes.background,
-        { [classes.dark]: !!content.variant },
+        { [classesForms.dark]: !!content.variant },
         className
       )}
       style={{

@@ -1219,6 +1219,10 @@ export interface FormStoryblok {
   fields_gap?: "0" | "2" | "4" | "8" | "16" | "24";
   inline?: boolean;
   label_as_placeholder?: boolean;
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
   _uid: string;
   component: "form";
   [k: string]: any;
@@ -2049,9 +2053,9 @@ export interface MoralisStoryblok {
 }
 
 export interface MoralisButtonStoryblok {
-  login?: (ButtonStoryblok | ImageStoryblok)[];
+  login?: ButtonStoryblok[];
+  login_walletconnect?: ButtonStoryblok[];
   logout?: (ButtonStoryblok | ImageStoryblok)[];
-  user?: HeadlineStoryblok[];
   _uid: string;
   component: "moralis_button";
   [k: string]: any;

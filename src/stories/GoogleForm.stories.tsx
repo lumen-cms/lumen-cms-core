@@ -2,14 +2,15 @@ import React from 'react'
 import { Meta, Story } from '@storybook/react'
 import { getComponentArgTypes } from '../storybook/configControls'
 import LmGoogleFormContainer from '../components/google-form/LmGoogleFormContainer'
-import { findFirstPreset } from '../storybook/findStorybookPresets'
+import { findPresets } from '../storybook/findStorybookPresets'
 import { LmGoogleFormProps } from '../components/google-form/googleFormProps'
 import { googleFormGetData } from '../utils/initial-props/component-data/googleFormData'
 
 const COMPONENT_NAME = 'form'
 
-const presetContent =
-  findFirstPreset<LmGoogleFormProps['content']>(COMPONENT_NAME)
+const presets = findPresets<LmGoogleFormProps['content']>(COMPONENT_NAME)
+const presetContent = presets[0]
+const secondPreset = presets[1]
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Inputs/GoogleForm',
@@ -23,7 +24,6 @@ export default {
       // const res = await fetchGoogleFormDataClient(args.api as string)
       // const parsedData = parseHijackedFormData(res)
       const parsedData = await googleFormGetData(args)
-      console.log(parsedData, args)
       return {
         formStructure: parsedData
       }
@@ -48,4 +48,9 @@ const Template: Story<LmGoogleFormProps['content']> = (
 export const Basic = Template.bind({})
 Basic.args = {
   ...presetContent
+}
+
+export const Inline = Template.bind({})
+Inline.args = {
+  ...secondPreset
 }

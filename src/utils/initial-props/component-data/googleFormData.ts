@@ -4,7 +4,6 @@ import { FormStoryblok } from '../../../typings/generated/components-schema'
 export const googleFormGetData = async (
   formProps: FormStoryblok
 ): Promise<GoogleForm | undefined | null> => {
-  console.log('insde google form')
   if (!formProps.api) {
     return null
   }

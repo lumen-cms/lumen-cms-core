@@ -1,4 +1,5 @@
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
@@ -48,7 +49,7 @@ export type CategoryComponent = {
 };
 
 export type CategoryFilterQuery = {
-  name?: Maybe<FilterQueryOperations>;
+  name?: InputMaybe<FilterQueryOperations>;
 };
 
 export type CategoryItem = {
@@ -155,13 +156,13 @@ export type DocumentComponent = {
 
 
 export type DocumentComponentCategoriesArgs = {
-  fields?: Maybe<Array<Maybe<Scalars['String']>>>;
-  language?: Maybe<Scalars['String']>;
+  fields?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  language?: InputMaybe<Scalars['String']>;
 };
 
 export type DocumentFilterQuery = {
-  categories?: Maybe<FilterQueryOperations>;
-  title?: Maybe<FilterQueryOperations>;
+  categories?: InputMaybe<FilterQueryOperations>;
+  title?: InputMaybe<FilterQueryOperations>;
 };
 
 export type DocumentItem = {
@@ -205,7 +206,7 @@ export type DocumentcategoryComponent = {
 };
 
 export type DocumentcategoryFilterQuery = {
-  name?: Maybe<FilterQueryOperations>;
+  name?: InputMaybe<FilterQueryOperations>;
 };
 
 export type DocumentcategoryItem = {
@@ -250,7 +251,7 @@ export type ErrorpageComponent = {
 };
 
 export type ErrorpageFilterQuery = {
-  title?: Maybe<FilterQueryOperations>;
+  title?: InputMaybe<FilterQueryOperations>;
 };
 
 export type ErrorpageItem = {
@@ -307,15 +308,15 @@ export type EventComponent = {
 
 
 export type EventComponentCategoryArgs = {
-  fields?: Maybe<Array<Maybe<Scalars['String']>>>;
-  language?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  fields?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 export type EventFilterQuery = {
-  all_day?: Maybe<FilterQueryOperations>;
-  category?: Maybe<FilterQueryOperations>;
-  title?: Maybe<FilterQueryOperations>;
+  all_day?: InputMaybe<FilterQueryOperations>;
+  category?: InputMaybe<FilterQueryOperations>;
+  title?: InputMaybe<FilterQueryOperations>;
 };
 
 export type EventItem = {
@@ -361,7 +362,7 @@ export type EventcategoryComponent = {
 };
 
 export type EventcategoryFilterQuery = {
-  title?: Maybe<FilterQueryOperations>;
+  title?: InputMaybe<FilterQueryOperations>;
 };
 
 export type EventcategoryItem = {
@@ -398,31 +399,31 @@ export type EventcategoryItems = {
 
 export type FilterQueryOperations = {
   /** Must match all values of given array */
-  all_in_array?: Maybe<Array<Maybe<Scalars['String']>>>;
+  all_in_array?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   /** Greater than date (Exmples: 2019-03-03 or 2020-03-03T03:03:03) */
-  gt_date?: Maybe<Scalars['ISO8601DateTime']>;
+  gt_date?: InputMaybe<Scalars['ISO8601DateTime']>;
   /** Greater than float value */
-  gt_float?: Maybe<Scalars['Float']>;
+  gt_float?: InputMaybe<Scalars['Float']>;
   /** Greater than integer value */
-  gt_int?: Maybe<Scalars['Int']>;
+  gt_int?: InputMaybe<Scalars['Int']>;
   /** Matches exactly one value */
-  in?: Maybe<Scalars['String']>;
+  in?: InputMaybe<Scalars['String']>;
   /** Matches any value of given array */
-  in_array?: Maybe<Array<Maybe<Scalars['String']>>>;
+  in_array?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   /** Matches exactly one integer value */
-  in_int?: Maybe<Scalars['Int']>;
+  in_int?: InputMaybe<Scalars['Int']>;
   /** Matches exactly one value with a wildcard search using * */
-  like?: Maybe<Scalars['String']>;
+  like?: InputMaybe<Scalars['String']>;
   /** Less than date (Format: 2019-03-03 or 2020-03-03T03:03:03) */
-  lt_date?: Maybe<Scalars['ISO8601DateTime']>;
+  lt_date?: InputMaybe<Scalars['ISO8601DateTime']>;
   /** Less than float value */
-  lt_float?: Maybe<Scalars['Float']>;
+  lt_float?: InputMaybe<Scalars['Float']>;
   /** Less than integer value */
-  lt_int?: Maybe<Scalars['Int']>;
+  lt_int?: InputMaybe<Scalars['Int']>;
   /** Matches all without the given value */
-  not_in?: Maybe<Scalars['String']>;
+  not_in?: InputMaybe<Scalars['String']>;
   /** Matches all without the given value */
-  not_like?: Maybe<Scalars['String']>;
+  not_like?: InputMaybe<Scalars['String']>;
 };
 
 export type FormbuilderComponent = {
@@ -443,11 +444,11 @@ export type FormbuilderComponent = {
 };
 
 export type FormbuilderFilterQuery = {
-  form_inline?: Maybe<FilterQueryOperations>;
-  full_width?: Maybe<FilterQueryOperations>;
-  margin?: Maybe<FilterQueryOperations>;
-  spacing?: Maybe<FilterQueryOperations>;
-  variant?: Maybe<FilterQueryOperations>;
+  form_inline?: InputMaybe<FilterQueryOperations>;
+  full_width?: InputMaybe<FilterQueryOperations>;
+  margin?: InputMaybe<FilterQueryOperations>;
+  spacing?: InputMaybe<FilterQueryOperations>;
+  variant?: InputMaybe<FilterQueryOperations>;
 };
 
 export type FormbuilderItem = {
@@ -554,49 +555,49 @@ export type GlobalComponent = {
 };
 
 export type GlobalFilterQuery = {
-  drawer_below_toolbar?: Maybe<FilterQueryOperations>;
-  drawer_below_toolbar_xs?: Maybe<FilterQueryOperations>;
-  drawer_full_width_mobile?: Maybe<FilterQueryOperations>;
-  drawer_variant?: Maybe<FilterQueryOperations>;
-  drawer_width?: Maybe<FilterQueryOperations>;
-  footer_config?: Maybe<FilterQueryOperations>;
-  mobile_nav_breakpoint?: Maybe<FilterQueryOperations>;
-  pwa_app_name?: Maybe<FilterQueryOperations>;
-  seo_robots?: Maybe<FilterQueryOperations>;
-  seo_title?: Maybe<FilterQueryOperations>;
-  seo_website_url?: Maybe<FilterQueryOperations>;
-  setup_ad_roll_adv_id?: Maybe<FilterQueryOperations>;
-  setup_ad_roll_pix_id?: Maybe<FilterQueryOperations>;
-  setup_facebook_pixel?: Maybe<FilterQueryOperations>;
-  setup_google_analytics?: Maybe<FilterQueryOperations>;
-  setup_google_site_verification?: Maybe<FilterQueryOperations>;
-  setup_language?: Maybe<FilterQueryOperations>;
-  setup_supported_languages?: Maybe<FilterQueryOperations>;
-  tawkto?: Maybe<FilterQueryOperations>;
-  theme_base?: Maybe<FilterQueryOperations>;
-  theme_container_width?: Maybe<FilterQueryOperations>;
-  theme_error?: Maybe<FilterQueryOperations>;
-  theme_error_contrast?: Maybe<FilterQueryOperations>;
-  theme_font_alt1?: Maybe<FilterQueryOperations>;
-  theme_font_alt2?: Maybe<FilterQueryOperations>;
-  theme_font_alt3?: Maybe<FilterQueryOperations>;
-  theme_font_alt4?: Maybe<FilterQueryOperations>;
-  theme_font_default?: Maybe<FilterQueryOperations>;
-  theme_link?: Maybe<FilterQueryOperations>;
-  theme_link_hover?: Maybe<FilterQueryOperations>;
-  theme_primary?: Maybe<FilterQueryOperations>;
-  theme_primary_contrast?: Maybe<FilterQueryOperations>;
-  theme_secondary?: Maybe<FilterQueryOperations>;
-  theme_secondary_contrast?: Maybe<FilterQueryOperations>;
-  toolbar_background?: Maybe<FilterQueryOperations>;
-  toolbar_config?: Maybe<FilterQueryOperations>;
-  toolbar_elevation?: Maybe<FilterQueryOperations>;
-  toolbar_font_size?: Maybe<FilterQueryOperations>;
-  toolbar_main_height?: Maybe<FilterQueryOperations>;
-  toolbar_progress_color?: Maybe<FilterQueryOperations>;
-  toolbar_variant?: Maybe<FilterQueryOperations>;
-  website_slogan?: Maybe<FilterQueryOperations>;
-  website_title?: Maybe<FilterQueryOperations>;
+  drawer_below_toolbar?: InputMaybe<FilterQueryOperations>;
+  drawer_below_toolbar_xs?: InputMaybe<FilterQueryOperations>;
+  drawer_full_width_mobile?: InputMaybe<FilterQueryOperations>;
+  drawer_variant?: InputMaybe<FilterQueryOperations>;
+  drawer_width?: InputMaybe<FilterQueryOperations>;
+  footer_config?: InputMaybe<FilterQueryOperations>;
+  mobile_nav_breakpoint?: InputMaybe<FilterQueryOperations>;
+  pwa_app_name?: InputMaybe<FilterQueryOperations>;
+  seo_robots?: InputMaybe<FilterQueryOperations>;
+  seo_title?: InputMaybe<FilterQueryOperations>;
+  seo_website_url?: InputMaybe<FilterQueryOperations>;
+  setup_ad_roll_adv_id?: InputMaybe<FilterQueryOperations>;
+  setup_ad_roll_pix_id?: InputMaybe<FilterQueryOperations>;
+  setup_facebook_pixel?: InputMaybe<FilterQueryOperations>;
+  setup_google_analytics?: InputMaybe<FilterQueryOperations>;
+  setup_google_site_verification?: InputMaybe<FilterQueryOperations>;
+  setup_language?: InputMaybe<FilterQueryOperations>;
+  setup_supported_languages?: InputMaybe<FilterQueryOperations>;
+  tawkto?: InputMaybe<FilterQueryOperations>;
+  theme_base?: InputMaybe<FilterQueryOperations>;
+  theme_container_width?: InputMaybe<FilterQueryOperations>;
+  theme_error?: InputMaybe<FilterQueryOperations>;
+  theme_error_contrast?: InputMaybe<FilterQueryOperations>;
+  theme_font_alt1?: InputMaybe<FilterQueryOperations>;
+  theme_font_alt2?: InputMaybe<FilterQueryOperations>;
+  theme_font_alt3?: InputMaybe<FilterQueryOperations>;
+  theme_font_alt4?: InputMaybe<FilterQueryOperations>;
+  theme_font_default?: InputMaybe<FilterQueryOperations>;
+  theme_link?: InputMaybe<FilterQueryOperations>;
+  theme_link_hover?: InputMaybe<FilterQueryOperations>;
+  theme_primary?: InputMaybe<FilterQueryOperations>;
+  theme_primary_contrast?: InputMaybe<FilterQueryOperations>;
+  theme_secondary?: InputMaybe<FilterQueryOperations>;
+  theme_secondary_contrast?: InputMaybe<FilterQueryOperations>;
+  toolbar_background?: InputMaybe<FilterQueryOperations>;
+  toolbar_config?: InputMaybe<FilterQueryOperations>;
+  toolbar_elevation?: InputMaybe<FilterQueryOperations>;
+  toolbar_font_size?: InputMaybe<FilterQueryOperations>;
+  toolbar_main_height?: InputMaybe<FilterQueryOperations>;
+  toolbar_progress_color?: InputMaybe<FilterQueryOperations>;
+  toolbar_variant?: InputMaybe<FilterQueryOperations>;
+  website_slogan?: InputMaybe<FilterQueryOperations>;
+  website_title?: InputMaybe<FilterQueryOperations>;
 };
 
 export type GlobalItem = {
@@ -665,14 +666,14 @@ export type NewsComponent = {
 
 
 export type NewsComponentCategoryArgs = {
-  fields?: Maybe<Array<Maybe<Scalars['String']>>>;
-  language?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  fields?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 export type NewsFilterQuery = {
-  category?: Maybe<FilterQueryOperations>;
-  title?: Maybe<FilterQueryOperations>;
+  category?: InputMaybe<FilterQueryOperations>;
+  title?: InputMaybe<FilterQueryOperations>;
 };
 
 export type NewsItem = {
@@ -716,7 +717,7 @@ export type NewscategoryComponent = {
 };
 
 export type NewscategoryFilterQuery = {
-  name?: Maybe<FilterQueryOperations>;
+  name?: InputMaybe<FilterQueryOperations>;
 };
 
 export type NewscategoryItem = {
@@ -775,19 +776,19 @@ export type PageComponent = {
 
 
 export type PageComponentCategoriesArgs = {
-  fields?: Maybe<Array<Maybe<Scalars['String']>>>;
-  language?: Maybe<Scalars['String']>;
+  fields?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  language?: InputMaybe<Scalars['String']>;
 };
 
 export type PageFilterQuery = {
-  categories?: Maybe<FilterQueryOperations>;
-  meta_robots?: Maybe<FilterQueryOperations>;
-  meta_title?: Maybe<FilterQueryOperations>;
-  mobile_breakpoint?: Maybe<FilterQueryOperations>;
-  preview_subtitle?: Maybe<FilterQueryOperations>;
-  preview_title?: Maybe<FilterQueryOperations>;
-  property?: Maybe<FilterQueryOperations>;
-  right_drawer_width?: Maybe<FilterQueryOperations>;
+  categories?: InputMaybe<FilterQueryOperations>;
+  meta_robots?: InputMaybe<FilterQueryOperations>;
+  meta_title?: InputMaybe<FilterQueryOperations>;
+  mobile_breakpoint?: InputMaybe<FilterQueryOperations>;
+  preview_subtitle?: InputMaybe<FilterQueryOperations>;
+  preview_title?: InputMaybe<FilterQueryOperations>;
+  property?: InputMaybe<FilterQueryOperations>;
+  right_drawer_width?: InputMaybe<FilterQueryOperations>;
 };
 
 export type PageItem = {
@@ -860,519 +861,519 @@ export type QueryType = {
 
 
 export type QueryTypeCategoryItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeCategoryItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<CategoryFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<CategoryFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeContentNodeArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeContentNodesArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeDatasourceEntriesArgs = {
-  datasource?: Maybe<Scalars['String']>;
-  dimension?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
+  datasource?: InputMaybe<Scalars['String']>;
+  dimension?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
 };
 
 
 export type QueryTypeDatasourcesArgs = {
-  by_ids?: Maybe<Array<Maybe<Scalars['String']>>>;
-  search?: Maybe<Scalars['String']>;
+  by_ids?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  search?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeDocumentItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeDocumentItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<DocumentFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<DocumentFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeDocumentcategoryItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeDocumentcategoryItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<DocumentcategoryFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<DocumentcategoryFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeErrorpageItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeErrorpageItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<ErrorpageFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<ErrorpageFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeEventItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeEventItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<EventFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<EventFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeEventcategoryItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeEventcategoryItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<EventcategoryFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<EventcategoryFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeFormbuilderItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeFormbuilderItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<FormbuilderFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<FormbuilderFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeGlobalItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeGlobalItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<GlobalFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<GlobalFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeLinksArgs = {
-  paginated?: Maybe<Scalars['Boolean']>;
-  starts_with?: Maybe<Scalars['String']>;
+  paginated?: InputMaybe<Scalars['Boolean']>;
+  starts_with?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeNewsItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeNewsItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<NewsFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<NewsFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeNewscategoryItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeNewscategoryItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<NewscategoryFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<NewscategoryFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypePageItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypePageItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  filter_query_v2?: Maybe<PageFilterQuery>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  filter_query_v2?: InputMaybe<PageFilterQuery>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeStaticcontainerItemArgs = {
-  find_by?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['Int']>;
+  find_by?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['Int']>;
   id: Scalars['ID'];
-  language?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeStaticcontainerItemsArgs = {
-  by_slugs?: Maybe<Scalars['String']>;
-  by_uuids?: Maybe<Scalars['String']>;
-  by_uuids_ordered?: Maybe<Scalars['String']>;
-  excluding_fields?: Maybe<Scalars['String']>;
-  excluding_ids?: Maybe<Scalars['String']>;
-  excluding_slugs?: Maybe<Scalars['String']>;
-  fallback_lang?: Maybe<Scalars['String']>;
-  filter_query?: Maybe<Scalars['JsonScalar']>;
-  first_published_at_gt?: Maybe<Scalars['String']>;
-  first_published_at_lt?: Maybe<Scalars['String']>;
-  from_release?: Maybe<Scalars['String']>;
-  is_startpage?: Maybe<Scalars['String']>;
-  language?: Maybe<Scalars['String']>;
-  page?: Maybe<Scalars['Int']>;
-  per_page?: Maybe<Scalars['Int']>;
-  published_at_gt?: Maybe<Scalars['String']>;
-  published_at_lt?: Maybe<Scalars['String']>;
-  resolve_links?: Maybe<Scalars['String']>;
-  resolve_relations?: Maybe<Scalars['String']>;
-  search_term?: Maybe<Scalars['String']>;
-  sort_by?: Maybe<Scalars['String']>;
-  starts_with?: Maybe<Scalars['String']>;
-  with_tag?: Maybe<Scalars['String']>;
+  by_slugs?: InputMaybe<Scalars['String']>;
+  by_uuids?: InputMaybe<Scalars['String']>;
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
+  excluding_fields?: InputMaybe<Scalars['String']>;
+  excluding_ids?: InputMaybe<Scalars['String']>;
+  excluding_slugs?: InputMaybe<Scalars['String']>;
+  fallback_lang?: InputMaybe<Scalars['String']>;
+  filter_query?: InputMaybe<Scalars['JsonScalar']>;
+  first_published_at_gt?: InputMaybe<Scalars['String']>;
+  first_published_at_lt?: InputMaybe<Scalars['String']>;
+  from_release?: InputMaybe<Scalars['String']>;
+  is_startpage?: InputMaybe<Scalars['String']>;
+  language?: InputMaybe<Scalars['String']>;
+  page?: InputMaybe<Scalars['Int']>;
+  per_page?: InputMaybe<Scalars['Int']>;
+  published_at_gt?: InputMaybe<Scalars['String']>;
+  published_at_lt?: InputMaybe<Scalars['String']>;
+  resolve_links?: InputMaybe<Scalars['String']>;
+  resolve_relations?: InputMaybe<Scalars['String']>;
+  search_term?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
+  with_tag?: InputMaybe<Scalars['String']>;
 };
 
 
 export type QueryTypeTagsArgs = {
-  starts_with?: Maybe<Scalars['String']>;
+  starts_with?: InputMaybe<Scalars['String']>;
 };
 
 export type RateLimit = {
