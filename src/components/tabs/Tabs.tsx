@@ -8,7 +8,10 @@ import clsx from 'clsx'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import LmIcon from '../icon/LmIcon'
-import { TabsItemStoryblok } from '../../typings/generated/components-schema'
+import {
+  HeadlineStoryblok,
+  TabsItemStoryblok
+} from '../../typings/generated/components-schema'
 import { LmTabsProps } from './tabsTypes'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -58,7 +61,7 @@ export default function LmTabs({ content }: LmTabsProps): JSX.Element {
   const orientation =
     content.vertical_tabs && !isMobile ? 'vertical' : 'horizontal'
   const isVertical = orientation === 'vertical'
-
+  const tabStyle = content.text_style?.[0]
   return (
     <Grid
       container
@@ -96,7 +99,20 @@ export default function LmTabs({ content }: LmTabsProps): JSX.Element {
           >
             {body.map((tab: TabsItemStoryblok, iteration) => (
               <Tab
-                label={tab.title}
+                label={
+                  tabStyle ? (
+                    <LmComponentRender
+                      content={
+                        {
+                          ...tabStyle,
+                          text: tab.title
+                        } as HeadlineStoryblok
+                      }
+                    />
+                  ) : (
+                    tab.title
+                  )
+                }
                 wrapped={!!content.wrapped}
                 icon={
                   tab.icon &&

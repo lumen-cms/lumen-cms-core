@@ -14270,7 +14270,7 @@
       "name": "tabs",
       "display_name": null,
       "created_at": "2020-05-01T08:40:34.465Z",
-      "updated_at": "2020-07-23T00:31:30.328Z",
+      "updated_at": "2021-12-07T08:10:32.326Z",
       "id": 894792,
       "schema": {
         "vertical_tabs": {
@@ -14423,7 +14423,8 @@
             "wrapped",
             "dynamic_height",
             "text_color",
-            "indicator_color"
+            "indicator_color",
+            "text_style"
           ],
           "pos": 9
         },
@@ -14469,6 +14470,14 @@
               "name": "primary"
             }
           ]
+        },
+        "text_style": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ],
+          "maximum": "1"
         }
       },
       "image": null,

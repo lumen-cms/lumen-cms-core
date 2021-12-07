@@ -3356,6 +3356,7 @@ export interface TabsStoryblok {
   body?: TabsItemStoryblok[];
   text_color?: "secondary" | "primary" | "inherit";
   indicator_color?: "secondary" | "primary";
+  text_style?: HeadlineStoryblok[];
   _uid: string;
   component: "tabs";
   [k: string]: any;
