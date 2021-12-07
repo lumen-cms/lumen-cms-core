@@ -13208,7 +13208,7 @@
       "name": "slider",
       "display_name": null,
       "created_at": "2020-05-01T08:40:35.489Z",
-      "updated_at": "2021-08-19T04:38:55.960Z",
+      "updated_at": "2021-12-07T06:12:40.920Z",
       "id": 894797,
       "schema": {
         "property": {
@@ -13303,9 +13303,30 @@
           "description": "Preset of the section value. Only works if the child of the slide element is a section.",
           "pos": 4
         },
+        "indicator_background_color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": [],
+          "pos": 5
+        },
+        "autoslide": {
+          "type": "number",
+          "description": "Autoslides in ms. Example: 5000 (5 sek)",
+          "pos": 6
+        },
+        "autoslide_duration": {
+          "type": "number",
+          "description": "Transition time between slides in ms",
+          "pos": 7
+        },
+        "pause_on_hover": {
+          "type": "boolean",
+          "description": "Pause autoslide on mouse hover.",
+          "pos": 8
+        },
         "body": {
           "type": "bloks",
-          "pos": 5,
+          "pos": 9,
           "restrict_components": true,
           "component_whitelist": [
             "section",
@@ -13326,18 +13347,11 @@
             "section_variant",
             "disable_transition",
             "indicator_background_color",
-            "autoslide"
+            "autoslide",
+            "pause_on_hover",
+            "autoslide_duration"
           ],
-          "pos": 6
-        },
-        "indicator_background_color": {
-          "type": "custom",
-          "field_type": "vue-color-picker",
-          "options": []
-        },
-        "autoslide": {
-          "type": "number",
-          "description": "Autoslides in ms. Example: 5000 (5 sek)"
+          "pos": 10
         }
       },
       "image": null,
@@ -13711,22 +13725,90 @@
       "name": "styles",
       "display_name": null,
       "created_at": "2020-10-09T08:09:49.590Z",
-      "updated_at": "2020-11-05T06:38:15.478Z",
+      "updated_at": "2021-12-07T05:11:49.139Z",
       "id": 1138790,
       "schema": {
+        "margin": {
+          "type": "text",
+          "pos": 0
+        },
+        "padding": {
+          "type": "text",
+          "pos": 1
+        },
+        "width": {
+          "type": "text",
+          "pos": 2
+        },
+        "height": {
+          "type": "text",
+          "pos": 3
+        },
+        "display": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "block",
+              "name": "block"
+            },
+            {
+              "value": "inline-block",
+              "name": "inline-block"
+            },
+            {
+              "value": "inline-flex",
+              "name": "inline-flex"
+            },
+            {
+              "value": "flex",
+              "name": "flex"
+            },
+            {
+              "value": "none",
+              "name": "none"
+            }
+          ],
+          "pos": 4
+        },
+        "flex": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "0 1 auto",
+              "name": "0 1 auto"
+            },
+            {
+              "value": "1 auto",
+              "name": "1 auto"
+            },
+            {
+              "value": "auto",
+              "name": "auto"
+            }
+          ],
+          "pos": 5,
+          "description": "This option will span available space especially used inside of columns to archive equal heights."
+        },
+        "z_index": {
+          "type": "number",
+          "description": "Use the property z-index if you want to overlay an element with negative margin and it is not visible. ",
+          "pos": 6
+        },
         "border_width": {
           "type": "text",
-          "pos": 0,
+          "pos": 7,
           "description": ""
         },
         "color": {
           "type": "custom",
-          "pos": 1,
+          "pos": 8,
           "field_type": "vue-color-picker"
         },
         "color_theme": {
           "type": "option",
-          "pos": 2,
+          "pos": 9,
           "use_uuid": true,
           "options": [
             {
@@ -13761,17 +13843,17 @@
         },
         "background": {
           "type": "text",
-          "pos": 3
+          "pos": 10
         },
         "background_color": {
           "type": "custom",
-          "pos": 4,
+          "pos": 11,
           "field_type": "vue-color-picker",
           "options": []
         },
         "background_color_theme": {
           "type": "option",
-          "pos": 5,
+          "pos": 12,
           "use_uuid": true,
           "options": [
             {
@@ -13807,12 +13889,12 @@
         "elevation": {
           "type": "number",
           "description": "Value between 1-24",
-          "pos": 6
+          "pos": 13
         },
         "box_shadow": {
           "type": "text",
           "description": "Only applies if elevation is empty.",
-          "pos": 7
+          "pos": 14
         },
         "border_style": {
           "type": "option",
@@ -13875,18 +13957,18 @@
               "name": "unset"
             }
           ],
-          "pos": 8,
+          "pos": 15,
           "description": "Defaults to solid."
         },
         "border_color": {
           "type": "custom",
-          "pos": 9,
+          "pos": 16,
           "field_type": "vue-color-picker",
           "options": []
         },
         "border_color_theme": {
           "type": "option",
-          "pos": 10,
+          "pos": 17,
           "use_uuid": true,
           "options": [
             {
@@ -13921,7 +14003,7 @@
         },
         "border_radius": {
           "type": "text",
-          "pos": 11
+          "pos": 18
         },
         "border_position": {
           "type": "options",
@@ -13945,7 +14027,7 @@
             }
           ],
           "description": "Defaults to all borders.",
-          "pos": 12
+          "pos": 19
         },
         "tab-3fa85ed5-e5ed-4ee5-a3bc-66f97dd4012a": {
           "type": "tab",
@@ -13964,7 +14046,7 @@
             "background_color_theme",
             "color_theme"
           ],
-          "pos": 13
+          "pos": 20
         },
         "tab-a8a9d2cd-d9b5-4699-a6e8-d004ba66a33b": {
           "type": "tab",
@@ -13978,7 +14060,7 @@
             "transition",
             "transform"
           ],
-          "pos": 14
+          "pos": 21
         },
         "tab-8e0da354-531d-4170-93b7-462296ec3946": {
           "type": "tab",
@@ -13993,7 +14075,7 @@
             "border_style",
             "border_width"
           ],
-          "pos": 15
+          "pos": 22
         },
         "tab-b4d0474e-acb0-449c-b27c-687eb1957f6b": {
           "type": "tab",
@@ -14004,55 +14086,7 @@
             "custom_css",
             "css_properties"
           ],
-          "pos": 16
-        },
-        "margin": {
-          "type": "text",
-          "pos": 17
-        },
-        "padding": {
-          "type": "text",
-          "pos": 18
-        },
-        "width": {
-          "type": "text",
-          "pos": 19
-        },
-        "height": {
-          "type": "text",
-          "pos": 20
-        },
-        "display": {
-          "type": "option",
-          "use_uuid": true,
-          "options": [
-            {
-              "value": "block",
-              "name": "block"
-            },
-            {
-              "value": "inline-block",
-              "name": "inline-block"
-            },
-            {
-              "value": "inline-flex",
-              "name": "inline-flex"
-            },
-            {
-              "value": "flex",
-              "name": "flex"
-            },
-            {
-              "value": "none",
-              "name": "none"
-            }
-          ],
-          "pos": 21
-        },
-        "z_index": {
-          "type": "number",
-          "description": "Use the property z-index if you want to overlay an element with negative margin and it is not visible. ",
-          "pos": 22
+          "pos": 23
         },
         "position": {
           "type": "option",
@@ -14079,31 +14113,31 @@
               "name": "sticky"
             }
           ],
-          "pos": 23
+          "pos": 24
         },
         "top": {
           "type": "text",
-          "pos": 24
+          "pos": 25
         },
         "left": {
           "type": "text",
-          "pos": 25
+          "pos": 26
         },
         "bottom": {
           "type": "text",
-          "pos": 26
+          "pos": 27
         },
         "right": {
           "type": "text",
-          "pos": 27
+          "pos": 28
         },
         "transition": {
           "type": "text",
-          "pos": 28
+          "pos": 29
         },
         "transform": {
           "type": "text",
-          "pos": 29
+          "pos": 30
         },
         "css_properties": {
           "type": "bloks",
@@ -14112,7 +14146,7 @@
           "component_whitelist": [
             "item_key_value"
           ],
-          "pos": 30
+          "pos": 31
         }
       },
       "image": null,

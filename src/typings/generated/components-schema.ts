@@ -3092,12 +3092,14 @@ export interface SliderStoryblok {
   };
   disable_transition?: boolean;
   section_variant?: "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
-  body?: (SectionStoryblok | PromotionStoryblok | ImageStoryblok | ImageListStoryblok | SectionVideoBgStoryblok)[];
   indicator_background_color?: {
     rgba?: string;
     [k: string]: any;
   };
   autoslide?: number;
+  autoslide_duration?: number;
+  pause_on_hover?: boolean;
+  body?: (SectionStoryblok | PromotionStoryblok | ImageStoryblok | ImageListStoryblok | SectionVideoBgStoryblok)[];
   _uid: string;
   component: "slider";
   [k: string]: any;
@@ -3261,6 +3263,13 @@ export interface StaticSectionStoryblok {
 }
 
 export interface StylesStoryblok {
+  margin?: string;
+  padding?: string;
+  width?: string;
+  height?: string;
+  display?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
+  flex?: "0 1 auto" | "1 auto" | "auto";
+  z_index?: number;
   border_width?: string;
   color?: {
     rgba?: string;
@@ -3297,12 +3306,6 @@ export interface StylesStoryblok {
   border_color_theme?: "primary" | "secondary" | "error" | "success" | "info" | "warning" | "grey";
   border_radius?: string;
   border_position?: ("top" | "left" | "right" | "bottom")[];
-  margin?: string;
-  padding?: string;
-  width?: string;
-  height?: string;
-  display?: "block" | "inline-block" | "inline-flex" | "flex" | "none";
-  z_index?: number;
   position?: "relative" | "absolute" | "fixed" | "static" | "sticky";
   top?: string;
   left?: string;

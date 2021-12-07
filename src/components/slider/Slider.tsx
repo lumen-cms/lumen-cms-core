@@ -89,6 +89,7 @@ export const useStyles = makeStyles({
 
 export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   const [slide, setSlide] = useState(0)
+  const [autoSlide, setAutoslide] = useState<boolean>(!!content.autoslide)
   const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
   const wrapInColumns = content.slides_per_view && !isMobile
@@ -127,13 +128,30 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
         properties.map((i) => `carousel__${i}`)
       )}
       style={styles}
+      onMouseEnter={() => {
+        if (content.pause_on_hover && content.autoslide) {
+          setAutoslide(false)
+        }
+      }}
+      onMouseLeave={() => {
+        if (content.pause_on_hover && content.autoslide) {
+          setAutoslide(true)
+        }
+      }}
     >
       <AutoPlaySwipeableViews
         index={slide}
         animateTransitions={!content.disable_transition}
-        autoplay={!!content.autoslide}
-        interval={content.autoslide ? Number(content.autoslide) : undefined}
+        autoplay={autoSlide}
+        interval={autoSlide ? Number(content.autoslide) : undefined}
         onChangeIndex={(i: any) => setSlide(i)}
+        springConfig={{
+          duration: content.autoslide_duration
+            ? `${content.autoslide_duration}ms`
+            : '0.5s',
+          easeFunction: 'cubic-bezier(0.15, 0.3, 0.25, 1)',
+          delay: '0s'
+        }}
       >
         {wrapInColumns
           ? body.map((child, index) => {
