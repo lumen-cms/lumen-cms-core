@@ -9,6 +9,7 @@ import AdRoll from '../tracking/AdRoll'
 import { useSettings } from '../provider/SettingsPageProvider'
 import GtmManager from '../tracking/GtmManager'
 import { useAppContext } from '@context/AppContext'
+import React from 'react'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -86,6 +87,11 @@ function AppHead(): JSX.Element {
         <link
           rel="preconnect"
           href="https://img2.storyblok.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com/"
           crossOrigin="anonymous"
         />
         {favicon && (

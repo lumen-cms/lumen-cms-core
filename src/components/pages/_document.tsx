@@ -9,7 +9,10 @@ import React from 'react'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { LmStoryblokService } from '../../utils/initial-props/StoryblokService'
 import { SSR_CONFIG } from '@SSR_CONFIG'
-import { processGoogleFonts } from '../../utils/initial-props/processGoogleFonts'
+import {
+  googleFontString,
+  processGoogleFonts
+} from '../../utils/initial-props/processGoogleFonts'
 import { listStoriesDataEnriched } from '../../utils/initial-props/component-data/listStoriesDataEnriched'
 import { createPlaceholderImages } from '../../utils/initial-props/component-data/createPlaceholderImages'
 
@@ -35,6 +38,7 @@ export default class AppDocument extends Document {
         enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
       })
     const initialProps = await Document.getInitialProps(ctx)
+
     return {
       ...initialProps,
       // Styles fragment is rendered after the app and page rendering finish.
@@ -49,7 +53,9 @@ export default class AppDocument extends Document {
     const cacheVersion = LmStoryblokService.getCacheVersion()
     return (
       <Html>
-        <Head />
+        <Head>
+          <style dangerouslySetInnerHTML={{ __html: googleFontString }} />
+        </Head>
         <body className="lm-body__root">
           <Main />
           <script

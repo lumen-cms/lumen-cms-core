@@ -12,18 +12,17 @@ import LmListStoriesContainer from './ListStoriesContainer'
 import { CircularProgress } from '@material-ui/core'
 import LmListStoriesPagination from './ListStoriesPagination'
 import { useAppContext } from '@context/AppContext'
-import { useEffectOnce } from 'react-use'
 import { Router } from 'next/router'
 
 export default function LmListStories({ content }: LmListStoriesProps) {
-  const { locale, defaultLocale, insideStoryblok } = useAppContext()
+  const { locale, defaultLocale, locales, insideStoryblok } = useAppContext()
   const initialize = useRef<boolean>(false)
   const paginate = content.pagination?.[0]
   const [page, setPage] = useState<number>(1)
   const searchText = useSearchStore(searchTextSelector)
   const anchorId = `list_stories_${content._uid}`
   const paramString = JSON.stringify({
-    ...getListStoriesParams(content, { locale, defaultLocale }),
+    ...getListStoriesParams(content, { locale, defaultLocale, locales }),
     page,
     ...(content.enable_search && searchText
       ? {
@@ -31,10 +30,9 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         }
       : {})
   })
-  const [storyData] = useState<
-    LmListStoriesProps['content']['list_stories_data']
-  >(content.list_stories_data)
-  // let revalidateOnMount = content.enable_search && !storyData?.data?.stories
+  const storyData = content.list_stories_data
+  const revalidateOnMount = content.enable_search && !storyData?.data?.stories
+
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
     content.max_items
       ? null
@@ -47,14 +45,19 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         total: storyData?.total ?? 0,
         page: 1
       },
-      revalidateOnFocus: false //,
-      // revalidateOnMount: revalidateOnMount
+      revalidateOnMount: initialize.current || revalidateOnMount || page > 1
     }
   )
   useEffect(() => {
     const handleRouteChange = () => {
-      if (page !== 1) {
-        setPage(1)
+      const urlParams = new URLSearchParams(window.location.search)
+      const p = urlParams.get('page')
+      if (!initialize.current && p) {
+        setPage(Number(p))
+      } else {
+        if (page !== 1) {
+          setPage(1)
+        }
       }
     }
     if (typeof window !== 'undefined') {
@@ -74,17 +77,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
       Router.events.off('routeChangeComplete', handleRouteChange)
     }
   }, [page, anchorId, content._uid])
-  useEffectOnce(() => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search)
-      const p = urlParams.get('page')
-      if (p) {
-        setPage(Number(p))
-      } else if (page !== 1) {
-        setPage(1)
-      }
-    }
-  })
+
   if (error) {
     console.error(error)
   }

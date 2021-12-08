@@ -2,12 +2,12 @@ import { CONFIG } from '@CONFIG'
 import { StoriesParams } from 'storyblok-js-client'
 import { PageItem } from '../../typings/generated/schema'
 import { LmStoryblokService } from './StoryblokService'
+import { excludingFieldsForLists } from '../universal/storyblokParamsHelper'
 
 export function getStoryblokPagesConfig(pageConfig?: StoriesParams) {
   const params: StoriesParams = {
     per_page: 100,
-    excluding_fields:
-      'body,right_body,property,meta_title,meta_description,seo_body,preview_title,preview_subtitle,preview_image,preview_teaser',
+    excluding_fields: excludingFieldsForLists,
     sort_by: 'published_at:desc',
     filter_query: {
       component: {

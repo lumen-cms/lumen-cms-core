@@ -9,7 +9,10 @@ import videoUrlHelper from '../../utils/videoUrlHelper'
 
 const useStyles = makeStyles({
   videoContainer: {
-    position: 'relative'
+    position: 'relative',
+    '& video[poster]': {
+      objectFit: 'cover'
+    }
   },
   ratio16x9: {
     paddingTop: `${100 / (16 / 9)}%`

@@ -18,6 +18,16 @@ export const getContentFields = (
     content.content.published ||
     content.content.preview_publish_date ||
     content.content.start
+
+  const getCategories = () => {
+    return (
+      content.content.category?.content?.name ??
+      content.content.categories
+        ?.map((i: StoryData<CategoryStoryblok>) => i.content?.name)
+        .filter((i: any) => i)
+        .join(', ')
+    )
+  }
   return {
     image: content.content.preview_image || content.content.image?.filename,
     title:
@@ -38,12 +48,7 @@ export const getContentFields = (
             options: options.date_format?.[0]
           })
         : content.content.preview_subtitle,
-      options.hide_category
-        ? null
-        : content.content.category?.content?.name ??
-          content.content.categories
-            ?.map((i: StoryData<CategoryStoryblok>) => i.content?.name)
-            .join(', ')
+      options.hide_category ? null : getCategories()
     ]
       .filter((i) => i)
       .join(' - ')

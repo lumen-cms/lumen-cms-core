@@ -6,6 +6,11 @@ import {
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
 
+export const excludingFieldsForLists =
+  'body,right_body,property,meta_title,meta_description,seo_body,preview_title,preview_subtitle,preview_image,preview_teaser'
+
+export const excludeListForStories =
+  'body,right_body,meta_robots,property,meta_description,seo_body'
 export const defaultResolveRelations =
   'static_section.container,form_container.form,event.category,news.category,page.categories'
 // keep in sync with defaultResolveRelations
@@ -24,6 +29,7 @@ export const rootParams: StoriesParams = {
 export const getStoriesDefaultParams = (props: AppPageProps): StoriesParams => {
   const params: StoriesParams = {
     ...rootParams,
+    excluding_fields: excludeListForStories,
     ...localeStoriesHelper(props)
   }
   return params

@@ -21,6 +21,9 @@ const useStyles = makeStyles({
       width: '100%',
       position: 'absolute'
     },
+    '& video[poster]': {
+      objectFit: 'cover'
+    },
 
     '& .videobg': {
       position: 'relative',

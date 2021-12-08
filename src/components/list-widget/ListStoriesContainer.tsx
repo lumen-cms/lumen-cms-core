@@ -8,7 +8,7 @@ import {
 import { ListWidgetCards } from './ListWidgetCards'
 import ListWidgetLists from './ListWidgetLists'
 import { ListWidgetLinks } from './ListWidgetLinks'
-import React from 'react'
+import React, { memo } from 'react'
 import { ListStoriesData, LmListStoriesProps } from './listWidgetTypes'
 
 type LmListStoriesContainerProps = {
@@ -17,7 +17,7 @@ type LmListStoriesContainerProps = {
   items: ListStoriesData[]
 }
 
-export default function LmListStoriesContainer({
+function LmListStoriesContainer({
   layout,
   _uid,
   items
@@ -53,3 +53,4 @@ export default function LmListStoriesContainer({
     )
   }[currentLayout.component || 'news_list']
 }
+export default memo(LmListStoriesContainer)
