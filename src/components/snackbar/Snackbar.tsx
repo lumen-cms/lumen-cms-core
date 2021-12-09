@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import Cookies from 'js-cookie'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
@@ -7,38 +7,39 @@ import { LmComponentRender } from '@LmComponentRender'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { LmSnackbarProps } from './snackbarTypes'
-
-const devMode = process.env.NODE_ENV !== 'production'
+import { useAppContext } from '@context/AppContext'
 
 export default function LmSnackbar({ content }: LmSnackbarProps) {
+  const { insideStoryblok } = useAppContext()
   const [open, setOpen] = React.useState<boolean>(false)
   const isScrolled = useScrollOnce()
-  const cookieExists = content.cookie_name
-    ? Cookies.get(content.cookie_name)
-    : false
+
+  const cookieExists = useRef<boolean>(
+    content.cookie_name ? !!Cookies.get(content.cookie_name) : false
+  )
 
   useEffect(() => {
     let initalValue = true
     if (
-      cookieExists ||
+      cookieExists.current ||
       content.auto_show ||
       content.display === 'show_on_scroll'
     ) {
       initalValue = false
     }
     setOpen(initalValue)
-  }, [cookieExists, content.display, content.auto_show])
+  }, [content.display, content.auto_show])
 
   useEffect(() => {
     if (!content.display || !isScrolled) {
       return
     }
-    if (content.display === 'show_on_scroll' && !cookieExists) {
+    if (content.display === 'show_on_scroll' && !cookieExists.current) {
       setOpen(true)
     } else if (content.display === 'hide_on_scroll') {
       setOpen(false)
     }
-  }, [isScrolled, content.display, cookieExists])
+  }, [isScrolled, content.display])
 
   useEffect(() => {
     if (!content.auto_close) {
@@ -52,7 +53,7 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
   }, [content.auto_close])
 
   useEffect(() => {
-    if (!content.auto_show && !cookieExists) {
+    if (!content.auto_show && !cookieExists.current) {
       return undefined
     }
     const timer = setTimeout(() => {
@@ -60,26 +61,30 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
     }, content.auto_show)
 
     return () => clearTimeout(timer)
-  }, [content.auto_show, cookieExists])
+  }, [content.auto_show])
 
   const handleAccept = () => {
     setOpen(false)
 
-    if (!devMode && content.cookie_name) {
-      Cookies.set(content.cookie_name, 'true', {
-        expires: content?.expire_in_days || 1,
+    if (content.cookie_name) {
+      const cookieOptions: Cookies.CookieAttributes = {
+        expires: content?.expire_in_days ? Number(content.expire_in_days) : 1,
         sameSite: 'lax',
         secure: window.location ? window.location.protocol === 'https:' : true
-      })
+      }
+      Cookies.set(content.cookie_name, 'true', cookieOptions)
+      cookieExists.current = true
     }
   }
-
+  if (cookieExists.current && !insideStoryblok) {
+    return null
+  }
   return content.dialog ? (
     <Dialog
       open={open}
       maxWidth={content.max_width || false}
       PaperProps={{
-        elevation: content.elevation || undefined,
+        elevation: content.elevation ? Number(content.elevation) : undefined,
         square: content.square
       }}
       onClose={content.prevent_click_outside ? undefined : () => setOpen(false)}
