@@ -64,7 +64,7 @@ describe('Test params to query string', () => {
     let pageProps = { locale: 'en', defaultLocale: 'en' }
     const serverRes = await listStoriesData(itemObj, pageProps)
     const params = JSON.stringify(getListStoriesParams(itemObj, pageProps))
-    const stories = await fetchListStories(params, serverRes.data.cv, true)
+    const stories = await fetchListStories(params, true)
     expect(serverRes.total).toBeGreaterThan(0)
     expect(stories.total).toBe(serverRes.total)
   })
