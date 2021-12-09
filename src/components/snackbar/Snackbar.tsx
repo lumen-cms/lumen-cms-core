@@ -68,6 +68,7 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
     if (!devMode && content.cookie_name) {
       Cookies.set(content.cookie_name, 'true', {
         expires: content?.expire_in_days || 1,
+        sameSite: 'lax',
         secure: window.location ? window.location.protocol === 'https:' : true
       })
     }

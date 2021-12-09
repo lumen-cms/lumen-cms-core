@@ -5,7 +5,7 @@ import { LmListStoriesPayload } from '../listWidgetTypes'
 import { enrichRelations } from './enrichRelations'
 
 type StoryblokFetchApiProps = {
-  cv?: number
+  cv?: number | string
   isPreview?: boolean
   storiesParams?: StoriesParams
 }

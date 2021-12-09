@@ -34,9 +34,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const revalidateOnMount = content.enable_search && !storyData?.data?.stories
 
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
-    content.max_items
-      ? null
-      : [paramString, storyData?.data.cv, insideStoryblok],
+    content.max_items ? null : [paramString, insideStoryblok],
     fetchListStories,
     {
       fallbackData: {
