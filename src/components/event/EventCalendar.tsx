@@ -106,7 +106,9 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
           </IconButton>
         </DialogTitle>
         {selectedEvent?.resource && (
-          <LmEvent content={selectedEvent.resource} />
+          <div style={{ overflowY: 'auto' }}>
+            <LmEvent content={selectedEvent.resource} />
+          </div>
         )}
       </Dialog>
     </>
