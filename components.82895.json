@@ -4589,23 +4589,85 @@
       "name": "event",
       "display_name": null,
       "created_at": "2021-08-16T03:42:59.429Z",
-      "updated_at": "2021-08-23T08:28:05.147Z",
+      "updated_at": "2021-12-10T09:05:11.940Z",
       "id": 1710816,
       "schema": {
+        "title": {
+          "type": "text",
+          "pos": 0,
+          "required": true
+        },
+        "start": {
+          "type": "datetime",
+          "pos": 1,
+          "required": true
+        },
+        "end": {
+          "type": "datetime",
+          "pos": 2,
+          "description": "End date can be empty in case of full day events."
+        },
+        "all_day": {
+          "type": "boolean",
+          "pos": 3
+        },
+        "expire_event_date": {
+          "type": "datetime",
+          "pos": 4,
+          "description": "Date to prevent rendering of the event inside of any calendar.",
+          "disable_time": true
+        },
+        "category": {
+          "type": "option",
+          "use_uuid": true,
+          "source": "internal_stories",
+          "filter_content_type": "event_category",
+          "pos": 5
+        },
+        "multiple_event_dates": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "event_date"
+          ],
+          "pos": 6,
+          "description": "If an event has mutliple dates, the start and end should select the first and last possible event date."
+        },
+        "color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": [],
+          "pos": 7
+        },
+        "background_color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": [],
+          "pos": 8
+        },
+        "date_format": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "date_time_format"
+          ],
+          "pos": 9
+        },
         "image": {
           "type": "asset",
           "filetypes": [
             "images"
           ],
-          "pos": 0
+          "pos": 10
         },
         "description": {
           "type": "textarea",
-          "pos": 1
+          "pos": 11
         },
         "content": {
           "type": "richtext",
-          "pos": 2,
+          "pos": 12,
           "customize_toolbar": true,
           "toolbar": [
             "bold",
@@ -4631,63 +4693,7 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 3
-        },
-        "title": {
-          "type": "text",
-          "pos": 4,
-          "required": true
-        },
-        "start": {
-          "type": "datetime",
-          "pos": 5,
-          "required": true
-        },
-        "end": {
-          "type": "datetime",
-          "pos": 6,
-          "description": "End date can be empty in case of full day events."
-        },
-        "all_day": {
-          "type": "boolean",
-          "pos": 7
-        },
-        "category": {
-          "type": "option",
-          "use_uuid": true,
-          "source": "internal_stories",
-          "filter_content_type": "event_category",
-          "pos": 8
-        },
-        "multiple_event_dates": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "event_date"
-          ],
-          "pos": 9,
-          "description": "If an event has mutliple dates, the start and end should select the first and last possible event date."
-        },
-        "color": {
-          "type": "custom",
-          "field_type": "vue-color-picker",
-          "options": [],
-          "pos": 10
-        },
-        "background_color": {
-          "type": "custom",
-          "field_type": "vue-color-picker",
-          "options": [],
-          "pos": 11
-        },
-        "date_format": {
-          "type": "bloks",
-          "maximum": "1",
-          "restrict_components": true,
-          "component_whitelist": [
-            "date_time_format"
-          ],
-          "pos": 12
+          "pos": 13
         },
         "tab-19449cf4-ecf4-4375-8116-1123f0c2269f": {
           "type": "tab",
@@ -4700,7 +4706,7 @@
             "content",
             "description"
           ],
-          "pos": 13
+          "pos": 14
         }
       },
       "image": null,
@@ -9112,7 +9118,7 @@
       "name": "moralis_mint",
       "display_name": null,
       "created_at": "2021-11-10T02:47:54.508Z",
-      "updated_at": "2021-11-18T05:53:24.877Z",
+      "updated_at": "2021-12-08T08:40:28.870Z",
       "id": 1936072,
       "schema": {
         "contract_token": {
@@ -9248,6 +9254,9 @@
               "name": "dark"
             }
           ]
+        },
+        "presale_get_param": {
+          "type": "text"
         }
       },
       "image": null,

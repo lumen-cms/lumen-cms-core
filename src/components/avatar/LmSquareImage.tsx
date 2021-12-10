@@ -25,6 +25,9 @@ type LmSquareImageProps = {
     | 'className'
   >
 }
+const blurred =
+  'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAADAAQDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAeEAABBQACAwAAAAAAAAAAAAADAAECBBEFBwgiYf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCu8U6AeT63u2LUrDEblDQwFggY40B56wkzb9zUREH/2Q=='
+
 export default function LmSquareImage({
   size,
   image,
@@ -50,10 +53,8 @@ export default function LmSquareImage({
             objectFit: 'cover'
           })}
       {...imageProps}
-      {...(base64 && {
-        placeholder: 'blur',
-        blurDataURL: base64
-      })}
+      placeholder={'blur'}
+      blurDataURL={base64 || blurred}
     />
   )
 }

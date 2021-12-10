@@ -1003,6 +1003,22 @@ export interface ErrorPageStoryblok {
 }
 
 export interface EventStoryblok {
+  title: string;
+  start: string;
+  end?: string;
+  all_day?: boolean;
+  expire_event_date?: string;
+  category?: string;
+  multiple_event_dates?: EventDateStoryblok[];
+  color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  date_format?: DateTimeFormatStoryblok[];
   image?: {
     alt?: string;
     copyright?: string;
@@ -1068,21 +1084,6 @@ export interface EventStoryblok {
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
-  title: string;
-  start: string;
-  end?: string;
-  all_day?: boolean;
-  category?: string;
-  multiple_event_dates?: EventDateStoryblok[];
-  color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  background_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  date_format?: DateTimeFormatStoryblok[];
   _uid: string;
   component: "event";
   [k: string]: any;
@@ -2289,6 +2290,7 @@ export interface MoralisMintStoryblok {
   mint_style?: (ButtonStoryblok | ImageStoryblok)[];
   mint_flexbox_container?: FlexRowStoryblok[];
   style_options?: "dark"[];
+  presale_get_param?: string;
   _uid: string;
   component: "moralis_mint";
   [k: string]: any;

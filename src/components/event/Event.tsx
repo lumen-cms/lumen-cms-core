@@ -11,12 +11,14 @@ import { useAppContext } from '@context/AppContext'
 
 export default function LmEvent({ content }: LmEventProps) {
   const { locale } = useAppContext()
+  const rteContent = content.content
   const body: (HeadlineStoryblok | RichTextEditorStoryblok | ImageStoryblok)[] =
     [
       {
         component: 'image',
         _uid: 'image',
-        source: content.image?.filename
+        source: content.image?.filename,
+        alt: content.image?.alt
       },
       {
         component: 'headline',
@@ -54,6 +56,13 @@ export default function LmEvent({ content }: LmEventProps) {
             })
       }
     ]
+  if (rteContent) {
+    body.push({
+      component: 'rich_text_editor',
+      _uid: 'rich_text_' + content._uid,
+      body: rteContent
+    } as RichTextEditorStoryblok)
+  }
 
   const items: SectionStoryblok = {
     _uid: content._uid,

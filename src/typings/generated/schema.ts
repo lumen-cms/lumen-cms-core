@@ -300,6 +300,7 @@ export type EventComponent = {
   date_format?: Maybe<Scalars['BlockScalar']>;
   description?: Maybe<Scalars['String']>;
   end?: Maybe<Scalars['String']>;
+  expire_event_date?: Maybe<Scalars['String']>;
   image?: Maybe<Asset>;
   multiple_event_dates?: Maybe<Scalars['BlockScalar']>;
   start?: Maybe<Scalars['String']>;
