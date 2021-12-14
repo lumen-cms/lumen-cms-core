@@ -8,6 +8,10 @@ import LmSquareImage from './LmSquareImage'
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: 'transparent',
+    '&.xsmall': {
+      width: 20,
+      height: 20
+    },
     '&.small': {
       width: 24,
       height: 24

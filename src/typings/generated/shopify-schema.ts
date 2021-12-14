@@ -4509,7 +4509,10 @@ export type ProductVariant = HasMetafields & Node & {
   currentlyNotInStock: Scalars['Boolean'];
   /** A globally-unique identifier. */
   id: Scalars['ID'];
-  /** Image associated with the product variant. This field falls back to the product image if no image is available. */
+  /**
+   * Image associated with the product variant. This field falls back to the product image if no image is available.
+   *
+   */
   image?: Maybe<Image>;
   /** Returns a metafield found by namespace and key. */
   metafield?: Maybe<Metafield>;

@@ -361,6 +361,7 @@ export interface ButtonStoryblok {
   styles_mobile?: StylesStoryblok[];
   styles_tablet?: StylesStoryblok[];
   styles_hover?: StylesStoryblok[];
+  image_size?: "dense" | "large" | "xlarge";
   _uid: string;
   component: "button";
   [k: string]: any;

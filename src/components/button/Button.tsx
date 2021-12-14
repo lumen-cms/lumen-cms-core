@@ -86,6 +86,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&.lm-unelevated': {
       boxShadow: 'none'
     }
+  },
+  buttonLabelWithAvatar: {
+    '&.MuiFab-root .MuiAvatar-root, &.MuiFab-root .lm-svg-icon': {
+      marginRight: theme.spacing(1)
+    }
   }
 }))
 
@@ -112,6 +117,8 @@ export const LmButton: FC<LmButtonProps> = ({
     content.class_names?.values,
     additionalClassName,
     {
+      [classes.buttonLabelWithAvatar]:
+        (content.image || content.icon?.name) && content.label,
       [advancedClasses.advanced]: content.styles?.length,
       [advancedClasses.advancedMobile]: content.styles_mobile?.length,
       [advancedClasses.advancedTablet]: content.styles_tablet?.length,
@@ -128,6 +135,16 @@ export const LmButton: FC<LmButtonProps> = ({
       'w-100': properties.includes('fullWidth')
     }
   )
+
+  const StartIcon = () =>
+    content.image ? (
+      <LmMuiAvatar
+        src={content.image}
+        size={content.image_size || mapAvatarSize[content.size as string]}
+      />
+    ) : content.icon?.name ? (
+      <LmIcon iconName={content.icon.name} buttonSize={content.size} />
+    ) : null
 
   const btnProps: any = onClick
     ? {
@@ -160,13 +177,7 @@ export const LmButton: FC<LmButtonProps> = ({
         disableRipple={disableRipple}
         type={type || 'button'}
       >
-        <LmIcon iconName={content.icon?.name} buttonSize={content.size} />
-        {content.image && (
-          <LmMuiAvatar
-            src={content.image}
-            size={mapAvatarSize[content.size as string]}
-          />
-        )}
+        <StartIcon />
         {children || content.label}
         <LmIcon
           iconName={content.trailing_icon && content.trailing_icon.name}
@@ -199,12 +210,13 @@ export const LmButton: FC<LmButtonProps> = ({
         {content.image && (
           <LmMuiAvatar
             src={content.image}
-            size={mapAvatarSize[content.size as string]}
+            size={content.image_size || mapAvatarSize[content.size as string]}
           />
         )}
       </IconButton>
     )
   }
+
   return (
     <Button
       disabled={!!disabled}
@@ -231,11 +243,7 @@ export const LmButton: FC<LmButtonProps> = ({
             ? content.custom_color.rgba
             : undefined
       }}
-      startIcon={
-        content.icon?.name ? (
-          <LmIcon iconName={content.icon.name} buttonSize={content.size} />
-        ) : undefined
-      }
+      startIcon={<StartIcon />}
       endIcon={
         content.trailing_icon?.name ? (
           <LmIcon
@@ -246,12 +254,6 @@ export const LmButton: FC<LmButtonProps> = ({
       }
       type={type || 'button'}
     >
-      {content.image && (
-        <LmMuiAvatar
-          src={content.image}
-          size={mapAvatarSize[content.size as string]}
-        />
-      )}
       {children || content.label}
     </Button>
   )
