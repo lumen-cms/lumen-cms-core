@@ -27,7 +27,7 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
         return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
       }
     }),
-    optimization: {
+    /* optimization: {
       splitChunks: {
         chunks: 'async',
         minSize: 50000,
@@ -35,7 +35,7 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
         maxAsyncRequests: 20,
         maxInitialRequests: 10
       }
-    },
+    },*/
     // reactStrictMode: true, // => not working currently
     webpack: (config, { isServer }) => {
       if (!isServer) {
