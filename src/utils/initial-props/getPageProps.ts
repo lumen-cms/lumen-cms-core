@@ -41,7 +41,7 @@ const getPageProps = async (
   if (!settings) {
     console.log('SETTINGS MISSING', slug, pageSlug)
   } else if (!pageProps) {
-    console.log('PAGE MISSING', slug, pageSlug)
+    console.log('PAGE MISSING', slug, pageSlug, options)
   }
 
   const pageSettingsProps = {
