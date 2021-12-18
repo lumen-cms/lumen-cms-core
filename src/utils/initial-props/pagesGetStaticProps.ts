@@ -7,6 +7,7 @@ import { LmStoryblokService } from './StoryblokService'
 const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { params, preview, previewData, locale, locales, defaultLocale } = props
+
   const slug = params?.index?.length
     ? params.index !== 'index'
       ? params.index
@@ -14,7 +15,10 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
     : 'home'
   // console.log('static props', slug, defaultLocale, locales)
   // startMeasureTime('start get static props')
-  if (Array.isArray(slug) && slug[0] === '_dev_') {
+  if (
+    Array.isArray(slug) &&
+    (slug[0] === '_dev_' || slug[0] === '[object Object]')
+  ) {
     return { props: getBaseProps({ type: 'not_supported' }) } // do nothing _dev_ mode is active
   }
   try {
