@@ -249,6 +249,12 @@ export interface BackgroundElementItemStoryblok {
   [k: string]: any;
 }
 
+export interface BjttlStoryblok {
+  _uid: string;
+  component: "bjttl ";
+  [k: string]: any;
+}
+
 export interface BookingStoryblok {
   booking?: string;
   _uid: string;
@@ -361,7 +367,7 @@ export interface ButtonStoryblok {
   styles_mobile?: StylesStoryblok[];
   styles_tablet?: StylesStoryblok[];
   styles_hover?: StylesStoryblok[];
-  image_size?: "dense" | "large" | "xlarge";
+  image_size?: "large" | "xlarge" | "small" | "xsmall" | "medium";
   _uid: string;
   component: "button";
   [k: string]: any;
@@ -400,6 +406,7 @@ export interface CardListStoryblok {
     | "text_align_center"
     | "text_align_right"
     | "overlay_content_no_space"
+    | "equal-heights"
   )[];
   border_radius?: "0" | "2" | "4" | "";
   shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft" | "flowUp";

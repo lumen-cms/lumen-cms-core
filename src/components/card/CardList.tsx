@@ -68,6 +68,11 @@ const useStyles = makeStyles({
       }
     }
   },
+  gridEqualHeight: {
+    '& .MuiCard-root, & .MuiCard-root > .MuiCardActionArea-root': {
+      height: '100%'
+    }
+  },
   gridCustom: (content: CardListStoryblok) => ({
     '& .MuiCardMedia-root > div': {
       borderRadius: content.image_border_radius
@@ -115,6 +120,7 @@ export default function LmCardList({
         classes.gridCustom,
         variant.map((i) => `card__${i}`),
         {
+          [classes.gridEqualHeight]: content.variant?.includes('equal-heights'),
           [`ratio-${content.image_ratio}`]: content.image_ratio
         }
       )}

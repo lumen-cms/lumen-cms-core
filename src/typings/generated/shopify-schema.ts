@@ -2680,7 +2680,10 @@ export type ExternalVideo = Media & Node & {
   __typename?: 'ExternalVideo';
   /** A word or phrase to share the nature or contents of a media. */
   alt?: Maybe<Scalars['String']>;
-  /** The URL. */
+  /**
+   * The URL.
+   * @deprecated Use `originUrl` instead
+   */
   embeddedUrl: Scalars['URL'];
   /** A globally-unique identifier. */
   id: Scalars['ID'];

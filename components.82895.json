@@ -773,6 +773,25 @@
       "icon": null
     },
     {
+      "name": "bjttl ",
+      "display_name": null,
+      "created_at": "2021-12-14T07:42:55.396Z",
+      "updated_at": "2021-12-14T07:42:55.396Z",
+      "id": 2037558,
+      "schema": {},
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "bjttl ",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
       "name": "booking",
       "display_name": null,
       "created_at": "2020-05-01T08:40:45.368Z",
@@ -952,7 +971,7 @@
       "name": "button",
       "display_name": null,
       "created_at": "2020-05-01T08:40:32.630Z",
-      "updated_at": "2021-12-14T07:37:15.493Z",
+      "updated_at": "2021-12-14T07:49:25.737Z",
       "id": 894783,
       "schema": {
         "variant": {
@@ -1233,16 +1252,24 @@
           "use_uuid": true,
           "options": [
             {
-              "value": "dense",
-              "name": "dense"
-            },
-            {
               "value": "large",
               "name": "large"
             },
             {
               "value": "xlarge",
               "name": "extra large"
+            },
+            {
+              "value": "small",
+              "name": "small"
+            },
+            {
+              "value": "xsmall",
+              "name": "extra small"
+            },
+            {
+              "value": "medium",
+              "name": "medium"
             }
           ]
         }
@@ -1387,7 +1414,7 @@
       "name": "card_list",
       "display_name": null,
       "created_at": "2020-05-01T08:40:44.719Z",
-      "updated_at": "2021-10-04T06:03:30.086Z",
+      "updated_at": "2021-12-18T02:04:36.776Z",
       "id": 894842,
       "schema": {
         "variant": {
@@ -1437,6 +1464,10 @@
             {
               "value": "overlay_content_no_space",
               "name": "Content overlay without space"
+            },
+            {
+              "value": "equal-heights",
+              "name": "Equal Heights"
             }
           ],
           "pos": 0
@@ -9406,7 +9437,7 @@
       "name": "nav_item",
       "display_name": null,
       "created_at": "2020-05-01T08:40:38.742Z",
-      "updated_at": "2020-05-01T08:40:38.742Z",
+      "updated_at": "2021-12-17T14:23:52.804Z",
       "id": 894813,
       "schema": {
         "name": {
@@ -9415,7 +9446,9 @@
         },
         "link": {
           "type": "multilink",
-          "pos": 1
+          "pos": 1,
+          "show_anchor": true,
+          "email_link_type": true
         },
         "open_external": {
           "type": "boolean",

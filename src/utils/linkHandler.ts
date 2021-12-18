@@ -47,14 +47,9 @@ export const linkHandler = (
   if (options?.openExternal) {
     props.target = '_blank'
   }
-  const cachedUrl = link.story?.url || link.cached_url
+  const cachedUrl = link.story?.url || link.cached_url || link.email
 
   if (!cachedUrl) {
-    if (link.email) {
-      props.href = `mailto:${link.email.replace('mailto:', '')}`
-      props.external = true
-      return props
-    }
     return {}
   }
 
@@ -67,6 +62,9 @@ export const linkHandler = (
     props.external = true
     props.target = '_blank'
     props.rel = 'noopener noreferrer'
+  } else if (link.linktype === 'email') {
+    props.href = `mailto:${link.email}`
+    props.external = true
   } else {
     let href = cachedUrl || ''
     if (/\S+@\S+\.\S+/.test(href)) {
