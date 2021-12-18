@@ -145,7 +145,12 @@ export const LmButton: FC<LmButtonProps> = ({
     ) : content.icon?.name ? (
       <LmIcon iconName={content.icon.name} buttonSize={content.size} />
     ) : null
-
+  const onClickFunc: any =
+    typeof content.on_click_function === 'string'
+      ? {
+          onClick: () => new Function(content.on_click_function || '')()
+        }
+      : undefined
   const btnProps: any = onClick
     ? {
         onClick
@@ -156,9 +161,10 @@ export const LmButton: FC<LmButtonProps> = ({
           openExternal: !!content.open_external
         }),
         naked: true,
-        component: LmCoreComponents.lm_link_render
+        component: LmCoreComponents.lm_link_render,
+        ...onClickFunc
       }
-    : {}
+    : { ...onClickFunc }
   btnProps['aria-label'] = content.label || content.icon?.name
   if (content.variant === 'fab') {
     return (

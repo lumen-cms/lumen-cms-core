@@ -35,6 +35,7 @@ export type LinkHandlerProps = {
   email?: string
   naked?: boolean
   component?: ReactElement
+  onClick?: () => void
 }
 
 export const linkHandler = (

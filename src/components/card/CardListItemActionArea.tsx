@@ -6,7 +6,7 @@ const CardListItemActionArea: FC<{ buttonProps: LinkHandlerProps }> = ({
   children,
   buttonProps
 }) => {
-  return buttonProps.href || buttonProps.email ? (
+  return buttonProps.href || buttonProps.email || buttonProps.onClick ? (
     <CardActionArea {...buttonProps}>{children}</CardActionArea>
   ) : (
     <>{children}</>

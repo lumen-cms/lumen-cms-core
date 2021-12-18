@@ -971,7 +971,7 @@
       "name": "button",
       "display_name": null,
       "created_at": "2020-05-01T08:40:32.630Z",
-      "updated_at": "2021-12-14T07:49:25.737Z",
+      "updated_at": "2021-12-18T07:22:57.718Z",
       "id": 894783,
       "schema": {
         "variant": {
@@ -1147,7 +1147,8 @@
           "keys": [
             "link",
             "file",
-            "open_external"
+            "open_external",
+            "on_click_function"
           ],
           "pos": 9
         },
@@ -1272,6 +1273,10 @@
               "name": "medium"
             }
           ]
+        },
+        "on_click_function": {
+          "type": "textarea",
+          "description": "Executes JavaScript with the click handler."
         }
       },
       "image": null,
@@ -2221,7 +2226,7 @@
       "name": "card_list_item",
       "display_name": null,
       "created_at": "2020-05-01T08:40:44.506Z",
-      "updated_at": "2021-08-19T04:37:15.564Z",
+      "updated_at": "2021-12-18T03:15:14.051Z",
       "id": 894841,
       "schema": {
         "image": {
@@ -2295,7 +2300,9 @@
           "display_name": "Link",
           "keys": [
             "link",
-            "open_external"
+            "open_external",
+            "on_click_handler",
+            "on_click_function"
           ],
           "pos": 8
         },
@@ -2333,6 +2340,10 @@
           "type": "boolean",
           "description": "Opens external links in new tab. Only works for external not internal links.",
           "pos": 12
+        },
+        "on_click_function": {
+          "type": "textarea",
+          "description": "This executes JavaScript block on click."
         }
       },
       "image": null,
@@ -8360,7 +8371,7 @@
       "name": "link",
       "display_name": null,
       "created_at": "2020-05-01T08:40:39.769Z",
-      "updated_at": "2021-08-19T04:38:22.806Z",
+      "updated_at": "2021-12-18T07:30:02.703Z",
       "id": 894818,
       "schema": {
         "link": {
@@ -8394,7 +8405,8 @@
           "display_name": "Link",
           "keys": [
             "link",
-            "open_external"
+            "open_external",
+            "on_click_function"
           ],
           "pos": 3
         },
@@ -8415,6 +8427,10 @@
               "value": ""
             }
           ]
+        },
+        "on_click_function": {
+          "type": "textarea",
+          "description": "Executes a JavaScript function."
         }
       },
       "image": null,

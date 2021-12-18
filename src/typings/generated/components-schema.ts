@@ -368,6 +368,7 @@ export interface ButtonStoryblok {
   styles_tablet?: StylesStoryblok[];
   styles_hover?: StylesStoryblok[];
   image_size?: "large" | "xlarge" | "small" | "xsmall" | "medium";
+  on_click_function?: string;
   _uid: string;
   component: "button";
   [k: string]: any;
@@ -510,6 +511,7 @@ export interface CardListItemStoryblok {
         [k: string]: any;
       };
   open_external?: boolean;
+  on_click_function?: string;
   _uid: string;
   component: "card_list_item";
   [k: string]: any;
@@ -1897,6 +1899,7 @@ export interface LinkStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  on_click_function?: string;
   _uid: string;
   component: "link";
   [k: string]: any;

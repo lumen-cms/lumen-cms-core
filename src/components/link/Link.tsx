@@ -7,30 +7,42 @@ import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmLinkProps } from './linkTypes'
 
 export function LmLink({ content }: LmLinkProps): JSX.Element {
-  if (!content.link?.cached_url) {
-    return (
-      <span className={clsx(content.class_names?.values)}>
-        {(content.body || []).map((blok) => (
-          <LmComponentRender content={blok} key={blok._uid} />
-        ))}
-      </span>
-    )
-  }
+  const onClickFunc: any =
+    typeof content.on_click_function === 'string'
+      ? {
+          onClick: () => new Function(content.on_click_function || '')()
+        }
+      : undefined
   const btnProps: any = {
     ...getLinkAttrs(content.link as LinkType, {
       openExternal: !!content.open_external
     }),
     naked: true,
-    component: LmCoreComponents.lm_link_render
+    component: LmCoreComponents.lm_link_render,
+    ...onClickFunc
+  }
+  if (btnProps.href || btnProps.onClick) {
+    return (
+      <MuiLink
+        {...btnProps}
+        style={{
+          ...(btnProps.onClick && {
+            cursor: 'pointer'
+          })
+        }}
+        className={clsx('lm-link__container', content.class_names?.values)}
+      >
+        {(content.body || []).map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
+      </MuiLink>
+    )
   }
   return (
-    <MuiLink
-      {...btnProps}
-      className={clsx('lm-link__container', content.class_names?.values)}
-    >
+    <span className={clsx(content.class_names?.values)}>
       {(content.body || []).map((blok) => (
         <LmComponentRender content={blok} key={blok._uid} />
       ))}
-    </MuiLink>
+    </span>
   )
 }

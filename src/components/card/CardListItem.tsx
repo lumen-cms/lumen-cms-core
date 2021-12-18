@@ -5,23 +5,33 @@ import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
 import CardDescriptionText from './CardDescriptionText'
 import CardListItemActions from './CardListItemActions'
-import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import {
+  getLinkAttrs,
+  LinkHandlerProps,
+  LinkType
+} from '../../utils/linkHandler'
 import { CardListItemProps } from './cardTypes'
 import CardListItemActionArea from './CardListItemActionArea'
 
 export default function LmCardListItem(props: CardListItemProps): JSX.Element {
   const { content, options } = props
   const variants = options.variant || []
-
-  const btnProps: any = content.link?.linktype
+  const onClickFunc: any =
+    typeof content.on_click_function === 'string'
+      ? {
+          onClick: () => new Function(content.on_click_function || '')()
+        }
+      : undefined
+  const btnProps: LinkHandlerProps = content.link?.linktype
     ? {
         ...getLinkAttrs(content.link as LinkType, {
           openExternal: !!content.open_external
         }),
         naked: true,
-        component: LmCoreComponents.lm_link_render
+        component: LmCoreComponents.lm_link_render,
+        ...onClickFunc
       }
-    : {}
+    : { ...onClickFunc }
 
   // without media / text only
   if (!content.image || options.hide_image) {
