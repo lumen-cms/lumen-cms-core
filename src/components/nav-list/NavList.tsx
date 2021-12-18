@@ -34,7 +34,27 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
   const body = (content && content.body) || []
   const properties = content.properties || []
   const { header } = content
+  // @ts-ignore
+  const getBtnProps = (blok: LmNavListProps['content']['body'][0]) => {
+    const onClickFunc: any =
+      typeof content.on_click_function === 'string'
+        ? {
+            onClick: () => new Function(content.on_click_function || '')()
+          }
+        : undefined
+    const args = blok.link?.linktype
+      ? {
+          ...getLinkAttrs(blok.link as LinkType, {
+            openExternal: !!blok.open_external
+          }),
+          naked: true,
+          component: LmCoreComponents.lm_link_render,
+          ...onClickFunc
+        }
+      : { ...onClickFunc }
 
+    return args.href || args.onClick ? args : {}
+  }
   if ((isMobile && content.collapse_on_mobile) || content.forceCollapse) {
     return (
       <ExpansionPanel>
@@ -63,18 +83,8 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
             )}
           >
             {body.map((blok) => {
-              const btnProps: any = blok.link?.cached_url
-                ? {
-                    ...getLinkAttrs(blok.link as LinkType, {
-                      openExternal: !!blok.open_external
-                    }),
-                    naked: true,
-                    component: LmCoreComponents.lm_link_render
-                  }
-                : {}
-
               return (
-                <MuiLink {...btnProps} key={blok._uid}>
+                <MuiLink {...getBtnProps(blok)} key={blok._uid}>
                   {blok.name}
                 </MuiLink>
               )
@@ -99,17 +109,8 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
       {header && <h4>{header}</h4>}
       <nav className={navClassNames}>
         {body.map((blok) => {
-          const btnProps: any = blok.link?.cached_url
-            ? {
-                ...getLinkAttrs(blok.link as LinkType, {
-                  openExternal: !!blok.open_external
-                }),
-                naked: true,
-                component: LmCoreComponents.lm_link_render
-              }
-            : {}
           return (
-            <MuiLink {...btnProps} key={blok._uid}>
+            <MuiLink {...getBtnProps(blok)} key={blok._uid}>
               {blok.name}
             </MuiLink>
           )

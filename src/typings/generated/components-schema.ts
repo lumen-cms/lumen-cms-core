@@ -2401,6 +2401,7 @@ export interface NavItemStoryblok {
       };
   open_external?: boolean;
   image?: string;
+  on_click_function?: string;
   _uid: string;
   component: "nav_item";
   [k: string]: any;
