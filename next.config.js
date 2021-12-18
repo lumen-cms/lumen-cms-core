@@ -7,7 +7,7 @@ const redirectFunc = require('./config/localeRedirect')
 const nextConfig = {
   i18n: {
     locales: ['en', 'cn', 'de'],
-    defaultLocale: 'de'
+    defaultLocale: 'en'
     // localeDetection: false
     // domains: [
     //   {
