@@ -1389,10 +1389,10 @@
     "@formatjs/intl-localematcher" "0.2.21"
     tslib "^2.1.0"
 
-"@formatjs/intl-datetimeformat@^4.2.6":
-  version "4.2.6"
-  resolved "https://registry.yarnpkg.com/@formatjs/intl-datetimeformat/-/intl-datetimeformat-4.2.6.tgz#6eb86178c12aae9bf1c1ee55ef0ec71d8cd544e6"
-  integrity sha512-albFUNBwBvOKrWgjEr8I5oEzLZV2/EIpZC0BKIXRUmq3lmga6JsqUfeklrEkabjPYl+e+LyuUDceM/sxeEUF+Q==
+"@formatjs/intl-datetimeformat@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@formatjs/intl-datetimeformat/-/intl-datetimeformat-4.3.0.tgz#e82158adc19aee47c0c605c1b35d767aec97856d"
+  integrity sha512-bdFVUd2LdiBorJwdJQ17QYtB1xubLt2Z91jM4yYDAQW8UgCQfVT72J88ah3xHg+1yd0OmqUvrV26zcwJdDHFiw==
   dependencies:
     "@formatjs/ecma402-abstract" "1.11.0"
     "@formatjs/intl-localematcher" "0.2.21"
@@ -11763,10 +11763,10 @@ markdown-to-jsx@^7.1.3:
   resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.1.5.tgz#caf72ad8a8c34a2bb692c4d17e44aabbe4eb19fd"
   integrity sha512-YQEMMMCX3PYOWtUAQu8Fmz5/sH09s17eyQnDubwaAo8sWmnRTT1og96EFv1vL59l4nWfmtF3L91pqkuheVqRlA==
 
-marked@4.0.6:
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-4.0.6.tgz#cd199503102b6807354f00574348d41ad4fd25d2"
-  integrity sha512-+H0bTf8DM8zLuFBUm/2VklxaCrwlBFgoJzHJcMZCnZ9cPgsllHwKpL6TPLdDeA38yPluMuVKOL1hO5w6HmG5Mg==
+marked@4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-4.0.8.tgz#ef127626ac65786460f9420d57cc8d5ffdcacbed"
+  integrity sha512-dkpJMIlJpc833hbjjg8jraw1t51e/eKDoG8TFOgc5O0Z77zaYKigYekTDop5AplRoKFGIaoazhYEhGkMtU3IeA==
 
 match-sorter@*:
   version "6.3.1"
@@ -13303,7 +13303,7 @@ pkg-up@3.1.0:
   dependencies:
     find-up "^3.0.0"
 
-plaiceholder@^2.2.0:
+plaiceholder@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/plaiceholder/-/plaiceholder-2.2.0.tgz#70e97b010fdeea0303095a2e190aa7e65b7d98f3"
   integrity sha512-tsfQ/Uz/vkKQCF+FFFVeqhbvmna57fjv/JKc2Fzs1Tz1S2vF70R7/YQpCFdmsVpPkrU/sZtLnxNNvopzv03Yhw==
@@ -13443,15 +13443,7 @@ postcss@8.2.15:
     nanoid "^3.1.23"
     source-map "^0.6.1"
 
-postcss@^7.0.14, postcss@^7.0.26, postcss@^7.0.32, postcss@^7.0.36, postcss@^7.0.5, postcss@^7.0.6:
-  version "7.0.39"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.39.tgz#9624375d965630e2e1f2c02a935c82a59cb48309"
-  integrity sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA==
-  dependencies:
-    picocolors "^0.2.1"
-    source-map "^0.6.1"
-
-postcss@^8.2.15, postcss@^8.3.8, postcss@^8.4.4:
+postcss@8.4.4, postcss@^8.2.15, postcss@^8.3.8:
   version "8.4.4"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.4.tgz#d53d4ec6a75fd62557a66bb41978bf47ff0c2869"
   integrity sha512-joU6fBsN6EIer28Lj6GDFoC/5yOZzLCfn0zHAn/MYXI7aPt4m4hK5KC5ovEZXy+lnCjmYIbQWngvju2ddyEr8Q==
@@ -13459,6 +13451,14 @@ postcss@^8.2.15, postcss@^8.3.8, postcss@^8.4.4:
     nanoid "^3.1.30"
     picocolors "^1.0.0"
     source-map-js "^1.0.1"
+
+postcss@^7.0.14, postcss@^7.0.26, postcss@^7.0.32, postcss@^7.0.36, postcss@^7.0.5, postcss@^7.0.6:
+  version "7.0.39"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.39.tgz#9624375d965630e2e1f2c02a935c82a59cb48309"
+  integrity sha512-yioayjNbHn6z1/Bywyb2Y4s3yvDAeXGOyxqD+LnVOinq6Mdmd++SW2wUNVzavyyHxd6+DxzWGIuosg6P1Rj8uA==
+  dependencies:
+    picocolors "^0.2.1"
+    source-map "^0.6.1"
 
 prebuild-install@^7.0.0:
   version "7.0.0"
@@ -13816,10 +13816,10 @@ react-aspect-ratio@1.0.50:
   resolved "https://registry.yarnpkg.com/react-aspect-ratio/-/react-aspect-ratio-1.0.50.tgz#b46bfc6a701d829bd0cb6d001cf271e443874213"
   integrity sha512-AEAPqmPMLlcuhp4t3z6crb+gGckc0lFPYNL/654a6rrcblcvZGtgh+VpcUbC7AwIE+MT8u5uGeJ7shx0hUOKSw==
 
-react-big-calendar@0.38.1:
-  version "0.38.1"
-  resolved "https://registry.yarnpkg.com/react-big-calendar/-/react-big-calendar-0.38.1.tgz#cd95bacf45c3064d2609fd261f321bf7757ef584"
-  integrity sha512-9xwBekBxsfwQJb8/4KpPgsS2mWnzOcXibuVtJ8MqI04W8mvAoIgnSAO0WtJBJfI0QMaeX+Ak12XwIZ88zZ/fGw==
+react-big-calendar@0.38.2:
+  version "0.38.2"
+  resolved "https://registry.yarnpkg.com/react-big-calendar/-/react-big-calendar-0.38.2.tgz#f0e25800fb93d370e5ccdd4aba1e7c0fc45045e6"
+  integrity sha512-p8RYw7VxuXXxOXC3i/XHzALw/8GPkS69OsPEeivsA7hKa7JDE/J87kqcXaeSPEar124EaCCaP4/nbLtd6c0tlA==
   dependencies:
     "@babel/runtime" "^7.1.5"
     clsx "^1.0.4"
@@ -14103,10 +14103,10 @@ react-router@6.0.2, react-router@^6.0.0:
   dependencies:
     history "^5.1.0"
 
-react-scroll-parallax@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-2.4.0.tgz#064362107e18a1f610ba5c8e11c1c1aea0da4129"
-  integrity sha512-lFbf2SIEyxyIko/edR8Fx2mnn4T0t2WzLBa4E5ApoGwDsSWS1crL+LjRYtin+f3EV+rmBDzWqqr7vB5GsRpg9Q==
+react-scroll-parallax@2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/react-scroll-parallax/-/react-scroll-parallax-2.4.2.tgz#7612c59b365178b54ab2880d657e203af18e8077"
+  integrity sha512-TVo8eTzzGBOhoMwoxk5Xo4g3bVY0BhSUEQExmzlirqMsBkchUzQY1K2oYJwJAn5d/dZSxBh8DimUdkFXJYWw9g==
   dependencies:
     prop-types "^15.5.10"
 
@@ -15443,10 +15443,10 @@ storyblok-generate-ts@^1.3.0:
     camelcase "^6.2.0"
     json-schema-to-typescript "^10.1.4"
 
-storyblok-js-client@4.1.5:
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-4.1.5.tgz#d0ceb811a9b4847850bf4856046e01816ac221c6"
-  integrity sha512-0cd9AtU1JE0Q7lyda7NSyfwasvuy3X5v9z1kMm4TWmcbUiQEjUjiNaZ9o0bu7iTpgVeatoa2j6XGLRqPQKz8dw==
+storyblok-js-client@4.1.6:
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-4.1.6.tgz#77cae14671ed7c726f64ed323fd71aaa419e6f7c"
+  integrity sha512-7TpXlbyBbNsKdvwR/fJO+mSySBOtCWLFE+8YwUmGF6ipOYFjVctUg60AhD1H5ljWg4wjFBMlqMZrq8/cdFNTxQ==
   dependencies:
     qs "^6.9.4"
 
@@ -15462,10 +15462,10 @@ storyblok-rich-text-react-renderer-ts@3.1.3:
   dependencies:
     "@marvr/storyblok-rich-text-types" "^2.0.1"
 
-storybook-addon-next-router@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-next-router/-/storybook-addon-next-router-3.1.0.tgz#39d87856baa4627da216a31ac354100635aaf0d9"
-  integrity sha512-+IBMeosdudfCQ6IqZmpdCxdr2kacLPP/HIHTApKSOYBhfKIEZYiXtEW0UXvbokjEdnUaLNpZA2Rpyq6sdt6Mxw==
+storybook-addon-next-router@3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/storybook-addon-next-router/-/storybook-addon-next-router-3.1.1.tgz#46623ca36b450745c3517f5cdc4bf30fa4a4a930"
+  integrity sha512-Z14dED37vNXkN7+VY80HhF9itGReWoBAlKREHEk2By/dW7zSSqcSyXYV4bDMXIMAFYHMaA1svcBC1idVG8FhAw==
   dependencies:
     tslib "^2.3.0"
 
@@ -15822,10 +15822,10 @@ swap-case@^2.0.2:
   dependencies:
     tslib "^2.0.3"
 
-swr@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-1.1.0.tgz#7710cdbc5ff664c13e41fba6a1fa4734f82aba35"
-  integrity sha512-MFL3mkl752Uap81nLA1tEu7vQmikPamSziW+6dBidYKAo4oLOlUx/x5GZy4ZCkCwfZe2uedylkz1UMGnatUX4g==
+swr@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-1.1.1.tgz#f13346cc830d7950183af57b341bfabb4cc90d43"
+  integrity sha512-ZpUHyU3N3snj2QGFeE2Fd3BXl1CVS6YQIQGb1ttPAkTmvwZqDyV3GRMNPsaeAYCBM74tfn4XbKx28FVQR0mS7Q==
 
 symbol-observable@^1.0.4, symbol-observable@^1.1.0:
   version "1.2.0"
@@ -17473,10 +17473,10 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zustand@3.6.6:
-  version "3.6.6"
-  resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.6.6.tgz#3b7473a15813f7af9784233abd052c3b4560bbcc"
-  integrity sha512-y4755cIzJHQFEHgTQ5cHrlHdmXMxm5N3DU05Q27yT6rK4lKs2336t5IsAz5q9/GRaoEz6o8SiCOPDhZd5BnneA==
+zustand@3.6.7:
+  version "3.6.7"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.6.7.tgz#aab5ac0a9d6d21dce752aecd390f373ed9c9d70a"
+  integrity sha512-bYWKXMfoJwZyliFgidcQ3tJC/F2f2hHq1+lhTk8dVPX2k28i4VnpnKjBGNxAd2QNliV0m455Vm+gDL8LShrV3g==
 
 zwitch@^1.0.0:
   version "1.0.5"

@@ -19,7 +19,12 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
     Array.isArray(slug) &&
     (slug[0] === '_dev_' || slug[0] === '[object Object]')
   ) {
-    return { props: getBaseProps({ type: 'not_supported' }) } // do nothing _dev_ mode is active
+    console.log('inside of object', slug)
+
+    return {
+      props: getBaseProps({ type: 'not_supported' }),
+      notFound: true
+    } // do nothing _dev_ mode is active
   }
   try {
     if (preview) {

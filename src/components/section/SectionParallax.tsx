@@ -25,7 +25,8 @@ const useStyles = makeStyles({
 })
 
 export default function LmSectionParallax({
-  content
+  content,
+  sectionPosition
 }: LmSectionParallaxProps): JSX.Element {
   const classes = useStyles()
   const contentHeight = content.height
@@ -45,7 +46,9 @@ export default function LmSectionParallax({
                 <>
                   {item.image && (
                     <Image
-                      priority={!!content.disable_lazy_load}
+                      priority={
+                        sectionPosition === 0 || !!content.disable_lazy_load
+                      }
                       {...storyblokImageLoader(item.image)}
                       src={getRootImageUrl(item.image)}
                       layout="fill"
