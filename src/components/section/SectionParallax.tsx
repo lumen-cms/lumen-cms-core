@@ -53,9 +53,9 @@ export default function LmSectionParallax({
                       src={getRootImageUrl(item.image)}
                       layout="fill"
                       objectFit="cover"
-                      {...(item.parallax_item_data && {
+                      {...(item.parallax_item_data?.base64 && {
                         placeholder: 'blur',
-                        blurDataURL: item.parallax_item_data
+                        blurDataURL: item.parallax_item_data.base64
                       })}
                     />
                   )}
