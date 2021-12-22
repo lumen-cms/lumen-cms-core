@@ -69,6 +69,9 @@ const getCanonicalUrl = (hostname = '', router: AppContextProps) => {
   } else if (url.endsWith('home/')) {
     url = url.replace('/home/', '')
   }
+  if (CONFIG.rootDirectory && url.endsWith(CONFIG.rootDirectory)) {
+    url = url.replace(`/${CONFIG.rootDirectory}`, '')
+  }
   return hostname + url
 }
 
