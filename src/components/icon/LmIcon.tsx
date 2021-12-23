@@ -57,7 +57,7 @@ function IconCore({
   let iconSrc = ''
   if (inView && (iconUrl || iconName)) {
     iconSrc =
-      iconUrl?.replace('a.storyblok.com', 's3.amazonaws.com/a.storyblok.com') ||
+      iconUrl ||
       `https://cdn.jsdelivr.net/npm/@mdi/svg/svg/${underscoreToMinus(
         iconName as string
       )}.svg`
