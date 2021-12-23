@@ -57,6 +57,17 @@ export default class AppDocument extends Document {
           <style dangerouslySetInnerHTML={{ __html: googleFontString }} />
         </Head>
         <body className="lm-body__root">
+          {process.env.NEXT_PUBLIC_GTM_CONTAINER && (
+            <noscript>
+              <iframe
+                title="googletagmanager"
+                src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_CONTAINER}`}
+                height="0"
+                width="0"
+                style={{ display: 'none', visibility: 'hidden' }}
+              />
+            </noscript>
+          )}
           <Main />
           <script
             dangerouslySetInnerHTML={{

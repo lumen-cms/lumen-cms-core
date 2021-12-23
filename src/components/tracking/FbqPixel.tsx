@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Script from 'next/script'
 
 type PixelProps = {
   facebookPixelId: string
@@ -8,9 +9,10 @@ type PixelProps = {
 export default function FbqPixel({ facebookPixelId }: PixelProps) {
   const multiPixel = facebookPixelId.split(',').map((i) => i.trim())
   return (
-    <Head>
-      <script
-        /* eslint-disable-next-line react/no-danger */
+    <>
+      <Script
+        id="fbq-init"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
           !function(f,b,e,v,n,t,s)
@@ -26,18 +28,20 @@ export default function FbqPixel({ facebookPixelId }: PixelProps) {
           `
         }}
       />
-      <noscript>
-        {multiPixel.map((id) => (
-          // eslint-disable-next-line  @next/next/no-img-element
-          <img
-            key={id}
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src={`https://www.facebook.com/tr?id=${facebookPixelId}&ev=PageView&noscript=1`}
-          />
-        ))}
-      </noscript>
-    </Head>
+      <Head>
+        <noscript>
+          {multiPixel.map((id) => (
+            // eslint-disable-next-line  @next/next/no-img-element
+            <img
+              key={id}
+              height="1"
+              width="1"
+              style={{ display: 'none' }}
+              src={`https://www.facebook.com/tr?id=${facebookPixelId}&ev=PageView&noscript=1`}
+            />
+          ))}
+        </noscript>
+      </Head>
+    </>
   )
 }

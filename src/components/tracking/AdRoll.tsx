@@ -1,5 +1,5 @@
 import React from 'react'
-import Head from 'next/head'
+import Script from 'next/script'
 
 type AdRollProps = {
   advId: string
@@ -7,11 +7,11 @@ type AdRollProps = {
 }
 export default function AdRoll({ advId, pixId }: AdRollProps) {
   return (
-    <Head>
-      <script
-        /* eslint-disable-next-line react/no-danger */
-        dangerouslySetInnerHTML={{
-          __html: `
+    <Script
+      id="adroll-init"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{
+        __html: `
   adroll_adv_id = "${advId}";
   adroll_pix_id = "${pixId}";
   adroll_version = "2.0";
@@ -37,8 +37,7 @@ export default function AdRoll({ advId, pixId }: AdRollProps) {
 })(window, document);
   adroll.track("pageView");
       `
-        }}
-      />
-    </Head>
+      }}
+    />
   )
 }

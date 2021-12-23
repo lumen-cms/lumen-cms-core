@@ -1,28 +1,19 @@
 import React from 'react'
-import Head from 'next/head'
+import Script from 'next/script'
 
 type GtagProps = {
   googleAnalyticsId: string
 }
 export default function Gtag({ googleAnalyticsId }: GtagProps) {
   return (
-    <Head>
-      <link
-        rel="preconnect"
-        href="https://www.googletagmanager.com"
-        crossOrigin="anonymous"
-      />
-      <link
-        rel="preconnect"
-        href="https://www.google-analytics.com"
-        crossOrigin="anonymous"
-      />
-      <script
-        async
+    <>
+      <Script
+        strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
       />
-      <script
-        /* eslint-disable-next-line react/no-danger */
+      <Script
+        id={'gtag-init'}
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
         window.dataLayer = window.dataLayer || [];
@@ -34,6 +25,6 @@ export default function Gtag({ googleAnalyticsId }: GtagProps) {
       `
         }}
       />
-    </Head>
+    </>
   )
 }
