@@ -34,6 +34,7 @@ export default function LmSectionParallax({
     height: contentHeight ? `${contentHeight}vh` : '50vh'
   }
 
+  const isPriority = sectionPosition === 0 || !!content.disable_lazy_load
   return (
     <div className={classes.parallaxRoot} style={{ ...styles }}>
       <ParallaxBanner
@@ -46,9 +47,7 @@ export default function LmSectionParallax({
                 <>
                   {item.image && (
                     <Image
-                      priority={
-                        sectionPosition === 0 || !!content.disable_lazy_load
-                      }
+                      priority={isPriority}
                       {...storyblokImageLoader(item.image)}
                       src={getRootImageUrl(item.image)}
                       layout="fill"
