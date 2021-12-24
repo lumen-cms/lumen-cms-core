@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   tabContainer: {
     '& .react-swipeable-view-container > div > div': {
       padding: theme.spacing(3)
+    },
+    '& .MuiTab-wrapper > .MuiTypography-root': {
+      textTransform: 'none',
+      width: '100%'
     }
   },
   vertical: {
