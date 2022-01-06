@@ -10,5 +10,6 @@ export const getCategoryData = async (
     locale: props.locale || '',
     defaultLocale: props.defaultLocale || ''
   })
-  return filterAllCategory(allItems, item)
+  let filtered = filterAllCategory(allItems, item)
+  return filtered
 }

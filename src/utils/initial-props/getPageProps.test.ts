@@ -9,36 +9,6 @@ const defaultOptions = {
   locales: ['en']
 }
 
-const recursiveTestCallback = (
-  elements: any[],
-  lookup: string,
-  callback: (item: any) => void
-) => {
-  let found = false
-  const walkArray = (elements: any[]) => {
-    for (const item of elements) {
-      if (item.component === lookup) {
-        callback(item)
-        found = true
-        // listWidgets.push(item)
-      } else if (Array.isArray(item.body)) {
-        walkArray(item.body)
-      }
-    }
-  }
-  walkArray(elements)
-  expect(found).toBeTruthy()
-}
-
-const callbackFormTest = (item: any) => {
-  const currentFormToTest = item.form_data
-  expect(!!currentFormToTest).toBeTruthy()
-  expect(typeof currentFormToTest?.formId).toBe('string')
-  expect(typeof currentFormToTest?.title).toBe('string')
-  expect(typeof currentFormToTest?.formAction).toBe('string')
-  expect((currentFormToTest?.fields?.length || 0) > 1).toBeTruthy()
-}
-
 describe('Get page props of a certain URL', () => {
   test('fetch url that consists list widget data', async () => {
     CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
@@ -159,4 +129,43 @@ describe('Get page props of a certain URL', () => {
     expect(!!data.page).toBeTruthy()
     expect(!!data.settings).toBeTruthy()
   })
+  test('support category box data', async () => {
+    CONFIG.previewToken = 'kzEzh7cCQiMQAiu0hprJvAtt'
+    CONFIG.publicToken = 'fqRVxeOrsSaQMUz203q3zgtt'
+    const data = await getPageProps('/drilling-fluids', defaultOptions)
+    const callback = (item: any) => {
+      expect(item.category_box_data?.length).toBeGreaterThan(0)
+    }
+    recursiveTestCallback(data.page?.body ?? [], 'category_box', callback)
+  })
 })
+
+function recursiveTestCallback(
+  elements: any[],
+  lookup: string,
+  callback: (item: any) => void
+) {
+  let found = false
+  const walkArray = (elements: any[]) => {
+    for (const item of elements) {
+      if (item.component === lookup) {
+        callback(item)
+        found = true
+        // listWidgets.push(item)
+      } else if (Array.isArray(item.body)) {
+        walkArray(item.body)
+      }
+    }
+  }
+  walkArray(elements)
+  expect(found).toBeTruthy()
+}
+
+function callbackFormTest(item: any) {
+  const currentFormToTest = item.form_data
+  expect(!!currentFormToTest).toBeTruthy()
+  expect(typeof currentFormToTest?.formId).toBe('string')
+  expect(typeof currentFormToTest?.title).toBe('string')
+  expect(typeof currentFormToTest?.formAction).toBe('string')
+  expect((currentFormToTest?.fields?.length || 0) > 1).toBeTruthy()
+}

@@ -38,15 +38,16 @@ export const filterAllCategory = (
 ) => {
   const filterByTags = content.filter_by_tags?.values || []
   const filterByCategories = content.filter_categories || []
+  console.log(filterByCategories, filterByTags)
   if (filterByTags || filterByCategories.length) {
     return categories.filter((category) => {
       const categoryContent = category.content
-      if (!categoryContent.tag_reference?.values) {
-        // remove all categories without tag_reference
-        return false
-      }
       let exists = true
       if (filterByTags.length) {
+        if (!categoryContent.tag_reference?.values) {
+          // remove all categories without tag_reference
+          return false
+        }
         const tagList = category.tag_list || []
         exists =
           tagList.length && content.match_all_tags
