@@ -14,7 +14,7 @@ export default function HeadlineCountDown({
       return new Date()
     }
     const [startDate, startTime] = content.countdown_time.split(' ')
-    return getDateTime(startDate, startTime)
+    return getDateTime(startDate, startTime, true)
   }, [content.countdown_time])
 
   return (

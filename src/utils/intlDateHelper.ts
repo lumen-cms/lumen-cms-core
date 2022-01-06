@@ -1,15 +1,25 @@
 import { DateTimeFormatStoryblok } from '../typings/generated/components-schema'
 
-export const getDateTime = (date: string, time: string) => {
+export const getDateTime = (date: string, time: string, isUtc?: boolean) => {
   const [year, month, day] = date.split('-')
   const [hour, minute] = time.split(':')
-  return new Date(
-    Number(year),
-    Number(month) - 1,
-    Number(day),
-    Number(hour),
-    Number(minute)
-  )
+  return isUtc
+    ? new Date(
+        Date.UTC(
+          Number(year),
+          Number(month) - 1,
+          Number(day),
+          Number(hour),
+          Number(minute)
+        )
+      )
+    : new Date(
+        Number(year),
+        Number(month) - 1,
+        Number(day),
+        Number(hour),
+        Number(minute)
+      )
 }
 
 export const getDateFormatIntlOption = (
