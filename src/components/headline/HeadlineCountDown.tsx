@@ -21,6 +21,7 @@ export default function HeadlineCountDown({
     <LmHeadlineCore content={content} onClick={onClick}>
       <Countdown
         date={date}
+        now={() => new Date().getTime()}
         intervalDelay={
           content.countdown_interval ? Number(content.countdown_interval) : 1000
         }
