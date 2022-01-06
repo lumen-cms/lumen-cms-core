@@ -16,7 +16,7 @@ export const getAllCategories = async (props: {
   const locale = props.locale !== props.defaultLocale ? props.locale : null
   const params: StoriesParams = {
     per_page: 100,
-    sort_by: 'content.name:asc',
+    sort_by: 'content.name:asc,name:asc',
     filter_query: {
       component: {
         in: 'category'
@@ -38,7 +38,6 @@ export const filterAllCategory = (
 ) => {
   const filterByTags = content.filter_by_tags?.values || []
   const filterByCategories = content.filter_categories || []
-  console.log(filterByCategories, filterByTags)
   if (filterByTags || filterByCategories.length) {
     return categories.filter((category) => {
       const categoryContent = category.content

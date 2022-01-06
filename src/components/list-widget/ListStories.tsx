@@ -3,6 +3,7 @@ import { LmListStoriesPayload, LmListStoriesProps } from './listWidgetTypes'
 import useSWR from 'swr'
 import { getListStoriesParams } from '../../utils/universal/getListStoriesParams'
 import {
+  categorySelector,
   searchTextSelector,
   useSearchStore
 } from '../../utils/state/searchState'
@@ -20,7 +21,17 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const paginate = content.pagination?.[0]
   const [page, setPage] = useState<number>(1)
   const searchText = useSearchStore(searchTextSelector)
+  const searchCategories = useSearchStore(categorySelector)
   const anchorId = `list_stories_${content._uid}`
+  if (searchCategories.length) {
+    // currently only for page categories
+    const allCategories = [
+      ...searchCategories,
+      ...(content.page_categories || [])
+    ]
+    content.page_categories = allCategories
+    content.match_all_categories = true
+  }
   const paramString = JSON.stringify({
     ...getListStoriesParams(content, { locale, defaultLocale, locales }),
     page,

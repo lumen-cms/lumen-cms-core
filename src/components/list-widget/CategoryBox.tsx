@@ -27,15 +27,10 @@ export default function LmCategoryBox({
   const style: CSSProperties = {}
   // const style = { maxHeight: '500px', overflowY: 'auto' }
   return (
-    <div
-      style={style}
-      className={clsx(content.class_names && content.class_names.values)}
-    >
+    <div style={style} className={clsx(content.class_names?.values)}>
       {categories.map((category) => {
         const checkboxValue =
-          category.content &&
-          category.content.tag_reference &&
-          category.content.tag_reference.values
+          category.content?.tag_reference?.values || category.uuid
         return (
           <div key={category.uuid}>
             <FormControlLabel
@@ -61,7 +56,7 @@ export default function LmCategoryBox({
                   }}
                 />
               }
-              label={category.content && category.content.name}
+              label={category.content.name || category.name}
             />
           </div>
         )

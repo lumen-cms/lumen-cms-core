@@ -20,5 +20,4 @@ export const addSearchParamsToUrl = ({
     }
   }
   window.history.pushState({ path: currentUrl.href }, '', currentUrl.href)
-  window.scrollTo(0, 0)
 }
