@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
@@ -8,6 +8,7 @@ import {
   ButtonStoryblok,
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
+import { useEffectOnce } from 'react-use'
 
 const useStyles = makeStyles((theme: Theme) => ({
   redColor: {
@@ -31,12 +32,10 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
 
   const { currency_prefix } = config
   const classes = useStyles()
-  useEffect(() => {
-    if (!selectedVariant) {
-      const edge = item.variants?.edges[0].node
-      onVariantSelect({ ...edge, productTitle: item.title })
-    }
-  }, [selectedVariant, item.variants, item.title, onVariantSelect])
+  const firstVariant = item.variants?.edges[0].node
+  useEffectOnce(() => {
+    onVariantSelect({ ...firstVariant, productTitle: item.title })
+  })
   const hasMultipleOptions = item.variants.edges?.length > 1
   return (
     <div>

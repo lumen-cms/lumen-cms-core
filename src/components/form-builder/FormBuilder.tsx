@@ -89,14 +89,20 @@ export default function LmFormBuilder({
             const fetchResult = await res.json()
             if (res.status !== 200) {
               window.gtag &&
+                gtag('event', 'exception', {
+                  event_category: 'Form Submit',
+                  event_label: endpoint,
+                  content_id: window.location.pathname
+                })
+              setError(fetchResult)
+            } else {
+              window.gtag &&
                 gtag('event', 'generate_lead', {
                   event_category: 'Form Submit',
                   event_label: endpoint,
-                  value: window.location.pathname
+                  content_id: window.location.pathname
                 })
               window.fbq && fbq('track', 'Lead')
-              setError(fetchResult)
-            } else {
               console.log(fetchResult)
               setSuccess(true)
             }
