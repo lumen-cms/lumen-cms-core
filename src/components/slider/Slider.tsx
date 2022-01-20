@@ -89,7 +89,8 @@ export const useStyles = makeStyles({
 
 export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   const [slide, setSlide] = useState(0)
-  const [autoSlide, setAutoslide] = useState<boolean>(!!content.autoslide)
+  const autoSlide = !!content.autoslide
+  const [start, setStart] = useState<boolean>(true)
   const { isMobile } = useDeviceDimensions()
   const classes = useStyles()
   const wrapInColumns = content.slides_per_view && !isMobile
@@ -130,12 +131,12 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
       style={styles}
       onMouseEnter={() => {
         if (content.pause_on_hover && content.autoslide) {
-          setAutoslide(false)
+          setStart(false)
         }
       }}
       onMouseLeave={() => {
         if (content.pause_on_hover && content.autoslide) {
-          setAutoslide(true)
+          setStart(true)
         }
       }}
     >
@@ -144,7 +145,9 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
         animateTransitions={!content.disable_transition}
         autoplay={autoSlide}
         interval={autoSlide ? Number(content.autoslide) : undefined}
-        onChangeIndex={(i: any) => setSlide(i)}
+        onChangeIndex={(i: any) =>
+          autoSlide ? start && setSlide(i) : setSlide(i)
+        }
         springConfig={{
           duration: content.autoslide_duration
             ? `${content.autoslide_duration}ms`
