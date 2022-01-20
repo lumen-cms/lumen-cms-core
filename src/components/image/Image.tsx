@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme: Theme) => ({
       borderRadius: '50%'
     },
     '&.rounded-circle': {
-      borderRadius: '50%'
+      borderRadius: '50%',
+      overflow: 'hidden'
     }
   },
   customImage: (props: ImageStoryblok) => ({
@@ -105,6 +106,7 @@ export default function LmImage({
               alt: content.alt || 'website image',
               objectFit: 'cover',
               objectPosition: 'center',
+              loading,
               className: classes.customImage
             }}
           />

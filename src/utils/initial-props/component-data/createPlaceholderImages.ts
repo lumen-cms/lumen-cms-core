@@ -18,9 +18,8 @@ export const createPlaceholderImages = async (
   _props: AppPageProps
 ) => {
   let src = item.image || item.source || item.fallback_image
-  if (item.component === 'player') {
-    // @ts-ignore
-    src = item.fallback_image?.filename
+  if (src?.filename) {
+    src = src.filename
   }
   return getPlaiceholderCached(src)
 }
