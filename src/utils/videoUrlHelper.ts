@@ -21,8 +21,8 @@ const getVideoObj = (path: string): string | { src: string; type: string } => {
   return mapped ? { type: mapped, src: path } : path
 }
 
-const blurred =
-  'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAADAAQDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAeEAABBQACAwAAAAAAAAAAAAADAAECBBEFBwgiYf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCu8U6AeT63u2LUrDEblDQwFggY40B56wkzb9zUREH/2Q=='
+// const blurred =
+//   'data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAADAAQDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAeEAABBQACAwAAAAAAAAAAAAADAAECBBEFBwgiYf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCu8U6AeT63u2LUrDEblDQwFggY40B56wkzb9zUREH/2Q=='
 export default function videoUrlHelper(
   content: SectionVideoBgStoryblok | PlayerStoryblok,
   inView?: boolean
@@ -42,8 +42,7 @@ export default function videoUrlHelper(
           attributes: {
             poster:
               content.section_video_bg_data?.base64 ||
-              content.player_data?.base64 ||
-              blurred
+              content.player_data?.base64
           }
         }
       }
@@ -54,9 +53,7 @@ export default function videoUrlHelper(
       file: {
         attributes: {
           poster:
-            content.section_video_bg_data?.base64 ||
-            content.player_data?.base64 ||
-            blurred
+            content.section_video_bg_data?.base64 || content.player_data?.base64
         }
       }
     },
