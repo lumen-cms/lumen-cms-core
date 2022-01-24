@@ -37,7 +37,7 @@ export default function LmCardListItem(props: CardListItemProps): JSX.Element {
   if (!content.image || options.hide_image) {
     return (
       <CardWrap {...props}>
-        <CardListItemActionArea buttonProps={btnProps}>
+        <CardListItemActionArea buttonProps={btnProps} content={content}>
           <CardContent>
             <CardListActionTitles {...props} />
             <CardDescriptionText {...props} />
@@ -55,7 +55,7 @@ export default function LmCardListItem(props: CardListItemProps): JSX.Element {
         <CardContent>
           <CardListActionTitles {...props} />
         </CardContent>
-        <CardListItemActionArea buttonProps={btnProps}>
+        <CardListItemActionArea buttonProps={btnProps} content={content}>
           <CardMediaElement {...props} />
           {content.description && (
             <CardContent>
@@ -71,7 +71,7 @@ export default function LmCardListItem(props: CardListItemProps): JSX.Element {
   if (variants.includes('over_media')) {
     return (
       <CardWrap {...props}>
-        <CardListItemActionArea buttonProps={btnProps}>
+        <CardListItemActionArea buttonProps={btnProps} content={content}>
           <CardMediaElement {...props}>
             <CardContent
               style={{
@@ -96,7 +96,7 @@ export default function LmCardListItem(props: CardListItemProps): JSX.Element {
   // content title and description bottom
   return (
     <CardWrap {...props}>
-      <CardListItemActionArea buttonProps={btnProps}>
+      <CardListItemActionArea buttonProps={btnProps} content={content}>
         <CardMediaElement {...props} />
         {(content.description || content.title || content.subtitle) && (
           <CardContent>

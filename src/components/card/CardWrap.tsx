@@ -1,13 +1,11 @@
 import { CSSProperties, FunctionComponent } from 'react'
 import Card from '@material-ui/core/Card'
 import clsx from 'clsx'
-import CardWrapWithAction from './CardWrapWithAction'
 import useShadowStyles from '../jss/shadowStyles'
 import { CardListItemProps } from './cardTypes'
 
 const CardWrap: FunctionComponent<CardListItemProps> = ({
   children,
-  content,
   options
 }) => {
   const className = 'lm-card'
@@ -18,19 +16,6 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({
     backgroundColor: options.background_color?.rgba
       ? options.background_color.rgba
       : undefined
-  }
-
-  if (content.body?.length) {
-    return (
-      <CardWrapWithAction
-        className={className}
-        content={content}
-        style={style}
-        options={options}
-      >
-        {children}
-      </CardWrapWithAction>
-    )
   }
 
   return (
