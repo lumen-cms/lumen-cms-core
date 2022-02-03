@@ -37,6 +37,7 @@ export const createPlaceholderImages = async (
   ) {
     return null
   }
+
   if (
     item.component === 'image' &&
     settings?.image_loading?.includes('disable_image')
