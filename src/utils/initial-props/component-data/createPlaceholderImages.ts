@@ -22,7 +22,7 @@ export const createPlaceholderImages = async (
     src = src.filename
   }
   if (
-    item.component === 'background' &&
+    (item.component === 'background' || item.component === 'parallax_item') &&
     settings?.image_loading?.includes('disable_background')
       ? !item.toggle_image_loading
       : item.toggle_image_loading
