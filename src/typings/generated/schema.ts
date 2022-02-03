@@ -502,6 +502,7 @@ export type GlobalComponent = {
   ecommerce?: Maybe<Scalars['BlockScalar']>;
   footer?: Maybe<Scalars['BlockScalar']>;
   footer_config?: Maybe<Array<Maybe<Scalars['String']>>>;
+  image_loading?: Maybe<Array<Maybe<Scalars['String']>>>;
   mobile_nav_breakpoint?: Maybe<Scalars['String']>;
   multi_toolbar?: Maybe<Scalars['BlockScalar']>;
   promotion?: Maybe<Scalars['BlockScalar']>;
@@ -562,6 +563,7 @@ export type GlobalFilterQuery = {
   drawer_variant?: InputMaybe<FilterQueryOperations>;
   drawer_width?: InputMaybe<FilterQueryOperations>;
   footer_config?: InputMaybe<FilterQueryOperations>;
+  image_loading?: InputMaybe<FilterQueryOperations>;
   mobile_nav_breakpoint?: InputMaybe<FilterQueryOperations>;
   pwa_app_name?: InputMaybe<FilterQueryOperations>;
   seo_robots?: InputMaybe<FilterQueryOperations>;

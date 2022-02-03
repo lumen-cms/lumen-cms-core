@@ -59,7 +59,7 @@ export type ApiVersion = {
   displayName: Scalars['String'];
   /** The unique identifier of an ApiVersion. All supported API versions have a date-based (YYYY-MM) or `unstable` handle. */
   handle: Scalars['String'];
-  /** Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/concepts/about-apis/versioning). */
+  /** Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/api/usage/versioning). */
   supported: Scalars['Boolean'];
 };
 
@@ -456,6 +456,8 @@ export type Checkout = Node & {
   taxExempt: Scalars['Boolean'];
   /** Specifies if taxes are included in the line item and shipping line prices. */
   taxesIncluded: Scalars['Boolean'];
+  /** The sum of all the duties applied to the line items in the checkout. */
+  totalDuties?: Maybe<MoneyV2>;
   /**
    * The sum of all the prices of all the items in the checkout, taxes and discounts included.
    * @deprecated Use `totalPriceV2` instead
@@ -1755,7 +1757,9 @@ export enum CountryCode {
   /** Zambia. */
   Zm = 'ZM',
   /** Zimbabwe. */
-  Zw = 'ZW'
+  Zw = 'ZW',
+  /** Unknown Region. */
+  Zz = 'ZZ'
 }
 
 /** Credit card information used for a payment. */
@@ -1789,7 +1793,7 @@ export type CreditCardPaymentInput = {
   amount: Scalars['Money'];
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** Executes the payment in test mode if possible. Defaults to `false`. */
   test?: InputMaybe<Scalars['Boolean']>;
@@ -1805,7 +1809,7 @@ export type CreditCardPaymentInput = {
 export type CreditCardPaymentInputV2 = {
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** The amount and currency of the payment. */
   paymentAmount: MoneyInput;
@@ -2685,6 +2689,8 @@ export type ExternalVideo = Media & Node & {
    * @deprecated Use `originUrl` instead
    */
   embeddedUrl: Scalars['URL'];
+  /** The host of the external video. */
+  host: MediaHost;
   /** A globally-unique identifier. */
   id: Scalars['ID'];
   /** The media content type. */
@@ -3095,6 +3101,14 @@ export type MediaEdge = {
   node: Media;
 };
 
+/** Host for a Media Resource. */
+export enum MediaHost {
+  /** Host for Vimeo embedded videos. */
+  Vimeo = 'VIMEO',
+  /** Host for YouTube embedded videos. */
+  Youtube = 'YOUTUBE'
+}
+
 /** Represents a Shopify hosted image. */
 export type MediaImage = Media & Node & {
   __typename?: 'MediaImage';
@@ -3268,7 +3282,7 @@ export type Mutation = {
    * @deprecated Use `checkoutCompleteWithCreditCardV2` instead
    */
   checkoutCompleteWithCreditCard?: Maybe<CheckoutCompleteWithCreditCardPayload>;
-  /** Completes a checkout using a credit card token from Shopify's card vault. Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, you need to  [_request payment processing_](https://help.shopify.com/api/guides/sales-channel-sdk/getting-started#request-payment-processing). */
+  /** Completes a checkout using a credit card token from Shopify's card vault. Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, you need to  [_request payment processing_](https://shopify.dev/apps/channels/getting-started#request-payment-processing). */
   checkoutCompleteWithCreditCardV2?: Maybe<CheckoutCompleteWithCreditCardV2Payload>;
   /**
    * Completes a checkout with a tokenized payment.
@@ -3713,6 +3727,8 @@ export type Order = Node & {
   currencyCode: CurrencyCode;
   /** The subtotal of line items and their discounts, excluding line items that have been removed. Does not contain order-level discounts, duties, shipping costs, or shipping discounts. Taxes are not included unless the order is a taxes-included order. */
   currentSubtotalPrice: MoneyV2;
+  /** The total cost of duties for the order, including refunds. */
+  currentTotalDuties?: Maybe<MoneyV2>;
   /** The total amount of the order, including duties, taxes and discounts, minus amounts for line items that have been removed. */
   currentTotalPrice: MoneyV2;
   /** The total of all taxes applied to the order, excluding taxes for returned line items. */
@@ -3743,6 +3759,8 @@ export type Order = Node & {
   name: Scalars['String'];
   /** A unique numeric identifier for the order for use by shop owner and customer. */
   orderNumber: Scalars['Int'];
+  /** The total cost of duties charged at checkout. */
+  originalTotalDuties?: Maybe<MoneyV2>;
   /** The total price of the order before any applied edits. */
   originalTotalPrice: MoneyV2;
   /** The customer's phone number for receiving SMS notifications. */
@@ -4069,7 +4087,7 @@ export type Payment = Node & {
   /**
    * A client-side generated token to identify a payment and perform idempotent operations.
    * For more information, refer to
-   * [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).
+   * [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).
    *
    */
   idempotencyKey?: Maybe<Scalars['String']>;
@@ -5140,7 +5158,7 @@ export type TokenizedPaymentInput = {
   amount: Scalars['Money'];
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** Public Hash Key used for AndroidPay payments only. */
   identifier?: InputMaybe<Scalars['String']>;
@@ -5160,7 +5178,7 @@ export type TokenizedPaymentInput = {
 export type TokenizedPaymentInputV2 = {
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** Public Hash Key used for AndroidPay payments only. */
   identifier?: InputMaybe<Scalars['String']>;
@@ -5182,7 +5200,7 @@ export type TokenizedPaymentInputV2 = {
 export type TokenizedPaymentInputV3 = {
   /** The billing address for the payment. */
   billingAddress: MailingAddressInput;
-  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests). */
+  /** A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests). */
   idempotencyKey: Scalars['String'];
   /** Public Hash Key used for AndroidPay payments only. */
   identifier?: InputMaybe<Scalars['String']>;

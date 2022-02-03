@@ -12,9 +12,14 @@ export const listStoriesDataEnriched = async (
   if (pageProps.insideStoryblok) {
     return storiesResult
   }
+  const disablePlaceholder = pageProps.settings?.image_loading?.includes(
+    'disable_list'
+  )
+    ? !item.toggle_image_loading
+    : item.toggle_image_loading
   for (const st of storiesResult.data.stories) {
     const img = st.content.image?.filename || st.content.preview_image
-    if (img) {
+    if (img && !disablePlaceholder) {
       const cached = await getPlaiceholderCached(getRootImageUrl(img))
       Object.assign(st, {
         content: {

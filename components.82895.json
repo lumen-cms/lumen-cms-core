@@ -370,7 +370,7 @@
       "name": "background",
       "display_name": null,
       "created_at": "2020-05-01T08:40:32.834Z",
-      "updated_at": "2021-08-19T04:36:54.521Z",
+      "updated_at": "2022-02-03T13:35:39.903Z",
       "id": 894784,
       "schema": {
         "image": {
@@ -393,6 +393,10 @@
           "pos": 3,
           "description": "Note: if priority is enabled lazy loading will always be disabled."
         },
+        "toggle_image_loading": {
+          "type": "boolean",
+          "pos": 4
+        },
         "hide_image_on_breakpoint": {
           "type": "option",
           "use_uuid": true,
@@ -410,7 +414,7 @@
               "name": "md"
             }
           ],
-          "pos": 4
+          "pos": 5
         },
         "background_size": {
           "type": "option",
@@ -438,21 +442,21 @@
             }
           ],
           "description": "",
-          "pos": 5
+          "pos": 6
         },
         "image_focal_point": {
           "type": "text",
-          "pos": 6,
+          "pos": 7,
           "description": "Focal point in X,Y coordinates in % of the original image. Example center top: \"50x0\",  center bottom: \"50x100\", top left: \"0x0\", right middle: \"100x50\""
         },
         "background_position": {
           "type": "text",
-          "pos": 7,
+          "pos": 8,
           "description": "CSS property background-position. \"[left,center,right,px,%] [top,center,bottom,px,%]\" Example: \"center\", \"left top\", \"20% 50%\" "
         },
         "disable_smart_crop": {
           "type": "boolean",
-          "pos": 8,
+          "pos": 9,
           "description": "By default smart crop and face recognition is enabled. On demand you can disable the functionality."
         },
         "classNames": {
@@ -464,17 +468,17 @@
               "name": "mui"
             }
           ],
-          "pos": 9
+          "pos": 10
         },
         "height": {
           "type": "text",
-          "pos": 10
+          "pos": 11
         },
         "background_color": {
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 11
+          "pos": 12
         },
         "shadow_effect": {
           "type": "option",
@@ -509,15 +513,15 @@
               "name": "flow-up"
             }
           ],
-          "pos": 12
+          "pos": 13
         },
         "elevation": {
           "type": "number",
-          "pos": 13
+          "pos": 14
         },
         "background_elements": {
           "type": "bloks",
-          "pos": 14,
+          "pos": 15,
           "restrict_components": true,
           "component_whitelist": [
             "background_element_item",
@@ -531,15 +535,15 @@
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 15
+          "pos": 16
         },
         "border_size": {
           "type": "number",
-          "pos": 16
+          "pos": 17
         },
         "border_radius": {
           "type": "text",
-          "pos": 17,
+          "pos": 18,
           "description": "Set border for all corners - \"4px\"  or any other style. Order is: top-left,top-right,bottom-right,bottom-left. Full example: \"24px 0 24px 0\""
         },
         "border_style": {
@@ -559,7 +563,7 @@
               "name": "Dotted"
             }
           ],
-          "pos": 18
+          "pos": 19
         },
         "tab-416da018-cc99-4e67-95db-fb538f59e1c7": {
           "type": "tab",
@@ -575,9 +579,10 @@
             "hide_image_on_breakpoint",
             "Priority",
             "disable_lazy_loading",
-            "priority"
+            "priority",
+            "toggle_image_loading"
           ],
-          "pos": 19
+          "pos": 20
         },
         "tab-34a6ce1b-5d86-4147-9e69-25d95ac45e72": {
           "type": "tab",
@@ -588,7 +593,7 @@
             "border_style",
             "border_size"
           ],
-          "pos": 20
+          "pos": 21
         },
         "tab-a46a2056-1e7a-4978-85ab-e6a3ba77febc": {
           "type": "tab",
@@ -597,7 +602,7 @@
             "background_elements",
             "styles"
           ],
-          "pos": 21
+          "pos": 22
         }
       },
       "image": null,
@@ -768,25 +773,6 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "Background Element Picture",
-      "component_group_uuid": null,
-      "color": null,
-      "icon": null
-    },
-    {
-      "name": "bjttl ",
-      "display_name": null,
-      "created_at": "2021-12-14T07:42:55.396Z",
-      "updated_at": "2021-12-14T07:42:55.396Z",
-      "id": 2037558,
-      "schema": {},
-      "image": null,
-      "preview_field": null,
-      "is_root": false,
-      "preview_tmpl": null,
-      "is_nestable": true,
-      "all_presets": [],
-      "preset_id": null,
-      "real_name": "bjttl ",
       "component_group_uuid": null,
       "color": null,
       "icon": null
@@ -5952,9 +5938,104 @@
       "name": "global",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.852Z",
-      "updated_at": "2021-08-19T04:38:07.017Z",
+      "updated_at": "2022-02-03T13:33:30.570Z",
       "id": 894828,
       "schema": {
+        "setup_favicon": {
+          "type": "image",
+          "pos": 0,
+          "description": "Size should be 192x192 as PNG"
+        },
+        "website_logo": {
+          "type": "image",
+          "pos": 1
+        },
+        "website_logo_xs": {
+          "type": "image",
+          "pos": 2
+        },
+        "website_logo_invert_xs": {
+          "type": "image",
+          "pos": 3
+        },
+        "website_logo_invert": {
+          "type": "image",
+          "pos": 4
+        },
+        "image_loading": {
+          "type": "options",
+          "pos": 5,
+          "options": [
+            {
+              "value": "disable_background",
+              "name": "Disable Background"
+            },
+            {
+              "value": "disable_image",
+              "name": "Disable Image"
+            },
+            {
+              "value": "disable_video",
+              "name": "Disable Video"
+            },
+            {
+              "value": "disable_list",
+              "name": "Disable Lists"
+            }
+          ],
+          "description": "Disable the image gradient loader on image level. If enabled an image gradient will be displayed."
+        },
+        "website_title": {
+          "type": "text",
+          "pos": 6
+        },
+        "website_slogan": {
+          "type": "text",
+          "pos": 7
+        },
+        "setup_language": {
+          "type": "text",
+          "translatable": true,
+          "description": "Set language for the project. Sets <html lang=\"[language]\">",
+          "pos": 8,
+          "display_name": "Language"
+        },
+        "setup_supported_languages": {
+          "type": "text",
+          "description": "Comma separated list of all supported languages. Sets header response \"Content-Language\".",
+          "pos": 9,
+          "display_name": "Supported Languages",
+          "translatable": true
+        },
+        "setup_google_analytics": {
+          "type": "text",
+          "pos": 10
+        },
+        "setup_google_site_verification": {
+          "type": "text",
+          "pos": 11
+        },
+        "setup_facebook_pixel": {
+          "type": "text",
+          "pos": 12,
+          "description": "Pixel, can be multiple IDs comma separated."
+        },
+        "setup_ad_roll_adv_id": {
+          "type": "text",
+          "pos": 13
+        },
+        "setup_ad_roll_pix_id": {
+          "type": "text",
+          "pos": 14
+        },
+        "pwa_app_name": {
+          "type": "text",
+          "pos": 15
+        },
+        "pwa_app_description": {
+          "type": "textarea",
+          "pos": 16
+        },
         "promotion": {
           "type": "bloks",
           "description": "Top page content visible on every page. You can disable the content on page level.",
@@ -5964,11 +6045,11 @@
             "section",
             "section_video_bg"
           ],
-          "pos": 0
+          "pos": 17
         },
         "tawkto": {
           "type": "text",
-          "pos": 1
+          "pos": 18
         },
         "chat_button": {
           "type": "bloks",
@@ -5979,7 +6060,7 @@
             "chat_whatsapp"
           ],
           "maximum": "1",
-          "pos": 2
+          "pos": 19
         },
         "snackbars": {
           "type": "bloks",
@@ -5987,7 +6068,7 @@
           "component_whitelist": [
             "snackbar"
           ],
-          "pos": 3,
+          "pos": 20,
           "component_group_whitelist": []
         },
         "ecommerce": {
@@ -5998,62 +6079,11 @@
             "ecommerce_shopify_config",
             "ecommerce_snipcart_config"
           ],
-          "pos": 4
-        },
-        "website_title": {
-          "type": "text",
-          "pos": 5
-        },
-        "website_slogan": {
-          "type": "text",
-          "pos": 6
-        },
-        "setup_language": {
-          "type": "text",
-          "translatable": true,
-          "description": "Set language for the project. Sets <html lang=\"[language]\">",
-          "pos": 7,
-          "display_name": "Language"
-        },
-        "setup_supported_languages": {
-          "type": "text",
-          "description": "Comma separated list of all supported languages. Sets header response \"Content-Language\".",
-          "pos": 8,
-          "display_name": "Supported Languages",
-          "translatable": true
-        },
-        "setup_google_analytics": {
-          "type": "text",
-          "pos": 9
-        },
-        "setup_google_site_verification": {
-          "type": "text",
-          "pos": 10
-        },
-        "setup_facebook_pixel": {
-          "type": "text",
-          "pos": 11,
-          "description": "Pixel, can be multiple IDs comma separated."
-        },
-        "setup_ad_roll_adv_id": {
-          "type": "text",
-          "pos": 12
-        },
-        "setup_ad_roll_pix_id": {
-          "type": "text",
-          "pos": 13
-        },
-        "pwa_app_name": {
-          "type": "text",
-          "pos": 14
-        },
-        "pwa_app_description": {
-          "type": "textarea",
-          "pos": 15
+          "pos": 21
         },
         "toolbar": {
           "type": "bloks",
-          "pos": 16,
+          "pos": 22,
           "restrict_components": true,
           "component_whitelist": [
             "nav_menu",
@@ -6064,7 +6094,7 @@
         },
         "multi_toolbar": {
           "type": "bloks",
-          "pos": 17,
+          "pos": 23,
           "restrict_components": true,
           "component_whitelist": [
             "toolbar_row"
@@ -6073,7 +6103,7 @@
         },
         "toolbar_variant": {
           "type": "option",
-          "pos": 18,
+          "pos": 24,
           "options": [
             {
               "value": "primary",
@@ -6095,7 +6125,7 @@
         },
         "toolbar_config": {
           "type": "options",
-          "pos": 19,
+          "pos": 25,
           "options": [
             {
               "value": "fixed",
@@ -6125,26 +6155,26 @@
         },
         "toolbar_progress_color": {
           "type": "text",
-          "pos": 20
+          "pos": 26
         },
         "toolbar_color": {
           "type": "custom",
-          "pos": 21,
+          "pos": 27,
           "field_type": "vue-color-picker",
           "options": []
         },
         "toolbar_background": {
           "type": "text",
-          "pos": 22,
+          "pos": 28,
           "description": "Enable CSS background property for using gradients or any other background setting."
         },
         "toolbar_main_height": {
           "type": "number",
-          "pos": 23
+          "pos": 29
         },
         "toolbar_font_size": {
           "type": "text",
-          "pos": 24
+          "pos": 30
         },
         "theme_base": {
           "type": "option",
@@ -6159,74 +6189,74 @@
               "name": "dark"
             }
           ],
-          "pos": 25,
+          "pos": 31,
           "default_value": "base",
           "required": true
         },
         "theme_primary": {
           "type": "text",
-          "pos": 26,
+          "pos": 32,
           "description": "",
           "display_name": "Primary color"
         },
         "theme_primary_contrast": {
           "type": "text",
-          "pos": 27
+          "pos": 33
         },
         "theme_secondary": {
           "type": "text",
-          "pos": 28,
+          "pos": 34,
           "display_name": "Secondary color"
         },
         "theme_secondary_contrast": {
           "type": "text",
-          "pos": 29
+          "pos": 35
         },
         "theme_error": {
           "type": "text",
-          "pos": 30,
+          "pos": 36,
           "display_name": "Error Color"
         },
         "theme_error_contrast": {
           "type": "text",
-          "pos": 31,
+          "pos": 37,
           "display_name": "Error Color Contrast"
         },
         "theme_link": {
           "type": "text",
-          "pos": 32,
+          "pos": 38,
           "display_name": "Link color"
         },
         "theme_link_hover": {
           "type": "text",
-          "pos": 33,
+          "pos": 39,
           "display_name": "Link hover color"
         },
         "body_background_color": {
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 34
+          "pos": 40
         },
         "theme_font_default": {
           "type": "text",
-          "pos": 35
+          "pos": 41
         },
         "theme_font_alt1": {
           "type": "text",
-          "pos": 36
+          "pos": 42
         },
         "theme_font_alt2": {
           "type": "text",
-          "pos": 37
+          "pos": 43
         },
         "theme_font_alt3": {
           "type": "text",
-          "pos": 38
+          "pos": 44
         },
         "theme_font_alt4": {
           "type": "text",
-          "pos": 39
+          "pos": 45
         },
         "theme_container_width": {
           "type": "option",
@@ -6257,7 +6287,7 @@
               "name": "fluid"
             }
           ],
-          "pos": 40
+          "pos": 46
         },
         "tab-ba513796-d84a-4c57-9d20-1ec43f74588c": {
           "type": "tab",
@@ -6274,7 +6304,7 @@
             "toolbar_background",
             "toolbar_elevation"
           ],
-          "pos": 41
+          "pos": 47
         },
         "tab-b01c9ce8-3217-4b21-b7b5-612bef6a87dd": {
           "type": "tab",
@@ -6283,7 +6313,7 @@
             "footer",
             "footer_config"
           ],
-          "pos": 42
+          "pos": 48
         },
         "tab-2a4e4ff6-219f-415c-a3c6-6d7cf39f1c0d": {
           "type": "tab",
@@ -6302,7 +6332,7 @@
             "drawer_below_toolbar_xs",
             "mobile_nav_breakpoint"
           ],
-          "pos": 43
+          "pos": 49
         },
         "tab-f85e0a00-bc66-45af-9035-3190c653d091": {
           "type": "tab",
@@ -6312,9 +6342,10 @@
             "website_logo_xs",
             "website_logo_invert",
             "website_logo_invert_xs",
-            "setup_favicon"
+            "setup_favicon",
+            "image_loading"
           ],
-          "pos": 44
+          "pos": 50
         },
         "tab-179390ed-4cd4-47bd-bd94-8902f461c9bc": {
           "type": "tab",
@@ -6326,7 +6357,7 @@
             "seo_robots",
             "seo_body"
           ],
-          "pos": 45
+          "pos": 51
         },
         "tab-629da2b1-ac23-431b-b9e7-c838674c0106": {
           "type": "tab",
@@ -6350,7 +6381,7 @@
             "body_background_color",
             "custom_css"
           ],
-          "pos": 46
+          "pos": 52
         },
         "tab-8f5f1837-e112-4bde-966b-9473b63a72f1": {
           "type": "tab",
@@ -6364,28 +6395,7 @@
             "promotion",
             "scripts"
           ],
-          "pos": 47
-        },
-        "setup_favicon": {
-          "type": "image",
-          "pos": 48,
-          "description": "Size should be 192x192 as PNG"
-        },
-        "website_logo": {
-          "type": "image",
-          "pos": 49
-        },
-        "website_logo_xs": {
-          "type": "image",
-          "pos": 50
-        },
-        "website_logo_invert_xs": {
-          "type": "image",
-          "pos": 51
-        },
-        "website_logo_invert": {
-          "type": "image",
-          "pos": 52
+          "pos": 53
         },
         "drawer_body": {
           "type": "bloks",
@@ -6398,9 +6408,10 @@
             "headline",
             "image",
             "divider",
-            "toolbar_navi_button"
+            "toolbar_navi_button",
+            "flex_row"
           ],
-          "pos": 53,
+          "pos": 54,
           "component_group_whitelist": []
         },
         "drawer_variant": {
@@ -6416,7 +6427,7 @@
               "name": "temporary"
             }
           ],
-          "pos": 54
+          "pos": 55
         },
         "mobile_nav_breakpoint": {
           "type": "option",
@@ -6439,24 +6450,24 @@
               "name": "xl"
             }
           ],
-          "pos": 55,
+          "pos": 56,
           "description": "Default breakpoint is sm (mobile only)"
         },
         "drawer_width": {
           "type": "number",
-          "pos": 56
+          "pos": 57
         },
         "drawer_below_toolbar": {
           "type": "boolean",
-          "pos": 57
+          "pos": 58
         },
         "drawer_below_toolbar_xs": {
           "type": "boolean",
-          "pos": 58
+          "pos": 59
         },
         "drawer_full_width_mobile": {
           "type": "boolean",
-          "pos": 59
+          "pos": 60
         },
         "drawer_background": {
           "type": "bloks",
@@ -6465,12 +6476,12 @@
           "component_whitelist": [
             "background"
           ],
-          "pos": 60,
+          "pos": 61,
           "component_group_whitelist": []
         },
         "footer": {
           "type": "bloks",
-          "pos": 61,
+          "pos": 62,
           "restrict_components": true,
           "component_whitelist": [
             "row",
@@ -6480,7 +6491,7 @@
         },
         "footer_config": {
           "type": "options",
-          "pos": 62,
+          "pos": 63,
           "options": [
             {
               "value": "footer-large",
@@ -6494,29 +6505,29 @@
         },
         "seo_title": {
           "type": "text",
-          "pos": 63,
+          "pos": 64,
           "translatable": true
         },
         "seo_description": {
           "type": "textarea",
-          "pos": 64,
+          "pos": 65,
           "translatable": true
         },
         "seo_website_url": {
           "type": "text",
-          "pos": 65,
+          "pos": 66,
           "description": "Full website URL without leading slash: https://google.com"
         },
         "seo_robots": {
           "type": "boolean",
           "description": "Set robots 'index,follow'. Important if site goes public",
-          "pos": 66,
+          "pos": 67,
           "display_name": "Enable page index for robots",
           "translatable": true
         },
         "seo_body": {
           "type": "bloks",
-          "pos": 67,
+          "pos": 68,
           "restrict_components": true,
           "component_whitelist": [
             "seo_twitter",
@@ -6530,19 +6541,20 @@
         },
         "custom_css": {
           "type": "textarea",
-          "pos": 68
+          "pos": 69
         },
         "toolbar_elevation": {
           "type": "number",
           "description": "A value between 0-24. Defaults to \"4\". Disable elevation with \"0\".",
-          "pos": 69
+          "pos": 70
         },
         "scripts": {
           "type": "bloks",
           "restrict_components": true,
           "component_whitelist": [
             "script"
-          ]
+          ],
+          "pos": 71
         }
       },
       "image": null,
@@ -7463,7 +7475,7 @@
       "name": "image",
       "display_name": null,
       "created_at": "2020-05-01T08:40:31.420Z",
-      "updated_at": "2021-10-01T03:18:38.473Z",
+      "updated_at": "2022-02-03T13:34:44.779Z",
       "id": 894777,
       "schema": {
         "class_names": {
@@ -7584,7 +7596,8 @@
             "height",
             "height_xs",
             "height_fill",
-            "property"
+            "property",
+            "toggle_image_loading"
           ],
           "pos": 15
         },
@@ -7598,6 +7611,9 @@
             "disable_ratio_correction"
           ],
           "pos": 16
+        },
+        "toggle_image_loading": {
+          "type": "boolean"
         }
       },
       "image": null,
@@ -8743,7 +8759,7 @@
       "name": "list_stories",
       "display_name": null,
       "created_at": "2021-08-20T06:33:37.926Z",
-      "updated_at": "2021-11-24T05:57:06.198Z",
+      "updated_at": "2022-02-03T13:38:02.494Z",
       "id": 1720175,
       "schema": {
         "enable_search": {
@@ -8904,6 +8920,9 @@
         "match_all_document_categories": {
           "type": "boolean",
           "pos": 18
+        },
+        "toggle_image_loading": {
+          "type": "boolean"
         }
       },
       "image": null,
@@ -9106,7 +9125,7 @@
       "name": "moralis",
       "display_name": null,
       "created_at": "2021-11-05T05:38:56.578Z",
-      "updated_at": "2021-11-10T03:02:05.539Z",
+      "updated_at": "2022-01-31T06:23:59.062Z",
       "id": 1924539,
       "schema": {
         "body": {
@@ -9115,7 +9134,9 @@
           "maximum": "2",
           "component_whitelist": [
             "moralis_button",
-            "moralis_mint"
+            "moralis_mint",
+            "moralis_data",
+            "moralis_venly"
           ]
         }
       },
@@ -9181,31 +9202,93 @@
       "icon": null
     },
     {
-      "name": "moralis_mint",
+      "name": "moralis_data",
       "display_name": null,
-      "created_at": "2021-11-10T02:47:54.508Z",
-      "updated_at": "2021-12-08T08:40:28.870Z",
-      "id": 1936072,
+      "created_at": "2022-01-27T01:58:39.184Z",
+      "updated_at": "2022-01-27T03:11:05.512Z",
+      "id": 2136801,
       "schema": {
         "contract_token": {
           "type": "text",
-          "pos": 0,
-          "description": "The contract token ID: 0x...",
-          "required": true
+          "pos": 0
         },
-        "counter_style": {
+        "chain": {
+          "type": "option",
+          "pos": 1,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "mainnet",
+              "name": "mainnet"
+            },
+            {
+              "value": "goerli",
+              "name": "goerli"
+            },
+            {
+              "value": "kovan",
+              "name": "kovan"
+            },
+            {
+              "value": "rinkeby",
+              "name": "rinkeby"
+            },
+            {
+              "value": "ropsten",
+              "name": "ropsten"
+            },
+            {
+              "value": "polygon",
+              "name": "polygon"
+            },
+            {
+              "value": "mumbai",
+              "name": "mumbai"
+            }
+          ]
+        },
+        "data_values": {
+          "type": "textarea",
+          "pos": 2,
+          "description": "Comma separated list of data you want to fetch from the contract. This values will be available inside of the rich text element."
+        },
+        "richtext": {
+          "type": "richtext",
+          "pos": 3
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "moralis_data",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "moralis_mint",
+      "display_name": null,
+      "created_at": "2021-11-10T02:47:54.508Z",
+      "updated_at": "2022-01-22T04:45:44.882Z",
+      "id": 1936072,
+      "schema": {
+        "fallback_insufficient_funds": {
           "type": "bloks",
           "restrict_components": true,
-          "component_whitelist": [
-            "headline"
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "maximum": "1",
-          "pos": 1
+          "pos": 0
         },
-        "owner_token": {
+        "contract_token": {
           "type": "text",
-          "pos": 2,
-          "description": "Owner token ID of contract: 0x...",
+          "pos": 1,
+          "description": "The contract token ID: 0x...",
           "required": true
         },
         "chain": {
@@ -9233,19 +9316,22 @@
             {
               "value": "ropsten",
               "name": "ropsten"
+            },
+            {
+              "value": "polygon",
+              "name": "polygon"
+            },
+            {
+              "value": "mumbai",
+              "name": "mumbai"
             }
           ]
         },
-        "fallback_not_whitelisted": {
-          "type": "bloks",
-          "restrict_components": true,
-          "restrict_type": "groups",
-          "component_group_whitelist": [
-            "1778dc53-bf7e-46d7-a549-7471017211b2"
-          ],
+        "presale_get_param": {
+          "type": "text",
           "pos": 4
         },
-        "fallback_presale": {
+        "fallback_not_started": {
           "type": "bloks",
           "restrict_components": true,
           "restrict_type": "groups",
@@ -9254,23 +9340,57 @@
           ],
           "pos": 5
         },
-        "fallback_sale": {
-          "type": "bloks",
-          "restrict_components": true,
-          "restrict_type": "groups",
-          "component_group_whitelist": [
-            "1778dc53-bf7e-46d7-a549-7471017211b2"
-          ],
+        "price": {
+          "type": "text",
           "pos": 6
         },
-        "fallback_login_message": {
-          "type": "bloks",
-          "restrict_components": true,
-          "restrict_type": "groups",
-          "component_group_whitelist": [
-            "1778dc53-bf7e-46d7-a549-7471017211b2"
-          ],
+        "price_whitelist": {
+          "type": "text",
           "pos": 7
+        },
+        "sale": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "none",
+              "name": "none"
+            },
+            {
+              "value": "whitelist",
+              "name": "whitelist"
+            },
+            {
+              "value": "public",
+              "name": "public"
+            },
+            {
+              "value": "ended",
+              "name": "ended"
+            }
+          ],
+          "pos": 8
+        },
+        "mint_amount": {
+          "type": "number",
+          "pos": 9
+        },
+        "mint_amount_whitelist": {
+          "type": "number",
+          "pos": 10
+        },
+        "tab-53135591-a59a-4e2b-9066-840d212aa96b": {
+          "type": "tab",
+          "display_name": "Details",
+          "keys": [
+            "price",
+            "whitelist_price",
+            "sale",
+            "mint_amount",
+            "mint_amount_whitelist",
+            "price_whitelist"
+          ],
+          "pos": 11
         },
         "tab-8e20f062-7e12-44af-92c8-108461437f52": {
           "type": "tab",
@@ -9279,9 +9399,11 @@
             "fallback_login_message",
             "fallback_not_whitelisted",
             "fallback_presale",
-            "fallback_sale"
+            "fallback_sale",
+            "fallback_not_started",
+            "fallback_insufficient_funds"
           ],
-          "pos": 8
+          "pos": 12
         },
         "tab-4c1ca687-4923-452a-9bac-c5159183f2f1": {
           "type": "tab",
@@ -9293,7 +9415,34 @@
             "mint_flexbox_container",
             "style_options"
           ],
-          "pos": 9
+          "pos": 13
+        },
+        "counter_style": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ],
+          "maximum": "1",
+          "pos": 14
+        },
+        "fallback_not_whitelisted": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ],
+          "pos": 15
+        },
+        "fallback_login_message": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ],
+          "pos": 16
         },
         "mint_style": {
           "type": "bloks",
@@ -9302,7 +9451,8 @@
           "component_whitelist": [
             "button",
             "image"
-          ]
+          ],
+          "pos": 17
         },
         "mint_flexbox_container": {
           "type": "bloks",
@@ -9310,7 +9460,8 @@
           "restrict_components": true,
           "component_whitelist": [
             "flex_row"
-          ]
+          ],
+          "pos": 18
         },
         "style_options": {
           "type": "options",
@@ -9319,10 +9470,16 @@
               "value": "dark",
               "name": "dark"
             }
-          ]
+          ],
+          "pos": 19
         },
-        "presale_get_param": {
-          "type": "text"
+        "success_message": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ]
         }
       },
       "image": null,
@@ -9333,6 +9490,29 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "moralis_mint",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "moralis_venly",
+      "display_name": null,
+      "created_at": "2022-01-31T05:58:06.142Z",
+      "updated_at": "2022-01-31T06:23:35.355Z",
+      "id": 2146532,
+      "schema": {
+        "client_id": {
+          "type": "text"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "moralis_venly",
       "component_group_uuid": null,
       "color": null,
       "icon": null
@@ -10547,7 +10727,7 @@
       "name": "player",
       "display_name": "",
       "created_at": "2020-07-09T03:21:18.578Z",
-      "updated_at": "2021-10-04T02:03:12.121Z",
+      "updated_at": "2022-02-03T13:51:13.068Z",
       "id": 1002614,
       "schema": {
         "url": {
@@ -10645,7 +10825,8 @@
             "light",
             "controls",
             "playsinline",
-            "fallback_image"
+            "fallback_image",
+            "toggle_image_loading"
           ],
           "pos": 13
         },
@@ -10655,6 +10836,9 @@
         },
         "border_radius": {
           "type": "text"
+        },
+        "toggle_image_loading": {
+          "type": "boolean"
         }
       },
       "image": null,
@@ -12454,7 +12638,7 @@
       "name": "section_parallax",
       "display_name": null,
       "created_at": "2020-05-01T08:40:36.119Z",
-      "updated_at": "2021-08-19T04:38:45.158Z",
+      "updated_at": "2022-02-03T13:36:25.872Z",
       "id": 894800,
       "schema": {
         "body": {
@@ -12500,6 +12684,9 @@
             }
           ],
           "pos": 4
+        },
+        "toggle_image_loading": {
+          "type": "boolean"
         }
       },
       "image": null,
@@ -12518,7 +12705,7 @@
       "name": "section_video_bg",
       "display_name": null,
       "created_at": "2020-05-01T08:40:31.828Z",
-      "updated_at": "2021-08-19T04:38:46.055Z",
+      "updated_at": "2022-02-03T13:50:50.954Z",
       "id": 894779,
       "schema": {
         "section_identifier": {
@@ -12633,7 +12820,8 @@
             "video_ratio",
             "property",
             "fallback_image",
-            "max_width"
+            "max_width",
+            "toggle_image_loading"
           ],
           "pos": 9
         },
@@ -12667,6 +12855,9 @@
             }
           ],
           "pos": 10
+        },
+        "toggle_image_loading": {
+          "type": "boolean"
         }
       },
       "image": null,
