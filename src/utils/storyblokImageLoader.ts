@@ -14,9 +14,9 @@ export const loader = ({ src, width, quality }: ImageLoaderProps) => {
   return `https://a.storyblok.com/${originalPath}/m${opts}`
 }
 
-export const storyblokImageLoader = (src: string | undefined) =>
-  src?.indexOf('a.storyblok') !== -1
-    ? {
-        loader
-      }
-    : {}
+export const storyblokImageLoader = (_src: string | undefined) => ({})
+// false && src?.indexOf('a.storyblok') !== -1
+//   ? {
+//       loader
+//     }
+//   : {}

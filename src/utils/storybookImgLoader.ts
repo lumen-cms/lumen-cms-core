@@ -2,7 +2,7 @@ import { ImageLoaderProps, ImageProps } from 'next/image'
 import { loader } from './storyblokImageLoader'
 
 const loaderRaw = ({ src, width, quality }: ImageLoaderProps) => {
-  const url = new URL('https://prx-11-1.lumen.media/_next/image')
+  const url = new URL('https://img-12.lumen.media/_next/image')
   url.searchParams.set('url', src)
   if (width) {
     url.searchParams.set('w', `${width}`)
