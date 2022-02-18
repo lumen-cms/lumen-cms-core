@@ -319,7 +319,7 @@ export interface ButtonStoryblok {
   corners?: "" | "lm-button-shaped" | "lm-button-square";
   font?: "" | "alt1" | "alt2" | "alt3" | "alt4";
   align?: "" | "flex-start" | "flex-end";
-  properties?: ("" | "disable-ripple" | "disable-shadow" | "no-linebreak" | "fullWidth")[];
+  properties?: ("disable-ripple" | "disable-shadow" | "no-linebreak" | "fullWidth")[];
   label?: string;
   open_external?: boolean;
   image?: string;
@@ -370,7 +370,7 @@ export interface ButtonStoryblok {
 }
 
 export interface ButtonListStoryblok {
-  property?: ("" | "margin_left" | "align_right")[];
+  property?: ("margin_left" | "align_right")[];
   body?: ButtonStoryblok[];
   class_names?: {
     values?: string[];
@@ -391,7 +391,6 @@ export interface ButtonSpeechTextStoryblok {
 
 export interface CardListStoryblok {
   variant?: (
-    | ""
     | "over_media"
     | "title_top"
     | "font_white"
@@ -405,7 +404,7 @@ export interface CardListStoryblok {
     | "overlay_content_no_space"
     | "equal-heights"
   )[];
-  border_radius?: "" | "0" | "2" | "4";
+  border_radius?: "0" | "2" | "4" | "";
   shadow_effect?: "" | "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft" | "flowUp";
   elevation?: "" | "0" | "1" | "2" | "4" | "8" | "12" | "16" | "20" | "3" | "5" | "6" | "24" | "22";
   background_color?: {
@@ -1135,7 +1134,7 @@ export interface EventStoryblok {
 export interface EventCalendarStoryblok {
   language?: "" | "de" | "en" | "fr" | "it" | "es";
   view?: "" | "month" | "week" | "day" | "agenda";
-  views?: ("" | "month" | "week" | "day" | "agenda")[];
+  views?: ("month" | "week" | "day" | "agenda")[];
   scroll_to_time?: number;
   _uid: string;
   component: "event_calendar";
@@ -1438,7 +1437,7 @@ export interface GlobalStoryblok {
   website_logo_xs?: string;
   website_logo_invert_xs?: string;
   website_logo_invert?: string;
-  image_loading?: ("" | "disable_background" | "disable_image" | "disable_video" | "disable_list")[];
+  image_loading?: ("disable_background" | "disable_image" | "disable_video" | "disable_list")[];
   website_title?: string;
   website_slogan?: string;
   setup_language?: string;
@@ -1462,15 +1461,7 @@ export interface GlobalStoryblok {
   toolbar?: (NavMenuStoryblok | ButtonStoryblok | ListSearchAutocompleteStoryblok)[];
   multi_toolbar?: ToolbarRowStoryblok[];
   toolbar_variant?: "" | "primary" | "secondary" | "white" | "dark";
-  toolbar_config?: (
-    | ""
-    | "fixed"
-    | "text_bold"
-    | "fixed_width"
-    | "unelevated"
-    | "scroll_collapse"
-    | "enable_system_bar"
-  )[];
+  toolbar_config?: ("fixed" | "text_bold" | "fixed_width" | "unelevated" | "scroll_collapse" | "enable_system_bar")[];
   toolbar_progress_color?: string;
   toolbar_color?: {
     rgba?: string;
@@ -1516,7 +1507,7 @@ export interface GlobalStoryblok {
   drawer_full_width_mobile?: boolean;
   drawer_background?: BackgroundStoryblok[];
   footer?: (RowStoryblok | SectionStoryblok)[];
-  footer_config?: ("" | "footer-large" | "footer-small")[];
+  footer_config?: ("footer-large" | "footer-small")[];
   seo_title?: string;
   seo_description?: string;
   seo_website_url?: string;
@@ -1759,8 +1750,8 @@ export interface IframeStoryblok {
   height?: string;
   width?: string;
   display?: "" | "relative" | "absolute";
-  property?: ("" | "allow_fullscreen")[];
-  allow?: ("" | "geolocation" | "microphone" | "camera" | "midi" | "encrypted-media")[];
+  property?: "allow_fullscreen"[];
+  allow?: ("geolocation" | "microphone" | "camera" | "midi" | "encrypted-media")[];
   full_height?: boolean;
   _uid: string;
   component: "iframe";
@@ -1771,8 +1762,8 @@ export interface IframeAdvancedStoryblok {
   display?: "" | "relative" | "absolute";
   height?: string;
   width?: string;
-  property?: ("" | "allow_fullscreen")[];
-  allow?: ("" | "geolocation" | "microphone" | "camera" | "midi" | "encrypted-media")[];
+  property?: "allow_fullscreen"[];
+  allow?: ("geolocation" | "microphone" | "camera" | "midi" | "encrypted-media")[];
   url?: string;
   post_message_key?: string;
   incoming_message_key?: string;
@@ -1792,7 +1783,7 @@ export interface ImageStoryblok {
     [k: string]: any;
   };
   disable_ratio_correction?: boolean;
-  property?: ("" | "rounded" | "rounded-circle" | "square" | "rounded-0")[];
+  property?: ("rounded" | "rounded-circle" | "square" | "rounded-0")[];
   height?: number;
   height_xs?: number;
   width?: number;
@@ -1801,7 +1792,7 @@ export interface ImageStoryblok {
   alt?: string;
   priority?: boolean;
   disable_lazy_loading?: boolean;
-  image_crop?: ("" | "image_crop" | "smart_crop")[];
+  image_crop?: ("image_crop" | "smart_crop")[];
   focal_point?: string;
   toggle_image_loading?: boolean;
   _uid: string;
@@ -2001,7 +1992,7 @@ export interface ListSearchFieldStoryblok {
 
 export interface ListStoriesStoryblok {
   enable_search?: boolean;
-  view_types?: ("" | "page" | "event" | "news")[];
+  view_types?: ("page" | "event" | "news")[];
   sort?: "" | "publish" | "updated" | "created" | "title";
   sort_descending?: boolean;
   max_items?: number;
@@ -2546,7 +2537,7 @@ export interface MoralisMintStoryblok {
   )[];
   mint_style?: (ButtonStoryblok | ImageStoryblok)[];
   mint_flexbox_container?: FlexRowStoryblok[];
-  style_options?: ("" | "dark")[];
+  style_options?: "dark"[];
   success_message?: (
     | AccordionStoryblok
     | AuthContainerStoryblok
@@ -2716,7 +2707,7 @@ export interface NavItemStoryblok {
 }
 
 export interface NavListStoryblok {
-  properties?: ("" | "flex-column" | "justify-content-center")[];
+  properties?: ("flex-column" | "justify-content-center")[];
   collapse_icon?: {
     name?: string;
     [k: string]: any;
@@ -2853,7 +2844,7 @@ export interface PageStoryblok {
   preview_image?: string;
   preview_teaser?: string;
   preview_publish_date?: string;
-  property?: ("" | "has_feature" | "disable_promotion")[];
+  property?: ("has_feature" | "disable_promotion")[];
   body?: (
     | SectionStoryblok
     | SectionVideoBgStoryblok
@@ -3217,7 +3208,7 @@ export interface SectionStoryblok {
   )[];
   variant?: "" | "primary" | "secondary" | "dark" | "light" | "dark_text" | "light_text" | "transparent";
   background?: BackgroundStoryblok[];
-  property?: ("" | "is_full_height" | "allow_overflow")[];
+  property?: ("is_full_height" | "allow_overflow")[];
   padding?: string;
   max_width?: "" | "xs" | "sm" | "md" | "lg" | "xl" | "none";
   background_style?: "" | "fixed_image" | "fixed_cover";
@@ -3266,7 +3257,7 @@ export interface SectionVideoBgStoryblok {
   }[];
   body?: RowStoryblok[];
   fallback_image?: string;
-  property?: ("" | "muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline" | "light")[];
+  property?: ("muted" | "loop" | "autoplay" | "controls" | "suppress_mouse_events" | "playsinline" | "light")[];
   video_ratio?: "" | "16x9" | "1280x720" | "4x3" | "16x6";
   height?: number;
   max_width?: "" | "xs" | "sm" | "md" | "lg" | "xl" | "none";
@@ -3320,7 +3311,6 @@ export interface SeoLocalBusinessOpeningHourStoryblok {
   opens: string;
   closes: string;
   day_of_week: (
-    | ""
     | "Monday"
     | "Tuesday"
     | "Wednesday"
@@ -3412,7 +3402,6 @@ export interface SeoTwitterStoryblok {
 
 export interface SliderStoryblok {
   property?: (
-    | ""
     | "pagination_dark"
     | "arrows_dark"
     | "hide_pagination"
@@ -3644,7 +3633,7 @@ export interface StylesStoryblok {
   };
   border_color_theme?: "" | "primary" | "secondary" | "error" | "success" | "info" | "warning" | "grey";
   border_radius?: string;
-  border_position?: ("" | "top" | "left" | "right" | "bottom")[];
+  border_position?: ("top" | "left" | "right" | "bottom")[];
   position?: "" | "relative" | "absolute" | "fixed" | "static" | "sticky";
   top?: string;
   left?: string;

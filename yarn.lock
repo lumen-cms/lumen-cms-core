@@ -14919,10 +14919,10 @@ store2@^2.12.0:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.13.1.tgz#fae7b5bb9d35fc53dc61cd262df3abb2f6e59022"
   integrity sha512-iJtHSGmNgAUx0b/MCS6ASGxb//hGrHHRgzvN+K5bvkBTN7A9RTpPSf1WSp+nPGvWCJ1jRnvY7MKnuqfoi3OEqg==
 
-storyblok-generate-ts@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/storyblok-generate-ts/-/storyblok-generate-ts-1.4.0.tgz#46e573ee2d6fd269b5b5a89bf842fd030bece57b"
-  integrity sha512-OEpaOytH56Oo3lAWB0b3Kgte8Qxjs2pnodKW6Sq059PRbqm0+SLQ46Bf1epvBNDkjrl/XX7PG8VaV0g/3579qQ==
+storyblok-generate-ts@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/storyblok-generate-ts/-/storyblok-generate-ts-1.4.1.tgz#685662427378e8ba2b8c32d34f65ae389b3734db"
+  integrity sha512-tTjOjJdpuT6LtMpJA0doRT3UjU9Sx9qzknfT6VxwyLid+da6bejD09jKGIj+RayWXxb9Y6QhJ8IOJm6/BFKrBg==
   dependencies:
     camelcase "^6.3.0"
     json-schema-to-typescript "^10.1.5"

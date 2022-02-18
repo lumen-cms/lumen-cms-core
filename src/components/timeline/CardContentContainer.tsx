@@ -19,7 +19,7 @@ export const CardContentContainer: FunctionComponent<{
       backgroundColor: options.card_background_color?.rgba || undefined
     },
     className: hasOppositeContent ? 'mb-2' : undefined,
-    variant: options.card_variant,
+    variant: options.card_variant === '' ? undefined : options.card_variant,
     square: options.card_square,
     elevation: options.card_elevation
       ? Number(options.card_elevation)

@@ -136,7 +136,9 @@ export default function GoogleFormElement({
             : undefined
         }
         {...baseFieldProps}
-        inputVariant={options.fields_border}
+        inputVariant={
+          options.fields_border === '' ? undefined : options.fields_border
+        }
       />
     )
   }

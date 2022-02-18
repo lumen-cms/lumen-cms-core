@@ -62,7 +62,7 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
         localizer={localizer}
         culture={content.language || 'de'}
         views={views}
-        defaultView={currentView}
+        defaultView={!currentView ? undefined : currentView}
         components={{
           toolbar: CalendarToolbar
         }}
