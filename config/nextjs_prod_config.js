@@ -11,6 +11,7 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
     swcMinify: true,
     webpack5: enableWebpack5,
     images: {
+      formats: ['image/avif', 'image/webp'],
       path: 'https://img-12.lumen.media/_next/image/',
       domains: [
         'a.storyblok.com',

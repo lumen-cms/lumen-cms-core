@@ -21,9 +21,8 @@ export default function LmCategoryBox({
       : [query.search__categories]
   }
   const [selected, setSelected] = useState<string[]>(initialValues)
+  const [categories] = useState(content.category_box_data || []) //allCategories
   const setSearchCategory = useSearchStore(setSearchCategorySelector)
-
-  const categories = content.category_box_data || [] //allCategories
   const style: CSSProperties = {}
   // const style = { maxHeight: '500px', overflowY: 'auto' }
   return (

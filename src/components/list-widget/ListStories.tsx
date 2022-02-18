@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { LmListStoriesPayload, LmListStoriesProps } from './listWidgetTypes'
 import useSWR from 'swr'
-import { getListStoriesParams } from '../../utils/universal/getListStoriesParams'
 import {
   categorySelector,
   searchTextSelector,
   useSearchStore
 } from '../../utils/state/searchState'
-import { fetchListStories } from './listUtils/fetchListStories'
+import {
+  fetchListStories,
+  FetchListStoriesProps
+} from './listUtils/fetchListStories'
 import { LmComponentRender } from '@LmComponentRender'
 import LmListStoriesContainer from './ListStoriesContainer'
 import { CircularProgress } from '@material-ui/core'
@@ -16,36 +18,26 @@ import { useAppContext } from '@context/AppContext'
 import { Router } from 'next/router'
 
 export default function LmListStories({ content }: LmListStoriesProps) {
-  const { locale, defaultLocale, locales, insideStoryblok } = useAppContext()
+  const { locale, defaultLocale, locales } = useAppContext()
   const initialize = useRef<boolean>(false)
   const paginate = content.pagination?.[0]
   const [page, setPage] = useState<number>(1)
   const searchText = useSearchStore(searchTextSelector)
   const searchCategories = useSearchStore(categorySelector)
   const anchorId = `list_stories_${content._uid}`
-  if (searchCategories.length) {
-    // currently only for page categories
-    const allCategories = [
-      ...searchCategories,
-      ...(content.page_categories || [])
-    ]
-    content.page_categories = allCategories
-    content.match_all_categories = true
-  }
-  const paramString = JSON.stringify({
-    ...getListStoriesParams(content, { locale, defaultLocale, locales }),
-    page,
-    ...(content.enable_search && searchText
-      ? {
-          search_term: searchText
-        }
-      : {})
-  })
+
   const storyData = content.list_stories_data
   const revalidateOnMount = content.enable_search && !storyData?.data?.stories
 
+  const fetchProps: FetchListStoriesProps = {
+    searchText,
+    pageProps: { locale, defaultLocale, locales },
+    page,
+    content,
+    searchCategories
+  }
   const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
-    content.max_items ? null : [paramString, insideStoryblok],
+    content.max_items ? null : fetchProps,
     fetchListStories,
     {
       fallbackData: {
@@ -54,9 +46,24 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         total: storyData?.total ?? 0,
         page: 1
       },
-      revalidateOnMount: initialize.current || revalidateOnMount || page > 1
+      revalidateOnMount:
+        initialize.current ||
+        revalidateOnMount ||
+        page > 1 ||
+        !!searchText ||
+        !!searchCategories.length
     }
   )
+  useEffect(() => {
+    if (searchCategories?.length) {
+      setPage(1)
+    }
+  }, [searchCategories])
+  useEffect(() => {
+    if (searchText) {
+      setPage(1)
+    }
+  }, [searchText])
   useEffect(() => {
     const handleRouteChange = () => {
       const urlParams = new URLSearchParams(window.location.search)
