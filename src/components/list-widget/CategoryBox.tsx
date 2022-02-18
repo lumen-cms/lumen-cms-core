@@ -8,6 +8,8 @@ import {
   setSearchCategorySelector,
   useSearchStore
 } from '../../utils/state/searchState'
+import { TextField } from '@material-ui/core'
+import { Autocomplete } from '@material-ui/lab'
 
 export default function LmCategoryBox({
   content
@@ -24,7 +26,50 @@ export default function LmCategoryBox({
   const [categories] = useState(content.category_box_data || []) //allCategories
   const setSearchCategory = useSearchStore(setSearchCategorySelector)
   const style: CSSProperties = {}
-  // const style = { maxHeight: '500px', overflowY: 'auto' }
+  if (content.max_height) {
+    style.maxHeight = content.max_height + 'px'
+    style.overflowY = 'auto'
+  }
+  const modifySelect = (value: string, isNew?: boolean) => {
+    if (isNew) {
+      const currentCategories = [...selected, value]
+      setSelected(currentCategories)
+      setSearchCategory(currentCategories)
+    } else {
+      const currentCategories = selected.filter((i) => i !== value)
+      setSelected(currentCategories)
+      setSearchCategory(currentCategories)
+    }
+  }
+  if (content.display === 'autocomplete_checkbox') {
+    return (
+      <div style={style} className={clsx(content.class_names?.values)}>
+        <Autocomplete
+          multiple
+          disableClearable
+          id={'autocomplete__' + content._uid}
+          options={categories}
+          getOptionLabel={(category) => category.content.name || category.name}
+          onChange={(_event, _value, reason, details) => {
+            let value = details?.option.uuid as string
+            if (reason === 'remove-option') {
+              modifySelect(value)
+            } else if (reason === 'select-option') {
+              modifySelect(value, true)
+            }
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label={content.autocomplete_label}
+              placeholder={content.autocomplete_placeholder}
+              variant={content.autocomplete_variant || 'outlined'}
+            />
+          )}
+        />
+      </div>
+    )
+  }
   return (
     <div style={style} className={clsx(content.class_names?.values)}>
       {categories.map((category) => {
@@ -41,17 +86,7 @@ export default function LmCategoryBox({
                   value={checkboxValue}
                   onChange={(event) => {
                     const { value, checked } = event.currentTarget
-                    if (checked) {
-                      const currentCategories = [...selected, value]
-                      setSelected(currentCategories)
-                      setSearchCategory(currentCategories)
-                    } else {
-                      const currentCategories = selected.filter(
-                        (i) => i !== value
-                      )
-                      setSelected(currentCategories)
-                      setSearchCategory(currentCategories)
-                    }
+                    modifySelect(value, checked)
                   }}
                 />
               }

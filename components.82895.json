@@ -2392,23 +2392,64 @@
       "name": "category_box",
       "display_name": null,
       "created_at": "2020-05-01T08:40:44.118Z",
-      "updated_at": "2020-07-09T03:23:43.516Z",
+      "updated_at": "2022-02-18T15:42:29.613Z",
       "id": 894839,
       "schema": {
+        "display": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "autocomplete_checkbox",
+              "name": "autocomplete checkbox"
+            }
+          ],
+          "pos": 0
+        },
+        "autocomplete_label": {
+          "type": "text",
+          "pos": 1
+        },
+        "autocomplete_placeholder": {
+          "type": "text",
+          "pos": 2
+        },
+        "autocomplete_variant": {
+          "type": "option",
+          "pos": 3,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "outlined",
+              "name": "outlined"
+            },
+            {
+              "value": "filled",
+              "name": "filled"
+            },
+            {
+              "value": "standard",
+              "name": "standard"
+            }
+          ]
+        },
         "filter_categories": {
           "type": "options",
           "source": "internal_stories",
           "folder_slug": "",
           "display_name": "Show following categories",
-          "filter_content_type": "category"
+          "filter_content_type": "category",
+          "pos": 4
         },
         "filter_by_tags": {
           "type": "custom",
           "field_type": "tags-select",
-          "options": []
+          "options": [],
+          "pos": 5
         },
         "match_all_tags": {
-          "type": "boolean"
+          "type": "boolean",
+          "pos": 6
         },
         "class_names": {
           "type": "custom",
@@ -2418,7 +2459,23 @@
               "value": "true",
               "name": "mui"
             }
-          ]
+          ],
+          "pos": 7
+        },
+        "max_height": {
+          "type": "number",
+          "pos": 8
+        },
+        "tab-a29d0fc4-378d-4432-9600-3a2e3f4f24f5": {
+          "type": "tab",
+          "display_name": "Autocomplete",
+          "keys": [
+            "display",
+            "autocomplete_label",
+            "autocomplete_placeholder",
+            "autocomplete_variant"
+          ],
+          "pos": 9
         }
       },
       "image": null,
@@ -9125,7 +9182,7 @@
       "name": "moralis",
       "display_name": null,
       "created_at": "2021-11-05T05:38:56.578Z",
-      "updated_at": "2022-01-31T06:23:59.062Z",
+      "updated_at": "2022-02-18T03:24:56.465Z",
       "id": 1924539,
       "schema": {
         "body": {
@@ -9136,7 +9193,8 @@
             "moralis_button",
             "moralis_mint",
             "moralis_data",
-            "moralis_venly"
+            "moralis_venly",
+            "moralis_auth_container"
           ]
         }
       },
@@ -9152,6 +9210,111 @@
       "color": null,
       "icon": null,
       "component_group_name": "General"
+    },
+    {
+      "name": "moralis_auth_container",
+      "display_name": null,
+      "created_at": "2022-02-18T03:22:00.185Z",
+      "updated_at": "2022-02-18T04:18:54.589Z",
+      "id": 2201949,
+      "schema": {
+        "contract_token": {
+          "type": "text",
+          "pos": 0
+        },
+        "chain": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "mainnet",
+              "name": "mainnet"
+            },
+            {
+              "value": "rinkeby",
+              "name": "rinkeby"
+            },
+            {
+              "value": "goerli",
+              "name": "goerli"
+            },
+            {
+              "value": "kovan",
+              "name": "kovan"
+            },
+            {
+              "value": "mumbai",
+              "name": "mumbai"
+            },
+            {
+              "value": "polygon",
+              "name": "polygon"
+            },
+            {
+              "value": "ropsten",
+              "name": "ropsten"
+            }
+          ],
+          "pos": 1
+        },
+        "required_nft": {
+          "type": "number",
+          "pos": 2
+        },
+        "show_only_not_logged_in": {
+          "type": "boolean",
+          "pos": 3,
+          "description": "Show the content only if users are not logged in. This will not request any contract data."
+        },
+        "body": {
+          "type": "bloks",
+          "pos": 4,
+          "maximum": "",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ]
+        },
+        "fallback_message": {
+          "type": "bloks",
+          "pos": 5,
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ]
+        },
+        "tab-fe7933b4-0338-406a-88fa-39216f0d4a16": {
+          "type": "tab",
+          "display_name": "Fallback",
+          "keys": [
+            "fallback_message",
+            "not_connected_message"
+          ],
+          "pos": 6
+        },
+        "not_connected_message": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ],
+          "pos": 7
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "moralis_auth_container",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
     },
     {
       "name": "moralis_button",
@@ -9273,9 +9436,32 @@
       "name": "moralis_mint",
       "display_name": null,
       "created_at": "2021-11-10T02:47:54.508Z",
-      "updated_at": "2022-01-22T04:45:44.882Z",
+      "updated_at": "2022-02-14T02:08:08.295Z",
       "id": 1936072,
       "schema": {
+        "price_fiat": {
+          "type": "number",
+          "pos": 0
+        },
+        "checkout_content": {
+          "type": "richtext",
+          "pos": 1,
+          "description": "Render content above the stripe form. Following values are available: {contractToken} {userToken} {mintAmount} {price} {priceTotal}"
+        },
+        "stripe_btn_style": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "button"
+          ],
+          "pos": 2
+        },
+        "return_url": {
+          "type": "text",
+          "description": "Return path after successful purchase. Can be https url or just a path.",
+          "pos": 3
+        },
         "fallback_insufficient_funds": {
           "type": "bloks",
           "restrict_components": true,
@@ -9283,17 +9469,17 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 0
+          "pos": 4
         },
         "contract_token": {
           "type": "text",
-          "pos": 1,
+          "pos": 5,
           "description": "The contract token ID: 0x...",
           "required": true
         },
         "chain": {
           "type": "option",
-          "pos": 3,
+          "pos": 6,
           "description": "Leave empty for main net. Otherwise \"rinkeby, polygon..\"",
           "use_uuid": true,
           "options": [
@@ -9329,7 +9515,7 @@
         },
         "presale_get_param": {
           "type": "text",
-          "pos": 4
+          "pos": 7
         },
         "fallback_not_started": {
           "type": "bloks",
@@ -9338,15 +9524,15 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 5
+          "pos": 8
         },
         "price": {
           "type": "text",
-          "pos": 6
+          "pos": 9
         },
         "price_whitelist": {
           "type": "text",
-          "pos": 7
+          "pos": 10
         },
         "sale": {
           "type": "option",
@@ -9369,15 +9555,15 @@
               "name": "ended"
             }
           ],
-          "pos": 8
+          "pos": 11
         },
         "mint_amount": {
           "type": "number",
-          "pos": 9
+          "pos": 12
         },
         "mint_amount_whitelist": {
           "type": "number",
-          "pos": 10
+          "pos": 13
         },
         "tab-53135591-a59a-4e2b-9066-840d212aa96b": {
           "type": "tab",
@@ -9388,9 +9574,10 @@
             "sale",
             "mint_amount",
             "mint_amount_whitelist",
-            "price_whitelist"
+            "price_whitelist",
+            "price_in_usd"
           ],
-          "pos": 11
+          "pos": 14
         },
         "tab-8e20f062-7e12-44af-92c8-108461437f52": {
           "type": "tab",
@@ -9403,7 +9590,7 @@
             "fallback_not_started",
             "fallback_insufficient_funds"
           ],
-          "pos": 12
+          "pos": 15
         },
         "tab-4c1ca687-4923-452a-9bac-c5159183f2f1": {
           "type": "tab",
@@ -9415,7 +9602,7 @@
             "mint_flexbox_container",
             "style_options"
           ],
-          "pos": 13
+          "pos": 16
         },
         "counter_style": {
           "type": "bloks",
@@ -9424,7 +9611,7 @@
             "headline"
           ],
           "maximum": "1",
-          "pos": 14
+          "pos": 17
         },
         "fallback_not_whitelisted": {
           "type": "bloks",
@@ -9433,7 +9620,7 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 15
+          "pos": 18
         },
         "fallback_login_message": {
           "type": "bloks",
@@ -9442,7 +9629,7 @@
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "pos": 16
+          "pos": 19
         },
         "mint_style": {
           "type": "bloks",
@@ -9452,7 +9639,7 @@
             "button",
             "image"
           ],
-          "pos": 17
+          "pos": 20
         },
         "mint_flexbox_container": {
           "type": "bloks",
@@ -9461,7 +9648,7 @@
           "component_whitelist": [
             "flex_row"
           ],
-          "pos": 18
+          "pos": 21
         },
         "style_options": {
           "type": "options",
@@ -9471,7 +9658,7 @@
               "name": "dark"
             }
           ],
-          "pos": 19
+          "pos": 22
         },
         "success_message": {
           "type": "bloks",
@@ -9479,7 +9666,23 @@
           "restrict_type": "groups",
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
-          ]
+          ],
+          "pos": 23
+        },
+        "tab-bdd4f69e-cf34-4b06-9f89-5038eb12e937": {
+          "type": "tab",
+          "display_name": "Stripe",
+          "keys": [
+            "price_fiat",
+            "enable",
+            "stripe_btn_style",
+            "return_url",
+            "checkout_content"
+          ],
+          "pos": 24
+        },
+        "price_in_usd": {
+          "type": "number"
         }
       },
       "image": null,
