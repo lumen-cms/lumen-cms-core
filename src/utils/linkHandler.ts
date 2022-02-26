@@ -64,7 +64,7 @@ export const linkHandler = (
     props.target = '_blank'
     props.rel = 'noopener noreferrer'
   } else if (link.linktype === 'email') {
-    props.href = `mailto:${link.email}`
+    props.href = `mailto:${link.email || link.cached_url}`
     props.external = true
   } else {
     let href = cachedUrl || ''
