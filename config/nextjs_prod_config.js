@@ -7,7 +7,7 @@ const ContentSecurityPolicy =[
   `child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com *.coinbase.com github.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
   `style-src 'self' 'unsafe-inline' *.googleapis.com heapanalytics.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
   `img-src * blob: data:;`,
-  `media-src 'self' videos.ctfassets.net blob: vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`
+  `media-src 'self' videos.ctfassets.net blob: vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
   `connect-src *;`,
   `font-src 'self' *.vercel.com *.gstatic.com;`,
   `worker-src blob:;`
