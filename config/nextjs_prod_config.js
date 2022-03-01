@@ -1,8 +1,8 @@
 const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
-const ContentSecurityPolicy = `
-default-src 'self' vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;
+const ContentSecurityPolicy =
+oneLine`default-src 'self' vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;
 script-src 'self' 'unsafe-eval' 'unsafe-inline' www.google.com www.googletagmanager.com www.google-analytics.com www.gstatic.com *.googleapis.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com *.coinbase.com *.zdassets.com cdn.sift.com cdn.segment.com cdn.ampproject.org cdn.koala.live cdn.heapanalytics.com heapanalytics.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;
 child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com *.coinbase.com github.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;
 style-src 'self' 'unsafe-inline' *.googleapis.com heapanalytics.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;
@@ -10,8 +10,7 @@ img-src * blob: data:;
 media-src 'self' videos.ctfassets.net blob: vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;
 connect-src *;
 font-src 'self' *.vercel.com *.gstatic.com;
-worker-src blob:;
-`
+worker-src blob:;`
 
 const securityHeaders = [
   {
@@ -40,7 +39,7 @@ const securityHeaders = [
   },
   {
     key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim()
+    value: ContentSecurityPolicy.replace(/\n\s{2,}/g, ' ').trim()
   }
 ]
 
