@@ -40,7 +40,7 @@ const securityHeaders = [
   },
   {
     key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.join()
+    value: ContentSecurityPolicy.join(' ')
   }
 ]
 
