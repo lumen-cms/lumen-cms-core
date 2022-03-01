@@ -61,7 +61,7 @@ export function LmApp(appProps: LmAppProps) {
               content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
               key="viewport"
             />
-            <meta name="format-detection" content="telephone=no">
+            <meta name="format-detection" content="telephone=no" />
           </Head>
           <Component {...pageProps} />
         </LmAppContainer>

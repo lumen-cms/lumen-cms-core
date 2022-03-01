@@ -1,6 +1,37 @@
 const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
+const securityHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on'
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block'
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'origin-when-cross-origin'
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff'
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN'
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+  }
+]
+
 module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
   const enableWebpack5 = true
   /**
@@ -10,6 +41,15 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
     ...nextConfig,
     swcMinify: true,
     webpack5: enableWebpack5,
+    async headers() {
+      return [
+        {
+          // Apply these headers to all routes in your application.
+          source: '/:path*',
+          headers: securityHeaders
+        }
+      ]
+    },
     images: {
       formats: ['image/avif', 'image/webp'],
       path: 'https://img-12.lumen.media/_next/image/',
