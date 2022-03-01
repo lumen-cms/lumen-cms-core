@@ -9,8 +9,8 @@ style-src 'self' 'unsafe-inline' *.googleapis.com heapanalytics.com vercel.com *
 img-src * blob: data:;
 media-src 'self' videos.ctfassets.net blob: vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;
 connect-src *;
-font-src *.vercel.com *.gstatic.com;
-worker-src blob:
+font-src 'self' *.vercel.com *.gstatic.com;
+worker-src blob:;
 `
 
 const securityHeaders = [
