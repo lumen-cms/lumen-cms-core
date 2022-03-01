@@ -1,6 +1,14 @@
 const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
+const ContentSecurityPolicy = `
+  default-src 'self';
+  script-src 'self';
+  child-src 'none';
+  style-src 'self';
+  font-src 'self';
+`
+
 const securityHeaders = [
   {
     key: 'X-DNS-Prefetch-Control',
@@ -25,6 +33,10 @@ const securityHeaders = [
   {
     key: 'Permissions-Policy',
     value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+  },
+  {
+    key: 'Content-Security-Policy',
+    value: ContentSecurityPolicy.replace(/\s{2,}/g, ' ').trim()
   }
 ]
 
