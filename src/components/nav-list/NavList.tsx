@@ -1,17 +1,18 @@
 import React from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
 import Typography from '@material-ui/core/Typography'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
-import { LmCoreComponents } from '@CONFIG'
-import MuiLink from '@material-ui/core/Link'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import LmIcon from '../icon/LmIcon'
 import { LmNavListProps } from './navListTypes'
-import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary
+} from '@material-ui/core'
+import { LmComponentRender } from '@LmComponentRender'
+import { LmFlexRow } from '../flex-row/FlexRow'
 
 const useStyles = makeStyles({
   root: {
@@ -23,7 +24,8 @@ const useStyles = makeStyles({
       }
     },
     '&.lm-nav-list__column .MuiTypography-root': {
-      display: 'block'
+      display: 'block',
+      paddingRight: '0px'
     }
   }
 })
@@ -34,31 +36,15 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
   const body = (content && content.body) || []
   const properties = content.properties || []
   const { header } = content
-  // @ts-ignore
-  const getBtnProps = (blok: LmNavListProps['content']['body'][0]) => {
-    const onClickFunc: any =
-      typeof content.on_click_function === 'string'
-        ? {
-            onClick: () => new Function(content.on_click_function || '')()
-          }
-        : undefined
-    const args = blok.link?.linktype
-      ? {
-          ...getLinkAttrs(blok.link as LinkType, {
-            openExternal: !!blok.open_external
-          }),
-          naked: true,
-          component: LmCoreComponents.lm_link_render,
-          ...onClickFunc
-        }
-      : { ...onClickFunc }
-
-    return args.href || args.onClick ? args : {}
-  }
   if ((isMobile && content.collapse_on_mobile) || content.forceCollapse) {
     return (
-      <ExpansionPanel>
-        <ExpansionPanelSummary
+      <Accordion>
+        <AccordionSummary
+          IconButtonProps={{
+            style: {
+              color: 'inherit'
+            }
+          }}
           expandIcon={
             content.collapse_icon && content.collapse_icon.name ? (
               <LmIcon iconName={content.collapse_icon.name} />
@@ -68,12 +54,12 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
           }
         >
           <Typography>{content.header}</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
+        </AccordionSummary>
+        <AccordionDetails>
           <div
             className={clsx(
               'lm-nav-list',
-              content.class_names && content.class_names.values,
+              content.class_names?.values,
               {
                 'lm-nav-list__column': properties.find(
                   (i) => i === 'flex-column'
@@ -82,16 +68,16 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
               classes.root
             )}
           >
-            {body.map((blok) => {
-              return (
-                <MuiLink {...getBtnProps(blok)} key={blok._uid}>
-                  {blok.name}
-                </MuiLink>
-              )
-            })}
+            <LmFlexRow
+              content={{
+                _uid: content._uid,
+                component: 'flex_row',
+                body: content.body as any
+              }}
+            />
           </div>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionDetails>
+      </Accordion>
     )
   }
   const navClassNames = clsx(content.style)
@@ -99,7 +85,7 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
     <div
       className={clsx(
         'lm-nav-list',
-        content.class_names && content.class_names.values,
+        content.class_names?.values,
         {
           'lm-nav-list__column': properties.find((i) => i === 'flex-column')
         },
@@ -108,13 +94,9 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
     >
       {header && <h4>{header}</h4>}
       <nav className={navClassNames}>
-        {body.map((blok) => {
-          return (
-            <MuiLink {...getBtnProps(blok)} key={blok._uid}>
-              {blok.name}
-            </MuiLink>
-          )
-        })}
+        {body.map((blok) => (
+          <LmComponentRender content={blok} key={blok._uid} />
+        ))}
       </nav>
     </div>
   )

@@ -31,6 +31,7 @@ import LmTawktoChatButton from './chat/TawktoChatButton'
 import LmDialogElement from './dialog/DialogElement'
 import LmNews from './news/News'
 import LmEvent from './event/Event'
+import LmNavItem from './nav-list/NavItem'
 
 LmCoreComponents.static_section = LmStaticSection
 LmCoreComponents.static_container = LmStaticContainer
@@ -44,6 +45,7 @@ LmCoreComponents.column = LmGridColumn
 LmCoreComponents.image = LmImageElement
 LmCoreComponents.button = LmButton
 LmCoreComponents.nav_list = LmNavList
+LmCoreComponents.nav_item = LmNavItem
 LmCoreComponents.nav_menu = LmMenu
 LmCoreComponents.icon = LmIcon
 LmCoreComponents.flex_row = LmFlexRow

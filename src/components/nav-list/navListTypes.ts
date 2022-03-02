@@ -6,4 +6,8 @@ import {
 export type LmNavListProps = {
   content: NavListStoryblok
 }
+
+export type LmNavItemProps = {
+  content: NavItemStoryblok
+}
 export type LmNavListItemProps = NavItemStoryblok

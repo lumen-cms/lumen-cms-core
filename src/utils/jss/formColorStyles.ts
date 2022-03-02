@@ -2,6 +2,10 @@ import { makeStyles } from '@material-ui/core/styles'
 
 export const useFormColorStyles = makeStyles({
   dark: {
+    '& .MuiAccordion-root': {
+      color: 'inherit',
+      backgroundColor: 'rgba(0,0,0,0.1)'
+    },
     '& .MuiButton-root.lm-default-color, & .MuiIconButton-root.lm-default-color, & .MuiInputBase-root, & .MuiFormLabel-root':
       {
         color: 'inherit',
