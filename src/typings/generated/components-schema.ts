@@ -1,8 +1,10 @@
 export interface AccordionStoryblok {
+  variant?: "" | "outlined" | "elevation";
   body?: AccordionItemStoryblok[];
   use_plus?: boolean;
   square?: boolean;
   restrict_one?: boolean;
+  styles?: StylesStoryblok[];
   _uid: string;
   component: "accordion";
   [k: string]: any;

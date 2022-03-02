@@ -4,12 +4,27 @@
       "name": "accordion",
       "display_name": null,
       "created_at": "2020-05-01T08:40:46.579Z",
-      "updated_at": "2020-07-23T00:30:39.871Z",
+      "updated_at": "2022-03-02T02:50:50.399Z",
       "id": 894851,
       "schema": {
+        "variant": {
+          "type": "option",
+          "pos": 0,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "outlined",
+              "name": "outlined"
+            },
+            {
+              "value": "elevation",
+              "name": "elevation"
+            }
+          ]
+        },
         "body": {
           "type": "bloks",
-          "pos": 0,
+          "pos": 1,
           "restrict_components": true,
           "component_whitelist": [
             "accordion_item"
@@ -22,20 +37,41 @@
           "keys": [
             "use_plus",
             "square",
-            "restrict_one"
+            "restrict_one",
+            "variant"
           ],
-          "pos": 0
+          "pos": 2
         },
         "use_plus": {
           "type": "boolean",
-          "description": "Use \"+\" icon instead of arrow"
+          "description": "Use \"+\" icon instead of arrow",
+          "pos": 3
         },
         "square": {
-          "type": "boolean"
+          "type": "boolean",
+          "pos": 4
         },
         "restrict_one": {
           "type": "boolean",
-          "description": "Only one accordion item is open at once."
+          "description": "Only one accordion item is open at once.",
+          "pos": 5
+        },
+        "tab-759241a8-3612-4713-8fc5-e28ae74b79ff": {
+          "type": "tab",
+          "display_name": "Styles",
+          "keys": [
+            "styles"
+          ],
+          "pos": 6
+        },
+        "styles": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ],
+          "maximum": "1",
+          "pos": 7
         }
       },
       "image": null,

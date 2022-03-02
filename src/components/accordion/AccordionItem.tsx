@@ -13,7 +13,8 @@ export default function LmAccordionItem({
   options,
   setOpen,
   opened,
-  iteration
+  iteration,
+  classes
 }: LmAccordionItemProps): JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
   const panelKey = `panel-${iteration}`
@@ -23,6 +24,7 @@ export default function LmAccordionItem({
   const titleCustom = content.title_custom || []
   return (
     <Accordion
+      variant={options.variant || 'elevation'}
       square={!!options.square}
       expanded={expanded}
       onChange={(_, isExpanded) => {
@@ -30,8 +32,16 @@ export default function LmAccordionItem({
           ? setOpen(isExpanded ? panelKey : '')
           : setIsOpen(isExpanded ? panelKey : '')
       }}
+      classes={{
+        root: classes.advanced
+      }}
     >
       <AccordionSummary
+        IconButtonProps={{
+          style: {
+            color: 'inherit'
+          }
+        }}
         expandIcon={
           content.use_plus_icon || options.use_plus ? <Plus /> : <ChevronDown />
         }

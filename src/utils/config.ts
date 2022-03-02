@@ -46,7 +46,10 @@ import {
 } from '../components/list-widget/listWidgetTypes'
 import { LmMenuProps } from '../components/menu/menuTypes'
 import { LmMotionProps } from '../components/motion/motionTypes'
-import { LmNavListProps } from '../components/nav-list/navListTypes'
+import {
+  LmNavItemProps,
+  LmNavListProps
+} from '../components/nav-list/navListTypes'
 import { LmPageProps } from '../components/page/pageTypes'
 import {
   LmParagraphProps,
@@ -146,6 +149,7 @@ type LmCoreComponentsProps = {
   image_list_item?: JSXElementConstructor<LmImageListItemProps>
   button?: JSXElementConstructor<LmButtonProps>
   nav_list?: JSXElementConstructor<LmNavListProps>
+  nav_item?: JSXElementConstructor<LmNavItemProps>
   nav_menu?: JSXElementConstructor<LmMenuProps>
   icon?: JSXElementConstructor<LmIconProps>
   iframe?: JSXElementConstructor<LmIframeProps>
