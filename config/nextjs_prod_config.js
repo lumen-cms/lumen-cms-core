@@ -21,7 +21,7 @@ const ContentSecurityPolicy = {
 const getCsp = (extendCsp) => {
   Object.keys(extendCsp).forEach(key => {
     if(ContentSecurityPolicy[key]) {
-      ContentSecurityPolicy[key] += extendCsp[key]
+      ContentSecurityPolicy[key] += ` ${extendCsp[key]}`
     }
   })
   return Object.values(ContentSecurityPolicy).join('; ')
