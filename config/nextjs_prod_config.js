@@ -2,12 +2,12 @@ const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const ContentSecurityPolicy =[
-  `default-src 'self' *.storyblok.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
+  `default-src 'self' *.storyblok.com vercel.com *.vercel.com *.stripe.com twitter.com google.com *.google.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* https://*.google.com chrome-extension://*;`,
   `script-src 'self' *.storyblok.com 'unsafe-eval' 'unsafe-inline' www.google.com www.googletagmanager.com www.google-analytics.com www.gstatic.com *.googleapis.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com *.zdassets.com cdn.sift.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
-  `child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
-  `style-src 'self' 'unsafe-inline' *.googleapis.com heapanalytics.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
+  `child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
+  `style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
   `img-src * blob: data:;`,
-  `media-src 'self' *.storyblok.com blob: vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
+  `media-src 'self' *.storyblok.com blob: vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
   `connect-src *;`,
   `font-src 'self' *.vercel.com *.gstatic.com;`,
   `worker-src blob:;`,
