@@ -8,6 +8,9 @@ const nextConfig = {
   experimental: {
     // granularChunks: false
   },
+  extendCsp: {
+
+  },
   i18n: {
     locales: ['en', 'cn', 'de'],
     defaultLocale: 'en'

@@ -1,50 +1,36 @@
 const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
-const ContentSecurityPolicy =[
-  `default-src 'self' *.storyblok.com vercel.com *.vercel.com *.stripe.com twitter.com google.com *.google.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* https://*.google.com chrome-extension://*;`,
-  `script-src 'self' *.storyblok.com 'unsafe-eval' 'unsafe-inline' www.google.com www.googletagmanager.com www.google-analytics.com www.gstatic.com *.googleapis.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com *.zdassets.com cdn.sift.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
-  `child-src *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
-  `style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
-  `img-src * blob: data:;`,
-  `media-src 'self' *.storyblok.com blob: vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*;`,
-  `connect-src *;`,
-  `font-src 'self' *.vercel.com *.gstatic.com;`,
-  `worker-src blob:;`,
-  `frame-ancestors https://*.storyblok.com`
-  ]
+const ContentSecurityPolicy = {
+  defaultSrc: `default-src 'self' *.storyblok.com vercel.com *.vercel.com *.stripe.com twitter.com google.com *.google.com *.facebook.com *.twitter.com *.ads-twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* https://*.google.com https://*.facebook.com chrome-extension://*`,
+  scriptSrc: `script-src 'self' *.storyblok.com 'unsafe-eval' 'unsafe-inline' www.google.com www.googletagmanager.com www.google-analytics.com www.gstatic.com *.googleapis.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com *.zdassets.com cdn.sift.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*`,
+  childSrc: `child-src *.facebook.com connect.facebook.net *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*`,
+  styleSrc: `style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*`,
+  imgSrc: `img-src * blob: data:`,
+  mediaSrc: `media-src 'self' *.storyblok.com blob: vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*`,
+  connectSrc: `connect-src *`,
+  fontSrc: `font-src 'self' *.vercel.com *.gstatic.com data:`,
+  workerSrc: `worker-src blob:`,
+  frameAncestors: `frame-ancestors https://*.storyblok.com *.facebook.com connect.facebook.net`
+}
 
-const securityHeaders = [
-  {
-    key: 'X-DNS-Prefetch-Control',
-    value: 'on'
-  },
-  {
-    key: 'X-XSS-Protection',
-    value: '1; mode=block'
-  },
-  {
-    key: 'Referrer-Policy',
-    value: 'origin-when-cross-origin'
-  },
-  {
-    key: 'X-Content-Type-Options',
-    value: 'nosniff'
-  },
-  {
-    key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
-  },
-  {
-    key: 'Content-Security-Policy',
-    value: ContentSecurityPolicy.join(' ')
-  }
-]
+/**
+ * @param extendCsp
+ * @returns {string}
+ */
+const getCsp = (extendCsp) => {
+  Object.keys(extendCsp).forEach(key => {
+    if(ContentSecurityPolicy[key]) {
+      ContentSecurityPolicy[key] += extendCsp[key]
+    }
+  })
+  return Object.values(ContentSecurityPolicy).join('; ')
+}
 
-module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
+module.exports = function(nextConfig = {}, plugins = [], transpileModules) {
   const enableWebpack5 = true
   /**
-   * @type {import("next").NextConfig}
+   * @type {import('next').NextConfig}
    */
   const config = {
     ...nextConfig,
@@ -55,7 +41,32 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
         {
           // Apply these headers to all routes in your application.
           source: '/:path*',
-          headers: securityHeaders
+          headers: [
+            {
+              key: 'X-DNS-Prefetch-Control',
+              value: 'on'
+            },
+            {
+              key: 'X-XSS-Protection',
+              value: '1; mode=block'
+            },
+            {
+              key: 'Referrer-Policy',
+              value: 'origin-when-cross-origin'
+            },
+            {
+              key: 'X-Content-Type-Options',
+              value: 'nosniff'
+            },
+            {
+              key: 'Permissions-Policy',
+              value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+            },
+            {
+              key: 'Content-Security-Policy',
+              value: getCsp(nextConfig.extendCsp || {})
+            }
+          ]
         }
       ]
     },
