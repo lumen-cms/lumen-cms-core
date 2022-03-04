@@ -3,15 +3,15 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const ContentSecurityPolicy = {
   defaultSrc: `default-src 'self' *.storyblok.com vercel.com *.vercel.com *.stripe.com twitter.com google.com *.google.com *.facebook.com *.twitter.com *.ads-twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* https://*.google.com https://*.facebook.com https://browser.sentry-cdn.com https://js.sentry-cdn.com https://*.sentry.io chrome-extension://*`,
-  scriptSrc: `script-src 'self' https://*.studentsgoabroad.com https://*.studentsgoabroad.org *.studentsgoabroad.com *.studentsgoabroad.org *.facebook.com connect.facebook.net *.hubspot.com  *.storyblok.com 'unsafe-eval' 'unsafe-inline' www.google.com www.googletagmanager.com www.google-analytics.com www.gstatic.com *.googleapis.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com *.zdassets.com cdn.sift.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.ads-twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* https://browser.sentry-cdn.com https://js.sentry-cdn.com https://*.sentry.io chrome-extension://*`,
+  scriptSrc: `script-src 'self' https://*.studentsgoabroad.com https://*.studentsgoabroad.org *.studentsgoabroad.com *.studentsgoabroad.org *.facebook.com connect.facebook.net *.hubspot.com  *.storyblok.com 'unsafe-eval' 'unsafe-inline' www.google.com www.googletagmanager.com www.google-analytics.com www.gstatic.com *.googleapis.com *.youtube.com *.youtube-nocookie.com *.ytimg.com *.twimg.com *.zdassets.com cdn.sift.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.ads-twitter.com *.github.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* https://browser.sentry-cdn.com https://js.sentry-cdn.com https://*.sentry.io https://embed.tawk.to https://cdn.jsdelivr.net/emojione/ chrome-extension://*`,
   childSrc: `child-src https://*.studentsgoabroad.com https://*.studentsgoabroad.org *.studentsgoabroad.com *.studentsgoabroad.org https://meetings.hubspot.com/ *.hubspot.com *.facebook.com connect.facebook.net *.youtube.com *.youtube-nocookie.com *.stripe.com www.google.com github.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*`,
-  styleSrc: `style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*`,
+  styleSrc: `style-src 'self' 'unsafe-inline' *.googleapis.com vercel.com *.vercel.com *.stripe.com twitter.com *.twitter.com *.github.com embed.tawk.to https://*.google.com https://*.googletagmanager.com:* wss://*.vercel.com localhost:* chrome-extension://*`,
   imgSrc: `img-src * blob: data:`,
   mediaSrc: `media-src *`,
   connectSrc: `connect-src *`,
-  fontSrc: `font-src 'self' *.vercel.com *.gstatic.com data:`,
+  fontSrc: `font-src 'self' embed.tawk.to *.vercel.com *.gstatic.com data:`,
   workerSrc: `worker-src blob:`,
-  frameAncestors: `frame-ancestors https://*.studentsgoabroad.com https://*.studentsgoabroad.org https://*.storyblok.com *.facebook.com connect.facebook.net`
+  frameAncestors: `frame-ancestors va.tawk.to https://*.studentsgoabroad.com https://*.studentsgoabroad.org https://*.storyblok.com *.facebook.com connect.facebook.net`
 }
 
 /**
