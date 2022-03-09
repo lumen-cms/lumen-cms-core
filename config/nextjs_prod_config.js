@@ -19,18 +19,18 @@ const ContentSecurityPolicy = {
  * @returns {string}
  */
 const getCsp = (extendCsp) => {
-  Object.keys(extendCsp).forEach(key => {
-    if(ContentSecurityPolicy[key]) {
+  Object.keys(extendCsp).forEach((key) => {
+    if (ContentSecurityPolicy[key]) {
       ContentSecurityPolicy[key] += ` ${extendCsp[key]}`
     }
   })
   return Object.values(ContentSecurityPolicy).join('; ')
 }
 
-module.exports = function(nextConfig = {}, plugins = [], transpileModules) {
+module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
   const enableWebpack5 = true
   /**
-   * @type {import('next').NextConfig}
+   * @type {import("next").NextConfig}
    */
   const config = {
     ...nextConfig,
@@ -60,13 +60,14 @@ module.exports = function(nextConfig = {}, plugins = [], transpileModules) {
             },
             {
               key: 'Permissions-Policy',
-              value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+              value:
+                'camera=(), microphone=(), geolocation=(), interest-cohort=()'
             },
-            {
+            process.env.NODE_ENV !== 'development' && {
               key: 'Content-Security-Policy',
               value: getCsp(nextConfig.extendCsp || {})
             }
-          ]
+          ].filter((i) => i)
         }
       ]
     },

@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useInView } from 'react-intersection-observer'
 import ReactPlayer from 'react-player/lazy'
 import clsx from 'clsx'
-import React from 'react'
+import React, { useState } from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmPlayerProps } from './playerTypes'
 import videoUrlHelper from '../../utils/videoUrlHelper'
@@ -35,9 +35,15 @@ const useStyles = makeStyles({
 
 export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
   const classes = useStyles()
+  const [playing, setPlaying] = useState<boolean>(!!content.playing)
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
+  const togglePlay = () => {
+    if (content.toggle_play_on_hover) {
+      setPlaying((prev) => !prev)
+    }
+  }
 
   return (
     <div
@@ -48,6 +54,12 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
       })}
     >
       <ReactPlayer
+        onMouseEnter={() => {
+          togglePlay()
+        }}
+        onMouseLeave={() => {
+          togglePlay()
+        }}
         style={{
           position: content.ratio ? 'absolute' : undefined,
           top: content.ratio ? 0 : undefined,
@@ -61,7 +73,7 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
         loop={content.loop}
         muted={content.muted}
         playsinline={content.playsinline}
-        playing={content.playing}
+        playing={playing}
         light={content.light ? content.fallback_image || true : false}
         controls={content.controls}
         height={content.ratio ? '100%' : content.height || undefined}

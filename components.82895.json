@@ -9915,7 +9915,7 @@
       "name": "nav_list",
       "display_name": null,
       "created_at": "2020-05-01T08:40:38.542Z",
-      "updated_at": "2020-07-23T00:31:12.677Z",
+      "updated_at": "2022-03-08T07:11:19.178Z",
       "id": 894812,
       "schema": {
         "properties": {
@@ -9980,11 +9980,29 @@
         },
         "tab-3ff93bb1-d0b7-4ba8-94ba-649b5ec07974": {
           "type": "tab",
-          "display_name": "Classes",
+          "display_name": "Styles",
           "keys": [
-            "class_names"
+            "class_names",
+            "headline_styles",
+            "navigation_item_styles"
           ],
           "pos": 7
+        },
+        "headline_styles": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
+        },
+        "navigation_item_styles": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline"
+          ]
         }
       },
       "image": null,
@@ -10966,18 +10984,60 @@
       "name": "player",
       "display_name": "",
       "created_at": "2020-07-09T03:21:18.578Z",
-      "updated_at": "2022-02-03T13:51:13.068Z",
+      "updated_at": "2022-03-06T04:41:58.999Z",
       "id": 1002614,
       "schema": {
+        "controls": {
+          "type": "boolean",
+          "pos": 0
+        },
+        "playing": {
+          "type": "boolean",
+          "pos": 1
+        },
+        "loop": {
+          "type": "boolean",
+          "pos": 2
+        },
+        "muted": {
+          "type": "boolean",
+          "pos": 3
+        },
+        "playsinline": {
+          "type": "boolean",
+          "pos": 4
+        },
+        "volume": {
+          "type": "number",
+          "default_value": "",
+          "description": "Value between 0 and 1. Defaults to 0",
+          "pos": 5
+        },
+        "light": {
+          "type": "boolean",
+          "pos": 6
+        },
+        "toggle_play_on_hover": {
+          "type": "boolean",
+          "pos": 7
+        },
+        "fallback_image": {
+          "type": "text",
+          "pos": 8
+        },
+        "toggle_image_loading": {
+          "type": "boolean",
+          "pos": 9
+        },
         "url": {
           "type": "text",
-          "pos": 0,
+          "pos": 10,
           "display_name": "URL external",
           "description": "Any Youtube, Vimeo or other URL"
         },
         "url_internal": {
           "type": "asset",
-          "pos": 1,
+          "pos": 11,
           "display_name": "Storblok video",
           "filetypes": [
             "videos"
@@ -10985,7 +11045,7 @@
         },
         "url_alternatives": {
           "type": "multiasset",
-          "pos": 2,
+          "pos": 12,
           "filetypes": [
             "videos"
           ],
@@ -10994,7 +11054,7 @@
         },
         "ratio": {
           "type": "option",
-          "pos": 3,
+          "pos": 13,
           "use_uuid": true,
           "options": [
             {
@@ -11017,41 +11077,11 @@
         },
         "width": {
           "type": "text",
-          "pos": 4
+          "pos": 14
         },
         "height": {
           "type": "text",
-          "pos": 5
-        },
-        "controls": {
-          "type": "boolean",
-          "pos": 6
-        },
-        "playing": {
-          "type": "boolean",
-          "pos": 7
-        },
-        "loop": {
-          "type": "boolean",
-          "pos": 8
-        },
-        "muted": {
-          "type": "boolean",
-          "pos": 9
-        },
-        "playsinline": {
-          "type": "boolean",
-          "pos": 10
-        },
-        "volume": {
-          "type": "number",
-          "default_value": "",
-          "description": "Value between 0 and 1. Defaults to 0",
-          "pos": 11
-        },
-        "light": {
-          "type": "boolean",
-          "pos": 12
+          "pos": 15
         },
         "tab-0656672f-894c-4ab9-b318-4de78fea3e5c": {
           "type": "tab",
@@ -11065,19 +11095,14 @@
             "controls",
             "playsinline",
             "fallback_image",
-            "toggle_image_loading"
+            "toggle_image_loading",
+            "toggle_play_on_hover"
           ],
-          "pos": 13
-        },
-        "fallback_image": {
-          "type": "text",
-          "pos": 14
+          "pos": 16
         },
         "border_radius": {
-          "type": "text"
-        },
-        "toggle_image_loading": {
-          "type": "boolean"
+          "type": "text",
+          "pos": 17
         }
       },
       "image": null,

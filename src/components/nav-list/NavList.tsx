@@ -1,7 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import LmIcon from '../icon/LmIcon'
@@ -13,6 +12,7 @@ import {
 } from '@material-ui/core'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRow } from '../flex-row/FlexRow'
+import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 
 const useStyles = makeStyles({
   root: {
@@ -35,7 +35,25 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
   const { isMobile } = useDeviceDimensions()
   const body = (content && content.body) || []
   const properties = content.properties || []
-  const { header } = content
+  const { header, headline_styles, navigation_item_styles } = content
+  let headlineStyle = headline_styles?.[0]
+  const listItemStyle = navigation_item_styles?.[0]
+  const HeadlineHeader = () => (
+    <LmComponentRender
+      content={
+        {
+          _uid: headlineStyle?._uid || content._uid,
+          component: 'headline',
+          text: headlineStyle?.text || header,
+          tag: headlineStyle?.tag || 'h5',
+          typography: headlineStyle?.typography || 'headline5',
+          ...headlineStyle
+        } as HeadlineStoryblok
+      }
+    >
+      {header}
+    </LmComponentRender>
+  )
   if ((isMobile && content.collapse_on_mobile) || content.forceCollapse) {
     return (
       <Accordion>
@@ -53,7 +71,7 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
             )
           }
         >
-          <Typography>{content.header}</Typography>
+          <HeadlineHeader />
         </AccordionSummary>
         <AccordionDetails>
           <div
@@ -92,10 +110,14 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
         classes.root
       )}
     >
-      {header && <h4>{header}</h4>}
+      {header && <HeadlineHeader />}
       <nav className={navClassNames}>
         {body.map((blok) => (
-          <LmComponentRender content={blok} key={blok._uid} />
+          <LmComponentRender
+            content={blok}
+            key={blok._uid}
+            options={listItemStyle}
+          />
         ))}
       </nav>
     </div>
