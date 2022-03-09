@@ -1,6 +1,5 @@
 import React from 'react'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import LmIcon from '../icon/LmIcon'
@@ -14,24 +13,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRow } from '../flex-row/FlexRow'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 
-const useStyles = makeStyles({
-  root: {
-    '& .MuiTypography-root': {
-      display: 'inline-block',
-      paddingRight: '12px',
-      '&:last-child': {
-        paddingRight: '0px'
-      }
-    },
-    '&.lm-nav-list__column .MuiTypography-root': {
-      display: 'block',
-      paddingRight: '0px'
-    }
-  }
-})
-
 export function LmNavList({ content }: LmNavListProps): JSX.Element {
-  const classes = useStyles()
   const { isMobile } = useDeviceDimensions()
   const body = (content && content.body) || []
   const properties = content.properties || []
@@ -54,6 +36,21 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
       {header}
     </LmComponentRender>
   )
+  const isColumn = properties.some((i) => i === 'flex-column')
+  const isCentered = properties.some((i) => i === 'justify-content-center')
+  const ChildrenRender = () => (
+    <LmFlexRow
+      content={{
+        _uid: content._uid,
+        component: 'flex_row',
+        gap: isColumn ? 0.5 : 1,
+        column: isColumn,
+        justify: isCentered ? 'center' : undefined,
+        align_content: isCentered ? 'center' : undefined,
+        body: content.body as any
+      }}
+    />
+  )
   if ((isMobile && content.collapse_on_mobile) || content.forceCollapse) {
     return (
       <Accordion>
@@ -75,51 +72,18 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
         </AccordionSummary>
         <AccordionDetails>
           <div
-            className={clsx(
-              'lm-nav-list',
-              content.class_names?.values,
-              {
-                'lm-nav-list__column': properties.find(
-                  (i) => i === 'flex-column'
-                )
-              },
-              classes.root
-            )}
+            className={clsx('lm-nav-list w-100', content.class_names?.values)}
           >
-            <LmFlexRow
-              content={{
-                _uid: content._uid,
-                component: 'flex_row',
-                body: content.body as any
-              }}
-            />
+            <ChildrenRender />
           </div>
         </AccordionDetails>
       </Accordion>
     )
   }
-  const navClassNames = clsx(content.style)
   return (
-    <div
-      className={clsx(
-        'lm-nav-list',
-        content.class_names?.values,
-        {
-          'lm-nav-list__column': properties.find((i) => i === 'flex-column')
-        },
-        classes.root
-      )}
-    >
+    <div className={clsx('lm-nav-list w-100', content.class_names?.values)}>
       {header && <HeadlineHeader />}
-      <nav className={navClassNames}>
-        {body.map((blok) => (
-          <LmComponentRender
-            content={blok}
-            key={blok._uid}
-            options={listItemStyle}
-          />
-        ))}
-      </nav>
+      <ChildrenRender />
     </div>
   )
 }
