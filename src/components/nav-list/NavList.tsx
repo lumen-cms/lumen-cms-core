@@ -46,10 +46,17 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
         gap: isColumn ? 0.5 : 1,
         column: isColumn,
         justify: isCentered ? 'center' : undefined,
-        align_content: isCentered ? 'center' : undefined,
-        body: content.body as any
+        align_content: isCentered ? 'center' : undefined
       }}
-    />
+    >
+      {body.map((blok) => (
+        <LmComponentRender
+          content={blok}
+          key={blok._uid}
+          options={listItemStyle}
+        />
+      ))}
+    </LmFlexRow>
   )
   if ((isMobile && content.collapse_on_mobile) || content.forceCollapse) {
     return (
