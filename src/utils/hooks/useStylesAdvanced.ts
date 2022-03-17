@@ -1,5 +1,7 @@
-import { Theme, CreateCSSProperties } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
+import { CreateCSSProperties } from '@mui/styles'
+
+import makeStyles from '@mui/styles/makeStyles'
 import {
   ItemKeyValueStoryblok,
   StylesStoryblok

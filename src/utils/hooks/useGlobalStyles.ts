@@ -1,6 +1,6 @@
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import getNprogressJss from '../jss/npgrogress'
 
 export const getCreatedStyles = (theme: Theme) => {
@@ -260,7 +260,7 @@ export const getCreatedStyles = (theme: Theme) => {
         color: `${theme.palette.text.secondary} !important`
       },
       '.text-muted': {
-        color: `${theme.palette.text.hint} !important`
+        color: `${theme.palette.text.disabled} !important`
       },
       '.text-white': {
         color: `${theme.palette.common.white} !important`

@@ -4,11 +4,7 @@ import ChevronDown from 'mdi-material-ui/ChevronDown'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import LmIcon from '../icon/LmIcon'
 import { LmNavListProps } from './navListTypes'
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary
-} from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRow } from '../flex-row/FlexRow'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
@@ -62,16 +58,19 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
     return (
       <Accordion>
         <AccordionSummary
-          IconButtonProps={{
-            style: {
-              color: 'inherit'
-            }
+          // IconButtonProps={{
+          //   style: {
+          //     color: 'inherit'
+          //   }
+          // }}
+          sx={{
+            color: 'inherit'
           }}
           expandIcon={
             content.collapse_icon && content.collapse_icon.name ? (
               <LmIcon iconName={content.collapse_icon.name} />
             ) : (
-              <ChevronDown />
+              <ChevronDown color={'inherit'} />
             )
           }
         >

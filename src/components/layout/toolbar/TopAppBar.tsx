@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import React, { FunctionComponent } from 'react'
 import Toolbar from '@mui/material/Toolbar'
-import { CreateCSSProperties } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { CreateCSSProperties } from '@mui/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Container, { ContainerProps } from '@mui/material/Container'
 import { ContentSpace } from '../ContentSpace'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'

@@ -9,7 +9,7 @@ import {
   useSearchStore
 } from '../../utils/state/searchState'
 import { TextField } from '@mui/material'
-import { Autocomplete } from '@mui/material';
+import { Autocomplete } from '@mui/material'
 
 export default function LmCategoryBox({
   content
@@ -52,9 +52,9 @@ export default function LmCategoryBox({
           getOptionLabel={(category) => category.content.name || category.name}
           onChange={(_event, _value, reason, details) => {
             let value = details?.option.uuid as string
-            if (reason === 'remove-option') {
+            if (reason === 'removeOption') {
               modifySelect(value)
-            } else if (reason === 'select-option') {
+            } else if (reason === 'selectOption') {
               modifySelect(value, true)
             }
           }}

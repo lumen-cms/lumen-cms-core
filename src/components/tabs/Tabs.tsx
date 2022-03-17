@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import MuiTabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import { Theme, useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme, useTheme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import Grid, { GridProps } from '@mui/material/Grid'
 import clsx from 'clsx'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -94,7 +94,7 @@ export default function LmTabs({ content }: LmTabsProps): JSX.Element {
             }
             textColor={content.text_color ? content.text_color : undefined}
             value={activeTab}
-            scrollButtons="on"
+            scrollButtons
             centered={!!content.centered && !isMobile}
             variant={isMobile ? 'scrollable' : content.variant || 'fullWidth'}
             orientation={orientation}

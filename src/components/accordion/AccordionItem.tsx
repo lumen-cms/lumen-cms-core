@@ -37,10 +37,13 @@ export default function LmAccordionItem({
       }}
     >
       <AccordionSummary
-        IconButtonProps={{
-          style: {
-            color: 'inherit'
-          }
+        // IconButtonProps={{
+        //   style: {
+        //     color: 'inherit'
+        //   }
+        // }}
+        sx={{
+          color: 'inherit'
         }}
         expandIcon={
           content.use_plus_icon || options.use_plus ? <Plus /> : <ChevronDown />

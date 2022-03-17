@@ -1,7 +1,7 @@
-import { Theme, CreateCSSProperties } from '@mui/material/styles';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import { CreateCSSProperties } from '@mui/styles'
 
 export const COLUMN_COUNT = {
   DESKTOP: 4,

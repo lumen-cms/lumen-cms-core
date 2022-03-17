@@ -2,7 +2,7 @@ import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import { CSSProperties, useState } from 'react'
 import clsx from 'clsx'
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from '@mui/styles/makeStyles'
 import Typography from '@mui/material/Typography'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
@@ -16,6 +16,7 @@ import { LmSliderChild } from './SliderChild'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { SectionProps } from '../section/sectionTypes'
 import { LmSliderProps } from './sliderTypes'
+import { visuallyHidden } from '@mui/utils'
 
 const chunkArray = (myArray: any, chunkSize: number) => {
   const results = []
@@ -182,9 +183,13 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
       {!['hide_arrows', 'arrows_beside_pagination'].some((i) =>
         properties.includes(i as any)
       ) && (
-        <IconButton className="carousel-control-prev" onClick={onPrevClick} size="large">
+        <IconButton
+          className="carousel-control-prev"
+          onClick={onPrevClick}
+          size="large"
+        >
           <ChevronLeft />
-          <Typography variant="srOnly">Previous</Typography>
+          <Typography sx={visuallyHidden}>Previous</Typography>
         </IconButton>
       )}
 
@@ -195,9 +200,10 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
           className="carousel-control-next"
           role="button"
           onClick={onNextClick}
-          size="large">
+          size="large"
+        >
           <ChevronRight />
-          <Typography variant="srOnly">Next</Typography>
+          <Typography sx={visuallyHidden}>Next</Typography>
         </IconButton>
       )}
       <div
@@ -250,5 +256,5 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
         </IconButton>
       </div>
     </div>
-  );
+  )
 }

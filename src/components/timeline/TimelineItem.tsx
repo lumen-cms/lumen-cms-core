@@ -8,8 +8,8 @@ import React from 'react'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import clsx from 'clsx'
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import { LmComponentRender } from '@LmComponentRender'
 import { CardContentContainer } from './CardContentContainer'
 import { LmTimelineItemProps } from './timelineTypes'
@@ -80,7 +80,7 @@ export default function LmTimelineItem({
               content.dot_variant === 'outlined' ||
               options?.variant === 'outlined'
                 ? 'outlined'
-                : 'default'
+                : 'filled'
             }
             className={clsx({
               [classes.naked]:

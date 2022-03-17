@@ -1,7 +1,7 @@
 import React, { createRef, RefObject, useState } from 'react'
-import { alpha, Theme, useTheme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { alpha, Theme, useTheme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -130,6 +130,11 @@ const fetcher = async (
   return result.stories || []
 }
 
+type ListOptions = {
+  uuid: string
+  full_slug: string
+  label: string
+}[]
 export default function LmListSearchAutocomplete({
   content
 }: LmListSearchAutocompleteProps): JSX.Element {
@@ -168,6 +173,17 @@ export default function LmListSearchAutocomplete({
   )
   const allStories = data || []
 
+  const options: ListOptions = allStories
+    .map((option) => ({
+      uuid: option.uuid,
+      full_slug: option.full_slug,
+      label:
+        option.content?.preview_title ||
+        option.content?.meta_title ||
+        option.name ||
+        ''
+    }))
+    .sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0))
   return (
     <ListSearchAutocompleteContainer
       content={content}
@@ -181,17 +197,7 @@ export default function LmListSearchAutocomplete({
         onOpen={() => setOpen(true)}
         onClose={() => setOpen(false)}
         style={{ width: isMobileAction ? '100%' : undefined }}
-        options={allStories
-          .map((option) => ({
-            uuid: option.uuid,
-            full_slug: option.full_slug,
-            label:
-              option.content?.preview_title ||
-              option.content?.meta_title ||
-              option.name ||
-              ''
-          }))
-          .sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0))}
+        options={options}
         freeSolo
         classes={{
           root: classes.root,
@@ -260,7 +266,7 @@ export default function LmListSearchAutocomplete({
             }}
           />
         )}
-        renderOption={(item, { inputValue }) => {
+        renderOption={(_props, item, { inputValue }) => {
           const { href } = getLinkAttrs(
             {
               cached_url: item.full_slug,

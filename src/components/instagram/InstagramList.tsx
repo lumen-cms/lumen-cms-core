@@ -6,7 +6,6 @@ import ImageListItem from '@mui/material/ImageListItem'
 import clsx from 'clsx'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { useGridListStyles } from '../card/cardListStyles'
-import useShadowStyles from '../jss/shadowStyles'
 import {
   EdgeProps,
   InstagramMappedProps,
@@ -28,7 +27,6 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
-  const classesShadow = useShadowStyles()
   // const { data } = useSWR(
   //   () => (inView ? `/api/instagram/feed/${username}` : null),
   //   fetcher
@@ -105,12 +103,6 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
           <ImageListItem
             key={item.shortcode}
             component="a"
-            classes={{
-              item: clsx({
-                [classesShadow[content.shadow_effect || '']]:
-                  !!content.shadow_effect
-              })
-            }}
             href={`https://instagram.com/p/${item.shortcode}`}
             target="_blank"
           >

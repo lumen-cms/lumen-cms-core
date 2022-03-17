@@ -1,24 +1,19 @@
 import {
   createTheme,
   responsiveFontSizes,
-  ThemeProvider,
-  Theme,
   StyledEngineProvider,
-  DeprecatedThemeOptions,
-  adaptV4Theme,
-} from '@mui/material/styles';
+  Theme,
+  ThemeProvider
+} from '@mui/material/styles'
 import React, { FunctionComponent, useMemo } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import parseFont from '../../utils/parseFont'
 import { GlobalStyles } from './GlobalStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
 
-
 declare module '@mui/styles/defaultTheme' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
-
 
 declare module '@mui/material/styles/createTheme' {
   interface Theme {
@@ -46,7 +41,7 @@ declare module '@mui/material/styles/createTheme' {
   }
 
   // allow configuration using `createMuiTheme`
-  interface DeprecatedThemeOptions {
+  interface ThemeOptions {
     defaultContainerWidth?: string | boolean
     drawer: {
       left: string
@@ -92,7 +87,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
       settings.theme_font_default =
         'Nunito:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700'
     }
-    let defaultContainerWidth: DeprecatedThemeOptions['defaultContainerWidth'] = 'lg'
+    let defaultContainerWidth: string | boolean = 'lg'
     if (settings.theme_container_width) {
       defaultContainerWidth =
         settings.theme_container_width === 'none'
@@ -103,7 +98,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
     const firstMultiToolbar = Array.isArray(settings.multi_toolbar)
       ? settings.multi_toolbar[0]
       : undefined
-    const globalTheme: DeprecatedThemeOptions = {
+    const globalTheme = createTheme({
       palette: {
         mode: mapThemeType[(settings.theme_base as string) || 'base'],
         primary: {
@@ -167,81 +162,94 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
             (parseFont(settings.theme_font_alt4) as string))
       },
       defaultContainerWidth,
-      overrides: {
+      components: {
         MuiDrawer: {
-          modal: {
-            '&.lm-main__drawer .MuiExpansionPanelDetails-root .MuiList-root': {
-              width: '100%'
+          styleOverrides: {
+            modal: {
+              '&.lm-main__drawer .MuiExpansionPanelDetails-root .MuiList-root':
+                {
+                  width: '100%'
+                }
             }
           }
         },
         MuiPopover: {
-          paper: {
-            '& a': {
-              color: 'inherit',
-              textDecoration: 'none'
+          styleOverrides: {
+            paper: {
+              '& a': {
+                color: 'inherit',
+                textDecoration: 'none'
+              }
             }
           }
         },
         MuiAppBar: {
-          root: {
-            '& .MuiToolbar-root, & .MuiContainer-root': {
-              height: '100%'
-            },
-
-            '& .lm-logo-header': {
-              height: '100%',
-              display: 'inline-block',
-              '&.lm-logo-text': {
-                height: '100%',
-                display: 'inline-flex',
-                alignItems: 'center'
-              },
-              '& .MuiCollapse-wrapper': {
+          styleOverrides: {
+            root: {
+              '& .MuiToolbar-root, & .MuiContainer-root': {
                 height: '100%'
+              },
+
+              '& .lm-logo-header': {
+                height: '100%',
+                display: 'inline-block',
+                '&.lm-logo-text': {
+                  height: '100%',
+                  display: 'inline-flex',
+                  alignItems: 'center'
+                },
+                '& .MuiCollapse-wrapper': {
+                  height: '100%'
+                }
+              },
+              '& .MuiButtonBase-root.lm-default-color, & a.lm-logo-header': {
+                color: 'inherit',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                '&.MuiButton-outlined,&.lm-outlined': {
+                  borderColor: 'currentColor'
+                }
+              },
+              '& .lm-toolbar__section': {
+                justifyContent: 'flex-end'
+              },
+              '&.lm-toolbar__dark': {
+                backgroundColor: '#424242',
+                color: 'white'
               }
-            },
-            '& .MuiButtonBase-root.lm-default-color, & a.lm-logo-header': {
-              color: 'inherit',
-              textDecoration: 'none',
-              whiteSpace: 'nowrap',
-              '&.MuiButton-outlined,&.lm-outlined': {
-                borderColor: 'currentColor'
-              }
-            },
-            '& .lm-toolbar__section': {
-              justifyContent: 'flex-end'
-            },
-            '&.lm-toolbar__dark': {
-              backgroundColor: '#424242',
-              color: 'white'
             }
           }
         },
         MuiCard: {
-          root: {
-            '& > a': {
-              textDecoration: 'none',
-              color: 'inherit'
+          styleOverrides: {
+            root: {
+              '& > a': {
+                textDecoration: 'none',
+                color: 'inherit'
+              }
             }
           }
         },
         MuiList: {
-          root: {
-            '& > a': {
-              color: 'inherit'
+          styleOverrides: {
+            root: {
+              '& > a': {
+                color: 'inherit'
+              }
             }
           }
         },
         MuiButton: {
-          label: {
-            textTransform: 'initial'
+          styleOverrides: {
+            root: {
+              textTransform: 'initial'
+            }
           }
         }
       }
-    }
+    })
 
-    return responsiveFontSizes(createTheme(adaptV4Theme(globalTheme)));
+    return responsiveFontSizes(globalTheme)
   }, [rightDrawerWidth, settings, themeUid])
 
   return (
@@ -252,7 +260,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
         {children}
       </ThemeProvider>
     </StyledEngineProvider>
-  );
+  )
 }
 GlobalTheme.displayName = 'GlobalTheme'
 

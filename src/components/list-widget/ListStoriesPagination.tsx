@@ -1,7 +1,14 @@
-import Pagination from '@mui/material/Pagination'
+import Pagination, { PaginationProps } from '@mui/material/Pagination'
 import React from 'react'
 import { LmListStoriesPaginationProps } from './listWidgetTypes'
 
+const paginationShape: {
+  [k: string]: PaginationProps['shape']
+} = {
+  round: 'circular',
+  rounded: 'rounded',
+  fallback: undefined
+}
 export default function LmListStoriesPagination({
   options,
   onChange,
@@ -30,7 +37,7 @@ export default function LmListStoriesPagination({
       }}
       size={options?.size || 'medium'}
       color={options?.color || 'standard'}
-      shape={options?.shape || 'round'}
+      shape={paginationShape[options?.shape || 'fallback']}
       variant={options?.variant || 'text'}
     />
   )

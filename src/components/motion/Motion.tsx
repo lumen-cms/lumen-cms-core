@@ -44,7 +44,7 @@ export default function LmMotion({ content }: LmMotionProps): JSX.Element {
     }
   }, [inView, delay])
 
-  const transitionProps: FadeProps | SlideProps | ZoomProps | GrowProps = {}
+  const transitionProps: { timeout?: number } = {}
   if (content.duration) {
     transitionProps.timeout = Number(content.duration)
   }

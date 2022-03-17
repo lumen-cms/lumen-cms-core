@@ -32,7 +32,7 @@ export default function LmImageList({
   }
 
   const body = content.body || []
-  const gridListProps: ImageListProps = {
+  const gridListProps: Partial<ImageListProps> = {
     gap: gutterSize
   }
   if (content.masonry) {

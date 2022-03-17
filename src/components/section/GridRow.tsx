@@ -1,8 +1,8 @@
 import React from 'react'
-import Grid, { GridProps } from '@mui/material/Grid'
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
   // const theme = useTheme()
   const classes = useStyles()
-  const spacing = Number(content.spacing || 3) as GridProps['spacing']
+  const spacing = Number(content.spacing || 3)
 
   const background: BackgroundStoryblok | undefined = Array.isArray(
     content.background

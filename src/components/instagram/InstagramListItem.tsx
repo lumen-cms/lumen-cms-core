@@ -44,7 +44,7 @@ export function InstagramListItem({
           height={content.thumbnail.config_height}
         />
         {(!options.hide_comments || !options.hide_likes) && (
-          <ImageListItemBar subtitle={<Social />} titlePosition="top" />
+          <ImageListItemBar subtitle={<Social />} />
         )}
         {!options.hide_description && (
           <ImageListItemBar
