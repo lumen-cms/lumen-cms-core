@@ -39,3 +39,4 @@ localhost.key
 __generated__
 /schema.graphql
 build-storybook.log
+.babelrc
