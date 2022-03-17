@@ -29,7 +29,7 @@ export default function LmFormTextField({
       multiline={textarea || undefined}
       type={type || 'text'}
       margin={margin || undefined}
-      rows={textarea ? (rows ? Number(rows) : 3) : undefined}
+      minRows={textarea ? (rows ? Number(rows) : 3) : undefined}
       maxRows={textarea && max_rows ? Number(max_rows) : undefined}
       fullWidth={full_width}
     />
