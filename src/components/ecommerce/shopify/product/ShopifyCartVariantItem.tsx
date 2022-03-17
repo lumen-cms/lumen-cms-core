@@ -1,11 +1,11 @@
 import React from 'react'
-import { Grid, useTheme } from '@material-ui/core'
-import Avatar from '@material-ui/core/Avatar'
-import IconButton from '@material-ui/core/IconButton'
-import RemoveIcon from '@material-ui/icons/Remove'
-import AddIcon from '@material-ui/icons/Add'
-import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
+import { Grid, useTheme } from '@mui/material'
+import Avatar from '@mui/material/Avatar'
+import IconButton from '@mui/material/IconButton'
+import RemoveIcon from '@mui/icons-material/Remove'
+import AddIcon from '@mui/icons-material/Add'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import {
   ShopifySdkContextProps,

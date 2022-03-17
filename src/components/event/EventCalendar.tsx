@@ -7,9 +7,9 @@ import getDay from 'date-fns/getDay'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { parseEventsToCalendar } from './eventCalendarHelper'
 import React, { useState } from 'react'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import IconButton from '@material-ui/core/IconButton'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import IconButton from '@mui/material/IconButton'
 import Close from 'mdi-material-ui/Close'
 import LmEvent from './Event'
 import { CalendarToolbar } from './EventCalendarToolbar'
@@ -48,69 +48,67 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
       ? parseEventsToCalendar(content.event_calendar_data)
       : []
   )
-  return (
-    <>
-      <Calendar
-        scrollToTime={
-          new Date(
-            1970,
-            1,
-            1,
-            content.scroll_to_time ? Number(content.scroll_to_time) : 7
-          )
-        }
-        localizer={localizer}
-        culture={content.language || 'de'}
-        views={views}
-        defaultView={!currentView ? undefined : currentView}
-        components={{
-          toolbar: CalendarToolbar
-        }}
-        events={currentEvents}
-        onSelectEvent={(event) => {
-          setSelectedEvent(event as EventCalendar)
-        }}
-        eventPropGetter={(event) => {
-          const bgColor =
-            event.resource.background_color?.rgba ||
-            event.resource.category?.content?.background_color?.rgba
-          const color =
-            event.resource.color?.rgba ||
-            event.resource.category?.content?.color?.rgba
-          return {
-            style: {
-              color: color ? color : undefined,
-              backgroundColor: bgColor ? bgColor : undefined
-            }
+  return <>
+    <Calendar
+      scrollToTime={
+        new Date(
+          1970,
+          1,
+          1,
+          content.scroll_to_time ? Number(content.scroll_to_time) : 7
+        )
+      }
+      localizer={localizer}
+      culture={content.language || 'de'}
+      views={views}
+      defaultView={!currentView ? undefined : currentView}
+      components={{
+        toolbar: CalendarToolbar
+      }}
+      events={currentEvents}
+      onSelectEvent={(event) => {
+        setSelectedEvent(event as EventCalendar)
+      }}
+      eventPropGetter={(event) => {
+        const bgColor =
+          event.resource.background_color?.rgba ||
+          event.resource.category?.content?.background_color?.rgba
+        const color =
+          event.resource.color?.rgba ||
+          event.resource.category?.content?.color?.rgba
+        return {
+          style: {
+            color: color ? color : undefined,
+            backgroundColor: bgColor ? bgColor : undefined
           }
-        }}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500, width: '100%' }}
-        messages={eventMessages}
-      />
-      <Dialog
-        fullScreen
-        onClose={() => {
-          setSelectedEvent(null)
-        }}
-        open={!!selectedEvent}
-      >
-        <DialogTitle style={{ alignSelf: 'flex-end' }}>
-          <IconButton
-            onClick={() => {
-              setSelectedEvent(null)
-            }}
-          >
-            <Close />
-          </IconButton>
-        </DialogTitle>
-        {selectedEvent?.resource && (
-          <div style={{ overflowY: 'auto' }}>
-            <LmEvent content={selectedEvent.resource} />
-          </div>
-        )}
-      </Dialog>
-    </>
-  )
+        }
+      }}
+      startAccessor="start"
+      endAccessor="end"
+      style={{ height: 500, width: '100%' }}
+      messages={eventMessages}
+    />
+    <Dialog
+      fullScreen
+      onClose={() => {
+        setSelectedEvent(null)
+      }}
+      open={!!selectedEvent}
+    >
+      <DialogTitle style={{ alignSelf: 'flex-end' }}>
+        <IconButton
+          onClick={() => {
+            setSelectedEvent(null)
+          }}
+          size="large">
+          <Close />
+        </IconButton>
+      </DialogTitle>
+      {selectedEvent?.resource && (
+        <div style={{ overflowY: 'auto' }}>
+          <LmEvent content={selectedEvent.resource} />
+        </div>
+      )}
+    </Dialog>
+  </>;
 }

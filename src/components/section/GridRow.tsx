@@ -1,6 +1,8 @@
 import React from 'react'
-import Grid, { GridProps } from '@material-ui/core/Grid'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Grid, { GridProps } from '@mui/material/Grid'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'

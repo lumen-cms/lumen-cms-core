@@ -1,7 +1,7 @@
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import BottomNavigation from '@material-ui/core/BottomNavigation'
+import BottomNavigationAction from '@mui/material/BottomNavigationAction'
+import BottomNavigation from '@mui/material/BottomNavigation'
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles';
 import { LmComponentRender } from '@LmComponentRender'
 import clsx from 'clsx'
 import { LmCoreComponents } from '@CONFIG'

@@ -1,7 +1,9 @@
 /* eslint-disable react/no-array-index-key,react/no-danger */
 import clsx from 'clsx'
 import React from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { LmTableProps } from './tableTypes'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -13,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '&.lm-table__bordered, &.lm-table__bordered-bold': {
         '& td, & th': {
           border: `1px solid ${
-            theme.palette.type === 'dark'
+            theme.palette.mode === 'dark'
               ? theme.palette.common.white
               : theme.palette.common.black
           }`,
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '&.lm-table__bordered-bold': {
         '& td, & th': {
           border: `2px solid ${
-            theme.palette.type === 'dark'
+            theme.palette.mode === 'dark'
               ? theme.palette.common.white
               : theme.palette.common.black
           }`
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       '&.lm-table__boxed': {
         border: `1px solid ${
-          theme.palette.type === 'dark'
+          theme.palette.mode === 'dark'
             ? theme.palette.common.white
             : theme.palette.common.black
         }`,
@@ -56,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '&.lm-table__price': {
         width: '100%',
         '& td': {
-          padding: `${theme.spacing(4)}px 0`,
+          padding: `${theme.spacing(4)} 0`,
           borderBottom: `1px solid ${theme.palette.divider}`,
           '&:first-child': {
             width: '80%'
@@ -97,7 +99,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
         '& tbody': {
           '& td': {
-            padding: `${theme.spacing(4)}px 0`,
+            padding: `${theme.spacing(4)} 0`,
 
             borderTop: `1px solid ${theme.palette.divider}`,
 

@@ -1,16 +1,13 @@
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme
-} from '@material-ui/core/styles'
-import Container, { ContainerProps } from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
+import { Theme, useTheme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import Container, { ContainerProps } from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
 import { LmComponentRender } from '@LmComponentRender'
 import React, { FC } from 'react'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
 import clsx from 'clsx'
-import { Collapse } from '@material-ui/core'
+import { Collapse } from '@mui/material'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import { LmToolbarRowProps } from './toolbarTypes'
 

@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react'
-import { DrawerProps } from '@material-ui/core/Drawer'
+import { DrawerProps } from '@mui/material/Drawer'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { useSettings } from './SettingsPageProvider'
 import { useNavigationStore } from '../../utils/state/navigationState'

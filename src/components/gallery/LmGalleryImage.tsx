@@ -8,7 +8,7 @@ import {
   getRootImageUrl,
   imageCalculateWidth
 } from '../../utils/imageServices'
-import { ClassNameMap } from '@material-ui/core/styles/withStyles'
+import { ClassNameMap } from '@mui/styles';
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 
 type LmGalleryImageProps = {

@@ -1,5 +1,7 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
+import { Theme, CreateCSSProperties } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 export const COLUMN_COUNT = {
   DESKTOP: 4,
@@ -26,7 +28,7 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
                 100 / Number(props.columnCountPhone || COLUMN_COUNT.PHONE)
               }% !important`
             },
-            [theme.breakpoints.between('sm', 'md')]: {
+            [theme.breakpoints.between('sm', 'lg')]: {
               width: `${
                 100 /
                 Number(
@@ -47,7 +49,7 @@ export const useGridListStyles = makeStyles((theme: Theme) =>
             props.columnCountPhone || COLUMN_COUNT.PHONE_MASONRY
           )
         },
-        [theme.breakpoints.between('sm', 'md')]: {
+        [theme.breakpoints.between('sm', 'lg')]: {
           columnCount: Number(
             props.columnCountTablet || props.columnCount || COLUMN_COUNT.TABLET
           )

@@ -1,13 +1,10 @@
 import React, { FC } from 'react'
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme
-} from '@material-ui/core/styles'
+import { Theme, useTheme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { LmFlexRowProps } from './flexRowTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 

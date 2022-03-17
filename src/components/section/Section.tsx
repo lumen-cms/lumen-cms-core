@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react'
-import Container, { ContainerProps } from '@material-ui/core/Container'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import Container, { ContainerProps } from '@mui/material/Container'
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import BackgroundImage from './BackgroundImage'

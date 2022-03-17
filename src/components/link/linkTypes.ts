@@ -1,5 +1,5 @@
 import React from 'react'
-import { LinkProps as MuiLinkProps } from '@material-ui/core'
+import { LinkProps as MuiLinkProps } from '@mui/material'
 import { LinkProps as NextLinkProps } from 'next/link'
 import { LinkStoryblok } from '../../typings/generated/components-schema'
 

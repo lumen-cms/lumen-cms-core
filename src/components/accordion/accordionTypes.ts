@@ -2,7 +2,7 @@ import {
   AccordionItemStoryblok,
   AccordionStoryblok
 } from '../../typings/generated/components-schema'
-import { ClassNameMap } from '@material-ui/core/styles/withStyles'
+import { ClassNameMap } from '@mui/styles';
 
 export type LmAccordionProps = {
   content: AccordionStoryblok

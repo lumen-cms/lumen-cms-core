@@ -2,8 +2,8 @@ import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import { CSSProperties, useState } from 'react'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
+import makeStyles from '@mui/styles/makeStyles';
+import Typography from '@mui/material/Typography'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
 import CircleMedium from 'mdi-material-ui/CircleMedium'
@@ -11,7 +11,7 @@ import CircleSmall from 'mdi-material-ui/CircleSmall'
 import Minus from 'mdi-material-ui/Minus'
 import MinusThick from 'mdi-material-ui/MinusThick'
 import { LmComponentRender } from '@LmComponentRender'
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@mui/material/IconButton'
 import { LmSliderChild } from './SliderChild'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { SectionProps } from '../section/sectionTypes'
@@ -182,7 +182,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
       {!['hide_arrows', 'arrows_beside_pagination'].some((i) =>
         properties.includes(i as any)
       ) && (
-        <IconButton className="carousel-control-prev" onClick={onPrevClick}>
+        <IconButton className="carousel-control-prev" onClick={onPrevClick} size="large">
           <ChevronLeft />
           <Typography variant="srOnly">Previous</Typography>
         </IconButton>
@@ -195,7 +195,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
           className="carousel-control-next"
           role="button"
           onClick={onNextClick}
-        >
+          size="large">
           <ChevronRight />
           <Typography variant="srOnly">Next</Typography>
         </IconButton>
@@ -250,5 +250,5 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
         </IconButton>
       </div>
     </div>
-  )
+  );
 }

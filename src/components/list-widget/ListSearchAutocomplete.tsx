@@ -1,20 +1,16 @@
 import React, { createRef, RefObject, useState } from 'react'
-import {
-  alpha,
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme
-} from '@material-ui/core/styles'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import TextField from '@material-ui/core/TextField'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { alpha, Theme, useTheme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import Magnify from 'mdi-material-ui/Magnify'
 import clsx from 'clsx'
-import Paper from '@material-ui/core/Paper'
+import Paper from '@mui/material/Paper'
 import { StoryData } from 'storyblok-js-client'
 import { useDebouncedCallback } from 'use-debounce'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import InputAdornment from '@mui/material/InputAdornment'
 import useSWR from 'swr'
 import { CONFIG } from '@CONFIG'
 import { PageComponent } from '../../typings/generated/schema'

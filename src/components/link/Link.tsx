@@ -1,5 +1,5 @@
 import React from 'react'
-import MuiLink from '@material-ui/core/Link'
+import MuiLink from '@mui/material/Link'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'

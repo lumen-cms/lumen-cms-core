@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import Avatar, { AvatarProps } from '@material-ui/core/Avatar'
+import Avatar, { AvatarProps } from '@mui/material/Avatar'
 import clsx from 'clsx'
 import LmIcon from '../icon/LmIcon'
 import { LmAvatarProps } from './avatarTypes'

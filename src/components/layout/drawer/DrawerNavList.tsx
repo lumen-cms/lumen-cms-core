@@ -1,6 +1,6 @@
 import React from 'react'
-import List from '@material-ui/core/List'
-import ListSubheader from '@material-ui/core/ListSubheader'
+import List from '@mui/material/List'
+import ListSubheader from '@mui/material/ListSubheader'
 import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
 import { DrawerButton } from './DrawerButton'
 

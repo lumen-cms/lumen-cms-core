@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react'
 import Image, { ImageProps } from 'next/image'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Skeleton from '@material-ui/lab/Skeleton'
-import ImageListItemBar from '@material-ui/core/ImageListItemBar'
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Skeleton from '@mui/material/Skeleton'
+import ImageListItemBar from '@mui/material/ImageListItemBar'
 import {
   getOriginalImageDimensions,
   getRootImageUrl,
@@ -82,7 +83,7 @@ export default function LmImageListItem({
           style={{ position: 'absolute' }}
           width="100%"
           height="100%"
-          variant="rect"
+          variant="rectangular"
         />
       )}
       <Image
@@ -105,5 +106,5 @@ export default function LmImageListItem({
         />
       )}
     </ImageWrap>
-  )
+  );
 }

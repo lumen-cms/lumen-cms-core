@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
-import Drawer from '@material-ui/core/Drawer'
-import { Theme, Toolbar, useTheme } from '@material-ui/core'
-import Grid from '@material-ui/core/Grid'
-import IconButton from '@material-ui/core/IconButton'
-import CloseIcon from '@material-ui/icons/Close'
-import { makeStyles } from '@material-ui/core/styles'
-import Divider from '@material-ui/core/Divider'
+import Drawer from '@mui/material/Drawer'
+import { Theme, Toolbar, useTheme } from '@mui/material'
+import Grid from '@mui/material/Grid'
+import IconButton from '@mui/material/IconButton'
+import CloseIcon from '@mui/icons-material/Close'
+import makeStyles from '@mui/styles/makeStyles';
+import Divider from '@mui/material/Divider'
 
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyCartVariantItem } from './ShopifyCartVariantItem'
 import {
@@ -116,7 +116,7 @@ export function ShopfiyCart() {
               onClick={() => {
                 setCartOpen(false)
               }}
-            >
+              size="large">
               <CloseIcon />
             </IconButton>
           </Toolbar>
@@ -148,5 +148,5 @@ export function ShopfiyCart() {
         </Grid>
       </Grid>
     </Drawer>
-  )
+  );
 }

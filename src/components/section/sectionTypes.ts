@@ -1,4 +1,4 @@
-import { GridDirection } from '@material-ui/core'
+import { GridDirection } from '@mui/material'
 import {
   ColumnStoryblok,
   RowStoryblok,

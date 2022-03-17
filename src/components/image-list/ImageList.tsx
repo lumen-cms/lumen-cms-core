@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import ImageList, { ImageListProps } from '@material-ui/core/ImageList'
-import ImageListItem from '@material-ui/core/ImageListItem'
+import ImageList, { ImageListProps } from '@mui/material/ImageList'
+import ImageListItem from '@mui/material/ImageListItem'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'

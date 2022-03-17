@@ -1,4 +1,6 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import getNprogressJss from '../jss/npgrogress'
 
 export const getCreatedStyles = (theme: Theme) => {
@@ -17,32 +19,32 @@ export const getCreatedStyles = (theme: Theme) => {
       for (let i1 = 0; i1 < directions.length; i1++) {
         const dir = directions[i1]
         spacing[`.p${dir.key}${breakpoint}-${i}`] = {
-          [`padding${dir.val}`]: `${theme.spacing(i)}px !important`
+          [`padding${dir.val}`]: `${theme.spacing(i)} !important`
         }
         spacing[`.m${dir.key}${breakpoint}-${i}`] = {
-          [`margin${dir.val}`]: `${theme.spacing(i)}px !important`
+          [`margin${dir.val}`]: `${theme.spacing(i)} !important`
         }
         spacing[`.p${breakpoint}-${i}`] = {
-          [`padding`]: `${theme.spacing(i)}px !important`
+          [`padding`]: `${theme.spacing(i)} !important`
         }
         spacing[`.m${breakpoint}-${i}`] = {
-          [`margin`]: `${theme.spacing(i)}px !important`
+          [`margin`]: `${theme.spacing(i)} !important`
         }
         spacing[`.mx${breakpoint}-${i}`] = {
-          [`marginLeft`]: `${theme.spacing(i)}px !important`,
-          [`marginRight`]: `${theme.spacing(i)}px !important`
+          [`marginLeft`]: `${theme.spacing(i)} !important`,
+          [`marginRight`]: `${theme.spacing(i)} !important`
         }
         spacing[`.my${breakpoint}-${i}`] = {
-          [`marginTop`]: `${theme.spacing(i)}px !important`,
-          [`marginBottom`]: `${theme.spacing(i)}px !important`
+          [`marginTop`]: `${theme.spacing(i)} !important`,
+          [`marginBottom`]: `${theme.spacing(i)} !important`
         }
         spacing[`.px${breakpoint}-${i}`] = {
-          [`paddingLeft`]: `${theme.spacing(i)}px !important`,
-          [`paddingRight`]: `${theme.spacing(i)}px !important`
+          [`paddingLeft`]: `${theme.spacing(i)} !important`,
+          [`paddingRight`]: `${theme.spacing(i)} !important`
         }
         spacing[`.py${breakpoint}-${i}`] = {
-          [`paddingTop`]: `${theme.spacing(i)}px !important`,
-          [`paddingBottom`]: `${theme.spacing(i)}px !important`
+          [`paddingTop`]: `${theme.spacing(i)} !important`,
+          [`paddingBottom`]: `${theme.spacing(i)} !important`
         }
       }
     }
@@ -67,9 +69,9 @@ export const getCreatedStyles = (theme: Theme) => {
       '.badge': {
         display: 'inline-block',
         padding: '.25em .4em',
-        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
+        backgroundColor: theme.palette.mode === 'dark' ? '#f5f5f5' : dark,
         color:
-          theme.palette.type === 'dark'
+          theme.palette.mode === 'dark'
             ? 'rgba(0, 0, 0, 0.87)'
             : theme.palette.common.white,
         borderRadius: theme.shape.borderRadius,
@@ -78,9 +80,9 @@ export const getCreatedStyles = (theme: Theme) => {
       '.badge-pill': {
         display: 'inline-block',
         padding: '.25em .4em',
-        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
+        backgroundColor: theme.palette.mode === 'dark' ? '#f5f5f5' : dark,
         color:
-          theme.palette.type === 'dark'
+          theme.palette.mode === 'dark'
             ? 'rgba(0, 0, 0, 0.87)'
             : theme.palette.common.white,
         transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
@@ -89,9 +91,9 @@ export const getCreatedStyles = (theme: Theme) => {
       '.badge-square': {
         display: 'inline-block',
         padding: '.25em .4em',
-        backgroundColor: theme.palette.type === 'dark' ? '#f5f5f5' : dark,
+        backgroundColor: theme.palette.mode === 'dark' ? '#f5f5f5' : dark,
         color:
-          theme.palette.type === 'dark'
+          theme.palette.mode === 'dark'
             ? 'rgba(0, 0, 0, 0.87)'
             : theme.palette.common.white,
         transform: '225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'

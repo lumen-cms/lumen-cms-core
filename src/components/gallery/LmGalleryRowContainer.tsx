@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react'
-import { Grid } from '@material-ui/core'
+import { Grid } from '@mui/material'
 import { LmGalleryRowProps } from './LmGalleryRow'
 import { useInView } from 'react-intersection-observer'
 

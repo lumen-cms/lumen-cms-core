@@ -1,5 +1,7 @@
 import React, { FC } from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import Image from 'next/image'
 import {
@@ -29,12 +31,12 @@ const useStyles = makeStyles((theme: Theme) =>
         }
       },
       '&.hide__sm': {
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down('md')]: {
           display: 'none !important'
         }
       },
       '&.hide__md': {
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
           display: 'none !important'
         }
       }

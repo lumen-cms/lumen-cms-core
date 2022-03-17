@@ -1,9 +1,9 @@
 import { useInView } from 'react-intersection-observer'
 import SVG from 'react-inlinesvg'
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
-import Fade from '@material-ui/core/Fade'
+import Fade from '@mui/material/Fade'
 import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'
 

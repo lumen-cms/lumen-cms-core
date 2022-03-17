@@ -1,4 +1,4 @@
-import CardContent from '@material-ui/core/CardContent'
+import CardContent from '@mui/material/CardContent'
 import { LmCoreComponents } from '@CONFIG'
 import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'

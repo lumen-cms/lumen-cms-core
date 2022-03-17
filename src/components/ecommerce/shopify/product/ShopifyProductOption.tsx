@@ -1,6 +1,6 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Theme } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material'
 import { LmComponentRender } from '@LmComponentRender'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'

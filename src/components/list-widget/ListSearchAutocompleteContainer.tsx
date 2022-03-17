@@ -1,7 +1,8 @@
 import React, { FunctionComponent, RefObject, useEffect, useState } from 'react'
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@mui/material/IconButton'
 import Magnify from 'mdi-material-ui/Magnify'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import LmIcon from '../icon/LmIcon'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 
@@ -59,28 +60,26 @@ export const ListSearchAutocompleteContainer: FunctionComponent<{
     setVisible(true)
   }
   if (isMobileAction) {
-    return (
-      <>
-        {!visible && (
-          <IconButton onClick={onOpen}>
-            {content.icon?.name ? (
-              <LmIcon iconName={content.icon.name} />
-            ) : (
-              <Magnify />
-            )}
-          </IconButton>
-        )}
-        <div
-          style={{
-            display: !visible ? 'none' : 'inline-flex',
-            backgroundColor: bgColor
-          }}
-          className={classes.mobile}
-        >
-          {children}
-        </div>
-      </>
-    )
+    return <>
+      {!visible && (
+        <IconButton onClick={onOpen} size="large">
+          {content.icon?.name ? (
+            <LmIcon iconName={content.icon.name} />
+          ) : (
+            <Magnify />
+          )}
+        </IconButton>
+      )}
+      <div
+        style={{
+          display: !visible ? 'none' : 'inline-flex',
+          backgroundColor: bgColor
+        }}
+        className={classes.mobile}
+      >
+        {children}
+      </div>
+    </>;
   }
   return <>{children}</>
 }

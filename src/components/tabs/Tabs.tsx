@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import SwipeableViews from 'react-swipeable-views'
-import MuiTabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import { makeStyles, Theme, useTheme } from '@material-ui/core/styles'
-import Grid, { GridProps } from '@material-ui/core/Grid'
+import MuiTabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import { Theme, useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid, { GridProps } from '@mui/material/Grid'
 import clsx from 'clsx'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import LmIcon from '../icon/LmIcon'
 import {

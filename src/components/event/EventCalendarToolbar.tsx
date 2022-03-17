@@ -1,18 +1,18 @@
 import React, { FC } from 'react'
 import { Event, ToolbarProps } from 'react-big-calendar'
-import Button from '@material-ui/core/Button'
-import ViewComfy from '@material-ui/icons/ViewComfy'
-import CalendarViewWeek from '@material-ui/icons/ViewWeek'
-import CalendarViewDayIcon from '@material-ui/icons/CalendarViewDay'
-import ViewAgenda from '@material-ui/icons/ViewAgenda'
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import TodayIcon from '@material-ui/icons/Today'
-import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
-import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import Button from '@mui/material/Button'
+import ViewComfy from '@mui/icons-material/ViewComfy'
+import CalendarViewWeek from '@mui/icons-material/ViewWeek'
+import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay'
+import ViewAgenda from '@mui/icons-material/ViewAgenda'
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import TodayIcon from '@mui/icons-material/Today'
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
+import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 
 const SelectCalendarView: FC<{
   onView: ToolbarProps['onView']
@@ -91,21 +91,21 @@ export const CalendarToolbar: FC<ToolbarProps<Event>> = (props) => {
         onClick={() => {
           props.onNavigate('TODAY')
         }}
-      >
+        size="large">
         <TodayIcon />
       </IconButton>
       <IconButton
         onClick={() => {
           props.onNavigate('PREV')
         }}
-      >
+        size="large">
         <NavigateBeforeIcon />
       </IconButton>
       <IconButton
         onClick={() => {
           props.onNavigate('NEXT')
         }}
-      >
+        size="large">
         <NavigateNextIcon />
       </IconButton>
       {currentViews.length > 1 && (
@@ -116,5 +116,5 @@ export const CalendarToolbar: FC<ToolbarProps<Event>> = (props) => {
         />
       )}
     </div>
-  )
+  );
 }

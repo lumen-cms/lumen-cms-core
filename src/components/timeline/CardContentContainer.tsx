@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react'
-import CardActionArea from '@material-ui/core/CardActionArea'
+import CardActionArea from '@mui/material/CardActionArea'
 import { LmCoreComponents } from '@CONFIG'
 import {
   TimelineItemStoryblok,
   TimelineStoryblok
 } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-import Card, { CardProps } from '@material-ui/core/Card'
+import Card, { CardProps } from '@mui/material/Card'
 
 export const CardContentContainer: FunctionComponent<{
   content: TimelineItemStoryblok

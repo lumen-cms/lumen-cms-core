@@ -1,12 +1,12 @@
-import DialogTitle from '@material-ui/core/DialogTitle'
-import IconButton from '@material-ui/core/IconButton'
+import DialogTitle from '@mui/material/DialogTitle'
+import IconButton from '@mui/material/IconButton'
 import Close from 'mdi-material-ui/Close'
 import { LmComponentRender } from '@LmComponentRender'
-import DialogContent from '@material-ui/core/DialogContent'
-import Dialog from '@material-ui/core/Dialog'
+import DialogContent from '@mui/material/DialogContent'
+import Dialog from '@mui/material/Dialog'
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import Slide from '@material-ui/core/Slide'
+import makeStyles from '@mui/styles/makeStyles';
+import Slide from '@mui/material/Slide'
 import { LmDialogAsyncProps } from './dialogTypes'
 import clsx from 'clsx'
 
@@ -56,7 +56,7 @@ export default function LmDialog({
           <LmComponentRender content={blok} key={blok._uid} />
         ))}
         {!content.prevent_close_button && (
-          <IconButton onClick={() => setOpen(false)}>
+          <IconButton onClick={() => setOpen(false)} size="large">
             <Close />
           </IconButton>
         )}
@@ -76,5 +76,5 @@ export default function LmDialog({
         </DialogContent>
       )}
     </Dialog>
-  )
+  );
 }

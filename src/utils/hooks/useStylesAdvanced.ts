@@ -1,5 +1,5 @@
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
+import { Theme, CreateCSSProperties } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import {
   ItemKeyValueStoryblok,
   StylesStoryblok

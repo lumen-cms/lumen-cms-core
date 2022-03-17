@@ -1,7 +1,8 @@
 import { useInView } from 'react-intersection-observer'
 import React, { CSSProperties, useEffect, useState } from 'react'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import Container, { ContainerProps } from '@material-ui/core/Container'
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Container, { ContainerProps } from '@mui/material/Container'
 import { LmComponentRender } from '@LmComponentRender'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import FullscreenVideoBg from './FullscreenVideoBg'

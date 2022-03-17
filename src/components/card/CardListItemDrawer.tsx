@@ -1,10 +1,11 @@
-import Drawer from '@material-ui/core/Drawer'
+import Drawer from '@mui/material/Drawer'
 import { FunctionComponent } from 'react'
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import Toolbar from '@material-ui/core/Toolbar'
+import { Theme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Toolbar from '@mui/material/Toolbar'
 import Close from 'mdi-material-ui/Close'
-import IconButton from '@material-ui/core/IconButton'
-import Grid from '@material-ui/core/Grid'
+import IconButton from '@mui/material/IconButton'
+import Grid from '@mui/material/Grid'
 import { LmComponentRender } from '@LmComponentRender'
 import { CardListItemProps } from './cardTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
@@ -58,7 +59,7 @@ const CardListItemDrawer: FunctionComponent<CardWrapAction> = ({
               onClick={() => {
                 setOpen(false)
               }}
-            >
+              size="large">
               <Close />
             </IconButton>
           </Toolbar>
@@ -70,7 +71,7 @@ const CardListItemDrawer: FunctionComponent<CardWrapAction> = ({
         </Grid>
       </Grid>
     </Drawer>
-  )
+  );
 }
 CardListItemDrawer.displayName = 'CardWrapWithAction'
 

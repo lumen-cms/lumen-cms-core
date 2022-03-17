@@ -1,4 +1,7 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 export const usePageStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,12 +36,12 @@ export const usePageStyles = makeStyles((theme: Theme) =>
       }
     },
     'right-mobile-md': {
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         marginRight: 0
       }
     },
     'right-mobile-lg': {
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('lg')]: {
         marginRight: 0
       }
     },
@@ -55,12 +58,12 @@ export const usePageStyles = makeStyles((theme: Theme) =>
       }
     },
     'left-mobile-md': {
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         marginLeft: 0
       }
     },
     'left-mobile-lg': {
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('lg')]: {
         marginLeft: 0
       }
     }

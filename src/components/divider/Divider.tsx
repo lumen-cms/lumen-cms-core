@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import React, { CSSProperties, FunctionComponent } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles';
 import LmIcon from '../icon/LmIcon'
 import { LmDividerProps } from './dividerTypes'
 

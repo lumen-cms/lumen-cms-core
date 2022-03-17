@@ -1,5 +1,5 @@
 import create from 'zustand'
-import { DrawerProps } from '@material-ui/core/Drawer'
+import { DrawerProps } from '@mui/material/Drawer'
 
 type NavigationStore = {
   drawerVariant: DrawerProps['variant']

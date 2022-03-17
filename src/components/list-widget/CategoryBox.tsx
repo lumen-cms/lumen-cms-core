@@ -1,15 +1,15 @@
 import React, { CSSProperties, useState } from 'react'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
 import { LmCategoryBoxProps } from './listWidgetTypes'
 import {
   setSearchCategorySelector,
   useSearchStore
 } from '../../utils/state/searchState'
-import { TextField } from '@material-ui/core'
-import { Autocomplete } from '@material-ui/lab'
+import { TextField } from '@mui/material'
+import { Autocomplete } from '@mui/material';
 
 export default function LmCategoryBox({
   content

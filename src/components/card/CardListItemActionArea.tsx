@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { LinkHandlerProps } from '../../utils/linkHandler'
-import CardActionArea from '@material-ui/core/CardActionArea'
+import CardActionArea from '@mui/material/CardActionArea'
 import { CardListItemProps } from './cardTypes'
 import CardListItemDrawer from './CardListItemDrawer'
 

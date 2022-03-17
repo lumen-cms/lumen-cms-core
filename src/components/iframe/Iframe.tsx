@@ -1,7 +1,7 @@
 import { useInView } from 'react-intersection-observer'
 import React, { useMemo, useState } from 'react'
 import clsx from 'clsx'
-import Skeleton from '@material-ui/lab/Skeleton'
+import Skeleton from '@mui/material/Skeleton'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmIframeProps } from './iframeTypes'
 
@@ -37,7 +37,7 @@ export default function LmIframe({ content }: LmIframeProps): JSX.Element {
           style={{ position: 'absolute' }}
           width="100%"
           height="100%"
-          variant="rect"
+          variant="rectangular"
         />
       )}
       <iframe
@@ -62,5 +62,5 @@ export default function LmIframe({ content }: LmIframeProps): JSX.Element {
         }}
       />
     </div>
-  )
+  );
 }

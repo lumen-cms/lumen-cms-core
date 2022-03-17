@@ -1,4 +1,4 @@
-import Grid from '@material-ui/core/Grid'
+import Grid from '@mui/material/Grid'
 import React, { ReactNode } from 'react'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { EcommerceShopifyConfigStoryblok } from '../../../../typings/generated/components-schema'

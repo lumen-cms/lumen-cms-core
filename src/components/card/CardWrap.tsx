@@ -1,5 +1,5 @@
 import { CSSProperties, FunctionComponent } from 'react'
-import Card from '@material-ui/core/Card'
+import Card from '@mui/material/Card'
 import clsx from 'clsx'
 import useShadowStyles from '../jss/shadowStyles'
 import { CardListItemProps } from './cardTypes'

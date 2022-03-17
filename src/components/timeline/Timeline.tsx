@@ -1,5 +1,5 @@
 import React from 'react'
-import Timeline from '@material-ui/lab/Timeline'
+import Timeline from '@mui/lab/Timeline'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmTimelineProps } from './timelineTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'

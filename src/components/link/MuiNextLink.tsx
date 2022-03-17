@@ -1,6 +1,6 @@
 import React, { AnchorHTMLAttributes, useCallback } from 'react'
 import NextLink from 'next/link'
-import MuiLink from '@material-ui/core/Link'
+import MuiLink from '@mui/material/Link'
 import { CONFIG } from '@CONFIG'
 import clsx from 'clsx'
 import { LinkProps, NextComposedProps } from './linkTypes'

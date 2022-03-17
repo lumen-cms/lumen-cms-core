@@ -8,7 +8,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary
-} from '@material-ui/core'
+} from '@mui/material'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRow } from '../flex-row/FlexRow'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'

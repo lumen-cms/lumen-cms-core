@@ -12,7 +12,7 @@ import {
 } from './listUtils/fetchListStories'
 import { LmComponentRender } from '@LmComponentRender'
 import LmListStoriesContainer from './ListStoriesContainer'
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress } from '@mui/material'
 import LmListStoriesPagination from './ListStoriesPagination'
 import { useAppContext } from '@context/AppContext'
 import { Router } from 'next/router'

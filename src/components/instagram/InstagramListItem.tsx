@@ -1,5 +1,5 @@
 import React from 'react'
-import ImageListItemBar from '@material-ui/core/ImageListItemBar'
+import ImageListItemBar from '@mui/material/ImageListItemBar'
 import Comment from 'mdi-material-ui/Comment'
 import Heart from 'mdi-material-ui/Heart'
 import LmInstagramPost from './InstagramPost'

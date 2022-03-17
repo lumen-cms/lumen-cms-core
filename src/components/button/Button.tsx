@@ -1,8 +1,9 @@
-import Button, { ButtonProps } from '@material-ui/core/Button'
-import Fab, { FabProps } from '@material-ui/core/Fab'
+import Button, { ButtonProps } from '@mui/material/Button'
+import Fab, { FabProps } from '@mui/material/Fab'
 import React, { FC } from 'react'
-import IconButton, { IconButtonProps } from '@material-ui/core/IconButton'
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import IconButton, { IconButtonProps } from '@mui/material/IconButton'
+import { Theme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import { LmCoreComponents } from '@CONFIG'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'

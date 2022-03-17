@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
-import AppBar from '@material-ui/core/AppBar'
+import AppBar from '@mui/material/AppBar'
 import clsx from 'clsx'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import {
   drawerVariantSelector,

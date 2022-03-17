@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import MuiLink from '@material-ui/core/Link'
+import Typography from '@mui/material/Typography'
+import MuiLink from '@mui/material/Link'
 import clsx from 'clsx'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { getRootImageUrl } from '../../../utils/imageServices'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'

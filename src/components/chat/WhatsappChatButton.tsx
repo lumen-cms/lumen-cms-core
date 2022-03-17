@@ -1,7 +1,7 @@
 import React from 'react'
-import Fab from '@material-ui/core/Fab'
+import Fab from '@mui/material/Fab'
 import Whatsapp from 'mdi-material-ui/Whatsapp'
-import Tooltip from '@material-ui/core/Tooltip'
+import Tooltip from '@mui/material/Tooltip'
 import { WhatsappChatButtonProps } from './chatTypings'
 
 const whatsappUrl = `https://wa.me`

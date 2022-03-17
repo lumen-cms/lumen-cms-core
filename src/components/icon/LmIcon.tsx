@@ -1,7 +1,7 @@
 import InlineSVG from 'react-inlinesvg'
 import React, { CSSProperties } from 'react'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles';
 import { useInView } from 'react-intersection-observer'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'

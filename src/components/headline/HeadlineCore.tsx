@@ -1,6 +1,6 @@
 import React, { CSSProperties, ElementType, FC } from 'react'
 import clsx from 'clsx'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { LmHeadlineProps } from './headlineTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'

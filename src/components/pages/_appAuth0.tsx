@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 import Router, { useRouter } from 'next/router'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import Backdrop from '@material-ui/core/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
+import Backdrop from '@mui/material/Backdrop'
 import { LmApp, LmAppProps } from './_app'
 
 export { reportWebVitals } from './_appDefault'

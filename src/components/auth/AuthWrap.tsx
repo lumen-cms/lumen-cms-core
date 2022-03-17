@@ -1,14 +1,11 @@
-import Container from '@material-ui/core/Container'
-import Box from '@material-ui/core/Box'
-import Card from '@material-ui/core/Card'
+import Container from '@mui/material/Container'
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
 import React, { FunctionComponent } from 'react'
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme
-} from '@material-ui/core/styles'
-import { useMediaQuery } from '@material-ui/core'
+import { Theme, useTheme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { useMediaQuery } from '@mui/material'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
+import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { useRichTextStyles } from './richTextStyles'
 import { LmRichTextParagraphProps } from './paragraphTypes'

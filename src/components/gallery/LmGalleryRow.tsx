@@ -3,8 +3,8 @@ import {
   GalleryStoryblok
 } from '../../typings/generated/components-schema'
 import LmGalleryImage from './LmGalleryImage'
-import { Grid } from '@material-ui/core'
-import { ClassNameMap } from '@material-ui/core/styles/withStyles'
+import { Grid } from '@mui/material'
+import { ClassNameMap } from '@mui/styles';
 import LmGalleryRowContainer from './LmGalleryRowContainer'
 
 export type LmGalleryRowProps = {

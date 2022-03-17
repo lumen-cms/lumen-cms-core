@@ -1,4 +1,4 @@
-import MuiLink from '@material-ui/core/Link'
+import MuiLink from '@mui/material/Link'
 import React from 'react'
 import { LmNavItemProps } from './navListTypes'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'

@@ -1,7 +1,7 @@
 import { render } from 'storyblok-rich-text-react-renderer-ts'
 import { getLinkAttrs } from '../../utils/linkHandler'
 import { LmCoreComponents } from '@CONFIG'
-import MuiLink from '@material-ui/core/Link'
+import MuiLink from '@mui/material/Link'
 
 export const renderRichText = (body: any) =>
   render(body, {

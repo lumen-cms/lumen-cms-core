@@ -1,8 +1,8 @@
 import React from 'react'
-import { Fab, Theme } from '@material-ui/core'
-import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined'
-import { makeStyles } from '@material-ui/core/styles'
-import Badge from '@material-ui/core/Badge'
+import { Fab, Theme } from '@mui/material'
+import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined'
+import makeStyles from '@mui/styles/makeStyles';
+import Badge from '@mui/material/Badge'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { getTotalCartQuantity } from '../lib/shopifyHelpers'
 import { EcommerceShopifyConfigStoryblok } from '../../../../typings/generated/components-schema'

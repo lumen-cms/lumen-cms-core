@@ -1,4 +1,4 @@
-import Pagination from '@material-ui/lab/Pagination'
+import Pagination from '@mui/material/Pagination'
 import React from 'react'
 import { LmListStoriesPaginationProps } from './listWidgetTypes'
 

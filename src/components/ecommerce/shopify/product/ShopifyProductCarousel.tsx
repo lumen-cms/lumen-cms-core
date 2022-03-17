@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles';
 import Carousel from 'react-material-ui-carousel'
 import Image from 'next/image'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'

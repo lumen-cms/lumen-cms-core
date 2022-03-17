@@ -1,9 +1,10 @@
 import clsx from 'clsx'
 import React, { FunctionComponent } from 'react'
-import Toolbar from '@material-ui/core/Toolbar'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import Container, { ContainerProps } from '@material-ui/core/Container'
-import { CreateCSSProperties } from '@material-ui/core/styles/withStyles'
+import Toolbar from '@mui/material/Toolbar'
+import { CreateCSSProperties } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import Container, { ContainerProps } from '@mui/material/Container'
 import { ContentSpace } from '../ContentSpace'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'

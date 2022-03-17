@@ -1,7 +1,7 @@
 import React from 'react'
-import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import IconButton from '@material-ui/core/IconButton'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import IconButton from '@mui/material/IconButton'
 import Close from 'mdi-material-ui/Close'
 import Swipe from './ImageListLightboxSwipe'
 import { ImageListLightboxProps } from './imageListTypes'
@@ -24,13 +24,13 @@ function ImageListLightbox(props: ImageListLightboxProps): JSX.Element {
           onClick={() => {
             props.setLightbox('')
           }}
-        >
+          size="large">
           <Close />
         </IconButton>
       </DialogTitle>
       <Swipe {...props} />
     </Dialog>
-  )
+  );
 }
 
 export default ImageListLightbox

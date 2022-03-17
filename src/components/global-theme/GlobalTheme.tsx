@@ -2,15 +2,25 @@ import {
   createTheme,
   responsiveFontSizes,
   ThemeProvider,
-  ThemeOptions
-} from '@material-ui/core/styles'
+  Theme,
+  StyledEngineProvider,
+  DeprecatedThemeOptions,
+  adaptV4Theme,
+} from '@mui/material/styles';
 import React, { FunctionComponent, useMemo } from 'react'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import CssBaseline from '@mui/material/CssBaseline'
 import parseFont from '../../utils/parseFont'
 import { GlobalStyles } from './GlobalStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
 
-declare module '@material-ui/core/styles/createTheme' {
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
+declare module '@mui/material/styles/createTheme' {
   interface Theme {
     defaultContainerWidth: string | boolean
     drawer: {
@@ -36,7 +46,7 @@ declare module '@material-ui/core/styles/createTheme' {
   }
 
   // allow configuration using `createMuiTheme`
-  interface ThemeOptions {
+  interface DeprecatedThemeOptions {
     defaultContainerWidth?: string | boolean
     drawer: {
       left: string
@@ -82,7 +92,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
       settings.theme_font_default =
         'Nunito:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700'
     }
-    let defaultContainerWidth: ThemeOptions['defaultContainerWidth'] = 'lg'
+    let defaultContainerWidth: DeprecatedThemeOptions['defaultContainerWidth'] = 'lg'
     if (settings.theme_container_width) {
       defaultContainerWidth =
         settings.theme_container_width === 'none'
@@ -93,9 +103,9 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
     const firstMultiToolbar = Array.isArray(settings.multi_toolbar)
       ? settings.multi_toolbar[0]
       : undefined
-    const globalTheme: ThemeOptions = {
+    const globalTheme: DeprecatedThemeOptions = {
       palette: {
-        type: mapThemeType[(settings.theme_base as string) || 'base'],
+        mode: mapThemeType[(settings.theme_base as string) || 'base'],
         primary: {
           main: (settings.theme_primary as string) || '#1769aa',
           contrastText: (settings.theme_primary_contrast as string) || '#fff'
@@ -231,16 +241,18 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
       }
     }
 
-    return responsiveFontSizes(createTheme(globalTheme))
+    return responsiveFontSizes(createTheme(adaptV4Theme(globalTheme)));
   }, [rightDrawerWidth, settings, themeUid])
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
-  )
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 }
 GlobalTheme.displayName = 'GlobalTheme'
 

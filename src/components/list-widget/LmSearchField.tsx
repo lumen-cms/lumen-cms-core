@@ -1,13 +1,13 @@
 import clsx from 'clsx'
-import TextField from '@material-ui/core/TextField'
+import TextField from '@mui/material/TextField'
 import Magnify from 'mdi-material-ui/Magnify'
 import React, { useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { LmListSearchFieldProps } from './listWidgetTypes'
 import { useRouter } from 'next/router'
-import InputAdornment from '@material-ui/core/InputAdornment'
+import InputAdornment from '@mui/material/InputAdornment'
 import CloseCircle from 'mdi-material-ui/CloseCircle'
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@mui/material/IconButton'
 
 export default function LmSearchField({
   content,

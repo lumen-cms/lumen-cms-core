@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import { CSSProperties, FC, useState } from 'react'
 import { FormContainer } from 'react-hook-form-mui'
-import Alert from '@material-ui/lab/Alert'
+import Alert from '@mui/material/Alert'
 import { LmComponentRender } from '@LmComponentRender'
 import dynamic from 'next/dynamic'
 import { LmGoogleFormProps } from './googleFormProps'

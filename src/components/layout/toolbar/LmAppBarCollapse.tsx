@@ -1,9 +1,11 @@
-import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles'
+import { useTheme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import React, { FC } from 'react'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import { Collapse } from '@material-ui/core'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
+import { Collapse } from '@mui/material'
 import clsx from 'clsx'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 const useStyles = makeStyles((theme) =>
   createStyles({

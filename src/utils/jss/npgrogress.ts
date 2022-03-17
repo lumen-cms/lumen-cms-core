@@ -1,5 +1,4 @@
-import { Theme } from '@material-ui/core/styles'
-import { CSSProperties } from '@material-ui/core/styles/withStyles'
+import { Theme, CSSProperties } from '@mui/material/styles';
 
 const getNprogressJss = (theme: Theme): CSSProperties => ({
   // NProgress
