@@ -6,6 +6,8 @@ import Head from 'next/head'
 import { AppPageProps } from '../../typings/app'
 import { LmAppContainer } from '../layout/AppContainer'
 import { analyticsOnPageChange } from '../../utils/analyticsHelper'
+import { CacheProvider } from '@emotion/react'
+import createEmotionCache from '../global-theme/muiCache'
 
 export type LmAppProps = AppProps<AppPageProps>
 
@@ -54,17 +56,19 @@ export function LmApp(appProps: LmAppProps) {
       isFallback ? (
         <div>loading..</div>
       ) : (
-        <LmAppContainer content={pageProps}>
-          <Head>
-            <meta
-              name="viewport"
-              content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-              key="viewport"
-            />
-            <meta name="format-detection" content="telephone=no" />
-          </Head>
-          <Component {...pageProps} />
-        </LmAppContainer>
+        <CacheProvider value={createEmotionCache()}>
+          <LmAppContainer content={pageProps}>
+            <Head>
+              <meta
+                name="viewport"
+                content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+                key="viewport"
+              />
+              <meta name="format-detection" content="telephone=no" />
+            </Head>
+            <Component {...pageProps} />
+          </LmAppContainer>
+        </CacheProvider>
       ),
     [pageProps, isFallback]
   )

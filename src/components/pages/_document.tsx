@@ -1,12 +1,5 @@
-import Document, {
-  DocumentContext,
-  Head,
-  Html,
-  Main,
-  NextScript
-} from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
-import ServerStyleSheets from '@mui/styles/ServerStyleSheets';
 import { LmStoryblokService } from '../../utils/initial-props/StoryblokService'
 import { SSR_CONFIG } from '@SSR_CONFIG'
 import {
@@ -15,6 +8,8 @@ import {
 } from '../../utils/initial-props/processGoogleFonts'
 import { listStoriesDataEnriched } from '../../utils/initial-props/component-data/listStoriesDataEnriched'
 import { createPlaceholderImages } from '../../utils/initial-props/component-data/createPlaceholderImages'
+import { withEmotionCache } from 'tss-react/nextJs'
+import createEmotionCache from '../global-theme/muiCache'
 
 // build of storybook fails..
 SSR_CONFIG.ssrHooks.pageProps.push(processGoogleFonts)
@@ -28,26 +23,26 @@ SSR_CONFIG.ssrHooks.componentData = {
   player: createPlaceholderImages
 }
 
-export default class AppDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const sheets = new ServerStyleSheets()
-    const originalRenderPage = ctx.renderPage
-    ctx.renderPage = () =>
-      originalRenderPage({
-        // eslint-disable-next-line react/display-name
-        enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
-      })
-    const initialProps = await Document.getInitialProps(ctx)
-
-    return {
-      ...initialProps,
-      // Styles fragment is rendered after the app and page rendering finish.
-      styles: [
-        ...React.Children.toArray(initialProps.styles),
-        sheets.getStyleElement()
-      ]
-    }
-  }
+class AppDocument extends Document {
+  // static async getInitialProps(ctx: DocumentContext) {
+  //   const sheets = new ServerStyleSheets()
+  //   const originalRenderPage = ctx.renderPage
+  //   ctx.renderPage = () =>
+  //     originalRenderPage({
+  //       // eslint-disable-next-line react/display-name
+  //       enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
+  //     })
+  //   const initialProps = await Document.getInitialProps(ctx)
+  //
+  //   return {
+  //     ...initialProps,
+  //     // Styles fragment is rendered after the app and page rendering finish.
+  //     styles: [
+  //       ...React.Children.toArray(initialProps.styles),
+  //       sheets.getStyleElement()
+  //     ]
+  //   }
+  // }
 
   render() {
     const cacheVersion = LmStoryblokService.getCacheVersion()
@@ -80,3 +75,8 @@ export default class AppDocument extends Document {
     )
   }
 }
+
+export default withEmotionCache({
+  Document: AppDocument,
+  getCaches: () => [createEmotionCache()]
+})

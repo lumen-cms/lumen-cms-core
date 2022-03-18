@@ -1,7 +1,6 @@
 import {
   createTheme,
   responsiveFontSizes,
-  StyledEngineProvider,
   Theme,
   ThemeProvider
 } from '@mui/material/styles'
@@ -253,13 +252,11 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
   }, [rightDrawerWidth, settings, themeUid])
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
   )
 }
 GlobalTheme.displayName = 'GlobalTheme'
