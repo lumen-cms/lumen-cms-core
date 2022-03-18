@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
-import makeStyles from '@mui/styles/makeStyles';
+import makeStyles from '@mui/styles/makeStyles'
 import MenuItem from '@mui/material/MenuItem'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
@@ -75,7 +75,6 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
 
   if (content.alignment === 'bottomStart') {
     addons = {
-      getContentAnchorEl: null,
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'left'
@@ -87,7 +86,6 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
     }
   } else if (content.alignment === 'bottomEnd') {
     addons = {
-      getContentAnchorEl: null,
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'right'
@@ -99,7 +97,6 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
     }
   } else if (content.alignment === 'bottomCenter') {
     addons = {
-      getContentAnchorEl: null,
       anchorOrigin: {
         vertical: 'bottom',
         horizontal: 'center'

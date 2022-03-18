@@ -2,7 +2,7 @@ import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmTimelineProps } from './timelineTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
-import { Timeline } from '@mui/lab'
+import Timeline from '@mui/lab/Timeline'
 
 export default function LmTimeline({ content }: LmTimelineProps): JSX.Element {
   const { isMobile } = useDeviceDimensions()
