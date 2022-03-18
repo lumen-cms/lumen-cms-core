@@ -1,11 +1,11 @@
 import React from 'react'
 import Avatar from '@mui/material/Avatar'
-import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import { LmMuiAvatarProps } from './avatarTypes'
 import LmSquareImage from './LmSquareImage'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   avatar: {
     backgroundColor: 'transparent',
     '&.xsmall': {
@@ -36,7 +36,7 @@ const sizeMap = {
 }
 
 export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <Avatar

@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
-import makeStyles from '@mui/styles/makeStyles';
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 import { useInView } from 'react-intersection-observer'
@@ -9,8 +8,9 @@ import { useGridListStyles } from './cardListStyles'
 import { LmCardListProps } from './cardTypes'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { CardListStoryblok } from '../../typings/generated/components-schema'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles<CardListStoryblok>()((_, content) => ({
   cardBase: {
     overflow: 'visible',
     flexGrow: 1,
@@ -73,12 +73,12 @@ const useStyles = makeStyles({
       height: '100%'
     }
   },
-  gridCustom: (content: CardListStoryblok) => ({
+  gridCustom: {
     '& .MuiCardMedia-root > div': {
       borderRadius: content.image_border_radius
     }
-  })
-})
+  }
+}))
 
 const chunkSize = 30
 
@@ -87,7 +87,7 @@ export default function LmCardList({
   disablePagination
 }: LmCardListProps): JSX.Element {
   const { body = [], ...rest } = content
-  const classes = useStyles(rest)
+  const { classes } = useStyles(rest)
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,

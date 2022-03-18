@@ -2,8 +2,7 @@ import Button, { ButtonProps } from '@mui/material/Button'
 import Fab, { FabProps } from '@mui/material/Fab'
 import React, { FC } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
-import { Theme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles'
 import clsx from 'clsx'
 import { LmCoreComponents } from '@CONFIG'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
@@ -11,6 +10,7 @@ import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
 import { LmButtonProps } from './buttonTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { makeStyles } from 'tss-react/mui'
 
 // fab and button: small medium large, default: large
 const mapSize = {
@@ -44,7 +44,7 @@ const mapColor = {
   inherit: 'inherit'
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   noWhitespace: {
     whiteSpace: 'nowrap'
   },
@@ -103,7 +103,7 @@ export const LmButton: FC<LmButtonProps> = ({
   disabled,
   additionalClassName
 }) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const advancedClasses = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,

@@ -1,7 +1,7 @@
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import React from 'react'
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui'
 import { LmComponentRender } from '@LmComponentRender'
 import clsx from 'clsx'
 import { LmCoreComponents } from '@CONFIG'
@@ -12,7 +12,7 @@ import {
 } from './bottomNavigationTypes'
 import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     width: '100%',
     position: 'fixed',
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function LmBottomNavigation({
   content
 }: LmBottomNavigationProps) {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const classesAdvanced = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
