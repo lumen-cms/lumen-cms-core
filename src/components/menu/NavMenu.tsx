@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
-import makeStyles from '@mui/styles/makeStyles'
 import MenuItem from '@mui/material/MenuItem'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
@@ -15,15 +14,16 @@ import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmMenuProps } from './menuTypes'
 import { useAppContext } from '@context/AppContext'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
-  paper: (props: NavMenuStoryblok) => ({
+const useStyles = makeStyles<NavMenuStoryblok>()((_, props) => ({
+  paper: {
     borderRadius: props.border_radius
-  })
-})
+  }
+}))
 
 export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
-  const classes = useStyles(content)
+  const { classes } = useStyles(content)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [active, setActive] = useState<boolean>(false)
   const menuItems = content.body || []

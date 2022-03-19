@@ -1,7 +1,4 @@
 import React, { FC } from 'react'
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import Image from 'next/image'
 import {
@@ -11,64 +8,63 @@ import {
 import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import { LmImagePlaceholder } from '../image/imageTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '@media (orientation: landscape)': {
-        '&.portrait': {
-          display: 'none !important'
-        }
-      },
-      '@media (orientation: portrait)': {
-        '&.landscape': {
-          display: 'none !important'
-        }
-      },
-      '&.hide__xs': {
-        [theme.breakpoints.only('xs')]: {
-          display: 'none !important'
-        }
-      },
-      '&.hide__sm': {
-        [theme.breakpoints.down('md')]: {
-          display: 'none !important'
-        }
-      },
-      '&.hide__md': {
-        [theme.breakpoints.down('lg')]: {
-          display: 'none !important'
-        }
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    '@media (orientation: landscape)': {
+      '&.portrait': {
+        display: 'none !important'
       }
     },
-    rootFixedImage: {
-      position: 'absolute',
+    '@media (orientation: portrait)': {
+      '&.landscape': {
+        display: 'none !important'
+      }
+    },
+    '&.hide__xs': {
+      [theme.breakpoints.only('xs')]: {
+        display: 'none !important'
+      }
+    },
+    '&.hide__sm': {
+      [theme.breakpoints.down('md')]: {
+        display: 'none !important'
+      }
+    },
+    '&.hide__md': {
+      [theme.breakpoints.down('lg')]: {
+        display: 'none !important'
+      }
+    }
+  },
+  rootFixedImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    zIndex: -1,
+    // disable for mobile
+    [theme.breakpoints.up('sm')]: {
+      clip: 'rect(0,auto,auto,0)!important',
+      clipPath: 'polygon(0px 0px,100% 0px,100% 100%,0px 100%)!important',
+      zIndex: 0
+    }
+  },
+  fixedCoverImageWrap: {
+    // disable for mobile
+    [theme.breakpoints.up('sm')]: {
+      position: 'fixed',
       top: 0,
       left: 0,
       width: '100%',
       height: '100%',
-      zIndex: -1,
-      // disable for mobile
-      [theme.breakpoints.up('sm')]: {
-        clip: 'rect(0,auto,auto,0)!important',
-        clipPath: 'polygon(0px 0px,100% 0px,100% 100%,0px 100%)!important',
-        zIndex: 0
-      }
-    },
-    fixedCoverImageWrap: {
-      // disable for mobile
-      [theme.breakpoints.up('sm')]: {
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden',
-        zIndex: -1
-      }
+      overflow: 'hidden',
+      zIndex: -1
     }
-  })
-)
+  }
+}))
 
 type BackgroundImageProps = {
   content: BackgroundStoryblok & {
@@ -83,7 +79,7 @@ const BackgroundImage = ({
   backgroundStyle,
   sectionPosition
 }: BackgroundImageProps): JSX.Element | null => {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const {
     image,

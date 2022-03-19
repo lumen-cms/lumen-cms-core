@@ -1,6 +1,6 @@
 import { CSSProperties, FC } from 'react'
-import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
+import { makeStyles } from 'tss-react/mui'
 
 type LmAspectRatioProps = {
   width: number
@@ -9,12 +9,13 @@ type LmAspectRatioProps = {
   style?: CSSProperties
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles()({
   root: {
     position: 'relative',
+    // @ts-ignore
     '& > span': {
       width: '100%!important',
-      position: 'absolute!important',
+      position: 'absolute !important',
       top: 0,
       left: 0,
       height: '100%!important'
@@ -32,7 +33,7 @@ const useStyles = makeStyles(() => ({
       }
     }
   }
-}))
+})
 
 const LmAspectRatio: FC<LmAspectRatioProps> = ({
   style,
@@ -41,7 +42,7 @@ const LmAspectRatio: FC<LmAspectRatioProps> = ({
   height,
   children
 }) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <div
       className={clsx(className, classes.root)}

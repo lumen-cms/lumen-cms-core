@@ -3,15 +3,15 @@ import SwipeableViews from 'react-swipeable-views'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
 import Image from 'next/image'
-import makeStyles from '@mui/styles/makeStyles';
 import { Typography } from '@mui/material'
 import InvertedIndicator from '../slider/InvertedIndicator'
 import { ImageListLightboxProps } from './imageListTypes'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
 import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles()({
   root: {
     position: 'relative',
     width: '100%',
@@ -27,10 +27,10 @@ const useStyles = makeStyles(() => ({
     background: 'rgba(0,0,0,0.45)',
     padding: '1rem 3rem 1rem 1rem'
   }
-}))
+})
 
 function CarouselImageItem({ content }: { content: ImageListItemStoryblok }) {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const imageSource = content.source || ''
 
   return (

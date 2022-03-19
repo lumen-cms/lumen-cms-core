@@ -15,7 +15,7 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  })
+  }).classes
   return (
     <Typography
       {...(onClick ? { onClick: () => onClick() } : {})}

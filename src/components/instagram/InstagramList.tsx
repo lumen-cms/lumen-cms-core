@@ -79,7 +79,7 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
     columnCountPhone: content.column_count_phone,
     columnCountTablet: content.column_count_tablet,
     isMasonry: !!content.masonry
-  })
+  }).classes
 
   return (
     <div
@@ -92,7 +92,9 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
       })}
     >
       <ImageList
-        className={gridClasses.gridList}
+        className={clsx(
+          content.masonry ? gridClasses.rootMasonry : gridClasses.root
+        )}
         rowHeight={content.height || 'auto'}
         style={{
           columnGap: content.masonry ? `${content.column_gap}px` : undefined

@@ -1,4 +1,3 @@
-import makeStyles from '@mui/styles/makeStyles';
 import { useInView } from 'react-intersection-observer'
 import ReactPlayer from 'react-player/lazy'
 import clsx from 'clsx'
@@ -6,8 +5,9 @@ import React, { useState } from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmPlayerProps } from './playerTypes'
 import videoUrlHelper from '../../utils/videoUrlHelper'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   videoContainer: {
     position: 'relative',
     '& video[poster]': {
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 })
 
 export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const [playing, setPlaying] = useState<boolean>(!!content.playing)
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions

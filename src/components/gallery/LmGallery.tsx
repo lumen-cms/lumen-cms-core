@@ -8,7 +8,7 @@ type LmGalleryProps = {
 export default function LmGallery({ content }: LmGalleryProps) {
   const imageStyles = useStylesAdvanced({
     props: content.image_style
-  })
+  }).classes
 
   return (
     <div

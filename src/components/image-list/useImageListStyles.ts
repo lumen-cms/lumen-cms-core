@@ -1,6 +1,6 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui'
 
-export const useImageListStyles = makeStyles({
+export const useImageListStyles = makeStyles()({
   root: {
     overflow: 'hidden',
     '&.with-lightbox .MuiImageListItem-root': {

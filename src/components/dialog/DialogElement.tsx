@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import dynamic from 'next/dynamic'
 import { LmDialogAsyncProps, LmDialogProps } from './dialogTypes'
 import { useRouter } from 'next/router'
+import { makeStyles } from 'tss-react/mui'
 
 const LmDialog = dynamic(() => import('./LmDialog'))
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   trigger: {
     cursor: 'pointer'
-  },
-  dialogTitle: {
-    '& .MuiTypography-root': {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between'
-    }
   }
 })
 
@@ -26,7 +19,7 @@ export default function LmDialogElement({
 }: LmDialogProps): JSX.Element | null {
   const theme = useTheme()
   const { events } = useRouter()
-  const classes = useStyles()
+  const { classes } = useStyles()
   const mediaQueryResult = useMediaQuery(
     theme.breakpoints.down(content.fullscreen || 'sm')
   )
@@ -54,7 +47,6 @@ export default function LmDialogElement({
 
   return (
     <>
-      {/* eslint-disable-next-line */}
       <div className={classes.trigger}>
         {content.trigger?.map((blok) => (
           <LmComponentRender

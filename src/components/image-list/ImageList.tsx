@@ -15,14 +15,14 @@ const ImageListLightbox = dynamic(() => import('./ImageListLightbox'))
 export default function LmImageList({
   content
 }: LmImageListProps): JSX.Element {
-  const classes = useImageListStyles()
+  const { classes } = useImageListStyles()
 
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,
     columnCountTablet: content.column_count_tablet,
     isMasonry: !!content.masonry
-  })
+  }).classes
   const [lightbox, setLightbox] = useState('')
 
   const gutterSize = content.column_gap ? Number(content.column_gap) : 2
@@ -55,7 +55,10 @@ export default function LmImageList({
       >
         <ImageList
           rowHeight="auto"
-          className={clsx(gridClasses.gridList, classes.rootGrid)}
+          className={clsx(
+            content.masonry ? gridClasses.rootMasonry : gridClasses.root,
+            classes.rootGrid
+          )}
           {...gridListProps}
         >
           {body.map((item, i) => {

@@ -21,7 +21,7 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   children,
   backgroundProps
 }) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const { slug } = useAppContext()
   const leftNavigationDrawer = useNavigationStore(leftNavigationDrawerSelector)
   const closeDrawer = useNavigationStore(closeLeftNavigationSelector)

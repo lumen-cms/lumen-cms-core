@@ -1,8 +1,5 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import { Theme } from '@mui/material/styles'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
@@ -10,33 +7,21 @@ import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { LmGridRowProps } from './sectionTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    gridRow: {
-      height: '100%',
-      minHeight: 'inherit',
-      '& .MuiGrid-item': {
-        '&.MuiGrid-grid-md-true': {
-          // overflow: 'inherit', // flexbox fix for image component
-          // height: 'inherit'
-        },
-        '& > .MuiGrid-direction-xs-column': {
-          '& > *': {
-            marginTop: theme.spacing(1),
-            marginBottom: theme.spacing(1),
-            boxSizing: 'border-box',
-            '&:first-child': {
-              marginTop: 0
-            },
-            '&:last-child': {
-              marginBottom: 0
-            }
-          }
-        },
+const useStyles = makeStyles()((theme) => ({
+  gridRow: {
+    height: '100%',
+    minHeight: 'inherit',
+    '& .MuiGrid-item': {
+      '&.MuiGrid-grid-md-true': {
+        // overflow: 'inherit', // flexbox fix for image component
+        // height: 'inherit'
+      },
+      '& > .MuiGrid-direction-xs-column': {
         '& > *': {
-          marginTop: theme.spacing(2),
-          marginBottom: theme.spacing(2),
+          marginTop: theme.spacing(1),
+          marginBottom: theme.spacing(1),
           boxSizing: 'border-box',
           '&:first-child': {
             marginTop: 0
@@ -45,28 +30,39 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: 0
           }
         }
-      }
-    },
-    xsColumnReverse: {
-      [theme.breakpoints.only('xs')]: {
-        flexDirection: 'column-reverse',
-        flexWrap: 'initial',
-        alignItems: 'stretch'
-      }
-    },
-    smColumnReverse: {
-      [theme.breakpoints.only('sm')]: {
-        flexDirection: 'column-reverse',
-        flexWrap: 'initial',
-        alignItems: 'stretch'
+      },
+      '& > *': {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+        boxSizing: 'border-box',
+        '&:first-child': {
+          marginTop: 0
+        },
+        '&:last-child': {
+          marginBottom: 0
+        }
       }
     }
-  })
-)
+  },
+  xsColumnReverse: {
+    [theme.breakpoints.only('xs')]: {
+      flexDirection: 'column-reverse',
+      flexWrap: 'initial',
+      alignItems: 'stretch'
+    }
+  },
+  smColumnReverse: {
+    [theme.breakpoints.only('sm')]: {
+      flexDirection: 'column-reverse',
+      flexWrap: 'initial',
+      alignItems: 'stretch'
+    }
+  }
+}))
 
 export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
   // const theme = useTheme()
-  const classes = useStyles()
+  const { classes } = useStyles()
   const spacing = Number(content.spacing || 3)
 
   const background: BackgroundStoryblok | undefined = Array.isArray(

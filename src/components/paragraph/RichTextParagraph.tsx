@@ -10,13 +10,13 @@ import { renderRichText } from './renderRichText'
 export function LmRichTextParagraph({
   content
 }: LmRichTextParagraphProps): JSX.Element {
-  const classes = useRichTextStyles()
+  const { classes } = useRichTextStyles()
   const advancedClasses = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  })
+  }).classes
   return (
     <Typography
       className={clsx(

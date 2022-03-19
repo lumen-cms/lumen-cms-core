@@ -1,6 +1,4 @@
-import { Theme, useTheme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { useTheme } from '@mui/material/styles'
 import Container, { ContainerProps } from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import { LmComponentRender } from '@LmComponentRender'
@@ -10,18 +8,17 @@ import clsx from 'clsx'
 import { Collapse } from '@mui/material'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import { LmToolbarRowProps } from './toolbarTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      overflow: 'hidden',
-      height: theme.toolbar.height.systemBar || 40,
-      [theme.breakpoints.only('xs')]: {
-        display: 'none'
-      }
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    overflow: 'hidden',
+    height: theme.toolbar.height.systemBar || 40,
+    [theme.breakpoints.only('xs')]: {
+      display: 'none'
     }
-  })
-)
+  }
+}))
 
 const HideOnScroll: FC = ({ children }) => {
   const trigger = useScrollTrigger({
@@ -36,7 +33,7 @@ export default function ToolbarSystemBarRow({
 }: LmToolbarRowProps): JSX.Element {
   const settings = useSettings()
   const theme = useTheme()
-  const classes = useStyles()
+  const { classes } = useStyles()
   const toolbarConfig = settings.toolbar_config || []
   let toolbarWidth: ContainerProps['maxWidth'] = false
   if (toolbarConfig.includes('fixed_width')) {

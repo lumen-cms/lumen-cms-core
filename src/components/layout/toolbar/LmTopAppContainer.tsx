@@ -1,9 +1,6 @@
 import React, { FC } from 'react'
 import AppBar from '@mui/material/AppBar'
 import clsx from 'clsx'
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import {
   drawerVariantSelector,
@@ -11,6 +8,7 @@ import {
   useNavigationStore
 } from '../../../utils/state/navigationState'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
+import { makeStyles } from 'tss-react/mui'
 
 const mapToolbarColor = {
   primary: 'primary',
@@ -19,61 +17,59 @@ const mapToolbarColor = {
   white: 'inherit'
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    topAppBar: {
-      '& .logo-img__invert': {
+const useStyles = makeStyles()((theme) => ({
+  topAppBar: {
+    '& .logo-img__invert': {
+      display: 'none'
+    },
+    '&.lm-toolbar__has-feature': {
+      backgroundColor: 'transparent',
+      '& .MuiButtonBase-root': {
+        color: '#fff'
+      },
+      '& .lm-system-bar': {
+        backgroundColor: 'transparent !important'
+      },
+      '& .logo-img__default': {
         display: 'none'
       },
-      '&.lm-toolbar__has-feature': {
-        backgroundColor: 'transparent',
-        '& .MuiButtonBase-root': {
-          color: '#fff'
-        },
-        '& .lm-system-bar': {
-          backgroundColor: 'transparent !important'
-        },
-        '& .logo-img__default': {
-          display: 'none'
-        },
-        '& .logo-img__invert:not(.logo-img__mobile)': {
+      '& .logo-img__invert:not(.logo-img__mobile)': {
+        display: 'block'
+      },
+      [theme.breakpoints.only('xs')]: {
+        '& .logo-img__mobile.logo-img__invert': {
           display: 'block'
         },
-        [theme.breakpoints.only('xs')]: {
-          '& .logo-img__mobile.logo-img__invert': {
-            display: 'block'
-          },
-          '& .logo-img__invert.logo-img__desktop:not(.logo-img__mobile)': {
-            display: 'none'
-          }
+        '& .logo-img__invert.logo-img__desktop:not(.logo-img__mobile)': {
+          display: 'none'
         }
-      },
-      '& .MuiIconButton-root': {
-        color: 'inherit'
-      },
-      '&.lm-toolbar__text-bold .MuiButton-root': {
-        fontWeight: 'bold'
       }
     },
-    leftShift: {
-      marginLeft: theme.drawer.left,
-      width: `calc(100% - ${theme.drawer.left})`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      }),
-      [theme.breakpoints.only('xs')]: {
-        marginLeft: 0
-      }
+    '& .MuiIconButton-root': {
+      color: 'inherit'
+    },
+    '&.lm-toolbar__text-bold .MuiButton-root': {
+      fontWeight: 'bold'
     }
-  })
-)
+  },
+  leftShift: {
+    marginLeft: theme.drawer.left,
+    width: `calc(100% - ${theme.drawer.left})`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    [theme.breakpoints.only('xs')]: {
+      marginLeft: 0
+    }
+  }
+}))
 
 const LmTopAppContainer: FC = ({ children }) => {
   const settings = useSettings()
   const page = usePage() || {}
   const drawerVariant = useNavigationStore(drawerVariantSelector)
-  const classes = useStyles()
+  const { classes } = useStyles()
   const toolbarConfig = settings.toolbar_config || []
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const scrolledWithoutHysteresis = useScrollTop()

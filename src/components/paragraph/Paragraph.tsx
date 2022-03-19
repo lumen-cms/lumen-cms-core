@@ -9,7 +9,7 @@ import { LmParagraphProps } from './paragraphTypes'
 export default function LmParagraph({
   content
 }: LmParagraphProps): JSX.Element {
-  const classes = useRichTextStyles()
+  const { classes } = useRichTextStyles()
   return (
     <Typography
       className={clsx(

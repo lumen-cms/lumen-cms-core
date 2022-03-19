@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import MuiTabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import { Theme, useTheme } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
+import { useTheme } from '@mui/material/styles'
 import Grid, { GridProps } from '@mui/material/Grid'
 import clsx from 'clsx'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -14,8 +13,9 @@ import {
   TabsItemStoryblok
 } from '../../typings/generated/components-schema'
 import { LmTabsProps } from './tabsTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme) => ({
   tabContainer: {
     '& .react-swipeable-view-container > div > div': {
       padding: theme.spacing(3)
@@ -60,7 +60,7 @@ export default function LmTabs({ content }: LmTabsProps): JSX.Element {
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')
   )
 
-  const classes = useStyles()
+  const { classes } = useStyles()
   const [activeTab, setActiveTab] = useState(0)
   const body: TabsItemStoryblok[] = content.body || []
   const orientation =

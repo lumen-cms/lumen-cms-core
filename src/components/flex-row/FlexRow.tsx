@@ -2,32 +2,29 @@ import React, { FC } from 'react'
 import Grid from '@mui/material/Grid'
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
-import { Theme, useTheme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { useTheme } from '@mui/material/styles'
 import { LmFlexRowProps } from './flexRowTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    xsColumn: {
-      [theme.breakpoints.only('xs')]: {
-        flexDirection: 'column'
-      }
+const useStyles = makeStyles()((theme) => ({
+  xsColumn: {
+    [theme.breakpoints.only('xs')]: {
+      flexDirection: 'column'
     }
-  })
-)
+  }
+}))
 
 export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
   const body = content.body || []
   const theme = useTheme()
-  const flexClasses = useStyles()
+  const flexClasses = useStyles().classes
   const classes = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  })
+  }).classes
   return (
     <Grid
       container

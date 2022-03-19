@@ -5,7 +5,6 @@ import { Theme, Toolbar, useTheme } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
-import makeStyles from '@mui/styles/makeStyles';
 import Divider from '@mui/material/Divider'
 
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -16,8 +15,9 @@ import {
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
 import { getTotalCartAmount, getTotalCartQuantity } from '../lib/shopifyHelpers'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme: Theme) => ({
   cartItemContent: {
     padding: theme.spacing(3),
     overflowY: 'auto'
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function CheckoutButton() {
   const { onCheckout, config, cartVariants } = useShopifySdkContext()
-  const classes = useStyles()
+  const { classes } = useStyles()
   const [loading, setLoading] = useState<boolean>(false)
   return (
     <div className={classes.cartCheckoutButton}>
@@ -69,7 +69,7 @@ function CheckoutButton() {
 
 export function ShopfiyCart() {
   const { cartOpen, setCartOpen, cartVariants, config } = useShopifySdkContext()
-  const classes = useStyles()
+  const { classes } = useStyles()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
 
@@ -116,7 +116,8 @@ export function ShopfiyCart() {
               onClick={() => {
                 setCartOpen(false)
               }}
-              size="large">
+              size="large"
+            >
               <CloseIcon />
             </IconButton>
           </Toolbar>
@@ -148,5 +149,5 @@ export function ShopfiyCart() {
         </Grid>
       </Grid>
     </Drawer>
-  );
+  )
 }

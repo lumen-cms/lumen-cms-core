@@ -1,13 +1,13 @@
 import { useInView } from 'react-intersection-observer'
 import SVG from 'react-inlinesvg'
 import React, { useState } from 'react'
-import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import Fade from '@mui/material/Fade'
 import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   root: {
     display: 'inline-block'
   },
@@ -27,7 +27,7 @@ export default function ImageSvg({
   content,
   onClick
 }: LmImageProps): JSX.Element {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const [refIntersectionObserver, inView] = useInView(intersectionImageOptions)
   const src = inView ? content.source : ''
   const [loaded, setLoaded] = useState<boolean>(false)

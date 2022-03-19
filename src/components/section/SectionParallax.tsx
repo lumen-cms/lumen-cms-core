@@ -1,14 +1,14 @@
 import { ParallaxBanner } from 'react-scroll-parallax'
 import clsx from 'clsx'
 import React from 'react'
-import makeStyles from '@mui/styles/makeStyles';
 import Image from 'next/image'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmSectionParallaxProps } from './sectionTypes'
 import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   parallaxRoot: {
     position: 'relative'
   },
@@ -28,7 +28,7 @@ export default function LmSectionParallax({
   content,
   sectionPosition
 }: LmSectionParallaxProps): JSX.Element {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const contentHeight = content.height
   const styles = {
     height: contentHeight ? `${contentHeight}vh` : '50vh'

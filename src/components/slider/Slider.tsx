@@ -2,7 +2,6 @@ import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import { CSSProperties, useState } from 'react'
 import clsx from 'clsx'
-import makeStyles from '@mui/styles/makeStyles'
 import Typography from '@mui/material/Typography'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
@@ -17,6 +16,7 @@ import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { SectionProps } from '../section/sectionTypes'
 import { LmSliderProps } from './sliderTypes'
 import { visuallyHidden } from '@mui/utils'
+import { makeStyles } from 'tss-react/mui'
 
 const chunkArray = (myArray: any, chunkSize: number) => {
   const results = []
@@ -28,7 +28,7 @@ const chunkArray = (myArray: any, chunkSize: number) => {
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-export const useStyles = makeStyles({
+const useStyles = makeStyles()({
   carousel: {
     position: 'relative',
     '& [data-swipeable="true"]': {
@@ -93,7 +93,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   const autoSlide = !!content.autoslide
   const [start, setStart] = useState<boolean>(true)
   const { isMobile } = useDeviceDimensions()
-  const classes = useStyles()
+  const { classes } = useStyles()
   const wrapInColumns = content.slides_per_view && !isMobile
   const contentBody: LmSliderProps['content']['body'] = content.body || []
   const body = wrapInColumns

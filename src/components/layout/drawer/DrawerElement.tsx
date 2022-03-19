@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
@@ -11,8 +10,9 @@ import useBackgroundBox from '../../section/useBackgroundBox'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import LmSquareImage from '../../avatar/LmSquareImage'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   logoRoot: {
     '& > div': {
       height: '40px'
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 function DrawerLogoArea() {
   const settings = useSettings()
   const homepageHref = useHomepageLink()
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo

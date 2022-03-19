@@ -92,7 +92,7 @@ export default function LmCardList({
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,
     columnCountTablet: content.column_count_tablet
-  })
+  }).classes
   const gutterSize = content.column_gap ? Number(content.column_gap) : 24
   const enableInView = !disablePagination && body.length > chunkSize
   const [intersectionLoadMoreRef, loadMoreInView] = useInView()
@@ -131,7 +131,7 @@ export default function LmCardList({
         style={{
           overflow: 'visible'
         }}
-        className={gridClasses.gridList}
+        className={gridClasses.root}
       >
         {data.map((item) => (
           <ImageListItem key={`${item.component}_${item._uid}`}>

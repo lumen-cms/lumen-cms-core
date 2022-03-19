@@ -1,36 +1,36 @@
 import React from 'react'
 import cx from 'clsx'
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles(({ palette, breakpoints }) => {
-  const SIZES = {
-    xs: 8,
-    sm: 10,
-    lg: 12
-  }
-  return {
-    root: ({ active, color }: { active: boolean; color: 'dark' | 'light' }) => {
-      const activeColor =
-        color === 'dark' ? palette.text.primary : palette.common.white
-      const inActiveColor =
-        color === 'dark' ? palette.text.disabled : 'rgba(255,255,255,0.38)'
-      return {
+const useStyles = makeStyles<InvertedIndicatorProps>()(
+  (theme, { color, active }) => {
+    const SIZES = {
+      xs: 8,
+      sm: 10,
+      lg: 12
+    }
+    const activeColor =
+      color === 'dark' ? theme.palette.text.primary : theme.palette.common.white
+    const inActiveColor =
+      color === 'dark' ? theme.palette.text.disabled : 'rgba(255,255,255,0.38)'
+    return {
+      root: {
         display: 'inline-block',
         padding: SIZES.xs,
         lineHeight: 0,
         cursor: 'pointer',
-        [breakpoints.up('sm')]: {
+        [theme.breakpoints.up('sm')]: {
           padding: SIZES.sm
         },
-        [breakpoints.up('lg')]: {
+        [theme.breakpoints.up('lg')]: {
           padding: SIZES.lg
         },
         '& + .Indicator-root': {
           marginLeft: SIZES.xs,
-          [breakpoints.up('sm')]: {
+          [theme.breakpoints.up('sm')]: {
             marginLeft: SIZES.sm
           },
-          [breakpoints.up('sm')]: {
+          [theme.breakpoints.up('sm')]: {
             marginLeft: SIZES.lg
           }
         },
@@ -47,11 +47,11 @@ const useStyles = makeStyles(({ palette, breakpoints }) => {
           borderRadius: '50%',
           backgroundColor: active ? activeColor : inActiveColor,
           // transition: transitions.create(),
-          [breakpoints.up('sm')]: {
+          [theme.breakpoints.up('sm')]: {
             width: SIZES.sm,
             height: SIZES.sm
           },
-          [breakpoints.up('lg')]: {
+          [theme.breakpoints.up('lg')]: {
             width: SIZES.lg,
             height: SIZES.lg
           }
@@ -59,7 +59,7 @@ const useStyles = makeStyles(({ palette, breakpoints }) => {
       }
     }
   }
-})
+)
 
 type InvertedIndicatorProps = {
   className?: string
@@ -74,7 +74,7 @@ function InvertedIndicator({
   color,
   ...props
 }: InvertedIndicatorProps): JSX.Element {
-  const classes = useStyles({ active, color: color || 'dark', ...props })
+  const { classes } = useStyles({ active, color: color || 'dark', ...props })
   return (
     <div
       className={cx(

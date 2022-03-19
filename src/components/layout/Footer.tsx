@@ -1,7 +1,4 @@
 import React, { FunctionComponent } from 'react'
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import { LmComponentRender } from '@LmComponentRender'
 import { useSettings } from '../provider/SettingsPageProvider'
@@ -10,29 +7,28 @@ import {
   leftNavigationDrawerSelector,
   useNavigationStore
 } from '../../utils/state/navigationState'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    footer: {
-      position: 'relative',
-      zIndex: theme.zIndex.drawer + 1
-    },
-    leftShift: {
-      marginLeft: theme.drawer.left,
-      width: `calc(100% - ${theme.drawer.left})`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen
-      }),
-      [theme.breakpoints.only('xs')]: {
-        marginLeft: 0
-      }
+const useStyles = makeStyles()((theme) => ({
+  footer: {
+    position: 'relative',
+    zIndex: theme.zIndex.drawer + 1
+  },
+  leftShift: {
+    marginLeft: theme.drawer.left,
+    width: `calc(100% - ${theme.drawer.left})`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    }),
+    [theme.breakpoints.only('xs')]: {
+      marginLeft: 0
     }
-  })
-)
+  }
+}))
 
 const FooterContainer: FunctionComponent = ({ children }) => {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const drawerVariant = useNavigationStore(drawerVariantSelector)
   const settings = useSettings()

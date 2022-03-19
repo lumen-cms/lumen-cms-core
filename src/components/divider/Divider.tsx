@@ -1,10 +1,10 @@
 import clsx from 'clsx'
 import React, { CSSProperties, FunctionComponent } from 'react'
-import makeStyles from '@mui/styles/makeStyles';
 import LmIcon from '../icon/LmIcon'
 import { LmDividerProps } from './dividerTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   hSeparator: {
     clear: 'both',
     width: '100%',
@@ -84,7 +84,7 @@ const DividerContainer: FunctionComponent<{
 DividerContainer.displayName = 'DividerContainer'
 
 export function LmDivider({ content }: LmDividerProps): JSX.Element {
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   const style: CSSProperties = {}
   const iconName = content.icon && content.icon.name

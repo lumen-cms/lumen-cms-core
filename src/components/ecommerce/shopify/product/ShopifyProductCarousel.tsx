@@ -1,11 +1,11 @@
 import React from 'react'
-import makeStyles from '@mui/styles/makeStyles';
 import Carousel from 'react-material-ui-carousel'
 import Image from 'next/image'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   flexboxCentering: {
     height: '100%',
     display: 'flex',
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 export function ShopifyProductCarousel({ item }: ShopifyProductItemProps) {
   const { selectedVariant, onVariantSelect, config } = useShopifySdkContext()
   const variants = item.variants.edges
-  const classes = useStyles()
+  const { classes } = useStyles()
   const height = config?.image_container_height
     ? Number(config.image_container_height)
     : 300

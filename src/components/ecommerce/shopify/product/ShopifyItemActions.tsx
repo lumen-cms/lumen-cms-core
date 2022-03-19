@@ -1,24 +1,20 @@
 import React, { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
-import makeStyles from '@mui/styles/makeStyles';
-import { Theme } from '@mui/material';
-import createStyles from '@mui/styles/createStyles';
 import { ButtonStoryblok } from '../../../../typings/generated/components-schema'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { ShopifyProductDescription } from './ShopifyProductDescription'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    buttonSpace: {
-      marginTop: theme.spacing(3)
-    }
-  })
-)
+const useStyles = makeStyles()((theme) => ({
+  buttonSpace: {
+    marginTop: theme.spacing(3)
+  }
+}))
 
 function AddToCartButton() {
   const { addToCart, config } = useShopifySdkContext()
-  const classes = useStyles()
+  const { classes } = useStyles()
 
   return (
     <div className={classes.buttonSpace}>
@@ -43,7 +39,7 @@ function AddToCartButton() {
 }
 
 function CheckoutButton() {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const { config, onCheckout } = useShopifySdkContext()
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -74,7 +70,7 @@ function CheckoutButton() {
 
 export function ShopifyItemActions({ item }: ShopifyProductItemProps) {
   const { config } = useShopifySdkContext()
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <div>
       <AddToCartButton />

@@ -7,7 +7,7 @@ export default function LmAccordion({
   content
 }: LmAccordionProps): JSX.Element {
   const [opened, setOpen] = useState<string>('')
-  const classes = useStylesAdvanced({
+  const { classes } = useStylesAdvanced({
     props: content.styles
   })
 

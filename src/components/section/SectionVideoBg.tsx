@@ -1,14 +1,14 @@
 import { useInView } from 'react-intersection-observer'
 import React, { CSSProperties, useEffect, useState } from 'react'
-import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import { useTheme } from '@mui/material/styles'
 import Container, { ContainerProps } from '@mui/material/Container'
 import { LmComponentRender } from '@LmComponentRender'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import FullscreenVideoBg from './FullscreenVideoBg'
 import { LmSectionVideoProps } from './sectionTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   videoSection: {
     position: 'relative',
     overflow: 'hidden',
@@ -73,7 +73,7 @@ const useStyles = makeStyles({
 export default function LmSectionVideo({
   content
 }: LmSectionVideoProps): JSX.Element {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const theme = useTheme()
   const [intersectionRef, inView, intersectionElement] = useInView(
     intersectionDefaultOptions

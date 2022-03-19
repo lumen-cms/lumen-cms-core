@@ -1,9 +1,6 @@
 import clsx from 'clsx'
 import React, { FunctionComponent } from 'react'
 import Toolbar from '@mui/material/Toolbar'
-import { CreateCSSProperties } from '@mui/styles'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import Container, { ContainerProps } from '@mui/material/Container'
 import { ContentSpace } from '../ContentSpace'
 import { GlobalStoryblok } from '../../../typings/generated/components-schema'
@@ -11,18 +8,16 @@ import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import LmScrollCollapse from './LmScrollCollapse'
 import LmAppBarCollapse from './LmAppBarCollapse'
 import LmTopAppContainer from './LmTopAppContainer'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    toolbarCustom: (props: { settings: Partial<GlobalStoryblok> }) => {
-      const options: CreateCSSProperties = {}
-      const increasedFontSize = props.settings.toolbar_font_size
-      if (increasedFontSize) {
-        options['& .MuiButton-root'] = {
-          fontSize: increasedFontSize as string // improve
+const useStyles = makeStyles<{ settings: Partial<GlobalStoryblok> }>()(
+  (_, { settings }) => ({
+    toolbarCustom: {
+      ...(settings.toolbar_font_size && {
+        '& .MuiButton-root': {
+          fontSize: settings.toolbar_font_size
         }
-      }
-      return options
+      })
     }
   })
 )
@@ -32,7 +27,7 @@ const TopAppBar: FunctionComponent<{
 }> = (props) => {
   const settings = useSettings() || {}
   const page = usePage() || {}
-  const classes = useStyles({ settings })
+  const { classes } = useStyles({ settings })
   let toolbarWidth: ContainerProps['maxWidth'] = false
   const toolbarConfig = settings.toolbar_config || []
   const hasFeatureImage = page.property?.includes('has_feature')

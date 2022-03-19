@@ -5,12 +5,12 @@ import { LmComponentRender } from '@LmComponentRender'
 import DialogContent from '@mui/material/DialogContent'
 import Dialog from '@mui/material/Dialog'
 import React from 'react'
-import makeStyles from '@mui/styles/makeStyles';
 import Slide from '@mui/material/Slide'
 import { LmDialogAsyncProps } from './dialogTypes'
 import clsx from 'clsx'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   dialogTitle: {
     '& .MuiTypography-root': {
       display: 'flex',
@@ -35,7 +35,7 @@ export default function LmDialog({
   content,
   setOpen
 }: LmDialogAsyncProps) {
-  const classes = useStyles()
+  const { classes } = useStyles()
   if (content.slide_up) {
     // eslint-disable-next-line
     // @ts-ignore
@@ -76,5 +76,5 @@ export default function LmDialog({
         </DialogContent>
       )}
     </Dialog>
-  );
+  )
 }

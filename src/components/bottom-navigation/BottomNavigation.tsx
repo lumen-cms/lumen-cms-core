@@ -30,7 +30,7 @@ export default function LmBottomNavigation({
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  })
+  }).classes
   const bodyElements: LmBottomNavigationItemProps[] = content.body || []
   return (
     <BottomNavigation

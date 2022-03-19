@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react'
 import Image, { ImageProps } from 'next/image'
-import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
+import { useTheme } from '@mui/material/styles'
 import Skeleton from '@mui/material/Skeleton'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import {
@@ -12,8 +11,9 @@ import {
 import { LmImageListItemProps } from './imageListTypes'
 import { COLUMN_COUNT } from '../card/cardListStyles'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles()({
   root: {
     position: 'absolute',
     top: 0,
@@ -23,14 +23,14 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '100%'
   }
-}))
+})
 
 export default function LmImageListItem({
   content,
   listProps
 }: LmImageListItemProps): JSX.Element {
   const [loaded, setLoaded] = useState<boolean>(false)
-  const classes = useStyles()
+  const { classes } = useStyles()
   const imageSource = getRootImageUrl(content.source || '')
   const originalDimensions = getOriginalImageDimensions(content.source || '')
   const { breakpoints } = useTheme()
@@ -106,5 +106,5 @@ export default function LmImageListItem({
         />
       )}
     </ImageWrap>
-  );
+  )
 }

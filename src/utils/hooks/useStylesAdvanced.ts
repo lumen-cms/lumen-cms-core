@@ -1,11 +1,11 @@
 import { Theme } from '@mui/material/styles'
-import { CreateCSSProperties } from '@mui/styles'
 
-import makeStyles from '@mui/styles/makeStyles'
 import {
   ItemKeyValueStoryblok,
   StylesStoryblok
 } from '../../typings/generated/components-schema'
+import { makeStyles } from 'tss-react/mui'
+import { CSSObject } from 'tss-react'
 
 const addImportant = (value?: string) =>
   value ? `${value} !important` : undefined
@@ -15,12 +15,9 @@ const snakeToCamelCase = (key: string) =>
 const capitalizeFirstLetter = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1)
 
-const getStyles = (
-  content: StylesStoryblok,
-  theme: Theme
-): CreateCSSProperties => {
+const getStyles = (content: StylesStoryblok, theme: Theme) => {
   const getThemeMainColor = (color: string) => theme.palette[color]?.main
-  const cssRules: CreateCSSProperties = {}
+  const cssRules: CSSObject = {}
   Object.keys(content).forEach((key) => {
     if (['component', '_uid', 'elevation', 'box_shadow'].includes(key)) {
       return // dont get unnecessary fields or edge cases
@@ -96,41 +93,59 @@ type UseStylesAdvancedProps = {
   propsHover?: StylesStoryblok[]
 }
 
-export const useStylesAdvanced = makeStyles((theme: Theme) => ({
-  advanced: ({ props }: UseStylesAdvancedProps) => {
-    if (!props || !props.length) {
-      return {} as CreateCSSProperties
-    }
-    return getStyles(props[0], theme)
-  },
-  advancedMobile: ({ propsMobile }: UseStylesAdvancedProps) => {
-    if (!propsMobile || !propsMobile.length) {
-      return {} as CreateCSSProperties
-    }
+export const useStylesAdvanced = makeStyles<UseStylesAdvancedProps>()(
+  (
+    theme,
+    { props, propsHover, propsMobile, propsTablet }
+  ): Record<
+    'advanced' | 'advancedMobile' | 'advancedTablet' | 'advancedHover',
+    CSSObject
+  > => {
+    const advanced: CSSObject = props?.[0] ? getStyles(props[0], theme) : {}
+    const advancedMobile: CSSObject = propsMobile?.[0]
+      ? getStyles(propsMobile[0], theme)
+      : {}
+    const advancedTablet: CSSObject = propsTablet?.[0]
+      ? getStyles(propsTablet[0], theme)
+      : {}
+    const advancedHover: CSSObject = propsHover?.[0]
+      ? getStyles(propsHover[0], theme)
+      : {}
     return {
-      [theme.breakpoints.only('xs')]: {
-        ...getStyles(propsMobile[0], theme)
-      }
-    }
-  },
-  advancedTablet: ({ propsTablet }: UseStylesAdvancedProps) => {
-    if (!propsTablet || !propsTablet.length) {
-      return {} as CreateCSSProperties
-    }
-    return {
-      [theme.breakpoints.only('sm')]: {
-        ...getStyles(propsTablet[0], theme)
-      }
-    }
-  },
-  advancedHover: ({ propsHover }: UseStylesAdvancedProps) => {
-    if (!propsHover || !propsHover.length) {
-      return {} as CreateCSSProperties
-    }
-    return {
-      '&:hover': {
-        ...getStyles(propsHover[0], theme)
-      }
+      advanced,
+      advancedMobile,
+      advancedTablet,
+      advancedHover
+      // advancedMobile: ({ propsMobile }: UseStylesAdvancedProps) => {
+      //   if (!propsMobile || !propsMobile.length) {
+      //     return {} as CreateCSSProperties
+      //   }
+      //   return {
+      //     [theme.breakpoints.only('xs')]: {
+      //       ...getStyles(propsMobile[0], theme)
+      //     }
+      //   }
+      // },
+      // advancedTablet: ({ propsTablet }: UseStylesAdvancedProps) => {
+      //   if (!propsTablet || !propsTablet.length) {
+      //     return {} as CreateCSSProperties
+      //   }
+      //   return {
+      //     [theme.breakpoints.only('sm')]: {
+      //       ...getStyles(propsTablet[0], theme)
+      //     }
+      //   }
+      // },
+      // advancedHover: ({ propsHover }: UseStylesAdvancedProps) => {
+      //   if (!propsHover || !propsHover.length) {
+      //     return {} as CreateCSSProperties
+      //   }
+      //   return {
+      //     '&:hover': {
+      //       ...getStyles(propsHover[0], theme)
+      //     }
+      //   }
+      // }
     }
   }
-}))
+)

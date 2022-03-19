@@ -109,7 +109,7 @@ export const LmButton: FC<LmButtonProps> = ({
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  })
+  }).classes
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')
   const color = content.color ? mapColor[content.color] : undefined

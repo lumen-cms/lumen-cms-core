@@ -1,7 +1,5 @@
 import React from 'react'
 import clsx from 'clsx'
-import { Theme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import {
   getOriginalImageDimensions,
   imageCalculateHeight
@@ -10,8 +8,9 @@ import { LmImageProps } from './imageTypes'
 import LmAspectRatio from './LmAspectRatio'
 import LmSquareImage from '../avatar/LmSquareImage'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<ImageStoryblok>()((theme, props) => ({
   image: {
     margin: 'auto'
     // width: '100%',
@@ -32,16 +31,16 @@ const useStyles = makeStyles((theme: Theme) => ({
       overflow: 'hidden'
     }
   },
-  customImage: (props: ImageStoryblok) => ({
+  customImage: {
     borderRadius: props.border_radius ? props.border_radius : undefined
-  })
+  }
 }))
 
 export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element | null {
-  const classes = useStyles(content)
+  const { classes } = useStyles(content)
   const definedWidth = content.width
   const definedHeight = content.height
   const property = content.property || []

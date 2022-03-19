@@ -36,13 +36,13 @@ export default function useBackgroundBox(
     variant
   } = props
   const theme = useTheme()
-  const shadowClasses = useShadowStyles()
+  const shadowClasses = useShadowStyles().classes
   const customClasses = useStylesAdvanced({
     props: styles,
     propsMobile: stylesMobile,
     propsTablet: stylesTablet,
     propsHover: stylesHover
-  })
+  }).classes
 
   const style =
     background || variant

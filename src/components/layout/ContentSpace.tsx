@@ -1,44 +1,40 @@
 import React from 'react'
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import clsx from 'clsx'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 import { ContentSpaceProps } from './layoutTypes'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    contentSpace: {
+const useStyles = makeStyles()((theme) => ({
+  contentSpace: {
+    height: theme.toolbar.height.mobile,
+    transitionDuration: '500ms',
+    [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
+      height: theme.toolbar.height.landscape + theme.toolbar.height.systemBar
+    },
+    [theme.breakpoints.up('sm')]: {
+      height: theme.toolbar.height.custom
+        ? Math.round(theme.toolbar.height.custom * 1.15) +
+          theme.toolbar.height.systemBar
+        : theme.toolbar.height.desktop + theme.toolbar.height.systemBar
+    },
+    '&.lm-scrolled': {
       height: theme.toolbar.height.mobile,
-      transitionDuration: '500ms',
       [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-        height: theme.toolbar.height.landscape + theme.toolbar.height.systemBar
+        height: theme.toolbar.height.landscape // + theme.toolbar.height.systemBar
       },
       [theme.breakpoints.up('sm')]: {
-        height: theme.toolbar.height.custom
-          ? Math.round(theme.toolbar.height.custom * 1.15) +
-            theme.toolbar.height.systemBar
-          : theme.toolbar.height.desktop + theme.toolbar.height.systemBar
-      },
-      '&.lm-scrolled': {
-        height: theme.toolbar.height.mobile,
-        [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
-          height: theme.toolbar.height.landscape // + theme.toolbar.height.systemBar
-        },
-        [theme.breakpoints.up('sm')]: {
-          height: theme.toolbar.height.desktop // + theme.toolbar.height.systemBar
-        }
-      },
-      '&.lm-is-table': {
-        display: 'inline-table'
+        height: theme.toolbar.height.desktop // + theme.toolbar.height.systemBar
       }
+    },
+    '&.lm-is-table': {
+      display: 'inline-table'
     }
-  })
-)
+  }
+}))
 
 export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const settings = useSettings()
   const page = usePage()
   const scrolledWithoutHysteresis = useScrollTop()

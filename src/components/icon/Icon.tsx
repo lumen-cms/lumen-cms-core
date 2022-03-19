@@ -1,10 +1,10 @@
 import React from 'react'
 import clsx from 'clsx'
-import makeStyles from '@mui/styles/makeStyles';
 import LmIconMwc from './LmIcon'
 import { LmIconProps } from './iconTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   xmall: {
     fontSize: '1rem',
     height: '1rem'
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 })
 
 export function LmIcon({ content, onClick }: LmIconProps): JSX.Element {
-  const classes = useStyles()
+  const { classes } = useStyles()
   return (
     <div
       className={clsx(content.class_names?.values, {

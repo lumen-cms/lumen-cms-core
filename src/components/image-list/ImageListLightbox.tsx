@@ -8,7 +8,7 @@ import { ImageListLightboxProps } from './imageListTypes'
 import { useImageListLightboxStyles } from './useImageListLightboxStyles'
 
 function ImageListLightbox(props: ImageListLightboxProps): JSX.Element {
-  const classes = useImageListLightboxStyles()
+  const { classes } = useImageListLightboxStyles()
   return (
     <Dialog
       fullScreen
@@ -24,13 +24,14 @@ function ImageListLightbox(props: ImageListLightboxProps): JSX.Element {
           onClick={() => {
             props.setLightbox('')
           }}
-          size="large">
+          size="large"
+        >
           <Close />
         </IconButton>
       </DialogTitle>
       <Swipe {...props} />
     </Dialog>
-  );
+  )
 }
 
 export default ImageListLightbox

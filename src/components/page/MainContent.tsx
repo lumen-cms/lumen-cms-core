@@ -10,7 +10,7 @@ import {
 } from '../../utils/state/navigationState'
 
 const MainContentContainer: FunctionComponent = ({ children }) => {
-  const classes = usePageStyles()
+  const { classes } = usePageStyles()
   const settings = useSettings()
   const page = usePage()
   const drawerVariant = useNavigationStore(drawerVariantSelector)

@@ -25,7 +25,7 @@ export default function LmGoogleForm({
   formStructure: GoogleForm
   content: LmGoogleFormProps['content']
 }): JSX.Element {
-  const classes = useFormColorStyles()
+  const { classes } = useFormColorStyles()
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
   // @TODO mode is no-cors, can't detect result status
   // const [submitError, setSubmitError] = useState<boolean>(false)

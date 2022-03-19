@@ -3,41 +3,37 @@ import React from 'react'
 import Typography from '@mui/material/Typography'
 import MuiLink from '@mui/material/Link'
 import clsx from 'clsx'
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { getRootImageUrl } from '../../../utils/imageServices'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import LmSquareImage from '../../avatar/LmSquareImage'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      // height: '100%',
-      display: 'flex',
-      '& .logo-img__mobile': {
-        display: 'none'
-      },
-      [theme.breakpoints.only('xs')]: {
-        '& .logo-img__mobile': {
-          display: 'flex'
-        },
-        '& .logo-img__desktop': {
-          display: 'none'
-        }
-      }
+const useStyles = makeStyles()((theme) => ({
+  root: {
+    // height: '100%',
+    display: 'flex',
+    '& .logo-img__mobile': {
+      display: 'none'
     },
-    imageContainer: {
-      display: 'flex'
+    [theme.breakpoints.only('xs')]: {
+      '& .logo-img__mobile': {
+        display: 'flex'
+      },
+      '& .logo-img__desktop': {
+        display: 'none'
+      }
     }
-  })
-)
+  },
+  imageContainer: {
+    display: 'flex'
+  }
+}))
 
 export function LmToolbarLogo(): JSX.Element {
   const settings = useSettings()
   const { property } = usePage() || {}
-  const classes = useStyles()
+  const { classes } = useStyles()
   const homepageHref = useHomepageLink()
   const websiteTitle = settings.website_title
   const websiteLogo = getRootImageUrl(settings.website_logo)

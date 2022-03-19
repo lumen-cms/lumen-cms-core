@@ -2,7 +2,6 @@ import { Story, StoryData } from 'storyblok-js-client'
 import { GetStaticPropsContext } from 'next'
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import { CategoryComponent, PageComponent } from './generated/schema'
-import { EmotionCache } from '@emotion/react'
 
 export interface IClaims {
   [key: string]: any // just a copy of the IClaim

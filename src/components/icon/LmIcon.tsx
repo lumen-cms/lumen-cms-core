@@ -1,14 +1,14 @@
 import InlineSVG from 'react-inlinesvg'
 import React, { CSSProperties } from 'react'
 import clsx from 'clsx'
-import makeStyles from '@mui/styles/makeStyles';
 import { useInView } from 'react-intersection-observer'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { makeStyles } from 'tss-react/mui'
 
 const underscoreToMinus = (str: string) => str.replace(/_/g, '-')
 
-const useStyles = makeStyles({
+const useStyles = makeStyles()({
   icon: {
     fill: 'currentColor',
     width: '1em',
@@ -49,7 +49,7 @@ function IconCore({
   iconUrl,
   onClick
 }: IconCoreProps): JSX.Element {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )

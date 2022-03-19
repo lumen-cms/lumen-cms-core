@@ -1,6 +1,6 @@
-import makeStyles from '@mui/styles/makeStyles';
+import { makeStyles } from 'tss-react/mui'
 
-export const useFormColorStyles = makeStyles({
+export const useFormColorStyles = makeStyles()({
   dark: {
     '& .MuiAccordion-root': {
       color: 'inherit',

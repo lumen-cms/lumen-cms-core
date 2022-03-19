@@ -8,54 +8,51 @@ import React from 'react'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import clsx from 'clsx'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import { LmComponentRender } from '@LmComponentRender'
 import { CardContentContainer } from './CardContentContainer'
 import { LmTimelineItemProps } from './timelineTypes'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    naked: {
-      padding: 0,
-      boxShadow: 'none',
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-      borderRadius: 'unset'
-    },
-    hideMargin: {
-      marginTop: 0,
-      marginBottom: 0
-    },
-    hideOnMobile: {
-      [theme.breakpoints.only('xs')]: {
-        display: 'none'
-      }
-    },
-    showOnMobile: {
-      display: 'none',
-      [theme.breakpoints.only('xs')]: {
-        display: 'block'
-      }
-    },
-    ghostConnector: {
-      position: 'relative',
-      '& .ghost': {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0
-      }
+const useStyles = makeStyles()((theme) => ({
+  naked: {
+    padding: 0,
+    boxShadow: 'none',
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: 'unset'
+  },
+  hideMargin: {
+    marginTop: 0,
+    marginBottom: 0
+  },
+  hideOnMobile: {
+    [theme.breakpoints.only('xs')]: {
+      display: 'none'
     }
-  })
-)
+  },
+  showOnMobile: {
+    display: 'none',
+    [theme.breakpoints.only('xs')]: {
+      display: 'block'
+    }
+  },
+  ghostConnector: {
+    position: 'relative',
+    '& .ghost': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0
+    }
+  }
+}))
 
 export default function LmTimelineItem({
   content,
   options,
   isLast
 }: LmTimelineItemProps) {
-  const classes = useStyles()
+  const { classes } = useStyles()
   const hasOppositeContent = content.opposite_body?.length
   return (
     <TimelineItem>
@@ -87,7 +84,7 @@ export default function LmTimelineItem({
                 content.dot_variant === 'naked' || options?.variant === 'naked',
               [classes.hideMargin]: options.connect_separator
             })}
-          ></TimelineDot>
+          />
         )}
         <TimelineConnector
           className={

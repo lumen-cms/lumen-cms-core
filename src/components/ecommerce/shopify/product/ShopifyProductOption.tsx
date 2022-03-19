@@ -1,6 +1,4 @@
 import React from 'react'
-import makeStyles from '@mui/styles/makeStyles';
-import { Theme } from '@mui/material'
 import { LmComponentRender } from '@LmComponentRender'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
@@ -9,8 +7,9 @@ import {
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
 import { useEffectOnce } from 'react-use'
+import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles()((theme) => ({
   redColor: {
     color: theme.palette.error.main
   },
@@ -31,7 +30,7 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
   const { selectedVariant, onVariantSelect, config } = useShopifySdkContext()
 
   const { currency_prefix } = config
-  const classes = useStyles()
+  const { classes } = useStyles()
   const firstVariant = item.variants?.edges[0].node
   useEffectOnce(() => {
     onVariantSelect({ ...firstVariant, productTitle: item.title })

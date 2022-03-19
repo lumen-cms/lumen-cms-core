@@ -13,7 +13,7 @@ import {
 } from '../../utils/state/navigationState'
 
 const RightDrawerContainer: FunctionComponent = ({ children }) => {
-  const classes = usePageStyles()
+  const { classes } = usePageStyles()
   const theme = useTheme()
   const closeRightNavigation = useNavigationStore(closeRightNavigationSelector)
   const page = usePage()
@@ -45,7 +45,7 @@ type RightDrawerProps = {
 }
 
 function RightDrawer({ rightBody }: RightDrawerProps): JSX.Element {
-  const classes = usePageStyles()
+  const { classes } = usePageStyles()
 
   return (
     <RightDrawerContainer>

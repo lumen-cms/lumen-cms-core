@@ -9,7 +9,7 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({
   options
 }) => {
   const className = 'lm-card'
-  const styles = useShadowStyles()
+  const styles = useShadowStyles().classes
   const variants = options.variant || []
   const style: CSSProperties = {
     borderRadius: options.border_radius ? options.border_radius : undefined,

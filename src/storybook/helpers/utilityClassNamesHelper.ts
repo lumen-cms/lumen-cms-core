@@ -1,8 +1,11 @@
-import { createTheme } from '@mui/material/styles'
-import { getCreatedStyles } from '../../utils/hooks/useGlobalStyles'
-
 const generateUtilityClassNames = (): string[] => {
-  const globalStyles = getCreatedStyles(createTheme())
+  // the getCreatedStyles is removed... @TODO if Storybook still need to be supported
+  const globalStyles = {
+    '@global': {
+      'pa-1': ''
+    }
+  }
+  // const globalStyles = getCreatedStyles(createTheme())
 
   const blacklist: string[] = [
     '.fonts-loaded',

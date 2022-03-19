@@ -1,6 +1,4 @@
-import { Theme } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
-import { CreateCSSProperties } from '@mui/styles'
+import { makeStyles } from 'tss-react/mui'
 
 export const COLUMN_COUNT = {
   DESKTOP: 4,
@@ -8,66 +6,57 @@ export const COLUMN_COUNT = {
   PHONE: 1,
   PHONE_MASONRY: 2
 }
-export const useGridListStyles = makeStyles((theme: Theme) => ({
-  gridList: (props: {
-    columnCount?: string
-    columnCountTablet?: string
-    columnCountPhone?: string
-    isMasonry?: boolean
-  }) => {
-    if (!props.isMasonry) {
-      const opts: CreateCSSProperties = {
-        '& .MuiImageListItem-root': {
+type UseGridListProps = {
+  columnCount?: string
+  columnCountTablet?: string
+  columnCountPhone?: string
+  isMasonry?: boolean
+}
+export const useGridListStyles = makeStyles<UseGridListProps>()(
+  (theme, { columnCount, columnCountPhone, columnCountTablet }) => ({
+    root: {
+      '& .MuiImageListItem-root': {
+        width: `${
+          100 / Number(columnCount || COLUMN_COUNT.DESKTOP)
+        }% !important`,
+        [theme.breakpoints.only('xs')]: {
           width: `${
-            100 / Number(props.columnCount || COLUMN_COUNT.DESKTOP)
-          }% !important`,
-          [theme.breakpoints.only('xs')]: {
-            width: `${
-              100 / Number(props.columnCountPhone || COLUMN_COUNT.PHONE)
-            }% !important`
-          },
-          [theme.breakpoints.between('sm', 'lg')]: {
-            width: `${
-              100 /
-              Number(
-                props.columnCountTablet ||
-                  props.columnCount ||
-                  COLUMN_COUNT.TABLET
-              )
-            }% !important`
-          }
+            100 / Number(columnCountPhone || COLUMN_COUNT.PHONE)
+          }% !important`
+        },
+        [theme.breakpoints.between('sm', 'lg')]: {
+          width: `${
+            100 /
+            Number(columnCountTablet || columnCount || COLUMN_COUNT.TABLET)
+          }% !important`
         }
       }
-      return opts
-    }
-    const opts: CreateCSSProperties = {
-      columnCount: Number(props.columnCount || COLUMN_COUNT.DESKTOP),
+    },
+    rootMasonry: {
+      columnCount: Number(columnCount || COLUMN_COUNT.DESKTOP),
       [theme.breakpoints.only('xs')]: {
-        columnCount: Number(
-          props.columnCountPhone || COLUMN_COUNT.PHONE_MASONRY
-        )
+        columnCount: Number(columnCountPhone || COLUMN_COUNT.PHONE_MASONRY)
       },
       [theme.breakpoints.between('sm', 'lg')]: {
         columnCount: Number(
-          props.columnCountTablet || props.columnCount || COLUMN_COUNT.TABLET
+          columnCountTablet || columnCount || COLUMN_COUNT.TABLET
         )
       }
-    }
-    return opts
-  },
-  masonry: {
-    // '& img': {
-    //   display: 'block',
-    //   width: '100%',
-    //   height: 'auto'
-    // },
-    '& .MuiImageList-root': {
-      display: 'block'
     },
-    '& .MuiImageListItem-root': {
-      width: 'auto !important',
-      breakInside: 'avoid-column',
-      position: 'relative'
+    masonry: {
+      // '& img': {
+      //   display: 'block',
+      //   width: '100%',
+      //   height: 'auto'
+      // },
+      '& .MuiImageList-root': {
+        display: 'block'
+      },
+      '& .MuiImageListItem-root': {
+        width: 'auto !important',
+        breakInside: 'avoid-column',
+        position: 'relative'
+      }
     }
-  }
-}))
+  })
+)
