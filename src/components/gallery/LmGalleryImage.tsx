@@ -8,8 +8,8 @@ import {
   getRootImageUrl,
   imageCalculateWidth
 } from '../../utils/imageServices'
-import { ClassNameMap } from '@mui/styles';
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
+import { ClassNameMap } from '@mui/material'
 
 type LmGalleryImageProps = {
   content: ImageCoreStoryblok

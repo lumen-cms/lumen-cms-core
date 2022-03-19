@@ -1,18 +1,13 @@
 import {
   createTheme,
   responsiveFontSizes,
-  Theme,
   ThemeProvider
 } from '@mui/material/styles'
 import React, { FunctionComponent, useMemo } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import parseFont from '../../utils/parseFont'
-import { GlobalStyles } from './GlobalStyles'
+import { LmGlobalStyles } from './LmGlobalStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
-
-declare module '@mui/styles/defaultTheme' {
-  interface DefaultTheme extends Theme {}
-}
 
 declare module '@mui/material/styles/createTheme' {
   interface Theme {
@@ -253,8 +248,8 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
       <CssBaseline />
+      <LmGlobalStyles />
       {children}
     </ThemeProvider>
   )

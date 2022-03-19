@@ -7,10 +7,9 @@ import Dialog from '@mui/material/Dialog'
 import React from 'react'
 import Slide from '@mui/material/Slide'
 import { LmDialogAsyncProps } from './dialogTypes'
-import clsx from 'clsx'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: 'Dialog' })({
   dialogTitle: {
     '& .MuiTypography-root': {
       display: 'flex',
@@ -35,7 +34,7 @@ export default function LmDialog({
   content,
   setOpen
 }: LmDialogAsyncProps) {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   if (content.slide_up) {
     // eslint-disable-next-line
     // @ts-ignore
@@ -44,7 +43,7 @@ export default function LmDialog({
   return (
     <Dialog {...dialogProps}>
       <DialogTitle
-        className={clsx({
+        className={cx({
           'd-none': content.prevent_close_button && !content.title
         })}
         classes={{

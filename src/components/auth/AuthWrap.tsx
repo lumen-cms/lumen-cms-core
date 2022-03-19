@@ -6,7 +6,7 @@ import { Theme, useTheme } from '@mui/material/styles'
 import { useMediaQuery } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme: Theme) => ({
+const useStyles = makeStyles({ name: 'AuthWrap' })((theme: Theme) => ({
   loginRoot: {
     [theme.breakpoints.up('sm')]: {
       backgroundImage:

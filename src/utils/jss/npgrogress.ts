@@ -1,7 +1,7 @@
 import { Theme } from '@mui/material/styles'
-import { CSSProperties } from '@mui/styles'
+import { CSSObject } from '@mui/material'
 
-const getNprogressJss = (theme: Theme): CSSProperties => ({
+const getNprogressJss = (theme: Theme): CSSObject => ({
   // NProgress
   '#nprogress': {
     pointerEvents: 'none',

@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { makeStyles } from 'tss-react/mui'
 
 const LmDialog = dynamic(() => import('./LmDialog'))
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: 'DialogElement' })({
   trigger: {
     cursor: 'pointer'
   }

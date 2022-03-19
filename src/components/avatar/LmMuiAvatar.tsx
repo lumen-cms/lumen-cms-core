@@ -5,7 +5,7 @@ import { LmMuiAvatarProps } from './avatarTypes'
 import LmSquareImage from './LmSquareImage'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: 'Avatar' })({
   avatar: {
     backgroundColor: 'transparent',
     '&.xsmall': {
