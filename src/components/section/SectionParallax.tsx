@@ -1,5 +1,5 @@
 import { ParallaxBanner } from 'react-scroll-parallax'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import React from 'react'
 import Image from 'next/image'
 import { LmComponentRender } from '@LmComponentRender'

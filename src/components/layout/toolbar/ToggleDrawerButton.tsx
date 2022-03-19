@@ -1,6 +1,6 @@
 import React from 'react'
 import IconButton from '@mui/material/IconButton'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import MenuUi from 'mdi-material-ui/Menu'
 import AppsIcon from 'mdi-material-ui/Apps'
 import CloseIcon from 'mdi-material-ui/Close'
@@ -79,7 +79,8 @@ export function LmToggleDrawerButton({
       onClick={() =>
         rightDrawer ? toggleRightNavigation() : toggleLeftNavigation()
       }
-      size="large">
+      size="large"
+    >
       {rightDrawer ? (
         isRightOpen ? (
           <CloseIcon />
@@ -92,5 +93,5 @@ export function LmToggleDrawerButton({
         <ActiveIcon />
       )}
     </IconButton>
-  );
+  )
 }

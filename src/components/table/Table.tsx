@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key,react/no-danger */
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import React from 'react'
 import { LmTableProps } from './tableTypes'
 import { makeStyles } from 'tss-react/mui'

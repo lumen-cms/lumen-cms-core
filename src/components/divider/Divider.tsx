@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import React, { CSSProperties, FunctionComponent } from 'react'
 import LmIcon from '../icon/LmIcon'
 import { LmDividerProps } from './dividerTypes'

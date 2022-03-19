@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import Drawer from '@mui/material/Drawer'
 import { useTheme } from '@mui/material/styles'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { UseBackgroundPayload } from '../../section/useBackgroundBox'
 import { useStyles } from './useDrawerStyles'

@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { usePageStyles } from './usePageStyle'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
@@ -19,7 +19,7 @@ const MainContentContainer: FunctionComponent = ({ children }) => {
   return (
     <main
       className={clsx(classes.content, {
-        [classes.contentWithRight]: hasRightDrawer,
+        [classes.contentWithRight]: !!hasRightDrawer,
         [classes[`right-mobile-${page?.mobile_breakpoint || 'sm'}`]]: true,
         [classes.leftShift]: drawerVariant !== 'temporary' && isOpen,
         [classes[`left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`]]:

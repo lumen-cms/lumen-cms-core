@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import React, { FunctionComponent } from 'react'
 import Toolbar from '@mui/material/Toolbar'
 import Container, { ContainerProps } from '@mui/material/Container'
@@ -51,7 +51,7 @@ const TopAppBar: FunctionComponent<{
               <Toolbar
                 disableGutters
                 className={clsx('lm-toolbar__main', {
-                  [classes.toolbarCustom]: settings.toolbar_font_size
+                  [classes.toolbarCustom]: !!settings.toolbar_font_size
                 })}
               >
                 {props.children}

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import AppBar from '@mui/material/AppBar'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import {
   drawerVariantSelector,
@@ -75,7 +75,7 @@ const LmTopAppContainer: FC = ({ children }) => {
   const scrolledWithoutHysteresis = useScrollTop()
   const toolbarVariant = settings.toolbar_variant
   const isFixedTop = toolbarConfig.includes('fixed')
-  const hasFeatureImage = page.property?.includes('has_feature')
+  const hasFeatureImage = !!page.property?.includes('has_feature')
   const drawerBelowToolbar =
     settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
   const showLeftShift =
@@ -97,7 +97,7 @@ const LmTopAppContainer: FC = ({ children }) => {
         'lm-toolbar__has-feature':
           !scrolledWithoutHysteresis && hasFeatureImage,
         'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
-        [`lm-toolbar__${toolbarVariant}`]: toolbarVariant,
+        [`lm-toolbar__${toolbarVariant}`]: !!toolbarVariant,
         [classes.leftShift]: showLeftShift,
         [classes[`left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`]]:
           showLeftShift

@@ -1,5 +1,5 @@
 import React from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import LmIconMwc from './LmIcon'
 import { LmIconProps } from './iconTypes'
 import { makeStyles } from 'tss-react/mui'

@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { useRouter } from 'next/router'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'

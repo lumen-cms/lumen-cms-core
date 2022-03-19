@@ -1,5 +1,5 @@
 import { CSSProperties, FC } from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { makeStyles } from 'tss-react/mui'
 
 type LmAspectRatioProps = {

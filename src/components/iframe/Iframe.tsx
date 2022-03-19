@@ -1,6 +1,6 @@
 import { useInView } from 'react-intersection-observer'
 import React, { useMemo, useState } from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import Skeleton from '@mui/material/Skeleton'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmIframeProps } from './iframeTypes'
@@ -62,5 +62,5 @@ export default function LmIframe({ content }: LmIframeProps): JSX.Element {
         }}
       />
     </div>
-  );
+  )
 }

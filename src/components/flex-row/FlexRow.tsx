@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import Grid from '@mui/material/Grid'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { useTheme } from '@mui/material/styles'
 import { LmFlexRowProps } from './flexRowTypes'
@@ -35,10 +35,10 @@ export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
       className={clsx(content.class_names?.values, {
         'mh-100': content.full_height,
         [flexClasses.xsColumn]: content.column_mobile_only,
-        [classes.advanced]: content.styles?.length,
-        [classes.advancedMobile]: content.styles_mobile?.length,
-        [classes.advancedTablet]: content.styles_tablet?.length,
-        [classes.advancedHover]: content.styles_hover?.length
+        [classes.advanced]: !!content.styles?.length,
+        [classes.advancedMobile]: !!content.styles_mobile?.length,
+        [classes.advancedTablet]: !!content.styles_tablet?.length,
+        [classes.advancedHover]: !!content.styles_hover?.length
       })}
       style={{
         gap: content.gap ? theme.spacing(Number(content.gap)) : 0

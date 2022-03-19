@@ -1,6 +1,6 @@
 import React from 'react'
 import Avatar from '@mui/material/Avatar'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmMuiAvatarProps } from './avatarTypes'
 import LmSquareImage from './LmSquareImage'
 import { makeStyles } from 'tss-react/mui'

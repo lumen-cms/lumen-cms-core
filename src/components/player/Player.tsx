@@ -1,6 +1,6 @@
 import { useInView } from 'react-intersection-observer'
 import ReactPlayer from 'react-player/lazy'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import React, { useState } from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmPlayerProps } from './playerTypes'

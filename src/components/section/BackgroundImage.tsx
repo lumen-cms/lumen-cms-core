@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import Image from 'next/image'
 import {
   BackgroundStoryblok,
@@ -129,7 +129,7 @@ const BackgroundImage = ({
   }
 
   const defaultImgClassNames = clsx(classes.root, {
-    [`hide__${hide_image_on_breakpoint}`]: hide_image_on_breakpoint
+    [`hide__${hide_image_on_breakpoint}`]: !!hide_image_on_breakpoint
   })
   return (
     <Wrap>
@@ -137,7 +137,7 @@ const BackgroundImage = ({
         <BgImage
           src={imageSource}
           className={clsx(defaultImgClassNames, {
-            landscape: imageSourcePortrait
+            landscape: !!imageSourcePortrait
           })}
         />
       )}

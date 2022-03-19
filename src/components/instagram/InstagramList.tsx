@@ -3,7 +3,7 @@ import { useInView } from 'react-intersection-observer'
 import React from 'react'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { useGridListStyles } from '../card/cardListStyles'
 import {

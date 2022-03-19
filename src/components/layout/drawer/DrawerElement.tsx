@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
 import { ContentSpace } from '../ContentSpace'

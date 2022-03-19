@@ -1,5 +1,5 @@
 import React from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 import { ContentSpaceProps } from './layoutTypes'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
@@ -43,10 +43,11 @@ export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
     <div
       className={clsx('lm-content-space', classes.contentSpace, {
         'lm-is-table': !isBlock,
-        'lm-scrolled':
+        'lm-scrolled': !!(
           scrolledWithoutHysteresis &&
           (settings.toolbar_main_height ||
             page?.property?.includes('has_feature'))
+        )
       })}
     />
   )

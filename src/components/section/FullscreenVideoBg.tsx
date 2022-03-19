@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import ReactPlayer, { ReactPlayerProps } from 'react-player/lazy'
 import React, { useState } from 'react'
 import BackgroundImageContainer from './BackgroundImage'

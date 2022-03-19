@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import parseMarkdownContent from './markdown-helper'
@@ -18,7 +18,7 @@ export default function LmParagraph({
         content.style,
         content.class_names?.values,
         {
-          [`lm-font-${content.font}`]: content.font
+          [`lm-font-${content.font}`]: !!content.font
         }
       )}
       variant={

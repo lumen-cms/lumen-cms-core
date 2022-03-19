@@ -3,7 +3,7 @@ import Fab, { FabProps } from '@mui/material/Fab'
 import React, { FC } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { Theme } from '@mui/material/styles'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmCoreComponents } from '@CONFIG'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
@@ -118,12 +118,14 @@ export const LmButton: FC<LmButtonProps> = ({
     content.class_names?.values,
     additionalClassName,
     {
-      [classes.buttonLabelWithAvatar]:
-        (content.image || content.icon?.name) && content.label,
-      [advancedClasses.advanced]: content.styles?.length,
-      [advancedClasses.advancedMobile]: content.styles_mobile?.length,
-      [advancedClasses.advancedTablet]: content.styles_tablet?.length,
-      [advancedClasses.advancedHover]: content.styles_hover?.length,
+      [classes.buttonLabelWithAvatar]: !!(
+        (content.image || content.icon?.name) &&
+        content.label
+      ),
+      [advancedClasses.advanced]: !!content.styles?.length,
+      [advancedClasses.advancedMobile]: !!content.styles_mobile?.length,
+      [advancedClasses.advancedTablet]: !!content.styles_tablet?.length,
+      [advancedClasses.advancedHover]: !!content.styles_hover?.length,
       [classes.noWhitespace]: properties.includes('no-linebreak'),
       'lm-default-color': !content.color,
       [content.corners as string]: !!content.corners,
@@ -132,7 +134,7 @@ export const LmButton: FC<LmButtonProps> = ({
         content.variant === 'unelevated',
       'lm-outlined': content.variant === 'outlined',
       [content.size as string]: !!content.size,
-      [`lm-font-${content.font}`]: content.font,
+      [`lm-font-${content.font}`]: !!content.font,
       'w-100': properties.includes('fullWidth')
     }
   )

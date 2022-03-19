@@ -3,7 +3,7 @@ import BottomNavigation from '@mui/material/BottomNavigation'
 import React from 'react'
 import { makeStyles } from 'tss-react/mui'
 import { LmComponentRender } from '@LmComponentRender'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmCoreComponents } from '@CONFIG'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 import {
@@ -38,10 +38,10 @@ export default function LmBottomNavigation({
       classes={{
         root: clsx({
           [classes.root]: content.stick_to_bottom,
-          [classesAdvanced.advanced]: content.styles?.length,
-          [classesAdvanced.advancedMobile]: content.styles_mobile?.length,
-          [classesAdvanced.advancedTablet]: content.styles_tablet?.length,
-          [classesAdvanced.advancedHover]: content.styles_hover?.length
+          [classesAdvanced.advanced]: !!content.styles?.length,
+          [classesAdvanced.advancedMobile]: !!content.styles_mobile?.length,
+          [classesAdvanced.advancedTablet]: !!content.styles_tablet?.length,
+          [classesAdvanced.advancedHover]: !!content.styles_hover?.length
         })
       }}
     >

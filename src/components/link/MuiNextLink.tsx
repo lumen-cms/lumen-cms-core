@@ -2,7 +2,7 @@ import React, { AnchorHTMLAttributes, useCallback } from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@mui/material/Link'
 import { CONFIG } from '@CONFIG'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LinkProps, NextComposedProps } from './linkTypes'
 import { useAppContext } from '@context/AppContext'
 
@@ -92,7 +92,7 @@ const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
     } = props
     const { slug } = useAppContext()
     const className = clsx(classNameProps, {
-      [activeClassName]: slug === href && activeClassName
+      [activeClassName]: !!(slug === href && activeClassName)
     })
     // const className = classNameProps
     if (!href) {

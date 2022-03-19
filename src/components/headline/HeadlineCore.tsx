@@ -1,5 +1,5 @@
 import React, { CSSProperties, ElementType, FC } from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { LmHeadlineProps } from './headlineTypes'
@@ -25,11 +25,11 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({
         content.class_names?.values,
         {
           enable__speech: content.enable_speech,
-          [classes.advanced]: content.styles?.length,
-          [classes.advancedMobile]: content.styles_mobile?.length,
-          [classes.advancedTablet]: content.styles_tablet?.length,
-          [classes.advancedHover]: content.styles_hover?.length,
-          [`lm-font-${content.font}`]: content.font
+          [classes.advanced]: !!content.styles?.length,
+          [classes.advancedMobile]: !!content.styles_mobile?.length,
+          [classes.advancedTablet]: !!content.styles_tablet?.length,
+          [classes.advancedHover]: !!content.styles_hover?.length,
+          [`lm-font-${content.font}`]: !!content.font
         }
       )}
       component={(content.tag ? content.tag : undefined) as ElementType}

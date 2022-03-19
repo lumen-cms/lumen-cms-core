@@ -1,7 +1,7 @@
 import { useInView } from 'react-intersection-observer'
 import SVG from 'react-inlinesvg'
 import React, { useState } from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import Fade from '@mui/material/Fade'
 import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'

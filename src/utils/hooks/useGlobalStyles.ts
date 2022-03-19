@@ -331,16 +331,16 @@ export const createGlobalStyles = (theme: Theme) => {
       textOverflow: 'ellipsis',
       minHeight: '3rem',
       overflow: 'hidden',
-      '-webkit-box-orient': 'vertical',
-      '-webkit-line-clamp': 2
+      webkitLineClamp: 2,
+      webkitBoxOrient: 'vertical'
     },
     '.text-3-rows-max': {
       display: '-webkit-box',
       textOverflow: 'ellipsis',
       overflow: 'hidden',
       minHeight: '4.5rem',
-      '-webkit-line-clamp': 3,
-      '-webkit-box-orient': 'vertical'
+      webkitLineClamp: 3,
+      webkitBoxOrient: 'vertical'
     },
     [theme.breakpoints.only('xs')]: {
       '.d-xs-inline-flex': {

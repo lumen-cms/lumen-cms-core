@@ -2,7 +2,7 @@ import { useTheme } from '@mui/material/styles'
 import React, { FC } from 'react'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 import { Collapse } from '@mui/material'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { makeStyles } from 'tss-react/mui'
 

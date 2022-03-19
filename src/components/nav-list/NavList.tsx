@@ -1,5 +1,5 @@
 import React from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import LmIcon from '../icon/LmIcon'

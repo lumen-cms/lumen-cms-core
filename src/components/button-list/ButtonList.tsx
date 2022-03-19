@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmButtonListProps } from './buttonListTypes'

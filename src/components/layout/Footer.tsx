@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { useSettings } from '../provider/SettingsPageProvider'
 import {

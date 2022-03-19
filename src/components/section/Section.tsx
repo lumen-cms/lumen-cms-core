@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react'
 import Container, { ContainerProps } from '@mui/material/Container'
 import { useTheme } from '@mui/material/styles'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'

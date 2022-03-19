@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react'
 import { useInView } from 'react-intersection-observer'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmHtmlProps } from './htmlTypes'
@@ -18,10 +18,10 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
   }).classes
   const divProps: HTMLAttributes<Element> = {
     className: clsx({
-      [classes.advanced]: content.styles?.length,
-      [classes.advancedTablet]: content.styles_tablet?.length,
-      [classes.advancedMobile]: content.styles_mobile?.length,
-      [classes.advancedHover]: content.styles_hover?.length
+      [classes.advanced]: !!content.styles?.length,
+      [classes.advancedTablet]: !!content.styles_tablet?.length,
+      [classes.advancedMobile]: !!content.styles_mobile?.length,
+      [classes.advancedHover]: !!content.styles_hover?.length
     }),
     style: {
       height:

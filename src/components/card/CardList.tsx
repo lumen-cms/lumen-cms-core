@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { useEffect, useState } from 'react'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
@@ -121,7 +121,7 @@ export default function LmCardList({
         variant.map((i) => `card__${i}`),
         {
           [classes.gridEqualHeight]: content.variant?.includes('equal-heights'),
-          [`ratio-${content.image_ratio}`]: content.image_ratio
+          [`ratio-${content.image_ratio}`]: !!content.image_ratio
         }
       )}
     >

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import Grid from '@mui/material/Grid'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'

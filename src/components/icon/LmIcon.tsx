@@ -1,6 +1,6 @@
 import InlineSVG from 'react-inlinesvg'
 import React, { CSSProperties } from 'react'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { useInView } from 'react-intersection-observer'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -69,7 +69,7 @@ function IconCore({
       }}
       style={style}
       className={clsx(classes.icon, 'lm-svg-icon', className, {
-        [`size__${buttonSize}`]: buttonSize
+        [`size__${buttonSize}`]: !!buttonSize
       })}
       onError={() => {
         console.error(`Icon not found: ${iconName}`)

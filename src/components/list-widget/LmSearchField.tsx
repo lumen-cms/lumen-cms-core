@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import TextField from '@mui/material/TextField'
 import Magnify from 'mdi-material-ui/Magnify'
 import React, { useState } from 'react'

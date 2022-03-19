@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ImageList, { ImageListProps } from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import dynamic from 'next/dynamic'
@@ -47,9 +47,10 @@ export default function LmImageList({
       <div
         className={clsx(classes.root, {
           [gridClasses.masonry]: content.masonry,
-          [classes.aspectRatio]: content.aspect_ratio && !content.masonry,
-          [`ratio-${content.aspect_ratio}`]:
-            content.aspect_ratio && !content.masonry,
+          [classes.aspectRatio]: !!(content.aspect_ratio && !content.masonry),
+          [`ratio-${content.aspect_ratio}`]: !!(
+            content.aspect_ratio && !content.masonry
+          ),
           'with-lightbox': content.enable_lightbox
         })}
       >

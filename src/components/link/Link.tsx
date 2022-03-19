@@ -1,6 +1,6 @@
 import React from 'react'
 import MuiLink from '@mui/material/Link'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'

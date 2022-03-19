@@ -1,6 +1,6 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
@@ -9,7 +9,7 @@ import useBackgroundBox from './useBackgroundBox'
 import { LmGridRowProps } from './sectionTypes'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
   gridRow: {
     height: '100%',
     minHeight: 'inherit',
@@ -83,10 +83,10 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
     <Grid
       container
       style={{
-        ...style,
-        padding: spacing ? `-${spacing * 8}px` : undefined
+        ...style
       }}
       spacing={spacing}
+      // gap={spacing}
       alignItems={content.align_items ? content.align_items : undefined}
       direction={direction || undefined}
       className={clsx(className, classes.gridRow, {

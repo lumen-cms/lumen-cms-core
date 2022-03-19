@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import MuiLink from '@mui/material/Link'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import { getRootImageUrl } from '../../../utils/imageServices'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
@@ -81,14 +81,16 @@ export function LmToolbarLogo(): JSX.Element {
             isInvert && !hasFeature ? null : (
               <div
                 className={clsx('logo-img', classes.imageContainer, {
-                  'logo-img__default':
+                  'logo-img__default': !!(
                     (websiteLogoInvert && !isInvert) ||
-                    (websiteLogoInvertMobile && !isInvert),
-                  'logo-img__invert': isInvert,
-                  'logo-img__mobile': isMobile,
-                  'logo-img__desktop':
+                    (websiteLogoInvertMobile && !isInvert)
+                  ),
+                  'logo-img__invert': !!isInvert,
+                  'logo-img__mobile': !!isMobile,
+                  'logo-img__desktop': !!(
                     (source === websiteLogo && websiteLogoMobile) ||
                     (source === websiteLogoInvert && websiteLogoInvertMobile)
+                  )
                 })}
                 key={`${source}-${isMobile}-${isInvert}`}
               >

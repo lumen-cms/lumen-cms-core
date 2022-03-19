@@ -1,6 +1,5 @@
 import { useTheme } from '@mui/material/styles'
 import { CSSProperties } from 'react'
-import clsx from 'clsx'
 import {
   BackgroundStoryblok,
   SectionStoryblok,
@@ -9,6 +8,7 @@ import {
 import useShadowStyles from '../jss/shadowStyles'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 import { generateBackgroundStyles } from './helper/generateBackgroundStyles'
+import { cx as clsx } from 'tss-react/@emotion/css'
 
 export type UseBackgroundProps = {
   background?: BackgroundStoryblok
@@ -52,10 +52,10 @@ export default function useBackgroundBox(
   const className = clsx(background?.classNames?.values, {
     [shadowClasses[background?.shadow_effect || '']]:
       !!background?.shadow_effect,
-    [customClasses.advanced]: styles?.length,
-    [customClasses.advancedMobile]: stylesMobile?.length,
-    [customClasses.advancedTablet]: stylesTablet?.length,
-    [customClasses.advancedHover]: stylesHover?.length
+    [customClasses.advanced]: !!styles?.length,
+    [customClasses.advancedMobile]: !!stylesMobile?.length,
+    [customClasses.advancedTablet]: !!stylesTablet?.length,
+    [customClasses.advancedHover]: !!stylesHover?.length
   })
   return { className, style }
 }

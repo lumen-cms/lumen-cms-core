@@ -1,6 +1,6 @@
 import { CSSProperties, FunctionComponent } from 'react'
 import Card from '@mui/material/Card'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import useShadowStyles from '../jss/shadowStyles'
 import { CardListItemProps } from './cardTypes'
 

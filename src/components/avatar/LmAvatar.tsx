@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react'
 import Avatar, { AvatarProps } from '@mui/material/Avatar'
-import clsx from 'clsx'
+import { cx as clsx } from 'tss-react/@emotion/css'
 import LmIcon from '../icon/LmIcon'
 import { LmAvatarProps } from './avatarTypes'
 import { getNumber } from '../../utils/numberParser'
