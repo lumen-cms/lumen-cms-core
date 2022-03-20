@@ -8,6 +8,26 @@ import CssBaseline from '@mui/material/CssBaseline'
 import parseFont from '../../utils/parseFont'
 import { LmGlobalStyles } from './LmGlobalStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
+import { grey } from '@mui/material/colors'
+import { Color } from '@mui/material'
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    grey: Color
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    grey: true
+  }
+}
+declare module '@mui/material' {
+  interface Color {
+    main: string
+    dark: string
+  }
+}
 
 declare module '@mui/material/styles/createTheme' {
   interface Theme {
@@ -65,6 +85,9 @@ const mapThemeType = {
   dark: 'dark'
 }
 
+const { palette } = createTheme()
+const { augmentColor } = palette
+
 const GlobalTheme: FunctionComponent = ({ children }) => {
   const settings = useSettings()
   const page = usePage()
@@ -92,6 +115,10 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
     const firstMultiToolbar = Array.isArray(settings.multi_toolbar)
       ? settings.multi_toolbar[0]
       : undefined
+
+    const createColor = (mainColor: string) =>
+      augmentColor({ color: { main: mainColor } })
+
     const globalTheme = createTheme({
       palette: {
         mode: mapThemeType[(settings.theme_base as string) || 'base'],
@@ -107,6 +134,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
           main: (settings.theme_error as string) || '#f44336',
           contrastText: (settings.theme_error_contrast as string) || '#fff'
         },
+        grey: createColor(grey[300]),
         ...(settings.body_background_color?.rgba && {
           background: {
             default: settings.body_background_color.rgba

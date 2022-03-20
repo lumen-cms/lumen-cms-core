@@ -626,7 +626,7 @@ export const ButtonWithImage = () => (
 export const ButtonWithAddons = () => (
   <>
     <StorybookSpacingContainer>
-      <LmButton content={presetContent} />
+      <LmButton content={{ ...presetContent }} />
       <LmButton
         content={{ ...presetContent, icon: { name: 'home' }, color: 'primary' }}
       />
@@ -736,7 +736,6 @@ export const ButtonWithAddons = () => (
         }}
       />
     </StorybookSpacingContainer>
-
     <StorybookSpacingContainer>
       <LmButton content={presetContent} />
       <LmButton

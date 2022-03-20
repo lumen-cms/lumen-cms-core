@@ -33,9 +33,11 @@ const mapVariant = {
   unelevated: 'contained'
 }
 
-const mapColor = {
+const mapColor: {
+  [k: string]: ButtonProps['color']
+} = {
   dark: 'primary',
-  light: 'default',
+  light: 'grey',
   primary: 'primary',
   secondary: 'secondary',
   primary_text: 'inherit',
@@ -103,12 +105,12 @@ export const LmButton: FC<LmButtonProps> = ({
   additionalClassName
 }) => {
   const { classes, cx: clsx } = useStyles()
-  const advancedClasses = useStylesAdvanced({
+  const { classes: advancedClasses } = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  }).classes
+  })
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')
   const color = content.color ? mapColor[content.color] : undefined
@@ -168,6 +170,7 @@ export const LmButton: FC<LmButtonProps> = ({
       }
     : { ...onClickFunc }
   btnProps['aria-label'] = content.label || content.icon?.name
+  console.log(btnProps)
   if (content.variant === 'fab') {
     return (
       <Fab
@@ -175,7 +178,7 @@ export const LmButton: FC<LmButtonProps> = ({
         variant={content.label ? 'extended' : undefined}
         {...btnProps}
         className={className}
-        style={{
+        sx={{
           backgroundColor: content.custom_color?.rgba
             ? content.custom_color.rgba
             : undefined
@@ -202,7 +205,7 @@ export const LmButton: FC<LmButtonProps> = ({
         {...btnProps}
         size={mapIconButtonSize[content.size as string] || 'medium'}
         disableRipple={disableRipple}
-        style={{
+        sx={{
           color: content.custom_color?.rgba
             ? content.custom_color.rgba
             : undefined,
@@ -234,7 +237,7 @@ export const LmButton: FC<LmButtonProps> = ({
       className={className}
       variant={mapVariant[content.variant as string]}
       color={color as ButtonProps['color']}
-      style={{
+      sx={{
         justifyContent: content.align ? content.align : undefined,
         color:
           !['raised', 'unelevated'].includes(content.variant || '') &&
