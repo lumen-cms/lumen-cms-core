@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import Drawer from '@mui/material/Drawer'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { useTheme } from '@mui/material/styles'
 import { LmComponentRender } from '@LmComponentRender'
 import { ContentSpace } from '../layout/ContentSpace'
 import { usePageStyles } from './usePageStyle'
@@ -13,8 +12,7 @@ import {
 } from '../../utils/state/navigationState'
 
 const RightDrawerContainer: FunctionComponent = ({ children }) => {
-  const { classes } = usePageStyles()
-  const theme = useTheme()
+  const { classes, theme } = usePageStyles()
   const closeRightNavigation = useNavigationStore(closeRightNavigationSelector)
   const page = usePage()
   const matches = useMediaQuery(

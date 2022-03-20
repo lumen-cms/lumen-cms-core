@@ -1,5 +1,4 @@
 import { ParallaxBanner } from 'react-scroll-parallax'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import React from 'react'
 import Image from 'next/image'
 import { LmComponentRender } from '@LmComponentRender'
@@ -8,7 +7,7 @@ import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: 'SectionParallax' })({
   parallaxRoot: {
     position: 'relative'
   },
@@ -28,7 +27,7 @@ export default function LmSectionParallax({
   content,
   sectionPosition
 }: LmSectionParallaxProps): JSX.Element {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const contentHeight = content.height
   const styles = {
     height: contentHeight ? `${contentHeight}vh` : '50vh'
@@ -68,7 +67,7 @@ export default function LmSectionParallax({
         }
       />
       <div
-        className={clsx(classes.parallaxContent, content.class_names?.values)}
+        className={cx(classes.parallaxContent, content.class_names?.values)}
         style={styles}
       >
         {content.body?.map((blok) => (

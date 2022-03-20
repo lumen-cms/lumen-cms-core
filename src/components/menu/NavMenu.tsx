@@ -7,7 +7,6 @@ import ChevronUp from 'mdi-material-ui/ChevronUp'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import { useEffectOnce } from 'react-use'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { Popover } from '@mui/material'
 import LmIcon from '../icon/LmIcon'
 import { NavMenuStoryblok } from '../../typings/generated/components-schema'
@@ -16,14 +15,16 @@ import { LmMenuProps } from './menuTypes'
 import { useAppContext } from '@context/AppContext'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles<NavMenuStoryblok>()((_, props) => ({
-  paper: {
-    borderRadius: props.border_radius
-  }
-}))
+const useStyles = makeStyles<NavMenuStoryblok>({ name: 'NavMenu' })(
+  (_, props) => ({
+    paper: {
+      borderRadius: props.border_radius
+    }
+  })
+)
 
 export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
-  const { classes } = useStyles(content)
+  const { classes, cx } = useStyles(content)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [active, setActive] = useState<boolean>(false)
   const menuItems = content.body || []
@@ -138,7 +139,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
               content={blok}
               key={blok._uid}
               onClick={handleClick}
-              className={clsx(triggerClassName, {
+              className={cx(triggerClassName, {
                 lm_menu_active: active
               })}
             />
@@ -154,7 +155,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
           }
           aria-controls="simple-menu"
           aria-haspopup="true"
-          className={clsx(triggerClassName, 'lm-default-color', {
+          className={cx(triggerClassName, 'lm-default-color', {
             lm_menu_active: active
           })}
           onMouseOver={content.open_on_hover ? handleClick : undefined}

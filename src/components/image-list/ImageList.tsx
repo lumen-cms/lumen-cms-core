@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import ImageList, { ImageListProps } from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import dynamic from 'next/dynamic'
@@ -15,14 +14,14 @@ const ImageListLightbox = dynamic(() => import('./ImageListLightbox'))
 export default function LmImageList({
   content
 }: LmImageListProps): JSX.Element {
-  const { classes } = useImageListStyles()
+  const { classes, cx } = useImageListStyles()
 
-  const gridClasses = useGridListStyles({
+  const { classes: gridClasses } = useGridListStyles({
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,
     columnCountTablet: content.column_count_tablet,
     isMasonry: !!content.masonry
-  }).classes
+  })
   const [lightbox, setLightbox] = useState('')
 
   const gutterSize = content.column_gap ? Number(content.column_gap) : 2
@@ -45,7 +44,7 @@ export default function LmImageList({
   return (
     <div className="lm-imagelist__container">
       <div
-        className={clsx(classes.root, {
+        className={cx(classes.root, {
           [gridClasses.masonry]: content.masonry,
           [classes.aspectRatio]: !!(content.aspect_ratio && !content.masonry),
           [`ratio-${content.aspect_ratio}`]: !!(
@@ -56,7 +55,7 @@ export default function LmImageList({
       >
         <ImageList
           rowHeight="auto"
-          className={clsx(
+          className={cx(
             content.masonry ? gridClasses.rootMasonry : gridClasses.root,
             classes.rootGrid
           )}

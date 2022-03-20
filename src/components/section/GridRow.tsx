@@ -1,6 +1,5 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
@@ -62,7 +61,7 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
 
 export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
   // const theme = useTheme()
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const spacing = Number(content.spacing || 3)
 
   const background: BackgroundStoryblok | undefined = Array.isArray(
@@ -89,7 +88,7 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
       // gap={spacing}
       alignItems={content.align_items ? content.align_items : undefined}
       direction={direction || undefined}
-      className={clsx(className, classes.gridRow, {
+      className={cx(className, classes.gridRow, {
         [classes.xsColumnReverse]: content.reverse_on_mobile,
         [classes.smColumnReverse]: content.reverse_on_tablet
       })}

@@ -1,6 +1,5 @@
 import React, { HTMLAttributes } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmHtmlProps } from './htmlTypes'
@@ -10,12 +9,12 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
-  const classes = useStylesAdvanced({
+  const { classes, cx: clsx } = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  }).classes
+  })
   const divProps: HTMLAttributes<Element> = {
     className: clsx({
       [classes.advanced]: !!content.styles?.length,

@@ -1,4 +1,3 @@
-import { cx as clsx } from 'tss-react/@emotion/css'
 import React, { FunctionComponent } from 'react'
 import Toolbar from '@mui/material/Toolbar'
 import Container, { ContainerProps } from '@mui/material/Container'
@@ -10,24 +9,24 @@ import LmAppBarCollapse from './LmAppBarCollapse'
 import LmTopAppContainer from './LmTopAppContainer'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles<{ settings: Partial<GlobalStoryblok> }>()(
-  (_, { settings }) => ({
-    toolbarCustom: {
-      ...(settings.toolbar_font_size && {
-        '& .MuiButton-root': {
-          fontSize: settings.toolbar_font_size
-        }
-      })
-    }
-  })
-)
+const useStyles = makeStyles<{ settings: Partial<GlobalStoryblok> }>({
+  name: 'TopAppBar'
+})((_, { settings }) => ({
+  toolbarCustom: {
+    ...(settings.toolbar_font_size && {
+      '& .MuiButton-root': {
+        fontSize: settings.toolbar_font_size
+      }
+    })
+  }
+}))
 
 const TopAppBar: FunctionComponent<{
   SystemBar?: React.ReactNode
 }> = (props) => {
   const settings = useSettings() || {}
   const page = usePage() || {}
-  const { classes } = useStyles({ settings })
+  const { classes, cx } = useStyles({ settings })
   let toolbarWidth: ContainerProps['maxWidth'] = false
   const toolbarConfig = settings.toolbar_config || []
   const hasFeatureImage = page.property?.includes('has_feature')
@@ -50,7 +49,7 @@ const TopAppBar: FunctionComponent<{
             <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
               <Toolbar
                 disableGutters
-                className={clsx('lm-toolbar__main', {
+                className={cx('lm-toolbar__main', {
                   [classes.toolbarCustom]: !!settings.toolbar_font_size
                 })}
               >

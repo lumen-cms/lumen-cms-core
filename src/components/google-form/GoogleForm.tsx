@@ -12,7 +12,6 @@ import {
 import GoogleFormElement, { TextFieldElement } from './GoogleFormElement'
 import { GoogleForm, submitToGoogleForms } from 'react-google-forms-hooks'
 import { useFormColorStyles } from '../../utils/jss/formColorStyles'
-import { cx as clsx } from 'tss-react/@emotion/css'
 
 const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
@@ -25,7 +24,7 @@ export default function LmGoogleForm({
   formStructure: GoogleForm
   content: LmGoogleFormProps['content']
 }): JSX.Element {
-  const { classes } = useFormColorStyles()
+  const { classes, cx: clsx } = useFormColorStyles()
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
   // @TODO mode is no-cors, can't detect result status
   // const [submitError, setSubmitError] = useState<boolean>(false)

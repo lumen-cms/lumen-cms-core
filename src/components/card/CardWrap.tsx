@@ -1,6 +1,5 @@
 import { CSSProperties, FunctionComponent } from 'react'
 import Card from '@mui/material/Card'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import useShadowStyles from '../jss/shadowStyles'
 import { CardListItemProps } from './cardTypes'
 
@@ -9,7 +8,7 @@ const CardWrap: FunctionComponent<CardListItemProps> = ({
   options
 }) => {
   const className = 'lm-card'
-  const styles = useShadowStyles().classes
+  const { classes: styles, cx: clsx } = useShadowStyles()
   const variants = options.variant || []
   const style: CSSProperties = {
     borderRadius: options.border_radius ? options.border_radius : undefined,

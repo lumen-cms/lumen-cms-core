@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material/styles'
 import { CSSProperties } from 'react'
 import {
   BackgroundStoryblok,
@@ -8,7 +7,6 @@ import {
 import useShadowStyles from '../jss/shadowStyles'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 import { generateBackgroundStyles } from './helper/generateBackgroundStyles'
-import { cx as clsx } from 'tss-react/@emotion/css'
 
 export type UseBackgroundProps = {
   background?: BackgroundStoryblok
@@ -35,21 +33,20 @@ export default function useBackgroundBox(
     stylesHover,
     variant
   } = props
-  const theme = useTheme()
-  const shadowClasses = useShadowStyles().classes
-  const customClasses = useStylesAdvanced({
+  const { classes: shadowClasses, cx, theme } = useShadowStyles()
+  const { classes: customClasses } = useStylesAdvanced({
     props: styles,
     propsMobile: stylesMobile,
     propsTablet: stylesTablet,
     propsHover: stylesHover
-  }).classes
+  })
 
   const style =
     background || variant
       ? generateBackgroundStyles({ background, theme, variant })
       : {}
 
-  const className = clsx(background?.classNames?.values, {
+  const className = cx(background?.classNames?.values, {
     [shadowClasses[background?.shadow_effect || '']]:
       !!background?.shadow_effect,
     [customClasses.advanced]: !!styles?.length,

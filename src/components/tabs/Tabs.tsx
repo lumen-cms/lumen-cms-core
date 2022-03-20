@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 import MuiTabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import { useTheme } from '@mui/material/styles'
 import Grid, { GridProps } from '@mui/material/Grid'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import LmIcon from '../icon/LmIcon'
@@ -15,7 +13,7 @@ import {
 import { LmTabsProps } from './tabsTypes'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'Tabs' })((theme) => ({
   tabContainer: {
     '& .react-swipeable-view-container > div > div': {
       padding: theme.spacing(3)
@@ -55,12 +53,11 @@ const widthMap = {
 }
 
 export default function LmTabs({ content }: LmTabsProps): JSX.Element {
-  const theme = useTheme()
+  const { classes, cx, theme } = useStyles()
   const isMobile = useMediaQuery(
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')
   )
 
-  const { classes } = useStyles()
   const [activeTab, setActiveTab] = useState(0)
   const body: TabsItemStoryblok[] = content.body || []
   const orientation =
@@ -71,7 +68,7 @@ export default function LmTabs({ content }: LmTabsProps): JSX.Element {
     <Grid
       container
       direction="row"
-      className={clsx(classes.tabContainer, {
+      className={cx(classes.tabContainer, {
         [classes.vertical]: isVertical
       })}
     >

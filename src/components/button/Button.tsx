@@ -3,7 +3,6 @@ import Fab, { FabProps } from '@mui/material/Fab'
 import React, { FC } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { Theme } from '@mui/material/styles'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmCoreComponents } from '@CONFIG'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
@@ -44,7 +43,7 @@ const mapColor = {
   inherit: 'inherit'
 }
 
-const useStyles = makeStyles()((theme: Theme) => ({
+const useStyles = makeStyles({ name: 'Button' })((theme: Theme) => ({
   noWhitespace: {
     whiteSpace: 'nowrap'
   },
@@ -103,7 +102,7 @@ export const LmButton: FC<LmButtonProps> = ({
   disabled,
   additionalClassName
 }) => {
-  const { classes } = useStyles()
+  const { classes, cx: clsx } = useStyles()
   const advancedClasses = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,

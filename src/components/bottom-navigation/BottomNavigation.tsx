@@ -3,7 +3,6 @@ import BottomNavigation from '@mui/material/BottomNavigation'
 import React from 'react'
 import { makeStyles } from 'tss-react/mui'
 import { LmComponentRender } from '@LmComponentRender'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmCoreComponents } from '@CONFIG'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 import {
@@ -24,7 +23,7 @@ const useStyles = makeStyles()((theme) => ({
 export default function LmBottomNavigation({
   content
 }: LmBottomNavigationProps) {
-  const { classes } = useStyles()
+  const { classes, cx: clsx } = useStyles()
   const classesAdvanced = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,

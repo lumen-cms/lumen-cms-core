@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react'
 import Image, { ImageProps } from 'next/image'
-import { useTheme } from '@mui/material/styles'
 import Skeleton from '@mui/material/Skeleton'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import {
@@ -30,10 +29,10 @@ export default function LmImageListItem({
   listProps
 }: LmImageListItemProps): JSX.Element {
   const [loaded, setLoaded] = useState<boolean>(false)
-  const { classes } = useStyles()
+  const { classes, theme } = useStyles()
   const imageSource = getRootImageUrl(content.source || '')
   const originalDimensions = getOriginalImageDimensions(content.source || '')
-  const { breakpoints } = useTheme()
+  const { breakpoints } = theme
 
   const { width } = originalDimensions
   const { height } = originalDimensions

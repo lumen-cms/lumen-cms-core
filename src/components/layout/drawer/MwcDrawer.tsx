@@ -1,7 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import Drawer from '@mui/material/Drawer'
-import { useTheme } from '@mui/material/styles'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { UseBackgroundPayload } from '../../section/useBackgroundBox'
 import { useStyles } from './useDrawerStyles'
@@ -21,13 +19,12 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
   children,
   backgroundProps
 }) => {
-  const { classes } = useStyles()
+  const { classes, cx, theme } = useStyles()
   const { slug } = useAppContext()
   const leftNavigationDrawer = useNavigationStore(leftNavigationDrawerSelector)
   const closeDrawer = useNavigationStore(closeLeftNavigationSelector)
   const drawerVariant = useNavigationStore(drawerVariantSelector)
   const settings = useSettings()
-  const theme = useTheme()
   const matches = useMediaQuery(
     theme.breakpoints.down(settings?.mobile_nav_breakpoint || 'sm')
   )
@@ -53,13 +50,13 @@ const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
       SlideProps={{
         unmountOnExit: !mountedOnce
       }}
-      className={clsx('lm-main__drawer', classes.leftDrawer, {
+      className={cx('lm-main__drawer', classes.leftDrawer, {
         [classes.aboveToolbar]: !drawerBelowToolbar,
         [classes.belowToolbar]: drawerBelowToolbar,
         [classes.fullWidthMobile]: !!settings.drawer_full_width_mobile
       })}
       classes={{
-        paper: clsx('lm-main__drawer', classList, classes.leftDrawer, {
+        paper: cx('lm-main__drawer', classList, classes.leftDrawer, {
           [classes.aboveToolbar]: !drawerBelowToolbar,
           [classes.belowToolbar]: drawerBelowToolbar,
           [classes.fullWidthMobile]: !!settings.drawer_full_width_mobile

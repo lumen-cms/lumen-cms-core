@@ -1,7 +1,6 @@
 import { useInView } from 'react-intersection-observer'
 import SVG from 'react-inlinesvg'
 import React, { useState } from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import Fade from '@mui/material/Fade'
 import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'
@@ -27,7 +26,7 @@ export default function ImageSvg({
   content,
   onClick
 }: LmImageProps): JSX.Element {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const [refIntersectionObserver, inView] = useInView(intersectionImageOptions)
   const src = inView ? content.source : ''
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -58,7 +57,7 @@ export default function ImageSvg({
             }}
             onLoad={afterSvgLoaded}
             onError={onErrorHandler}
-            className={clsx(classes.svg, {
+            className={cx(classes.svg, {
               'has-color': !!fitInColor
             })}
           />

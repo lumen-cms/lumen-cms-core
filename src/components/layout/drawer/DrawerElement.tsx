@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
 import { ContentSpace } from '../ContentSpace'
@@ -12,7 +11,7 @@ import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import LmSquareImage from '../../avatar/LmSquareImage'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: 'DrawerElement' })({
   logoRoot: {
     '& > div': {
       height: '40px'
@@ -27,7 +26,7 @@ const useStyles = makeStyles()({
 function DrawerLogoArea() {
   const settings = useSettings()
   const homepageHref = useHomepageLink()
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
 
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo
@@ -37,7 +36,7 @@ function DrawerLogoArea() {
       <Link href={homepageHref}>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a>
-          <div className={clsx('p-3', classes.logoRoot)}>
+          <div className={cx('p-3', classes.logoRoot)}>
             {!websiteLogo && websiteTitle && <>{websiteTitle}</>}
             {websiteLogo && (
               <LmSquareImage

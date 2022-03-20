@@ -1,7 +1,5 @@
 import React, { CSSProperties } from 'react'
 import Container, { ContainerProps } from '@mui/material/Container'
-import { useTheme } from '@mui/material/styles'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
@@ -11,7 +9,7 @@ import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import { useFormColorStyles } from '../../utils/jss/formColorStyles'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: 'Section' })({
   fullHeight: {
     width: '100%',
     height: '100%',
@@ -29,8 +27,7 @@ export function LmSection({
   content,
   sectionPosition
 }: LmSectionProps): JSX.Element {
-  const { classes } = useStyles()
-  const theme = useTheme()
+  const { classes, cx: clsx, theme } = useStyles()
   const classesForms = useFormColorStyles().classes
   const background: BackgroundStoryblok | undefined = content.background?.[0]
 

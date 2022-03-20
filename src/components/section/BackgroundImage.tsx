@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import Image from 'next/image'
 import {
   BackgroundStoryblok,
@@ -10,7 +9,7 @@ import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import { LmImagePlaceholder } from '../image/imageTypes'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'BackgroundImage' })((theme) => ({
   root: {
     '@media (orientation: landscape)': {
       '&.portrait': {
@@ -79,7 +78,7 @@ const BackgroundImage = ({
   backgroundStyle,
   sectionPosition
 }: BackgroundImageProps): JSX.Element | null => {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
 
   const {
     image,
@@ -128,7 +127,7 @@ const BackgroundImage = ({
     )
   }
 
-  const defaultImgClassNames = clsx(classes.root, {
+  const defaultImgClassNames = cx(classes.root, {
     [`hide__${hide_image_on_breakpoint}`]: !!hide_image_on_breakpoint
   })
   return (
@@ -136,7 +135,7 @@ const BackgroundImage = ({
       {imageSource && (
         <BgImage
           src={imageSource}
-          className={clsx(defaultImgClassNames, {
+          className={cx(defaultImgClassNames, {
             landscape: !!imageSourcePortrait
           })}
         />
@@ -144,7 +143,7 @@ const BackgroundImage = ({
       {imageSourcePortrait && (
         <BgImage
           src={imageSourcePortrait}
-          className={clsx(defaultImgClassNames, 'portrait')}
+          className={cx(defaultImgClassNames, 'portrait')}
         />
       )}
     </Wrap>

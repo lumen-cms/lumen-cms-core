@@ -2,7 +2,7 @@ import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import React, { FunctionComponent } from 'react'
-import { Theme, useTheme } from '@mui/material/styles'
+import { Theme } from '@mui/material/styles'
 import { useMediaQuery } from '@mui/material'
 import { makeStyles } from 'tss-react/mui'
 
@@ -27,8 +27,7 @@ const useStyles = makeStyles({ name: 'AuthWrap' })((theme: Theme) => ({
 }))
 
 const AuthWrap: FunctionComponent = ({ children }) => {
-  const { classes } = useStyles()
-  const theme = useTheme()
+  const { classes, theme } = useStyles()
   const biggerXs = useMediaQuery(theme.breakpoints.up('sm'))
   return (
     <div className={classes.loginRoot}>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import Drawer from '@mui/material/Drawer'
-import { Theme, Toolbar, useTheme } from '@mui/material'
+import { Theme, Toolbar } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
@@ -69,8 +69,7 @@ function CheckoutButton() {
 
 export function ShopfiyCart() {
   const { cartOpen, setCartOpen, cartVariants, config } = useShopifySdkContext()
-  const { classes } = useStyles()
-  const theme = useTheme()
+  const { classes, theme } = useStyles()
   const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
 
   const footer: HeadlineStoryblok = {

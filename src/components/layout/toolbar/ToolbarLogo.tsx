@@ -2,14 +2,13 @@ import Link from 'next/link'
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import MuiLink from '@mui/material/Link'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { getRootImageUrl } from '../../../utils/imageServices'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import LmSquareImage from '../../avatar/LmSquareImage'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'ToolbarLogo' })((theme) => ({
   root: {
     // height: '100%',
     display: 'flex',
@@ -33,7 +32,7 @@ const useStyles = makeStyles()((theme) => ({
 export function LmToolbarLogo(): JSX.Element {
   const settings = useSettings()
   const { property } = usePage() || {}
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const homepageHref = useHomepageLink()
   const websiteTitle = settings.website_title
   const websiteLogo = getRootImageUrl(settings.website_logo)
@@ -71,16 +70,16 @@ export function LmToolbarLogo(): JSX.Element {
   ].filter((i) => i.source)
 
   return (
-    <div className={clsx('lm-logo-container', classes.root)}>
+    <div className={cx('lm-logo-container', classes.root)}>
       <Link href={homepageHref} passHref>
         <MuiLink
-          className={clsx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
+          className={cx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
         >
           {!websiteLogo && <Typography>{websiteTitle}</Typography>}
           {logoImageArray.map(({ isMobile, source, isInvert }) =>
             isInvert && !hasFeature ? null : (
               <div
-                className={clsx('logo-img', classes.imageContainer, {
+                className={cx('logo-img', classes.imageContainer, {
                   'logo-img__default': !!(
                     (websiteLogoInvert && !isInvert) ||
                     (websiteLogoInvertMobile && !isInvert)

@@ -1,6 +1,5 @@
 import { useInView } from 'react-intersection-observer'
 import React, { CSSProperties, useEffect, useState } from 'react'
-import { useTheme } from '@mui/material/styles'
 import Container, { ContainerProps } from '@mui/material/Container'
 import { LmComponentRender } from '@LmComponentRender'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -73,8 +72,7 @@ const useStyles = makeStyles()({
 export default function LmSectionVideo({
   content
 }: LmSectionVideoProps): JSX.Element {
-  const { classes } = useStyles()
-  const theme = useTheme()
+  const { classes, theme } = useStyles()
   const [intersectionRef, inView, intersectionElement] = useInView(
     intersectionDefaultOptions
   )

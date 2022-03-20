@@ -1,5 +1,4 @@
 import React, { CSSProperties, ElementType, FC } from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { LmHeadlineProps } from './headlineTypes'
@@ -10,12 +9,12 @@ export const LmHeadlineCore: FC<LmHeadlineProps> = ({
   onClick,
   children
 }) => {
-  const classes = useStylesAdvanced({
+  const { classes, cx: clsx } = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  }).classes
+  })
   return (
     <Typography
       {...(onClick ? { onClick: () => onClick() } : {})}

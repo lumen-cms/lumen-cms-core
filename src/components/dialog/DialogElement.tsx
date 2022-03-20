@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import dynamic from 'next/dynamic'
@@ -17,9 +16,8 @@ const useStyles = makeStyles({ name: 'DialogElement' })({
 export default function LmDialogElement({
   content
 }: LmDialogProps): JSX.Element | null {
-  const theme = useTheme()
+  const { classes, theme } = useStyles()
   const { events } = useRouter()
-  const { classes } = useStyles()
   const mediaQueryResult = useMediaQuery(
     theme.breakpoints.down(content.fullscreen || 'sm')
   )

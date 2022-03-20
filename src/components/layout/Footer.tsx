@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { useSettings } from '../provider/SettingsPageProvider'
 import {
@@ -9,7 +8,7 @@ import {
 } from '../../utils/state/navigationState'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'Footer' })((theme) => ({
   footer: {
     position: 'relative',
     zIndex: theme.zIndex.drawer + 1
@@ -28,7 +27,7 @@ const useStyles = makeStyles()((theme) => ({
 }))
 
 const FooterContainer: FunctionComponent = ({ children }) => {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const drawerVariant = useNavigationStore(drawerVariantSelector)
   const settings = useSettings()
@@ -36,7 +35,7 @@ const FooterContainer: FunctionComponent = ({ children }) => {
   const hasLeftShift = drawerVariant !== 'temporary' && isLeftDrawerOpen
   return (
     <footer
-      className={clsx(classes.footer, {
+      className={cx(classes.footer, {
         [classes.leftShift]: hasLeftShift,
         [classes[`left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`]]:
           hasLeftShift

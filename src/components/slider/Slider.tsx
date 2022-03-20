@@ -1,7 +1,6 @@
 import SwipeableViews from 'react-swipeable-views'
 import { autoPlay } from 'react-swipeable-views-utils'
 import { CSSProperties, useState } from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import Typography from '@mui/material/Typography'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
@@ -28,7 +27,7 @@ const chunkArray = (myArray: any, chunkSize: number) => {
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: 'Slider' })({
   carousel: {
     position: 'relative',
     '& [data-swipeable="true"]': {
@@ -93,7 +92,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   const autoSlide = !!content.autoslide
   const [start, setStart] = useState<boolean>(true)
   const { isMobile } = useDeviceDimensions()
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const wrapInColumns = content.slides_per_view && !isMobile
   const contentBody: LmSliderProps['content']['body'] = content.body || []
   const body = wrapInColumns
@@ -124,7 +123,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   const onNextClick = () => setSlide(slide === body.length - 1 ? 0 : slide + 1)
   return (
     <div
-      className={clsx(
+      className={cx(
         classes.carousel,
         'carousel slide',
         properties.map((i) => `carousel__${i}`)
@@ -207,7 +206,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
         </IconButton>
       )}
       <div
-        className={clsx(classes.carouselIndicators, {
+        className={cx(classes.carouselIndicators, {
           [classes.carouselIndicatorBelow]: properties.includes(
             'pagination_below_content'
           ),
@@ -223,7 +222,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
         }}
       >
         <IconButton
-          className={clsx({
+          className={cx({
             'd-none': !properties.includes('arrows_beside_pagination')
           })}
           size="small"
@@ -248,7 +247,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
           onClick={onNextClick}
           color="inherit"
           size="small"
-          className={clsx({
+          className={cx({
             'd-none': !properties.includes('arrows_beside_pagination')
           })}
         >

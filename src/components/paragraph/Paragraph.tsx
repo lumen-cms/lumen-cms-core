@@ -1,4 +1,3 @@
-import { cx as clsx } from 'tss-react/@emotion/css'
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import parseMarkdownContent from './markdown-helper'
@@ -9,10 +8,10 @@ import { LmParagraphProps } from './paragraphTypes'
 export default function LmParagraph({
   content
 }: LmParagraphProps): JSX.Element {
-  const { classes } = useRichTextStyles()
+  const { classes, cx } = useRichTextStyles()
   return (
     <Typography
-      className={clsx(
+      className={cx(
         'lm-markup',
         classes.richText,
         content.style,

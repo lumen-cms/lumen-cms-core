@@ -1,11 +1,10 @@
 import React from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 import { ContentSpaceProps } from './layoutTypes'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'ContentSpace' })((theme) => ({
   contentSpace: {
     height: theme.toolbar.height.mobile,
     transitionDuration: '500ms',
@@ -34,14 +33,14 @@ const useStyles = makeStyles()((theme) => ({
 }))
 
 export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const settings = useSettings()
   const page = usePage()
   const scrolledWithoutHysteresis = useScrollTop()
 
   return (
     <div
-      className={clsx('lm-content-space', classes.contentSpace, {
+      className={cx('lm-content-space', classes.contentSpace, {
         'lm-is-table': !isBlock,
         'lm-scrolled': !!(
           scrolledWithoutHysteresis &&

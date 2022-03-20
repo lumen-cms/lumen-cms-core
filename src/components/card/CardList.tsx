@@ -1,4 +1,3 @@
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { useEffect, useState } from 'react'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
@@ -87,7 +86,7 @@ export default function LmCardList({
   disablePagination
 }: LmCardListProps): JSX.Element {
   const { body = [], ...rest } = content
-  const { classes } = useStyles(rest)
+  const { classes, cx: clsx } = useStyles(rest)
   const gridClasses = useGridListStyles({
     columnCount: content.column_count,
     columnCountPhone: content.column_count_phone,

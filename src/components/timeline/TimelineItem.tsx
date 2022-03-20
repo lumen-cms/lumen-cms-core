@@ -7,13 +7,12 @@ import TimelineItem from '@mui/lab/TimelineItem'
 import React from 'react'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { CardContentContainer } from './CardContentContainer'
 import { LmTimelineItemProps } from './timelineTypes'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'TimelineItem' })((theme) => ({
   naked: {
     padding: 0,
     boxShadow: 'none',
@@ -52,7 +51,7 @@ export default function LmTimelineItem({
   options,
   isLast
 }: LmTimelineItemProps) {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const hasOppositeContent = content.opposite_body?.length
   return (
     <TimelineItem>
@@ -79,7 +78,7 @@ export default function LmTimelineItem({
                 ? 'outlined'
                 : 'filled'
             }
-            className={clsx({
+            className={cx({
               [classes.naked]:
                 content.dot_variant === 'naked' || options?.variant === 'naked',
               [classes.hideMargin]: options.connect_separator
@@ -92,7 +91,7 @@ export default function LmTimelineItem({
             (isLast && !options.show_last_line && ' d-none')
           }
         >
-          <span className={'ghost'}></span>
+          <span className={'ghost'} />
         </TimelineConnector>
       </TimelineSeparator>
       <TimelineContent>

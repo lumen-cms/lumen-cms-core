@@ -1,5 +1,4 @@
 import { CSSProperties, FC } from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { makeStyles } from 'tss-react/mui'
 
 type LmAspectRatioProps = {
@@ -9,7 +8,7 @@ type LmAspectRatioProps = {
   style?: CSSProperties
 }
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: 'AspectRatio' })({
   root: {
     position: 'relative',
     // @ts-ignore
@@ -42,10 +41,10 @@ const LmAspectRatio: FC<LmAspectRatioProps> = ({
   height,
   children
 }) => {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   return (
     <div
-      className={clsx(className, classes.root)}
+      className={cx(className, classes.root)}
       style={{
         ...style,
         // eslint-disable-next-line

@@ -1,16 +1,14 @@
-import { useTheme } from '@mui/material/styles'
 import Container, { ContainerProps } from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import { LmComponentRender } from '@LmComponentRender'
 import React, { FC } from 'react'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { Collapse } from '@mui/material'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import { LmToolbarRowProps } from './toolbarTypes'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'ToolbarSystemBar' })((theme) => ({
   root: {
     overflow: 'hidden',
     height: theme.toolbar.height.systemBar || 40,
@@ -32,8 +30,7 @@ export default function ToolbarSystemBarRow({
   content
 }: LmToolbarRowProps): JSX.Element {
   const settings = useSettings()
-  const theme = useTheme()
-  const { classes } = useStyles()
+  const { classes, theme, cx } = useStyles()
   const toolbarConfig = settings.toolbar_config || []
   let toolbarWidth: ContainerProps['maxWidth'] = false
   if (toolbarConfig.includes('fixed_width')) {
@@ -46,7 +43,7 @@ export default function ToolbarSystemBarRow({
   return (
     <HideOnScroll>
       <div
-        className={clsx(classes.root, 'lm-system-bar')}
+        className={cx(classes.root, 'lm-system-bar')}
         style={{
           backgroundColor:
             (content.background_color && content.background_color.rgba) ||

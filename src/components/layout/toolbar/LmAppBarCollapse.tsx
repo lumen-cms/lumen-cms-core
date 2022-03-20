@@ -1,12 +1,10 @@
-import { useTheme } from '@mui/material/styles'
 import React, { FC } from 'react'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 import { Collapse } from '@mui/material'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'AppBarCollapse' })((theme) => ({
   wrapper: {
     height: '100%'
   },
@@ -34,8 +32,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const LmAppBarCollapse: FC = ({ children }) => {
   const trigger = useScrollTrigger({ disableHysteresis: true })
-  const theme = useTheme()
-  const { classes } = useStyles()
+  const { classes, cx, theme } = useStyles()
   const matches = useMediaQuery(theme.breakpoints.up('md'))
   if (!theme.toolbar.height.custom || !matches) {
     return <>{children}</>
@@ -43,7 +40,7 @@ const LmAppBarCollapse: FC = ({ children }) => {
   return (
     <Collapse
       in={!trigger}
-      className={clsx(classes.collapsed, { 'lm-collapsed': trigger })}
+      className={cx(classes.collapsed, { 'lm-collapsed': trigger })}
       classes={{
         wrapper: classes.wrapper, // we cant use hidden because its not entirely hidden..
         entered: classes.beforeCollapse

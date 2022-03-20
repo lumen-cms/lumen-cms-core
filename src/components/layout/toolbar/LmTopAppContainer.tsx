@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import AppBar from '@mui/material/AppBar'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import {
   drawerVariantSelector,
@@ -17,7 +16,7 @@ const mapToolbarColor = {
   white: 'inherit'
 }
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'TopAppContainer' })((theme) => ({
   topAppBar: {
     '& .logo-img__invert': {
       display: 'none'
@@ -69,7 +68,7 @@ const LmTopAppContainer: FC = ({ children }) => {
   const settings = useSettings()
   const page = usePage() || {}
   const drawerVariant = useNavigationStore(drawerVariantSelector)
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const toolbarConfig = settings.toolbar_config || []
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const scrolledWithoutHysteresis = useScrollTop()
@@ -93,7 +92,7 @@ const LmTopAppContainer: FC = ({ children }) => {
   return (
     <AppBar
       elevation={elevation}
-      className={clsx(classes.topAppBar, {
+      className={cx(classes.topAppBar, {
         'lm-toolbar__has-feature':
           !scrolledWithoutHysteresis && hasFeatureImage,
         'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),

@@ -1,10 +1,9 @@
 import React, { createRef, RefObject, useState } from 'react'
-import { alpha, useTheme } from '@mui/material/styles'
+import { alpha } from '@mui/material/styles'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Magnify from 'mdi-material-ui/Magnify'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import Paper from '@mui/material/Paper'
 import { StoryData } from 'storyblok-js-client'
 import { useDebouncedCallback } from 'use-debounce'
@@ -23,7 +22,7 @@ import { match, parse } from './autosuggest'
 import { useAppContext } from '@context/AppContext'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'ListSearchAutocomplete' })((theme) => ({
   root: {
     display: 'inline-flex',
     verticalAlign: 'middle',
@@ -136,11 +135,10 @@ export default function LmListSearchAutocomplete({
   content
 }: LmListSearchAutocompleteProps): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { classes } = useStyles()
+  const { classes, cx, theme } = useStyles()
   const { defaultLocale, locale, locales } = useAppContext()
   const inputRef: RefObject<HTMLInputElement> = createRef()
   const [open, setOpen] = useState<boolean | undefined>()
-  const theme = useTheme()
   const matches = useMediaQuery(
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')
   )
@@ -199,11 +197,11 @@ export default function LmListSearchAutocomplete({
         classes={{
           root: classes.root,
           listbox: classes.listbox,
-          inputRoot: clsx(classes.inputRoot, {
+          inputRoot: cx(classes.inputRoot, {
             [classes.borderSquare]: content.shape === 'square',
             [classes.borderRounded]: content.shape === 'rounded'
           }),
-          input: clsx(classes.inputDefaultWidth, {
+          input: cx(classes.inputDefaultWidth, {
             [classes.variableWidth]: !isMobileAction
           })
         }}

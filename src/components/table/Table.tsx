@@ -1,10 +1,9 @@
 /* eslint-disable react/no-array-index-key,react/no-danger */
-import { cx as clsx } from 'tss-react/@emotion/css'
 import React from 'react'
 import { LmTableProps } from './tableTypes'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'Table' })((theme) => ({
   tables: {
     tableLayout: 'fixed',
     borderSpacing: 0,
@@ -147,8 +146,8 @@ function TableRow({ content, index }: TableRowProps): JSX.Element {
 }
 
 export default function LmTable({ content }: LmTableProps): JSX.Element {
-  const { classes } = useStyles()
-  const className = clsx(
+  const { classes, cx } = useStyles()
+  const className = cx(
     classes.tables,
     'lm-table',
     content.class_names && content.class_names.values,

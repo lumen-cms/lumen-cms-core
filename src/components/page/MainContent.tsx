@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
 import { usePageStyles } from './usePageStyle'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
@@ -10,7 +9,7 @@ import {
 } from '../../utils/state/navigationState'
 
 const MainContentContainer: FunctionComponent = ({ children }) => {
-  const { classes } = usePageStyles()
+  const { classes, cx: clsx } = usePageStyles()
   const settings = useSettings()
   const page = usePage()
   const drawerVariant = useNavigationStore(drawerVariantSelector)

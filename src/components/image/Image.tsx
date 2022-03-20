@@ -1,5 +1,4 @@
 import React from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import {
   getOriginalImageDimensions,
   imageCalculateHeight
@@ -10,37 +9,39 @@ import LmSquareImage from '../avatar/LmSquareImage'
 import { ImageStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles<ImageStoryblok>()((theme, props) => ({
-  image: {
-    margin: 'auto'
-    // width: '100%',
-    // height: 'auto'
-  },
-  imgAddons: {
-    '&.square, &.rounded-0 img': {
-      borderRadius: 0
+const useStyles = makeStyles<ImageStoryblok>({ name: 'Image' })(
+  (theme, props) => ({
+    image: {
+      margin: 'auto'
+      // width: '100%',
+      // height: 'auto'
     },
-    '&.rounded img': {
-      borderRadius: theme.shape.borderRadius
+    imgAddons: {
+      '&.square, &.rounded-0 img': {
+        borderRadius: 0
+      },
+      '&.rounded img': {
+        borderRadius: theme.shape.borderRadius
+      },
+      '&.rounded-circle img': {
+        borderRadius: '50%'
+      },
+      '&.rounded-circle': {
+        borderRadius: '50%',
+        overflow: 'hidden'
+      }
     },
-    '&.rounded-circle img': {
-      borderRadius: '50%'
-    },
-    '&.rounded-circle': {
-      borderRadius: '50%',
-      overflow: 'hidden'
+    customImage: {
+      borderRadius: props.border_radius ? props.border_radius : undefined
     }
-  },
-  customImage: {
-    borderRadius: props.border_radius ? props.border_radius : undefined
-  }
-}))
+  })
+)
 
 export default function LmImage({
   content,
   onClick
 }: LmImageProps): JSX.Element | null {
-  const { classes } = useStyles(content)
+  const { classes, cx: clsx } = useStyles(content)
   const definedWidth = content.width
   const definedHeight = content.height
   const property = content.property || []

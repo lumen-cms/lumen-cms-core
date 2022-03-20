@@ -1,13 +1,11 @@
 import React, { FC } from 'react'
 import Grid from '@mui/material/Grid'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import { LmComponentRender } from '@LmComponentRender'
-import { useTheme } from '@mui/material/styles'
 import { LmFlexRowProps } from './flexRowTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()((theme) => ({
+const useStyles = makeStyles({ name: 'FlexRow' })((theme) => ({
   xsColumn: {
     [theme.breakpoints.only('xs')]: {
       flexDirection: 'column'
@@ -17,8 +15,8 @@ const useStyles = makeStyles()((theme) => ({
 
 export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
   const body = content.body || []
-  const theme = useTheme()
-  const flexClasses = useStyles().classes
+  // const theme = useTheme()
+  const { classes: flexClasses, cx: clsx, theme } = useStyles()
   const classes = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,

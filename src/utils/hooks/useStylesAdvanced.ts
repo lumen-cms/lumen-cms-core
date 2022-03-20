@@ -93,7 +93,9 @@ type UseStylesAdvancedProps = {
   propsHover?: StylesStoryblok[]
 }
 
-export const useStylesAdvanced = makeStyles<UseStylesAdvancedProps>()(
+export const useStylesAdvanced = makeStyles<UseStylesAdvancedProps>({
+  name: 'StylesAdvanced'
+})(
   (
     theme,
     { props, propsHover, propsMobile, propsTablet }

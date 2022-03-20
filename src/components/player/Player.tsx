@@ -1,13 +1,12 @@
 import { useInView } from 'react-intersection-observer'
 import ReactPlayer from 'react-player/lazy'
-import { cx as clsx } from 'tss-react/@emotion/css'
 import React, { useState } from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmPlayerProps } from './playerTypes'
 import videoUrlHelper from '../../utils/videoUrlHelper'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles()({
+const useStyles = makeStyles({ name: 'Player' })({
   videoContainer: {
     position: 'relative',
     '& video[poster]': {
@@ -34,7 +33,7 @@ const useStyles = makeStyles()({
 })
 
 export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
-  const { classes } = useStyles()
+  const { classes, cx } = useStyles()
   const [playing, setPlaying] = useState<boolean>(!!content.playing)
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
@@ -48,7 +47,7 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
   return (
     <div
       ref={refIntersectionObserver}
-      className={clsx(classes.videoContainer, {
+      className={cx(classes.videoContainer, {
         [classes[`ratio${content.ratio}`]]: !!content.ratio,
         [classes.borderRadius]: !!content.border_radius
       })}

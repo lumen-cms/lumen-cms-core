@@ -1,6 +1,6 @@
 import { makeStyles } from 'tss-react/mui'
 
-export const usePageStyles = makeStyles()((theme) => ({
+export const usePageStyles = makeStyles({ name: 'Page' })((theme) => ({
   rightDocked: {
     width: theme.drawer.right,
     zIndex: theme.zIndex.appBar - 1

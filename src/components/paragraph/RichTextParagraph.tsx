@@ -1,4 +1,3 @@
-import { cx as clsx } from 'tss-react/@emotion/css'
 import React from 'react'
 import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
@@ -10,7 +9,7 @@ import { renderRichText } from './renderRichText'
 export function LmRichTextParagraph({
   content
 }: LmRichTextParagraphProps): JSX.Element {
-  const { classes } = useRichTextStyles()
+  const { classes, cx } = useRichTextStyles()
   const advancedClasses = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
@@ -19,7 +18,7 @@ export function LmRichTextParagraph({
   }).classes
   return (
     <Typography
-      className={clsx(
+      className={cx(
         'lm-markup',
         classes.richText,
         content.style,
