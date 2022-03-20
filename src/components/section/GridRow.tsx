@@ -85,7 +85,6 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
         ...style
       }}
       spacing={spacing}
-      // gap={spacing}
       alignItems={content.align_items ? content.align_items : undefined}
       direction={direction || undefined}
       className={cx(className, classes.gridRow, {
