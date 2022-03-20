@@ -1,18 +1,11 @@
 import { memo } from 'react'
 import { createGlobalStyles } from '../../utils/hooks/useGlobalStyles'
-import { GlobalStyles } from '@mui/material'
-import { Theme, useTheme } from '@mui/material/styles'
-import { GlobalStylesProps as StyledGlobalStylesProps } from '@mui/styled-engine/GlobalStyles/GlobalStyles'
+import { useTheme } from '@mui/material/styles'
+import { GlobalStyles } from 'tss-react'
 
 export const LmGlobalStyles = memo(() => {
   const theme = useTheme()
   // useGlobalStyles()
-  return (
-    <GlobalStyles
-      styles={
-        createGlobalStyles(theme) as StyledGlobalStylesProps<Theme>['styles']
-      }
-    />
-  )
+  return <GlobalStyles styles={createGlobalStyles(theme) as any} />
 })
 LmGlobalStyles.displayName = 'GlobalStyles'

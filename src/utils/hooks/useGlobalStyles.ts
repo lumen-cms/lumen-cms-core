@@ -1,5 +1,4 @@
 import getNprogressJss from '../jss/npgrogress'
-import { makeStyles } from 'tss-react/mui'
 import { Theme } from '@mui/material/styles'
 import { CSSObject } from 'tss-react'
 
@@ -423,10 +422,3 @@ export const createGlobalStyles = (theme: Theme) => {
     }
   }
 }
-
-const useGlobalStyles = makeStyles()(
-  // @ts-ignore
-  (theme) => {}
-)
-
-export default useGlobalStyles

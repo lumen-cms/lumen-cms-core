@@ -1,4 +1,20 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const path = require('path')
+const modulesDir = path.join(process.cwd(), 'node_modules')
+
+const updateEmotionAliases = (config) => ({
+  ...config,
+  resolve: {
+    ...config.resolve,
+    alias: {
+      ...config.resolve.alias,
+      '@emotion/core': path.join(modulesDir, '@emotion/react'),
+      '@emotion/styled': path.join(modulesDir, '@emotion/styled'),
+      '@emotion/styled-base': path.join(modulesDir, '@emotion/styled'),
+      'emotion-theming': path.join(modulesDir, '@emotion/react')
+    }
+  }
+})
 
 module.exports = {
   staticDirs: ['../public'],
@@ -34,8 +50,10 @@ module.exports = {
     config.resolve.plugins.push(new TsconfigPathsPlugin())
 
     // Return the altered config
-    return config
+
+    return updateEmotionAliases(config)
   },
+  managerWebpack: updateEmotionAliases,
   typescript: {
     //   check: true,
     //   checkOptions: {},

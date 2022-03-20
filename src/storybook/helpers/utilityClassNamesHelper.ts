@@ -1,10 +1,14 @@
+import { createGlobalStyles } from '../../utils/hooks/useGlobalStyles'
+import { createTheme } from '@mui/material/styles'
+
 const generateUtilityClassNames = (): string[] => {
   // the getCreatedStyles is removed... @TODO if Storybook still need to be supported
-  const globalStyles = {
-    '@global': {
-      'pa-1': ''
-    }
-  }
+  const globalStyles = createGlobalStyles(createTheme())
+  // const globalStyles = {
+  //   '@global': {
+  //     'pa-1': ''
+  //   }
+  // }
   // const globalStyles = getCreatedStyles(createTheme())
 
   const blacklist: string[] = [
@@ -14,11 +18,11 @@ const generateUtilityClassNames = (): string[] => {
     '.material-icons'
   ]
   const classNames: string[] = []
-  Object.keys(globalStyles['@global']).forEach((key: string) => {
+  Object.keys(globalStyles).forEach((key: string) => {
     if (key.startsWith('.')) {
       !blacklist.includes(key) && classNames.push(key.slice(1))
     } else if (key.startsWith('@media')) {
-      Object.keys(globalStyles['@global'][key]).forEach((subKey: string) => {
+      Object.keys(globalStyles[key] as any).forEach((subKey: string) => {
         if (subKey.startsWith('.')) {
           !blacklist.includes(subKey) && classNames.push(subKey.slice(1))
         }

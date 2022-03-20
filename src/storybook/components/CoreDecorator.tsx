@@ -22,7 +22,7 @@ const CoreDecorator: FC<{ settings: Partial<GlobalStoryblok> }> = ({
       <SettingsPageProvider settings={settings as any} page={null}>
         <GlobalTheme>
           <LmAppProvidersContainer>
-            <div> {children}</div>
+            <div>{children}</div>
             <link href={getFontBasedOnSetting(settings)} rel="stylesheet" />
           </LmAppProvidersContainer>
         </GlobalTheme>
