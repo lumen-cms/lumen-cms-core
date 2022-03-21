@@ -1,9 +1,12 @@
-import { LmComponentRender as LmImageList } from '@LmComponentRender'
 import {
   ImageListItemStoryblok,
   ImageListStoryblok
 } from '../typings/generated/components-schema'
 import { storyImageList, storyImageListItem } from '../storybook/core/section'
+import { LmImageList } from '../components/BaseComponents'
+import { getComponentArgTypes } from '../storybook/configControls'
+import { Meta, Story } from '@storybook/react'
+import { LmImageListProps } from '../components/image-list/imageListTypes'
 
 const body: ImageListItemStoryblok[] = [
   {
@@ -72,7 +75,20 @@ const content4: ImageListStoryblok = {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  title: 'Design/Layout/Image List'
+  title: 'Design/Layout/Image List',
+  component: LmImageList,
+  argTypes: {
+    ...getComponentArgTypes('image_list')
+  }
+} as Meta
+
+const Template: Story<LmImageListProps['content']> = (args) => (
+  <LmImageList content={args} />
+)
+
+export const Core = Template.bind({})
+Core.args = {
+  ...content
 }
 
 export const Basic = () => (

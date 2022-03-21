@@ -40,23 +40,30 @@ export default function LmImageListItem({
   const respectImgRatio = listProps.masonry || !listProps.aspect_ratio
   const { column_count, column_count_phone, column_count_tablet } = listProps
 
-  const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
-  const tabletVw = getVwByColCount(
-    column_count_tablet || column_count || COLUMN_COUNT.TABLET
-  )
-  const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
-  // console.log('inside of masonry', listProps)
-  let imgProps: ImageProps = {
-    src: imageSource,
-    layout: 'fill',
-    objectFit: listProps.fit_in_color ? 'contain' : 'cover'
-  }
+  let imgProps: ImageProps
   if (respectImgRatio) {
     imgProps = {
       src: imageSource,
       width,
       height,
       layout: 'intrinsic'
+    }
+  } else {
+    const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
+    const tabletVw = getVwByColCount(
+      column_count_tablet || column_count || COLUMN_COUNT.TABLET
+    )
+    const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
+    imgProps = {
+      src: imageSource,
+      layout: 'fill',
+      objectFit: listProps.fit_in_color ? 'contain' : 'cover',
+      sizes: `(min-width: 0) and (max-width: ${
+        breakpoints.values.sm - 1
+      }px) ${phoneVw}vw, (min-width: ${
+        breakpoints.values.sm
+      }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
+            ${desktopVw}vw`
     }
   }
 
@@ -90,12 +97,6 @@ export default function LmImageListItem({
         {...storyblokImageLoader(imageSource)}
         alt={content.alt || content.label || 'image list item'}
         onLoad={() => setLoaded(true)}
-        sizes={`(min-width: 0) and (max-width: ${
-          breakpoints.values.sm - 1
-        }px) ${phoneVw}vw, (min-width: ${
-          breakpoints.values.sm
-        }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
-            ${desktopVw}vw`}
       />
       {(content.label || content.sub_title) && (
         <ImageListItemBar

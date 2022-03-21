@@ -10,6 +10,7 @@ import { LmGlobalStyles } from './LmGlobalStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
 import { grey } from '@mui/material/colors'
 import { Color } from '@mui/material'
+import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontSizes'
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -84,6 +85,9 @@ const mapThemeType = {
   base: 'light',
   dark: 'dark'
 }
+const responsiveFontSizeOptions: ResponsiveFontSizesOptions = {
+  breakpoints: ['sm', 'md', 'lg']
+}
 
 const { palette } = createTheme()
 const { augmentColor } = palette
@@ -97,7 +101,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
   const themeUid = settings && settings._uid
   const theme = useMemo(() => {
     if (!themeUid) {
-      return responsiveFontSizes(createTheme())
+      return responsiveFontSizes(createTheme(), responsiveFontSizeOptions)
     }
 
     if (!settings.theme_font_default) {
@@ -267,11 +271,16 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
               textTransform: 'initial'
             }
           }
+        },
+        MuiLink: {
+          defaultProps: {
+            underline: 'hover'
+          }
         }
       }
     })
 
-    return responsiveFontSizes(globalTheme)
+    return responsiveFontSizes(globalTheme, responsiveFontSizeOptions)
   }, [rightDrawerWidth, settings, themeUid])
 
   return (
