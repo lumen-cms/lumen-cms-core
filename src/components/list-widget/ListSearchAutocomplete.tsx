@@ -20,7 +20,6 @@ import { LmListSearchAutocompleteProps } from './listWidgetTypes'
 import { ListSearchAutocompleteContainer } from './ListSearchAutocompleteContainer'
 import { match, parse } from './autosuggest'
 import { useAppContext } from '@context/AppContext'
-import { makeStyles } from 'tss-react/mui'
 
 let cacheVersion: number | undefined
 
