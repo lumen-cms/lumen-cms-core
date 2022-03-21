@@ -5,7 +5,6 @@ import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 import { cx as clsx } from 'tss-react/@emotion/css'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { useGridListStyles } from '../card/cardListStyles'
 import {
   EdgeProps,
   InstagramMappedProps,
@@ -74,27 +73,15 @@ export default function LmInstagramList({ content }: LmInstagramListProps) {
       getNumber(max_posts || 12, 12)
     )
 
-  const gridClasses = useGridListStyles({
-    columnCount: content.column_count,
-    columnCountPhone: content.column_count_phone,
-    columnCountTablet: content.column_count_tablet,
-    isMasonry: !!content.masonry
-  }).classes
-
   return (
     <div
       ref={refIntersectionObserver}
       style={{
         overflowX: 'hidden'
       }}
-      className={clsx({
-        [gridClasses.masonry]: content.masonry
-      })}
+      className={clsx({})}
     >
       <ImageList
-        className={clsx(
-          content.masonry ? gridClasses.rootMasonry : gridClasses.root
-        )}
         rowHeight={content.height || 'auto'}
         style={{
           columnGap: content.masonry ? `${content.column_gap}px` : undefined

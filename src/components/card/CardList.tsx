@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
-import ImageList from '@mui/material/ImageList'
-import ImageListItem from '@mui/material/ImageListItem'
 import { useInView } from 'react-intersection-observer'
 import { LmComponentRender } from '@LmComponentRender'
-import { useGridListStyles } from './cardListStyles'
 import { LmCardListProps } from './cardTypes'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { CardListStoryblok } from '../../typings/generated/components-schema'
 import { makeStyles } from 'tss-react/mui'
+import { Grid } from '@mui/material'
+import { COLUMN_COUNT } from './cardListStyles'
 
 const useStyles = makeStyles<CardListStoryblok>()((_, content) => ({
   cardBase: {
@@ -67,11 +66,6 @@ const useStyles = makeStyles<CardListStoryblok>()((_, content) => ({
       }
     }
   },
-  gridEqualHeight: {
-    '& .MuiCard-root, & .MuiCard-root > .MuiCardActionArea-root': {
-      height: '100%'
-    }
-  },
   gridCustom: {
     '& .MuiCardMedia-root > div': {
       borderRadius: content.image_border_radius
@@ -87,11 +81,6 @@ export default function LmCardList({
 }: LmCardListProps): JSX.Element {
   const { body = [], ...rest } = content
   const { classes, cx: clsx } = useStyles(rest)
-  const { classes: gridClasses } = useGridListStyles({
-    columnCount: content.column_count,
-    columnCountPhone: content.column_count_phone,
-    columnCountTablet: content.column_count_tablet
-  })
   const gutterSize = content.column_gap ? Number(content.column_gap) : 24
   const enableInView = !disablePagination && body.length > chunkSize
   const [intersectionLoadMoreRef, loadMoreInView] = useInView()
@@ -119,30 +108,68 @@ export default function LmCardList({
         classes.gridCustom,
         variant.map((i) => `card__${i}`),
         {
-          [classes.gridEqualHeight]: content.variant?.includes('equal-heights'),
           [`ratio-${content.image_ratio}`]: !!content.image_ratio
         }
       )}
     >
-      <ImageList
-        gap={gutterSize}
-        rowHeight="auto"
-        style={{
-          overflow: 'visible'
+      <Grid
+        container
+        wrap={'wrap'}
+        spacing={gutterSize + 'px'}
+        columns={[
+          Number(content.column_count_phone || COLUMN_COUNT.PHONE),
+          Number(content.column_count_tablet || COLUMN_COUNT.TABLET),
+          null,
+          Number(content.column_count || COLUMN_COUNT.DESKTOP)
+        ]}
+        justifyContent={'center'}
+        sx={{
+          '& .MuiGrid-item > .MuiCard-root, & .MuiGrid-item > .MuiCard-root > .MuiCardActionArea-root':
+            {
+              height: content.variant?.includes('equal-heights')
+                ? '100%'
+                : 'auto'
+            }
         }}
-        className={gridClasses.root}
-        variant={'standard'}
       >
         {data.map((item) => (
-          <ImageListItem key={`${item.component}_${item._uid}`}>
+          <Grid item key={`${item.component}_${item._uid}`} xs={1}>
             <LmComponentRender
               content={item}
               options={rest}
               inView={elementInView}
             />
-          </ImageListItem>
+          </Grid>
         ))}
-      </ImageList>
+      </Grid>
+      {/*<ImageList*/}
+      {/*  gap={gutterSize}*/}
+      {/*  rowHeight="auto"*/}
+      {/*  sx={{*/}
+      {/*    overflow: 'visible',*/}
+      {/*    columnCount: {*/}
+      {/*      xs: `${*/}
+      {/*        content.column_count_phone || COLUMN_COUNT.PHONE_MASONRY*/}
+      {/*      }!important`,*/}
+      {/*      sm: `${*/}
+      {/*        content.column_count_tablet || COLUMN_COUNT.TABLET*/}
+      {/*      }!important`,*/}
+      {/*      lg: `${content.column_count || COLUMN_COUNT.DESKTOP}!important`*/}
+      {/*    }*/}
+      {/*  }}*/}
+      {/*  // className={gridClasses.root}*/}
+      {/*  variant={'masonry'}*/}
+      {/*>*/}
+      {/*  {data.map((item) => (*/}
+      {/*    <ImageListItem key={`${item.component}_${item._uid}`}>*/}
+      {/*      <LmComponentRender*/}
+      {/*        content={item}*/}
+      {/*        options={rest}*/}
+      {/*        inView={elementInView}*/}
+      {/*      />*/}
+      {/*    </ImageListItem>*/}
+      {/*  ))}*/}
+      {/*</ImageList>*/}
       <div
         ref={
           enableInView && data.length < body.length

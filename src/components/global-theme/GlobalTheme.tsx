@@ -1,4 +1,5 @@
 import {
+  alpha,
   createTheme,
   responsiveFontSizes,
   ThemeProvider
@@ -90,7 +91,7 @@ const responsiveFontSizeOptions: ResponsiveFontSizesOptions = {
 }
 
 const { palette } = createTheme()
-const { augmentColor } = palette
+const { augmentColor, getContrastText } = palette
 
 const GlobalTheme: FunctionComponent = ({ children }) => {
   const settings = useSettings()
@@ -120,9 +121,6 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
       ? settings.multi_toolbar[0]
       : undefined
 
-    const createColor = (mainColor: string) =>
-      augmentColor({ color: { main: mainColor } })
-
     const globalTheme = createTheme({
       palette: {
         mode: mapThemeType[(settings.theme_base as string) || 'base'],
@@ -138,7 +136,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
           main: (settings.theme_error as string) || '#f44336',
           contrastText: (settings.theme_error_contrast as string) || '#fff'
         },
-        grey: createColor(grey[300]),
+        grey: augmentColor({ color: { main: grey[800] } }),
         ...(settings.body_background_color?.rgba && {
           background: {
             default: settings.body_background_color.rgba
@@ -266,6 +264,49 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
           }
         },
         MuiButton: {
+          variants: [
+            {
+              props: { variant: 'contained', color: 'grey' },
+              style: {
+                color: getContrastText(grey[300])
+              }
+            },
+            {
+              props: { variant: 'outlined', color: 'grey' },
+              style: {
+                color: palette.text.primary,
+                borderColor:
+                  palette.mode === 'light'
+                    ? 'rgba(0, 0, 0, 0.23)'
+                    : 'rgba(255, 255, 255, 0.23)',
+                '&.Mui-disabled': {
+                  border: `1px solid ${palette.action.disabledBackground}`
+                },
+                '&:hover': {
+                  borderColor:
+                    palette.mode === 'light'
+                      ? 'rgba(0, 0, 0, 0.23)'
+                      : 'rgba(255, 255, 255, 0.23)',
+                  backgroundColor: alpha(
+                    palette.text.primary,
+                    palette.action.hoverOpacity
+                  )
+                }
+              }
+            },
+            {
+              props: { color: 'grey', variant: 'text' },
+              style: {
+                color: palette.text.primary,
+                '&:hover': {
+                  backgroundColor: alpha(
+                    palette.text.primary,
+                    palette.action.hoverOpacity
+                  )
+                }
+              }
+            }
+          ],
           styleOverrides: {
             root: {
               textTransform: 'initial'

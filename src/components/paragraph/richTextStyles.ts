@@ -6,10 +6,10 @@ export const useRichTextStyles = makeStyles({ name: 'RichTextStyles' })(
       '& > p': {
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1),
-        '&:first-child': {
+        '&:first-of-type': {
           marginTop: 0
         },
-        '&:last-child': {
+        '&:last-of-type': {
           marginBottom: 0
         }
       }

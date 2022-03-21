@@ -113,7 +113,7 @@ export const LmButton: FC<LmButtonProps> = ({
   })
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')
-  const color = content.color ? mapColor[content.color] : undefined
+  const color = content.color ? mapColor[content.color] : 'grey'
   const className = clsx(
     classes.button,
     content.class_names?.values,

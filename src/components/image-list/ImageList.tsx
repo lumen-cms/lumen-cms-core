@@ -1,35 +1,20 @@
 import React, { useState } from 'react'
-import ImageList, { ImageListProps } from '@mui/material/ImageList'
+import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import dynamic from 'next/dynamic'
-import { useGridListStyles } from '../card/cardListStyles'
 import { useImageListStyles } from './useImageListStyles'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmImageListProps } from './imageListTypes'
+import { COLUMN_COUNT } from '../card/cardListStyles'
 
 const ImageListLightbox = dynamic(() => import('./ImageListLightbox'))
-
-export const COLUMN_COUNT = {
-  DESKTOP: 4,
-  TABLET: 3,
-  PHONE: 1,
-  PHONE_MASONRY: 2
-}
 
 export default function LmImageList({
   content
 }: LmImageListProps): JSX.Element {
   const { classes, cx } = useImageListStyles()
-
-  // const { classes: gridClasses } = useGridListStyles({
-  //   columnCount: content.column_count,
-  //   columnCountPhone: content.column_count_phone,
-  //   columnCountTablet: content.column_count_tablet,
-  //   isMasonry: !!content.masonry
-  // })
-
   const [lightbox, setLightbox] = useState('')
 
   const gutterSize = content.column_gap ? Number(content.column_gap) : 2
@@ -39,15 +24,6 @@ export default function LmImageList({
   }
 
   const body = content.body || []
-  const gridListProps: Partial<ImageListProps> = {
-    gap: gutterSize
-  }
-  if (content.masonry) {
-    gridListProps.gap = 0
-    gridListProps.style = {
-      columnGap: `${gutterSize}px`
-    }
-  }
 
   return (
     <div className="lm-imagelist__container">
@@ -63,6 +39,7 @@ export default function LmImageList({
       >
         <ImageList
           rowHeight="auto"
+          gap={gutterSize}
           variant={content.masonry ? 'masonry' : undefined}
           sx={{
             ...(!content.masonry
@@ -98,7 +75,6 @@ export default function LmImageList({
             // content.masonry ? gridClasses.rootMasonry : gridClasses.root,
             classes.rootGrid
           )}
-          {...gridListProps}
         >
           {body.map((item, i) => {
             const btnProps: any =
