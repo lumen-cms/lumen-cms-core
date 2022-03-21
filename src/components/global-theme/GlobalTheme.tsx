@@ -19,6 +19,18 @@ declare module '@mui/material/styles' {
   }
 }
 
+declare module '@mui/material/Fab' {
+  interface ButtonPropsColorOverrides {
+    grey: true
+  }
+}
+
+declare module '@mui/material/IconButton' {
+  interface ButtonPropsColorOverrides {
+    grey: true
+  }
+}
+
 declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
     grey: true

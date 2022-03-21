@@ -23,10 +23,15 @@ const RightDrawerContainer: FunctionComponent = ({ children }) => {
     <Drawer
       variant={!matches ? 'temporary' : 'permanent'}
       anchor="right"
+      sx={{
+        '.MuiDrawer-paperAnchorDockedRight': {
+          width: theme.drawer.right,
+          zIndex: theme.zIndex.appBar - 1
+        }
+      }}
       classes={{
         paper: classes.rightDrawerPaper,
-        modal: classes.rightModal,
-        paperAnchorDockedRight: classes.rightDocked
+        modal: classes.rightModal
       }}
       open={!matches ? rightIsOpen : true}
       onClose={closeRightNavigation}

@@ -1,5 +1,5 @@
 import React, { createRef, RefObject, useState } from 'react'
-import { alpha } from '@mui/material/styles'
+import { alpha, useTheme } from '@mui/material/styles'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -22,68 +22,6 @@ import { match, parse } from './autosuggest'
 import { useAppContext } from '@context/AppContext'
 import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({ name: 'ListSearchAutocomplete' })((theme) => ({
-  root: {
-    display: 'inline-flex',
-    verticalAlign: 'middle',
-    '& .MuiInputLabel-root.Mui-focused': {
-      color: 'inherit'
-    }
-  },
-  inputRoot: {
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha('rgba(0,0,0,.05)', 0.15),
-    color: 'inherit',
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.divider
-    },
-    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.action.focus
-    },
-    '&:hover': {
-      backgroundColor: alpha('rgba(0,0,0,.05)', 0.25),
-      '& .MuiOutlinedInput-notchedOutline': {
-        borderColor: theme.palette.action.focus
-      }
-    }
-  },
-  borderSquare: {
-    borderRadius: 0,
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderRadius: 0
-    }
-  },
-  borderRounded: {
-    borderRadius: '25px',
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderRadius: '25px'
-    }
-  },
-  inputDefaultWidth: {
-    color: 'inherit',
-    transition: theme.transitions.create('width')
-  },
-  variableWidth: {
-    '&.MuiAutocomplete-input': {
-      [theme.breakpoints.up('sm')]: {
-        width: 120,
-        '&:focus,&:active': {
-          width: 200
-        }
-      }
-    }
-  },
-  listbox: {
-    '& .MuiLink-root': {
-      display: 'block',
-      width: '100%',
-      color: 'inherit',
-      '&:hover': {
-        textDecoration: 'none'
-      }
-    }
-  }
-}))
 let cacheVersion: number | undefined
 
 const fetcher = async (
@@ -135,7 +73,7 @@ export default function LmListSearchAutocomplete({
   content
 }: LmListSearchAutocompleteProps): JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>()
-  const { classes, cx, theme } = useStyles()
+  const theme = useTheme()
   const { defaultLocale, locale, locales } = useAppContext()
   const inputRef: RefObject<HTMLInputElement> = createRef()
   const [open, setOpen] = useState<boolean | undefined>()
@@ -194,16 +132,28 @@ export default function LmListSearchAutocomplete({
         style={{ width: isMobileAction ? '100%' : undefined }}
         options={options}
         freeSolo
-        classes={{
-          root: classes.root,
-          listbox: classes.listbox,
-          inputRoot: cx(classes.inputRoot, {
-            [classes.borderSquare]: content.shape === 'square',
-            [classes.borderRounded]: content.shape === 'rounded'
-          }),
-          input: cx(classes.inputDefaultWidth, {
-            [classes.variableWidth]: !isMobileAction
-          })
+        sx={{
+          color: 'inherit',
+          '& .MuiOutlinedInput-notchedOutline': {
+            backgroundColor: alpha('rgba(0,0,0,.05)', 0.15),
+            borderRadius:
+              content.shape === 'square'
+                ? '0px'
+                : content.shape === 'rounded'
+                ? '20px'
+                : undefined
+          },
+          '& .MuiTextField-root': {
+            width: 200,
+            transition: theme.transitions.create('width')
+          },
+          '&.Mui-focused .MuiTextField-root': {
+            width: 240,
+            '& .MuiOutlinedInput-notchedOutline': {
+              backgroundColor: alpha('rgba(0,0,0,.05)', 0.2),
+              borderColor: theme.palette.action.focus
+            }
+          }
         }}
         renderInput={(params) => {
           return (
@@ -278,6 +228,14 @@ export default function LmListSearchAutocomplete({
               passHref
               key={item.uuid as string}
               prefetch={false}
+              sx={{
+                display: 'block',
+                width: '100%',
+                color: 'inherit',
+                '&:hover': {
+                  textDecoration: 'none'
+                }
+              }}
             >
               {parts.map((part, index) => (
                 <span

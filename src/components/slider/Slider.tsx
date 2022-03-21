@@ -222,9 +222,11 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
         }}
       >
         <IconButton
-          className={cx({
-            'd-none': !properties.includes('arrows_beside_pagination')
-          })}
+          sx={{
+            display: properties.includes('arrows_beside_pagination')
+              ? 'inline-flex'
+              : 'none'
+          }}
           size="small"
           onClick={onPrevClick}
           color="inherit"
@@ -247,9 +249,11 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
           onClick={onNextClick}
           color="inherit"
           size="small"
-          className={cx({
-            'd-none': !properties.includes('arrows_beside_pagination')
-          })}
+          sx={{
+            display: properties.includes('arrows_beside_pagination')
+              ? 'inline-flex'
+              : 'none'
+          }}
         >
           <ChevronRight />
         </IconButton>

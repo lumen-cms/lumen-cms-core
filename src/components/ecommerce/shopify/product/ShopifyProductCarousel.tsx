@@ -36,8 +36,11 @@ export function ShopifyProductCarousel({ item }: ShopifyProductItemProps) {
       animation="slide"
       navButtonsAlwaysInvisible={variants.length === 1}
       index={currentCarouselIndex as number}
-      onChange={(index: number) => {
-        onVariantSelect({ ...variants[index].node, productTitle: item.title })
+      onChange={(index) => {
+        onVariantSelect({
+          ...variants[index || 0].node,
+          productTitle: item.title
+        })
       }}
     >
       {(variants || []).map((currentItem) => (

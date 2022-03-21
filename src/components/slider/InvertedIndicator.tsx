@@ -1,5 +1,4 @@
 import React from 'react'
-import cx from 'clsx'
 import { makeStyles } from 'tss-react/mui'
 
 const useStyles = makeStyles<InvertedIndicatorProps>()(
@@ -74,7 +73,11 @@ function InvertedIndicator({
   color,
   ...props
 }: InvertedIndicatorProps): JSX.Element {
-  const { classes } = useStyles({ active, color: color || 'dark', ...props })
+  const { classes, cx } = useStyles({
+    active,
+    color: color || 'dark',
+    ...props
+  })
   return (
     <div
       className={cx(

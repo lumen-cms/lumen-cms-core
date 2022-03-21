@@ -120,6 +120,7 @@ export default function LmCardList({
           Number(content.column_count_phone || COLUMN_COUNT.PHONE),
           Number(content.column_count_tablet || COLUMN_COUNT.TABLET),
           null,
+          null,
           Number(content.column_count || COLUMN_COUNT.DESKTOP)
         ]}
         justifyContent={'center'}
