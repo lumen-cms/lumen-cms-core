@@ -132,6 +132,8 @@ export default function LmListSearchAutocomplete({
         options={options}
         freeSolo
         sx={{
+          display: 'inline-flex',
+          verticalAlign: 'middle',
           color: 'inherit',
           '& .MuiOutlinedInput-notchedOutline': {
             backgroundColor: alpha('rgba(0,0,0,.05)', 0.15),
@@ -142,12 +144,15 @@ export default function LmListSearchAutocomplete({
                 ? '20px'
                 : undefined
           },
+          '& .MuiInputBase-root': {
+            color: 'inherit'
+          },
           '& .MuiTextField-root': {
-            width: 200,
+            width: 180,
             transition: theme.transitions.create('width')
           },
           '&.Mui-focused .MuiTextField-root': {
-            width: 240,
+            width: 220,
             '& .MuiOutlinedInput-notchedOutline': {
               backgroundColor: alpha('rgba(0,0,0,.05)', 0.2),
               borderColor: theme.palette.action.focus
@@ -179,7 +184,7 @@ export default function LmListSearchAutocomplete({
                   callback(event.currentTarget.value),
                 autoComplete: 'new-password',
                 startAdornment: (
-                  <InputAdornment position="start">
+                  <InputAdornment position="start" sx={{ color: 'inherit' }}>
                     {' '}
                     {content.icon?.name ? (
                       <LmIcon iconName={content.icon.name} />
