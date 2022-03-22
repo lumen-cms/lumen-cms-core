@@ -1,52 +1,41 @@
 import React, { FC } from 'react'
-import Grid from '@mui/material/Grid'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRowProps } from './flexRowTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles({ name: 'FlexRow' })((theme) => ({
-  xsColumn: {
-    [theme.breakpoints.only('xs')]: {
-      flexDirection: 'column'
-    }
-  }
-}))
+import Stack, { StackProps } from '@mui/material/Stack'
 
 export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
   const body = content.body || []
-  // const theme = useTheme()
-  const { classes: flexClasses, cx: clsx, theme } = useStyles()
-  const classes = useStylesAdvanced({
+  const { classes, cx } = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  }).classes
+  })
+  const direction: StackProps['direction'] = content.column ? 'column' : 'row'
   return (
-    <Grid
-      container
-      direction={content.column ? 'column' : 'row'}
+    <Stack
+      direction={{
+        xs: content.column_mobile_only ? 'column' : direction,
+        sm: direction
+      }}
       justifyContent={content.justify ? content.justify : undefined}
       alignItems={content.align_items ? content.align_items : undefined}
       alignContent={content.align_content ? content.align_content : undefined}
-      className={clsx(content.class_names?.values, {
+      className={cx(content.class_names?.values, {
         'mh-100': content.full_height,
-        [flexClasses.xsColumn]: content.column_mobile_only,
         [classes.advanced]: !!content.styles?.length,
         [classes.advancedMobile]: !!content.styles_mobile?.length,
         [classes.advancedTablet]: !!content.styles_tablet?.length,
         [classes.advancedHover]: !!content.styles_hover?.length
       })}
-      style={{
-        gap: content.gap ? theme.spacing(Number(content.gap)) : 0
-      }}
+      gap={Number(content.gap)}
     >
       {children ? (
         <>{children}</>
       ) : (
         body.map((item) => <LmComponentRender content={item} key={item._uid} />)
       )}
-    </Grid>
+    </Stack>
   )
 }

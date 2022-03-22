@@ -4,19 +4,14 @@ import { LmComponentRender } from '@LmComponentRender'
 import dynamic from 'next/dynamic'
 import { LmDialogAsyncProps, LmDialogProps } from './dialogTypes'
 import { useRouter } from 'next/router'
-import { makeStyles } from 'tss-react/mui'
+import { useTheme } from '@mui/material/styles'
 
 const LmDialog = dynamic(() => import('./LmDialog'))
-const useStyles = makeStyles({ name: 'DialogElement' })({
-  trigger: {
-    cursor: 'pointer'
-  }
-})
 
 export default function LmDialogElement({
   content
 }: LmDialogProps): JSX.Element | null {
-  const { classes, theme } = useStyles()
+  const theme = useTheme()
   const { events } = useRouter()
   const mediaQueryResult = useMediaQuery(
     theme.breakpoints.down(content.fullscreen || 'sm')
@@ -45,7 +40,7 @@ export default function LmDialogElement({
 
   return (
     <>
-      <div className={classes.trigger}>
+      <div style={{ cursor: 'pointer' }}>
         {content.trigger?.map((blok) => (
           <LmComponentRender
             content={blok}

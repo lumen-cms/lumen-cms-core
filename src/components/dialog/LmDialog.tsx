@@ -7,17 +7,6 @@ import Dialog from '@mui/material/Dialog'
 import React from 'react'
 import Slide from '@mui/material/Slide'
 import { LmDialogAsyncProps } from './dialogTypes'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles({ name: 'Dialog' })({
-  dialogTitle: {
-    '& .MuiTypography-root': {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between'
-    }
-  }
-})
 
 const TransitionSlideUp = React.forwardRef(function TransitionSlideUp(
   props,
@@ -34,7 +23,6 @@ export default function LmDialog({
   content,
   setOpen
 }: LmDialogAsyncProps) {
-  const { classes, cx } = useStyles()
   if (content.slide_up) {
     // eslint-disable-next-line
     // @ts-ignore
@@ -43,11 +31,11 @@ export default function LmDialog({
   return (
     <Dialog {...dialogProps}>
       <DialogTitle
-        className={cx({
-          'd-none': content.prevent_close_button && !content.title
-        })}
-        classes={{
-          root: classes.dialogTitle
+        sx={{
+          display:
+            content.prevent_close_button && !content.title ? 'none' : 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
         }}
       >
         {!content.custom_title?.length && <span>{content.title}</span>}

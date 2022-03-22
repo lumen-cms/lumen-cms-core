@@ -44,7 +44,7 @@ export default function useBackgroundBox(
   const style =
     background || variant
       ? generateBackgroundStyles({ background, theme, variant })
-      : {}
+      : undefined
 
   const className = cx(background?.classNames?.values, {
     [shadowClasses[background?.shadow_effect || '']]:

@@ -170,7 +170,6 @@ export const LmButton: FC<LmButtonProps> = ({
       }
     : { ...onClickFunc }
   btnProps['aria-label'] = content.label || content.icon?.name
-  console.log(btnProps)
   if (content.variant === 'fab') {
     return (
       <Fab

@@ -7,25 +7,22 @@ import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { LmGridRowProps } from './sectionTypes'
 import { makeStyles } from 'tss-react/mui'
+import WrapGridContainer from './WrapGridContainer'
 
 const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
   gridRow: {
     height: '100%',
     minHeight: 'inherit',
     '& .MuiGrid-item': {
-      '&.MuiGrid-grid-md-true': {
-        // overflow: 'inherit', // flexbox fix for image component
-        // height: 'inherit'
-      },
       '& > .MuiGrid-direction-xs-column': {
         '& > *': {
           marginTop: theme.spacing(1),
           marginBottom: theme.spacing(1),
           boxSizing: 'border-box',
-          '&:first-child': {
+          '&:first-of-type': {
             marginTop: 0
           },
-          '&:last-child': {
+          '&:last-of-type': {
             marginBottom: 0
           }
         }
@@ -34,10 +31,10 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         boxSizing: 'border-box',
-        '&:first-child': {
+        '&:first-of-type': {
           marginTop: 0
         },
-        '&:last-child': {
+        '&:last-of-type': {
           marginBottom: 0
         }
       }
@@ -64,11 +61,7 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
   const { classes, cx } = useStyles()
   const spacing = Number(content.spacing || 3)
 
-  const background: BackgroundStoryblok | undefined = Array.isArray(
-    content.background
-  )
-    ? content.background[0]
-    : undefined
+  const background: BackgroundStoryblok | undefined = content.background?.[0]
   const { direction } = content
   const { style, className } = useBackgroundBox({
     background,
@@ -77,40 +70,42 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
     stylesTablet: content.styles_tablet,
     stylesHover: content.styles_hover
   })
-
   return (
-    <Grid
-      container
-      style={{
-        ...style
-      }}
-      spacing={spacing}
-      alignItems={content.align_items ? content.align_items : undefined}
-      direction={direction || undefined}
-      className={cx(className, classes.gridRow, {
-        [classes.xsColumnReverse]: content.reverse_on_mobile,
-        [classes.smColumnReverse]: content.reverse_on_tablet
-      })}
-      justifyContent={content.justify ? content.justify : undefined}
-      alignContent={content.align_content ? content.align_content : undefined}
+    <WrapGridContainer
+      hasCustomStyles={!!(style || className)}
+      style={style}
+      className={cx('lm-grid-row__wrap', className)}
     >
-      {background?.image && (
-        <BackgroundImage
-          content={background}
-          backgroundStyle={content.background_style}
-        />
-      )}
-      {background?.background_elements &&
-        background.background_elements.length > 0 && (
-          <BackgroundElements elements={background.background_elements} />
+      <Grid
+        container
+        spacing={spacing}
+        alignItems={content.align_items ? content.align_items : undefined}
+        direction={direction || undefined}
+        className={cx(classes.gridRow, {
+          [classes.xsColumnReverse]: content.reverse_on_mobile,
+          [classes.smColumnReverse]: content.reverse_on_tablet
+        })}
+        justifyContent={content.justify ? content.justify : undefined}
+        alignContent={content.align_content ? content.align_content : undefined}
+      >
+        {background?.image && (
+          <BackgroundImage
+            content={background}
+            backgroundStyle={content.background_style}
+          />
         )}
-      {content.body?.map((blok) => (
-        <LmComponentRender
-          content={blok}
-          key={blok._uid}
-          parent={{ direction: content.direction }}
-        />
-      ))}
-    </Grid>
+        {background?.background_elements &&
+          background.background_elements.length > 0 && (
+            <BackgroundElements elements={background.background_elements} />
+          )}
+        {content.body?.map((blok) => (
+          <LmComponentRender
+            content={blok}
+            key={blok._uid}
+            parent={{ direction: content.direction }}
+          />
+        ))}
+      </Grid>
+    </WrapGridContainer>
   )
 }
