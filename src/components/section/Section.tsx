@@ -13,7 +13,10 @@ const useStyles = makeStyles({ name: 'Section' })({
   fullHeight: {
     width: '100%',
     height: '100%',
-    minHeight: '100vh'
+    minHeight: '100vh',
+    '& .lm-grid-row__wrap': {
+      minHeight: 'inherit'
+    }
   },
   background: {
     position: 'relative',

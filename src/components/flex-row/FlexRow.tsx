@@ -20,6 +20,7 @@ export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
         xs: content.column_mobile_only ? 'column' : direction,
         sm: direction
       }}
+      width={'100%'}
       justifyContent={content.justify ? content.justify : undefined}
       alignItems={content.align_items ? content.align_items : undefined}
       alignContent={content.align_content ? content.align_content : undefined}

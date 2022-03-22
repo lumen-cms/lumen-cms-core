@@ -62,11 +62,6 @@ const useStyles = makeStyles()({
       left: 0
     }
   }
-  // > .mdc-layout-grid {
-  //     position: relative;
-  //     z-index: 0;
-  //   }
-  // }
 })
 
 export default function LmSectionVideo({
@@ -143,7 +138,12 @@ export default function LmSectionVideo({
       {hasBody && (
         <div>
           <Container
-            style={{ height: '100%' }}
+            sx={{
+              height: '100%',
+              '& .lm-grid-row__wrap, & .lm-grid-column__wrap': {
+                height: '100%'
+              }
+            }}
             maxWidth={maxWidth as ContainerProps['maxWidth']}
           >
             {body.map((blok) => (

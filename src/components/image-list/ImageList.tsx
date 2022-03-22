@@ -46,10 +46,14 @@ export default function LmImageList({
               ? {
                   gridTemplateColumns: {
                     xs: `repeat(${
-                      content.column_count_phone || COLUMN_COUNT.PHONE
+                      content.column_count_phone ||
+                      content.column_count ||
+                      COLUMN_COUNT.PHONE
                     }, 1fr)!important`,
                     sm: `repeat(${
-                      content.column_count_tablet || COLUMN_COUNT.TABLET
+                      content.column_count_tablet ||
+                      content.column_count ||
+                      COLUMN_COUNT.TABLET
                     }, 1fr)!important`,
                     lg: `repeat(${
                       content.column_count || COLUMN_COUNT.DESKTOP
@@ -59,10 +63,14 @@ export default function LmImageList({
               : {
                   columnCount: {
                     xs: `${
-                      content.column_count_phone || COLUMN_COUNT.PHONE_MASONRY
+                      content.column_count_phone ||
+                      content.column_count ||
+                      COLUMN_COUNT.PHONE_MASONRY
                     }!important`,
                     sm: `${
-                      content.column_count_tablet || COLUMN_COUNT.TABLET
+                      content.column_count_tablet ||
+                      content.column_count ||
+                      COLUMN_COUNT.TABLET
                     }!important`,
                     lg: `${
                       content.column_count || COLUMN_COUNT.DESKTOP
@@ -71,10 +79,7 @@ export default function LmImageList({
                 })
           }}
           // cols={4}
-          className={cx(
-            // content.masonry ? gridClasses.rootMasonry : gridClasses.root,
-            classes.rootGrid
-          )}
+          className={cx(classes.rootGrid)}
         >
           {body.map((item, i) => {
             const btnProps: any =

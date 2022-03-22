@@ -1,41 +1,29 @@
 import { ParallaxBanner } from 'react-scroll-parallax'
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import Image from 'next/image'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmSectionParallaxProps } from './sectionTypes'
 import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles({ name: 'SectionParallax' })({
-  parallaxRoot: {
-    position: 'relative'
-  },
-  parallaxContent: {
-    overflowX: 'hidden',
-    zIndex: 1,
-    position: 'absolute',
-    width: '100%',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0
-  }
-})
+import Box from '@mui/material/Box'
 
 export default function LmSectionParallax({
   content,
   sectionPosition
 }: LmSectionParallaxProps): JSX.Element {
-  const { classes, cx } = useStyles()
   const contentHeight = content.height
-  const styles = {
+  const styles: CSSProperties = {
     height: contentHeight ? `${contentHeight}vh` : '50vh'
   }
 
   const isPriority = sectionPosition === 0 || !!content.disable_lazy_load
   return (
-    <div className={classes.parallaxRoot} style={{ ...styles }}>
+    <Box
+      sx={{
+        position: 'relative',
+        ...styles
+      }}
+    >
       <ParallaxBanner
         style={styles}
         layers={
@@ -66,14 +54,27 @@ export default function LmSectionParallax({
           }) || []
         }
       />
-      <div
-        className={cx(classes.parallaxContent, content.class_names?.values)}
-        style={styles}
+      <Box
+        sx={{
+          overflowX: 'hidden',
+          zIndex: 1,
+          position: 'absolute',
+          width: '100%',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          ...styles,
+          '& > .lm-grid-row__wrap': {
+            height: '100%'
+          }
+        }}
+        className={content.class_names?.values?.join(' ')}
       >
         {content.body?.map((blok) => (
           <LmComponentRender content={blok} key={blok._uid} />
         ))}
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 }

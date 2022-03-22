@@ -14,19 +14,20 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
     height: '100%',
     minHeight: 'inherit',
     '& .MuiGrid-item': {
-      '& > .MuiGrid-direction-xs-column': {
-        '& > *': {
-          marginTop: theme.spacing(1),
-          marginBottom: theme.spacing(1),
-          boxSizing: 'border-box',
-          '&:first-child': {
-            marginTop: 0
-          },
-          '&:last-child': {
-            marginBottom: 0
+      '& > .MuiGrid-direction-xs-column, & > .lm-grid-column__wrap > .MuiGrid-direction-xs-column':
+        {
+          '& > *': {
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(1),
+            boxSizing: 'border-box',
+            '&:first-child': {
+              marginTop: 0
+            },
+            '&:last-child': {
+              marginBottom: 0
+            }
           }
-        }
-      },
+        },
       '& > *': {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),

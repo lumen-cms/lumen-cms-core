@@ -118,7 +118,11 @@ export default function LmCardList({
         spacing={gutterSize + 'px'}
         columns={[
           Number(content.column_count_phone || COLUMN_COUNT.PHONE),
-          Number(content.column_count_tablet || COLUMN_COUNT.TABLET),
+          Number(
+            content.column_count_tablet ||
+              content.column_count ||
+              COLUMN_COUNT.TABLET
+          ),
           null,
           null,
           Number(content.column_count || COLUMN_COUNT.DESKTOP)
