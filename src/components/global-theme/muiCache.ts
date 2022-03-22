@@ -8,5 +8,6 @@ export default function createEmotionCache() {
     return muiCache
   }
   muiCache = createCache({ key: 'css', prepend: true })
+  // muiCache.compat = true
   return muiCache
 }

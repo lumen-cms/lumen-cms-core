@@ -51,6 +51,7 @@ export default function LmMotion({ content }: LmMotionProps): JSX.Element {
   // const start = inView
   return (
     <div
+      className={'lm-motion__root'}
       ref={viewRef}
       style={{
         overflow: content.enable_overflow ? undefined : 'hidden',

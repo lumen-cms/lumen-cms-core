@@ -65,9 +65,7 @@ export const createGlobalStyles = (theme: Theme) => {
       flexGrow: 1
     },
     '.lm-grid-column__wrap': {
-      padding: '12px',
-      height: '100%',
-      width: '100%'
+      padding: '12px'
     },
     '.badge': {
       display: 'inline-block',

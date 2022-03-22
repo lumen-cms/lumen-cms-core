@@ -15,6 +15,7 @@ export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
   const direction: StackProps['direction'] = content.column ? 'column' : 'row'
   return (
     <Stack
+      flexWrap={'wrap'}
       direction={{
         xs: content.column_mobile_only ? 'column' : direction,
         sm: direction
@@ -29,7 +30,7 @@ export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
         [classes.advancedTablet]: !!content.styles_tablet?.length,
         [classes.advancedHover]: !!content.styles_hover?.length
       })}
-      gap={Number(content.gap)}
+      gap={Number(content.gap || 0)}
     >
       {children ? (
         <>{children}</>
