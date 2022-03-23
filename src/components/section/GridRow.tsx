@@ -28,7 +28,7 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
             }
           }
         },
-      '& > *': {
+      '& > *, & > .lm-grid-column__wrap > *': {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         boxSizing: 'border-box',
