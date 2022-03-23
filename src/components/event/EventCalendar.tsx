@@ -48,67 +48,70 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
       ? parseEventsToCalendar(content.event_calendar_data)
       : []
   )
-  return <>
-    <Calendar
-      scrollToTime={
-        new Date(
-          1970,
-          1,
-          1,
-          content.scroll_to_time ? Number(content.scroll_to_time) : 7
-        )
-      }
-      localizer={localizer}
-      culture={content.language || 'de'}
-      views={views}
-      defaultView={!currentView ? undefined : currentView}
-      components={{
-        toolbar: CalendarToolbar
-      }}
-      events={currentEvents}
-      onSelectEvent={(event) => {
-        setSelectedEvent(event as EventCalendar)
-      }}
-      eventPropGetter={(event) => {
-        const bgColor =
-          event.resource.background_color?.rgba ||
-          event.resource.category?.content?.background_color?.rgba
-        const color =
-          event.resource.color?.rgba ||
-          event.resource.category?.content?.color?.rgba
-        return {
-          style: {
-            color: color ? color : undefined,
-            backgroundColor: bgColor ? bgColor : undefined
-          }
+  return (
+    <>
+      <Calendar
+        scrollToTime={
+          new Date(
+            1970,
+            1,
+            1,
+            content.scroll_to_time ? Number(content.scroll_to_time) : 7
+          )
         }
-      }}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height: 500, width: '100%' }}
-      messages={eventMessages}
-    />
-    <Dialog
-      fullScreen
-      onClose={() => {
-        setSelectedEvent(null)
-      }}
-      open={!!selectedEvent}
-    >
-      <DialogTitle style={{ alignSelf: 'flex-end' }}>
-        <IconButton
-          onClick={() => {
-            setSelectedEvent(null)
-          }}
-          size="large">
-          <Close />
-        </IconButton>
-      </DialogTitle>
-      {selectedEvent?.resource && (
-        <div style={{ overflowY: 'auto' }}>
-          <LmEvent content={selectedEvent.resource} />
-        </div>
-      )}
-    </Dialog>
-  </>;
+        localizer={localizer}
+        culture={content.language || 'de'}
+        views={views}
+        defaultView={!currentView ? undefined : currentView}
+        components={{
+          toolbar: CalendarToolbar
+        }}
+        events={currentEvents}
+        onSelectEvent={(event) => {
+          setSelectedEvent(event as EventCalendar)
+        }}
+        eventPropGetter={(event) => {
+          const bgColor =
+            event.resource.background_color?.rgba ||
+            event.resource.category?.content?.background_color?.rgba
+          const color =
+            event.resource.color?.rgba ||
+            event.resource.category?.content?.color?.rgba
+          return {
+            style: {
+              color: color ? color : undefined,
+              backgroundColor: bgColor ? bgColor : undefined
+            }
+          }
+        }}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500, width: '100%' }}
+        messages={eventMessages}
+      />
+      <Dialog
+        fullScreen
+        onClose={() => {
+          setSelectedEvent(null)
+        }}
+        open={!!selectedEvent}
+      >
+        <DialogTitle style={{ alignSelf: 'flex-end' }}>
+          <IconButton
+            onClick={() => {
+              setSelectedEvent(null)
+            }}
+            size="large"
+          >
+            <Close />
+          </IconButton>
+        </DialogTitle>
+        {selectedEvent?.resource && (
+          <div style={{ overflowY: 'auto' }}>
+            <LmEvent content={selectedEvent.resource} />
+          </div>
+        )}
+      </Dialog>
+    </>
+  )
 }

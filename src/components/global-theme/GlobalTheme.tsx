@@ -219,6 +219,7 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
             }
           }
         },
+        MuiGrid: {},
         MuiAppBar: {
           styleOverrides: {
             root: {

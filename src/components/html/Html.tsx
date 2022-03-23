@@ -37,6 +37,7 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
     }
     return (
       <div
+        className={'lm-html__root'}
         {...divProps}
         ref={content.lazy_load ? refIntersectionObserver : undefined}
       />
@@ -44,6 +45,7 @@ export function LmHtml({ content }: LmHtmlProps): JSX.Element {
   }
   return (
     <div
+      className={'lm-html__root'}
       {...divProps}
       ref={content.lazy_load ? refIntersectionObserver : undefined}
     >

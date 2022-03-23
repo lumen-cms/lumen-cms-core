@@ -14,7 +14,7 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
     height: '100%',
     minHeight: 'inherit',
     '& .MuiGrid-item': {
-      '& > .MuiGrid-direction-xs-column, & > .lm-grid-column__wrap > .MuiGrid-direction-xs-column':
+      '& > .MuiGrid-direction-xs-column, & > .lm-column-stack__root, & > .lm-grid-column__wrap > .MuiGrid-direction-xs-column, & > .lm-grid-column__wrap > .lm-column-stack__root':
         {
           '& > *': {
             marginTop: theme.spacing(1),
@@ -38,6 +38,9 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
         '&:last-child': {
           marginBottom: 0
         }
+      },
+      '&.lm-column__bg-image .lm-grid-column__wrap > :last-child': {
+        position: 'relative'
       }
     }
   },
@@ -79,6 +82,7 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
     >
       <Grid
         container
+        // gap={spacing}
         spacing={spacing}
         alignItems={content.align_items ? content.align_items : undefined}
         direction={direction || undefined}

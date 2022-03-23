@@ -91,21 +91,24 @@ export const CalendarToolbar: FC<ToolbarProps<Event>> = (props) => {
         onClick={() => {
           props.onNavigate('TODAY')
         }}
-        size="large">
+        size="large"
+      >
         <TodayIcon />
       </IconButton>
       <IconButton
         onClick={() => {
           props.onNavigate('PREV')
         }}
-        size="large">
+        size="large"
+      >
         <NavigateBeforeIcon />
       </IconButton>
       <IconButton
         onClick={() => {
           props.onNavigate('NEXT')
         }}
-        size="large">
+        size="large"
+      >
         <NavigateNextIcon />
       </IconButton>
       {currentViews.length > 1 && (
@@ -116,5 +119,5 @@ export const CalendarToolbar: FC<ToolbarProps<Event>> = (props) => {
         />
       )}
     </div>
-  );
+  )
 }

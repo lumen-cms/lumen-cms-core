@@ -7,6 +7,8 @@ import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { LmGridColumnProps } from './sectionTypes'
 import WrapGridContainer from './WrapGridContainer'
+import Stack from '@mui/material/Stack'
+import { cx } from 'tss-react/@emotion/css'
 
 const xsSpanMap = {
   1: 3,
@@ -71,31 +73,38 @@ export function LmGridColumn({
     }
   }
 
+  const renderStackElement =
+    !['column', 'column-reverse'].includes(parent.direction) &&
+    (content.justify || content.align_content || content.align_items)
   return (
     <Grid
       item
       xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
       sm={smWidth}
       md={mdWidth}
+      className={cx({
+        'lm-column__bg-image': !!background?.image
+      })}
     >
-      {background?.image && <BackgroundImage content={background} />}
-      {background?.background_elements &&
-        background.background_elements.length > 0 && (
-          <BackgroundElements elements={background.background_elements} />
-        )}
       <WrapGridContainer
         className={[className, 'lm-grid-column__wrap']
           .filter((i) => i)
           .join(' ')}
         style={style}
-        hasCustomStyles={!!(style || className)}
+        hasCustomStyles={!!(style || className || background?.image)}
       >
-        {!['column', 'column-reverse'].includes(parent.direction) &&
-        (content.justify || content.align_content || content.align_items) ? (
-          <Grid
-            container
+        {background?.image && <BackgroundImage content={background} />}
+        {background?.background_elements &&
+          background.background_elements.length > 0 && (
+            <BackgroundElements elements={background.background_elements} />
+          )}
+        {renderStackElement ? (
+          <Stack
+            className={'lm-column-stack__root'}
             direction="column"
-            className="mh-100"
+            sx={{
+              minHeight: '100%'
+            }}
             justifyContent={content.justify ? content.justify : undefined}
             alignItems={content.align_items ? content.align_items : undefined}
             alignContent={
@@ -105,7 +114,7 @@ export function LmGridColumn({
             {content.body?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />
             ))}
-          </Grid>
+          </Stack>
         ) : (
           content.body?.map((blok) => (
             <LmComponentRender content={blok} key={blok._uid} />
