@@ -1,50 +1,43 @@
-import React, { FunctionComponent, RefObject, useEffect, useState } from 'react'
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
 import IconButton from '@mui/material/IconButton'
 import Magnify from 'mdi-material-ui/Magnify'
 import LmIcon from '../icon/LmIcon'
 import { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles()({
-  mobile: {
-    position: 'absolute',
-    top: '0',
-    left: '0',
-    width: '100%',
-    zIndex: 1,
-    height: '100%',
-    verticalAlign: 'middle',
-    backgroundColor: 'inherit',
-    '& .MuiFormControl-root': {
-      alignSelf: 'center'
-    }
-  }
-})
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Box from '@mui/material/Box'
+import { useTheme } from '@mui/material/styles'
 
 export const ListSearchAutocompleteContainer: FunctionComponent<{
   content: ListSearchAutocompleteStoryblok
   popperActive?: boolean
-  inputRef: RefObject<HTMLInputElement>
-  isMobileAction: boolean
-}> = ({ content, children, popperActive, inputRef, isMobileAction }) => {
+}> = ({ content, children, popperActive }) => {
   const [visible, setVisible] = useState<boolean>(false)
-  const { classes } = useStyles()
+  const theme = useTheme()
+  const matches = useMediaQuery(
+    theme.breakpoints.down(content.mobile_breakpoint || 'xs')
+  )
+  const isMobileAction = content.mobile_breakpoint && matches
+
   const [bgColor, setBgColor] = useState<string | undefined>()
+  const ref = useRef<HTMLDivElement>()
   useEffect(() => {
     if (isMobileAction) {
       const toolbar: HTMLDivElement | null | undefined =
-        inputRef.current?.closest('.MuiAppBar-root')
+        ref.current?.closest('.MuiAppBar-root')
       const bg =
         toolbar && window.getComputedStyle(toolbar, null).backgroundColor
       setBgColor(bg || undefined)
     }
-  }, [isMobileAction, inputRef])
+  }, [isMobileAction])
   useEffect(() => {
     if (!isMobileAction) {
       return
     }
-    inputRef.current?.focus()
-  }, [visible, inputRef, isMobileAction])
+    if (visible) {
+      const input = ref.current?.querySelector('input') as HTMLInputElement
+      input?.focus()
+    }
+  }, [visible, isMobileAction])
   useEffect(() => {
     if (!isMobileAction) {
       return
@@ -59,24 +52,42 @@ export const ListSearchAutocompleteContainer: FunctionComponent<{
   if (isMobileAction) {
     return (
       <>
-        {!visible && (
-          <IconButton onClick={onOpen} size="large">
-            {content.icon?.name ? (
-              <LmIcon iconName={content.icon.name} />
-            ) : (
-              <Magnify />
-            )}
-          </IconButton>
-        )}
-        <div
+        <IconButton
+          onClick={onOpen}
+          size="large"
           style={{
-            display: !visible ? 'none' : 'inline-flex',
-            backgroundColor: bgColor
+            display: visible ? 'none' : undefined
           }}
-          className={classes.mobile}
+        >
+          {content.icon?.name ? (
+            <LmIcon iconName={content.icon.name} />
+          ) : (
+            <Magnify />
+          )}
+        </IconButton>
+
+        <Box
+          ref={ref}
+          sx={{
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            width: '100%',
+            zIndex: 1,
+            height: '100%',
+            verticalAlign: 'middle',
+            '& .MuiFormControl-root': {
+              alignSelf: 'center'
+            },
+            backgroundColor: bgColor || 'inherit',
+            display: !visible ? 'none' : 'inline-flex',
+            '& .MuiAutocomplete-root, & .MuiFormControl-root': {
+              width: '100%!important'
+            }
+          }}
         >
           {children}
-        </div>
+        </Box>
       </>
     )
   }

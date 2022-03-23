@@ -25,6 +25,7 @@ export const getListWidgetParams = (
     params.with_tag = item.tags.values.join(',')
   }
   if (item.categories?.length) {
+    // @ts-ignore
     params.filter_query.categories = {
       [item.match_all_tags ? 'all_in_array' : 'in_array']:
         item.categories.join(',')

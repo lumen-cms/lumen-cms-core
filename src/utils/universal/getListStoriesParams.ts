@@ -29,12 +29,14 @@ export const getListStoriesParams = (
     if (item.sort === 'created') {
     }
   }
+  // @ts-ignore
   params.filter_query.__or = []
   const categoryFilters: string[] = [
     ...(item.event_categories || []),
     ...(item.news_categories || [])
   ]
   if (categoryFilters.length) {
+    // @ts-ignore
     params.filter_query.__or.push({
       category: {
         in: categoryFilters.join(',')
@@ -42,6 +44,7 @@ export const getListStoriesParams = (
     })
   }
   if (item.page_categories?.length) {
+    // @ts-ignore
     params.filter_query.__or.push({
       categories: {
         [item.match_all_categories ? 'all_in_array' : 'in_array']:
@@ -49,7 +52,9 @@ export const getListStoriesParams = (
       }
     })
   }
+  // @ts-ignore
   if (!params.filter_query.__or.length) {
+    // @ts-ignore
     delete params.filter_query.__or
   }
 

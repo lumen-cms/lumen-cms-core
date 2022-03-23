@@ -11,6 +11,7 @@ const testObj: StoriesParams = {
     component: {
       in: 'page'
     },
+    // @ts-ignore
     __or: [
       {
         categories: {

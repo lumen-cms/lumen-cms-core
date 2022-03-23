@@ -14,7 +14,7 @@ export function getStoryblokPagesConfig(pageConfig?: StoriesParams) {
         in: 'page'
       },
       meta_robots: {
-        not_in: true
+        not_in: 'true'
       }
     },
     ...(pageConfig || {})
