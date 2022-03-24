@@ -1814,15 +1814,17 @@ export interface ImageCoreStoryblok {
 
 export interface ImageListStoryblok {
   aspect_ratio?: "" | "1x1" | "16x9" | "4x3" | "3x4" | "3x2" | "2x3" | "1x2" | "2x1" | "1x3" | "3x1" | "2.85x1";
+  variant?: "" | "woven" | "quilted" | "masonry";
+  row_height?: number;
   text_protection?: boolean;
   enable_lightbox?: boolean;
-  masonry?: boolean;
   fit_in_color?: string;
-  label_position?: "" | "top" | "bottom";
+  label_position?: "" | "top" | "bottom" | "below";
+  masonry?: boolean;
   column_gap?: "" | "0" | "2" | "4" | "8" | "16" | "24" | "32";
-  column_count?: "" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12";
-  column_count_tablet?: "" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
-  column_count_phone?: "" | "1" | "2" | "3" | "4";
+  column_count?: number;
+  column_count_tablet?: number;
+  column_count_phone?: number;
   body?: ImageListItemStoryblok[];
   _uid: string;
   component: "image_list";
@@ -1830,6 +1832,12 @@ export interface ImageListStoryblok {
 }
 
 export interface ImageListItemStoryblok {
+  source?: string;
+  alt?: string;
+  label?: string;
+  sub_title?: string;
+  label_position?: "" | "top" | "bottom" | "below";
+  show_text_in_dialog?: boolean;
   link?:
     | {
         cached_url?: string;
@@ -1853,12 +1861,9 @@ export interface ImageListItemStoryblok {
         linktype?: "email";
         [k: string]: any;
       };
-  source?: string;
-  label?: string;
-  sub_title?: string;
   open_external?: boolean;
-  alt?: string;
-  show_text_in_dialog?: boolean;
+  cols?: number;
+  rows?: number;
   _uid: string;
   component: "image_list_item";
   [k: string]: any;

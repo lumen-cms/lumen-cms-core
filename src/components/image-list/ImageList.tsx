@@ -25,24 +25,33 @@ export default function LmImageList({
 
   const body = content.body || []
 
+  const isMasonry = content.variant === 'masonry' || content.masonry
+
   return (
     <div className="lm-imagelist__container">
       <div
         className={cx(classes.root, {
           // [gridClasses.masonry]: content.masonry,
-          [classes.aspectRatio]: !!(content.aspect_ratio && !content.masonry),
+          [classes.aspectRatio]: !!(content.aspect_ratio && !isMasonry),
           [`ratio-${content.aspect_ratio}`]: !!(
-            content.aspect_ratio && !content.masonry
+            content.aspect_ratio && !isMasonry
           ),
           'with-lightbox': content.enable_lightbox
         })}
       >
         <ImageList
-          rowHeight="auto"
+          rowHeight={content.row_height ? Number(content.row_height) : 'auto'}
           gap={gutterSize}
-          variant={content.masonry ? 'masonry' : undefined}
+          variant={content.variant || (isMasonry ? 'masonry' : 'standard')}
           sx={{
-            ...(!content.masonry
+            '& .MuiImageListItem-woven, & .MuiImageListItem-quilted': {
+              overflow: 'hidden',
+              '& > span': {
+                height: '100%!important',
+                width: '100%!important'
+              }
+            },
+            ...(!isMasonry
               ? {
                   gridTemplateColumns: {
                     xs: `repeat(${
@@ -79,7 +88,7 @@ export default function LmImageList({
                 })
           }}
           // cols={4}
-          className={cx(classes.rootGrid)}
+          // className={cx(classes.rootGrid)}
         >
           {body.map((item, i) => {
             const btnProps: any =
@@ -94,6 +103,8 @@ export default function LmImageList({
                 : {}
             return (
               <ImageListItem
+                cols={item.cols || 1}
+                rows={item.rows || 1}
                 key={item._uid}
                 {...btnProps}
                 onClick={(ev: any) =>

@@ -37,7 +37,10 @@ export default function LmImageListItem({
   const { width } = originalDimensions
   const { height } = originalDimensions
 
-  const respectImgRatio = listProps.masonry || !listProps.aspect_ratio
+  const respectImgRatio =
+    listProps.masonry ||
+    listProps.variant === 'masonry' ||
+    !listProps.aspect_ratio
   const { column_count, column_count_phone, column_count_tablet } = listProps
 
   let imgProps: ImageProps
@@ -46,26 +49,28 @@ export default function LmImageListItem({
       src: imageSource,
       width,
       height,
-      layout: 'intrinsic'
+      objectFit: 'cover',
+      objectPosition: 'center',
+      layout: 'responsive'
     }
   } else {
-    const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
-    const tabletVw = getVwByColCount(
-      column_count_tablet || column_count || COLUMN_COUNT.TABLET
-    )
-    const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
     imgProps = {
       src: imageSource,
       layout: 'fill',
-      objectFit: listProps.fit_in_color ? 'contain' : 'cover',
-      sizes: `(min-width: 0) and (max-width: ${
-        breakpoints.values.sm - 1
-      }px) ${phoneVw}vw, (min-width: ${
-        breakpoints.values.sm
-      }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
-            ${desktopVw}vw`
+      objectFit: listProps.fit_in_color ? 'contain' : 'cover'
     }
   }
+  const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
+  const tabletVw = getVwByColCount(
+    column_count_tablet || column_count || COLUMN_COUNT.TABLET
+  )
+  const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
+  imgProps.sizes = `(min-width: 0) and (max-width: ${
+    breakpoints.values.sm - 1
+  }px) ${phoneVw}vw, (min-width: ${breakpoints.values.sm}px) and (max-width: ${
+    breakpoints.values.md - 1
+  }px): ${tabletVw}vw,
+            ${desktopVw}vw`
 
   const ImageWrap: FC =
     !listProps.fit_in_color || respectImgRatio
@@ -81,7 +86,6 @@ export default function LmImageListItem({
             {children}
           </div>
         )
-
   return (
     <ImageWrap>
       {!loaded && (
@@ -102,7 +106,9 @@ export default function LmImageListItem({
         <ImageListItemBar
           title={content.label}
           subtitle={content.sub_title}
-          position={listProps.label_position || 'bottom'}
+          position={
+            content.label_position || listProps.label_position || 'bottom'
+          }
         />
       )}
     </ImageWrap>

@@ -99,7 +99,8 @@ const mapThemeType = {
   dark: 'dark'
 }
 const responsiveFontSizeOptions: ResponsiveFontSizesOptions = {
-  breakpoints: ['sm', 'md', 'lg']
+  breakpoints: ['sm', 'md', 'lg'],
+  factor: 2 // default 2
 }
 
 const { palette } = createTheme()
@@ -134,6 +135,15 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
       : undefined
 
     const globalTheme = createTheme({
+      breakpoints: {
+        values: {
+          xs: 0,
+          sm: 600,
+          md: 900, //
+          lg: 1280, //1200, //
+          xl: 1920 //1536 //
+        }
+      },
       palette: {
         mode: mapThemeType[(settings.theme_base as string) || 'base'],
         primary: {
