@@ -167,7 +167,7 @@ export const Playground = () => (
       content={{
         ...storyImageList({
           options: {
-            column_count: '4',
+            column_count: 4,
             column_gap: '24'
           }
         }),
