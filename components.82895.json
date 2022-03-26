@@ -11007,24 +11007,22 @@
       "name": "parallax_item",
       "display_name": null,
       "created_at": "2020-05-01T08:40:37.541Z",
-      "updated_at": "2020-07-23T00:31:16.339Z",
+      "updated_at": "2022-03-26T03:24:05.147Z",
       "id": 894807,
       "schema": {
-        "image": {
-          "type": "image",
+        "speed": {
+          "type": "number",
+          "description": "Speed of element. Negative values moves slower, positive values move faster. Defaults to -20.",
           "pos": 0
         },
-        "amount": {
-          "type": "number",
-          "default_value": "0.1",
-          "display_name": "Vertical offset",
-          "description": "A value between -1 and 1",
+        "image": {
+          "type": "image",
           "pos": 1
         },
         "image_focal_point": {
           "type": "text",
           "description": "Focal point in X,Y coordinates in % of the original image. Example center top: \"50x0\", center bottom: \"50x100\", top left: \"0x0\", right middle: \"100x50\"",
-          "pos": 2
+          "pos": 3
         },
         "children": {
           "type": "bloks",
@@ -11032,9 +11030,66 @@
           "component_whitelist": [
             "headline"
           ],
-          "pos": 3,
+          "pos": 4,
           "maximum": "1",
-          "component_group_whitelist": []
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ],
+          "restrict_type": "groups"
+        },
+        "tab-1b6680ef-fb24-4156-a717-3b814549d49c": {
+          "type": "tab",
+          "display_name": "Effect",
+          "keys": [
+            "translate_x",
+            "translate_y",
+            "rotate",
+            "rotate_x",
+            "rotate_y",
+            "rotate_z",
+            "scale",
+            "scale_x",
+            "scale_y",
+            "scale_z",
+            "opacity"
+          ],
+          "pos": 0
+        },
+        "rotate": {
+          "type": "text"
+        },
+        "rotate_x": {
+          "type": "text"
+        },
+        "rotate_y": {
+          "type": "text"
+        },
+        "rotate_z": {
+          "type": "text"
+        },
+        "scale": {
+          "type": "text"
+        },
+        "scale_x": {
+          "type": "text"
+        },
+        "scale_y": {
+          "type": "text"
+        },
+        "scale_z": {
+          "type": "text"
+        },
+        "opacity": {
+          "type": "text"
+        },
+        "always_complete_animation": {
+          "type": "boolean"
+        },
+        "translateX": {
+          "type": "text"
+        },
+        "translateY": {
+          "type": "text"
         }
       },
       "image": null,

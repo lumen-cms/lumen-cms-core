@@ -28,24 +28,33 @@ export default function LmSectionParallax({
         style={styles}
         layers={
           content.elements?.map((item) => {
+            const {
+              always_complete_animation,
+              amount,
+              speed,
+              image,
+              parallax_item_data,
+              children
+            } = item
             return {
-              amount: Number(item.amount),
+              shouldAlwaysCompleteAnimation: always_complete_animation || false,
+              speed: amount ? Number(amount) * 10 : speed || -20,
               children: (
                 <>
-                  {item.image && (
+                  {image && (
                     <Image
                       priority={isPriority}
-                      {...storyblokImageLoader(item.image)}
-                      src={getRootImageUrl(item.image)}
+                      {...storyblokImageLoader(image)}
+                      src={getRootImageUrl(image)}
                       layout="fill"
                       objectFit="cover"
-                      {...(item.parallax_item_data?.base64 && {
+                      {...(parallax_item_data?.base64 && {
                         placeholder: 'blur',
-                        blurDataURL: item.parallax_item_data.base64
+                        blurDataURL: parallax_item_data.base64
                       })}
                     />
                   )}
-                  {item.children?.map((child: any) => (
+                  {children?.map((child) => (
                     <LmComponentRender content={child} key={child._uid} />
                   ))}
                 </>

@@ -2965,10 +2965,76 @@ export interface ParagraphStoryblok {
 }
 
 export interface ParallaxItemStoryblok {
+  speed?: number;
   image?: string;
-  amount?: number;
   image_focal_point?: string;
-  children?: HeadlineStoryblok[];
+  children?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | GalleryStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  rotate?: string;
+  rotate_x?: string;
+  rotate_y?: string;
+  rotate_z?: string;
+  scale?: string;
+  scale_x?: string;
+  scale_y?: string;
+  scale_z?: string;
+  opacity?: string;
+  always_complete_animation?: boolean;
+  translateX?: string;
+  translateY?: string;
   _uid: string;
   component: "parallax_item";
   [k: string]: any;
