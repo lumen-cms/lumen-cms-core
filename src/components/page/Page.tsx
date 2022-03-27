@@ -23,24 +23,29 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
     return <EmptyContent />
   }
 
+  console.log('dort', currentContent?.property)
   if (
-    !content?.property?.includes('enable_parallax') &&
-    !body.some((i) => i.component === 'section_parallax')
+    currentContent.property?.includes('enable_parallax') ||
+    body.some((i) => i.component === 'section_parallax')
   ) {
+    console.log('hiiiier')
     return (
-      <>
+      // eslint-disable-next-line
+      // @ts-ignore
+      // eslint-disable-next-line react/jsx-pascal-case
+      <LmCoreComponents.parallax_provider>
         {rightBody.length > 0 && <RightDrawer rightBody={rightBody} />}
         <MainContent body={body} />
-      </>
+      </LmCoreComponents.parallax_provider>
     )
   }
   return (
     // eslint-disable-next-line
     // @ts-ignore
     // eslint-disable-next-line react/jsx-pascal-case
-    <LmCoreComponents.parallax_provider>
+    <>
       {rightBody.length > 0 && <RightDrawer rightBody={rightBody} />}
       <MainContent body={body} />
-    </LmCoreComponents.parallax_provider>
+    </>
   )
 }
