@@ -23,7 +23,10 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
     return <EmptyContent />
   }
 
-  if (!body.some((i) => i.component === 'section_parallax')) {
+  if (
+    !content?.property?.includes('enable_parallax') &&
+    !body.some((i) => i.component === 'section_parallax')
+  ) {
     return (
       <>
         {rightBody.length > 0 && <RightDrawer rightBody={rightBody} />}

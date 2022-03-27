@@ -81,6 +81,7 @@ export interface AuthContainerStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -142,6 +143,7 @@ export interface AuthFormStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -640,6 +642,7 @@ export interface ColumnStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -775,6 +778,7 @@ export interface DialogStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -836,6 +840,7 @@ export interface DialogStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -1121,6 +1126,7 @@ export interface EventStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -1231,6 +1237,7 @@ export interface FlexRowStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -1357,6 +1364,7 @@ export interface FormContainerStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -1582,6 +1590,7 @@ export interface HeadlineStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -1690,6 +1699,7 @@ export interface HtmlStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2054,6 +2064,7 @@ export interface ListStoriesStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2167,6 +2178,7 @@ export interface MoralisAuthContainerStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2222,6 +2234,7 @@ export interface MoralisAuthContainerStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2277,6 +2290,7 @@ export interface MoralisAuthContainerStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2361,6 +2375,7 @@ export interface MoralisMintStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2419,6 +2434,7 @@ export interface MoralisMintStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2480,6 +2496,7 @@ export interface MoralisMintStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2535,6 +2552,7 @@ export interface MoralisMintStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2593,6 +2611,7 @@ export interface MoralisMintStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2668,6 +2687,7 @@ export interface MotionStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2853,7 +2873,7 @@ export interface PageStoryblok {
   preview_image?: string;
   preview_teaser?: string;
   preview_publish_date?: string;
-  property?: ("has_feature" | "disable_promotion")[];
+  property?: ("has_feature" | "disable_promotion" | "enable_parallax")[];
   body?: (
     | SectionStoryblok
     | SectionVideoBgStoryblok
@@ -2911,6 +2931,7 @@ export interface PageStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -2965,9 +2986,7 @@ export interface ParagraphStoryblok {
 }
 
 export interface ParallaxItemStoryblok {
-  speed?: number;
   image?: string;
-  image_focal_point?: string;
   children?: (
     | AccordionStoryblok
     | AuthContainerStoryblok
@@ -3016,6 +3035,7 @@ export interface ParallaxItemStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -3023,18 +3043,51 @@ export interface ParallaxItemStoryblok {
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
-  rotate?: string;
-  rotate_x?: string;
-  rotate_y?: string;
-  rotate_z?: string;
-  scale?: string;
-  scale_x?: string;
-  scale_y?: string;
-  scale_z?: string;
-  opacity?: string;
+  image_focal_point?: string;
+  speed?: number;
+  easing?:
+    | ""
+    | "ease"
+    | "easeIn"
+    | "easeOut"
+    | "easeInOut"
+    | "easeInQuad"
+    | "easeInCubic"
+    | "easeInQuart"
+    | "easeInQuint"
+    | "easeInSine"
+    | "easeInExpo"
+    | "easeInCirc"
+    | "easeOutQuad"
+    | "easeOutCubic"
+    | "easeOutQuart"
+    | "easeOutQuint"
+    | "easeOutSine"
+    | "easeOutExpo"
+    | "easeOutCirc"
+    | "easeInOutQuad"
+    | "easeInOutCubic"
+    | "easeInOutQuart"
+    | "easeInOutQuint"
+    | "easeInOutSine"
+    | "easeInOutExpo"
+    | "easeInOutCirc"
+    | "easeInBack"
+    | "easeOutBack"
+    | "easeInOutBack";
   always_complete_animation?: boolean;
+  expanded?: boolean;
   translateX?: string;
   translateY?: string;
+  scale?: string;
+  scaleX?: string;
+  scaleY?: string;
+  scaleZ?: string;
+  rotate?: string;
+  rotateX?: string;
+  rotateY?: string;
+  rotateZ?: string;
+  opacity?: string;
   _uid: string;
   component: "parallax_item";
   [k: string]: any;
@@ -3275,6 +3328,7 @@ export interface SectionStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -3301,6 +3355,8 @@ export interface SectionParallaxStoryblok {
   body?: (RowStoryblok | CardListStoryblok)[];
   elements?: ParallaxItemStoryblok[];
   height?: number;
+  ratio?: string;
+  max_height_mobile?: number;
   disable_lazy_load?: boolean;
   class_names?: {
     values?: string[];
@@ -3575,6 +3631,7 @@ export interface SnackbarStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -3642,6 +3699,7 @@ export interface StaticContainerStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -3820,6 +3878,7 @@ export interface TabsItemStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -3905,6 +3964,7 @@ export interface TimelineItemStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok
@@ -3984,6 +4044,7 @@ export interface TimelineItemStoryblok {
     | RichTextEditorStoryblok
     | RowStoryblok
     | SearchStoryStoryblok
+    | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
     | TableStoryblok

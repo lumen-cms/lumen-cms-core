@@ -1,19 +1,15 @@
 import { ParallaxProvider } from 'react-scroll-parallax'
-import { get3ColumnsSection } from '../storybook/section'
 import {
-  storyBackground,
-  storyColumn,
   storyParallaxItem,
-  storyRow,
   storySectionParallax
 } from '../storybook/core/section'
-import { storyHeadline } from '../storybook/core/various'
 import SettingsPageProvider from '../components/provider/SettingsPageProvider'
 import { simpleSettings } from '../storybook/toolbar'
 import { LmPage } from '../components/page/Page'
 import {
   BackgroundStoryblok,
   ColumnStoryblok,
+  FlexRowStoryblok,
   HeadlineStoryblok,
   PageStoryblok,
   ParallaxItemStoryblok,
@@ -34,49 +30,44 @@ const getObj = () => {
     body: [
       {
         ...storySectionParallax(),
-        body: [
-          {
-            ...storyRow({
-              knob: 'Content Parallax',
-              options: {
-                justify: 'center',
-                align_content: 'flex-end'
-              }
-            }),
-            background: [
-              storyBackground({
-                knob: 'Content Parallax',
-                options: {
-                  classNames: { values: ['text-center', 'text-white'] }
-                }
-              })
-            ],
-            body: [
-              {
-                ...storyColumn({ knob: 'Content Parallax' }),
-                body: [
-                  storyHeadline({
-                    knob: 'Content Parallax',
-                    options: { typography: 'headline2' }
-                  })
-                ]
-              }
-            ]
-          }
-        ],
+        ratio: '4/3',
         elements: [
           storyParallaxItem({
             options: {
-              amount: 0.3,
+              speed: -20,
               image:
                 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
             }
-          })
+          }),
+          {
+            speed: -10,
+            scale: '1,1.5',
+            opacity: '0.5, 1',
+            // always_complete_animation: true,
+            // translateX: '-100, 100, easeOutCubic',
+            children: [
+              {
+                _uid: '2dfsf',
+                component: 'flex_row',
+                justify: 'center',
+                align_content: 'center',
+                column: true,
+                full_height: true,
+                body: [
+                  {
+                    component: 'headline',
+                    _uid: '123123',
+                    custom_color: {
+                      rgba: '#fff'
+                    },
+                    text: 'Some Headline'
+                  } as HeadlineStoryblok
+                ]
+              } as FlexRowStoryblok
+            ]
+          } as ParallaxItemStoryblok
         ]
-      },
-      get3ColumnsSection({ knob: '3 Column Section', count: 1 }),
-      get3ColumnsSection({ knob: '3 Column Section', count: 2 }),
-      get3ColumnsSection({ knob: '3 Column Section', count: 3 })
+      }
     ]
   }
   return pageObj
@@ -139,7 +130,7 @@ export const Basic = () => (
 )
 
 export const Playground = () => (
-  <div className="lm-parallax__wrapper">
+  <div className="lm-parallax__wrapper" style={{ height: '1000px' }}>
     <SettingsPageProvider settings={simpleSettings} page={getObj()}>
       <LmPage />
     </SettingsPageProvider>

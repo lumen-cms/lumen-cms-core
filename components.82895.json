@@ -10500,7 +10500,7 @@
       "name": "page",
       "display_name": null,
       "created_at": "2020-05-01T08:40:37.942Z",
-      "updated_at": "2022-03-18T03:26:02.320Z",
+      "updated_at": "2022-03-27T02:31:08.720Z",
       "id": 894809,
       "schema": {
         "meta_title": {
@@ -10574,6 +10574,10 @@
             {
               "value": "disable_promotion",
               "name": "Disable Promotion"
+            },
+            {
+              "value": "enable_parallax",
+              "name": "Enable Parallax"
             }
           ],
           "pos": 10
@@ -11007,22 +11011,13 @@
       "name": "parallax_item",
       "display_name": null,
       "created_at": "2020-05-01T08:40:37.541Z",
-      "updated_at": "2022-03-26T03:24:05.147Z",
+      "updated_at": "2022-03-27T02:24:56.591Z",
       "id": 894807,
       "schema": {
-        "speed": {
-          "type": "number",
-          "description": "Speed of element. Negative values moves slower, positive values move faster. Defaults to -20.",
-          "pos": 0
-        },
         "image": {
           "type": "image",
-          "pos": 1
-        },
-        "image_focal_point": {
-          "type": "text",
-          "description": "Focal point in X,Y coordinates in % of the original image. Example center top: \"50x0\", center bottom: \"50x100\", top left: \"0x0\", right middle: \"100x50\"",
-          "pos": 3
+          "pos": 0,
+          "description": "A cover background image which covers the available space."
         },
         "children": {
           "type": "bloks",
@@ -11030,12 +11025,161 @@
           "component_whitelist": [
             "headline"
           ],
-          "pos": 4,
+          "pos": 1,
           "maximum": "1",
           "component_group_whitelist": [
             "1778dc53-bf7e-46d7-a549-7471017211b2"
           ],
-          "restrict_type": "groups"
+          "restrict_type": "groups",
+          "description": "Any layer components. For positioning use FlexRow to start the children elements or absolute div container positions."
+        },
+        "image_focal_point": {
+          "type": "text",
+          "description": "Focal point in X,Y coordinates in % of the original image. Example center top: \"50x0\", center bottom: \"50x100\", top left: \"0x0\", right middle: \"100x50\"",
+          "pos": 2
+        },
+        "speed": {
+          "type": "number",
+          "description": "Speed of element. Negative values moves slower, positive values move faster. Defaults to -20.",
+          "pos": 3
+        },
+        "easing": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "ease",
+              "name": "ease"
+            },
+            {
+              "value": "easeIn",
+              "name": "easeIn"
+            },
+            {
+              "value": "easeOut",
+              "name": "easeOut"
+            },
+            {
+              "value": "easeInOut",
+              "name": "easeInOut"
+            },
+            {
+              "value": "easeInQuad",
+              "name": "easeInQuad"
+            },
+            {
+              "value": "easeInCubic",
+              "name": "easeInCubic"
+            },
+            {
+              "value": "easeInQuart",
+              "name": "easeInQuart"
+            },
+            {
+              "value": "easeInQuint",
+              "name": "easeInQuint"
+            },
+            {
+              "value": "easeInSine",
+              "name": "easeInSine"
+            },
+            {
+              "value": "easeInExpo",
+              "name": "easeInExpo"
+            },
+            {
+              "value": "easeInCirc",
+              "name": "easeInCirc"
+            },
+            {
+              "value": "easeOutQuad",
+              "name": "easeOutQuad"
+            },
+            {
+              "value": "easeOutCubic",
+              "name": "easeOutCubic"
+            },
+            {
+              "value": "easeOutQuart",
+              "name": "easeOutQuart"
+            },
+            {
+              "value": "easeOutQuint",
+              "name": "easeOutQuint"
+            },
+            {
+              "value": "easeOutSine",
+              "name": "easeOutSine"
+            },
+            {
+              "value": "easeOutExpo",
+              "name": "easeOutExpo"
+            },
+            {
+              "value": "easeOutCirc",
+              "name": "easeOutCirc"
+            },
+            {
+              "value": "easeInOutQuad",
+              "name": "easeInOutQuad"
+            },
+            {
+              "value": "easeInOutCubic",
+              "name": "easeInOutCubic"
+            },
+            {
+              "value": "easeInOutQuart",
+              "name": "easeInOutQuart"
+            },
+            {
+              "value": "easeInOutQuint",
+              "name": "easeInOutQuint"
+            },
+            {
+              "value": "easeInOutSine",
+              "name": "easeInOutSine"
+            },
+            {
+              "value": "easeInOutExpo",
+              "name": "easeInOutExpo"
+            },
+            {
+              "value": "easeInOutCirc",
+              "name": "easeInOutCirc"
+            },
+            {
+              "value": "easeInBack",
+              "name": "easeInBack"
+            },
+            {
+              "value": "easeOutBack",
+              "name": "easeOutBack"
+            },
+            {
+              "value": "easeInOutBack",
+              "name": "easeInOutBack"
+            }
+          ],
+          "pos": 4
+        },
+        "always_complete_animation": {
+          "type": "boolean",
+          "pos": 5
+        },
+        "expanded": {
+          "type": "boolean",
+          "pos": 6
+        },
+        "tab-46107af5-5324-4245-bfd1-d535dcdd295d": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "speed",
+            "easing",
+            "always_complete_animation",
+            "expanded"
+          ],
+          "pos": 7
         },
         "tab-1b6680ef-fb24-4156-a717-3b814549d49c": {
           "type": "tab",
@@ -11051,45 +11195,61 @@
             "scale_x",
             "scale_y",
             "scale_z",
-            "opacity"
+            "opacity",
+            "translateX",
+            "translateY",
+            "rotateX",
+            "rotateY",
+            "rotateZ",
+            "scaleX",
+            "scaleY",
+            "scaleZ"
           ],
-          "pos": 0
-        },
-        "rotate": {
-          "type": "text"
-        },
-        "rotate_x": {
-          "type": "text"
-        },
-        "rotate_y": {
-          "type": "text"
-        },
-        "rotate_z": {
-          "type": "text"
-        },
-        "scale": {
-          "type": "text"
-        },
-        "scale_x": {
-          "type": "text"
-        },
-        "scale_y": {
-          "type": "text"
-        },
-        "scale_z": {
-          "type": "text"
-        },
-        "opacity": {
-          "type": "text"
-        },
-        "always_complete_animation": {
-          "type": "boolean"
+          "pos": 8
         },
         "translateX": {
-          "type": "text"
+          "type": "text",
+          "pos": 9
         },
         "translateY": {
-          "type": "text"
+          "type": "text",
+          "pos": 10
+        },
+        "scale": {
+          "type": "text",
+          "pos": 11
+        },
+        "scaleX": {
+          "type": "text",
+          "pos": 12
+        },
+        "scaleY": {
+          "type": "text",
+          "pos": 13
+        },
+        "scaleZ": {
+          "type": "text",
+          "pos": 14
+        },
+        "rotate": {
+          "type": "text",
+          "pos": 15
+        },
+        "rotateX": {
+          "type": "text",
+          "pos": 16
+        },
+        "rotateY": {
+          "type": "text",
+          "pos": 17
+        },
+        "rotateZ": {
+          "type": "text",
+          "pos": 18
+        },
+        "opacity": {
+          "type": "text",
+          "pos": 19
         }
       },
       "image": null,
@@ -13024,9 +13184,9 @@
     },
     {
       "name": "section_parallax",
-      "display_name": null,
+      "display_name": "Parallax Banner",
       "created_at": "2020-05-01T08:40:36.119Z",
-      "updated_at": "2022-03-18T03:26:28.257Z",
+      "updated_at": "2022-03-27T04:20:49.630Z",
       "id": 894800,
       "schema": {
         "body": {
@@ -13038,7 +13198,8 @@
             "card_list"
           ],
           "default_value": "row",
-          "component_group_whitelist": []
+          "component_group_whitelist": [],
+          "description": "The body will overlay the parallax elements without any effect."
         },
         "elements": {
           "type": "bloks",
@@ -13048,18 +13209,29 @@
             "parallax_item"
           ],
           "maximum": "1",
-          "component_group_whitelist": []
+          "component_group_whitelist": [],
+          "description": "Multiple parallax layers can be combined."
         },
         "height": {
           "type": "number",
           "use_uuid": true,
           "options": [],
-          "description": "Give percent of viewport height. Defaults to 50% of current viewport",
+          "description": "Give percent of viewport height. Defaults to 50% of current viewport. Ignored if ratio is used.",
           "pos": 2
+        },
+        "ratio": {
+          "type": "text",
+          "pos": 3,
+          "description": "Instead of fixed height a ratio can be given. Example: \"3/2\" or \"16/9\"",
+          "display_name": "Aspect Ratio"
+        },
+        "max_height_mobile": {
+          "type": "number",
+          "pos": 4
         },
         "disable_lazy_load": {
           "type": "boolean",
-          "pos": 3,
+          "pos": 5,
           "description": "Disable lazy load for first element of page."
         },
         "class_names": {
@@ -13071,10 +13243,11 @@
               "name": "mui"
             }
           ],
-          "pos": 4
+          "pos": 6
         },
         "toggle_image_loading": {
-          "type": "boolean"
+          "type": "boolean",
+          "pos": 7
         }
       },
       "image": null,
@@ -13084,10 +13257,11 @@
       "is_nestable": true,
       "all_presets": [],
       "preset_id": null,
-      "real_name": "section_parallax",
-      "component_group_uuid": null,
+      "real_name": "Parallax Banner",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
       "color": null,
-      "icon": null
+      "icon": null,
+      "component_group_name": "General"
     },
     {
       "name": "section_video_bg",
