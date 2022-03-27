@@ -1,5 +1,5 @@
 import { ParallaxBanner } from 'react-scroll-parallax'
-import React, { CSSProperties, FC } from 'react'
+import React, { CSSProperties } from 'react'
 import Image from 'next/image'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmSectionParallaxProps } from './sectionTypes'
@@ -7,7 +7,6 @@ import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import Box from '@mui/material/Box'
 import { BannerLayer } from 'react-scroll-parallax/dist/components/ParallaxBanner/types'
-import { AspectRatio } from 'react-aspect-ratio'
 
 export default function LmSectionParallax({
   content,
@@ -47,12 +46,12 @@ export default function LmSectionParallax({
             }) => {
               const layerProps: BannerLayer = {}
               Object.keys(props).forEach((key) => {
-                const vals = props[key].split(',').map((i: string) => {
+                const lProp = props[key].split(',').map((i: string) => {
                   const trimmed = i.trim()
                   return Number(trimmed) ? Number(trimmed) : trimmed
                 })
 
-                layerProps[key] = vals
+                layerProps[key] = lProp
               })
               return {
                 shouldAlwaysCompleteAnimation:
@@ -74,6 +73,11 @@ export default function LmSectionParallax({
                         src={getRootImageUrl(image)}
                         layout="fill"
                         objectFit="cover"
+                        sizes={
+                          content.height && content.ratio
+                            ? `${content.height}px`
+                            : undefined
+                        }
                         {...(parallax_item_data?.base64 && {
                           placeholder: 'blur',
                           blurDataURL: parallax_item_data.base64
