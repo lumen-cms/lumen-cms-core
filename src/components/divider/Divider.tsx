@@ -2,6 +2,7 @@ import React, { CSSProperties, FunctionComponent } from 'react'
 import LmIcon from '../icon/LmIcon'
 import { LmDividerProps } from './dividerTypes'
 import { makeStyles } from 'tss-react/mui'
+import Divider from '@mui/material/Divider'
 
 const useStyles = makeStyles({ name: 'Divider' })({
   hSeparator: {
@@ -85,12 +86,12 @@ DividerContainer.displayName = 'DividerContainer'
 export function LmDivider({ content }: LmDividerProps): JSX.Element {
   const { classes, cx: clsx } = useStyles()
 
-  const style: CSSProperties = {}
-  const iconName = content.icon && content.icon.name
-  const iconSize = content.size
-  if (content.color && content.color.rgba) {
-    style.color = content.color.rgba
+  const style: CSSProperties = {
+    color: content.color?.rgba || undefined
   }
+  const iconName = content.icon?.name
+  const iconSize = content.size
+
   if (iconSize) {
     style.height = `${iconSize}px`
   }
@@ -107,25 +108,46 @@ export function LmDivider({ content }: LmDividerProps): JSX.Element {
   }
   if (iconName) {
     return (
-      <DividerContainer
-        style={style}
-        childStyle={childStyle}
-        className={className}
+      <Divider
+        sx={{
+          maxWidth: content.width ? `${content.width}%` : undefined,
+          marginX: content.width ? `auto` : undefined,
+          color: style.color,
+          '&:before': {
+            borderTopColor: 'currentColor'
+          },
+          '&:after': {
+            borderTopColor: 'currentColor'
+          }
+        }}
       >
-        <div>
-          <div style={{ borderTopWidth: `${content.thickness || 1}px` }}>
-            <span>
-              <LmIcon
-                iconName={iconName}
-                style={{
-                  fontSize: `${iconSize}px`,
-                  marginTop: `${content.thickness || 1}px`
-                }}
-              />
-            </span>
-          </div>
-        </div>
-      </DividerContainer>
+        <LmIcon
+          iconName={iconName}
+          style={{
+            fontSize: `${iconSize}px`,
+            marginTop: `${content.thickness || 1}px`
+          }}
+        />
+      </Divider>
+      //     <DividerContainer
+      //       style={style}
+      //       childStyle={childStyle}
+      //       className={className}
+      //     >
+      //       <div>
+      //         <div style={{ borderTopWidth: `${content.thickness || 1}px` }}>
+      //           <span>
+      //             <LmIcon
+      //               iconName={iconName}
+      //               style={{
+      //                 fontSize: `${iconSize}px`,
+      //                 marginTop: `${content.thickness || 1}px`
+      //               }}
+      //             />
+      //           </span>
+      //         </div>
+      //       </div>
+      //     </DividerContainer>
     )
   }
   return (

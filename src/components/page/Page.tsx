@@ -27,7 +27,6 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
     currentContent.property?.includes('enable_parallax') ||
     body.some((i) => i.component === 'section_parallax')
   ) {
-    console.log('hiiiier')
     return (
       // eslint-disable-next-line
       // @ts-ignore
