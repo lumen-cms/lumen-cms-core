@@ -42,7 +42,10 @@ const mapColor: {
   secondary: 'secondary',
   primary_text: 'inherit',
   secondary_text: 'inherit',
-  inherit: 'inherit'
+  inherit: 'inherit',
+  success: 'success',
+  info: 'info',
+  warning: 'warning'
 }
 
 const useStyles = makeStyles({ name: 'Button' })((theme: Theme) => ({

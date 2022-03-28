@@ -16,7 +16,10 @@ const capitalizeFirstLetter = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1)
 
 const getStyles = (content: StylesStoryblok, theme: Theme) => {
-  const getThemeMainColor = (color: string) => theme.palette[color]?.main
+  const getThemeMainColor = (color: string) => {
+    const parts = color.split('.')
+    return theme.palette[parts[0]][parts[1] || 'main']
+  }
   const cssRules: CSSObject = {}
   Object.keys(content).forEach((key) => {
     if (['component', '_uid', 'elevation', 'box_shadow'].includes(key)) {

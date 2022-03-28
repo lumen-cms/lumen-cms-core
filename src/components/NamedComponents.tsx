@@ -32,6 +32,7 @@ import LmDialogElement from './dialog/DialogElement'
 import LmNews from './news/News'
 import LmEvent from './event/Event'
 import LmNavItem from './nav-list/NavItem'
+import LmCardStandalone from './card/CardStandalone'
 
 LmCoreComponents.static_section = LmStaticSection
 LmCoreComponents.static_container = LmStaticContainer
@@ -70,3 +71,4 @@ LmCoreComponents.chat_whatsapp = LmWhatsappChatButton
 LmCoreComponents.dialog = LmDialogElement
 LmCoreComponents.news = LmNews
 LmCoreComponents.event = LmEvent
+LmCoreComponents.card = LmCardStandalone

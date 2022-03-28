@@ -993,7 +993,7 @@
       "name": "button",
       "display_name": null,
       "created_at": "2020-05-01T08:40:32.630Z",
-      "updated_at": "2022-03-18T03:24:23.609Z",
+      "updated_at": "2022-03-28T02:37:58.727Z",
       "id": 894783,
       "schema": {
         "variant": {
@@ -1062,6 +1062,18 @@
             {
               "value": "dark",
               "name": "Dark"
+            },
+            {
+              "value": "success",
+              "name": "Success"
+            },
+            {
+              "value": "info",
+              "name": "Info"
+            },
+            {
+              "value": "warning",
+              "name": "Warning"
             }
           ],
           "pos": 2
@@ -1432,6 +1444,264 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "button_speech_text",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
+      "component_group_name": "General"
+    },
+    {
+      "name": "card",
+      "display_name": null,
+      "created_at": "2022-03-28T03:00:33.623Z",
+      "updated_at": "2022-03-28T05:32:22.909Z",
+      "id": 2307220,
+      "schema": {
+        "tab-60d99b00-089f-4a1d-b8e7-2a443a255dbd": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "elevation",
+            "border_radius",
+            "square",
+            "full_height",
+            "content_padding",
+            "outlined",
+            "variant"
+          ],
+          "pos": 0
+        },
+        "tab-3d21a543-a097-4de4-84f9-0ce51a9f74c5": {
+          "type": "tab",
+          "display_name": "Media",
+          "keys": [
+            "media",
+            "media_aspect_ratio",
+            "media_max_width",
+            "object_fit",
+            "object_position",
+            "media_margin"
+          ],
+          "pos": 1
+        },
+        "tab-dc06e9a6-80ec-4409-9355-cc77c02d979a": {
+          "type": "tab",
+          "display_name": "Link",
+          "keys": [
+            "link",
+            "open_external"
+          ],
+          "pos": 2
+        },
+        "tab-f14a8455-71a5-4244-b4d0-7bf95f88f164": {
+          "type": "tab",
+          "display_name": "Styles",
+          "keys": [
+            "styles",
+            "styles_mobile",
+            "styles_tablet",
+            "styles_hover",
+            "background"
+          ],
+          "pos": 3
+        },
+        "link": {
+          "type": "multilink",
+          "email_link_type": true,
+          "asset_link_type": true,
+          "show_anchor": true,
+          "pos": 0
+        },
+        "open_external": {
+          "type": "boolean",
+          "pos": 1
+        },
+        "elevation": {
+          "type": "number",
+          "pos": 2
+        },
+        "variant": {
+          "type": "option",
+          "pos": 3,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "elevation",
+              "name": "elevation"
+            },
+            {
+              "value": "outlined",
+              "name": "outlined"
+            }
+          ]
+        },
+        "square": {
+          "type": "boolean",
+          "pos": 4
+        },
+        "full_height": {
+          "type": "boolean",
+          "pos": 5
+        },
+        "content_padding": {
+          "type": "number",
+          "description": "Content padding with simplified theme spacing.",
+          "pos": 6
+        },
+        "media": {
+          "type": "asset",
+          "filetypes": [
+            "images",
+            "videos"
+          ],
+          "pos": 7
+        },
+        "media_aspect_ratio": {
+          "type": "text",
+          "pos": 8,
+          "description": "Aspect ratio of image. Example: \"4/3\", \"16/9\", \"3/1\". Default: \"3/2\""
+        },
+        "media_max_width": {
+          "type": "number",
+          "pos": 9,
+          "description": "Max width of the media for better performance. Default: 350"
+        },
+        "body": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ],
+          "pos": 10
+        },
+        "body_above_media": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ],
+          "pos": 11
+        },
+        "body_on_hover": {
+          "type": "bloks",
+          "pos": 12,
+          "maximum": "",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ]
+        },
+        "background": {
+          "type": "bloks",
+          "pos": 16,
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "background"
+          ]
+        },
+        "styles": {
+          "type": "bloks",
+          "max_length": "",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ],
+          "pos": 17
+        },
+        "styles_mobile": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ],
+          "pos": 18
+        },
+        "styles_tablet": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ],
+          "pos": 19
+        },
+        "styles_hover": {
+          "type": "bloks",
+          "maximum": "1",
+          "restrict_components": true,
+          "component_whitelist": [
+            "styles"
+          ],
+          "pos": 20
+        },
+        "object_fit": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "contain",
+              "name": "contain"
+            },
+            {
+              "value": "cover",
+              "name": "cover"
+            },
+            {
+              "value": "fill",
+              "name": "fill"
+            },
+            {
+              "value": "initial",
+              "name": "initial"
+            }
+          ],
+          "pos": 21
+        },
+        "object_position": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "top",
+              "name": "top"
+            },
+            {
+              "value": "center",
+              "name": "center"
+            },
+            {
+              "value": "bottom",
+              "name": "bottom"
+            }
+          ],
+          "pos": 22
+        },
+        "media_margin": {
+          "type": "number",
+          "description": "Content padding with simplified theme spacing.",
+          "pos": 23
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [
+        {
+          "id": 1445972,
+          "name": "Card with hover",
+          "component_id": 2307220,
+          "image": ""
+        }
+      ],
+      "preset_id": null,
+      "real_name": "card",
       "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
       "color": null,
       "icon": null,
@@ -6031,244 +6301,9 @@
       "name": "global",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.852Z",
-      "updated_at": "2022-03-18T03:25:17.214Z",
+      "updated_at": "2022-03-28T01:46:58.301Z",
       "id": 894828,
       "schema": {
-        "setup_favicon": {
-          "type": "image",
-          "pos": 0,
-          "description": "Size should be 192x192 as PNG"
-        },
-        "website_logo": {
-          "type": "image",
-          "pos": 1
-        },
-        "website_logo_xs": {
-          "type": "image",
-          "pos": 2
-        },
-        "website_logo_invert_xs": {
-          "type": "image",
-          "pos": 3
-        },
-        "website_logo_invert": {
-          "type": "image",
-          "pos": 4
-        },
-        "image_loading": {
-          "type": "options",
-          "pos": 5,
-          "options": [
-            {
-              "value": "disable_background",
-              "name": "Disable Background"
-            },
-            {
-              "value": "disable_image",
-              "name": "Disable Image"
-            },
-            {
-              "value": "disable_video",
-              "name": "Disable Video"
-            },
-            {
-              "value": "disable_list",
-              "name": "Disable Lists"
-            }
-          ],
-          "description": "Disable the image gradient loader on image level. If enabled an image gradient will be displayed."
-        },
-        "website_title": {
-          "type": "text",
-          "pos": 6
-        },
-        "website_slogan": {
-          "type": "text",
-          "pos": 7
-        },
-        "setup_language": {
-          "type": "text",
-          "translatable": true,
-          "description": "Set language for the project. Sets <html lang=\"[language]\">",
-          "pos": 8,
-          "display_name": "Language"
-        },
-        "setup_supported_languages": {
-          "type": "text",
-          "description": "Comma separated list of all supported languages. Sets header response \"Content-Language\".",
-          "pos": 9,
-          "display_name": "Supported Languages",
-          "translatable": true
-        },
-        "setup_google_analytics": {
-          "type": "text",
-          "pos": 10
-        },
-        "setup_google_site_verification": {
-          "type": "text",
-          "pos": 11
-        },
-        "setup_facebook_pixel": {
-          "type": "text",
-          "pos": 12,
-          "description": "Pixel, can be multiple IDs comma separated."
-        },
-        "setup_ad_roll_adv_id": {
-          "type": "text",
-          "pos": 13
-        },
-        "setup_ad_roll_pix_id": {
-          "type": "text",
-          "pos": 14
-        },
-        "pwa_app_name": {
-          "type": "text",
-          "pos": 15
-        },
-        "pwa_app_description": {
-          "type": "textarea",
-          "pos": 16
-        },
-        "promotion": {
-          "type": "bloks",
-          "description": "Top page content visible on every page. You can disable the content on page level.",
-          "restrict_components": true,
-          "component_whitelist": [
-            "slider",
-            "section",
-            "section_video_bg"
-          ],
-          "pos": 17
-        },
-        "tawkto": {
-          "type": "text",
-          "pos": 18
-        },
-        "chat_button": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "chat_facebook",
-            "chat_tawkto",
-            "chat_whatsapp"
-          ],
-          "maximum": "1",
-          "pos": 19
-        },
-        "snackbars": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "snackbar"
-          ],
-          "pos": 20,
-          "component_group_whitelist": []
-        },
-        "ecommerce": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "ecommerce_fastspring_config",
-            "ecommerce_shopify_config",
-            "ecommerce_snipcart_config"
-          ],
-          "pos": 21
-        },
-        "toolbar": {
-          "type": "bloks",
-          "pos": 22,
-          "restrict_components": true,
-          "component_whitelist": [
-            "nav_menu",
-            "button",
-            "list_search_autocomplete"
-          ],
-          "component_group_whitelist": []
-        },
-        "multi_toolbar": {
-          "type": "bloks",
-          "pos": 23,
-          "restrict_components": true,
-          "component_whitelist": [
-            "toolbar_row"
-          ],
-          "component_group_whitelist": []
-        },
-        "toolbar_variant": {
-          "type": "option",
-          "pos": 24,
-          "options": [
-            {
-              "value": "primary",
-              "name": "Primary"
-            },
-            {
-              "value": "secondary",
-              "name": "Secondary"
-            },
-            {
-              "value": "white",
-              "name": "White"
-            },
-            {
-              "value": "dark",
-              "name": "Dark"
-            }
-          ]
-        },
-        "toolbar_config": {
-          "type": "options",
-          "pos": 25,
-          "options": [
-            {
-              "value": "fixed",
-              "name": "Fixed top"
-            },
-            {
-              "value": "text_bold",
-              "name": "Text bold"
-            },
-            {
-              "value": "fixed_width",
-              "name": "Fixed width"
-            },
-            {
-              "value": "unelevated",
-              "name": "Unelevated"
-            },
-            {
-              "value": "scroll_collapse",
-              "name": "Scroll Collapse"
-            },
-            {
-              "value": "enable_system_bar",
-              "name": "Enable System Bar"
-            }
-          ]
-        },
-        "toolbar_progress_color": {
-          "type": "text",
-          "pos": 26
-        },
-        "toolbar_color": {
-          "type": "custom",
-          "pos": 27,
-          "field_type": "vue-color-picker",
-          "options": []
-        },
-        "toolbar_background": {
-          "type": "text",
-          "pos": 28,
-          "description": "Enable CSS background property for using gradients or any other background setting."
-        },
-        "toolbar_main_height": {
-          "type": "number",
-          "pos": 29
-        },
-        "toolbar_font_size": {
-          "type": "text",
-          "pos": 30
-        },
         "theme_base": {
           "type": "option",
           "use_uuid": true,
@@ -6282,74 +6317,74 @@
               "name": "dark"
             }
           ],
-          "pos": 31,
+          "pos": 0,
           "default_value": "base",
           "required": true
         },
         "theme_primary": {
           "type": "text",
-          "pos": 32,
+          "pos": 1,
           "description": "",
           "display_name": "Primary color"
         },
         "theme_primary_contrast": {
           "type": "text",
-          "pos": 33
+          "pos": 2
         },
         "theme_secondary": {
           "type": "text",
-          "pos": 34,
+          "pos": 3,
           "display_name": "Secondary color"
         },
         "theme_secondary_contrast": {
           "type": "text",
-          "pos": 35
+          "pos": 4
         },
         "theme_error": {
           "type": "text",
-          "pos": 36,
+          "pos": 5,
           "display_name": "Error Color"
         },
         "theme_error_contrast": {
           "type": "text",
-          "pos": 37,
+          "pos": 6,
           "display_name": "Error Color Contrast"
         },
         "theme_link": {
           "type": "text",
-          "pos": 38,
+          "pos": 7,
           "display_name": "Link color"
         },
         "theme_link_hover": {
           "type": "text",
-          "pos": 39,
+          "pos": 8,
           "display_name": "Link hover color"
         },
         "body_background_color": {
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 40
+          "pos": 9
         },
         "theme_font_default": {
           "type": "text",
-          "pos": 41
+          "pos": 10
         },
         "theme_font_alt1": {
           "type": "text",
-          "pos": 42
+          "pos": 11
         },
         "theme_font_alt2": {
           "type": "text",
-          "pos": 43
+          "pos": 12
         },
         "theme_font_alt3": {
           "type": "text",
-          "pos": 44
+          "pos": 13
         },
         "theme_font_alt4": {
           "type": "text",
-          "pos": 45
+          "pos": 14
         },
         "theme_container_width": {
           "type": "option",
@@ -6380,7 +6415,270 @@
               "name": "fluid"
             }
           ],
-          "pos": 46
+          "pos": 15
+        },
+        "theme_success": {
+          "type": "text",
+          "pos": 16
+        },
+        "theme_success_contrast": {
+          "type": "text",
+          "pos": 17
+        },
+        "theme_info": {
+          "type": "text",
+          "pos": 18
+        },
+        "theme_info_contrast": {
+          "type": "text",
+          "pos": 19
+        },
+        "theme_warning": {
+          "type": "text",
+          "pos": 20
+        },
+        "theme_warning_contrast": {
+          "type": "text",
+          "pos": 21
+        },
+        "custom_css": {
+          "type": "textarea",
+          "pos": 22
+        },
+        "setup_favicon": {
+          "type": "image",
+          "pos": 23,
+          "description": "Size should be 192x192 as PNG"
+        },
+        "website_logo": {
+          "type": "image",
+          "pos": 24
+        },
+        "website_logo_xs": {
+          "type": "image",
+          "pos": 25
+        },
+        "website_logo_invert_xs": {
+          "type": "image",
+          "pos": 26
+        },
+        "website_logo_invert": {
+          "type": "image",
+          "pos": 27
+        },
+        "image_loading": {
+          "type": "options",
+          "pos": 28,
+          "options": [
+            {
+              "value": "disable_background",
+              "name": "Disable Background"
+            },
+            {
+              "value": "disable_image",
+              "name": "Disable Image"
+            },
+            {
+              "value": "disable_video",
+              "name": "Disable Video"
+            },
+            {
+              "value": "disable_list",
+              "name": "Disable Lists"
+            }
+          ],
+          "description": "Disable the image gradient loader on image level. If enabled an image gradient will be displayed."
+        },
+        "website_title": {
+          "type": "text",
+          "pos": 29
+        },
+        "website_slogan": {
+          "type": "text",
+          "pos": 30
+        },
+        "setup_language": {
+          "type": "text",
+          "translatable": true,
+          "description": "Set language for the project. Sets <html lang=\"[language]\">",
+          "pos": 31,
+          "display_name": "Language"
+        },
+        "setup_supported_languages": {
+          "type": "text",
+          "description": "Comma separated list of all supported languages. Sets header response \"Content-Language\".",
+          "pos": 32,
+          "display_name": "Supported Languages",
+          "translatable": true
+        },
+        "setup_google_analytics": {
+          "type": "text",
+          "pos": 33
+        },
+        "setup_google_site_verification": {
+          "type": "text",
+          "pos": 34
+        },
+        "setup_facebook_pixel": {
+          "type": "text",
+          "pos": 35,
+          "description": "Pixel, can be multiple IDs comma separated."
+        },
+        "setup_ad_roll_adv_id": {
+          "type": "text",
+          "pos": 36
+        },
+        "setup_ad_roll_pix_id": {
+          "type": "text",
+          "pos": 37
+        },
+        "pwa_app_name": {
+          "type": "text",
+          "pos": 38
+        },
+        "pwa_app_description": {
+          "type": "textarea",
+          "pos": 39
+        },
+        "promotion": {
+          "type": "bloks",
+          "description": "Top page content visible on every page. You can disable the content on page level.",
+          "restrict_components": true,
+          "component_whitelist": [
+            "slider",
+            "section",
+            "section_video_bg"
+          ],
+          "pos": 40
+        },
+        "tawkto": {
+          "type": "text",
+          "pos": 41
+        },
+        "chat_button": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "chat_facebook",
+            "chat_tawkto",
+            "chat_whatsapp"
+          ],
+          "maximum": "1",
+          "pos": 42
+        },
+        "snackbars": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "snackbar"
+          ],
+          "pos": 43,
+          "component_group_whitelist": []
+        },
+        "ecommerce": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "ecommerce_fastspring_config",
+            "ecommerce_shopify_config",
+            "ecommerce_snipcart_config"
+          ],
+          "pos": 44
+        },
+        "toolbar": {
+          "type": "bloks",
+          "pos": 45,
+          "restrict_components": true,
+          "component_whitelist": [
+            "nav_menu",
+            "button",
+            "list_search_autocomplete"
+          ],
+          "component_group_whitelist": []
+        },
+        "multi_toolbar": {
+          "type": "bloks",
+          "pos": 46,
+          "restrict_components": true,
+          "component_whitelist": [
+            "toolbar_row"
+          ],
+          "component_group_whitelist": []
+        },
+        "toolbar_variant": {
+          "type": "option",
+          "pos": 47,
+          "options": [
+            {
+              "value": "primary",
+              "name": "Primary"
+            },
+            {
+              "value": "secondary",
+              "name": "Secondary"
+            },
+            {
+              "value": "white",
+              "name": "White"
+            },
+            {
+              "value": "dark",
+              "name": "Dark"
+            }
+          ]
+        },
+        "toolbar_config": {
+          "type": "options",
+          "pos": 48,
+          "options": [
+            {
+              "value": "fixed",
+              "name": "Fixed top"
+            },
+            {
+              "value": "text_bold",
+              "name": "Text bold"
+            },
+            {
+              "value": "fixed_width",
+              "name": "Fixed width"
+            },
+            {
+              "value": "unelevated",
+              "name": "Unelevated"
+            },
+            {
+              "value": "scroll_collapse",
+              "name": "Scroll Collapse"
+            },
+            {
+              "value": "enable_system_bar",
+              "name": "Enable System Bar"
+            }
+          ]
+        },
+        "toolbar_progress_color": {
+          "type": "text",
+          "pos": 49
+        },
+        "toolbar_color": {
+          "type": "custom",
+          "pos": 50,
+          "field_type": "vue-color-picker",
+          "options": []
+        },
+        "toolbar_background": {
+          "type": "text",
+          "pos": 51,
+          "description": "Enable CSS background property for using gradients or any other background setting."
+        },
+        "toolbar_main_height": {
+          "type": "number",
+          "pos": 52
+        },
+        "toolbar_font_size": {
+          "type": "text",
+          "pos": 53
         },
         "tab-ba513796-d84a-4c57-9d20-1ec43f74588c": {
           "type": "tab",
@@ -6397,7 +6695,7 @@
             "toolbar_background",
             "toolbar_elevation"
           ],
-          "pos": 47
+          "pos": 54
         },
         "tab-b01c9ce8-3217-4b21-b7b5-612bef6a87dd": {
           "type": "tab",
@@ -6406,7 +6704,7 @@
             "footer",
             "footer_config"
           ],
-          "pos": 48
+          "pos": 55
         },
         "tab-2a4e4ff6-219f-415c-a3c6-6d7cf39f1c0d": {
           "type": "tab",
@@ -6425,7 +6723,7 @@
             "drawer_below_toolbar_xs",
             "mobile_nav_breakpoint"
           ],
-          "pos": 49
+          "pos": 56
         },
         "tab-f85e0a00-bc66-45af-9035-3190c653d091": {
           "type": "tab",
@@ -6438,7 +6736,7 @@
             "setup_favicon",
             "image_loading"
           ],
-          "pos": 50
+          "pos": 57
         },
         "tab-179390ed-4cd4-47bd-bd94-8902f461c9bc": {
           "type": "tab",
@@ -6450,7 +6748,7 @@
             "seo_robots",
             "seo_body"
           ],
-          "pos": 51
+          "pos": 58
         },
         "tab-629da2b1-ac23-431b-b9e7-c838674c0106": {
           "type": "tab",
@@ -6472,9 +6770,15 @@
             "theme_font_alt3",
             "theme_font_alt4",
             "body_background_color",
-            "custom_css"
+            "custom_css",
+            "theme_success",
+            "theme_success_contrast",
+            "theme_info",
+            "theme_info_contrast",
+            "theme_warning",
+            "theme_warning_contrast"
           ],
-          "pos": 52
+          "pos": 59
         },
         "tab-8f5f1837-e112-4bde-966b-9473b63a72f1": {
           "type": "tab",
@@ -6488,7 +6792,7 @@
             "promotion",
             "scripts"
           ],
-          "pos": 53
+          "pos": 60
         },
         "drawer_body": {
           "type": "bloks",
@@ -6504,7 +6808,7 @@
             "toolbar_navi_button",
             "flex_row"
           ],
-          "pos": 54,
+          "pos": 61,
           "component_group_whitelist": []
         },
         "drawer_variant": {
@@ -6520,7 +6824,7 @@
               "name": "temporary"
             }
           ],
-          "pos": 55
+          "pos": 62
         },
         "mobile_nav_breakpoint": {
           "type": "option",
@@ -6543,24 +6847,24 @@
               "name": "xl"
             }
           ],
-          "pos": 56,
+          "pos": 63,
           "description": "Default breakpoint is sm (mobile only)"
         },
         "drawer_width": {
           "type": "number",
-          "pos": 57
+          "pos": 64
         },
         "drawer_below_toolbar": {
           "type": "boolean",
-          "pos": 58
+          "pos": 65
         },
         "drawer_below_toolbar_xs": {
           "type": "boolean",
-          "pos": 59
+          "pos": 66
         },
         "drawer_full_width_mobile": {
           "type": "boolean",
-          "pos": 60
+          "pos": 67
         },
         "drawer_background": {
           "type": "bloks",
@@ -6569,12 +6873,12 @@
           "component_whitelist": [
             "background"
           ],
-          "pos": 61,
+          "pos": 68,
           "component_group_whitelist": []
         },
         "footer": {
           "type": "bloks",
-          "pos": 62,
+          "pos": 69,
           "restrict_components": true,
           "component_whitelist": [
             "row",
@@ -6584,7 +6888,7 @@
         },
         "footer_config": {
           "type": "options",
-          "pos": 63,
+          "pos": 70,
           "options": [
             {
               "value": "footer-large",
@@ -6598,29 +6902,29 @@
         },
         "seo_title": {
           "type": "text",
-          "pos": 64,
+          "pos": 71,
           "translatable": true
         },
         "seo_description": {
           "type": "textarea",
-          "pos": 65,
+          "pos": 72,
           "translatable": true
         },
         "seo_website_url": {
           "type": "text",
-          "pos": 66,
+          "pos": 73,
           "description": "Full website URL without leading slash: https://google.com"
         },
         "seo_robots": {
           "type": "boolean",
           "description": "Set robots 'index,follow'. Important if site goes public",
-          "pos": 67,
+          "pos": 74,
           "display_name": "Enable page index for robots",
           "translatable": true
         },
         "seo_body": {
           "type": "bloks",
-          "pos": 68,
+          "pos": 75,
           "restrict_components": true,
           "component_whitelist": [
             "seo_twitter",
@@ -6632,14 +6936,10 @@
           ],
           "component_group_whitelist": []
         },
-        "custom_css": {
-          "type": "textarea",
-          "pos": 69
-        },
         "toolbar_elevation": {
           "type": "number",
           "description": "A value between 0-24. Defaults to \"4\". Disable elevation with \"0\".",
-          "pos": 70
+          "pos": 76
         },
         "scripts": {
           "type": "bloks",
@@ -6647,7 +6947,7 @@
           "component_whitelist": [
             "script"
           ],
-          "pos": 71
+          "pos": 77
         }
       },
       "image": null,
@@ -6667,7 +6967,7 @@
       "name": "headline",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.644Z",
-      "updated_at": "2022-03-18T03:25:18.689Z",
+      "updated_at": "2022-03-28T02:35:58.391Z",
       "id": 894827,
       "schema": {
         "countdown_time": {
@@ -6844,6 +7144,58 @@
             {
               "value": "error",
               "name": "error"
+            },
+            {
+              "value": "info.main",
+              "name": "info"
+            },
+            {
+              "value": "success.main",
+              "name": "success"
+            },
+            {
+              "value": "warning.main",
+              "name": "warning"
+            },
+            {
+              "value": "primary.light",
+              "name": "primary light"
+            },
+            {
+              "value": "primary.dark",
+              "name": "primary dark"
+            },
+            {
+              "value": "secondary.light",
+              "name": "secondary light"
+            },
+            {
+              "value": "secondary.dark",
+              "name": "secondary dark"
+            },
+            {
+              "value": "info.light",
+              "name": "info light"
+            },
+            {
+              "value": "info.dark",
+              "name": "info dark"
+            },
+            {
+              "value": "warning.light",
+              "name": "warning light"
+            },
+            {
+              "value": "warning.dark",
+              "name": "warning dark"
+            },
+            {
+              "value": "success.light",
+              "name": "success light"
+            },
+            {
+              "value": "success.dark",
+              "name": "success dark"
             }
           ],
           "pos": 8
@@ -11716,7 +12068,7 @@
       "name": "rich_text_editor",
       "display_name": null,
       "created_at": "2020-05-01T08:40:36.518Z",
-      "updated_at": "2022-03-18T03:26:13.961Z",
+      "updated_at": "2022-03-28T02:36:59.281Z",
       "id": 894802,
       "schema": {
         "custom_color": {
@@ -11796,12 +12148,12 @@
           "use_uuid": true,
           "options": [
             {
-              "value": "primary",
-              "name": "primary"
+              "value": "primary.main",
+              "name": "Primary"
             },
             {
-              "value": "secondary",
-              "name": "secondary"
+              "value": "secondary.main",
+              "name": "Secondary"
             },
             {
               "value": "textPrimary",
@@ -11812,8 +12164,68 @@
               "name": "text secondary"
             },
             {
-              "value": "error",
-              "name": "error"
+              "value": "error.main",
+              "name": "Error"
+            },
+            {
+              "value": "success.main",
+              "name": "Success"
+            },
+            {
+              "value": "info.main",
+              "name": "Info"
+            },
+            {
+              "value": "warning.main",
+              "name": "Warning"
+            },
+            {
+              "value": "primary.light",
+              "name": "Primary light"
+            },
+            {
+              "value": "primary.dark",
+              "name": "Primary dark"
+            },
+            {
+              "value": "info.light",
+              "name": "Info light"
+            },
+            {
+              "value": "info.dark",
+              "name": "Info dark"
+            },
+            {
+              "value": "warning.light",
+              "name": "Warning light"
+            },
+            {
+              "value": "warning.dark",
+              "name": "Warning dark"
+            },
+            {
+              "value": "success.light",
+              "name": "Success light"
+            },
+            {
+              "value": "success.dark",
+              "name": "Success dark"
+            },
+            {
+              "value": "error.light",
+              "name": "Error light"
+            },
+            {
+              "value": "error.dark",
+              "name": "Error dark"
+            },
+            {
+              "value": "secondary.light",
+              "name": "Secondary light"
+            },
+            {
+              "value": "secondary.dark",
+              "name": "Secondary dark"
             }
           ],
           "pos": 5
@@ -13186,7 +13598,7 @@
       "name": "section_parallax",
       "display_name": "Parallax Banner",
       "created_at": "2020-05-01T08:40:36.119Z",
-      "updated_at": "2022-03-27T04:20:49.630Z",
+      "updated_at": "2022-03-27T07:16:45.644Z",
       "id": 894800,
       "schema": {
         "body": {
@@ -13208,7 +13620,7 @@
           "component_whitelist": [
             "parallax_item"
           ],
-          "maximum": "1",
+          "maximum": "",
           "component_group_whitelist": [],
           "description": "Multiple parallax layers can be combined."
         },
@@ -13216,7 +13628,7 @@
           "type": "number",
           "use_uuid": true,
           "options": [],
-          "description": "Give percent of viewport height. Defaults to 50% of current viewport. Ignored if ratio is used.",
+          "description": "Give percent of viewport height. Defaults to 50% of current viewport. Used as max-height in combination with aspect ratio on smaller images.",
           "pos": 2
         },
         "ratio": {
@@ -14559,7 +14971,7 @@
       "name": "styles",
       "display_name": null,
       "created_at": "2020-10-09T08:09:49.590Z",
-      "updated_at": "2021-12-07T05:11:49.139Z",
+      "updated_at": "2022-03-28T02:52:59.873Z",
       "id": 1138790,
       "schema": {
         "margin": {
@@ -14691,11 +15103,11 @@
           "use_uuid": true,
           "options": [
             {
-              "value": "primary",
+              "value": "primary.main",
               "name": "primary"
             },
             {
-              "value": "secondary",
+              "value": "secondary.main",
               "name": "secondary"
             },
             {
@@ -14717,6 +15129,54 @@
             {
               "value": "grey",
               "name": "grey"
+            },
+            {
+              "value": "primary.light",
+              "name": "primary light"
+            },
+            {
+              "value": "primary.dark",
+              "name": "primary dark"
+            },
+            {
+              "value": "secondary.light",
+              "name": "secondary light"
+            },
+            {
+              "value": "secondary.dark",
+              "name": "secondary dark"
+            },
+            {
+              "value": "info.light",
+              "name": "info light"
+            },
+            {
+              "value": "info.dark",
+              "name": "info dark"
+            },
+            {
+              "value": "success.light",
+              "name": "success light"
+            },
+            {
+              "value": "success.dark",
+              "name": "success dark"
+            },
+            {
+              "value": "error.light",
+              "name": "error light"
+            },
+            {
+              "value": "error.dark",
+              "name": "error dark"
+            },
+            {
+              "value": "warning.light",
+              "name": "warning light"
+            },
+            {
+              "value": "warning.dark",
+              "name": "warning dark"
             }
           ]
         },

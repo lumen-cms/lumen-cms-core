@@ -158,7 +158,19 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
           main: (settings.theme_error as string) || '#f44336',
           contrastText: (settings.theme_error_contrast as string) || '#fff'
         },
-        grey: augmentColor({ color: { main: grey[800] } }),
+        success: {
+          main: (settings.theme_success as string) || '#2e7d32',
+          contrastText: (settings.theme_success_contrast as string) || '#fff'
+        },
+        info: {
+          main: settings.theme_info || '#0288d1',
+          contrastText: (settings.theme_info_contrast as string) || '#fff'
+        },
+        warning: {
+          main: (settings.theme_warning as string) || '#ed6c02',
+          contrastText: (settings.theme_warning_contrast as string) || '#fff'
+        },
+        grey: augmentColor({ color: { main: grey[300] } }),
         ...(settings.body_background_color?.rgba && {
           background: {
             default: settings.body_background_color.rgba

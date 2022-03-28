@@ -175,7 +175,7 @@
                     "_uid": "b061d97f-fdf6-4709-8e2a-8299e71087c9",
                     "body": [],
                     "ratio": "16/9",
-                    "height": "",
+                    "height": "350",
                     "elements": [
                       {
                         "_uid": "5707cd17-327f-4ee3-bc9a-0209015b1662",
@@ -206,6 +206,7 @@
                       "plugin": "bootstrap-utility-class-selector"
                     },
                     "disable_lazy_load": false,
+                    "max_height_mobile": "",
                     "toggle_image_loading": false
                   },
                   {
@@ -391,7 +392,7 @@
                     "_uid": "28527a8b-137c-4094-9750-37397ccc61aa",
                     "body": [],
                     "ratio": "16/9",
-                    "height": "",
+                    "height": "350",
                     "elements": [
                       {
                         "_uid": "5943e1bb-f2e6-4f1d-82a4-53f85ea42065",
@@ -422,6 +423,7 @@
                       "plugin": "bootstrap-utility-class-selector"
                     },
                     "disable_lazy_load": false,
+                    "max_height_mobile": "",
                     "toggle_image_loading": false
                   },
                   {
@@ -627,7 +629,7 @@
       "component_id": 894776,
       "space_id": 82895,
       "created_at": "2020-08-24T06:46:24.981Z",
-      "updated_at": "2022-03-27T02:51:28.595Z",
+      "updated_at": "2022-03-27T07:11:09.144Z",
       "image": "//a.storyblok.com/f/82895/x/4ba4c05b3b/2-pop-up-columns-about-us-sample.PNG"
     },
     {
@@ -9660,6 +9662,261 @@
       "image": ""
     },
     {
+      "id": 1445972,
+      "name": "Card with hover",
+      "preset": {
+        "_uid": "0aa604cc-0cd6-4de1-9ca7-59076e03aecc",
+        "body": [
+          {
+            "tag": "h2",
+            "_uid": "78f9e900-fed6-42c1-af53-f4c9a0738f37",
+            "font": "",
+            "text": "Super card",
+            "align": "",
+            "color": "",
+            "prefix": "",
+            "styles": [],
+            "suffix": "",
+            "text_xs": "",
+            "animation": "",
+            "component": "headline",
+            "count_end": "",
+            "font_size": "",
+            "max_lines": "",
+            "typography": "",
+            "class_names": {
+              "_uid": "048aa0de-c127-476e-b32a-1d8262c7eb6d",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "count_start": "",
+            "line_height": "",
+            "custom_color": {
+              "_uid": "80155e0c-f479-4ef5-a643-410047c2ba9f",
+              "rgba": "",
+              "plugin": "vue-color-picker"
+            },
+            "styles_hover": [],
+            "enable_speech": false,
+            "styles_mobile": [],
+            "styles_tablet": [],
+            "count_duration": "",
+            "countdown_time": "",
+            "letter_spacing": "",
+            "support_linebreak": false,
+            "countdown_finished": [],
+            "countdown_interval": ""
+          }
+        ],
+        "media": {
+          "id": 1236209,
+          "alt": null,
+          "name": "",
+          "focus": null,
+          "title": null,
+          "filename": "https://a.storyblok.com/f/82895/1920x1283/83f1a8bd93/barrel-maker-264254_1920.jpg",
+          "copyright": null,
+          "fieldtype": "asset"
+        },
+        "square": false,
+        "styles": [],
+        "component": "card",
+        "elevation": "10",
+        "background": [],
+        "object_fit": "cover",
+        "full_height": false,
+        "media_margin": "",
+        "styles_hover": [],
+        "body_on_hover": [
+          {
+            "gap": "",
+            "_uid": "c7860bb1-00ef-4102-ada6-7b3ffe001505",
+            "body": [
+              {
+                "tag": "h2",
+                "_uid": "ca07f0a6-42f5-4689-8f19-e871d5d79514",
+                "font": "",
+                "text": "some hover content",
+                "align": "",
+                "color": "",
+                "prefix": "",
+                "styles": [],
+                "suffix": "",
+                "text_xs": "",
+                "animation": "",
+                "component": "headline",
+                "count_end": "",
+                "font_size": "",
+                "max_lines": "",
+                "typography": "",
+                "class_names": {
+                  "_uid": "3dcc43a6-65ba-4671-b536-478ec6ba6dbc",
+                  "plugin": "bootstrap-utility-class-selector"
+                },
+                "count_start": "",
+                "line_height": "",
+                "custom_color": {
+                  "_uid": "7a40ab68-ff0a-46d6-bb4e-32182f0361cc",
+                  "rgba": "",
+                  "plugin": "vue-color-picker"
+                },
+                "styles_hover": [],
+                "enable_speech": false,
+                "styles_mobile": [],
+                "styles_tablet": [],
+                "count_duration": "",
+                "countdown_time": "",
+                "letter_spacing": "",
+                "support_linebreak": false,
+                "countdown_finished": [],
+                "countdown_interval": ""
+              }
+            ],
+            "column": true,
+            "styles": [
+              {
+                "top": "",
+                "_uid": "7e80eb8f-a23d-42a2-b353-833e31f6d95b",
+                "flex": "",
+                "left": "",
+                "color": {
+                  "_uid": "c9926e92-d017-4e98-bdee-eec3f34fe6c5",
+                  "rgba": "rgba(255,255,255,1)",
+                  "plugin": "vue-color-picker"
+                },
+                "right": "",
+                "width": "",
+                "bottom": "",
+                "height": "",
+                "margin": "",
+                "display": "",
+                "padding": "",
+                "z_index": "",
+                "position": "",
+                "component": "styles",
+                "elevation": "",
+                "transform": "",
+                "background": "",
+                "box_shadow": "",
+                "transition": "",
+                "color_theme": "",
+                "border_color": {
+                  "_uid": "bd0e90d6-0059-41fa-8d49-92623a088638",
+                  "rgba": "",
+                  "plugin": "vue-color-picker"
+                },
+                "border_style": "",
+                "border_width": "",
+                "border_radius": "",
+                "css_properties": [],
+                "border_position": [],
+                "background_color": {
+                  "_uid": "cf526f21-a241-4904-8f8c-ad618d3f137e",
+                  "rgba": "rgba(221,67,67,0.80)",
+                  "plugin": "vue-color-picker"
+                },
+                "border_color_theme": "",
+                "background_color_theme": ""
+              }
+            ],
+            "justify": "center",
+            "component": "flex_row",
+            "align_items": "center",
+            "class_names": {
+              "_uid": "ee286abb-c596-454c-a613-32aff93b9eb7",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "full_height": false,
+            "styles_hover": [],
+            "align_content": "center",
+            "styles_mobile": [],
+            "styles_tablet": [],
+            "column_mobile_only": false
+          }
+        ],
+        "styles_mobile": [],
+        "styles_tablet": [],
+        "content_padding": "3",
+        "media_max_width": "",
+        "object_position": "bottom",
+        "body_above_media": [
+          {
+            "_uid": "52eccfe0-7348-46ba-8284-f386b8965e36",
+            "body": [
+              {
+                "_uid": "c7cdcaf3-251a-436f-8c6a-3057522bf7ec",
+                "name": {
+                  "_uid": "fc53d826-92c0-40d1-948f-7790ff8a4c8f",
+                  "name": "trending-up",
+                  "plugin": "material-icons-selector"
+                },
+                "size": "xxxlarge",
+                "color": {
+                  "_uid": "509d5a61-ff45-4a86-847d-9ed0aecd4733",
+                  "rgba": "#4a3b58",
+                  "plugin": "vue-color-picker"
+                },
+                "icon_url": "",
+                "component": "icon",
+                "class_names": {
+                  "_uid": "79af8f91-eceb-473f-80a2-2d0e37b2ced1",
+                  "plugin": "bootstrap-utility-class-selector",
+                  "values": []
+                }
+              },
+              {
+                "tag": "h4",
+                "_uid": "03931c6c-beb9-4767-99a5-60943e83a11d",
+                "font": "",
+                "text": "Developing the Perfect Website for You",
+                "align": "",
+                "color": "",
+                "prefix": "",
+                "suffix": "",
+                "text_xs": "",
+                "animation": "",
+                "component": "headline",
+                "count_end": "",
+                "font_size": "",
+                "typography": "headline6",
+                "class_names": {
+                  "_uid": "955a1e44-ce0c-4e6e-8c2c-59dd61e623d6",
+                  "plugin": "bootstrap-utility-class-selector",
+                  "values": [
+                    "font-weight-bold"
+                  ]
+                },
+                "count_start": "",
+                "line_height": "",
+                "custom_color": {
+                  "_uid": "4bcfc12f-21d2-4715-b742-b2df04365cb2",
+                  "rgba": "",
+                  "plugin": "vue-color-picker"
+                },
+                "count_duration": "",
+                "letter_spacing": ""
+              }
+            ],
+            "column": false,
+            "justify": "center",
+            "component": "flex_row",
+            "align_items": "center",
+            "class_names": {
+              "_uid": "eb99199f-56b1-4ea7-8a5e-eaa9b7d5329d",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "full_height": false,
+            "align_content": ""
+          }
+        ],
+        "media_aspect_ratio": "6/1"
+      },
+      "component_id": 2307220,
+      "space_id": 82895,
+      "created_at": "2022-03-28T05:04:48.613Z",
+      "updated_at": "2022-03-28T05:04:48.613Z",
+      "image": ""
+    },
+    {
       "id": 703403,
       "name": "Clean Slider (Title Bottom, Centered)",
       "preset": {
@@ -18602,137 +18859,6 @@
       "image": "//a.storyblok.com/f/82895/x/d33d31755a/blog-preview.PNG"
     },
     {
-      "id": 768192,
-      "name": "[Content] Bouncy Preview Cards",
-      "preset": {
-        "_uid": "8a8da81c-c9d8-4098-a887-48842401f71b",
-        "body": [
-          {
-            "_uid": "b116d085-4618-4a60-822e-fcf7bac1eb72",
-            "body": [
-              {
-                "_uid": "e009c35d-6940-48e8-927a-3e107e88b24a",
-                "body": [],
-                "link": {
-                  "id": "",
-                  "url": "",
-                  "_uid": "1bf53175-ad50-42b6-8245-2bc05d207105",
-                  "linktype": "story",
-                  "fieldtype": "multilink",
-                  "cached_url": ""
-                },
-                "image": "//a.storyblok.com/f/82895/1920x1283/83f1a8bd93/barrel-maker-264254_1920.jpg",
-                "title": "Listen to Our Story",
-                "subtitle": "",
-                "component": "card_list_item",
-                "description": "",
-                "action_width": "",
-                "open_external": false,
-                "action_headline": [],
-                "card_actions_body": []
-              },
-              {
-                "_uid": "c9c8c289-430e-4e74-8ce0-2141e99badba",
-                "body": [],
-                "link": {
-                  "id": "",
-                  "url": "",
-                  "_uid": "4ea95fbd-e34c-444e-bf15-ab2c295c319c",
-                  "linktype": "story",
-                  "fieldtype": "multilink",
-                  "cached_url": ""
-                },
-                "image": "//a.storyblok.com/f/82895/1920x1280/2b44cc6333/fog-1535201_1920.jpg",
-                "title": "Create the Changes",
-                "subtitle": "",
-                "component": "card_list_item",
-                "description": "",
-                "action_width": "",
-                "open_external": false,
-                "action_headline": [],
-                "card_actions_body": []
-              },
-              {
-                "_uid": "9721a903-b56a-4782-9f60-d1f0b4cee3c1",
-                "body": [],
-                "link": {
-                  "id": "",
-                  "url": "",
-                  "_uid": "f39d5702-ee92-41fd-a949-2da0df65032c",
-                  "linktype": "story",
-                  "fieldtype": "multilink",
-                  "cached_url": ""
-                },
-                "image": "//a.storyblok.com/f/82895/640x360/124707fa03/evening-55067_640.png",
-                "title": "Make it Happen",
-                "subtitle": "",
-                "component": "card_list_item",
-                "description": "",
-                "action_width": "",
-                "open_external": false,
-                "action_headline": [],
-                "card_actions_body": []
-              }
-            ],
-            "variant": [
-              "over_media",
-              "overlay_content_no_space"
-            ],
-            "component": "card_list",
-            "elevation": "8",
-            "title_tag": "",
-            "column_gap": "",
-            "hide_image": false,
-            "image_size": "",
-            "image_ratio": "",
-            "column_count": "3",
-            "subtitle_tag": "",
-            "border_radius": "19px",
-            "shadow_effect": "bouncy",
-            "title_class_name": {
-              "_uid": "79d60744-9b17-4737-b799-dbc505edeb95",
-              "plugin": "bootstrap-utility-class-selector",
-              "values": [
-                "text-sm-center",
-                "badge-dark"
-              ]
-            },
-            "title_typography": "headline5",
-            "column_count_phone": "",
-            "column_count_tablet": "",
-            "subtitle_class_name": {
-              "_uid": "8adbdbaa-0b32-4377-8385-f1ba049e3e70",
-              "plugin": "bootstrap-utility-class-selector"
-            },
-            "subtitle_typography": "",
-            "description_class_name": {
-              "_uid": "beeac938-da4a-429f-bf86-d6c4b23c52e4",
-              "plugin": "bootstrap-utility-class-selector"
-            },
-            "description_typography": "",
-            "description_max_character": "",
-            "card_actions_disable_spacing": false
-          }
-        ],
-        "styles": [],
-        "justify": "",
-        "component": "column",
-        "background": [],
-        "align_items": "",
-        "width_phone": "",
-        "width_tablet": "",
-        "align_content": "",
-        "styles_mobile": [],
-        "styles_tablet": [],
-        "width_general": ""
-      },
-      "component_id": 894838,
-      "space_id": 82895,
-      "created_at": "2020-10-29T02:59:11.015Z",
-      "updated_at": "2020-10-29T02:59:11.015Z",
-      "image": ""
-    },
-    {
       "id": 726285,
       "name": "[Content] Bouncy Preview Cards",
       "preset": {
@@ -18885,6 +19011,137 @@
       "created_at": "2020-09-18T03:27:15.233Z",
       "updated_at": "2020-09-18T03:29:26.061Z",
       "image": "//a.storyblok.com/f/82895/x/702992ee14/bouncycards.PNG"
+    },
+    {
+      "id": 768192,
+      "name": "[Content] Bouncy Preview Cards",
+      "preset": {
+        "_uid": "8a8da81c-c9d8-4098-a887-48842401f71b",
+        "body": [
+          {
+            "_uid": "b116d085-4618-4a60-822e-fcf7bac1eb72",
+            "body": [
+              {
+                "_uid": "e009c35d-6940-48e8-927a-3e107e88b24a",
+                "body": [],
+                "link": {
+                  "id": "",
+                  "url": "",
+                  "_uid": "1bf53175-ad50-42b6-8245-2bc05d207105",
+                  "linktype": "story",
+                  "fieldtype": "multilink",
+                  "cached_url": ""
+                },
+                "image": "//a.storyblok.com/f/82895/1920x1283/83f1a8bd93/barrel-maker-264254_1920.jpg",
+                "title": "Listen to Our Story",
+                "subtitle": "",
+                "component": "card_list_item",
+                "description": "",
+                "action_width": "",
+                "open_external": false,
+                "action_headline": [],
+                "card_actions_body": []
+              },
+              {
+                "_uid": "c9c8c289-430e-4e74-8ce0-2141e99badba",
+                "body": [],
+                "link": {
+                  "id": "",
+                  "url": "",
+                  "_uid": "4ea95fbd-e34c-444e-bf15-ab2c295c319c",
+                  "linktype": "story",
+                  "fieldtype": "multilink",
+                  "cached_url": ""
+                },
+                "image": "//a.storyblok.com/f/82895/1920x1280/2b44cc6333/fog-1535201_1920.jpg",
+                "title": "Create the Changes",
+                "subtitle": "",
+                "component": "card_list_item",
+                "description": "",
+                "action_width": "",
+                "open_external": false,
+                "action_headline": [],
+                "card_actions_body": []
+              },
+              {
+                "_uid": "9721a903-b56a-4782-9f60-d1f0b4cee3c1",
+                "body": [],
+                "link": {
+                  "id": "",
+                  "url": "",
+                  "_uid": "f39d5702-ee92-41fd-a949-2da0df65032c",
+                  "linktype": "story",
+                  "fieldtype": "multilink",
+                  "cached_url": ""
+                },
+                "image": "//a.storyblok.com/f/82895/640x360/124707fa03/evening-55067_640.png",
+                "title": "Make it Happen",
+                "subtitle": "",
+                "component": "card_list_item",
+                "description": "",
+                "action_width": "",
+                "open_external": false,
+                "action_headline": [],
+                "card_actions_body": []
+              }
+            ],
+            "variant": [
+              "over_media",
+              "overlay_content_no_space"
+            ],
+            "component": "card_list",
+            "elevation": "8",
+            "title_tag": "",
+            "column_gap": "",
+            "hide_image": false,
+            "image_size": "",
+            "image_ratio": "",
+            "column_count": "3",
+            "subtitle_tag": "",
+            "border_radius": "19px",
+            "shadow_effect": "bouncy",
+            "title_class_name": {
+              "_uid": "79d60744-9b17-4737-b799-dbc505edeb95",
+              "plugin": "bootstrap-utility-class-selector",
+              "values": [
+                "text-sm-center",
+                "badge-dark"
+              ]
+            },
+            "title_typography": "headline5",
+            "column_count_phone": "",
+            "column_count_tablet": "",
+            "subtitle_class_name": {
+              "_uid": "8adbdbaa-0b32-4377-8385-f1ba049e3e70",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "subtitle_typography": "",
+            "description_class_name": {
+              "_uid": "beeac938-da4a-429f-bf86-d6c4b23c52e4",
+              "plugin": "bootstrap-utility-class-selector"
+            },
+            "description_typography": "",
+            "description_max_character": "",
+            "card_actions_disable_spacing": false
+          }
+        ],
+        "styles": [],
+        "justify": "",
+        "component": "column",
+        "background": [],
+        "align_items": "",
+        "width_phone": "",
+        "width_tablet": "",
+        "align_content": "",
+        "styles_mobile": [],
+        "styles_tablet": [],
+        "width_general": ""
+      },
+      "component_id": 894838,
+      "space_id": 82895,
+      "created_at": "2020-10-29T02:59:11.015Z",
+      "updated_at": "2020-10-29T02:59:11.015Z",
+      "image": ""
     },
     {
       "id": 768190,

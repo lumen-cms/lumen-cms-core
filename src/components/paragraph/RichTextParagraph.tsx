@@ -22,7 +22,7 @@ export function LmRichTextParagraph({
         'lm-markup',
         classes.richText,
         content.style,
-        content.class_names && content.class_names.values,
+        content.class_names?.values,
         {
           enable__speech: !!content.enable_speech,
           [advancedClasses.advanced]: !!content.styles?.length,
@@ -36,10 +36,7 @@ export function LmRichTextParagraph({
       color={content.color ? content.color : undefined}
       component="div"
       style={{
-        color:
-          content.custom_color && content.custom_color.rgba
-            ? content.custom_color.rgba
-            : undefined,
+        color: content.custom_color?.rgba ?? undefined,
         lineHeight: content.line_height ? content.line_height : undefined,
         fontSize: content.font_size ? content.font_size : undefined,
         letterSpacing: content.letter_spacing

@@ -1,6 +1,7 @@
 import {
   CardListItemStoryblok,
-  CardListStoryblok
+  CardListStoryblok,
+  CardStoryblok
 } from '../../typings/generated/components-schema'
 
 export type LmCardListProps = {
@@ -18,4 +19,8 @@ export type CardListItemProps = {
     | 'column_count_phone'
     | 'column_count_tablet'
   >
+}
+
+export type LmCardStandaloneProps = {
+  content: CardStoryblok
 }

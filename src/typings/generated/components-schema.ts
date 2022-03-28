@@ -42,6 +42,7 @@ export interface AuthContainerStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -104,6 +105,7 @@ export interface AuthFormStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -315,7 +317,17 @@ export interface BottomNavigationItemStoryblok {
 export interface ButtonStoryblok {
   variant?: "" | "outlined" | "raised" | "unelevated" | "fab";
   size?: "" | "dense" | "lm-button-large" | "lm-button-xlarge";
-  color?: "" | "primary" | "secondary" | "primary_text" | "secondary_text" | "light" | "dark";
+  color?:
+    | ""
+    | "primary"
+    | "secondary"
+    | "primary_text"
+    | "secondary_text"
+    | "light"
+    | "dark"
+    | "success"
+    | "info"
+    | "warning";
   custom_color?: {
     rgba?: string;
     [k: string]: any;
@@ -390,6 +402,230 @@ export interface ButtonSpeechTextStoryblok {
   full_page?: boolean;
   _uid: string;
   component: "button_speech_text";
+  [k: string]: any;
+}
+
+export interface CardStoryblok {
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
+  open_external?: boolean;
+  elevation?: number;
+  variant?: "" | "elevation" | "outlined";
+  square?: boolean;
+  full_height?: boolean;
+  content_padding?: number;
+  media?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  };
+  media_aspect_ratio?: string;
+  media_max_width?: number;
+  body?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | GalleryStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SectionParallaxStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  body_above_media?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | GalleryStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SectionParallaxStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  body_on_hover?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | GalleryStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SectionParallaxStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  background?: BackgroundStoryblok[];
+  styles?: StylesStoryblok[];
+  styles_mobile?: StylesStoryblok[];
+  styles_tablet?: StylesStoryblok[];
+  styles_hover?: StylesStoryblok[];
+  object_fit?: "" | "contain" | "cover" | "fill" | "initial";
+  object_position?: "" | "top" | "center" | "bottom";
+  media_margin?: number;
+  _uid: string;
+  component: "card";
   [k: string]: any;
 }
 
@@ -603,6 +839,7 @@ export interface ColumnStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -739,6 +976,7 @@ export interface DialogStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -801,6 +1039,7 @@ export interface DialogStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -1087,6 +1326,7 @@ export interface EventStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -1198,6 +1438,7 @@ export interface FlexRowStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -1325,6 +1566,7 @@ export interface FormContainerStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -1442,6 +1684,32 @@ export interface GalleryRowStoryblok {
 }
 
 export interface GlobalStoryblok {
+  theme_base: "" | "base" | "dark";
+  theme_primary?: string;
+  theme_primary_contrast?: string;
+  theme_secondary?: string;
+  theme_secondary_contrast?: string;
+  theme_error?: string;
+  theme_error_contrast?: string;
+  theme_link?: string;
+  theme_link_hover?: string;
+  body_background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  theme_font_default?: string;
+  theme_font_alt1?: string;
+  theme_font_alt2?: string;
+  theme_font_alt3?: string;
+  theme_font_alt4?: string;
+  theme_container_width?: "" | "xs" | "sm" | "md" | "lg" | "xl" | "none";
+  theme_success?: string;
+  theme_success_contrast?: string;
+  theme_info?: string;
+  theme_info_contrast?: string;
+  theme_warning?: string;
+  theme_warning_contrast?: string;
+  custom_css?: string;
   setup_favicon?: string;
   website_logo?: string;
   website_logo_xs?: string;
@@ -1480,25 +1748,6 @@ export interface GlobalStoryblok {
   toolbar_background?: string;
   toolbar_main_height?: number;
   toolbar_font_size?: string;
-  theme_base: "" | "base" | "dark";
-  theme_primary?: string;
-  theme_primary_contrast?: string;
-  theme_secondary?: string;
-  theme_secondary_contrast?: string;
-  theme_error?: string;
-  theme_error_contrast?: string;
-  theme_link?: string;
-  theme_link_hover?: string;
-  body_background_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
-  theme_font_default?: string;
-  theme_font_alt1?: string;
-  theme_font_alt2?: string;
-  theme_font_alt3?: string;
-  theme_font_alt4?: string;
-  theme_container_width?: "" | "xs" | "sm" | "md" | "lg" | "xl" | "none";
   drawer_body?: (
     | ButtonStoryblok
     | NavMenuStoryblok
@@ -1530,7 +1779,6 @@ export interface GlobalStoryblok {
     | SeoSocialProfileStoryblok
     | SeoCorporateContactStoryblok
   )[];
-  custom_css?: string;
   toolbar_elevation?: number;
   scripts?: ScriptStoryblok[];
   _uid: string;
@@ -1551,6 +1799,7 @@ export interface HeadlineStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -1617,7 +1866,26 @@ export interface HeadlineStoryblok {
     | "overline";
   font?: "" | "alt1" | "alt2" | "alt3" | "alt4";
   tag?: "" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
-  color?: "" | "primary" | "secondary" | "textPrimary" | "textSecondary" | "error";
+  color?:
+    | ""
+    | "primary"
+    | "secondary"
+    | "textPrimary"
+    | "textSecondary"
+    | "error"
+    | "info.main"
+    | "success.main"
+    | "warning.main"
+    | "primary.light"
+    | "primary.dark"
+    | "secondary.light"
+    | "secondary.dark"
+    | "info.light"
+    | "info.dark"
+    | "warning.light"
+    | "warning.dark"
+    | "success.light"
+    | "success.dark";
   align?: "" | "left" | "center" | "right" | "justify";
   enable_speech?: boolean;
   support_linebreak?: boolean;
@@ -1660,6 +1928,7 @@ export interface HtmlStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2025,6 +2294,7 @@ export interface ListStoriesStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2139,6 +2409,7 @@ export interface MoralisAuthContainerStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2195,6 +2466,7 @@ export interface MoralisAuthContainerStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2251,6 +2523,7 @@ export interface MoralisAuthContainerStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2336,6 +2609,7 @@ export interface MoralisMintStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2395,6 +2669,7 @@ export interface MoralisMintStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2457,6 +2732,7 @@ export interface MoralisMintStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2513,6 +2789,7 @@ export interface MoralisMintStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2572,6 +2849,7 @@ export interface MoralisMintStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2648,6 +2926,7 @@ export interface MotionStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2892,6 +3171,7 @@ export interface PageStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -2996,6 +3276,7 @@ export interface ParallaxItemStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -3205,7 +3486,28 @@ export interface RichTextEditorStoryblok {
     | "headline4"
     | "headline5"
     | "headline6";
-  color?: "" | "primary" | "secondary" | "textPrimary" | "textSecondary" | "error";
+  color?:
+    | ""
+    | "primary.main"
+    | "secondary.main"
+    | "textPrimary"
+    | "textSecondary"
+    | "error.main"
+    | "success.main"
+    | "info.main"
+    | "warning.main"
+    | "primary.light"
+    | "primary.dark"
+    | "info.light"
+    | "info.dark"
+    | "warning.light"
+    | "warning.dark"
+    | "success.light"
+    | "success.dark"
+    | "error.light"
+    | "error.dark"
+    | "secondary.light"
+    | "secondary.dark";
   align?: "" | "left" | "center" | "right" | "justify";
   font?: "" | "alt1" | "alt2" | "alt3" | "alt4";
   body?: any;
@@ -3289,6 +3591,7 @@ export interface SectionStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -3592,6 +3895,7 @@ export interface SnackbarStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -3660,6 +3964,7 @@ export interface StaticContainerStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -3742,7 +4047,27 @@ export interface StylesStoryblok {
     rgba?: string;
     [k: string]: any;
   };
-  background_color_theme?: "" | "primary" | "secondary" | "success" | "info" | "warning" | "error" | "grey";
+  background_color_theme?:
+    | ""
+    | "primary.main"
+    | "secondary.main"
+    | "success"
+    | "info"
+    | "warning"
+    | "error"
+    | "grey"
+    | "primary.light"
+    | "primary.dark"
+    | "secondary.light"
+    | "secondary.dark"
+    | "info.light"
+    | "info.dark"
+    | "success.light"
+    | "success.dark"
+    | "error.light"
+    | "error.dark"
+    | "warning.light"
+    | "warning.dark";
   elevation?: number;
   box_shadow?: string;
   border_style?:
@@ -3839,6 +4164,7 @@ export interface TabsItemStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -3925,6 +4251,7 @@ export interface TimelineItemStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok
@@ -4005,6 +4332,7 @@ export interface TimelineItemStoryblok {
     | ButtonStoryblok
     | ButtonListStoryblok
     | ButtonSpeechTextStoryblok
+    | CardStoryblok
     | CardListStoryblok
     | CategoryBoxStoryblok
     | DateHeadlineStoryblok

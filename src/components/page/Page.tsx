@@ -23,7 +23,6 @@ export function LmPage({ content }: LmPageProps): JSX.Element {
     return <EmptyContent />
   }
 
-  console.log('dort', currentContent?.property)
   if (
     currentContent.property?.includes('enable_parallax') ||
     body.some((i) => i.component === 'section_parallax')
