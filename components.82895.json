@@ -1453,9 +1453,50 @@
       "name": "card",
       "display_name": null,
       "created_at": "2022-03-28T03:00:33.623Z",
-      "updated_at": "2022-03-28T05:32:22.909Z",
+      "updated_at": "2022-03-29T06:28:29.774Z",
       "id": 2307220,
       "schema": {
+        "body": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ],
+          "pos": 0
+        },
+        "body_above_media": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ],
+          "pos": 1
+        },
+        "body_actions": {
+          "type": "bloks",
+          "pos": 2,
+          "restrict_components": true,
+          "restrict_type": "",
+          "component_whitelist": [
+            "headline",
+            "button",
+            "avatar",
+            "flex_row"
+          ],
+          "description": "Action area on the bottom of a card."
+        },
+        "body_on_hover": {
+          "type": "bloks",
+          "pos": 3,
+          "maximum": "",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ]
+        },
         "tab-60d99b00-089f-4a1d-b8e7-2a443a255dbd": {
           "type": "tab",
           "display_name": "Settings",
@@ -1468,7 +1509,7 @@
             "outlined",
             "variant"
           ],
-          "pos": 0
+          "pos": 4
         },
         "tab-3d21a543-a097-4de4-84f9-0ce51a9f74c5": {
           "type": "tab",
@@ -1481,7 +1522,7 @@
             "object_position",
             "media_margin"
           ],
-          "pos": 1
+          "pos": 5
         },
         "tab-dc06e9a6-80ec-4409-9355-cc77c02d979a": {
           "type": "tab",
@@ -1490,7 +1531,7 @@
             "link",
             "open_external"
           ],
-          "pos": 2
+          "pos": 6
         },
         "tab-f14a8455-71a5-4244-b4d0-7bf95f88f164": {
           "type": "tab",
@@ -1502,26 +1543,26 @@
             "styles_hover",
             "background"
           ],
-          "pos": 3
+          "pos": 7
         },
         "link": {
           "type": "multilink",
           "email_link_type": true,
           "asset_link_type": true,
           "show_anchor": true,
-          "pos": 0
+          "pos": 8
         },
         "open_external": {
           "type": "boolean",
-          "pos": 1
+          "pos": 9
         },
         "elevation": {
           "type": "number",
-          "pos": 2
+          "pos": 10
         },
         "variant": {
           "type": "option",
-          "pos": 3,
+          "pos": 11,
           "use_uuid": true,
           "options": [
             {
@@ -1536,16 +1577,16 @@
         },
         "square": {
           "type": "boolean",
-          "pos": 4
+          "pos": 12
         },
         "full_height": {
           "type": "boolean",
-          "pos": 5
+          "pos": 13
         },
         "content_padding": {
           "type": "number",
           "description": "Content padding with simplified theme spacing.",
-          "pos": 6
+          "pos": 14
         },
         "media": {
           "type": "asset",
@@ -1553,49 +1594,21 @@
             "images",
             "videos"
           ],
-          "pos": 7
+          "pos": 15
         },
         "media_aspect_ratio": {
           "type": "text",
-          "pos": 8,
+          "pos": 16,
           "description": "Aspect ratio of image. Example: \"4/3\", \"16/9\", \"3/1\". Default: \"3/2\""
         },
         "media_max_width": {
           "type": "number",
-          "pos": 9,
+          "pos": 17,
           "description": "Max width of the media for better performance. Default: 350"
-        },
-        "body": {
-          "type": "bloks",
-          "restrict_components": true,
-          "restrict_type": "groups",
-          "component_group_whitelist": [
-            "1778dc53-bf7e-46d7-a549-7471017211b2"
-          ],
-          "pos": 10
-        },
-        "body_above_media": {
-          "type": "bloks",
-          "restrict_components": true,
-          "restrict_type": "groups",
-          "component_group_whitelist": [
-            "1778dc53-bf7e-46d7-a549-7471017211b2"
-          ],
-          "pos": 11
-        },
-        "body_on_hover": {
-          "type": "bloks",
-          "pos": 12,
-          "maximum": "",
-          "restrict_components": true,
-          "restrict_type": "groups",
-          "component_group_whitelist": [
-            "1778dc53-bf7e-46d7-a549-7471017211b2"
-          ]
         },
         "background": {
           "type": "bloks",
-          "pos": 16,
+          "pos": 18,
           "maximum": "1",
           "restrict_components": true,
           "component_whitelist": [
@@ -1610,7 +1623,7 @@
           "component_whitelist": [
             "styles"
           ],
-          "pos": 17
+          "pos": 19
         },
         "styles_mobile": {
           "type": "bloks",
@@ -1619,7 +1632,7 @@
           "component_whitelist": [
             "styles"
           ],
-          "pos": 18
+          "pos": 20
         },
         "styles_tablet": {
           "type": "bloks",
@@ -1628,7 +1641,7 @@
           "component_whitelist": [
             "styles"
           ],
-          "pos": 19
+          "pos": 21
         },
         "styles_hover": {
           "type": "bloks",
@@ -1637,7 +1650,7 @@
           "component_whitelist": [
             "styles"
           ],
-          "pos": 20
+          "pos": 22
         },
         "object_fit": {
           "type": "option",
@@ -1660,7 +1673,7 @@
               "name": "initial"
             }
           ],
-          "pos": 21
+          "pos": 23
         },
         "object_position": {
           "type": "option",
@@ -1679,12 +1692,12 @@
               "name": "bottom"
             }
           ],
-          "pos": 22
+          "pos": 24
         },
         "media_margin": {
           "type": "number",
           "description": "Content padding with simplified theme spacing.",
-          "pos": 23
+          "pos": 25
         }
       },
       "image": null,
@@ -4054,12 +4067,60 @@
       "name": "divider",
       "display_name": null,
       "created_at": "2020-05-01T08:40:43.501Z",
-      "updated_at": "2022-03-29T02:01:18.341Z",
+      "updated_at": "2022-03-29T06:12:04.916Z",
       "id": 894836,
       "schema": {
+        "thickness": {
+          "type": "number",
+          "pos": 0
+        },
+        "alignment": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "center",
+              "name": "center"
+            },
+            {
+              "value": "left",
+              "name": "left"
+            },
+            {
+              "value": "right",
+              "name": "right"
+            }
+          ],
+          "pos": 1
+        },
+        "orientation": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "horizontal",
+              "name": "horizontal"
+            },
+            {
+              "value": "vertical",
+              "name": "vertical"
+            }
+          ],
+          "pos": 2
+        },
+        "width": {
+          "type": "number",
+          "description": "Width in % of the current available space. Default is 100%",
+          "pos": 3
+        },
+        "vertical_height": {
+          "type": "number",
+          "pos": 4,
+          "description": "Applied height in px for vertical use."
+        },
         "theme_color": {
           "type": "option",
-          "pos": 0,
+          "pos": 5,
           "use_uuid": true,
           "options": [
             {
@@ -4136,7 +4197,7 @@
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 1
+          "pos": 6
         },
         "body": {
           "type": "bloks",
@@ -4147,61 +4208,18 @@
             "icon",
             "image"
           ],
-          "pos": 2
+          "pos": 7
         },
         "size": {
           "type": "number",
-          "pos": 3,
+          "pos": 8,
           "display_name": "Icon Size"
         },
         "icon": {
           "type": "custom",
           "field_type": "material-icons-selector",
           "options": [],
-          "pos": 4
-        },
-        "thickness": {
-          "type": "number",
-          "pos": 5
-        },
-        "alignment": {
-          "type": "option",
-          "use_uuid": true,
-          "options": [
-            {
-              "value": "center",
-              "name": "center"
-            },
-            {
-              "value": "left",
-              "name": "left"
-            },
-            {
-              "value": "right",
-              "name": "right"
-            }
-          ],
-          "pos": 6
-        },
-        "orientation": {
-          "type": "option",
-          "use_uuid": true,
-          "options": [
-            {
-              "value": "horizontal",
-              "name": "horizontal"
-            },
-            {
-              "value": "vertical",
-              "name": "vertical"
-            }
-          ],
-          "pos": 7
-        },
-        "width": {
-          "type": "number",
-          "description": "Width in % of the current available space. Default is 100%",
-          "pos": 8
+          "pos": 9
         },
         "tab-d2e4bb52-9022-4e25-bfac-50e3bb0c891b": {
           "type": "tab",
@@ -4210,9 +4228,10 @@
             "thickness",
             "width",
             "orientation",
-            "alignment"
+            "alignment",
+            "vertical_height"
           ],
-          "pos": 9
+          "pos": 10
         }
       },
       "image": null,
@@ -5493,7 +5512,7 @@
       "name": "flex_row",
       "display_name": "Flex Box",
       "created_at": "2020-05-01T08:40:43.097Z",
-      "updated_at": "2022-03-18T03:25:04.914Z",
+      "updated_at": "2022-03-29T05:55:22.025Z",
       "id": 894834,
       "schema": {
         "column": {
@@ -5677,6 +5696,14 @@
           "restrict_components": true,
           "component_whitelist": [
             "styles"
+          ],
+          "maximum": "1"
+        },
+        "divider": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "divider"
           ],
           "maximum": "1"
         }

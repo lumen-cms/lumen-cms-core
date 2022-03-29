@@ -1,4 +1,5 @@
 import Card from '@mui/material/Card'
+import MuiCardActions from '@mui/material/CardActions'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import { LmCardStandaloneProps } from './cardTypes'
 import CardContent from '@mui/material/CardContent'
@@ -15,40 +16,19 @@ import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmCoreComponents } from '@CONFIG'
 
 export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
-  const {
-    body,
-    body_above_media,
-    body_on_hover,
-    media,
-    elevation,
-    square,
-    styles,
-    styles_hover,
-    styles_mobile,
-    styles_tablet,
-    media_aspect_ratio,
-    media_max_width,
-    object_fit,
-    object_position,
-    content_padding,
-    media_margin,
-    full_height,
-    link,
-    variant
-  } = content
   const background: BackgroundStoryblok | undefined = content.background?.[0]
 
   const { className, style } = useBackgroundBox({
     background,
-    styles: styles,
-    stylesMobile: styles_mobile,
-    stylesTablet: styles_tablet,
-    stylesHover: styles_hover
+    styles: content.styles,
+    stylesMobile: content.styles_mobile,
+    stylesTablet: content.styles_tablet,
+    stylesHover: content.styles_hover
   })
-  const hasHoverContent = !!body_on_hover?.length
+  const hasHoverContent = !!content.body_on_hover?.length
   const btnProps = content.link?.linktype
     ? {
-        ...getLinkAttrs(link as LinkType, {
+        ...getLinkAttrs(content.link as LinkType, {
           openExternal: !!content.open_external
         }),
         naked: true,
@@ -66,14 +46,16 @@ export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
 
   return (
     <Card
-      elevation={elevation ? Number(elevation) : undefined}
-      square={square}
+      elevation={content.elevation ? Number(content.elevation) : undefined}
+      square={content.square}
       className={className}
       style={style}
-      variant={variant || 'elevation'}
+      variant={content.variant || 'elevation'}
       sx={{
         position: 'relative',
-        height: full_height ? '100%' : undefined,
+        height: content.full_height ? '100%' : undefined,
+        display: 'flex',
+        flexDirection: 'column',
         '& .lm-main__hover': {
           display: 'none'
         },
@@ -89,55 +71,69 @@ export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
         <BackgroundElements elements={background.background_elements} />
       )}
       <ActionArea>
-        {!!body_above_media?.length && (
+        {!!content.body_above_media?.length && (
           <CardContent
             sx={{
               position: 'relative',
               padding: (theme) =>
-                content_padding
-                  ? theme.spacing(Number(content_padding))
+                content.content_padding
+                  ? theme.spacing(Number(content.content_padding))
                   : undefined
             }}
           >
-            {body_above_media?.map((blok) => (
+            {content.body_above_media?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />
             ))}
           </CardContent>
         )}
-        {!!media?.filename && (
+        {!!content.media?.filename && (
           <CardMedia
             sx={{
               position: 'relative',
               overflow: 'hidden',
-              aspectRatio: media_aspect_ratio || '3/2',
+              aspectRatio: content.media_aspect_ratio || '3/2',
               margin: (theme) =>
-                media_margin ? theme.spacing(Number(media_margin)) : undefined
-            }}
-          >
-            <Image
-              src={media?.filename}
-              layout={'fill'}
-              objectFit={object_fit || 'cover'}
-              objectPosition={object_position || 'center'}
-              sizes={media_max_width ? media_max_width + 'px' : '300px'}
-              alt={media?.alt || 'card image'}
-            />
-          </CardMedia>
-        )}
-        {!!body?.length && (
-          <CardContent
-            sx={{
-              position: 'relative',
-              padding: (theme) =>
-                content_padding
-                  ? theme.spacing(Number(content_padding))
+                content.media_margin
+                  ? theme.spacing(Number(content.media_margin))
                   : undefined
             }}
           >
-            {body?.map((blok) => (
+            <Image
+              src={content.media?.filename}
+              layout={'fill'}
+              objectFit={content.object_fit || 'cover'}
+              objectPosition={content.object_position || 'center'}
+              sizes={
+                content.media_max_width
+                  ? content.media_max_width + 'px'
+                  : '300px'
+              }
+              alt={content.media?.alt || 'card image'}
+            />
+          </CardMedia>
+        )}
+        {!!content.body?.length && (
+          <CardContent
+            sx={{
+              position: 'relative',
+              flexGrow: 1,
+              padding: (theme) =>
+                content.content_padding
+                  ? theme.spacing(Number(content.content_padding))
+                  : undefined
+            }}
+          >
+            {content.body?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />
             ))}
           </CardContent>
+        )}
+        {!!content.body_actions?.length && (
+          <MuiCardActions>
+            {content.body_actions?.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
+          </MuiCardActions>
         )}
         {hasHoverContent && (
           <Box
@@ -151,7 +147,7 @@ export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
               display: 'flex'
             }}
           >
-            {body_on_hover?.map((blok) => (
+            {content.body_on_hover?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />
             ))}
           </Box>

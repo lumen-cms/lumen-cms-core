@@ -406,45 +406,6 @@ export interface ButtonSpeechTextStoryblok {
 }
 
 export interface CardStoryblok {
-  link?:
-    | {
-        cached_url?: string;
-        linktype?: string;
-        [k: string]: any;
-      }
-    | {
-        id?: string;
-        cached_url?: string;
-        linktype?: "story";
-        [k: string]: any;
-      }
-    | {
-        url?: string;
-        cached_url?: string;
-        linktype?: "asset" | "url";
-        [k: string]: any;
-      }
-    | {
-        email?: string;
-        linktype?: "email";
-        [k: string]: any;
-      };
-  open_external?: boolean;
-  elevation?: number;
-  variant?: "" | "elevation" | "outlined";
-  square?: boolean;
-  full_height?: boolean;
-  content_padding?: number;
-  media?: {
-    alt?: string;
-    copyright?: string;
-    id: number;
-    filename: string;
-    name: string;
-    title?: string;
-  };
-  media_aspect_ratio?: string;
-  media_max_width?: number;
   body?: (
     | AccordionStoryblok
     | AuthContainerStoryblok
@@ -559,6 +520,7 @@ export interface CardStoryblok {
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
+  body_actions?: (HeadlineStoryblok | ButtonStoryblok | AvatarStoryblok | FlexRowStoryblok)[];
   body_on_hover?: (
     | AccordionStoryblok
     | AuthContainerStoryblok
@@ -616,6 +578,45 @@ export interface CardStoryblok {
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
+  link?:
+    | {
+        cached_url?: string;
+        linktype?: string;
+        [k: string]: any;
+      }
+    | {
+        id?: string;
+        cached_url?: string;
+        linktype?: "story";
+        [k: string]: any;
+      }
+    | {
+        url?: string;
+        cached_url?: string;
+        linktype?: "asset" | "url";
+        [k: string]: any;
+      }
+    | {
+        email?: string;
+        linktype?: "email";
+        [k: string]: any;
+      };
+  open_external?: boolean;
+  elevation?: number;
+  variant?: "" | "elevation" | "outlined";
+  square?: boolean;
+  full_height?: boolean;
+  content_padding?: number;
+  media?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  };
+  media_aspect_ratio?: string;
+  media_max_width?: number;
   background?: BackgroundStoryblok[];
   styles?: StylesStoryblok[];
   styles_mobile?: StylesStoryblok[];
@@ -1093,6 +1094,11 @@ export interface DialogStoryblok {
 }
 
 export interface DividerStoryblok {
+  thickness?: number;
+  alignment?: "" | "center" | "left" | "right";
+  orientation?: "" | "horizontal" | "vertical";
+  width?: number;
+  vertical_height?: number;
   theme_color?:
     | ""
     | "primary.main"
@@ -1122,10 +1128,6 @@ export interface DividerStoryblok {
     name?: string;
     [k: string]: any;
   };
-  thickness?: number;
-  alignment?: "" | "center" | "left" | "right";
-  orientation?: "" | "horizontal" | "vertical";
-  width?: number;
   _uid: string;
   component: "divider";
   [k: string]: any;
@@ -1517,6 +1519,7 @@ export interface FlexRowStoryblok {
   styles_mobile?: StylesStoryblok[];
   styles_tablet?: StylesStoryblok[];
   styles_hover?: StylesStoryblok[];
+  divider?: DividerStoryblok[];
   _uid: string;
   component: "flex_row";
   [k: string]: any;
