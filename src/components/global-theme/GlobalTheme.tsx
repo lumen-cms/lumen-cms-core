@@ -145,6 +145,11 @@ const GlobalTheme: FunctionComponent = ({ children }) => {
         }
       },
       palette: {
+        ...(settings.default_font_color && {
+          text: {
+            primary: settings.default_font_color
+          }
+        }),
         mode: mapThemeType[(settings.theme_base as string) || 'base'],
         primary: {
           main: (settings.theme_primary as string) || '#1769aa',
