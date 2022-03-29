@@ -4,7 +4,10 @@ import StorybookPresetsContainer from '../storybook/components/StorybookPresetsC
 import { findFirstPreset, findPresets } from '../storybook/findStorybookPresets'
 import { LmDividerProps } from '../components/divider/dividerTypes'
 import { LmDivider } from '../components/divider/Divider'
-import { ImageStoryblok } from '../typings/generated/components-schema'
+import {
+  HeadlineStoryblok,
+  ImageStoryblok
+} from '../typings/generated/components-schema'
 
 const COMPONENT_NAME = 'divider'
 
@@ -166,26 +169,42 @@ export const Examples = () => (
         }}
       />
     </div>
-    <div>
+    <div style={{ height: '50px' }}>
       <LmDivider
         content={{
           ...presetContent,
-          body: [
-            {
-              component: 'image',
-              _uid: '234241',
-              source:
-                'https://a.storyblok.com/f/57008/x/7dea868beb/cc_icons-badge_029.svg'
-            } as ImageStoryblok
-          ],
-          color: {
-            rgba: 'rgba(22,333,1212,1)'
-          },
-          size: 79,
-          width: 30,
-          thickness: 8
+          orientation: 'vertical'
         }}
       />
     </div>
   </>
 )
+
+export const ExampleWithText = Template.bind({})
+ExampleWithText.args = {
+  body: [
+    {
+      _uid: '123123',
+      component: 'headline',
+      text: 'Hello'
+    } as HeadlineStoryblok
+  ]
+}
+
+export const ExampleWithImage = Template.bind({})
+ExampleWithImage.args = {
+  alignment: 'left',
+  body: [
+    {
+      _uid: '123123',
+      component: 'image',
+      source:
+        'https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/airbnb.svg'
+    } as ImageStoryblok
+  ]
+}
+
+export const ExampleVertical = Template.bind({})
+ExampleVertical.args = {
+  orientation: 'vertical'
+}

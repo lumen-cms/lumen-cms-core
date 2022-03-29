@@ -175,9 +175,15 @@ const getKnobComponents = ({
         )
       }
     } else if (
-      ['bloks', 'section', 'tab', 'richtext', 'multilink', 'file'].includes(
-        type
-      )
+      [
+        'bloks',
+        'section',
+        'tab',
+        'richtext',
+        'multilink',
+        'file',
+        'datetime'
+      ].includes(type)
     ) {
       // do nothing
     } else {

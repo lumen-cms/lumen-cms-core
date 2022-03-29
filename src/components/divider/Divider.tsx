@@ -23,12 +23,18 @@ export function LmDivider({ content }: LmDividerProps): JSX.Element {
 
   const dividerProps: DividerProps = {
     orientation: content.orientation || 'horizontal',
+    flexItem: content.orientation === 'vertical',
     textAlign: content.alignment || 'center',
     sx: {
       maxWidth: content.width ? `${content.width}%` : undefined,
       marginX: content.width ? `auto` : undefined,
-      color: content.theme_color || customColor || undefined,
+      color: content.theme_color || customColor || 'grey.400',
       borderColor: 'currentColor',
+      '&.MuiDivider-vertical': {
+        height: content.width ? `${content.width}px` : '100%',
+        marginX: 'auto',
+        width: (content.thickness || 1) + 'px'
+      },
       '& .MuiDivider-wrapper': {
         display: 'flex'
       },
@@ -69,7 +75,7 @@ export function LmDivider({ content }: LmDividerProps): JSX.Element {
           />
         )}
         {content.body?.map((blok) => (
-          <LmComponentRender key={blok._uid} content={content} />
+          <LmComponentRender key={blok._uid} content={blok} />
         ))}
       </>
     )
