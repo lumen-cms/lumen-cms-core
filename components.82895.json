@@ -4054,28 +4054,165 @@
       "name": "divider",
       "display_name": null,
       "created_at": "2020-05-01T08:40:43.501Z",
-      "updated_at": "2020-07-09T03:23:44.540Z",
+      "updated_at": "2022-03-29T02:01:18.341Z",
       "id": 894836,
       "schema": {
+        "theme_color": {
+          "type": "option",
+          "pos": 0,
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "primary.main",
+              "name": "primary"
+            },
+            {
+              "value": "secondary.main",
+              "name": "secondary"
+            },
+            {
+              "value": "grey.main",
+              "name": "grey"
+            },
+            {
+              "value": "error.main",
+              "name": "error"
+            },
+            {
+              "value": "primary.light",
+              "name": "primary light"
+            },
+            {
+              "value": "primary.dark",
+              "name": "primary dark"
+            },
+            {
+              "value": "info.main",
+              "name": "info"
+            },
+            {
+              "value": "info.light",
+              "name": "info light"
+            },
+            {
+              "value": "info.dark",
+              "name": "info dark"
+            },
+            {
+              "value": "success.main",
+              "name": "success"
+            },
+            {
+              "value": "success.light",
+              "name": "success light"
+            },
+            {
+              "value": "success.dark",
+              "name": "success dark"
+            },
+            {
+              "value": "warning.main",
+              "name": "warning"
+            },
+            {
+              "value": "warning.light",
+              "name": "warning light"
+            },
+            {
+              "value": "warning.dark",
+              "name": "warning dark"
+            },
+            {
+              "value": "error.light",
+              "name": "error light"
+            },
+            {
+              "value": "error.dark",
+              "name": "error dark"
+            }
+          ]
+        },
         "color": {
           "type": "custom",
           "field_type": "vue-color-picker",
           "options": [],
-          "pos": 0
-        },
-        "width": {
-          "type": "number",
-          "description": "Width in % of the current available space. Default is 100%",
           "pos": 1
+        },
+        "body": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "headline",
+            "avatar",
+            "icon",
+            "image"
+          ],
+          "pos": 2
+        },
+        "size": {
+          "type": "number",
+          "pos": 3,
+          "display_name": "Icon Size"
         },
         "icon": {
           "type": "custom",
           "field_type": "material-icons-selector",
           "options": [],
-          "pos": 2
+          "pos": 4
         },
-        "size": {
-          "type": "number"
+        "thickness": {
+          "type": "number",
+          "pos": 5
+        },
+        "alignment": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "center",
+              "name": "center"
+            },
+            {
+              "value": "left",
+              "name": "left"
+            },
+            {
+              "value": "right",
+              "name": "right"
+            }
+          ],
+          "pos": 6
+        },
+        "orientation": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "horizontal",
+              "name": "horizontal"
+            },
+            {
+              "value": "vertical",
+              "name": "vertical"
+            }
+          ],
+          "pos": 7
+        },
+        "width": {
+          "type": "number",
+          "description": "Width in % of the current available space. Default is 100%",
+          "pos": 8
+        },
+        "tab-d2e4bb52-9022-4e25-bfac-50e3bb0c891b": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "thickness",
+            "width",
+            "orientation",
+            "alignment"
+          ],
+          "pos": 9
         }
       },
       "image": null,

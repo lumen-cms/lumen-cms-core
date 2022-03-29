@@ -4,6 +4,7 @@ import StorybookPresetsContainer from '../storybook/components/StorybookPresetsC
 import { findFirstPreset, findPresets } from '../storybook/findStorybookPresets'
 import { LmDividerProps } from '../components/divider/dividerTypes'
 import { LmDivider } from '../components/divider/Divider'
+import { ImageStoryblok } from '../typings/generated/components-schema'
 
 const COMPONENT_NAME = 'divider'
 
@@ -43,9 +44,39 @@ export const Examples = () => (
       <LmDivider
         content={{
           ...presetContent,
+          size: 24,
+          width: 70
+        }}
+      />
+    </div>
+    <div>
+      <LmDivider
+        content={{
+          ...presetContent,
+          size: 24,
+          width: 70,
+          thickness: 5
+        }}
+      />
+    </div>
+    <div>
+      <LmDivider
+        content={{
+          ...presetContent,
           icon: { name: 'chevron_down' },
           size: 24,
           width: 70
+        }}
+      />
+    </div>
+    <div>
+      <LmDivider
+        content={{
+          ...presetContent,
+          icon: { name: 'chevron_down' },
+          size: 24,
+          width: 70,
+          thickness: 5
         }}
       />
     </div>
@@ -116,6 +147,43 @@ export const Examples = () => (
           },
           size: 79,
           width: 30
+        }}
+      />
+    </div>
+    <div>
+      <LmDivider
+        content={{
+          ...presetContent,
+          icon: {
+            name: 'chevron_down'
+          },
+          color: {
+            rgba: 'rgba(22,333,1212,1)'
+          },
+          size: 79,
+          width: 30,
+          thickness: 8
+        }}
+      />
+    </div>
+    <div>
+      <LmDivider
+        content={{
+          ...presetContent,
+          body: [
+            {
+              component: 'image',
+              _uid: '234241',
+              source:
+                'https://a.storyblok.com/f/57008/x/7dea868beb/cc_icons-badge_029.svg'
+            } as ImageStoryblok
+          ],
+          color: {
+            rgba: 'rgba(22,333,1212,1)'
+          },
+          size: 79,
+          width: 30,
+          thickness: 8
         }}
       />
     </div>

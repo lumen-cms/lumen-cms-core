@@ -1093,16 +1093,39 @@ export interface DialogStoryblok {
 }
 
 export interface DividerStoryblok {
+  theme_color?:
+    | ""
+    | "primary.main"
+    | "secondary.main"
+    | "grey.main"
+    | "error.main"
+    | "primary.light"
+    | "primary.dark"
+    | "info.main"
+    | "info.light"
+    | "info.dark"
+    | "success.main"
+    | "success.light"
+    | "success.dark"
+    | "warning.main"
+    | "warning.light"
+    | "warning.dark"
+    | "error.light"
+    | "error.dark";
   color?: {
     rgba?: string;
     [k: string]: any;
   };
-  width?: number;
+  body?: (HeadlineStoryblok | AvatarStoryblok | IconStoryblok | ImageStoryblok)[];
+  size?: number;
   icon?: {
     name?: string;
     [k: string]: any;
   };
-  size?: number;
+  thickness?: number;
+  alignment?: "" | "center" | "left" | "right";
+  orientation?: "" | "horizontal" | "vertical";
+  width?: number;
   _uid: string;
   component: "divider";
   [k: string]: any;
