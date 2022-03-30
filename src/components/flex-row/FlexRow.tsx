@@ -17,6 +17,13 @@ export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
   return (
     <Stack
       flexWrap={content.flex_wrap || 'wrap'}
+      sx={{
+        ...(content.column_mobile_only && {
+          '& .MuiDivider-root': {
+            display: ['none', 'flex']
+          }
+        })
+      }}
       direction={{
         xs: content.column_mobile_only ? 'column' : direction,
         sm: direction
