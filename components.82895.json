@@ -12480,7 +12480,7 @@
       "name": "rich_text_editor",
       "display_name": null,
       "created_at": "2020-05-01T08:40:36.518Z",
-      "updated_at": "2022-03-28T02:36:59.281Z",
+      "updated_at": "2022-03-30T00:37:22.373Z",
       "id": 894802,
       "schema": {
         "custom_color": {
@@ -12693,48 +12693,40 @@
           "customize_toolbar": true,
           "style_options": [
             {
+              "value": "text-primary-secondary",
+              "name": "text-light"
+            },
+            {
               "value": "text-primary",
               "name": "text-primary"
+            },
+            {
+              "value": "text-secondary",
+              "name": "text-secondary"
+            },
+            {
+              "value": "text-muted",
+              "name": "text-muted"
+            },
+            {
+              "value": "text-success",
+              "name": "text-success"
+            },
+            {
+              "value": "text-info",
+              "name": "text-info"
             },
             {
               "value": "text-warning",
               "name": "text-warning"
             },
             {
+              "value": "text-error",
+              "name": "text-error"
+            },
+            {
               "value": "badge-pill badge-primary",
               "name": "Primary Badge-Pill"
-            },
-            {
-              "value": "mdc-typography--body2",
-              "name": "body-2"
-            },
-            {
-              "value": "mdc-typography--body1",
-              "name": "body-1"
-            },
-            {
-              "value": "mdc-typography--heading1",
-              "name": "heading-1"
-            },
-            {
-              "value": "mdc-typography--heading2",
-              "name": "heading-2"
-            },
-            {
-              "value": "mdc-typography--heading3",
-              "name": "heading-3"
-            },
-            {
-              "value": "mdc-typography--heading4",
-              "name": "heading-4"
-            },
-            {
-              "value": "mdc-typography--heading5",
-              "name": "heading-5"
-            },
-            {
-              "value": "mdc-typography--heading6",
-              "name": "heading-6"
             },
             {
               "value": "badge-pill badge-secondary",
@@ -12899,19 +12891,9 @@
       "name": "row",
       "display_name": null,
       "created_at": "2020-05-01T08:40:32.033Z",
-      "updated_at": "2022-03-18T03:26:18.650Z",
+      "updated_at": "2022-03-30T08:17:09.440Z",
       "id": 894780,
       "schema": {
-        "background": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "background"
-          ],
-          "maximum": "1",
-          "pos": 0,
-          "component_group_whitelist": []
-        },
         "spacing": {
           "type": "option",
           "use_uuid": true,
@@ -12957,7 +12939,7 @@
               "name": "10"
             }
           ],
-          "pos": 1
+          "pos": 0
         },
         "justify": {
           "type": "option",
@@ -12988,7 +12970,7 @@
               "name": "space around"
             }
           ],
-          "pos": 2
+          "pos": 1
         },
         "align_content": {
           "type": "option",
@@ -13019,7 +13001,7 @@
               "name": "stretch"
             }
           ],
-          "pos": 3,
+          "pos": 2,
           "description": "Needs a defined height"
         },
         "align_items": {
@@ -13047,7 +13029,7 @@
               "name": "stretch"
             }
           ],
-          "pos": 4
+          "pos": 3
         },
         "direction": {
           "type": "option",
@@ -13070,11 +13052,50 @@
               "name": "column reverse"
             }
           ],
+          "pos": 4
+        },
+        "flex_wrap": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "wrap",
+              "name": "wrap"
+            },
+            {
+              "value": "nowrap",
+              "name": "nowrap"
+            },
+            {
+              "value": "wrap-reverse",
+              "name": "wrap-reverse"
+            }
+          ],
           "pos": 5
+        },
+        "reverse_on_mobile": {
+          "type": "boolean",
+          "description": "This option use column reverse for mobile view.",
+          "pos": 7
+        },
+        "reverse_on_tablet": {
+          "type": "boolean",
+          "description": "This option use column reverse for tablet view.",
+          "pos": 8
+        },
+        "background": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "background"
+          ],
+          "maximum": "1",
+          "pos": 9,
+          "component_group_whitelist": []
         },
         "body": {
           "type": "bloks",
-          "pos": 6,
+          "pos": 10,
           "restrict_components": true,
           "component_whitelist": [
             "column"
@@ -13091,9 +13112,11 @@
             "justify",
             "spacing",
             "reverse_on_mobile",
-            "reverse_on_tablet"
+            "reverse_on_tablet",
+            "flex_wrap",
+            "flex_wrap_mobile"
           ],
-          "pos": 7
+          "pos": 11
         },
         "tab-e78d6d2b-9e75-4eca-9404-0b7c9f562efd": {
           "type": "tab",
@@ -13105,15 +13128,7 @@
             "styles_tablet",
             "styles_hover"
           ],
-          "pos": 8
-        },
-        "reverse_on_mobile": {
-          "type": "boolean",
-          "description": "This option use column reverse for mobile view."
-        },
-        "reverse_on_tablet": {
-          "type": "boolean",
-          "description": "This option use column reverse for tablet view."
+          "pos": 12
         },
         "styles": {
           "type": "bloks",
@@ -13121,7 +13136,8 @@
           "restrict_components": true,
           "component_whitelist": [
             "styles"
-          ]
+          ],
+          "pos": 13
         },
         "styles_mobile": {
           "type": "bloks",
@@ -13130,7 +13146,8 @@
           "restrict_components": true,
           "component_whitelist": [
             "styles"
-          ]
+          ],
+          "pos": 14
         },
         "styles_tablet": {
           "type": "bloks",
@@ -13138,7 +13155,8 @@
           "restrict_components": true,
           "component_whitelist": [
             "styles"
-          ]
+          ],
+          "pos": 15
         },
         "styles_hover": {
           "type": "bloks",
@@ -13146,7 +13164,8 @@
           "component_whitelist": [
             "styles"
           ],
-          "maximum": "1"
+          "maximum": "1",
+          "pos": 16
         }
       },
       "image": null,

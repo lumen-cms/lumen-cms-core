@@ -3554,15 +3554,16 @@ export interface RichTextEditorStoryblok {
 }
 
 export interface RowStoryblok {
-  background?: BackgroundStoryblok[];
   spacing?: "" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
   justify?: "" | "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "space-around";
   align_content?: "" | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
   align_items?: "" | "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
   direction?: "" | "row" | "column" | "row-reverse" | "column-reverse";
-  body?: ColumnStoryblok[];
+  flex_wrap?: "" | "wrap" | "nowrap" | "wrap-reverse";
   reverse_on_mobile?: boolean;
   reverse_on_tablet?: boolean;
+  background?: BackgroundStoryblok[];
+  body?: ColumnStoryblok[];
   styles?: StylesStoryblok[];
   styles_mobile?: StylesStoryblok[];
   styles_tablet?: StylesStoryblok[];

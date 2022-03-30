@@ -82,7 +82,6 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
     >
       <Grid
         container
-        // gap={spacing}
         spacing={spacing}
         alignItems={content.align_items ? content.align_items : undefined}
         direction={direction || undefined}
@@ -90,6 +89,7 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
           [classes.xsColumnReverse]: content.reverse_on_mobile,
           [classes.smColumnReverse]: content.reverse_on_tablet
         })}
+        wrap={content.flex_wrap || undefined}
         justifyContent={content.justify ? content.justify : undefined}
         alignContent={content.align_content ? content.align_content : undefined}
       >
