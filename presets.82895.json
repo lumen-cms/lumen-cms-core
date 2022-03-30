@@ -23,7 +23,10 @@
       "space_id": 82895,
       "created_at": "2021-04-23T02:06:49.704Z",
       "updated_at": "2021-04-23T02:06:49.704Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 986306,
@@ -58,7 +61,10 @@
       "space_id": 82895,
       "created_at": "2021-04-23T02:08:18.303Z",
       "updated_at": "2021-04-23T02:08:18.303Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 986305,
@@ -102,7 +108,10 @@
       "space_id": 82895,
       "created_at": "2021-04-23T02:07:42.233Z",
       "updated_at": "2021-04-23T02:07:42.233Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703411,
@@ -630,7 +639,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:46:24.981Z",
       "updated_at": "2022-03-27T07:11:09.144Z",
-      "image": "//a.storyblok.com/f/82895/x/4ba4c05b3b/2-pop-up-columns-about-us-sample.PNG"
+      "image": "//a.storyblok.com/f/82895/x/4ba4c05b3b/2-pop-up-columns-about-us-sample.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703380,
@@ -801,7 +813,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:31:03.396Z",
       "updated_at": "2020-09-02T07:44:38.366Z",
-      "image": "//a.storyblok.com/f/82895/x/7579f7e377/avatar-description-about-me-sample.PNG"
+      "image": "//a.storyblok.com/f/82895/x/7579f7e377/avatar-description-about-me-sample.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703383,
@@ -1209,7 +1224,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:33:01.485Z",
       "updated_at": "2020-10-28T06:17:14.072Z",
-      "image": "//a.storyblok.com/f/82895/x/bf1aa12a8d/avatar-text-introduction.PNG"
+      "image": "//a.storyblok.com/f/82895/x/bf1aa12a8d/avatar-text-introduction.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 717843,
@@ -1653,7 +1671,10 @@
       "space_id": 82895,
       "created_at": "2020-09-09T06:39:48.517Z",
       "updated_at": "2020-09-09T06:40:55.781Z",
-      "image": "//a.storyblok.com/f/82895/x/82d0b71e90/abme.PNG"
+      "image": "//a.storyblok.com/f/82895/x/82d0b71e90/abme.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703404,
@@ -1837,7 +1858,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:43:11.700Z",
       "updated_at": "2020-09-02T07:44:32.847Z",
-      "image": "//a.storyblok.com/f/82895/x/84966d55b6/simple-animated-texts-who-are-we-sample.PNG"
+      "image": "//a.storyblok.com/f/82895/x/84966d55b6/simple-animated-texts-who-are-we-sample.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703374,
@@ -2106,7 +2130,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:27:01.590Z",
       "updated_at": "2020-09-02T07:44:26.636Z",
-      "image": "//a.storyblok.com/f/82895/x/52f4eab659/about-us-1.PNG"
+      "image": "//a.storyblok.com/f/82895/x/52f4eab659/about-us-1.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 766973,
@@ -2231,7 +2258,10 @@
       "space_id": 82895,
       "created_at": "2020-10-28T07:20:17.572Z",
       "updated_at": "2020-10-28T07:22:48.210Z",
-      "image": "//a.storyblok.com/f/82895/x/4f5dd1f900/tb.PNG"
+      "image": "//a.storyblok.com/f/82895/x/4f5dd1f900/tb.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1131121,
@@ -2334,7 +2364,10 @@
       "space_id": 82895,
       "created_at": "2021-08-30T04:08:46.152Z",
       "updated_at": "2021-08-30T04:08:46.152Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703368,
@@ -2609,7 +2642,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:21:08.344Z",
       "updated_at": "2020-09-02T08:17:58.992Z",
-      "image": "//a.storyblok.com/f/82895/x/250e709cf7/4-columns-cards.PNG"
+      "image": "//a.storyblok.com/f/82895/x/250e709cf7/4-columns-cards.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703397,
@@ -2773,7 +2809,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:40:07.738Z",
       "updated_at": "2020-09-02T08:17:32.361Z",
-      "image": "//a.storyblok.com/f/82895/x/cb20606034/banner-discount-sample-button.PNG"
+      "image": "//a.storyblok.com/f/82895/x/cb20606034/banner-discount-sample-button.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 752632,
@@ -2995,7 +3034,10 @@
       "space_id": 82895,
       "created_at": "2020-10-14T05:44:02.606Z",
       "updated_at": "2020-10-14T05:45:13.910Z",
-      "image": "//a.storyblok.com/f/82895/x/d11a6bf143/cl-1.PNG"
+      "image": "//a.storyblok.com/f/82895/x/d11a6bf143/cl-1.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 706428,
@@ -3136,7 +3178,10 @@
       "space_id": 82895,
       "created_at": "2020-08-27T06:26:20.819Z",
       "updated_at": "2020-10-28T06:25:46.004Z",
-      "image": "//a.storyblok.com/f/82895/x/63cade9821/feature-cards.PNG"
+      "image": "//a.storyblok.com/f/82895/x/63cade9821/feature-cards.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 766974,
@@ -3335,7 +3380,10 @@
       "space_id": 82895,
       "created_at": "2020-10-28T07:23:52.814Z",
       "updated_at": "2020-10-28T07:24:32.097Z",
-      "image": "//a.storyblok.com/f/82895/x/ab04f00d8c/floatingbox.PNG"
+      "image": "//a.storyblok.com/f/82895/x/ab04f00d8c/floatingbox.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703408,
@@ -3552,7 +3600,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:44:34.578Z",
       "updated_at": "2020-09-02T08:17:38.889Z",
-      "image": "//a.storyblok.com/f/82895/x/f4c8d367fc/floating-box.PNG"
+      "image": "//a.storyblok.com/f/82895/x/f4c8d367fc/floating-box.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768195,
@@ -3597,7 +3648,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T03:23:25.475Z",
       "updated_at": "2020-10-29T03:24:54.751Z",
-      "image": "//a.storyblok.com/f/82895/x/4a6a148b13/iggrids.PNG"
+      "image": "//a.storyblok.com/f/82895/x/4a6a148b13/iggrids.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 766975,
@@ -3733,7 +3787,10 @@
       "space_id": 82895,
       "created_at": "2020-10-28T07:26:34.767Z",
       "updated_at": "2020-10-29T02:52:09.103Z",
-      "image": "//a.storyblok.com/f/82895/x/4fd1ce830c/neatcl.PNG"
+      "image": "//a.storyblok.com/f/82895/x/4fd1ce830c/neatcl.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 780021,
@@ -3990,7 +4047,10 @@
       "space_id": 82895,
       "created_at": "2020-11-10T07:59:09.044Z",
       "updated_at": "2020-11-10T07:59:09.044Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768189,
@@ -4132,7 +4192,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T02:51:10.940Z",
       "updated_at": "2020-10-29T02:51:31.015Z",
-      "image": "//a.storyblok.com/f/82895/x/716cea8780/cardsshop.PNG"
+      "image": "//a.storyblok.com/f/82895/x/716cea8780/cardsshop.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703406,
@@ -4768,7 +4831,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:43:54.934Z",
       "updated_at": "2020-09-04T07:14:39.840Z",
-      "image": "//a.storyblok.com/f/82895/x/c5f961ce2a/6-points-button.PNG"
+      "image": "//a.storyblok.com/f/82895/x/c5f961ce2a/6-points-button.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 726397,
@@ -4934,7 +5000,10 @@
       "space_id": 82895,
       "created_at": "2020-09-18T06:35:59.541Z",
       "updated_at": "2020-10-29T02:49:53.046Z",
-      "image": "//a.storyblok.com/f/82895/x/30ed95a3ef/cardsshop.PNG"
+      "image": "//a.storyblok.com/f/82895/x/30ed95a3ef/cardsshop.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 766972,
@@ -5147,7 +5216,10 @@
       "space_id": 82895,
       "created_at": "2020-10-28T07:12:48.704Z",
       "updated_at": "2020-10-28T07:14:53.449Z",
-      "image": "//a.storyblok.com/f/82895/x/2640b83505/dbteaser.PNG"
+      "image": "//a.storyblok.com/f/82895/x/2640b83505/dbteaser.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1119114,
@@ -5268,7 +5340,10 @@
       "space_id": 82895,
       "created_at": "2021-08-21T02:39:00.187Z",
       "updated_at": "2021-08-21T02:39:00.187Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703354,
@@ -6330,7 +6405,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:14:15.935Z",
       "updated_at": "2020-08-24T06:14:15.935Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 984773,
@@ -6433,7 +6511,10 @@
       "space_id": 82895,
       "created_at": "2021-04-22T02:06:57.350Z",
       "updated_at": "2021-04-22T02:06:57.350Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1119115,
@@ -6497,7 +6578,10 @@
       "space_id": 82895,
       "created_at": "2021-08-21T02:39:23.670Z",
       "updated_at": "2021-08-21T02:39:23.670Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 984769,
@@ -6522,7 +6606,10 @@
       "space_id": 82895,
       "created_at": "2021-04-22T01:16:27.764Z",
       "updated_at": "2021-04-22T01:29:56.798Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709114,
@@ -7043,7 +7130,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T04:32:48.335Z",
       "updated_at": "2020-08-31T04:33:05.768Z",
-      "image": "//a.storyblok.com/f/82895/x/68d6b391ee/black-blue-toolbar.PNG"
+      "image": "//a.storyblok.com/f/82895/x/68d6b391ee/black-blue-toolbar.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709110,
@@ -7616,7 +7706,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T03:08:17.369Z",
       "updated_at": "2020-08-31T03:12:13.954Z",
-      "image": "//a.storyblok.com/f/82895/x/a5778686ec/black-tb.PNG"
+      "image": "//a.storyblok.com/f/82895/x/a5778686ec/black-tb.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709113,
@@ -7832,7 +7925,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T04:31:54.778Z",
       "updated_at": "2020-08-31T04:32:08.485Z",
-      "image": "//a.storyblok.com/f/82895/x/f8e9bdd479/blue-tb.PNG"
+      "image": "//a.storyblok.com/f/82895/x/f8e9bdd479/blue-tb.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703355,
@@ -9417,7 +9513,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:14:41.467Z",
       "updated_at": "2020-08-24T06:14:41.467Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 983192,
@@ -9531,7 +9630,10 @@
       "space_id": 82895,
       "created_at": "2021-04-21T06:28:12.240Z",
       "updated_at": "2021-04-21T06:28:12.240Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 983193,
@@ -9659,7 +9761,10 @@
       "space_id": 82895,
       "created_at": "2021-04-21T06:28:52.555Z",
       "updated_at": "2021-04-21T06:28:52.555Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1445972,
@@ -9914,7 +10019,10 @@
       "space_id": 82895,
       "created_at": "2022-03-28T05:04:48.613Z",
       "updated_at": "2022-03-28T05:04:48.613Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703403,
@@ -10303,7 +10411,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:42:51.309Z",
       "updated_at": "2020-08-25T06:08:42.371Z",
-      "image": "//a.storyblok.com/f/82895/x/774d4ba6bc/clean-slider-title-bottom-centered.PNG"
+      "image": "//a.storyblok.com/f/82895/x/774d4ba6bc/clean-slider-title-bottom-centered.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 670995,
@@ -10327,7 +10438,10 @@
       "space_id": 82895,
       "created_at": "2020-07-17T00:52:56.966Z",
       "updated_at": "2021-08-19T02:21:47.622Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1110161,
@@ -10450,7 +10564,10 @@
       "space_id": 82895,
       "created_at": "2021-08-13T03:07:26.223Z",
       "updated_at": "2021-08-13T03:08:36.673Z",
-      "image": "//a.storyblok.com/f/82895/x/c464dc4655/screenshot-2021-08-13-at-11-07-51.png"
+      "image": "//a.storyblok.com/f/82895/x/c464dc4655/screenshot-2021-08-13-at-11-07-51.png",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 737354,
@@ -11058,7 +11175,10 @@
       "space_id": 82895,
       "created_at": "2020-09-29T01:32:56.937Z",
       "updated_at": "2020-10-15T08:30:07.772Z",
-      "image": "//a.storyblok.com/f/82895/x/d74ee87613/yeah.PNG"
+      "image": "//a.storyblok.com/f/82895/x/d74ee87613/yeah.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703370,
@@ -11758,7 +11878,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:22:41.490Z",
       "updated_at": "2020-10-15T08:31:30.525Z",
-      "image": "//a.storyblok.com/f/82895/x/03c0c7f74a/1-picture-3-brief-descriptions.PNG"
+      "image": "//a.storyblok.com/f/82895/x/03c0c7f74a/1-picture-3-brief-descriptions.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703395,
@@ -12217,7 +12340,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:38:49.210Z",
       "updated_at": "2020-09-02T07:44:03.751Z",
-      "image": "//a.storyblok.com/f/82895/x/ae5ec48987/2-columns-blog-review-dark.PNG"
+      "image": "//a.storyblok.com/f/82895/x/ae5ec48987/2-columns-blog-review-dark.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703379,
@@ -13143,7 +13269,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:30:38.635Z",
       "updated_at": "2020-10-15T08:32:30.009Z",
-      "image": "//a.storyblok.com/f/82895/x/29d8664957/2-columns-down-blogger-style-preview.PNG"
+      "image": "//a.storyblok.com/f/82895/x/29d8664957/2-columns-down-blogger-style-preview.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703401,
@@ -13850,7 +13979,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:41:54.649Z",
       "updated_at": "2020-09-02T07:43:57.264Z",
-      "image": "//a.storyblok.com/f/82895/x/103e010f61/2-columns-menu.PNG"
+      "image": "//a.storyblok.com/f/82895/x/103e010f61/2-columns-menu.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703382,
@@ -14469,7 +14601,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:32:43.556Z",
       "updated_at": "2020-09-02T07:43:50.871Z",
-      "image": "//a.storyblok.com/f/82895/x/643d7ad9be/2-row-blogger-introduction-minimalist.PNG"
+      "image": "//a.storyblok.com/f/82895/x/643d7ad9be/2-row-blogger-introduction-minimalist.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703376,
@@ -14901,7 +15036,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:28:07.567Z",
       "updated_at": "2020-09-02T07:43:44.580Z",
-      "image": "//a.storyblok.com/f/82895/x/087a4ddd61/3-columns-descriptions-with-icons-light.PNG"
+      "image": "//a.storyblok.com/f/82895/x/087a4ddd61/3-columns-descriptions-with-icons-light.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703389,
@@ -15420,7 +15558,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:36:17.502Z",
       "updated_at": "2020-10-15T08:34:22.524Z",
-      "image": "//a.storyblok.com/f/82895/x/4343be9b0d/3-columns-descriptions-with-icons-alt.PNG"
+      "image": "//a.storyblok.com/f/82895/x/4343be9b0d/3-columns-descriptions-with-icons-alt.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703381,
@@ -15870,7 +16011,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:31:44.834Z",
       "updated_at": "2020-09-02T07:43:31.717Z",
-      "image": "//a.storyblok.com/f/82895/x/2a5afe637a/3-columns-descriptions-with-icons.PNG"
+      "image": "//a.storyblok.com/f/82895/x/2a5afe637a/3-columns-descriptions-with-icons.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 704302,
@@ -16578,7 +16722,10 @@
       "space_id": 82895,
       "created_at": "2020-08-25T03:33:33.931Z",
       "updated_at": "2020-09-02T07:43:26.007Z",
-      "image": "//a.storyblok.com/f/82895/x/598e7d6946/3-columns-preview.PNG"
+      "image": "//a.storyblok.com/f/82895/x/598e7d6946/3-columns-preview.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703409,
@@ -17219,7 +17366,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:45:26.006Z",
       "updated_at": "2020-09-02T07:43:18.207Z",
-      "image": "//a.storyblok.com/f/82895/x/b55ee9958f/3-columns-preview-2.PNG"
+      "image": "//a.storyblok.com/f/82895/x/b55ee9958f/3-columns-preview-2.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703400,
@@ -17396,7 +17546,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:41:24.644Z",
       "updated_at": "2020-09-02T07:43:10.643Z",
-      "image": "//a.storyblok.com/f/82895/x/7a6b98f07f/3-images-preview.PNG"
+      "image": "//a.storyblok.com/f/82895/x/7a6b98f07f/3-images-preview.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 706429,
@@ -18216,7 +18369,10 @@
       "space_id": 82895,
       "created_at": "2020-08-27T06:37:25.528Z",
       "updated_at": "2020-09-02T07:43:03.846Z",
-      "image": "//a.storyblok.com/f/82895/x/dc740b3233/6-features-with-icons-and-image.PNG"
+      "image": "//a.storyblok.com/f/82895/x/dc740b3233/6-features-with-icons-and-image.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 721545,
@@ -18484,7 +18640,10 @@
       "space_id": 82895,
       "created_at": "2020-09-13T05:20:34.323Z",
       "updated_at": "2020-09-13T05:22:03.608Z",
-      "image": "//a.storyblok.com/f/82895/x/a19380772e/accordion1.PNG"
+      "image": "//a.storyblok.com/f/82895/x/a19380772e/accordion1.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 767096,
@@ -18623,7 +18782,10 @@
       "space_id": 82895,
       "created_at": "2020-10-28T08:48:52.919Z",
       "updated_at": "2020-10-28T08:52:10.496Z",
-      "image": "//a.storyblok.com/f/82895/x/2cfa1d0234/blackdb.PNG"
+      "image": "//a.storyblok.com/f/82895/x/2cfa1d0234/blackdb.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 767134,
@@ -18856,7 +19018,10 @@
       "space_id": 82895,
       "created_at": "2020-10-28T08:55:00.971Z",
       "updated_at": "2020-10-28T08:55:17.047Z",
-      "image": "//a.storyblok.com/f/82895/x/d33d31755a/blog-preview.PNG"
+      "image": "//a.storyblok.com/f/82895/x/d33d31755a/blog-preview.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 726285,
@@ -19010,7 +19175,10 @@
       "space_id": 82895,
       "created_at": "2020-09-18T03:27:15.233Z",
       "updated_at": "2020-09-18T03:29:26.061Z",
-      "image": "//a.storyblok.com/f/82895/x/702992ee14/bouncycards.PNG"
+      "image": "//a.storyblok.com/f/82895/x/702992ee14/bouncycards.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768192,
@@ -19141,7 +19309,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T02:59:11.015Z",
       "updated_at": "2020-10-29T02:59:11.015Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768190,
@@ -19500,7 +19671,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T02:55:00.632Z",
       "updated_at": "2020-10-29T02:55:19.045Z",
-      "image": "//a.storyblok.com/f/82895/x/eaf10f87b9/briefdescleft.PNG"
+      "image": "//a.storyblok.com/f/82895/x/eaf10f87b9/briefdescleft.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768191,
@@ -19852,7 +20026,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T02:55:54.448Z",
       "updated_at": "2020-10-29T02:56:25.896Z",
-      "image": "//a.storyblok.com/f/82895/x/ee6705d039/briefdescright.PNG"
+      "image": "//a.storyblok.com/f/82895/x/ee6705d039/briefdescright.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703393,
@@ -20385,7 +20562,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:38:08.313Z",
       "updated_at": "2020-09-02T07:42:56.963Z",
-      "image": "//a.storyblok.com/f/82895/x/2e5fe7f260/compact-header-bg-picture-3-columns-descriptions.PNG"
+      "image": "//a.storyblok.com/f/82895/x/2e5fe7f260/compact-header-bg-picture-3-columns-descriptions.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768194,
@@ -20526,7 +20706,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T03:22:04.986Z",
       "updated_at": "2020-10-29T03:22:27.947Z",
-      "image": "//a.storyblok.com/f/82895/x/9ba66935f3/darktransparentdescbox.PNG"
+      "image": "//a.storyblok.com/f/82895/x/9ba66935f3/darktransparentdescbox.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 766984,
@@ -20665,7 +20848,10 @@
       "space_id": 82895,
       "created_at": "2020-10-28T08:17:13.364Z",
       "updated_at": "2020-10-28T08:17:38.391Z",
-      "image": "//a.storyblok.com/f/82895/x/0f818f1501/descriptionbox.PNG"
+      "image": "//a.storyblok.com/f/82895/x/0f818f1501/descriptionbox.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 712481,
@@ -20927,7 +21113,10 @@
       "space_id": 82895,
       "created_at": "2020-09-03T03:36:53.017Z",
       "updated_at": "2020-09-04T03:03:33.119Z",
-      "image": "//a.storyblok.com/f/82895/x/a931a6423b/simplefaqa.PNG"
+      "image": "//a.storyblok.com/f/82895/x/a931a6423b/simplefaqa.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768199,
@@ -21334,7 +21523,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T03:54:32.865Z",
       "updated_at": "2020-10-29T03:55:29.865Z",
-      "image": "//a.storyblok.com/f/82895/x/5a7099656f/iconsdesc.PNG"
+      "image": "//a.storyblok.com/f/82895/x/5a7099656f/iconsdesc.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768200,
@@ -21741,7 +21933,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T03:55:49.833Z",
       "updated_at": "2020-10-29T03:56:03.912Z",
-      "image": "//a.storyblok.com/f/82895/x/5227cad1f6/iconsdescdark.PNG"
+      "image": "//a.storyblok.com/f/82895/x/5227cad1f6/iconsdescdark.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768228,
@@ -22170,7 +22365,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T04:54:30.413Z",
       "updated_at": "2020-10-29T04:56:16.812Z",
-      "image": "//a.storyblok.com/f/82895/x/c22c1957cb/iconstext.PNG"
+      "image": "//a.storyblok.com/f/82895/x/c22c1957cb/iconstext.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 719214,
@@ -22354,7 +22552,10 @@
       "space_id": 82895,
       "created_at": "2020-09-10T08:52:45.228Z",
       "updated_at": "2020-10-29T02:49:45.036Z",
-      "image": "//a.storyblok.com/f/82895/x/59abb0e354/imagelist.PNG"
+      "image": "//a.storyblok.com/f/82895/x/59abb0e354/imagelist.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768188,
@@ -22515,7 +22716,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T02:46:10.933Z",
       "updated_at": "2020-10-29T02:47:18.214Z",
-      "image": "//a.storyblok.com/f/82895/x/d13b8b1dd0/imglistprice.PNG"
+      "image": "//a.storyblok.com/f/82895/x/d13b8b1dd0/imglistprice.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703387,
@@ -22634,7 +22838,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:34:26.483Z",
       "updated_at": "2020-09-04T03:04:11.517Z",
-      "image": "//a.storyblok.com/f/82895/x/4d6534527e/instagram-grids.PNG"
+      "image": "//a.storyblok.com/f/82895/x/4d6534527e/instagram-grids.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703384,
@@ -22827,7 +23034,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:33:19.640Z",
       "updated_at": "2020-10-28T06:18:03.483Z",
-      "image": "//a.storyblok.com/f/82895/x/590262004c/minimalist-blog-teaser.PNG"
+      "image": "//a.storyblok.com/f/82895/x/590262004c/minimalist-blog-teaser.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768186,
@@ -23033,7 +23243,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T02:40:37.647Z",
       "updated_at": "2020-10-29T02:40:53.932Z",
-      "image": "//a.storyblok.com/f/82895/x/3ed4429fad/blogteaserminimalist.PNG"
+      "image": "//a.storyblok.com/f/82895/x/3ed4429fad/blogteaserminimalist.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 989714,
@@ -25041,7 +25254,10 @@
       "space_id": 82895,
       "created_at": "2021-04-26T08:48:00.962Z",
       "updated_at": "2021-04-26T08:49:21.173Z",
-      "image": "//a.storyblok.com/f/82895/x/29f3ccb794/screenshot-2021-04-26-at-16-48-47.png"
+      "image": "//a.storyblok.com/f/82895/x/29f3ccb794/screenshot-2021-04-26-at-16-48-47.png",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768185,
@@ -25480,7 +25696,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T02:32:17.641Z",
       "updated_at": "2020-10-29T02:32:40.928Z",
-      "image": "//a.storyblok.com/f/82895/x/0586c9dd8b/neatreviewbox.PNG"
+      "image": "//a.storyblok.com/f/82895/x/0586c9dd8b/neatreviewbox.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 752633,
@@ -28098,7 +28317,10 @@
       "space_id": 82895,
       "created_at": "2020-10-14T05:48:10.252Z",
       "updated_at": "2020-10-15T08:39:42.208Z",
-      "image": "//a.storyblok.com/f/82895/x/fa7e0ff575/cl-2.PNG"
+      "image": "//a.storyblok.com/f/82895/x/fa7e0ff575/cl-2.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703407,
@@ -28429,7 +28651,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:44:20.289Z",
       "updated_at": "2020-09-02T07:42:50.458Z",
-      "image": "//a.storyblok.com/f/82895/x/67e4fe4b13/pictures-texts-zigzag.PNG"
+      "image": "//a.storyblok.com/f/82895/x/67e4fe4b13/pictures-texts-zigzag.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703399,
@@ -28726,7 +28951,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:41:01.909Z",
       "updated_at": "2020-10-15T08:41:27.136Z",
-      "image": "//a.storyblok.com/f/82895/x/333ef019ca/picture-texts-minimalist-product-teaser.PNG"
+      "image": "//a.storyblok.com/f/82895/x/333ef019ca/picture-texts-minimalist-product-teaser.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703394,
@@ -28986,7 +29214,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:38:24.952Z",
       "updated_at": "2020-09-02T07:42:36.271Z",
-      "image": "//a.storyblok.com/f/82895/x/aa59cbf666/picture-texts-simple-teaser.PNG"
+      "image": "//a.storyblok.com/f/82895/x/aa59cbf666/picture-texts-simple-teaser.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 706427,
@@ -29535,7 +29766,10 @@
       "space_id": 82895,
       "created_at": "2020-08-27T06:06:03.755Z",
       "updated_at": "2020-09-02T07:42:29.655Z",
-      "image": "//a.storyblok.com/f/82895/x/15bbb911f6/pop-up-features.PNG"
+      "image": "//a.storyblok.com/f/82895/x/15bbb911f6/pop-up-features.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768193,
@@ -29785,7 +30019,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T03:05:14.277Z",
       "updated_at": "2020-10-29T03:05:14.277Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768198,
@@ -29954,7 +30191,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T03:39:17.680Z",
       "updated_at": "2020-10-29T03:39:51.329Z",
-      "image": "//a.storyblok.com/f/82895/x/6dd063e599/textimage.PNG"
+      "image": "//a.storyblok.com/f/82895/x/6dd063e599/textimage.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 717847,
@@ -30049,7 +30289,10 @@
       "space_id": 82895,
       "created_at": "2020-09-09T06:59:11.469Z",
       "updated_at": "2020-09-17T02:00:29.433Z",
-      "image": "//a.storyblok.com/f/82895/x/a810a58395/simpletitleimage.PNG"
+      "image": "//a.storyblok.com/f/82895/x/a810a58395/simpletitleimage.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768187,
@@ -30258,7 +30501,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T02:44:03.018Z",
       "updated_at": "2020-10-29T02:44:30.469Z",
-      "image": "//a.storyblok.com/f/82895/x/a01935fceb/sleekblogprvw.PNG"
+      "image": "//a.storyblok.com/f/82895/x/a01935fceb/sleekblogprvw.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 719213,
@@ -30387,7 +30633,10 @@
       "space_id": 82895,
       "created_at": "2020-09-10T08:52:13.591Z",
       "updated_at": "2020-09-10T09:04:13.311Z",
-      "image": "//a.storyblok.com/f/82895/x/7cb08c743c/tab.PNG"
+      "image": "//a.storyblok.com/f/82895/x/7cb08c743c/tab.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703405,
@@ -30848,7 +31097,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:43:38.383Z",
       "updated_at": "2020-09-02T07:42:22.791Z",
-      "image": "//a.storyblok.com/f/82895/x/a11f96bee8/title-descriptive-icons-bg-picture.PNG"
+      "image": "//a.storyblok.com/f/82895/x/a11f96bee8/title-descriptive-icons-bg-picture.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768196,
@@ -30983,7 +31235,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T03:26:16.885Z",
       "updated_at": "2020-10-29T03:26:33.990Z",
-      "image": "//a.storyblok.com/f/82895/x/7df0e7dee5/titlesubdesc.PNG"
+      "image": "//a.storyblok.com/f/82895/x/7df0e7dee5/titlesubdesc.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703412,
@@ -31439,7 +31694,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:47:14.947Z",
       "updated_at": "2020-09-02T07:42:15.602Z",
-      "image": "//a.storyblok.com/f/82895/x/3be28b8a7b/transparent-box-description-with-bg-opening-hours-sample.PNG"
+      "image": "//a.storyblok.com/f/82895/x/3be28b8a7b/transparent-box-description-with-bg-opening-hours-sample.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703396,
@@ -31997,7 +32255,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:39:31.972Z",
       "updated_at": "2020-09-02T07:42:05.256Z",
-      "image": "//a.storyblok.com/f/82895/x/8d4e8142b0/transparent-descriptive-box-with-bg.PNG"
+      "image": "//a.storyblok.com/f/82895/x/8d4e8142b0/transparent-descriptive-box-with-bg.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709115,
@@ -32440,7 +32701,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T04:44:15.460Z",
       "updated_at": "2020-08-31T04:44:35.117Z",
-      "image": "//a.storyblok.com/f/82895/x/46af274e8c/dark-grey-tb.PNG"
+      "image": "//a.storyblok.com/f/82895/x/46af274e8c/dark-grey-tb.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 983140,
@@ -32469,7 +32733,10 @@
       "space_id": 82895,
       "created_at": "2021-04-21T04:21:06.515Z",
       "updated_at": "2021-04-21T04:21:06.515Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 725064,
@@ -34415,7 +34682,10 @@
       "space_id": 82895,
       "created_at": "2020-09-17T04:07:55.672Z",
       "updated_at": "2020-09-17T04:07:55.672Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1128325,
@@ -34553,7 +34823,10 @@
       "space_id": 82895,
       "created_at": "2021-08-27T03:14:42.015Z",
       "updated_at": "2021-08-27T03:14:42.015Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1119922,
@@ -34570,7 +34843,10 @@
       "space_id": 82895,
       "created_at": "2021-08-22T02:33:38.744Z",
       "updated_at": "2021-08-22T02:33:38.744Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1119116,
@@ -34642,7 +34918,10 @@
       "space_id": 82895,
       "created_at": "2021-08-21T03:01:08.283Z",
       "updated_at": "2021-08-21T03:01:08.283Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 972814,
@@ -34840,7 +35119,10 @@
       "space_id": 82895,
       "created_at": "2021-04-14T06:58:48.261Z",
       "updated_at": "2021-04-14T06:59:54.155Z",
-      "image": "//a.storyblok.com/f/82895/x/2516f7c8b6/screenshot-2021-04-14-at-14-59-05.png"
+      "image": "//a.storyblok.com/f/82895/x/2516f7c8b6/screenshot-2021-04-14-at-14-59-05.png",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703358,
@@ -37105,7 +37387,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:15:54.367Z",
       "updated_at": "2020-08-24T06:15:54.367Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703364,
@@ -39105,7 +39390,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:19:11.232Z",
       "updated_at": "2020-10-05T05:20:06.166Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709163,
@@ -39555,7 +39843,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T06:08:04.655Z",
       "updated_at": "2020-09-02T07:41:33.657Z",
-      "image": "//a.storyblok.com/f/82895/x/071eb757e7/simple-footer.PNG"
+      "image": "//a.storyblok.com/f/82895/x/071eb757e7/simple-footer.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709162,
@@ -40510,7 +40801,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T06:07:22.749Z",
       "updated_at": "2020-09-02T07:41:25.827Z",
-      "image": "//a.storyblok.com/f/82895/x/0d74b6078f/footer-purple.PNG"
+      "image": "//a.storyblok.com/f/82895/x/0d74b6078f/footer-purple.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709165,
@@ -40618,7 +40912,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T07:05:41.721Z",
       "updated_at": "2020-09-02T07:41:19.451Z",
-      "image": "//a.storyblok.com/f/82895/x/e053ec61dd/simple-footer-nude.PNG"
+      "image": "//a.storyblok.com/f/82895/x/e053ec61dd/simple-footer-nude.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709164,
@@ -41507,7 +41804,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T07:04:04.797Z",
       "updated_at": "2020-09-02T07:41:11.785Z",
-      "image": "//a.storyblok.com/f/82895/x/ff055b8dcd/footer-desert-pink.PNG"
+      "image": "//a.storyblok.com/f/82895/x/ff055b8dcd/footer-desert-pink.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1286640,
@@ -42083,7 +42383,10 @@
       "space_id": 82895,
       "created_at": "2021-11-28T05:12:27.867Z",
       "updated_at": "2021-11-28T05:12:27.867Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709116,
@@ -42338,7 +42641,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T04:44:56.379Z",
       "updated_at": "2020-08-31T04:45:11.168Z",
-      "image": "//a.storyblok.com/f/82895/x/0b80d3827e/grey-tb.PNG"
+      "image": "//a.storyblok.com/f/82895/x/0b80d3827e/grey-tb.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703363,
@@ -44295,7 +44601,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:18:56.533Z",
       "updated_at": "2020-08-24T06:18:56.533Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703378,
@@ -44385,7 +44694,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:29:51.383Z",
       "updated_at": "2020-09-02T07:41:04.678Z",
-      "image": "//a.storyblok.com/f/82895/x/1b1438ad7d/clean-big-title.PNG"
+      "image": "//a.storyblok.com/f/82895/x/1b1438ad7d/clean-big-title.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703390,
@@ -44503,7 +44815,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:36:40.739Z",
       "updated_at": "2020-09-02T07:40:57.915Z",
-      "image": "//a.storyblok.com/f/82895/x/16ebc80e47/minimalist-title-dark.PNG"
+      "image": "//a.storyblok.com/f/82895/x/16ebc80e47/minimalist-title-dark.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703398,
@@ -44693,7 +45008,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:40:41.197Z",
       "updated_at": "2020-09-02T07:40:50.516Z",
-      "image": "//a.storyblok.com/f/82895/x/a3951d4dc3/simple-header-with-text-centered.PNG"
+      "image": "//a.storyblok.com/f/82895/x/a3951d4dc3/simple-header-with-text-centered.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703369,
@@ -44975,7 +45293,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:21:53.400Z",
       "updated_at": "2020-09-02T07:40:42.575Z",
-      "image": "//a.storyblok.com/f/82895/x/ec929130c2/simple-title-subtitle-picture-header.PNG"
+      "image": "//a.storyblok.com/f/82895/x/ec929130c2/simple-title-subtitle-picture-header.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 768197,
@@ -45134,7 +45455,10 @@
       "space_id": 82895,
       "created_at": "2020-10-29T03:29:01.550Z",
       "updated_at": "2020-10-29T03:29:21.297Z",
-      "image": "//a.storyblok.com/f/82895/x/f0dc35877b/titlesubdescbutton.PNG"
+      "image": "//a.storyblok.com/f/82895/x/f0dc35877b/titlesubdescbutton.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 983098,
@@ -45171,7 +45495,10 @@
       "space_id": 82895,
       "created_at": "2021-04-21T01:36:27.373Z",
       "updated_at": "2021-04-21T01:36:51.916Z",
-      "image": "//a.storyblok.com/f/82895/x/0b6d004e43/screenshot-2021-04-21-at-09-36-35.png"
+      "image": "//a.storyblok.com/f/82895/x/0b6d004e43/screenshot-2021-04-21-at-09-36-35.png",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 737356,
@@ -45248,7 +45575,10 @@
       "space_id": 82895,
       "created_at": "2020-09-29T01:52:31.687Z",
       "updated_at": "2020-09-29T01:53:26.762Z",
-      "image": "//a.storyblok.com/f/82895/x/8037695298/screenshot-2020-09-29-at-09-52-55.png"
+      "image": "//a.storyblok.com/f/82895/x/8037695298/screenshot-2020-09-29-at-09-52-55.png",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703391,
@@ -45460,7 +45790,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:37:08.622Z",
       "updated_at": "2020-08-25T06:11:36.946Z",
-      "image": "//a.storyblok.com/f/82895/x/7b80957cd5/images-preview-slider-no-text.PNG"
+      "image": "//a.storyblok.com/f/82895/x/7b80957cd5/images-preview-slider-no-text.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1298269,
@@ -45531,7 +45864,10 @@
       "space_id": 82895,
       "created_at": "2021-12-06T04:13:34.232Z",
       "updated_at": "2021-12-06T04:13:34.232Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703356,
@@ -47148,7 +47484,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:15:05.413Z",
       "updated_at": "2020-08-24T06:15:05.413Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 983141,
@@ -47202,7 +47541,10 @@
       "space_id": 82895,
       "created_at": "2021-04-21T04:21:50.449Z",
       "updated_at": "2021-04-21T05:53:23.172Z",
-      "image": "//a.storyblok.com/f/82895/x/7f684a420c/screenshot-2021-04-21-at-12-22-01.png"
+      "image": "//a.storyblok.com/f/82895/x/7f684a420c/screenshot-2021-04-21-at-12-22-01.png",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1120767,
@@ -47220,7 +47562,10 @@
       "space_id": 82895,
       "created_at": "2021-08-23T06:00:05.369Z",
       "updated_at": "2021-08-23T06:00:05.369Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703410,
@@ -47352,7 +47697,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:45:44.211Z",
       "updated_at": "2020-09-02T07:40:27.801Z",
-      "image": "//a.storyblok.com/f/82895/x/fca6201f4c/map-section-picture.PNG"
+      "image": "//a.storyblok.com/f/82895/x/fca6201f4c/map-section-picture.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703372,
@@ -47545,7 +47893,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:25:44.685Z",
       "updated_at": "2020-09-02T07:40:21.269Z",
-      "image": "//a.storyblok.com/f/82895/x/95a54eec90/single-picture-description-our-store-section-sample.PNG"
+      "image": "//a.storyblok.com/f/82895/x/95a54eec90/single-picture-description-our-store-section-sample.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 718172,
@@ -48138,7 +48489,10 @@
       "space_id": 82895,
       "created_at": "2020-09-09T12:16:32.714Z",
       "updated_at": "2020-09-09T13:06:31.250Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 718210,
@@ -48236,7 +48590,10 @@
       "space_id": 82895,
       "created_at": "2020-09-09T13:10:03.045Z",
       "updated_at": "2020-09-09T13:10:03.045Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703360,
@@ -50678,7 +51035,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:17:17.962Z",
       "updated_at": "2020-08-24T06:17:17.962Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1119113,
@@ -50800,7 +51160,10 @@
       "space_id": 82895,
       "created_at": "2021-08-21T02:38:39.086Z",
       "updated_at": "2021-08-21T02:38:39.086Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703375,
@@ -51464,7 +51827,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:27:40.860Z",
       "updated_at": "2020-10-15T08:18:48.946Z",
-      "image": "//a.storyblok.com/f/82895/x/b94e427b92/neat-sliders-with-brief-taglines.PNG"
+      "image": "//a.storyblok.com/f/82895/x/b94e427b92/neat-sliders-with-brief-taglines.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 986307,
@@ -51489,7 +51855,10 @@
       "space_id": 82895,
       "created_at": "2021-04-23T02:19:13.669Z",
       "updated_at": "2021-04-23T02:19:13.669Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 983191,
@@ -51621,7 +51990,10 @@
       "space_id": 82895,
       "created_at": "2021-04-21T06:26:15.460Z",
       "updated_at": "2021-04-21T06:26:15.460Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 983139,
@@ -51677,7 +52049,10 @@
       "space_id": 82895,
       "created_at": "2021-04-21T04:19:16.884Z",
       "updated_at": "2021-04-21T04:22:47.342Z",
-      "image": "//a.storyblok.com/f/82895/x/bab0cef3fa/screenshot-2021-04-21-at-12-22-09.png"
+      "image": "//a.storyblok.com/f/82895/x/bab0cef3fa/screenshot-2021-04-21-at-12-22-09.png",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 706532,
@@ -52274,7 +52649,10 @@
       "space_id": 82895,
       "created_at": "2020-08-27T07:54:21.433Z",
       "updated_at": "2020-10-15T08:50:56.761Z",
-      "image": "//a.storyblok.com/f/82895/x/0ab98b14a5/clean-pricing-plans.PNG"
+      "image": "//a.storyblok.com/f/82895/x/0ab98b14a5/clean-pricing-plans.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 706529,
@@ -53223,7 +53601,10 @@
       "space_id": 82895,
       "created_at": "2020-08-27T07:35:15.959Z",
       "updated_at": "2020-09-02T07:39:51.083Z",
-      "image": "//a.storyblok.com/f/82895/x/2fcf07b46f/minimalist-pricing-plan.PNG"
+      "image": "//a.storyblok.com/f/82895/x/2fcf07b46f/minimalist-pricing-plan.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 706531,
@@ -53971,7 +54352,10 @@
       "space_id": 82895,
       "created_at": "2020-08-27T07:46:19.294Z",
       "updated_at": "2020-10-15T08:49:59.341Z",
-      "image": "//a.storyblok.com/f/82895/x/dc705afc8b/pop-up-pricing-plans.PNG"
+      "image": "//a.storyblok.com/f/82895/x/dc705afc8b/pop-up-pricing-plans.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1036249,
@@ -54542,7 +54926,10 @@
       "space_id": 82895,
       "created_at": "2021-06-04T02:19:22.717Z",
       "updated_at": "2021-06-04T02:19:22.717Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703362,
@@ -56883,7 +57270,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:18:38.652Z",
       "updated_at": "2020-08-24T06:18:38.652Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709111,
@@ -57163,7 +57553,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T04:27:06.077Z",
       "updated_at": "2020-08-31T04:27:24.822Z",
-      "image": "//a.storyblok.com/f/82895/x/736441cae7/purple-tb.PNG"
+      "image": "//a.storyblok.com/f/82895/x/736441cae7/purple-tb.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709109,
@@ -57396,7 +57789,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T03:07:38.051Z",
       "updated_at": "2020-08-31T03:11:09.179Z",
-      "image": "//a.storyblok.com/f/82895/x/036bb763b6/red-tb.PNG"
+      "image": "//a.storyblok.com/f/82895/x/036bb763b6/red-tb.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 983097,
@@ -57432,7 +57828,10 @@
       "space_id": 82895,
       "created_at": "2021-04-21T01:26:47.689Z",
       "updated_at": "2021-04-21T01:29:10.348Z",
-      "image": "//a.storyblok.com/f/82895/x/f150d75a96/screenshot-2021-04-21-at-09-27-31.png"
+      "image": "//a.storyblok.com/f/82895/x/f150d75a96/screenshot-2021-04-21-at-09-27-31.png",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 781172,
@@ -58711,7 +59110,10 @@
       "space_id": 82895,
       "created_at": "2020-11-11T05:18:48.629Z",
       "updated_at": "2020-11-11T05:18:48.629Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703361,
@@ -61035,7 +61437,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:17:59.607Z",
       "updated_at": "2020-08-24T06:17:59.607Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703385,
@@ -62307,7 +62712,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:34:01.672Z",
       "updated_at": "2020-08-25T06:13:54.970Z",
-      "image": "//a.storyblok.com/f/82895/x/f766b423ed/sliding-blog-previews.PNG"
+      "image": "//a.storyblok.com/f/82895/x/f766b423ed/sliding-blog-previews.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 720880,
@@ -62425,7 +62833,10 @@
       "space_id": 82895,
       "created_at": "2020-09-11T17:57:46.345Z",
       "updated_at": "2020-09-11T17:58:35.688Z",
-      "image": "//a.storyblok.com/f/82895/x/3f826542ea/sbcookie.PNG"
+      "image": "//a.storyblok.com/f/82895/x/3f826542ea/sbcookie.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 720881,
@@ -62588,7 +62999,10 @@
       "space_id": 82895,
       "created_at": "2020-09-11T18:13:16.240Z",
       "updated_at": "2020-09-11T18:14:09.402Z",
-      "image": "//a.storyblok.com/f/82895/x/7e7f3495f1/sbcookie2.PNG"
+      "image": "//a.storyblok.com/f/82895/x/7e7f3495f1/sbcookie2.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 721544,
@@ -62759,7 +63173,10 @@
       "space_id": 82895,
       "created_at": "2020-09-13T05:02:09.349Z",
       "updated_at": "2020-09-13T05:02:47.842Z",
-      "image": "//a.storyblok.com/f/82895/x/37214c029a/sb-dialog.PNG"
+      "image": "//a.storyblok.com/f/82895/x/37214c029a/sb-dialog.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 720879,
@@ -62948,7 +63365,10 @@
       "space_id": 82895,
       "created_at": "2020-09-11T17:48:33.783Z",
       "updated_at": "2020-09-11T18:00:39.164Z",
-      "image": "//a.storyblok.com/f/82895/x/e2d29b9362/sb1.PNG"
+      "image": "//a.storyblok.com/f/82895/x/e2d29b9362/sb1.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 1119112,
@@ -63002,7 +63422,10 @@
       "space_id": 82895,
       "created_at": "2021-08-21T00:53:24.639Z",
       "updated_at": "2021-08-21T00:53:24.639Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703366,
@@ -65269,7 +65692,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:19:47.250Z",
       "updated_at": "2020-08-24T06:19:47.250Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703365,
@@ -67773,7 +68199,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:19:26.156Z",
       "updated_at": "2020-08-24T06:19:26.156Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 984969,
@@ -68156,7 +68585,10 @@
       "space_id": 82895,
       "created_at": "2021-04-22T06:50:23.937Z",
       "updated_at": "2021-04-22T06:50:23.937Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 706571,
@@ -68533,7 +68965,10 @@
       "space_id": 82895,
       "created_at": "2020-08-27T08:48:49.381Z",
       "updated_at": "2020-09-09T05:20:08.966Z",
-      "image": "//a.storyblok.com/f/82895/x/8799ff3ebb/our-team-avatars.PNG"
+      "image": "//a.storyblok.com/f/82895/x/8799ff3ebb/our-team-avatars.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 706533,
@@ -68779,7 +69214,10 @@
       "space_id": 82895,
       "created_at": "2020-08-27T08:39:34.848Z",
       "updated_at": "2020-09-09T05:20:20.478Z",
-      "image": "//a.storyblok.com/f/82895/x/bd64476db9/our-team-cards.PNG"
+      "image": "//a.storyblok.com/f/82895/x/bd64476db9/our-team-cards.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 717664,
@@ -69474,7 +69912,10 @@
       "space_id": 82895,
       "created_at": "2020-09-09T06:06:49.408Z",
       "updated_at": "2020-09-09T06:19:47.472Z",
-      "image": "//a.storyblok.com/f/82895/x/3974054995/bgteam.PNG"
+      "image": "//a.storyblok.com/f/82895/x/3974054995/bgteam.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 717635,
@@ -69982,7 +70423,10 @@
       "space_id": 82895,
       "created_at": "2020-09-09T03:29:31.367Z",
       "updated_at": "2020-09-09T03:31:38.204Z",
-      "image": "//a.storyblok.com/f/82895/x/cef34c4a19/teamnew.PNG"
+      "image": "//a.storyblok.com/f/82895/x/cef34c4a19/teamnew.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 717639,
@@ -70255,7 +70699,10 @@
       "space_id": 82895,
       "created_at": "2020-09-09T05:04:41.394Z",
       "updated_at": "2020-09-09T05:11:07.270Z",
-      "image": "//a.storyblok.com/f/82895/x/f20424a931/newteam.PNG"
+      "image": "//a.storyblok.com/f/82895/x/f20424a931/newteam.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 704303,
@@ -70817,7 +71264,10 @@
       "space_id": 82895,
       "created_at": "2020-08-25T04:08:29.827Z",
       "updated_at": "2020-09-02T07:39:32.698Z",
-      "image": "//a.storyblok.com/f/82895/x/f2ef6f83a8/2-columns-customers-review.PNG"
+      "image": "//a.storyblok.com/f/82895/x/f2ef6f83a8/2-columns-customers-review.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703377,
@@ -71529,7 +71979,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:28:42.710Z",
       "updated_at": "2020-10-15T08:53:22.712Z",
-      "image": "//a.storyblok.com/f/82895/x/3bb41fd9dd/3-columns-customers-review.PNG"
+      "image": "//a.storyblok.com/f/82895/x/3bb41fd9dd/3-columns-customers-review.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703359,
@@ -73933,7 +74386,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:16:51.945Z",
       "updated_at": "2020-08-24T06:16:51.945Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703357,
@@ -76286,7 +76742,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:15:27.153Z",
       "updated_at": "2020-08-24T06:15:27.153Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 983190,
@@ -76435,7 +76894,10 @@
       "space_id": 82895,
       "created_at": "2021-04-21T05:59:50.046Z",
       "updated_at": "2021-04-21T05:59:50.046Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 716510,
@@ -76759,7 +77221,10 @@
       "space_id": 82895,
       "created_at": "2020-09-08T05:32:15.863Z",
       "updated_at": "2020-09-08T08:59:16.638Z",
-      "image": "//a.storyblok.com/f/82895/x/3e44edcb15/tbvid.PNG"
+      "image": "//a.storyblok.com/f/82895/x/3e44edcb15/tbvid.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 716557,
@@ -76867,7 +77332,10 @@
       "space_id": 82895,
       "created_at": "2020-09-08T06:36:34.899Z",
       "updated_at": "2020-09-08T09:00:29.222Z",
-      "image": "//a.storyblok.com/f/82895/x/c02fe4aee6/captionvid.PNG"
+      "image": "//a.storyblok.com/f/82895/x/c02fe4aee6/captionvid.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 716574,
@@ -77109,7 +77577,10 @@
       "space_id": 82895,
       "created_at": "2020-09-08T06:41:44.962Z",
       "updated_at": "2020-09-08T09:02:56.586Z",
-      "image": "//a.storyblok.com/f/82895/x/fc60b29045/columned.PNG"
+      "image": "//a.storyblok.com/f/82895/x/fc60b29045/columned.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 713661,
@@ -77354,7 +77825,10 @@
       "space_id": 82895,
       "created_at": "2020-09-04T07:13:57.191Z",
       "updated_at": "2020-09-09T02:14:16.589Z",
-      "image": "//a.storyblok.com/f/82895/x/7446193dd8/columnew.PNG"
+      "image": "//a.storyblok.com/f/82895/x/7446193dd8/columnew.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 716556,
@@ -77524,7 +77998,10 @@
       "space_id": 82895,
       "created_at": "2020-09-08T06:30:12.740Z",
       "updated_at": "2020-09-08T09:00:51.551Z",
-      "image": "//a.storyblok.com/f/82895/x/433f1f7da4/titledvid.PNG"
+      "image": "//a.storyblok.com/f/82895/x/433f1f7da4/titledvid.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 703367,
@@ -80211,7 +80688,10 @@
       "space_id": 82895,
       "created_at": "2020-08-24T06:20:04.707Z",
       "updated_at": "2020-08-24T06:20:04.707Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 709112,
@@ -80450,7 +80930,10 @@
       "space_id": 82895,
       "created_at": "2020-08-31T04:27:43.103Z",
       "updated_at": "2020-08-31T04:28:06.490Z",
-      "image": "//a.storyblok.com/f/82895/x/b745f86347/white-tb.PNG"
+      "image": "//a.storyblok.com/f/82895/x/b745f86347/white-tb.PNG",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 984770,
@@ -80475,7 +80958,10 @@
       "space_id": 82895,
       "created_at": "2021-04-22T01:21:41.410Z",
       "updated_at": "2021-04-22T01:21:41.410Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     },
     {
       "id": 984771,
@@ -80500,7 +80986,10 @@
       "space_id": 82895,
       "created_at": "2021-04-22T01:22:10.951Z",
       "updated_at": "2021-04-22T01:22:10.951Z",
-      "image": ""
+      "image": "",
+      "color": null,
+      "icon": null,
+      "description": null
     }
   ]
 }

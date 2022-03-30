@@ -84,7 +84,10 @@
           "id": 972814,
           "name": "FAQ",
           "component_id": 894851,
-          "image": "//a.storyblok.com/f/82895/x/2516f7c8b6/screenshot-2021-04-14-at-14-59-05.png"
+          "image": "//a.storyblok.com/f/82895/x/2516f7c8b6/screenshot-2021-04-14-at-14-59-05.png",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -386,13 +389,19 @@
           "id": 983098,
           "name": "Icon Circle",
           "component_id": 894849,
-          "image": "//a.storyblok.com/f/82895/x/0b6d004e43/screenshot-2021-04-21-at-09-36-35.png"
+          "image": "//a.storyblok.com/f/82895/x/0b6d004e43/screenshot-2021-04-21-at-09-36-35.png",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 983097,
           "name": "Review Circle",
           "component_id": 894849,
-          "image": "//a.storyblok.com/f/82895/x/f150d75a96/screenshot-2021-04-21-at-09-27-31.png"
+          "image": "//a.storyblok.com/f/82895/x/f150d75a96/screenshot-2021-04-21-at-09-27-31.png",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -1323,13 +1332,19 @@
           "id": 983141,
           "name": "Link",
           "component_id": 894783,
-          "image": "//a.storyblok.com/f/82895/x/7f684a420c/screenshot-2021-04-21-at-12-22-01.png"
+          "image": "//a.storyblok.com/f/82895/x/7f684a420c/screenshot-2021-04-21-at-12-22-01.png",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 983139,
           "name": "Outline",
           "component_id": 894783,
-          "image": "//a.storyblok.com/f/82895/x/bab0cef3fa/screenshot-2021-04-21-at-12-22-09.png"
+          "image": "//a.storyblok.com/f/82895/x/bab0cef3fa/screenshot-2021-04-21-at-12-22-09.png",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -1407,7 +1422,10 @@
           "id": 983190,
           "name": "Vertical Social Buttons",
           "component_id": 894843,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -1710,7 +1728,10 @@
           "id": 1445972,
           "name": "Card with hover",
           "component_id": 2307220,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -2505,19 +2526,28 @@
           "id": 983192,
           "name": "Card Action Rounded",
           "component_id": 894842,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 983193,
           "name": "Card Action Square",
           "component_id": 894842,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 983191,
           "name": "Our Team",
           "component_id": 894842,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -3274,139 +3304,208 @@
           "id": 703383,
           "name": "[About Us] Avatar + Text Introduction",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/bf1aa12a8d/avatar-text-introduction.PNG"
+          "image": "//a.storyblok.com/f/82895/x/bf1aa12a8d/avatar-text-introduction.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 766973,
           "name": "[About Us] Simple Moving Text",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/4f5dd1f900/tb.PNG"
+          "image": "//a.storyblok.com/f/82895/x/4f5dd1f900/tb.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 706428,
           "name": "[Action] Feature Cards",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/63cade9821/feature-cards.PNG"
+          "image": "//a.storyblok.com/f/82895/x/63cade9821/feature-cards.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 766974,
           "name": "[Action] Floating Box",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/ab04f00d8c/floatingbox.PNG"
+          "image": "//a.storyblok.com/f/82895/x/ab04f00d8c/floatingbox.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768195,
           "name": "[Action] Instagram Grids",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/4a6a148b13/iggrids.PNG"
+          "image": "//a.storyblok.com/f/82895/x/4a6a148b13/iggrids.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 766975,
           "name": "[Action] Neat Floating Cardlists",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/4fd1ce830c/neatcl.PNG"
+          "image": "//a.storyblok.com/f/82895/x/4fd1ce830c/neatcl.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768189,
           "name": "[Action]  Product Preview Cards",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/716cea8780/cardsshop.PNG"
+          "image": "//a.storyblok.com/f/82895/x/716cea8780/cardsshop.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 766972,
           "name": "[Action] Single Teaser Box",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/2640b83505/dbteaser.PNG"
+          "image": "//a.storyblok.com/f/82895/x/2640b83505/dbteaser.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 767096,
           "name": "[Content] Black Description Box",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/2cfa1d0234/blackdb.PNG"
+          "image": "//a.storyblok.com/f/82895/x/2cfa1d0234/blackdb.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 767134,
           "name": "[Content] Blog Preview",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/d33d31755a/blog-preview.PNG"
+          "image": "//a.storyblok.com/f/82895/x/d33d31755a/blog-preview.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768192,
           "name": "[Content] Bouncy Preview Cards",
           "component_id": 894838,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768190,
           "name": "[Content] Brief Description (Left)",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/eaf10f87b9/briefdescleft.PNG"
+          "image": "//a.storyblok.com/f/82895/x/eaf10f87b9/briefdescleft.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768191,
           "name": "[Content] Brief Description (Right)",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/ee6705d039/briefdescright.PNG"
+          "image": "//a.storyblok.com/f/82895/x/ee6705d039/briefdescright.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768194,
           "name": "[Content] Dark Transparent Description Box",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/9ba66935f3/darktransparentdescbox.PNG"
+          "image": "//a.storyblok.com/f/82895/x/9ba66935f3/darktransparentdescbox.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 766984,
           "name": "[Content] Description Box",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/0f818f1501/descriptionbox.PNG"
+          "image": "//a.storyblok.com/f/82895/x/0f818f1501/descriptionbox.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768188,
           "name": "[Content] Image List + Price",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/d13b8b1dd0/imglistprice.PNG"
+          "image": "//a.storyblok.com/f/82895/x/d13b8b1dd0/imglistprice.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703384,
           "name": "[Content] Minimalist Blog Teaser",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/590262004c/minimalist-blog-teaser.PNG"
+          "image": "//a.storyblok.com/f/82895/x/590262004c/minimalist-blog-teaser.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768186,
           "name": "[Content] Minimalistic Blog Teaser",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/3ed4429fad/blogteaserminimalist.PNG"
+          "image": "//a.storyblok.com/f/82895/x/3ed4429fad/blogteaserminimalist.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768185,
           "name": "[Content] Neat Review Box",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/0586c9dd8b/neatreviewbox.PNG"
+          "image": "//a.storyblok.com/f/82895/x/0586c9dd8b/neatreviewbox.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768193,
           "name": "[Content] Simple FAQ",
           "component_id": 894838,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768187,
           "name": "[Content] Sleek Blog Teaser (for Dark-themed BG)",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/a01935fceb/sleekblogprvw.PNG"
+          "image": "//a.storyblok.com/f/82895/x/a01935fceb/sleekblogprvw.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768196,
           "name": "[Content] Title, Subtitle, Description",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/7df0e7dee5/titlesubdesc.PNG"
+          "image": "//a.storyblok.com/f/82895/x/7df0e7dee5/titlesubdesc.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768197,
           "name": "[Header] Title, Subtitle, Description, Button",
           "component_id": 894838,
-          "image": "//a.storyblok.com/f/82895/x/f0dc35877b/titlesubdescbutton.PNG"
+          "image": "//a.storyblok.com/f/82895/x/f0dc35877b/titlesubdescbutton.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -4053,7 +4152,10 @@
           "id": 1128325,
           "name": "Dialog Full Search List",
           "component_id": 1016259,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -4244,19 +4346,28 @@
           "id": 984769,
           "name": "Black Simple",
           "component_id": 894836,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 984770,
           "name": "With Icon",
           "component_id": 894836,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 984771,
           "name": "With Icon 50% width",
           "component_id": 894836,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -5285,25 +5396,37 @@
           "id": 1119114,
           "name": "All Day Event",
           "component_id": 1710816,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 1119115,
           "name": "Basic Event",
           "component_id": 1710816,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 1119116,
           "name": "Event Custom Dateformat",
           "component_id": 1710816,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 1119113,
           "name": "Multi Date Event",
           "component_id": 1710816,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -5406,7 +5529,10 @@
           "id": 1119922,
           "name": "Event Calendar Basic",
           "component_id": 1710917,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -5512,7 +5638,7 @@
       "name": "flex_row",
       "display_name": "Flex Box",
       "created_at": "2020-05-01T08:40:43.097Z",
-      "updated_at": "2022-03-29T05:55:22.025Z",
+      "updated_at": "2022-03-30T00:08:39.682Z",
       "id": 894834,
       "schema": {
         "column": {
@@ -5651,7 +5777,8 @@
             "align_items",
             "align_content",
             "gap",
-            "column_mobile_only"
+            "column_mobile_only",
+            "flex_wrap"
           ],
           "pos": 9
         },
@@ -5706,6 +5833,32 @@
             "divider"
           ],
           "maximum": "1"
+        },
+        "flex_wrap": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "wrap",
+              "name": "wrap"
+            },
+            {
+              "value": "initial",
+              "name": "initial"
+            },
+            {
+              "value": "inherit",
+              "name": "inherit"
+            },
+            {
+              "value": "nowrap",
+              "name": "nowrap"
+            },
+            {
+              "value": "revert",
+              "name": "revert"
+            }
+          ]
         }
       },
       "image": null,
@@ -5718,7 +5871,10 @@
           "id": 737356,
           "name": "Icon + Headline",
           "component_id": 894834,
-          "image": "//a.storyblok.com/f/82895/x/8037695298/screenshot-2020-09-29-at-09-52-55.png"
+          "image": "//a.storyblok.com/f/82895/x/8037695298/screenshot-2020-09-29-at-09-52-55.png",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -5890,13 +6046,19 @@
           "id": 1131121,
           "name": "About Your Company",
           "component_id": 1717807,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 1298269,
           "name": "Inline Form",
           "component_id": 1717807,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -6042,7 +6204,10 @@
           "id": 1110161,
           "name": "Contact Us",
           "component_id": 1701695,
-          "image": "//a.storyblok.com/f/82895/x/c464dc4655/screenshot-2021-08-13-at-11-07-51.png"
+          "image": "//a.storyblok.com/f/82895/x/c464dc4655/screenshot-2021-08-13-at-11-07-51.png",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -6465,7 +6630,7 @@
       "name": "global",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.852Z",
-      "updated_at": "2022-03-28T01:46:58.301Z",
+      "updated_at": "2022-03-29T07:46:46.898Z",
       "id": 894828,
       "schema": {
         "theme_base": {
@@ -6485,70 +6650,74 @@
           "default_value": "base",
           "required": true
         },
+        "body_background_color": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": [],
+          "pos": 1
+        },
+        "default_font_color": {
+          "type": "text",
+          "pos": 2
+        },
         "theme_primary": {
           "type": "text",
-          "pos": 1,
+          "pos": 3,
           "description": "",
           "display_name": "Primary color"
         },
         "theme_primary_contrast": {
           "type": "text",
-          "pos": 2
+          "pos": 4
         },
         "theme_secondary": {
           "type": "text",
-          "pos": 3,
+          "pos": 5,
           "display_name": "Secondary color"
         },
         "theme_secondary_contrast": {
           "type": "text",
-          "pos": 4
+          "pos": 6
         },
         "theme_error": {
           "type": "text",
-          "pos": 5,
+          "pos": 7,
           "display_name": "Error Color"
         },
         "theme_error_contrast": {
           "type": "text",
-          "pos": 6,
+          "pos": 8,
           "display_name": "Error Color Contrast"
         },
         "theme_link": {
           "type": "text",
-          "pos": 7,
+          "pos": 9,
           "display_name": "Link color"
         },
         "theme_link_hover": {
           "type": "text",
-          "pos": 8,
+          "pos": 10,
           "display_name": "Link hover color"
-        },
-        "body_background_color": {
-          "type": "custom",
-          "field_type": "vue-color-picker",
-          "options": [],
-          "pos": 9
         },
         "theme_font_default": {
           "type": "text",
-          "pos": 10
+          "pos": 11
         },
         "theme_font_alt1": {
           "type": "text",
-          "pos": 11
+          "pos": 12
         },
         "theme_font_alt2": {
           "type": "text",
-          "pos": 12
+          "pos": 13
         },
         "theme_font_alt3": {
           "type": "text",
-          "pos": 13
+          "pos": 14
         },
         "theme_font_alt4": {
           "type": "text",
-          "pos": 14
+          "pos": 15
         },
         "theme_container_width": {
           "type": "option",
@@ -6579,60 +6748,60 @@
               "name": "fluid"
             }
           ],
-          "pos": 15
+          "pos": 16
         },
         "theme_success": {
           "type": "text",
-          "pos": 16
+          "pos": 17
         },
         "theme_success_contrast": {
           "type": "text",
-          "pos": 17
+          "pos": 18
         },
         "theme_info": {
           "type": "text",
-          "pos": 18
+          "pos": 19
         },
         "theme_info_contrast": {
           "type": "text",
-          "pos": 19
+          "pos": 20
         },
         "theme_warning": {
           "type": "text",
-          "pos": 20
+          "pos": 21
         },
         "theme_warning_contrast": {
           "type": "text",
-          "pos": 21
+          "pos": 22
         },
         "custom_css": {
           "type": "textarea",
-          "pos": 22
+          "pos": 23
         },
         "setup_favicon": {
           "type": "image",
-          "pos": 23,
+          "pos": 24,
           "description": "Size should be 192x192 as PNG"
         },
         "website_logo": {
           "type": "image",
-          "pos": 24
+          "pos": 25
         },
         "website_logo_xs": {
           "type": "image",
-          "pos": 25
+          "pos": 26
         },
         "website_logo_invert_xs": {
           "type": "image",
-          "pos": 26
+          "pos": 27
         },
         "website_logo_invert": {
           "type": "image",
-          "pos": 27
+          "pos": 28
         },
         "image_loading": {
           "type": "options",
-          "pos": 28,
+          "pos": 29,
           "options": [
             {
               "value": "disable_background",
@@ -6655,54 +6824,54 @@
         },
         "website_title": {
           "type": "text",
-          "pos": 29
+          "pos": 30
         },
         "website_slogan": {
           "type": "text",
-          "pos": 30
+          "pos": 31
         },
         "setup_language": {
           "type": "text",
           "translatable": true,
           "description": "Set language for the project. Sets <html lang=\"[language]\">",
-          "pos": 31,
+          "pos": 32,
           "display_name": "Language"
         },
         "setup_supported_languages": {
           "type": "text",
           "description": "Comma separated list of all supported languages. Sets header response \"Content-Language\".",
-          "pos": 32,
+          "pos": 33,
           "display_name": "Supported Languages",
           "translatable": true
         },
         "setup_google_analytics": {
           "type": "text",
-          "pos": 33
+          "pos": 34
         },
         "setup_google_site_verification": {
           "type": "text",
-          "pos": 34
+          "pos": 35
         },
         "setup_facebook_pixel": {
           "type": "text",
-          "pos": 35,
+          "pos": 36,
           "description": "Pixel, can be multiple IDs comma separated."
         },
         "setup_ad_roll_adv_id": {
           "type": "text",
-          "pos": 36
+          "pos": 37
         },
         "setup_ad_roll_pix_id": {
           "type": "text",
-          "pos": 37
+          "pos": 38
         },
         "pwa_app_name": {
           "type": "text",
-          "pos": 38
+          "pos": 39
         },
         "pwa_app_description": {
           "type": "textarea",
-          "pos": 39
+          "pos": 40
         },
         "promotion": {
           "type": "bloks",
@@ -6713,11 +6882,11 @@
             "section",
             "section_video_bg"
           ],
-          "pos": 40
+          "pos": 41
         },
         "tawkto": {
           "type": "text",
-          "pos": 41
+          "pos": 42
         },
         "chat_button": {
           "type": "bloks",
@@ -6728,7 +6897,7 @@
             "chat_whatsapp"
           ],
           "maximum": "1",
-          "pos": 42
+          "pos": 43
         },
         "snackbars": {
           "type": "bloks",
@@ -6736,7 +6905,7 @@
           "component_whitelist": [
             "snackbar"
           ],
-          "pos": 43,
+          "pos": 44,
           "component_group_whitelist": []
         },
         "ecommerce": {
@@ -6747,11 +6916,11 @@
             "ecommerce_shopify_config",
             "ecommerce_snipcart_config"
           ],
-          "pos": 44
+          "pos": 45
         },
         "toolbar": {
           "type": "bloks",
-          "pos": 45,
+          "pos": 46,
           "restrict_components": true,
           "component_whitelist": [
             "nav_menu",
@@ -6762,7 +6931,7 @@
         },
         "multi_toolbar": {
           "type": "bloks",
-          "pos": 46,
+          "pos": 47,
           "restrict_components": true,
           "component_whitelist": [
             "toolbar_row"
@@ -6771,7 +6940,7 @@
         },
         "toolbar_variant": {
           "type": "option",
-          "pos": 47,
+          "pos": 48,
           "options": [
             {
               "value": "primary",
@@ -6793,7 +6962,7 @@
         },
         "toolbar_config": {
           "type": "options",
-          "pos": 48,
+          "pos": 49,
           "options": [
             {
               "value": "fixed",
@@ -6823,26 +6992,26 @@
         },
         "toolbar_progress_color": {
           "type": "text",
-          "pos": 49
+          "pos": 50
         },
         "toolbar_color": {
           "type": "custom",
-          "pos": 50,
+          "pos": 51,
           "field_type": "vue-color-picker",
           "options": []
         },
         "toolbar_background": {
           "type": "text",
-          "pos": 51,
+          "pos": 52,
           "description": "Enable CSS background property for using gradients or any other background setting."
         },
         "toolbar_main_height": {
           "type": "number",
-          "pos": 52
+          "pos": 53
         },
         "toolbar_font_size": {
           "type": "text",
-          "pos": 53
+          "pos": 54
         },
         "tab-ba513796-d84a-4c57-9d20-1ec43f74588c": {
           "type": "tab",
@@ -6859,7 +7028,7 @@
             "toolbar_background",
             "toolbar_elevation"
           ],
-          "pos": 54
+          "pos": 55
         },
         "tab-b01c9ce8-3217-4b21-b7b5-612bef6a87dd": {
           "type": "tab",
@@ -6868,7 +7037,7 @@
             "footer",
             "footer_config"
           ],
-          "pos": 55
+          "pos": 56
         },
         "tab-2a4e4ff6-219f-415c-a3c6-6d7cf39f1c0d": {
           "type": "tab",
@@ -6887,7 +7056,7 @@
             "drawer_below_toolbar_xs",
             "mobile_nav_breakpoint"
           ],
-          "pos": 56
+          "pos": 57
         },
         "tab-f85e0a00-bc66-45af-9035-3190c653d091": {
           "type": "tab",
@@ -6900,7 +7069,7 @@
             "setup_favicon",
             "image_loading"
           ],
-          "pos": 57
+          "pos": 58
         },
         "tab-179390ed-4cd4-47bd-bd94-8902f461c9bc": {
           "type": "tab",
@@ -6912,7 +7081,7 @@
             "seo_robots",
             "seo_body"
           ],
-          "pos": 58
+          "pos": 59
         },
         "tab-629da2b1-ac23-431b-b9e7-c838674c0106": {
           "type": "tab",
@@ -6940,9 +7109,10 @@
             "theme_info",
             "theme_info_contrast",
             "theme_warning",
-            "theme_warning_contrast"
+            "theme_warning_contrast",
+            "default_font_color"
           ],
-          "pos": 59
+          "pos": 60
         },
         "tab-8f5f1837-e112-4bde-966b-9473b63a72f1": {
           "type": "tab",
@@ -6956,7 +7126,7 @@
             "promotion",
             "scripts"
           ],
-          "pos": 60
+          "pos": 61
         },
         "drawer_body": {
           "type": "bloks",
@@ -6972,7 +7142,7 @@
             "toolbar_navi_button",
             "flex_row"
           ],
-          "pos": 61,
+          "pos": 62,
           "component_group_whitelist": []
         },
         "drawer_variant": {
@@ -6988,7 +7158,7 @@
               "name": "temporary"
             }
           ],
-          "pos": 62
+          "pos": 63
         },
         "mobile_nav_breakpoint": {
           "type": "option",
@@ -7011,24 +7181,24 @@
               "name": "xl"
             }
           ],
-          "pos": 63,
+          "pos": 64,
           "description": "Default breakpoint is sm (mobile only)"
         },
         "drawer_width": {
           "type": "number",
-          "pos": 64
+          "pos": 65
         },
         "drawer_below_toolbar": {
           "type": "boolean",
-          "pos": 65
+          "pos": 66
         },
         "drawer_below_toolbar_xs": {
           "type": "boolean",
-          "pos": 66
+          "pos": 67
         },
         "drawer_full_width_mobile": {
           "type": "boolean",
-          "pos": 67
+          "pos": 68
         },
         "drawer_background": {
           "type": "bloks",
@@ -7037,12 +7207,12 @@
           "component_whitelist": [
             "background"
           ],
-          "pos": 68,
+          "pos": 69,
           "component_group_whitelist": []
         },
         "footer": {
           "type": "bloks",
-          "pos": 69,
+          "pos": 70,
           "restrict_components": true,
           "component_whitelist": [
             "row",
@@ -7052,7 +7222,7 @@
         },
         "footer_config": {
           "type": "options",
-          "pos": 70,
+          "pos": 71,
           "options": [
             {
               "value": "footer-large",
@@ -7066,29 +7236,29 @@
         },
         "seo_title": {
           "type": "text",
-          "pos": 71,
+          "pos": 72,
           "translatable": true
         },
         "seo_description": {
           "type": "textarea",
-          "pos": 72,
+          "pos": 73,
           "translatable": true
         },
         "seo_website_url": {
           "type": "text",
-          "pos": 73,
+          "pos": 74,
           "description": "Full website URL without leading slash: https://google.com"
         },
         "seo_robots": {
           "type": "boolean",
           "description": "Set robots 'index,follow'. Important if site goes public",
-          "pos": 74,
+          "pos": 75,
           "display_name": "Enable page index for robots",
           "translatable": true
         },
         "seo_body": {
           "type": "bloks",
-          "pos": 75,
+          "pos": 76,
           "restrict_components": true,
           "component_whitelist": [
             "seo_twitter",
@@ -7103,7 +7273,7 @@
         "toolbar_elevation": {
           "type": "number",
           "description": "A value between 0-24. Defaults to \"4\". Disable elevation with \"0\".",
-          "pos": 76
+          "pos": 77
         },
         "scripts": {
           "type": "bloks",
@@ -7111,7 +7281,7 @@
           "component_whitelist": [
             "script"
           ],
-          "pos": 77
+          "pos": 78
         }
       },
       "image": null,
@@ -7841,7 +8011,10 @@
           "id": 983140,
           "name": "Dark large",
           "component_id": 894823,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -9613,7 +9786,10 @@
           "id": 1120767,
           "name": "List Stories Basic",
           "component_id": 1720175,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -9739,25 +9915,37 @@
           "id": 986304,
           "name": "10 Pages",
           "component_id": 894815,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 986306,
           "name": "10 Pages - Button Links",
           "component_id": 894815,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 986305,
           "name": "10 Pages - Links",
           "component_id": 894815,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 986307,
           "name": "Only Tagged",
           "component_id": 894815,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -10765,13 +10953,19 @@
           "id": 718172,
           "name": "Menu - 2 Columns",
           "component_id": 894811,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 718210,
           "name": "Menu - Simple",
           "component_id": 894811,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -10904,7 +11098,10 @@
           "id": 1119112,
           "name": "Standard News",
           "component_id": 1719809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -11195,97 +11392,145 @@
           "id": 703354,
           "name": "Art Courses",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703355,
           "name": "Business Company",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 725064,
           "name": "Dentist",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703358,
           "name": "Fashion Blog",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703364,
           "name": "Food / Mart",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703363,
           "name": "Gym & Fitness",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703356,
           "name": "Jewelries Specialist",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703360,
           "name": "Minimalist Personal Blog",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703362,
           "name": "Property & Housing",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 781172,
           "name": "Service Agency",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703361,
           "name": "Simple Content Page",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703366,
           "name": "Supping (Priority Sample)",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703365,
           "name": "Surfing Courses",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703359,
           "name": "Travel Agency (Dark)",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703357,
           "name": "Travel Agency (Light)",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703367,
           "name": "Wedding Organizer",
           "component_id": 894809,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -11513,7 +11758,10 @@
           "id": 670995,
           "name": "Closed for Application",
           "component_id": 894808,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -12911,25 +13159,37 @@
           "id": 768199,
           "name": "[Content] Icons + Brief Descriptions",
           "component_id": 894780,
-          "image": "//a.storyblok.com/f/82895/x/5a7099656f/iconsdesc.PNG"
+          "image": "//a.storyblok.com/f/82895/x/5a7099656f/iconsdesc.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768200,
           "name": "[Content] Icons + Brief Descriptions Dark",
           "component_id": 894780,
-          "image": "//a.storyblok.com/f/82895/x/5227cad1f6/iconsdescdark.PNG"
+          "image": "//a.storyblok.com/f/82895/x/5227cad1f6/iconsdescdark.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768228,
           "name": "[Content] Icon + Short Texts (No BG)",
           "component_id": 894780,
-          "image": "//a.storyblok.com/f/82895/x/c22c1957cb/iconstext.PNG"
+          "image": "//a.storyblok.com/f/82895/x/c22c1957cb/iconstext.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 768198,
           "name": "[Content] Simple Texts + Image",
           "component_id": 894780,
-          "image": "//a.storyblok.com/f/82895/x/6dd063e599/textimage.PNG"
+          "image": "//a.storyblok.com/f/82895/x/6dd063e599/textimage.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -13371,385 +13631,577 @@
           "id": 703411,
           "name": "[About Us] 2 Pop-up Columns (About Us sample)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/4ba4c05b3b/2-pop-up-columns-about-us-sample.PNG"
+          "image": "//a.storyblok.com/f/82895/x/4ba4c05b3b/2-pop-up-columns-about-us-sample.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703380,
           "name": "[About Us] Avatar + Description (About Me sample)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/7579f7e377/avatar-description-about-me-sample.PNG"
+          "image": "//a.storyblok.com/f/82895/x/7579f7e377/avatar-description-about-me-sample.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 717843,
           "name": "[About Us] Personal",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/82d0b71e90/abme.PNG"
+          "image": "//a.storyblok.com/f/82895/x/82d0b71e90/abme.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703404,
           "name": "[About Us] Simple Animated Texts (Who are We sample)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/84966d55b6/simple-animated-texts-who-are-we-sample.PNG"
+          "image": "//a.storyblok.com/f/82895/x/84966d55b6/simple-animated-texts-who-are-we-sample.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703374,
           "name": "[About Us] Simple Description + Picture (About Us sample)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/52f4eab659/about-us-1.PNG"
+          "image": "//a.storyblok.com/f/82895/x/52f4eab659/about-us-1.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703368,
           "name": "[Action] 4 Columns Cards",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/250e709cf7/4-columns-cards.PNG"
+          "image": "//a.storyblok.com/f/82895/x/250e709cf7/4-columns-cards.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703397,
           "name": "[Action] Banner (Discount Sample) + Button",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/cb20606034/banner-discount-sample-button.PNG"
+          "image": "//a.storyblok.com/f/82895/x/cb20606034/banner-discount-sample-button.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 752632,
           "name": "[Action] Descriptive Cards",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/d11a6bf143/cl-1.PNG"
+          "image": "//a.storyblok.com/f/82895/x/d11a6bf143/cl-1.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703408,
           "name": "[Action] Floating Box",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/f4c8d367fc/floating-box.PNG"
+          "image": "//a.storyblok.com/f/82895/x/f4c8d367fc/floating-box.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 780021,
           "name": "[Action] Newsletter Box",
           "component_id": 894776,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703406,
           "name": "[Actions] 6 Points & Button",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/c5f961ce2a/6-points-button.PNG"
+          "image": "//a.storyblok.com/f/82895/x/c5f961ce2a/6-points-button.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 726397,
           "name": "[Action] Shopping",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/30ed95a3ef/cardsshop.PNG"
+          "image": "//a.storyblok.com/f/82895/x/30ed95a3ef/cardsshop.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 737354,
           "name": "[Content] 1 Picture & 2nd Column",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/d74ee87613/yeah.PNG"
+          "image": "//a.storyblok.com/f/82895/x/d74ee87613/yeah.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703370,
           "name": "[Content] 1 Picture & 3 Brief Descriptions",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/03c0c7f74a/1-picture-3-brief-descriptions.PNG"
+          "image": "//a.storyblok.com/f/82895/x/03c0c7f74a/1-picture-3-brief-descriptions.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703395,
           "name": "[Content] 2 Columns Blog Review (Dark)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/ae5ec48987/2-columns-blog-review-dark.PNG"
+          "image": "//a.storyblok.com/f/82895/x/ae5ec48987/2-columns-blog-review-dark.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703379,
           "name": "[Content] 2 Columns Down Blogger Style Preview",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/29d8664957/2-columns-down-blogger-style-preview.PNG"
+          "image": "//a.storyblok.com/f/82895/x/29d8664957/2-columns-down-blogger-style-preview.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703401,
           "name": "[Content] 2 Columns Menu",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/103e010f61/2-columns-menu.PNG"
+          "image": "//a.storyblok.com/f/82895/x/103e010f61/2-columns-menu.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703382,
           "name": "[Content] 2 Row Blogger Introduction (Minimalist)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/643d7ad9be/2-row-blogger-introduction-minimalist.PNG"
+          "image": "//a.storyblok.com/f/82895/x/643d7ad9be/2-row-blogger-introduction-minimalist.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703376,
           "name": "[Content] 3 Columns Descriptions with Icons",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/087a4ddd61/3-columns-descriptions-with-icons-light.PNG"
+          "image": "//a.storyblok.com/f/82895/x/087a4ddd61/3-columns-descriptions-with-icons-light.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703389,
           "name": "[Content] 3 Columns Descriptions with Icons Alt",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/4343be9b0d/3-columns-descriptions-with-icons-alt.PNG"
+          "image": "//a.storyblok.com/f/82895/x/4343be9b0d/3-columns-descriptions-with-icons-alt.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703381,
           "name": "[Content] 3 Columns Descriptions with Icons (Dark)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/2a5afe637a/3-columns-descriptions-with-icons.PNG"
+          "image": "//a.storyblok.com/f/82895/x/2a5afe637a/3-columns-descriptions-with-icons.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 704302,
           "name": "[Content] 3 Columns Preview",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/598e7d6946/3-columns-preview.PNG"
+          "image": "//a.storyblok.com/f/82895/x/598e7d6946/3-columns-preview.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703409,
           "name": "[Content] 3 Columns Preview (2)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/b55ee9958f/3-columns-preview-2.PNG"
+          "image": "//a.storyblok.com/f/82895/x/b55ee9958f/3-columns-preview-2.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703400,
           "name": "[Content] 3 Images Preview",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/7a6b98f07f/3-images-preview.PNG"
+          "image": "//a.storyblok.com/f/82895/x/7a6b98f07f/3-images-preview.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 706429,
           "name": "[Content] 6 Features with Icons and Image",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/dc740b3233/6-features-with-icons-and-image.PNG"
+          "image": "//a.storyblok.com/f/82895/x/dc740b3233/6-features-with-icons-and-image.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 721545,
           "name": "[Content] Accordion 1",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/a19380772e/accordion1.PNG"
+          "image": "//a.storyblok.com/f/82895/x/a19380772e/accordion1.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 726285,
           "name": "[Content] Bouncy Preview Cards",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/702992ee14/bouncycards.PNG"
+          "image": "//a.storyblok.com/f/82895/x/702992ee14/bouncycards.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703393,
           "name": "[Content] Compact Header (BG Picture +3 Columns Descriptions)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/2e5fe7f260/compact-header-bg-picture-3-columns-descriptions.PNG"
+          "image": "//a.storyblok.com/f/82895/x/2e5fe7f260/compact-header-bg-picture-3-columns-descriptions.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 712481,
           "name": "[Content] FAQ / Accordion",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/a931a6423b/simplefaqa.PNG"
+          "image": "//a.storyblok.com/f/82895/x/a931a6423b/simplefaqa.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 719214,
           "name": "[Content] Image List",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/59abb0e354/imagelist.PNG"
+          "image": "//a.storyblok.com/f/82895/x/59abb0e354/imagelist.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703387,
           "name": "[Content] Instagram Grids",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/4d6534527e/instagram-grids.PNG"
+          "image": "//a.storyblok.com/f/82895/x/4d6534527e/instagram-grids.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 989714,
           "name": "[Content] Multi Column Blog",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/29f3ccb794/screenshot-2021-04-26-at-16-48-47.png"
+          "image": "//a.storyblok.com/f/82895/x/29f3ccb794/screenshot-2021-04-26-at-16-48-47.png",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 752633,
           "name": "[Content] Overlay Content Preview",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/fa7e0ff575/cl-2.PNG"
+          "image": "//a.storyblok.com/f/82895/x/fa7e0ff575/cl-2.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703407,
           "name": "[Content] Pictures & Texts Zigzag",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/67e4fe4b13/pictures-texts-zigzag.PNG"
+          "image": "//a.storyblok.com/f/82895/x/67e4fe4b13/pictures-texts-zigzag.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703399,
           "name": "[Content] Picture & Texts (Minimalist Product Teaser)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/333ef019ca/picture-texts-minimalist-product-teaser.PNG"
+          "image": "//a.storyblok.com/f/82895/x/333ef019ca/picture-texts-minimalist-product-teaser.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703394,
           "name": "[Content] Picture & Texts (Simple Teaser)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/aa59cbf666/picture-texts-simple-teaser.PNG"
+          "image": "//a.storyblok.com/f/82895/x/aa59cbf666/picture-texts-simple-teaser.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 706427,
           "name": "[Content] Pop-up Feature-3Columns",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/15bbb911f6/pop-up-features.PNG"
+          "image": "//a.storyblok.com/f/82895/x/15bbb911f6/pop-up-features.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 717847,
           "name": "[Content] Simple Title + Image",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/a810a58395/simpletitleimage.PNG"
+          "image": "//a.storyblok.com/f/82895/x/a810a58395/simpletitleimage.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 719213,
           "name": "[Content] Tab Sample",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/7cb08c743c/tab.PNG"
+          "image": "//a.storyblok.com/f/82895/x/7cb08c743c/tab.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703405,
           "name": "[Content] Title, Descriptive Icons, & BG Picture",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/a11f96bee8/title-descriptive-icons-bg-picture.PNG"
+          "image": "//a.storyblok.com/f/82895/x/a11f96bee8/title-descriptive-icons-bg-picture.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703412,
           "name": "[Content] Transparent Box Description with BG (Opening-Hours sample)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/3be28b8a7b/transparent-box-description-with-bg-opening-hours-sample.PNG"
+          "image": "//a.storyblok.com/f/82895/x/3be28b8a7b/transparent-box-description-with-bg-opening-hours-sample.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703396,
           "name": "[Content] Transparent Descriptive Box with BG ",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/8d4e8142b0/transparent-descriptive-box-with-bg.PNG"
+          "image": "//a.storyblok.com/f/82895/x/8d4e8142b0/transparent-descriptive-box-with-bg.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709163,
           "name": "[Footer] Bottom Footer",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/071eb757e7/simple-footer.PNG"
+          "image": "//a.storyblok.com/f/82895/x/071eb757e7/simple-footer.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709162,
           "name": "[Footer] Simple",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/0d74b6078f/footer-purple.PNG"
+          "image": "//a.storyblok.com/f/82895/x/0d74b6078f/footer-purple.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709165,
           "name": "[Footer] Simple Soft Bottom Footer",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/e053ec61dd/simple-footer-nude.PNG"
+          "image": "//a.storyblok.com/f/82895/x/e053ec61dd/simple-footer-nude.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709164,
           "name": "[Footer] Soft",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/ff055b8dcd/footer-desert-pink.PNG"
+          "image": "//a.storyblok.com/f/82895/x/ff055b8dcd/footer-desert-pink.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703378,
           "name": "[Header] Clean Big Title",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/1b1438ad7d/clean-big-title.PNG"
+          "image": "//a.storyblok.com/f/82895/x/1b1438ad7d/clean-big-title.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703390,
           "name": "[Header] Minimalist Title (Dark)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/16ebc80e47/minimalist-title-dark.PNG"
+          "image": "//a.storyblok.com/f/82895/x/16ebc80e47/minimalist-title-dark.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703398,
           "name": "[Header] Simple Header with Text (Centered)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/a3951d4dc3/simple-header-with-text-centered.PNG"
+          "image": "//a.storyblok.com/f/82895/x/a3951d4dc3/simple-header-with-text-centered.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703369,
           "name": "[Header] Simple Title, Subtitle, & Picture Header",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/ec929130c2/simple-title-subtitle-picture-header.PNG"
+          "image": "//a.storyblok.com/f/82895/x/ec929130c2/simple-title-subtitle-picture-header.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703410,
           "name": "[Map] Section (Picture)",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/fca6201f4c/map-section-picture.PNG"
+          "image": "//a.storyblok.com/f/82895/x/fca6201f4c/map-section-picture.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703372,
           "name": "[Map] Single Picture & Description - Our Store Section Sample",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/95a54eec90/single-picture-description-our-store-section-sample.PNG"
+          "image": "//a.storyblok.com/f/82895/x/95a54eec90/single-picture-description-our-store-section-sample.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 706532,
           "name": "[Pricing Plans] Clean ",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/0ab98b14a5/clean-pricing-plans.PNG"
+          "image": "//a.storyblok.com/f/82895/x/0ab98b14a5/clean-pricing-plans.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 706529,
           "name": "[Pricing Plans] Minimalist ",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/2fcf07b46f/minimalist-pricing-plan.PNG"
+          "image": "//a.storyblok.com/f/82895/x/2fcf07b46f/minimalist-pricing-plan.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 706531,
           "name": "[Pricing Plans] Pop-Up Pricing Plans",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/dc705afc8b/pop-up-pricing-plans.PNG"
+          "image": "//a.storyblok.com/f/82895/x/dc705afc8b/pop-up-pricing-plans.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 706571,
           "name": "[Team] Avatars",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/8799ff3ebb/our-team-avatars.PNG"
+          "image": "//a.storyblok.com/f/82895/x/8799ff3ebb/our-team-avatars.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 706533,
           "name": "[Team] Cards",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/bd64476db9/our-team-cards.PNG"
+          "image": "//a.storyblok.com/f/82895/x/bd64476db9/our-team-cards.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 717664,
           "name": "[Team] Full BG",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/3974054995/bgteam.PNG"
+          "image": "//a.storyblok.com/f/82895/x/3974054995/bgteam.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 717635,
           "name": "[Team] Hovering Box",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/cef34c4a19/teamnew.PNG"
+          "image": "//a.storyblok.com/f/82895/x/cef34c4a19/teamnew.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 717639,
           "name": "[Team] Square Avatars",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/f20424a931/newteam.PNG"
+          "image": "//a.storyblok.com/f/82895/x/f20424a931/newteam.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 704303,
           "name": "[Testimonial] 2 Columns Customers' Review",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/f2ef6f83a8/2-columns-customers-review.PNG"
+          "image": "//a.storyblok.com/f/82895/x/f2ef6f83a8/2-columns-customers-review.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703377,
           "name": "[Testimonial] 3 Columns Customers' Review",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/3bb41fd9dd/3-columns-customers-review.PNG"
+          "image": "//a.storyblok.com/f/82895/x/3bb41fd9dd/3-columns-customers-review.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 716574,
           "name": "[Video] Column + Video",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/fc60b29045/columned.PNG"
+          "image": "//a.storyblok.com/f/82895/x/fc60b29045/columned.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 713661,
           "name": "[Video] Simple Youtube",
           "component_id": 894776,
-          "image": "//a.storyblok.com/f/82895/x/7446193dd8/columnew.PNG"
+          "image": "//a.storyblok.com/f/82895/x/7446193dd8/columnew.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -14008,19 +14460,28 @@
           "id": 716510,
           "name": "[Video] BG w/ Text Box",
           "component_id": 894779,
-          "image": "//a.storyblok.com/f/82895/x/3e44edcb15/tbvid.PNG"
+          "image": "//a.storyblok.com/f/82895/x/3e44edcb15/tbvid.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 716557,
           "name": "[Video] Caption Video",
           "component_id": 894779,
-          "image": "//a.storyblok.com/f/82895/x/c02fe4aee6/captionvid.PNG"
+          "image": "//a.storyblok.com/f/82895/x/c02fe4aee6/captionvid.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 716556,
           "name": "[Video] Titled",
           "component_id": 894779,
-          "image": "//a.storyblok.com/f/82895/x/433f1f7da4/titledvid.PNG"
+          "image": "//a.storyblok.com/f/82895/x/433f1f7da4/titledvid.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -14774,37 +15235,55 @@
           "id": 703403,
           "name": "Clean Slider (Title Bottom, Centered)",
           "component_id": 894797,
-          "image": "//a.storyblok.com/f/82895/x/774d4ba6bc/clean-slider-title-bottom-centered.PNG"
+          "image": "//a.storyblok.com/f/82895/x/774d4ba6bc/clean-slider-title-bottom-centered.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 1286640,
           "name": "Global Promotion Slider",
           "component_id": 894797,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703391,
           "name": "Images Preview Slider (No Text)",
           "component_id": 894797,
-          "image": "//a.storyblok.com/f/82895/x/7b80957cd5/images-preview-slider-no-text.PNG"
+          "image": "//a.storyblok.com/f/82895/x/7b80957cd5/images-preview-slider-no-text.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703375,
           "name": "Neat Sliders with Brief Taglines",
           "component_id": 894797,
-          "image": "//a.storyblok.com/f/82895/x/b94e427b92/neat-sliders-with-brief-taglines.PNG"
+          "image": "//a.storyblok.com/f/82895/x/b94e427b92/neat-sliders-with-brief-taglines.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 1036249,
           "name": "Promotion Slider",
           "component_id": 894797,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 703385,
           "name": "Sliding Blog-Previews",
           "component_id": 894797,
-          "image": "//a.storyblok.com/f/82895/x/f766b423ed/sliding-blog-previews.PNG"
+          "image": "//a.storyblok.com/f/82895/x/f766b423ed/sliding-blog-previews.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -15041,25 +15520,37 @@
           "id": 720880,
           "name": "[Snackbar] Cookie",
           "component_id": 1074524,
-          "image": "//a.storyblok.com/f/82895/x/3f826542ea/sbcookie.PNG"
+          "image": "//a.storyblok.com/f/82895/x/3f826542ea/sbcookie.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 720881,
           "name": "[Snackbar] Cookie with Buttons",
           "component_id": 1074524,
-          "image": "//a.storyblok.com/f/82895/x/7e7f3495f1/sbcookie2.PNG"
+          "image": "//a.storyblok.com/f/82895/x/7e7f3495f1/sbcookie2.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 721544,
           "name": "[Snackbar] Dialog1",
           "component_id": 1074524,
-          "image": "//a.storyblok.com/f/82895/x/37214c029a/sb-dialog.PNG"
+          "image": "//a.storyblok.com/f/82895/x/37214c029a/sb-dialog.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 720879,
           "name": "[Snackbar] Promotional Box",
           "component_id": 1074524,
-          "image": "//a.storyblok.com/f/82895/x/e2d29b9362/sb1.PNG"
+          "image": "//a.storyblok.com/f/82895/x/e2d29b9362/sb1.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -15948,7 +16439,10 @@
           "id": 984969,
           "name": "Tabs with Icons",
           "component_id": 894792,
-          "image": ""
+          "image": "",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,
@@ -16425,49 +16919,73 @@
           "id": 709114,
           "name": "Black Toolbar Blue Button",
           "component_id": 894786,
-          "image": "//a.storyblok.com/f/82895/x/68d6b391ee/black-blue-toolbar.PNG"
+          "image": "//a.storyblok.com/f/82895/x/68d6b391ee/black-blue-toolbar.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709110,
           "name": "Black Toolbar Red Button",
           "component_id": 894786,
-          "image": "//a.storyblok.com/f/82895/x/a5778686ec/black-tb.PNG"
+          "image": "//a.storyblok.com/f/82895/x/a5778686ec/black-tb.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709113,
           "name": "Blue Toolbar",
           "component_id": 894786,
-          "image": "//a.storyblok.com/f/82895/x/f8e9bdd479/blue-tb.PNG"
+          "image": "//a.storyblok.com/f/82895/x/f8e9bdd479/blue-tb.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709115,
           "name": "Dark Grey Toolbar",
           "component_id": 894786,
-          "image": "//a.storyblok.com/f/82895/x/46af274e8c/dark-grey-tb.PNG"
+          "image": "//a.storyblok.com/f/82895/x/46af274e8c/dark-grey-tb.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709116,
           "name": "Grey Set Toolbar",
           "component_id": 894786,
-          "image": "//a.storyblok.com/f/82895/x/0b80d3827e/grey-tb.PNG"
+          "image": "//a.storyblok.com/f/82895/x/0b80d3827e/grey-tb.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709111,
           "name": "Purple Toolbar",
           "component_id": 894786,
-          "image": "//a.storyblok.com/f/82895/x/736441cae7/purple-tb.PNG"
+          "image": "//a.storyblok.com/f/82895/x/736441cae7/purple-tb.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709109,
           "name": "Red Toolbar",
           "component_id": 894786,
-          "image": "//a.storyblok.com/f/82895/x/036bb763b6/red-tb.PNG"
+          "image": "//a.storyblok.com/f/82895/x/036bb763b6/red-tb.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         },
         {
           "id": 709112,
           "name": "White Toolbar Purple Button",
           "component_id": 894786,
-          "image": "//a.storyblok.com/f/82895/x/b745f86347/white-tb.PNG"
+          "image": "//a.storyblok.com/f/82895/x/b745f86347/white-tb.PNG",
+          "color": null,
+          "icon": null,
+          "description": null
         }
       ],
       "preset_id": null,

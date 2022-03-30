@@ -269,8 +269,17 @@ export const createGlobalStyles = (theme: Theme) => {
     '.text-white': {
       color: `${theme.palette.common.white} !important`
     },
-    '.text-danger': {
+    '.text-danger, .text-error': {
       color: `${theme.palette.error.main} !important`
+    },
+    '.text-warning': {
+      color: `${theme.palette.warning.main} !important`
+    },
+    '.text-success': {
+      color: `${theme.palette.success.main} !important`
+    },
+    '.text-info': {
+      color: `${theme.palette.info.main} !important`
     },
     '.bg-primary': {
       backgroundColor: `${theme.palette.primary.main} !important`

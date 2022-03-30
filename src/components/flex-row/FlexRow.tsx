@@ -16,7 +16,7 @@ export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
   const direction: StackProps['direction'] = content.column ? 'column' : 'row'
   return (
     <Stack
-      flexWrap={'wrap'}
+      flexWrap={content.flex_wrap || 'wrap'}
       direction={{
         xs: content.column_mobile_only ? 'column' : direction,
         sm: direction

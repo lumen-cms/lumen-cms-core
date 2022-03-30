@@ -1520,6 +1520,7 @@ export interface FlexRowStoryblok {
   styles_tablet?: StylesStoryblok[];
   styles_hover?: StylesStoryblok[];
   divider?: DividerStoryblok[];
+  flex_wrap?: "" | "wrap" | "initial" | "inherit" | "nowrap" | "revert";
   _uid: string;
   component: "flex_row";
   [k: string]: any;
@@ -1711,6 +1712,11 @@ export interface GalleryRowStoryblok {
 
 export interface GlobalStoryblok {
   theme_base: "" | "base" | "dark";
+  body_background_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  default_font_color?: string;
   theme_primary?: string;
   theme_primary_contrast?: string;
   theme_secondary?: string;
@@ -1719,10 +1725,6 @@ export interface GlobalStoryblok {
   theme_error_contrast?: string;
   theme_link?: string;
   theme_link_hover?: string;
-  body_background_color?: {
-    rgba?: string;
-    [k: string]: any;
-  };
   theme_font_default?: string;
   theme_font_alt1?: string;
   theme_font_alt2?: string;

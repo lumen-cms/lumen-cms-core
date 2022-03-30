@@ -492,6 +492,7 @@ export type GlobalComponent = {
   chat_button?: Maybe<Scalars['BlockScalar']>;
   component?: Maybe<Scalars['String']>;
   custom_css?: Maybe<Scalars['String']>;
+  default_font_color?: Maybe<Scalars['String']>;
   drawer_background?: Maybe<Scalars['BlockScalar']>;
   drawer_below_toolbar?: Maybe<Scalars['Boolean']>;
   drawer_below_toolbar_xs?: Maybe<Scalars['Boolean']>;
@@ -563,6 +564,7 @@ export type GlobalComponent = {
 };
 
 export type GlobalFilterQuery = {
+  default_font_color?: InputMaybe<FilterQueryOperations>;
   drawer_below_toolbar?: InputMaybe<FilterQueryOperations>;
   drawer_below_toolbar_xs?: InputMaybe<FilterQueryOperations>;
   drawer_full_width_mobile?: InputMaybe<FilterQueryOperations>;
