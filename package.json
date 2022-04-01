@@ -92,6 +92,7 @@
     "next-seo": "5.1.0",
     "next-transpile-modules": "9.0.0",
     "nprogress": "0.2.0",
+    "nuka-carousel": "^5.0.7",
     "plaiceholder": "2.3.0",
     "postcss": "8.4.12",
     "react-aspect-ratio": "1.0.50",

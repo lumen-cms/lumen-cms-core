@@ -85,6 +85,7 @@ export interface AuthContainerStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -148,6 +149,7 @@ export interface AuthFormStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -458,6 +460,7 @@ export interface CardStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -515,6 +518,7 @@ export interface CardStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -573,6 +577,7 @@ export interface CardStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -883,6 +888,7 @@ export interface ColumnStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -1020,6 +1026,7 @@ export interface DialogStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -1083,6 +1090,7 @@ export interface DialogStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -1394,6 +1402,7 @@ export interface EventStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -1506,6 +1515,7 @@ export interface FlexRowStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -1636,6 +1646,7 @@ export interface FormContainerStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -1870,6 +1881,7 @@ export interface HeadlineStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -1999,6 +2011,7 @@ export interface HtmlStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2365,6 +2378,7 @@ export interface ListStoriesStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2480,6 +2494,7 @@ export interface MoralisAuthContainerStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2537,6 +2552,7 @@ export interface MoralisAuthContainerStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2594,6 +2610,7 @@ export interface MoralisAuthContainerStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2680,6 +2697,7 @@ export interface MoralisMintStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2740,6 +2758,7 @@ export interface MoralisMintStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2803,6 +2822,7 @@ export interface MoralisMintStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2860,6 +2880,7 @@ export interface MoralisMintStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2920,6 +2941,7 @@ export interface MoralisMintStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -2997,6 +3019,7 @@ export interface MotionStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -3189,6 +3212,7 @@ export interface PageStoryblok {
     | PromotionStoryblok
     | SnackbarStoryblok
     | BottomNavigationStoryblok
+    | SwiperStoryblok
   )[];
   right_body?: (
     | AccordionStoryblok
@@ -3242,6 +3266,7 @@ export interface PageStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -3347,6 +3372,7 @@ export interface ParallaxItemStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -3663,6 +3689,7 @@ export interface SectionStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -3967,6 +3994,7 @@ export interface SnackbarStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -4036,6 +4064,7 @@ export interface StaticContainerStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -4143,6 +4172,92 @@ export interface StyleVariantsBgStoryblok {
   [k: string]: any;
 }
 
+export interface SwiperStoryblok {
+  property?: ("hide_pagination" | "hide_arrows" | "dynamic_bullets")[];
+  effect?: "" | "cube" | "cards" | "fade" | "flip" | "creative" | "coverflow";
+  slides_per_view?: number;
+  autoslide_duration?: number;
+  pause_on_hover?: boolean;
+  body?: SwiperItemStoryblok[];
+  width?: number;
+  height?: number;
+  _uid: string;
+  component: "swiper";
+  [k: string]: any;
+}
+
+export interface SwiperItemStoryblok {
+  image?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  };
+  body?: (
+    | AccordionStoryblok
+    | AuthContainerStoryblok
+    | AuthFormStoryblok
+    | AvatarStoryblok
+    | BottomNavigationStoryblok
+    | ButtonStoryblok
+    | ButtonListStoryblok
+    | ButtonSpeechTextStoryblok
+    | CardStoryblok
+    | CardListStoryblok
+    | CategoryBoxStoryblok
+    | DateHeadlineStoryblok
+    | DialogStoryblok
+    | DividerStoryblok
+    | EcommerceCheckoutStoryblok
+    | EventCalendarStoryblok
+    | FlexRowStoryblok
+    | FormStoryblok
+    | FormBuilderStoryblok
+    | FormContainerStoryblok
+    | GalleryStoryblok
+    | HeadlineStoryblok
+    | HtmlStoryblok
+    | HubspotFormStoryblok
+    | HubspotMeetingStoryblok
+    | IconStoryblok
+    | IframeStoryblok
+    | IframeAdvancedStoryblok
+    | ImageStoryblok
+    | ImageListStoryblok
+    | InstagramListStoryblok
+    | InstagramPostStoryblok
+    | LinkStoryblok
+    | ListSearchAutocompleteStoryblok
+    | ListSearchFieldStoryblok
+    | ListStoriesStoryblok
+    | ListWidgetStoryblok
+    | MoralisStoryblok
+    | MotionStoryblok
+    | NavListStoryblok
+    | NavMenuStoryblok
+    | ParagraphStoryblok
+    | PlayerStoryblok
+    | PricingStoryblok
+    | PromotionStoryblok
+    | RichTextEditorStoryblok
+    | RowStoryblok
+    | SearchStoryStoryblok
+    | SectionParallaxStoryblok
+    | SliderStoryblok
+    | StaticSectionStoryblok
+    | SwiperStoryblok
+    | TableStoryblok
+    | TabsStoryblok
+    | TimelineStoryblok
+    | ToolbarNaviButtonStoryblok
+  )[];
+  _uid: string;
+  component: "swiper_item";
+  [k: string]: any;
+}
+
 export interface TableStoryblok {
   body?: {
     tbody?: any[];
@@ -4236,6 +4351,7 @@ export interface TabsItemStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -4323,6 +4439,7 @@ export interface TimelineItemStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok
@@ -4404,6 +4521,7 @@ export interface TimelineItemStoryblok {
     | SectionParallaxStoryblok
     | SliderStoryblok
     | StaticSectionStoryblok
+    | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
     | TimelineStoryblok

@@ -392,7 +392,7 @@ export type Checkout = Node & {
   completedAt?: Maybe<Scalars['DateTime']>;
   /** The date and time when the checkout was created. */
   createdAt: Scalars['DateTime'];
-  /** The currency code for the Checkout. */
+  /** The currency code for the checkout. */
   currencyCode: CurrencyCode;
   /** A list of extra information that is added to the checkout. */
   customAttributes: Array<Attribute>;
@@ -450,9 +450,9 @@ export type Checkout = Node & {
   subtotalPrice: Scalars['Money'];
   /** Price of the checkout before duties, shipping and taxes. */
   subtotalPriceV2: MoneyV2;
-  /** Specifies if the Checkout is tax exempt. */
+  /** Whether the checkout is tax exempt. */
   taxExempt: Scalars['Boolean'];
-  /** Specifies if taxes are included in the line item and shipping line prices. */
+  /** Whether taxes are included in the line item and shipping line prices. */
   taxesIncluded: Scalars['Boolean'];
   /** The sum of all the duties applied to the line items in the checkout. */
   totalDuties?: Maybe<MoneyV2>;

@@ -18,7 +18,11 @@ const SwiperEffectCoverflow: FC<{
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           width: '300px!important',
-          height: '300px'
+          height: '300px',
+          '& img': {
+            display: 'block',
+            width: '100%'
+          }
         }
       }}
     >

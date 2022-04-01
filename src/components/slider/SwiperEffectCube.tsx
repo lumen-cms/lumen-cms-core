@@ -7,20 +7,28 @@ import Box from '@mui/material/Box'
 const SwiperEffectCube: FC<{
   swiperProps: SwiperProps
 }> = ({ children, swiperProps }) => {
+  const height = 300
   return (
     <Box
       sx={{
+        position: 'relative',
+        width: '100%',
+        height: `${height}px`,
         '& .swiper': {
-          width: '300px',
-          height: '300px',
+          height: `${height}px`,
+          width: `${height}px`,
           position: 'absolute',
           left: '50%',
-          top: '50%',
-          marginX: '-150px'
+          top: '0',
+          marginX: `-${height / 2}px`
         },
         '& .swiper-slide': {
           backgroundPosition: 'center',
-          backgroundSize: 'cover'
+          backgroundSize: 'cover',
+          '& img': {
+            width: '100%',
+            display: 'block'
+          }
         }
       }}
     >

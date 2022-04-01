@@ -11213,7 +11213,7 @@
       "name": "page",
       "display_name": null,
       "created_at": "2020-05-01T08:40:37.942Z",
-      "updated_at": "2022-03-27T02:31:08.720Z",
+      "updated_at": "2022-04-01T01:00:03.607Z",
       "id": 894809,
       "schema": {
         "meta_title": {
@@ -11305,7 +11305,8 @@
             "section_parallax",
             "promotion",
             "snackbar",
-            "bottom_navigation"
+            "bottom_navigation",
+            "swiper"
           ],
           "pos": 11,
           "component_group_whitelist": []
@@ -16153,6 +16154,158 @@
       "all_presets": [],
       "preset_id": null,
       "real_name": "style_variants_bg",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
+      "name": "swiper",
+      "display_name": null,
+      "created_at": "2022-04-01T00:47:54.388Z",
+      "updated_at": "2022-04-01T01:54:59.853Z",
+      "id": 2324258,
+      "schema": {
+        "property": {
+          "type": "options",
+          "options": [
+            {
+              "value": "hide_pagination",
+              "name": "Hide Pagination"
+            },
+            {
+              "value": "hide_arrows",
+              "name": "Hide Navigation"
+            },
+            {
+              "value": "dynamic_bullets",
+              "name": "Dynamic Bullets"
+            }
+          ],
+          "pos": 0
+        },
+        "effect": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "cube",
+              "name": "cube"
+            },
+            {
+              "value": "cards",
+              "name": "cards"
+            },
+            {
+              "value": "fade",
+              "name": "fade"
+            },
+            {
+              "value": "flip",
+              "name": "flip"
+            },
+            {
+              "value": "creative",
+              "name": "creative"
+            },
+            {
+              "value": "coverflow",
+              "name": "coverflow"
+            }
+          ],
+          "pos": 1
+        },
+        "slides_per_view": {
+          "type": "number",
+          "pos": 2
+        },
+        "autoslide_duration": {
+          "type": "number",
+          "description": "Enables autoslide in ms. Example: 3000 for 3s",
+          "pos": 3
+        },
+        "pause_on_hover": {
+          "type": "boolean",
+          "pos": 4
+        },
+        "body": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "swiper_item"
+          ],
+          "pos": 5
+        },
+        "tab-f7aeac3b-1b41-4cd2-8bdb-ad489eaa576f": {
+          "type": "tab",
+          "display_name": "Settings",
+          "keys": [
+            "slides_per_view",
+            "autoslide_duration",
+            "pause_on_hover",
+            "property",
+            "effect"
+          ],
+          "pos": 6
+        },
+        "tab-3c2edb78-1784-43a9-af6f-a3a1a1d98502": {
+          "type": "tab",
+          "display_name": "Styles",
+          "keys": [
+            "width",
+            "height"
+          ],
+          "pos": 0
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "swiper",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
+      "component_group_name": "General"
+    },
+    {
+      "name": "swiper_item",
+      "display_name": null,
+      "created_at": "2022-04-01T00:48:52.935Z",
+      "updated_at": "2022-04-01T00:50:21.103Z",
+      "id": 2324259,
+      "schema": {
+        "image": {
+          "type": "asset",
+          "filetypes": [
+            "images"
+          ]
+        },
+        "body": {
+          "type": "bloks",
+          "restrict_components": true,
+          "restrict_type": "groups",
+          "component_group_whitelist": [
+            "1778dc53-bf7e-46d7-a549-7471017211b2"
+          ]
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "swiper_item",
       "component_group_uuid": null,
       "color": null,
       "icon": null

@@ -156,6 +156,7 @@ export type DocumentComponent = {
 
 
 export type DocumentComponentCategoriesArgs = {
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
   fields?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   language?: InputMaybe<Scalars['String']>;
 };
@@ -793,6 +794,7 @@ export type PageComponent = {
 
 
 export type PageComponentCategoriesArgs = {
+  by_uuids_ordered?: InputMaybe<Scalars['String']>;
   fields?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   language?: InputMaybe<Scalars['String']>;
 };

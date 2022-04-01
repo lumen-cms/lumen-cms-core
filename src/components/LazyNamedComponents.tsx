@@ -160,3 +160,10 @@ LmCoreComponents.event_calendar = dynamic(() => import('./event/EventCalendar'))
 LmCoreComponents.list_stories = dynamic(
   () => import('./list-widget/ListStories')
 )
+
+LmCoreComponents.swiper = dynamic(
+  () => /* webpackChunkName: 'swiper' */ import('./slider/LmSwiper')
+)
+LmCoreComponents.swiper_item = dynamic(
+  () => /* webpackChunkName: 'swiper' */ import('./slider/LmSwiperSlide')
+)
