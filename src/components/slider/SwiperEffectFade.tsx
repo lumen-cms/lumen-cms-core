@@ -7,15 +7,13 @@ const SwiperEffectFade: FC<{
   swiperProps: SwiperProps
 }> = ({ children, swiperProps }) => {
   return (
-    <div>
-      <Swiper
-        {...swiperProps}
-        effect={'fade'}
-        modules={[...(swiperProps.modules || []), EffectFade]}
-      >
-        {children}
-      </Swiper>
-    </div>
+    <Swiper
+      {...swiperProps}
+      effect={'fade'}
+      modules={[...(swiperProps.modules || []), EffectFade]}
+    >
+      {children}
+    </Swiper>
   )
 }
 export default SwiperEffectFade

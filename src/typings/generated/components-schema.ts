@@ -4173,14 +4173,16 @@ export interface StyleVariantsBgStoryblok {
 }
 
 export interface SwiperStoryblok {
+  width?: number;
+  height?: number;
+  image_object_fit?: "" | "contain" | "cover" | "fill";
+  slides_per_view?: string;
+  space_between_slides?: string;
   property?: ("hide_pagination" | "hide_arrows" | "dynamic_bullets")[];
   effect?: "" | "cube" | "cards" | "fade" | "flip" | "creative" | "coverflow";
-  slides_per_view?: number;
   autoslide_duration?: number;
   pause_on_hover?: boolean;
   body?: SwiperItemStoryblok[];
-  width?: number;
-  height?: number;
   _uid: string;
   component: "swiper";
   [k: string]: any;

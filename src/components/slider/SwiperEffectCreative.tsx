@@ -12,8 +12,6 @@ const SwiperEffectCreative: FC<{
       sx={{
         '& .swiper': {
           margin: '0 auto'
-          // width: '320',
-          // height: '240px'
         },
         '& .swiper-slide': {
           display: 'flex',

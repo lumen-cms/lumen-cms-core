@@ -11,6 +11,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import { PaginationOptions } from 'swiper/types'
+import Box from '@mui/material/Box'
 
 const EffectCoverflow = dynamic(() => import('./SwiperEffectCoverflow'))
 const EffectCube = dynamic(() => import('./SwiperEffectCube'))
@@ -22,9 +23,10 @@ export default function LmSwiper({ content }: LmSwiperProps) {
   const { property } = content
   const effect = content.effect
   const showPagination = !property?.includes('hide_pagination')
+
   const swiperProps: SwiperProps = {
     modules: [Scrollbar, A11y, Autoplay, Navigation, Pagination],
-    slidesPerView: 1,
+
     navigation: !content.property?.includes('hide_arrows'),
     ...(showPagination && {
       pagination: {
@@ -37,6 +39,27 @@ export default function LmSwiper({ content }: LmSwiperProps) {
     swiperProps.autoplay = {
       delay: Number(content.autoslide_duration),
       pauseOnMouseEnter: content.pause_on_hover
+    }
+  }
+  if (!content.effect || content.effect === 'fade') {
+    const [mobileSlides, tabletSlides, desktopSlides] = content.slides_per_view
+      ? content.slides_per_view.split(',').map((i) => Number(i.trim()))
+      : [1]
+    const [mobileSpace, tabletSpace, desktopSpace] =
+      content.space_between_slides
+        ? content.space_between_slides.split(',').map((i) => Number(i.trim()))
+        : [0]
+    swiperProps.slidesPerView = mobileSlides
+    swiperProps.spaceBetween = mobileSpace
+    swiperProps.breakpoints = {
+      600: {
+        slidesPerView: tabletSlides || mobileSlides,
+        spaceBetween: tabletSpace || mobileSpace
+      },
+      900: {
+        slidesPerView: desktopSlides || tabletSlides || mobileSlides,
+        spaceBetween: desktopSpace || tabletSpace || mobileSpace
+      }
     }
   }
   const Container: FC = ({ children }) => {
@@ -60,7 +83,14 @@ export default function LmSwiper({ content }: LmSwiperProps) {
     return <Swiper {...swiperProps}>{children}</Swiper>
   }
   return (
-    <>
+    <Box
+      sx={{
+        '& .swiper': {
+          height: content.height ? `${content.height}px` : undefined,
+          width: content.width ? `${content.width}px` : undefined
+        }
+      }}
+    >
       <Container>
         {content.body?.map((blok) => {
           console.log('inside of renderer')
@@ -75,6 +105,6 @@ export default function LmSwiper({ content }: LmSwiperProps) {
           )
         })}
       </Container>
-    </>
+    </Box>
   )
 }
