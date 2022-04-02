@@ -4175,14 +4175,27 @@ export interface StyleVariantsBgStoryblok {
 export interface SwiperStoryblok {
   width?: number;
   height?: number;
-  image_object_fit?: "" | "contain" | "cover" | "fill";
-  slides_per_view?: string;
+  navigation_size?: number;
+  pagination_bullet_size?: number;
   space_between_slides?: string;
-  property?: ("hide_pagination" | "hide_arrows" | "dynamic_bullets")[];
+  image_object_fit?: "" | "contain" | "cover" | "fill";
+  body?: SwiperItemStoryblok[];
+  theme_color?:
+    | ""
+    | "primary.main"
+    | "secondary.main"
+    | "success.main"
+    | "text.primary"
+    | "text.secondary"
+    | "info.main"
+    | "warning.main"
+    | "error.main";
+  property?: ("hide_pagination" | "hide_arrows" | "free_mode" | "grab_cursor")[];
   effect?: "" | "cube" | "cards" | "fade" | "flip" | "creative" | "coverflow";
+  slides_per_view?: string;
   autoslide_duration?: number;
   pause_on_hover?: boolean;
-  body?: SwiperItemStoryblok[];
+  max_pagination_bullets?: number;
   _uid: string;
   component: "swiper";
   [k: string]: any;

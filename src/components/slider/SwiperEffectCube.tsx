@@ -34,7 +34,6 @@ const SwiperEffectCube: FC<{
     >
       <Swiper
         {...swiperProps}
-        grabCursor={true}
         cubeEffect={{
           shadow: true,
           slideShadows: true,
@@ -42,7 +41,6 @@ const SwiperEffectCube: FC<{
           shadowScale: 0.94
         }}
         effect={'cube'}
-        navigation={false}
         modules={[...(swiperProps.modules || []), EffectCube]}
       >
         {children}

@@ -25,15 +25,14 @@ const SwiperEffectCreative: FC<{
         creativeEffect={{
           prev: {
             shadow: true,
-            translate: [0, 0, -400]
+            translate: ['-120%', 0, -500]
           },
           next: {
-            translate: ['100%', 0, 0]
+            shadow: true,
+            translate: ['120%', 0, -500]
           }
         }}
         effect={'creative'}
-        navigation={false}
-        grabCursor={true}
         modules={[...(swiperProps.modules || []), EffectCreative]}
       >
         {children}

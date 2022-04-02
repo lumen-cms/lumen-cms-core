@@ -12,6 +12,7 @@ import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import { PaginationOptions } from 'swiper/types'
 import Box from '@mui/material/Box'
+import { Theme } from '@mui/material/styles'
 
 const EffectCoverflow = dynamic(() => import('./SwiperEffectCoverflow'))
 const EffectCube = dynamic(() => import('./SwiperEffectCube'))
@@ -26,12 +27,16 @@ export default function LmSwiper({ content }: LmSwiperProps) {
 
   const swiperProps: SwiperProps = {
     modules: [Scrollbar, A11y, Autoplay, Navigation, Pagination],
-
-    navigation: !content.property?.includes('hide_arrows'),
+    freeMode: property?.includes('free_mode'),
+    grabCursor: property?.includes('grab_cursor'),
+    navigation: !property?.includes('hide_arrows'),
     ...(showPagination && {
       pagination: {
         clickable: true,
-        dynamicBullets: property?.includes('dynamic_bullets')
+        dynamicMainBullets: content.max_pagination_bullets
+          ? Number(content.max_pagination_bullets)
+          : undefined,
+        dynamicBullets: !!content.max_pagination_bullets
       } as PaginationOptions
     })
   }
@@ -82,9 +87,18 @@ export default function LmSwiper({ content }: LmSwiperProps) {
     }
     return <Swiper {...swiperProps}>{children}</Swiper>
   }
+  const themeColors = content.theme_color?.split('.')
   return (
     <Box
       sx={{
+        '--swiper-theme-color': (theme: Theme) =>
+          themeColors?.[0]
+            ? theme.palette[themeColors[0]][themeColors[1]]
+            : theme.palette.text.primary,
+        '--swiper-navigation-size': `${content.navigation_size || 44}px`,
+        '--swiper-pagination-bullet-size': `${
+          content.pagination_bullet_size || 8
+        }px`,
         '& .swiper': {
           height: content.height ? `${content.height}px` : undefined,
           width: content.width ? `${content.width}px` : undefined
@@ -93,7 +107,6 @@ export default function LmSwiper({ content }: LmSwiperProps) {
     >
       <Container>
         {content.body?.map((blok) => {
-          console.log('inside of renderer')
           return (
             <SwiperSlide key={blok._uid}>
               <LmComponentRender

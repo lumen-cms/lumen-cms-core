@@ -30,7 +30,6 @@ const SwiperEffectCoverflow: FC<{
         {...swiperProps}
         effect={'coverflow'}
         centeredSlides={true}
-        grabCursor={true}
         slidesPerView={'auto'}
         coverflowEffect={{
           rotate: 50,

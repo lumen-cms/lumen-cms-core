@@ -25,8 +25,6 @@ const SwiperEffectCards: FC<{
       <Swiper
         {...swiperProps}
         effect={'cards'}
-        navigation={false}
-        grabCursor={true}
         modules={[...(swiperProps.modules || []), EffectCards]}
       >
         {children}

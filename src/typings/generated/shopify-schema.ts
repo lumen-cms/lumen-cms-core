@@ -89,7 +89,7 @@ export type AppliedGiftCard = Node & {
 };
 
 /** An article in an online store blog. */
-export type Article = Node & {
+export type Article = HasMetafields & Node & {
   __typename?: 'Article';
   /**
    * The article's author.
@@ -119,6 +119,14 @@ export type Article = Node & {
   id: Scalars['ID'];
   /** The image associated with the article. */
   image?: Maybe<Image>;
+  /** Returns a metafield found by namespace and key. */
+  metafield?: Maybe<Metafield>;
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
+  metafields: MetafieldConnection;
   /** The date and time when the article was published. */
   publishedAt: Scalars['DateTime'];
   /** The article’s SEO information. */
@@ -163,6 +171,24 @@ export type ArticleImageArgs = {
   maxHeight?: InputMaybe<Scalars['Int']>;
   maxWidth?: InputMaybe<Scalars['Int']>;
   scale?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** An article in an online store blog. */
+export type ArticleMetafieldArgs = {
+  key: Scalars['String'];
+  namespace: Scalars['String'];
+};
+
+
+/** An article in an online store blog. */
+export type ArticleMetafieldsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  namespace?: InputMaybe<Scalars['String']>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** The author of an article. */
@@ -276,7 +302,7 @@ export type AvailableShippingRates = {
 };
 
 /** An online store blog. */
-export type Blog = Node & {
+export type Blog = HasMetafields & Node & {
   __typename?: 'Blog';
   /** Find an article by its handle. */
   articleByHandle?: Maybe<Article>;
@@ -291,6 +317,14 @@ export type Blog = Node & {
   handle: Scalars['String'];
   /** A globally-unique identifier. */
   id: Scalars['ID'];
+  /** Returns a metafield found by namespace and key. */
+  metafield?: Maybe<Metafield>;
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
+  metafields: MetafieldConnection;
   /** The blog's SEO information. */
   seo?: Maybe<Seo>;
   /** The blogs’s title. */
@@ -318,6 +352,24 @@ export type BlogArticlesArgs = {
   query?: InputMaybe<Scalars['String']>;
   reverse?: InputMaybe<Scalars['Boolean']>;
   sortKey?: InputMaybe<ArticleSortKeys>;
+};
+
+
+/** An online store blog. */
+export type BlogMetafieldArgs = {
+  key: Scalars['String'];
+  namespace: Scalars['String'];
+};
+
+
+/** An online store blog. */
+export type BlogMetafieldsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  namespace?: InputMaybe<Scalars['String']>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
 };
 
 /**
@@ -388,6 +440,8 @@ export type Checkout = Node & {
    *
    */
   availableShippingRates?: Maybe<AvailableShippingRates>;
+  /** The identity of the customer associated with the checkout. */
+  buyerIdentity: CheckoutBuyerIdentity;
   /** The date and time when the checkout was completed. */
   completedAt?: Maybe<Scalars['DateTime']>;
   /** The date and time when the checkout was created. */
@@ -556,6 +610,24 @@ export type CheckoutAttributesUpdateV2Payload = {
   userErrors: Array<UserError>;
 };
 
+/** The identity of the customer associated with the checkout. */
+export type CheckoutBuyerIdentity = {
+  __typename?: 'CheckoutBuyerIdentity';
+  /** The country code for the checkout. For example, `CA`. */
+  countryCode?: Maybe<CountryCode>;
+};
+
+/** Specifies the identity of the customer associated with the checkout. */
+export type CheckoutBuyerIdentityInput = {
+  /**
+   * The country code of one of the shop's
+   * [enabled countries](https://help.shopify.com/en/manual/payments/shopify-payments/multi-currency/setup).
+   * For example, `CA`. Including this field creates a checkout in the specified country's currency.
+   *
+   */
+  countryCode: CountryCode;
+};
+
 /** Return type for `checkoutCompleteFree` mutation. */
 export type CheckoutCompleteFreePayload = {
   __typename?: 'CheckoutCompleteFreePayload';
@@ -659,6 +731,8 @@ export type CheckoutCreateInput = {
    *
    */
   allowPartialAddresses?: InputMaybe<Scalars['Boolean']>;
+  /** The identity of the customer associated with the checkout. */
+  buyerIdentity?: InputMaybe<CheckoutBuyerIdentityInput>;
   /** A list of extra information that is added to the checkout. */
   customAttributes?: InputMaybe<Array<AttributeInput>>;
   /** The email with which the customer wants to checkout. */
@@ -685,6 +759,8 @@ export type CheckoutCreatePayload = {
   checkout?: Maybe<Checkout>;
   /** The list of errors that occurred from executing the mutation. */
   checkoutUserErrors: Array<CheckoutUserError>;
+  /** The checkout queue token. Available only to selected stores. */
+  queueToken?: Maybe<Scalars['String']>;
   /**
    * The list of errors that occurred from executing the mutation.
    * @deprecated Use `checkoutUserErrors` instead
@@ -841,6 +917,8 @@ export enum CheckoutErrorCode {
   DiscountNotFound = 'DISCOUNT_NOT_FOUND',
   /** Checkout is already completed. */
   Empty = 'EMPTY',
+  /** Queue token has expired. */
+  ExpiredQueueToken = 'EXPIRED_QUEUE_TOKEN',
   /** Gift card has already been applied. */
   GiftCardAlreadyApplied = 'GIFT_CARD_ALREADY_APPLIED',
   /** Gift card code is invalid. */
@@ -861,12 +939,16 @@ export enum CheckoutErrorCode {
   GreaterThanOrEqualTo = 'GREATER_THAN_OR_EQUAL_TO',
   /** The input value is invalid. */
   Invalid = 'INVALID',
+  /** Cannot specify country and presentment currency code. */
+  InvalidCountryAndCurrency = 'INVALID_COUNTRY_AND_CURRENCY',
   /** Input Zip is invalid for country provided. */
   InvalidForCountry = 'INVALID_FOR_COUNTRY',
   /** Input Zip is invalid for country and province provided. */
   InvalidForCountryAndProvince = 'INVALID_FOR_COUNTRY_AND_PROVINCE',
   /** Invalid province in country. */
   InvalidProvinceInCountry = 'INVALID_PROVINCE_IN_COUNTRY',
+  /** Queue token is invalid. */
+  InvalidQueueToken = 'INVALID_QUEUE_TOKEN',
   /** Invalid region in country. */
   InvalidRegionInCountry = 'INVALID_REGION_IN_COUNTRY',
   /** Invalid state in country. */
@@ -889,6 +971,8 @@ export enum CheckoutErrorCode {
   Present = 'PRESENT',
   /** Shipping rate expired. */
   ShippingRateExpired = 'SHIPPING_RATE_EXPIRED',
+  /** Throttled during checkout. */
+  ThrottledDuringCheckout = 'THROTTLED_DURING_CHECKOUT',
   /** The input value is too long. */
   TooLong = 'TOO_LONG',
   /** The amount of the payment does not match the value to be paid. */
@@ -1123,7 +1207,7 @@ export type CheckoutUserError = DisplayableError & {
 };
 
 /** A collection represents a grouping of products that a shop owner can create to organize them or make their shops easier to browse. */
-export type Collection = Node & {
+export type Collection = HasMetafields & Node & {
   __typename?: 'Collection';
   /** Stripped description of the collection, single line with HTML tags removed. */
   description: Scalars['String'];
@@ -1139,6 +1223,14 @@ export type Collection = Node & {
   id: Scalars['ID'];
   /** Image associated with the collection. */
   image?: Maybe<Image>;
+  /** Returns a metafield found by namespace and key. */
+  metafield?: Maybe<Metafield>;
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
+  metafields: MetafieldConnection;
   /** List of products in the collection. */
   products: ProductConnection;
   /** The collection’s name. Limit of 255 characters. */
@@ -1160,6 +1252,24 @@ export type CollectionImageArgs = {
   maxHeight?: InputMaybe<Scalars['Int']>;
   maxWidth?: InputMaybe<Scalars['Int']>;
   scale?: InputMaybe<Scalars['Int']>;
+};
+
+
+/** A collection represents a grouping of products that a shop owner can create to organize them or make their shops easier to browse. */
+export type CollectionMetafieldArgs = {
+  key: Scalars['String'];
+  namespace: Scalars['String'];
+};
+
+
+/** A collection represents a grouping of products that a shop owner can create to organize them or make their shops easier to browse. */
+export type CollectionMetafieldsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  namespace?: InputMaybe<Scalars['String']>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
 };
 
 
@@ -1263,6 +1373,19 @@ export type CommentEdge = {
   cursor: Scalars['String'];
   /** The item at the end of CommentEdge. */
   node: Comment;
+};
+
+/** A country. */
+export type Country = {
+  __typename?: 'Country';
+  /** The currency of the country. */
+  currency: Currency;
+  /** The ISO code of the country. */
+  isoCode: CountryCode;
+  /** The name of the country. */
+  name: Scalars['String'];
+  /** The unit system used in the country. */
+  unitSystem: UnitSystem;
 };
 
 /** ISO 3166-1 alpha-2 country codes with some differences. */
@@ -1830,6 +1953,17 @@ export enum CropRegion {
   Top = 'TOP'
 }
 
+/** A currency. */
+export type Currency = {
+  __typename?: 'Currency';
+  /** The ISO code of the currency. */
+  isoCode: CurrencyCode;
+  /** The name of the currency. */
+  name: Scalars['String'];
+  /** The symbol of the currency. */
+  symbol: Scalars['String'];
+};
+
 /**
  * The three-letter currency codes that represent the world currencies used in stores. These include standard ISO 4217 codes, legacy codes,
  * and non-standard codes.
@@ -2146,6 +2280,8 @@ export enum CurrencyCode {
   Xof = 'XOF',
   /** CFP Franc (XPF). */
   Xpf = 'XPF',
+  /** Unrecognized currency. */
+  Xxx = 'XXX',
   /** Yemeni Rial (YER). */
   Yer = 'YER',
   /** South African Rand (ZAR). */
@@ -2155,7 +2291,7 @@ export enum CurrencyCode {
 }
 
 /** A customer represents a customer account with the shop. Customer accounts store contact information for the customer, saving logged-in customers the trouble of having to provide it at every checkout. */
-export type Customer = {
+export type Customer = HasMetafields & {
   __typename?: 'Customer';
   /** Indicates whether the customer has consented to be sent marketing material via email. */
   acceptsMarketing: Scalars['Boolean'];
@@ -2177,6 +2313,14 @@ export type Customer = {
   lastIncompleteCheckout?: Maybe<Checkout>;
   /** The customer’s last name. */
   lastName?: Maybe<Scalars['String']>;
+  /** Returns a metafield found by namespace and key. */
+  metafield?: Maybe<Metafield>;
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
+  metafields: MetafieldConnection;
   /** The orders associated with the customer. */
   orders: OrderConnection;
   /** The customer’s phone number. */
@@ -2198,6 +2342,24 @@ export type CustomerAddressesArgs = {
   before?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** A customer represents a customer account with the shop. Customer accounts store contact information for the customer, saving logged-in customers the trouble of having to provide it at every checkout. */
+export type CustomerMetafieldArgs = {
+  key: Scalars['String'];
+  namespace: Scalars['String'];
+};
+
+
+/** A customer represents a customer account with the shop. Customer accounts store contact information for the customer, saving logged-in customers the trouble of having to provide it at every checkout. */
+export type CustomerMetafieldsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  namespace?: InputMaybe<Scalars['String']>;
   reverse?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -2769,6 +2931,14 @@ export type FulfillmentTrackingInfo = {
   url?: Maybe<Scalars['URL']>;
 };
 
+/** Used to specify a geographical location. */
+export type GeoCoordinateInput = {
+  /** The coordinate's latitude value. */
+  latitude: Scalars['Float'];
+  /** The coordinate's longitude value. */
+  longitude: Scalars['Float'];
+};
+
 /** Represents information about the metafields associated to the specified resource. */
 export type HasMetafields = {
   /** Returns a metafield found by namespace and key. */
@@ -2877,6 +3047,97 @@ export type ImageEdge = {
   /** The item at the end of ImageEdge. */
   node: Image;
 };
+
+/** Information about the localized experiences configured for the shop. */
+export type Localization = {
+  __typename?: 'Localization';
+  /** The list of countries with enabled localized experiences. */
+  availableCountries: Array<Country>;
+  /** The country of the active localized experience. Use the `@inContext` directive to change this value. */
+  country: Country;
+};
+
+/** Represents a location where product inventory is held. */
+export type Location = Node & {
+  __typename?: 'Location';
+  /** The address of the location. */
+  address: LocationAddress;
+  /** A globally-unique identifier. */
+  id: Scalars['ID'];
+  /** The name of the location. */
+  name: Scalars['String'];
+};
+
+/**
+ * Represents the address of a location.
+ *
+ */
+export type LocationAddress = {
+  __typename?: 'LocationAddress';
+  /** The first line of the address for the location. */
+  address1?: Maybe<Scalars['String']>;
+  /** The second line of the address for the location. */
+  address2?: Maybe<Scalars['String']>;
+  /** The city of the location. */
+  city?: Maybe<Scalars['String']>;
+  /** The country of the location. */
+  country?: Maybe<Scalars['String']>;
+  /** The country code of the location. */
+  countryCode?: Maybe<Scalars['String']>;
+  /** A formatted version of the address for the location. */
+  formatted: Array<Scalars['String']>;
+  /** The latitude coordinates of the location. */
+  latitude?: Maybe<Scalars['Float']>;
+  /** The longitude coordinates of the location. */
+  longitude?: Maybe<Scalars['Float']>;
+  /** The phone number of the location. */
+  phone?: Maybe<Scalars['String']>;
+  /** The province of the location. */
+  province?: Maybe<Scalars['String']>;
+  /**
+   * The code for the province, state, or district of the address of the location.
+   *
+   */
+  provinceCode?: Maybe<Scalars['String']>;
+  /** The ZIP code of the location. */
+  zip?: Maybe<Scalars['String']>;
+};
+
+/**
+ * An auto-generated type for paginating through multiple Locations.
+ *
+ */
+export type LocationConnection = {
+  __typename?: 'LocationConnection';
+  /** A list of edges. */
+  edges: Array<LocationEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/**
+ * An auto-generated type which holds one Location and a cursor during pagination.
+ *
+ */
+export type LocationEdge = {
+  __typename?: 'LocationEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of LocationEdge. */
+  node: Location;
+};
+
+/** The set of valid sort keys for the Location query. */
+export enum LocationSortKeys {
+  /** Sort by the `city` value. */
+  City = 'CITY',
+  /** Sort by the `distance` value. */
+  Distance = 'DISTANCE',
+  /** Sort by the `id` value. */
+  Id = 'ID',
+  /** Sort by the `name` value. */
+  Name = 'NAME'
+}
 
 /** Represents a mailing address for customers and shipping. */
 export type MailingAddress = Node & {
@@ -3137,6 +3398,12 @@ export type Metafield = Node & {
   namespace: Scalars['String'];
   /** The parent object that the metafield belongs to. */
   parentResource: MetafieldParentResource;
+  /**
+   * The type name of the metafield.
+   * See the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).
+   *
+   */
+  type: Scalars['String'];
   /** The date and time when the storefront metafield was updated. */
   updatedAt: Scalars['DateTime'];
   /** The value of a metafield. */
@@ -3173,7 +3440,7 @@ export type MetafieldEdge = {
 };
 
 /** A resource that the metafield belongs to. */
-export type MetafieldParentResource = Product | ProductVariant;
+export type MetafieldParentResource = Article | Blog | Collection | Customer | Order | Page | Product | ProductVariant | Shop;
 
 /** Metafield value types. */
 export enum MetafieldValueType {
@@ -3459,6 +3726,7 @@ export type MutationCheckoutCompleteWithTokenizedPaymentV3Args = {
 /** The schema’s entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start. */
 export type MutationCheckoutCreateArgs = {
   input: CheckoutCreateInput;
+  queueToken?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -3711,7 +3979,7 @@ export type Node = {
 };
 
 /** An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information. */
-export type Order = Node & {
+export type Order = HasMetafields & Node & {
   __typename?: 'Order';
   /** The reason for the order's cancellation. Returns `null` if the order wasn't canceled. */
   cancelReason?: Maybe<OrderCancelReason>;
@@ -3745,6 +4013,14 @@ export type Order = Node & {
   id: Scalars['ID'];
   /** List of the order’s line items. */
   lineItems: OrderLineItemConnection;
+  /** Returns a metafield found by namespace and key. */
+  metafield?: Maybe<Metafield>;
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
+  metafields: MetafieldConnection;
   /**
    * Unique identifier for the order that appears on the order.
    * For example, _#1000_ or _Store1001.
@@ -3836,6 +4112,24 @@ export type OrderLineItemsArgs = {
 
 
 /** An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information. */
+export type OrderMetafieldArgs = {
+  key: Scalars['String'];
+  namespace: Scalars['String'];
+};
+
+
+/** An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information. */
+export type OrderMetafieldsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  namespace?: InputMaybe<Scalars['String']>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** An order is a customer’s completed request to purchase one or more products from a shop. An order is created when a customer completes the checkout process, during which time they provides an email address, billing address and payment information. */
 export type OrderSuccessfulFulfillmentsArgs = {
   first?: InputMaybe<Scalars['Int']>;
 };
@@ -3902,6 +4196,8 @@ export enum OrderFulfillmentStatus {
   Fulfilled = 'FULFILLED',
   /** Displayed as **In progress**. Some of the items in the order have been fulfilled, or a request for fulfillment has been sent to the fulfillment service. */
   InProgress = 'IN_PROGRESS',
+  /** Displayed as **On hold**. All of the unfulfilled items in this order are on hold. */
+  OnHold = 'ON_HOLD',
   /** Displayed as **Open**. None of the items in the order have been fulfilled. Replaced by "UNFULFILLED" status. */
   Open = 'OPEN',
   /** Displayed as **Partially fulfilled**. Some of the items in the order have been fulfilled. */
@@ -3978,7 +4274,7 @@ export enum OrderSortKeys {
 }
 
 /** Shopify merchants can create pages to hold static HTML content. Each Page object represents a custom page on the online store. */
-export type Page = Node & {
+export type Page = HasMetafields & Node & {
   __typename?: 'Page';
   /** The description of the page, complete with HTML formatting. */
   body: Scalars['HTML'];
@@ -3990,6 +4286,14 @@ export type Page = Node & {
   handle: Scalars['String'];
   /** A globally-unique identifier. */
   id: Scalars['ID'];
+  /** Returns a metafield found by namespace and key. */
+  metafield?: Maybe<Metafield>;
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
+  metafields: MetafieldConnection;
   /** The page's SEO information. */
   seo?: Maybe<Seo>;
   /** The title of the page. */
@@ -4001,6 +4305,24 @@ export type Page = Node & {
    * @deprecated Use `onlineStoreUrl` instead
    */
   url: Scalars['URL'];
+};
+
+
+/** Shopify merchants can create pages to hold static HTML content. Each Page object represents a custom page on the online store. */
+export type PageMetafieldArgs = {
+  key: Scalars['String'];
+  namespace: Scalars['String'];
+};
+
+
+/** Shopify merchants can create pages to hold static HTML content. Each Page object represents a custom page on the online store. */
+export type PageMetafieldsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  namespace?: InputMaybe<Scalars['String']>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
 };
 
 /**
@@ -4187,6 +4509,10 @@ export type Product = HasMetafields & Node & {
   productType: Scalars['String'];
   /** The date and time when the product was published to the channel. */
   publishedAt: Scalars['DateTime'];
+  /** Whether the product can only be purchased with a selling plan. */
+  requiresSellingPlan: Scalars['Boolean'];
+  /** A list of a product's available selling plan groups. A selling plan group represents a selling method. For example, 'Subscribe and save' is a selling method where customers pay for goods or services per delivery. A selling plan group contains individual selling plans. */
+  sellingPlanGroups: SellingPlanGroupConnection;
   /** The product's SEO information. */
   seo: Seo;
   /**
@@ -4318,6 +4644,19 @@ export type ProductPresentmentPriceRangesArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   presentmentCurrencies?: InputMaybe<Array<CurrencyCode>>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/**
+ * A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
+ * For example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
+ */
+export type ProductSellingPlanGroupsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   reverse?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -4556,8 +4895,12 @@ export type ProductVariant = HasMetafields & Node & {
   requiresShipping: Scalars['Boolean'];
   /** List of product options applied to the variant. */
   selectedOptions: Array<SelectedOption>;
+  /** Represents an association between a variant and a selling plan. Selling plan allocations describe which selling plans are available for each variant, and what their impact is on pricing. */
+  sellingPlanAllocations: SellingPlanAllocationConnection;
   /** The SKU (stock keeping unit) associated with the variant. */
   sku?: Maybe<Scalars['String']>;
+  /** The in-store pickup availability of this variant by location. */
+  storeAvailability: StoreAvailabilityConnection;
   /** The product variant’s title. */
   title: Scalars['String'];
   /** The unit price value for the variant based on the variant's measurement. */
@@ -4616,6 +4959,26 @@ export type ProductVariantPresentmentUnitPricesArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
   presentmentCurrencies?: InputMaybe<Array<CurrencyCode>>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** A product variant represents a different version of a product, such as differing sizes or differing colors. */
+export type ProductVariantSellingPlanAllocationsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** A product variant represents a different version of a product, such as differing sizes or differing colors. */
+export type ProductVariantStoreAvailabilityArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
   reverse?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -4718,6 +5081,15 @@ export type QueryRoot = {
   collections: CollectionConnection;
   /** Find a customer by its access token. */
   customer?: Maybe<Customer>;
+  /** Returns the localized experiences configured for the shop. */
+  localization: Localization;
+  /**
+   * List of the shop's locations that support in-store pickup.
+   *
+   * When sorting by distance, you must specify a location via the `near` argument.
+   *
+   */
+  locations: LocationConnection;
   /** Returns a specific node by ID. */
   node?: Maybe<Node>;
   /** Returns the list of nodes with the given IDs. */
@@ -4809,6 +5181,18 @@ export type QueryRootCollectionsArgs = {
 /** The schema’s entry-point for queries. This acts as the public, top-level API from which all queries must start. */
 export type QueryRootCustomerArgs = {
   customerAccessToken: Scalars['String'];
+};
+
+
+/** The schema’s entry-point for queries. This acts as the public, top-level API from which all queries must start. */
+export type QueryRootLocationsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  near?: InputMaybe<GeoCoordinateInput>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
+  sortKey?: InputMaybe<LocationSortKeys>;
 };
 
 
@@ -4931,6 +5315,191 @@ export type SelectedOptionInput = {
   value: Scalars['String'];
 };
 
+/** Represents how products and variants can be sold and purchased. */
+export type SellingPlan = {
+  __typename?: 'SellingPlan';
+  /** The description of the selling plan. */
+  description?: Maybe<Scalars['String']>;
+  /** A globally-unique identifier. */
+  id: Scalars['ID'];
+  /** The name of the selling plan. For example, '6 weeks of prepaid granola, delivered weekly'. */
+  name: Scalars['String'];
+  /** The selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product. */
+  options: Array<SellingPlanOption>;
+  /** The price adjustments that a selling plan makes when a variant is purchased with a selling plan. */
+  priceAdjustments: Array<SellingPlanPriceAdjustment>;
+  /** Whether purchasing the selling plan will result in multiple deliveries. */
+  recurringDeliveries: Scalars['Boolean'];
+};
+
+/** Represents an association between a variant and a selling plan. Selling plan allocations describe the options offered for each variant, and the price of the variant when purchased with a selling plan. */
+export type SellingPlanAllocation = {
+  __typename?: 'SellingPlanAllocation';
+  /** A list of price adjustments, with a maximum of two. When there are two, the first price adjustment goes into effect at the time of purchase, while the second one starts after a certain number of orders. A price adjustment represents how a selling plan affects pricing when a variant is purchased with a selling plan. Prices display in the customer's currency if the shop is configured for it. */
+  priceAdjustments: Array<SellingPlanAllocationPriceAdjustment>;
+  /** A representation of how products and variants can be sold and purchased. For example, an individual selling plan could be '6 weeks of prepaid granola, delivered weekly'. */
+  sellingPlan: SellingPlan;
+};
+
+/**
+ * An auto-generated type for paginating through multiple SellingPlanAllocations.
+ *
+ */
+export type SellingPlanAllocationConnection = {
+  __typename?: 'SellingPlanAllocationConnection';
+  /** A list of edges. */
+  edges: Array<SellingPlanAllocationEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/**
+ * An auto-generated type which holds one SellingPlanAllocation and a cursor during pagination.
+ *
+ */
+export type SellingPlanAllocationEdge = {
+  __typename?: 'SellingPlanAllocationEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of SellingPlanAllocationEdge. */
+  node: SellingPlanAllocation;
+};
+
+/** The resulting prices for variants when they're purchased with a specific selling plan. */
+export type SellingPlanAllocationPriceAdjustment = {
+  __typename?: 'SellingPlanAllocationPriceAdjustment';
+  /** The price of the variant when it's purchased without a selling plan for the same number of deliveries. For example, if a customer purchases 6 deliveries of $10.00 granola separately, then the price is 6 x $10.00 = $60.00. */
+  compareAtPrice: MoneyV2;
+  /** The effective price for a single delivery. For example, for a prepaid subscription plan that includes 6 deliveries at the price of $48.00, the per delivery price is $8.00. */
+  perDeliveryPrice: MoneyV2;
+  /** The price of the variant when it's purchased with a selling plan For example, for a prepaid subscription plan that includes 6 deliveries of $10.00 granola, where the customer gets 20% off, the price is 6 x $10.00 x 0.80 = $48.00. */
+  price: MoneyV2;
+  /** The resulting price per unit for the variant associated with the selling plan. If the variant isn't sold by quantity or measurement, then this field returns `null`. */
+  unitPrice?: Maybe<MoneyV2>;
+};
+
+/**
+ * An auto-generated type for paginating through multiple SellingPlans.
+ *
+ */
+export type SellingPlanConnection = {
+  __typename?: 'SellingPlanConnection';
+  /** A list of edges. */
+  edges: Array<SellingPlanEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/**
+ * An auto-generated type which holds one SellingPlan and a cursor during pagination.
+ *
+ */
+export type SellingPlanEdge = {
+  __typename?: 'SellingPlanEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of SellingPlanEdge. */
+  node: SellingPlan;
+};
+
+/** A fixed amount that's deducted from the original variant price. For example, $10.00 off. */
+export type SellingPlanFixedAmountPriceAdjustment = {
+  __typename?: 'SellingPlanFixedAmountPriceAdjustment';
+  /** The money value of the price adjustment. */
+  adjustmentAmount: MoneyV2;
+};
+
+/** A fixed price adjustment for a variant that's purchased with a selling plan. */
+export type SellingPlanFixedPriceAdjustment = {
+  __typename?: 'SellingPlanFixedPriceAdjustment';
+  /** A new price of the variant when it's purchased with the selling plan. */
+  price: MoneyV2;
+};
+
+/** Represents a selling method. For example, 'Subscribe and save' is a selling method where customers pay for goods or services per delivery. A selling plan group contains individual selling plans. */
+export type SellingPlanGroup = {
+  __typename?: 'SellingPlanGroup';
+  /** A display friendly name for the app that created the selling plan group. */
+  appName?: Maybe<Scalars['String']>;
+  /** The name of the selling plan group. */
+  name: Scalars['String'];
+  /** Represents the selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product. */
+  options: Array<SellingPlanGroupOption>;
+  /** A list of selling plans in a selling plan group. A selling plan is a representation of how products and variants can be sold and purchased. For example, an individual selling plan could be '6 weeks of prepaid granola, delivered weekly'. */
+  sellingPlans: SellingPlanConnection;
+};
+
+
+/** Represents a selling method. For example, 'Subscribe and save' is a selling method where customers pay for goods or services per delivery. A selling plan group contains individual selling plans. */
+export type SellingPlanGroupSellingPlansArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
+};
+
+/**
+ * An auto-generated type for paginating through multiple SellingPlanGroups.
+ *
+ */
+export type SellingPlanGroupConnection = {
+  __typename?: 'SellingPlanGroupConnection';
+  /** A list of edges. */
+  edges: Array<SellingPlanGroupEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/**
+ * An auto-generated type which holds one SellingPlanGroup and a cursor during pagination.
+ *
+ */
+export type SellingPlanGroupEdge = {
+  __typename?: 'SellingPlanGroupEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of SellingPlanGroupEdge. */
+  node: SellingPlanGroup;
+};
+
+/** Represents an option on a selling plan group that's available in the drop-down list in the storefront. */
+export type SellingPlanGroupOption = {
+  __typename?: 'SellingPlanGroupOption';
+  /** The name of the option. For example, 'Delivery every'. */
+  name: Scalars['String'];
+  /** The values for the options specified by the selling plans in the selling plan group. For example, '1 week', '2 weeks', '3 weeks'. */
+  values: Array<Scalars['String']>;
+};
+
+/** An option provided by a Selling Plan. */
+export type SellingPlanOption = {
+  __typename?: 'SellingPlanOption';
+  /** The name of the option (ie "Delivery every"). */
+  name?: Maybe<Scalars['String']>;
+  /** The value of the option (ie "Month"). */
+  value?: Maybe<Scalars['String']>;
+};
+
+/** A percentage amount that's deducted from the original variant price. For example, 10% off. */
+export type SellingPlanPercentagePriceAdjustment = {
+  __typename?: 'SellingPlanPercentagePriceAdjustment';
+  /** The percentage value of the price adjustment. */
+  adjustmentPercentage: Scalars['Int'];
+};
+
+/** Represents by how much the price of a variant associated with a selling plan is adjusted. Each variant can have up to two price adjustments. */
+export type SellingPlanPriceAdjustment = {
+  __typename?: 'SellingPlanPriceAdjustment';
+  /** The type of price adjustment. An adjustment value can have one of three types: percentage, amount off, or a new price. */
+  adjustmentValue: SellingPlanPriceAdjustmentValue;
+  /** The number of orders that the price adjustment applies to If the price adjustment always applies, then this field is `null`. */
+  orderCount?: Maybe<Scalars['Int']>;
+};
+
+/** Represents by how much the price of a variant associated with a selling plan is adjusted. Each variant can have up to two price adjustments. */
+export type SellingPlanPriceAdjustmentValue = SellingPlanFixedAmountPriceAdjustment | SellingPlanFixedPriceAdjustment | SellingPlanPercentagePriceAdjustment;
+
 /** A shipping rate to be applied to a checkout. */
 export type ShippingRate = {
   __typename?: 'ShippingRate';
@@ -4948,7 +5517,7 @@ export type ShippingRate = {
 };
 
 /** Shop represents a collection of the general settings and information about the shop. */
-export type Shop = {
+export type Shop = HasMetafields & {
   __typename?: 'Shop';
   /**
    * List of the shop' articles.
@@ -4977,6 +5546,14 @@ export type Shop = {
   currencyCode: CurrencyCode;
   /** A description of the shop. */
   description?: Maybe<Scalars['String']>;
+  /** Returns a metafield found by namespace and key. */
+  metafield?: Maybe<Metafield>;
+  /**
+   * A paginated list of metafields associated with the resource.
+   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   *
+   */
+  metafields: MetafieldConnection;
   /** A string representing the way currency is formatted when the currency isn’t specified. */
   moneyFormat: Scalars['String'];
   /** The shop’s name. */
@@ -5068,6 +5645,24 @@ export type ShopCollectionsArgs = {
 
 
 /** Shop represents a collection of the general settings and information about the shop. */
+export type ShopMetafieldArgs = {
+  key: Scalars['String'];
+  namespace: Scalars['String'];
+};
+
+
+/** Shop represents a collection of the general settings and information about the shop. */
+export type ShopMetafieldsArgs = {
+  after?: InputMaybe<Scalars['String']>;
+  before?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  namespace?: InputMaybe<Scalars['String']>;
+  reverse?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Shop represents a collection of the general settings and information about the shop. */
 export type ShopProductByHandleArgs = {
   handle: Scalars['String'];
 };
@@ -5109,6 +5704,45 @@ export type ShopPolicy = Node & {
   title: Scalars['String'];
   /** Public URL to the policy. */
   url: Scalars['URL'];
+};
+
+/**
+ * The availability of a product variant at a particular location.
+ * Local pick-up must be enabled in the  store's shipping settings, otherwise this will return an empty result.
+ *
+ */
+export type StoreAvailability = {
+  __typename?: 'StoreAvailability';
+  /** Whether or not this product variant is in-stock at this location. */
+  available: Scalars['Boolean'];
+  /** The location where this product variant is stocked at. */
+  location: Location;
+  /** Returns the estimated amount of time it takes for pickup to be ready (Example: Usually ready in 24 hours). */
+  pickUpTime: Scalars['String'];
+};
+
+/**
+ * An auto-generated type for paginating through multiple StoreAvailabilities.
+ *
+ */
+export type StoreAvailabilityConnection = {
+  __typename?: 'StoreAvailabilityConnection';
+  /** A list of edges. */
+  edges: Array<StoreAvailabilityEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/**
+ * An auto-generated type which holds one StoreAvailability and a cursor during pagination.
+ *
+ */
+export type StoreAvailabilityEdge = {
+  __typename?: 'StoreAvailabilityEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String'];
+  /** The item at the end of StoreAvailabilityEdge. */
+  node: StoreAvailability;
 };
 
 /**
@@ -5308,6 +5942,14 @@ export enum UnitPriceMeasurementMeasuredUnit {
   Ml = 'ML',
   /** 1000 millimeters equals 1 meter. */
   Mm = 'MM'
+}
+
+/** Systems of weights and measures. */
+export enum UnitSystem {
+  /** Imperial system of weights and measures. */
+  ImperialSystem = 'IMPERIAL_SYSTEM',
+  /** Metric system of weights and measures. */
+  MetricSystem = 'METRIC_SYSTEM'
 }
 
 /** Represents an error in the input of a mutation. */
