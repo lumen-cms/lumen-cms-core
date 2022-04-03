@@ -28,7 +28,7 @@ export default function ImageSvg({
 }: LmImageProps): JSX.Element {
   const { classes, cx } = useStyles()
   const [refIntersectionObserver, inView] = useInView(intersectionImageOptions)
-  const src = inView ? content.source : ''
+  let src = inView ? content.source : ''
   const [loaded, setLoaded] = useState<boolean>(false)
   const afterSvgLoaded = () => {
     setLoaded(true)
@@ -38,6 +38,10 @@ export default function ImageSvg({
   }
   const fitInColor =
     (content.color && content.color.rgba) || content.fit_in_color // legacy fit_in_color
+
+  if (src?.includes('a.storyblok.com')) {
+    src = src?.replace('a.storyblok.com', 's3.amazonaws.com/a.storyblok.com')
+  }
   return (
     <Fade in={loaded}>
       <div className={classes.root} ref={refIntersectionObserver}>

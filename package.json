@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -107,6 +107,7 @@
     "react-player": "2.10.0",
     "react-scroll-parallax": "3.0.5",
     "react-speech-kit": "3.0.1",
+    "react-spring": "^9.4.4",
     "react-swipeable-views": "0.14.0",
     "react-swipeable-views-utils": "0.14.0",
     "react-use": "17.3.2",

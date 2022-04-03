@@ -40,3 +40,4 @@ __generated__
 /schema.graphql
 build-storybook.log
 .babelrc
+*.glb
