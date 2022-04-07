@@ -25,7 +25,7 @@ const nextConfig = {
     //   }
     // ]
   },
-  // strictMode: true // need to wait until v5 of material UI
+  strictMode: true, // need to wait until v5 of material UI
   // async redirects() {
   //   // const reds = await redirectFunc(['de', 'it', 'es'])
   //   // return reds
