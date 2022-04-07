@@ -158,17 +158,9 @@ export const createGlobalStyles = (theme: Theme) => {
       height: '100%',
       border: 0
     },
-    // '.material-icons': {
-    //   visibility: 'hidden'
-    // },
     '.line-through': {
       textDecoration: 'line-through'
     },
-    // '.fonts-loaded': {
-    //   '& .material-icons': {
-    //     visibility: 'visible'
-    //   }
-    // },
     '.mh-100': {
       minHeight: '100% !important'
     },
@@ -327,16 +319,16 @@ export const createGlobalStyles = (theme: Theme) => {
         : undefined
     },
     '.d-none': {
-      display: 'none'
+      display: 'none!important'
     },
     '.d-inline-flex': {
-      display: 'inline-flex'
+      display: 'inline-flex!important'
     },
     '.d-block': {
-      display: 'block'
+      display: 'block!important'
     },
     '.d-inline-block': {
-      display: 'inline-block'
+      display: 'inline-block!important'
     },
     '.text-1-row-max': {
       textOverflow: 'ellipsis',
@@ -361,24 +353,24 @@ export const createGlobalStyles = (theme: Theme) => {
     },
     [theme.breakpoints.only('xs')]: {
       '.d-xs-inline-flex': {
-        display: 'inline-flex'
+        display: 'inline-flex!important'
       },
       '.d-xs-none': {
-        display: 'none'
+        display: 'none!important'
       },
       '.d-xs-block': {
-        display: 'block'
+        display: 'block!important'
       }
     },
     [theme.breakpoints.up('sm')]: {
       '.d-sm-inline-flex': {
-        display: 'inline-flex'
+        display: 'inline-flex!important'
       },
       '.d-sm-none': {
-        display: 'none'
+        display: 'none!important'
       },
       '.d-sm-block': {
-        display: 'block'
+        display: 'block!important'
       },
       '.text-sm-left': {
         textAlign: 'left'
@@ -396,13 +388,13 @@ export const createGlobalStyles = (theme: Theme) => {
     },
     [theme.breakpoints.up('md')]: {
       '.d-md-inline-flex': {
-        display: 'inline-flex'
+        display: 'inline-flex!important'
       },
       '.d-md-none': {
-        display: 'none'
+        display: 'none!important'
       },
       '.d-md-block': {
-        display: 'block'
+        display: 'block!important'
       },
       '.text-md-left': {
         textAlign: 'left'
@@ -420,13 +412,13 @@ export const createGlobalStyles = (theme: Theme) => {
     },
     [theme.breakpoints.up('lg')]: {
       '.d-lg-inline-flex': {
-        display: 'inline-flex'
+        display: 'inline-flex!important'
       },
       '.d-lg-none': {
-        display: 'none'
+        display: 'none!important'
       },
       '.text-lg-left': {
-        textAlign: 'left'
+        textAlign: 'left!important'
       },
       '.text-lg-center': {
         textAlign: 'center'
