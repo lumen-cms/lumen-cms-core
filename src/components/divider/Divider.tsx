@@ -31,8 +31,8 @@ export function LmDivider({
     flexItem: isVertical ? true : undefined,
     textAlign: content.alignment || 'center',
     sx: {
-      maxWidth: content.width ? `${content.width}%` : undefined,
-      marginX: content.width ? `auto` : undefined,
+      width: content.width ? `${content.width}%` : isVertical ? '50%' : '100%',
+      marginX: content.width && !isVertical ? `auto` : undefined,
       color: content.theme_color || customColor || 'grey.400',
       borderColor: 'currentColor',
       '&.MuiDivider-vertical': {
