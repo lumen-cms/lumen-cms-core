@@ -11,7 +11,7 @@
   ],
   "extends": [
     "next",
-    "plugin:prettier/recommended"
+    "prettier"
   ],
   "globals": {
     "gtag": false,

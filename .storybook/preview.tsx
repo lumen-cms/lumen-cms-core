@@ -14,13 +14,16 @@ CONFIG.rootDirectory = 'en'
 const OriginalNextImage = NextImage.default
 Object.defineProperty(NextImage, 'default', {
   configurable: true,
-  value: (props: any) => (
-    <OriginalNextImage
-      {...props}
-      {...storybookImgLoader(props.src)}
-      loading={isChromatic() ? 'eager' : props.loading}
-    />
-  )
+  value: (props: any) => {
+    console.log('inside storybook next image', props)
+    return (
+      <OriginalNextImage
+        {...props}
+        {...storybookImgLoader(props.src)}
+        loading={isChromatic() ? 'eager' : props.loading}
+      />
+    )
+  }
 })
 
 export const parameters = {
