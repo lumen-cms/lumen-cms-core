@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -69,6 +69,7 @@
     "@types/react-swipeable-views": "^0.13.1",
     "@types/react-swipeable-views-utils": "^0.13.3",
     "@types/scrollmagic": "^2.0.2",
+    "@types/react": "^17.0.37",
     "axios": "0.26.1",
     "clean-deep": "^3.4.0",
     "cors": "^2.8.5",
@@ -153,7 +154,6 @@
     "@types/match-sorter": "^6.0.0",
     "@types/node": "^14.18.0",
     "@types/node-fetch": "^3.0.3",
-    "@types/react": "^17.0.37",
     "@types/uuid": "^8.3.3",
     "@welldone-software/why-did-you-render": "^6.2.3",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
