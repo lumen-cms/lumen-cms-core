@@ -70,6 +70,6 @@ export function LmApp(appProps: LmAppProps) {
           </LmAppContainer>
         </CacheProvider>
       ),
-    [pageProps, isFallback]
+    [isFallback, pageProps, Component]
   )
 }

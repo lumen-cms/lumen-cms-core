@@ -6,7 +6,7 @@ import {
 import {
   LmInstagramListProps,
   LmInstagramPostProps
-} from '../components/instagram/instagramTypes'
+} from '../../_unused_/instagram/instagramTypes'
 import {
   LmAccordionItemProps,
   LmAccordionProps

@@ -4,16 +4,16 @@ import React from 'react'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 import { cx as clsx } from 'tss-react/@emotion/css'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
+import { intersectionDefaultOptions } from '../../src/utils/intersectionObserverConfig'
 import {
   EdgeProps,
   InstagramMappedProps,
   LmInstagramListProps
 } from './instagramTypes'
 import { InstagramListItem } from './InstagramListItem'
-import { getNumber } from '../../utils/numberParser'
+import { getNumber } from '../../src/utils/numberParser'
 // import fetcher from '../../utils/fetcher'
-import { fetchInstagramList } from '../../utils/instagram/instagramHelpers'
+import { fetchInstagramList } from '../../src/utils/instagram/instagramHelpers'
 
 // here is the "pk" user ID of an account
 // https://www.instagram.com/web/search/topsearch/?query=studentsgoabroad

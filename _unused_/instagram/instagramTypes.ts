@@ -1,7 +1,7 @@
 import {
   InstagramListStoryblok,
   InstagramPostStoryblok
-} from '../../typings/generated/components-schema'
+} from '../../src/typings/generated/components-schema'
 
 export type LmInstagramListProps = {
   content: InstagramListStoryblok
