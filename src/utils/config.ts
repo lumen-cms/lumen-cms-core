@@ -4,10 +4,6 @@ import {
   LmTimelineProps
 } from '../components/timeline/timelineTypes'
 import {
-  LmInstagramListProps,
-  LmInstagramPostProps
-} from '../../_unused_/instagram/instagramTypes'
-import {
   LmAccordionItemProps,
   LmAccordionProps
 } from '../components/accordion/accordionTypes'
@@ -179,8 +175,6 @@ type LmCoreComponentsProps = {
   toolbar_row_section?: JSXElementConstructor<LmToolbarSectionProps>
   toolbar_row?: JSXElementConstructor<LmToolbarRowProps>
   dialog?: JSXElementConstructor<LmDialogProps>
-  instagram_post?: JSXElementConstructor<LmInstagramPostProps>
-  instagram_list?: JSXElementConstructor<LmInstagramListProps>
   lm_link_render?: JSXElementConstructor<LinkProps>
   lm_app_providers: FC<any>[]
   parallax_provider?: JSXElementConstructor<any>
