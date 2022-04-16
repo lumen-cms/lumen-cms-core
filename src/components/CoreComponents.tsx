@@ -4,9 +4,7 @@ import { ComponentRenderFuncProps } from '../typings/app'
 import { useAppContext } from '@context/AppContext'
 import SbEditable from 'storyblok-react'
 
-export function LmComponentRender<P>(
-  props: ComponentRenderFuncProps
-): JSX.Element {
+export function LmComponentRender<P>(props: ComponentRenderFuncProps) {
   const { insideStoryblok } = useAppContext()
   const { content, i, ...rest } = props
 
