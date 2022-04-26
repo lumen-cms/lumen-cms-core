@@ -56,32 +56,30 @@ Basic.args = {
 
 export const Fullscreen = Template.bind({})
 Fullscreen.args = {
-  ...{
-    component: 'dialog',
-    _uid: 'dialog-register',
-    fullscreen: 'xl',
-    no_padding: true,
-    body: [
-      {
-        component: 'iframe',
-        _uid: 'iframex',
-        full_height: true,
-        url: `https://students-react-iframe-signup.now.sh?light=1`
-      } as IframeStoryblok
-    ],
-    trigger: [
-      {
-        _uid: 'outline-checked',
-        component: 'button',
-        icon: {
-          name: 'account-check-outline'
-        },
-        label: 'Signup',
-        variant: 'fab',
-        color: 'primary'
-      } as ButtonStoryblok
-    ]
-  }
+  component: 'dialog',
+  _uid: 'dialog-register',
+  fullscreen: 'xl',
+  no_padding: true,
+  body: [
+    {
+      component: 'iframe',
+      _uid: 'iframex',
+      full_height: true,
+      url: `https://students-react-iframe-signup.now.sh?light=1`
+    } as IframeStoryblok
+  ],
+  trigger: [
+    {
+      _uid: 'outline-checked',
+      component: 'button',
+      icon: {
+        name: 'account-check-outline'
+      },
+      label: 'Signup',
+      variant: 'fab',
+      color: 'primary'
+    } as ButtonStoryblok
+  ]
 }
 
 export const Trigger = () => (
