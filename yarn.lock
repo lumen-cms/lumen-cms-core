@@ -13099,6 +13099,11 @@ react-refresh@^0.11.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
+react-rewards@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-rewards/-/react-rewards-2.0.3.tgz#685aee98654ab4f060e297849f39cf0a16cec042"
+  integrity sha512-qww5Jtk2HmCjR9wc7+0c2iP8oCQzENZn8pnoJGi0S6o+6dAD25+ZoagLSWdoBLGVwxfP5kFBjv3VZ6L8fPk6lg==
+
 react-router-dom@^6.0.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.3.0.tgz#a0216da813454e521905b5fa55e0e5176123f43d"
@@ -13212,6 +13217,11 @@ react-textarea-autosize@^8.3.0:
     "@babel/runtime" "^7.10.2"
     use-composed-ref "^1.0.0"
     use-latest "^1.0.0"
+
+react-timeline-animation@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/react-timeline-animation/-/react-timeline-animation-1.1.10.tgz#f8c79d649f937213f95f9ddd9064b582bd28f35c"
+  integrity sha512-11FmvPn2TPo1dtVl9Pjc+/Dy5W540CiSIjHeBbLEOZBxx226vo/TdFhPPlWMJjMJSsGFZdC/gIfAV8Jgv+s1aQ==
 
 react-transition-group@^4.3.0, react-transition-group@^4.4.2:
   version "4.4.2"

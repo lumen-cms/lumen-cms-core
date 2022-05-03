@@ -15,7 +15,7 @@ export type Scalars = {
   Float: number;
   /**
    * Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.
-   * For example, 3:30 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is
+   * For example, 3:50 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is
    * represented as `"2019-09-07T15:50:00Z`".
    *
    */
@@ -1388,7 +1388,13 @@ export type Country = {
   unitSystem: UnitSystem;
 };
 
-/** ISO 3166-1 alpha-2 country codes with some differences. */
+/**
+ * The code designating a country, which generally follows ISO 3166-1 alpha-2 guidelines.
+ * If a territory doesn't have a country code value in the `CountryCode` enum, it might be considered a subdivision
+ * of another country. For example, the territories associated with Spain are represented by the country code `ES`,
+ * and the territories associated with the United States of America are represented by the country code `US`.
+ *
+ */
 export enum CountryCode {
   /** Ascension Island. */
   Ac = 'AC',
@@ -2018,7 +2024,10 @@ export enum CurrencyCode {
   Bwp = 'BWP',
   /** Belarusian Ruble (BYN). */
   Byn = 'BYN',
-  /** Belarusian Ruble (BYR). */
+  /**
+   * Belarusian Ruble (BYR).
+   * @deprecated `BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead.
+   */
   Byr = 'BYR',
   /** Belize Dollar (BZD). */
   Bzd = 'BZD',
@@ -2228,7 +2237,10 @@ export enum CurrencyCode {
   Srd = 'SRD',
   /** South Sudanese Pound (SSP). */
   Ssp = 'SSP',
-  /** Sao Tome And Principe Dobra (STD). */
+  /**
+   * Sao Tome And Principe Dobra (STD).
+   * @deprecated `STD` is deprecated. Use `STN` available from version `2022-07` onwards instead.
+   */
   Std = 'STD',
   /** Syrian Pound (SYP). */
   Syp = 'SYP',
@@ -2262,7 +2274,10 @@ export enum CurrencyCode {
   Uyu = 'UYU',
   /** Uzbekistan som (UZS). */
   Uzs = 'UZS',
-  /** Venezuelan Bolivares (VEF). */
+  /**
+   * Venezuelan Bolivares (VEF).
+   * @deprecated `VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead.
+   */
   Vef = 'VEF',
   /** Venezuelan Bolivares (VES). */
   Ves = 'VES',
@@ -2745,7 +2760,10 @@ export enum DiscountApplicationAllocationMethod {
   Across = 'ACROSS',
   /** The value is applied onto every entitled line. */
   Each = 'EACH',
-  /** The value is specifically applied onto a particular line. */
+  /**
+   * The value is specifically applied onto a particular line.
+   * @deprecated Use ACROSS instead.
+   */
   One = 'ONE'
 }
 
@@ -3580,7 +3598,7 @@ export type Mutation = {
   checkoutDiscountCodeApply?: Maybe<CheckoutDiscountCodeApplyPayload>;
   /** Applies a discount to an existing checkout using a discount code. */
   checkoutDiscountCodeApplyV2?: Maybe<CheckoutDiscountCodeApplyV2Payload>;
-  /** Removes the applied discount from an existing checkout. */
+  /** Removes the applied discounts from an existing checkout. */
   checkoutDiscountCodeRemove?: Maybe<CheckoutDiscountCodeRemovePayload>;
   /**
    * Updates the email on an existing checkout.

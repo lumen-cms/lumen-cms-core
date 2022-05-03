@@ -3515,6 +3515,58 @@
       "icon": null
     },
     {
+      "name": "confetti",
+      "display_name": null,
+      "created_at": "2022-05-03T07:24:44.177Z",
+      "updated_at": "2022-05-03T08:28:03.419Z",
+      "id": 2406460,
+      "schema": {
+        "type": {
+          "type": "option",
+          "use_uuid": true,
+          "options": [
+            {
+              "value": "balloons",
+              "name": "balloons"
+            },
+            {
+              "value": "emoji",
+              "name": "emoji"
+            },
+            {
+              "value": "confetti",
+              "name": "confetti"
+            }
+          ]
+        },
+        "elementCount": {
+          "type": "number"
+        },
+        "lifetime": {
+          "type": "number"
+        },
+        "colors": {
+          "type": "text",
+          "description": "Comma separated list of colors. Only available on type balloons or confetti"
+        },
+        "emojis": {
+          "type": "text",
+          "description": "Comma separated list of emojis. Only works on type emoji."
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "confetti",
+      "component_group_uuid": null,
+      "color": null,
+      "icon": null
+    },
+    {
       "name": "date_headline",
       "display_name": null,
       "created_at": "2020-05-01T08:40:43.698Z",
@@ -16750,10 +16802,35 @@
       "icon": null
     },
     {
+      "name": "three_dimension",
+      "display_name": null,
+      "created_at": "2022-04-02T02:29:22.741Z",
+      "updated_at": "2022-04-02T02:29:48.768Z",
+      "id": 2327382,
+      "schema": {
+        "source": {
+          "type": "asset",
+          "filetypes": []
+        }
+      },
+      "image": null,
+      "preview_field": null,
+      "is_root": false,
+      "preview_tmpl": null,
+      "is_nestable": true,
+      "all_presets": [],
+      "preset_id": null,
+      "real_name": "three_dimension",
+      "component_group_uuid": "1778dc53-bf7e-46d7-a549-7471017211b2",
+      "color": null,
+      "icon": null,
+      "component_group_name": "General"
+    },
+    {
       "name": "timeline",
       "display_name": null,
       "created_at": "2020-05-01T08:40:34.062Z",
-      "updated_at": "2022-03-18T03:26:57.537Z",
+      "updated_at": "2022-05-03T07:31:50.489Z",
       "id": 894790,
       "schema": {
         "align": {
@@ -16790,9 +16867,29 @@
           "type": "boolean",
           "pos": 2
         },
-        "disable_card": {
+        "show_last_line": {
           "type": "boolean",
           "pos": 3
+        },
+        "connector_color": {
+          "type": "custom",
+          "pos": 4,
+          "field_type": "vue-color-picker",
+          "options": [],
+          "description": "Default color of the timeline connector and the dots. Use if you plan to have scroll animation."
+        },
+        "body": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "timeline_item"
+          ],
+          "pos": 5,
+          "component_group_whitelist": []
+        },
+        "disable_card": {
+          "type": "boolean",
+          "pos": 6
         },
         "card_variant": {
           "type": "option",
@@ -16807,33 +16904,20 @@
               "name": "outlined"
             }
           ],
-          "pos": 4
-        },
-        "card_elevation": {
-          "type": "number",
-          "pos": 5
+          "pos": 7
         },
         "card_square": {
           "type": "boolean",
-          "pos": 6
+          "pos": 8
+        },
+        "card_elevation": {
+          "type": "number",
+          "pos": 9
         },
         "card_background_color": {
           "type": "custom",
           "field_type": "vue-color-picker",
-          "pos": 7
-        },
-        "show_last_line": {
-          "type": "boolean",
-          "pos": 8
-        },
-        "body": {
-          "type": "bloks",
-          "restrict_components": true,
-          "component_whitelist": [
-            "timeline_item"
-          ],
-          "pos": 9,
-          "component_group_whitelist": []
+          "pos": 10
         },
         "tab-d46bb7fa-d8a9-4622-985e-ad950285a1f4": {
           "type": "tab",
@@ -16842,14 +16926,38 @@
             "variant",
             "align",
             "connect_separator",
+            "show_last_line",
+            "connector_color",
+            "connector_color_scroll",
+            "confetti"
+          ],
+          "pos": 11
+        },
+        "tab-11db9cd4-5d2d-483c-9bde-0649189a8a08": {
+          "type": "tab",
+          "display_name": "Content",
+          "keys": [
             "card_variant",
+            "disable_card",
             "card_elevation",
             "card_square",
-            "disable_card",
-            "card_background_color",
-            "show_last_line"
+            "card_background_color"
           ],
-          "pos": 10
+          "pos": 12
+        },
+        "connector_color_scroll": {
+          "type": "custom",
+          "field_type": "vue-color-picker",
+          "options": [],
+          "description": "Change color based on scroll position for connector and dots."
+        },
+        "confetti": {
+          "type": "bloks",
+          "restrict_components": true,
+          "component_whitelist": [
+            "confetti"
+          ],
+          "maximum": "1"
         }
       },
       "image": null,

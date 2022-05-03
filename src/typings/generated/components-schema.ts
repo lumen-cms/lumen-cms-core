@@ -88,6 +88,7 @@ export interface AuthContainerStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -152,6 +153,7 @@ export interface AuthFormStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -463,6 +465,7 @@ export interface CardStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -521,6 +524,7 @@ export interface CardStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -580,6 +584,7 @@ export interface CardStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -891,6 +896,7 @@ export interface ColumnStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -904,6 +910,17 @@ export interface ColumnStoryblok {
   styles_hover?: StylesStoryblok[];
   _uid: string;
   component: "column";
+  [k: string]: any;
+}
+
+export interface ConfettiStoryblok {
+  type?: "" | "balloons" | "emoji" | "confetti";
+  elementCount?: number;
+  lifetime?: number;
+  colors?: string;
+  emojis?: string;
+  _uid: string;
+  component: "confetti";
   [k: string]: any;
 }
 
@@ -1029,6 +1046,7 @@ export interface DialogStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -1093,6 +1111,7 @@ export interface DialogStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -1405,6 +1424,7 @@ export interface EventStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -1518,6 +1538,7 @@ export interface FlexRowStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -1649,6 +1670,7 @@ export interface FormContainerStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -1884,6 +1906,7 @@ export interface HeadlineStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2014,6 +2037,7 @@ export interface HtmlStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2381,6 +2405,7 @@ export interface ListStoriesStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2497,6 +2522,7 @@ export interface MoralisAuthContainerStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2555,6 +2581,7 @@ export interface MoralisAuthContainerStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2613,6 +2640,7 @@ export interface MoralisAuthContainerStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2700,6 +2728,7 @@ export interface MoralisMintStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2761,6 +2790,7 @@ export interface MoralisMintStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2825,6 +2855,7 @@ export interface MoralisMintStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2883,6 +2914,7 @@ export interface MoralisMintStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -2944,6 +2976,7 @@ export interface MoralisMintStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -3022,6 +3055,7 @@ export interface MotionStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -3269,6 +3303,7 @@ export interface PageStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -3375,6 +3410,7 @@ export interface ParallaxItemStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -3692,6 +3728,7 @@ export interface SectionStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -3997,6 +4034,7 @@ export interface SnackbarStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -4067,6 +4105,7 @@ export interface StaticContainerStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -4265,6 +4304,7 @@ export interface SwiperItemStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -4369,6 +4409,7 @@ export interface TabsItemStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -4377,20 +4418,43 @@ export interface TabsItemStoryblok {
   [k: string]: any;
 }
 
+export interface ThreeDimensionStoryblok {
+  source?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  };
+  _uid: string;
+  component: "three_dimension";
+  [k: string]: any;
+}
+
 export interface TimelineStoryblok {
   align?: "" | "left" | "right";
   variant?: "" | "outlined" | "naked";
   connect_separator?: boolean;
+  show_last_line?: boolean;
+  connector_color?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  body?: TimelineItemStoryblok[];
   disable_card?: boolean;
   card_variant?: "" | "elevation" | "outlined";
-  card_elevation?: number;
   card_square?: boolean;
+  card_elevation?: number;
   card_background_color?: {
     rgba?: string;
     [k: string]: any;
   };
-  show_last_line?: boolean;
-  body?: TimelineItemStoryblok[];
+  connector_color_scroll?: {
+    rgba?: string;
+    [k: string]: any;
+  };
+  confetti?: ConfettiStoryblok[];
   _uid: string;
   component: "timeline";
   [k: string]: any;
@@ -4457,6 +4521,7 @@ export interface TimelineItemStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];
@@ -4539,6 +4604,7 @@ export interface TimelineItemStoryblok {
     | SwiperStoryblok
     | TableStoryblok
     | TabsStoryblok
+    | ThreeDimensionStoryblok
     | TimelineStoryblok
     | ToolbarNaviButtonStoryblok
   )[];

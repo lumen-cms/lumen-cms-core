@@ -72,7 +72,10 @@ LmCoreComponents.timeline_item = dynamic(
   () => import(/* webpackChunkName: 'timeline' */ './timeline/TimelineItem')
 )
 LmCoreComponents.timeline = dynamic(
-  () => import(/* webpackChunkName: 'timeline' */ './timeline/Timeline')
+  () => import(/* webpackChunkName: 'timeline' */ './timeline/Timeline'),
+  {
+    ssr: false
+  }
 )
 LmCoreComponents.tabs = dynamic(
   () => import(/* webpackChunkName: 'slider' */ './tabs/Tabs')

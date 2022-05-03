@@ -8,6 +8,8 @@ export type LmTimelineItemProps = {
   options: TimelineStoryblok
   isMobile?: boolean
   isLast?: boolean
+  setObserver?: (target: Element, callbackFn?: () => void) => void
+  onFinish?: () => void
 }
 export type TimelineRowItemProps = {
   isLeft: boolean

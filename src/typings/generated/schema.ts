@@ -156,9 +156,9 @@ export type DocumentComponent = {
 
 
 export type DocumentComponentCategoriesArgs = {
-  by_uuids_ordered?: InputMaybe<Scalars['String']>;
   fields?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   language?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
 };
 
 export type DocumentFilterQuery = {
@@ -794,9 +794,9 @@ export type PageComponent = {
 
 
 export type PageComponentCategoriesArgs = {
-  by_uuids_ordered?: InputMaybe<Scalars['String']>;
   fields?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   language?: InputMaybe<Scalars['String']>;
+  sort_by?: InputMaybe<Scalars['String']>;
 };
 
 export type PageFilterQuery = {
