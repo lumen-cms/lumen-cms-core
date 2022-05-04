@@ -25,37 +25,59 @@ export default function LmTimeline({ content }: LmTimelineProps): JSX.Element {
       emoji: rewardObject?.emojis ? rewardObject.emojis.split(',') : undefined
     }
   )
-  // const x = useTween({})
-  return (
-    <>
-      <TimelineObserver
-        initialColor={content.connector_color?.rgba}
-        fillColor={content.connector_color_scroll?.rgba}
-        handleObserve={(setObserver) => (
-          <Timeline position={isMobile ? 'left' : content.align || 'alternate'}>
-            {content.body?.map((blok, i) => (
-              <LmComponentRender
-                content={blok}
-                options={content}
-                key={blok._uid}
-                isLast={i + 1 === content.body?.length}
-                setObserver={setObserver}
-                onFinish={() => {
-                  reward()
-                }}
-              />
-            ))}
-          </Timeline>
+
+  const initialColor = content.connector_color?.rgba
+  const fillColor = content.connector_color_scroll?.rgba
+  if (initialColor && fillColor) {
+    return (
+      <>
+        <TimelineObserver
+          initialColor={initialColor}
+          fillColor={fillColor}
+          handleObserve={(setObserver) => (
+            <Timeline
+              position={isMobile ? 'left' : content.align || 'alternate'}
+            >
+              {content.body?.map((blok, i) => (
+                <LmComponentRender
+                  content={blok}
+                  options={content}
+                  key={blok._uid}
+                  isLast={i + 1 === content.body?.length}
+                  setObserver={setObserver}
+                  onFinish={() => {
+                    if (rewardObject) {
+                      reward()
+                    }
+                  }}
+                />
+              ))}
+            </Timeline>
+          )}
+        />
+        {rewardObject && (
+          <Box
+            textAlign={'center'}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+          >
+            <span id={'confetti-' + content._uid} />
+          </Box>
         )}
-      />
-      <Box
-        textAlign={'center'}
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
-      >
-        <span id={'confetti-' + content._uid} />
-      </Box>
-    </>
+      </>
+    )
+  }
+  return (
+    <Timeline position={isMobile ? 'left' : content.align || 'alternate'}>
+      {content.body?.map((blok, i) => (
+        <LmComponentRender
+          content={blok}
+          options={content}
+          key={blok._uid}
+          isLast={i + 1 === content.body?.length}
+        />
+      ))}
+    </Timeline>
   )
 }

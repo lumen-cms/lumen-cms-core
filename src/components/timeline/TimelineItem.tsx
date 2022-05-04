@@ -53,7 +53,7 @@ export default function LmTimelineItem({
   const hasOppositeContent = !!content.opposite_body?.length
 
   useEffectOnce(() => {
-    if (setObserver) {
+    if (typeof setObserver === 'function') {
       setObserver(timeline1.current as any)
       setObserver(dot1.current as any)
       if (isLast) {

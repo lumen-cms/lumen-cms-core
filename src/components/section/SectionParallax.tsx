@@ -1,5 +1,5 @@
 import { ParallaxBanner } from 'react-scroll-parallax'
-import React, { CSSProperties } from 'react'
+import { CSSProperties } from 'react'
 import Image from 'next/image'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmSectionParallaxProps } from './sectionTypes'
