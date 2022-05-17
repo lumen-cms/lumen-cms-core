@@ -22,7 +22,10 @@ import {
   LmHeadlineProps
 } from '../components/headline/headlineTypes'
 import { LmHtmlProps } from '../components/html/htmlTypes'
-import { LmHubspotMeetingProps } from '../components/hubspot-meeting/hubspotTypes'
+import {
+  LmHubspotFormProps,
+  LmHubspotMeetingProps
+} from '../components/hubspot-meeting/hubspotTypes'
 import { LmIconProps } from '../components/icon/iconTypes'
 import {
   LmIframeAdvancedProps,
@@ -134,6 +137,7 @@ type LmCoreComponentsProps = {
   divider?: JSXElementConstructor<LmDividerProps>
   html?: JSXElementConstructor<LmHtmlProps>
   hubspot_meeting?: JSXElementConstructor<LmHubspotMeetingProps>
+  hubspot_form?: JSXElementConstructor<LmHubspotFormProps>
   button_list?: JSXElementConstructor<LmButtonListProps>
   section?: JSXElementConstructor<LmSectionProps>
   headline?: JSXElementConstructor<LmHeadlineProps>

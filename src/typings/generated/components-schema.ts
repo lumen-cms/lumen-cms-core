@@ -2053,11 +2053,7 @@ export interface HtmlStoryblok {
 export interface HubspotFormStoryblok {
   form_id?: string;
   portal_id?: string;
-  newsletter_subscription?: number;
-  body?: FormStoryblok[];
-  consent_communication?: string;
-  consent_process?: string;
-  legitimate_interest?: ParagraphStoryblok[];
+  region?: string;
   _uid: string;
   component: "hubspot_form";
   [k: string]: any;

@@ -7886,7 +7886,7 @@
       "name": "hubspot_form",
       "display_name": null,
       "created_at": "2020-05-01T08:40:41.224Z",
-      "updated_at": "2021-08-19T04:38:11.469Z",
+      "updated_at": "2022-05-17T01:30:24.623Z",
       "id": 894825,
       "schema": {
         "form_id": {
@@ -7897,44 +7897,9 @@
           "type": "text",
           "pos": 1
         },
-        "newsletter_subscription": {
-          "type": "number",
-          "pos": 2,
-          "description": "Add newsletter ID only if no checkbox to consent is used (legitimate process)"
-        },
-        "body": {
-          "type": "bloks",
-          "pos": 3,
-          "maximum": "1",
-          "restrict_components": true,
-          "component_whitelist": [
-            "form"
-          ],
-          "component_group_whitelist": []
-        },
-        "consent_communication": {
+        "region": {
           "type": "text",
-          "pos": 4,
-          "display_name": "",
-          "description": "Creates checkbox for:  \"consent to communicate\" (agrees to receive newsletter) "
-        },
-        "consent_process": {
-          "type": "text",
-          "pos": 5,
-          "display_name": "",
-          "description": "If form requires a checkbox to proceed: \"consent to process\""
-        },
-        "legitimate_interest": {
-          "type": "bloks",
-          "pos": 6,
-          "display_name": "",
-          "description": "Contact is legitimate request. Does not render any checkbox and legitimates newsletter directly. Overwrites consent checkboxes if selected. Only renders if \"consent process\" and \"consent communication\" is empty.",
-          "restrict_components": true,
-          "component_whitelist": [
-            "paragraph"
-          ],
-          "maximum": "1",
-          "component_group_whitelist": []
+          "pos": 2
         }
       },
       "image": null,

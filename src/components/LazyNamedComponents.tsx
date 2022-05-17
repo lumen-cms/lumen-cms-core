@@ -85,6 +85,11 @@ LmCoreComponents.hubspot_meeting = dynamic(
     import(/* webpackChunkName: 'hubspot' */ './hubspot-meeting/HubspotMeeting')
 )
 
+LmCoreComponents.hubspot_form = dynamic(
+  () =>
+    import(/* webpackChunkName: 'hubspot' */ './hubspot-meeting/HubspotForm')
+)
+
 LmCoreComponents.paragraph = dynamic(
   () => import(/* webpackChunkName: 'paragraph' */ './paragraph/Paragraph')
 )
