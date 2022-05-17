@@ -13,9 +13,9 @@ const ContentSecurityPolicy = {
 
 const hubspotCsp = {
   scriptSrc:
-    'https://js.hs-scripts.com  https://js.hsleadflows.net  https://js.hs-banner.com  https://js.hsadspixel.net  https://js.hubspotfeedback.com  https://js.usemessages.com  https://js.hs-analytics.net  https://js.hscollectedforms.net  https://js.hsforms.net  https://js-na1.hs-scripts.com  https://forms.hsforms.com',
+    'js.hs-scripts.com js.hsleadflows.net js.hs-banner.com js.hsadspixel.net  js.hubspotfeedback.com js.usemessages.com js.hs-analytics.net js.hscollectedforms.net js.hsforms.net js.hsforms.com js-na1.hs-scripts.com forms.hsforms.com',
   childSrc:
-    'app.hubspot.com forms.hsforms.com js.hsadspixel.net js.hscollectedforms.net js.usemessages.com',
+    'app.hubspot.com forms.hsforms.com js.hsadspixel.net js.hscollectedforms.net js.usemessages.com js.hsforms.net js.hsforms.com',
   frameAncestors:
     '*.hubspot.com forms.hsforms.com js.hsadspixel.net js.hscollectedforms.net js.usemessages.com'
 }
