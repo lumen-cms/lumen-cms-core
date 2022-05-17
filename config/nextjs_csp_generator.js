@@ -32,7 +32,7 @@ const getCsp = (extendCsp) => {
   })
   Object.keys(hubspotCsp).forEach((key) => {
     if (ContentSecurityPolicy[key]) {
-      ContentSecurityPolicy[key] += ` ${extendCsp[key]}`
+      ContentSecurityPolicy[key] += ` ${hubspotCsp[key]}`
     }
   })
   return Object.values(ContentSecurityPolicy).join('; ')
