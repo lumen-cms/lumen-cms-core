@@ -2051,9 +2051,9 @@ export interface HtmlStoryblok {
 }
 
 export interface HubspotFormStoryblok {
-  form_id?: string;
-  portal_id?: string;
-  region?: string;
+  form_id: string;
+  portal_id: string;
+  region: string;
   _uid: string;
   component: "hubspot_form";
   [k: string]: any;
@@ -3754,6 +3754,7 @@ export interface SectionParallaxStoryblok {
     values?: string[];
     [k: string]: any;
   };
+  allow_overflow?: boolean;
   toggle_image_loading?: boolean;
   _uid: string;
   component: "section_parallax";

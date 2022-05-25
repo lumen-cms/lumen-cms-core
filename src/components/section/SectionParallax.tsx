@@ -20,7 +20,9 @@ export default function LmSectionParallax({
     : {
         height: contentHeight ? `${contentHeight}vh` : '50vh'
       }
-
+  if (content.allow_overflow) {
+    styles.overflow = 'visible'
+  }
   const isPriority = sectionPosition === 0 || !!content.disable_lazy_load
 
   return (
