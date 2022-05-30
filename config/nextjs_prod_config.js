@@ -8,9 +8,9 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
    * @type {import("next").NextConfig}
    */
   const config = {
-    ...nextConfig,
     swcMinify: true,
     webpack5: enableWebpack5,
+    ...nextConfig,
     async headers() {
       return [
         {
@@ -86,30 +86,14 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
           }
         }
       }
-      //
-      //     // if (options.isServer) {
-      //     //   config.externals = ['react', ...config.externals]
-      //     // }
-      //
-      //     config.resolve = config.resolve || {}
-      //     config.resolve.plugins = config.resolve.plugins || []
+
       if (transpileModules !== false) {
         config.resolve.plugins.push(new TsconfigPathsPlugin())
       }
       if (!isServer) {
         config.resolve.alias['@sentry/node'] = '@sentry/browser'
       }
-      //
-      //     config.module.rules.push({
-      //       test: /\.graphql$/,
-      //       exclude: /node_modules\/(?!(lumen-cms-core|lumen-cms-ecommerce|lumen-cms-travel)\/).*/,
-      //       use: [
-      //         {
-      //           loader: 'graphql-tag/loader'
-      //         }
-      //       ]
-      //     })
-      //
+
       const originalEntry = config.entry
       config.entry = async () => {
         const entries = await originalEntry()
@@ -122,11 +106,7 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
     }
   }
 
-  let pluginConfiguration = [
-    // next-offline
-    // [withOffline],
-    // [withSourceMaps],
-  ]
+  let pluginConfiguration = []
   if (transpileModules !== false) {
     const withTM = require('next-transpile-modules')([
       ...['lumen-cms-core'],
