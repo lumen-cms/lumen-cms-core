@@ -1,19 +1,24 @@
 import { MoralisMintProps } from './moralisTypings'
 
-export const getPurchaseEventData = (content: MoralisMintProps['content'], {
-  currentCost,
-  amount
-}: { amount: number, currentCost: string }) => {
+export const getPurchaseEventData = (
+  content: MoralisMintProps['content'],
+  { currentCost, amount }: { amount: number; currentCost: string }
+) => {
   const value = content.price_in_usd || content.price_fiat || currentCost
-  const event: { google: Gtag.CustomParams, facebook: facebook.Pixel.PurchaseParameters } = {
+  const event: {
+    google: Gtag.CustomParams
+    facebook: facebook.Pixel.PurchaseParameters
+  } = {
     google: {
       value: Number(value) * amount,
       currency: 'USD',
       event_category: 'Mint',
-      items: [{
-        id: content.contract_token,
-        amount
-      }]
+      items: [
+        {
+          id: content.contract_token,
+          amount
+        }
+      ]
     },
     facebook: {
       value: Number(value) * amount,
@@ -24,13 +29,22 @@ export const getPurchaseEventData = (content: MoralisMintProps['content'], {
 }
 
 export type MintError = {
-  message: string, code: 'insufficient_fund' | 'not_whitelisted' | 'sale_not_started' | 'max_mint_amount_exceed' | 'unknown'
+  message: string
+  code:
+    | 'insufficient_fund'
+    | 'not_whitelisted'
+    | 'sale_not_started'
+    | 'max_mint_amount_exceed'
+    | 'unknown'
 }
 
 export const getMintErrorMessage = (error: any): MintError => {
   const message = error?.data?.message || error?.message || ''
   if (message.includes('insufficient funds')) {
-    return { code: 'insufficient_fund', message: 'You don\'t have enough funds in your wallet.' }
+    return {
+      code: 'insufficient_fund',
+      message: "You don't have enough funds in your wallet."
+    }
   } else if (message.includes('Sale has not started yet')) {
     return {
       message: 'The sale has not started yet! Please come back later.',
@@ -43,7 +57,8 @@ export const getMintErrorMessage = (error: any): MintError => {
     }
   } else if (message.includes('invalid proof')) {
     return {
-      message: 'You are not member of the whitelist. If you are make sure you have the right account connected.',
+      message:
+        'You are not member of the whitelist. If you are make sure you have the right account connected.',
       code: 'not_whitelisted'
     }
   }
@@ -51,5 +66,4 @@ export const getMintErrorMessage = (error: any): MintError => {
     message: error.message.split('(')[0],
     code: 'unknown'
   }
-
 }

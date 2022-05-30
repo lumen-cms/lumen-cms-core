@@ -32,7 +32,7 @@ const web3Auth = {
       _uid: 'mint',
       component: 'moralis_mint',
       sale: 'whitelist',
-      contract_token: '0x0e6008F3bDC0A73E8C31b43D08DB35552185fE9A',
+      contract_token: '0x6933B03766EF7A27BE31ea49Ef19f6337d286C52',
       chain: 'rinkeby'
     }
   ]
