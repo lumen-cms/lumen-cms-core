@@ -26,6 +26,7 @@ export const useWeb3Connector = () => {
   const isWalletConnectActivating = useIsWalletConnectActivating()
   const isWalletConnectActive = useIsWalletConnectActive()
   const walletConnectProvider = useWalletConnectProvider()
+
   return {
     metaMaskProvider,
     walletConnectProvider,

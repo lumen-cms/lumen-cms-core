@@ -42,12 +42,13 @@ export default function MoralisMint({
   let mintAmount = 1
   if (content.sale === 'whitelist' && content.mint_amount_whitelist) {
     mintAmount = Number(content.mint_amount_whitelist)
+    if (maxAmountWhitelist && maxAmountWhitelist <= mintAmount) {
+      mintAmount = maxAmountWhitelist
+    }
   } else if (content.sale === 'public' && content.mint_amount) {
     mintAmount = Number(content.mint_amount)
   }
-  if (maxAmountWhitelist) {
-    mintAmount = maxAmountWhitelist
-  }
+
   const items: number[] = useMemo(() => {
     const cur = []
     if (mintAmount > 1) {
@@ -180,20 +181,16 @@ export default function MoralisMint({
                 })
                 return
               }
-              // const contract = new ethers.Contract(
-              //   content.contract_token,
-              //   abi,
-              //   signer
-              // )
+
               try {
                 if (process.env.NEXT_PUBLIC_MINT_CALL === 'wild') {
-                  await contract.functions.mint(selectedAmount, account, {
+                  await contract.mint(selectedAmount, account, {
                     value: value
                   })
                 } else if (
                   process.env.NEXT_PUBLIC_MINT_CALL === 'whitelistonly'
                 ) {
-                  await contract.functions.mint(
+                  await contract.mint(
                     selectedAmount,
                     signed,
                     maxAmountWhitelist
@@ -208,6 +205,7 @@ export default function MoralisMint({
                   return
                 }
                 const currentError = getMintErrorMessage(error)
+                console.error(currentError)
                 window.gtag &&
                   gtag('event', 'exception', {
                     event_category: 'Mint Error',

@@ -39,7 +39,7 @@ export type MintError = {
 }
 
 export const getMintErrorMessage = (error: any): MintError => {
-  const message = error?.data?.message || error?.message || ''
+  const message = error?.reason || error?.data?.message || error?.message || ''
   if (message.includes('insufficient funds')) {
     return {
       code: 'insufficient_fund',
@@ -50,9 +50,12 @@ export const getMintErrorMessage = (error: any): MintError => {
       message: 'The sale has not started yet! Please come back later.',
       code: 'sale_not_started'
     }
-  } else if (message.includes('max mint amount exceeded')) {
+  } else if (
+    message.includes('max mint amount exceeded') ||
+    message.includes('mint more than allowed')
+  ) {
     return {
-      message: 'You already minted the maximum NFTs for your wallet.',
+      message: 'You try to mint more NFTs than your wallet allows.',
       code: 'max_mint_amount_exceed'
     }
   } else if (message.includes('invalid proof')) {
@@ -60,6 +63,11 @@ export const getMintErrorMessage = (error: any): MintError => {
       message:
         'You are not member of the whitelist. If you are make sure you have the right account connected.',
       code: 'not_whitelisted'
+    }
+  } else if (message.includes('execution reverted: ')) {
+    return {
+      message: message.replace('execution reverted: ', ''),
+      code: 'unknown'
     }
   }
   return {
