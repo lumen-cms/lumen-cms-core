@@ -55,8 +55,13 @@ export async function signMessageApi(
   maikoWhitelistData: WhitelistDataSource
 ) {
   const { account, chainId, contractAddress } = req.query
+  if (typeof account !== 'string') {
+    return {
+      signed: false
+    }
+  }
   let amount = maikoWhitelistData.find(
-    (i) => i.HolderAddress === account
+    (i) => i.HolderAddress.toLowerCase() === account.toLowerCase()
   )?.Quantity
   res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate')
   if (!(amount && account && chainId && contractAddress)) {
