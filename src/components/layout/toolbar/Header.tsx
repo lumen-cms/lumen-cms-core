@@ -3,11 +3,14 @@ import { LmComponentRender } from '@LmComponentRender'
 import TopAppBarWrap from './TopAppBar'
 import { useSettings } from '../../provider/SettingsPageProvider'
 
-function Header(): JSX.Element {
+function Header() {
   const settings = useSettings()
 
   let rows = settings.multi_toolbar || []
   let SystemBar = null
+  if (rows?.length < 1) {
+    return null
+  }
   const systemBarProps = rows.find((item) => item.is_system_bar)
   if (systemBarProps) {
     SystemBar = <LmComponentRender content={systemBarProps} />
