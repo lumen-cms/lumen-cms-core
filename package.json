@@ -45,7 +45,7 @@
   "author": "Dominic Garms",
   "license": "MIT",
   "engines": {
-    "node": "14.x"
+    "node": ">=14.x <17"
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.8.0",

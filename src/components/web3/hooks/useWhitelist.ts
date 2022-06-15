@@ -2,17 +2,14 @@ import { MoralisMintProps } from '../moralisTypings'
 import useSWR from 'swr'
 import { useWeb3React } from '@web3-react/core'
 import { CHAINS } from '../chainsConfig'
+import { fetchApiCall } from '../helper/fetcher'
 
 const fetcher = (account: string, chainId: number, contractToken: string) => {
-  const url = `${
-    process.env.STORYBOOK ? 'http://localhost:3000' : ''
-  }/api/sign/message`
-  const params = new URLSearchParams()
-  params.append('account', account)
-  params.append('chainId', `${chainId}`)
-  params.append('contractAddress', contractToken)
-  const fullPath = url + '?' + params.toString()
-  return fetch(fullPath).then((res) => res.json())
+  return fetchApiCall('/api/sign/message', {
+    account,
+    contractAddress: contractToken,
+    chainId: `${chainId}`
+  })
 }
 
 export default function useWhitelist(content: MoralisMintProps['content']) {
@@ -25,7 +22,9 @@ export default function useWhitelist(content: MoralisMintProps['content']) {
     isValidating,
     data
   } = useSWR<{ signed: string; amount: number }>(
-    content.sale === 'whitelist' && account && isCorrectChain
+    (content.sale === 'whitelist' || content.sale === 'code') &&
+      account &&
+      isCorrectChain
       ? [account, chainId, content.contract_token]
       : null,
     fetcher,

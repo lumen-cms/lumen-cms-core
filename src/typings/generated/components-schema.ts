@@ -2792,7 +2792,7 @@ export interface MoralisMintStoryblok {
   )[];
   price?: string;
   price_whitelist?: string;
-  sale?: "" | "none" | "whitelist" | "public" | "ended";
+  sale?: "" | "none" | "whitelist" | "public" | "ended" | "code";
   mint_amount?: number;
   mint_amount_whitelist?: number;
   counter_style?: HeadlineStoryblok[];

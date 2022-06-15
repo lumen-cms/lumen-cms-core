@@ -10265,7 +10265,7 @@
       "name": "moralis_mint",
       "display_name": null,
       "created_at": "2021-11-10T02:47:54.508Z",
-      "updated_at": "2022-02-14T02:08:08.295Z",
+      "updated_at": "2022-06-12T11:03:02.423Z",
       "id": 1936072,
       "schema": {
         "price_fiat": {
@@ -10382,6 +10382,10 @@
             {
               "value": "ended",
               "name": "ended"
+            },
+            {
+              "value": "code",
+              "name": "code"
             }
           ],
           "pos": 11

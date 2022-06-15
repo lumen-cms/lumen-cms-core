@@ -15,6 +15,8 @@ import {
 } from '../../typings/generated/components-schema'
 import { useContract } from './hooks/useContract'
 import { parseEther } from 'ethers/lib/utils'
+import { fetchApiCall } from './helper/fetcher'
+import { CONFIG } from '@CONFIG'
 
 const envAbi = process.env.NEXT_PUBLIC_ABI
   ? JSON.parse(process.env.NEXT_PUBLIC_ABI)
@@ -29,17 +31,20 @@ export default function MoralisMint({
     isValidatingWhitelist,
     maxAmountWhitelist,
     isCorrectChain,
-    selectedChain
+    selectedChain,
+    chainId
   } = useWhitelist(content)
   const abi = envAbi || content.moralis_mint_data?.abi
-  const amountRef = useRef<number>(1)
+  const amountRef = useRef<HTMLInputElement>(null)
+  const codeRef = useRef<HTMLInputElement>(null)
   const contract = useContract(content.contract_token, abi)
+  const submittingRef = useRef<boolean>(false)
 
   const currentCost =
     content.sale === 'whitelist'
       ? (content.price_whitelist as string)
       : (content.price as string)
-  let mintAmount = 1
+  let mintAmount = 2 // testing
   if (content.sale === 'whitelist' && content.mint_amount_whitelist) {
     mintAmount = Number(content.mint_amount_whitelist)
     if (maxAmountWhitelist && maxAmountWhitelist <= mintAmount) {
@@ -63,7 +68,9 @@ export default function MoralisMint({
   const [success, setSuccess] = useState<boolean>()
 
   const trackEvent = (isPurchase?: boolean) => {
-    const selectedAmount = amountRef.current || 1
+    const selectedAmount = amountRef.current?.value
+      ? Number(amountRef.current?.value)
+      : 1
     const { google, facebook } = getPurchaseEventData(content, {
       currentCost,
       amount: selectedAmount
@@ -134,6 +141,13 @@ export default function MoralisMint({
           } as FlexRowStoryblok
         }
       >
+        {content.sale === 'code' && (
+          <TextField
+            name={'code'}
+            placeholder={'Enter your code..'}
+            inputRef={codeRef}
+          />
+        )}
         {mintAmount > 1 && (
           <TextField
             color={'primary'}
@@ -141,11 +155,9 @@ export default function MoralisMint({
             id={'lm-mint-amount'}
             defaultValue={1}
             select
+            inputRef={amountRef}
             style={{
               minWidth: `55px`
-            }}
-            onChange={(event) => {
-              amountRef.current = Number(event.target.value)
             }}
           >
             {items.map((value) => (
@@ -166,41 +178,72 @@ export default function MoralisMint({
           }
           onClick={async () => {
             if (content.contract_token && abi && account) {
-              const selectedAmount = amountRef.current || 1
+              if (submittingRef.current) {
+                return // dont trigger if still submitting
+              }
+              submittingRef.current = true
+              let signedMessage = signed
+              const code = codeRef.current?.value || ''
+              const selectedAmount = amountRef.current?.value
+                ? Number(amountRef.current?.value)
+                : 1
               const value = currentCost
                 ? parseEther(currentCost).mul(selectedAmount)
                 : 0
               trackEvent()
-              // const signer = library.getSigner()
 
-              if (content.sale === 'whitelist' && !signed) {
+              if (content.sale === 'whitelist' && !signedMessage) {
                 setError({
                   message:
                     'You are not whitelisted. If you are make sure you have the right account connected.',
                   code: 'not_whitelisted'
                 })
+                submittingRef.current = false
                 return
+              }
+              if (content.sale === 'code' && !code) {
+                setError({
+                  message:
+                    "You must provide a code. If you don't have one wait for the public mint.",
+                  code: 'not_whitelisted'
+                })
+                submittingRef.current = false
+                return
+              }
+              if (content.sale === 'code') {
+                const apiCall = await fetchApiCall('/api/sign/message', {
+                  account,
+                  contractAddress: content.contract_token,
+                  chainId: `${chainId}`,
+                  code
+                })
+                signedMessage = apiCall?.signed
+                if (!signedMessage) {
+                  setError({
+                    message:
+                      'Your code is not valid. Please try again or wait for the public mint.',
+                    code: 'not_whitelisted'
+                  })
+                  submittingRef.current = false
+                  return
+                }
               }
 
               try {
-                if (process.env.NEXT_PUBLIC_MINT_CALL === 'wild') {
-                  await contract.mint(selectedAmount, account, {
-                    value: value
-                  })
-                } else if (
-                  process.env.NEXT_PUBLIC_MINT_CALL === 'whitelistonly'
-                ) {
-                  await contract.mint(
-                    selectedAmount,
-                    signed,
-                    maxAmountWhitelist
-                  )
-                } else {
-                  // TODO
-                }
+                await CONFIG.web3MintFunction(contract, {
+                  value,
+                  signed: signedMessage,
+                  account,
+                  sale: content.sale,
+                  mintAmount: selectedAmount,
+                  maxMintAmount: maxAmountWhitelist,
+                  code
+                })
+                submittingRef.current = false
                 trackEvent(true)
                 setSuccess(true)
               } catch (error: any) {
+                submittingRef.current = false
                 if (error.code === 4001) {
                   return
                 }

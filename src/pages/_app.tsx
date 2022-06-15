@@ -37,3 +37,17 @@ CONFIG.authPathRequiredRoles = [
     roles: ['app-offensive-en']
   }
 ]
+
+CONFIG.web3MintFunction = async (contract, options) => {
+  if (options.sale === 'whitelist' || options.sale === 'code') {
+    console.log(options)
+    await contract.functions.mint(
+      options.mintAmount,
+      options.signed,
+      options.maxMintAmount || 1,
+      options.code
+    )
+  } else {
+    await contract.functions.publicMint(options.mintAmount)
+  }
+}

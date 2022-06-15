@@ -123,7 +123,7 @@ export type Article = HasMetafields & Node & {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
@@ -321,7 +321,7 @@ export type Blog = HasMetafields & Node & {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
@@ -1227,7 +1227,7 @@ export type Collection = HasMetafields & Node & {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
@@ -2332,7 +2332,7 @@ export type Customer = HasMetafields & {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
@@ -2965,7 +2965,7 @@ export type HasMetafields = {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
@@ -4037,7 +4037,7 @@ export type Order = HasMetafields & Node & {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
@@ -4310,7 +4310,7 @@ export type Page = HasMetafields & Node & {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
@@ -4510,7 +4510,7 @@ export type Product = HasMetafields & Node & {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
@@ -4886,7 +4886,7 @@ export type ProductVariant = HasMetafields & Node & {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
@@ -5570,7 +5570,7 @@ export type Shop = HasMetafields & {
   metafield?: Maybe<Metafield>;
   /**
    * A paginated list of metafields associated with the resource.
-   * @deprecated The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.
+   * @deprecated As of 2022-07, the paginated `metafields` field has been repurposed to require a list of metafield identifiers.
    *
    */
   metafields: MetafieldConnection;
