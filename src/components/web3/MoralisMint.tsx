@@ -201,7 +201,7 @@ export default function MoralisMint({
                 submittingRef.current = false
                 return
               }
-              if (content.sale === 'code' && !code) {
+              if (content.sale === 'code' && !signedMessage && !code) {
                 setError({
                   message:
                     "You must provide a code. If you don't have one wait for the public mint.",
@@ -210,7 +210,7 @@ export default function MoralisMint({
                 submittingRef.current = false
                 return
               }
-              if (content.sale === 'code') {
+              if (content.sale === 'code' && !signedMessage) {
                 const apiCall = await fetchApiCall('/api/sign/message', {
                   account,
                   contractAddress: content.contract_token,
