@@ -19,7 +19,7 @@ const whitelistTests = [
 ]
 
 const data = {
-  codes: ['abc123'],
+  codes: ['abc123', 'q3jh3f', 'tnls0h'],
   whitelistSpots: whitelistTests
 }
 

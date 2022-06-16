@@ -186,6 +186,7 @@ export default function MoralisMint({
               }
               submittingRef.current = true
               let signedMessage = signed
+              let maxMintAmount = maxAmountWhitelist
               const code = codeRef.current?.value || ''
               const selectedAmount = amountRef.current?.value
                 ? Number(amountRef.current?.value)
@@ -221,7 +222,8 @@ export default function MoralisMint({
                   code
                 })
                 signedMessage = apiCall?.signed
-                if (!signedMessage) {
+                maxMintAmount = apiCall?.amount
+                if (!(signedMessage && maxMintAmount)) {
                   setError({
                     message:
                       'Your code is not valid. Please try again or wait for the public mint.',
@@ -239,7 +241,7 @@ export default function MoralisMint({
                   account,
                   sale: content.sale,
                   mintAmount: selectedAmount,
-                  maxMintAmount: maxAmountWhitelist,
+                  maxMintAmount,
                   code
                 })
                 submittingRef.current = false
