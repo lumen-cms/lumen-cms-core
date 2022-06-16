@@ -45,7 +45,10 @@ export default function MoralisMint({
       ? (content.price_whitelist as string)
       : (content.price as string)
   let mintAmount = 1 // testing
-  if (content.sale === 'whitelist' && content.mint_amount_whitelist) {
+  if (
+    (content.sale === 'whitelist' || content.sale === 'code') &&
+    content.mint_amount_whitelist
+  ) {
     mintAmount = Number(content.mint_amount_whitelist)
     if (maxAmountWhitelist && maxAmountWhitelist <= mintAmount) {
       mintAmount = maxAmountWhitelist
