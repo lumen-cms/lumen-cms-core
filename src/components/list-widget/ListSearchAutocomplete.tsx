@@ -79,6 +79,7 @@ type ListOptions = {
   full_slug: string
   label: string
 }[]
+
 export default function LmListSearchAutocomplete({
   content
 }: LmListSearchAutocompleteProps): JSX.Element {
@@ -198,7 +199,9 @@ export default function LmListSearchAutocomplete({
           )
         }}
         noOptionsText={content.not_found_label}
-        getOptionLabel={(option) => option.label}
+        getOptionLabel={(option) =>
+          typeof option === 'string' ? option : option.label
+        }
         PaperComponent={(props) => (
           <Paper
             {...props}

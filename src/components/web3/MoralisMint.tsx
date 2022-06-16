@@ -44,7 +44,7 @@ export default function MoralisMint({
     content.sale === 'whitelist'
       ? (content.price_whitelist as string)
       : (content.price as string)
-  let mintAmount = 2 // testing
+  let mintAmount = 1 // testing
   if (content.sale === 'whitelist' && content.mint_amount_whitelist) {
     mintAmount = Number(content.mint_amount_whitelist)
     if (maxAmountWhitelist && maxAmountWhitelist <= mintAmount) {
@@ -141,7 +141,7 @@ export default function MoralisMint({
           } as FlexRowStoryblok
         }
       >
-        {content.sale === 'code' && (
+        {content.sale === 'code' && !signed && (
           <TextField
             name={'code'}
             placeholder={'Enter your code..'}
