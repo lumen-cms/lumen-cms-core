@@ -3461,16 +3461,6 @@ export interface ParallaxItemStoryblok {
 }
 
 export interface PlayerStoryblok {
-  controls?: boolean;
-  playing?: boolean;
-  loop?: boolean;
-  muted?: boolean;
-  playsinline?: boolean;
-  volume?: number;
-  light?: boolean;
-  toggle_play_on_hover?: boolean;
-  fallback_image?: string;
-  toggle_image_loading?: boolean;
   url?: string;
   url_internal?: {
     alt?: string;
@@ -3488,10 +3478,29 @@ export interface PlayerStoryblok {
     name: string;
     title?: string;
   }[];
-  ratio?: "" | "16x9" | "4x3" | "3x2" | "1x1";
+  url_mobile?: {
+    alt?: string;
+    copyright?: string;
+    id: number;
+    filename: string;
+    name: string;
+    title?: string;
+  }[];
+  ratio?: "16x9" | "4x3" | "3x2" | "1x1";
   width?: string;
   height?: string;
   border_radius?: string;
+  controls?: boolean;
+  playing?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  playsinline?: boolean;
+  volume?: number;
+  light?: boolean;
+  toggle_play_on_hover?: boolean;
+  fallback_image?: string;
+  toggle_image_loading?: boolean;
+  disable_lazy_load?: boolean;
   _uid: string;
   component: "player";
   [k: string]: any;

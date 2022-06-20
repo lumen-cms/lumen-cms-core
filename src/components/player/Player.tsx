@@ -4,36 +4,10 @@ import React, { useState } from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmPlayerProps } from './playerTypes'
 import videoUrlHelper from '../../utils/videoUrlHelper'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles({ name: 'Player' })({
-  videoContainer: {
-    position: 'relative',
-    '& video[poster]': {
-      objectFit: 'cover'
-    }
-  },
-  ratio16x9: {
-    paddingTop: `${100 / (16 / 9)}%`
-  },
-  ratio4x3: {
-    paddingTop: `${100 / (4 / 3)}%`
-  },
-  ratio3x2: {
-    paddingTop: `${100 / (3 / 2)}%`
-  },
-  ratio1x1: {
-    paddingTop: `100%`
-  },
-  borderRadius: {
-    '& iframe, & > div > div': {
-      borderRadius: 'inherit'
-    }
-  }
-})
+import LmAspectRatio from '../image/LmAspectRatio'
 
 export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
-  const { classes, cx } = useStyles()
+  // const { classes, cx } = useStyles()
   const [playing, setPlaying] = useState<boolean>(!!content.playing)
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
@@ -44,40 +18,71 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
     }
   }
 
+  let ratios: string[] = []
+  if (content.ratio) {
+    const str = content.ratio.replaceAll('x', '/')
+    ratios = str.split(',')
+  }
+
   return (
-    <div
-      ref={refIntersectionObserver}
-      className={cx(classes.videoContainer, {
-        [classes[`ratio${content.ratio}`]]: !!content.ratio,
-        [classes.borderRadius]: !!content.border_radius
-      })}
-    >
-      <ReactPlayer
-        onMouseEnter={() => {
-          togglePlay()
+    <>
+      <LmAspectRatio
+        ratio={ratios}
+        sx={{
+          position: 'relative',
+          '& video[poster]': {
+            objectFit: 'cover'
+          },
+          ...(content.border_radius && {
+            '& iframe, & > div > div': {
+              borderRadius: 'inherit'
+            }
+          }),
+          ...(content.ratio && {
+            '& video': {
+              objectFit: 'cover'
+            }
+          })
         }}
-        onMouseLeave={() => {
-          togglePlay()
-        }}
-        style={{
-          position: content.ratio ? 'absolute' : undefined,
-          top: content.ratio ? 0 : undefined,
-          left: content.ratio ? 0 : undefined,
-          borderRadius: content.border_radius
-            ? content.border_radius
-            : undefined
-        }}
-        {...videoUrlHelper(content, inView)}
-        volume={content.muted ? 0 : Number(content.volume || 0)}
-        loop={content.loop}
-        muted={content.muted}
-        playsinline={content.playsinline}
-        playing={playing}
-        light={content.light ? content.fallback_image || true : false}
-        controls={content.controls}
-        height={content.ratio ? '100%' : content.height || undefined}
-        width={content.ratio ? '100%' : content.width || undefined}
-      />
-    </div>
+      >
+        <ReactPlayer
+          onMouseEnter={() => {
+            togglePlay()
+          }}
+          onMouseLeave={() => {
+            togglePlay()
+          }}
+          style={{
+            ...(content.ratio && {
+              position: 'absolute',
+              top: 0,
+              left: 0
+            }),
+            borderRadius: content.border_radius
+              ? content.border_radius
+              : undefined
+          }}
+          {...videoUrlHelper(
+            content,
+            content.disable_lazy_load ? true : inView
+          )}
+          volume={content.muted ? 0 : Number(content.volume || 0)}
+          loop={content.loop}
+          muted={content.muted}
+          playsinline={content.playsinline}
+          playing={playing}
+          light={content.light ? content.fallback_image || true : false}
+          controls={content.controls}
+          height={content.ratio ? '100%' : content.height || undefined}
+          width={content.ratio ? '100%' : content.width || undefined}
+        />
+      </LmAspectRatio>
+      {!content.disable_lazy_load && (
+        <div
+          ref={refIntersectionObserver}
+          style={{ height: '1px', width: '100%' }}
+        />
+      )}
+    </>
   )
 }

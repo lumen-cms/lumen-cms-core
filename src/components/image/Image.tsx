@@ -84,8 +84,7 @@ export default function LmImage({
     return (
       <>
         <LmAspectRatio
-          width={squareSize}
-          height={squareSize}
+          ratio={`1/1`}
           style={{
             height: squareSize <= 360 ? `${squareSize}px` : undefined,
             width: squareSize <= 360 ? `${squareSize}px` : undefined,

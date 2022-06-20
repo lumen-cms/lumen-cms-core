@@ -12057,60 +12057,18 @@
       "name": "player",
       "display_name": "",
       "created_at": "2020-07-09T03:21:18.578Z",
-      "updated_at": "2022-03-18T03:26:08.482Z",
+      "updated_at": "2022-06-20T08:32:36.472Z",
       "id": 1002614,
       "schema": {
-        "controls": {
-          "type": "boolean",
-          "pos": 0
-        },
-        "playing": {
-          "type": "boolean",
-          "pos": 1
-        },
-        "loop": {
-          "type": "boolean",
-          "pos": 2
-        },
-        "muted": {
-          "type": "boolean",
-          "pos": 3
-        },
-        "playsinline": {
-          "type": "boolean",
-          "pos": 4
-        },
-        "volume": {
-          "type": "number",
-          "default_value": "",
-          "description": "Value between 0 and 1. Defaults to 0",
-          "pos": 5
-        },
-        "light": {
-          "type": "boolean",
-          "pos": 6
-        },
-        "toggle_play_on_hover": {
-          "type": "boolean",
-          "pos": 7
-        },
-        "fallback_image": {
-          "type": "text",
-          "pos": 8
-        },
-        "toggle_image_loading": {
-          "type": "boolean",
-          "pos": 9
-        },
         "url": {
           "type": "text",
-          "pos": 10,
+          "pos": 0,
           "display_name": "URL external",
           "description": "Any Youtube, Vimeo or other URL"
         },
         "url_internal": {
           "type": "asset",
-          "pos": 11,
+          "pos": 1,
           "display_name": "Storblok video",
           "filetypes": [
             "videos"
@@ -12118,16 +12076,24 @@
         },
         "url_alternatives": {
           "type": "multiasset",
-          "pos": 12,
+          "pos": 2,
           "filetypes": [
             "videos"
           ],
           "display_name": "Video alternatives",
           "description": "Add different video format for cross-browser support like webm, mp4."
         },
+        "url_mobile": {
+          "type": "multiasset",
+          "pos": 3,
+          "filetypes": [
+            "videos"
+          ],
+          "description": "Add videos for mobile only. This works well with different video ratio for mobile/desktop."
+        },
         "ratio": {
-          "type": "option",
-          "pos": 13,
+          "type": "text",
+          "pos": 4,
           "use_uuid": true,
           "options": [
             {
@@ -12146,15 +12112,62 @@
               "value": "1x1",
               "name": "1x1"
             }
-          ]
+          ],
+          "description": "Ratio of the video: [width]x[height]. You can have comma separated ratios for different breakpoints: \"1x1,16x9\" or just \"16x9\""
         },
         "width": {
           "type": "text",
-          "pos": 14
+          "pos": 5
         },
         "height": {
           "type": "text",
+          "pos": 6
+        },
+        "border_radius": {
+          "type": "text",
+          "pos": 7
+        },
+        "controls": {
+          "type": "boolean",
+          "pos": 8
+        },
+        "playing": {
+          "type": "boolean",
+          "pos": 9
+        },
+        "loop": {
+          "type": "boolean",
+          "pos": 10
+        },
+        "muted": {
+          "type": "boolean",
+          "pos": 11
+        },
+        "playsinline": {
+          "type": "boolean",
+          "pos": 12
+        },
+        "volume": {
+          "type": "number",
+          "default_value": "",
+          "description": "Value between 0 and 1. Defaults to 0",
+          "pos": 13
+        },
+        "light": {
+          "type": "boolean",
+          "pos": 14
+        },
+        "toggle_play_on_hover": {
+          "type": "boolean",
           "pos": 15
+        },
+        "fallback_image": {
+          "type": "text",
+          "pos": 16
+        },
+        "toggle_image_loading": {
+          "type": "boolean",
+          "pos": 17
         },
         "tab-0656672f-894c-4ab9-b318-4de78fea3e5c": {
           "type": "tab",
@@ -12169,13 +12182,15 @@
             "playsinline",
             "fallback_image",
             "toggle_image_loading",
-            "toggle_play_on_hover"
+            "toggle_play_on_hover",
+            "disable_lazy_load"
           ],
-          "pos": 16
+          "pos": 18
         },
-        "border_radius": {
-          "type": "text",
-          "pos": 17
+        "disable_lazy_load": {
+          "type": "boolean",
+          "description": "Disable lazy load for videos which are part of the first section of the website.",
+          "pos": 19
         }
       },
       "image": null,

@@ -1,59 +1,53 @@
-import { CSSProperties, FC } from 'react'
-import { makeStyles } from 'tss-react/mui'
+import { FC } from 'react'
+import { Box, BoxProps } from '@mui/material'
 
-type LmAspectRatioProps = {
-  width: number
-  height: number
-  className?: string
-  style?: CSSProperties
+type LmAspectRatioProps = Omit<BoxProps, 'width' | 'height'> & {
+  ratio?: string | string[] // string of [width]/[height]: 16/9
 }
 
-const useStyles = makeStyles({ name: 'AspectRatio' })({
-  root: {
-    position: 'relative',
-    // @ts-ignore
-    '& > span': {
-      width: '100%!important',
-      position: 'absolute !important',
-      top: 0,
-      left: 0,
-      height: '100%!important'
-    },
-    '&:before': {
-      content: '""',
-      display: 'block',
-      width: '100%',
-      '@supports not (aspect-ratio: 1/1)': {
-        height: 0,
-        paddingBottom: 'calc(100% / (var(--aspect-ratio)))'
-      },
-      '@supports (aspect-ratio: 1/1)': {
-        aspectRatio: 'calc(var(--aspect-ratio))'
-      }
-    }
-  }
-})
-
 const LmAspectRatio: FC<LmAspectRatioProps> = ({
-  style,
-  className,
-  width,
-  height,
-  children
+  ratio,
+  children,
+  ...rest
 }) => {
-  const { classes, cx } = useStyles()
+  let ratioArray: string[] = []
+  if (ratio) {
+    ratioArray = Array.isArray(ratio) ? ratio : [ratio]
+  }
   return (
-    <div
-      className={cx(className, classes.root)}
+    <Box
+      {...rest}
+      sx={{
+        ...rest?.sx,
+        ...(ratioArray.length > 0 && {
+          position: 'relative',
+          '& > span': {
+            width: '100%!important',
+            position: 'absolute !important',
+            top: 0,
+            left: 0,
+            height: '100%!important'
+          },
+          '&::before': {
+            content: '""',
+            display: 'block',
+            width: '100%',
+            '@supports not (aspect-ratio: 1/1)': {
+              height: 0,
+              paddingBottom: ratioArray.map((str) => `calc(100%/(${str}))`)
+            },
+            '@supports (aspect-ratio: 1/1)': {
+              aspectRatio: ratioArray.map((str) => `calc(${str})`)
+            }
+          }
+        })
+      }}
       style={{
-        ...style,
-        // eslint-disable-next-line
-        // @ts-ignore
-        '--aspect-ratio': `(${width / height})`
+        ...rest?.style
       }}
     >
       {children}
-    </div>
+    </Box>
   )
 }
 export default LmAspectRatio
