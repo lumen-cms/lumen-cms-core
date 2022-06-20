@@ -98,59 +98,29 @@ type UseStylesAdvancedProps = {
 
 export const useStylesAdvanced = makeStyles<UseStylesAdvancedProps>({
   name: 'StylesAdvanced'
-})(
-  (
-    theme,
-    { props, propsHover, propsMobile, propsTablet }
-  ): Record<
-    'advanced' | 'advancedMobile' | 'advancedTablet' | 'advancedHover',
-    CSSObject
-  > => {
-    const advanced: CSSObject = props?.[0] ? getStyles(props[0], theme) : {}
-    const advancedMobile: CSSObject = propsMobile?.[0]
-      ? getStyles(propsMobile[0], theme)
+})((theme, { props, propsHover, propsMobile, propsTablet }) => {
+  return {
+    advanced: props?.[0] ? getStyles(props[0], theme) : {},
+    advancedMobile: propsMobile?.[0]
+      ? {
+          [theme.breakpoints.only('xs')]: {
+            ...getStyles(propsMobile[0], theme)
+          }
+        }
+      : {},
+    advancedTablet: propsTablet?.[0]
+      ? {
+          [theme.breakpoints.between('sm', 'md')]: {
+            ...getStyles(propsTablet[0], theme)
+          }
+        }
+      : {},
+    advancedHover: propsHover?.[0]
+      ? {
+          '&:hover': {
+            ...getStyles(propsHover[0], theme)
+          }
+        }
       : {}
-    const advancedTablet: CSSObject = propsTablet?.[0]
-      ? getStyles(propsTablet[0], theme)
-      : {}
-    const advancedHover: CSSObject = propsHover?.[0]
-      ? getStyles(propsHover[0], theme)
-      : {}
-    return {
-      advanced,
-      advancedMobile,
-      advancedTablet,
-      advancedHover
-      // advancedMobile: ({ propsMobile }: UseStylesAdvancedProps) => {
-      //   if (!propsMobile || !propsMobile.length) {
-      //     return {} as CreateCSSProperties
-      //   }
-      //   return {
-      //     [theme.breakpoints.only('xs')]: {
-      //       ...getStyles(propsMobile[0], theme)
-      //     }
-      //   }
-      // },
-      // advancedTablet: ({ propsTablet }: UseStylesAdvancedProps) => {
-      //   if (!propsTablet || !propsTablet.length) {
-      //     return {} as CreateCSSProperties
-      //   }
-      //   return {
-      //     [theme.breakpoints.only('sm')]: {
-      //       ...getStyles(propsTablet[0], theme)
-      //     }
-      //   }
-      // },
-      // advancedHover: ({ propsHover }: UseStylesAdvancedProps) => {
-      //   if (!propsHover || !propsHover.length) {
-      //     return {} as CreateCSSProperties
-      //   }
-      //   return {
-      //     '&:hover': {
-      //       ...getStyles(propsHover[0], theme)
-      //     }
-      //   }
-      // }
-    }
   }
-)
+})
