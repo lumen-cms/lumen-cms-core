@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, PropsWithChildren, useState } from 'react'
 import Image, { ImageProps } from 'next/image'
 import Skeleton from '@mui/material/Skeleton'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
@@ -10,26 +10,44 @@ import {
 import { LmImageListItemProps } from './imageListTypes'
 import { COLUMN_COUNT } from '../card/cardListStyles'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
-import { makeStyles } from 'tss-react/mui'
+import { useTheme } from '@mui/material/styles'
+import Box from '@mui/material/Box'
 
-const useStyles = makeStyles()({
-  root: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    width: '100%',
-    height: '100%'
+const ImageWrap: FC<
+  PropsWithChildren<{
+    fitInColor?: string
+    respectImgRatio?: boolean
+    loaded?: boolean
+  }>
+> = ({ respectImgRatio, loaded, children, fitInColor }) => {
+  if (!fitInColor || respectImgRatio) {
+    return <>{children}</>
   }
-})
+  return (
+    <Box
+      sx={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: fitInColor || (loaded ? '#eee' : undefined)
+      }}
+    >
+      {children}
+    </Box>
+  )
+}
 
 export default function LmImageListItem({
   content,
   listProps
 }: LmImageListItemProps): JSX.Element {
   const [loaded, setLoaded] = useState<boolean>(false)
-  const { classes, theme } = useStyles()
+  const theme = useTheme()
+  // const { classes, theme } = useStyles()
   const imageSource = getRootImageUrl(content.source || '')
   const originalDimensions = getOriginalImageDimensions(content.source || '')
   const { breakpoints } = theme
@@ -72,22 +90,12 @@ export default function LmImageListItem({
   }px): ${tabletVw}vw,
             ${desktopVw}vw`
 
-  const ImageWrap: FC =
-    !listProps.fit_in_color || respectImgRatio
-      ? ({ children }) => <>{children}</>
-      : ({ children }) => (
-          <div
-            className={classes.root}
-            style={{
-              backgroundColor:
-                listProps.fit_in_color || loaded ? '#eee' : undefined
-            }}
-          >
-            {children}
-          </div>
-        )
   return (
-    <ImageWrap>
+    <ImageWrap
+      fitInColor={listProps.fit_in_color}
+      loaded={loaded}
+      respectImgRatio={respectImgRatio}
+    >
       {!loaded && (
         <Skeleton
           style={{ position: 'absolute' }}
