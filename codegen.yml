@@ -7,15 +7,15 @@ generates:
             Token: HvyhDYHDPgo3U4lB7s44jgtt
     plugins:
       - "typescript"
-  src/typings/generated/shopify-schema.ts:
-    schema:
-      - https://kembalisales.myshopify.com/api/2020-10/graphql.json:
-          headers:
-            X-Shopify-Storefront-Access-Token: 9e9a0888f96c95dc362ef9712e10b584
-    documents:
-      - "**/*.graphql"
-    plugins:
-      - "typescript"
-      - "typescript-operations"
-      - "typescript-graphql-request"
+#  src/typings/generated/shopify-schema.ts:
+#    schema:
+#      - https://kembalisales.myshopify.com/api/2022-04/graphql.json:
+#          headers:
+#            X-Shopify-Storefront-Access-Token: 9e9a0888f96c95dc362ef9712e10b584
+#    documents:
+#      - "**/*.graphql"
+#    plugins:
+#      - "typescript"
+#      - "typescript-operations"
+#      - "typescript-graphql-request"
 

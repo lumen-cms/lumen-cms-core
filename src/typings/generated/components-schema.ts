@@ -3478,14 +3478,6 @@ export interface PlayerStoryblok {
     name: string;
     title?: string;
   }[];
-  url_mobile?: {
-    alt?: string;
-    copyright?: string;
-    id: number;
-    filename: string;
-    name: string;
-    title?: string;
-  }[];
   ratio?: "16x9" | "4x3" | "3x2" | "1x1";
   width?: string;
   height?: string;
@@ -3621,6 +3613,8 @@ export interface RichTextEditorStoryblok {
 }
 
 export interface RowStoryblok {
+  section_identifier?: string;
+  body?: ColumnStoryblok[];
   spacing?: "" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10";
   justify?: "" | "flex-start" | "center" | "flex-end" | "space-between" | "space-evenly" | "space-around";
   align_content?: "" | "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "stretch";
@@ -3630,7 +3624,6 @@ export interface RowStoryblok {
   reverse_on_mobile?: boolean;
   reverse_on_tablet?: boolean;
   background?: BackgroundStoryblok[];
-  body?: ColumnStoryblok[];
   styles?: StylesStoryblok[];
   styles_mobile?: StylesStoryblok[];
   styles_tablet?: StylesStoryblok[];

@@ -81,6 +81,7 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
       className={cx('lm-grid-row__wrap', className)}
     >
       <Grid
+        id={content.section_identifier || undefined}
         container
         spacing={spacing}
         alignItems={content.align_items ? content.align_items : undefined}
