@@ -2,7 +2,6 @@ import { FC } from 'react'
 import { Web3ReactHooks, Web3ReactProvider } from '@web3-react/core'
 import { MetaMask } from '@web3-react/metamask'
 import { WalletConnect } from '@web3-react/walletconnect'
-// import { ethers } from 'ethers'
 import { hooks as metaMaskHooks, metaMask } from './connectors/metamask'
 import {
   hooks as walletConnectHooks,

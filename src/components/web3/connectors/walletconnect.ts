@@ -4,8 +4,11 @@ import { rpcAddresses } from '../../../utils/web3/rpc'
 
 export const [walletConnect, hooks] = initializeConnector<WalletConnect>(
   (actions) =>
-    new WalletConnect(actions, {
-      rpc: rpcAddresses
-    }),
-  Object.keys(rpcAddresses).map((chainId) => Number(chainId))
+    new WalletConnect({
+      actions,
+      options: {
+        rpc: rpcAddresses
+      }
+    })
+  // Object.keys(rpcAddresses).map((chainId) => Number(chainId))
 )

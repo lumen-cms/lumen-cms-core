@@ -13,7 +13,7 @@ const fetcher = (account: string, chainId: number, contractToken: string) => {
 }
 
 export default function useWhitelist(content: MoralisMintProps['content']) {
-  const { account, chainId, error } = useWeb3React()
+  const { account, chainId } = useWeb3React()
   const selectedChain = CHAINS[content.chain || 'mainnet']
   const isCorrectChain = selectedChain?.id === chainId
 
@@ -40,6 +40,6 @@ export default function useWhitelist(content: MoralisMintProps['content']) {
     signed: data?.signed,
     maxAmountWhitelist: data?.amount,
     isValidatingWhitelist: isValidating,
-    error: error || whitelistError
+    error: whitelistError
   }
 }

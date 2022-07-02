@@ -15,7 +15,7 @@ export const TextFieldElement = dynamic<TextFieldElementProps>(() =>
 const SelectElement = dynamic<SelectElementProps>(() =>
   import('react-hook-form-mui').then((mod) => mod.SelectElement)
 )
-const DatePickerElement = dynamic<DatePickerElementProps>(() =>
+const DatePickerElement = dynamic<DatePickerElementProps<any>>(() =>
   import('react-hook-form-mui').then((mod) => mod.DatePickerElement)
 )
 const MultiSelectElement = dynamic<MultiSelectElementProps>(() =>

@@ -21,14 +21,10 @@ const assets = {
 }
 
 export default function MoralisAuth({ content }: MoralisAuthProps) {
-  const { account, error, connector } = useWeb3React()
+  const { account, connector } = useWeb3React()
   const { isWalletConnectActivating, isMetaMaskActivating, walletConnect } =
     useWeb3Connector()
   const { isWeb3Available, startOnboarding } = useMetaMaskOnboarding()
-
-  if (error) {
-    console.log(error)
-  }
 
   if (account) {
     let logoutElement = content.logout?.[0]
@@ -50,7 +46,9 @@ export default function MoralisAuth({ content }: MoralisAuthProps) {
                 event_category: 'Auth',
                 event_label: 'Logout'
               })
-            connector.deactivate()
+            if (typeof connector.resetState === 'function') {
+              connector.resetState()
+            }
             // await deactivate()
           }}
         />

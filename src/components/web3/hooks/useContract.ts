@@ -18,7 +18,7 @@ export function useContract<Contract = any>(
   address: string,
   abi: ContractInterface
 ) {
-  const { provider, chainId } = useWeb3React()
+  const { provider } = useWeb3React()
 
   const signerOrProvider = useMemo(() => {
     if (provider?.['getSigner']) {
@@ -35,7 +35,7 @@ export function useContract<Contract = any>(
   const contract = useMemo(
     // @ts-expect-error
     () => getContract<Contract>(address, abi, signerOrProvider),
-    [address, abi, signerOrProvider, chainId]
+    [address, abi, signerOrProvider]
   )
 
   return contract
