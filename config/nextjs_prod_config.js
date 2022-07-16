@@ -47,6 +47,11 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
         }
       ]
     },
+    experimental:{
+      images:{
+        allowFutureImage: true
+      }
+    },
     images: {
       formats: ['image/avif', 'image/webp'],
       path: 'https://img-12.lumen.media/_next/image/',
@@ -57,7 +62,7 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
         'cdn.jsdelivr.net'
       ],
       deviceSizes: [360, 420, 510, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-      imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
+      imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     },
 
     // reactStrictMode: true,

@@ -11,6 +11,10 @@ export const useImageListStyles = makeStyles()({
     justifyContent: 'center'
   },
   aspectRatio: {
+    '& .MuiImageListItem-root .MuiImageListItem-img': {
+      position: 'absolute',
+      height: '100%'
+    },
     '&.ratio-1x1 .MuiImageListItem-root': {
       paddingBottom: '100%'
     },

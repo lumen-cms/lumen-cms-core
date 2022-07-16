@@ -87,8 +87,6 @@ export default function LmImageList({
                   }
                 })
           }}
-          // cols={4}
-          // className={cx(classes.rootGrid)}
         >
           {body.map((item, i) => {
             const btnProps: any =
@@ -103,8 +101,8 @@ export default function LmImageList({
                 : {}
             return (
               <ImageListItem
-                cols={item.cols || 1}
-                rows={item.rows || 1}
+                cols={item.cols ? Number(item.cols) : 1}
+                rows={item.rows ? Number(item.rows) : 1}
                 key={item._uid}
                 {...btnProps}
                 onClick={(ev: any) =>

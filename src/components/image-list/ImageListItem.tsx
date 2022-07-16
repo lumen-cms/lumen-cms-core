@@ -1,6 +1,5 @@
-import React, { FC, PropsWithChildren, useState } from 'react'
-import Image, { ImageProps } from 'next/image'
-import Skeleton from '@mui/material/Skeleton'
+import React, { FC, PropsWithChildren } from 'react'
+import Image from 'next/future/image'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import {
   getOriginalImageDimensions,
@@ -17,9 +16,8 @@ const ImageWrap: FC<
   PropsWithChildren<{
     fitInColor?: string
     respectImgRatio?: boolean
-    loaded?: boolean
   }>
-> = ({ respectImgRatio, loaded, children, fitInColor }) => {
+> = ({ respectImgRatio, children, fitInColor }) => {
   if (!fitInColor || respectImgRatio) {
     return <>{children}</>
   }
@@ -33,7 +31,7 @@ const ImageWrap: FC<
         right: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: fitInColor || (loaded ? '#eee' : undefined)
+        backgroundColor: fitInColor || undefined
       }}
     >
       {children}
@@ -45,7 +43,6 @@ export default function LmImageListItem({
   content,
   listProps
 }: LmImageListItemProps): JSX.Element {
-  const [loaded, setLoaded] = useState<boolean>(false)
   const theme = useTheme()
   // const { classes, theme } = useStyles()
   const imageSource = getRootImageUrl(content.source || '')
@@ -60,55 +57,35 @@ export default function LmImageListItem({
     listProps.variant === 'masonry' ||
     !listProps.aspect_ratio
   const { column_count, column_count_phone, column_count_tablet } = listProps
-
-  let imgProps: ImageProps
-  if (respectImgRatio) {
-    imgProps = {
-      src: imageSource,
-      width,
-      height,
-      objectFit: 'cover',
-      objectPosition: 'center',
-      layout: 'responsive'
-    }
-  } else {
-    imgProps = {
-      src: imageSource,
-      layout: 'fill',
-      objectFit: listProps.fit_in_color ? 'contain' : 'cover'
-    }
-  }
   const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
   const tabletVw = getVwByColCount(
     column_count_tablet || column_count || COLUMN_COUNT.TABLET
   )
   const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
-  imgProps.sizes = `(min-width: 0) and (max-width: ${
-    breakpoints.values.sm - 1
-  }px) ${phoneVw}vw, (min-width: ${breakpoints.values.sm}px) and (max-width: ${
-    breakpoints.values.md - 1
-  }px): ${tabletVw}vw,
-            ${desktopVw}vw`
 
   return (
     <ImageWrap
       fitInColor={listProps.fit_in_color}
-      loaded={loaded}
       respectImgRatio={respectImgRatio}
     >
-      {!loaded && (
-        <Skeleton
-          style={{ position: 'absolute' }}
-          width="100%"
-          height="100%"
-          variant="rectangular"
-        />
-      )}
       <Image
-        {...imgProps}
+        src={imageSource}
+        width={width}
+        height={height}
+        style={{
+          objectFit: listProps.fit_in_color ? 'contain' : undefined
+        }}
+        sizes={`(min-width: 0) and (max-width: ${
+          breakpoints.values.sm - 1
+        }px) ${phoneVw}vw, (min-width: ${
+          breakpoints.values.sm
+        }px) and (max-width: ${
+          breakpoints.values.md - 1
+        }px): ${tabletVw}vw, ${desktopVw}vw`}
         {...storyblokImageLoader(imageSource)}
+        placeholder={'empty'}
+        className={'MuiImageListItem-img'}
         alt={content.alt || content.label || 'image list item'}
-        onLoad={() => setLoaded(true)}
       />
       {(content.label || content.sub_title) && (
         <ImageListItemBar

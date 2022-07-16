@@ -1,9 +1,11 @@
 import { ParallaxBanner } from 'react-scroll-parallax'
-import { CSSProperties } from 'react'
-import Image from 'next/image'
+import Image from 'next/future/image'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmSectionParallaxProps } from './sectionTypes'
-import { getRootImageUrl } from '../../utils/imageServices'
+import {
+  getOriginalImageDimensions,
+  getRootImageUrl
+} from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import Box from '@mui/material/Box'
 import { BannerLayer } from 'react-scroll-parallax/dist/components/ParallaxBanner/types'
@@ -13,26 +15,33 @@ export default function LmSectionParallax({
   sectionPosition
 }: LmSectionParallaxProps): JSX.Element {
   const contentHeight = content.height
-  const styles: CSSProperties = content.ratio
-    ? {
-        aspectRatio: content.ratio
-      }
-    : {
-        height: contentHeight ? `${contentHeight}vh` : '50vh'
-      }
-  if (content.allow_overflow) {
-    styles.overflow = 'visible'
-  }
   const isPriority = sectionPosition === 0 || !!content.disable_lazy_load
 
   return (
     <Box
-      maxHeight={[content.max_height_mobile || 250, null]}
+      position={'relative'}
       width={'100%'}
-      style={styles}
+      sx={{
+        alignSelf: 'flex-start',
+        margin: '0 auto',
+        maxWidth: '100vw',
+        maxHeight: {
+          xs: content.max_height_mobile || 250,
+          sm: 'fit-content'
+        },
+        position: 'relative',
+        aspectRatio: content.ratio
+          ? content.ratio.split(',').map((i) => i.trim())
+          : undefined,
+        height: !content.ratio ? `${contentHeight || 50}vh` : undefined,
+        overflow: content.allow_overflow ? 'visible' : undefined
+      }}
     >
       <ParallaxBanner
-        style={styles}
+        style={{
+          height: '100%',
+          overflow: content.allow_overflow ? 'visible' : 'hidden'
+        }}
         layers={
           content.elements?.map(
             ({
@@ -70,11 +79,14 @@ export default function LmSectionParallax({
                   <>
                     {image && (
                       <Image
+                        {...getOriginalImageDimensions(image)}
                         priority={isPriority}
+                        style={{
+                          width: '100%',
+                          height: 'auto'
+                        }}
                         {...storyblokImageLoader(image)}
                         src={getRootImageUrl(image)}
-                        layout="fill"
-                        objectFit="cover"
                         sizes={
                           content.height && content.ratio
                             ? `${content.height}px`
@@ -107,7 +119,7 @@ export default function LmSectionParallax({
               left: 0,
               right: 0,
               bottom: 0,
-              ...styles,
+              height: '100%',
               '& > .lm-grid-row__wrap': {
                 overflowX: 'hidden',
                 height: '100%'
