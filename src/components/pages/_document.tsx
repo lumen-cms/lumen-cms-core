@@ -30,6 +30,8 @@ export default class AppDocument extends Document {
       <Html>
         <Head>
           <style dangerouslySetInnerHTML={{ __html: googleFontString }} />
+          <meta name="emotion-insertion-point" content="" />
+          {(this.props as any).emotionStyleTags}
         </Head>
         <body className="lm-body__root">
           {process.env.NEXT_PUBLIC_GTM_CONTAINER && (
