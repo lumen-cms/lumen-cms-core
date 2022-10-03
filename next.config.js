@@ -2,28 +2,12 @@ const config = require('./config/nextjs_dev_config')
 const redirectFunc = require('./config/localeRedirect')
 
 /**
- * @type {import("next").NextConfig}
+ * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  experimental: {
-    // granularChunks: false
-  },
-  ignoreCsp: false,
-  extendCsp: {},
   i18n: {
     locales: ['en', 'cn', 'de'],
     defaultLocale: 'en'
-    // localeDetection: false
-    // domains: [
-    //   {
-    //     domain: 'studentsgoabroad.org',
-    //     defaultLocale: 'en'
-    //   },
-    //   {
-    //     domain: 'studentsgoabroad.com',
-    //     defaultLocale: 'de'
-    //   }
-    // ]
   },
   strictMode: true, // need to wait until v5 of material UI
   // async redirects() {

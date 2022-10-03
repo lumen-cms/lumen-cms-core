@@ -9,6 +9,9 @@ import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 import { CacheProvider } from '@emotion/react'
 import createEmotionCache from '../global-theme/muiCache'
 
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache()
+
 export type LmAppProps = AppProps<AppPageProps>
 
 export function LmApp(appProps: LmAppProps) {
@@ -17,7 +20,8 @@ export function LmApp(appProps: LmAppProps) {
     pageProps,
     router: { events, isFallback }
   } = appProps
-  const { settings } = pageProps as AppPageProps
+  const { settings, emotionCache = clientSideEmotionCache } =
+    pageProps as AppPageProps
 
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
@@ -43,33 +47,25 @@ export function LmApp(appProps: LmAppProps) {
     }
   }, [events, googleAnaliyticsId, facebookPixelId])
 
-  useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles && jssStyles.parentElement) {
-      jssStyles.parentElement.removeChild(jssStyles)
-    }
-  }, [])
-
-  return useMemo(
-    () =>
-      isFallback ? (
-        <div>loading..</div>
-      ) : (
-        <CacheProvider value={createEmotionCache()}>
-          <LmAppContainer content={pageProps}>
-            <Head>
-              <meta
-                name="viewport"
-                content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-                key="viewport"
-              />
-              <meta name="format-detection" content="telephone=no" />
-            </Head>
-            <Component {...pageProps} />
-          </LmAppContainer>
-        </CacheProvider>
-      ),
-    [isFallback, pageProps, Component]
+  const Child = useMemo(
+    () => (
+      <LmAppContainer content={pageProps}>
+        <Head>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+            key="viewport"
+          />
+          <meta name="format-detection" content="telephone=no" />
+        </Head>
+        <Component {...pageProps} />
+      </LmAppContainer>
+    ),
+    [pageProps, Component]
   )
+  if (isFallback) {
+    return <div>loading..</div>
+  }
+
+  return <CacheProvider value={emotionCache}>{Child}</CacheProvider>
 }

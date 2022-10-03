@@ -8,7 +8,7 @@ import useBackgroundBox from './useBackgroundBox'
 import { LmGridColumnProps } from './sectionTypes'
 import WrapGridContainer from './WrapGridContainer'
 import Stack from '@mui/material/Stack'
-import { cx } from 'tss-react/@emotion/css'
+import { useStyles } from 'tss-react/mui'
 
 const xsSpanMap = {
   1: 3,
@@ -56,7 +56,7 @@ export function LmGridColumn({
   parent
 }: LmGridColumnProps): JSX.Element {
   const background: BackgroundStoryblok | undefined = content.background?.[0]
-
+  const { cx } = useStyles()
   const { className, style } = useBackgroundBox({
     background,
     styles: content.styles,

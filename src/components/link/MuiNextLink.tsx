@@ -2,7 +2,7 @@ import React, { AnchorHTMLAttributes, useCallback } from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@mui/material/Link'
 import { CONFIG } from '@CONFIG'
-import { cx as clsx } from 'tss-react/@emotion/css'
+import { useStyles } from 'tss-react/mui'
 import { LinkProps, NextComposedProps } from './linkTypes'
 import { useAppContext } from '@context/AppContext'
 
@@ -14,6 +14,7 @@ const base64encode =
 const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
   ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
     const { defaultLocale, locales, locale } = useAppContext()
+
     // enable smooth scroll
     const handleClick = useCallback(
       async (e) => {
@@ -91,7 +92,8 @@ const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
       ...other
     } = props
     const { slug } = useAppContext()
-    const className = clsx(classNameProps, {
+    const { cx } = useStyles()
+    const className = cx(classNameProps, {
       [activeClassName]: !!(slug === href && activeClassName)
     })
     // const className = classNameProps

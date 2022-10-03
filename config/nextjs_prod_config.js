@@ -2,14 +2,11 @@ const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const getCsp = require('./nextjs_csp_generator')
 
-module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
-  const enableWebpack5 = true
+module.exports = function(nextConfig = {}, plugins = [], transpileModules) {
   /**
-   * @type {import("next").NextConfig}
+   * @type {import('next').NextConfig}
    */
   const config = {
-    swcMinify: true,
-    webpack5: enableWebpack5,
     ...nextConfig,
     async headers() {
       return [
@@ -39,18 +36,13 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
                 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
             },
             process.env.NODE_ENV !== 'development' &&
-              !nextConfig.ignoreCsp && {
-                key: 'Content-Security-Policy',
-                value: getCsp(nextConfig.extendCsp || {})
-              }
+            !nextConfig.ignoreCsp && {
+              key: 'Content-Security-Policy',
+              value: getCsp(nextConfig.extendCsp || {})
+            }
           ].filter((i) => i)
         }
       ]
-    },
-    experimental:{
-      images:{
-        allowFutureImage: true
-      }
     },
     images: {
       formats: ['image/avif', 'image/webp'],
@@ -62,7 +54,7 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
         'cdn.jsdelivr.net'
       ],
       deviceSizes: [360, 420, 510, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-      imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+      imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
     },
 
     // reactStrictMode: true,
@@ -71,25 +63,10 @@ module.exports = function (nextConfig = {}, plugins = [], transpileModules) {
         return [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
       }
     }),
-    /* optimization: {
-      splitChunks: {
-        chunks: 'async',
-        minSize: 50000,
-        minChunks: 1,
-        maxAsyncRequests: 20,
-        maxInitialRequests: 10
-      }
-    },*/
     // reactStrictMode: true, // => not working currently
     webpack: (config, { isServer }) => {
       if (!isServer) {
-        if (enableWebpack5) {
-          config.resolve.fallback.fs = false
-        } else {
-          config.node = {
-            fs: 'empty'
-          }
-        }
+        config.resolve.fallback.fs = false
       }
 
       if (transpileModules !== false) {

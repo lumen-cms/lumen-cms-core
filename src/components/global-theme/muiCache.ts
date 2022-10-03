@@ -1,13 +1,16 @@
 import createCache from '@emotion/cache'
-import { EmotionCache } from '@emotion/react'
 
-let muiCache: EmotionCache | undefined = undefined
+const isBrowser = typeof document !== 'undefined'
 
 export default function createEmotionCache() {
-  if (muiCache) {
-    return muiCache
+  let insertionPoint
+
+  if (isBrowser) {
+    const emotionInsertionPoint = document.querySelector<HTMLMetaElement>(
+      'meta[name="emotion-insertion-point"]'
+    )
+    insertionPoint = emotionInsertionPoint ?? undefined
   }
-  muiCache = createCache({ key: 'css', prepend: true })
+  return createCache({ key: 'css', insertionPoint /* prepend: true,*/ })
   // muiCache.compat = true
-  return muiCache
 }

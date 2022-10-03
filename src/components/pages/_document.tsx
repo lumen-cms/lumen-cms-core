@@ -8,8 +8,8 @@ import {
 } from '../../utils/initial-props/processGoogleFonts'
 import { listStoriesDataEnriched } from '../../utils/initial-props/component-data/listStoriesDataEnriched'
 import { createPlaceholderImages } from '../../utils/initial-props/component-data/createPlaceholderImages'
-import { withEmotionCache } from 'tss-react/nextJs'
 import createEmotionCache from '../global-theme/muiCache'
+import createEmotionServer from '@emotion/server/create-instance'
 
 // build of storybook fails..
 SSR_CONFIG.ssrHooks.pageProps.push(processGoogleFonts)
@@ -23,27 +23,7 @@ SSR_CONFIG.ssrHooks.componentData = {
   player: createPlaceholderImages
 }
 
-class AppDocument extends Document {
-  // static async getInitialProps(ctx: DocumentContext) {
-  //   const sheets = new ServerStyleSheets()
-  //   const originalRenderPage = ctx.renderPage
-  //   ctx.renderPage = () =>
-  //     originalRenderPage({
-  //       // eslint-disable-next-line react/display-name
-  //       enhanceApp: (App) => (props) => sheets.collect(<App {...props} />)
-  //     })
-  //   const initialProps = await Document.getInitialProps(ctx)
-  //
-  //   return {
-  //     ...initialProps,
-  //     // Styles fragment is rendered after the app and page rendering finish.
-  //     styles: [
-  //       ...React.Children.toArray(initialProps.styles),
-  //       sheets.getStyleElement()
-  //     ]
-  //   }
-  // }
-
+export default class AppDocument extends Document {
   render() {
     const cacheVersion = LmStoryblokService.getCacheVersion()
     return (
@@ -76,7 +56,33 @@ class AppDocument extends Document {
   }
 }
 
-export default withEmotionCache({
-  Document: AppDocument,
-  getCaches: () => [createEmotionCache()]
-})
+AppDocument.getInitialProps = async (ctx) => {
+  const originalRenderPage = ctx.renderPage
+  const cache = createEmotionCache()
+  const { extractCriticalToChunks } = createEmotionServer(cache)
+  ctx.renderPage = () =>
+    originalRenderPage({
+      enhanceApp: (App: any) =>
+        function EnhanceApp(props) {
+          return <App emotionCache={cache} {...props} />
+        }
+    })
+
+  const initialProps = await Document.getInitialProps(ctx)
+  // This is important. It prevents Emotion to render invalid HTML.
+  // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
+  const emotionStyles = extractCriticalToChunks(initialProps.html)
+  const emotionStyleTags = emotionStyles.styles.map((style) => (
+    <style
+      data-emotion={`${style.key} ${style.ids.join(' ')}`}
+      key={style.key}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: style.css }}
+    />
+  ))
+
+  return {
+    ...initialProps,
+    emotionStyleTags
+  }
+}

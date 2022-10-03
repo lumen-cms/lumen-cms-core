@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import Grid from '@mui/material/Grid'
-import { cx as clsx } from 'tss-react/@emotion/css'
+import { useStyles } from 'tss-react/mui'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
@@ -11,6 +11,7 @@ import { useSettings } from '../../provider/SettingsPageProvider'
 const ToolbarSectionContainer: FunctionComponent<{
   content: ToolbarRowSectionStoryblok
 }> = ({ children, content }) => {
+  const { cx } = useStyles()
   const { align } = content
   const theme = useTheme()
   const settings = useSettings()
@@ -23,7 +24,7 @@ const ToolbarSectionContainer: FunctionComponent<{
   return (
     <Grid
       item
-      className={clsx(content.class_names?.values, {
+      className={cx(content.class_names?.values, {
         'h-100': !align,
         'd-inline-flex':
           !content.align && !hideOnMediaQuery && !invHideOnMediaQuery,

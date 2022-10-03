@@ -1,6 +1,6 @@
 import React from 'react'
 import IconButton from '@mui/material/IconButton'
-import { cx as clsx } from 'tss-react/@emotion/css'
+import { useStyles } from 'tss-react/mui'
 import MenuUi from 'mdi-material-ui/Menu'
 import AppsIcon from 'mdi-material-ui/Apps'
 import CloseIcon from 'mdi-material-ui/Close'
@@ -27,6 +27,8 @@ export function LmToggleDrawerButton({
 }: LmToggleDrawerButtonProps): JSX.Element | null {
   const settings = useSettings()
   const page = usePage()
+  const { cx } = useStyles()
+
   const {
     isLeftOpen,
     isRightOpen,
@@ -60,7 +62,7 @@ export function LmToggleDrawerButton({
   return content.button?.length ? (
     <LmComponentRender
       content={content.button[0]}
-      additionalClassName={clsx({
+      additionalClassName={cx({
         [`d-${breakpointClass}-none`]: !content.force_show
       })}
       onClick={() => {
@@ -70,7 +72,7 @@ export function LmToggleDrawerButton({
   ) : (
     <IconButton
       aria-label={rightDrawer ? 'Drawer right toggle' : 'Drawer left toggle'}
-      className={clsx(content.class_names?.values, {
+      className={cx(content.class_names?.values, {
         [`d-${breakpointClass}-none`]: !content.force_show
       })}
       style={{

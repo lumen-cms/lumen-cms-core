@@ -1,4 +1,4 @@
-import { cx as clsx } from 'tss-react/@emotion/css'
+import { useStyles } from 'tss-react/mui'
 import TextField from '@mui/material/TextField'
 import Magnify from 'mdi-material-ui/Magnify'
 import React, { useState } from 'react'
@@ -16,6 +16,7 @@ export default function LmSearchField({
   onChange: (value: string) => void
 }) {
   const { query } = useRouter()
+  const { cx } = useStyles()
   const [inputValue, setValue] = useState<string>(
     (query?.search__text as string) || ''
   )
@@ -29,7 +30,7 @@ export default function LmSearchField({
   )
   return (
     <div
-      className={clsx(content.class_names?.values, {
+      className={cx(content.class_names?.values, {
         'w-100': !!content.fullwidth
       })}
     >

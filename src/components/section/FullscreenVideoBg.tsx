@@ -1,4 +1,4 @@
-import { cx as clsx } from 'tss-react/@emotion/css'
+import { useStyles } from 'tss-react/mui'
 import ReactPlayer, { ReactPlayerProps } from 'react-player/lazy'
 import React, { useState } from 'react'
 import BackgroundImageContainer from './BackgroundImage'
@@ -22,11 +22,12 @@ export default function FullscreenVideoBg(
   content: FullscreenVideoBgProps
 ): JSX.Element {
   const { inView, property, ratioHeight, ratioWidth } = content
+  const { cx } = useStyles()
   const properties = property || []
   const videoAspect = ratioHeight / ratioWidth
   // let fixedToRatio = content.fixedToRatio
   const [error, setError] = useState<any>()
-  const className = clsx('react-player')
+  const className = cx('react-player')
   const videoUrl = content.url_internal?.filename || content.url || ''
 
   if (!videoUrl) {

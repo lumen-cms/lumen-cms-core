@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState } from 'react'
-import { cx as clsx } from 'tss-react/@emotion/css'
+import { useStyles } from 'tss-react/mui'
 import { useRouter } from 'next/router'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
@@ -8,13 +8,13 @@ import {
   setSearchCategorySelector,
   useSearchStore
 } from '../../utils/state/searchState'
-import { TextField } from '@mui/material'
-import { Autocomplete } from '@mui/material'
+import { Autocomplete, TextField } from '@mui/material'
 
 export default function LmCategoryBox({
   content
 }: LmCategoryBoxProps): JSX.Element {
   const router = useRouter()
+  const { cx } = useStyles()
   const query = router?.query
   let initialValues: string[] = []
   if (query?.search__categories) {
@@ -43,7 +43,7 @@ export default function LmCategoryBox({
   }
   if (content.display === 'autocomplete_checkbox') {
     return (
-      <div style={style} className={clsx(content.class_names?.values)}>
+      <div style={style} className={cx(content.class_names?.values)}>
         <Autocomplete
           multiple
           disableClearable
@@ -71,7 +71,7 @@ export default function LmCategoryBox({
     )
   }
   return (
-    <div style={style} className={clsx(content.class_names?.values)}>
+    <div style={style} className={cx(content.class_names?.values)}>
       {categories.map((category) => {
         const checkboxValue =
           category.content?.tag_reference?.values || category.uuid
