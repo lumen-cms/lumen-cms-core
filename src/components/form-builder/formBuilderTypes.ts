@@ -5,7 +5,7 @@ import {
   FormSelectStoryblok,
   FormTextfieldStoryblok
 } from '../../typings/generated/components-schema'
-import { StoryData } from 'storyblok-js-client'
+import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
 
 export type LmFormBuilderProps = {
   content: FormBuilderStoryblok
@@ -39,6 +39,6 @@ export type LmFormCheckboxProps = {
 
 export type LmFormContainerProps = {
   content: FormContainerStoryblok & {
-    form: StoryData<FormBuilderStoryblok>
+    form: ISbStoryData<FormBuilderStoryblok>
   }
 }

@@ -1,17 +1,17 @@
 import { ListStoriesStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../typings/app'
-import { StoriesParams } from 'storyblok-js-client'
 import {
   getStoriesDefaultParams,
   getStoriesSortHelper
 } from './storyblokParamsHelper'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
 export const getListStoriesParams = (
   item: ListStoriesStoryblok,
   pageProps: AppPageProps
 ) => {
   const perPage = item.max_items || item.pagination?.[0]?.items_per_page
-  const params: StoriesParams = {
+  const params: ISbStoriesParams = {
     ...getStoriesDefaultParams(pageProps),
     per_page: perPage ? Number(perPage) : 25,
     filter_query: {

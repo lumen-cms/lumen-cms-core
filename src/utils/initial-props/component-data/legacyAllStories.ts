@@ -1,18 +1,21 @@
-import { StoriesParams, StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../../typings/generated/schema'
 import { LmStoryblokService } from '../StoryblokService'
 import { localeStoriesHelper } from './localeStoriesHelper'
 import { AppPageProps } from '../../../typings/app'
 import { excludeListForStories } from '../../universal/storyblokParamsHelper'
+import {
+  ISbStoriesParams,
+  ISbStoryData
+} from 'storyblok-js-client/types/interfaces'
 
-let allStories: StoryData<PageComponent>[]
+let allStories: ISbStoryData<PageComponent>[]
 
 export const legacyAllStories = async (options: AppPageProps) => {
   if (typeof allStories !== 'undefined' && !options.insideStoryblok) {
     return allStories
   }
 
-  const params: StoriesParams = {
+  const params: ISbStoriesParams = {
     per_page: 100,
     excluding_fields: excludeListForStories,
     sort_by: 'published_at:desc',

@@ -1,8 +1,8 @@
-import { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { LmStoryblokService } from '../StoryblokService'
 import { AllCategoryData } from '../../../typings/app'
 import { CategoryBoxStoryblok } from '../../../typings/generated/components-schema'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
 let allCategories: AllCategoryData
 
@@ -14,7 +14,7 @@ export const getAllCategories = async (props: {
     return allCategories
   }
   const locale = props.locale !== props.defaultLocale ? props.locale : null
-  const params: StoriesParams = {
+  const params: ISbStoriesParams = {
     per_page: 100,
     sort_by: 'content.name:asc,name:asc',
     filter_query: {

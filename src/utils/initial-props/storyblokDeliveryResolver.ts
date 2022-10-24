@@ -1,7 +1,7 @@
-import { StoriesParams, StoryblokResult } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
@@ -38,11 +38,7 @@ type ApiProps = PagePropsOptions & {
   pageSlug: string
 }
 
-export const fetchSettings = async ({
-  locale
-}: {
-  locale?: string
-}): Promise<StoryblokResult> => {
+export const fetchSettings = async ({ locale }: { locale?: string }) => {
   return LmStoryblokService.get(getSettingsPath({ locale }))
 }
 
@@ -62,7 +58,7 @@ export const apiRequestResolver = async ({
     ? `cdn/stories/${pageSlug}`
     : `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
 
-  const params: StoriesParams = {
+  const params: ISbStoriesParams = {
     ...(CONFIG.fieldLevelTranslation && locale
       ? {
           language: locale

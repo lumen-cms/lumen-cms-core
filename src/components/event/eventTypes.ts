@@ -4,10 +4,10 @@ import {
   EventStoryblok
 } from '../../typings/generated/components-schema'
 import { Event } from 'react-big-calendar'
-import { StoryData } from 'storyblok-js-client'
+import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
 
 export type LmEventStoryblok = EventStoryblok & {
-  category: StoryData<EventCategoryStoryblok>
+  category: ISbStoryData<EventCategoryStoryblok>
 }
 
 export type LmEventProps = {
@@ -19,6 +19,6 @@ export type EventCalendar = Event & {
 }
 export type LmEventCalendarProps = {
   content: EventCalendarStoryblok & {
-    event_calendar_data: StoryData<LmEventStoryblok>[]
+    event_calendar_data: ISbStoryData<LmEventStoryblok>[]
   }
 }

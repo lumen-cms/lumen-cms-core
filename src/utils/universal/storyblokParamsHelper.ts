@@ -1,10 +1,10 @@
 import { AppPageProps } from '../../typings/app'
-import { StoriesParams } from 'storyblok-js-client'
 import { localeStoriesHelper } from '../initial-props/component-data/localeStoriesHelper'
 import {
   ListStoriesStoryblok,
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
 export const excludingFieldsForLists =
   'body,right_body,property,meta_title,meta_description,seo_body,preview_title,preview_subtitle,preview_image,preview_teaser'
@@ -21,13 +21,15 @@ export const resolveLookup = {
   form_container: 'form',
   static_section: 'container'
 }
-export const rootParams: StoriesParams = {
+export const rootParams: ISbStoriesParams = {
   resolve_links: 'url',
   resolve_relations: defaultResolveRelations
 }
 
-export const getStoriesDefaultParams = (props: AppPageProps): StoriesParams => {
-  const params: StoriesParams = {
+export const getStoriesDefaultParams = (
+  props: AppPageProps
+): ISbStoriesParams => {
+  const params: ISbStoriesParams = {
     ...rootParams,
     excluding_fields: excludeListForStories,
     ...localeStoriesHelper(props)

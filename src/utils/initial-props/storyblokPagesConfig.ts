@@ -1,11 +1,11 @@
 import { CONFIG } from '@CONFIG'
-import { StoriesParams } from 'storyblok-js-client'
 import { PageItem } from '../../typings/generated/schema'
 import { LmStoryblokService } from './StoryblokService'
 import { excludingFieldsForLists } from '../universal/storyblokParamsHelper'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
-export function getStoryblokPagesConfig(pageConfig?: StoriesParams) {
-  const params: StoriesParams = {
+export function getStoryblokPagesConfig(pageConfig?: ISbStoriesParams) {
+  const params: ISbStoriesParams = {
     per_page: 100,
     excluding_fields: excludingFieldsForLists,
     sort_by: 'published_at:desc',
@@ -29,18 +29,8 @@ export function getStoryblokPagesConfig(pageConfig?: StoriesParams) {
 }
 
 export const getAllStoriesOfProject = async (
-  pageConfig?: StoriesParams
+  pageConfig?: ISbStoriesParams
 ): Promise<PageItem[]> => {
-  // const cdnUrl = `https://cdn-api.lumen.media/api/all-stories?token=${CONFIG.previewToken}&no_cache=true`
-  // const stories: PageItem[] =
-  //   process.env.NODE_ENV !== 'production'
-  //     ? await fetch(cdnUrl).then((r) => r.json())
-  //     : await LmStoryblokService.getAll(
-  //         'cdn/stories',
-  //         getStoryblokPagesConfig(pageConfig)
-  //       )
-  // return stories
-
   return LmStoryblokService.getAll(
     'cdn/stories',
     getStoryblokPagesConfig(pageConfig)

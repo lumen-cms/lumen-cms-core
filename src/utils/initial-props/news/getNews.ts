@@ -1,15 +1,15 @@
 import { LmStoryblokService } from '../StoryblokService'
 import { LmNews } from '../../../components/news/newsTypes'
-import { StoryData } from 'storyblok-js-client'
+import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
 
 export const getNews = async (
   ignoreRichTextResolve?: boolean
 ): Promise<
-  (StoryData<LmNews> & {
+  (ISbStoryData<LmNews> & {
     contentHtml?: string
   })[]
 > => {
-  const news: StoryData<LmNews>[] = await LmStoryblokService.getAll(
+  const news: ISbStoryData<LmNews>[] = await LmStoryblokService.getAll(
     'cdn/stories',
     {
       filter_query: {

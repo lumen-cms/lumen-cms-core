@@ -1,10 +1,10 @@
 import { ListStoriesData } from '../listWidgetTypes'
 import { getDateLocalized } from '../../../utils/intlDateHelper'
-import { StoryData } from 'storyblok-js-client'
 import {
   CategoryStoryblok,
   DateTimeFormatStoryblok
 } from '../../../typings/generated/components-schema'
+import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
 
 export const getContentFields = (
   content: ListStoriesData,
@@ -23,7 +23,7 @@ export const getContentFields = (
     return (
       content.content.category?.content?.name ??
       content.content.categories
-        ?.map((i: StoryData<CategoryStoryblok>) => i.content?.name)
+        ?.map((i: ISbStoryData<CategoryStoryblok>) => i.content?.name)
         .filter((i: any) => i)
         .join(', ')
     )

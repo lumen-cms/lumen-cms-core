@@ -2,10 +2,10 @@ import {
   NewsCategoryStoryblok,
   NewsStoryblok
 } from '../../typings/generated/components-schema'
-import { StoryData } from 'storyblok-js-client'
+import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
 
 export type LmNews = NewsStoryblok & {
-  category: StoryData<NewsCategoryStoryblok>
+  category: ISbStoryData<NewsCategoryStoryblok>
 }
 export type LmNewsProps = {
   content: LmNews

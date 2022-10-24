@@ -4,7 +4,6 @@ import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import Magnify from 'mdi-material-ui/Magnify'
 import Paper from '@mui/material/Paper'
-import { StoriesParams, StoryData } from 'storyblok-js-client'
 import { useDebouncedCallback } from 'use-debounce'
 import InputAdornment from '@mui/material/InputAdornment'
 import useSWR from 'swr'
@@ -19,19 +18,23 @@ import { match, parse } from './autosuggest'
 import { useAppContext } from '@context/AppContext'
 import { ListItem } from '@mui/material'
 import { LmStoryblokService } from '../../utils/initial-props/StoryblokService'
+import {
+  ISbStoriesParams,
+  ISbStoryData
+} from 'storyblok-js-client/types/interfaces'
 
 const fetcher = async (
   path: string,
   searchterm: string,
   locale?: string,
   locales?: string
-): Promise<StoryData<PageComponent>[]> => {
+): Promise<ISbStoryData<PageComponent>[]> => {
   if (!searchterm) {
     return []
   }
   let excluding_slugs = 'demo-content*'
 
-  const params: StoriesParams = {
+  const params: ISbStoriesParams = {
     per_page: 25,
     sort_by: 'content.preview_title:desc',
     filter_query: {

@@ -1,11 +1,11 @@
 import { EventCalendar, LmEventStoryblok } from './eventTypes'
-import { StoryData } from 'storyblok-js-client'
+import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
 
 const convertDate = (string?: string) =>
   string ? new Date(/*`${string}+0000`*/ string) : undefined
 
 export const parseEventsToCalendar = (
-  storyData: StoryData<LmEventStoryblok>[]
+  storyData: ISbStoryData<LmEventStoryblok>[]
 ) => {
   const multiEvents: EventCalendar[] = []
   const eventMap: EventCalendar[] = []
