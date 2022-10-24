@@ -15076,7 +15076,7 @@ storyblok-generate-ts@^1.4.1:
     camelcase "^6.3.0"
     json-schema-to-typescript "^10.1.5"
 
-storyblok-js-client@4.5.8:
+storyblok-js-client@^4.5.8:
   version "4.5.8"
   resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-4.5.8.tgz#862f67d4f25b6c50334e6965bf27f6b6a755ccae"
   integrity sha512-0Wp7Kn4RdKaKRgMmNDu8c6OC81x1mgeri4ziKDY9BsUZEIGLTNw8KFIWlHYACgMnJQn/6qZaV9kGo8IY4hv6GA==

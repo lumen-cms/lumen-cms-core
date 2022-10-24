@@ -108,3 +108,4 @@ module.exports = function(nextConfig = {}, plugins = [], transpileModules) {
 
   return withPlugins(pluginConfiguration, config)
 }
+
