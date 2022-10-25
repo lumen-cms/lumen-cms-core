@@ -88,8 +88,9 @@ class StoryblokServiceClass {
       ...params,
       ...this.getDefaultParams()
     }
-    const res = await this.client.getAll(slug, getAllParams, 'stories')
-    return res.data
+    // const res = await this.client.getAll(slug, getAllParams, 'stories')
+    // return res.data
+    return []
   }
 
   async get(slug: string, params = {}) {
@@ -98,8 +99,15 @@ class StoryblokServiceClass {
       ...params,
       ...this.getDefaultParams()
     }
-    const page = await this.client.get(slug, currentParams)
-    return page
+    try {
+      const page = await this.client.get(slug, currentParams)
+      return page
+    } catch (e) {
+      console.log(e)
+      return {
+        data: {}
+      }
+    }
   }
 
   setDevMode() {

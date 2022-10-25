@@ -78,7 +78,6 @@
     "@web3-react/core": "8.0.33-beta.0",
     "@web3-react/metamask": "8.0.26-beta.0",
     "@web3-react/walletconnect": "8.0.34-beta.0",
-    "axios": "0.27.2",
     "clean-deep": "3.4.0",
     "cors": "2.8.5",
     "cssnano-simple": "3.0.2",

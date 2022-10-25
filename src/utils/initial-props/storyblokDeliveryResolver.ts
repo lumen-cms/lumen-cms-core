@@ -7,7 +7,6 @@ const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map((p) =>
       p.catch((_error) => {
-        // console.log(e)
         return null
       })
     )
