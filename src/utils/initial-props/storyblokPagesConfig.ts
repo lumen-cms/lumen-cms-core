@@ -31,8 +31,9 @@ export function getStoryblokPagesConfig(pageConfig?: ISbStoriesParams) {
 export const getAllStoriesOfProject = async (
   pageConfig?: ISbStoriesParams
 ): Promise<PageItem[]> => {
-  return LmStoryblokService.getAll(
+  const all = await LmStoryblokService.getAll(
     'cdn/stories',
     getStoryblokPagesConfig(pageConfig)
   )
+  return all
 }

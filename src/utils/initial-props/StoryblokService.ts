@@ -82,15 +82,14 @@ class StoryblokServiceClass {
     return params
   }
 
-  async getAll(slug: string, params = {}) {
+  async getAll(slug: string, params = {}): Promise<any[]> {
     let getAllParams = {
       ...rootParams,
       ...params,
       ...this.getDefaultParams()
     }
-    // const res = await this.client.getAll(slug, getAllParams, 'stories')
-    // return res.data
-    return []
+    const res = await this.client.getAll(slug, getAllParams, 'stories')
+    return res as unknown as any[]
   }
 
   async get(slug: string, params = {}) {
