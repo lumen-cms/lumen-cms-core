@@ -1,8 +1,8 @@
-import { Story, StoryData } from 'storyblok-js-client'
 import { GetStaticPropsContext } from 'next'
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import { CategoryComponent, PageComponent } from './generated/schema'
 import { EmotionCache } from '@emotion/react'
+import { ISbResult, ISbStoryData } from 'storyblok-js-client/types/interfaces'
 
 export interface IClaims {
   [key: string]: any // just a copy of the IClaim
@@ -18,12 +18,12 @@ export type LmErrorProps = {
   url: string
 }
 
-export type AllStoryData = StoryData<PageComponent>[]
-export type AllCategoryData = StoryData<CategoryComponent>[]
+export type AllStoryData = ISbStoryData<PageComponent>[]
+export type AllCategoryData = ISbStoryData<CategoryComponent>[]
 
 export type AppApiRequestPayload = {
-  page: Story
-  settings: Story
+  page: ISbResult
+  settings: ISbResult
   user?: IClaims
   notFoundLocale?: string | null
   googleFontString?: string

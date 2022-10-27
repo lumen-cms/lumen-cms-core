@@ -1,9 +1,9 @@
-import { StoriesParams } from 'storyblok-js-client'
 import { LmStoryblokService } from '../../../utils/initial-props/StoryblokService'
 import { getListStoriesParams } from '../../../utils/universal/getListStoriesParams'
 import { LmListStoriesPayload } from '../listWidgetTypes'
 import { AppPageProps } from '../../../typings/app'
 import { ListStoriesStoryblok } from '../../../typings/generated/components-schema'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
 export type FetchListStoriesProps = {
   searchText?: string
@@ -23,7 +23,7 @@ export const fetchListStories = async ({
   let pageCategories = [...searchCategories, content.page_categories].filter(
     (i) => i
   )
-  const storiesParams: StoriesParams = {
+  const storiesParams: ISbStoriesParams = {
     ...getListStoriesParams(
       {
         ...content,
@@ -31,7 +31,7 @@ export const fetchListStories = async ({
       },
       pageProps
     ),
-    page: `${page}`,
+    page,
     ...(searchText && {
       search_term: searchText
     })

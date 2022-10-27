@@ -1,13 +1,13 @@
 import { CONFIG } from '@CONFIG'
-import { StoriesParams } from 'storyblok-js-client'
 import { AppPageProps } from '../../../typings/app'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
-export const localeStoriesHelper = (props: AppPageProps): StoriesParams => {
+export const localeStoriesHelper = (props: AppPageProps): ISbStoriesParams => {
   const locale =
     props.locale !== props.defaultLocale || CONFIG.enableLocaleSuffix
       ? props.locale
       : undefined
-  const params: StoriesParams = { starts_with: '' }
+  const params: ISbStoriesParams = { starts_with: '' }
   if (locale) {
     if (!CONFIG.fieldLevelTranslation) {
       params.starts_with = `${locale}/`

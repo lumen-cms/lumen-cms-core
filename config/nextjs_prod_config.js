@@ -88,6 +88,7 @@ module.exports = function(nextConfig = {}, plugins = [], transpileModules) {
     }
   }
 
+
   let pluginConfiguration = []
   if (transpileModules !== false) {
     const withTM = require('next-transpile-modules')([

@@ -13,14 +13,14 @@ import {
   PageStoryblok,
   PaginationStoryblok
 } from '../../typings/generated/components-schema'
-import { StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../typings/generated/schema'
 import { AllCategoryData } from '../../typings/app'
+import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
 
 export type LmListWidgetProps = {
   content: ListWidgetStoryblok & {
     list_widget_data: {
-      items: StoryData<PageComponent>[]
+      items: ISbStoryData<PageComponent>[]
       total: number
       perPage: number
       cv: number
@@ -38,19 +38,19 @@ export type LmListSearchAutocompleteProps = {
 export type LmListSearchFieldProps = { content: ListSearchFieldStoryblok }
 
 type LmPageStoryblok = PageStoryblok & {
-  categories?: StoryData<CategoryStoryblok>[]
+  categories?: ISbStoryData<CategoryStoryblok>[]
 }
 type LmNewsStoryblok = NewsStoryblok & {
-  category?: StoryData<NewsCategoryStoryblok>
+  category?: ISbStoryData<NewsCategoryStoryblok>
 }
 
 type LmEventStoryblok = EventStoryblok & {
-  category?: StoryData<EventCategoryStoryblok>
+  category?: ISbStoryData<EventCategoryStoryblok>
 }
 
 type ListStoriesTypes = LmPageStoryblok | LmNewsStoryblok | LmEventStoryblok
 
-export type ListStoriesData = StoryData<ListStoriesTypes>
+export type ListStoriesData = ISbStoryData<ListStoriesTypes>
 
 export type LmListStoriesPayload = {
   stories: ListStoriesData[]

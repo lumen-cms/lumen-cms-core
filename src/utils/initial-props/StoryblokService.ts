@@ -1,6 +1,7 @@
-import StoryblokClient, { StoriesParams } from 'storyblok-js-client'
+import StoryblokClient from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { rootParams } from '../universal/storyblokParamsHelper'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
 const cv = Date.now()
 
@@ -45,12 +46,14 @@ class StoryblokServiceClass {
   }
 
   getDefaultParams() {
-    const params: StoriesParams = {}
+    const params: ISbStoriesParams = {}
 
     if (
       typeof window !== 'undefined' &&
+      // @ts-ignore
       typeof window.StoryblokCacheVersion !== 'undefined'
     ) {
+      // @ts-ignore
       params.cv = window.StoryblokCacheVersion
     }
 
@@ -73,18 +76,20 @@ class StoryblokServiceClass {
       delete params.cv
       params.version = 'draft'
       params.token = CONFIG.previewToken
-      this.client.setToken(params.token)
+      this.token = params.token
+      // this.client.setToken(params.token)
     }
     return params
   }
 
-  async getAll(slug: string, params = {}) {
+  async getAll(slug: string, params = {}): Promise<any[]> {
     let getAllParams = {
       ...rootParams,
       ...params,
       ...this.getDefaultParams()
     }
-    return this.client.getAll(slug, getAllParams, 'stories')
+    const res = await this.client.getAll(slug, getAllParams, 'stories')
+    return res as unknown as any[]
   }
 
   async get(slug: string, params = {}) {
@@ -93,8 +98,15 @@ class StoryblokServiceClass {
       ...params,
       ...this.getDefaultParams()
     }
-    const page = await this.client.get(slug, currentParams)
-    return page
+    try {
+      const page = await this.client.get(slug, currentParams)
+      return page
+    } catch (e) {
+      console.log(e)
+      return {
+        data: {}
+      }
+    }
   }
 
   setDevMode() {

@@ -1,8 +1,8 @@
-import { StoriesParams } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { queryStringify } from './paramsToQueryString'
 import { getStoriesSortHelper } from './storyblokParamsHelper'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
 export const getListWidgetParams = (
   item: ListWidgetStoryblok,
@@ -10,7 +10,7 @@ export const getListWidgetParams = (
 ) => {
   const locale = props.locale !== props.defaultLocale ? props.locale : null
 
-  const params: StoriesParams = {
+  const params: ISbStoriesParams = {
     per_page: item.maximum_items || 25,
     excluding_fields:
       'body,right_body,meta_robots,property,meta_description,seo_body',

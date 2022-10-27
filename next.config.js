@@ -9,7 +9,7 @@ const nextConfig = {
     locales: ['en', 'cn', 'de'],
     defaultLocale: 'en'
   },
-  strictMode: true, // need to wait until v5 of material UI
+  reactStrictMode: true, // need to wait until v5 of material UI
   // async redirects() {
   //   // const reds = await redirectFunc(['de', 'it', 'es'])
   //   // return reds

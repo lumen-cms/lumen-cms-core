@@ -1,10 +1,10 @@
 import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
-import { StoryData } from 'storyblok-js-client'
 import { PageComponent } from '../../typings/generated/schema'
+import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
 
 export const legacyFilterAllStories = (
   content: ListWidgetStoryblok,
-  allStories: StoryData<PageComponent>[]
+  allStories: ISbStoryData<PageComponent>[]
 ) => {
   const filter = (content.tags && content.tags.values) || []
   const { sort } = content

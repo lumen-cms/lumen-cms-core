@@ -1,8 +1,8 @@
 import { queryStringify } from './paramsToQueryString'
-import { StoriesParams } from 'storyblok-js-client'
 import { stringify } from 'qs'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
-const testObj: StoriesParams = {
+const testObj: ISbStoriesParams = {
   resolve_links: 'url',
   resolve_relations:
     'static_section.container,form_container.form,event.category,news.category,page.categories',

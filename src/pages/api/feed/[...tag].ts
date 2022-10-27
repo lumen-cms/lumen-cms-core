@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { StoriesParams } from 'storyblok-js-client'
 import { PageItem } from '../../../typings/generated/schema'
 import { getAllStoriesOfProject } from '../../../utils/initial-props/storyblokPagesConfig'
 import { fetchSettings } from '../../../utils/initial-props/storyblokDeliveryResolver'
+import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
 const storiesRssXML = (stories: PageItem[], host: string) => {
   let latestPostDate = ''
@@ -22,7 +22,7 @@ const storiesRssXML = (stories: PageItem[], host: string) => {
             <title><![CDATA[${story.name || ''}]]></title>
             <link>${postHref}</link>
             <pubDate>${date}</pubDate>
-            <guid isPermaLink="false">${postHref}</guid>
+            <guid isPermaLink='false'>${postHref}</guid>
             <description>
             <![CDATA[${story.content?.meta_description || ''}]]>
             </description>
@@ -82,7 +82,7 @@ export default async function handler(
     query: { tag },
     headers: { host }
   } = req
-  const extendDefaultPageConfig: StoriesParams = {
+  const extendDefaultPageConfig: ISbStoriesParams = {
     excluding_fields: 'body,right_body,property,seo_body',
     with_tag: Array.isArray(tag) ? tag.join(',') : tag
   }
