@@ -98,15 +98,7 @@ class StoryblokServiceClass {
       ...params,
       ...this.getDefaultParams()
     }
-    try {
-      const page = await this.client.get(slug, currentParams)
-      return page
-    } catch (e) {
-      console.log(e)
-      return {
-        data: {}
-      }
-    }
+    return this.client.get(slug, currentParams)
   }
 
   setDevMode() {

@@ -1,4 +1,4 @@
-import { ParallaxBanner } from 'react-scroll-parallax'
+import { ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax'
 import Image from 'next/future/image'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmSectionParallaxProps } from './sectionTypes'
@@ -16,7 +16,7 @@ export default function LmSectionParallax({
 }: LmSectionParallaxProps): JSX.Element {
   const contentHeight = content.height
   const isPriority = sectionPosition === 0 || !!content.disable_lazy_load
-
+  console.log(content.elements)
   return (
     <Box
       position={'relative'}
@@ -42,9 +42,10 @@ export default function LmSectionParallax({
           height: '100%',
           overflow: content.allow_overflow ? 'visible' : 'hidden'
         }}
-        layers={
-          content.elements?.map(
-            ({
+      >
+        {content.elements?.map(
+          (
+            {
               always_complete_animation,
               amount,
               speed,
@@ -54,60 +55,61 @@ export default function LmSectionParallax({
               expanded,
               easing,
               ...props
-            }) => {
-              const layerProps: BannerLayer = {}
-              Object.keys(props).forEach((key) => {
-                const lProp = props[key].split(',').map((i: string) => {
-                  const trimmed = i.trim()
-                  return Number(trimmed) ? Number(trimmed) : trimmed
-                })
-
-                layerProps[key] = lProp
+            },
+            index
+          ) => {
+            const layerProps: BannerLayer = {}
+            Object.keys(props).forEach((key) => {
+              const lProp = props[key].split(',').map((i: string) => {
+                const trimmed = i.trim()
+                return Number(trimmed) ? Number(trimmed) : trimmed
               })
-              return {
-                shouldAlwaysCompleteAnimation:
-                  always_complete_animation || false,
-                speed: amount
-                  ? Number(amount) * 10
-                  : speed
-                  ? Number(speed)
-                  : -20,
-                expanded,
-                easing: easing || undefined,
-                ...layerProps,
-                children: (
-                  <>
-                    {image && (
-                      <Image
-                        {...getOriginalImageDimensions(image)}
-                        priority={isPriority}
-                        style={{
-                          width: '100%',
-                          height: 'auto'
-                        }}
-                        {...storyblokImageLoader(image)}
-                        src={getRootImageUrl(image)}
-                        sizes={
-                          content.height && content.ratio
-                            ? `${content.height}px`
-                            : undefined
-                        }
-                        {...(parallax_item_data?.base64 && {
-                          placeholder: 'blur',
-                          blurDataURL: parallax_item_data.base64
-                        })}
-                      />
-                    )}
-                    {children?.map((child) => (
-                      <LmComponentRender content={child} key={child._uid} />
-                    ))}
-                  </>
-                )
-              }
-            }
-          ) || []
-        }
-      >
+
+              layerProps[key] = lProp
+            })
+            return (
+              <ParallaxBannerLayer
+                key={index}
+                shouldAlwaysCompleteAnimation={
+                  always_complete_animation || false
+                }
+                speed={
+                  amount ? Number(amount) * 10 : speed ? Number(speed) : -20
+                }
+                expanded={expanded}
+                easing={easing || undefined}
+                {...layerProps}
+              >
+                <>
+                  {image && (
+                    <Image
+                      {...getOriginalImageDimensions(image)}
+                      priority={isPriority}
+                      style={{
+                        width: '100%',
+                        height: 'auto'
+                      }}
+                      {...storyblokImageLoader(image)}
+                      src={getRootImageUrl(image)}
+                      sizes={
+                        content.height && content.ratio
+                          ? `${content.height}px`
+                          : undefined
+                      }
+                      {...(parallax_item_data?.base64 && {
+                        placeholder: 'blur',
+                        blurDataURL: parallax_item_data.base64
+                      })}
+                    />
+                  )}
+                  {children?.map((child) => (
+                    <LmComponentRender content={child} key={child._uid} />
+                  ))}
+                </>
+              </ParallaxBannerLayer>
+            )
+          }
+        )}
         {!!content.body?.length && (
           <Box
             sx={{

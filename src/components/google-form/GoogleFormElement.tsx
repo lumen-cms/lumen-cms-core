@@ -12,13 +12,13 @@ import { FieldWithDate } from '../../utils/initial-props/component-data/googleFo
 export const TextFieldElement = dynamic<TextFieldElementProps>(() =>
   import('react-hook-form-mui').then((mod) => mod.TextFieldElement)
 )
-const SelectElement = dynamic<SelectElementProps>(() =>
+const SelectElement = dynamic<SelectElementProps<any>>(() =>
   import('react-hook-form-mui').then((mod) => mod.SelectElement)
 )
-const DatePickerElement = dynamic<DatePickerElementProps<any>>(() =>
+const DatePickerElement = dynamic<DatePickerElementProps<any, any>>(() =>
   import('react-hook-form-mui').then((mod) => mod.DatePickerElement)
 )
-const MultiSelectElement = dynamic<MultiSelectElementProps>(() =>
+const MultiSelectElement = dynamic<MultiSelectElementProps<any>>(() =>
   import('react-hook-form-mui').then((mod) => mod.MultiSelectElement)
 )
 
@@ -116,7 +116,7 @@ export default function GoogleFormElement({
             ? () => options.error_msg_required as string
             : undefined
         }
-        menuItems={formField.options
+        options={formField.options
           .sort()
           .filter((opt) => !!opt.label)
           .map((opt) => opt.label)}

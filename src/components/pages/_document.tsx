@@ -6,21 +6,13 @@ import {
   googleFontString,
   processGoogleFonts
 } from '../../utils/initial-props/processGoogleFonts'
-import { listStoriesDataEnriched } from '../../utils/initial-props/component-data/listStoriesDataEnriched'
-import { createPlaceholderImages } from '../../utils/initial-props/component-data/createPlaceholderImages'
 import createEmotionCache from '../global-theme/muiCache'
 import createEmotionServer from '@emotion/server/create-instance'
 
 // build of storybook fails..
 SSR_CONFIG.ssrHooks.pageProps.push(processGoogleFonts)
 SSR_CONFIG.ssrHooks.componentData = {
-  ...SSR_CONFIG.ssrHooks.componentData,
-  list_stories: listStoriesDataEnriched,
-  parallax_item: createPlaceholderImages,
-  background: createPlaceholderImages,
-  image: createPlaceholderImages,
-  section_video_bg: createPlaceholderImages,
-  player: createPlaceholderImages
+  ...SSR_CONFIG.ssrHooks.componentData
 }
 
 export default class AppDocument extends Document {

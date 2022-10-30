@@ -45,7 +45,7 @@ export default function LmFormSelectField({
         label={label}
         placeholder={placeholder}
         required={required}
-        menuItems={currentOptions}
+        options={currentOptions}
         itemKey={'id'}
         itemValue={'id'}
         itemLabel={'label'}

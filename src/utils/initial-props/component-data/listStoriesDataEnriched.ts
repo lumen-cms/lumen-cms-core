@@ -1,33 +1,10 @@
 import { ListStoriesStoryblok } from '../../../typings/generated/components-schema'
 import { AppPageProps } from '../../../typings/app'
 import { listStoriesData } from './listStoriesData'
-import { getPlaiceholderCached } from './plaiceholderCached'
-import { getRootImageUrl } from '../../imageServices'
 
 export const listStoriesDataEnriched = async (
   item: ListStoriesStoryblok,
   pageProps: AppPageProps
 ) => {
-  const storiesResult = await listStoriesData(item, pageProps)
-  if (pageProps.insideStoryblok) {
-    return storiesResult
-  }
-  const disablePlaceholder = pageProps.settings?.image_loading?.includes(
-    'disable_list'
-  )
-    ? !item.toggle_image_loading
-    : item.toggle_image_loading
-  for (const st of storiesResult.data.stories) {
-    const img = st.content.image?.filename || st.content.preview_image
-    if (img && !disablePlaceholder) {
-      const cached = await getPlaiceholderCached(getRootImageUrl(img))
-      Object.assign(st, {
-        content: {
-          ...st.content,
-          story_data: { ...cached }
-        }
-      })
-    }
-  }
-  return storiesResult
+  return listStoriesData(item, pageProps)
 }
