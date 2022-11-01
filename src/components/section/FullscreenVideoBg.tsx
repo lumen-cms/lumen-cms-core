@@ -1,9 +1,9 @@
-import { useStyles } from 'tss-react/mui'
 import ReactPlayer, { ReactPlayerProps } from 'react-player/lazy'
 import React, { useState } from 'react'
 import BackgroundImageContainer from './BackgroundImage'
 import videoUrlHelper from '../../utils/videoUrlHelper'
 import { LmSectionVideoProps } from './sectionTypes'
+import clsx from 'clsx'
 
 type ContainerDimensions = {
   width: number
@@ -22,12 +22,11 @@ export default function FullscreenVideoBg(
   content: FullscreenVideoBgProps
 ): JSX.Element {
   const { inView, property, ratioHeight, ratioWidth } = content
-  const { cx } = useStyles()
   const properties = property || []
   const videoAspect = ratioHeight / ratioWidth
   // let fixedToRatio = content.fixedToRatio
   const [error, setError] = useState<any>()
-  const className = cx('react-player')
+  const className = clsx('react-player')
   const videoUrl = content.url_internal?.filename || content.url || ''
 
   if (!videoUrl) {

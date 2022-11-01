@@ -1,12 +1,11 @@
 import { useInView } from 'react-intersection-observer'
 import React, { useMemo, useState } from 'react'
-import { useStyles } from 'tss-react/mui'
 import Skeleton from '@mui/material/Skeleton'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmIframeProps } from './iframeTypes'
+import clsx from 'clsx'
 
 export default function LmIframe({ content }: LmIframeProps): JSX.Element {
-  const { cx } = useStyles()
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
@@ -24,7 +23,7 @@ export default function LmIframe({ content }: LmIframeProps): JSX.Element {
   return (
     <div
       ref={refIntersectionObserver}
-      className={cx({
+      className={clsx({
         'embed-responsive': !!content.responsive_ratio,
         [`embed-responsive-${content.responsive_ratio}`]:
           !!content.responsive_ratio
@@ -48,7 +47,7 @@ export default function LmIframe({ content }: LmIframeProps): JSX.Element {
         aria-hidden
         frameBorder={0}
         onLoad={() => setLoaded(true)}
-        className={cx({
+        className={clsx({
           'embed-responsive-item': !!content.responsive_ratio
         })}
         allowFullScreen={properties.includes('allow_fullscreen') || false}

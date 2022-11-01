@@ -1,4 +1,3 @@
-import { useStyles } from 'tss-react/mui'
 import TextField from '@mui/material/TextField'
 import Magnify from 'mdi-material-ui/Magnify'
 import React, { useState } from 'react'
@@ -8,6 +7,7 @@ import { useRouter } from 'next/router'
 import InputAdornment from '@mui/material/InputAdornment'
 import CloseCircle from 'mdi-material-ui/CloseCircle'
 import IconButton from '@mui/material/IconButton'
+import clsx from 'clsx'
 
 export default function LmSearchField({
   content,
@@ -16,7 +16,6 @@ export default function LmSearchField({
   onChange: (value: string) => void
 }) {
   const { query } = useRouter()
-  const { cx } = useStyles()
   const [inputValue, setValue] = useState<string>(
     (query?.search__text as string) || ''
   )
@@ -30,7 +29,7 @@ export default function LmSearchField({
   )
   return (
     <div
-      className={cx(content.class_names?.values, {
+      className={clsx(content.class_names?.values, {
         'w-100': !!content.fullwidth
       })}
     >

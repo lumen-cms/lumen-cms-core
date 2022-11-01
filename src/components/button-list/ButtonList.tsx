@@ -1,13 +1,12 @@
-import { useStyles } from 'tss-react/mui'
 import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmButtonListProps } from './buttonListTypes'
+import clsx from 'clsx'
 
 export function LmButtonList({ content }: LmButtonListProps): JSX.Element {
   const body = content.body || []
   const properties = content.property || []
-  const { cx } = useStyles()
-  const classNames = cx(content.class_names && content.class_names.values, {
+  const classNames = clsx(content.class_names && content.class_names.values, {
     'lm-button-list__margin-left': properties.includes('margin_left')
   })
 

@@ -1,10 +1,10 @@
 import React, { CSSProperties } from 'react'
 import Avatar, { AvatarProps } from '@mui/material/Avatar'
-import { useStyles } from 'tss-react/mui'
 import LmIcon from '../icon/LmIcon'
 import { LmAvatarProps } from './avatarTypes'
 import { getNumber } from '../../utils/numberParser'
 import LmSquareImage from './LmSquareImage'
+import clsx from 'clsx'
 
 const sizeMap = {
   dense: {
@@ -33,7 +33,6 @@ const getVariant = (variant: LmAvatarProps['content']['variant']) => {
 export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
   const iconName = content.icon?.name
   const customSize = getNumber(content.custom_size) as number
-  const { cx } = useStyles()
 
   const style: CSSProperties = {
     color: content.color?.rgba || undefined,
@@ -66,7 +65,7 @@ export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
     <Avatar
       variant={getVariant(content.variant) ?? 'circular'}
       style={style}
-      className={cx(content.class_names?.values)}
+      className={clsx(content.class_names?.values)}
     >
       {content.image && (
         <LmSquareImage image={content.image} size={style.width} />

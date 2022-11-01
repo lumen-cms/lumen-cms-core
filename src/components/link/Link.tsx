@@ -1,13 +1,12 @@
 import React from 'react'
 import MuiLink from '@mui/material/Link'
-import { useStyles } from 'tss-react/mui'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmLinkProps } from './linkTypes'
+import clsx from 'clsx'
 
 export function LmLink({ content }: LmLinkProps): JSX.Element {
-  const { cx } = useStyles()
   const onClickFunc: any =
     typeof content.on_click_function === 'string'
       ? {
@@ -31,7 +30,7 @@ export function LmLink({ content }: LmLinkProps): JSX.Element {
             cursor: 'pointer'
           })
         }}
-        className={cx('lm-link__container', content.class_names?.values)}
+        className={clsx('lm-link__container', content.class_names?.values)}
       >
         {(content.body || []).map((blok) => (
           <LmComponentRender content={blok} key={blok._uid} />
@@ -40,7 +39,7 @@ export function LmLink({ content }: LmLinkProps): JSX.Element {
     )
   }
   return (
-    <span className={cx(content.class_names?.values)}>
+    <span className={clsx(content.class_names?.values)}>
       {(content.body || []).map((blok) => (
         <LmComponentRender content={blok} key={blok._uid} />
       ))}

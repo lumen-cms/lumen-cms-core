@@ -1,5 +1,4 @@
 import React from 'react'
-import { useStyles } from 'tss-react/mui'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import LmIcon from '../icon/LmIcon'
@@ -8,10 +7,10 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRow } from '../flex-row/FlexRow'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
+import clsx from 'clsx'
 
 export function LmNavList({ content }: LmNavListProps): JSX.Element {
   const { isMobile } = useDeviceDimensions()
-  const { cx } = useStyles()
   const body = (content && content.body) || []
   const properties = content.properties || []
   const { header, headline_styles, navigation_item_styles } = content
@@ -78,7 +77,9 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
           <HeadlineHeader />
         </AccordionSummary>
         <AccordionDetails>
-          <div className={cx('lm-nav-list w-100', content.class_names?.values)}>
+          <div
+            className={clsx('lm-nav-list w-100', content.class_names?.values)}
+          >
             <ChildrenRender />
           </div>
         </AccordionDetails>
@@ -86,7 +87,7 @@ export function LmNavList({ content }: LmNavListProps): JSX.Element {
     )
   }
   return (
-    <div className={cx('lm-nav-list w-100', content.class_names?.values)}>
+    <div className={clsx('lm-nav-list w-100', content.class_names?.values)}>
       {header && <HeadlineHeader />}
       <ChildrenRender />
     </div>

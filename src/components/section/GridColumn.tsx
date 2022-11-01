@@ -8,7 +8,7 @@ import useBackgroundBox from './useBackgroundBox'
 import { LmGridColumnProps } from './sectionTypes'
 import WrapGridContainer from './WrapGridContainer'
 import Stack from '@mui/material/Stack'
-import { useStyles } from 'tss-react/mui'
+import clsx from 'clsx'
 
 const xsSpanMap = {
   1: 3,
@@ -56,7 +56,6 @@ export function LmGridColumn({
   parent
 }: LmGridColumnProps): JSX.Element {
   const background: BackgroundStoryblok | undefined = content.background?.[0]
-  const { cx } = useStyles()
   const { className, style } = useBackgroundBox({
     background,
     styles: content.styles,
@@ -82,7 +81,7 @@ export function LmGridColumn({
       xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
       sm={smWidth}
       md={mdWidth}
-      className={cx({
+      className={clsx({
         'lm-column__bg-image': !!background?.image
       })}
     >
