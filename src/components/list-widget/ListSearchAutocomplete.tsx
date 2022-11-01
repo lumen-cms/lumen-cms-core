@@ -54,26 +54,6 @@ const fetcher = async (
       .join(',')}`
   }
   const { data } = await LmStoryblokService.get(path, params)
-
-  // const v2Url = new URL(`https://api.storyblok.com/v2${path}`)
-  // if (cacheVersion) {
-  //   v2Url.searchParams.append('cv', `${cacheVersion}`)
-  // }
-  // v2Url.searchParams.append('token', CONFIG.publicToken)
-  // v2Url.searchParams.append('filter_query[component][in]', 'page')
-  // v2Url.searchParams.append('per_page', '25')
-  // v2Url.searchParams.append('sort_by', 'content.preview_title:desc')
-  // v2Url.searchParams.append(
-  //   'excluding_fields',
-  //   'body,right_body,meta_robots,property,seo_body'
-  // )
-  // v2Url.searchParams.append('search_term', searchterm)
-  //
-  // v2Url.searchParams.append('excluding_slugs', excluding_slugs)
-  // const result = await fetch(v2Url.toString()).then((r) => r.json())
-  // if (!cacheVersion) {
-  //   cacheVersion = result.cv
-  // }
   return data.stories || []
 }
 
