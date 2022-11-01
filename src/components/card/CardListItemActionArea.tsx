@@ -1,13 +1,15 @@
-import { FC, useState } from 'react'
+import { FC, PropsWithChildren, useState } from 'react'
 import { LinkHandlerProps } from '../../utils/linkHandler'
 import CardActionArea from '@mui/material/CardActionArea'
 import { CardListItemProps } from './cardTypes'
 import CardListItemDrawer from './CardListItemDrawer'
 
-const CardListItemActionArea: FC<{
-  buttonProps: LinkHandlerProps
-  content: CardListItemProps['content']
-}> = ({ children, content, buttonProps }) => {
+const CardListItemActionArea: FC<
+  PropsWithChildren<{
+    buttonProps: LinkHandlerProps
+    content: CardListItemProps['content']
+  }>
+> = ({ children, content, buttonProps }) => {
   const [open, setOpen] = useState<boolean>(false)
   if (content.body?.length) {
     return (

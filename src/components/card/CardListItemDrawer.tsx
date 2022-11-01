@@ -1,5 +1,5 @@
 import Drawer from '@mui/material/Drawer'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, PropsWithChildren } from 'react'
 import { Theme } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Close from 'mdi-material-ui/Close'
@@ -26,11 +26,9 @@ const useStyles = makeStyles()((theme: Theme) => ({
   }
 }))
 
-const CardListItemDrawer: FunctionComponent<CardWrapAction> = ({
-  content,
-  setOpen,
-  open
-}) => {
+const CardListItemDrawer: FunctionComponent<
+  PropsWithChildren<CardWrapAction>
+> = ({ content, setOpen, open }) => {
   const { classes } = useStyles()
 
   const { isMobile } = useDeviceDimensions()

@@ -1,4 +1,4 @@
-import { FC, JSXElementConstructor, ReactNode } from 'react'
+import { FC, JSXElementConstructor, PropsWithChildren, ReactNode } from 'react'
 import {
   LmTimelineItemProps,
   LmTimelineProps
@@ -197,7 +197,7 @@ type LmCoreComponentsProps = {
   toolbar_row?: JSXElementConstructor<LmToolbarRowProps>
   dialog?: JSXElementConstructor<LmDialogProps>
   lm_link_render?: JSXElementConstructor<LinkProps>
-  lm_app_providers: FC<any>[]
+  lm_app_providers: FC<PropsWithChildren<any>>[]
   parallax_provider?: JSXElementConstructor<any>
   [k: string]: ReactNode | null
 }

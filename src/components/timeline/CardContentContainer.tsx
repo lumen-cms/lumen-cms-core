@@ -8,10 +8,12 @@ import {
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import Card, { CardProps } from '@mui/material/Card'
 
-export const CardContentContainer: FunctionComponent<{
-  content: TimelineItemStoryblok
-  options: TimelineStoryblok
-}> = ({ content, options, children }) => {
+export const CardContentContainer: FunctionComponent<
+  React.PropsWithChildren<{
+    content: TimelineItemStoryblok
+    options: TimelineStoryblok
+  }>
+> = ({ content, options, children }) => {
   const cachedUrl = content.link?.cached_url || content.link?.url
   const hasOppositeContent = content.opposite_body?.length
   const cardProps: CardProps = {

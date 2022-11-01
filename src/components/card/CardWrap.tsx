@@ -1,9 +1,9 @@
-import { CSSProperties, FunctionComponent } from 'react'
+import { CSSProperties, FunctionComponent, PropsWithChildren } from 'react'
 import Card from '@mui/material/Card'
 import useShadowStyles from '../jss/shadowStyles'
 import { CardListItemProps } from './cardTypes'
 
-const CardWrap: FunctionComponent<CardListItemProps> = ({
+const CardWrap: FunctionComponent<PropsWithChildren<CardListItemProps>> = ({
   children,
   options
 }) => {

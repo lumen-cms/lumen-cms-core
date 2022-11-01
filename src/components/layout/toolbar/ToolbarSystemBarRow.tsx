@@ -18,7 +18,7 @@ const useStyles = makeStyles({ name: 'ToolbarSystemBar' })((theme) => ({
   }
 }))
 
-const HideOnScroll: FC = ({ children }) => {
+const HideOnScroll: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 500

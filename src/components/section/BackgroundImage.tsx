@@ -117,7 +117,7 @@ const BackgroundImage = ({
       })}
     />
   )
-  const Wrap: FC = ({ children }) => {
+  const Wrap: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
     return ['fixed_cover', 'fixed_image'].includes(backgroundStyle || '') ? (
       <div className={classes.rootFixedImage}>
         <div className={classes.fixedCoverImageWrap}>{children}</div>

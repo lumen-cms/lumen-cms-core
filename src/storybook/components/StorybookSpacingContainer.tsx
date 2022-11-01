@@ -1,6 +1,6 @@
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 
-const StorybookSpacingContainer: FC = ({ children }) => {
+const StorybookSpacingContainer: FC<PropsWithChildren<unknown>> = ({ children }) => {
   return (
     <div
       style={{

@@ -1,6 +1,6 @@
 import Button, { ButtonProps } from '@mui/material/Button'
 import Fab, { FabProps } from '@mui/material/Fab'
-import React, { FC } from 'react'
+import React, { FC, PropsWithChildren } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { Theme } from '@mui/material/styles'
 import { LmCoreComponents } from '@CONFIG'
@@ -99,7 +99,7 @@ const useStyles = makeStyles({ name: 'Button' })((theme: Theme) => ({
   }
 }))
 
-export const LmButton: FC<LmButtonProps> = ({
+export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
   children,
   content,
   onClick,

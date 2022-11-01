@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Web3ReactHooks, Web3ReactProvider } from '@web3-react/core'
 import { MetaMask } from '@web3-react/metamask'
 import { WalletConnect } from '@web3-react/walletconnect'
@@ -18,7 +18,7 @@ const connectors: [
   // [network, networkHooks]
 ]
 
-const Web3Provider: FC = ({ children }) => {
+const Web3Provider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   return (
     <Web3ReactProvider connectors={connectors}>{children}</Web3ReactProvider>
   )

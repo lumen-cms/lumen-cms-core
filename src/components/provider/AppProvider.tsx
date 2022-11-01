@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { AppContext, AppContextProps } from '@context/AppContext'
 
-const AppProvider: FunctionComponent<{ content: AppContextProps }> = ({
+const AppProvider: FunctionComponent<React.PropsWithChildren<{ content: AppContextProps }>> = ({
   children,
   content
 }) => {

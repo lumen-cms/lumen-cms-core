@@ -6,7 +6,7 @@ import { getFontBasedOnSetting } from '../../utils/parseFont'
 import { FC } from 'react'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
-const CoreDecorator: FC<{ settings: Partial<GlobalStoryblok> }> = ({
+const CoreDecorator: FC<React.PropsWithChildren<{ settings: Partial<GlobalStoryblok> }>> = ({
   settings,
   children,
   ...rest

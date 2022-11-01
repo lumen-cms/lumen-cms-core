@@ -8,7 +8,7 @@ import {
   useNavigationStore
 } from '../../utils/state/navigationState'
 
-const MainContentContainer: FunctionComponent = ({ children }) => {
+const MainContentContainer: FunctionComponent<React.PropsWithChildren<unknown>> = ({ children }) => {
   const { classes, cx: clsx } = usePageStyles()
   const settings = useSettings()
   const page = usePage()

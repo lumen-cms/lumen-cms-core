@@ -15,7 +15,7 @@ import { useAppContext } from '@context/AppContext'
 type DrawerContainerProps = {
   backgroundProps?: UseBackgroundPayload
 }
-const DrawerContainer: FunctionComponent<DrawerContainerProps> = ({
+const DrawerContainer: FunctionComponent<React.PropsWithChildren<DrawerContainerProps>> = ({
   children,
   backgroundProps
 }) => {

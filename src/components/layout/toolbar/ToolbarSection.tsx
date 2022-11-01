@@ -8,9 +8,9 @@ import { LmToolbarSectionProps } from './toolbarTypes'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import clsx from 'clsx'
 
-const ToolbarSectionContainer: FunctionComponent<{
+const ToolbarSectionContainer: FunctionComponent<React.PropsWithChildren<{
   content: ToolbarRowSectionStoryblok
-}> = ({ children, content }) => {
+}>> = ({ children, content }) => {
   const { align } = content
   const theme = useTheme()
   const settings = useSettings()

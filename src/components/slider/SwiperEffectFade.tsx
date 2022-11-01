@@ -1,11 +1,13 @@
 import { EffectFade } from 'swiper'
 import 'swiper/css/effect-fade'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'
 
-const SwiperEffectFade: FC<{
-  swiperProps: SwiperProps
-}> = ({ children, swiperProps }) => {
+const SwiperEffectFade: FC<
+  PropsWithChildren<{
+    swiperProps: SwiperProps
+  }>
+> = ({ children, swiperProps }) => {
   return (
     <Swiper
       {...swiperProps}

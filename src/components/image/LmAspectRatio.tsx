@@ -1,11 +1,11 @@
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Box, BoxProps } from '@mui/material'
 
 type LmAspectRatioProps = Omit<BoxProps, 'width' | 'height'> & {
   ratio?: string | string[] // string of [width]/[height]: 16/9
 }
 
-const LmAspectRatio: FC<LmAspectRatioProps> = ({
+const LmAspectRatio: FC<PropsWithChildren<LmAspectRatioProps>> = ({
   ratio,
   children,
   ...rest

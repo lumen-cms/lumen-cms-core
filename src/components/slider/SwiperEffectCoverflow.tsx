@@ -1,12 +1,14 @@
 import { EffectCoverflow } from 'swiper'
 import 'swiper/css/effect-coverflow'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'
 import Box from '@mui/material/Box'
 
-const SwiperEffectCoverflow: FC<{
-  swiperProps: SwiperProps
-}> = ({ children, swiperProps }) => {
+const SwiperEffectCoverflow: FC<
+  PropsWithChildren<{
+    swiperProps: SwiperProps
+  }>
+> = ({ children, swiperProps }) => {
   return (
     <Box
       sx={{

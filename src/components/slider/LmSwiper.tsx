@@ -9,7 +9,7 @@ import 'swiper/css/navigation'
 
 import { LmComponentRender } from '@LmComponentRender'
 import dynamic from 'next/dynamic'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { PaginationOptions } from 'swiper/types'
 import Box from '@mui/material/Box'
 import { Theme } from '@mui/material/styles'
@@ -67,7 +67,7 @@ export default function LmSwiper({ content }: LmSwiperProps) {
       }
     }
   }
-  const Container: FC = ({ children }) => {
+  const Container: FC<PropsWithChildren<unknown>> = ({ children }) => {
     if (effect === 'coverflow') {
       return (
         <EffectCoverflow swiperProps={swiperProps}>{children}</EffectCoverflow>

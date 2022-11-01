@@ -39,7 +39,7 @@ function PageContainer() {
   return <LmPage />
 }
 
-const PageAuthContainer: FC = withAuthenticationRequired(PageContainer)
+const PageAuthContainer: FC<React.PropsWithChildren<unknown>> = withAuthenticationRequired(PageContainer)
 
 export function Auth0Page(props: LmPagesIndexProps) {
   const { insideStoryblok } = useAppContext()

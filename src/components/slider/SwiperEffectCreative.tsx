@@ -1,12 +1,14 @@
 import { EffectCreative } from 'swiper'
 import 'swiper/css/effect-creative'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'
 import Box from '@mui/material/Box'
 
-const SwiperEffectCreative: FC<{
-  swiperProps: SwiperProps
-}> = ({ children, swiperProps }) => {
+const SwiperEffectCreative: FC<
+  PropsWithChildren<{
+    swiperProps: SwiperProps
+  }>
+> = ({ children, swiperProps }) => {
   return (
     <Box
       sx={{

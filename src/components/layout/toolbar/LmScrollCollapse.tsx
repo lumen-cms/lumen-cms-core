@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 import Slide from '@mui/material/Slide'
 
-const LmScrollCollapse: FC<{
+const LmScrollCollapse: FC<React.PropsWithChildren<{
   isScrollCollapse?: boolean
-}> = ({ children, isScrollCollapse }) => {
+}>> = ({ children, isScrollCollapse }) => {
   const trigger = useScrollTrigger({ disableHysteresis: false })
 
   if (!isScrollCollapse) {

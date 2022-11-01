@@ -1,13 +1,12 @@
-import React, { FC } from 'react'
+import React, { FC, PropsWithChildren } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { useAppContext } from '@context/AppContext'
 import { AuthContainerStoryblok } from '../../typings/generated/components-schema'
 import { hasAuth0Credentials } from '../../utils/auth0/auth0Helpers'
 
-const LmAuthContainer: FC<{ content: AuthContainerStoryblok }> = ({
-  content,
-  children
-}) => {
+const LmAuthContainer: FC<
+  PropsWithChildren<{ content: AuthContainerStoryblok }>
+> = ({ content, children }) => {
   const { user, insideStoryblok } = useAppContext() || {}
 
   let hideOnRole = true

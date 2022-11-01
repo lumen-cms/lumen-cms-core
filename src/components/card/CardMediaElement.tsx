@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, PropsWithChildren } from 'react'
 import CardMedia from '@mui/material/CardMedia'
 import Image from 'next/image'
 import { useTheme } from '@mui/material/styles'
@@ -7,11 +7,9 @@ import { CardListItemProps } from './cardTypes'
 import { COLUMN_COUNT } from './cardListStyles'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 
-const CardMediaElement: FunctionComponent<CardListItemProps> = ({
-  children,
-  content,
-  options
-}) => {
+const CardMediaElement: FunctionComponent<
+  PropsWithChildren<CardListItemProps>
+> = ({ children, content, options }) => {
   const { breakpoints } = useTheme()
 
   const { column_count, column_count_phone, column_count_tablet } = options

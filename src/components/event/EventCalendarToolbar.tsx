@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, PropsWithChildren } from 'react'
 import { Event, ToolbarProps } from 'react-big-calendar'
 import Button from '@mui/material/Button'
 import ViewComfy from '@mui/icons-material/ViewComfy'
@@ -14,11 +14,13 @@ import TodayIcon from '@mui/icons-material/Today'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 
-const SelectCalendarView: FC<{
-  onView: ToolbarProps['onView']
-  views: ToolbarProps['views']
-  view: ToolbarProps['view']
-}> = ({ onView, views, view }) => {
+const SelectCalendarView: FC<
+  PropsWithChildren<{
+    onView: ToolbarProps['onView']
+    views: ToolbarProps['views']
+    view: ToolbarProps['view']
+  }>
+> = ({ onView, views, view }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   const handleClose = () => {
@@ -74,7 +76,9 @@ const SelectCalendarView: FC<{
   )
 }
 
-export const CalendarToolbar: FC<ToolbarProps<Event>> = (props) => {
+export const CalendarToolbar: FC<
+  React.PropsWithChildren<ToolbarProps<Event>>
+> = (props) => {
   let currentViews = Array.isArray(props.views) ? props.views : []
   return (
     <div

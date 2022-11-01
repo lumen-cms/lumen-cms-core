@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { CSSProperties, FC, useState } from 'react'
+import { CSSProperties, FC, PropsWithChildren, useState } from 'react'
 import { FormContainer } from 'react-hook-form-mui'
 import Alert from '@mui/material/Alert'
 import { LmComponentRender } from '@LmComponentRender'
@@ -15,7 +15,9 @@ import { useFormColorStyles } from '../../utils/jss/formColorStyles'
 
 const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
-const SimpleWrap: FC = ({ children }) => <>{children}</>
+const SimpleWrap: FC<PropsWithChildren<unknown>> = ({ children }) => (
+  <>{children}</>
+)
 
 export default function LmGoogleForm({
   formStructure,

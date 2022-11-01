@@ -1,4 +1,10 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, {
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import {
   ShopifyProductFragment,
   ShopifySdkContext
@@ -12,7 +18,9 @@ import { CheckoutCreateInput } from '../../../typings/generated/shopify-schema'
 import { useSettings } from '../../provider/SettingsPageProvider'
 
 let currencyCode = 'EUR'
-export const LmShopifySdkProvider: FC = ({ children }) => {
+export const LmShopifySdkProvider: FC<PropsWithChildren<unknown>> = ({
+  children
+}) => {
   const settings = useSettings()
   const shopifyConfig: EcommerceShopifyConfigStoryblok | undefined = (
     settings.ecommerce || []

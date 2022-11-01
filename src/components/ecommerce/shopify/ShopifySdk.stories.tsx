@@ -1,6 +1,6 @@
 import { LmComponentRender } from '@LmComponentRender'
 import { Story } from '@storybook/react'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import {
   ButtonStoryblok,
   EcommerceCheckoutStoryblok,
@@ -49,10 +49,12 @@ const getShopifySettings = (context?: {
   return settings
 }
 
-const ShopifyStoryContainer: FC<{
-  pageProps: any
-  settings: GlobalStoryblok
-}> = ({ children, settings, pageProps }) => {
+const ShopifyStoryContainer: FC<
+  PropsWithChildren<{
+    pageProps: any
+    settings: GlobalStoryblok
+  }>
+> = ({ children, settings, pageProps }) => {
   return (
     <CoreDecorator settings={settings} {...pageProps}>
       {children}

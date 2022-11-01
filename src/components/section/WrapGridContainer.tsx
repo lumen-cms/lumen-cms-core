@@ -6,7 +6,7 @@ type WrapGridRowProps = {
   hasCustomStyles?: boolean
 }
 
-const WrapGridRow: FC<WrapGridRowProps> = ({
+const WrapGridRow: FC<React.PropsWithChildren<WrapGridRowProps>> = ({
   hasCustomStyles,
   style,
   children,

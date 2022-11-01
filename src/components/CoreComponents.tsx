@@ -1,4 +1,10 @@
-import { Attributes, ComponentClass, createElement, FC } from 'react'
+import {
+  Attributes,
+  ComponentClass,
+  createElement,
+  FC,
+  PropsWithChildren
+} from 'react'
 import { LmCoreComponents } from '@CONFIG'
 import { ComponentRenderFuncProps } from '../typings/app'
 import { useAppContext } from '@context/AppContext'
@@ -10,7 +16,9 @@ export function LmComponentRender<P>(props: ComponentRenderFuncProps) {
 
   if (typeof LmCoreComponents[content.component] !== 'undefined') {
     const CurrentElement = createElement(
-      LmCoreComponents[content.component] as FC<P> | ComponentClass<P>,
+      LmCoreComponents[content.component] as
+        | FC<PropsWithChildren<P>>
+        | ComponentClass<P>,
       {
         content,
         key:

@@ -7,7 +7,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import useBackgroundBox from '../section/useBackgroundBox'
 import BackgroundImage from '../section/BackgroundImage'
 import BackgroundElements from '../section/BackgroundElements'
-import React, { FC } from 'react'
+import React, { FC, PropsWithChildren } from 'react'
 import CardMedia from '@mui/material/CardMedia'
 import Image from 'next/image'
 import Box from '@mui/material/Box'
@@ -35,7 +35,7 @@ export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
         component: LmCoreComponents.lm_link_render
       }
     : undefined
-  const ActionArea: FC = ({ children }) =>
+  const ActionArea: FC<PropsWithChildren<unknown>> = ({ children }) =>
     btnProps?.href ? (
       <CardActionArea {...btnProps} sx={{ height: '100%' }}>
         {children}

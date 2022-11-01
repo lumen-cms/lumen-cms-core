@@ -4,7 +4,7 @@ import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { useSettings } from './SettingsPageProvider'
 import { useNavigationStore } from '../../utils/state/navigationState'
 
-const AppSetupProvider: FC = ({ children }) => {
+const AppSetupProvider: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const { isMobile } = useDeviceDimensions()
   const settings = useSettings()
   const { drawer_variant, drawer_below_toolbar, drawer_below_toolbar_xs } =

@@ -6,7 +6,7 @@ import { ChatTawktoStoryblok } from '../../typings/generated/components-schema'
 import DrawerElement from './drawer/DrawerElement'
 import { useSettings } from '../provider/SettingsPageProvider'
 
-const Layout: FC = ({ children }) => {
+const Layout: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const settings = useSettings()
   // legacy code for old projects.. remove after all tawkto are integrated
   if (settings.tawkto) {

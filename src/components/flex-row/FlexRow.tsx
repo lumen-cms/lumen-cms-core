@@ -1,10 +1,13 @@
-import React, { FC } from 'react'
+import React, { FC, PropsWithChildren } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRowProps } from './flexRowTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 import Stack, { StackProps } from '@mui/material/Stack'
 
-export const LmFlexRow: FC<LmFlexRowProps> = ({ content, children }) => {
+export const LmFlexRow: FC<PropsWithChildren<LmFlexRowProps>> = ({
+  content,
+  children
+}) => {
   const body = content.body || []
   const { classes, cx } = useStylesAdvanced({
     props: content.styles,

@@ -7,7 +7,7 @@ import { LmAppProvidersContainer } from './LmAppProvidersContainer'
 import { AppContainerProps } from './layoutTypes'
 import SettingsPageProvider from '../provider/SettingsPageProvider'
 
-export const LmAppContainer: FunctionComponent<AppContainerProps> = ({
+export const LmAppContainer: FunctionComponent<React.PropsWithChildren<AppContainerProps>> = ({
   content,
   children
 }) => {

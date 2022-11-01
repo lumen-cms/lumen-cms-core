@@ -21,10 +21,10 @@ declare global {
   }
 }
 
-const SettingsPageProvider: FC<{
+const SettingsPageProvider: FC<React.PropsWithChildren<{
   settings: GlobalStoryblok
   page?: PageStoryblok | null
-}> = ({ settings, page, children }) => {
+}>> = ({ settings, page, children }) => {
   const { insideStoryblok } = useAppContext()
   const [stateSettings, setSettings] = useState(settings)
   const [statePage, setPage] = useState<PageStoryblok | null>(page || null)

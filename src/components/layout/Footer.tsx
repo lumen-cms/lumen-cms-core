@@ -26,7 +26,7 @@ const useStyles = makeStyles({ name: 'Footer' })((theme) => ({
   }
 }))
 
-const FooterContainer: FunctionComponent = ({ children }) => {
+const FooterContainer: FunctionComponent<React.PropsWithChildren<unknown>> = ({ children }) => {
   const { classes, cx } = useStyles()
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const drawerVariant = useNavigationStore(drawerVariantSelector)

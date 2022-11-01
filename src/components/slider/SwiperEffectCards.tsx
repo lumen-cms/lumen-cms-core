@@ -1,12 +1,14 @@
 import { EffectCards } from 'swiper'
 import 'swiper/css/effect-cards'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'
 import Box from '@mui/material/Box'
 
-const SwiperEffectCards: FC<{
-  swiperProps: SwiperProps
-}> = ({ children, swiperProps }) => {
+const SwiperEffectCards: FC<
+  PropsWithChildren<{
+    swiperProps: SwiperProps
+  }>
+> = ({ children, swiperProps }) => {
   return (
     <Box
       sx={{

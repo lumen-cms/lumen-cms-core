@@ -11,7 +11,7 @@ const HeadlineCountDown = dynamic(() => import('./HeadlineCountDown'), {
   ssr: false
 })
 
-export const LmHeadline: FC<LmHeadlineProps> = ({
+export const LmHeadline: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
   content,
   onClick,
   children

@@ -1,11 +1,13 @@
 import { EffectFlip } from 'swiper'
 import 'swiper/css/effect-flip'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'
 
-const SwiperEffectFlip: FC<{
-  swiperProps: SwiperProps
-}> = ({ children, swiperProps }) => {
+const SwiperEffectFlip: FC<
+  PropsWithChildren<{
+    swiperProps: SwiperProps
+  }>
+> = ({ children, swiperProps }) => {
   return (
     <div>
       <Swiper

@@ -4,7 +4,7 @@ import {
   responsiveFontSizes,
   ThemeProvider
 } from '@mui/material/styles'
-import React, { FunctionComponent, useMemo } from 'react'
+import React, { FunctionComponent, PropsWithChildren, useMemo } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import parseFont from '../../utils/parseFont'
 import { LmGlobalStyles } from './LmGlobalStyles'
@@ -106,7 +106,9 @@ const responsiveFontSizeOptions: ResponsiveFontSizesOptions = {
 const { palette } = createTheme()
 const { augmentColor, getContrastText } = palette
 
-const GlobalTheme: FunctionComponent = ({ children }) => {
+const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
+  children
+}) => {
   const settings = useSettings()
   const page = usePage()
 

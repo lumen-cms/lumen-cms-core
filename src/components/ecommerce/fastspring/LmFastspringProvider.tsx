@@ -1,11 +1,13 @@
-import { FC, useState } from 'react'
+import { FC, PropsWithChildren, useState } from 'react'
 import useScript from '@charlietango/use-script'
 import Router from 'next/router'
 import { useAppContext } from '@context/AppContext'
 import { FastSpringContext } from './context/FastSpringContext'
 import { useSettings } from '../../provider/SettingsPageProvider'
 
-export const LmFastSpringProvider: FC = ({ children }) => {
+export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
+  children
+}) => {
   const settings = useSettings()
   const appCtx = useAppContext()
   const [currency, setCurrency] = useState('USD')

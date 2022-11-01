@@ -1,12 +1,14 @@
 import { EffectCube } from 'swiper'
 import 'swiper/css/effect-cube'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'
 import Box from '@mui/material/Box'
 
-const SwiperEffectCube: FC<{
-  swiperProps: SwiperProps
-}> = ({ children, swiperProps }) => {
+const SwiperEffectCube: FC<
+  PropsWithChildren<{
+    swiperProps: SwiperProps
+  }>
+> = ({ children, swiperProps }) => {
   const height = 300
   return (
     <Box

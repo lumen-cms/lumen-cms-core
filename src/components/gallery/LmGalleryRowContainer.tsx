@@ -1,8 +1,9 @@
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Grid } from '@mui/material'
 import { LmGalleryRowProps } from './LmGalleryRow'
 import { Parallax } from 'react-scroll-parallax'
-const LmGalleryRowContainer: FC<LmGalleryRowProps> = ({
+
+const LmGalleryRowContainer: FC<PropsWithChildren<LmGalleryRowProps>> = ({
   children,
   options,
   content

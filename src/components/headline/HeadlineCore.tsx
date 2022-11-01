@@ -4,7 +4,7 @@ import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { LmHeadlineProps } from './headlineTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 
-export const LmHeadlineCore: FC<LmHeadlineProps> = ({
+export const LmHeadlineCore: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
   content,
   onClick,
   children
