@@ -50,6 +50,7 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
   )
   return (
     <>
+      {/* @ts-ignore */}
       <Calendar
         scrollToTime={
           new Date(
@@ -64,7 +65,7 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
         views={views}
         defaultView={!currentView ? undefined : currentView}
         components={{
-          toolbar: CalendarToolbar
+          toolbar: CalendarToolbar as any
         }}
         events={currentEvents}
         onSelectEvent={(event) => {

@@ -1,10 +1,4 @@
-import {
-  Attributes,
-  ComponentClass,
-  createElement,
-  FC,
-  PropsWithChildren
-} from 'react'
+import { Attributes, createElement } from 'react'
 import { LmCoreComponents } from '@CONFIG'
 import { ComponentRenderFuncProps } from '../typings/app'
 import { useAppContext } from '@context/AppContext'
@@ -15,20 +9,16 @@ export function LmComponentRender<P>(props: ComponentRenderFuncProps) {
   const { content, i, ...rest } = props
 
   if (typeof LmCoreComponents[content.component] !== 'undefined') {
-    const CurrentElement = createElement(
-      LmCoreComponents[content.component] as
-        | FC<PropsWithChildren<P>>
-        | ComponentClass<P>,
-      {
-        content,
-        key:
-          typeof i === 'number'
-            ? `${content.component}_${content._uid || i}`
-            : undefined,
-        ...rest
-      } as unknown as Attributes & P
-    )
+    const CurrentElement = createElement(LmCoreComponents[content.component], {
+      content,
+      key:
+        typeof i === 'number'
+          ? `${content.component}_${content._uid || i}`
+          : undefined,
+      ...rest
+    } as unknown as Attributes & P)
     if (insideStoryblok) {
+      // @ts-ignore
       return <SbEditable content={content}>{CurrentElement}</SbEditable>
     }
     return CurrentElement

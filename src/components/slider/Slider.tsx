@@ -1,7 +1,4 @@
-import SwipeableViews from 'react-swipeable-views'
-import { autoPlay } from 'react-swipeable-views-utils'
-import { CSSProperties, useState } from 'react'
-import Typography from '@mui/material/Typography'
+import React from 'react'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
 import ChevronRight from 'mdi-material-ui/ChevronRight'
 import CircleMedium from 'mdi-material-ui/CircleMedium'
@@ -14,8 +11,8 @@ import { LmSliderChild } from './SliderChild'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { SectionProps } from '../section/sectionTypes'
 import { LmSliderProps } from './sliderTypes'
-import { visuallyHidden } from '@mui/utils'
-import { makeStyles } from 'tss-react/mui'
+import Carousel from 'nuka-carousel'
+import Box from '@mui/material/Box'
 
 const chunkArray = (myArray: any, chunkSize: number) => {
   const results = []
@@ -25,90 +22,18 @@ const chunkArray = (myArray: any, chunkSize: number) => {
   return results
 }
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews)
+const DARK = 'rgba(0,0,0,0.8)'
+const LIGHT = 'rgba(255,255,255,0.8)'
 
-const useStyles = makeStyles({ name: 'Slider' })({
-  carousel: {
-    position: 'relative',
-    '& [data-swipeable="true"]': {
-      overflow: 'hidden',
-      height: '100%',
-      width: '100%',
-      '& > div': {
-        overflow: 'hidden',
-        height: '100%',
-        width: '100%'
-      }
-    },
-    '&.carousel__container-align-center .react-swipeable-view-container': {
-      alignItems: 'center'
-    },
-    '& .react-swipeable-view-container .MuiContainer-root': {
-      padding: '0px !important',
-      margin: '0px !important',
-      maxWidth: 'inherit !important'
-    },
-
-    '&.carousel__arrows_dark': {
-      '& .MuiSvgIcon-root': {
-        color: 'rgba(0,0,0,0.8)'
-      }
-    },
-    '& .carousel-control-next, & .carousel-control-prev': {
-      position: 'absolute',
-      height: '100%',
-      top: 0,
-      display: 'flex',
-      borderRadius: 0,
-      alignItems: 'center',
-      cursor: 'pointer',
-      '& .MuiSvgIcon-root': {
-        fontSize: '4rem',
-        color: 'rgba(255,255,255,0.8)'
-      }
-    },
-    '& .carousel-control-next': {
-      right: 0
-    }
-  },
-  carouselIndicators: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    textAlign: 'center',
-    color: 'rgba(255,255,255,0.8)'
-  },
-  darkColor: {
-    color: 'rgba(0,0,0,0.8)'
-  },
-  carouselIndicatorBelow: {
-    position: 'relative',
-    padding: '8px 0'
-  }
-})
-
-export default function LmSlider({ content }: LmSliderProps): JSX.Element {
-  const [slide, setSlide] = useState(0)
+export default function LmSlider({ content }: LmSliderProps) {
   const autoSlide = !!content.autoslide
-  const [start, setStart] = useState<boolean>(true)
   const { isMobile } = useDeviceDimensions()
-  const { classes, cx } = useStyles()
   const wrapInColumns = content.slides_per_view && !isMobile
   const contentBody: LmSliderProps['content']['body'] = content.body || []
   const body = wrapInColumns
     ? chunkArray(contentBody.slice(0), content.slides_per_view as number)
     : contentBody
   const properties = content.property || []
-  const styles: CSSProperties = {}
-
-  function handleChangeIndex(i: number) {
-    setSlide(i)
-  }
-
-  if (content.background_color) {
-    styles.backgroundColor =
-      content.background_color && content.background_color.rgba
-  }
 
   const ActiveIndicator = () =>
     !properties.includes('pagination_circle') ? (
@@ -119,42 +44,113 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
   const DefaultIndicator = () =>
     !properties.includes('pagination_circle') ? <CircleSmall /> : <Minus />
 
-  const onPrevClick = () => setSlide(slide === 0 ? body.length - 1 : slide - 1)
-  const onNextClick = () => setSlide(slide === body.length - 1 ? 0 : slide + 1)
+  let showLeftRightArrow = !['hide_arrows', 'arrows_beside_pagination'].some(
+    (i) => properties.includes(i as any)
+  )
+  let isDarkPagination = properties.includes('pagination_dark')
+  let isDarkArrows = properties.includes('arrows_dark')
   return (
-    <div
-      className={cx(
-        classes.carousel,
-        'carousel slide',
-        properties.map((i) => `carousel__${i}`)
-      )}
-      style={styles}
-      onMouseEnter={() => {
-        if (content.pause_on_hover && content.autoslide) {
-          setStart(false)
-        }
-      }}
-      onMouseLeave={() => {
-        if (content.pause_on_hover && content.autoslide) {
-          setStart(true)
-        }
+    <Box
+      sx={{
+        backgroundColor: content.background_color?.rgba ?? undefined
       }}
     >
-      <AutoPlaySwipeableViews
-        index={slide}
-        animateTransitions={!content.disable_transition}
+      <Carousel
+        disableAnimation={content.disable_transition}
+        pauseOnHover={content.pause_on_hover}
         autoplay={autoSlide}
-        interval={autoSlide ? Number(content.autoslide) : undefined}
-        onChangeIndex={(i: any) =>
-          autoSlide ? start && setSlide(i) : setSlide(i)
-        }
-        springConfig={{
-          duration: content.autoslide_duration
-            ? `${content.autoslide_duration}ms`
-            : '0.5s',
-          easeFunction: 'cubic-bezier(0.15, 0.3, 0.25, 1)',
-          delay: '0s'
+        wrapAround={true}
+        autoplayInterval={autoSlide ? Number(content.autoslide) : undefined}
+        renderBottomCenterControls={({
+          pagingDotsIndices,
+          goToSlide,
+          currentSlide,
+          previousSlide,
+          nextSlide
+        }) => {
+          return (
+            <Box
+              display={
+                properties.includes('hide_pagination') ? 'none' : undefined
+              }
+              marginBottom={
+                properties.includes('pagination_below_content')
+                  ? '-64px'
+                  : undefined
+              }
+              color={isDarkPagination ? DARK : LIGHT}
+            >
+              <IconButton
+                sx={{
+                  display: properties.includes('arrows_beside_pagination')
+                    ? 'inline-flex'
+                    : 'none'
+                }}
+                size="small"
+                onClick={() => previousSlide()}
+                color={'inherit'}
+              >
+                <ChevronLeft color={'inherit'} />
+              </IconButton>
+              {pagingDotsIndices.map((i) => (
+                <IconButton
+                  color="inherit"
+                  size="small"
+                  key={`pagination_${i}`}
+                  onClick={() => goToSlide(i)}
+                >
+                  {currentSlide === i ? (
+                    <ActiveIndicator />
+                  ) : (
+                    <DefaultIndicator />
+                  )}
+                </IconButton>
+              ))}
+              <IconButton
+                onClick={() => nextSlide()}
+                color="inherit"
+                size="small"
+                sx={{
+                  display: properties.includes('arrows_beside_pagination')
+                    ? 'inline-flex'
+                    : 'none'
+                }}
+              >
+                <ChevronRight color={'inherit'} />
+              </IconButton>
+            </Box>
+          )
         }}
+        renderCenterLeftControls={({ previousDisabled, previousSlide }) =>
+          showLeftRightArrow ? (
+            <IconButton
+              size={'large'}
+              onClick={previousSlide}
+              disabled={previousDisabled}
+              sx={{
+                color: isDarkArrows ? DARK : LIGHT,
+                fontSize: '4rem'
+              }}
+            >
+              <ChevronLeft fontSize={'inherit'} />
+            </IconButton>
+          ) : null
+        }
+        renderCenterRightControls={({ nextDisabled, nextSlide }) =>
+          showLeftRightArrow ? (
+            <IconButton
+              size={'large'}
+              onClick={nextSlide}
+              disabled={nextDisabled}
+              sx={{
+                color: isDarkArrows ? DARK : LIGHT,
+                fontSize: '4rem'
+              }}
+            >
+              <ChevronRight fontSize={'inherit'} />
+            </IconButton>
+          ) : null
+        }
       >
         {wrapInColumns
           ? body.map((child, index) => {
@@ -178,86 +174,7 @@ export default function LmSlider({ content }: LmSliderProps): JSX.Element {
               }
               return <LmComponentRender content={item} key={item._uid} />
             })}
-      </AutoPlaySwipeableViews>
-      {!['hide_arrows', 'arrows_beside_pagination'].some((i) =>
-        properties.includes(i as any)
-      ) && (
-        <IconButton
-          className="carousel-control-prev"
-          onClick={onPrevClick}
-          size="large"
-        >
-          <ChevronLeft />
-          <Typography sx={visuallyHidden}>Previous</Typography>
-        </IconButton>
-      )}
-
-      {!['hide_arrows', 'arrows_beside_pagination'].some((i) =>
-        properties.includes(i as any)
-      ) && (
-        <IconButton
-          className="carousel-control-next"
-          role="button"
-          onClick={onNextClick}
-          size="large"
-        >
-          <ChevronRight />
-          <Typography sx={visuallyHidden}>Next</Typography>
-        </IconButton>
-      )}
-      <div
-        className={cx(classes.carouselIndicators, {
-          [classes.carouselIndicatorBelow]: properties.includes(
-            'pagination_below_content'
-          ),
-          [classes.darkColor]: properties.includes('pagination_dark'),
-          'd-none': properties.includes('hide_pagination')
-        })}
-        style={{
-          backgroundColor:
-            content.indicator_background_color?.rgba || undefined,
-          textAlign: properties.includes('pagination_bottom_right')
-            ? 'right'
-            : undefined
-        }}
-      >
-        <IconButton
-          sx={{
-            display: properties.includes('arrows_beside_pagination')
-              ? 'inline-flex'
-              : 'none'
-          }}
-          size="small"
-          onClick={onPrevClick}
-          color="inherit"
-        >
-          <ChevronLeft />
-        </IconButton>
-        {body.map((item, i) => {
-          return (
-            <IconButton
-              color="inherit"
-              size="small"
-              key={item._uid || `pagination_${i}`}
-              onClick={() => handleChangeIndex(i)}
-            >
-              {slide === i ? <ActiveIndicator /> : <DefaultIndicator />}
-            </IconButton>
-          )
-        })}
-        <IconButton
-          onClick={onNextClick}
-          color="inherit"
-          size="small"
-          sx={{
-            display: properties.includes('arrows_beside_pagination')
-              ? 'inline-flex'
-              : 'none'
-          }}
-        >
-          <ChevronRight />
-        </IconButton>
-      </div>
-    </div>
+      </Carousel>
+    </Box>
   )
 }

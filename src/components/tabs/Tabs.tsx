@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import SwipeableViews from 'react-swipeable-views'
 import Tab from '@mui/material/Tab'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
+import Carousel from 'nuka-carousel'
 
 import Grid, { GridProps } from '@mui/material/Grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -55,7 +55,7 @@ const widthMap = {
   true: true
 }
 
-export default function LmTabs({ content }: LmTabsProps): JSX.Element {
+export default function LmTabs({ content }: LmTabsProps) {
   const { classes, cx, theme } = useStyles()
   const isMobile = useMediaQuery(
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')
@@ -148,23 +148,25 @@ export default function LmTabs({ content }: LmTabsProps): JSX.Element {
               : 12
           }
         >
-          <div>
-            <SwipeableViews
-              index={Number(activeTab)}
-              onChangeIndex={(i) => setActiveTab(`${i}`)}
-              className="lm-slide-content"
-              animateHeight={content.dynamic_height || false}
-              axis="x"
-            >
-              {body.map((tab: TabsItemStoryblok, index) => (
-                <TabPanel value={`${index}`} key={`content_${tab._uid}`}>
-                  {tab.body?.map((blok) => (
-                    <LmComponentRender content={blok} key={blok._uid} />
-                  ))}
-                </TabPanel>
-              ))}
-            </SwipeableViews>
-          </div>
+          <Carousel
+            withoutControls
+            slideIndex={Number(activeTab)}
+            afterSlide={(index) => {
+              setActiveTab(`${index}`)
+            }}
+            {...(content.dynamic_height && {
+              adaptiveHeight: true,
+              adaptiveHeightAnimation: true
+            })}
+          >
+            {body.map((tab: TabsItemStoryblok, index) => (
+              <TabPanel value={`${index}`} key={`content_${tab._uid}`}>
+                {tab.body?.map((blok) => (
+                  <LmComponentRender content={blok} key={blok._uid} />
+                ))}
+              </TabPanel>
+            ))}
+          </Carousel>
         </Grid>
       </Grid>
     </TabContext>

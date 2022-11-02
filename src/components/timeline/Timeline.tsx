@@ -7,7 +7,7 @@ import TimelineObserver from 'react-timeline-animation'
 import { Box } from '@mui/material'
 import { useReward } from 'react-rewards'
 
-export default function LmTimeline({ content }: LmTimelineProps): JSX.Element {
+export default function LmTimeline({ content }: LmTimelineProps) {
   const { isMobile } = useDeviceDimensions()
   const rewardObject = content.confetti?.[0]
   const { reward } = useReward(

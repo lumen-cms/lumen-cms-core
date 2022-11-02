@@ -17,7 +17,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
 
     // enable smooth scroll
     const handleClick = useCallback(
-      async (e) => {
+      async (e: any) => {
         const [, anchorName] = href.split('#')
         if (anchorName) {
           const destination = document.getElementById(anchorName)
