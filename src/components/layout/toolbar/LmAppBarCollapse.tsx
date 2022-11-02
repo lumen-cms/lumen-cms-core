@@ -30,7 +30,9 @@ const useStyles = makeStyles({ name: 'AppBarCollapse' })((theme) => ({
   }
 }))
 
-const LmAppBarCollapse: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
+const LmAppBarCollapse: FC<React.PropsWithChildren<unknown>> = ({
+  children
+}) => {
   const trigger = useScrollTrigger({ disableHysteresis: true })
   const { classes, cx, theme } = useStyles()
   const matches = useMediaQuery(theme.breakpoints.up('md'))

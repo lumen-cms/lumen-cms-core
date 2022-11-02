@@ -21,9 +21,11 @@ const useStyles = makeStyles<{ settings: Partial<GlobalStoryblok> }>({
   }
 }))
 
-const TopAppBar: FunctionComponent<React.PropsWithChildren<{
-  SystemBar?: React.ReactNode
-}>> = (props) => {
+const TopAppBar: FunctionComponent<
+  React.PropsWithChildren<{
+    SystemBar?: React.ReactNode
+  }>
+> = (props) => {
   const settings = useSettings() || {}
   const page = usePage() || {}
   const { classes, cx } = useStyles({ settings })

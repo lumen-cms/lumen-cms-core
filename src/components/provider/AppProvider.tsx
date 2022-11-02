@@ -1,10 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { AppContext, AppContextProps } from '@context/AppContext'
 
-const AppProvider: FunctionComponent<React.PropsWithChildren<{ content: AppContextProps }>> = ({
-  children,
-  content
-}) => {
+const AppProvider: FunctionComponent<
+  React.PropsWithChildren<{ content: AppContextProps }>
+> = ({ children, content }) => {
   const [appContent, setAppContent] = useState<AppContextProps>(content)
   useEffect(() => {
     if (content.locale !== appContent.locale) {

@@ -7,10 +7,9 @@ import { LmAppProvidersContainer } from './LmAppProvidersContainer'
 import { AppContainerProps } from './layoutTypes'
 import SettingsPageProvider from '../provider/SettingsPageProvider'
 
-export const LmAppContainer: FunctionComponent<React.PropsWithChildren<AppContainerProps>> = ({
-  content,
-  children
-}) => {
+export const LmAppContainer: FunctionComponent<
+  React.PropsWithChildren<AppContainerProps>
+> = ({ content, children }) => {
   // const set = useAppStore.getState().settings
   // const pag = useAppStore.getState().page
   const { page, settings, error, googleFontString, ...rest } = content

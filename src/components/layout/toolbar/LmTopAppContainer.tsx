@@ -64,7 +64,9 @@ const useStyles = makeStyles({ name: 'TopAppContainer' })((theme) => ({
   }
 }))
 
-const LmTopAppContainer: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
+const LmTopAppContainer: FC<React.PropsWithChildren<unknown>> = ({
+  children
+}) => {
   const settings = useSettings()
   const page = usePage() || {}
   const drawerVariant = useNavigationStore(drawerVariantSelector)

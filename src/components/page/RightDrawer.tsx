@@ -11,7 +11,9 @@ import {
   useNavigationStore
 } from '../../utils/state/navigationState'
 
-const RightDrawerContainer: FunctionComponent<React.PropsWithChildren<unknown>> = ({ children }) => {
+const RightDrawerContainer: FunctionComponent<
+  React.PropsWithChildren<unknown>
+> = ({ children }) => {
   const { classes, theme } = usePageStyles()
   const closeRightNavigation = useNavigationStore(closeRightNavigationSelector)
   const page = usePage()

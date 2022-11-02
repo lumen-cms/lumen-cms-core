@@ -7,10 +7,12 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 
-export const ListSearchAutocompleteContainer: FunctionComponent<React.PropsWithChildren<{
-  content: ListSearchAutocompleteStoryblok
-  popperActive?: boolean
-}>> = ({ content, children, popperActive }) => {
+export const ListSearchAutocompleteContainer: FunctionComponent<
+  React.PropsWithChildren<{
+    content: ListSearchAutocompleteStoryblok
+    popperActive?: boolean
+  }>
+> = ({ content, children, popperActive }) => {
   const [visible, setVisible] = useState<boolean>(false)
   const theme = useTheme()
   const matches = useMediaQuery(
