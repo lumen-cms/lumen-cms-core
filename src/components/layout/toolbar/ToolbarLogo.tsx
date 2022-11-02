@@ -96,12 +96,13 @@ export function LmToolbarLogo(): JSX.Element {
                 <LmSquareImage
                   image={source as string}
                   size={toolbarHeight}
-                  layout="intrinsic"
                   imageProps={{
                     priority: true,
                     quality: 95,
-                    objectFit: 'contain',
-                    objectPosition: 'left',
+                    style: {
+                      objectFit: 'contain',
+                      objectPosition: 'left'
+                    },
                     alt: websiteTitle || 'website logo'
                   }}
                 />

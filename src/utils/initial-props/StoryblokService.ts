@@ -98,6 +98,7 @@ class StoryblokServiceClass {
       ...params,
       ...this.getDefaultParams()
     }
+    console.log(slug)
     return this.client.get(slug, currentParams)
   }
 

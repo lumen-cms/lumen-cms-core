@@ -1,16 +1,16 @@
-import Image, { ImageProps } from 'next/image'
+import Image, { ImageProps } from 'next/future/image'
 import React from 'react'
 import {
   getRootImageUrl,
   imageCalculateWidthHeight
 } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
+import { ImageDataUriFallback } from '../image/ImageDataUri'
 
 type LmSquareImageProps = {
   image: string
   size?: number | string
   sizeIsHeight?: boolean
-  layout?: 'responsive' | 'intrinsic' | 'fixed'
   base64?: string
   imageProps?: Pick<
     ImageProps,
@@ -18,11 +18,10 @@ type LmSquareImageProps = {
     | 'onLoad'
     | 'onClick'
     | 'priority'
-    | 'objectFit'
-    | 'objectPosition'
     | 'quality'
     | 'alt'
     | 'className'
+    | 'style'
   >
 }
 
@@ -30,9 +29,8 @@ export default function LmSquareImage({
   size,
   image,
   imageProps,
-  layout,
   sizeIsHeight,
-  base64
+  base64 = ImageDataUriFallback
 }: LmSquareImageProps): JSX.Element {
   return (
     <Image
@@ -40,21 +38,25 @@ export default function LmSquareImage({
       {...storyblokImageLoader(image)}
       {...(image.includes('a.storyblok.com')
         ? {
-            layout: layout || 'fixed',
             ...imageCalculateWidthHeight(size ? Number(size) : 40, image, {
               sizeIsHeight
             }),
-            objectFit: 'cover'
+            style: {
+              objectFit: 'cover',
+              width: '100%',
+              height: 'auto'
+            }
           }
         : {
-            layout: 'fill',
-            objectFit: 'cover'
+            fill: true,
+            style: {
+              objectFit: 'cover'
+            }
           })}
       {...imageProps}
-      {...(base64 && {
-        placeholder: 'blur',
-        blurDataURL: base64
-      })}
+      alt={imageProps?.alt || 'website image'}
+      placeholder={'blur'}
+      blurDataURL={base64}
     />
   )
 }

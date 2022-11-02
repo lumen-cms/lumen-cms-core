@@ -1,11 +1,12 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import CardMedia from '@mui/material/CardMedia'
-import Image from 'next/image'
+import Image from 'next/future/image'
 import { useTheme } from '@mui/material/styles'
 import { getRootImageUrl, getVwByColCount } from '../../utils/imageServices'
 import { CardListItemProps } from './cardTypes'
 import { COLUMN_COUNT } from './cardListStyles'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
+import { ImageDataUriFallback } from '../image/ImageDataUri'
 
 const CardMediaElement: FunctionComponent<
   PropsWithChildren<CardListItemProps>
@@ -30,19 +31,19 @@ const CardMediaElement: FunctionComponent<
       <Image
         src={getRootImageUrl(content.image)}
         {...storyblokImageLoader(content.image)}
-        loading="lazy"
-        layout="fill"
-        {...(content.story_data && {
-          placeholder: 'blur',
-          blurDataURL: content.story_data.base64
-        })}
+        fill
+        placeholder={'blur'}
+        blurDataURL={ImageDataUriFallback}
         sizes={`(min-width: 0) and (max-width: ${
           breakpoints.values.sm - 1
         }px) ${phoneVw}vw, (min-width: ${
           breakpoints.values.sm
         }px) and (max-width: ${breakpoints.values.md - 1}px): ${tabletVw}vw,
             ${desktopVw}vw`}
-        objectFit={options.image_size || 'cover'}
+        alt={'card image'}
+        style={{
+          objectFit: options.image_size || 'cover'
+        }}
       />
       {children}
     </CardMedia>

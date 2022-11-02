@@ -1,6 +1,9 @@
 const withPlugins = require('next-compose-plugins')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const getCsp = require('./nextjs_csp_generator')
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.BUNDLE_ANALYZE === 'true'
+})
 
 module.exports = function(nextConfig = {}, plugins = [], transpileModules) {
   /**
@@ -98,6 +101,7 @@ module.exports = function(nextConfig = {}, plugins = [], transpileModules) {
     pluginConfiguration.push([withTM])
   }
 
+  plugins.unshift([withBundleAnalyzer])
   if (plugins.length) {
     plugins.forEach((plugin) => {
       if (!Array.isArray(plugin)) {

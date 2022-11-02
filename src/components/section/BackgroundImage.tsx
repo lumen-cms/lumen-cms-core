@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Image from 'next/image'
+import Image from 'next/future/image'
 import {
   BackgroundStoryblok,
   SectionStoryblok
@@ -8,6 +8,7 @@ import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import { LmImagePlaceholder } from '../image/imageTypes'
 import { makeStyles } from 'tss-react/mui'
+import { ImageDataUriFallback } from '../image/ImageDataUri'
 
 const useStyles = makeStyles({ name: 'BackgroundImage' })((theme) => ({
   root: {
@@ -102,19 +103,19 @@ const BackgroundImage = ({
   const BgImage = ({ src, className }: { src: string; className: string }) => (
     <Image
       className={className}
+      alt={'bg image ' + src}
       src={getRootImageUrl(src)}
       {...storyblokImageLoader(src)}
       priority={priorityLoading}
       loading={loading}
-      objectFit={
-        background_size === 'auto' ? 'cover' : background_size || 'cover'
-      }
-      objectPosition={background_position || 'center'}
-      layout="fill"
-      {...(content.background_data && {
-        placeholder: 'blur',
-        blurDataURL: content.background_data.base64
-      })}
+      style={{
+        objectFit:
+          background_size === 'auto' ? 'cover' : background_size || 'cover',
+        objectPosition: background_position || 'center'
+      }}
+      fill
+      placeholder={'blur'}
+      blurDataURL={ImageDataUriFallback}
     />
   )
   const Wrap: FC<React.PropsWithChildren<unknown>> = ({ children }) => {

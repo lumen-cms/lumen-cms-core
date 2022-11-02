@@ -1,4 +1,4 @@
-const config = require('./config/nextjs_dev_config')
+const config = require('./config/nextjs_prod_config')
 const redirectFunc = require('./config/localeRedirect')
 
 /**

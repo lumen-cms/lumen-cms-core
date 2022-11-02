@@ -41,7 +41,6 @@ function DrawerLogoArea() {
             {websiteLogo && (
               <LmSquareImage
                 image={websiteLogo}
-                layout="intrinsic"
                 imageProps={{ alt: websiteTitle || 'website logo' }}
                 size={40}
               />

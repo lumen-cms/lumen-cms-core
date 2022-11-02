@@ -99,13 +99,14 @@ export default function LmImage({
           <LmSquareImage
             image={imageSource}
             size={squareSize}
-            layout="intrinsic"
             base64={content.image_data?.base64}
             imageProps={{
               onClick: onClick ? () => onClick() : undefined,
               alt: content.alt || 'website image',
-              objectFit: 'cover',
-              objectPosition: 'center',
+              style: {
+                objectFit: 'cover',
+                objectPosition: 'center'
+              },
               loading,
               className: classes.customImage
             }}
@@ -143,7 +144,6 @@ export default function LmImage({
               ? Math.max(proportionalWidth, proportionalHeight)
               : Math.min(originalDimensions.width, originalDimensions.height)
           }
-          layout="intrinsic"
           sizeIsHeight={!!content.height}
           base64={content.image_data?.base64}
           imageProps={{

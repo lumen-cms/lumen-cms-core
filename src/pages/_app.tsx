@@ -1,9 +1,8 @@
-import '../utils/wdyr' // add why did you render
 import { CONFIG } from '@CONFIG'
 // import dynamic from 'next/dynamic'
 // import '../components/ecommerce/shopify/ShopifyComponents' // dont forget to enable SSR Hook in _documents
 // import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
-import '../components/web3/MoralisComponents'
+// import '../components/web3/MoralisComponents'
 
 // export { Auth0App as default } from '../components/pages/_appAuth0'
 export { LmDefaultApp as default } from '../components/pages/_appDefault'

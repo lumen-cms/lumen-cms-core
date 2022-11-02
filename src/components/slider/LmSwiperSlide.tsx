@@ -1,20 +1,21 @@
 import { LmSwiperItemProps } from './sliderTypes'
 import { LmComponentRender } from '@LmComponentRender'
-import NextImage, { ImageProps } from 'next/image'
+import NextImage, { ImageProps } from 'next/future/image'
 import { getOriginalImageDimensions } from '../../utils/imageServices'
+import { ImageDataUriFallback } from '../image/ImageDataUri'
 
 function SwiperImage({ content, options }: LmSwiperItemProps) {
   if (content.image?.filename) {
     const imgProps: ImageProps = {
+      alt: content.image.alt || 'swiper',
       src: content.image.filename,
-      layout: 'fill'
+      fill: true
     }
     if (
       ['cube', 'cards', 'coverflow', 'creative'].includes(options?.effect || '')
     ) {
       //
     } else {
-      imgProps.layout = 'responsive'
       const { width, height } = getOriginalImageDimensions(
         content.image.filename
       )
@@ -24,8 +25,11 @@ function SwiperImage({ content, options }: LmSwiperItemProps) {
     return (
       <NextImage
         {...imgProps}
-        alt={content.image.alt || 'swiper'}
-        objectFit={options.image_object_fit || 'cover'}
+        style={{
+          objectFit: options.image_object_fit || 'cover'
+        }}
+        placeholder={'blur'}
+        blurDataURL={ImageDataUriFallback}
         sizes={options.width ? `${options.width}px` : undefined}
       />
     )

@@ -9,7 +9,7 @@ import BackgroundImage from '../section/BackgroundImage'
 import BackgroundElements from '../section/BackgroundElements'
 import React, { FC, PropsWithChildren } from 'react'
 import CardMedia from '@mui/material/CardMedia'
-import Image from 'next/image'
+import Image from 'next/future/image'
 import Box from '@mui/material/Box'
 import CardActionArea from '@mui/material/CardActionArea'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
@@ -100,9 +100,11 @@ export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
           >
             <Image
               src={content.media?.filename}
-              layout={'fill'}
-              objectFit={content.object_fit || 'cover'}
-              objectPosition={content.object_position || 'center'}
+              fill
+              style={{
+                objectFit: content.object_fit || 'cover',
+                objectPosition: content.object_position || 'center'
+              }}
               sizes={
                 content.media_max_width
                   ? content.media_max_width + 'px'

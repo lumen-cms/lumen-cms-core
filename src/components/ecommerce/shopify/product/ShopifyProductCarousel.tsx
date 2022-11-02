@@ -1,6 +1,6 @@
 import React from 'react'
 import Carousel from 'react-material-ui-carousel'
-import Image from 'next/image'
+import Image from 'next/future/image'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { makeStyles } from 'tss-react/mui'
@@ -54,8 +54,10 @@ export function ShopifyProductCarousel({ item }: ShopifyProductItemProps) {
             <Image
               src={currentItem.node.image?.transformedSrc}
               alt={currentItem.node.title}
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{
+                objectFit: 'contain'
+              }}
             />
           </div>
         </div>

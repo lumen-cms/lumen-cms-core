@@ -2,8 +2,7 @@ import detectEthereumProvider from '@metamask/detect-provider'
 import type MetaMaskOnboarding from '@metamask/onboarding'
 import { useEffect, useRef, useState } from 'react'
 
-// @ts-ignore
-export default function useMetaMaskOnboarding() {
+export default function useMetaMaskOnboarding(): any {
   const onboarding = useRef<MetaMaskOnboarding>()
 
   const [isMetaMaskInstalled, isMetaMaskInstalledSet] = useState<boolean>()

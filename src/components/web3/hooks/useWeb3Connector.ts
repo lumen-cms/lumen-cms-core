@@ -16,7 +16,7 @@ const {
   useIsActive: useIsWalletConnectActive
 } = walletConnectHooks
 
-export const useWeb3Connector = () => {
+export function useWeb3Connector(): any {
   // MetaMask
   const isMetaMaskActivating = useIsMetaMaskActivating()
   const isMetaMaskActive = useIsMetaMaskActive()

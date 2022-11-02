@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/future/image'
 import {
   GalleryStoryblok,
   ImageCoreStoryblok
@@ -43,7 +43,11 @@ export default function LmGalleryImage({
         {...storyblokImageLoader(imageSource)}
         width={width}
         height={height}
-        layout={'intrinsic'}
+        style={{
+          width: '100%',
+          height: 'auto'
+        }}
+        alt={content.alt || 'gallery image'}
       />
     </div>
   )

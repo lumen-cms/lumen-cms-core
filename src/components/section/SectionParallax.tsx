@@ -19,20 +19,18 @@ export default function LmSectionParallax({
 
   const Children =
     content.elements?.map(
-      (
-        {
-          always_complete_animation,
-          amount,
-          speed,
-          image,
-          parallax_item_data,
-          children,
-          expanded,
-          easing,
-          ...props
-        },
-        index
-      ) => {
+      ({
+        _uid,
+        always_complete_animation,
+        amount,
+        speed,
+        image,
+        parallax_item_data,
+        children,
+        expanded,
+        easing,
+        ...props
+      }) => {
         const layerProps: BannerLayer = {}
         Object.keys(props).forEach((key) => {
           const lProp = props[key].split(',').map((i: string) => {
@@ -44,7 +42,7 @@ export default function LmSectionParallax({
         })
         return (
           <ParallaxBannerLayer
-            key={index}
+            key={_uid}
             shouldAlwaysCompleteAnimation={always_complete_animation || false}
             speed={amount ? Number(amount) * 10 : speed ? Number(speed) : -20}
             expanded={expanded}

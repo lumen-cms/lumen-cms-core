@@ -6,7 +6,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import Image from 'next/image'
+import Image from 'next/future/image'
 import {
   ShopifySdkContextProps,
   useShopifySdkContext
@@ -38,8 +38,10 @@ export function ShopifyCartVariantItem({
         <Avatar>
           <Image
             src={image?.transformedSrc}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{
+              objectFit: 'cover'
+            }}
             sizes={imageSizesOnWidthAndBreakpoints(40, breakpoints)}
             alt={title}
           />
