@@ -25,7 +25,10 @@ module.exports = {
     // storyStoreV7: true
   },
   framework: '@storybook/react',
-  stories: ['../src/stories/**/*.story.@(tsx)'],
+  stories: [
+    '../src/stories/**/*.story.@(tsx)',
+    '../src/**/*.stories.@(tsx)'
+  ],
   addons: [
     '@storybook/addon-knobs',
     'storybook-addon-next-router',

@@ -16,9 +16,10 @@ const map = {
 }
 
 const getVideoObj = (path: string): string | { src: string; type: string } => {
-  const ending = path.split('.').pop() || ''
-  const mapped = map[ending]
-  return mapped ? { type: mapped, src: path } : path
+  return path
+  // const ending = path.split('.').pop() || ''
+  // const mapped = map[ending]
+  // return mapped ? { type: mapped, src: path } : path
 }
 
 // const blurred =
@@ -36,27 +37,24 @@ export default function videoUrlHelper(
       source.push(i.filename)
     })
     return {
-      url: inView ? (source.map(getVideoObj) as ReactPlayerProps['url']) : '',
-      config: {
-        file: {
-          attributes: {
-            poster:
-              content.section_video_bg_data?.base64 ||
-              content.player_data?.base64
-          }
-        }
-      }
+      url: inView ? (source.map(getVideoObj) as ReactPlayerProps['url']) : ''
+      // config: {
+      //   file: {
+      //     attributes: {
+      //       poster: ImageDataUriFallback
+      //     }
+      //   }
+      // }
     }
   }
   return {
-    config: {
-      file: {
-        attributes: {
-          poster:
-            content.section_video_bg_data?.base64 || content.player_data?.base64
-        }
-      }
-    },
+    // config: {
+    //   file: {
+    //     attributes: {
+    //       poster: ImageDataUriFallback
+    //     }
+    //   }
+    // },
     url: inView
       ? ((content.url || '')
           .split(',')

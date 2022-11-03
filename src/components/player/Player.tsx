@@ -28,6 +28,7 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
     <>
       <LmAspectRatio
         ratio={ratios}
+        ref={!content.disable_lazy_load ? refIntersectionObserver : null}
         sx={{
           position: 'relative',
           '& video[poster]': {
@@ -45,44 +46,40 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
           })
         }}
       >
-        <ReactPlayer
-          onMouseEnter={() => {
-            togglePlay()
-          }}
-          onMouseLeave={() => {
-            togglePlay()
-          }}
-          style={{
-            ...(content.ratio && {
-              position: 'absolute',
-              top: 0,
-              left: 0
-            }),
-            borderRadius: content.border_radius
-              ? content.border_radius
-              : undefined
-          }}
-          {...videoUrlHelper(
-            content,
-            content.disable_lazy_load ? true : inView
-          )}
-          volume={content.muted ? 0 : Number(content.volume || 0)}
-          loop={content.loop}
-          muted={content.muted}
-          playsinline={content.playsinline}
-          playing={playing}
-          light={content.light ? content.fallback_image || true : false}
-          controls={content.controls}
-          height={content.ratio ? '100%' : content.height || undefined}
-          width={content.ratio ? '100%' : content.width || undefined}
-        />
+        {(content.disable_lazy_load || inView) && (
+          <ReactPlayer
+            // onMouseEnter={() => {
+            //   togglePlay()
+            // }}
+            // onMouseLeave={() => {
+            //   togglePlay()
+            // }}
+            style={{
+              ...(content.ratio && {
+                position: 'absolute',
+                top: 0,
+                left: 0
+              }),
+              borderRadius: content.border_radius
+                ? content.border_radius
+                : undefined
+            }}
+            {...videoUrlHelper(
+              content,
+              content.disable_lazy_load ? true : inView
+            )}
+            volume={content.muted ? 0 : Number(content.volume || 0)}
+            loop={content.loop}
+            muted={content.muted}
+            playsinline={content.playsinline}
+            playing={playing}
+            light={content.light ? content.fallback_image || true : false}
+            controls={content.controls}
+            height={content.ratio ? '100%' : content.height || undefined}
+            width={content.ratio ? '100%' : content.width || undefined}
+          />
+        )}
       </LmAspectRatio>
-      {!content.disable_lazy_load && (
-        <div
-          ref={refIntersectionObserver}
-          style={{ height: '1px', width: '100%' }}
-        />
-      )}
     </>
   )
 }

@@ -3,7 +3,6 @@ import Tab from '@mui/material/Tab'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
-import Carousel from 'nuka-carousel'
 
 import Grid, { GridProps } from '@mui/material/Grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -15,6 +14,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { LmTabsProps } from './tabsTypes'
 import { makeStyles } from 'tss-react/mui'
+import LmNukaCarousel from '../slider/LmNukaCarousel'
 
 const useStyles = makeStyles({ name: 'Tabs' })((theme) => ({
   tabContainer: {
@@ -148,7 +148,7 @@ export default function LmTabs({ content }: LmTabsProps) {
               : 12
           }
         >
-          <Carousel
+          <LmNukaCarousel
             withoutControls
             slideIndex={Number(activeTab)}
             afterSlide={(index) => {
@@ -166,7 +166,7 @@ export default function LmTabs({ content }: LmTabsProps) {
                 ))}
               </TabPanel>
             ))}
-          </Carousel>
+          </LmNukaCarousel>
         </Grid>
       </Grid>
     </TabContext>

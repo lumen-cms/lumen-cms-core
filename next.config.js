@@ -1,15 +1,15 @@
 const config = require('./config/nextjs_prod_config')
 const redirectFunc = require('./config/localeRedirect')
-
+const getBaseConfig = require('./config/nextjs_base_config')
 /**
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+  ...getBaseConfig({}),
   i18n: {
     locales: ['en', 'cn', 'de'],
     defaultLocale: 'en'
-  },
-  reactStrictMode: true, // need to wait until v5 of material UI
+  }
   // async redirects() {
   //   // const reds = await redirectFunc(['de', 'it', 'es'])
   //   // return reds
@@ -24,11 +24,12 @@ const nextConfig = {
   //     }
   //   ]
   // },
-  async rewrites() {
-    return {
-      beforeFiles: [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
-    }
-  }
+  // async rewrites() {
+  //   return {
+  //     beforeFiles: [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
+  //   }
+  // }
 }
 
-module.exports = config(nextConfig, [], false)
+// module.exports = config(nextConfig, [], false)
+module.exports = nextConfig

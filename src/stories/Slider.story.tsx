@@ -49,7 +49,7 @@ Autoslide.args = {
 export const Light = Template.bind({})
 Light.args = {
   ...presetContent,
-  property: ['arrows_dark'],
+  property: ['arrows_dark', 'pagination_dark'],
   body: [
     get3ColumnsSection({ count: 1 }),
     get3ColumnsSection({ count: 2 }),
@@ -81,5 +81,25 @@ DarkBelow.args = {
     get3ColumnsSection({ count: 1 }),
     get3ColumnsSection({ count: 2 }),
     get3ColumnsSection({ count: 3 })
+  ]
+}
+
+export const MultiSlides = Template.bind({})
+MultiSlides.args = {
+  ...presetContent,
+  section_variant: 'dark',
+  slides_per_view: 2,
+  property: [
+    'pagination_below_content',
+    'pagination_dark',
+    'arrows_beside_pagination'
+  ],
+  body: [
+    get3ColumnsSection({ count: 1 }),
+    get3ColumnsSection({ count: 2 }),
+    get3ColumnsSection({ count: 3 }),
+    get3ColumnsSection({ count: 4 }),
+    get3ColumnsSection({ count: 5 }),
+    get3ColumnsSection({ count: 6 })
   ]
 }
