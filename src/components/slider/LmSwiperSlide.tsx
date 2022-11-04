@@ -1,6 +1,6 @@
 import { LmSwiperItemProps } from './sliderTypes'
 import { LmComponentRender } from '@LmComponentRender'
-import NextImage, { ImageProps } from 'next/future/image'
+import NextImage, { ImageProps } from 'next/image'
 import { getOriginalImageDimensions } from '../../utils/imageServices'
 import { ImageDataUriFallback } from '../image/ImageDataUri'
 
@@ -19,8 +19,8 @@ function SwiperImage({ content, options }: LmSwiperItemProps) {
       const { width, height } = getOriginalImageDimensions(
         content.image.filename
       )
-      imgProps.width = width + 'px'
-      imgProps.height = height + 'px'
+      imgProps.width = width
+      imgProps.height = height
     }
     return (
       <NextImage

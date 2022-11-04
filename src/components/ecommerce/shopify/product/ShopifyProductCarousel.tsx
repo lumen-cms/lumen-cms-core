@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import LmNukaCarousel from '../../../slider/LmNukaCarousel'

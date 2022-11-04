@@ -1,6 +1,6 @@
 import React, { FunctionComponent, PropsWithChildren } from 'react'
 import CardMedia from '@mui/material/CardMedia'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import { useTheme } from '@mui/material/styles'
 import { getRootImageUrl, getVwByColCount } from '../../utils/imageServices'
 import { CardListItemProps } from './cardTypes'

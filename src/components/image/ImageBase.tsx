@@ -3,7 +3,7 @@ import {
   getRootImageUrl
 } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import React, { CSSProperties } from 'react'
 import { AspectRatio } from 'react-aspect-ratio'
 

@@ -1,4 +1,4 @@
-const config = require('./config/nextjs_prod_config')
+const buildConfig = require('./config/nextjs_dev_config')
 const redirectFunc = require('./config/localeRedirect')
 const getBaseConfig = require('./config/nextjs_base_config')
 /**
@@ -32,4 +32,4 @@ const nextConfig = {
 }
 
 // module.exports = config(nextConfig, [], false)
-module.exports = nextConfig
+module.exports = buildConfig(nextConfig)

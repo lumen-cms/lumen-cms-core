@@ -34,19 +34,16 @@ function DrawerLogoArea() {
   return (
     <div>
       <Link href={homepageHref}>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a>
-          <div className={cx('p-3', classes.logoRoot)}>
-            {!websiteLogo && websiteTitle && <>{websiteTitle}</>}
-            {websiteLogo && (
-              <LmSquareImage
-                image={websiteLogo}
-                imageProps={{ alt: websiteTitle || 'website logo' }}
-                size={40}
-              />
-            )}
-          </div>
-        </a>
+        <div className={cx('p-3', classes.logoRoot)}>
+          {!websiteLogo && websiteTitle && <>{websiteTitle}</>}
+          {websiteLogo && (
+            <LmSquareImage
+              image={websiteLogo}
+              imageProps={{ alt: websiteTitle || 'website logo' }}
+              size={40}
+            />
+          )}
+        </div>
       </Link>
       {websiteSlogan && <div>{websiteSlogan}</div>}
     </div>

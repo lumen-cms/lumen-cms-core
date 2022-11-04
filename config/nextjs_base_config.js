@@ -1,4 +1,5 @@
 const getCsp = require('./nextjs_csp_generator')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 module.exports = ({
                     ignoreCsp, extendCsp
                   }) => {
@@ -54,7 +55,28 @@ module.exports = ({
       ],
       deviceSizes: [360, 420, 510, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
       imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
+    },
+    webpack: (config, { isServer }) => {
+      if (!isServer) {
+        config.resolve.fallback.fs = false
+      }
+
+      config.resolve.plugins.push(new TsconfigPathsPlugin())
+      if (!isServer) {
+        config.resolve.alias['@sentry/node'] = '@sentry/browser'
+      }
+
+      const originalEntry = config.entry
+      config.entry = async () => {
+        const entries = await originalEntry()
+        if (entries['main.js']) {
+          entries['main.js'].unshift('@polyfills')
+        }
+        return entries
+      }
+      return config
     }
   }
+
   return config
 }

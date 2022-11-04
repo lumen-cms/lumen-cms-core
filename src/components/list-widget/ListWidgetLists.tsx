@@ -34,7 +34,7 @@ function ListWidgetLists({
             passHref
             prefetch={false}
           >
-            <ListItem component="a">
+            <ListItem>
               {!hideImage && image && (
                 <ListItemAvatar>
                   <LmMuiAvatar src={image} size={imageSize} />

@@ -6,7 +6,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import AddIcon from '@mui/icons-material/Add'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import {
   ShopifySdkContextProps,
   useShopifySdkContext

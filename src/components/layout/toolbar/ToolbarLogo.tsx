@@ -1,12 +1,11 @@
-import Link from 'next/link'
 import React from 'react'
 import Typography from '@mui/material/Typography'
-import MuiLink from '@mui/material/Link'
 import { getRootImageUrl } from '../../../utils/imageServices'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 import LmSquareImage from '../../avatar/LmSquareImage'
 import { makeStyles } from 'tss-react/mui'
+import MuiNextLink from '../../link/MuiNextLink'
 
 const useStyles = makeStyles({ name: 'ToolbarLogo' })((theme) => ({
   root: {
@@ -71,46 +70,45 @@ export function LmToolbarLogo(): JSX.Element {
 
   return (
     <div className={cx('lm-logo-container', classes.root)}>
-      <Link href={homepageHref} passHref>
-        <MuiLink
-          className={cx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
-        >
-          {!websiteLogo && <Typography>{websiteTitle}</Typography>}
-          {logoImageArray.map(({ isMobile, source, isInvert }) =>
-            isInvert && !hasFeature ? null : (
-              <div
-                className={cx('logo-img', classes.imageContainer, {
-                  'logo-img__default': !!(
-                    (websiteLogoInvert && !isInvert) ||
-                    (websiteLogoInvertMobile && !isInvert)
-                  ),
-                  'logo-img__invert': !!isInvert,
-                  'logo-img__mobile': !!isMobile,
-                  'logo-img__desktop': !!(
-                    (source === websiteLogo && websiteLogoMobile) ||
-                    (source === websiteLogoInvert && websiteLogoInvertMobile)
-                  )
-                })}
-                key={`${source}-${isMobile}-${isInvert}`}
-              >
-                <LmSquareImage
-                  image={source as string}
-                  size={toolbarHeight}
-                  imageProps={{
-                    priority: true,
-                    quality: 95,
-                    style: {
-                      objectFit: 'contain',
-                      objectPosition: 'left'
-                    },
-                    alt: websiteTitle || 'website logo'
-                  }}
-                />
-              </div>
-            )
-          )}
-        </MuiLink>
-      </Link>
+      <MuiNextLink
+        href={homepageHref}
+        className={cx('lm-logo-header', { 'lm-logo-text': !websiteLogo })}
+      >
+        {!websiteLogo && <Typography>{websiteTitle}</Typography>}
+        {logoImageArray.map(({ isMobile, source, isInvert }) =>
+          isInvert && !hasFeature ? null : (
+            <div
+              className={cx('logo-img', classes.imageContainer, {
+                'logo-img__default': !!(
+                  (websiteLogoInvert && !isInvert) ||
+                  (websiteLogoInvertMobile && !isInvert)
+                ),
+                'logo-img__invert': !!isInvert,
+                'logo-img__mobile': !!isMobile,
+                'logo-img__desktop': !!(
+                  (source === websiteLogo && websiteLogoMobile) ||
+                  (source === websiteLogoInvert && websiteLogoInvertMobile)
+                )
+              })}
+              key={`${source}-${isMobile}-${isInvert}`}
+            >
+              <LmSquareImage
+                image={source as string}
+                size={toolbarHeight}
+                imageProps={{
+                  priority: true,
+                  quality: 95,
+                  style: {
+                    objectFit: 'contain',
+                    objectPosition: 'left'
+                  },
+                  alt: websiteTitle || 'website logo'
+                }}
+              />
+            </div>
+          )
+        )}
+      </MuiNextLink>
     </div>
   )
 }

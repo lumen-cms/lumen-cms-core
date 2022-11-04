@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import {
   BackgroundStoryblok,
   SectionStoryblok

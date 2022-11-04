@@ -1,4 +1,4 @@
-import React, { AnchorHTMLAttributes, useCallback } from 'react'
+import { AnchorHTMLAttributes, forwardRef, useCallback } from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@mui/material/Link'
 import { CONFIG } from '@CONFIG'
@@ -11,8 +11,11 @@ const base64encode =
     ? btoa
     : (b: string) => Buffer.from(b).toString('base64')
 
-const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
-  ({ href, replace, scroll, passHref, shallow, prefetch, ...other }, ref) => {
+const NextLinkComposed = forwardRef<HTMLAnchorElement, NextComposedProps>(
+  function NextLinkComposedFunc(
+    { href, replace, scroll, passHref, shallow, prefetch, ...other },
+    ref
+  ) {
     const { defaultLocale, locales, locale } = useAppContext()
 
     // enable smooth scroll
@@ -70,6 +73,7 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
         scroll={scroll}
         shallow={shallow}
         passHref={passHref}
+        legacyBehavior={true}
         locale={detectedLocale !== locale ? false : undefined}
       >
         {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
@@ -78,12 +82,10 @@ const NextComposed = React.forwardRef<HTMLAnchorElement, NextComposedProps>(
     )
   }
 )
-NextComposed.displayName = 'NextComposedLink'
+NextLinkComposed.displayName = 'NextLinkComposed'
 
-// eslint-disable-next-line
-// @ts-ignore
-const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  (props, ref) => {
+const MuiNextLink = forwardRef<HTMLAnchorElement, LinkProps>(
+  function MuiNextLinkFunc(props, ref) {
     const {
       href,
       activeClassName = 'lm_active',
@@ -104,13 +106,18 @@ const MuiNextLink = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
     if (naked) {
       return (
-        <NextComposed className={className} ref={ref} href={href} {...other} />
+        <NextLinkComposed
+          className={className}
+          ref={ref}
+          href={href}
+          {...other}
+        />
       )
     }
 
     return (
       <MuiLink
-        component={NextComposed}
+        component={NextLinkComposed}
         className={className}
         ref={ref}
         href={href}

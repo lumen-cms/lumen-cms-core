@@ -7,7 +7,6 @@ import videoUrlHelper from '../../utils/videoUrlHelper'
 import LmAspectRatio from '../image/LmAspectRatio'
 
 export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
-  // const { classes, cx } = useStyles()
   const [playing, setPlaying] = useState<boolean>(!!content.playing)
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
@@ -48,12 +47,12 @@ export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
       >
         {(content.disable_lazy_load || inView) && (
           <ReactPlayer
-            // onMouseEnter={() => {
-            //   togglePlay()
-            // }}
-            // onMouseLeave={() => {
-            //   togglePlay()
-            // }}
+            onMouseEnter={() => {
+              togglePlay()
+            }}
+            onMouseLeave={() => {
+              togglePlay()
+            }}
             style={{
               ...(content.ratio && {
                 position: 'absolute',

@@ -25,13 +25,14 @@ function minifyCss(css: string): Promise<string> {
 
 export const processGoogleFonts = async (props: AppPageProps) => {
   if (!process.env.NEXT_PUBLIC_DISABLE_GOOGLE_FONTS && props.settings) {
-    const href = getFontBasedOnSetting(props.settings || {})
     if (googleFontString) {
       // Object.assign(props, {
       //   googleFontString: googleFontString[href]
       // })
       return
     }
+    const href = getFontBasedOnSetting(props.settings || {})
+
     const res = await getFontDefinitionFromNetwork(href)
     // const res = await fetch(href).then((r) => r.text())
     googleFontString = await minifyCss(res)

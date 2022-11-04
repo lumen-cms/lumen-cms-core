@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import {
   getOriginalImageDimensions,
