@@ -5,11 +5,11 @@ const getBaseConfig = require('./config/nextjs_base_config')
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  ...getBaseConfig({}),
-  i18n: {
-    locales: ['en', 'cn', 'de'],
-    defaultLocale: 'en'
-  }
+  ...getBaseConfig({})
+  // i18n: {
+  //   locales: ['en', 'cn', 'de'],
+  //   defaultLocale: 'en'
+  // }
   // async redirects() {
   //   // const reds = await redirectFunc(['de', 'it', 'es'])
   //   // return reds

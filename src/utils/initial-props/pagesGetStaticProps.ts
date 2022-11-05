@@ -31,21 +31,12 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
       LmStoryblokService.setDevMode()
       LmStoryblokService.setQuery(previewData)
     }
-    const { notFoundLocale, ...pageProps } = await getPageProps(slug, {
+    const pageProps = await getPageProps(slug, {
       locale,
       defaultLocale,
       locales,
       insideStoryblok: preview
     })
-    if (!pageProps.page && notFoundLocale) {
-      return {
-        redirect: {
-          destination: notFoundLocale,
-          locale: false,
-          permanent: true
-        }
-      }
-    }
     if (!pageProps.page || !pageProps.settings) {
       return {
         notFound: true

@@ -28,7 +28,7 @@ const getPageProps = async (
 ): Promise<AppPageProps> => {
   const { pageSlug } = prepareForStoryblok(slug, options)
 
-  const { page, settings, notFoundLocale } = await apiRequestResolver({
+  const { page, settings } = await apiRequestResolver({
     ...options,
     pageSlug
   })
@@ -60,8 +60,7 @@ const getPageProps = async (
   const props: AppPageProps = {
     ...pageSettingsProps,
     ...options,
-    slug: '/' + pageSlug,
-    notFoundLocale: notFoundLocale || null
+    slug: '/' + pageSlug
   }
 
   await fetchComponentData(props)

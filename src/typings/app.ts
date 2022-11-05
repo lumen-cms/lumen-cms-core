@@ -25,14 +25,10 @@ export type AppApiRequestPayload = {
   page: ISbResult
   settings: ISbResult
   user?: IClaims
-  notFoundLocale?: string | null
   googleFontString?: string
 }
 
-export type AppPageProps = Pick<
-  AppApiRequestPayload,
-  'googleFontString' | 'notFoundLocale'
-> &
+export type AppPageProps = Pick<AppApiRequestPayload, 'googleFontString'> &
   PagePropsOptions & {
     page?: PageStoryblok | null
     settings?: GlobalStoryblok | null

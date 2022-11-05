@@ -14,7 +14,6 @@ export const getStaticPropsError: GetStaticProps<AppPageProps> = async (
       locales,
       insideStoryblok: false
     })
-    delete pageProps.notFoundLocale
     return {
       props: {
         ...pageProps,
@@ -22,7 +21,7 @@ export const getStaticPropsError: GetStaticProps<AppPageProps> = async (
       }
     }
   } catch (e) {
-    console.log(e)
+    console.log('failed to get error props', e)
     return {
       props: {
         ...getBaseProps(),

@@ -3,12 +3,7 @@ import { AppPageProps } from '../../../typings/app'
 
 export type AppContextProps = Pick<
   AppPageProps,
-  | 'locale'
-  | 'notFoundLocale'
-  | 'defaultLocale'
-  | 'slug'
-  | 'insideStoryblok'
-  | 'locales'
+  'locale' | 'defaultLocale' | 'slug' | 'insideStoryblok' | 'locales'
 > & {
   [k: string]: any
 }

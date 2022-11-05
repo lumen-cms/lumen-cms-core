@@ -3,14 +3,14 @@ import SettingsPageProvider from '../../components/provider/SettingsPageProvider
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
 import { LmAppProvidersContainer } from '../../components/layout/LmAppProvidersContainer'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
-const CoreDecorator: FC<React.PropsWithChildren<{ settings: Partial<GlobalStoryblok> }>> = ({
-  settings,
-  children,
-  ...rest
-}) => {
+const CoreDecorator: FC<PropsWithChildren<{ settings: Partial<GlobalStoryblok> }>> = ({
+                                                                                        settings,
+                                                                                        children,
+                                                                                        ...rest
+                                                                                      }) => {
   return (
     <AppProvider
       content={{
@@ -23,7 +23,7 @@ const CoreDecorator: FC<React.PropsWithChildren<{ settings: Partial<GlobalStoryb
         <GlobalTheme>
           <LmAppProvidersContainer>
             <div>{children}</div>
-            <link href={getFontBasedOnSetting(settings)} rel="stylesheet" />
+            <link href={getFontBasedOnSetting(settings)} rel='stylesheet' />
           </LmAppProvidersContainer>
         </GlobalTheme>
       </SettingsPageProvider>
