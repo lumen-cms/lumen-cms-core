@@ -4,7 +4,10 @@ import Error from 'next/error'
 import { useRouter } from 'next/router'
 import { LinearProgress } from '@mui/material'
 import { LmPagesIndexProps } from './DefaultPage'
-import { hasAuth0PathCredentials } from '../../utils/auth0/auth0Helpers'
+import {
+  getAuth0RoleOnPath,
+  hasAuth0PathCredentials
+} from '../../utils/auth0/auth0Helpers'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
@@ -45,7 +48,8 @@ const PageAuthContainer: FC<React.PropsWithChildren<unknown>> =
 export function Auth0Page(props: LmPagesIndexProps) {
   const { insideStoryblok } = useAppContext()
   const { settings, page, error } = props
-
+  const { asPath, locale, defaultLocale } = useRouter()
+  const needAuth = getAuth0RoleOnPath(asPath, { locale, defaultLocale })
   if (error || !settings || !page) {
     return <Error statusCode={500} title="Error occured or no settings found" />
   }
@@ -54,7 +58,9 @@ export function Auth0Page(props: LmPagesIndexProps) {
     <>
       <AppSeo />
       <AppHead />
-      <Layout>{insideStoryblok ? <LmPage /> : <PageAuthContainer />}</Layout>
+      <Layout>
+        {insideStoryblok || !needAuth ? <LmPage /> : <PageAuthContainer />}
+      </Layout>
     </>
   )
 }

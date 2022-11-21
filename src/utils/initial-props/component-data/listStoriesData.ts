@@ -9,8 +9,7 @@ export const listStoriesData = async (
   pageProps: AppPageProps
 ) => {
   const params: ISbStoriesParams = getListStoriesParams(item, pageProps)
-  const storiesResult = await LmStoryblokService.get('cdn/stories', params)
-  // @ts-ignore
+  const storiesResult = await LmStoryblokService.getStories(params)
   delete storiesResult.headers
   storiesResult.data.rels = []
   storiesResult.data.links = []

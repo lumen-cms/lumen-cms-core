@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { getBaseProps } from '../utils/initial-props/getBaseProps'
 
-export default function Refetch() {
+export default function Lmrefetch() {
   const { loginWithRedirect } = useAuth0()
   const ref = useRef<HTMLButtonElement>(null)
   useEffect(() => {

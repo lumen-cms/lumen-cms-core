@@ -63,8 +63,8 @@ export default function LmImage({
     definedWidth && definedHeight && definedWidth === definedHeight
   const squareOrRoundedIsSet =
     property.includes('rounded-circle') || property.includes('square')
-  const square = manualSquare || squareOrRoundedIsSet
-  const squareSize = square
+  const isSquare = manualSquare || squareOrRoundedIsSet
+  const squareSize = isSquare
     ? definedHeight || definedWidth || originalDimensions.width // todo was set to 120 before, does it break things?
     : undefined
 
@@ -80,7 +80,7 @@ export default function LmImage({
     proportionalHeight = definedHeight || 0
   }
 
-  if (square && squareSize) {
+  if (isSquare && squareSize) {
     return (
       <>
         <LmAspectRatio

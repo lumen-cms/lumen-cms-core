@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next'
-import { getBaseProps } from './getBaseProps'
 import getPageProps from './getPageProps'
 import { AppPageProps } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
@@ -22,7 +21,7 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
     console.log('inside of object', slug)
 
     return {
-      props: getBaseProps({ type: 'not_supported' }),
+      // props: getBaseProps({ type: 'not_supported' }),
       notFound: true
     } // do nothing _dev_ mode is active
   }

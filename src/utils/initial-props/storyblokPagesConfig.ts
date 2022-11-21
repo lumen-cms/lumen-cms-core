@@ -6,7 +6,7 @@ import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
 
 export function getStoryblokPagesConfig(pageConfig?: ISbStoriesParams) {
   const params: ISbStoriesParams = {
-    per_page: 100,
+    per_page: 25,
     excluding_fields: excludingFieldsForLists,
     sort_by: 'published_at:desc',
     filter_query: {

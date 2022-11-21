@@ -175,3 +175,7 @@ LmCoreComponents.swiper = dynamic(
 LmCoreComponents.swiper_item = dynamic(
   () => /* webpackChunkName: 'swiper' */ import('./slider/LmSwiperSlide')
 )
+
+LmCoreComponents.auth_form = dynamic(
+  () => import(/* webpackChunkName: 'auth' */ './auth/AuthForm')
+)

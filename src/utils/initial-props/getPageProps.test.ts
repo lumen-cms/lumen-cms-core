@@ -13,6 +13,7 @@ describe('Get page props of a certain URL', () => {
   test('fetch url that consists list widget data', async () => {
     CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
     CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
+    CONFIG.rootDirectory = ''
     const data = await getPageProps(
       'demo-content/playground/testing-list-widget',
       defaultOptions

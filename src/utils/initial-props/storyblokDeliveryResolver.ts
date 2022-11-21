@@ -1,7 +1,7 @@
 import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoryParams } from 'storyblok-js-client/types/interfaces'
 
 const getSettingsPath = ({
   locale,
@@ -16,11 +16,9 @@ const getSettingsPath = ({
       ? overwriteSettingPath
       : `${overwriteSettingPath}/`
   }
-  return `cdn/stories/${
-    locale && !CONFIG.fieldLevelTranslation ? `${locale}/` : ''
-  }${CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''}${
-    overwriteSettingPath || ''
-  }settings`
+  return `${locale && !CONFIG.fieldLevelTranslation ? `${locale}/` : ''}${
+    CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
+  }${overwriteSettingPath || ''}settings`
 }
 
 type ApiProps = PagePropsOptions & {
@@ -28,7 +26,7 @@ type ApiProps = PagePropsOptions & {
 }
 
 export const fetchSettings = async ({ locale }: { locale?: string }) => {
-  return LmStoryblokService.get(getSettingsPath({ locale }))
+  return LmStoryblokService.getStory(getSettingsPath({ locale }))
 }
 
 export const apiRequestResolver = async ({
@@ -44,20 +42,21 @@ export const apiRequestResolver = async ({
     pageSlug.includes(path)
   )
   const currentSlug = CONFIG.fieldLevelTranslation
-    ? `cdn/stories/${pageSlug}`
-    : `cdn/stories/${locale ? `${locale}/` : ''}${pageSlug}`
+    ? pageSlug
+    : `${locale ? `${locale}/` : ''}${pageSlug}`
 
-  const params: ISbStoriesParams = {
+  const params: ISbStoryParams = {
     ...(CONFIG.fieldLevelTranslation && locale
       ? {
           language: locale
         }
       : {})
   }
+
   // @ts-ignore
   const [{ value: page }, { value: settings }] = await Promise.allSettled([
-    LmStoryblokService.get(currentSlug, params),
-    LmStoryblokService.get(
+    LmStoryblokService.getStory(currentSlug, params),
+    LmStoryblokService.getStory(
       getSettingsPath({ locale, overwriteSettingPath }),
       params
     )

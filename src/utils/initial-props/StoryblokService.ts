@@ -1,7 +1,10 @@
 import StoryblokClient from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
 import { rootParams } from '../universal/storyblokParamsHelper'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import {
+  ISbStoriesParams,
+  ISbStoryParams
+} from 'storyblok-js-client/types/interfaces'
 
 const cv = Date.now()
 
@@ -30,7 +33,9 @@ class StoryblokServiceClass {
       cache: {
         clear: 'auto',
         type: 'memory'
-      }
+      },
+      maxRetries: 2,
+      timeout: 500
     })
     this.richTextResolver = this.client.richTextResolver
 
@@ -46,7 +51,7 @@ class StoryblokServiceClass {
   }
 
   getDefaultParams() {
-    const params: ISbStoriesParams = {}
+    const params: ISbStoryParams = {}
 
     if (
       typeof window !== 'undefined' &&
@@ -92,14 +97,22 @@ class StoryblokServiceClass {
     return res as unknown as any[]
   }
 
-  async get(slug: string, params = {}) {
+  async getStories(params?: ISbStoriesParams) {
+    const currentParams: ISbStoriesParams = {
+      ...rootParams,
+      ...params,
+      ...this.getDefaultParams()
+    }
+    return this.client.getStories(currentParams)
+  }
+
+  async getStory(slug: string, params?: ISbStoryParams) {
     const currentParams = {
       ...rootParams,
       ...params,
       ...this.getDefaultParams()
     }
-    console.log(slug)
-    return this.client.get(slug, currentParams)
+    return this.client.getStory(slug, currentParams)
   }
 
   setDevMode() {

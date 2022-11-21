@@ -33,7 +33,7 @@ const LmAuthContainer: FC<
       hideOnRole = !hasAuth0Credentials(rolesOnHide, user)
     }
     if (rolesRequired.length) {
-      requireRole = hasAuth0Credentials(rolesRequired, user)
+      requireRole = !!hasAuth0Credentials(rolesRequired, user)
     }
   }
 

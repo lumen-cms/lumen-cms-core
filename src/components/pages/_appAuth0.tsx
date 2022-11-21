@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 import Router, { useRouter } from 'next/router'
-import CircularProgress from '@mui/material/CircularProgress'
-import Backdrop from '@mui/material/Backdrop'
 import { LmApp, LmAppProps } from './_app'
 
 export { reportWebVitals } from './_appDefault'
@@ -13,11 +11,14 @@ const onRedirectCallback = (appState: any) => {
 
 function AppContainer(props: LmAppProps) {
   const { locales, asPath, locale, push } = useRouter()
-  const { user, error, isLoading } = useAuth0()
+  const { user, error } = useAuth0()
 
   useEffect(() => {
     if (user && (asPath === '/' || asPath === '/home')) {
-      const currentUserLocale = (user.lang || user.locale || 'en').substr(0, 2)
+      const currentUserLocale = (user.lang || user.locale || 'en').substring(
+        0,
+        2
+      )
       if (
         currentUserLocale &&
         locale !== currentUserLocale &&
@@ -38,16 +39,7 @@ function AppContainer(props: LmAppProps) {
   if (error) {
     console.error(error)
   }
-  return (
-    <>
-      {isLoading && (
-        <Backdrop open>
-          <CircularProgress color="primary" />
-        </Backdrop>
-      )}
-      <LmApp {...newProps} />
-    </>
-  )
+  return <LmApp {...newProps} />
 }
 
 export function Auth0App(props: LmAppProps) {

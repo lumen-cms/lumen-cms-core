@@ -4,7 +4,10 @@ import {
   ListStoriesStoryblok,
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import {
+  ISbStoriesParams,
+  ISbStoryParams
+} from 'storyblok-js-client/types/interfaces'
 
 export const excludingFieldsForLists =
   'body,right_body,property,meta_title,meta_description,seo_body,preview_title,preview_subtitle,preview_image,preview_teaser'
@@ -21,7 +24,7 @@ export const resolveLookup = {
   form_container: 'form',
   static_section: 'container'
 }
-export const rootParams: ISbStoriesParams = {
+export const rootParams: ISbStoryParams = {
   resolve_links: 'url',
   resolve_relations: defaultResolveRelations
 }

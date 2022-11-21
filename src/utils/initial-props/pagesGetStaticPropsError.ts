@@ -15,10 +15,7 @@ export const getStaticPropsError: GetStaticProps<AppPageProps> = async (
       insideStoryblok: false
     })
     return {
-      props: {
-        ...pageProps,
-        pageNotFound: true
-      }
+      props: pageProps
     }
   } catch (e) {
     console.log('failed to get error props', e)

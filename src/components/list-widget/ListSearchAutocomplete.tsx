@@ -24,7 +24,7 @@ import {
 } from 'storyblok-js-client/types/interfaces'
 
 const fetcher = async (
-  path: string,
+  _path: string,
   searchterm: string,
   locale?: string,
   locales?: string
@@ -53,7 +53,7 @@ const fetcher = async (
       .map((lang) => `${lang}/*`)
       .join(',')}`
   }
-  const { data } = await LmStoryblokService.get(path, params)
+  const { data } = await LmStoryblokService.getStories(params)
   return data.stories || []
 }
 
