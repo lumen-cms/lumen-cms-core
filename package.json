@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "1.8.4",
+  "version": "1.8.6",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -97,7 +97,7 @@
     "js-cookie": "3.0.1",
     "marked": "4.2.0",
     "mdi-material-ui": "7.6.0",
-    "next-safe": "^3.2.1",
+    "next-safe": "3.2.1",
     "next-seo": "5.13.0",
     "next-transpile-modules": "10.0.0",
     "nextjs-cors": "2.1.1",

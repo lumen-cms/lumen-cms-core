@@ -1,7 +1,7 @@
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const getSecureHeader = require('./nextjs_csp_generator')
 module.exports = ({
-                    nextSafeOptions = {},
+                    contentSecurityPolicy = {},
                     ignoreCsp
                   }) => {
   /**
@@ -14,7 +14,7 @@ module.exports = ({
         {
           // Apply these headers to all routes in your application.
           source: '/:path*',
-          headers: getSecureHeader({ ignoreCsp, nextSafeOptions })
+          headers: getSecureHeader({ ignoreCsp, contentSecurityPolicy })
         }
       ]
     },

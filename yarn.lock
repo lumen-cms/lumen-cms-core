@@ -15558,7 +15558,7 @@ __metadata:
     mdi-material-ui: 7.6.0
     next: 13.0.4
     next-dev-https: ^0.1.1
-    next-safe: ^3.2.1
+    next-safe: 3.2.1
     next-seo: 5.13.0
     next-transpile-modules: 10.0.0
     nextjs-cors: 2.1.1
@@ -16442,7 +16442,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-safe@npm:^3.2.1":
+"next-safe@npm:3.2.1":
   version: 3.2.1
   resolution: "next-safe@npm:3.2.1"
   peerDependencies:

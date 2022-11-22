@@ -20,37 +20,49 @@ const hubspotCsp = {
     '*.hsleadflows.net *.hs-banner.com *.hsadspixel.net  *.hubspotfeedback.com *.usemessages.com *.hs-analytics.net *.hscollectedforms.net *.hsforms.com *.hs-scripts.com *.hsforms.com'
 }
 
-module.exports = ({ ignoreCsp, nextSafeOptions = {} }) =>
-  nextSafe({
-    isDev,
-    contentSecurityPolicy: ignoreCsp ? false : {
-      'img-src': [...ContentSecurityPolicy['img-src'], ...nextSafeOptions.contentSecurityPolicy?.['img-src']],
-      'font-src': [...ContentSecurityPolicy['font-src'], ...nextSafeOptions.contentSecurityPolicy?.['font-src']],
-      'script-src': [...ContentSecurityPolicy['script-src'], ...nextSafeOptions.contentSecurityPolicy?.['script-src']],
-      'worker-src': [...ContentSecurityPolicy['worker-src'], ...nextSafeOptions.contentSecurityPolicy?.['worker-src']],
-      'style-src': [...ContentSecurityPolicy['style-src'], ...nextSafeOptions.contentSecurityPolicy?.['style-src']],
-      'connect-src': [...ContentSecurityPolicy['connect-src'], ...nextSafeOptions.contentSecurityPolicy?.['connect-src']],
-      'script-src-elem': [...ContentSecurityPolicy['script-src-elem'], ...nextSafeOptions.contentSecurityPolicy?.['script-src-elem']],
-      'frame-ancestors': [...ContentSecurityPolicy['frame-ancestors'], ...nextSafeOptions.contentSecurityPolicy?.['frame-ancestors']],
-      'child-src': [...ContentSecurityPolicy['child-src'], ...nextSafeOptions.contentSecurityPolicy?.['child-src']]
-    }
-  })
+const coreHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on'
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block'
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'origin-when-cross-origin'
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff'
+  },
+  {
+    key: 'Permissions-Policy',
+    value:
+      'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+  }
+]
 
-
-/**
- * @param extendCsp
- * @returns {string}
- */
-// const getCsp = (extendCsp) => {
-//   Object.keys(extendCsp).forEach((key) => {
-//     if (ContentSecurityPolicy[key]) {
-//       ContentSecurityPolicy[key] += ` ${extendCsp[key]}`
-//     }
-//   })
-//   Object.keys(hubspotCsp).forEach((key) => {
-//     if (ContentSecurityPolicy[key]) {
-//       ContentSecurityPolicy[key] += ` ${hubspotCsp[key]}`
-//     }
-//   })
-//   return Object.values(ContentSecurityPolicy).join('; ')
-// }
+module.exports = ({ ignoreCsp, contentSecurityPolicy = {} }) => {
+  const headers = coreHeaders
+  if (!ignoreCsp) {
+    // todo push into headers
+  }
+  // const nextHeaders = nextSafe({
+  //   isDev,
+  //   frameOptions: {},
+  //   contentSecurityPolicy: ignoreCsp ? false : {
+  //     'img-src': [...ContentSecurityPolicy['img-src'], ...contentSecurityPolicy?.['img-src']],
+  //     'font-src': [...ContentSecurityPolicy['font-src'], ...contentSecurityPolicy?.['font-src']],
+  //     'script-src': [...ContentSecurityPolicy['script-src'], ...contentSecurityPolicy?.['script-src']],
+  //     'worker-src': [...ContentSecurityPolicy['worker-src'], ...contentSecurityPolicy?.['worker-src']],
+  //     'style-src': [...ContentSecurityPolicy['style-src'], ...contentSecurityPolicy?.['style-src']],
+  //     'connect-src': [...ContentSecurityPolicy['connect-src'], ...contentSecurityPolicy?.['connect-src']],
+  //     'script-src-elem': [...ContentSecurityPolicy['script-src-elem'], ...contentSecurityPolicy?.['script-src-elem']],
+  //     'frame-ancestors': [...ContentSecurityPolicy['frame-ancestors'], ...contentSecurityPolicy?.['frame-ancestors']],
+  //     'child-src': [...ContentSecurityPolicy['child-src'], ...contentSecurityPolicy?.['child-src']]
+  //   }
+  // })
+  return headers
+}
