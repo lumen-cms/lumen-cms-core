@@ -14,9 +14,9 @@ export default function LmFastSpringCheckout({
 
   const currentItem = products?.find((i) => i.path === path)
 
-  if (!products.length) {
+  if (!currentItem) {
     if (typeof window !== 'undefined') {
-      console.log(products)
+      console.log('Fastspring product item not found found', path, products)
     }
     return null
   }

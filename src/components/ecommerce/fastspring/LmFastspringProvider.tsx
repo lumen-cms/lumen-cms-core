@@ -1,7 +1,7 @@
-import { FC, PropsWithChildren, useState } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import Router from 'next/router'
 import { useAppContext } from '@context/AppContext'
-import { FastSpringContext } from './context/FastSpringContext'
+import { useFastspringContext } from './context/FastSpringContext'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import Script from 'next/script'
 
@@ -10,35 +10,17 @@ export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
 }) => {
   const settings = useSettings()
   const appCtx = useAppContext()
-  const [currency, setCurrency] = useState('USD')
+  const { setRedirect, currency, setProducts, redirect, setCurrency } =
+    useFastspringContext()
   const fastSpring = settings.ecommerce?.find(
     (i) => i.component === 'ecommerce_fastspring_config'
   )
-  // const [_ready, status] = useScript(fastSpring?.url, {
-  //   attributes: {
-  //     id: 'fsc-api',
-  //     type: 'text/javascript',
-  //     'data-storefront': fastSpring?.data_storefront || '',
-  //     'data-access-key': fastSpring?.data_accesss_key || '',
-  //     'data-data-callback': 'fscDataCallback',
-  //     'data-continuous': 'true',
-  //     'data-popup-closed': 'fscDataPopupClosed',
-  //     'data-popup-webhook-received': 'fscDataPopupWebhookReceived'
-  //   }
-  // })
-  const [products, setProducts] = useState<any[]>([])
-  const [redirect, setRedirect] = useState<string>('')
 
-  // if (status === 'error') {
-  //   console.error(status)
-  // }
   const onLoad = () => {
     window.fscDataCallback = (data) => {
-      if (!products.length) {
-        const fetchedProducts: any[] = data.groups[0].items
-        setProducts(fetchedProducts)
-        setCurrency(data.currency)
-      }
+      const fetchedProducts: any[] = data.groups[0].items
+      setProducts(fetchedProducts)
+      setCurrency(data.currency)
     }
     window.fscDataPopupWebhookReceived = (data) => {
       // successful purchase GA should be set via GTM or inside of Fastspring itself
@@ -96,9 +78,7 @@ export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
         }}
         onLoad={onLoad}
       />
-      <FastSpringContext.Provider value={{ products, setRedirect, currency }}>
-        {children}
-      </FastSpringContext.Provider>
+      <>{children}</>
     </>
   )
 }
