@@ -3,12 +3,20 @@ import { LmComponentRender } from '@LmComponentRender'
 import { useAppContext } from '@context/AppContext'
 import { useFastspringContext } from './context/FastSpringContext'
 import { FastSpringCheckoutProps } from './fastSpringTypes'
+import shallow from 'zustand/shallow'
 
 export default function LmFastSpringCheckout({
   content,
   trigger
 }: FastSpringCheckoutProps) {
-  const { products, setRedirect, currency } = useFastspringContext()
+  const { products, setRedirect, currency } = useFastspringContext(
+    (state) => ({
+      products: state.products,
+      setRedirect: state.setRedirect,
+      currency: state.currency
+    }),
+    shallow
+  )
   const ctx = useAppContext()
   const { path } = content
 
