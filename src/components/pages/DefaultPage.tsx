@@ -8,7 +8,7 @@ import { LmPage } from '../page/Page'
 
 export type LmPagesIndexProps = AppPageProps & Record<string, unknown>
 
-export function LmDefaultPage(props: LmPagesIndexProps): JSX.Element {
+export function LmDefaultPage(props: LmPagesIndexProps) {
   const { settings, page, error } = props
   if (error || !settings || !page) {
     return <Error statusCode={500} />

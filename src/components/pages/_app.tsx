@@ -15,11 +15,7 @@ const clientSideEmotionCache = createEmotionCache()
 export type LmAppProps = AppProps<AppPageProps>
 
 export function LmApp(appProps: LmAppProps) {
-  const {
-    Component,
-    pageProps,
-    router: { events, isFallback }
-  } = appProps
+  const { Component, pageProps, router } = appProps
   const { settings, emotionCache = clientSideEmotionCache } =
     pageProps as AppPageProps
 
@@ -37,15 +33,15 @@ export function LmApp(appProps: LmAppProps) {
     const handleRouteError = () => {
       NProgress.done()
     }
-    events.on('routeChangeComplete', handleRouteChange)
-    events.on('routeChangeStart', handleRouteStart)
-    events.on('routeChangeError', handleRouteError)
+    router.events.on('routeChangeComplete', handleRouteChange)
+    router.events.on('routeChangeStart', handleRouteStart)
+    router.events.on('routeChangeError', handleRouteError)
     return () => {
-      events.off('routeChangeComplete', handleRouteChange)
-      events.off('routeChangeStart', handleRouteStart)
-      events.off('routeChangeError', handleRouteError)
+      router.events.off('routeChangeComplete', handleRouteChange)
+      router.events.off('routeChangeStart', handleRouteStart)
+      router.events.off('routeChangeError', handleRouteError)
     }
-  }, [events, googleAnaliyticsId, facebookPixelId])
+  }, [router.events, googleAnaliyticsId, facebookPixelId])
 
   const Child = useMemo(
     () => (
@@ -61,9 +57,9 @@ export function LmApp(appProps: LmAppProps) {
         <Component {...pageProps} />
       </LmAppContainer>
     ),
-    [pageProps, Component]
+    [pageProps, Component] // dont include router
   )
-  if (isFallback) {
+  if (router.isFallback) {
     return <div>loading..</div>
   }
 

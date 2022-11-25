@@ -38,6 +38,7 @@ export type AppPageProps = Pick<AppApiRequestPayload, 'googleFontString'> &
     pageNotFound?: boolean
     slug?: string
     emotionCache?: EmotionCache
+    needAuth?: boolean
     // [k: string]: any
   }
 

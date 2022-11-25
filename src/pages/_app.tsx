@@ -28,6 +28,22 @@ CONFIG.authPathRequiredRoles = [
   {
     path: '/en/auth/offensive-1/',
     roles: ['app-offensive-en']
+  },
+  {
+    path: '/app-football-coaching-lab-passing',
+    roles: ['any']
+  },
+  {
+    path: '/app-playing-against-low-blocks',
+    roles: ['any']
+  },
+  {
+    path: '/footballcoachinglab/ebook/',
+    roles: ['app-fcl-passing-en']
+  },
+  {
+    path: '/calcio/ebook/',
+    roles: ['app-LB-playinglowblock-en']
   }
 ]
 

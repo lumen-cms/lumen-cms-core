@@ -4,19 +4,22 @@ import { Button } from '@mui/material'
 import { LmComponentRender } from '@LmComponentRender'
 import { useAuth0 } from '@auth0/auth0-react'
 import { FieldError } from 'react-hook-form'
-import { useAppContext } from '../provider/context/AppContext'
 import { Auth0FormProps } from './authTypes'
 import { auth0Endpoint } from '../../utils/auth0/auth0Helpers'
+import { useUserData } from './useAuth'
+import { useRouter } from 'next/router'
 
 export default function LmAuthForm({ content }: Auth0FormProps) {
-  const appCtx = useAppContext()
-  const locale = appCtx.locale
+  // const appCtx = useAppContext()
+  const router = useRouter()
+  const user = useUserData()
+  const locale = router.locale
   const auth0Hook = useAuth0()
   const [updating, setUpdating] = useState(false)
   const defaults = {
-    email: appCtx.user?.email || '',
-    given_name: appCtx.user?.given_name || '',
-    family_name: appCtx.user?.family_name || ''
+    email: user?.email || '',
+    given_name: user?.firstName || '',
+    family_name: user?.lastName || ''
   }
   const translations = {
     de: {
@@ -53,7 +56,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
   const onSuccess = async (data: any) => {
     setUpdating(true)
     const params = new URLSearchParams()
-    params.append('sub', appCtx.user?.sub)
+    params.append('sub', user?.sub as string)
     Object.keys(data).forEach((key) => {
       params.append(key, data[key])
     })
@@ -136,9 +139,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
             const accessToken = await auth0Hook.getAccessTokenSilently()
             try {
               await fetch(
-                `${auth0Endpoint.api}/api/delete-user?sub=${
-                  appCtx.user?.sub || ''
-                }`,
+                `${auth0Endpoint.api}/api/delete-user?sub=${user?.sub || ''}`,
                 {
                   headers: {
                     Authorization: `Bearer ${accessToken}`

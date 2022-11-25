@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { PropsWithChildren, useEffect } from 'react'
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 import Router, { useRouter } from 'next/router'
 import { LmApp, LmAppProps } from './_app'
+import { useUserActions } from '../auth/useAuth'
 
 export { reportWebVitals } from './_appDefault'
 
@@ -9,9 +10,10 @@ const onRedirectCallback = (appState: any) => {
   return Router.replace(appState?.returnTo || '/home')
 }
 
-function AppContainer(props: LmAppProps) {
+function AppContainer({ children }: PropsWithChildren) {
   const { locales, asPath, locale, push } = useRouter()
   const { user, error } = useAuth0()
+  const { setUser } = useUserActions()
 
   useEffect(() => {
     if (user && (asPath === '/' || asPath === '/home')) {
@@ -29,23 +31,27 @@ function AppContainer(props: LmAppProps) {
     }
   }, [user, locales, asPath, locale, push])
 
-  const newProps = {
-    ...props,
-    pageProps: {
-      ...props.pageProps,
-      user
+  useEffect(() => {
+    if (user) {
+      setUser({
+        email: user.email,
+        id: user.id,
+        sub: user.sub,
+        firstName: user.given_name,
+        lastName: user.family_name
+      })
+    } else {
+      setUser(null)
     }
-  }
+  }, [setUser, user])
+
   if (error) {
     console.error(error)
   }
-  return <LmApp {...newProps} />
+  return <>{children}</>
 }
 
-export function Auth0App(props: LmAppProps) {
-  if (props.router?.isPreview) {
-    return <LmApp {...props} />
-  }
+function Auth0Wrap({ children }: PropsWithChildren) {
   return (
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string}
@@ -59,7 +65,15 @@ export function Auth0App(props: LmAppProps) {
       }
       onRedirectCallback={onRedirectCallback}
     >
-      <AppContainer {...props} />
+      <AppContainer>{children}</AppContainer>
     </Auth0Provider>
+  )
+}
+
+export function Auth0App(props: LmAppProps) {
+  return (
+    <Auth0Wrap>
+      <LmApp {...props} />
+    </Auth0Wrap>
   )
 }

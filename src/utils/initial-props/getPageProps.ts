@@ -13,6 +13,7 @@ import { googleFormGetData } from './component-data/googleFormData'
 import { getCategoryData } from './component-data/categoryData'
 import { getEventData } from './component-data/eventData'
 import { listStoriesData } from './component-data/listStoriesData'
+import { getAuth0RoleOnPath } from '../auth0/auth0Helpers'
 
 SSR_CONFIG.ssrHooks.componentData = {
   list_widget: listWidgetGetData,
@@ -57,10 +58,12 @@ const getPageProps = async (
     // @ts-ignore
     pageSettingsProps.settings = pageSettingsProps.page
   }
+  const needAuth = !!getAuth0RoleOnPath('/' + pageSlug, options)
   const props: AppPageProps = {
     ...pageSettingsProps,
     ...options,
-    slug: '/' + pageSlug
+    slug: '/' + pageSlug,
+    needAuth
   }
 
   await fetchComponentData(props)

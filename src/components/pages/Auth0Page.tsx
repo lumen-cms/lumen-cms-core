@@ -1,20 +1,16 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, PropsWithChildren, useEffect } from 'react'
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react'
 import Error from 'next/error'
 import { useRouter } from 'next/router'
 import { LinearProgress } from '@mui/material'
 import { LmPagesIndexProps } from './DefaultPage'
-import {
-  getAuth0RoleOnPath,
-  hasAuth0PathCredentials
-} from '../../utils/auth0/auth0Helpers'
+import { hasAuth0PathCredentials } from '../../utils/auth0/auth0Helpers'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'
 import AppHead from '../layout/AppHead'
 import { LmPage } from '../page/Page'
-import { useAppContext } from '@context/AppContext'
 
-function PageContainer() {
+function PageContainer({ children }: PropsWithChildren) {
   const { asPath, replace, locale, defaultLocale, isReady } = useRouter()
   const { error, isLoading, user } = useAuth0()
   useEffect(() => {
@@ -39,17 +35,16 @@ function PageContainer() {
       </div>
     )
   }
-  return <LmPage />
+  return <>{children}</>
 }
 
 const PageAuthContainer: FC<React.PropsWithChildren<unknown>> =
   withAuthenticationRequired(PageContainer)
 
 export function Auth0Page(props: LmPagesIndexProps) {
-  const { insideStoryblok } = useAppContext()
-  const { settings, page, error } = props
-  const { asPath, locale, defaultLocale } = useRouter()
-  const needAuth = getAuth0RoleOnPath(asPath, { locale, defaultLocale })
+  const { settings, page, error, needAuth } = props
+  // const { asPath, query, locale, defaultLocale } = useRouter()
+  // const needAuth = getAuth0RoleOnPath(asPath, { locale, defaultLocale })
   if (error || !settings || !page) {
     return <Error statusCode={500} title="Error occured or no settings found" />
   }
@@ -59,7 +54,13 @@ export function Auth0Page(props: LmPagesIndexProps) {
       <AppSeo />
       <AppHead />
       <Layout>
-        {insideStoryblok || !needAuth ? <LmPage /> : <PageAuthContainer />}
+        {!needAuth ? (
+          <LmPage />
+        ) : (
+          <PageAuthContainer>
+            <LmPage />
+          </PageAuthContainer>
+        )}
       </Layout>
     </>
   )

@@ -1,9 +1,9 @@
 import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
-import { useAppContext } from '@context/AppContext'
 import { useFastspringContext } from './context/FastSpringContext'
 import { FastSpringCheckoutProps } from './fastSpringTypes'
 import shallow from 'zustand/shallow'
+import { useUserData } from '../../auth/useAuth'
 
 export default function LmFastSpringCheckout({
   content,
@@ -17,7 +17,7 @@ export default function LmFastSpringCheckout({
     }),
     shallow
   )
-  const ctx = useAppContext()
+  const user = useUserData()
   const { path } = content
 
   const currentItem = products?.find((i) => i.path === path)
@@ -86,11 +86,12 @@ export default function LmFastSpringCheckout({
             }
           ],
           tags: {
-            sub: ctx?.user?.sub ?? '',
-            email: ctx?.user?.email ?? '',
-            id: ctx?.user?.id ?? ''
+            sub: user?.sub ?? '',
+            email: user?.email ?? '',
+            id: user?.id ?? ''
           }
         })
+        console.log('begin checkout', user)
         window.fastspring.builder.checkout()
       }}
     />

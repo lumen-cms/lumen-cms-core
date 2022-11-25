@@ -106,7 +106,10 @@ LmCoreComponents.ecommerce_fastspring_product = dynamic(
     )
 )
 LmCoreComponents.auth_container = dynamic(
-  () => import(/* webpackChunkName: 'authContainer' */ './auth/AuthContainer')
+  () => import(/* webpackChunkName: 'authContainer' */ './auth/AuthContainer'),
+  {
+    ssr: false
+  }
 )
 LmCoreComponents.bottom_navigation = dynamic(
   () =>
