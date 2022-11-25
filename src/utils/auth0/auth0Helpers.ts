@@ -4,6 +4,7 @@ import { User } from '@auth0/auth0-react'
 export const hasAuth0Credentials = (roles: string[], user: User) => {
   const userCurrentRoles =
     user[process.env.NEXT_PUBLIC_AUTH_PERMISSION as string] || []
+  console.log(userCurrentRoles, roles, user.email)
   if (roles.includes('any') && !!user) {
     return true
   }

@@ -3,11 +3,13 @@ import { LmComponentRender } from '@LmComponentRender'
 import { useAppContext } from '@context/AppContext'
 import { AuthContainerStoryblok } from '../../typings/generated/components-schema'
 import { hasAuth0Credentials } from '../../utils/auth0/auth0Helpers'
+import { useUserData } from './useAuth'
 
 const LmAuthContainer: FC<
   PropsWithChildren<{ content: AuthContainerStoryblok }>
 > = ({ content, children }) => {
-  const { user, insideStoryblok } = useAppContext() || {}
+  const { insideStoryblok } = useAppContext() || {}
+  const user = useUserData()
 
   let hideOnRole = true
   let requireRole = true
@@ -28,13 +30,11 @@ const LmAuthContainer: FC<
     .map((string) => string.trim())
     .filter((i) => i)
 
-  if (user) {
-    if (rolesOnHide.length) {
-      hideOnRole = !hasAuth0Credentials(rolesOnHide, user)
-    }
-    if (rolesRequired.length) {
-      requireRole = !!hasAuth0Credentials(rolesRequired, user)
-    }
+  if (rolesOnHide.length) {
+    hideOnRole = user ? !hasAuth0Credentials(rolesOnHide, user) : false
+  }
+  if (rolesRequired.length) {
+    requireRole = user ? !!hasAuth0Credentials(rolesRequired, user) : false
   }
 
   if (!insideStoryblok && !(hideOnRole && showContent && requireRole)) {

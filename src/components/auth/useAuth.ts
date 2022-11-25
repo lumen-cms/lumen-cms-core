@@ -1,7 +1,8 @@
 import create from 'zustand'
 import shallow from 'zustand/shallow'
+import { User } from '@auth0/auth0-react'
 
-type UserProps = {
+type UserProps = User & {
   id: string
   sub?: string
   email?: string

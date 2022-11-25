@@ -34,11 +34,10 @@ function AppContainer({ children }: PropsWithChildren) {
   useEffect(() => {
     if (user) {
       setUser({
-        email: user.email,
         id: user.id,
-        sub: user.sub,
         firstName: user.given_name,
-        lastName: user.family_name
+        lastName: user.family_name,
+        ...user
       })
     } else {
       setUser(null)
