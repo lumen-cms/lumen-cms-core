@@ -21,7 +21,9 @@ export default class AppDocument extends Document {
     return (
       <Html>
         <Head>
-          <style dangerouslySetInnerHTML={{ __html: googleFontString }} />
+          {googleFontString.css && (
+            <style dangerouslySetInnerHTML={{ __html: googleFontString.css }} />
+          )}
           <meta name="emotion-insertion-point" content="" />
           {(this.props as any).emotionStyleTags}
         </Head>

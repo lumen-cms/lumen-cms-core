@@ -8,7 +8,10 @@ import { getFontBasedOnSetting } from '../parseFont'
 import { getFontDefinitionFromNetwork } from 'next/dist/server/font-utils'
 
 // cache response
-export let googleFontString: string = ''
+export const googleFontString: { css: string; settingsId: string } = {
+  css: '',
+  settingsId: ''
+}
 
 // taken from gathering file https://github.com/vercel/next.js/blob/8fdcc52854007f64f079ce3b4a45f43269b8baec/packages/next/build/webpack/plugins/font-stylesheet-gathering-plugin.ts
 function minifyCss(css: string): Promise<string> {
@@ -25,7 +28,10 @@ function minifyCss(css: string): Promise<string> {
 
 export const processGoogleFonts = async (props: AppPageProps) => {
   if (!process.env.NEXT_PUBLIC_DISABLE_GOOGLE_FONTS && props.settings) {
-    if (googleFontString) {
+    if (
+      googleFontString.css &&
+      props.settings._uid === googleFontString.settingsId
+    ) {
       // Object.assign(props, {
       //   googleFontString: googleFontString[href]
       // })
@@ -35,7 +41,8 @@ export const processGoogleFonts = async (props: AppPageProps) => {
 
     const res = await getFontDefinitionFromNetwork(href)
     // const res = await fetch(href).then((r) => r.text())
-    googleFontString = await minifyCss(res)
+    googleFontString.css = await minifyCss(res)
+    googleFontString.settingsId = props.settings._uid
     // Object.assign(props, {
     //   googleFontString: googleFontString[href]
     // })

@@ -19,14 +19,12 @@ export function Auth0Page(props: LmPagesIndexProps) {
     return <Error statusCode={500} title="Error occured or no settings found" />
   }
 
-  let need = true // needAuth
-
   return (
     <>
       <AppSeo />
       <AppHead />
       <Layout>
-        {!need ? (
+        {!needAuth ? (
           <LmPage />
         ) : (
           <PageAuthContainer>
