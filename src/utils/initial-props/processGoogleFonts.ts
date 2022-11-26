@@ -30,7 +30,7 @@ export const processGoogleFonts = async (props: AppPageProps) => {
   if (!process.env.NEXT_PUBLIC_DISABLE_GOOGLE_FONTS && props.settings) {
     if (
       googleFontString.css &&
-      props.settings._uid === googleFontString.settingsId
+      props.settings.uuid === googleFontString.settingsId
     ) {
       // Object.assign(props, {
       //   googleFontString: googleFontString[href]
@@ -42,7 +42,7 @@ export const processGoogleFonts = async (props: AppPageProps) => {
     const res = await getFontDefinitionFromNetwork(href)
     // const res = await fetch(href).then((r) => r.text())
     googleFontString.css = await minifyCss(res)
-    googleFontString.settingsId = props.settings._uid
+    googleFontString.settingsId = props.settings.uuid as string
     // Object.assign(props, {
     //   googleFontString: googleFontString[href]
     // })
