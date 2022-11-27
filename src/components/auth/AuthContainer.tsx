@@ -43,9 +43,14 @@ const LmAuthContainer: FC<
   if (content.body?.length) {
     return (
       <>
-        {content.body.map((blok) => (
-          <LmComponentRender content={blok} key={blok._uid} />
-        ))}
+        {content.body.map((blok) => {
+          if (blok.component === 'headline') {
+            blok.text = blok.text?.replace('{email}', user?.email ?? '')
+            blok.text = blok.text?.replace('{firstName}', user?.firstName ?? '')
+            blok.text = blok.text?.replace('{lastName}', user?.lastName ?? '')
+          }
+          return <LmComponentRender content={blok} key={blok._uid} />
+        })}
       </>
     )
   }
