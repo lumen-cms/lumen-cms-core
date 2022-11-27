@@ -48,6 +48,13 @@ const LmAuthContainer: FC<
             blok.text = blok.text?.replace('{email}', user?.email ?? '')
             blok.text = blok.text?.replace('{firstName}', user?.firstName ?? '')
             blok.text = blok.text?.replace('{lastName}', user?.lastName ?? '')
+          } else if (blok.component === 'button') {
+            blok.label = blok.label?.replace('{email}', user?.email ?? '')
+            blok.label = blok.label?.replace(
+              '{firstName}',
+              user?.firstName ?? ''
+            )
+            blok.label = blok.label?.replace('{lastName}', user?.lastName ?? '')
           }
           return <LmComponentRender content={blok} key={blok._uid} />
         })}
