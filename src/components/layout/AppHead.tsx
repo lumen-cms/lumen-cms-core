@@ -153,6 +153,7 @@ function AppHead(): JSX.Element {
             id={item.id || item._uid}
             src={item.url || undefined}
             strategy={item.strategy || 'afterInteractive'}
+            {...parseToAttributes(item.attributes)}
           />
         ) : (
           <NextScript
@@ -160,11 +161,26 @@ function AppHead(): JSX.Element {
             id={item.id || item._uid}
             dangerouslySetInnerHTML={{ __html: item.script_body || '' }}
             strategy={item.strategy || 'afterInteractive'}
+            {...parseToAttributes(item.attributes)}
           />
         )
       )}
     </>
   )
+}
+
+function parseToAttributes(attributes?: string) {
+  if (attributes) {
+    const stripped = attributes.split(',').map((i) => i.trim())
+    return stripped.reduce((previousValue, currentValue) => {
+      const val = currentValue.split('=')
+      return {
+        ...previousValue,
+        [val[0]]: val[1]
+      }
+    }, {})
+  }
+  return undefined
 }
 
 export default AppHead

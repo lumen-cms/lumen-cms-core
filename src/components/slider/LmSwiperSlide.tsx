@@ -2,7 +2,6 @@ import { LmSwiperItemProps } from './sliderTypes'
 import { LmComponentRender } from '@LmComponentRender'
 import NextImage, { ImageProps } from 'next/image'
 import { getOriginalImageDimensions } from '../../utils/imageServices'
-import { ImageDataUriFallback } from '../image/ImageDataUri'
 
 function SwiperImage({ content, options }: LmSwiperItemProps) {
   if (content.image?.filename) {
@@ -28,8 +27,6 @@ function SwiperImage({ content, options }: LmSwiperItemProps) {
         style={{
           objectFit: options.image_object_fit || 'cover'
         }}
-        placeholder={'blur'}
-        blurDataURL={ImageDataUriFallback}
         sizes={options.width ? `${options.width}px` : undefined}
       />
     )

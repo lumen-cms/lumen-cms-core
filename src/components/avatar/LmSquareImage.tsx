@@ -5,7 +5,6 @@ import {
   imageCalculateWidthHeight
 } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
-import { ImageDataUriFallback } from '../image/ImageDataUri'
 
 type LmSquareImageProps = {
   image: string
@@ -29,8 +28,7 @@ export default function LmSquareImage({
   size,
   image,
   imageProps,
-  sizeIsHeight,
-  base64 = ImageDataUriFallback
+  sizeIsHeight
 }: LmSquareImageProps): JSX.Element {
   return (
     <Image
@@ -55,8 +53,6 @@ export default function LmSquareImage({
           })}
       {...imageProps}
       alt={imageProps?.alt || 'website image'}
-      placeholder={'blur'}
-      blurDataURL={base64}
     />
   )
 }

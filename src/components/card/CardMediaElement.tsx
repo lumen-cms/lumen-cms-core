@@ -6,7 +6,6 @@ import { getRootImageUrl, getVwByColCount } from '../../utils/imageServices'
 import { CardListItemProps } from './cardTypes'
 import { COLUMN_COUNT } from './cardListStyles'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
-import { ImageDataUriFallback } from '../image/ImageDataUri'
 
 const CardMediaElement: FunctionComponent<
   PropsWithChildren<CardListItemProps>
@@ -32,8 +31,6 @@ const CardMediaElement: FunctionComponent<
         src={getRootImageUrl(content.image)}
         {...storyblokImageLoader(content.image)}
         fill
-        placeholder={'blur'}
-        blurDataURL={ImageDataUriFallback}
         sizes={`(min-width: 0) and (max-width: ${
           breakpoints.values.sm - 1
         }px) ${phoneVw}vw, (min-width: ${

@@ -99,7 +99,6 @@ export default function LmImage({
           <LmSquareImage
             image={imageSource}
             size={squareSize}
-            base64={content.image_data?.base64}
             imageProps={{
               onClick: onClick ? () => onClick() : undefined,
               alt: content.alt || 'website image',
@@ -145,7 +144,6 @@ export default function LmImage({
               : Math.min(originalDimensions.width, originalDimensions.height)
           }
           sizeIsHeight={!!content.height}
-          base64={content.image_data?.base64}
           imageProps={{
             loading,
             priority,

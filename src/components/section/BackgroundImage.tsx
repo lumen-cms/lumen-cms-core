@@ -8,7 +8,6 @@ import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import { LmImagePlaceholder } from '../image/imageTypes'
 import { makeStyles } from 'tss-react/mui'
-import { ImageDataUriFallback } from '../image/ImageDataUri'
 
 const useStyles = makeStyles({ name: 'BackgroundImage' })((theme) => ({
   root: {
@@ -114,8 +113,6 @@ const BackgroundImage = ({
         objectPosition: background_position || 'center'
       }}
       fill
-      placeholder={'blur'}
-      blurDataURL={ImageDataUriFallback}
     />
   )
   const Wrap: FC<React.PropsWithChildren<unknown>> = ({ children }) => {

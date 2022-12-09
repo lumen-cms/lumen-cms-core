@@ -3,9 +3,16 @@ import React, { CSSProperties, useEffect, useState } from 'react'
 import Container, { ContainerProps } from '@mui/material/Container'
 import { LmComponentRender } from '@LmComponentRender'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import FullscreenVideoBg from './FullscreenVideoBg'
 import { LmSectionVideoProps } from './sectionTypes'
 import { makeStyles } from 'tss-react/mui'
+import dynamic from 'next/dynamic'
+
+const FullscreenVideoBg = dynamic(
+  () => import(/* webpackChunkName: 'video' */ './FullscreenVideoBg'),
+  {
+    ssr: false
+  }
+)
 
 const useStyles = makeStyles()({
   videoSection: {
@@ -77,7 +84,6 @@ export default function LmSectionVideo({
   })
   const videoUrl = content.url_internal?.filename || content.url
 
-  const hasSrc = !!videoUrl
   const body = content.body || []
   const hasBody = !!body.length
   const fixedToRatio = !content.height // enable fixed ratio if height is not set (!hasBody)
@@ -125,7 +131,7 @@ export default function LmSectionVideo({
       ref={intersectionRef}
       id={content.section_identifier || content._uid}
     >
-      {hasSrc && (
+      {!!videoUrl && (
         <FullscreenVideoBg
           {...content}
           inView={inView}

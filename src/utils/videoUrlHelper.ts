@@ -3,7 +3,6 @@ import {
   PlayerStoryblok,
   SectionVideoBgStoryblok
 } from '../typings/generated/components-schema'
-import { ImageDataUriFallback } from '../components/image/ImageDataUri'
 
 const map = {
   webm: 'video/webm',
@@ -37,24 +36,24 @@ export default function videoUrlHelper(
       source.push(i.filename)
     })
     return {
-      url: inView ? (source.map(getVideoObj) as ReactPlayerProps['url']) : '',
-      config: {
-        file: {
-          attributes: {
-            poster: ImageDataUriFallback
-          }
-        }
-      }
+      url: inView ? (source.map(getVideoObj) as ReactPlayerProps['url']) : ''
+      // config: {
+      //   file: {
+      //     attributes: {
+      //       poster: ImageDataUriFallback
+      //     }
+      //   }
+      // }
     }
   }
   return {
-    config: {
-      file: {
-        attributes: {
-          poster: ImageDataUriFallback
-        }
-      }
-    },
+    // config: {
+    //   file: {
+    //     attributes: {
+    //       poster: ImageDataUriFallback
+    //     }
+    //   }
+    // },
     url: inView
       ? ((content.url || '')
           .split(',')

@@ -62,9 +62,9 @@ export default function FullscreenVideoBg(
   return (
     <>
       <div
-        className={`videobg-width${
-          properties.includes('suppress_mouse_events') ? ' video-no-mouse' : ''
-        }`}
+        className={clsx('videobg-width', {
+          'video-no-mouse': properties.includes('suppress_mouse_events')
+        })}
         style={{ width: vidBgWidth }}
       >
         <div

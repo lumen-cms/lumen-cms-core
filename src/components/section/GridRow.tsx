@@ -20,7 +20,7 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
             marginTop: theme.spacing(1),
             marginBottom: theme.spacing(1),
             boxSizing: 'border-box',
-            '&:first-child': {
+            '&:first-of-type': {
               marginTop: 0
             },
             '&:last-child': {
@@ -32,7 +32,7 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         boxSizing: 'border-box',
-        '&:first-child': {
+        '&:first-of-type': {
           marginTop: 0
         },
         '&:last-child': {
