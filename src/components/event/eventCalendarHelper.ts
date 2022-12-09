@@ -1,5 +1,5 @@
 import { EventCalendar, LmEventStoryblok } from './eventTypes'
-import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
+import { ISbStoryData } from 'storyblok-js-client'
 
 const convertDate = (string?: string) =>
   string ? new Date(/*`${string}+0000`*/ string) : undefined

@@ -4,7 +4,7 @@ import {
   EventStoryblok
 } from '../../typings/generated/components-schema'
 import { Event } from 'react-big-calendar'
-import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
+import { ISbStoryData } from 'storyblok-js-client'
 
 export type LmEventStoryblok = EventStoryblok & {
   category: ISbStoryData<EventCategoryStoryblok>

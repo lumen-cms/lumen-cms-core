@@ -4,7 +4,7 @@ import {
   CategoryStoryblok,
   DateTimeFormatStoryblok
 } from '../../../typings/generated/components-schema'
-import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
+import { ISbStoryData } from 'storyblok-js-client'
 
 export const getContentFields = (
   content: ListStoriesData,

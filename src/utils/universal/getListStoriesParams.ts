@@ -4,7 +4,7 @@ import {
   getStoriesDefaultParams,
   getStoriesSortHelper
 } from './storyblokParamsHelper'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams } from 'storyblok-js-client'
 
 export const getListStoriesParams = (
   item: ListStoriesStoryblok,

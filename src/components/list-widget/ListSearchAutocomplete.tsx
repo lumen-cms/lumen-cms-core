@@ -18,10 +18,7 @@ import { match, parse } from './autosuggest'
 import { useAppContext } from '@context/AppContext'
 import { ListItem } from '@mui/material'
 import { LmStoryblokService } from '../../utils/initial-props/StoryblokService'
-import {
-  ISbStoriesParams,
-  ISbStoryData
-} from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams, ISbStoryData } from 'storyblok-js-client'
 
 const fetcher = async (
   _path: string,

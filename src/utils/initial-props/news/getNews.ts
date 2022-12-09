@@ -1,6 +1,6 @@
 import { LmStoryblokService } from '../StoryblokService'
 import { LmNews } from '../../../components/news/newsTypes'
-import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
+import { ISbStoryData } from 'storyblok-js-client'
 
 export const getNews = async (
   ignoreRichTextResolve?: boolean

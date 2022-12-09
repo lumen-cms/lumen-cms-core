@@ -1,6 +1,6 @@
 import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { PageComponent } from '../../typings/generated/schema'
-import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
+import { ISbStoryData } from 'storyblok-js-client'
 
 export const legacyFilterAllStories = (
   content: ListWidgetStoryblok,

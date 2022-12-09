@@ -2,7 +2,7 @@ import { CONFIG } from '@CONFIG'
 import { PageItem } from '../../typings/generated/schema'
 import { LmStoryblokService } from './StoryblokService'
 import { excludingFieldsForLists } from '../universal/storyblokParamsHelper'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams } from 'storyblok-js-client'
 
 export function getStoryblokPagesConfig(pageConfig?: ISbStoriesParams) {
   const params: ISbStoriesParams = {

@@ -2,7 +2,7 @@ import { CONFIG } from '@CONFIG'
 import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { queryStringify } from './paramsToQueryString'
 import { getStoriesSortHelper } from './storyblokParamsHelper'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams } from 'storyblok-js-client'
 
 export const getListWidgetParams = (
   item: ListWidgetStoryblok,

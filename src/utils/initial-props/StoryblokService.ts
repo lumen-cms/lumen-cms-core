@@ -1,10 +1,9 @@
-import StoryblokClient from 'storyblok-js-client'
-import { CONFIG } from '@CONFIG'
-import { rootParams } from '../universal/storyblokParamsHelper'
-import {
+import StoryblokClient, {
   ISbStoriesParams,
   ISbStoryParams
-} from 'storyblok-js-client/types/interfaces'
+} from 'storyblok-js-client'
+import { CONFIG } from '@CONFIG'
+import { rootParams } from '../universal/storyblokParamsHelper'
 
 const cv = Date.now()
 

@@ -1,6 +1,6 @@
 import { CONFIG } from '@CONFIG'
 import { AppPageProps } from '../../../typings/app'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams } from 'storyblok-js-client'
 
 export const localeStoriesHelper = (props: AppPageProps): ISbStoriesParams => {
   const locale =

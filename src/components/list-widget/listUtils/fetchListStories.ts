@@ -3,7 +3,7 @@ import { getListStoriesParams } from '../../../utils/universal/getListStoriesPar
 import { ListStoriesData, LmListStoriesPayload } from '../listWidgetTypes'
 import { AppPageProps } from '../../../typings/app'
 import { ListStoriesStoryblok } from '../../../typings/generated/components-schema'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams } from 'storyblok-js-client'
 
 export type FetchListStoriesProps = {
   searchText?: string

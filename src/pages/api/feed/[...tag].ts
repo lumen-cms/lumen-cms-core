@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { PageItem } from '../../../typings/generated/schema'
 import { getAllStoriesOfProject } from '../../../utils/initial-props/storyblokPagesConfig'
 import { fetchSettings } from '../../../utils/initial-props/storyblokDeliveryResolver'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams } from 'storyblok-js-client'
 
 const storiesRssXML = (stories: PageItem[], host: string) => {
   let latestPostDate = ''

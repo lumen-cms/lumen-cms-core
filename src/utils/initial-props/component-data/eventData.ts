@@ -2,7 +2,7 @@ import { EventCalendarStoryblok } from '../../../typings/generated/components-sc
 import { AppPageProps } from '../../../typings/app'
 import { LmStoryblokService } from '../StoryblokService'
 import { getStoriesDefaultParams } from '../../universal/storyblokParamsHelper'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams } from 'storyblok-js-client'
 
 export const getEventData = async (
   _item: EventCalendarStoryblok,

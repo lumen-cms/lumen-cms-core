@@ -2,10 +2,10 @@ import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmTimelineProps } from './timelineTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
-import Timeline from '@mui/lab/Timeline'
 import TimelineObserver from 'react-timeline-animation'
 import { Box } from '@mui/material'
 import { useReward } from 'react-rewards'
+import Timeline from '@mui/lab/Timeline'
 
 export default function LmTimeline({ content }: LmTimelineProps) {
   const { isMobile } = useDeviceDimensions()
@@ -35,6 +35,7 @@ export default function LmTimeline({ content }: LmTimelineProps) {
           initialColor={initialColor}
           fillColor={fillColor}
           handleObserve={(setObserver) => (
+            // @ts-ignore
             <Timeline
               position={isMobile ? 'left' : content.align || 'alternate'}
             >
@@ -69,6 +70,7 @@ export default function LmTimeline({ content }: LmTimelineProps) {
     )
   }
   return (
+    // @ts-ignore
     <Timeline position={isMobile ? 'left' : content.align || 'alternate'}>
       {content.body?.map((blok, i) => (
         <LmComponentRender

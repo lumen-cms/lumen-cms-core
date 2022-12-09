@@ -4,10 +4,7 @@ import {
   ListStoriesStoryblok,
   ListWidgetStoryblok
 } from '../../typings/generated/components-schema'
-import {
-  ISbStoriesParams,
-  ISbStoryParams
-} from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams, ISbStoryParams } from 'storyblok-js-client'
 
 export const excludingFieldsForLists =
   'body,right_body,property,meta_title,meta_description,seo_body,preview_title,preview_subtitle,preview_image,preview_teaser'

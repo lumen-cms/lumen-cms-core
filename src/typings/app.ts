@@ -2,7 +2,7 @@ import { GetStaticPropsContext } from 'next'
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import { CategoryComponent, PageComponent } from './generated/schema'
 import { EmotionCache } from '@emotion/react'
-import { ISbResult, ISbStoryData } from 'storyblok-js-client/types/interfaces'
+import { ISbResult, ISbStoryData } from 'storyblok-js-client'
 
 export interface IClaims {
   [key: string]: any // just a copy of the IClaim

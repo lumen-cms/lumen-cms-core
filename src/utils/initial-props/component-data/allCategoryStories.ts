@@ -2,7 +2,7 @@ import { CONFIG } from '@CONFIG'
 import { LmStoryblokService } from '../StoryblokService'
 import { AllCategoryData } from '../../../typings/app'
 import { CategoryBoxStoryblok } from '../../../typings/generated/components-schema'
-import { ISbStoriesParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams } from 'storyblok-js-client'
 
 let allCategories: AllCategoryData
 

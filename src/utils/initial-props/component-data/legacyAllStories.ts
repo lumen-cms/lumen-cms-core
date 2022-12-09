@@ -3,10 +3,7 @@ import { LmStoryblokService } from '../StoryblokService'
 import { localeStoriesHelper } from './localeStoriesHelper'
 import { AppPageProps } from '../../../typings/app'
 import { excludeListForStories } from '../../universal/storyblokParamsHelper'
-import {
-  ISbStoriesParams,
-  ISbStoryData
-} from 'storyblok-js-client/types/interfaces'
+import { ISbStoriesParams, ISbStoryData } from 'storyblok-js-client'
 
 let allStories: ISbStoryData<PageComponent>[]
 

@@ -1,7 +1,7 @@
 import { CONFIG } from '@CONFIG'
 import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
-import { ISbStoryParams } from 'storyblok-js-client/types/interfaces'
+import { ISbStoryParams } from 'storyblok-js-client'
 
 const getSettingsPath = ({
   locale,

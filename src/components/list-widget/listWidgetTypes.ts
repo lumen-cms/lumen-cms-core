@@ -15,7 +15,7 @@ import {
 } from '../../typings/generated/components-schema'
 import { PageComponent } from '../../typings/generated/schema'
 import { AllCategoryData } from '../../typings/app'
-import { ISbStoryData } from 'storyblok-js-client/types/interfaces'
+import { ISbStoryData } from 'storyblok-js-client'
 
 export type LmListWidgetProps = {
   content: ListWidgetStoryblok & {
