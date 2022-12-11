@@ -1,5 +1,5 @@
 import * as NextImage from 'next/image'
-import * as NextFutureImage from 'next/future/image'
+import * as NextLegacyImage from 'next/legacy/image'
 import StoriesLayout from '../src/storybook/components/StoriesLayout'
 import '../src/storybook/mockNextRouter'
 import isChromatic from 'chromatic/isChromatic'
@@ -12,8 +12,8 @@ CONFIG.publicToken = 'm85LRUo0sX4yo9Q96VMQlQtt'
 CONFIG.previewToken = 'qASJXPT2cwH76pA9vpJbxAtt'
 CONFIG.rootDirectory = 'en'
 
-const OriginalNextFutureImage = NextFutureImage.default
-Object.defineProperty(NextFutureImage, 'default', {
+const OriginalNextFutureImage = NextImage.default
+Object.defineProperty(NextImage, 'default', {
   configurable: true,
   value: (props: any) => (
     <OriginalNextFutureImage
@@ -24,8 +24,8 @@ Object.defineProperty(NextFutureImage, 'default', {
   )
 })
 
-const OriginalNextImage = NextImage.default
-Object.defineProperty(NextImage, 'default', {
+const OriginalNextImage = NextLegacyImage.default
+Object.defineProperty(NextLegacyImage, 'default', {
   configurable: true,
   value: (props: any) => (
     <OriginalNextImage

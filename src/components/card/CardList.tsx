@@ -3,75 +3,10 @@ import { useInView } from 'react-intersection-observer'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCardListProps } from './cardTypes'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { CardListStoryblok } from '../../typings/generated/components-schema'
-import { makeStyles } from 'tss-react/mui'
 import { Grid } from '@mui/material'
 import { COLUMN_COUNT } from './cardListStyles'
-
-const useStyles = makeStyles<CardListStoryblok>()((_, content) => ({
-  cardBase: {
-    overflow: 'visible',
-    flexGrow: 1,
-    '& .MuiImageListItem-item': {
-      overflow: 'visible'
-    },
-    '&.card__text_align_center .MuiCardMedia-root .MuiCardContent-root': {
-      textAlign: 'center'
-    },
-    '&.card__text_align_right .MuiCardMedia-root .MuiCardContent-root': {
-      textAlign: 'right'
-    },
-    '&.card__text_center .MuiCardMedia-root .MuiCardContent-root': {
-      justifyContent: 'center'
-    },
-    '&.card__text_top_bottom .MuiCardMedia-root .MuiCardContent-root': {
-      justifyContent: 'space-between'
-    },
-    '&.card__text_bottom .MuiCardMedia-root .MuiCardContent-root': {
-      justifyContent: 'flex-end'
-    },
-    '& .MuiCardMedia-root': {
-      paddingBottom: '56.25%' // add ratio variants
-    },
-    '&.ratio-1x1 .MuiCardMedia-root': {
-      paddingBottom: '100%' // add ratio variants
-    },
-    '&.ratio-4x3 .MuiCardMedia-root': {
-      paddingBottom: '75%' // add ratio variants
-    },
-    '&.ratio-3x2 .MuiCardMedia-root': {
-      paddingBottom: '66.66%' // add ratio variants
-    },
-    '&.ratio-2x3 .MuiCardMedia-root': {
-      paddingBottom: '150%' // add ratio variants
-    },
-    '&.ratio-1x3 .MuiCardMedia-root': {
-      paddingBottom: '300%' // add ratio variants
-    },
-    '&.ratio-3x1 .MuiCardMedia-root': {
-      paddingBottom: '33.33%' // add ratio variants
-    },
-    '&.ratio-2.85x1 .MuiCardMedia-root': {
-      paddingBottom: '35.09%' // add ratio variants
-    },
-    '&.card__over_media .MuiCardMedia-root': {
-      position: 'relative',
-
-      '& .MuiCardContent-root': {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column'
-      }
-    }
-  },
-  gridCustom: {
-    '& .MuiCardMedia-root > div': {
-      borderRadius: content.image_border_radius
-    }
-  }
-}))
+import Box from '@mui/material/Box'
+import clsx from 'clsx'
 
 const chunkSize = 30
 
@@ -80,7 +15,6 @@ export default function LmCardList({
   disablePagination
 }: LmCardListProps): JSX.Element {
   const { body = [], ...rest } = content
-  const { classes, cx: clsx } = useStyles(rest)
   const gutterSize = content.column_gap ? Number(content.column_gap) : 24
   const enableInView = !disablePagination && body.length > chunkSize
   const [intersectionLoadMoreRef, loadMoreInView] = useInView()
@@ -98,14 +32,72 @@ export default function LmCardList({
   const variant = content.variant || []
 
   return (
-    <div
+    <Box
       ref={inViewRef}
       style={{
         padding: `${gutterSize / 2}px`
       }}
+      sx={{
+        overflow: 'visible',
+        flexGrow: 1,
+        '& .MuiImageListItem-item': {
+          overflow: 'visible'
+        },
+        '&.card__text_align_center .MuiCardMedia-root .MuiCardContent-root': {
+          textAlign: 'center'
+        },
+        '&.card__text_align_right .MuiCardMedia-root .MuiCardContent-root': {
+          textAlign: 'right'
+        },
+        '&.card__text_center .MuiCardMedia-root .MuiCardContent-root': {
+          justifyContent: 'center'
+        },
+        '&.card__text_top_bottom .MuiCardMedia-root .MuiCardContent-root': {
+          justifyContent: 'space-between'
+        },
+        '&.card__text_bottom .MuiCardMedia-root .MuiCardContent-root': {
+          justifyContent: 'flex-end'
+        },
+        '& .MuiCardMedia-root': {
+          paddingBottom: '56.25%' // add ratio variants
+        },
+        '&.ratio-1x1 .MuiCardMedia-root': {
+          paddingBottom: '100%' // add ratio variants
+        },
+        '&.ratio-4x3 .MuiCardMedia-root': {
+          paddingBottom: '75%' // add ratio variants
+        },
+        '&.ratio-3x2 .MuiCardMedia-root': {
+          paddingBottom: '66.66%' // add ratio variants
+        },
+        '&.ratio-2x3 .MuiCardMedia-root': {
+          paddingBottom: '150%' // add ratio variants
+        },
+        '&.ratio-1x3 .MuiCardMedia-root': {
+          paddingBottom: '300%' // add ratio variants
+        },
+        '&.ratio-3x1 .MuiCardMedia-root': {
+          paddingBottom: '33.33%' // add ratio variants
+        },
+        '&.ratio-2.85x1 .MuiCardMedia-root': {
+          paddingBottom: '35.09%' // add ratio variants
+        },
+        '&.card__over_media .MuiCardMedia-root': {
+          position: 'relative',
+
+          '& .MuiCardContent-root': {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column'
+          }
+        },
+        '& .MuiCardMedia-root > div': {
+          borderRadius: content.image_border_radius
+        }
+      }}
       className={clsx(
-        classes.cardBase,
-        classes.gridCustom,
         variant.map((i) => `card__${i}`),
         {
           [`ratio-${content.image_ratio}`]: !!content.image_ratio
@@ -182,6 +174,6 @@ export default function LmCardList({
             : undefined
         }
       />
-    </div>
+    </Box>
   )
 }

@@ -10,34 +10,9 @@ import CardContent from '@mui/material/CardContent'
 import { LmComponentRender } from '@LmComponentRender'
 import { CardContentContainer } from './CardContentContainer'
 import { LmTimelineItemProps } from './timelineTypes'
-import { makeStyles } from 'tss-react/mui'
 import { useEffectOnce } from 'react-use'
-
-const useStyles = makeStyles({ name: 'TimelineItem' })((theme) => ({
-  naked: {
-    padding: 0,
-    boxShadow: 'none',
-    background: 'none!important',
-    backgroundColor: 'transparent!important',
-    borderWidth: 0,
-    borderRadius: 'unset'
-  },
-  hideMargin: {
-    marginTop: 0,
-    marginBottom: 0
-  },
-  hideOnMobile: {
-    [theme.breakpoints.only('xs')]: {
-      display: 'none'
-    }
-  },
-  showOnMobile: {
-    display: 'none',
-    [theme.breakpoints.only('xs')]: {
-      display: 'block'
-    }
-  }
-}))
+import { useTheme } from '@mui/material/styles'
+import Box from '@mui/material/Box'
 
 export default function LmTimelineItem({
   content,
@@ -46,7 +21,7 @@ export default function LmTimelineItem({
   onFinish,
   setObserver
 }: LmTimelineItemProps) {
-  const { classes, cx } = useStyles()
+  const theme = useTheme()
   const timeline1 = useRef(null)
   const timeline2 = useRef(null)
   const dot1 = useRef(null)
@@ -71,8 +46,10 @@ export default function LmTimelineItem({
   return (
     <TimelineItem>
       <TimelineOppositeContent
-        classes={{
-          root: classes.hideOnMobile
+        sx={{
+          [theme.breakpoints.only('xs')]: {
+            display: 'none'
+          }
         }}
       >
         {content.opposite_body?.map((blok) => (
@@ -91,12 +68,22 @@ export default function LmTimelineItem({
               ? 'outlined'
               : 'filled'
           }
-          className={cx({
-            [classes.naked]: content.dot_variant
+          sx={{
+            ...((content.dot_variant
               ? content.dot_variant === 'naked'
-              : options?.variant === 'naked',
-            [classes.hideMargin]: options.connect_separator
-          })}
+              : options?.variant === 'naked') && {
+              padding: 0,
+              boxShadow: 'none',
+              background: 'none!important',
+              backgroundColor: 'transparent!important',
+              borderWidth: 0,
+              borderRadius: 'unset'
+            }),
+            ...(options.connect_separator && {
+              marginTop: 0,
+              marginBottom: 0
+            })
+          }}
         >
           {content.icon?.map((blok) => (
             <LmComponentRender content={blok} key={blok._uid} />
@@ -111,11 +98,19 @@ export default function LmTimelineItem({
       </TimelineSeparator>
       <TimelineContent>
         {hasOppositeContent && (
-          <div className={'pb-2 ' + classes.showOnMobile}>
+          <Box
+            sx={{
+              display: 'none',
+              [theme.breakpoints.only('xs')]: {
+                display: 'block'
+              }
+            }}
+            className={'pb-2'}
+          >
             {content.opposite_body?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />
             ))}
-          </div>
+          </Box>
         )}
 
         <CardContentContainer content={content} options={options}>

@@ -6,45 +6,39 @@ import {
   leftNavigationDrawerSelector,
   useNavigationStore
 } from '../../utils/state/navigationState'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles({ name: 'Footer' })((theme) => ({
-  footer: {
-    position: 'relative',
-    zIndex: theme.zIndex.drawer + 1
-  },
-  leftShift: {
-    marginLeft: theme.drawer.left,
-    width: `calc(100% - ${theme.drawer.left})`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    [theme.breakpoints.only('xs')]: {
-      marginLeft: 0
-    }
-  }
-}))
+import Box from '@mui/material/Box'
+import { useTheme } from '@mui/material/styles'
 
 const FooterContainer: FunctionComponent<React.PropsWithChildren<unknown>> = ({
   children
 }) => {
-  const { classes, cx } = useStyles()
+  const theme = useTheme()
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const drawerVariant = useNavigationStore(drawerVariantSelector)
   const settings = useSettings()
 
   const hasLeftShift = drawerVariant !== 'temporary' && isLeftDrawerOpen
   return (
-    <footer
-      className={cx(classes.footer, {
-        [classes.leftShift]: hasLeftShift,
-        [classes[`left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`]]:
-          hasLeftShift
-      })}
+    <Box
+      component={'footer'}
+      sx={{
+        position: 'relative',
+        zIndex: theme.zIndex.drawer + 1,
+        ...(hasLeftShift && {
+          marginLeft: theme.drawer.left,
+          width: `calc(100% - ${theme.drawer.left})`,
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen
+          }),
+          [theme.breakpoints.only(settings.mobile_nav_breakpoint || 'xs')]: {
+            marginLeft: 0
+          }
+        })
+      }}
     >
       {children}
-    </footer>
+    </Box>
   )
 }
 FooterContainer.displayName = 'FooterContainer'

@@ -1,7 +1,6 @@
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import React from 'react'
-import { makeStyles } from 'tss-react/mui'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
@@ -10,20 +9,13 @@ import {
   LmBottomNavigationProps
 } from './bottomNavigationTypes'
 import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
-
-const useStyles = makeStyles()((theme) => ({
-  root: {
-    width: '100%',
-    position: 'fixed',
-    bottom: 0,
-    zIndex: theme.zIndex.snackbar
-  }
-}))
+import { useTheme } from '@mui/material/styles'
+import clsx from 'clsx'
 
 export default function LmBottomNavigation({
   content
 }: LmBottomNavigationProps) {
-  const { classes, cx: clsx } = useStyles()
+  const theme = useTheme()
   const classesAdvanced = useStylesAdvanced({
     props: content.styles,
     propsMobile: content.styles_mobile,
@@ -34,9 +26,16 @@ export default function LmBottomNavigation({
   return (
     <BottomNavigation
       showLabels
+      sx={{
+        ...(content.stick_to_bottom && {
+          width: '100%',
+          position: 'fixed',
+          bottom: 0,
+          zIndex: theme.zIndex.snackbar
+        })
+      }}
       classes={{
         root: clsx({
-          [classes.root]: content.stick_to_bottom,
           [classesAdvanced.advanced]: !!content.styles?.length,
           [classesAdvanced.advancedMobile]: !!content.styles_mobile?.length,
           [classesAdvanced.advancedTablet]: !!content.styles_tablet?.length,

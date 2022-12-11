@@ -32,6 +32,7 @@ module.exports = {
   addons: [
     '@storybook/addon-knobs',
     'storybook-addon-next-router',
+    // 'storybook-addon-next'
     {
       name: '@storybook/addon-essentials'
     }

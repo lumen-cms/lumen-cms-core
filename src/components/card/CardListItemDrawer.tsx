@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer'
 import { FunctionComponent, PropsWithChildren } from 'react'
-import { Theme } from '@mui/material/styles'
+import { useTheme } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Close from 'mdi-material-ui/Close'
 import IconButton from '@mui/material/IconButton'
@@ -8,29 +8,16 @@ import Grid from '@mui/material/Grid'
 import { LmComponentRender } from '@LmComponentRender'
 import { CardListItemProps } from './cardTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
-import { makeStyles } from 'tss-react/mui'
 
 type CardWrapAction = Pick<CardListItemProps, 'content'> & {
   setOpen: (bool: boolean) => void
   open: boolean
 }
 
-const useStyles = makeStyles()((theme: Theme) => ({
-  drawerContent: {
-    padding: theme.spacing(3),
-    flex: 1,
-    overflowY: 'auto'
-  },
-  drawerToolbar: {
-    justifyContent: 'space-between'
-  }
-}))
-
 const CardListItemDrawer: FunctionComponent<
   PropsWithChildren<CardWrapAction>
 > = ({ content, setOpen, open }) => {
-  const { classes } = useStyles()
-
+  const theme = useTheme()
   const { isMobile } = useDeviceDimensions()
 
   return (
@@ -48,7 +35,11 @@ const CardListItemDrawer: FunctionComponent<
     >
       <Grid container direction="column">
         <Grid item>
-          <Toolbar classes={{ root: classes.drawerToolbar }}>
+          <Toolbar
+            sx={{
+              justifyContent: 'space-between'
+            }}
+          >
             {content.action_headline?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />
             )) ?? <div />}
@@ -63,7 +54,13 @@ const CardListItemDrawer: FunctionComponent<
             </IconButton>
           </Toolbar>
         </Grid>
-        <Grid className={classes.drawerContent}>
+        <Grid
+          sx={{
+            padding: theme.spacing(3),
+            flex: 1,
+            overflowY: 'auto'
+          }}
+        >
           {content.body?.map((blok) => (
             <LmComponentRender content={blok} key={blok._uid} />
           ))}

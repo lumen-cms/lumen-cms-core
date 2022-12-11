@@ -13,29 +13,8 @@ import {
   TabsItemStoryblok
 } from '../../typings/generated/components-schema'
 import { LmTabsProps } from './tabsTypes'
-import { makeStyles } from 'tss-react/mui'
 import LmNukaCarousel from '../slider/LmNukaCarousel'
-
-const useStyles = makeStyles({ name: 'Tabs' })((theme) => ({
-  tabContainer: {
-    '& .react-swipeable-view-container > div > div': {
-      padding: theme.spacing(3)
-    },
-    '& .MuiTab-wrapper > .MuiTypography-root': {
-      textTransform: 'none',
-      width: '100%'
-    }
-  },
-  vertical: {
-    '& .MuiTabs-flexContainerVertical': {
-      borderRight: `1px solid ${theme.palette.divider}`
-    },
-    '& .react-swipeable-view-container > div > div': {
-      paddingTop: 0,
-      paddingBottom: 0
-    }
-  }
-}))
+import { useTheme } from '@mui/material/styles'
 
 const widthMap = {
   1: 1,
@@ -56,7 +35,7 @@ const widthMap = {
 }
 
 export default function LmTabs({ content }: LmTabsProps) {
-  const { classes, cx, theme } = useStyles()
+  const theme = useTheme()
   const isMobile = useMediaQuery(
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')
   )
@@ -72,9 +51,24 @@ export default function LmTabs({ content }: LmTabsProps) {
       <Grid
         container
         direction="row"
-        className={cx(classes.tabContainer, {
-          [classes.vertical]: isVertical
-        })}
+        sx={{
+          '& .react-swipeable-view-container > div > div': {
+            padding: theme.spacing(3)
+          },
+          '& .MuiTab-wrapper > .MuiTypography-root': {
+            textTransform: 'none',
+            width: '100%'
+          },
+          ...(isVertical && {
+            '& .MuiTabs-flexContainerVertical': {
+              borderRight: `1px solid ${theme.palette.divider}`
+            },
+            '& .react-swipeable-view-container > div > div': {
+              paddingTop: 0,
+              paddingBottom: 0
+            }
+          })
+        }}
       >
         <Grid
           item

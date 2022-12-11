@@ -9,24 +9,11 @@ import useBackgroundBox from '../../section/useBackgroundBox'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
 import LmSquareImage from '../../avatar/LmSquareImage'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles({ name: 'DrawerElement' })({
-  logoRoot: {
-    '& > div': {
-      height: '40px'
-    }
-  },
-  logo: {
-    objectFit: 'contain',
-    objectPosition: 'left'
-  }
-})
+import Box from '@mui/material/Box'
 
 function DrawerLogoArea() {
   const settings = useSettings()
   const homepageHref = useHomepageLink()
-  const { classes, cx } = useStyles()
 
   const websiteTitle = settings.website_title
   const websiteLogo = settings.website_logo
@@ -34,7 +21,14 @@ function DrawerLogoArea() {
   return (
     <div>
       <Link href={homepageHref}>
-        <div className={cx('p-3', classes.logoRoot)}>
+        <Box
+          sx={{
+            '& > div': {
+              height: '40px'
+            }
+          }}
+          className={'p-3'}
+        >
           {!websiteLogo && websiteTitle && <>{websiteTitle}</>}
           {websiteLogo && (
             <LmSquareImage
@@ -43,7 +37,7 @@ function DrawerLogoArea() {
               size={40}
             />
           )}
-        </div>
+        </Box>
       </Link>
       {websiteSlogan && <div>{websiteSlogan}</div>}
     </div>

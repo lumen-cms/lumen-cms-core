@@ -2,14 +2,15 @@ import Button, { ButtonProps } from '@mui/material/Button'
 import Fab, { FabProps } from '@mui/material/Fab'
 import React, { FC, PropsWithChildren } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
-import { Theme } from '@mui/material/styles'
+import { useTheme } from '@mui/material/styles'
 import { LmCoreComponents } from '@CONFIG'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
 import { LmButtonProps } from './buttonTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
-import { makeStyles } from 'tss-react/mui'
+import { SxProps } from '@mui/material'
+import clsx from 'clsx'
 
 // fab and button: small medium large, default: large
 const mapSize = {
@@ -48,11 +49,25 @@ const mapColor: {
   warning: 'warning'
 }
 
-const useStyles = makeStyles({ name: 'Button' })((theme: Theme) => ({
-  noWhitespace: {
-    whiteSpace: 'nowrap'
-  },
-  button: {
+export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
+  children,
+  content,
+  onClick,
+  type,
+  disabled,
+  additionalClassName
+}) => {
+  const theme = useTheme()
+  const { classes: advancedClasses } = useStylesAdvanced({
+    props: content.styles,
+    propsMobile: content.styles_mobile,
+    propsTablet: content.styles_tablet,
+    propsHover: content.styles_hover
+  })
+  const properties = content.properties || []
+  const disableRipple = properties.includes('disable-ripple')
+  const color = content.color ? mapColor[content.color] : 'grey'
+  const sxProps: SxProps = {
     '&.lm-button-shaped': {
       borderRadius: '2em'
     },
@@ -90,58 +105,30 @@ const useStyles = makeStyles({ name: 'Button' })((theme: Theme) => ({
     },
     '&.lm-unelevated': {
       boxShadow: 'none'
-    }
-  },
-  buttonLabelWithAvatar: {
-    '&.MuiFab-root .MuiAvatar-root, &.MuiFab-root .lm-svg-icon': {
-      marginRight: theme.spacing(1)
-    }
+    },
+    ...(properties.includes('no-linebreak') && {
+      whiteSpace: 'nowrap'
+    }),
+    ...(!!((content.image || content.icon?.name) && content.label) && {
+      '&.MuiFab-root .MuiAvatar-root, &.MuiFab-root .lm-svg-icon': {
+        marginRight: theme.spacing(1)
+      }
+    })
   }
-}))
-
-export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
-  children,
-  content,
-  onClick,
-  type,
-  disabled,
-  additionalClassName
-}) => {
-  const { classes, cx: clsx } = useStyles()
-  const { classes: advancedClasses } = useStylesAdvanced({
-    props: content.styles,
-    propsMobile: content.styles_mobile,
-    propsTablet: content.styles_tablet,
-    propsHover: content.styles_hover
+  const className = clsx(content.class_names?.values, additionalClassName, {
+    [advancedClasses.advanced]: !!content.styles?.length,
+    [advancedClasses.advancedMobile]: !!content.styles_mobile?.length,
+    [advancedClasses.advancedTablet]: !!content.styles_tablet?.length,
+    [advancedClasses.advancedHover]: !!content.styles_hover?.length,
+    'lm-default-color': !content.color,
+    [content.corners as string]: !!content.corners,
+    'lm-unelevated':
+      properties.includes('disable-shadow') || content.variant === 'unelevated',
+    'lm-outlined': content.variant === 'outlined',
+    [content.size as string]: !!content.size,
+    [`lm-font-${content.font}`]: !!content.font,
+    'w-100': properties.includes('fullWidth')
   })
-  const properties = content.properties || []
-  const disableRipple = properties.includes('disable-ripple')
-  const color = content.color ? mapColor[content.color] : 'grey'
-  const className = clsx(
-    classes.button,
-    content.class_names?.values,
-    additionalClassName,
-    {
-      [classes.buttonLabelWithAvatar]: !!(
-        (content.image || content.icon?.name) &&
-        content.label
-      ),
-      [advancedClasses.advanced]: !!content.styles?.length,
-      [advancedClasses.advancedMobile]: !!content.styles_mobile?.length,
-      [advancedClasses.advancedTablet]: !!content.styles_tablet?.length,
-      [advancedClasses.advancedHover]: !!content.styles_hover?.length,
-      [classes.noWhitespace]: properties.includes('no-linebreak'),
-      'lm-default-color': !content.color,
-      [content.corners as string]: !!content.corners,
-      'lm-unelevated':
-        properties.includes('disable-shadow') ||
-        content.variant === 'unelevated',
-      'lm-outlined': content.variant === 'outlined',
-      [content.size as string]: !!content.size,
-      [`lm-font-${content.font}`]: !!content.font,
-      'w-100': properties.includes('fullWidth')
-    }
-  )
 
   const StartIcon = () =>
     content.image ? (
@@ -181,6 +168,7 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
         {...btnProps}
         className={className}
         sx={{
+          ...sxProps,
           backgroundColor: content.custom_color?.rgba
             ? content.custom_color.rgba
             : undefined
@@ -208,6 +196,7 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
         size={mapIconButtonSize[content.size as string] || 'medium'}
         disableRipple={disableRipple}
         sx={{
+          ...sxProps,
           color: content.custom_color?.rgba
             ? content.custom_color.rgba
             : undefined,
@@ -240,6 +229,7 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
       variant={mapVariant[content.variant as string]}
       color={color as ButtonProps['color']}
       sx={{
+        ...sxProps,
         justifyContent: content.align ? content.align : undefined,
         color:
           !['raised', 'unelevated'].includes(content.variant || '') &&

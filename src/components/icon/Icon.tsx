@@ -32,9 +32,7 @@ const useStyles = makeStyles({ name: 'Icon' })({
     fontSize: '4rem',
     height: '4rem'
   },
-  icon: {
-    margin: 'auto'
-  }
+  icon: {}
 })
 
 export function LmIcon({ content, onClick }: LmIconProps): JSX.Element {
