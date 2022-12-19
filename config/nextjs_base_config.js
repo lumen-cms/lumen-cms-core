@@ -49,6 +49,11 @@ module.exports = ({
         return entries
       }
       return config
+    },
+    async rewrites() {
+      return {
+        beforeFiles: [{ source: '/sitemap.xml', destination: '/api/sitemap' }]
+      }
     }
   }
 
