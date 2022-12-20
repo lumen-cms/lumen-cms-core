@@ -15,7 +15,12 @@ export default function LmSlider({ content }: LmSliderProps) {
   return (
     <Box
       sx={{
-        backgroundColor: content.background_color?.rgba ?? undefined
+        backgroundColor: content.background_color?.rgba ?? undefined,
+        '& .lm-section > .MuiContainer-root': {
+          padding: '0px !important',
+          margin: '0px !important',
+          maxWidth: 'inherit !important'
+        }
       }}
     >
       <LmNukaCarousel
