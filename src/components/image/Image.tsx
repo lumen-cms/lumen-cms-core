@@ -13,8 +13,6 @@ const useStyles = makeStyles<ImageStoryblok>({ name: 'Image' })(
   (theme, props) => ({
     image: {
       margin: 'auto'
-      // width: '100%',
-      // height: 'auto'
     },
     imgAddons: {
       '&.square, &.rounded-0 img': {
@@ -107,6 +105,7 @@ export default function LmImage({
                 objectPosition: 'center'
               },
               loading,
+              fill: true,
               className: classes.customImage
             }}
           />
@@ -114,6 +113,10 @@ export default function LmImage({
       </>
     )
   }
+  const proportionalHeightCalc =
+    isProportional &&
+    (proportionalHeight ||
+      imageCalculateHeight(proportionalWidth, originalDimensions))
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
     <div
@@ -128,14 +131,16 @@ export default function LmImage({
           isProportional && proportionalWidth
             ? `${proportionalWidth}px`
             : undefined,
-        maxHeight:
-          (isProportional &&
-            (proportionalHeight ||
-              imageCalculateHeight(proportionalWidth, originalDimensions))) ||
-          undefined
+        maxHeight: proportionalHeightCalc
+          ? `${proportionalHeightCalc}px`
+          : undefined
       }}
     >
-      <div style={{ textAlign: 'center' }}>
+      <div
+        style={{
+          textAlign: 'center'
+        }}
+      >
         <LmSquareImage
           image={imageSource}
           size={
@@ -149,7 +154,22 @@ export default function LmImage({
             priority,
             onClick: onClick ? () => onClick() : undefined,
             alt: content.alt || 'website image',
-            className: classes.customImage
+            className: classes.customImage,
+            ...(isProportional
+              ? proportionalHeightCalc
+                ? {
+                    style: {
+                      height: `${proportionalHeightCalc}px`,
+                      width: 'auto'
+                    }
+                  }
+                : {
+                    style: {
+                      width: `${proportionalWidth}px`,
+                      height: 'auto'
+                    }
+                  }
+              : {})
           }}
         />
       </div>

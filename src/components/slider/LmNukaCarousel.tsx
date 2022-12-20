@@ -19,7 +19,7 @@ type LmNukaCarouselProps = PropsWithChildren<
     arrowsBesidePagination?: boolean
     hideArrows?: boolean
     darkArrows?: boolean
-    darkPagination?: boolean
+    darkPagination?: boolean // the property should render minus
     paginationCircle?: boolean
   }
 >
@@ -34,8 +34,8 @@ export default function LmNukaCarousel({
   paginationCircle,
   ...carouselProps
 }: LmNukaCarouselProps) {
-  const ActiveIndicator = paginationCircle ? <CircleMedium /> : <MinusThick />
-  const DefaultIndicator = paginationCircle ? <CircleSmall /> : <Minus />
+  const ActiveIndicator = paginationCircle ? <MinusThick /> : <CircleMedium />
+  const DefaultIndicator = paginationCircle ? <Minus /> : <CircleSmall />
   return (
     <Carousel
       wrapAround={true}

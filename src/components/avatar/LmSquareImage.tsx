@@ -21,6 +21,7 @@ type LmSquareImageProps = {
     | 'alt'
     | 'className'
     | 'style'
+    | 'fill'
   >
 }
 
@@ -34,7 +35,7 @@ export default function LmSquareImage({
     <Image
       src={getRootImageUrl(image)}
       {...storyblokImageLoader(image)}
-      {...(image.includes('a.storyblok.com')
+      {...(image.includes('a.storyblok.com') && !imageProps?.fill
         ? {
             ...imageCalculateWidthHeight(size ? Number(size) : 40, image, {
               sizeIsHeight
@@ -49,7 +50,8 @@ export default function LmSquareImage({
             fill: true,
             style: {
               objectFit: 'cover'
-            }
+            },
+            sizes: size ? `${size}px` : undefined
           })}
       {...imageProps}
       alt={imageProps?.alt || 'website image'}
