@@ -6,18 +6,24 @@ import Head from 'next/head'
 import { AppPageProps } from '../../typings/app'
 import { LmAppContainer } from '../layout/AppContainer'
 import { analyticsOnPageChange } from '../../utils/analyticsHelper'
-import { CacheProvider } from '@emotion/react'
+import { CacheProvider, EmotionCache } from '@emotion/react'
 import createEmotionCache from '../global-theme/muiCache'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
-export type LmAppProps = AppProps<AppPageProps>
+export type LmAppProps = AppProps<AppPageProps> & {
+  emotionCache: EmotionCache
+}
 
 export function LmApp(appProps: LmAppProps) {
-  const { Component, pageProps, router } = appProps
-  const { settings, emotionCache = clientSideEmotionCache } =
-    pageProps as AppPageProps
+  const {
+    Component,
+    pageProps,
+    router,
+    emotionCache = clientSideEmotionCache
+  } = appProps
+  const { settings } = pageProps as AppPageProps
 
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel

@@ -145,8 +145,8 @@ export default function LmTabs({ content }: LmTabsProps) {
           <LmNukaCarousel
             withoutControls
             slideIndex={Number(activeTab)}
-            afterSlide={(index) => {
-              setActiveTab(`${index}`)
+            beforeSlide={(_, endSlideIndex) => {
+              setActiveTab(`${endSlideIndex}`)
             }}
             {...(content.dynamic_height && {
               adaptiveHeight: true,

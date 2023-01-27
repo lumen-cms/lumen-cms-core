@@ -1,7 +1,6 @@
 import { GetStaticPropsContext } from 'next'
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import { CategoryComponent, PageComponent } from './generated/schema'
-import { EmotionCache } from '@emotion/react'
 import { ISbResult, ISbStoryData } from 'storyblok-js-client'
 
 export interface IClaims {
@@ -37,7 +36,6 @@ export type AppPageProps = Pick<AppApiRequestPayload, 'googleFontString'> &
     user?: IClaims
     pageNotFound?: boolean
     slug?: string
-    emotionCache?: EmotionCache
     needAuth?: boolean
     // [k: string]: any
   }

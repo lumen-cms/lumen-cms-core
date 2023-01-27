@@ -2,13 +2,15 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const getSecureHeader = require('./nextjs_csp_generator')
 module.exports = ({
                     contentSecurityPolicy = {},
-                    ignoreCsp
+                    ignoreCsp,
+                    transpilePackages = ['lumen-cms-core']
                   }) => {
   /**
    * @type {import('next').NextConfig}
    */
   const config = {
     reactStrictMode: true,
+    transpilePackages,
     async headers() {
       return [
         {

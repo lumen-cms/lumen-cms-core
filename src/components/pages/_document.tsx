@@ -61,6 +61,7 @@ AppDocument.getInitialProps = async (ctx) => {
     originalRenderPage({
       enhanceApp: (App: any) =>
         function EnhanceApp(props) {
+          console.log('server:::', cache)
           return <App emotionCache={cache} {...props} />
         }
     })
