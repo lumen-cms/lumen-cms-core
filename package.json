@@ -23,6 +23,7 @@
     "build": "rimraf .babelrc && rimraf .next && next build --debug",
     "build-test": "cross-env TEST=TRUE npm run build",
     "start": "rimraf .babelrc && next start",
+    "builds": "rimraf .babelrc && rimraf .next && next build && next start",
     "analyze": "rimraf .babelrc && cross-env BUNDLE_ANALYZE=true npm run build",
     "gen-ts-schema": "storyblok-generate-ts source=./components.82895.json customTypeParser=./generate-ts-schema-custom-types.js target=./src/typings/generated/components-schema.ts",
     "fetch-storyblok-components": "storyblok pull-components --space=82895",

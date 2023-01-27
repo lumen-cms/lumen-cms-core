@@ -20,7 +20,7 @@ module.exports = ({
     },
     images: {
       formats: ['image/avif', 'image/webp'],
-      path: 'https://img-12.lumen.media/_next/image/',
+      // path: 'https://img-12.lumen.media/_next/image/',
       domains: [
         'a.storyblok.com',
         'img2.storyblok.com',
