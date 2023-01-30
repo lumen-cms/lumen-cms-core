@@ -5,14 +5,10 @@ import StoryblokClient, {
 import { CONFIG } from '@CONFIG'
 import { rootParams } from '../universal/storyblokParamsHelper'
 
-const cv = Date.now()
-
 class StoryblokServiceClass {
   private devMode: boolean
 
-  private cv?: number
-
-  private token: string
+  // private token: string
 
   private client: StoryblokClient
 
@@ -21,44 +17,28 @@ class StoryblokServiceClass {
   public richTextResolver: any
 
   constructor() {
-    this.token =
-      process.env.NODE_ENV === 'production'
-        ? CONFIG.publicToken
-        : CONFIG.previewToken
+    // this.token =
+    //   process.env.NODE_ENV === 'production'
+    //     ? CONFIG.publicToken
+    //     : CONFIG.previewToken
     this.devMode = process.env.NODE_ENV !== 'production' // If true it always loads draft
-    this.cv = cv
+
     this.client = new StoryblokClient({
-      accessToken: this.token,
+      accessToken: CONFIG.previewToken,
       cache: {
         clear: 'auto',
         type: 'memory'
-      },
-      maxRetries: 2,
-      timeout: 500
+      }
     })
     this.richTextResolver = this.client.richTextResolver
 
     this.query = {}
   }
 
-  getSearch(slug: string, params: Record<string, unknown>) {
-    return this.client.get(slug, { ...params, ...this.getDefaultParams() })
-  }
-
-  getCacheVersion() {
-    return this.cv
-  }
-
   getDefaultParams() {
-    const params: ISbStoryParams = {}
-
-    if (
-      typeof window !== 'undefined' &&
-      // @ts-ignore
-      typeof window.StoryblokCacheVersion !== 'undefined'
-    ) {
-      // @ts-ignore
-      params.cv = window.StoryblokCacheVersion
+    const params: ISbStoryParams = {
+      version: 'published',
+      token: CONFIG.publicToken
     }
 
     const getFromRelease = this.getQuery('_storyblok_release')
@@ -68,7 +48,6 @@ class StoryblokServiceClass {
 
     if (process.env.STORYBOOK) {
       params.version = 'published'
-      // params.cv = this.cv
       params.token = CONFIG.publicToken
       this.devMode = false
     } else if (
@@ -77,11 +56,9 @@ class StoryblokServiceClass {
       (typeof window !== 'undefined' && window.StoryblokBridge) ||
       params.version === 'draft'
     ) {
-      delete params.cv
       params.version = 'draft'
       params.token = CONFIG.previewToken
-      this.token = params.token
-      // this.client.setToken(params.token)
+      // this.token = params.token
     }
     return params
   }

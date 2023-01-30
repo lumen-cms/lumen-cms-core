@@ -18,7 +18,7 @@ import { useAppContext } from '@context/AppContext'
 import { Router } from 'next/router'
 
 export default function LmListStories({ content }: LmListStoriesProps) {
-  const { locale, defaultLocale, locales } = useAppContext()
+  const { locale, defaultLocale, locales, insideStoryblok } = useAppContext()
   const initialize = useRef<boolean>(false)
   const paginate = content.pagination?.[0]
   const [page, setPage] = useState<number>(1)
@@ -31,12 +31,12 @@ export default function LmListStories({ content }: LmListStoriesProps) {
 
   const fetchProps: FetchListStoriesProps = {
     searchText,
-    pageProps: { locale, defaultLocale, locales },
+    pageProps: { locale, defaultLocale, locales, insideStoryblok },
     page,
     content,
     searchCategories
   }
-  const { data, error, isValidating } = useSWR<LmListStoriesPayload>(
+  const { data, error, isLoading } = useSWR<LmListStoriesPayload>(
     content.max_items ? null : fetchProps,
     fetchListStories,
     {
@@ -121,7 +121,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         minHeight: content.enable_min_height ? 'calc(100vh - 120px)' : undefined
       }}
     >
-      {isValidating && (
+      {isLoading && (
         <div
           style={{
             minHeight: '350px',
@@ -139,20 +139,20 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         <LmListStoriesPagination
           page={page}
           options={paginate}
-          disabled={isValidating}
+          disabled={isLoading}
           totalCount={totalCount}
           className={'mb-2'}
           onChange={onPageChange}
         />
       )}
-      {!isValidating && !data?.stories?.length && (
+      {!isLoading && !data?.stories?.length && (
         <div>
           {content.not_found_message?.map((blok) => (
             <LmComponentRender content={blok} key={blok._uid} />
           ))}
         </div>
       )}
-      {!isValidating && !!data?.stories?.length && (
+      {!isLoading && !!data?.stories?.length && (
         <LmListStoriesContainer
           layout={content.layout}
           _uid={content._uid}
@@ -163,7 +163,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
         <LmListStoriesPagination
           page={page}
           options={paginate}
-          disabled={isValidating}
+          disabled={isLoading}
           totalCount={totalCount}
           className={'mt-3'}
           onChange={onPageChange}

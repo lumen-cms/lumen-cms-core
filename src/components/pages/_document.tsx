@@ -1,6 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
-import { LmStoryblokService } from '../../utils/initial-props/StoryblokService'
 import { SSR_CONFIG } from '@SSR_CONFIG'
 import {
   googleFontString,
@@ -17,7 +16,6 @@ SSR_CONFIG.ssrHooks.componentData = {
 
 export default class AppDocument extends Document {
   render() {
-    const cacheVersion = LmStoryblokService.getCacheVersion()
     return (
       <Html>
         <Head>
@@ -40,11 +38,6 @@ export default class AppDocument extends Document {
             </noscript>
           )}
           <Main />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `var StoryblokCacheVersion = '${cacheVersion}';`
-            }}
-          />
           <NextScript />
         </body>
       </Html>

@@ -15589,12 +15589,12 @@ __metadata:
     sitemap: 7.1.1
     smoothscroll-polyfill: 0.4.4
     storyblok-generate-ts: ^1.4.1
-    storyblok-js-client: 5.3.5
+    storyblok-js-client: 5.3.6
     storyblok-react: 0.1.2
     storyblok-rich-text-react-renderer-ts: 3.2.0
     storybook-addon-next-router: 4.0.1
     swiper: 8.4.5
-    swr: 1.3.0
+    swr: 2.0.3
     ts-jest: ^29.0.3
     ts-node: ^10.4.0
     tsconfig-paths-webpack-plugin: 3.5.2
@@ -20107,10 +20107,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storyblok-js-client@npm:5.3.5":
-  version: 5.3.5
-  resolution: "storyblok-js-client@npm:5.3.5"
-  checksum: 7abff9b44580f757f66cc4a8c862bd5dafa93252b81a21f59d7a15ca64674ac318ae783f9a1b90fb00131bd9be6e95fb4de82918c0514ceb684e4c83912d3e6b
+"storyblok-js-client@npm:5.3.6":
+  version: 5.3.6
+  resolution: "storyblok-js-client@npm:5.3.6"
+  checksum: 8bf3a4a59b22bd6536fd69ccf0caa4bdf5abe1d697ffbcb842fd683765353b10d9a6cc339f7c54439ba23bd5b9825b8cd258e8e29ba069618e45d7dae8ee4cff
   languageName: node
   linkType: hard
 
@@ -20545,12 +20545,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swr@npm:1.3.0":
-  version: 1.3.0
-  resolution: "swr@npm:1.3.0"
+"swr@npm:2.0.3":
+  version: 2.0.3
+  resolution: "swr@npm:2.0.3"
+  dependencies:
+    use-sync-external-store: ^1.2.0
   peerDependencies:
     react: ^16.11.0 || ^17.0.0 || ^18.0.0
-  checksum: e7a184f0d560e9c8be85c023cc8e65e56a88a6ed46f9394b301b07f838edca23d2e303685319a4fcd620b81d447a7bcb489c7fa0a752c259f91764903c690cdb
+  checksum: 968071e3336b81194879fd94553777793314e773cd2a27665617131403dca6b7e4d3697ab00d0b0aa456c107c0c8d86f9ce52bac22f8533e8421099870d46b17
   languageName: node
   linkType: hard
 
@@ -21661,7 +21663,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:1.2.0":
+"use-sync-external-store@npm:1.2.0, use-sync-external-store@npm:^1.2.0":
   version: 1.2.0
   resolution: "use-sync-external-store@npm:1.2.0"
   peerDependencies:

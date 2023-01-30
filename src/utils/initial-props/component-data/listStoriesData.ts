@@ -13,6 +13,5 @@ export const listStoriesData = async (
   delete storiesResult.headers
   storiesResult.data.rels = []
   storiesResult.data.links = []
-
   return storiesResult
 }

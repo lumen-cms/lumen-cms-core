@@ -36,6 +36,7 @@ export const fetchListStories = async ({
       search_term: searchText
     })
   }
+  console.log(storiesParams)
   const { data, total } = await LmStoryblokService.getStories(storiesParams)
   return {
     stories: data.stories as ListStoriesData[],

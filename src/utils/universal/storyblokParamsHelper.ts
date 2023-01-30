@@ -34,6 +34,9 @@ export const getStoriesDefaultParams = (
     excluding_fields: excludeListForStories,
     ...localeStoriesHelper(props)
   }
+  if (props.insideStoryblok) {
+    params.version = 'draft'
+  }
   return params
 }
 
