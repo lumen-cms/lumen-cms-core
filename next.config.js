@@ -5,11 +5,11 @@ const getBaseConfig = require('./config/nextjs_base_config')
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  ...getBaseConfig({ ignoreCsp: true })
-  // i18n: {
-  //   locales: ['en'],
-  //   defaultLocale: 'en'
-  // }
+  ...getBaseConfig({ ignoreCsp: true }),
+  i18n: {
+    locales: ['en', 'de', 'id'],
+    defaultLocale: 'en'
+  }
   // async redirects() {
   //   // const reds = await redirectFunc(['de', 'it', 'es'])
   //   // return reds

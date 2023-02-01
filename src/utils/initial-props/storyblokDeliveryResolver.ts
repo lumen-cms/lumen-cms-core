@@ -52,6 +52,7 @@ export const apiRequestResolver = async ({
         }
       : {})
   }
+  console.log('before call', currentSlug, params, options)
 
   // @ts-ignore
   const [{ value: page }, { value: settings }] = await Promise.allSettled([
