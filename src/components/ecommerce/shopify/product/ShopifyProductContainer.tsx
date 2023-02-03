@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Unstable_Grid2'
 import React, { ReactNode } from 'react'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { EcommerceShopifyConfigStoryblok } from '../../../../typings/generated/components-schema'
@@ -36,7 +36,6 @@ export function ShopifyProductContainer({
       alignItems={config?.columns_align_items || 'center'}
     >
       <Grid
-        item
         xs={12}
         sm={
           config?.columns_first_width
@@ -47,7 +46,6 @@ export function ShopifyProductContainer({
         {LeftColumn}
       </Grid>
       <Grid
-        item
         xs={12}
         sm={
           config?.columns_second_width

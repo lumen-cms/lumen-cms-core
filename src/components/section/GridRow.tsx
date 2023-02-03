@@ -1,5 +1,5 @@
 import React from 'react'
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Unstable_Grid2'
 import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
@@ -13,8 +13,8 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
   gridRow: {
     height: '100%',
     minHeight: 'inherit',
-    '& .MuiGrid-item': {
-      '& > .MuiGrid-direction-xs-column, & > .lm-column-stack__root, & > .lm-grid-column__wrap > .MuiGrid-direction-xs-column, & > .lm-grid-column__wrap > .lm-column-stack__root':
+    '& .MuiGrid2-item': {
+      '& > .MuiGrid2-direction-xs-column, & > .lm-column-stack__root, & > .lm-grid-column__wrap > .MuiGrid2-direction-xs-column, & > .lm-grid-column__wrap > .lm-column-stack__root':
         {
           '& > *': {
             marginTop: theme.spacing(1),

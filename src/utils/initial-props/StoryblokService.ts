@@ -30,6 +30,8 @@ class StoryblokServiceClass {
         type: 'memory'
       }
     })
+    // regression: check https://github.com/storyblok/storyblok-js-client/issues/416
+    this.client.resolveNestedRelations = true
     this.richTextResolver = this.client.richTextResolver
 
     this.query = {}

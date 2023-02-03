@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCardListProps } from './cardTypes'
-import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
-import { Grid } from '@mui/material'
+import Grid from '@mui/material/Unstable_Grid2'
 import { COLUMN_COUNT } from './cardListStyles'
 import Box from '@mui/material/Box'
 import clsx from 'clsx'
@@ -18,7 +17,6 @@ export default function LmCardList({
   const gutterSize = content.column_gap ? Number(content.column_gap) : 24
   const enableInView = !disablePagination && body.length > chunkSize
   const [intersectionLoadMoreRef, loadMoreInView] = useInView()
-  const [inViewRef, elementInView] = useInView(intersectionDefaultOptions)
   const [page, setPage] = useState<number>(1)
   const data =
     (!disablePagination ? body.slice(0, page * chunkSize) : body) || []
@@ -33,7 +31,6 @@ export default function LmCardList({
 
   return (
     <Box
-      ref={inViewRef}
       style={{
         padding: `${gutterSize / 2}px`
       }}
@@ -121,7 +118,7 @@ export default function LmCardList({
         ]}
         justifyContent={'center'}
         sx={{
-          '& .MuiGrid-item > .MuiCard-root, & .MuiGrid-item > .MuiCard-root > .MuiCardActionArea-root':
+          '& .MuiGrid2-item > .MuiCard-root, & .MuiGrid2-item > .MuiCard-root > .MuiCardActionArea-root':
             {
               height: content.variant?.includes('equal-heights')
                 ? '100%'
@@ -130,43 +127,11 @@ export default function LmCardList({
         }}
       >
         {data.map((item) => (
-          <Grid item key={`${item.component}_${item._uid}`} xs={1}>
-            <LmComponentRender
-              content={item}
-              options={rest}
-              inView={elementInView}
-            />
+          <Grid key={`${item.component}_${item._uid}`} xs={1}>
+            <LmComponentRender content={item} options={rest} />
           </Grid>
         ))}
       </Grid>
-      {/*<ImageList*/}
-      {/*  gap={gutterSize}*/}
-      {/*  rowHeight="auto"*/}
-      {/*  sx={{*/}
-      {/*    overflow: 'visible',*/}
-      {/*    columnCount: {*/}
-      {/*      xs: `${*/}
-      {/*        content.column_count_phone || COLUMN_COUNT.PHONE_MASONRY*/}
-      {/*      }!important`,*/}
-      {/*      sm: `${*/}
-      {/*        content.column_count_tablet || COLUMN_COUNT.TABLET*/}
-      {/*      }!important`,*/}
-      {/*      lg: `${content.column_count || COLUMN_COUNT.DESKTOP}!important`*/}
-      {/*    }*/}
-      {/*  }}*/}
-      {/*  // className={gridClasses.root}*/}
-      {/*  variant={'masonry'}*/}
-      {/*>*/}
-      {/*  {data.map((item) => (*/}
-      {/*    <ImageListItem key={`${item.component}_${item._uid}`}>*/}
-      {/*      <LmComponentRender*/}
-      {/*        content={item}*/}
-      {/*        options={rest}*/}
-      {/*        inView={elementInView}*/}
-      {/*      />*/}
-      {/*    </ImageListItem>*/}
-      {/*  ))}*/}
-      {/*</ImageList>*/}
       <div
         ref={
           enableInView && data.length < body.length

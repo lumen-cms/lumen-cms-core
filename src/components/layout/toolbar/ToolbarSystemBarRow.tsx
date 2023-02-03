@@ -1,5 +1,5 @@
 import Container, { ContainerProps } from '@mui/material/Container'
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Unstable_Grid2'
 import { LmComponentRender } from '@LmComponentRender'
 import React, { FC } from 'react'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
@@ -61,6 +61,7 @@ export default function ToolbarSystemBarRow({
             justifyContent={content.justify || 'space-between'}
             alignContent="center"
             alignItems="center"
+            width={'100%'}
           >
             {content.body?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />

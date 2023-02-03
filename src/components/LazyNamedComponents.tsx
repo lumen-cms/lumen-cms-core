@@ -1,5 +1,5 @@
-import dynamic from 'next/dynamic'
 import { LmCoreComponents } from '@CONFIG'
+import dynamic from 'next/dynamic'
 
 LmCoreComponents.table = dynamic(
   () => import(/* webpackChunkName: 'table' */ './table/Table')
@@ -24,12 +24,6 @@ LmCoreComponents.parallax_provider = dynamic(
     )
 )
 LmCoreComponents.gallery = dynamic(() => import('./gallery/LmGallery'))
-// LmCoreComponents.instagram_post = dynamic(
-//   () => import(/* webpackChunkName: 'instagram' */ './instagram/InstagramPost')
-// )
-// LmCoreComponents.instagram_list = dynamic(
-//   () => import(/* webpackChunkName: 'instagram' */ './instagram/InstagramList')
-// )
 LmCoreComponents.instagram_post = () => null // instagram disabled for now
 LmCoreComponents.instagram_list = () => null // instagram disabled for now
 
@@ -65,6 +59,7 @@ LmCoreComponents.image_list = dynamic(
 LmCoreComponents.image_list_item = dynamic(
   () => import(/* webpackChunkName: 'slider' */ './image-list/ImageListItem')
 )
+
 LmCoreComponents.slider = dynamic(
   () => import(/* webpackChunkName: 'slider' */ './slider/Slider')
 )
@@ -124,9 +119,6 @@ LmCoreComponents.button_speech_text = dynamic(
     ),
   { ssr: false }
 )
-// LmCoreComponents.auth_form = dynamic(
-//   () => import(/* webpackChunkName: 'bottomNavigation' */ './auth/AuthForm')
-// )
 
 LmCoreComponents.form_container = dynamic(
   () =>
@@ -137,7 +129,10 @@ LmCoreComponents.form_container = dynamic(
 
 LmCoreComponents.form_builder = dynamic(
   () =>
-    import(/* webpackChunkName: 'formBuilder' */ './form-builder/FormBuilder')
+    import(/* webpackChunkName: 'formBuilder' */ './form-builder/FormBuilder'),
+  {
+    ssr: false
+  }
 )
 LmCoreComponents.form_textfield = dynamic(
   () =>

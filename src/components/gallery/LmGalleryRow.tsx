@@ -3,7 +3,8 @@ import {
   GalleryStoryblok
 } from '../../typings/generated/components-schema'
 import LmGalleryImage from './LmGalleryImage'
-import { ClassNameMap, Grid } from '@mui/material'
+import { ClassNameMap } from '@mui/material'
+import Grid from '@mui/material/Unstable_Grid2'
 import LmGalleryRowContainer from './LmGalleryRowContainer'
 
 export type LmGalleryRowProps = {
@@ -18,7 +19,7 @@ export default function LmGalleryRow(props: LmGalleryRowProps) {
   return (
     <LmGalleryRowContainer {...props}>
       {content.content?.map((blok, index) => (
-        <Grid item xs="auto" key={blok._uid}>
+        <Grid xs="auto" key={blok._uid}>
           <LmGalleryImage
             content={blok}
             options={options}

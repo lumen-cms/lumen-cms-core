@@ -10,7 +10,6 @@ export type LmCardListProps = {
 }
 export type CardListItemProps = {
   content: CardListItemStoryblok
-  inView: boolean
   options: Omit<
     CardListStoryblok,
     | 'body'

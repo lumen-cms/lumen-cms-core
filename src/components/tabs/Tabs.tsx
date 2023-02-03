@@ -4,7 +4,7 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 
-import Grid, { GridProps } from '@mui/material/Grid'
+import Grid, { Grid2Props } from '@mui/material/Unstable_Grid2'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import LmIcon from '../icon/LmIcon'
@@ -71,12 +71,11 @@ export default function LmTabs({ content }: LmTabsProps) {
         }}
       >
         <Grid
-          item
           xs={12}
           sm={
             isVertical
               ? content.tabs_width
-                ? (widthMap[content.tabs_width] as GridProps['sm'])
+                ? (widthMap[content.tabs_width] as Grid2Props['sm'])
                 : 'auto'
               : 12
           }
@@ -132,12 +131,11 @@ export default function LmTabs({ content }: LmTabsProps) {
           </div>
         </Grid>
         <Grid
-          item
           xs={12}
           sm={
             isVertical
               ? content.content_width
-                ? (widthMap[content.content_width] as GridProps['sm'])
+                ? (widthMap[content.content_width] as Grid2Props['sm'])
                 : 'auto'
               : 12
           }

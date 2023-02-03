@@ -7,6 +7,7 @@ import Zoom, { ZoomProps } from '@mui/material/Zoom'
 import Collapse, { CollapseProps } from '@mui/material/Collapse'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmMotionProps } from './motionTypes'
+import Box from '@mui/material/Box'
 
 export default function LmMotion({ content }: LmMotionProps): JSX.Element {
   const timeoutRef = useRef<number>()
@@ -50,14 +51,18 @@ export default function LmMotion({ content }: LmMotionProps): JSX.Element {
   }
   // const start = inView
   return (
-    <div
+    <Box
       className={'lm-motion__root'}
       ref={viewRef}
-      style={{
+      sx={{
         overflow: content.enable_overflow ? undefined : 'hidden',
         width: content.body?.find((el) => el.component === 'image')
-          ? 'inherit'
-          : undefined
+          ? '100%'
+          : undefined,
+        '& .lm-image img': {
+          width: '100%!important',
+          height: 'auto!important'
+        }
       }}
     >
       {
@@ -113,6 +118,6 @@ export default function LmMotion({ content }: LmMotionProps): JSX.Element {
           )
         }[type]
       }
-    </div>
+    </Box>
   )
 }

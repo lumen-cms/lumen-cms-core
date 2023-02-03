@@ -60,10 +60,7 @@ LmCoreComponents.toolbar_row_section = LmToolbarSection
 LmCoreComponents.toolbar_row = LmToolbarRow
 LmCoreComponents.lm_link_render = MuiNextLink
 LmCoreComponents.form = LmGoogleFormContainer
-// moving components back
 LmCoreComponents.iframe = LmIframe
-// eslint-disable-next-line
-// @ts-ignore
 LmCoreComponents.iframe_advanced = LmIframe
 LmCoreComponents.chat_tawkto = LmTawktoChatButton
 LmCoreComponents.chat_facebook = LmFacebookChatButton

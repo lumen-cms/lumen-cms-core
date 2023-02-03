@@ -1,5 +1,5 @@
 import React from 'react'
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Unstable_Grid2'
 import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
@@ -77,7 +77,6 @@ export function LmGridColumn({
     (content.justify || content.align_content || content.align_items)
   return (
     <Grid
-      item
       xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
       sm={smWidth}
       md={mdWidth}

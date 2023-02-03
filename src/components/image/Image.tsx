@@ -89,6 +89,7 @@ export default function LmImage({
             margin: 'auto'
           }}
           className={clsx(
+            'lm-image',
             content.class_names?.values,
             classes.imgAddons,
             content.property
@@ -121,6 +122,7 @@ export default function LmImage({
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
     <div
       className={clsx(
+        'lm-image',
         content.class_names?.values,
         classes.image,
         classes.imgAddons,
@@ -159,17 +161,27 @@ export default function LmImage({
               ? proportionalHeightCalc
                 ? {
                     style: {
-                      height: `${proportionalHeightCalc}px`,
-                      width: 'auto'
+                      height: `auto`,
+                      // width: 'auto',
+                      maxHeight: `${proportionalHeightCalc}px`,
+                      maxWidth: '100%',
+                      objectFit: 'contain'
                     }
                   }
                 : {
                     style: {
                       width: `${proportionalWidth}px`,
-                      height: 'auto'
+                      height: 'auto',
+                      maxWidth: '100%',
+                      objectFit: 'contain'
                     }
                   }
-              : {})
+              : {
+                  style: {
+                    width: '100%',
+                    height: 'auto'
+                  }
+                })
           }}
         />
       </div>

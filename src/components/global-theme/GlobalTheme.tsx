@@ -249,6 +249,15 @@ const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
           }
         },
         MuiGrid: {},
+        MuiGrid2: {
+          styleOverrides: {
+            root: {
+              '&.MuiGrid2-container': {
+                width: '100%'
+              }
+            }
+          }
+        },
         MuiAppBar: {
           styleOverrides: {
             root: {

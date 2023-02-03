@@ -1,5 +1,6 @@
 import React from 'react'
-import { Grid, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
+import Grid from '@mui/material/Unstable_Grid2'
 import Avatar from '@mui/material/Avatar'
 import IconButton from '@mui/material/IconButton'
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -34,7 +35,7 @@ export function ShopifyCartVariantItem({
   const overwrittenTitle = titleCustom?.text || ''
   return (
     <Grid container spacing={2}>
-      <Grid item>
+      <Grid>
         <Avatar>
           <Image
             src={image?.transformedSrc}
@@ -47,7 +48,7 @@ export function ShopifyCartVariantItem({
           />
         </Avatar>
       </Grid>
-      <Grid item xs>
+      <Grid xs>
         <div>{overwrittenTitle || productTitle}</div>
         <div>{title}</div>
         <div
@@ -92,7 +93,7 @@ export function ShopifyCartVariantItem({
           </IconButton>
         </div>
       </Grid>
-      <Grid item style={{ alignSelf: 'flex-end' }}>
+      <Grid style={{ alignSelf: 'flex-end' }}>
         <Typography variant="subtitle1">
           {config?.currency_prefix || ''}{' '}
           {(

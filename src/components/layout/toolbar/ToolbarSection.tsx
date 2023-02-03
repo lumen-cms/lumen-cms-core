@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Unstable_Grid2'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
@@ -24,7 +24,6 @@ const ToolbarSectionContainer: FunctionComponent<
   const invHideOnMediaQuery = content.inv_use_media_query && matches
   return (
     <Grid
-      item
       className={clsx(content.class_names?.values, {
         'h-100': !align,
         'd-inline-flex':

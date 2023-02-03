@@ -1,5 +1,5 @@
 import React from 'react'
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Unstable_Grid2'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmToolbarRowProps } from './toolbarTypes'
 import ToolbarSystemBarRow from './ToolbarSystemBarRow'
@@ -14,6 +14,7 @@ export function LmToolbarRow({ content }: LmToolbarRowProps): JSX.Element {
       justifyContent={content.justify || 'space-between'}
       className="h-100"
       alignItems="center"
+      width={'100%'}
     >
       {content.body?.map((blok) => (
         <LmComponentRender content={blok} key={blok._uid} />

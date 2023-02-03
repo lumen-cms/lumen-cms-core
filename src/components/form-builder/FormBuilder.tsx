@@ -2,7 +2,7 @@ import { FormContainer } from 'react-hook-form-mui'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmFormBuilderProps } from './formBuilderTypes'
 import { useState } from 'react'
-import Grid, { GridSpacing } from '@mui/material/Grid'
+import Grid from '@mui/material/Unstable_Grid2'
 import Alert from '@mui/material/Alert'
 import { TextFieldElement } from '../google-form/GoogleFormElement'
 import { FormHiddenFieldStoryblok } from '../../typings/generated/components-schema'
@@ -121,25 +121,24 @@ export default function LmFormBuilder({
       }}
     >
       <Grid
-        spacing={spacing ? (Number(spacing) as GridSpacing) : undefined}
+        spacing={spacing ? Number(spacing) : undefined}
         container
         direction={form_inline ? 'row' : 'column'}
       >
-        <Grid item style={{ display: 'none' }}>
+        <Grid style={{ display: 'none' }}>
           <TextFieldElement
             name={'current_address'}
             label={'Current Address'}
           />
         </Grid>
         {fields?.map((field) => (
-          <Grid item key={field._uid}>
+          <Grid key={field._uid}>
             <LmComponentRender content={field} options={options} />
           </Grid>
         ))}
 
         {submit?.map((blok) => (
           <Grid
-            item
             key={blok._uid}
             style={{ alignSelf: form_inline ? 'center' : undefined }}
           >

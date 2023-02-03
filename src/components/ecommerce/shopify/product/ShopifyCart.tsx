@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import Drawer from '@mui/material/Drawer'
 import { Theme, Toolbar } from '@mui/material'
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Unstable_Grid2'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import Divider from '@mui/material/Divider'
@@ -96,7 +96,7 @@ export function ShopfiyCart() {
       }}
     >
       <Grid container direction="column" style={{ flex: 1 }}>
-        <Grid item>
+        <Grid>
           <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
             <LmComponentRender
               content={
@@ -122,7 +122,7 @@ export function ShopfiyCart() {
           </Toolbar>
           <Divider />
         </Grid>
-        <Grid item xs className={classes.cartItemContent}>
+        <Grid xs className={classes.cartItemContent}>
           {cartVariants.map((lineItem) => (
             <div key={lineItem.variant.id}>
               <ShopifyCartVariantItem lineItem={lineItem} config={config} />
@@ -131,7 +131,7 @@ export function ShopfiyCart() {
           ))}
         </Grid>
         <Divider />
-        <Grid item className={classes.cartActions}>
+        <Grid className={classes.cartActions}>
           <div className={classes.cartFooterHeadline}>
             <LmComponentRender content={footer} />
             <LmComponentRender

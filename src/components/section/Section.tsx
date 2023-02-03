@@ -23,7 +23,7 @@ const useStyles = makeStyles({ name: 'Section' })({
   },
   background: {
     position: 'relative',
-    '& .MuiGrid-root': {
+    '& .MuiGrid2-root': {
       position: 'relative'
     }
   }

@@ -18,7 +18,6 @@ export default function LmFormSelectField({
       title: option.label || option.id,
       label: option.label || option.id
     })) || []
-  console.log('values', name, label, type)
 
   return {
     checkbox: (
