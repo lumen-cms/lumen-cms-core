@@ -25,8 +25,7 @@ export default function LmImageList({
 
   const body = content.body || []
 
-  const isMasonry =
-    content.variant === 'masonry' || content.masonry || !content.aspect_ratio
+  const isMasonry = content.variant === 'masonry' || content.masonry
 
   return (
     <div className="lm-imagelist__container">

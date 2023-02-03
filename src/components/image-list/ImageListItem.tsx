@@ -73,7 +73,10 @@ export default function LmImageListItem({
         width={width}
         height={height}
         style={{
-          objectFit: listProps.fit_in_color ? 'contain' : undefined
+          objectFit:
+            listProps.fit_in_color || !listProps.aspect_ratio
+              ? 'contain'
+              : undefined
         }}
         sizes={`(min-width: 0) and (max-width: ${
           breakpoints.values.sm - 1
