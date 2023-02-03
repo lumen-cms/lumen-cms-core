@@ -17,14 +17,12 @@ export const loader = ({ src, width, quality }: ImageLoaderProps) => {
 export const storyblokImageLoader = (
   src: string | undefined
 ): Partial<ImageProps> => {
-  return src?.endsWith('.svg')
-    ? {
-        unoptimized: true
-      }
-    : {}
+  let props: Partial<ImageProps> = {}
+  if (src?.indexOf('a.storyblok') !== -1) {
+    props.loader = loader
+  }
+  if (src?.endsWith('.svg')) {
+    props.unoptimized = true
+  }
+  return props
 }
-// false && src?.indexOf('a.storyblok') !== -1
-//   ? {
-//       loader
-//     }
-//   : {}

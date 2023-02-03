@@ -15589,7 +15589,7 @@ __metadata:
     sitemap: 7.1.1
     smoothscroll-polyfill: 0.4.4
     storyblok-generate-ts: ^1.4.1
-    storyblok-js-client: 5.3.6
+    storyblok-js-client: 5.3.3
     storyblok-react: 0.1.2
     storyblok-rich-text-react-renderer-ts: 3.2.0
     storybook-addon-next-router: 4.0.1
@@ -20107,10 +20107,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storyblok-js-client@npm:5.3.6":
-  version: 5.3.6
-  resolution: "storyblok-js-client@npm:5.3.6"
-  checksum: 8bf3a4a59b22bd6536fd69ccf0caa4bdf5abe1d697ffbcb842fd683765353b10d9a6cc339f7c54439ba23bd5b9825b8cd258e8e29ba069618e45d7dae8ee4cff
+"storyblok-js-client@npm:5.3.3":
+  version: 5.3.3
+  resolution: "storyblok-js-client@npm:5.3.3"
+  checksum: 179eb2c38c85c440cb8f1603a9bf24e39987b74f92f5cc20ab75d663e5ca63fbabe889fa2a554f026afeda8d3334a1d89d755a96863d431ced181226eba7bde3
   languageName: node
   linkType: hard
 

@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "1.8.26",
+  "version": "1.8.27",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -123,7 +123,7 @@
     "react-use": "17.4.0",
     "sitemap": "7.1.1",
     "smoothscroll-polyfill": "0.4.4",
-    "storyblok-js-client": "5.3.6",
+    "storyblok-js-client": "5.3.3",
     "storyblok-react": "0.1.2",
     "storyblok-rich-text-react-renderer-ts": "3.2.0",
     "storybook-addon-next-router": "4.0.1",

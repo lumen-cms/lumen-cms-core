@@ -69,10 +69,9 @@ export const imageSizesOnWidthAndBreakpoints = (
   )}vw, ${calculatePxToVw(width, breakpoints.values.lg)}vw`
 
 export function imageServiceNoWebp(image = '', option = '') {
+  const originalPath = image.replace(/^(https?:)?\/\/a.storyblok.com\//, '')
   if (image.endsWith('.svg') || !option) {
-    return getRootImageUrl(image)
+    return 'https://a.storyblok.com/' + originalPath //getRootImageUrl(image)
   }
-  const imageService2 = 'https://img2.storyblok.com/'
-  const path = image.replace('//a.storyblok.com', '')
-  return imageService2 + option + path
+  return 'https://a.storyblok.com/' + originalPath + '/m/' + option
 }
