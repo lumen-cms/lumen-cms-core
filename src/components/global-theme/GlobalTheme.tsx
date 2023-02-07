@@ -253,7 +253,11 @@ const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
           styleOverrides: {
             root: {
               '&.MuiGrid2-container': {
-                width: '100%'
+                flexGrow: 1,
+                '& > div[class*="-auto"]': {
+                  maxWidth: '100%'
+                }
+                // width: '100%'
               }
             }
           }
