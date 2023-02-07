@@ -13,7 +13,7 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
   gridRow: {
     height: '100%',
     minHeight: 'inherit',
-    '& .MuiGrid2-item': {
+    '&.MuiGrid2-container > .MuiGrid2-root': {
       '& > .MuiGrid2-direction-xs-column, & > .lm-column-stack__root, & > .lm-grid-column__wrap > .MuiGrid2-direction-xs-column, & > .lm-grid-column__wrap > .lm-column-stack__root':
         {
           '& > *': {

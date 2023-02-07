@@ -118,7 +118,7 @@ export default function LmCardList({
         ]}
         justifyContent={'center'}
         sx={{
-          '& .MuiGrid2-item > .MuiCard-root, & .MuiGrid2-item > .MuiCard-root > .MuiCardActionArea-root':
+          '&.MuiGrid2-container > .MuiGrid2-root > .MuiCard-root, &.MuiGrid2-container > .MuiGrid2-root > .MuiCard-root > .MuiCardActionArea-root':
             {
               height: content.variant?.includes('equal-heights')
                 ? '100%'
