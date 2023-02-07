@@ -168,7 +168,8 @@ LmCoreComponents.list_stories = dynamic(
 )
 
 LmCoreComponents.swiper = dynamic(
-  () => /* webpackChunkName: 'swiper' */ import('./slider/LmSwiper')
+  () => /* webpackChunkName: 'swiper' */ import('./slider/LmSwiper'),
+  { ssr: false }
 )
 LmCoreComponents.swiper_item = dynamic(
   () => /* webpackChunkName: 'swiper' */ import('./slider/LmSwiperSlide')

@@ -1,4 +1,4 @@
-import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react'
+import { SwiperProps, SwiperSlide } from 'swiper/react'
 import { LmSwiperProps } from './sliderTypes'
 import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper'
 
@@ -8,21 +8,13 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 
 import { LmComponentRender } from '@LmComponentRender'
-import dynamic from 'next/dynamic'
-import { FC, PropsWithChildren } from 'react'
 import { PaginationOptions } from 'swiper/types'
 import Box from '@mui/material/Box'
 import { Theme } from '@mui/material/styles'
+import LmSwiperContainer from './LmSwiperContainer'
 
-const EffectCoverflow = dynamic(() => import('./SwiperEffectCoverflow'))
-const EffectCube = dynamic(() => import('./SwiperEffectCube'))
-const EffectFade = dynamic(() => import('./SwiperEffectFade'))
-const EffectFlip = dynamic(() => import('./SwiperEffectFlip'))
-const EffectCards = dynamic(() => import('./SwiperEffectCards'))
-const EffectCreative = dynamic(() => import('./SwiperEffectCreative'))
 export default function LmSwiper({ content }: LmSwiperProps) {
   const { property } = content
-  const effect = content.effect
   const showPagination = !property?.includes('hide_pagination')
 
   const swiperProps: SwiperProps = {
@@ -67,26 +59,7 @@ export default function LmSwiper({ content }: LmSwiperProps) {
       }
     }
   }
-  const Container: FC<PropsWithChildren<unknown>> = ({ children }) => {
-    if (effect === 'coverflow') {
-      return (
-        <EffectCoverflow swiperProps={swiperProps}>{children}</EffectCoverflow>
-      )
-    } else if (effect === 'cube') {
-      return <EffectCube swiperProps={swiperProps}>{children}</EffectCube>
-    } else if (effect === 'fade') {
-      return <EffectFade swiperProps={swiperProps}>{children}</EffectFade>
-    } else if (effect === 'flip') {
-      return <EffectFlip swiperProps={swiperProps}>{children}</EffectFlip>
-    } else if (effect === 'cards') {
-      return <EffectCards swiperProps={swiperProps}>{children}</EffectCards>
-    } else if (effect === 'creative') {
-      return (
-        <EffectCreative swiperProps={swiperProps}>{children}</EffectCreative>
-      )
-    }
-    return <Swiper {...swiperProps}>{children}</Swiper>
-  }
+
   const themeColors = content.theme_color?.split('.')
   return (
     <Box
@@ -105,7 +78,7 @@ export default function LmSwiper({ content }: LmSwiperProps) {
         }
       }}
     >
-      <Container>
+      <LmSwiperContainer swiperProps={swiperProps} effect={content.effect}>
         {content.body?.map((blok) => {
           return (
             <SwiperSlide key={blok._uid}>
@@ -117,7 +90,7 @@ export default function LmSwiper({ content }: LmSwiperProps) {
             </SwiperSlide>
           )
         })}
-      </Container>
+      </LmSwiperContainer>
     </Box>
   )
 }
