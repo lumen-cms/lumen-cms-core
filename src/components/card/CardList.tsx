@@ -31,9 +31,6 @@ export default function LmCardList({
 
   return (
     <Box
-      style={{
-        padding: `${gutterSize / 2}px`
-      }}
       sx={{
         overflow: 'visible',
         flexGrow: 1,

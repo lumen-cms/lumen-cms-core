@@ -250,6 +250,9 @@ const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
         },
         MuiGrid: {},
         MuiGrid2: {
+          defaultProps: {
+            disableEqualOverflow: false
+          },
           styleOverrides: {
             root: {
               '&.MuiGrid2-container': {
