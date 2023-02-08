@@ -255,8 +255,9 @@ const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
           },
           styleOverrides: {
             root: {
-              '&.MuiGrid2-container': {
+              '&.MuiGrid2-container .MuiGrid2-container': {
                 flexGrow: 1,
+                padding: 0,
                 '& > div[class*="-auto"]': {
                   maxWidth: '100%'
                 }
