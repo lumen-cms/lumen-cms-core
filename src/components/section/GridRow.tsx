@@ -86,7 +86,7 @@ export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
         spacing={spacing}
         alignItems={content.align_items ? content.align_items : undefined}
         direction={direction || undefined}
-        className={cx(classes.gridRow, {
+        className={cx('lm-grid__row', classes.gridRow, {
           [classes.xsColumnReverse]: content.reverse_on_mobile,
           [classes.smColumnReverse]: content.reverse_on_tablet
         })}
