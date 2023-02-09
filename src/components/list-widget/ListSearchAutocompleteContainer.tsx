@@ -26,8 +26,10 @@ export const ListSearchAutocompleteContainer: FunctionComponent<
     if (isMobileAction) {
       const toolbar: HTMLDivElement | null | undefined =
         ref.current?.closest('.MuiAppBar-root')
-      const bg =
-        toolbar && window.getComputedStyle(toolbar, null).backgroundColor
+      let bg = toolbar && window.getComputedStyle(toolbar, null).backgroundColor
+      if (bg?.includes('rgba')) {
+        bg = bg?.replace(/[^,]+(?=\))/, '1')
+      }
       setBgColor(bg || undefined)
     }
   }, [isMobileAction])

@@ -20,12 +20,9 @@ import { ListItem } from '@mui/material'
 import { LmStoryblokService } from '../../utils/initial-props/StoryblokService'
 import { ISbStoriesParams, ISbStoryData } from 'storyblok-js-client'
 
-const fetcher = async (
-  _path: string,
-  searchterm: string,
-  locale?: string,
-  locales?: string
-): Promise<ISbStoryData<PageComponent>[]> => {
+const fetcher = async ([_path, searchterm, locale, locales]: string[]): Promise<
+  ISbStoryData<PageComponent>[]
+> => {
   if (!searchterm) {
     return []
   }
