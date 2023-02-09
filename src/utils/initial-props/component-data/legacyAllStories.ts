@@ -13,7 +13,7 @@ export const legacyAllStories = async (options: AppPageProps) => {
   }
 
   const params: ISbStoriesParams = {
-    per_page: 100,
+    per_page: 25,
     excluding_fields: excludeListForStories,
     sort_by: 'published_at:desc',
     ...localeStoriesHelper(options),
