@@ -71,19 +71,8 @@ class StoryblokServiceClass {
       ...params,
       ...this.getDefaultParams()
     }
-    try {
-      const res = await this.client.getAll(slug, getAllParams, 'stories')
-      console.log(
-        'getAll',
-        getAllParams.version,
-        getAllParams.token,
-        res?.length
-      )
-      return res as unknown as any[]
-    } catch (e) {
-      console.log(e)
-      return []
-    }
+    const res = await this.client.getAll(slug, getAllParams, 'stories')
+    return res as unknown as any[]
   }
 
   async getStories(params?: ISbStoriesParams) {
