@@ -15,24 +15,17 @@ export const ListSearchAutocompleteContainer: FunctionComponent<
 > = ({ content, children, popperActive }) => {
   const [visible, setVisible] = useState<boolean>(false)
   const theme = useTheme()
+  const [isMobileAction, setMobileAction] = useState(true)
   const matches = useMediaQuery(
     theme.breakpoints.down(content.mobile_breakpoint || 'xs')
   )
-  const isMobileAction = content.mobile_breakpoint && matches
+  const matchMobile = !!(content.mobile_breakpoint && matches)
 
-  const [bgColor, setBgColor] = useState<string | undefined>()
   const ref = useRef<HTMLDivElement>()
   useEffect(() => {
-    if (isMobileAction) {
-      const toolbar: HTMLDivElement | null | undefined =
-        ref.current?.closest('.MuiAppBar-root')
-      let bg = toolbar && window.getComputedStyle(toolbar, null).backgroundColor
-      if (bg?.includes('rgba')) {
-        bg = bg?.replace(/[^,]+(?=\))/, '1')
-      }
-      setBgColor(bg || undefined)
-    }
-  }, [isMobileAction])
+    setMobileAction(matchMobile)
+  }, [matchMobile, setMobileAction])
+
   useEffect(() => {
     if (!isMobileAction) {
       return
@@ -78,12 +71,15 @@ export const ListSearchAutocompleteContainer: FunctionComponent<
             left: '0',
             width: '100%',
             zIndex: 1,
-            height: '100%',
+            // height: '100%',
             verticalAlign: 'middle',
+            margin: '10px 0',
+            alignSelf: 'center',
             '& .MuiFormControl-root': {
               alignSelf: 'center'
             },
-            backgroundColor: bgColor || 'inherit',
+            // backgroundColor: bgColor || 'inherit',
+            backgroundColor: 'white',
             display: !visible ? 'none' : 'inline-flex',
             '& .MuiAutocomplete-root, & .MuiFormControl-root': {
               width: '100%!important'
