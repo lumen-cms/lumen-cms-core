@@ -71,18 +71,20 @@ export const ListSearchAutocompleteContainer: FunctionComponent<
             left: '0',
             width: '100%',
             zIndex: 1,
-            // height: '100%',
+            height: '100%',
             verticalAlign: 'middle',
-            margin: '10px 0',
+            // margin: '10px 0',
             alignSelf: 'center',
             '& .MuiFormControl-root': {
               alignSelf: 'center'
             },
-            // backgroundColor: bgColor || 'inherit',
-            backgroundColor: 'white',
             display: !visible ? 'none' : 'inline-flex',
             '& .MuiAutocomplete-root, & .MuiFormControl-root': {
               width: '100%!important'
+            },
+            '& .MuiInputBase-root': {
+              background: 'white',
+              overflow: 'hidden'
             }
           }}
         >
