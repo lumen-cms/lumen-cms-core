@@ -15,7 +15,7 @@ export type LmAppProps = AppProps<AppPageProps> & {
   emotionCache: EmotionCache
 }
 
-function MyApp(appProps: LmAppProps) {
+export function MyApp(appProps: LmAppProps) {
   const { Component, pageProps, router } = appProps
   const { settings } = pageProps as AppPageProps
 

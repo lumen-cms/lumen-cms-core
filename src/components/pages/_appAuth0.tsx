@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect } from 'react'
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 import Router, { useRouter } from 'next/router'
-import { LmApp, LmAppProps } from './_app'
+import { LmAppProps, MyApp } from './_app'
 import { useUserActions } from '../auth/useAuth'
 import { withAppEmotionCache_mui } from '../global-theme/muiCache'
 
@@ -62,7 +62,6 @@ function Auth0Wrap({ children }: PropsWithChildren) {
         redirect_uri: (typeof window !== 'undefined' &&
           window.location.origin) as string
       }}
-      cacheLocation="memory"
       useRefreshTokens
       onRedirectCallback={onRedirectCallback}
     >
@@ -76,7 +75,7 @@ export const Auth0App = withAppEmotionCache_mui(function Auth0AppFunc(
 ) {
   return (
     <Auth0Wrap>
-      <LmApp {...props} />
+      <MyApp {...props} />
     </Auth0Wrap>
   )
 })
