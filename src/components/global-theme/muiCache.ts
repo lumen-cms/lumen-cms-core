@@ -1,16 +1,6 @@
-import createCache from '@emotion/cache'
+import { createEmotionSsrAdvancedApproach } from 'tss-react/next/pagesDir'
 
-const isBrowser = typeof document !== 'undefined'
-
-export default function createEmotionCache() {
-  let insertionPoint
-
-  if (isBrowser) {
-    const emotionInsertionPoint = document.querySelector<HTMLMetaElement>(
-      'meta[name="emotion-insertion-point"]'
-    )
-    insertionPoint = emotionInsertionPoint ?? undefined
-  }
-  return createCache({ key: 'mui-style', insertionPoint /* prepend: true,*/ })
-  // muiCache.compat = true
-}
+export const {
+  augmentDocumentWithEmotionCache: augmentDocumentWithEmotionCache_mui,
+  withAppEmotionCache: withAppEmotionCache_mui
+} = createEmotionSsrAdvancedApproach({ key: 'css' })

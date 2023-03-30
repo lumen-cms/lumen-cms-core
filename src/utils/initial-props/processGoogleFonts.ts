@@ -8,10 +8,7 @@ import { getFontBasedOnSetting } from '../parseFont'
 import { getFontDefinitionFromNetwork } from 'next/dist/server/font-utils'
 
 // cache response
-export const googleFontString: { css: string; settingsId: string } = {
-  css: '',
-  settingsId: ''
-}
+export const googleFontString: { [k: string]: string } = {}
 
 // taken from gathering file https://github.com/vercel/next.js/blob/8fdcc52854007f64f079ce3b4a45f43269b8baec/packages/next/build/webpack/plugins/font-stylesheet-gathering-plugin.ts
 function minifyCss(css: string): Promise<string> {

@@ -15598,7 +15598,7 @@ __metadata:
     ts-node: ^10.4.0
     tsconfig-paths-webpack-plugin: 3.5.2
     tslib: ^2.3.1
-    tss-react: 4.5.2
+    tss-react: 4.8.2
     typescript: 4.8.4
     use-count-up: 3.0.1
     use-debounce: 8.0.4
@@ -21100,9 +21100,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tss-react@npm:4.5.2":
-  version: 4.5.2
-  resolution: "tss-react@npm:4.5.2"
+"tss-react@npm:4.8.2":
+  version: 4.8.2
+  resolution: "tss-react@npm:4.8.2"
   dependencies:
     "@emotion/cache": "*"
     "@emotion/serialize": "*"
@@ -21114,7 +21114,7 @@ __metadata:
   peerDependenciesMeta:
     "@emotion/server":
       optional: true
-  checksum: 303f0e307ce90c03c53c6c2e10615175ed774d3fc7f2d3cdd0750ee72a9ba1abbdfc34beacaea9a7fe9bde6f6c1c0a84e875232c59d9c8cde5ce26ef758b1f8d
+  checksum: d3767c13a7f2f37ac46b1127a60c68fc3806035fc6fec7493660c6a8f6830e3201c555d9bf046e0f37a7d95c4fe49fd8f9a8312bb4af6fa2f4e2afe74d8be870
   languageName: node
   linkType: hard
 

@@ -10,6 +10,7 @@ import { useSettings } from '../provider/SettingsPageProvider'
 import GtmManager from '../tracking/GtmManager'
 import { useAppContext } from '@context/AppContext'
 import React from 'react'
+import { getFontBasedOnSetting } from '../../utils/parseFont'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -91,9 +92,10 @@ function AppHead(): JSX.Element {
         />
         <link
           rel="preconnect"
-          href="https://fonts.gstatic.com/"
+          href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         {favicon && (
           <>
             <link
@@ -125,7 +127,11 @@ function AppHead(): JSX.Element {
             }}
           />
         )}
+        {!process.env.NEXT_PUBLIC_DISABLE_GOOGLE_FONTS && (
+          <link href={getFontBasedOnSetting(settings)} rel={'stylesheet'} />
+        )}
       </NextHead>
+
       {!isDevelopment && !insideStoryblok && settings?.setup_facebook_pixel && (
         <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />
       )}
