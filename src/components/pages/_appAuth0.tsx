@@ -3,6 +3,7 @@ import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 import Router, { useRouter } from 'next/router'
 import { LmApp, LmAppProps } from './_app'
 import { useUserActions } from '../auth/useAuth'
+import { withAppEmotionCache_mui } from '../global-theme/muiCache'
 
 export { reportWebVitals } from './_appDefault'
 
@@ -55,13 +56,14 @@ function Auth0Wrap({ children }: PropsWithChildren) {
     <Auth0Provider
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID as string}
-      scope="openid profile email"
-      audience={process.env.NEXT_PUBLIC_AUTH0_AUDIENCE}
+      authorizationParams={{
+        scope: 'openid profile email',
+        audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
+        redirect_uri: (typeof window !== 'undefined' &&
+          window.location.origin) as string
+      }}
       cacheLocation="memory"
       useRefreshTokens
-      redirectUri={
-        (typeof window !== 'undefined' && window.location.origin) as string
-      }
       onRedirectCallback={onRedirectCallback}
     >
       <AppContainer>{children}</AppContainer>
@@ -69,10 +71,12 @@ function Auth0Wrap({ children }: PropsWithChildren) {
   )
 }
 
-export function Auth0App(props: LmAppProps) {
+export const Auth0App = withAppEmotionCache_mui(function Auth0AppFunc(
+  props: LmAppProps
+) {
   return (
     <Auth0Wrap>
       <LmApp {...props} />
     </Auth0Wrap>
   )
-}
+})
