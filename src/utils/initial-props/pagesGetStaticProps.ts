@@ -43,7 +43,9 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
     }
     return {
       props: pageProps,
-      revalidate: 600
+      ...(process.env.REVALIDATE_PROPS && {
+        revalidate: parseInt(process.env.REVALIDATE_PROPS)
+      })
     }
   } catch (e) {
     console.log('error', e)
