@@ -29,7 +29,6 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
   const [active, setActive] = useState<boolean>(false)
   const menuItems = content.body || []
   const triggerClassName = `lm-menu-trigger_${content._uid}`
-
   const isCustom =
     menuItems.length && menuItems[0].component !== 'nav_menu_item'
   const { slug } = useAppContext()
@@ -168,6 +167,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
         open={Boolean(anchorEl)}
         onClose={handleClose}
         anchorEl={anchorEl}
+        className={content.class_names?.values?.join(' ')}
         PaperProps={{
           variant: content.outlined ? 'outlined' : undefined,
           elevation: content.elevation ? Number(content.elevation) : 8
@@ -201,6 +201,7 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
             return (
               <MenuItem
                 {...btnProps}
+                sx={{ fontFamily: 'inherit' }}
                 key={nestedProps._uid}
                 className={btnProps.href === slug ? 'lm_active' : ''}
               >

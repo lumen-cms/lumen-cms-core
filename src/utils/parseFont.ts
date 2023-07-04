@@ -19,7 +19,11 @@ export const getFontBasedOnSetting = (settings: Partial<GlobalStoryblok>) => {
   settingsFonts.forEach((key) => {
     const fontValue = settings[key]
     if (fontValue) {
-      if (fontValue.includes('wght') || !fontValue.includes(':')) {
+      if (
+        fontValue.includes('wght') ||
+        fontValue.includes('wdth') ||
+        !fontValue.includes(':')
+      ) {
         loadFonts.push(fontValue.trim())
       } else {
         // css1
