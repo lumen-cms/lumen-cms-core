@@ -87,7 +87,8 @@ const BackgroundImage = ({
     background_size,
     hide_image_on_breakpoint,
     priority,
-    disable_lazy_loading
+    disable_lazy_loading,
+    image_focal_point
   } = content
 
   const priorityLoading = priority || sectionPosition === 0
@@ -106,6 +107,13 @@ const BackgroundImage = ({
       src={getRootImageUrl(src)}
       {...storyblokImageLoader(src)}
       priority={priorityLoading}
+      quality={
+        image_focal_point
+          ? isNaN(Number(image_focal_point))
+            ? undefined
+            : Number(image_focal_point)
+          : undefined
+      }
       loading={loading}
       style={{
         objectFit:
