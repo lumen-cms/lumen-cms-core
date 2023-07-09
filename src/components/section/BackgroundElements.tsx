@@ -38,7 +38,9 @@ function BackgroundElements({
             const url = getRootImageUrl(item.url)
             return `url('${url}') ${item.horizontal || 'left'} ${
               item.vertical || 'top'
-            }/${item.size || 'auto'} ${item.repeat || 'no-repeat'}`
+            }/${item.size_fixed || item.size || 'auto'} ${
+              item.repeat || 'no-repeat'
+            }`
           }
           case 'background_element_color': {
             return item.color && item.color.rgba
