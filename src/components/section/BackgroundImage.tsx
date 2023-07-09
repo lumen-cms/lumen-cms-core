@@ -88,6 +88,7 @@ const BackgroundImage = ({
     hide_image_on_breakpoint,
     priority,
     disable_lazy_loading,
+    // used for quality of background image
     image_focal_point
   } = content
 
