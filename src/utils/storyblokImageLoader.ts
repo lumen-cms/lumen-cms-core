@@ -1,7 +1,10 @@
 import { ImageLoaderProps, ImageProps } from 'next/image'
 
 export const loader = ({ src, width, quality }: ImageLoaderProps) => {
-  const originalPath = src.replace(/^(https?:)?\/\/a.storyblok.com\//, '')
+  const original = new URL(src)
+  const pathname = original.pathname
+  // const params = Object.fromEntries(original.searchParams)
+
   let opts = ''
   if (width) {
     opts += `/${width}x0`
@@ -10,8 +13,13 @@ export const loader = ({ src, width, quality }: ImageLoaderProps) => {
   opts += `/filters:quality(${
     quality || process.env.NEXT_PUBLIC_IMAGE_QUALITY || 75
   })`
+  // if (params.focalPoint) {
+  //   const fPoint = getFocalPoint(src, params.focalPoint)
+  //   console.log(params.focalPoint)
+  //   opts += fPoint
+  // }
 
-  return `https://a.storyblok.com/${originalPath}/m${opts}`
+  return `https://a.storyblok.com/${pathname}/m${opts}`
 }
 
 export const storyblokImageLoader = (

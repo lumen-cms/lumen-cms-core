@@ -88,8 +88,9 @@ const BackgroundImage = ({
     hide_image_on_breakpoint,
     priority,
     disable_lazy_loading,
+    // image_focal_point,
     // used for quality of background image
-    image_focal_point
+    quality
   } = content
 
   const priorityLoading = priority || sectionPosition === 0
@@ -101,29 +102,34 @@ const BackgroundImage = ({
   const imageSource = image
   const imageSourcePortrait = alternative_image || undefined
 
-  const BgImage = ({ src, className }: { src: string; className: string }) => (
-    <Image
-      className={className}
-      alt={'bg image ' + src}
-      src={getRootImageUrl(src)}
-      {...storyblokImageLoader(src)}
-      priority={priorityLoading}
-      quality={
-        image_focal_point
-          ? isNaN(Number(image_focal_point))
-            ? undefined
-            : Number(image_focal_point)
-          : undefined
-      }
-      loading={loading}
-      style={{
-        objectFit:
-          background_size === 'auto' ? 'cover' : background_size || 'cover',
-        objectPosition: background_position || 'center'
-      }}
-      fill
-    />
-  )
+  const BgImage = ({ src, className }: { src: string; className: string }) => {
+    // const rootImageUrl = `${getRootImageUrl(src)}${
+    //   image_focal_point ? `?focalPoint=${image_focal_point}` : ''
+    // }`
+    return (
+      <Image
+        className={className}
+        alt={'bg image ' + src}
+        src={getRootImageUrl(src)}
+        {...storyblokImageLoader(src)}
+        priority={priorityLoading}
+        quality={
+          quality
+            ? isNaN(Number(quality))
+              ? undefined
+              : Number(quality)
+            : undefined
+        }
+        loading={loading}
+        style={{
+          objectFit:
+            background_size === 'auto' ? 'cover' : background_size || 'cover',
+          objectPosition: background_position || 'center'
+        }}
+        fill
+      />
+    )
+  }
   const Wrap: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
     return ['fixed_cover', 'fixed_image'].includes(backgroundStyle || '') ? (
       <div className={classes.rootFixedImage}>

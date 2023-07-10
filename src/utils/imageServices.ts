@@ -17,6 +17,28 @@ export function getOriginalImageDimensions(src = '') {
   }
 }
 
+// function calculateFocalPoint(originalWidth, originalHeight, focalValue) {
+//   const [xPercent, yPercent] = focalValue.split('x').map(parseFloat)
+//   const focalX = (xPercent / 100) * originalWidth
+//   const focalY = (yPercent / 100) * originalHeight
+//
+//   const left = focalX - originalWidth / 2
+//   const top = focalY - originalHeight / 2
+//   const right = left + originalWidth
+//   const bottom = top + originalHeight
+//
+//   const focalPoint = `:focal(${left.toFixed(0)}x${top.toFixed(
+//     0
+//   )}:${right.toFixed(0)}x${bottom.toFixed(0)})`
+//
+//   return focalPoint
+// }
+//
+// export function getFocalPoint(src = '', focalPoint = '') {
+//   const { width, height } = getOriginalImageDimensions(src)
+//   return calculateFocalPoint(width, height, focalPoint)
+// }
+
 export const getRootImageUrl = (src = '') =>
   src.replace(/^(https?:)?\/\/a.storyblok./, 'https://a.storyblok.')
 
