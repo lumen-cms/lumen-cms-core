@@ -8,6 +8,7 @@ import {
   Line,
   Option
 } from 'react-google-forms-hooks'
+// we currently use this separate file until the problems in react-google-forms-hooks are fixed
 
 type FormData = {
   formData: object
