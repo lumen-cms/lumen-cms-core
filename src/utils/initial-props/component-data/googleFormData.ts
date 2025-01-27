@@ -1,5 +1,6 @@
-import { GoogleForm, googleFormsToJson } from 'react-google-forms-hooks'
+import { GoogleForm } from 'react-google-forms-hooks'
 import { FormStoryblok } from '../../../typings/generated/components-schema'
+import { googleFormsToJson } from './googleFormsToJson'
 
 export const googleFormGetData = async (
   formProps: FormStoryblok

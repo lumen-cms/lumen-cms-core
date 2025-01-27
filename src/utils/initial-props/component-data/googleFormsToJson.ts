@@ -1,13 +1,13 @@
-import cheerio from 'cheerio'
-
+import { load } from 'cheerio'
 import {
   Column,
   CustomizableOption,
+  Field,
   FieldsOrder,
+  GoogleForm,
   Line,
   Option
 } from 'react-google-forms-hooks'
-import { FieldWithDate, GoogleFormWithDate } from './googleFormsToJsonTypes'
 
 type FormData = {
   formData: object
@@ -33,20 +33,18 @@ const assertValidUrl = (formUrl: string): void => {
   }
 
   if (url.host === googleFormsHosts[0] && !url.pathname.endsWith('/viewform')) {
-    throw new Error(
-      `Please use the form's public URL. Starts with "docs.google.com" | "forms.gle" and ends with "/viewform". Submitted: ${url.toString()}`
-    )
+    throw new Error(`Please use the form's public URL.`)
   }
 }
 
 const getFormHtml = async (formUrl: string) => {
-  const response = await fetch(formUrl).then((r) => r.text())
-  return response
-  // throw new Error('fetch to google not successful', formUrl)
+  const response = await fetch(formUrl)
+  const html = await response.text()
+  return html
 }
 
 const extractFormData = (html: string): FormData => {
-  const $ = cheerio.load(html)
+  const $ = load(html)
   const fbzx = $('[name="fbzx"]').attr('value')
 
   if (!fbzx) {
@@ -65,7 +63,7 @@ const extractFormData = (html: string): FormData => {
     throw new Error(`Invalid form. Couldn't find script tag.`)
   }
 
-  scriptHtml = scriptHtml.replace(';', '')
+  scriptHtml = scriptHtml.slice(0, -1)
   scriptHtml = scriptHtml.replace(scriptStringIdentifier, '')
 
   const formDataRaw = JSON.parse(scriptHtml)
@@ -130,10 +128,11 @@ const parseLines = (lines: Array<any>): Array<Line> => {
   })
 }
 
-const parseField = (rawField: Array<any>): FieldWithDate => {
-  const field = {} as FieldWithDate
+const parseField = (rawField: Array<any>): Field => {
+  const field = {} as Field
 
   field.label = rawField[1]
+  field.description = rawField[2]
 
   const fieldId = rawField[3]
   field.type = parseFieldType(rawField, fieldId)
@@ -191,7 +190,7 @@ const parseField = (rawField: Array<any>): FieldWithDate => {
 
 const parseFields = (
   rawFields: Array<any>
-): { fields: Array<FieldWithDate>; fieldsOrder: FieldsOrder } => {
+): { fields: Array<Field>; fieldsOrder: FieldsOrder } => {
   const fieldsOrder = {}
 
   const fields = rawFields.map((rawField: Array<any>, i: number) => {
@@ -203,13 +202,15 @@ const parseFields = (
   return { fields, fieldsOrder }
 }
 
-const parseFormData = ({ formData, fbzx }: FormData): GoogleFormWithDate => {
-  const googleForm = {} as GoogleFormWithDate
+const parseFormData = ({ formData, fbzx }: FormData): GoogleForm => {
+  const googleForm = {} as GoogleForm
 
   googleForm.fvv = 1
   googleForm.pageHistory = 0
   googleForm.fbzx = fbzx
   googleForm.action = formData[14]
+  googleForm.title = formData[1][8]
+  googleForm.description = formData[1][0]
 
   const { fields, fieldsOrder } = parseFields(formData[1][1])
   googleForm.fields = fields
