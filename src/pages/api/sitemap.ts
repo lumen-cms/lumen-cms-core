@@ -34,6 +34,26 @@ export default async function sitemapApi(
       []
 
     ignoreList.push('demo-content')
+    const urls = new Set<string>() // To track added URLs
+
+    const addUrl = ({
+      url,
+      lastmod,
+      priority
+    }: {
+      url: string
+      lastmod: string
+      priority: number
+    }) => {
+      if (!urls.has(url)) {
+        urls.add(url)
+        smStream.write({
+          url: url,
+          lastmod: lastmod,
+          priority: priority
+        })
+      }
+    }
 
     for (let i = 0; i < stories.length; i++) {
       const story = stories[i]
@@ -44,15 +64,16 @@ export default async function sitemapApi(
       if (shouldIndex) {
         const isHome = story.slug === 'home'
         if (isHome) {
-          smStream.write({
-            url: fullSlug.replace('home', ''),
-            lastmod: story.published_at,
+          let homeSlug = fullSlug.replace('home', '')
+          addUrl({
+            url: internalLinkHandler(homeSlug),
+            lastmod: story.published_at!,
             priority: 1.0
           })
         } else {
-          smStream.write({
+          addUrl({
             url: internalLinkHandler(fullSlug),
-            lastmod: story.published_at,
+            lastmod: story.published_at!,
             priority: 0.5
           })
         }
