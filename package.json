@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "1.10.8",
+  "version": "1.10.11",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -49,7 +49,7 @@
   "author": "Dominic Garms",
   "license": "MIT",
   "engines": {
-    "node": ">=18.x <19"
+    "node": ">=18.x <23"
   },
   "dependencies": {
     "@auth0/auth0-react": "2.0.1",
