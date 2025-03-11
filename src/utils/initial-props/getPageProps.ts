@@ -59,6 +59,7 @@ const getPageProps = async (
     // @ts-ignore
     pageSettingsProps.settings = pageSettingsProps.page
   }
+
   const needAuth = !!getAuth0RoleOnPath('/' + pageSlug, options)
   const props: AppPageProps = {
     ...pageSettingsProps,

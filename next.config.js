@@ -9,6 +9,9 @@ const nextConfig = {
   i18n: {
     locales: ['en', 'de', 'id'],
     defaultLocale: 'en'
+  },
+  experimental: {
+    largePageDataBytes: 512 * 1000
   }
   // async redirects() {
   //   // const reds = await redirectFunc(['de', 'it', 'es'])

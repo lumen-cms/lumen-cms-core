@@ -2,7 +2,7 @@ import getNprogressJss from '../jss/npgrogress'
 import { Theme } from '@mui/material/styles'
 import { CSSObject } from 'tss-react'
 
-export const createGlobalStyles = (theme: Theme) => {
+export const createGlobalStyles = (theme: Theme): CSSObject => {
   const genSpacing = (breakpoint = ''): CSSObject => {
     const spacing = {}
     const directions = [
@@ -430,5 +430,5 @@ export const createGlobalStyles = (theme: Theme) => {
         textAlign: 'justify'
       }
     }
-  }
+  } as CSSObject
 }
