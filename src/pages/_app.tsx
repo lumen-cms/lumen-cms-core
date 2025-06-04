@@ -1,7 +1,7 @@
 import { CONFIG, LmCoreComponents } from '@CONFIG'
 // import '../components/ecommerce/shopify/ShopifyComponents' // dont forget to enable SSR Hook in _documents
 import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
-import { redirectsSga } from '../../redirects'
+// import { redirectsSga } from '../../redirects'
 // import '../components/web3/MoralisComponents'
 
 export { Auth0App as default } from '../components/pages/_appAuth0'
@@ -46,12 +46,12 @@ CONFIG.authPathRequiredRoles = [
     roles: ['app-LB-playinglowblock-en']
   }
 ]
-CONFIG.redirects = new Map(
-  redirectsSga.map(({ source, destination }) => [
-    source.replace('/en/', '/'),
-    destination
-  ])
-)
+// CONFIG.redirects = new Map(
+//   redirectsSga.map(({ source, destination }) => [
+//     source.replace('/en/', '/'),
+//     destination
+//   ])
+// )
 
 // CONFIG.web3MintFunction = async (contract, options) => {
 //   if (options.sale === 'whitelist' || options.sale === 'code') {
