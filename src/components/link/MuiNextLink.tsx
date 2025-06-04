@@ -62,12 +62,17 @@ const NextLinkComposed = forwardRef<HTMLAnchorElement, NextComposedProps>(
     const detectedLocale =
       locales?.find((l) => l === href.split('/')[1]) || defaultLocale
     delete other.external
+
     // to improve scroll to anchor check this: https://github.com/vercel/next.js/issues/5136#issuecomment-900144671
+    let currentHref = CONFIG.enableLocaleSuffix
+      ? href.replace(`/${locale}/`, '/')
+      : href
+    if (CONFIG.redirects && CONFIG.redirects.has(currentHref)) {
+      currentHref = CONFIG.redirects.get(currentHref) as string
+    }
     return (
       <NextLink
-        href={
-          CONFIG.enableLocaleSuffix ? href.replace(`/${locale}/`, '/') : href
-        }
+        href={currentHref}
         prefetch={prefetch}
         replace={replace}
         scroll={scroll}

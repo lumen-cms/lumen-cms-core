@@ -36,6 +36,7 @@ type AppConfigProps = {
       code?: string
     }
   ) => Promise<void>
+  redirects?: Map<string, string>
   [k: string]: any
 }
 

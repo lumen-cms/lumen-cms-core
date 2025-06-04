@@ -8,7 +8,8 @@ const nextConfig = {
   ...getBaseConfig({ ignoreCsp: true }),
   i18n: {
     locales: ['en', 'de', 'id'],
-    defaultLocale: 'en'
+    defaultLocale: 'en',
+    localeDetection: false
   },
   experimental: {
     largePageDataBytes: 512 * 1000
