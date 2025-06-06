@@ -23,12 +23,27 @@ module.exports = ({
     images: {
       formats: ['image/avif', 'image/webp'],
       // path: 'https://img-12.lumen.media/_next/image/',
-      domains: [
-        'a.storyblok.com',
-        'img2.storyblok.com',
-        'cdn.shopify.com',
-        'cdn.jsdelivr.net',
-        'blob.vercel-storage.com'
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'a.storyblok.com'
+        },
+        {
+          protocol: 'https',
+          hostname: 'img2.storyblok.com'
+        },
+        {
+          protocol: 'https',
+          hostname: 'cdn.shopify.com'
+        },
+        {
+          protocol: 'https',
+          hostname: 'cdn.jsdelivr.net'
+        },
+        {
+          protocol: 'https',
+          hostname: '**.public.blob.vercel-storage.com'
+        }
       ],
       deviceSizes: [360, 640, 768, 1024, 1280, 1536],
       imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
