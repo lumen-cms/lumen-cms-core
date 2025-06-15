@@ -36,6 +36,7 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
       locales,
       insideStoryblok: preview
     })
+
     if (!pageProps.page || !pageProps.settings) {
       return {
         notFound: true

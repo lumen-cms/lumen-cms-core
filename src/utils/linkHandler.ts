@@ -1,5 +1,6 @@
 import { internalLinkHandler } from './internalLinkHandler'
 import { ReactElement } from 'react'
+import { CONFIG } from '@CONFIG'
 
 export interface LinkType {
   cached_url?: string
@@ -48,7 +49,11 @@ export const linkHandler = (
   if (options?.openExternal) {
     props.target = '_blank'
   }
-  const cachedUrl = link.story?.url || link.cached_url || link.email
+  // if we use field level translations the translated slug is in full_slug not url
+  const storyUrl = CONFIG.fieldLevelTranslation
+    ? link.story?.full_slug
+    : link.story?.url
+  const cachedUrl = storyUrl || link.cached_url || link.email
 
   if (!cachedUrl) {
     return {}

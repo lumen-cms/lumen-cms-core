@@ -12,11 +12,17 @@ export default async function sitemapApi(
 ) {
   // res.setHeader('Content-Encoding', 'gzip')
   try {
-    const stories: PageItem[] = await getAllStoriesOfProject()
+    const stories: PageItem[] = await getAllStoriesOfProject({
+      language: process.env.SITEMAP_LOCALE
+        ? process.env.SITEMAP_LOCALE
+        : undefined
+    })
     const smStream = new SitemapStream({
       hostname: `https://${process.env.SITEMAP_HOSTNAME || req.headers.host}`
     })
-    let locale: string
+    let locale: string | undefined = process.env.SITEMAP_LOCALE
+      ? process.env.SITEMAP_LOCALE
+      : undefined
     if (process.env.LOCALE_DOMAIN_MAP) {
       const domainMap: { locale: string; domain: string }[] = JSON.parse(
         process.env.LOCALE_DOMAIN_MAP
@@ -65,14 +71,30 @@ export default async function sitemapApi(
         const isHome = story.slug === 'home'
         if (isHome) {
           let homeSlug = fullSlug.replace('home', '')
+          if (
+            process.env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION &&
+            process.env.SITEMAP_LOCALE
+          ) {
+            homeSlug = homeSlug.replace(`/${process.env.SITEMAP_LOCALE}/`, '/')
+          }
           addUrl({
             url: internalLinkHandler(homeSlug),
             lastmod: story.published_at!,
             priority: 1.0
           })
         } else {
+          let internalSlug = internalLinkHandler(fullSlug)
+          if (
+            process.env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION &&
+            process.env.SITEMAP_LOCALE
+          ) {
+            internalSlug = internalSlug.replace(
+              `/${process.env.SITEMAP_LOCALE}/`,
+              '/'
+            )
+          }
           addUrl({
-            url: internalLinkHandler(fullSlug),
+            url: internalSlug,
             lastmod: story.published_at!,
             priority: 0.5
           })
