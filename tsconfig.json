@@ -32,7 +32,7 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "preserve",
-    "traceResolution": true,
+    "traceResolution": false,
     "paths": {
       "@polyfills": [
         "client/polyfills.js"

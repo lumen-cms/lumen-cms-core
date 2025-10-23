@@ -33,5 +33,6 @@ export const legacyAllStories = async (options: AppPageProps) => {
     console.log('an error occured while fetching stories', params)
     return []
   }
+
   return allStories
 }
