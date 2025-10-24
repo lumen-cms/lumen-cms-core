@@ -7,7 +7,7 @@ const getBaseConfig = require('./config/nextjs_base_config')
 const nextConfig = {
   ...getBaseConfig({ ignoreCsp: true }),
   i18n: {
-    locales: ['en'],
+    locales: ['en', 'de'],
     defaultLocale: 'en',
     localeDetection: false
   },

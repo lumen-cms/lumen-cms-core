@@ -16,8 +16,13 @@ class StoryblokServiceClass {
 
   public richTextResolver: any
 
-  private cacheVersion?: number
-  private cacheVersionPromise?: Promise<void>
+  private static cacheVersion?: number
+  private static cacheVersionPromise?: Promise<void>
+
+  // deduplication + retry helpers
+  private responseCache = new Map<string, any>()
+  // 🔒 Define which keys should be permanently cached across pages
+  private cacheableKeys = ['settings:published']
 
   constructor() {
     // this.token =
@@ -42,19 +47,18 @@ class StoryblokServiceClass {
 
   private async ensureCacheVersion() {
     // Avoid duplicate requests (important if pages fetch in parallel)
-    if (this.cacheVersion) return
-    if (this.cacheVersionPromise) return this.cacheVersionPromise
+    if (StoryblokServiceClass.cacheVersion) return
+    if (StoryblokServiceClass.cacheVersionPromise)
+      return StoryblokServiceClass.cacheVersionPromise
 
-    this.cacheVersionPromise = (async () => {
+    StoryblokServiceClass.cacheVersionPromise = (async () => {
       try {
         // In dev mode (preview token), we can skip this entirely
         if (this.devMode) {
-          console.log('[Storyblok] Dev mode — skipping cache version fetch')
-          this.cacheVersion = Date.now() // something unique to prevent stale caching
+          StoryblokServiceClass.cacheVersion = Date.now() // something unique to prevent stale caching
           return
         }
 
-        console.log('[Storyblok] Fetching cache version from CDN...')
         const space = await this.client.get('cdn/spaces/me')
 
         if (!space?.data?.space?.version) {
@@ -63,16 +67,18 @@ class StoryblokServiceClass {
           )
         }
 
-        this.cacheVersion = space.data.space.version
-        console.log(`[Storyblok] Cache version set to ${this.cacheVersion}`)
+        StoryblokServiceClass.cacheVersion = space.data.space.version
+        console.log(
+          `[Storyblok] Cache version set to ${StoryblokServiceClass.cacheVersion}`
+        )
       } catch (error) {
         console.error('[Storyblok] Failed to fetch cache version:', error)
         // Fallback to a timestamp to prevent total failure
-        this.cacheVersion = Date.now()
+        StoryblokServiceClass.cacheVersion = Date.now()
       }
     })()
 
-    await this.cacheVersionPromise
+    await StoryblokServiceClass.cacheVersionPromise
   }
 
   private async processParamsForCaching(params: ISbStoryParams) {
@@ -80,11 +86,11 @@ class StoryblokServiceClass {
       return params
     }
     await this.ensureCacheVersion()
-    params.cv = this.cacheVersion
+    params.cv = StoryblokServiceClass.cacheVersion
     return params
   }
 
-  getDefaultParams() {
+  private getDefaultParams() {
     const params: ISbStoryParams = {
       version: 'published',
       token: CONFIG.publicToken
@@ -112,46 +118,123 @@ class StoryblokServiceClass {
     return params
   }
 
-  async getAll(slug: string, params = {}): Promise<any[]> {
+  private async safeFetch<T>(
+    fn: () => Promise<T>,
+    fallback: T | (() => T),
+    label: string,
+    cacheKey?: string,
+    retries = 3,
+    delayMs = 500
+  ): Promise<T> {
+    const key = cacheKey || label
+    const shouldCache = this.cacheableKeys.some((k) => key.includes(k))
+
+    if (shouldCache && this.responseCache.has(key)) {
+      // console.log(`[Storyblok] Reusing cached response for ${key}`)
+      return this.responseCache.get(key)
+    }
+
+    const isFunction = <U>(val: U | (() => U)): val is () => U =>
+      typeof val === 'function'
+
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const result = await fn()
+        if (shouldCache) this.responseCache.set(key, result)
+        return result
+      } catch (error: any) {
+        const transient =
+          error?.message?.includes('ECONNRESET') ||
+          error?.message?.includes('429') ||
+          error?.message?.includes('503')
+
+        if (!transient || attempt === retries) {
+          console.error(`[Storyblok] ${label} ultimately failed`, error)
+          const fallbackValue = isFunction(fallback) ? fallback() : fallback
+          if (shouldCache) this.responseCache.set(key, fallbackValue)
+          return fallbackValue
+        }
+
+        await new Promise((r) => setTimeout(r, delayMs * attempt))
+      }
+    }
+
+    throw new Error(`[Storyblok] ${label} failed all retries`)
+  }
+
+  public async getStory(slug: string, params?: ISbStoryParams) {
+    // Skip requests for service worker, static files, or empty slugs
+    if (
+      !slug ||
+      slug.endsWith('.js') ||
+      slug.startsWith('_next') ||
+      slug === 'favicon.ico'
+    ) {
+      // console.warn(`[Storyblok] Skipping getStory for static asset: ${slug}`)
+      return null
+    }
     const currentParams = await this.processParamsForCaching({
       ...rootParams,
       ...params,
       ...this.getDefaultParams()
     })
-    console.log('getAll', currentParams)
-    const res = await this.client.getAll(slug, currentParams, 'stories')
-    return res as unknown as any[]
+    const key = `getStory:${slug}:${currentParams.version}:${
+      currentParams.cv ?? 'noCV'
+    }`
+
+    return this.safeFetch(
+      () => this.client.getStory(slug, currentParams),
+      { data: null } as any,
+      `getStory(${slug})`,
+      key
+    )
   }
 
-  async getStories(params?: ISbStoriesParams) {
+  public async getStories(params?: ISbStoriesParams) {
     const currentParams: ISbStoriesParams = await this.processParamsForCaching({
       ...rootParams,
       ...params,
       ...this.getDefaultParams()
     })
-    console.log('getStories', currentParams)
-    return this.client.getStories(currentParams)
+    const key = `getStories:${JSON.stringify(currentParams)}`
+
+    return this.safeFetch(
+      () => this.client.getStories(currentParams),
+      { data: { stories: [] } } as any,
+      'getStories',
+      key
+    )
   }
 
-  async getStory(slug: string, params?: ISbStoryParams) {
+  public async getAll(slug: string, params = {}): Promise<any[]> {
     const currentParams = await this.processParamsForCaching({
       ...rootParams,
       ...params,
       ...this.getDefaultParams()
     })
-    console.log('getStory', currentParams)
-    return this.client.getStory(slug, currentParams)
+    const key = `getAll:${slug}:${currentParams.version}:${
+      currentParams.cv ?? 'noCV'
+    }`
+
+    return this.safeFetch(
+      () => this.client.getAll(slug, currentParams, 'stories'),
+      [],
+      `getAll(${slug})`,
+      key
+    )
+    // const res = await this.client.getAll(slug, currentParams, 'stories')
+    // return res as unknown as any[]
   }
 
-  setDevMode() {
+  public setDevMode() {
     this.devMode = true
   }
 
-  getQuery(param: StoryblokServiceClass['query']) {
+  public getQuery(param: StoryblokServiceClass['query']) {
     return this.query[param]
   }
 
-  setQuery(params: any) {
+  public setQuery(params: any) {
     this.query = params
   }
 }

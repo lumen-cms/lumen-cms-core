@@ -1,6 +1,6 @@
-import React, {
+import {
   createContext,
-  FC,
+  PropsWithChildren,
   useContext,
   useEffect,
   useState
@@ -21,27 +21,33 @@ declare global {
   }
 }
 
-const SettingsPageProvider: FC<
-  React.PropsWithChildren<{
-    settings: GlobalStoryblok
-    page?: PageStoryblok | null
-  }>
-> = ({ settings, page, children }) => {
+function SettingsPageProvider({
+  settings,
+  page,
+  children
+}: PropsWithChildren<{
+  settings: GlobalStoryblok
+  page?: PageStoryblok | null
+}>) {
   const { insideStoryblok } = useAppContext()
   const [stateSettings, setSettings] = useState(settings)
   const [statePage, setPage] = useState<PageStoryblok | null>(page || null)
+  // keep page in sync when props change
   useEffect(() => {
-    if (page && statePage?.uuid !== page?.uuid) {
-      setPage(page)
-    } else if (!page) {
-      setPage(null)
-    }
-  }, [statePage?.uuid, page, setPage])
+    setPage((prev) => {
+      if (!page) return null
+      if (prev?.uuid === page.uuid) return prev
+      return page
+    })
+  }, [page])
+  // keep settings in sync when props change
   useEffect(() => {
-    if (settings && stateSettings?.uuid !== settings?.uuid) {
-      setSettings(settings)
-    }
-  }, [settings, stateSettings.uuid, setSettings])
+    setSettings((prev) => {
+      if (!settings) return prev
+      if (prev?.uuid === settings.uuid) return prev
+      return settings
+    })
+  }, [settings])
 
   return (
     <SettingsContext.Provider value={stateSettings}>
@@ -60,7 +66,7 @@ const SettingsPageProvider: FC<
                   ['change', 'published', 'unpublished'],
                   () => {
                     console.log('published triggered')
-                    window.location.reload()
+                    // window.location.reload()
                   }
                 )
 

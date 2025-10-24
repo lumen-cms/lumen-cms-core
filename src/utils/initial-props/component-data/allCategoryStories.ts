@@ -15,7 +15,7 @@ export const getAllCategories = async (props: {
   }
   const locale = props.locale !== props.defaultLocale ? props.locale : null
   const params: ISbStoriesParams = {
-    per_page: 100,
+    per_page: 25,
     sort_by: 'content.name:asc,name:asc',
     filter_query: {
       component: {
