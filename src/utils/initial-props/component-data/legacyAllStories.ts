@@ -1,17 +1,10 @@
-import { PageComponent } from '../../../typings/generated/schema'
 import { LmStoryblokService } from '../StoryblokService'
 import { localeStoriesHelper } from './localeStoriesHelper'
 import { AppPageProps } from '../../../typings/app'
 import { excludeListForStories } from '../../universal/storyblokParamsHelper'
-import { ISbStoriesParams, ISbStoryData } from 'storyblok-js-client'
-
-let allStories: ISbStoryData<PageComponent>[]
+import { ISbStoriesParams } from 'storyblok-js-client'
 
 export const legacyAllStories = async (options: AppPageProps) => {
-  if (typeof allStories !== 'undefined' && !options.insideStoryblok) {
-    return allStories
-  }
-
   const params: ISbStoriesParams = {
     per_page: 25,
     excluding_fields: excludeListForStories,
@@ -28,11 +21,9 @@ export const legacyAllStories = async (options: AppPageProps) => {
   }
 
   try {
-    allStories = await LmStoryblokService.getAll('cdn/stories', params)
+    return LmStoryblokService.getAll('cdn/stories', params)
   } catch (e) {
-    console.log('an error occured while fetching stories', params)
+    console.log('an error occured while fetching legacy stories', params)
     return []
   }
-
-  return allStories
 }

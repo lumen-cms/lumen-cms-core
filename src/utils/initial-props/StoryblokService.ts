@@ -18,6 +18,8 @@ class StoryblokServiceClass {
 
   private static cacheVersion?: number
   private static cacheVersionPromise?: Promise<void>
+  private static getAllCache = new Map<string, any>()
+  private inFlight = new Map<string, Promise<any>>()
 
   // deduplication + retry helpers
   private responseCache = new Map<string, any>()
@@ -212,18 +214,40 @@ class StoryblokServiceClass {
       ...params,
       ...this.getDefaultParams()
     })
+    // 🔑 Use a hash of the params so even deep object differences are captured
+    const paramHash = hashParams(currentParams)
+
     const key = `getAll:${slug}:${currentParams.version}:${
       currentParams.cv ?? 'noCV'
-    }`
+    }${paramHash}`
+    if (this.inFlight.has(key)) {
+      return this.inFlight.get(key)!
+    }
+    // ✅ Reuse cached result if present
+    const showLog = false
+    const cached = StoryblokServiceClass.getAllCache.get(key)
+    if (cached) {
+      if (showLog) {
+        console.log(`[CACHED - Storyblok] Using getAll cache for ${key}`)
+      }
+      return cached
+    }
 
-    return this.safeFetch(
+    const promise = this.safeFetch(
       () => this.client.getAll(slug, currentParams, 'stories'),
       [],
       `getAll(${slug})`,
       key
     )
-    // const res = await this.client.getAll(slug, currentParams, 'stories')
-    // return res as unknown as any[]
+    this.inFlight.set(key, promise)
+    const result = await promise
+    this.inFlight.delete(key)
+    if (showLog) {
+      const sizeKB = Buffer.byteLength(JSON.stringify(result)) / 1024
+      console.log(`[LOG - Storyblok] ${key} size: ${sizeKB.toFixed(2)} KB`)
+    }
+    StoryblokServiceClass.getAllCache.set(key, result)
+    return result
   }
 
   public setDevMode() {
@@ -237,6 +261,20 @@ class StoryblokServiceClass {
   public setQuery(params: any) {
     this.query = params
   }
+}
+
+function hashParams(obj: any): string {
+  const str = JSON.stringify(obj, Object.keys(obj).sort())
+  let hash = 0,
+    i,
+    chr
+  if (str.length === 0) return '0'
+  for (i = 0; i < str.length; i++) {
+    chr = str.charCodeAt(i)
+    hash = (hash << 5) - hash + chr
+    hash |= 0 // Convert to 32bit integer
+  }
+  return Math.abs(hash).toString(36) // shorter, URL-safe hash
 }
 
 export const LmStoryblokService = new StoryblokServiceClass()
