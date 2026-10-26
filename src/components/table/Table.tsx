@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key,react/no-danger */
-import React from 'react'
 import { LmTableProps } from './tableTypes'
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
@@ -7,7 +6,7 @@ import clsx from 'clsx'
 
 type TableRowProps = { content: string[]; index: number }
 
-function TableRow({ content, index }: TableRowProps): JSX.Element {
+function TableRow({ content, index }: TableRowProps): React.JSX.Element {
   return (
     <tr>
       {content.map((column: string, iterator: number) => (
@@ -20,7 +19,7 @@ function TableRow({ content, index }: TableRowProps): JSX.Element {
   )
 }
 
-export default function LmTable({ content }: LmTableProps): JSX.Element {
+export default function LmTable({ content }: LmTableProps): React.JSX.Element {
   const theme = useTheme()
   const tableBody = (content.body && content.body.tbody) || []
   const tableHead = (content.body && content.body.thead) || []

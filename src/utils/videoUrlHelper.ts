@@ -4,7 +4,7 @@ import {
   SectionVideoBgStoryblok
 } from '../typings/generated/components-schema'
 
-const map = {
+const map: Record<string, string | undefined> = {
   webm: 'video/webm',
   mp4: 'video/mp4',
   ogg: 'video/ogg',

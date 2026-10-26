@@ -1,11 +1,11 @@
-import React, { CSSProperties } from 'react'
+import { CSSProperties } from 'react'
 import dynamic from 'next/dynamic'
 import {
-  DatePickerElementProps,
   MultiSelectElementProps,
   SelectElementProps,
   TextFieldElementProps
 } from 'react-hook-form-mui'
+import type { DatePickerElementProps } from 'react-hook-form-mui/date-pickers'
 import { LmGoogleFormProps } from './googleFormProps'
 import { FieldWithDate } from '../../utils/initial-props/component-data/googleFormsToJsonTypes'
 
@@ -16,9 +16,11 @@ const SelectElement = dynamic<SelectElementProps<any>>(() =>
   import('react-hook-form-mui').then((mod) => mod.SelectElement)
 )
 const DatePickerElement = dynamic<DatePickerElementProps<any, any>>(() =>
-  import('react-hook-form-mui').then((mod) => mod.DatePickerElement)
+  import('react-hook-form-mui/date-pickers').then(
+    (mod) => mod.DatePickerElement
+  )
 )
-const MultiSelectElement = dynamic<MultiSelectElementProps<any>>(() =>
+const MultiSelectElement = dynamic<Omit<MultiSelectElementProps, 'ref'>>(() =>
   import('react-hook-form-mui').then((mod) => mod.MultiSelectElement)
 )
 
@@ -44,7 +46,7 @@ export default function GoogleFormElement({
   formField,
   options,
   baseStyle
-}: GoogleFormElementProps): JSX.Element | null {
+}: GoogleFormElementProps): React.JSX.Element | null {
   const hasVariant = !['DATE'].includes(formField.type)
   const baseFieldProps = {
     ...(options.label_as_placeholder
@@ -95,7 +97,7 @@ export default function GoogleFormElement({
         {...additionalProps}
         options={formField.options.sort().map((opt) => ({
           id: opt.label,
-          title: opt.label || '--'
+          label: opt.label || '--'
         }))}
         required={formField.required}
         parseError={
@@ -136,6 +138,10 @@ export default function GoogleFormElement({
             : undefined
         }
         {...baseFieldProps}
+        inputProps={{
+          fullWidth: options.fields_full_width,
+          style: baseStyle
+        }}
       />
     )
   }

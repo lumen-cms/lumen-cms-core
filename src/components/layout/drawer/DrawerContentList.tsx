@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { DrawerContentRender } from './CollapsibleListSection'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import { useAppContext } from '@context/AppContext'
@@ -27,10 +27,18 @@ const getUidsOfSlug = (childs: any[], activeRoutePath?: string) => {
     const cleanedPath = path.map((i: string | number) =>
       Number(i) ? Number(i) : i
     )
-    let tmp = [...childs]
-    for (let i = 0; i < cleanedPath.length; i++) {
-      const curr = tmp[cleanedPath[i]]
-      curr?._uid && uids.push(curr?._uid)
+    let tmp: unknown = childs
+    for (const key of cleanedPath) {
+      if (!tmp || typeof tmp !== 'object') break
+      const curr: unknown = (tmp as Record<string | number, unknown>)[key]
+      if (
+        curr &&
+        typeof curr === 'object' &&
+        '_uid' in curr &&
+        typeof curr._uid === 'string'
+      ) {
+        uids.push(curr._uid)
+      }
       tmp = curr
     }
     return uids
@@ -38,7 +46,7 @@ const getUidsOfSlug = (childs: any[], activeRoutePath?: string) => {
   return []
 }
 
-export function DrawerContentList(): JSX.Element {
+export function DrawerContentList(): React.JSX.Element {
   const settings = useSettings()
   const { slug } = useAppContext()
   const activeRoutePath = slug

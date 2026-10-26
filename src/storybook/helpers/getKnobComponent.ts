@@ -1,3 +1,4 @@
+import type { StorybookSchemaField } from '../schema'
 import {
   boolean,
   color,
@@ -5,7 +6,7 @@ import {
   optionsKnob,
   select,
   text
-} from '@storybook/addon-knobs'
+} from '../legacyControls'
 // eslint-disable-next-line
 // @ts-ignore
 import COMPONENT_JSON from '../../../components.82895.json'
@@ -33,7 +34,7 @@ const optionsArrayToObject = (
   array: KeyValueStoryblok[],
   addEmpty?: boolean
 ): Record<string, unknown> => {
-  const obj = {}
+  const obj: Record<string, string | undefined> = {}
   if (addEmpty) {
     obj['Please Select'] = undefined
   }
@@ -45,13 +46,13 @@ const optionsArrayToObject = (
 
 const allTags = {}
 
-const getKnobComponents = ({
+const getKnobComponents = <ComponentName extends string>({
   componentName,
   options = {},
   knob,
   count
 }: {
-  componentName: any
+  componentName: ComponentName
   options?: any
   knob?: string
   count?: number
@@ -59,17 +60,22 @@ const getKnobComponents = ({
   const findComponents = COMPONENT_JSON.components.find((component) => {
     return component.name === componentName
   })
-  const schema = findComponents && findComponents.schema
+  const schema: Record<string, StorybookSchemaField | undefined> | undefined =
+    findComponents?.schema
 
   if (!schema) {
     throw new Error(`component declaration not found: ${componentName}`)
   }
-  const obj = {
+  const obj: Record<string, unknown> & {
+    component: ComponentName
+    _uid: string
+  } = {
     component: componentName,
     _uid: getUid()
   }
   Object.keys(schema).forEach((schemaKey) => {
     const currentSchema = schema[schemaKey]
+    if (!currentSchema) return
     const name = `${camelizeString(componentName)} ${camelizeString(
       schemaKey
     )} ${count}`
@@ -77,14 +83,14 @@ const getKnobComponents = ({
     if (type === 'option') {
       obj[schemaKey] = select(
         name,
-        optionsArrayToObject(currentSchema.options, true),
+        optionsArrayToObject(currentSchema.options || [], true),
         options[schemaKey] || undefined,
         knob || camelizeString(componentName)
       )
     } else if (type === 'options') {
       obj[schemaKey] = optionsKnob(
         name,
-        optionsArrayToObject(currentSchema.options),
+        optionsArrayToObject(currentSchema.options || []),
         options[schemaKey] || undefined,
         { display: 'inline-check' },
         knob || camelizeString(componentName)
@@ -93,7 +99,9 @@ const getKnobComponents = ({
       obj[schemaKey] = text(
         name,
         options[schemaKey] ||
-          (currentSchema.default_value ? currentSchema.default_value : ''),
+          (currentSchema.default_value
+            ? String(currentSchema.default_value)
+            : ''),
         knob || camelizeString(componentName)
       )
     } else if (type === 'number') {

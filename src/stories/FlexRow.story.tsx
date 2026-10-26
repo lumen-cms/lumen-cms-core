@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import {
   FlexRowStoryblok,
   HeadlineStoryblok,
@@ -20,7 +20,7 @@ export default {
   }
 } as Meta
 
-const Template: Story<LmFlexRowProps['content']> = (args) => (
+const Template: StoryFn<LmFlexRowProps['content']> = (args) => (
   <LmFlexRow content={args} />
 )
 

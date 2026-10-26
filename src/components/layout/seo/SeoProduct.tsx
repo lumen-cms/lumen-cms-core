@@ -1,5 +1,4 @@
 import { ProductJsonLd } from 'next-seo'
-import React from 'react'
 import {
   ImageCoreStoryblok,
   SeoProductOfferStoryblok

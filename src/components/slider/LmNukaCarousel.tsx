@@ -1,5 +1,5 @@
 import Carousel, { CarouselProps } from 'nuka-carousel'
-import React, { PropsWithChildren } from 'react'
+import { PropsWithChildren } from 'react'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
@@ -38,8 +38,11 @@ export default function LmNukaCarousel({
   const DefaultIndicator = paginationCircle ? <Minus /> : <CircleSmall />
   return (
     <Carousel
+      {...Carousel.defaultProps}
       wrapAround={true}
-      {...carouselProps}
+      {...Object.fromEntries(
+        Object.entries(carouselProps).filter(([, value]) => value !== undefined)
+      )}
       renderBottomCenterControls={({
         pagingDotsIndices,
         goToSlide,
@@ -49,9 +52,11 @@ export default function LmNukaCarousel({
       }) => {
         return (
           <Box
-            display={hidePagination ? 'none' : undefined}
-            marginBottom={paginationBelowContent ? '-64px' : undefined}
-            color={darkPagination ? DARK : LIGHT}
+            sx={{
+              display: hidePagination ? 'none' : undefined,
+              marginBottom: paginationBelowContent ? '-64px' : undefined,
+              color: darkPagination ? DARK : LIGHT
+            }}
           >
             <IconButton
               sx={{

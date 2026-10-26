@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Close from 'mdi-material-ui/Close'
 import IconButton from '@mui/material/IconButton'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../vendor/grid'
 import { LmComponentRender } from '@LmComponentRender'
 import { CardListItemProps } from './cardTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
@@ -24,13 +24,15 @@ const CardListItemDrawer: FunctionComponent<
     <Drawer
       open={open}
       anchor="right"
-      PaperProps={{
-        style: {
-          width: isMobile ? '100%' : content.action_width || 420
-        }
-      }}
       onClose={() => {
         setOpen(false)
+      }}
+      slotProps={{
+        paper: {
+          style: {
+            width: isMobile ? '100%' : content.action_width || 420
+          }
+        }
       }}
     >
       <Grid container direction="column">

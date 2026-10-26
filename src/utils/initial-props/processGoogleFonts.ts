@@ -4,8 +4,24 @@ import postcss from 'postcss'
 import minifier from 'cssnano-simple'
 import { AppPageProps } from '../../typings/app'
 import { getFontBasedOnSetting } from '../parseFont'
-// import { getFontDefinitionFromNetwork } from 'next/dist/next-server/server/font-utils'
-import { getFontDefinitionFromNetwork } from 'next/dist/server/font-utils'
+const fontUserAgents = [
+  'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko',
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
+]
+
+async function getFontDefinitionFromNetwork(href: string): Promise<string> {
+  const stylesheets = await Promise.all(
+    fontUserAgents.map(async (userAgent) => {
+      const response = await fetch(href, {
+        headers: { 'User-Agent': userAgent }
+      })
+      if (!response.ok)
+        throw new Error(`Google Fonts request failed: ${response.status}`)
+      return response.text()
+    })
+  )
+  return stylesheets.join('\n')
+}
 
 // cache response
 export const googleFontString: { [k: string]: string } = {}

@@ -1,5 +1,4 @@
 import { NextSeo, NextSeoProps } from 'next-seo'
-import React from 'react'
 import { OpenGraph, OpenGraphMedia, Twitter } from 'next-seo/lib/types.d'
 import { CONFIG } from '@CONFIG'
 import { AppContextProps, useAppContext } from '@context/AppContext'
@@ -78,7 +77,7 @@ const getCanonicalUrl = (hostname = '', router: AppContextProps) => {
   return hostname + url
 }
 
-export function AppSeo(): JSX.Element {
+export function AppSeo(): React.JSX.Element {
   const settings = useSettings()
   const page = usePage()
   const appCtx = useAppContext()

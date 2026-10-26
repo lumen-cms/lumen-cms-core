@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { LmListStoriesPayload, LmListStoriesProps } from './listWidgetTypes'
 import useSWR from 'swr'
 import {

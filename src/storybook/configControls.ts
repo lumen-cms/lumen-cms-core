@@ -1,3 +1,4 @@
+import type { StorybookSchemaField } from './schema'
 import { ArgTypes, Meta } from '@storybook/react'
 // @ts-ignore
 import COMPONENT_JSON from '../../components.82895.json'
@@ -20,14 +21,17 @@ export const genericArgTypes = {
   }
 } as Meta['argTypes']
 
-const typMap = {
+const typMap: Record<string, 'number' | 'string' | undefined> = {
   number: 'number',
   text: 'string',
   markdown: 'string',
   textarea: 'string'
 }
 
-const controlTypeMap = {
+const controlTypeMap: Record<
+  string,
+  'text' | 'number' | 'select' | 'inline-check' | 'boolean' | undefined
+> = {
   image: 'text',
   number: 'number',
   option: 'select',
@@ -40,12 +44,14 @@ export function getComponentArgTypes(componentName: string): Meta['argTypes'] {
     return component.name === componentName
   })
   const obj = {} as ArgTypes
-  const schema = findComponents && findComponents.schema
+  const schema: Record<string, StorybookSchemaField | undefined> | undefined =
+    findComponents?.schema
   if (!schema) {
     throw new Error(`component declaration not found: ${componentName}`)
   }
   Object.keys(schema).forEach((schemaKey) => {
     const currentSchema = schema[schemaKey]
+    if (!currentSchema) return
     const { type } = currentSchema
 
     if (['section', 'tab', 'richtext', 'multilink', 'file'].includes(type)) {
@@ -53,10 +59,9 @@ export function getComponentArgTypes(componentName: string): Meta['argTypes'] {
     }
     obj[schemaKey] = {
       name: schemaKey,
-      type: {
-        name: typMap[type] || undefined,
-        required: !!currentSchema.required
-      },
+      ...(typMap[type] && {
+        type: { name: typMap[type]!, required: !!currentSchema.required }
+      }),
       control: {
         type: controlTypeMap[type]
       }
@@ -68,7 +73,7 @@ export function getComponentArgTypes(componentName: string): Meta['argTypes'] {
       ]
     }
     if (type === 'options') {
-      obj[schemaKey].options?.shift() // remove empty value
+      obj[schemaKey].options = obj[schemaKey].options?.slice(1) // remove empty value
     } else if (currentSchema.field_type === 'vue-color-picker') {
       // obj[schemaKey].control = {
       //   type: 'select'
@@ -81,7 +86,7 @@ export function getComponentArgTypes(componentName: string): Meta['argTypes'] {
       //     }
       //   }
       // }
-      obj[schemaKey].control.type = 'object'
+      obj[schemaKey].control = { type: 'object' }
     }
 
     // console.log(currentSchema, type, schemaKey, obj[schemaKey])

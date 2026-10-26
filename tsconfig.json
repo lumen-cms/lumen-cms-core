@@ -12,18 +12,15 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "downlevelIteration": true,
     "isolatedModules": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
-    "baseUrl": "./",
     "rootDir": "./src",
     "strict": true,
     "noUnusedLocals": true,
@@ -31,26 +28,33 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "traceResolution": false,
     "paths": {
       "@polyfills": [
-        "client/polyfills.js"
+        "./client/polyfills.js"
       ],
       "@LmComponentRender": [
-        "src/components/CoreComponents.tsx"
+        "./src/components/CoreComponents.tsx"
       ],
       "@CONFIG": [
-        "src/utils/config.ts"
+        "./src/utils/config.ts"
       ],
       "@context/*": [
-        "src/components/provider/context/*"
+        "./src/components/provider/context/*"
       ],
       "@SSR_CONFIG": [
-        "src/utils/initial-props/ssrConfig"
+        "./src/utils/initial-props/ssrConfig"
       ]
     },
-    "incremental": true
+    "incremental": true,
+    "types": [
+      "node",
+      "react",
+      "react-dom",
+      "gtag.js",
+      "facebook-pixel"
+    ]
   },
   "exclude": [
     "node_modules",

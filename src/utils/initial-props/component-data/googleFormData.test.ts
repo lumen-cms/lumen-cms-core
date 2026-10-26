@@ -1,24 +1,111 @@
+import { describe, expect, test, vi } from 'vitest'
 import { googleFormGetData } from './googleFormData'
+import { googleFormsToJson } from './googleFormsToJson'
 
-describe('Google Form Data', function () {
-  test('test if google forms work', async () => {
-    const data = await googleFormGetData({
-      api: 'https://docs.google.com/forms/d/e/1FAIpQLSdw3tdslj4k94OU6bluk0Yobe997r8gV5obEbEdiMs70SKQPw/viewform?embedded=true',
-      submit_button: [],
-      _uid: '123',
-      component: 'form'
-    })
-    expect(!!data?.fields?.length).toBeTruthy()
-    // console.log(data)
+// Minimal public-form HTML fixture covering the field shapes this renderer uses.
+const formDefinition = [
+  null,
+  [
+    'Application description',
+    [
+      [1, 'Name', null, 0, [[101, null, 1]]],
+      [2, 'Interests', null, 4, [[102, [['Design'], ['Teaching']], 0]]],
+      [3, 'Start date', null, 9, [[103, null, 1]]]
+    ],
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    'Application'
+  ],
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  'test-form'
+]
+const formHtml = `<input name="fbzx" value="fixture-token"><script>var FB_PUBLIC_LOAD_DATA_ = ${JSON.stringify(
+  formDefinition
+)};</script>`
+const url = 'https://docs.google.com/forms/d/e/test-form/viewform'
+
+describe('Google Form parsing', () => {
+  test('preserves labels, required fields, choices and date fields', async () => {
+    vi.mocked(fetch).mockResolvedValue(new Response(formHtml))
+    const data = await googleFormsToJson(url)
+    expect(data.title).toBe('Application')
+    expect(data.action).toBe('test-form')
+    expect(data.fieldsOrder).toEqual({ '101': 0, '102': 1, '103': 2 })
+    expect(data.fields).toEqual([
+      {
+        id: '101',
+        label: 'Name',
+        description: null,
+        type: 'SHORT_ANSWER',
+        required: true
+      },
+      {
+        id: '102',
+        label: 'Interests',
+        description: null,
+        type: 'CHECKBOX',
+        required: false,
+        options: [
+          { label: 'Design', custom: false },
+          { label: 'Teaching', custom: false }
+        ]
+      },
+      {
+        id: '103',
+        label: 'Start date',
+        description: null,
+        type: 'DATE',
+        required: true
+      }
+    ])
   })
-  test('test malfunction form', async () => {
-    const data = await googleFormGetData({
-      api: 'https://docs.google.com/forms/d/e/1FAIpQLScnOCZ9F_mnnJIX7pzhJmO8X0XdhPakpthsRq4PdIjwDixJ9g/viewform?usp=sf_link',
-      submit_button: [],
-      _uid: '123',
-      component: 'form'
-    })
-    console.log(data)
-    expect(!!data?.fields?.length).toBeTruthy()
+
+  test('rejects unsupported URLs before making a request', async () => {
+    await expect(
+      googleFormsToJson('https://example.com/viewform')
+    ).rejects.toThrow('Invalid google forms host')
+    expect(fetch).not.toHaveBeenCalled()
+  })
+
+  test('returns null for a form that no longer exposes a schema', async () => {
+    vi.mocked(fetch).mockResolvedValue(
+      new Response('<html>Form unavailable</html>')
+    )
+    const log = vi.spyOn(console, 'error').mockImplementation(() => {})
+    expect(
+      await googleFormGetData({
+        api: url,
+        submit_button: [],
+        _uid: 'test',
+        component: 'form'
+      })
+    ).toBeNull()
+    expect(log).toHaveBeenCalled()
+  })
+
+  test('does not fetch when no form URL is configured', async () => {
+    expect(
+      await googleFormGetData({
+        submit_button: [],
+        _uid: 'test',
+        component: 'form'
+      })
+    ).toBeNull()
+    expect(fetch).not.toHaveBeenCalled()
   })
 })

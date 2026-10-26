@@ -1,4 +1,4 @@
-import { GoogleForm } from 'react-google-forms-hooks'
+import { GoogleForm } from '../../../vendor/google-forms'
 import { FormStoryblok } from '../../../typings/generated/components-schema'
 import { googleFormsToJson } from './googleFormsToJson'
 

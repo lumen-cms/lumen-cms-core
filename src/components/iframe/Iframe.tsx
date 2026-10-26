@@ -1,11 +1,13 @@
 import { useInView } from 'react-intersection-observer'
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import Skeleton from '@mui/material/Skeleton'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmIframeProps } from './iframeTypes'
 import clsx from 'clsx'
 
-export default function LmIframe({ content }: LmIframeProps): JSX.Element {
+export default function LmIframe({
+  content
+}: LmIframeProps): React.JSX.Element {
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )

@@ -1,4 +1,4 @@
-import { Story } from '@storybook/react'
+import { StoryFn } from '@storybook/react'
 import { storySnackbar } from '../storybook/core/various'
 import { ButtonStoryblok } from '../typings/generated/components-schema'
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'
@@ -22,7 +22,7 @@ export const Presets = () => (
 
 const presetContent = findPresets<LmSnackbarProps['content']>('snackbar')
 
-const Template: Story<LmSnackbarProps['content']> = (args) => (
+const Template: StoryFn<LmSnackbarProps['content']> = (args) => (
   <div style={{ height: '150vh' }}>
     <LmSnackbar content={args} />
   </div>

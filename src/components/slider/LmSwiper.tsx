@@ -11,6 +11,7 @@ import { LmComponentRender } from '@LmComponentRender'
 import { PaginationOptions } from 'swiper/types'
 import Box from '@mui/material/Box'
 import { Theme } from '@mui/material/styles'
+import { getThemeColor } from '../../utils/themeColor'
 import LmSwiperContainer from './LmSwiperContainer'
 
 export default function LmSwiper({ content }: LmSwiperProps) {
@@ -66,7 +67,7 @@ export default function LmSwiper({ content }: LmSwiperProps) {
       sx={{
         '--swiper-theme-color': (theme: Theme) =>
           themeColors?.[0]
-            ? theme.palette[themeColors[0]][themeColors[1]]
+            ? getThemeColor(theme, themeColors[0], themeColors[1]) ?? null
             : theme.palette.text.primary,
         '--swiper-navigation-size': `${content.navigation_size || 44}px`,
         '--swiper-pagination-bullet-size': `${

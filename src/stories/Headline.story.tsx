@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { HeadlineStoryblok } from '../typings/generated/components-schema'
 import { storyStyles } from '../storybook/core/various'
 import { LmHeadline } from '../components/headline/Headline'
@@ -22,7 +21,7 @@ export default {
   }
 } as Meta
 
-const Template: Story<LmHeadlineProps['content']> = (args) => (
+const Template: StoryFn<LmHeadlineProps['content']> = (args) => (
   <LmHeadline content={args} />
 )
 
@@ -271,9 +270,9 @@ HeadlineCounter.args = {
   suffix: ' Users'
 }
 
-const HeadlineDateTemplate: Story<LmDateHeadlineProps['content']> = (args) => (
-  <LmDateHeadline content={args} />
-)
+const HeadlineDateTemplate: StoryFn<LmDateHeadlineProps['content']> = (
+  args
+) => <LmDateHeadline content={args} />
 
 export const HeadlineWithDate = HeadlineDateTemplate.bind({})
 HeadlineWithDate.args = {

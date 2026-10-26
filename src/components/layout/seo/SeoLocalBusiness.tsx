@@ -1,5 +1,4 @@
 import { LocalBusinessJsonLd } from 'next-seo'
-import React from 'react'
 import {
   ImageCoreStoryblok,
   SeoLocalBusinessOpeningHourStoryblok

@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { LmHeadlineProps } from './headlineTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { typographyColor } from '../../utils/themeColor'
 
 export const LmHeadlineCore: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
   content,
@@ -33,7 +34,7 @@ export const LmHeadlineCore: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
       )}
       component={(content.tag ? content.tag : undefined) as ElementType}
       align={content.align ? content.align : undefined}
-      color={content.color ? content.color : undefined}
+      sx={{ color: typographyColor(content.color) }}
       style={{
         cursor: onClick ? 'pointer' : undefined,
         color:

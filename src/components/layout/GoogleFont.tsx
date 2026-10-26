@@ -4,7 +4,7 @@ export default function GoogleFont({
   googleFontString
 }: {
   googleFontString?: string
-}): JSX.Element | null {
+}): React.JSX.Element | null {
   if (!googleFontString) {
     return null
   }

@@ -1,5 +1,5 @@
 import { LmComponentRender as LmNavList } from '@LmComponentRender'
-import { boolean } from '@storybook/addon-knobs'
+import { boolean } from '../storybook/legacyControls'
 import { storyNavItem, storyNavList } from '../storybook/core/various'
 
 // eslint-disable-next-line import/no-anonymous-default-export

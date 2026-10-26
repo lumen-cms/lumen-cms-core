@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import { CSSProperties } from 'react'
 import LmIcon from '../icon/LmIcon'
 import { LmDividerProps } from './dividerTypes'
 import Divider, { DividerProps } from '@mui/material/Divider'
@@ -7,7 +7,7 @@ import { LmComponentRender } from '@LmComponentRender'
 export function LmDivider({
   content,
   isStackDivider
-}: LmDividerProps): JSX.Element {
+}: LmDividerProps): React.JSX.Element {
   const style: CSSProperties = {}
   const customColor = content.color?.rgba
   const iconName = content.icon?.name

@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmCoreComponents } from '@CONFIG'
 import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
@@ -7,7 +6,7 @@ import { usePage } from '../provider/SettingsPageProvider'
 import EmptyContent from './EmptyContent'
 import { LmComponentRender } from '@LmComponentRender'
 
-export function LmPage({ content }: LmPageProps): JSX.Element {
+export function LmPage({ content }: LmPageProps): React.JSX.Element {
   const page = usePage()
   const currentContent = page || content
   const body = currentContent?.body || []

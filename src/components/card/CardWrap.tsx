@@ -20,7 +20,8 @@ const CardWrap: FunctionComponent<PropsWithChildren<CardListItemProps>> = ({
   return (
     <Card
       className={clsx(className, {
-        [styles[options.shadow_effect]]: !!options.shadow_effect
+        [styles[options.shadow_effect as keyof typeof styles]]:
+          !!options.shadow_effect
       })}
       raised={variants.includes('raised')}
       elevation={options.elevation ? Number(options.elevation) : undefined}

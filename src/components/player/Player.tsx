@@ -1,12 +1,14 @@
 import { useInView } from 'react-intersection-observer'
 import ReactPlayer from 'react-player/lazy'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmPlayerProps } from './playerTypes'
 import videoUrlHelper from '../../utils/videoUrlHelper'
 import LmAspectRatio from '../image/LmAspectRatio'
 
-export default function LmPlayer({ content }: LmPlayerProps): JSX.Element {
+export default function LmPlayer({
+  content
+}: LmPlayerProps): React.JSX.Element {
   const [playing, setPlaying] = useState<boolean>(!!content.playing)
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions

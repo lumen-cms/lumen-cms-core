@@ -4,7 +4,9 @@ import { MoralisStoryblok } from '../../typings/generated/components-schema'
 type MoralisProps = {
   content: MoralisStoryblok
 }
-export default function MoralisContent({ content }: MoralisProps): JSX.Element {
+export default function MoralisContent({
+  content
+}: MoralisProps): React.JSX.Element {
   const { body } = content
   return (
     <div className={'lm-moralis'}>

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../../vendor/grid'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
@@ -43,7 +43,7 @@ ToolbarSectionContainer.displayName = 'ToolbarSectionContainer'
 
 export function LmToolbarSection({
   content
-}: LmToolbarSectionProps): JSX.Element {
+}: LmToolbarSectionProps): React.JSX.Element {
   const body = content.body || []
   return (
     <ToolbarSectionContainer content={content}>

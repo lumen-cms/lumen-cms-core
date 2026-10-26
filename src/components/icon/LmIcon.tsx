@@ -1,5 +1,5 @@
 import InlineSVG from 'react-inlinesvg'
-import React, { CSSProperties } from 'react'
+import { CSSProperties } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -23,7 +23,7 @@ const useStyles = makeStyles({ name: 'IconCore' })({
   }
 })
 
-const iconMap = {
+const iconMap: Record<string, string | undefined> = {
   call: 'phone',
   people: 'account-multiple',
   access_time: 'clock-outline',
@@ -47,7 +47,7 @@ function IconCore({
   buttonSize,
   iconUrl,
   onClick
-}: IconCoreProps): JSX.Element {
+}: IconCoreProps): React.JSX.Element {
   const { classes, cx: clsx } = useStyles()
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions

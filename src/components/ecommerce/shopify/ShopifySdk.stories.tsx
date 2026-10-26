@@ -1,5 +1,5 @@
 import { LmComponentRender } from '@LmComponentRender'
-import { Story } from '@storybook/react'
+import { StoryFn } from '@storybook/react'
 import { FC, PropsWithChildren } from 'react'
 import {
   ButtonStoryblok,
@@ -62,7 +62,7 @@ const ShopifyStoryContainer: FC<
   )
 }
 
-const Template: Story<{
+const Template: StoryFn<{
   handle: string
 }> = ({ handle }, { loaded: { data, settings } }) => {
   return (

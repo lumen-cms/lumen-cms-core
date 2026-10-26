@@ -7,7 +7,7 @@ export default function StorybookPresetsContainer({
 }: {
   componentName?: string
   presetItems?: any[]
-}): JSX.Element {
+}): React.JSX.Element {
   const items = presetItems || (componentName ? findPresets(componentName) : [])
   if (!items.length) {
     return (

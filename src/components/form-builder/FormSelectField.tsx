@@ -42,7 +42,7 @@ export default function LmFormSelectField({
       <MultiSelectElement
         name={name || _uid}
         label={label}
-        placeholder={placeholder}
+        inputProps={{ placeholder }}
         required={required}
         options={currentOptions}
         itemKey={'id'}
@@ -50,7 +50,7 @@ export default function LmFormSelectField({
         itemLabel={'label'}
         type={'text'}
         variant={rest.options.variant || 'standard'}
-        margin={rest.options.margin || undefined}
+        formControlProps={{ margin: rest.options.margin || undefined }}
         fullWidth={rest.options.full_width}
         helperText={help_text}
       />

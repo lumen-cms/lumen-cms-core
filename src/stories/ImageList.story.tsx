@@ -5,7 +5,7 @@ import {
 import { storyImageList, storyImageListItem } from '../storybook/core/section'
 import { LmImageList } from '../components/BaseComponents'
 import { getComponentArgTypes } from '../storybook/configControls'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { LmImageListProps } from '../components/image-list/imageListTypes'
 
 const body: ImageListItemStoryblok[] = [
@@ -82,7 +82,7 @@ export default {
   }
 } as Meta
 
-const Template: Story<LmImageListProps['content']> = (args) => (
+const Template: StoryFn<LmImageListProps['content']> = (args) => (
   <LmImageList content={args} />
 )
 

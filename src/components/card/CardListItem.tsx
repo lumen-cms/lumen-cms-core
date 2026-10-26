@@ -13,7 +13,9 @@ import {
 import { CardListItemProps } from './cardTypes'
 import CardListItemActionArea from './CardListItemActionArea'
 
-export default function LmCardListItem(props: CardListItemProps): JSX.Element {
+export default function LmCardListItem(
+  props: CardListItemProps
+): React.JSX.Element {
   const { content, options } = props
   const variants = options.variant || []
   const onClickFunc: any =

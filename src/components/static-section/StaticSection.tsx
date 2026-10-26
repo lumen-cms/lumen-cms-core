@@ -1,11 +1,10 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmStaticSectionProps } from './staticTypes'
 import clsx from 'clsx'
 
 export function LmStaticSection({
   content
-}: LmStaticSectionProps): JSX.Element | null {
+}: LmStaticSectionProps): React.JSX.Element | null {
   if (!content.container) {
     return null
   }

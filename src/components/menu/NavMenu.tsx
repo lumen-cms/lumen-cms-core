@@ -23,7 +23,10 @@ const useStyles = makeStyles<NavMenuStoryblok>({ name: 'NavMenu' })(
   })
 )
 
-export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
+export function LmMenu({
+  content,
+  initialOpen
+}: LmMenuProps): React.JSX.Element {
   const { classes, cx } = useStyles(content)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [active, setActive] = useState<boolean>(false)
@@ -168,9 +171,11 @@ export function LmMenu({ content, initialOpen }: LmMenuProps): JSX.Element {
         onClose={handleClose}
         anchorEl={anchorEl}
         className={content.class_names?.values?.join(' ')}
-        PaperProps={{
-          variant: content.outlined ? 'outlined' : undefined,
-          elevation: content.elevation ? Number(content.elevation) : 8
+        slotProps={{
+          paper: {
+            variant: content.outlined ? 'outlined' : undefined,
+            elevation: content.elevation ? Number(content.elevation) : 8
+          }
         }}
         classes={{
           paper: classes.paper

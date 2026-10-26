@@ -1,5 +1,4 @@
 import Pagination, { PaginationProps } from '@mui/material/Pagination'
-import React from 'react'
 import { LmListStoriesPaginationProps } from './listWidgetTypes'
 
 const paginationShape: {

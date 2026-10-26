@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { legacyClientListWidgetSearch, useListSearch } from './useListSearch'
 import { ListWidgetContainer } from './ListWidgetContainer'
 import { ListStoriesData, LmListWidgetProps } from './listWidgetTypes'
@@ -6,7 +6,7 @@ import { LmComponentRender } from '@LmComponentRender'
 
 export default function LmListWidget({
   content
-}: LmListWidgetProps): JSX.Element {
+}: LmListWidgetProps): React.JSX.Element {
   const clientSideSearch = useListSearch(!!content.enable_for_search)
   let [data] = useState(content.list_widget_data?.items ?? [])
 

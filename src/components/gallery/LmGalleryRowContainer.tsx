@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../vendor/grid'
 import { LmGalleryRowProps } from './LmGalleryRow'
 import { Parallax } from 'react-scroll-parallax'
 

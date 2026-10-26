@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'
 import LmAccordion from '../components/accordion/Accordion'
 import { LmAccordionProps } from '../components/accordion/accordionTypes'
@@ -18,7 +18,7 @@ export const Presets = () => (
   <StorybookPresetsContainer componentName="accordion" />
 )
 
-const Template: Story<LmAccordionProps['content']> = (args) => (
+const Template: StoryFn<LmAccordionProps['content']> = (args) => (
   <LmAccordion content={args} />
 )
 

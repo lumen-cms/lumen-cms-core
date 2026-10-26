@@ -1,5 +1,4 @@
 import { LmComponentRender } from '@LmComponentRender'
-import React from 'react'
 import { useSettings } from '../provider/SettingsPageProvider'
 
 export default function EmptyContent() {

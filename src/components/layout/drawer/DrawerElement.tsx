@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 import BackgroundImage from '../../section/BackgroundImage'
 import BackgroundElements from '../../section/BackgroundElements'
@@ -44,7 +43,7 @@ function DrawerLogoArea() {
   )
 }
 
-function DrawerElement(): JSX.Element {
+function DrawerElement(): React.JSX.Element {
   const settings = useSettings()
 
   const background = Array.isArray(settings.drawer_background)

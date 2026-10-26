@@ -1,11 +1,10 @@
-import React from 'react'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
 import { LmHubspotMeetingProps } from './hubspotTypes'
 
 export default function LmHubspotMeeting({
   content,
   disableEmbed
-}: LmHubspotMeetingProps): JSX.Element {
+}: LmHubspotMeetingProps): React.JSX.Element {
   const dataSrc = `https://app.hubspot.com/meetings/${
     content.meeting_name
   }?embed-true=${disableEmbed ? 'false' : 'true'}`

@@ -1,0 +1,3040 @@
+{
+  "checkedAt": "2026-10-26T07:55:31.860Z",
+  "packages": [
+    {
+      "name": "@auth0/auth0-react",
+      "spec": "2.0.1",
+      "installed": "2.0.1",
+      "latest": "2.28.2",
+      "peerDependencies": {
+        "react": "^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1",
+        "react-dom": "^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40auth0%2Fauth0-react/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.28.2",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@charlietango/use-script",
+      "spec": "2.3.0",
+      "installed": "2.3.0",
+      "latest": "2.3.0",
+      "peerDependencies": {
+        "react": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0"
+      },
+      "engines": {},
+      "deprecated": "No longer supported. Use the @charlietango/hooks package instead",
+      "source": "https://registry.npmjs.org/%40charlietango%2Fuse-script/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "replace",
+        "target": "@charlietango/hooks or local maintained adapter",
+        "reason": "Deprecated; latest old package excludes React 19. Verify replacement API and peer metadata."
+      }
+    },
+    {
+      "name": "@emotion/react",
+      "spec": "^11.10.5",
+      "installed": "11.10.5",
+      "latest": "11.14.0",
+      "peerDependencies": {
+        "react": ">=16.8.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40emotion%2Freact/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "11.14.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@emotion/server",
+      "spec": "^11.10.0",
+      "installed": "11.10.0",
+      "latest": "11.11.0",
+      "peerDependencies": {
+        "@emotion/css": "^11.0.0-rc.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40emotion%2Fserver/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "11.11.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@emotion/styled",
+      "spec": "^11.10.5",
+      "installed": "11.10.5",
+      "latest": "11.14.1",
+      "peerDependencies": {
+        "react": ">=16.8.0",
+        "@emotion/react": "^11.0.0-rc.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40emotion%2Fstyled/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "11.14.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@formatjs/intl-datetimeformat",
+      "spec": "6.4.3",
+      "installed": "6.4.3",
+      "latest": "7.8.2",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40formatjs%2Fintl-datetimeformat/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "7.8.2",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@graphql-codegen/cli",
+      "spec": "^2.3.0",
+      "installed": "2.13.8",
+      "latest": "7.4.6",
+      "peerDependencies": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0",
+        "@parcel/watcher": "^2.1.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Fcli/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "7.4.6",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@graphql-codegen/fragment-matcher",
+      "spec": "^3.2.0",
+      "installed": "3.3.1",
+      "latest": "7.1.0",
+      "peerDependencies": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ffragment-matcher/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "7.1.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@graphql-codegen/import-types-preset",
+      "spec": "^2.1.8",
+      "installed": "2.2.5",
+      "latest": "4.0.1",
+      "peerDependencies": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+      },
+      "engines": {
+        "node": ">= 16.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Fimport-types-preset/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "4.0.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@graphql-codegen/typescript",
+      "spec": "^2.4.1",
+      "installed": "2.8.0",
+      "latest": "6.1.2",
+      "peerDependencies": {
+        "graphql": "^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "6.1.2",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@graphql-codegen/typescript-document-nodes",
+      "spec": "^2.2.1",
+      "installed": "2.3.5",
+      "latest": "6.1.1",
+      "peerDependencies": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript-document-nodes/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "6.1.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@graphql-codegen/typescript-graphql-files-modules",
+      "spec": "^2.1.0",
+      "installed": "2.2.1",
+      "latest": "4.0.1",
+      "peerDependencies": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+      },
+      "engines": {
+        "node": ">= 16.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript-graphql-files-modules/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "4.0.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@graphql-codegen/typescript-graphql-request",
+      "spec": "^4.3.2",
+      "installed": "4.5.7",
+      "latest": "7.1.0",
+      "peerDependencies": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0",
+        "graphql-tag": "^2.0.0",
+        "graphql-request": "^6.0.0 || ^7.0.0"
+      },
+      "engines": {
+        "node": ">= 16.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript-graphql-request/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "7.1.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@graphql-codegen/typescript-operations",
+      "spec": "^2.2.1",
+      "installed": "2.5.5",
+      "latest": "6.2.0",
+      "peerDependencies": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0",
+        "graphql-sock": "^1.0.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript-operations/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "6.2.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@lumen/storyblok-material-icons",
+      "spec": "git+https://github.com/dohomi/storyblok-fieldtype-material-icons-selector.git",
+      "installed": "2.0.0",
+      "status": "git-dependency; verify maintained source and pin commit",
+      "batch": "3 CMS and content",
+      "recommendation": {
+        "action": "pin-maintained-source",
+        "target": null,
+        "reason": "Git dependency has no npm latest target; verify compatibility and pin immutable revision."
+      }
+    },
+    {
+      "name": "@metamask/detect-provider",
+      "spec": "1.2.0",
+      "installed": "1.2.0",
+      "latest": "2.0.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40metamask%2Fdetect-provider/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "7 Wallet integrations",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.0.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@metamask/onboarding",
+      "spec": "1.0.1",
+      "installed": "1.0.1",
+      "latest": "1.0.1",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40metamask%2Fonboarding/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "7 Wallet integrations",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "1.0.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@mui/icons-material",
+      "spec": "5.11.16",
+      "installed": "5.11.16",
+      "latest": "9.5.0",
+      "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@mui/material": "^9.5.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40mui%2Ficons-material/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "9.5.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@mui/lab",
+      "spec": "5.0.0-alpha.129",
+      "installed": "5.0.0-alpha.129",
+      "latest": "9.0.0-beta.10",
+      "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@mui/material": "^9.5.0",
+        "@emotion/react": "^11.5.0",
+        "@emotion/styled": "^11.3.0",
+        "@mui/material-pigment-css": "^9.5.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40mui%2Flab/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "align-prerelease",
+        "target": "9.0.0-beta.10",
+        "reason": "Lab is distributed as beta. Only accept the compatible v9 Lab release needed for existing tabs/timeline."
+      }
+    },
+    {
+      "name": "@mui/material",
+      "spec": "5.12.3",
+      "installed": "5.12.3",
+      "latest": "9.5.0",
+      "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@emotion/react": "^11.5.0",
+        "@emotion/styled": "^11.3.0",
+        "@mui/material-pigment-css": "^9.5.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40mui%2Fmaterial/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "9.5.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@mui/system",
+      "installed": "5.12.3",
+      "latest": "9.5.0",
+      "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@emotion/react": "^11.5.0",
+        "@emotion/styled": "^11.3.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40mui%2Fsystem/latest",
+      "sections": [],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "candidate-addition",
+        "target": "9.5.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@mui/utils",
+      "spec": "5.12.3",
+      "installed": "5.12.3",
+      "latest": "9.5.0",
+      "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40mui%2Futils/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "9.5.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@mui/x-date-pickers",
+      "spec": "6.3.1",
+      "installed": "6.3.1",
+      "latest": "9.16.0",
+      "peerDependencies": {
+        "dayjs": "^1.10.7",
+        "luxon": "^3.0.2",
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "moment": "^2.29.4",
+        "date-fns": "^2.25.0 || ^3.2.0 || ^4.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@mui/system": "^7.3.0 || ^9.0.0",
+        "moment-hijri": "^2.1.2 || ^3.0.0",
+        "@mui/material": "^7.3.0 || ^9.0.0",
+        "@emotion/react": "^11.9.0",
+        "moment-jalaali": "^0.7.4 || ^0.8.0 || ^0.9.0 || ^0.10.0",
+        "@emotion/styled": "^11.8.1",
+        "date-fns-jalali": "^2.13.0-0 || ^3.2.0-0 || ^4.0.0-0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40mui%2Fx-date-pickers/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "9.16.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@next/bundle-analyzer",
+      "spec": "16.2.4",
+      "installed": "16.2.4",
+      "latest": "16.4.3",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40next%2Fbundle-analyzer/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Next and platform",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "16.4.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@playwright/test",
+      "latest": "1.64.1",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=20"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40playwright%2Ftest/latest",
+      "sections": [],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "candidate-addition",
+        "target": "1.64.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@storyblok/react",
+      "latest": "7.3.1",
+      "peerDependencies": {
+        "next": "^13 || ^14 || ^15 || ^16",
+        "react": "^17 || ^18 || ^19",
+        "react-dom": "^17 || ^18 || ^19"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40storyblok%2Freact/latest",
+      "sections": [],
+      "batch": "3 CMS and content",
+      "recommendation": {
+        "action": "candidate-addition",
+        "target": "7.3.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@storybook/addon-essentials",
+      "spec": "^6.5.9",
+      "installed": "6.5.13",
+      "latest": "8.6.14",
+      "peerDependencies": {
+        "storybook": "^8.6.14"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40storybook%2Faddon-essentials/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "replace",
+        "target": "Storybook 10 supported feature packages",
+        "reason": "Do not combine obsolete Essentials 8 with Storybook 10 blindly."
+      }
+    },
+    {
+      "name": "@storybook/addon-knobs",
+      "spec": "^6.4.0",
+      "installed": "6.4.0",
+      "latest": "8.0.1",
+      "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
+        "@storybook/theming": "^8.0.0",
+        "@storybook/components": "^8.0.0",
+        "@storybook/core-events": "^8.0.0",
+        "@storybook/manager-api": "^8.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40storybook%2Faddon-knobs/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "replace",
+        "target": "Storybook args and controls",
+        "reason": "Preserve story names and visual states."
+      }
+    },
+    {
+      "name": "@storybook/builder-webpack5",
+      "spec": "^6.5.9",
+      "installed": "6.5.13",
+      "latest": "10.6.3",
+      "peerDependencies": {
+        "storybook": "^10.6.3"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40storybook%2Fbuilder-webpack5/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.6.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@storybook/manager-webpack5",
+      "spec": "^6.5.9",
+      "installed": "6.5.13",
+      "latest": "6.5.16",
+      "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40storybook%2Fmanager-webpack5/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "remove",
+        "target": null,
+        "reason": "Old manager package is not part of the target modern Storybook setup."
+      }
+    },
+    {
+      "name": "@storybook/nextjs",
+      "latest": "10.6.3",
+      "peerDependencies": {
+        "next": "^14.1.0 || ^15.0.0 || ^16.0.0",
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "webpack": "^5.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "storybook": "^10.6.3",
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40storybook%2Fnextjs/latest",
+      "sections": [],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "candidate-addition",
+        "target": "10.6.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@storybook/nextjs-vite",
+      "latest": "10.6.3",
+      "peerDependencies": {
+        "next": "^14.1.0 || ^15.0.0 || ^16.0.0",
+        "vite": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0",
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "storybook": "^10.6.3",
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40storybook%2Fnextjs-vite/latest",
+      "sections": [],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "candidate-addition",
+        "target": "10.6.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@storybook/react",
+      "spec": "^6.5.9",
+      "installed": "6.5.13",
+      "latest": "10.6.3",
+      "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "storybook": "^10.6.3",
+        "typescript": ">= 4.9.x",
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40storybook%2Freact/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.6.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/cors",
+      "spec": "^2.8.13",
+      "installed": "2.8.13",
+      "latest": "2.8.19",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Fcors/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.8.19",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/debug",
+      "spec": "^4.1.7",
+      "installed": "4.1.7",
+      "latest": "4.1.13",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Fdebug/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "4.1.13",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/diacritics",
+      "spec": "^1.3.1",
+      "installed": "1.3.1",
+      "latest": "1.3.3",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Fdiacritics/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "1.3.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/facebook-pixel",
+      "spec": "^0.0.24",
+      "installed": "0.0.24",
+      "latest": "0.0.31",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Ffacebook-pixel/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "0.0.31",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/gtag.js",
+      "spec": "^0.0.12",
+      "installed": "0.0.12",
+      "latest": "0.0.20",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Fgtag.js/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "0.0.20",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/jest",
+      "spec": "^29.2.1",
+      "installed": "29.2.1",
+      "latest": "30.0.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Fjest/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "remove",
+        "target": null,
+        "reason": "Use explicit Vitest imports/types after test migration."
+      }
+    },
+    {
+      "name": "@types/js-cookie",
+      "spec": "^3.0.1",
+      "installed": "3.0.2",
+      "latest": "3.0.6",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Fjs-cookie/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "3.0.6",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/marked",
+      "spec": "^4.0.1",
+      "installed": "4.0.7",
+      "latest": "6.0.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": "This is a stub types definition. marked provides its own type definitions, so you do not need this installed.",
+      "source": "https://registry.npmjs.org/%40types%2Fmarked/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "3 CMS and content",
+      "recommendation": {
+        "action": "remove-after-upgrade",
+        "target": null,
+        "reason": "New marked has bundled types."
+      }
+    },
+    {
+      "name": "@types/match-sorter",
+      "spec": "^6.0.0",
+      "installed": "6.0.0",
+      "latest": "6.0.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": "This is a stub types definition. match-sorter provides its own type definitions, so you do not need this installed.",
+      "source": "https://registry.npmjs.org/%40types%2Fmatch-sorter/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "remove-if-redundant",
+        "target": null,
+        "reason": "Deprecated stub; verify source usage and actual bundled types first."
+      }
+    },
+    {
+      "name": "@types/node",
+      "spec": "^20.19.0",
+      "installed": "20.19.43",
+      "latest": "26.6.5",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Fnode/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "align-with-runtime",
+        "target": "24.x",
+        "reason": "Match supported Node 24 runtime; do not use latest Node 26 types for a Node 24 runtime."
+      }
+    },
+    {
+      "name": "@types/nprogress",
+      "spec": "^0.2.0",
+      "installed": "0.2.0",
+      "latest": "0.2.3",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Fnprogress/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "0.2.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/react",
+      "spec": "^18.0.24",
+      "installed": "18.0.24",
+      "latest": "19.3.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Freact/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "5 React and compatibility adapters",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "19.3.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/react-big-calendar",
+      "spec": "^0.38.2",
+      "installed": "0.38.2",
+      "latest": "1.16.3",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Freact-big-calendar/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "1.16.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/react-dom",
+      "spec": "^18.0.8",
+      "installed": "18.0.8",
+      "latest": "19.3.0",
+      "peerDependencies": {
+        "@types/react": "^19.3.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Freact-dom/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "5 React and compatibility adapters",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "19.3.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/scrollmagic",
+      "spec": "^2.0.2",
+      "installed": "2.0.2",
+      "latest": "2.0.8",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40types%2Fscrollmagic/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.0.8",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@types/uuid",
+      "spec": "^8.3.3",
+      "installed": "8.3.4",
+      "latest": "11.0.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": "This is a stub types definition. uuid provides its own type definitions, so you do not need this installed.",
+      "source": "https://registry.npmjs.org/%40types%2Fuuid/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "remove-after-upgrade",
+        "target": null,
+        "reason": "New uuid has bundled types."
+      }
+    },
+    {
+      "name": "@walletconnect/ethereum-provider",
+      "spec": "1.7.8",
+      "installed": "1.7.8",
+      "latest": "2.26.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40walletconnect%2Fethereum-provider/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "7 Wallet integrations",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.26.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@web3-react/core",
+      "spec": "8.0.33-beta.0",
+      "installed": "8.0.33-beta.0",
+      "latest": "8.2.3",
+      "peerDependencies": {
+        "react": ">=16.8"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40web3-react%2Fcore/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "7 Wallet integrations",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "8.2.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@web3-react/metamask",
+      "spec": "8.0.26-beta.0",
+      "installed": "8.0.26-beta.0",
+      "latest": "8.2.4",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40web3-react%2Fmetamask/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "7 Wallet integrations",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "8.2.4",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@web3-react/walletconnect",
+      "spec": "8.0.34-beta.0",
+      "installed": "8.0.34-beta.0",
+      "latest": "8.2.3",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40web3-react%2Fwalletconnect/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "7 Wallet integrations",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "8.2.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "@welldone-software/why-did-you-render",
+      "spec": "^7.0.1",
+      "installed": "7.0.1",
+      "latest": "10.0.1",
+      "peerDependencies": {
+        "react": "^19"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/%40welldone-software%2Fwhy-did-you-render/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "5 React and compatibility adapters",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.0.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "abortcontroller-polyfill",
+      "spec": "^1.7.5",
+      "installed": "1.7.5",
+      "latest": "1.7.8",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/abortcontroller-polyfill/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "1.7.8",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "case-sensitive-paths-webpack-plugin",
+      "spec": "^2.4.0",
+      "installed": "2.4.0",
+      "latest": "2.4.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=4"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/case-sensitive-paths-webpack-plugin/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "2.4.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "chromatic",
+      "spec": "^6.1.0",
+      "installed": "6.11.3",
+      "latest": "18.13.3",
+      "peerDependencies": {
+        "@chromatic-com/vitest": "^0.*.* || ^1.0.0",
+        "@chromatic-com/cypress": "^0.*.* || ^1.0.0",
+        "@chromatic-com/playwright": "^0.*.* || ^1.0.0"
+      },
+      "engines": {
+        "node": ">=22.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/chromatic/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "18.13.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "clean-deep",
+      "spec": "3.4.0",
+      "installed": "3.4.0",
+      "latest": "3.4.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=4"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/clean-deep/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "3.4.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "cors",
+      "spec": "2.8.5",
+      "installed": "2.8.5",
+      "latest": "2.8.6",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">= 0.10"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/cors/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.8.6",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "cross-env",
+      "spec": "^7.0.3",
+      "installed": "7.0.3",
+      "latest": "10.1.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=20"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/cross-env/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.1.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "cssnano-simple",
+      "spec": "3.0.2",
+      "installed": "3.0.2",
+      "latest": "3.0.2",
+      "peerDependencies": {
+        "postcss": "^8.2.15"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/cssnano-simple/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "3.0.2",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "date-fns",
+      "spec": "2.29.3",
+      "installed": "2.29.3",
+      "latest": "4.4.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/date-fns/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "4.4.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "deepdash",
+      "spec": "5.3.9",
+      "installed": "5.3.9",
+      "latest": "5.3.9",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/deepdash/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "5.3.9",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "diacritics",
+      "spec": "1.3.0",
+      "installed": "1.3.0",
+      "latest": "1.3.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/diacritics/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "1.3.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "dotenv",
+      "spec": "^16.0.1",
+      "installed": "16.0.3",
+      "latest": "18.0.9",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=12"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/dotenv/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "18.0.9",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "element-closest",
+      "spec": "3.0.2",
+      "installed": "3.0.2",
+      "latest": "3.0.2",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=0.12.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/element-closest/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "3.0.2",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "eslint",
+      "spec": "^8.19.0",
+      "installed": "8.26.0",
+      "latest": "10.13.0",
+      "peerDependencies": {
+        "jiti": "*"
+      },
+      "engines": {
+        "node": "^20.19.0 || ^22.13.0 || >=24"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/eslint/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.13.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "eslint-config-next",
+      "spec": "13.4.1",
+      "installed": "13.4.1",
+      "latest": "16.4.3",
+      "peerDependencies": {
+        "eslint": ">=9.0.0",
+        "typescript": ">=3.3.1"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/eslint-config-next/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "16.4.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "eslint-config-prettier",
+      "spec": "^8.5.0",
+      "installed": "8.5.0",
+      "latest": "10.1.8",
+      "peerDependencies": {
+        "eslint": ">=7.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/eslint-config-prettier/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.1.8",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "eslint-import-resolver-typescript",
+      "spec": "^3.1.4",
+      "installed": "3.5.2",
+      "latest": "4.4.5",
+      "peerDependencies": {
+        "eslint": "*",
+        "eslint-plugin-import": "*",
+        "eslint-plugin-import-x": "*"
+      },
+      "engines": {
+        "node": "^16.17.0 || >=18.6.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/eslint-import-resolver-typescript/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "4.4.5",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "eslint-plugin-prettier",
+      "spec": "^4.2.1",
+      "installed": "4.2.1",
+      "latest": "5.5.7",
+      "peerDependencies": {
+        "eslint": ">=8.0.0",
+        "prettier": ">=3.0.0",
+        "@types/eslint": ">=8.0.0",
+        "eslint-config-prettier": ">= 7.0.0 <10.0.0 || >=10.1.0"
+      },
+      "engines": {
+        "node": "^14.18.0 || >=16.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/eslint-plugin-prettier/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "5.5.7",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "ethers",
+      "spec": "5.6.9",
+      "installed": "5.6.9",
+      "latest": "6.17.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/ethers/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "7 Wallet integrations",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "6.17.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "feed",
+      "spec": "4.2.2",
+      "installed": "4.2.2",
+      "latest": "6.0.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=20",
+        "pnpm": ">=10"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/feed/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "6.0.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "graphql",
+      "spec": "16.6.0",
+      "installed": "16.6.0",
+      "latest": "17.0.2",
+      "peerDependencies": {},
+      "engines": {
+        "node": "^22.0.0 || ^24.0.0 || ^25.0.0 || >=26.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/graphql/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "retain-major-by-decision",
+        "target": "16.14.2",
+        "reason": "User chose GraphQL 16 as final target; GraphQL 17 is outside this upgrade scope."
+      }
+    },
+    {
+      "name": "graphql-request",
+      "spec": "5.0.0",
+      "installed": "5.0.0",
+      "latest": "7.4.0",
+      "peerDependencies": {
+        "graphql": "14 - 16"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/graphql-request/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "7.4.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "graphql-tag",
+      "spec": "2.12.6",
+      "installed": "2.12.6",
+      "latest": "2.12.7",
+      "peerDependencies": {
+        "graphql": "^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"
+      },
+      "engines": {
+        "node": ">=10"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/graphql-tag/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 GraphQL and code generation",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.12.7",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "install",
+      "spec": "0.13.0",
+      "installed": "0.13.0",
+      "latest": "0.13.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">= 0.10"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/install/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "remove-if-unused",
+        "target": null,
+        "reason": "Verify why npm install utility is present before retaining it."
+      }
+    },
+    {
+      "name": "intersection-observer",
+      "spec": "0.12.2",
+      "installed": "0.12.2",
+      "latest": "0.12.2",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": "The Intersection Observer polyfill is no longer needed and can safely be removed. Intersection Observer has been Baseline since 2019.",
+      "source": "https://registry.npmjs.org/intersection-observer/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "remove-after-browser-policy",
+        "target": null,
+        "reason": "Deprecated polyfill; remove only when supported browser floor makes it redundant."
+      }
+    },
+    {
+      "name": "jest",
+      "spec": "^29.2.2",
+      "installed": "29.2.2",
+      "latest": "30.5.2",
+      "peerDependencies": {
+        "node-notifier": "^8.0.1 || ^9.0.0 || ^10.0.0"
+      },
+      "engines": {
+        "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/jest/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "replace",
+        "target": "vitest@5.0.5",
+        "reason": "Migrate all existing tests and remove direct Jest dependency."
+      }
+    },
+    {
+      "name": "js-cookie",
+      "spec": "3.0.1",
+      "installed": "3.0.1",
+      "latest": "3.0.8",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/js-cookie/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "3.0.8",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "json-schema-to-typescript",
+      "spec": "10.1.5",
+      "installed": "10.1.5",
+      "latest": "16.0.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=16.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/json-schema-to-typescript/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "16.0.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "local-ssl-proxy",
+      "spec": "^1.3.0",
+      "installed": "1.3.0",
+      "latest": "2.0.5",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/local-ssl-proxy/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.0.5",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "marked",
+      "spec": "4.2.4",
+      "installed": "4.2.4",
+      "latest": "18.1.1",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">= 20"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/marked/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "3 CMS and content",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "18.1.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "mdi-material-ui",
+      "spec": "7.6.0",
+      "installed": "7.6.0",
+      "latest": "8.0.0",
+      "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@mui/material": "^9.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/mdi-material-ui/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "8.0.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "next",
+      "spec": "16.2.4",
+      "installed": "16.2.4",
+      "latest": "16.4.3",
+      "peerDependencies": {
+        "sass": "^1.3.0",
+        "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+        "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+        "@playwright/test": "^1.51.1",
+        "@opentelemetry/api": "^1.1.0",
+        "babel-plugin-react-compiler": "*"
+      },
+      "engines": {
+        "node": ">=20.9.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/next/latest",
+      "sections": [
+        "devDependencies",
+        "peerDependencies"
+      ],
+      "batch": "2 Next and platform",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "16.4.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "next-dev-https",
+      "spec": "0.1.1",
+      "installed": "0.1.1",
+      "latest": "0.13.3",
+      "peerDependencies": {
+        "next": ">=13.3.1",
+        "react": ">=16.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/next-dev-https/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "0.13.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "next-safe",
+      "spec": "3.3.0",
+      "installed": "3.3.0",
+      "latest": "3.5.0",
+      "peerDependencies": {
+        "next": "^9.5.0 || ^10.2.1 || ^11.1.0 || ^12.1.0 || ^13.0.0 || ^14.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/next-safe/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Next and platform",
+      "recommendation": {
+        "action": "replace-or-verify-supported-adapter",
+        "target": null,
+        "reason": "Latest peers stop at Next 14; preserve CSP and other response headers when replacing."
+      }
+    },
+    {
+      "name": "next-seo",
+      "spec": "5.15.0",
+      "installed": "5.15.0",
+      "latest": "7.3.0",
+      "peerDependencies": {
+        "next": ">=13.4.0",
+        "react": ">=18.2.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/next-seo/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Next and platform",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "7.3.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "nextjs-cors",
+      "spec": "2.1.1",
+      "installed": "2.1.1",
+      "latest": "2.2.1",
+      "peerDependencies": {
+        "next": ">=8.1.1-canary.54"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/nextjs-cors/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Next and platform",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.2.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "node-fetch",
+      "spec": "^2.6.7",
+      "installed": "2.6.7",
+      "latest": "3.3.2",
+      "peerDependencies": {},
+      "engines": {
+        "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/node-fetch/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "review-and-replace",
+        "target": null,
+        "reason": "Prefer native fetch for supported runtime where semantics match; v3 is ESM-only. Remove blanket v2 resolution only after transitive consumers are checked."
+      }
+    },
+    {
+      "name": "nprogress",
+      "spec": "0.2.0",
+      "installed": "0.2.0",
+      "latest": "0.2.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/nprogress/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "0.2.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "nuka-carousel",
+      "spec": "5.4.1",
+      "installed": "5.4.1",
+      "latest": "8.2.0",
+      "peerDependencies": {
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/nuka-carousel/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "8.2.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "postcss",
+      "spec": "^8.4.18",
+      "installed": "8.4.18",
+      "latest": "8.5.31",
+      "peerDependencies": {},
+      "engines": {
+        "node": "^10 || ^12 || >=14"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/postcss/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "8.5.31",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "prettier",
+      "spec": "^2.5.1",
+      "installed": "2.7.1",
+      "latest": "3.9.10",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=14"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/prettier/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "3.9.10",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react",
+      "spec": "^18.2.0",
+      "installed": "18.2.0",
+      "latest": "19.3.1",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=0.10.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react/latest",
+      "sections": [
+        "devDependencies",
+        "peerDependencies"
+      ],
+      "batch": "5 React and compatibility adapters",
+      "recommendation": {
+        "action": "required-upgrade",
+        "target": "19.3.1",
+        "reason": "React 19 is required. Test existing integrations before replacing them; old peer metadata alone does not prove incompatibility."
+      }
+    },
+    {
+      "name": "react-aspect-ratio",
+      "spec": "1.1.2",
+      "installed": "1.1.2",
+      "latest": "2.0.1",
+      "peerDependencies": {
+        "react": ">=19.0.0"
+      },
+      "engines": {
+        "node": ">=20"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-aspect-ratio/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.0.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-big-calendar",
+      "spec": "1.5.2",
+      "installed": "1.5.2",
+      "latest": "1.20.0",
+      "peerDependencies": {
+        "react": "^16.14.0 || ^17 || ^18 || ^19",
+        "react-dom": "^16.14.0 || ^17 || ^18 || ^19"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-big-calendar/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "1.20.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-countdown",
+      "spec": "2.3.5",
+      "installed": "2.3.5",
+      "latest": "2.3.6",
+      "peerDependencies": {
+        "react": ">= 15",
+        "react-dom": ">= 15"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-countdown/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.3.6",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-dom",
+      "spec": "^18.2.0",
+      "installed": "18.2.0",
+      "latest": "19.3.1",
+      "peerDependencies": {
+        "react": "^19.3.1"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-dom/latest",
+      "sections": [
+        "devDependencies",
+        "peerDependencies"
+      ],
+      "batch": "5 React and compatibility adapters",
+      "recommendation": {
+        "action": "required-upgrade",
+        "target": "19.3.1",
+        "reason": "Upgrade with React 19 and matching type packages."
+      }
+    },
+    {
+      "name": "react-google-forms-hooks",
+      "spec": "1.2.4",
+      "installed": "1.2.4",
+      "latest": "1.2.4",
+      "peerDependencies": {
+        "react": "^16.0.0 || ^17.0.0 || ^18.0.0"
+      },
+      "engines": {
+        "node": ">=10"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-google-forms-hooks/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "5 React and compatibility adapters",
+      "recommendation": {
+        "action": "maintained-fork-if-upstream-unavailable",
+        "target": "Scoped fork release based on 1.2.4; package name and version to be selected",
+        "reason": "Preserve current API, MUI appearance and Google Forms workflow. Test React 19 SSR/hydration, exported hooks and submission behavior before updating peer metadata and publishing. No new Forms API or Apps Script service."
+      }
+    },
+    {
+      "name": "react-hook-form",
+      "spec": "7.43.9",
+      "installed": "7.43.9",
+      "latest": "7.91.0",
+      "peerDependencies": {
+        "react": "^16.8.0 || ^17 || ^18 || ^19",
+        "@types/react": "*"
+      },
+      "engines": {
+        "node": ">=18.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-hook-form/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "7.91.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-hook-form-mui",
+      "spec": "6.0.1",
+      "installed": "6.0.1",
+      "latest": "9.0.1",
+      "peerDependencies": {
+        "react": ">=18 <21",
+        "@mui/system": "^9.0.0",
+        "@mui/material": "^9.0.0",
+        "react-hook-form": ">=7.62.0",
+        "@mui/icons-material": "^9.0.0",
+        "@mui/x-date-pickers": "^9.0.0"
+      },
+      "engines": {
+        "node": ">=14"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-hook-form-mui/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "9.0.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-inlinesvg",
+      "spec": "3.0.1",
+      "installed": "3.0.1",
+      "latest": "4.5.0",
+      "peerDependencies": {
+        "react": "16.8 - 19"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-inlinesvg/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "4.5.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-intersection-observer",
+      "spec": "9.4.1",
+      "installed": "9.4.1",
+      "latest": "11.0.1",
+      "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-intersection-observer/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "11.0.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-player",
+      "spec": "2.10.1",
+      "installed": "2.10.1",
+      "latest": "3.4.0",
+      "peerDependencies": {
+        "react": "^17.0.2 || ^18 || ^19",
+        "react-dom": "^17.0.2 || ^18 || ^19",
+        "@types/react": "^17.0.0 || ^18 || ^19"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-player/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "3.4.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-rewards",
+      "spec": "2.0.4",
+      "installed": "2.0.4",
+      "latest": "3.0.0",
+      "peerDependencies": {
+        "react": ">=18"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-rewards/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "3.0.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-scroll-parallax",
+      "spec": "3.3.2",
+      "installed": "3.3.2",
+      "latest": "3.5.0",
+      "peerDependencies": {
+        "react": "^16.8.0-0 || >=17.0.1 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0-0 || >=17.0.1 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {
+        "node": ">=10"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-scroll-parallax/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "3.5.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-speech-kit",
+      "spec": "3.0.1",
+      "installed": "3.0.1",
+      "latest": "3.0.1",
+      "peerDependencies": {
+        "react": "^16.8.0",
+        "prop-types": "^15.7.2"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-speech-kit/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "5 React and compatibility adapters",
+      "recommendation": {
+        "action": "replace-or-maintain-adapter",
+        "target": null,
+        "reason": "Latest package declares React 16 only; isolate browser speech API behind compatible adapter."
+      }
+    },
+    {
+      "name": "react-spring",
+      "spec": "9.5.5",
+      "installed": "9.5.5",
+      "latest": "10.0.4",
+      "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-spring/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.0.4",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-timeline-animation",
+      "spec": "1.2.3",
+      "installed": "1.2.3",
+      "latest": "1.2.3",
+      "peerDependencies": {
+        "react": ">= 16.8.0",
+        "react-dom": ">= 16.8.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-timeline-animation/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "1.2.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "react-use",
+      "spec": "17.4.0",
+      "installed": "17.4.0",
+      "latest": "17.6.1",
+      "peerDependencies": {
+        "react": "*",
+        "react-dom": "*"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/react-use/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "17.6.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "sitemap",
+      "spec": "7.1.1",
+      "installed": "7.1.1",
+      "latest": "10.0.0",
+      "peerDependencies": {},
+      "engines": {
+        "npm": ">=10.8.2",
+        "node": ">=22.22.1"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/sitemap/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.0.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "smoothscroll-polyfill",
+      "spec": "0.4.4",
+      "installed": "0.4.4",
+      "latest": "0.4.4",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/smoothscroll-polyfill/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "0.4.4",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "storyblok-generate-ts",
+      "spec": "^1.4.1",
+      "installed": "1.7.0",
+      "latest": "2.2.0",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/storyblok-generate-ts/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "3 CMS and content",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.2.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "storyblok-js-client",
+      "spec": "7.1.5",
+      "installed": "7.1.5",
+      "latest": "7.8.1",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/storyblok-js-client/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "3 CMS and content",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "7.8.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "storyblok-react",
+      "spec": "0.1.2",
+      "installed": "0.1.2",
+      "latest": "0.1.2",
+      "peerDependencies": {
+        "react": ">=15.3.2",
+        "react-dom": ">=15.3.2"
+      },
+      "engines": {},
+      "deprecated": "This package is deprecated. Please use @storyblok/react",
+      "source": "https://registry.npmjs.org/storyblok-react/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "3 CMS and content",
+      "recommendation": {
+        "action": "replace",
+        "target": "@storyblok/react@7.3.1",
+        "reason": "Preserve editor attributes and rich-text DOM; replacement must not force an App Router migration."
+      }
+    },
+    {
+      "name": "storyblok-rich-text-react-renderer-ts",
+      "spec": "3.2.0",
+      "installed": "3.2.0",
+      "latest": "3.2.1",
+      "peerDependencies": {
+        "react": "^16.0.0 || ^17.0.0 || ^18.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/storyblok-rich-text-react-renderer-ts/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "3 CMS and content",
+      "recommendation": {
+        "action": "replace-or-maintain-adapter",
+        "target": null,
+        "reason": "Latest excludes React 19; preserve existing mark/link/custom-block render output exactly."
+      }
+    },
+    {
+      "name": "storybook",
+      "latest": "10.6.3",
+      "peerDependencies": {
+        "prettier": "^2 || ^3",
+        "vite-plus": "^0.1.15 || ^0.2.0",
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/storybook/latest",
+      "sections": [],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "candidate-addition",
+        "target": "10.6.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "storybook-addon-next-router",
+      "spec": "4.0.1",
+      "installed": "4.0.1",
+      "latest": "4.0.2",
+      "peerDependencies": {
+        "next": "^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0",
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
+        "@storybook/addons": "^6.0.0",
+        "@storybook/client-api": "^6.0.0",
+        "@storybook/addon-actions": "^6.0.0"
+      },
+      "engines": {
+        "node": ">=10"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/storybook-addon-next-router/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "replace",
+        "target": "@storybook/nextjs@10.6.3",
+        "reason": "Legacy addon peers stop at Next 13; use maintained framework router mocks."
+      }
+    },
+    {
+      "name": "swiper",
+      "spec": "8.4.7",
+      "installed": "8.4.7",
+      "latest": "14.3.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">= 4.7.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/swiper/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "14.3.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "swr",
+      "spec": "2.0.3",
+      "installed": "2.0.3",
+      "latest": "2.5.1",
+      "peerDependencies": {
+        "react": "^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/swr/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.5.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "ts-jest",
+      "spec": "^29.0.3",
+      "installed": "29.0.3",
+      "latest": "29.4.15",
+      "peerDependencies": {
+        "jest": "^29.0.0 || ^30.0.0",
+        "jest-util": "^29.0.0 || ^30.0.0",
+        "babel-jest": "^29.0.0 || ^30.0.0",
+        "typescript": ">=4.3 <7",
+        "@babel/core": ">=7.0.0-beta.0 <9",
+        "@jest/types": "^29.0.0 || ^30.0.0",
+        "@jest/transform": "^29.0.0 || ^30.0.0"
+      },
+      "engines": {
+        "node": "^14.15.0 || ^16.10.0 || ^18.0.0 || >=20.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/ts-jest/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "remove",
+        "target": null,
+        "reason": "Replaced by Vitest; no TypeScript 6 hold remains."
+      }
+    },
+    {
+      "name": "ts-node",
+      "spec": "^10.4.0",
+      "installed": "10.9.1",
+      "latest": "10.9.2",
+      "peerDependencies": {
+        "@swc/core": ">=1.2.50",
+        "@swc/wasm": ">=1.2.50",
+        "typescript": ">=2.7",
+        "@types/node": "*"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/ts-node/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.9.2",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "tsconfig-paths-webpack-plugin",
+      "spec": "3.5.2",
+      "installed": "3.5.2",
+      "latest": "4.2.0",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=10.13.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/tsconfig-paths-webpack-plugin/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "4.2.0",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "tslib",
+      "spec": "^2.3.1",
+      "installed": "2.4.1",
+      "latest": "2.8.1",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/tslib/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "2.8.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "tss-react",
+      "spec": "4.8.2",
+      "installed": "4.8.2",
+      "latest": "4.9.21",
+      "peerDependencies": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^16.8.0 || ^17.0.2 || ^18.0.0 || ^19.0.0",
+        "@mui/material": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^9.0.0",
+        "@emotion/react": "^11.4.1",
+        "@emotion/server": "^11.4.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/tss-react/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "4 MUI and forms",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "4.9.21",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "typescript",
+      "spec": "5.7.3",
+      "installed": "5.7.3",
+      "latest": "7.0.2",
+      "peerDependencies": {},
+      "engines": {
+        "node": ">=16.20.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/typescript/latest",
+      "sections": [
+        "devDependencies"
+      ],
+      "batch": "2 Tooling",
+      "recommendation": {
+        "action": "upgrade-with-vitest",
+        "target": "7.0.2",
+        "reason": "Required target. Replace ts-jest with Vitest; retain independent TypeScript 7 type checking."
+      }
+    },
+    {
+      "name": "use-count-up",
+      "spec": "3.0.1",
+      "installed": "3.0.1",
+      "latest": "3.0.1",
+      "peerDependencies": {
+        "react": ">=16.8.0"
+      },
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/use-count-up/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "retain-current-latest",
+        "target": "3.0.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "use-debounce",
+      "spec": "8.0.4",
+      "installed": "8.0.4",
+      "latest": "10.1.1",
+      "peerDependencies": {
+        "react": "*"
+      },
+      "engines": {
+        "node": ">= 16.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/use-debounce/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "10.1.1",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "uuid",
+      "spec": "9.0.0",
+      "installed": "9.0.0",
+      "latest": "14.0.3",
+      "peerDependencies": {},
+      "engines": {},
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/uuid/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "2 Runtime utilities",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "14.0.3",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    },
+    {
+      "name": "vite",
+      "latest": "8.3.5",
+      "peerDependencies": {
+        "tsx": "^4.8.1",
+        "jiti": ">=1.21.0",
+        "less": "^4.0.0",
+        "sass": "^1.70.0",
+        "yaml": "^2.4.2",
+        "stylus": ">=0.54.8",
+        "terser": "^5.16.0",
+        "esbuild": "^0.27.0 || ^0.28.0",
+        "sugarss": "^5.0.0",
+        "@types/node": "^20.19.0 || >=22.12.0",
+        "sass-embedded": "^1.70.0",
+        "@vitejs/devtools": "^0.7.1 || ^0.8.0"
+      },
+      "engines": {
+        "node": "^20.19.0 || >=22.12.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/vite/latest",
+      "sections": [],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "add",
+        "target": "8.3.5",
+        "reason": "Explicit Vitest peer for Yarn; used for tests while Next retains Webpack."
+      }
+    },
+    {
+      "name": "vitest",
+      "latest": "5.0.5",
+      "peerDependencies": {
+        "vite": "^6.4.0 || ^7.0.0 || ^8.0.0",
+        "jsdom": "*",
+        "happy-dom": "*",
+        "@vitest/ui": "5.0.5",
+        "@types/node": "^22.0.0 || >=24.0.0",
+        "@edge-runtime/vm": "*",
+        "@opentelemetry/api": "^1.9.0",
+        "@vitest/coverage-v8": "5.0.5",
+        "@vitest/browser-preview": "5.0.5",
+        "@vitest/coverage-istanbul": "5.0.5",
+        "@vitest/browser-playwright": "5.0.5",
+        "@vitest/browser-webdriverio": "^5.0.0-beta.5 || >=5.0.0"
+      },
+      "engines": {
+        "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/vitest/latest",
+      "sections": [],
+      "batch": "1 Test infrastructure",
+      "recommendation": {
+        "action": "add",
+        "target": "5.0.5",
+        "reason": "Replace Jest and ts-jest; keep TypeScript 7 type checking as an independent gate."
+      }
+    },
+    {
+      "name": "zustand",
+      "spec": "4.1.5",
+      "installed": "4.1.5",
+      "latest": "5.0.16",
+      "peerDependencies": {
+        "immer": ">=9.0.6",
+        "react": ">=18.0.0",
+        "@types/react": ">=18.0.0",
+        "use-sync-external-store": ">=1.2.0"
+      },
+      "engines": {
+        "node": ">=12.20.0"
+      },
+      "deprecated": null,
+      "source": "https://registry.npmjs.org/zustand/latest",
+      "sections": [
+        "dependencies"
+      ],
+      "batch": "6 Media and state",
+      "recommendation": {
+        "action": "upgrade-and-verify",
+        "target": "5.0.16",
+        "reason": "Registry latest is a candidate; check full peer graph, release notes and batch test gates before installation."
+      }
+    }
+  ],
+  "latestPeerConflicts": [
+    {
+      "package": "@charlietango/use-script",
+      "version": "2.3.0",
+      "peer": "react",
+      "requires": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "@charlietango/use-script",
+      "version": "2.3.0",
+      "peer": "react-dom",
+      "requires": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "@graphql-codegen/import-types-preset",
+      "version": "4.0.1",
+      "peer": "graphql",
+      "requires": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0",
+      "latestTarget": "17.0.2"
+    },
+    {
+      "package": "@graphql-codegen/typescript-graphql-files-modules",
+      "version": "4.0.1",
+      "peer": "graphql",
+      "requires": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0",
+      "latestTarget": "17.0.2"
+    },
+    {
+      "package": "@graphql-codegen/typescript-graphql-request",
+      "version": "7.1.0",
+      "peer": "graphql",
+      "requires": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0",
+      "latestTarget": "17.0.2"
+    },
+    {
+      "package": "@storybook/addon-knobs",
+      "version": "8.0.1",
+      "peer": "react",
+      "requires": "^16.8.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "@storybook/addon-knobs",
+      "version": "8.0.1",
+      "peer": "react-dom",
+      "requires": "^16.8.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "@storybook/manager-webpack5",
+      "version": "6.5.16",
+      "peer": "react",
+      "requires": "^16.8.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "@storybook/manager-webpack5",
+      "version": "6.5.16",
+      "peer": "react-dom",
+      "requires": "^16.8.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "graphql-request",
+      "version": "7.4.0",
+      "peer": "graphql",
+      "requires": "14 - 16",
+      "latestTarget": "17.0.2"
+    },
+    {
+      "package": "next-safe",
+      "version": "3.5.0",
+      "peer": "next",
+      "requires": "^9.5.0 || ^10.2.1 || ^11.1.0 || ^12.1.0 || ^13.0.0 || ^14.0.0",
+      "latestTarget": "16.4.3"
+    },
+    {
+      "package": "react-google-forms-hooks",
+      "version": "1.2.4",
+      "peer": "react",
+      "requires": "^16.0.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "react-speech-kit",
+      "version": "3.0.1",
+      "peer": "react",
+      "requires": "^16.8.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "storyblok-rich-text-react-renderer-ts",
+      "version": "3.2.1",
+      "peer": "react",
+      "requires": "^16.0.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "storybook-addon-next-router",
+      "version": "4.0.2",
+      "peer": "next",
+      "requires": "^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0",
+      "latestTarget": "16.4.3"
+    },
+    {
+      "package": "storybook-addon-next-router",
+      "version": "4.0.2",
+      "peer": "react",
+      "requires": "^16.8.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "storybook-addon-next-router",
+      "version": "4.0.2",
+      "peer": "react-dom",
+      "requires": "^16.8.0 || ^17.0.0 || ^18.0.0",
+      "latestTarget": "19.3.1"
+    },
+    {
+      "package": "ts-jest",
+      "version": "29.4.15",
+      "peer": "typescript",
+      "requires": ">=4.3 <7",
+      "latestTarget": "7.0.2"
+    }
+  ],
+  "scope": {
+    "rootUniqueDirectPackages": 125,
+    "rootPackagesNotAtRegistryLatest": 106,
+    "additionalCandidates": 8,
+    "legacyBaseManifest": "base/package.json audited separately for lifecycle; not included in root count",
+    "limitations": "Direct registry metadata only. Not a complete transitive compatibility or vulnerability audit. Targets are planning recommendations, not installed or runtime-validated."
+  },
+  "decisions": {
+    "updatedAt": "2026-10-26T08:16:21.859Z",
+    "react": "19 required",
+    "typescript": "7 required; migrate tests to Vitest",
+    "graphql": "Remain on 16",
+    "googleForms": "Keep existing integration; prefer a minimal maintained fork for React 19 support when upstream has no suitable release. No new service or renderer."
+  },
+  "latestPeerConflictsNote": "These are conflicts in the originally audited all-latest graph, not the planned final graph. Removed or replaced packages, such as ts-jest, no longer constrain the target."
+}

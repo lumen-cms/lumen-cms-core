@@ -1,4 +1,3 @@
-import React from 'react'
 import MuiLink from '@mui/material/Link'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
@@ -6,7 +5,7 @@ import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmLinkProps } from './linkTypes'
 import clsx from 'clsx'
 
-export function LmLink({ content }: LmLinkProps): JSX.Element {
+export function LmLink({ content }: LmLinkProps): React.JSX.Element {
   const onClickFunc: any =
     typeof content.on_click_function === 'string'
       ? {

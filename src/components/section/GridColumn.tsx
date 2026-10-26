@@ -1,5 +1,4 @@
-import React from 'react'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../vendor/grid'
 import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
@@ -10,7 +9,7 @@ import WrapGridContainer from './WrapGridContainer'
 import Stack from '@mui/material/Stack'
 import clsx from 'clsx'
 
-const xsSpanMap = {
+const xsSpanMap: Record<string, number | boolean | 'auto' | undefined> = {
   1: 3,
   2: 6,
   3: 9,
@@ -20,7 +19,7 @@ const xsSpanMap = {
   true: true
 }
 
-const smSpanMap = {
+const smSpanMap: Record<string, number | boolean | 'auto' | undefined> = {
   1: 1,
   2: 2,
   3: 4,
@@ -33,7 +32,7 @@ const smSpanMap = {
   auto: 'auto',
   true: true
 }
-const mdSpanMap = {
+const mdSpanMap: Record<string, number | boolean | 'auto' | undefined> = {
   1: 1,
   2: 2,
   3: 3,
@@ -54,7 +53,7 @@ const mdSpanMap = {
 export function LmGridColumn({
   content,
   parent
-}: LmGridColumnProps): JSX.Element {
+}: LmGridColumnProps): React.JSX.Element {
   const background: BackgroundStoryblok | undefined = content.background?.[0]
   const { className, style } = useBackgroundBox({
     background,
@@ -101,13 +100,13 @@ export function LmGridColumn({
             className={'lm-column-stack__root'}
             direction="column"
             sx={{
+              justifyContent: content.justify ? content.justify : undefined,
+              alignItems: content.align_items ? content.align_items : undefined,
+              alignContent: content.align_content
+                ? content.align_content
+                : undefined,
               minHeight: '100%'
             }}
-            justifyContent={content.justify ? content.justify : undefined}
-            alignItems={content.align_items ? content.align_items : undefined}
-            alignContent={
-              content.align_content ? content.align_content : undefined
-            }
           >
             {content.body?.map((blok) => (
               <LmComponentRender content={blok} key={blok._uid} />

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import {
   ChatFacebookStoryblok,

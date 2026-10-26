@@ -1,4 +1,3 @@
-import React from 'react'
 import ListWidgetLists from './ListWidgetLists'
 
 import {
@@ -17,7 +16,7 @@ type ListWidgetContainerProps = {
 
 export function ListWidgetContainer(
   props: ListWidgetContainerProps
-): JSX.Element {
+): React.JSX.Element {
   const { options, content, items } = props
   const listOption = options?.[0]
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { NavListStoryblok } from '../../typings/generated/components-schema'
 import { ListStoriesData } from './listWidgetTypes'
@@ -13,7 +12,7 @@ export function ListWidgetLinks({
   items,
   options,
   _uid
-}: ListWidgetLinksProps): JSX.Element {
+}: ListWidgetLinksProps): React.JSX.Element {
   const listProps = {
     ...options,
     _uid: _uid,

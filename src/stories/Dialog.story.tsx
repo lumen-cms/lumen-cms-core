@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import {
   ButtonStoryblok,
   DialogStoryblok,
@@ -45,7 +45,7 @@ const basicProps = {
   ]
 } as DialogStoryblok
 
-const Template: Story<LmDialogProps['content']> = (args) => (
+const Template: StoryFn<LmDialogProps['content']> = (args) => (
   <LmDialog content={args} />
 )
 

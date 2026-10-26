@@ -77,7 +77,7 @@ const BackgroundImage = ({
   content,
   backgroundStyle,
   sectionPosition
-}: BackgroundImageProps): JSX.Element | null => {
+}: BackgroundImageProps): React.JSX.Element | null => {
   const { classes, cx } = useStyles()
 
   const {

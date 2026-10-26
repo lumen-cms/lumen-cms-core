@@ -1,5 +1,5 @@
 import ReactPlayer, { ReactPlayerProps } from 'react-player/lazy'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import BackgroundImageContainer from './BackgroundImage'
 import videoUrlHelper from '../../utils/videoUrlHelper'
 import { LmSectionVideoProps } from './sectionTypes'
@@ -20,7 +20,7 @@ type FullscreenVideoBgProps = LmSectionVideoProps['content'] & {
 
 export default function FullscreenVideoBg(
   content: FullscreenVideoBgProps
-): JSX.Element {
+): React.JSX.Element {
   const { inView, property, ratioHeight, ratioWidth } = content
   const properties = property || []
   const videoAspect = ratioHeight / ratioWidth

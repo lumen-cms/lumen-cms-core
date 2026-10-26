@@ -1,14 +1,14 @@
-import React from 'react'
 import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { useRichTextStyles } from './richTextStyles'
 import { LmRichTextParagraphProps } from './paragraphTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 import { renderRichText } from './renderRichText'
+import { typographyColor } from '../../utils/themeColor'
 
 export function LmRichTextParagraph({
   content
-}: LmRichTextParagraphProps): JSX.Element {
+}: LmRichTextParagraphProps): React.JSX.Element {
   const { classes, cx } = useRichTextStyles()
   const advancedClasses = useStylesAdvanced({
     props: content.styles,
@@ -33,7 +33,7 @@ export function LmRichTextParagraph({
         }
       )}
       align={content.align ? content.align : undefined}
-      color={content.color ? content.color : undefined}
+      sx={{ color: typographyColor(content.color) }}
       component="div"
       style={{
         color: content.custom_color?.rgba ?? undefined,

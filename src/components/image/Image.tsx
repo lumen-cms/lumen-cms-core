@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   getOriginalImageDimensions,
   imageCalculateHeight
@@ -38,7 +37,7 @@ const useStyles = makeStyles<ImageStoryblok>({ name: 'Image' })(
 export default function LmImage({
   content,
   onClick
-}: LmImageProps): JSX.Element | null {
+}: LmImageProps): React.JSX.Element | null {
   const { classes, cx: clsx } = useStyles(content)
   const definedWidth = content.width
   const definedHeight = content.height

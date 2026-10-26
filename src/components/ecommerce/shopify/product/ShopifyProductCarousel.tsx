@@ -1,4 +1,3 @@
-import React from 'react'
 import Image from 'next/image'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
@@ -31,7 +30,12 @@ export function ShopifyProductCarousel({ item }: ShopifyProductItemProps) {
       }}
     >
       {(variants || []).map((currentItem) => (
-        <Box key={currentItem.node.id} height={height}>
+        <Box
+          key={currentItem.node.id}
+          sx={{
+            height: height
+          }}
+        >
           <Box
             sx={{
               height: '100%',

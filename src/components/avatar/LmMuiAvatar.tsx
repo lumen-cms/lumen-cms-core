@@ -1,16 +1,15 @@
-import React from 'react'
 import Avatar from '@mui/material/Avatar'
 import { LmMuiAvatarProps } from './avatarTypes'
 import LmSquareImage from './LmSquareImage'
 
-const avatarSize = {
+const avatarSize: Record<string, number | undefined> = {
   xmall: 20,
   xsmall: 20,
   small: 24,
   large: 52,
   xlarge: 56
 }
-const sizeMap = {
+const sizeMap: Record<string, number | undefined> = {
   xmall: 20,
   xsmall: 20,
   small: 24,
@@ -18,7 +17,10 @@ const sizeMap = {
   xlarge: 56
 }
 
-export function LmMuiAvatar({ src, size }: LmMuiAvatarProps): JSX.Element {
+export function LmMuiAvatar({
+  src,
+  size
+}: LmMuiAvatarProps): React.JSX.Element {
   return (
     <Avatar
       sx={{

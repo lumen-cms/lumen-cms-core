@@ -25,10 +25,14 @@ const RightDrawerContainer: FunctionComponent<
     <Drawer
       variant={!matches ? 'temporary' : 'permanent'}
       anchor="right"
-      sx={{
-        '.MuiDrawer-paperAnchorDockedRight': {
-          width: theme.drawer.right,
-          zIndex: theme.zIndex.appBar - 1
+      slotProps={{
+        paper: {
+          sx: matches
+            ? {
+                width: theme.drawer.right,
+                zIndex: theme.zIndex.appBar - 1
+              }
+            : undefined
         }
       }}
       classes={{
@@ -49,7 +53,7 @@ type RightDrawerProps = {
   // body: any[]
 }
 
-function RightDrawer({ rightBody }: RightDrawerProps): JSX.Element {
+function RightDrawer({ rightBody }: RightDrawerProps): React.JSX.Element {
   const { classes } = usePageStyles()
 
   return (

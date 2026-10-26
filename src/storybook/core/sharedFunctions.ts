@@ -8,7 +8,7 @@ export const storyImageUrls = [
   'https://a.storyblok.com/f/69529/6000x4000/3c29c3c039/img_5956.jpg'
 ]
 export const storyImageOptions = () => {
-  const obj = {
+  const obj: Record<string, string | undefined> = {
     'Select or drop a public url': undefined
   }
   storyImageUrls.forEach((url, i) => {
@@ -22,7 +22,7 @@ const storyVideoUrls = [
   'https://a.storyblok.com/f/82895/x/a266d33556/union-klischee-leiterbahn.mp4'
 ]
 const storyAssetVideoOptions = () => {
-  const obj = {
+  const obj: Record<string, string | undefined> = {
     'Select an asset': undefined
   }
   storyVideoUrls.forEach((url, i) => {

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, PropsWithChildren } from 'react'
+import { FunctionComponent, PropsWithChildren } from 'react'
 import CardMedia from '@mui/material/CardMedia'
 import Image from 'next/image'
 import { useTheme } from '@mui/material/styles'

@@ -8,7 +8,7 @@ import {
 import { ListWidgetCards } from './ListWidgetCards'
 import ListWidgetLists from './ListWidgetLists'
 import { ListWidgetLinks } from './ListWidgetLinks'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { ListStoriesData, LmListStoriesProps } from './listWidgetTypes'
 
 type LmListStoriesContainerProps = {

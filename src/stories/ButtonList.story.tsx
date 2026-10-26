@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import {
   ButtonListStoryblok,
   ButtonStoryblok
@@ -22,7 +22,7 @@ export const Presets = () => (
   <StorybookPresetsContainer componentName="button_list" />
 )
 
-const Template: Story<LmButtonListProps['content']> = (args) => (
+const Template: StoryFn<LmButtonListProps['content']> = (args) => (
   <LmButtonList content={args} />
 )
 

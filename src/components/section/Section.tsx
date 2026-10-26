@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import { CSSProperties } from 'react'
 import Container, { ContainerProps } from '@mui/material/Container'
 import { LmComponentRender } from '@LmComponentRender'
 import BackgroundImage from './BackgroundImage'
@@ -32,7 +32,7 @@ const useStyles = makeStyles({ name: 'Section' })({
 export function LmSection({
   content,
   sectionPosition
-}: LmSectionProps): JSX.Element {
+}: LmSectionProps): React.JSX.Element {
   const { classes, cx: clsx, theme } = useStyles()
   const classesForms = useFormColorStyles().classes
   const background: BackgroundStoryblok | undefined = content.background?.[0]

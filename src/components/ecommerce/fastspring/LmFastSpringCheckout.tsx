@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { useFastspringContext } from './context/FastSpringContext'
 import { FastSpringCheckoutProps } from './fastSpringTypes'

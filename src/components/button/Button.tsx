@@ -1,9 +1,10 @@
 import Button, { ButtonProps } from '@mui/material/Button'
 import Fab, { FabProps } from '@mui/material/Fab'
-import React, { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { useTheme } from '@mui/material/styles'
 import { LmCoreComponents } from '@CONFIG'
+import type { LmMuiAvatarProps } from '../avatar/avatarTypes'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
@@ -13,22 +14,22 @@ import { SxProps } from '@mui/material'
 import clsx from 'clsx'
 
 // fab and button: small medium large, default: large
-const mapSize = {
+const mapSize: Record<string, ButtonProps['size']> = {
   dense: 'small',
   'lm-button-large': 'large'
 }
 
-const mapIconButtonSize = {
+const mapIconButtonSize: Record<string, IconButtonProps['size']> = {
   dense: 'small'
 }
 
-const mapAvatarSize = {
+const mapAvatarSize: Record<string, LmMuiAvatarProps['size']> = {
   dense: 'small',
   'lm-button-large': 'large',
   'lm-button-xlarge': 'xlarge'
 }
 
-const mapVariant = {
+const mapVariant: Record<string, ButtonProps['variant']> = {
   raised: 'contained',
   outlined: 'outlined',
   unelevated: 'contained'

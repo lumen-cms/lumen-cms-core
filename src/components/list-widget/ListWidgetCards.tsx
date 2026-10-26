@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import {
   CardListItemStoryblok,
@@ -21,7 +20,7 @@ export function ListWidgetCards({
   _uid,
   options,
   disablePagination
-}: ListWidgetCardsProps): JSX.Element {
+}: ListWidgetCardsProps): React.JSX.Element {
   const { locale } = useAppContext()
   return (
     <LmComponentRender

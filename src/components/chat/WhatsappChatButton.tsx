@@ -1,4 +1,3 @@
-import React from 'react'
 import Fab from '@mui/material/Fab'
 import Whatsapp from 'mdi-material-ui/Whatsapp'
 import Tooltip from '@mui/material/Tooltip'

@@ -1,17 +1,15 @@
-import {
-  alpha,
-  createTheme,
-  responsiveFontSizes,
-  ThemeProvider
-} from '@mui/material/styles'
-import React, { FunctionComponent, PropsWithChildren, useMemo } from 'react'
+import { alpha, createTheme, ThemeProvider } from '@mui/material/styles'
+import { FunctionComponent, PropsWithChildren, useMemo } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
+import { responsiveFontSizesCompatible as responsiveFontSizes } from '../../utils/responsiveFontSizes'
 import parseFont from '../../utils/parseFont'
 import { LmGlobalStyles } from './LmGlobalStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
 import { grey } from '@mui/material/colors'
 import { Color } from '@mui/material'
-import { ResponsiveFontSizesOptions } from '@mui/material/styles/responsiveFontSizes'
+type ResponsiveFontSizesOptions = NonNullable<
+  Parameters<typeof responsiveFontSizes>[1]
+>
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -20,13 +18,13 @@ declare module '@mui/material/styles' {
 }
 
 declare module '@mui/material/Fab' {
-  interface ButtonPropsColorOverrides {
+  interface FabPropsColorOverrides {
     grey: true
   }
 }
 
 declare module '@mui/material/IconButton' {
-  interface ButtonPropsColorOverrides {
+  interface IconButtonPropsColorOverrides {
     grey: true
   }
 }
@@ -43,7 +41,7 @@ declare module '@mui/material' {
   }
 }
 
-declare module '@mui/material/styles/createTheme' {
+declare module '@mui/material/styles' {
   interface Theme {
     defaultContainerWidth: string | boolean
     drawer: {
@@ -94,7 +92,7 @@ declare module '@mui/material/styles/createTheme' {
   }
 }
 
-const mapThemeType = {
+const mapThemeType: Record<string, 'light' | 'dark' | undefined> = {
   base: 'light',
   dark: 'dark'
 }
@@ -228,6 +226,8 @@ const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
       },
       defaultContainerWidth,
       components: {
+        // Preserve the icon gutter used by existing CMS navigation layouts.
+        MuiListItemIcon: { styleOverrides: { root: { minWidth: 56 } } },
         MuiDrawer: {
           styleOverrides: {
             modal: {

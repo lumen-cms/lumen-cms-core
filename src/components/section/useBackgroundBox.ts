@@ -47,8 +47,9 @@ export default function useBackgroundBox(
       : undefined
 
   const className = cx(background?.classNames?.values, {
-    [shadowClasses[background?.shadow_effect || '']]:
-      !!background?.shadow_effect,
+    [shadowClasses[
+      (background?.shadow_effect || '') as keyof typeof shadowClasses
+    ]]: !!background?.shadow_effect,
     [customClasses.advanced]: !!styles?.length,
     [customClasses.advancedMobile]: !!stylesMobile?.length,
     [customClasses.advancedTablet]: !!stylesTablet?.length,

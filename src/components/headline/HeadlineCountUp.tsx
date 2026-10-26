@@ -1,4 +1,3 @@
-import React from 'react'
 import { CountUp } from 'use-count-up'
 import { useInView } from 'react-intersection-observer'
 import { LmHeadlineProps } from './headlineTypes'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { CorporateContactJsonLd } from 'next-seo'
 import { SeoCorporateContactPointStoryblok } from '../../../typings/generated/components-schema'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'

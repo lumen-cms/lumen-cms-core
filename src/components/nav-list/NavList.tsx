@@ -1,4 +1,3 @@
-import React from 'react'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import LmIcon from '../icon/LmIcon'
@@ -9,7 +8,7 @@ import { LmFlexRow } from '../flex-row/FlexRow'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import clsx from 'clsx'
 
-export function LmNavList({ content }: LmNavListProps): JSX.Element {
+export function LmNavList({ content }: LmNavListProps): React.JSX.Element {
   const { isMobile } = useDeviceDimensions()
   const body = (content && content.body) || []
   const properties = content.properties || []

@@ -13,7 +13,7 @@ import iconList from '@lumen/storyblok-material-icons/src/material-icon-list.jso
 // export const materialIconList = materialIcons
 
 const iconListToOptions = () => {
-  const obj = {}
+  const obj: Record<string, string> = {}
   let preparedList: { id: string; name: string }[] = []
   iconList.categories.forEach((category: any) => {
     preparedList = preparedList.concat(category.icons)

@@ -23,7 +23,7 @@ const envAbi = process.env.NEXT_PUBLIC_ABI
   : null
 export default function MoralisMint({
   content
-}: MoralisMintProps): JSX.Element {
+}: MoralisMintProps): React.JSX.Element {
   const {
     account,
     error: errorConnect,

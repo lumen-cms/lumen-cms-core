@@ -1,5 +1,4 @@
 import { Head, Html, Main, NextScript } from 'next/document'
-import React from 'react'
 import { SSR_CONFIG } from '@SSR_CONFIG'
 import { augmentDocumentWithEmotionCache_mui } from '../global-theme/muiCache'
 

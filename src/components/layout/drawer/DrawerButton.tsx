@@ -1,4 +1,3 @@
-import React from 'react'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -10,7 +9,9 @@ import { useAppContext } from '@context/AppContext'
 
 type DrawerButtonProps = { content: ButtonStoryblok }
 
-export function DrawerButton({ content }: DrawerButtonProps): JSX.Element {
+export function DrawerButton({
+  content
+}: DrawerButtonProps): React.JSX.Element {
   const { slug } = useAppContext()
   const buttonProps = {
     text: content.label || content.name,

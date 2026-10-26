@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useScript, { ScriptStatus } from '@charlietango/use-script'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { FacbookChatButtonProps } from './chatTypings'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Typography } from '@mui/material'
 import { ImageListLightboxProps } from './imageListTypes'
 import { ImageListItemStoryblok } from '../../typings/generated/components-schema'
@@ -11,11 +10,13 @@ function CarouselImageItem({ content }: { content: ImageListItemStoryblok }) {
 
   return (
     <Box
-      position={'relative'}
-      width={'100%'}
-      height={'100vh'}
-      display={'flex'}
-      alignItems={'center'}
+      sx={{
+        position: 'relative',
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center'
+      }}
     >
       <ImageBase
         src={imageSource}

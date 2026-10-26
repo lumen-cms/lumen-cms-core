@@ -1,5 +1,5 @@
 import LmPlayer from '../components/player/Player'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { getComponentArgTypes } from '../storybook/configControls'
 import { LmPlayerProps } from '../components/player/playerTypes'
 
@@ -12,7 +12,7 @@ export default {
   }
 } as Meta
 
-const Template: Story<LmPlayerProps['content']> = (args) => (
+const Template: StoryFn<LmPlayerProps['content']> = (args) => (
   <LmPlayer content={args} />
 )
 const testUrl = 'https://www.youtube.com/watch?v=ysz5S6PUM-U'

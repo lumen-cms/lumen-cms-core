@@ -1,6 +1,5 @@
-import React from 'react'
 import { useTheme } from '@mui/material'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../../../vendor/grid'
 import Avatar from '@mui/material/Avatar'
 import IconButton from '@mui/material/IconButton'
 import RemoveIcon from '@mui/icons-material/Remove'
@@ -77,9 +76,11 @@ export function ShopifyCartVariantItem({
             style={{
               width: 70
             }}
-            inputProps={{
-              style: {
-                textAlign: 'center'
+            slotProps={{
+              htmlInput: {
+                style: {
+                  textAlign: 'center'
+                }
               }
             }}
           />

@@ -6,7 +6,7 @@ import {
 } from '../typings/generated/components-schema'
 import { getComponentArgTypes } from '../storybook/configControls'
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'
-import { action } from '@storybook/addon-actions'
+import { action } from 'storybook/actions'
 
 const COMPONENT_NAME = 'form_builder'
 

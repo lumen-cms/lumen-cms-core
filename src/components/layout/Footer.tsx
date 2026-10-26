@@ -43,7 +43,7 @@ const FooterContainer: FunctionComponent<React.PropsWithChildren<unknown>> = ({
 }
 FooterContainer.displayName = 'FooterContainer'
 
-export default function Footer(): JSX.Element {
+export default function Footer(): React.JSX.Element {
   const settings = useSettings()
   return (
     <FooterContainer>

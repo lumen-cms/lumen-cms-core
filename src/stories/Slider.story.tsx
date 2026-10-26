@@ -1,4 +1,4 @@
-import { Story } from '@storybook/react'
+import { StoryFn } from '@storybook/react'
 import { get3ColumnsSection } from '../storybook/section'
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'
 import LmSlider from '../components/slider/Slider'
@@ -21,7 +21,7 @@ export const Presets = () => (
 
 const presetContent = findFirstPreset<LmSliderProps['content']>('slider')
 
-const Template: Story<LmSliderProps['content']> = (args) => (
+const Template: StoryFn<LmSliderProps['content']> = (args) => (
   <LmSlider content={args} />
 )
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 import { LmComponentRender } from '@LmComponentRender'
@@ -13,7 +13,7 @@ const ImageListLightbox = dynamic(() => import('./ImageListLightbox'))
 
 export default function LmImageList({
   content
-}: LmImageListProps): JSX.Element {
+}: LmImageListProps): React.JSX.Element {
   const { classes, cx } = useImageListStyles()
   const [lightbox, setLightbox] = useState('')
 

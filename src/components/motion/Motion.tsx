@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { IntersectionOptions, useInView } from 'react-intersection-observer'
 import Slide, { SlideProps } from '@mui/material/Slide'
 import Fade, { FadeProps } from '@mui/material/Fade'
@@ -9,8 +9,10 @@ import { LmComponentRender } from '@LmComponentRender'
 import { LmMotionProps } from './motionTypes'
 import Box from '@mui/material/Box'
 
-export default function LmMotion({ content }: LmMotionProps): JSX.Element {
-  const timeoutRef = useRef<number>()
+export default function LmMotion({
+  content
+}: LmMotionProps): React.JSX.Element {
+  const timeoutRef = useRef<number>(undefined)
   const type = content.type || 'fade'
   const options: IntersectionOptions = {
     triggerOnce: true

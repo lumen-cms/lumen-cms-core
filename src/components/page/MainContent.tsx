@@ -21,10 +21,17 @@ const MainContentContainer: FunctionComponent<
     <main
       className={clsx(classes.content, {
         [classes.contentWithRight]: !!hasRightDrawer,
-        [classes[`right-mobile-${page?.mobile_breakpoint || 'sm'}`]]: true,
+        [classes[
+          `right-mobile-${
+            page?.mobile_breakpoint || 'sm'
+          }` as keyof typeof classes
+        ]]: true,
         [classes.leftShift]: drawerVariant !== 'temporary' && isOpen,
-        [classes[`left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`]]:
-          drawerVariant !== 'temporary' && isOpen
+        [classes[
+          `left-mobile-${
+            settings.mobile_nav_breakpoint || 'sm'
+          }` as keyof typeof classes
+        ]]: drawerVariant !== 'temporary' && isOpen
       })}
     >
       {!page.property?.includes('has_feature') &&
@@ -42,7 +49,7 @@ type MainContentProps = {
   body: any[]
 }
 
-export function MainContent({ body }: MainContentProps): JSX.Element {
+export function MainContent({ body }: MainContentProps): React.JSX.Element {
   return (
     <MainContentContainer>
       {body.map((blok, iteration) => (

@@ -1,10 +1,11 @@
-import React from 'react'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../../vendor/grid'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmToolbarRowProps } from './toolbarTypes'
 import ToolbarSystemBarRow from './ToolbarSystemBarRow'
 
-export function LmToolbarRow({ content }: LmToolbarRowProps): JSX.Element {
+export function LmToolbarRow({
+  content
+}: LmToolbarRowProps): React.JSX.Element {
   if (content.is_system_bar) {
     return <ToolbarSystemBarRow content={content} />
   }

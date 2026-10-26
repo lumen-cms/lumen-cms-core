@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'

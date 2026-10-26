@@ -1,9 +1,10 @@
-import React from 'react'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import { LmHeadline } from './Headline'
 import { LmDateHeadlineProps } from './headlineTypes'
 
-export function LmDateHeadline({ content }: LmDateHeadlineProps): JSX.Element {
+export function LmDateHeadline({
+  content
+}: LmDateHeadlineProps): React.JSX.Element {
   const modifContent = {
     ...content,
     text: content.text?.replace('{date}', `${new Date().getFullYear()}`),

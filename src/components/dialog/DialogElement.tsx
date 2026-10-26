@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import dynamic from 'next/dynamic'
@@ -10,7 +10,7 @@ const LmDialog = dynamic(() => import('./LmDialog'))
 
 export default function LmDialogElement({
   content
-}: LmDialogProps): JSX.Element | null {
+}: LmDialogProps): React.JSX.Element | null {
   const { fullscreen } = content
   const theme = useTheme()
   const { events } = useRouter()

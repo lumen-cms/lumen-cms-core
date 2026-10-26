@@ -1,5 +1,5 @@
 import LmSwiper from '../components/slider/LmSwiper'
-import { Story } from '@storybook/react'
+import { StoryFn } from '@storybook/react'
 import { LmSwiperProps } from '../components/slider/sliderTypes'
 import { findFirstPreset } from '../storybook/findStorybookPresets'
 import { getComponentArgTypes } from '../storybook/configControls'
@@ -13,7 +13,7 @@ export default {
   }
 }
 
-const Template: Story<LmSwiperProps['content']> = (args) => (
+const Template: StoryFn<LmSwiperProps['content']> = (args) => (
   <LmSwiper content={args} />
 )
 

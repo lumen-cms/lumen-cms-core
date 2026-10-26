@@ -36,7 +36,7 @@ export const utilityClassNames = generateUtilityClassNames()
 // console.log('utilityClassNames', JSON.stringify(utilityClassNames)) // => use this to generate JSON for utilityClassNames.json
 
 export const getOptions = () => {
-  const obj = {}
+  const obj: Record<string, string> = {}
   utilityClassNames.forEach((key) => {
     obj[key] = key
   })

@@ -8,7 +8,7 @@ import {
 } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import Box from '@mui/material/Box'
-import { BannerLayer } from 'react-scroll-parallax/dist/components/ParallaxBanner/types'
+import { BannerLayer } from 'react-scroll-parallax'
 
 export default function LmSectionParallax({
   content,
@@ -38,7 +38,7 @@ export default function LmSectionParallax({
             return Number(trimmed) ? Number(trimmed) : trimmed
           })
 
-          layerProps[key] = lProp
+          Object.assign(layerProps, { [key]: lProp })
         })
         return (
           <ParallaxBannerLayer
@@ -109,20 +109,22 @@ export default function LmSectionParallax({
   }
   return Children.length ? (
     <Box
-      position={'relative'}
-      width={'100%'}
       sx={{
+        position: 'relative',
+        width: '100%',
         alignSelf: 'flex-start',
         margin: '0 auto',
         maxWidth: '100vw',
+
         maxHeight: {
           xs: content.max_height_mobile || 250,
           sm: 'fit-content'
         },
-        position: 'relative',
+
         aspectRatio: content.ratio
           ? content.ratio.split(',').map((i) => i.trim())
           : undefined,
+
         height: !content.ratio ? `${contentHeight || 50}vh` : undefined,
         overflow: content.allow_overflow ? 'visible' : undefined
       }}

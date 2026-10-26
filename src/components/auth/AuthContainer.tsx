@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { useAppContext } from '@context/AppContext'
 import { AuthContainerStoryblok } from '../../typings/generated/components-schema'

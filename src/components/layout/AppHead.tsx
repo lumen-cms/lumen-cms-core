@@ -9,12 +9,11 @@ import AdRoll from '../tracking/AdRoll'
 import { useSettings } from '../provider/SettingsPageProvider'
 import GtmManager from '../tracking/GtmManager'
 import { useAppContext } from '@context/AppContext'
-import React from 'react'
 import { getFontBasedOnSetting } from '../../utils/parseFont'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
-function AppHead(): JSX.Element {
+function AppHead(): React.JSX.Element {
   const settings = useSettings()
   const favicon = settings.setup_favicon
   const { insideStoryblok } = useAppContext()

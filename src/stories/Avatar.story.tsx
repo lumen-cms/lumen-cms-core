@@ -1,5 +1,4 @@
-import React from 'react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { getComponentArgTypes } from '../storybook/configControls'
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'
 import { LmAvatarProps } from '../components/avatar/avatarTypes'
@@ -23,7 +22,7 @@ Presets.parameters = {
   controls: false
 }
 
-const Template: Story<LmAvatarProps['content']> = (args) => (
+const Template: StoryFn<LmAvatarProps['content']> = (args) => (
   <LmAvatar content={args} />
 )
 

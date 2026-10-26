@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import Drawer from '@mui/material/Drawer'
 import { Theme, Toolbar } from '@mui/material'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../../../vendor/grid'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import Divider from '@mui/material/Divider'
@@ -86,13 +86,15 @@ export function ShopfiyCart() {
       open={cartOpen}
       anchor="right"
       variant="temporary"
-      PaperProps={{
-        style: {
-          width: isMobile ? '100%' : 400
-        }
-      }}
       onClose={() => {
         setCartOpen(false)
+      }}
+      slotProps={{
+        paper: {
+          style: {
+            width: isMobile ? '100%' : 400
+          }
+        }
       }}
     >
       <Grid container direction="column" style={{ flex: 1 }}>

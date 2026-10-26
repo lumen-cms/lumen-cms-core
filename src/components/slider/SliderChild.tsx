@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { SectionProps } from '../section/sectionTypes'
 
@@ -7,7 +6,7 @@ type LmSliderChildProps = { body: any[]; sectionVariant: any }
 export function LmSliderChild({
   body,
   sectionVariant
-}: LmSliderChildProps): JSX.Element {
+}: LmSliderChildProps): React.JSX.Element {
   return (
     <div className="d-flex h-100 lm-slider__container flex-row justify-content-center">
       {body.map((item) => {

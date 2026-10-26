@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import TopAppBarWrap from './TopAppBar'
 import { useSettings } from '../../provider/SettingsPageProvider'

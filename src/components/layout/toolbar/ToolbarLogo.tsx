@@ -1,4 +1,3 @@
-import React from 'react'
 import Typography from '@mui/material/Typography'
 import { getRootImageUrl } from '../../../utils/imageServices'
 import { useHomepageLink } from '../../../utils/hooks/useHomepageLink'
@@ -9,7 +8,7 @@ import Box from '@mui/material/Box'
 import clsx from 'clsx'
 import { useTheme } from '@mui/material/styles'
 
-export function LmToolbarLogo(): JSX.Element {
+export function LmToolbarLogo(): React.JSX.Element {
   const theme = useTheme()
   const settings = useSettings()
   const { property } = usePage() || {}
@@ -75,7 +74,6 @@ export function LmToolbarLogo(): JSX.Element {
         {logoImageArray.map(({ isMobile, source, isInvert }) =>
           isInvert && !hasFeature ? null : (
             <Box
-              display={'flex'}
               className={clsx('logo-img', {
                 'logo-img__default': !!(
                   (websiteLogoInvert && !isInvert) ||
@@ -89,6 +87,9 @@ export function LmToolbarLogo(): JSX.Element {
                 )
               })}
               key={`${source}-${isMobile}-${isInvert}`}
+              sx={{
+                display: 'flex'
+              }}
             >
               <LmSquareImage
                 image={source as string}

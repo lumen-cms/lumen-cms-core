@@ -34,29 +34,6 @@ export default function LmSearchField({
       })}
     >
       <TextField
-        inputProps={{
-          autoComplete: 'off'
-        }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Magnify />
-            </InputAdornment>
-          ),
-          endAdornment: inputValue.length ? (
-            <InputAdornment position="end">
-              <IconButton
-                size={'small'}
-                onClick={() => {
-                  setValue('')
-                  onChange('')
-                }}
-              >
-                <CloseCircle />
-              </IconButton>
-            </InputAdornment>
-          ) : null
-        }}
         id={content._uid}
         value={inputValue}
         label={content.label}
@@ -69,6 +46,32 @@ export default function LmSearchField({
           const val = event.currentTarget.value
           setValue(val)
           callback(val)
+        }}
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Magnify />
+              </InputAdornment>
+            ),
+            endAdornment: inputValue.length ? (
+              <InputAdornment position="end">
+                <IconButton
+                  size={'small'}
+                  onClick={() => {
+                    setValue('')
+                    onChange('')
+                  }}
+                >
+                  <CloseCircle />
+                </IconButton>
+              </InputAdornment>
+            ) : null
+          },
+
+          htmlInput: {
+            autoComplete: 'off'
+          }
         }}
       />
     </div>

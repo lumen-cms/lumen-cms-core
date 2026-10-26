@@ -83,11 +83,13 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
     <Dialog
       open={open}
       maxWidth={content.max_width || false}
-      PaperProps={{
-        elevation: content.elevation ? Number(content.elevation) : undefined,
-        square: content.square
-      }}
       onClose={content.prevent_click_outside ? undefined : () => setOpen(false)}
+      slotProps={{
+        paper: {
+          elevation: content.elevation ? Number(content.elevation) : undefined,
+          square: content.square
+        }
+      }}
     >
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         {(content?.close_action || []).map((blok) => (

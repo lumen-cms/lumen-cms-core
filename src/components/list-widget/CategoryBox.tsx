@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react'
+import { CSSProperties, useState } from 'react'
 import { useRouter } from 'next/router'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
@@ -12,7 +12,7 @@ import clsx from 'clsx'
 
 export default function LmCategoryBox({
   content
-}: LmCategoryBoxProps): JSX.Element {
+}: LmCategoryBoxProps): React.JSX.Element {
   const router = useRouter()
   const query = router?.query
   let initialValues: string[] = []

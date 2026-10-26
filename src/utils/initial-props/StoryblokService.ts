@@ -180,9 +180,11 @@ class StoryblokServiceClass {
       ...params,
       ...this.getDefaultParams()
     })
-    const key = `getStory:${slug}:${currentParams.version}:${
-      currentParams.cv ?? 'noCV'
-    }`
+    // Settings are cached across stories. Include the selected space and locale
+    // so switching reference websites cannot reuse another website's settings.
+    const key = `getStory:${slug}:${currentParams.version}:${JSON.stringify(
+      currentParams
+    )}`
 
     return this.safeFetch(
       () => this.client.getStory(slug, currentParams),

@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmTimelineProps } from './timelineTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
@@ -58,10 +57,12 @@ export default function LmTimeline({ content }: LmTimelineProps) {
         />
         {rewardObject && (
           <Box
-            textAlign={'center'}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
+            sx={{
+              textAlign: 'center',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
           >
             <span id={'confetti-' + content._uid} />
           </Box>

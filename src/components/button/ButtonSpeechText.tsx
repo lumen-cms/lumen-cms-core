@@ -1,5 +1,5 @@
 import { LmComponentRender } from '@LmComponentRender'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 // eslint-disable-next-line
 // @ts-ignore
 import { useSpeechSynthesis } from 'react-speech-kit'

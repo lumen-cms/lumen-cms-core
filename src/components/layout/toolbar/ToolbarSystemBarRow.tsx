@@ -1,5 +1,5 @@
 import Container, { ContainerProps } from '@mui/material/Container'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../../vendor/grid'
 import { LmComponentRender } from '@LmComponentRender'
 import React, { FC } from 'react'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
@@ -28,7 +28,7 @@ const HideOnScroll: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
 
 export default function ToolbarSystemBarRow({
   content
-}: LmToolbarRowProps): JSX.Element {
+}: LmToolbarRowProps): React.JSX.Element {
   const settings = useSettings()
   const { classes, theme, cx } = useStyles()
   const toolbarConfig = settings.toolbar_config || []

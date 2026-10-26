@@ -1,4 +1,4 @@
-import { boolean } from '@storybook/addon-knobs'
+import { boolean } from '../storybook/legacyControls'
 import {
   ButtonStoryblok,
   GlobalStoryblok,

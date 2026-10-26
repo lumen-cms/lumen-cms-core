@@ -1,7 +1,6 @@
-import * as React from 'react'
-import { Story } from '@storybook/react'
+import { StoryFn } from '@storybook/react'
 import { CONFIG } from '@CONFIG'
-import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 import SettingsPageProvider from '../components/provider/SettingsPageProvider'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
 import AppProvider from '../components/provider/AppProvider'
@@ -26,7 +25,7 @@ export default {
     // 👇 The viewports object from the Essentials addon
     viewport: {
       // 👇 The viewports you want to use
-      viewports: INITIAL_VIEWPORTS
+      options: INITIAL_VIEWPORTS
       // 👇 Your own default viewport
       // defaultViewport: 'responsive'
     }
@@ -63,7 +62,7 @@ const StoryWrap = (data: any) => (
   </AppProvider>
 )
 
-const Template: Story<any> = (_args, { loaded: { data } }) => {
+const Template: StoryFn<any> = (_args, { loaded: { data } }) => {
   return <StoryWrap {...data} />
 }
 
@@ -88,10 +87,10 @@ export const StudentsgoabroadMobile = Template.bind({})
 // eslint-disable-next-line
 // @ts-ignore
 StudentsgoabroadMobile.loaders = Studentsgoabroad.loaders
+StudentsgoabroadMobile.globals = {
+  viewport: { value: 'iphone6', isRotated: false }
+}
 StudentsgoabroadMobile.parameters = {
-  viewport: {
-    defaultViewport: 'iphone6'
-  },
   chromatic: { delay: 15000 }
 }
 
@@ -162,10 +161,10 @@ export const BaliinternshipsMobile = Template.bind({})
 // eslint-disable-next-line
 // @ts-ignore
 BaliinternshipsMobile.loaders = Baliinternships.loaders
+BaliinternshipsMobile.globals = {
+  viewport: { value: 'iphone6', isRotated: false }
+}
 BaliinternshipsMobile.parameters = {
-  viewport: {
-    defaultViewport: 'iphone6'
-  },
   // Sets the delay for a specific story.
   chromatic: { delay: 15000 }
 }
@@ -194,10 +193,8 @@ export const SessionMobile = Template.bind({})
 // eslint-disable-next-line
 // @ts-ignore
 SessionMobile.loaders = Session.loaders
+SessionMobile.globals = { viewport: { value: 'iphone6', isRotated: false } }
 SessionMobile.parameters = {
-  viewport: {
-    defaultViewport: 'iphone6'
-  },
   // Sets the delay for a specific story.
   chromatic: { delay: 15000 }
 }
@@ -227,10 +224,10 @@ export const GameMarketerMobile = Template.bind({})
 // eslint-disable-next-line
 // @ts-ignore
 GameMarketerMobile.loaders = GameMarketer.loaders
+GameMarketerMobile.globals = {
+  viewport: { value: 'iphone6', isRotated: false }
+}
 GameMarketerMobile.parameters = {
-  viewport: {
-    defaultViewport: 'iphone6'
-  },
   // Sets the delay for a specific story.
   chromatic: { delay: 15000 }
 }
@@ -260,10 +257,8 @@ export const ChatlabsMobile = Template.bind({})
 // eslint-disable-next-line
 // @ts-ignore
 ChatlabsMobile.loaders = Chatlabs.loaders
+ChatlabsMobile.globals = { viewport: { value: 'iphone6', isRotated: false } }
 ChatlabsMobile.parameters = {
-  viewport: {
-    defaultViewport: 'iphone6'
-  },
   // Sets the delay for a specific story.
   chromatic: { delay: 15000 }
 }

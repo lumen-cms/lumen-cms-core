@@ -1,7 +1,20 @@
+import { beforeEach, describe, expect, test } from 'vitest'
 import { CONFIG } from '@CONFIG'
 import getPageProps from './getPageProps'
 
-// make sure tokens of theme.lumen.media
+const initialConfig = { ...CONFIG }
+beforeEach(() => Object.assign(CONFIG, initialConfig))
+
+function configureSpace(space: string) {
+  const previewToken = process.env[`TEST_${space}_PREVIEW_TOKEN`]
+  const publicToken = process.env[`TEST_${space}_PUBLIC_TOKEN`]
+  if (!previewToken || !publicToken) {
+    throw new Error(
+      `Configure TEST_${space}_PREVIEW_TOKEN and TEST_${space}_PUBLIC_TOKEN in .env.test.local`
+    )
+  }
+  Object.assign(CONFIG, { previewToken, publicToken, rootDirectory: '' })
+}
 const defaultOptions = {
   locale: 'en',
   insideStoryblok: false,
@@ -11,9 +24,7 @@ const defaultOptions = {
 
 describe('Get page props of a certain URL', () => {
   test('fetch url that consists list widget data', async () => {
-    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
-    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
-    CONFIG.rootDirectory = ''
+    configureSpace('DEMO')
     const data = await getPageProps(
       'demo-content/playground/testing-list-widget',
       defaultOptions
@@ -30,9 +41,7 @@ describe('Get page props of a certain URL', () => {
 
   describe('fetch serialized widget data', () => {
     test('fetch url that consists list widget data search', async () => {
-      CONFIG.previewToken = 'IQrhrTP6aL0WYgDXmersbgtt'
-      CONFIG.publicToken = 'Xzl0aUdUwWqtCsD37fHMmQtt'
-      CONFIG.rootDirectory = ''
+      configureSpace('UPSKILL')
       const data = await getPageProps('search', defaultOptions)
       expect(!!data.page).toBeTruthy()
       const callback = (item: any) => {
@@ -46,9 +55,7 @@ describe('Get page props of a certain URL', () => {
   })
 
   test('fetch url that consists category data', async () => {
-    CONFIG.previewToken = 'IQrhrTP6aL0WYgDXmersbgtt'
-    CONFIG.publicToken = 'Xzl0aUdUwWqtCsD37fHMmQtt'
-    CONFIG.rootDirectory = ''
+    configureSpace('UPSKILL')
     const data = await getPageProps('search', defaultOptions)
     expect(!!data.page).toBeTruthy()
     const callback = (item: any) => {
@@ -58,54 +65,23 @@ describe('Get page props of a certain URL', () => {
   })
 
   test('fetch url that consists form data', async () => {
-    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
-    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
-    CONFIG.rootDirectory = ''
+    configureSpace('PLANET')
     const data = await getPageProps('request-demo', defaultOptions)
     expect(!!data.page).toBeTruthy()
 
     recursiveTestCallback(data.page?.body ?? [], 'form', callbackFormTest)
   })
-  // todo dont have a page with form data in footer
-  // test('fetch url that consists form data in the footer', async () => {
-  //   // commercentric uses it
-  //   CONFIG.previewToken = '2mjT0ume8F2Oo232GKgRxgtt'
-  //   CONFIG.publicToken = 'ogW5NFWib7hFRkHdzc56ewtt'
-  //   CONFIG.rootDirectory = ''
-  //   const data = await getPageProps('/', defaultOptions)
-  //   expect(!!data.page).toBeTruthy()
-  //
-  //   recursiveTestCallback(data.settings?.footer ?? [], 'form', callbackFormTest)
-  // })
-  // todo need to rewrite test as this runs not server side only
-  // test('fetch planet training and check existence of google font string', async () => {
-  //   // commercentric uses it
-  //   CONFIG.previewToken = 'MbZE9l5hGQp6BHIMkooB9Qtt'
-  //   CONFIG.publicToken = 'itXwOvXYhANlzgPbwrA2Nwtt'
-  //   CONFIG.rootDirectory = ''
-  //   const data = await getPageProps(
-  //     'support/team-management/add-members',
-  //     defaultOptions
-  //   )
-  //   expect(!!data.page).toBeTruthy()
-  //   expect(typeof data.googleFontString).toBe('string')
-  // })
-
   test('fetch calendar entries', async () => {
-    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
-    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
-    CONFIG.rootDirectory = ''
+    configureSpace('DEMO')
     const data = await getPageProps(
       'demo-content/event-calendar',
       defaultOptions
     )
-    expect(!!data.page)
+    expect(!!data.page).toBeTruthy()
   })
 
   test('fetch list_stories entries', async () => {
-    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
-    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
-    CONFIG.rootDirectory = ''
+    configureSpace('DEMO')
     const data = await getPageProps(
       'demo-content/list-stories-demo',
       defaultOptions
@@ -121,9 +97,7 @@ describe('Get page props of a certain URL', () => {
   })
 
   test('test translated page of home in ladenburg', async () => {
-    CONFIG.previewToken = 'GFikQ82LaPjNVcPNQVJzQgtt'
-    CONFIG.publicToken = 'pe6FESyaNxKq7t1NpxZ0hwtt'
-    CONFIG.rootDirectory = ''
+    configureSpace('LADENBURG')
     CONFIG.fieldLevelTranslation = true
     const data = await getPageProps('home', {
       locale: 'en',
@@ -134,9 +108,7 @@ describe('Get page props of a certain URL', () => {
     expect(!!data.settings).toBeTruthy()
   })
   test('support list widget in static content', async () => {
-    CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
-    CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
-    CONFIG.rootDirectory = ''
+    configureSpace('DEMO')
     const data = await getPageProps(
       'demo-content/example-of-static-content',
       defaultOptions
@@ -145,9 +117,7 @@ describe('Get page props of a certain URL', () => {
     expect(!!data.settings).toBeTruthy()
   })
   test('support category box data', async () => {
-    CONFIG.previewToken = 'IQrhrTP6aL0WYgDXmersbgtt'
-    CONFIG.publicToken = 'Xzl0aUdUwWqtCsD37fHMmQtt'
-    CONFIG.rootDirectory = ''
+    configureSpace('UPSKILL')
     const data = await getPageProps('/search', defaultOptions)
     const callback = (item: any) => {
       expect(item.category_box_data?.length).toBeGreaterThan(0)

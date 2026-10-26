@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmAccordionProps } from './accordionTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 
 export default function LmAccordion({
   content
-}: LmAccordionProps): JSX.Element {
+}: LmAccordionProps): React.JSX.Element {
   const [opened, setOpen] = useState<string>('')
   const { classes } = useStylesAdvanced({
     props: content.styles

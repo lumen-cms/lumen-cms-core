@@ -4,7 +4,7 @@ import {
 } from '../../typings/generated/components-schema'
 import LmGalleryImage from './LmGalleryImage'
 import { ClassNameMap } from '@mui/material'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../vendor/grid'
 import LmGalleryRowContainer from './LmGalleryRowContainer'
 
 export type LmGalleryRowProps = {

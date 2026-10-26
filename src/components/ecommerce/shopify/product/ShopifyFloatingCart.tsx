@@ -1,4 +1,3 @@
-import React from 'react'
 import { Fab } from '@mui/material'
 import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined'
 import Badge from '@mui/material/Badge'

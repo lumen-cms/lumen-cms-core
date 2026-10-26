@@ -46,9 +46,6 @@ const DrawerContainer: FunctionComponent<
   return (
     <Drawer
       open={leftNavigationDrawer}
-      SlideProps={{
-        unmountOnExit: !mountedOnce
-      }}
       className={cx('lm-main__drawer', classes.leftDrawer, {
         [classes.aboveToolbar]: !drawerBelowToolbar,
         [classes.belowToolbar]: drawerBelowToolbar,
@@ -61,11 +58,17 @@ const DrawerContainer: FunctionComponent<
           [classes.fullWidthMobile]: !!settings.drawer_full_width_mobile
         })
       }}
-      PaperProps={{
-        style: backgroundProps?.style ? backgroundProps.style : undefined
-      }}
       onClose={closeDrawer}
       variant={drawerVariant}
+      slotProps={{
+        paper: {
+          style: backgroundProps?.style ? backgroundProps.style : undefined
+        },
+
+        transition: {
+          unmountOnExit: !mountedOnce
+        }
+      }}
     >
       {children}
     </Drawer>

@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { getComponentArgTypes } from '../storybook/configControls'
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'
 import { findFirstPreset, findPresets } from '../storybook/findStorybookPresets'
@@ -24,7 +24,7 @@ export const Presets = () => (
   <StorybookPresetsContainer componentName={COMPONENT_NAME} />
 )
 
-const Template: Story<LmDividerProps['content']> = (args) => (
+const Template: StoryFn<LmDividerProps['content']> = (args) => (
   <LmDivider content={args} />
 )
 

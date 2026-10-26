@@ -1,12 +1,12 @@
 import { EventCalendar, LmEventCalendarProps } from './eventTypes'
 import { Calendar, dateFnsLocalizer, Views } from 'react-big-calendar'
-import format from 'date-fns/format'
-import parse from 'date-fns/parse'
-import startOfWeek from 'date-fns/startOfWeek'
-import getDay from 'date-fns/getDay'
+import { format } from 'date-fns/format'
+import { parse } from 'date-fns/parse'
+import { startOfWeek } from 'date-fns/startOfWeek'
+import { getDay } from 'date-fns/getDay'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { parseEventsToCalendar } from './eventCalendarHelper'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
@@ -18,13 +18,13 @@ import { eventMessages } from './eventMessages'
 export default function LmEventCalendar({ content }: LmEventCalendarProps) {
   const locales: any = {}
   if (content.language === 'de') {
-    locales.de = require('date-fns/locale/de/index')
+    locales.de = require('date-fns/locale/de').de
   } else if (content.language === 'fr') {
-    locales.fr = require('date-fns/locale/fr/index')
+    locales.fr = require('date-fns/locale/fr').fr
   } else if (content.language === 'it') {
-    locales.it = require('date-fns/locale/it/index')
+    locales.it = require('date-fns/locale/it').it
   } else if (content.language === 'es') {
-    locales.es = require('date-fns/locale/es/index')
+    locales.es = require('date-fns/locale/es').es
   }
 
   const localizer = dateFnsLocalizer({

@@ -1,4 +1,5 @@
 import { Theme } from '@mui/material/styles'
+import { getThemeColor } from '../themeColor'
 
 import {
   ItemKeyValueStoryblok,
@@ -18,7 +19,7 @@ const capitalizeFirstLetter = (string: string) =>
 const getStyles = (content: StylesStoryblok, theme: Theme) => {
   const getThemeMainColor = (color: string) => {
     const parts = color.split('.')
-    return theme.palette[parts[0]][parts[1] || 'main']
+    return getThemeColor(theme, parts[0], parts[1] || 'main')
   }
   const cssRules: CSSObject = {}
   Object.keys(content).forEach((key) => {

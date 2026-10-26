@@ -7,11 +7,22 @@ import {
   GoogleForm,
   Line,
   Option
-} from 'react-google-forms-hooks'
+} from '../../../vendor/google-forms'
 // we currently use this separate file until the problems in react-google-forms-hooks are fixed
 
+// Google embeds positional arrays in FB_PUBLIC_LOAD_DATA_. These describe
+// the positions consumed by this parser, without changing the wire format.
+type RawOption = { 0: string; 4: number }
+type RawLine = {
+  0: number
+  1: RawOption[]
+  2: number
+  3: string[]
+  11: [0 | 1]
+}
+type RawField = { 0: number; 1: string; 2: string; 3: number; 4: RawLine[] }
 type FormData = {
-  formData: object
+  formData: { 1: { 0: string; 1: RawField[]; 8: string }; 14: string }
   fbzx: string
 }
 
@@ -72,14 +83,14 @@ const extractFormData = (html: string): FormData => {
   return { formData: formDataRaw, fbzx }
 }
 
-const parseGridMultiSelect = (rawField: Array<object>): 1 | 0 => {
+const parseGridMultiSelect = (rawField: RawField): 1 | 0 => {
   const firstLine = rawField[4][0]
   const canSelectMultiple = firstLine[11][0]
 
   return canSelectMultiple
 }
 
-const parseFieldType = (rawField: Array<object>, fieldId: number) => {
+const parseFieldType = (rawField: RawField, fieldId: number) => {
   const fieldTypes = [
     'SHORT_ANSWER',
     'LONG_ANSWER',
@@ -103,12 +114,12 @@ const parseFieldType = (rawField: Array<object>, fieldId: number) => {
   return fieldTypes[fieldId]
 }
 
-const parseOptions = (options: Array<object>): Array<Option> => {
+const parseOptions = (options: RawOption[]): Array<Option> => {
   return options.map((rawOption) => ({ label: rawOption[0] }))
 }
 
 const parseCustomizableOptions = (
-  options: Array<object>
+  options: RawOption[]
 ): Array<CustomizableOption> => {
   return options.map((rawOption) => ({
     label: rawOption[0],
@@ -116,11 +127,11 @@ const parseCustomizableOptions = (
   }))
 }
 
-const flattenArray = (array: Array<Array<string>>): Array<Option | Column> => {
+const flattenArray = (array: RawOption[]): Array<Option | Column> => {
   return array.map((item) => ({ label: item[0] }))
 }
 
-const parseLines = (lines: Array<any>): Array<Line> => {
+const parseLines = (lines: RawLine[]): Array<Line> => {
   return lines.map((rawLine) => {
     const line = {} as Line
     line.id = toString(rawLine[0])
@@ -129,7 +140,7 @@ const parseLines = (lines: Array<any>): Array<Line> => {
   })
 }
 
-const parseField = (rawField: Array<any>): Field => {
+const parseField = (rawField: RawField): Field => {
   const field = {} as Field
 
   field.label = rawField[1]
@@ -190,11 +201,11 @@ const parseField = (rawField: Array<any>): Field => {
 }
 
 const parseFields = (
-  rawFields: Array<any>
+  rawFields: RawField[]
 ): { fields: Array<Field>; fieldsOrder: FieldsOrder } => {
-  const fieldsOrder = {}
+  const fieldsOrder: FieldsOrder = {}
 
-  const fields = rawFields.map((rawField: Array<any>, i: number) => {
+  const fields = rawFields.map((rawField: RawField, i: number) => {
     const field = parseField(rawField)
     fieldsOrder[`${field.id}`] = i
     return field

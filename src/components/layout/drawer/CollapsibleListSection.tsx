@@ -1,6 +1,6 @@
 import React from 'react'
 import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
@@ -28,7 +28,7 @@ type DrawerContentRenderProps = {
 export function DrawerContentRender({
   content,
   openedPath
-}: DrawerContentRenderProps): JSX.Element | null {
+}: DrawerContentRenderProps): React.JSX.Element | null {
   const { component } = content
 
   if (component === 'button' || component === 'nav_menu_item') {
@@ -49,7 +49,7 @@ export function DrawerContentRender({
 export function CollapsibleListSection({
   content,
   openedPath
-}: CollapsibleListSectionProps): JSX.Element {
+}: CollapsibleListSectionProps): React.JSX.Element {
   const body = content.body || []
   const items: any[] = []
   const [open, setOpen] = React.useState(openedPath.includes(content._uid))
@@ -104,7 +104,7 @@ export function CollapsibleListSection({
     )
   return (
     <>
-      <ListItem button onClick={handleClick}>
+      <ListItemButton onClick={handleClick}>
         {startIconName && (
           <ListItemIcon>
             <LmIcon
@@ -118,7 +118,7 @@ export function CollapsibleListSection({
         )}
         <ListItemText primary={content.title} />
         {open ? <CloseIcon /> : <ExpandIcon />}
-      </ListItem>
+      </ListItemButton>
       <Collapse in={open} timeout="auto">
         <List
           component="div"

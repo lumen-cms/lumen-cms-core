@@ -1,5 +1,4 @@
-import React from 'react'
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { getComponentArgTypes } from '../storybook/configControls'
 import LmGoogleFormContainer from '../components/google-form/LmGoogleFormContainer'
 import { findPresets } from '../storybook/findStorybookPresets'
@@ -31,7 +30,7 @@ export default {
   ]
 } as Meta
 
-const Template: Story<LmGoogleFormProps['content']> = (
+const Template: StoryFn<LmGoogleFormProps['content']> = (
   args,
   { loaded: { formStructure } }
 ) => {

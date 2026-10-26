@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import Image from 'next/image'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import {
@@ -42,7 +42,7 @@ const ImageWrap: FC<
 export default function LmImageListItem({
   content,
   listProps
-}: LmImageListItemProps): JSX.Element {
+}: LmImageListItemProps): React.JSX.Element {
   const theme = useTheme()
   // const { classes, theme } = useStyles()
   const imageSource = getRootImageUrl(content.source || '')

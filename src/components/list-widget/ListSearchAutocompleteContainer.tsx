@@ -21,7 +21,7 @@ export const ListSearchAutocompleteContainer: FunctionComponent<
   )
   const matchMobile = !!(content.mobile_breakpoint && matches)
 
-  const ref = useRef<HTMLDivElement>()
+  const ref = useRef<HTMLDivElement>(undefined)
   useEffect(() => {
     setMobileAction(matchMobile)
   }, [matchMobile, setMobileAction])

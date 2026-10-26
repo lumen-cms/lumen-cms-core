@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import Typography from '@mui/material/Typography'
 import AccordionDetails from '@mui/material/AccordionDetails'
@@ -15,7 +15,7 @@ export default function LmAccordionItem({
   opened,
   iteration,
   classes
-}: LmAccordionItemProps): JSX.Element {
+}: LmAccordionItemProps): React.JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
   const panelKey = `panel-${iteration}`
   const expanded = options.restrict_one
@@ -24,6 +24,9 @@ export default function LmAccordionItem({
   const titleCustom = content.title_custom || []
   return (
     <Accordion
+      // Custom CMS titles can contain headings and interactive images. Keep
+      // their legacy containers to avoid nested headings/buttons in SSR HTML.
+      slots={titleCustom.length ? { heading: 'div' } : undefined}
       variant={options.variant || 'elevation'}
       square={!!options.square}
       expanded={expanded}
@@ -37,6 +40,10 @@ export default function LmAccordionItem({
       }}
     >
       <AccordionSummary
+        component={titleCustom.length ? 'div' : 'button'}
+        slotProps={
+          titleCustom.length ? { content: { component: 'div' } } : undefined
+        }
         sx={{
           color: 'inherit',
           '& .MuiAccordionSummary-expandIconWrapper': {
@@ -52,7 +59,7 @@ export default function LmAccordionItem({
             <LmComponentRender content={blok} key={blok._uid} />
           ))
         ) : (
-          <Typography>{content.title}</Typography>
+          <Typography component="span">{content.title}</Typography>
         )}
       </AccordionSummary>
       <AccordionDetails>

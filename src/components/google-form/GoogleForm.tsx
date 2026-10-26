@@ -10,7 +10,7 @@ import {
   RichTextEditorStoryblok
 } from '../../typings/generated/components-schema'
 import GoogleFormElement, { TextFieldElement } from './GoogleFormElement'
-import { GoogleForm, submitToGoogleForms } from 'react-google-forms-hooks'
+import { GoogleForm, submitToGoogleForms } from '../../vendor/google-forms'
 import { useFormColorStyles } from '../../utils/jss/formColorStyles'
 
 const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
@@ -25,7 +25,7 @@ export default function LmGoogleForm({
 }: {
   formStructure: GoogleForm
   content: LmGoogleFormProps['content']
-}): JSX.Element {
+}): React.JSX.Element {
   const { classes, cx: clsx } = useFormColorStyles()
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
   // @TODO mode is no-cors, can't detect result status
@@ -62,7 +62,7 @@ export default function LmGoogleForm({
     maxWidth: `calc(100% - ${Number(content.fields_gap || 2) * 2}px)`,
     minWidth: `${content.fields_min_width || 180}px`
   }
-  const defaultValues = {}
+  const defaultValues: Record<string, string | null> = {}
 
   formStructure?.fields.forEach((formField) => {
     // if ([2, 4].includes(formField.questionTypeCode)) {

@@ -1,5 +1,4 @@
-import React from 'react'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../vendor/grid'
 import { LmComponentRender } from '@LmComponentRender'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
@@ -60,7 +59,7 @@ const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
   }
 }))
 
-export function LmGridRow({ content }: LmGridRowProps): JSX.Element {
+export function LmGridRow({ content }: LmGridRowProps): React.JSX.Element {
   // const theme = useTheme()
   const { classes, cx } = useStyles()
   const spacing = Number(content.spacing || 3)

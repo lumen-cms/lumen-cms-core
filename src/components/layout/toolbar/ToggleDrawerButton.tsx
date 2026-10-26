@@ -1,4 +1,3 @@
-import React from 'react'
 import IconButton from '@mui/material/IconButton'
 import MenuUi from 'mdi-material-ui/Menu'
 import AppsIcon from 'mdi-material-ui/Apps'
@@ -24,7 +23,7 @@ const useDrawer = () =>
 
 export function LmToggleDrawerButton({
   content
-}: LmToggleDrawerButtonProps): JSX.Element | null {
+}: LmToggleDrawerButtonProps): React.JSX.Element | null {
   const settings = useSettings()
   const page = usePage()
 

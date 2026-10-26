@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect } from 'react'
+import { PropsWithChildren, useEffect } from 'react'
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 import Router, { useRouter } from 'next/router'
 import { LmAppProps, MyApp } from './_app'

@@ -4,7 +4,7 @@ import {
 } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import Image from 'next/image'
-import React, { CSSProperties } from 'react'
+import { CSSProperties } from 'react'
 import { AspectRatio } from 'react-aspect-ratio'
 
 type ImageBaseProps = {

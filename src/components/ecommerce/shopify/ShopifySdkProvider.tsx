@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  PropsWithChildren,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react'
 import {
   ShopifyProductFragment,
   ShopifySdkContext

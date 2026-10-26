@@ -1,5 +1,5 @@
-import Grid from '@mui/material/Unstable_Grid2'
-import React, { ReactNode } from 'react'
+import Grid from '../../../../vendor/grid'
+import { ReactNode } from 'react'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { EcommerceShopifyConfigStoryblok } from '../../../../typings/generated/components-schema'
 

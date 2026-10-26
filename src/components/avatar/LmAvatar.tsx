@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import { CSSProperties } from 'react'
 import Avatar, { AvatarProps } from '@mui/material/Avatar'
 import LmIcon from '../icon/LmIcon'
 import { LmAvatarProps } from './avatarTypes'
@@ -30,7 +30,7 @@ const getVariant = (variant: LmAvatarProps['content']['variant']) => {
   return mapVariants[variant] as AvatarProps['variant']
 }
 
-export function LmAvatar({ content }: LmAvatarProps): JSX.Element {
+export function LmAvatar({ content }: LmAvatarProps): React.JSX.Element {
   const iconName = content.icon?.name
   const customSize = getNumber(content.custom_size) as number
 

@@ -14,13 +14,13 @@ export const generateBackgroundStyles = ({
   theme: Theme
   variant?: SectionStoryblok['variant']
 }) => {
-  const mapBgColor = {
+  const mapBgColor: Record<string, string | undefined> = {
     dark: '#303030',
     primary: theme.palette.primary.main,
     secondary: theme.palette.secondary.main,
     light: '#fafafa'
   }
-  const mapColor = {
+  const mapColor: Record<string, string | undefined> = {
     light: 'rgba(0, 0, 0, 0.87)',
     dark_text: 'rgba(0, 0, 0, 0.87)',
     dark: theme.palette.common.white,
@@ -49,6 +49,8 @@ export const generateBackgroundStyles = ({
       : undefined,
     minHeight: background.height
   }
-  Object.keys(style).forEach((key) => !style[key] && delete style[key])
+  ;(Object.keys(style) as (keyof CSSProperties)[]).forEach(
+    (key) => !style[key] && delete style[key]
+  )
   return style
 }

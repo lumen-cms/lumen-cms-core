@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Tab from '@mui/material/Tab'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 
-import Grid, { Grid2Props } from '@mui/material/Unstable_Grid2'
+import Grid, { Grid2Props } from '../../vendor/grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import LmIcon from '../icon/LmIcon'
@@ -60,7 +60,7 @@ export default function LmTabs({ content }: LmTabsProps) {
             width: '100%'
           },
           ...(isVertical && {
-            '& .MuiTabs-flexContainerVertical': {
+            '& .MuiTabs-list.MuiTabs-vertical': {
               borderRight: `1px solid ${theme.palette.divider}`
             },
             '& .react-swipeable-view-container > div > div': {
@@ -87,7 +87,6 @@ export default function LmTabs({ content }: LmTabsProps) {
                 content.indicator_color ? content.indicator_color : undefined
               }
               textColor={content.text_color ? content.text_color : undefined}
-              value={activeTab}
               scrollButtons
               centered={!!content.centered && !isMobile}
               variant={isMobile ? 'scrollable' : content.variant || 'fullWidth'}

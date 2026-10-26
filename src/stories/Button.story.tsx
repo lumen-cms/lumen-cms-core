@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { LmButton } from '../components/button/Button'
 import { getComponentArgTypes } from '../storybook/configControls'
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'
@@ -19,7 +19,7 @@ export const Presets = () => (
   <StorybookPresetsContainer componentName="button" />
 )
 
-const Template: Story<LmButtonProps['content']> = (args) => (
+const Template: StoryFn<LmButtonProps['content']> = (args) => (
   <LmButton content={args} />
 )
 
@@ -37,8 +37,7 @@ const iconProps = {
 
 const imageProps = {
   ...presetContent,
-  image:
-    'https://img2.storyblok.com/f/66717/273x256/42d8e47bd5/twitter-icon.png'
+  image: '/storybook/twitter.svg'
 }
 
 export const ButtonVariants = () => (

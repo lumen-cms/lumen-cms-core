@@ -14,12 +14,10 @@ const loaderRaw = ({ src, width, quality }: ImageLoaderProps) => {
 export const storybookImgLoader = (
   src: string | undefined
 ): Pick<ImageProps, 'loader' | 'unoptimized'> => {
-  // if (!src || src.endsWith('.svg')) {
-  //   return {
-  //     unoptimized: true
-  //   }
-  // }
-  if (src?.indexOf('a.storyblok.com') !== -1) {
+  if (src?.startsWith('/') && !src.startsWith('//'))
+    return { unoptimized: true }
+  const hostname = src ? new URL(src, 'https://a.storyblok.com').hostname : ''
+  if (hostname === 'a.storyblok.com' || hostname === 'img2.storyblok.com') {
     return { loader }
   }
   return {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { ButtonStoryblok } from '../../../../typings/generated/components-schema'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'

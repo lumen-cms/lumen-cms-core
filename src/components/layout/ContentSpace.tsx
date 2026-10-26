@@ -1,4 +1,3 @@
-import React from 'react'
 import useScrollTop from '../../utils/hooks/useScrollTop'
 import { ContentSpaceProps } from './layoutTypes'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
@@ -6,7 +5,9 @@ import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 import clsx from 'clsx'
 
-export function ContentSpace({ isBlock }: ContentSpaceProps): JSX.Element {
+export function ContentSpace({
+  isBlock
+}: ContentSpaceProps): React.JSX.Element {
   const theme = useTheme()
   const settings = useSettings()
   const page = usePage()

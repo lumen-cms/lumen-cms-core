@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import {
   CardListItemStoryblok,
   CardListStoryblok,
@@ -29,7 +29,7 @@ export const Presets = () => (
   <StorybookPresetsContainer componentName={COMPONENT_NAME} />
 )
 
-const Template: Story<LmCardListProps['content']> = (args) => (
+const Template: StoryFn<LmCardListProps['content']> = (args) => (
   <LmCardList content={args} />
 )
 

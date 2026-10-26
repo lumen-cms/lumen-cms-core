@@ -1,4 +1,3 @@
-import React from 'react'
 import LmIconMwc from './LmIcon'
 import { LmIconProps } from './iconTypes'
 import { makeStyles } from 'tss-react/mui'
@@ -35,7 +34,7 @@ const useStyles = makeStyles({ name: 'Icon' })({
   icon: {}
 })
 
-export function LmIcon({ content, onClick }: LmIconProps): JSX.Element {
+export function LmIcon({ content, onClick }: LmIconProps): React.JSX.Element {
   const { classes, cx: clsx } = useStyles()
   return (
     <div

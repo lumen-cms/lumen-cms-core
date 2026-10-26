@@ -1,4 +1,3 @@
-import React from 'react'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { ShopifyProductOptions } from './ShopifyProductOption'
 import { ShopifyProductCarousel } from './ShopifyProductCarousel'

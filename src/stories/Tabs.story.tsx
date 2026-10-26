@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import {
   HeadlineStoryblok,
   ParagraphStoryblok,
@@ -22,7 +22,7 @@ export default {
   }
 } as Meta
 
-const Template: Story<LmTabsProps['content']> = (args) => (
+const Template: StoryFn<LmTabsProps['content']> = (args) => (
   <LmTabs content={args} />
 )
 

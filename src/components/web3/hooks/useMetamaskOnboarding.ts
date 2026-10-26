@@ -3,7 +3,7 @@ import type MetaMaskOnboarding from '@metamask/onboarding'
 import { useEffect, useRef, useState } from 'react'
 
 export default function useMetaMaskOnboarding(): any {
-  const onboarding = useRef<MetaMaskOnboarding>()
+  const onboarding = useRef<MetaMaskOnboarding | undefined>(undefined)
 
   const [isMetaMaskInstalled, isMetaMaskInstalledSet] = useState<boolean>()
 

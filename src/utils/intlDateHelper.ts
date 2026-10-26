@@ -48,7 +48,7 @@ export const getDateFormatIntlOption = (
       Object.keys(options).forEach((key) => {
         let optionValue = options[key]
         if (optionValue) {
-          startOptions[key] = optionValue
+          Object.assign(startOptions, { [key]: optionValue })
         }
       })
     }
@@ -56,7 +56,7 @@ export const getDateFormatIntlOption = (
   return startOptions
 }
 
-const exceptionDates = {
+const exceptionDates: Record<string, string | undefined> = {
   de_easy: 'de'
 }
 

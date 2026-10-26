@@ -59,7 +59,7 @@ type ListOptions = {
 
 export default function LmListSearchAutocomplete({
   content
-}: LmListSearchAutocompleteProps): JSX.Element {
+}: LmListSearchAutocompleteProps): React.JSX.Element {
   const [searchTerm, setSearchTerm] = useState<string>()
   const theme = useTheme()
   const { defaultLocale, locale, locales } = useAppContext()
@@ -147,30 +147,34 @@ export default function LmListSearchAutocomplete({
               label={content.label || undefined}
               placeholder={content.placeholder}
               fullWidth={!!content.fullwidth}
-              InputProps={{
-                ...params.InputProps,
-                style: {
-                  height: content.height ? Number(content.height) : undefined
-                },
-                onFocus: () => {
-                  setOpen(true)
-                },
-                onBlur: () => {
-                  setOpen(false)
-                },
-                onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
-                  callback(event.currentTarget.value),
-                autoComplete: 'new-password',
-                startAdornment: (
-                  <InputAdornment position="start" sx={{ color: 'inherit' }}>
-                    {' '}
-                    {content.icon?.name ? (
-                      <LmIcon iconName={content.icon.name} />
-                    ) : (
-                      <Magnify />
-                    )}
-                  </InputAdornment>
-                )
+              slotProps={{
+                ...params.slotProps,
+
+                input: {
+                  ...params.slotProps.input,
+                  style: {
+                    height: content.height ? Number(content.height) : undefined
+                  },
+                  onFocus: () => {
+                    setOpen(true)
+                  },
+                  onBlur: () => {
+                    setOpen(false)
+                  },
+                  onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
+                    callback(event.currentTarget.value),
+                  autoComplete: 'new-password',
+                  startAdornment: (
+                    <InputAdornment position="start" sx={{ color: 'inherit' }}>
+                      {' '}
+                      {content.icon?.name ? (
+                        <LmIcon iconName={content.icon.name} />
+                      ) : (
+                        <Magnify />
+                      )}
+                    </InputAdornment>
+                  )
+                }
               }}
             />
           )
@@ -179,22 +183,6 @@ export default function LmListSearchAutocomplete({
         getOptionLabel={(option) =>
           typeof option === 'string' ? option : option.label
         }
-        PaperComponent={(props) => (
-          <Paper
-            {...props}
-            square={content.menu_square}
-            variant={content.menu_outlined ? 'outlined' : 'elevation'}
-            elevation={
-              content.menu_elevation ? Number(content.menu_elevation) : 1
-            }
-            style={{
-              ...props.style,
-              borderRadius: content.menu_border_radius
-                ? content.menu_border_radius
-                : undefined
-            }}
-          />
-        )}
         renderOption={(_props, item, { inputValue }) => {
           const { href } = getLinkAttrs(
             {
@@ -236,6 +224,24 @@ export default function LmListSearchAutocomplete({
                 </span>
               ))}
             </ListItem>
+          )
+        }}
+        slots={{
+          paper: (props) => (
+            <Paper
+              {...props}
+              square={content.menu_square}
+              variant={content.menu_outlined ? 'outlined' : 'elevation'}
+              elevation={
+                content.menu_elevation ? Number(content.menu_elevation) : 1
+              }
+              style={{
+                ...props.style,
+                borderRadius: content.menu_border_radius
+                  ? content.menu_border_radius
+                  : undefined
+              }}
+            />
           )
         }}
       />

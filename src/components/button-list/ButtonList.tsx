@@ -1,9 +1,10 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmButtonListProps } from './buttonListTypes'
 import clsx from 'clsx'
 
-export function LmButtonList({ content }: LmButtonListProps): JSX.Element {
+export function LmButtonList({
+  content
+}: LmButtonListProps): React.JSX.Element {
   const body = content.body || []
   const properties = content.property || []
   const classNames = clsx(content.class_names?.values, {

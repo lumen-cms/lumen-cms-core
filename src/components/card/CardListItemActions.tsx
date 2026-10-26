@@ -1,4 +1,3 @@
-import React from 'react'
 import CardActions from '@mui/material/CardActions'
 import { LmComponentRender } from '@LmComponentRender'
 import { CardListItemProps } from './cardTypes'
@@ -6,7 +5,7 @@ import { CardListItemProps } from './cardTypes'
 function CardListItemActions({
   options,
   content
-}: CardListItemProps): JSX.Element | null {
+}: CardListItemProps): React.JSX.Element | null {
   const cardActionsBody = content.card_actions_body || []
 
   if (!cardActionsBody.length) {

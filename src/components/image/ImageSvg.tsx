@@ -1,6 +1,6 @@
 import { useInView } from 'react-intersection-observer'
 import SVG from 'react-inlinesvg'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Fade from '@mui/material/Fade'
 import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'
@@ -25,7 +25,7 @@ const useStyles = makeStyles()({
 export default function ImageSvg({
   content,
   onClick
-}: LmImageProps): JSX.Element {
+}: LmImageProps): React.JSX.Element {
   const { classes, cx } = useStyles()
   const [refIntersectionObserver, inView] = useInView(intersectionImageOptions)
   let src = inView ? content.source : ''

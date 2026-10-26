@@ -1,4 +1,4 @@
-import { Meta, Story } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { LmListWidgetProps } from '../components/list-widget/listWidgetTypes'
 import { findPresets } from '../storybook/findStorybookPresets'
 import LmListWidget from '../components/list-widget/ListWidget'
@@ -33,7 +33,7 @@ export default {
 
 const presets = findPresets<LmListWidgetProps['content']>(COMPONENT_NAME)
 
-const Template: Story<LmListWidgetProps['content']> = (
+const Template: StoryFn<LmListWidgetProps['content']> = (
   args,
   { loaded: { list_widget_data } }
 ) => {

@@ -1,5 +1,5 @@
 import { getComponentArgTypes } from '../storybook/configControls'
-import { Story } from '@storybook/react'
+import { StoryFn } from '@storybook/react'
 import { LmListStoriesProps } from '../components/list-widget/listWidgetTypes'
 import LmListStories from '../components/list-widget/ListStories'
 import { findFirstPreset } from '../storybook/findStorybookPresets'
@@ -31,7 +31,7 @@ export default {
   ]
 }
 
-const Template: Story<LmListStoriesProps['content']> = (
+const Template: StoryFn<LmListStoriesProps['content']> = (
   args,
   { loaded: { list_stories_data } }
 ) => <LmListStories content={{ ...args, list_stories_data }} />

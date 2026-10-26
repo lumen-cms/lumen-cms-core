@@ -1,4 +1,4 @@
-import { text } from '@storybook/addon-knobs'
+import { text } from '../legacyControls'
 import {
   AccordionItemStoryblok,
   AccordionStoryblok,
@@ -51,7 +51,7 @@ export const getSentences = () =>
 export const getParagraphs = () =>
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus cursus lectus leo, vitae varius turpis ultrices at. Nulla ullamcorper neque vitae ligula placerat, in commodo ipsum varius. Curabitur in rutrum massa. Proin hendrerit hendrerit tristique. Sed efficitur nisi et nisi auctor tristique.'
 export const getOptions = (object: any) => {
-  const obj = {}
+  const obj: Record<string, string> = {}
   Object.keys(object).forEach((k) => {
     obj[k] = object[k]
   })

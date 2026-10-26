@@ -47,3 +47,17 @@ __generated__
 build-storybook.log
 .babelrc
 *.glb
+
+# Local test configuration
+.env.test.local
+.vitest
+*.tsbuildinfo
+
+# Isolated production verification build
+.next-foundation
+.next-react19
+
+.next-reference
+.next-dev-verification
+
+.env.reference.local

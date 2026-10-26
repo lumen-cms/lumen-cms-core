@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import React, { FunctionComponent, PropsWithChildren } from 'react'
+import { FunctionComponent, PropsWithChildren } from 'react'
 import { useTheme } from '@mui/material/styles'
 import { useMediaQuery } from '@mui/material'
 
@@ -34,7 +34,11 @@ const AuthWrap: FunctionComponent<PropsWithChildren<unknown>> = ({
         }}
       >
         {biggerXs ? (
-          <Box my={5}>
+          <Box
+            sx={{
+              my: 5
+            }}
+          >
             <Card raised>{children}</Card>
           </Box>
         ) : (

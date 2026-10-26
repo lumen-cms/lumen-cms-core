@@ -1,5 +1,5 @@
 import { LmComponentRender } from '@LmComponentRender'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Dialog from '@mui/material/Dialog'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogContent from '@mui/material/DialogContent'

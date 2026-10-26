@@ -1,13 +1,12 @@
 import { CONFIG } from '@CONFIG'
 import { PagePropsOptions } from '../../typings/app'
 
-const { rootDirectory } = CONFIG
-
 export const prepareForStoryblok = (
   slug: string | string[] = 'home',
   options: PagePropsOptions
 ) => {
-  const slugAsArray = Array.isArray(slug) ? slug : [slug]
+  const { rootDirectory } = CONFIG
+  const slugAsArray = Array.isArray(slug) ? [...slug] : [slug]
   const [first] = slugAsArray
 
   if (options?.defaultLocale === slugAsArray?.[0]) {

@@ -1,5 +1,4 @@
 import Error from 'next/error'
-import React from 'react'
 import { AppPageProps } from '../../typings/app'
 import { AppSeo } from '../layout/AppSeo'
 import Layout from '../layout/Layout'

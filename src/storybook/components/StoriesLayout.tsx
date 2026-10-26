@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { Story as StoryType, StoryContext } from '@storybook/react/types-6-0'
+import { prepareLegacyControls } from '../legacyControls'
+import { Decorator } from '@storybook/react'
 import '../../components/NamedComponents'
 import '../../components/LazyNamedComponents'
 import getBasicSettings from './basicSettings'
@@ -17,15 +17,16 @@ const ignoreOnKind = [
   'Ecommerce/Shopify'
 ]
 
-const StoriesLayout = (Story: StoryType, { kind }: StoryContext) => {
-  if (ignoreOnKind.includes(kind)) {
+const StoriesLayout: Decorator = (StoryFn, { title, id }) => {
+  prepareLegacyControls(id)
+  if (ignoreOnKind.includes(title)) {
     // we don't add additional markup on landing pages
-    return <Story />
+    return <StoryFn />
   }
   const settings = getBasicSettings()
   return (
     <CoreDecorator settings={settings}>
-      <Story {...settings} />
+      <StoryFn />
     </CoreDecorator>
   )
 }

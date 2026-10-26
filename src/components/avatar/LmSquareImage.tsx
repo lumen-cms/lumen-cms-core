@@ -1,5 +1,4 @@
 import Image, { ImageProps } from 'next/image'
-import React from 'react'
 import {
   getRootImageUrl,
   imageCalculateWidthHeight
@@ -11,17 +10,19 @@ type LmSquareImageProps = {
   size?: number | string
   sizeIsHeight?: boolean
   base64?: string
-  imageProps?: Pick<
-    ImageProps,
-    | 'loading'
-    | 'onLoad'
-    | 'onClick'
-    | 'priority'
-    | 'quality'
-    | 'alt'
-    | 'className'
-    | 'style'
-    | 'fill'
+  imageProps?: Partial<
+    Pick<
+      ImageProps,
+      | 'loading'
+      | 'onLoad'
+      | 'onClick'
+      | 'priority'
+      | 'quality'
+      | 'alt'
+      | 'className'
+      | 'style'
+      | 'fill'
+    >
   >
 }
 
@@ -30,7 +31,7 @@ export default function LmSquareImage({
   image,
   imageProps,
   sizeIsHeight
-}: LmSquareImageProps): JSX.Element {
+}: LmSquareImageProps): React.JSX.Element {
   return (
     <Image
       src={getRootImageUrl(image)}

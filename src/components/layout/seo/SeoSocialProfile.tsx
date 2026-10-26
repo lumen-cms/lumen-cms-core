@@ -1,5 +1,4 @@
 import { SocialProfileJsonLd } from 'next-seo'
-import React from 'react'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 
 export function SeoSocialProfile() {
@@ -15,7 +14,7 @@ export function SeoSocialProfile() {
   return (
     <SocialProfileJsonLd
       url={profile.url}
-      type={profile.type}
+      type={profile.type || 'Organization'}
       name={profile.name}
       sameAs={profile.same_as.split(',').map((str: string) => str.trim())}
     />

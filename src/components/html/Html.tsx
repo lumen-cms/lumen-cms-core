@@ -1,11 +1,11 @@
-import React, { HTMLAttributes } from 'react'
+import { HTMLAttributes } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { LmComponentRender } from '@LmComponentRender'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmHtmlProps } from './htmlTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
 
-export function LmHtml({ content }: LmHtmlProps): JSX.Element {
+export function LmHtml({ content }: LmHtmlProps): React.JSX.Element {
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )

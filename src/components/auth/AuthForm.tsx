@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FormContainer, TextFieldElement } from 'react-hook-form-mui'
 import { Button } from '@mui/material'
 import { LmComponentRender } from '@LmComponentRender'
@@ -41,7 +41,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
       email_helper: 'The email can not be changed.'
     }
   }
-  const currentLocale = locale || 'de'
+  const currentLocale = locale === 'en' ? 'en' : 'de'
   const parseError = (fieldError: FieldError) => {
     switch (fieldError.type) {
       case 'required':
@@ -50,7 +50,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
         return translations[currentLocale].error_email
       }
       default:
-        return fieldError.message
+        return fieldError.message || ''
     }
   }
   const onSuccess = async (data: any) => {

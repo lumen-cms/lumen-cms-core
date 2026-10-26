@@ -5,7 +5,7 @@ import {
   optionsKnob,
   select,
   text
-} from '@storybook/addon-knobs'
+} from '../legacyControls'
 import { CONFIG_STORYBOOK } from './configStorybook'
 
 export default function getBasicSettings() {

@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react'
+import { CSSProperties } from 'react'
 import { useInView } from 'react-intersection-observer'
 import {
   BackgroundElementColorStoryblok,
@@ -18,7 +18,7 @@ type BackgroundElementsProps = {
 
 function BackgroundElements({
   elements = []
-}: BackgroundElementsProps): JSX.Element {
+}: BackgroundElementsProps): React.JSX.Element {
   const [viewRef, inView] = useInView(intersectionDefaultOptions)
 
   const styleElement: CSSProperties = {

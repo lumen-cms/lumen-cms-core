@@ -1,4 +1,4 @@
-import { Field, GoogleForm } from 'react-google-forms-hooks'
+import { Field, GoogleForm } from '../../../vendor/google-forms'
 
 export type GoogleFormWithDate = Omit<GoogleForm, 'fields'> & {
   fields: FieldWithDate[]

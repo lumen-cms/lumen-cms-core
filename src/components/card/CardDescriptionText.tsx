@@ -1,11 +1,10 @@
-import React from 'react'
 import { CardListItemProps } from './cardTypes'
 import { LmHeadline } from '../headline/Headline'
 
 function CardDescriptionText({
   content,
   options
-}: CardListItemProps): JSX.Element | null {
+}: CardListItemProps): React.JSX.Element | null {
   const descriptionMaxCharacter = options.description_max_character
   const descriptionCustomElement = options.description_custom?.[0]
   let description = descriptionCustomElement?.text || content.description

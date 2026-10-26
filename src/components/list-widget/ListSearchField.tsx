@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmListSearchFieldProps } from './listWidgetTypes'
 import {
   onSearchTextSelector,
@@ -8,7 +7,7 @@ import LmSearchField from './LmSearchField'
 
 export default function LmListSearchField({
   content
-}: LmListSearchFieldProps): JSX.Element {
+}: LmListSearchFieldProps): React.JSX.Element {
   const onSearchTextChange = useSearchStore(onSearchTextSelector)
   return (
     <LmSearchField

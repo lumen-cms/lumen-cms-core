@@ -4,7 +4,7 @@ import { CSSObject } from 'tss-react'
 
 export const createGlobalStyles = (theme: Theme): CSSObject => {
   const genSpacing = (breakpoint = ''): CSSObject => {
-    const spacing = {}
+    const spacing: CSSObject = {}
     const directions = [
       { key: 't', val: 'Top' },
       { key: 'l', val: 'Left' },

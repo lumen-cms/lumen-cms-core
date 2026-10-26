@@ -1,4 +1,3 @@
-import React from 'react'
 import Typography from '@mui/material/Typography'
 import parseMarkdownContent from './markdown-helper'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
@@ -7,7 +6,7 @@ import { LmParagraphProps } from './paragraphTypes'
 
 export default function LmParagraph({
   content
-}: LmParagraphProps): JSX.Element {
+}: LmParagraphProps): React.JSX.Element {
   const { classes, cx } = useRichTextStyles()
   return (
     <Typography

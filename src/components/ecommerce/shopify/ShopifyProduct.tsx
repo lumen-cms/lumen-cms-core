@@ -1,4 +1,3 @@
-import React from 'react'
 import LinearProgress from '@mui/material/LinearProgress'
 import { useAppContext } from '@context/AppContext'
 import { ShopifyProductItem } from './product/ShopifyProductItem'

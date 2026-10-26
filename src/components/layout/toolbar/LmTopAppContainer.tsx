@@ -9,7 +9,10 @@ import {
 import useScrollTop from '../../../utils/hooks/useScrollTop'
 import { makeStyles } from 'tss-react/mui'
 
-const mapToolbarColor = {
+const mapToolbarColor: Record<
+  string,
+  import('@mui/material/AppBar').AppBarProps['color']
+> = {
   primary: 'primary',
   secondary: 'secondary',
   dark: 'inherit',
@@ -100,8 +103,11 @@ const LmTopAppContainer: FC<React.PropsWithChildren<unknown>> = ({
         'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
         [`lm-toolbar__${toolbarVariant}`]: !!toolbarVariant,
         [classes.leftShift]: showLeftShift,
-        [classes[`left-mobile-${settings.mobile_nav_breakpoint || 'sm'}`]]:
-          showLeftShift
+        [classes[
+          `left-mobile-${
+            settings.mobile_nav_breakpoint || 'sm'
+          }` as keyof typeof classes
+        ]]: showLeftShift
       })}
       style={{
         background: settings.toolbar_background ?? undefined,

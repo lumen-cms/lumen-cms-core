@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCardListProps } from './cardTypes'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '../../vendor/grid'
 import { COLUMN_COUNT } from './cardListStyles'
 import Box from '@mui/material/Box'
 import clsx from 'clsx'
@@ -12,7 +12,7 @@ const chunkSize = 30
 export default function LmCardList({
   content,
   disablePagination
-}: LmCardListProps): JSX.Element {
+}: LmCardListProps): React.JSX.Element {
   const { body = [], ...rest } = content
   const gutterSize = content.column_gap ? Number(content.column_gap) : 24
   const enableInView = !disablePagination && body.length > chunkSize

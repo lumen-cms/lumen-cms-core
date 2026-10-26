@@ -1,4 +1,3 @@
-import React from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import { SectionProps } from '../section/sectionTypes'

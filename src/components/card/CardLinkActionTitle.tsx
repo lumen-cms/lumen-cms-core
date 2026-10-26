@@ -1,11 +1,10 @@
-import React from 'react'
 import { CardListItemProps } from './cardTypes'
 import { LmHeadline } from '../headline/Headline'
 
 function CardListActionTitles({
   content,
   options
-}: CardListItemProps): JSX.Element {
+}: CardListItemProps): React.JSX.Element {
   const subtitleCustomElement = options.subtitle_custom?.[0]
   const titleCustomElement = options.title_custom?.[0]
   return (

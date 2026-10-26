@@ -1,4 +1,3 @@
-import React from 'react'
 import List from '@mui/material/List'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import Link from 'next/link'
@@ -19,7 +18,7 @@ type ListWidgetListsProps = {
 function ListWidgetLists({
   items,
   options
-}: ListWidgetListsProps): JSX.Element {
+}: ListWidgetListsProps): React.JSX.Element {
   const { locale } = useAppContext()
   const imageSize = options.image_size || 'large'
   const hideImage = options.hide_image

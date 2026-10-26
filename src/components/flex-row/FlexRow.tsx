@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRowProps } from './flexRowTypes'
 import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
@@ -19,14 +19,6 @@ export const LmFlexRow: FC<PropsWithChildren<LmFlexRowProps>> = ({
   const direction: StackProps['direction'] = content.column ? 'column' : 'row'
   return (
     <Stack
-      flexWrap={content.flex_wrap || 'wrap'}
-      sx={{
-        ...(content.column_mobile_only && {
-          '& .MuiDivider-root': {
-            display: ['none', 'flex']
-          }
-        })
-      }}
       direction={{
         xs: content.column_mobile_only ? 'column' : direction,
         sm: direction
@@ -38,10 +30,6 @@ export const LmFlexRow: FC<PropsWithChildren<LmFlexRowProps>> = ({
           </>
         )
       })}
-      width={'100%'}
-      justifyContent={content.justify ? content.justify : undefined}
-      alignItems={content.align_items ? content.align_items : undefined}
-      alignContent={content.align_content ? content.align_content : undefined}
       className={cx(content.class_names?.values, {
         'mh-100': content.full_height,
         [classes.advanced]: !!content.styles?.length,
@@ -49,7 +37,20 @@ export const LmFlexRow: FC<PropsWithChildren<LmFlexRowProps>> = ({
         [classes.advancedTablet]: !!content.styles_tablet?.length,
         [classes.advancedHover]: !!content.styles_hover?.length
       })}
-      gap={Number(content.gap || 0)}
+      sx={{
+        flexWrap: content.flex_wrap || 'wrap',
+        width: '100%',
+        justifyContent: content.justify ? content.justify : undefined,
+        alignItems: content.align_items ? content.align_items : undefined,
+        alignContent: content.align_content ? content.align_content : undefined,
+        gap: Number(content.gap || 0),
+
+        ...(content.column_mobile_only && {
+          '& .MuiDivider-root': {
+            display: ['none', 'flex']
+          }
+        })
+      }}
     >
       {children ? (
         <>{children}</>

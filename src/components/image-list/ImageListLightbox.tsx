@@ -1,4 +1,3 @@
-import React from 'react'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
@@ -7,7 +6,7 @@ import Swipe from './ImageListLightboxSwipe'
 import { ImageListLightboxProps } from './imageListTypes'
 import { useImageListLightboxStyles } from './useImageListLightboxStyles'
 
-function ImageListLightbox(props: ImageListLightboxProps): JSX.Element {
+function ImageListLightbox(props: ImageListLightboxProps): React.JSX.Element {
   const { classes } = useImageListLightboxStyles()
   return (
     <Dialog
