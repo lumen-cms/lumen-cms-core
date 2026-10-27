@@ -1,0 +1,11 @@
+--- a/packages/planet-training/redirects.js
++++ b/packages/planet-training/redirects.js
+@@ -128,7 +128,7 @@
+     { source: "/en/blog/soccer-speed-training", destination: "/soccer-speed-training", permanent:true, locale:false },
+     { source: "/fussballverletzungen-der-hintere-oberschenkel", destination: "/de/fussballverletzungen-der-hintere-oberschenkel", permanent:true, locale:false },
+     { source: "/fussball-app", destination: "/de/fussball-app", permanent:true, locale:false },
+-    { source: "/en/blog/dealing-failure", destination: "dealing -failure", permanent:true, locale:false },
++    { source: "/en/blog/dealing-failure", destination: "/dealing%20-failure", permanent:true, locale:false },
+     { source: "/fussballtraining-altersgruppen/fussballuebung-frauen", destination: "/de/fussballtraining-altersgruppen/fussballuebung-frauen", permanent:true, locale:false },
+     { source: "/zeichentool", destination: "/de/zeichentool", permanent:true, locale:false },
+     { source: "/winterpause-sinnvoll-nutzen", destination: "/de/winterpause-sinnvoll-nutzen", permanent:true, locale:false },

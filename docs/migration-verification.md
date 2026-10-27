@@ -4,78 +4,90 @@ Branch: `feature/mui-v9`. Updated: 27 October 2026. Status: local migration cand
 
 ## Actual consumer verification — 27 October
 
-The subsequent pass used isolated copies of the real `bi`, `pt`, and `upskill`
-consumers in `/tmp/lumen-consumer-mui9`, rather than the core's token-only smoke
-profiles. Each `.env` remains byte-for-byte identical to the corresponding
-original consumer. Planet's locale suppression, fallback mode and support/Hilfe
-settings paths were preserved, as were every consumer's locales and redirects.
-The original `../websites` checkout remains clean and port 3000 was untouched.
-Token validation is recorded without values in
+The remaining-route sweep is complete for Chromium at 1280px and 375px. The
+inventory contains 1,481 canonical published routes: 594 Bali, 686 Planet and
+201 Upskill. It was reconciled with all three live sitemaps and links found in
+page captures and opened navigation menus. All **2,898 remaining width cases**
+ran; 64 width cases already covered by the prior pass were excluded initially.
+Additional linked routes and targeted retests extend that scope. Exact final
+counts are in [the audit summary](visual-route-audit-summary.json).
+
+All configured locales are represented: Bali `en/de/id`, Planet `en/de/es/it`,
+and Upskill `en/de`. The full-page report retains raw live/local images, geometry,
+HTTP status, runtime errors, candidate identifiers and timestamp-bound reviews.
+Navigation checks cover 54 desktop-menu and mobile-drawer states, including
+all nine site/locale combinations, keyboard focus and hover: 47 pixel-identical
+and seven reviewed differences confined to external chat or SVG edge rendering.
+
+The final package is `/tmp/lumen-candidate-v9.tgz`, SHA-256:
+
+`915dadab2f4d9476f42061b1c82ee6082c884d1f5c3a4a334ddf08d927d4bd62`
+
+All 477 packed source/client/config files match the working tree. All three
+**full production builds** pass against that archive in
+`/tmp/lumen-consumer-mui9-v9`. Each consumer's `.env` remains byte-for-byte
+identical to its original. Planet's locale suppression, fallback and support
+settings paths remain intact. The original `../websites` checkout and port 3000
+were not changed. Token validation is recorded without values in
 [reference-environment-validation.json](reference-environment-validation.json).
 
-All three **full production builds**, with TypeScript checking enabled, passed
-against the same final `candidate-v6.tgz` archive:
+### Corrections found in the expanded sweep
 
-`26b8273ccd18e0c77914f871b5e9db5918e8ad3ce475a8257e4a8fe0043816d9`
+- **Plain accordion alignment:** native button centering and MUI's content-slot
+  `text-align: start` could both override CMS alignment. Both containers now
+  inherit it. All 96 accordion-containing routes were rechecked after this
+  change, including translated FAQ pages. Storybook exercises wrapped plain
+  labels aligned start, center and right, alongside the custom-title fixture.
+- **Selected drawer links:** the removed `ListItem button` API silently lost
+  selected, hover and keyboard-focus styling. `ListItemButton` restores that
+  behavior and the existing 48px row height. All locale drawers were rechecked;
+  the new play fixture verifies selected styling, height and keyboard focus.
+- **Production form hydration:** nested lazy-loaded text fields briefly rendered
+  null during hydration despite existing server HTML. Standard fields now load
+  with the already lazy-loaded Google Form. English/German association and club
+  request pages are pixel-identical at both widths with no hydration errors.
+  All affected form routes and representative pages on the other sites were
+  rechecked after the final change. No production form was submitted.
+- **Planet consumer redirect:** Next 16 throws for the legacy relative target
+  `dealing -failure`. The [consumer patch](consumer-patches/README.md) encodes
+  the absolute path, removing the local 500 and matching live at both widths.
+  It is applied to the isolated consumer only and must accompany the actual
+  consumer upgrade. The destination already returns 404 on production; this
+  patch does not invent a replacement article.
 
-Their prerender manifests contain 597 Bali, 694 Planet and 205 Upskill routes.
-These are build counts, not counts of visually inspected pages. The isolated
-consumers use TypeScript 7's native binary explicitly and TypeScript 6.0.3 for
-tools needing the JS compiler API; Yarn 4's builtin patch failed on the core's
-compatibility alias. Strictness was not disabled to obtain passing builds.
+The full sweep used candidate v6; every affected accordion route was retested
+with v7, drawer states with v8, and all affected form routes with v9. Shared-page
+checks accompany those fixes. This is a combined audit with targeted retests,
+not a claim that every capture was repeated against v9. Candidate archives that
+share a version require clearing `.next/cache`; the preparation script does so.
 
-The browser pass saved **82 full-page live/local pairs across 33 URL paths**,
-six additional viewport-state pairs, and 18 breakpoint comparisons. Of the
-full-page pairs, **56 are decoded pixel-identical**. All recorded final page
-heights match and no horizontal overflow was detected. This is representative
-coverage, not exhaustive certification of the 1,496 generated routes.
+### Evidence and remaining distinctions
 
-Coverage includes desktop/mobile main-navigation journeys, all configured locale
-homepages, Bali listing/detail/blog/filter/FAQ/form pages, Planet pricing and
-English/German support, and Upskill courses/accommodation/deadlines/fees/forms.
-Additional 320, 768 and 1440px checks target fee, pricing and course templates;
-navigation geometry matches at 599/600, 899/900 and 1199/1200px. The extra-width
-captures used a 720px viewport height. The connected in-app browser was used;
-its exact engine build was not recorded. Published CMS content was compared
-live rather than pinned to a frozen CMS revision.
+Artifacts are under the session's `mui9/route-expansion/` directory. Open
+`report.html` for full-page pairs and `navigation.html` for interaction states.
+`candidate-v9.json`, `storybook-v9.json`, `reviews.json` and per-case JSON retain
+build identity, fixture results and the reasons for each reviewed difference.
+The runner used Playwright 1.64.1 and Chromium 156.0.8078.4, DPR 1, reduced motion,
+locale en-US and timezone Asia/Makassar. Desktop captures use 1280 × 720 and mobile
+375 × 812 before full-page expansion. Published CMS content remains live.
 
-Two additional visual regressions were fixed:
+Reviewed differences include external video/chat, carousel timing and failed
+Storyblok assets already present on both versions. For dynamic regions, the
+review requires every pixel outside measured visible bounds to match. Broken
+images can expose alt text at different times depending on whether failure occurs
+before hydration; the same behavior was reproduced on live. Raw pixels are kept,
+not hidden by accepting a new baseline. Existing linked 404s are listed separately
+in `existing-link-errors.json`. Invalid video IDs occur on both live and local;
+Planet `/de/blog` also has a pre-existing hydration warning on both versions.
+Pixel equality alone does not imply an error-free page.
 
-- Empty MUI start-icon slots introduced a blank line in block-style Bali buttons.
-  Suppressing their pseudo-element restores the 36.5px button height while
-  retaining inline margins. The homepage's cumulative 74px shift is gone.
-- MUI's new `text-align: start` on accordion content overrode inherited alignment
-  for custom CMS titles. At 320px, Upskill's wrapped credit-transfer title now
-  centers like live. The override applies only to custom titles: a shared-page
-  recheck caught and removed an intermediate change to plain FAQ alignment.
-
-Storybook play cases for block-button height, wrapped custom-title alignment,
-and Google Form required validation/dropdown selection pass. TypeScript, ESLint,
-21 Vitest tests in 11 files, and the static Storybook build pass. Packed-consumer
-checks also required portable Swiper declarations and explicit analytics globals.
-The Swiper declaration copy retains its MIT license and does not change runtime.
-
-Webpack initially reused stale code from an earlier same-version package archive.
-The final builds cleared `.next/cache`; the preparation script now does this on
-each verification build. Screenshots made against stale code were superseded.
-The broad sweep used v3; the final custom-title fix and affected shared pages were
-rechecked with v6. Raw observations retain intermediate attempts with timestamps;
-the report uses the latest capture per case and labels the candidate.
-
-Evidence is in the session artifact directory's `signoff/report.html`, alongside
-`observations.json`, `pixel-results.json`, `breakpoint-results.json` and
-`route-inventory.json`. The inventory combines build routes and observed links;
-complete sitemap reconciliation is still pending. Remaining image differences
-include rotating logos/announcements, chat prompts, media/hover timing, transient
-scrollbars and full-page capture alignment. They are retained for review, not
-hidden by accepting a new baseline. Two unloaded image elements on Bali's German
-mobile homepage occur on both live and local. `/hilfe` without `/de` is an existing
-404 on both; the actual German support destination `/de/hilfe` matches.
-
-Safari and Firefox remain unavailable through the connected browser tools.
-Remaining routes, translated detail templates, wider state/viewport coverage and
-verified receipt of a real test Google Form response are still release follow-ups.
-No production form submission, deployment, package publication or remote baseline
+TypeScript 7, ESLint, 21 Vitest tests in 11 files, the static Storybook build and
+five targeted Storybook play fixtures pass. Earlier representative checks also
+covered extra widths, navigation breakpoints, tabs, pricing and expanded
+accordions; those remain in `signoff/` and `direct-review/`. The complete route
+sweep covers Chromium at two widths, not every possible state and viewport.
+Safari/Firefox and confirmed receipt of a test Google Form submission remain
+unverified. No deployment, package publication, artifact upload or remote baseline
 acceptance was performed.
 
 ## Checks
@@ -87,7 +99,7 @@ acceptance was performed.
 | Vitest | 21 tests in 11 files pass, including browser HTML parsing of custom accordion titles |
 | Storybook 10 | Static build succeeds; existing controls render and reset |
 | Offline Google Forms | Required validation, dropdown choice, multi-select choice, calendar selection checked in the browser; automated validation/dropdown `play` story completes |
-| Production builds | Bali, Planet and Upskill smoke profiles succeed; limited static paths plus on-demand navigation |
+| Production builds | All three actual consumers pass full production builds with the final v9 archive and TypeScript checking |
 | Next development | Isolated `yarn dev` on port 3012 renders Bali after fixing Fast Refresh/CommonJS parsing |
 | Chromatic | Not run; no artifact uploaded or baseline accepted. The user chose direct live-site visual testing for this pass |
 
@@ -138,8 +150,8 @@ The captures inspect visible states, not every page, scroll position, browser or
 
 ## Required before release
 
-1. Direct live-site comparisons are complete for the scope above, as requested. If Chromatic is used as a merge gate, separately verify its existing baseline continuity and review differences with `yarn test:visual`; no remote check is claimed by this local audit. Do not auto-accept snapshots or bypass changed-snapshot failures. The rebuilt static Storybook is `/tmp/lumen-storybook-react19`.
-2. Verify the remaining site routes, translated detail templates, interactive components and browser support. MUI 9's supported browser floor must fit the sites' users. Full builds and representative actual-consumer checks are now complete as documented above; exhaustive visual coverage and Safari/Firefox are still pending.
+1. Direct live-site comparisons are complete for the scope above, as requested. If Chromatic is used as a merge gate, separately verify its existing baseline continuity and review differences with `yarn test:visual`; no remote check is claimed by this local audit. Do not auto-accept snapshots or bypass changed-snapshot failures. The final rebuilt static Storybook is `/tmp/lumen-storybook-v9`.
+2. The remaining published routes and translations are checked at 1280px/375px in Chromium. Complete any release-required Safari/Firefox and additional state/viewport checks; these are not covered by the route sweep. Apply the documented Planet consumer redirect patch with its upgrade.
 3. Use a dedicated test Google Form to verify successful server acceptance if submission behavior needs release certification. Current tests validate encoding and local interaction; no production form was submitted. The retained no-cors response cannot prove acceptance by Google.
 4. Establish required remote CI/branch checks; this checkout did not contain a GitHub Actions workflow and no branch protections were changed.
 

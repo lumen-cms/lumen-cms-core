@@ -95,6 +95,19 @@ for (const site of sites) {
     .replace(/eslint:\s*\{\s*ignoreDuringBuilds:\s*true,?\s*\},?/, '')
     .replace(/typescript:\s*\{\s*ignoreBuildErrors:\s*true\s*\},?/, '')
   fs.writeFileSync(configPath, config)
+  if (site === 'planet-training') {
+    // Next 16 rejects this legacy relative target. Preserve the live URL;
+    // selecting a replacement for its existing 404 is a separate CMS decision.
+    const redirectsPath = path.join(to, 'redirects.js')
+    const redirects = fs.readFileSync(redirectsPath, 'utf8')
+    fs.writeFileSync(
+      redirectsPath,
+      redirects.replace(
+        'destination: "dealing -failure"',
+        'destination: "/dealing%20-failure"'
+      )
+    )
+  }
   const tsPath = path.join(to, 'tsconfig.json')
   const ts = JSON.parse(fs.readFileSync(tsPath, 'utf8'))
   Object.assign(ts.compilerOptions, {

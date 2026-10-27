@@ -81,3 +81,36 @@ export const WrappedCustomTitle = {
     await expect(getComputedStyle(title).textAlign).toBe('center')
   }
 }
+
+export const WrappedPlainTitles = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+      {(['start', 'center', 'right'] as const).map((textAlign) => (
+        <div key={textAlign} style={{ width: 280, textAlign }}>
+          <LmAccordion
+            content={{
+              _uid: `faq-${textAlign}`,
+              component: 'accordion',
+              body: [
+                {
+                  _uid: `question-${textAlign}`,
+                  component: 'accordion_item',
+                  title: `${textAlign}: Wie lade ich Mitglieder zu meinem Club ein?`
+                }
+              ]
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    for (const alignment of ['start', 'center', 'right']) {
+      const title = await within(canvasElement).findByText(
+        `${alignment}: Wie lade ich Mitglieder zu meinem Club ein?`
+      )
+      await expect(title.getBoundingClientRect().height).toBeGreaterThan(24)
+      await expect(getComputedStyle(title).textAlign).toBe(alignment)
+    }
+  }
+}

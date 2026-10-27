@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-10-27T03:46:06.086Z",
+  "inventoryRoutes": 1481,
+  "plannedCases": 2898,
+  "pendingOriginalCases": 0,
+  "checkedRoutes": 1527,
+  "completedCases": 3054,
+  "status": {
+    "pixel-identical": 2853,
+    "review": 85,
+    "matching-http-error": 116
+  },
+  "sites": {
+    "bali": 1238,
+    "planet": 1418,
+    "upskill": 398
+  },
+  "reviewedDifferences": 201,
+  "unreviewedCases": 0,
+  "reviewCategories": {
+    "dynamic-content": 78,
+    "existing-broken-asset": 7,
+    "existing-404": 112,
+    "existing-404-dynamic": 4
+  },
+  "navigation": {
+    "states": 54,
+    "pixelIdentical": 47,
+    "reviewed": 7,
+    "unreviewed": 0
+  },
+  "candidate": {
+    "candidate": "forms-v9",
+    "sha256": "915dadab2f4d9476f42061b1c82ee6082c884d1f5c3a4a334ddf08d927d4bd62",
+    "sourceFilesCompared": 477,
+    "mismatch": [],
+    "consumers": [
+      {
+        "site": "baliinternships",
+        "envMatchesOriginal": true
+      },
+      {
+        "site": "planet-training",
+        "envMatchesOriginal": true
+      },
+      {
+        "site": "upskill",
+        "envMatchesOriginal": true
+      }
+    ],
+    "planetConsumerPatch": "docs/consumer-patches/planet-training-next16.patch"
+  },
+  "browser": "Chromium 156.0.8078.4",
+  "playwright": "1.64.1",
+  "widths": [
+    1280,
+    375
+  ],
+  "scope": "Combined v6 sweep with targeted v7 accordion, v8 drawer and v9 form retests. Prior 64 width cases excluded from initial remaining-route queue. Chromium only; not all interactive states or extra widths.",
+  "checks": {
+    "actualConsumerProductionBuilds": 3,
+    "strictTypes": true,
+    "eslint": true,
+    "vitestTests": 21,
+    "vitestFiles": 11,
+    "storybookBuild": true,
+    "storybookPlayFixtures": 5
+  },
+  "limitations": [
+    "Safari and Firefox unverified",
+    "Real Google Form response receipt unverified; no production submissions",
+    "Existing live 404s, failed CMS assets, invalid video IDs and Planet German blog hydration warning retained as content/runtime follow-ups"
+  ],
+  "report": "http://127.0.0.1:6011/route-expansion/report.html"
+}

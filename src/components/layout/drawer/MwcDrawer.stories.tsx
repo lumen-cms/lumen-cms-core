@@ -10,6 +10,9 @@ import {
   useNavigationStore
 } from '../../../utils/state/navigationState'
 import SettingsPageProvider from '../../provider/SettingsPageProvider'
+import { AppContext } from '../../provider/context/AppContext'
+import { DrawerButton } from './DrawerButton'
+import { expect, userEvent, within } from 'storybook/test'
 
 const props = {
   ...simpleSettings
@@ -59,4 +62,40 @@ export const DedicatedDrawer = () => {
       </SettingsPageProvider>
     </div>
   )
+}
+
+export const SelectedLink = {
+  render: () => (
+    <AppContext.Provider
+      value={{
+        slug: '/selected',
+        locale: 'en',
+        defaultLocale: 'en',
+        locales: ['en'],
+        insideStoryblok: false
+      }}
+    >
+      <div style={{ width: 285 }}>
+        <DrawerButton
+          content={{
+            _uid: 'selected-drawer-link',
+            component: 'button',
+            label: 'Selected link',
+            link: { linktype: 'story', cached_url: 'selected' }
+          }}
+        />
+      </div>
+    </AppContext.Provider>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const link = await within(canvasElement).findByRole('link', {
+      name: 'Selected link'
+    })
+    await expect(link).toHaveClass('Mui-selected', 'MuiButtonBase-root')
+    const selectedBackground = getComputedStyle(link).backgroundColor
+    await expect(selectedBackground).not.toBe('rgba(0, 0, 0, 0)')
+    await expect(link.getBoundingClientRect().height).toBe(48)
+    await userEvent.tab()
+    await expect(link).toHaveFocus()
+  }
 }

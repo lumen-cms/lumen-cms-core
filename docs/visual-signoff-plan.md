@@ -4,10 +4,13 @@ Date: 27 October 2026. Branch: `feature/mui-v9`.
 
 Goal: preserve the live appearance and interactions of planet.training,
 upskill.study and baliinternships.com when consuming the upgraded core package.
-The representative pass below has now been executed; results, fixes and remaining
-coverage gaps are in [migration verification](migration-verification.md#actual-consumer-verification--27-october).
-The complete route/browser/state matrix remains a release goal, not a claim that
-every planned check has passed.
+The representative pass and the remaining-route sweep have been executed.
+All 2,898 remaining desktop/mobile cases ran across the three sites and all nine
+site/locale combinations. Navigation and targeted fix retests are also complete;
+see [migration verification](migration-verification.md#actual-consumer-verification--27-october)
+and [the audit summary](visual-route-audit-summary.json). The complete browser,
+state and extra-viewport matrix below remains a release goal: the full route
+sweep covers Chromium at 1280px and 375px.
 
 ## Environment validation — completed
 
@@ -187,3 +190,43 @@ this passed based only on an on-screen success message or an echo response.
 Execution order: candidate/environment freeze → the five priority regressions →
 complete core journeys → remaining route/template and locale coverage → extra
 viewports/browsers → review differences and repeat affected checks → final report.
+
+## Repeating the local route audit
+
+The user authorized the local Playwright runner on 27 October. It uses an
+isolated Playwright installation, without adding browser dependencies to the
+published core package. The executed browser is recorded in each `run.json`.
+
+1. Build the actual consumers using one package archive and their own environments.
+2. Generate the public-route inventory with
+   `node scripts/visual-site-inventory.cjs <consumer-workspace> <inventory.json>`.
+   An optional third argument imports prior full-page observations. Public paths
+   come from `pageProps.locale` and `pageProps.slug`; prerender aliases can contain
+   duplicate locale prefixes and must not be mistaken for public URLs.
+3. Reconcile the inventory with public sitemaps and actual navigation links.
+4. Run the command below first without `--run` to inspect its queue. The tooling
+   directory must contain Playwright and its matching Chromium installation.
+5. Retest flagged captures with `--settle-ms 300`, in a separate output folder.
+   Review raw differences, geometry, hydration errors, and dynamic-region bounds.
+   A matching document height or small difference percentage alone is not a pass.
+6. Generate the local viewer with
+   `node scripts/visual-audit-report.cjs <audit-directory>` and serve that directory
+   locally. The report reads `reviews.json` with source/timestamp-bound findings;
+   stale review notes do not apply to newer captures.
+
+```sh
+node scripts/visual-site-audit.cjs \
+  --inventory <inventory.json> \
+  --output <audit-directory>/automated \
+  --tooling /tmp/lumen-visual-runner \
+  --candidate <archive-identifier> \
+  --workers 3 --run
+```
+
+The runner saves desktop (1280px) and mobile (375px) raw PNG pairs and capture
+metadata, resumes completed cases, and never submits forms, uploads screenshots,
+or accepts baselines. Each candidate needs a separate output directory. Its
+allowlist contains the three reference origins and isolated ports 3020–3022,
+3030–3032, 3040–3042 and 3050–3052. Original consumer checkouts and port 3000 are not used by
+the runner. The full sweep and targeted fix retests retain their own candidate
+labels; the report selects the latest usable result per route and width.

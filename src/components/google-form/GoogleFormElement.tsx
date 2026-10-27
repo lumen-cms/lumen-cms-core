@@ -1,27 +1,21 @@
 import { CSSProperties } from 'react'
 import dynamic from 'next/dynamic'
 import {
-  MultiSelectElementProps,
-  SelectElementProps,
-  TextFieldElementProps
+  MultiSelectElement,
+  SelectElement,
+  TextFieldElement
 } from 'react-hook-form-mui'
 import type { DatePickerElementProps } from 'react-hook-form-mui/date-pickers'
 import { LmGoogleFormProps } from './googleFormProps'
 import { FieldWithDate } from '../../utils/initial-props/component-data/googleFormsToJsonTypes'
 
-export const TextFieldElement = dynamic<TextFieldElementProps>(() =>
-  import('react-hook-form-mui').then((mod) => mod.TextFieldElement)
-)
-const SelectElement = dynamic<SelectElementProps<any>>(() =>
-  import('react-hook-form-mui').then((mod) => mod.SelectElement)
-)
+// The form is already lazy-loaded. A second loadable boundary around these
+// fields can initially return null while hydrating their server-rendered HTML.
+export { TextFieldElement }
 const DatePickerElement = dynamic<DatePickerElementProps<any, any>>(() =>
   import('react-hook-form-mui/date-pickers').then(
     (mod) => mod.DatePickerElement
   )
-)
-const MultiSelectElement = dynamic<Omit<MultiSelectElementProps, 'ref'>>(() =>
-  import('react-hook-form-mui').then((mod) => mod.MultiSelectElement)
 )
 
 type GoogleFormElementProps = {

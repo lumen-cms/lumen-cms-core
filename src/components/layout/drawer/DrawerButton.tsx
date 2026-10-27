@@ -1,4 +1,4 @@
-import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { LmCoreComponents } from '@CONFIG'
@@ -34,7 +34,7 @@ export function DrawerButton({
     : false
 
   return (
-    <ListItem button {...btnProps} selected={isActiveRoute}>
+    <ListItemButton {...btnProps} selected={isActiveRoute}>
       {buttonProps.graphic && (
         <ListItemIcon>
           <LmIcon
@@ -47,6 +47,6 @@ export function DrawerButton({
         </ListItemIcon>
       )}
       <ListItemText primary={buttonProps.text} />
-    </ListItem>
+    </ListItemButton>
   )
 }
