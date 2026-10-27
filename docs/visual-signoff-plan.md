@@ -227,6 +227,12 @@ The runner saves desktop (1280px) and mobile (375px) raw PNG pairs and capture
 metadata, resumes completed cases, and never submits forms, uploads screenshots,
 or accepts baselines. Each candidate needs a separate output directory. Its
 allowlist contains the three reference origins and isolated ports 3020–3022,
-3030–3032, 3040–3042 and 3050–3052. Original consumer checkouts and port 3000 are not used by
+3030–3032, 3040–3042, 3050–3052 and 3060–3062. Original consumer checkouts and port 3000 are not used by
 the runner. The full sweep and targeted fix retests retain their own candidate
 labels; the report selects the latest usable result per route and width.
+
+For Swiper upgrades, add `--freeze-swipers` to compare index 0 on both sides.
+Do not classify Swiper bounds as dynamic exclusions in that audit. Separately
+compare later slide positions and exercise autoplay, hover, touch and keyboard
+behavior. The completed v14 follow-up is recorded in
+[the verification notes](migration-verification.md#swiper-14-follow-up--27-october).

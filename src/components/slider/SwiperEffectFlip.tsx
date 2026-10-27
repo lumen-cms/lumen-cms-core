@@ -1,4 +1,4 @@
-import { EffectFlip } from 'swiper'
+import { EffectFlip } from 'swiper/modules'
 import 'swiper/css/effect-flip'
 import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'

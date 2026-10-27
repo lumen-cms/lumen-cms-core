@@ -14,6 +14,7 @@ const { values } = parseArgs({
     widths: { type: 'string', default: '1280,375' },
     workers: { type: 'string', default: '2' },
     'settle-ms': { type: 'string', default: '80' },
+    'freeze-swipers': { type: 'boolean', default: false },
     limit: { type: 'string' },
     run: { type: 'boolean', default: false }
   }
@@ -33,7 +34,10 @@ const allowed = new Set([
   'http://127.0.0.1:3042',
   'http://127.0.0.1:3050',
   'http://127.0.0.1:3051',
-  'http://127.0.0.1:3052'
+  'http://127.0.0.1:3052',
+  'http://127.0.0.1:3060',
+  'http://127.0.0.1:3061',
+  'http://127.0.0.1:3062'
 ])
 const safeUrl = (input) => {
   const url = new URL(input)
@@ -106,6 +110,7 @@ async function main() {
   await fs.writeFile(path.join(output, 'run.json'), JSON.stringify({
     startedAt: new Date().toISOString(), candidate: values.candidate,
     browser: browser.version(), widths, workers, settleMs, totalCases: cases.length,
+    freezeSwipers: values['freeze-swipers'],
     policy: 'Raw images retained. Different pixels require review; never auto-accept.'
   }, null, 2))
 
@@ -192,6 +197,16 @@ async function main() {
         last = height
       }
       await dismiss()
+      if (values['freeze-swipers']) {
+        // Compare the same CMS items, not whichever autoplay frame was captured.
+        await page.evaluate(() => {
+          for (const el of document.querySelectorAll('.swiper')) {
+            el.swiper?.autoplay?.stop()
+            el.swiper?.slideTo(0, 0)
+          }
+        })
+        await page.waitForTimeout(350)
+      }
       const metrics = await page.evaluate(() => ({
         url: location.origin + location.pathname, title: document.title,
         height: document.documentElement.scrollHeight,

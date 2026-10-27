@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-10-27T04:03:36.048Z",
+  "inventoryRoutes": 45,
+  "plannedCases": 90,
+  "pendingOriginalCases": 0,
+  "checkedRoutes": 45,
+  "completedCases": 90,
+  "status": {
+    "pixel-identical": 86,
+    "review": 4
+  },
+  "sites": {
+    "bali": 8,
+    "planet": 78,
+    "upskill": 4
+  },
+  "reviewedDifferences": 4,
+  "unreviewedCases": 0,
+  "swiperRegionsExcludedFromReview": false,
+  "fixtures": {
+    "cases": 48,
+    "pixelIdentical": 34,
+    "reviewed3dRenderingDifferences": 14,
+    "sameSlideAndControlGeometry": true,
+    "breakpointWidths": [
+      375,
+      599,
+      600,
+      899,
+      900,
+      1280
+    ]
+  },
+  "laterSlideStates": {
+    "pages": 24,
+    "cases": 26,
+    "pixelIdentical": 26
+  },
+  "interactions": [
+    {
+      "port": 6015,
+      "autoplay": true,
+      "pauseOnHover": true,
+      "resumeAfterHover": false,
+      "touchSwipe": true,
+      "keyboardNavigation": true
+    },
+    {
+      "port": 6017,
+      "autoplay": true,
+      "pauseOnHover": true,
+      "resumeAfterHover": true,
+      "touchSwipe": true,
+      "keyboardNavigation": true
+    }
+  ],
+  "candidate": {
+    "candidate": "swiper14-final",
+    "swiper": "14.3.0",
+    "sha256": "a5d8f95039a7dd5c539ed07cee6267713f5d8c66be8e8f49c1c0ee488c3ea849",
+    "sourceFilesCompared": 476,
+    "mismatch": [],
+    "consumers": [
+      {
+        "site": "baliinternships",
+        "envMatchesOriginal": true
+      },
+      {
+        "site": "planet-training",
+        "envMatchesOriginal": true
+      },
+      {
+        "site": "upskill",
+        "envMatchesOriginal": true
+      }
+    ]
+  },
+  "checks": {
+    "strictTypes": true,
+    "eslint": true,
+    "vitestTests": 21,
+    "vitestFiles": 11,
+    "storybookBuild": true,
+    "actualConsumerProductionBuilds": 3
+  },
+  "limitations": [
+    "Chromium only; Firefox/Safari not verified",
+    "v14 minimum browser versions: Chrome/Edge 110+, Firefox 110+, Safari/iOS 16.4+",
+    "Small reviewed 3D shadow/edge pixel differences are retained; no remote baseline accepted"
+  ],
+  "report": "http://127.0.0.1:6011/swiper14/report.html"
+}

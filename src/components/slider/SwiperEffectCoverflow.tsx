@@ -1,4 +1,4 @@
-import { EffectCoverflow } from 'swiper'
+import { EffectCoverflow } from 'swiper/modules'
 import 'swiper/css/effect-coverflow'
 import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'

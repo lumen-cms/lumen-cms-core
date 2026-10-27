@@ -131,7 +131,7 @@
     "storyblok-js-client": "7.1.5",
     "storyblok-react": "0.1.2",
     "storyblok-rich-text-react-renderer-ts": "3.2.0",
-    "swiper": "8.4.7",
+    "swiper": "14.3.0",
     "swr": "2.5.1",
     "tsconfig-paths-webpack-plugin": "4.2.0",
     "tss-react": "4.9.21",

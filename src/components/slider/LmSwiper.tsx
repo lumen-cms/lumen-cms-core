@@ -1,11 +1,18 @@
 import { SwiperProps, SwiperSlide } from 'swiper/react'
 import { LmSwiperProps } from './sliderTypes'
-import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper'
+import {
+  A11y,
+  Autoplay,
+  Navigation,
+  Pagination,
+  Scrollbar
+} from 'swiper/modules'
 
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+import '../../vendor/swiper-navigation/icons.css'
 
 import { LmComponentRender } from '@LmComponentRender'
 import { PaginationOptions } from 'swiper/types'
@@ -22,7 +29,7 @@ export default function LmSwiper({ content }: LmSwiperProps) {
     modules: [Scrollbar, A11y, Autoplay, Navigation, Pagination],
     freeMode: property?.includes('free_mode'),
     grabCursor: property?.includes('grab_cursor'),
-    navigation: !property?.includes('hide_arrows'),
+    navigation: property?.includes('hide_arrows') ? false : { addIcons: false },
     ...(showPagination && {
       pagination: {
         clickable: true,
@@ -64,12 +71,14 @@ export default function LmSwiper({ content }: LmSwiperProps) {
   const themeColors = content.theme_color?.split('.')
   return (
     <Box
+      className="lm-swiper"
       sx={{
         '--swiper-theme-color': (theme: Theme) =>
           themeColors?.[0]
             ? getThemeColor(theme, themeColors[0], themeColors[1]) ?? null
             : theme.palette.text.primary,
         '--swiper-navigation-size': `${content.navigation_size || 44}px`,
+        '--swiper-pagination-bottom': '10px',
         '--swiper-pagination-bullet-size': `${
           content.pagination_bullet_size || 8
         }px`,

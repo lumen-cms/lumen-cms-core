@@ -1,4 +1,4 @@
-import { EffectCube } from 'swiper'
+import { EffectCube } from 'swiper/modules'
 import 'swiper/css/effect-cube'
 import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'

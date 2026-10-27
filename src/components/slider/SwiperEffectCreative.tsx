@@ -1,4 +1,4 @@
-import { EffectCreative } from 'swiper'
+import { EffectCreative } from 'swiper/modules'
 import 'swiper/css/effect-creative'
 import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'

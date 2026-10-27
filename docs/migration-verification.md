@@ -2,6 +2,62 @@
 
 Branch: `feature/mui-v9`. Updated: 27 October 2026. Status: local migration candidate; **not approved for release**. Prepared as a local migration checkpoint; not deployed.
 
+## Swiper 14 follow-up — 27 October
+
+Swiper is upgraded from 8.4.7 to **14.3.0**. Modules now import from
+`swiper/modules`; the bundled v8 React declarations and ambient CSS/type bridges
+are removed. The installed v14 exports resolve with TypeScript 7 in the core and
+packed consumers. `dom7` and `ssr-window` leave the dependency graph.
+
+Compatibility corrections preserve the old arrow width, position and glyphs,
+the 10px pagination offset, and visible card-effect edges. Only the MIT-licensed
+navigation font remains as a small scoped asset; the runtime and types are v14.
+Autoplay now resumes after hover when `pause_on_hover` is enabled. In v8 the
+existing default options permanently stopped it; the v14 behavior matches the
+setting's pause semantics. Touch swiping, keyboard navigation, arrows, clickable
+pagination and autoplay/hover behavior were exercised in the browser.
+
+Verification against the three sites' original environments:
+
+- **45 affected routes / 90 desktop-mobile pairs:** 86 pixel-identical, four
+  reviewed differences wholly inside external embeds/placeholders or non-Swiper
+  carousels. Swiper regions were explicitly excluded from dynamic masking.
+  All final page heights match; no horizontal overflow or runtime errors remain
+  in this affected-route matrix. Every configured locale is represented.
+- **26 later-slide comparisons:** all pixel-identical, including active index
+  and container geometry, across locale homepages and distinct carousel setups.
+  Locked sliders with every item visible correctly stay at the first index.
+- **48 v8/v14 fixture comparisons:** 34 pixel-identical. The remaining 14 have
+  reviewed 3D shadow/edge raster differences with identical slide/control
+  geometry. Cube's upstream shadow plane changes from 90° to 89.99° (at most
+  1/255 channel difference); card shadow differences are at most 2/255. Coverflow
+  and creative effects differ only along transformed edges with equal computed
+  transforms. All six effect modes and 599/600, 899/900px edges are represented.
+- All three full production consumer builds, strict TypeScript, lint, 21 Vitest
+  tests in 11 files and the static Storybook build pass. The navigation fixture's
+  play assertions pass at mobile and desktop widths.
+
+The final archive is `/tmp/lumen-candidate-swiper14-final.tgz`, SHA-256
+`a5d8f95039a7dd5c539ed07cee6267713f5d8c66be8e8f49c1c0ee488c3ea849`.
+All 476 packed source/client/config files match the working tree. Every isolated
+consumer `.env` is byte-identical to its original; the source websites checkout
+was not edited. [Machine-readable summary](swiper-upgrade-audit-summary.json).
+
+The session's `mui9/swiper14/report.html`, `fixtures.html` and `states.html`
+contain the raw comparisons and review notes. Scripts and metadata are retained
+beside them. The `--freeze-swipers` audit option stops autoplay and selects index
+0 before capture; interactions are verified separately rather than inferred from
+frozen screenshots. The previous broad route audit below remains valid for
+unchanged components; all published routes using Swiper were rechecked here.
+
+Swiper 14's browser floor is Chrome/Edge 110+, Firefox 110+ and Safari/iOS 16.4+.
+This pass uses Chromium; Firefox and Safari remain unverified. See the official
+[v14 release notes](https://swiperjs.com/blog/swiper-v14),
+[v9 migration guide](https://swiperjs.com/migration-guide-v9),
+[v10 import changes](https://swiperjs.com/migration-guide-v10), and
+[v12 navigation changes](https://swiperjs.com/blog/swiper-v12).
+Nothing was deployed, published or accepted as a remote visual baseline.
+
 ## Actual consumer verification — 27 October
 
 The remaining-route sweep is complete for Chromium at 1280px and 375px. The
@@ -19,7 +75,7 @@ Navigation checks cover 54 desktop-menu and mobile-drawer states, including
 all nine site/locale combinations, keyboard focus and hover: 47 pixel-identical
 and seven reviewed differences confined to external chat or SVG edge rendering.
 
-The final package is `/tmp/lumen-candidate-v9.tgz`, SHA-256:
+The pre-Swiper package was `/tmp/lumen-candidate-v9.tgz`, SHA-256:
 
 `915dadab2f4d9476f42061b1c82ee6082c884d1f5c3a4a334ddf08d927d4bd62`
 
@@ -99,7 +155,7 @@ acceptance was performed.
 | Vitest | 21 tests in 11 files pass, including browser HTML parsing of custom accordion titles |
 | Storybook 10 | Static build succeeds; existing controls render and reset |
 | Offline Google Forms | Required validation, dropdown choice, multi-select choice, calendar selection checked in the browser; automated validation/dropdown `play` story completes |
-| Production builds | All three actual consumers pass full production builds with the final v9 archive and TypeScript checking |
+| Production builds | All three actual consumers pass full production builds with the final Swiper 14 archive and TypeScript checking |
 | Next development | Isolated `yarn dev` on port 3012 renders Bali after fixing Fast Refresh/CommonJS parsing |
 | Chromatic | Not run; no artifact uploaded or baseline accepted. The user chose direct live-site visual testing for this pass |
 
@@ -150,7 +206,7 @@ The captures inspect visible states, not every page, scroll position, browser or
 
 ## Required before release
 
-1. Direct live-site comparisons are complete for the scope above, as requested. If Chromatic is used as a merge gate, separately verify its existing baseline continuity and review differences with `yarn test:visual`; no remote check is claimed by this local audit. Do not auto-accept snapshots or bypass changed-snapshot failures. The final rebuilt static Storybook is `/tmp/lumen-storybook-v9`.
+1. Direct live-site comparisons are complete for the scope above, as requested. If Chromatic is used as a merge gate, separately verify its existing baseline continuity and review differences with `yarn test:visual`; no remote check is claimed by this local audit. Do not auto-accept snapshots or bypass changed-snapshot failures. The latest rebuilt static Storybook is `/tmp/lumen-storybook-swiper14-final`.
 2. The remaining published routes and translations are checked at 1280px/375px in Chromium. Complete any release-required Safari/Firefox and additional state/viewport checks; these are not covered by the route sweep. Apply the documented Planet consumer redirect patch with its upgrade.
 3. Use a dedicated test Google Form to verify successful server acceptance if submission behavior needs release certification. Current tests validate encoding and local interaction; no production form was submitted. The retained no-cors response cannot prove acceptance by Google.
 4. Establish required remote CI/branch checks; this checkout did not contain a GitHub Actions workflow and no branch protections were changed.

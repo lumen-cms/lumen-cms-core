@@ -1,4 +1,4 @@
-import { EffectCards } from 'swiper'
+import { EffectCards } from 'swiper/modules'
 import 'swiper/css/effect-cards'
 import { FC, PropsWithChildren } from 'react'
 import { Swiper, SwiperProps } from 'swiper/react'
@@ -17,6 +17,8 @@ const SwiperEffectCards: FC<
           height: '320px'
         },
         '& .swiper-slide': {
+          // v14 clips card contents by default; retain the CMS's visible edges.
+          overflow: 'visible',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
