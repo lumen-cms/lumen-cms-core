@@ -1,3 +1,5 @@
+/// <reference path="./typings/analytics.d.ts" />
+
 export { CONFIG, LmCoreComponents } from '@CONFIG'
 export { LmComponentRender } from '@LmComponentRender'
 

@@ -42,7 +42,16 @@ export default function LmAccordionItem({
       <AccordionSummary
         component={titleCustom.length ? 'div' : 'button'}
         slotProps={
-          titleCustom.length ? { content: { component: 'div' } } : undefined
+          titleCustom.length
+            ? {
+                content: {
+                  component: 'div',
+                  // Preserve CMS alignment for wrapped custom titles. Plain
+                  // FAQ labels retain MUI's default start alignment.
+                  sx: { textAlign: 'inherit' }
+                }
+              }
+            : undefined
         }
         sx={{
           color: 'inherit',

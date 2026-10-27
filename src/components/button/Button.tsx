@@ -69,6 +69,12 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
   const disableRipple = properties.includes('disable-ripple')
   const color = content.color ? mapColor[content.color] : 'grey'
   const sxProps: SxProps = {
+    // MUI adds a zero-width character to icon slots. An empty slot inherits
+    // display:block from CMS visibility classes and otherwise adds a blank line.
+    // Keep the existing slot margins so inline buttons retain their old width.
+    '& .MuiButton-startIcon:empty::before': {
+      content: 'none'
+    },
     '&.lm-button-shaped': {
       borderRadius: '2em'
     },

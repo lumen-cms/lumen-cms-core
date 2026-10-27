@@ -5,6 +5,7 @@ import StorybookPresetsContainer from '../storybook/components/StorybookPresetsC
 import { LmButtonProps } from '../components/button/buttonTypes'
 import { findFirstPreset } from '../storybook/findStorybookPresets'
 import StorybookSpacingContainer from '../storybook/components/StorybookSpacingContainer'
+import { expect, within } from 'storybook/test'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -28,6 +29,43 @@ const presetContent = findFirstPreset<LmButtonProps['content']>('button')
 export const Basic = Template.bind({})
 Basic.args = {
   ...presetContent
+}
+
+// CMS visibility utilities switch these links to block at desktop breakpoints.
+// An empty start-icon slot must not introduce another line of height.
+export const BlockWithoutIcon = {
+  render: () => {
+    const content = {
+      ...presetContent,
+      label: 'Show all internships',
+      icon: undefined,
+      image: undefined,
+      trailing_icon: undefined,
+      link: undefined,
+      class_names: { values: [] }
+    }
+    return (
+      <>
+        <div data-testid="inline-button">
+          <LmButton content={content} />
+        </div>
+        <div data-testid="block-button">
+          <LmButton content={content} additionalClassName="d-block" />
+        </div>
+      </>
+    )
+  },
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const canvas = within(canvasElement)
+    const inline = within(canvas.getByTestId('inline-button')).getByRole(
+      'button'
+    )
+    const block = within(canvas.getByTestId('block-button')).getByRole('button')
+    await expect(block.getBoundingClientRect().height).toBeCloseTo(
+      inline.getBoundingClientRect().height,
+      1
+    )
+  }
 }
 
 const iconProps = {

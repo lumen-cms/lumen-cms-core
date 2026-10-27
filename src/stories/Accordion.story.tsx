@@ -4,6 +4,7 @@ import LmAccordion from '../components/accordion/Accordion'
 import { LmAccordionProps } from '../components/accordion/accordionTypes'
 import { findFirstPreset } from '../storybook/findStorybookPresets'
 import { getComponentArgTypes } from '../storybook/configControls'
+import { expect, within } from 'storybook/test'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -43,4 +44,40 @@ export const RestrictOne = Template.bind({})
 RestrictOne.args = {
   ...Base.args,
   restrict_one: true
+}
+
+export const WrappedCustomTitle = {
+  render: () => (
+    <div style={{ width: 280, textAlign: 'center' }}>
+      <LmAccordion
+        content={{
+          _uid: 'narrow-course',
+          component: 'accordion',
+          body: [
+            {
+              _uid: 'credits',
+              component: 'accordion_item',
+              title_custom: [
+                {
+                  _uid: 'credits-title',
+                  component: 'headline',
+                  text: 'International Credit Transfer Info',
+                  typography: 'body1',
+                  font_size: '24px',
+                  line_height: '32px'
+                }
+              ]
+            }
+          ]
+        }}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
+    const title = await within(canvasElement).findByText(
+      'International Credit Transfer Info'
+    )
+    await expect(title.getBoundingClientRect().height).toBeGreaterThan(32)
+    await expect(getComputedStyle(title).textAlign).toBe('center')
+  }
 }

@@ -1,0 +1,95 @@
+{
+  "checkedAt": "2026-10-27T00:02:57.240Z",
+  "sites": [
+    {
+      "site": "baliinternships.com",
+      "source": "../websites/packages/baliinternships/.env",
+      "published": {
+        "present": true,
+        "spaceStatus": 200,
+        "spaceId": 66717,
+        "spaceName": "Baliinternships",
+        "expectedSpaceId": 66717,
+        "spaceMatches": true,
+        "homeStatus": 200,
+        "homeSlug": "home",
+        "contentVersion": "published",
+        "valid": true
+      },
+      "preview": {
+        "present": true,
+        "spaceStatus": 200,
+        "spaceId": 66717,
+        "spaceName": "Baliinternships",
+        "expectedSpaceId": 66717,
+        "spaceMatches": true,
+        "homeStatus": 200,
+        "homeSlug": "home",
+        "contentVersion": "draft",
+        "valid": true
+      },
+      "referenceTokensMatch": true,
+      "coreEnvMatches": true
+    },
+    {
+      "site": "planet.training",
+      "source": "../websites/packages/planet-training/.env",
+      "published": {
+        "present": true,
+        "spaceStatus": 200,
+        "spaceId": 73553,
+        "spaceName": "Planet Training",
+        "expectedSpaceId": 73553,
+        "spaceMatches": true,
+        "homeStatus": 200,
+        "homeSlug": "home",
+        "contentVersion": "published",
+        "valid": true
+      },
+      "preview": {
+        "present": true,
+        "spaceStatus": 200,
+        "spaceId": 73553,
+        "spaceName": "Planet Training",
+        "expectedSpaceId": 73553,
+        "spaceMatches": true,
+        "homeStatus": 200,
+        "homeSlug": "home",
+        "contentVersion": "draft",
+        "valid": true
+      },
+      "referenceTokensMatch": true,
+      "coreEnvMatches": false
+    },
+    {
+      "site": "upskill.study",
+      "source": "../websites/packages/upskill/.env",
+      "published": {
+        "present": true,
+        "spaceStatus": 200,
+        "spaceId": 67295,
+        "spaceName": "Upskill",
+        "expectedSpaceId": 67295,
+        "spaceMatches": true,
+        "homeStatus": 200,
+        "homeSlug": "home",
+        "contentVersion": "published",
+        "valid": true
+      },
+      "preview": {
+        "present": true,
+        "spaceStatus": 200,
+        "spaceId": 67295,
+        "spaceName": "Upskill",
+        "expectedSpaceId": 67295,
+        "spaceMatches": true,
+        "homeStatus": 200,
+        "homeSlug": "home",
+        "contentVersion": "draft",
+        "valid": true
+      },
+      "referenceTokensMatch": true,
+      "coreEnvMatches": false
+    }
+  ]
+}
