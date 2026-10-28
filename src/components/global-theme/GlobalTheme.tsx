@@ -193,10 +193,10 @@ const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
           landscape: 48,
           desktop: 64,
           custom: settings.toolbar_main_height
-            ? settings.toolbar_main_height
+            ? Number(settings.toolbar_main_height)
             : undefined,
           systemBar: firstMultiToolbar?.is_system_bar
-            ? firstMultiToolbar?.height || 40
+            ? Number(firstMultiToolbar?.height || 40)
             : 0
         }
       },

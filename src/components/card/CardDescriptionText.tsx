@@ -11,8 +11,11 @@ function CardDescriptionText({
   if (!description || descriptionMaxCharacter === 0) {
     return null
   }
-  if (descriptionMaxCharacter && description.length > descriptionMaxCharacter) {
-    description = `${description.substr(0, descriptionMaxCharacter)}..`
+  if (
+    descriptionMaxCharacter &&
+    description.length > Number(descriptionMaxCharacter)
+  ) {
+    description = `${description.substr(0, Number(descriptionMaxCharacter))}..`
   }
   return (
     <LmHeadline

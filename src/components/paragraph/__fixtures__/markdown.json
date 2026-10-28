@@ -1,0 +1,86 @@
+[
+  {
+    "source": "# Heading\n\n# Heading\n\n## Café & tea",
+    "html": "<h1 id=\"heading\">Heading</h1>\n<h1 id=\"heading-1\">Heading</h1>\n<h2 id=\"café--tea\">Café &amp; tea</h2>\n"
+  },
+  {
+    "source": "[External](https://example.com \"Title\") and [Internal](/about)",
+    "html": "<p><a href=\"https://example.com\" title=\"Title\" target=\"_blank\" rel=\"noopener noreferrer\">External</a> and <a href=\"/about\" title=\"null\">Internal</a></p>\n"
+  },
+  {
+    "source": "**Bold** *italic* ~~deleted~~ `code`",
+    "html": "<p><strong>Bold</strong> <em>italic</em> <del>deleted</del> <code>code</code></p>\n"
+  },
+  {
+    "source": "<span class=\"custom\">Raw HTML</span>",
+    "html": "<p><span class=\"custom\">Raw HTML</span></p>\n"
+  },
+  {
+    "source": "- [x] Done\n- [ ] Pending",
+    "html": "<ul>\n<li><input checked=\"\" disabled=\"\" type=\"checkbox\"> Done</li>\n<li><input disabled=\"\" type=\"checkbox\"> Pending</li>\n</ul>\n"
+  },
+  {
+    "source": "| Left | Right |\n| :--- | ---: |\n| A | B |",
+    "html": "<table>\n<thead>\n<tr>\n<th align=\"left\">Left</th>\n<th align=\"right\">Right</th>\n</tr>\n</thead>\n<tbody><tr>\n<td align=\"left\">A</td>\n<td align=\"right\">B</td>\n</tr>\n</tbody></table>\n"
+  },
+  {
+    "source": "> A quote\n\n---\n\n1. First\n2. Second",
+    "html": "<blockquote>\n<p>A quote</p>\n</blockquote>\n<hr>\n<ol>\n<li>First</li>\n<li>Second</li>\n</ol>\n"
+  },
+  {
+    "source": "```js\nconst x = \"value\"\n```",
+    "html": "<pre><code class=\"language-js\">const x = &quot;value&quot;\n</code></pre>\n"
+  },
+  {
+    "source": "<hello@example.com>",
+    "html": "<p><a href=\"mailto:&#x68;&#101;&#108;&#108;&#111;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#x6f;&#x6d;\" title=\"\">&#x68;&#101;&#108;&#108;&#111;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x63;&#x6f;&#x6d;</a></p>\n"
+  },
+  {
+    "source": "https://example.com/path",
+    "html": "<p><a href=\"https://example.com/path\" title=\"\" target=\"_blank\" rel=\"noopener noreferrer\">https://example.com/path</a></p>\n"
+  },
+  {
+    "source": "![Caption](/image.png \"Image\")",
+    "html": "<p><img src=\"/image.png\" alt=\"Caption\" title=\"Image\"></p>\n"
+  },
+  {
+    "source": "[Email](hello@example.com) [Phone](+123456)",
+    "html": "<p><a href=\"mailto:hello@example.com\" title=\"null\">Email</a> <a href=\"tel:123456\" title=\"null\">Phone</a></p>\n"
+  },
+  {
+    "source": "# constructor\n# constructor\n# constructor-1\n# constructor",
+    "html": "<h1 id=\"constructor\">constructor</h1>\n<h1 id=\"constructor-1\">constructor</h1>\n<h1 id=\"constructor-1-1\">constructor-1</h1>\n<h1 id=\"constructor-2\">constructor</h1>\n"
+  },
+  {
+    "source": "## A &amp; B **bold** [link](/path)",
+    "html": "<h2 id=\"a--b-bold-link\">A &amp; B <strong>bold</strong> <a href=\"/path\" title=\"null\">link</a></h2>\n"
+  },
+  {
+    "source": "[ref][id]\n\n[id]: /reference \"Title\"",
+    "html": "<p><a href=\"/reference\" title=\"Title\">ref</a></p>\n"
+  },
+  {
+    "source": "<details><summary>More</summary>Details</details>",
+    "html": "<details><summary>More</summary>Details</details>"
+  },
+  {
+    "source": "- \nFirst point\n\n- \nSecond point",
+    "html": "<p>- \nFirst point</p>\n<p>- \nSecond point</p>\n"
+  },
+  {
+    "source": "1. \nFirst point\n\n2. \nSecond point",
+    "html": "<p>1. \nFirst point</p>\n<p>2. \nSecond point</p>\n"
+  },
+  {
+    "source": "Contact [[support](/contact)](/contact) today.",
+    "html": "<p>Contact <a href=\"/contact\" title=\"null\"><a href=\"/contact\" title=\"null\">support</a></a> today.</p>\n"
+  },
+  {
+    "source": "- First point\n\n- \nSecond point",
+    "html": "<ul>\n<li><p>First point</p>\n</li>\n<li><p>Second point</p>\n</li>\n</ul>\n"
+  },
+  {
+    "source": "*“**Important** text **ending.**”*",
+    "html": "<p><em>“*<em>Important</em></em> text **ending.*<em>”</em></p>\n"
+  }
+]

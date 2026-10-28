@@ -1,9 +1,10 @@
 import List from '@mui/material/List'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
-import Link from 'next/link'
 import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
+import MuiNextLink from '../link/MuiNextLink'
 import { ListsStoryblok } from '../../typings/generated/components-schema'
 import { internalLinkHandler } from '../../utils/internalLinkHandler'
 import { ListStoriesData } from './listWidgetTypes'
@@ -27,13 +28,13 @@ function ListWidgetLists({
       {items.map((item) => {
         const { image, title, description } = getContentFields(item, { locale })
         return (
-          <Link
-            href={internalLinkHandler(item.full_slug)}
-            key={item.uuid}
-            passHref
-            prefetch={false}
-          >
-            <ListItem>
+          <ListItem key={item.uuid} disablePadding>
+            <ListItemButton
+              component={MuiNextLink}
+              naked
+              href={internalLinkHandler(item.full_slug)}
+              prefetch={false}
+            >
               {!hideImage && image && (
                 <ListItemAvatar>
                   <LmMuiAvatar src={image} size={imageSize} />
@@ -43,8 +44,8 @@ function ListWidgetLists({
                 primary={title}
                 secondary={!options.hide_subtitle && description}
               />
-            </ListItem>
-          </Link>
+            </ListItemButton>
+          </ListItem>
         )
       })}
     </List>

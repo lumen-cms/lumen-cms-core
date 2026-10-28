@@ -16,7 +16,7 @@ export default function LmNews({ content }: LmNewsProps) {
       {
         component: 'image',
         _uid: 'image',
-        source: content.image?.filename
+        source: content.image?.filename ?? undefined
       },
       {
         component: 'headline',

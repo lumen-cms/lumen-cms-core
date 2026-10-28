@@ -18,7 +18,7 @@ import { LmCoreComponents } from '@CONFIG'
 export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
   const background: BackgroundStoryblok | undefined = content.background?.[0]
 
-  const { className, style } = useBackgroundBox({
+  const { className, style, sx } = useBackgroundBox({
     background,
     styles: content.styles,
     stylesMobile: content.styles_mobile,
@@ -51,20 +51,23 @@ export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
       className={className}
       style={style}
       variant={content.variant || 'elevation'}
-      sx={{
-        position: 'relative',
-        height: content.full_height ? '100%' : undefined,
-        display: 'flex',
-        flexDirection: 'column',
-        '& .lm-main__hover': {
-          display: 'none'
-        },
-        '&:hover': {
+      sx={[
+        {
+          position: 'relative',
+          height: content.full_height ? '100%' : undefined,
+          display: 'flex',
+          flexDirection: 'column',
           '& .lm-main__hover': {
-            display: 'flex'
+            display: 'none'
+          },
+          '&:hover': {
+            '& .lm-main__hover': {
+              display: 'flex'
+            }
           }
-        }
-      }}
+        },
+        ...sx
+      ]}
     >
       {background?.image && <BackgroundImage content={background} />}
       {!!background?.background_elements?.length && (

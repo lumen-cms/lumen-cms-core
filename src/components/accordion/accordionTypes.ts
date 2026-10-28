@@ -2,7 +2,7 @@ import {
   AccordionItemStoryblok,
   AccordionStoryblok
 } from '../../typings/generated/components-schema'
-import { ClassNameMap } from '@mui/material'
+import type { AdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 
 export type LmAccordionProps = {
   content: AccordionStoryblok
@@ -14,5 +14,5 @@ export type LmAccordionItemProps = {
   opened: string
   setOpen: (s: string) => void
   iteration: number
-  classes: ClassNameMap<'advanced'>
+  advancedSx?: AdvancedSx
 }

@@ -1,14 +1,14 @@
 import { GalleryStoryblok } from '../../typings/generated/components-schema'
 import LmGalleryRow from './LmGalleryRow'
-import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 
 type LmGalleryProps = {
   content: GalleryStoryblok
 }
 export default function LmGallery({ content }: LmGalleryProps) {
-  const imageStyles = useStylesAdvanced({
+  const imageSx = getAdvancedSx({
     props: content.image_style
-  }).classes
+  })
 
   return (
     <div
@@ -24,7 +24,7 @@ export default function LmGallery({ content }: LmGalleryProps) {
           content={blok}
           key={blok._uid}
           options={content}
-          imageStyles={imageStyles}
+          imageSx={imageSx}
         />
       ))}
     </div>

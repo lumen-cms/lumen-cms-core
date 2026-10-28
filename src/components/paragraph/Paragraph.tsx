@@ -1,24 +1,19 @@
 import Typography from '@mui/material/Typography'
 import parseMarkdownContent from './markdown-helper'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
-import { useRichTextStyles } from './richTextStyles'
+import { richTextSx } from './richTextStyles'
 import { LmParagraphProps } from './paragraphTypes'
+import clsx from 'clsx'
 
 export default function LmParagraph({
   content
 }: LmParagraphProps): React.JSX.Element {
-  const { classes, cx } = useRichTextStyles()
   return (
     <Typography
-      className={cx(
-        'lm-markup',
-        classes.richText,
-        content.style,
-        content.class_names?.values,
-        {
-          [`lm-font-${content.font}`]: !!content.font
-        }
-      )}
+      sx={richTextSx}
+      className={clsx('lm-markup', content.style, content.class_names?.values, {
+        [`lm-font-${content.font}`]: !!content.font
+      })}
       variant={
         mapTypographyVariant[
           content.typography ? (content.typography as string) : 'body1'

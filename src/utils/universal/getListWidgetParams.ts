@@ -1,3 +1,4 @@
+import { storyblokRelationIds } from './storyblokRelations'
 import { CONFIG } from '@CONFIG'
 import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { queryStringify } from './paramsToQueryString'
@@ -11,7 +12,7 @@ export const getListWidgetParams = (
   const locale = props.locale !== props.defaultLocale ? props.locale : null
 
   const params: ISbStoriesParams = {
-    per_page: item.maximum_items || 25,
+    per_page: Number(item.maximum_items || 25),
     excluding_fields:
       'body,right_body,meta_robots,property,meta_description,seo_body',
     sort_by: getStoriesSortHelper(item),
@@ -27,8 +28,9 @@ export const getListWidgetParams = (
   if (item.categories?.length) {
     // @ts-ignore
     params.filter_query.categories = {
-      [item.match_all_tags ? 'all_in_array' : 'in_array']:
-        item.categories.join(',')
+      [item.match_all_tags ? 'all_in_array' : 'in_array']: storyblokRelationIds(
+        item.categories
+      ).join(',')
     }
   }
   if (CONFIG.rootDirectory || locale) {

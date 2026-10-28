@@ -198,7 +198,6 @@ export default function LmListSearchAutocomplete({
             <ListItem
               component={MuiNextLink}
               href={href}
-              passHref
               key={item.uuid as string}
               prefetch={false}
               sx={{

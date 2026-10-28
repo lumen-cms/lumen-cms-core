@@ -5,68 +5,66 @@ import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { LmGridRowProps } from './sectionTypes'
-import { makeStyles } from 'tss-react/mui'
 import WrapGridContainer from './WrapGridContainer'
+import { Theme } from '@mui/material/styles'
+import { SystemStyleObject } from '@mui/system'
+import clsx from 'clsx'
 
-const useStyles = makeStyles({ name: 'GridRow' })((theme) => ({
-  gridRow: {
-    height: '100%',
-    minHeight: 'inherit',
-    '&.MuiGrid2-container > .MuiGrid2-root': {
-      '& > .MuiGrid2-direction-xs-column, & > .lm-column-stack__root, & > .lm-grid-column__wrap > .MuiGrid2-direction-xs-column, & > .lm-grid-column__wrap > .lm-column-stack__root':
-        {
-          '& > *': {
-            marginTop: theme.spacing(1),
-            marginBottom: theme.spacing(1),
-            boxSizing: 'border-box',
-            '&:first-of-type': {
-              marginTop: 0
-            },
-            '&:last-child': {
-              marginBottom: 0
-            }
+const gridRowSx = (theme: Theme): SystemStyleObject<Theme> => ({
+  height: '100%',
+  minHeight: 'inherit',
+  '&.MuiGrid2-container > .MuiGrid2-root': {
+    '& > .MuiGrid2-direction-xs-column, & > .lm-column-stack__root, & > .lm-grid-column__wrap > .MuiGrid2-direction-xs-column, & > .lm-grid-column__wrap > .lm-column-stack__root':
+      {
+        '& > *': {
+          marginTop: theme.spacing(1),
+          marginBottom: theme.spacing(1),
+          boxSizing: 'border-box',
+          '&:first-of-type': {
+            marginTop: 0
+          },
+          '&:last-child': {
+            marginBottom: 0
           }
-        },
-      '& > *, & > .lm-grid-column__wrap > *': {
-        marginTop: theme.spacing(2),
-        marginBottom: theme.spacing(2),
-        boxSizing: 'border-box',
-        '&:first-of-type': {
-          marginTop: 0
-        },
-        '&:last-child': {
-          marginBottom: 0
         }
       },
-      '&.lm-column__bg-image .lm-grid-column__wrap > :last-child': {
-        position: 'relative'
+    '& > *, & > .lm-grid-column__wrap > *': {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+      boxSizing: 'border-box',
+      '&:first-of-type': {
+        marginTop: 0
+      },
+      '&:last-child': {
+        marginBottom: 0
       }
-    }
-  },
-  xsColumnReverse: {
-    [theme.breakpoints.only('xs')]: {
-      flexDirection: 'column-reverse',
-      flexWrap: 'initial',
-      alignItems: 'stretch'
-    }
-  },
-  smColumnReverse: {
-    [theme.breakpoints.only('sm')]: {
-      flexDirection: 'column-reverse',
-      flexWrap: 'initial',
-      alignItems: 'stretch'
+    },
+    '&.lm-column__bg-image .lm-grid-column__wrap > :last-child': {
+      position: 'relative'
     }
   }
-}))
+})
+
+const columnReverse = {
+  flexDirection: 'column-reverse',
+  flexWrap: 'initial',
+  alignItems: 'stretch'
+} as const
+
+const xsColumnReverseSx = (theme: Theme): SystemStyleObject<Theme> => ({
+  [theme.breakpoints.only('xs')]: columnReverse
+})
+
+const smColumnReverseSx = (theme: Theme): SystemStyleObject<Theme> => ({
+  [theme.breakpoints.only('sm')]: columnReverse
+})
 
 export function LmGridRow({ content }: LmGridRowProps): React.JSX.Element {
-  // const theme = useTheme()
-  const { classes, cx } = useStyles()
   const spacing = Number(content.spacing || 3)
 
   const background: BackgroundStoryblok | undefined = content.background?.[0]
   const { direction } = content
-  const { style, className } = useBackgroundBox({
+  const { style, className, sx } = useBackgroundBox({
     background,
     styles: content.styles,
     stylesMobile: content.styles_mobile,
@@ -75,9 +73,10 @@ export function LmGridRow({ content }: LmGridRowProps): React.JSX.Element {
   })
   return (
     <WrapGridContainer
-      hasCustomStyles={!!(style || className)}
+      hasCustomStyles={!!(style || className || sx.length)}
       style={style}
-      className={cx('lm-grid-row__wrap', className)}
+      className={clsx('lm-grid-row__wrap', className)}
+      sx={sx}
     >
       <Grid
         id={content.section_identifier || undefined}
@@ -85,10 +84,12 @@ export function LmGridRow({ content }: LmGridRowProps): React.JSX.Element {
         spacing={spacing}
         alignItems={content.align_items ? content.align_items : undefined}
         direction={direction || undefined}
-        className={cx('lm-grid__row', classes.gridRow, {
-          [classes.xsColumnReverse]: content.reverse_on_mobile,
-          [classes.smColumnReverse]: content.reverse_on_tablet
-        })}
+        className="lm-grid__row"
+        sx={[
+          gridRowSx,
+          !!content.reverse_on_mobile && xsColumnReverseSx,
+          !!content.reverse_on_tablet && smColumnReverseSx
+        ]}
         wrap={content.flex_wrap || undefined}
         justifyContent={content.justify ? content.justify : undefined}
         alignContent={content.align_content ? content.align_content : undefined}

@@ -2,7 +2,14 @@ import React, { FunctionComponent, useEffect, useState } from 'react'
 import Drawer from '@mui/material/Drawer'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { UseBackgroundPayload } from '../../section/useBackgroundBox'
-import { useStyles } from './useDrawerStyles'
+import {
+  aboveToolbarSx,
+  belowToolbarSx,
+  fullWidthMobileSx,
+  leftDrawerSx
+} from './drawerStyles'
+import { useTheme } from '@mui/material/styles'
+import clsx from 'clsx'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import {
   closeLeftNavigationSelector,
@@ -18,7 +25,7 @@ type DrawerContainerProps = {
 const DrawerContainer: FunctionComponent<
   React.PropsWithChildren<DrawerContainerProps>
 > = ({ children, backgroundProps }) => {
-  const { classes, cx, theme } = useStyles()
+  const theme = useTheme()
   const { slug } = useAppContext()
   const leftNavigationDrawer = useNavigationStore(leftNavigationDrawerSelector)
   const closeDrawer = useNavigationStore(closeLeftNavigationSelector)
@@ -40,29 +47,26 @@ const DrawerContainer: FunctionComponent<
     }
   }, [leftNavigationDrawer, mountedOnce])
 
-  const classList = backgroundProps?.className
   const drawerBelowToolbar =
     settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar
+  const drawerSx = [
+    leftDrawerSx,
+    !drawerBelowToolbar && aboveToolbarSx,
+    !!drawerBelowToolbar && belowToolbarSx,
+    !!settings.drawer_full_width_mobile && fullWidthMobileSx
+  ]
   return (
     <Drawer
       open={leftNavigationDrawer}
-      className={cx('lm-main__drawer', classes.leftDrawer, {
-        [classes.aboveToolbar]: !drawerBelowToolbar,
-        [classes.belowToolbar]: drawerBelowToolbar,
-        [classes.fullWidthMobile]: !!settings.drawer_full_width_mobile
-      })}
-      classes={{
-        paper: cx('lm-main__drawer', classList, classes.leftDrawer, {
-          [classes.aboveToolbar]: !drawerBelowToolbar,
-          [classes.belowToolbar]: drawerBelowToolbar,
-          [classes.fullWidthMobile]: !!settings.drawer_full_width_mobile
-        })
-      }}
+      className="lm-main__drawer"
+      sx={drawerSx}
       onClose={closeDrawer}
       variant={drawerVariant}
       slotProps={{
         paper: {
-          style: backgroundProps?.style ? backgroundProps.style : undefined
+          className: clsx('lm-main__drawer', backgroundProps?.className),
+          style: backgroundProps?.style ? backgroundProps.style : undefined,
+          sx: [...(backgroundProps?.sx ?? []), ...drawerSx]
         },
 
         transition: {

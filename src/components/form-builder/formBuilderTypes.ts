@@ -1,3 +1,4 @@
+import type { StoryblokFields } from '../../typings/storyblok-extensions'
 import {
   FormBuilderStoryblok,
   FormCheckboxStoryblok,
@@ -17,14 +18,14 @@ export type LmFormBuilderProps = {
 export type LmFormTextFieldProps = {
   content: FormTextfieldStoryblok
   options: Omit<
-    FormBuilderStoryblok,
+    StoryblokFields<FormBuilderStoryblok>,
     'success_message' | 'fields' | 'submit' | 'endpoint'
   >
 }
 export type LmSelectFieldProps = {
   content: FormSelectStoryblok
   options: Omit<
-    FormBuilderStoryblok,
+    StoryblokFields<FormBuilderStoryblok>,
     'success_message' | 'fields' | 'submit' | 'endpoint'
   >
 }
@@ -32,7 +33,7 @@ export type LmSelectFieldProps = {
 export type LmFormCheckboxProps = {
   content: FormCheckboxStoryblok
   options: Omit<
-    FormBuilderStoryblok,
+    StoryblokFields<FormBuilderStoryblok>,
     'success_message' | 'fields' | 'submit' | 'endpoint'
   >
 }

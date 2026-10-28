@@ -1,14 +1,12 @@
 import { CSSProperties, FunctionComponent, PropsWithChildren } from 'react'
 import Card from '@mui/material/Card'
-import useShadowStyles from '../jss/shadowStyles'
+import { shadowEffectSx } from '../jss/shadowStyles'
 import { CardListItemProps } from './cardTypes'
 
 const CardWrap: FunctionComponent<PropsWithChildren<CardListItemProps>> = ({
   children,
   options
 }) => {
-  const className = 'lm-card'
-  const { classes: styles, cx: clsx } = useShadowStyles()
   const variants = options.variant || []
   const style: CSSProperties = {
     borderRadius: options.border_radius ? options.border_radius : undefined,
@@ -19,10 +17,12 @@ const CardWrap: FunctionComponent<PropsWithChildren<CardListItemProps>> = ({
 
   return (
     <Card
-      className={clsx(className, {
-        [styles[options.shadow_effect as keyof typeof styles]]:
-          !!options.shadow_effect
-      })}
+      className="lm-card"
+      sx={
+        options.shadow_effect
+          ? shadowEffectSx[options.shadow_effect]
+          : undefined
+      }
       raised={variants.includes('raised')}
       elevation={options.elevation ? Number(options.elevation) : undefined}
       style={style}

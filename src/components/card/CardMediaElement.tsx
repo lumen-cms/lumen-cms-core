@@ -39,7 +39,10 @@ const CardMediaElement: FunctionComponent<
             ${desktopVw}vw`}
         alt={'card image'}
         style={{
-          objectFit: options.image_size || 'cover'
+          objectFit:
+            options.image_size === 'auto'
+              ? undefined
+              : options.image_size || 'cover'
         }}
       />
       {children}

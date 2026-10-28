@@ -46,13 +46,10 @@ const getXmlFeed = async (stories: PageItem[], host: string) => {
   const { rssItemsXml, latestPostDate } = storiesRssXML(stories, host)
   // const { knownLocale } = prepareForStoryblok()
   const settings = await fetchSettings({})
-  const {
-    data: {
-      story: {
-        content: { website_title, seo_description, full_slug }
-      }
-    }
-  } = settings
+  if (!settings?.data.story)
+    throw new Error('Feed settings could not be loaded')
+  const { website_title, seo_description, full_slug } =
+    settings.data.story.content
 
   return `<?xml version="1.0" ?>
       <rss

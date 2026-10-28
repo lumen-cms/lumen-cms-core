@@ -1,0 +1,1745 @@
+{
+  "checkedAt": "2026-10-27T05:56:46.589Z",
+  "packages": [
+    {
+      "name": "@auth0/auth0-react",
+      "spec": "2.28.2",
+      "installed": "2.28.2",
+      "registryName": "@auth0/auth0-react",
+      "latest": "2.29.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1",
+        "react-dom": "^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40auth0%2Fauth0-react/latest"
+    },
+    {
+      "name": "@charlietango/use-script",
+      "spec": "2.3.0",
+      "installed": "2.3.0",
+      "registryName": "@charlietango/use-script",
+      "latest": "2.3.0",
+      "deprecated": "No longer supported. Use the @charlietango/hooks package instead",
+      "peers": {
+        "react": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0",
+        "react-dom": "^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40charlietango%2Fuse-script/latest"
+    },
+    {
+      "name": "@emotion/cache",
+      "spec": "11.14.0",
+      "installed": "11.14.0",
+      "registryName": "@emotion/cache",
+      "latest": "11.14.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40emotion%2Fcache/latest"
+    },
+    {
+      "name": "@emotion/react",
+      "spec": "11.14.0",
+      "installed": "11.14.0",
+      "registryName": "@emotion/react",
+      "latest": "11.14.0",
+      "deprecated": null,
+      "peers": {
+        "react": ">=16.8.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40emotion%2Freact/latest"
+    },
+    {
+      "name": "@emotion/server",
+      "spec": "11.11.0",
+      "installed": "11.11.0",
+      "registryName": "@emotion/server",
+      "latest": "11.11.0",
+      "deprecated": null,
+      "peers": {
+        "@emotion/css": "^11.0.0-rc.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40emotion%2Fserver/latest"
+    },
+    {
+      "name": "@emotion/styled",
+      "spec": "11.14.1",
+      "installed": "11.14.1",
+      "registryName": "@emotion/styled",
+      "latest": "11.14.1",
+      "deprecated": null,
+      "peers": {
+        "react": ">=16.8.0",
+        "@emotion/react": "^11.0.0-rc.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40emotion%2Fstyled/latest"
+    },
+    {
+      "name": "@floating-ui/dom",
+      "spec": "1.8.0",
+      "installed": "1.8.0",
+      "registryName": "@floating-ui/dom",
+      "latest": "1.8.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40floating-ui%2Fdom/latest"
+    },
+    {
+      "name": "@formatjs/intl-datetimeformat",
+      "spec": "6.4.3",
+      "installed": "6.4.3",
+      "registryName": "@formatjs/intl-datetimeformat",
+      "latest": "7.8.2",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40formatjs%2Fintl-datetimeformat/latest"
+    },
+    {
+      "name": "@graphql-codegen/cli",
+      "spec": "7.4.6",
+      "installed": "7.4.6",
+      "registryName": "@graphql-codegen/cli",
+      "latest": "7.4.6",
+      "deprecated": null,
+      "peers": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0",
+        "@parcel/watcher": "^2.1.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Fcli/latest"
+    },
+    {
+      "name": "@graphql-codegen/fragment-matcher",
+      "spec": "7.1.0",
+      "installed": "7.1.0",
+      "registryName": "@graphql-codegen/fragment-matcher",
+      "latest": "7.1.0",
+      "deprecated": null,
+      "peers": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ffragment-matcher/latest"
+    },
+    {
+      "name": "@graphql-codegen/import-types-preset",
+      "spec": "4.0.1",
+      "installed": "4.0.1",
+      "registryName": "@graphql-codegen/import-types-preset",
+      "latest": "4.0.1",
+      "deprecated": null,
+      "peers": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+      },
+      "engines": {
+        "node": ">= 16.0.0"
+      },
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Fimport-types-preset/latest"
+    },
+    {
+      "name": "@graphql-codegen/typescript",
+      "spec": "6.1.2",
+      "installed": "6.1.2",
+      "registryName": "@graphql-codegen/typescript",
+      "latest": "6.1.2",
+      "deprecated": null,
+      "peers": {
+        "graphql": "^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript/latest"
+    },
+    {
+      "name": "@graphql-codegen/typescript-document-nodes",
+      "spec": "6.1.1",
+      "installed": "6.1.1",
+      "registryName": "@graphql-codegen/typescript-document-nodes",
+      "latest": "6.1.1",
+      "deprecated": null,
+      "peers": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript-document-nodes/latest"
+    },
+    {
+      "name": "@graphql-codegen/typescript-graphql-files-modules",
+      "spec": "4.0.1",
+      "installed": "4.0.1",
+      "registryName": "@graphql-codegen/typescript-graphql-files-modules",
+      "latest": "4.0.1",
+      "deprecated": null,
+      "peers": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0"
+      },
+      "engines": {
+        "node": ">= 16.0.0"
+      },
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript-graphql-files-modules/latest"
+    },
+    {
+      "name": "@graphql-codegen/typescript-graphql-request",
+      "spec": "7.1.0",
+      "installed": "7.1.0",
+      "registryName": "@graphql-codegen/typescript-graphql-request",
+      "latest": "7.1.0",
+      "deprecated": null,
+      "peers": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0",
+        "graphql-tag": "^2.0.0",
+        "graphql-request": "^6.0.0 || ^7.0.0"
+      },
+      "engines": {
+        "node": ">= 16.0.0"
+      },
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript-graphql-request/latest"
+    },
+    {
+      "name": "@graphql-codegen/typescript-operations",
+      "spec": "6.2.0",
+      "installed": "6.2.0",
+      "registryName": "@graphql-codegen/typescript-operations",
+      "latest": "6.2.0",
+      "deprecated": null,
+      "peers": {
+        "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0",
+        "graphql-sock": "^1.0.0"
+      },
+      "engines": {
+        "node": ">=16"
+      },
+      "source": "https://registry.npmjs.org/%40graphql-codegen%2Ftypescript-operations/latest"
+    },
+    {
+      "name": "@lumen/storyblok-material-icons",
+      "spec": "git+https://github.com/dohomi/storyblok-fieldtype-material-icons-selector.git",
+      "installed": "2.0.0",
+      "latest": null
+    },
+    {
+      "name": "@metamask/detect-provider",
+      "spec": "1.2.0",
+      "installed": "1.2.0",
+      "registryName": "@metamask/detect-provider",
+      "latest": "2.0.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "source": "https://registry.npmjs.org/%40metamask%2Fdetect-provider/latest"
+    },
+    {
+      "name": "@metamask/onboarding",
+      "spec": "1.0.1",
+      "installed": "1.0.1",
+      "registryName": "@metamask/onboarding",
+      "latest": "1.0.1",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40metamask%2Fonboarding/latest"
+    },
+    {
+      "name": "@mui/icons-material",
+      "spec": "9.5.0",
+      "installed": "9.5.0",
+      "registryName": "@mui/icons-material",
+      "latest": "9.5.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@mui/material": "^9.5.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "source": "https://registry.npmjs.org/%40mui%2Ficons-material/latest"
+    },
+    {
+      "name": "@mui/lab",
+      "spec": "9.0.0-beta.10",
+      "installed": "9.0.0-beta.10",
+      "registryName": "@mui/lab",
+      "latest": "9.0.0-beta.10",
+      "deprecated": null,
+      "peers": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@mui/material": "^9.5.0",
+        "@emotion/react": "^11.5.0",
+        "@emotion/styled": "^11.3.0",
+        "@mui/material-pigment-css": "^9.5.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "source": "https://registry.npmjs.org/%40mui%2Flab/latest"
+    },
+    {
+      "name": "@mui/material",
+      "spec": "9.5.0",
+      "installed": "9.5.0",
+      "registryName": "@mui/material",
+      "latest": "9.5.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@emotion/react": "^11.5.0",
+        "@emotion/styled": "^11.3.0",
+        "@mui/material-pigment-css": "^9.5.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "source": "https://registry.npmjs.org/%40mui%2Fmaterial/latest"
+    },
+    {
+      "name": "@mui/system",
+      "spec": "9.5.0",
+      "installed": "9.5.0",
+      "registryName": "@mui/system",
+      "latest": "9.5.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@emotion/react": "^11.5.0",
+        "@emotion/styled": "^11.3.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "source": "https://registry.npmjs.org/%40mui%2Fsystem/latest"
+    },
+    {
+      "name": "@mui/utils",
+      "spec": "9.5.0",
+      "installed": "9.5.0",
+      "registryName": "@mui/utils",
+      "latest": "9.5.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "source": "https://registry.npmjs.org/%40mui%2Futils/latest"
+    },
+    {
+      "name": "@mui/x-date-pickers",
+      "spec": "9.16.0",
+      "installed": "9.16.0",
+      "registryName": "@mui/x-date-pickers",
+      "latest": "9.16.0",
+      "deprecated": null,
+      "peers": {
+        "dayjs": "^1.10.7",
+        "luxon": "^3.0.2",
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "moment": "^2.29.4",
+        "date-fns": "^2.25.0 || ^3.2.0 || ^4.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@mui/system": "^7.3.0 || ^9.0.0",
+        "moment-hijri": "^2.1.2 || ^3.0.0",
+        "@mui/material": "^7.3.0 || ^9.0.0",
+        "@emotion/react": "^11.9.0",
+        "moment-jalaali": "^0.7.4 || ^0.8.0 || ^0.9.0 || ^0.10.0",
+        "@emotion/styled": "^11.8.1",
+        "date-fns-jalali": "^2.13.0-0 || ^3.2.0-0 || ^4.0.0-0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40mui%2Fx-date-pickers/latest"
+    },
+    {
+      "name": "@next/bundle-analyzer",
+      "spec": "16.4.3",
+      "installed": "16.4.3",
+      "registryName": "@next/bundle-analyzer",
+      "latest": "16.4.3",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40next%2Fbundle-analyzer/latest"
+    },
+    {
+      "name": "@storyblok/api-client",
+      "spec": "0.9.1",
+      "installed": "0.9.1",
+      "registryName": "@storyblok/api-client",
+      "latest": "0.9.1",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40storyblok%2Fapi-client/latest"
+    },
+    {
+      "name": "@storyblok/js",
+      "spec": "6.4.0",
+      "installed": "6.4.0",
+      "registryName": "@storyblok/js",
+      "latest": "6.4.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40storyblok%2Fjs/latest"
+    },
+    {
+      "name": "@storyblok/preview-bridge",
+      "spec": "2.6.1",
+      "installed": "2.6.1",
+      "registryName": "@storyblok/preview-bridge",
+      "latest": "2.6.1",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40storyblok%2Fpreview-bridge/latest"
+    },
+    {
+      "name": "@storyblok/react",
+      "spec": "7.4.0",
+      "installed": "7.4.0",
+      "registryName": "@storyblok/react",
+      "latest": "7.4.0",
+      "deprecated": null,
+      "peers": {
+        "next": "^13 || ^14 || ^15 || ^16",
+        "react": "^17 || ^18 || ^19",
+        "react-dom": "^17 || ^18 || ^19"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40storyblok%2Freact/latest"
+    },
+    {
+      "name": "@storyblok/richtext",
+      "spec": "5.3.3",
+      "installed": "5.3.3",
+      "registryName": "@storyblok/richtext",
+      "latest": "5.3.3",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40storyblok%2Frichtext/latest"
+    },
+    {
+      "name": "@storybook/addon-docs",
+      "spec": "10.6.4",
+      "installed": "10.6.4",
+      "registryName": "@storybook/addon-docs",
+      "latest": "10.6.4",
+      "deprecated": null,
+      "peers": {
+        "storybook": "^10.6.4",
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40storybook%2Faddon-docs/latest"
+    },
+    {
+      "name": "@storybook/nextjs",
+      "spec": "10.6.4",
+      "installed": "10.6.4",
+      "registryName": "@storybook/nextjs",
+      "latest": "10.6.4",
+      "deprecated": null,
+      "peers": {
+        "next": "^14.1.0 || ^15.0.0 || ^16.0.0",
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "webpack": "^5.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "storybook": "^10.6.4",
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40storybook%2Fnextjs/latest"
+    },
+    {
+      "name": "@storybook/react",
+      "spec": "10.6.4",
+      "installed": "10.6.4",
+      "registryName": "@storybook/react",
+      "latest": "10.6.4",
+      "deprecated": null,
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "storybook": "^10.6.4",
+        "typescript": ">= 4.9.x",
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40storybook%2Freact/latest"
+    },
+    {
+      "name": "@types/cors",
+      "spec": "^2.8.13",
+      "installed": "2.8.13",
+      "registryName": "@types/cors",
+      "latest": "2.8.19",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fcors/latest"
+    },
+    {
+      "name": "@types/debug",
+      "spec": "^4.1.7",
+      "installed": "4.1.7",
+      "registryName": "@types/debug",
+      "latest": "4.1.13",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fdebug/latest"
+    },
+    {
+      "name": "@types/diacritics",
+      "spec": "^1.3.1",
+      "installed": "1.3.1",
+      "registryName": "@types/diacritics",
+      "latest": "1.3.3",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fdiacritics/latest"
+    },
+    {
+      "name": "@types/facebook-pixel",
+      "spec": "^0.0.24",
+      "installed": "0.0.24",
+      "registryName": "@types/facebook-pixel",
+      "latest": "0.0.31",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Ffacebook-pixel/latest"
+    },
+    {
+      "name": "@types/gtag.js",
+      "spec": "^0.0.12",
+      "installed": "0.0.12",
+      "registryName": "@types/gtag.js",
+      "latest": "0.0.20",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fgtag.js/latest"
+    },
+    {
+      "name": "@types/js-cookie",
+      "spec": "^3.0.1",
+      "installed": "3.0.2",
+      "registryName": "@types/js-cookie",
+      "latest": "3.0.6",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fjs-cookie/latest"
+    },
+    {
+      "name": "@types/marked",
+      "spec": "^4.0.1",
+      "installed": "4.0.7",
+      "registryName": "@types/marked",
+      "latest": "6.0.0",
+      "deprecated": "This is a stub types definition. marked provides its own type definitions, so you do not need this installed.",
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fmarked/latest"
+    },
+    {
+      "name": "@types/match-sorter",
+      "spec": "^6.0.0",
+      "installed": "6.0.0",
+      "registryName": "@types/match-sorter",
+      "latest": "6.0.0",
+      "deprecated": "This is a stub types definition. match-sorter provides its own type definitions, so you do not need this installed.",
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fmatch-sorter/latest"
+    },
+    {
+      "name": "@types/node",
+      "spec": "^24.0.0",
+      "installed": "24.19.2",
+      "registryName": "@types/node",
+      "latest": "26.6.5",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fnode/latest"
+    },
+    {
+      "name": "@types/nprogress",
+      "spec": "^0.2.0",
+      "installed": "0.2.0",
+      "registryName": "@types/nprogress",
+      "latest": "0.2.3",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fnprogress/latest"
+    },
+    {
+      "name": "@types/react",
+      "spec": "19.3.0",
+      "installed": "19.3.0",
+      "registryName": "@types/react",
+      "latest": "19.3.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Freact/latest"
+    },
+    {
+      "name": "@types/react-big-calendar",
+      "spec": "^0.38.2",
+      "installed": "0.38.2",
+      "registryName": "@types/react-big-calendar",
+      "latest": "1.16.3",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Freact-big-calendar/latest"
+    },
+    {
+      "name": "@types/react-dom",
+      "spec": "19.3.0",
+      "installed": "19.3.0",
+      "registryName": "@types/react-dom",
+      "latest": "19.3.0",
+      "deprecated": null,
+      "peers": {
+        "@types/react": "^19.3.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Freact-dom/latest"
+    },
+    {
+      "name": "@types/scrollmagic",
+      "spec": "^2.0.2",
+      "installed": "2.0.2",
+      "registryName": "@types/scrollmagic",
+      "latest": "2.0.8",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40types%2Fscrollmagic/latest"
+    },
+    {
+      "name": "@typescript/native",
+      "spec": "npm:typescript@7.0.2",
+      "installed": "7.0.2",
+      "registryName": "typescript",
+      "latest": "7.0.2",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=16.20.0"
+      },
+      "source": "https://registry.npmjs.org/typescript/latest"
+    },
+    {
+      "name": "@walletconnect/ethereum-provider",
+      "spec": "1.7.8",
+      "installed": "1.7.8",
+      "registryName": "@walletconnect/ethereum-provider",
+      "latest": "2.26.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40walletconnect%2Fethereum-provider/latest"
+    },
+    {
+      "name": "@web3-react/core",
+      "spec": "8.0.33-beta.0",
+      "installed": "8.0.33-beta.0",
+      "registryName": "@web3-react/core",
+      "latest": "8.2.3",
+      "deprecated": null,
+      "peers": {
+        "react": ">=16.8"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40web3-react%2Fcore/latest"
+    },
+    {
+      "name": "@web3-react/metamask",
+      "spec": "8.0.26-beta.0",
+      "installed": "8.0.26-beta.0",
+      "registryName": "@web3-react/metamask",
+      "latest": "8.2.4",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40web3-react%2Fmetamask/latest"
+    },
+    {
+      "name": "@web3-react/walletconnect",
+      "spec": "8.0.34-beta.0",
+      "installed": "8.0.34-beta.0",
+      "registryName": "@web3-react/walletconnect",
+      "latest": "8.2.3",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40web3-react%2Fwalletconnect/latest"
+    },
+    {
+      "name": "@welldone-software/why-did-you-render",
+      "spec": "10.0.1",
+      "installed": "10.0.1",
+      "registryName": "@welldone-software/why-did-you-render",
+      "latest": "10.0.1",
+      "deprecated": null,
+      "peers": {
+        "react": "^19"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40welldone-software%2Fwhy-did-you-render/latest"
+    },
+    {
+      "name": "abortcontroller-polyfill",
+      "spec": "^1.7.5",
+      "installed": "1.7.5",
+      "registryName": "abortcontroller-polyfill",
+      "latest": "1.7.8",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/abortcontroller-polyfill/latest"
+    },
+    {
+      "name": "case-sensitive-paths-webpack-plugin",
+      "spec": "^2.4.0",
+      "installed": "2.4.0",
+      "registryName": "case-sensitive-paths-webpack-plugin",
+      "latest": "2.4.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=4"
+      },
+      "source": "https://registry.npmjs.org/case-sensitive-paths-webpack-plugin/latest"
+    },
+    {
+      "name": "cheerio",
+      "spec": "1.0.0-rc.12",
+      "installed": "1.0.0-rc.12",
+      "registryName": "cheerio",
+      "latest": "1.2.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=20.18.1"
+      },
+      "source": "https://registry.npmjs.org/cheerio/latest"
+    },
+    {
+      "name": "chromatic",
+      "spec": "18.13.3",
+      "installed": "18.13.3",
+      "registryName": "chromatic",
+      "latest": "18.13.3",
+      "deprecated": null,
+      "peers": {
+        "@chromatic-com/vitest": "^0.*.* || ^1.0.0",
+        "@chromatic-com/cypress": "^0.*.* || ^1.0.0",
+        "@chromatic-com/playwright": "^0.*.* || ^1.0.0"
+      },
+      "engines": {
+        "node": ">=22.0.0"
+      },
+      "source": "https://registry.npmjs.org/chromatic/latest"
+    },
+    {
+      "name": "clean-deep",
+      "spec": "3.4.0",
+      "installed": "3.4.0",
+      "registryName": "clean-deep",
+      "latest": "3.4.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=4"
+      },
+      "source": "https://registry.npmjs.org/clean-deep/latest"
+    },
+    {
+      "name": "cors",
+      "spec": "2.8.5",
+      "installed": "2.8.5",
+      "registryName": "cors",
+      "latest": "2.8.6",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">= 0.10"
+      },
+      "source": "https://registry.npmjs.org/cors/latest"
+    },
+    {
+      "name": "cross-env",
+      "spec": "^7.0.3",
+      "installed": "7.0.3",
+      "registryName": "cross-env",
+      "latest": "10.1.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=20"
+      },
+      "source": "https://registry.npmjs.org/cross-env/latest"
+    },
+    {
+      "name": "cssnano-simple",
+      "spec": "3.0.2",
+      "installed": "3.0.2",
+      "registryName": "cssnano-simple",
+      "latest": "3.0.2",
+      "deprecated": null,
+      "peers": {
+        "postcss": "^8.2.15"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/cssnano-simple/latest"
+    },
+    {
+      "name": "date-fns",
+      "spec": "4.4.0",
+      "installed": "4.4.0",
+      "registryName": "date-fns",
+      "latest": "4.4.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/date-fns/latest"
+    },
+    {
+      "name": "deepdash",
+      "spec": "5.3.9",
+      "installed": "5.3.9",
+      "registryName": "deepdash",
+      "latest": "5.3.9",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/deepdash/latest"
+    },
+    {
+      "name": "diacritics",
+      "spec": "1.3.0",
+      "installed": "1.3.0",
+      "registryName": "diacritics",
+      "latest": "1.3.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/diacritics/latest"
+    },
+    {
+      "name": "dotenv",
+      "spec": "^16.0.1",
+      "installed": "16.0.3",
+      "registryName": "dotenv",
+      "latest": "18.0.9",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=12"
+      },
+      "source": "https://registry.npmjs.org/dotenv/latest"
+    },
+    {
+      "name": "element-closest",
+      "spec": "3.0.2",
+      "installed": "3.0.2",
+      "registryName": "element-closest",
+      "latest": "3.0.2",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=0.12.0"
+      },
+      "source": "https://registry.npmjs.org/element-closest/latest"
+    },
+    {
+      "name": "eslint",
+      "spec": "10.13.0",
+      "installed": "10.13.0",
+      "registryName": "eslint",
+      "latest": "10.13.0",
+      "deprecated": null,
+      "peers": {
+        "jiti": "*"
+      },
+      "engines": {
+        "node": "^20.19.0 || ^22.13.0 || >=24"
+      },
+      "source": "https://registry.npmjs.org/eslint/latest"
+    },
+    {
+      "name": "eslint-config-next",
+      "spec": "16.4.3",
+      "installed": "16.4.3",
+      "registryName": "eslint-config-next",
+      "latest": "16.4.3",
+      "deprecated": null,
+      "peers": {
+        "eslint": ">=9.0.0",
+        "typescript": ">=3.3.1"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/eslint-config-next/latest"
+    },
+    {
+      "name": "eslint-config-prettier",
+      "spec": "10.1.8",
+      "installed": "10.1.8",
+      "registryName": "eslint-config-prettier",
+      "latest": "10.1.8",
+      "deprecated": null,
+      "peers": {
+        "eslint": ">=7.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/eslint-config-prettier/latest"
+    },
+    {
+      "name": "eslint-import-resolver-typescript",
+      "spec": "4.4.5",
+      "installed": "4.4.5",
+      "registryName": "eslint-import-resolver-typescript",
+      "latest": "4.4.5",
+      "deprecated": null,
+      "peers": {
+        "eslint": "*",
+        "eslint-plugin-import": "*",
+        "eslint-plugin-import-x": "*"
+      },
+      "engines": {
+        "node": "^16.17.0 || >=18.6.0"
+      },
+      "source": "https://registry.npmjs.org/eslint-import-resolver-typescript/latest"
+    },
+    {
+      "name": "ethers",
+      "spec": "5.6.9",
+      "installed": "5.6.9",
+      "registryName": "ethers",
+      "latest": "6.17.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=14.0.0"
+      },
+      "source": "https://registry.npmjs.org/ethers/latest"
+    },
+    {
+      "name": "feed",
+      "spec": "4.2.2",
+      "installed": "4.2.2",
+      "registryName": "feed",
+      "latest": "6.0.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=20",
+        "pnpm": ">=10"
+      },
+      "source": "https://registry.npmjs.org/feed/latest"
+    },
+    {
+      "name": "graphql",
+      "spec": "16.14.2",
+      "installed": "16.14.2",
+      "registryName": "graphql",
+      "latest": "17.0.2",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": "^22.0.0 || ^24.0.0 || ^25.0.0 || >=26.0.0"
+      },
+      "source": "https://registry.npmjs.org/graphql/latest"
+    },
+    {
+      "name": "graphql-request",
+      "spec": "7.4.0",
+      "installed": "7.4.0",
+      "registryName": "graphql-request",
+      "latest": "7.4.0",
+      "deprecated": null,
+      "peers": {
+        "graphql": "14 - 16"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/graphql-request/latest"
+    },
+    {
+      "name": "graphql-tag",
+      "spec": "2.12.6",
+      "installed": "2.12.6",
+      "registryName": "graphql-tag",
+      "latest": "2.12.7",
+      "deprecated": null,
+      "peers": {
+        "graphql": "^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0"
+      },
+      "engines": {
+        "node": ">=10"
+      },
+      "source": "https://registry.npmjs.org/graphql-tag/latest"
+    },
+    {
+      "name": "happy-dom",
+      "spec": "21.0.4",
+      "installed": "21.0.4",
+      "registryName": "happy-dom",
+      "latest": "21.0.4",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=20.0.0"
+      },
+      "source": "https://registry.npmjs.org/happy-dom/latest"
+    },
+    {
+      "name": "install",
+      "spec": "0.13.0",
+      "installed": "0.13.0",
+      "registryName": "install",
+      "latest": "0.13.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">= 0.10"
+      },
+      "source": "https://registry.npmjs.org/install/latest"
+    },
+    {
+      "name": "intersection-observer",
+      "spec": "0.12.2",
+      "installed": "0.12.2",
+      "registryName": "intersection-observer",
+      "latest": "0.12.2",
+      "deprecated": "The Intersection Observer polyfill is no longer needed and can safely be removed. Intersection Observer has been Baseline since 2019.",
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/intersection-observer/latest"
+    },
+    {
+      "name": "js-cookie",
+      "spec": "^3.0.8",
+      "installed": "3.0.8",
+      "registryName": "js-cookie",
+      "latest": "3.0.8",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/js-cookie/latest"
+    },
+    {
+      "name": "local-ssl-proxy",
+      "spec": "2.0.5",
+      "installed": "2.0.5",
+      "registryName": "local-ssl-proxy",
+      "latest": "2.0.5",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/local-ssl-proxy/latest"
+    },
+    {
+      "name": "marked",
+      "spec": "4.2.4",
+      "installed": "4.2.4",
+      "registryName": "marked",
+      "latest": "18.1.2",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">= 20"
+      },
+      "source": "https://registry.npmjs.org/marked/latest"
+    },
+    {
+      "name": "mdi-material-ui",
+      "spec": "8.0.0",
+      "installed": "8.0.0",
+      "registryName": "mdi-material-ui",
+      "latest": "8.0.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@mui/material": "^9.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/mdi-material-ui/latest"
+    },
+    {
+      "name": "next",
+      "spec": "16.4.3",
+      "installed": "16.4.3",
+      "registryName": "next",
+      "latest": "16.4.3",
+      "deprecated": null,
+      "peers": {
+        "sass": "^1.3.0",
+        "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+        "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+        "@playwright/test": "^1.51.1",
+        "@opentelemetry/api": "^1.1.0",
+        "babel-plugin-react-compiler": "*"
+      },
+      "engines": {
+        "node": ">=20.9.0"
+      },
+      "source": "https://registry.npmjs.org/next/latest"
+    },
+    {
+      "name": "next-safe",
+      "spec": "3.3.0",
+      "installed": "3.3.0",
+      "registryName": "next-safe",
+      "latest": "3.5.0",
+      "deprecated": null,
+      "peers": {
+        "next": "^9.5.0 || ^10.2.1 || ^11.1.0 || ^12.1.0 || ^13.0.0 || ^14.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/next-safe/latest"
+    },
+    {
+      "name": "next-seo",
+      "spec": "5.15.0",
+      "installed": "5.15.0",
+      "registryName": "next-seo",
+      "latest": "7.3.0",
+      "deprecated": null,
+      "peers": {
+        "next": ">=13.4.0",
+        "react": ">=18.2.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/next-seo/latest"
+    },
+    {
+      "name": "nextjs-cors",
+      "spec": "2.1.1",
+      "installed": "2.1.1",
+      "registryName": "nextjs-cors",
+      "latest": "2.2.1",
+      "deprecated": null,
+      "peers": {
+        "next": ">=8.1.1-canary.54"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/nextjs-cors/latest"
+    },
+    {
+      "name": "node-fetch",
+      "spec": "^2.6.7",
+      "installed": "2.6.7",
+      "registryName": "node-fetch",
+      "latest": "3.3.2",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+      },
+      "source": "https://registry.npmjs.org/node-fetch/latest"
+    },
+    {
+      "name": "nprogress",
+      "spec": "0.2.0",
+      "installed": "0.2.0",
+      "registryName": "nprogress",
+      "latest": "0.2.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/nprogress/latest"
+    },
+    {
+      "name": "nuka-carousel",
+      "spec": "5.4.1",
+      "installed": "5.4.1",
+      "registryName": "nuka-carousel",
+      "latest": "8.2.0",
+      "deprecated": null,
+      "peers": {
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/nuka-carousel/latest"
+    },
+    {
+      "name": "postcss",
+      "spec": "^8.4.18",
+      "installed": "8.4.18",
+      "registryName": "postcss",
+      "latest": "8.5.32",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": "^10 || ^12 || >=14"
+      },
+      "source": "https://registry.npmjs.org/postcss/latest"
+    },
+    {
+      "name": "prettier",
+      "spec": "^2.5.1",
+      "installed": "2.7.1",
+      "registryName": "prettier",
+      "latest": "3.9.10",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=14"
+      },
+      "source": "https://registry.npmjs.org/prettier/latest"
+    },
+    {
+      "name": "react",
+      "spec": "19.3.1",
+      "installed": "19.3.1",
+      "registryName": "react",
+      "latest": "19.3.1",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=0.10.0"
+      },
+      "source": "https://registry.npmjs.org/react/latest"
+    },
+    {
+      "name": "react-aspect-ratio",
+      "spec": "1.1.2",
+      "installed": "1.1.2",
+      "registryName": "react-aspect-ratio",
+      "latest": "2.0.1",
+      "deprecated": null,
+      "peers": {
+        "react": ">=19.0.0"
+      },
+      "engines": {
+        "node": ">=20"
+      },
+      "source": "https://registry.npmjs.org/react-aspect-ratio/latest"
+    },
+    {
+      "name": "react-big-calendar",
+      "spec": "1.20.0",
+      "installed": "1.20.0",
+      "registryName": "react-big-calendar",
+      "latest": "1.20.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^16.14.0 || ^17 || ^18 || ^19",
+        "react-dom": "^16.14.0 || ^17 || ^18 || ^19"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-big-calendar/latest"
+    },
+    {
+      "name": "react-countdown",
+      "spec": "2.3.6",
+      "installed": "2.3.6",
+      "registryName": "react-countdown",
+      "latest": "2.3.6",
+      "deprecated": null,
+      "peers": {
+        "react": ">= 15",
+        "react-dom": ">= 15"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-countdown/latest"
+    },
+    {
+      "name": "react-dom",
+      "spec": "19.3.1",
+      "installed": "19.3.1",
+      "registryName": "react-dom",
+      "latest": "19.3.1",
+      "deprecated": null,
+      "peers": {
+        "react": "^19.3.1"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-dom/latest"
+    },
+    {
+      "name": "react-hook-form",
+      "spec": "7.91.0",
+      "installed": "7.91.0",
+      "registryName": "react-hook-form",
+      "latest": "7.91.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^16.8.0 || ^17 || ^18 || ^19",
+        "@types/react": "*"
+      },
+      "engines": {
+        "node": ">=18.0.0"
+      },
+      "source": "https://registry.npmjs.org/react-hook-form/latest"
+    },
+    {
+      "name": "react-hook-form-mui",
+      "spec": "9.0.1",
+      "installed": "9.0.1",
+      "registryName": "react-hook-form-mui",
+      "latest": "9.0.1",
+      "deprecated": null,
+      "peers": {
+        "react": ">=18 <21",
+        "@mui/system": "^9.0.0",
+        "@mui/material": "^9.0.0",
+        "react-hook-form": ">=7.62.0",
+        "@mui/icons-material": "^9.0.0",
+        "@mui/x-date-pickers": "^9.0.0"
+      },
+      "engines": {
+        "node": ">=14"
+      },
+      "source": "https://registry.npmjs.org/react-hook-form-mui/latest"
+    },
+    {
+      "name": "react-inlinesvg",
+      "spec": "4.5.0",
+      "installed": "4.5.0",
+      "registryName": "react-inlinesvg",
+      "latest": "4.5.0",
+      "deprecated": null,
+      "peers": {
+        "react": "16.8 - 19"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-inlinesvg/latest"
+    },
+    {
+      "name": "react-intersection-observer",
+      "spec": "9.4.1",
+      "installed": "9.4.1",
+      "registryName": "react-intersection-observer",
+      "latest": "11.0.1",
+      "deprecated": null,
+      "peers": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-intersection-observer/latest"
+    },
+    {
+      "name": "react-player",
+      "spec": "2.10.1",
+      "installed": "2.10.1",
+      "registryName": "react-player",
+      "latest": "3.4.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^17.0.2 || ^18 || ^19",
+        "react-dom": "^17.0.2 || ^18 || ^19",
+        "@types/react": "^17.0.0 || ^18 || ^19"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-player/latest"
+    },
+    {
+      "name": "react-rewards",
+      "spec": "2.0.4",
+      "installed": "2.0.4",
+      "registryName": "react-rewards",
+      "latest": "3.0.0",
+      "deprecated": null,
+      "peers": {
+        "react": ">=18"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-rewards/latest"
+    },
+    {
+      "name": "react-scroll-parallax",
+      "spec": "3.5.0",
+      "installed": "3.5.0",
+      "registryName": "react-scroll-parallax",
+      "latest": "3.5.0",
+      "deprecated": null,
+      "peers": {
+        "react": "^16.8.0-0 || >=17.0.1 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0-0 || >=17.0.1 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {
+        "node": ">=10"
+      },
+      "source": "https://registry.npmjs.org/react-scroll-parallax/latest"
+    },
+    {
+      "name": "react-speech-kit",
+      "spec": "3.0.1",
+      "installed": "3.0.1",
+      "registryName": "react-speech-kit",
+      "latest": "3.0.1",
+      "deprecated": null,
+      "peers": {
+        "react": "^16.8.0",
+        "prop-types": "^15.7.2"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-speech-kit/latest"
+    },
+    {
+      "name": "react-spring",
+      "spec": "10.0.4",
+      "installed": "10.0.4",
+      "registryName": "react-spring",
+      "latest": "10.0.4",
+      "deprecated": null,
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-spring/latest"
+    },
+    {
+      "name": "react-timeline-animation",
+      "spec": "1.2.3",
+      "installed": "1.2.3",
+      "registryName": "react-timeline-animation",
+      "latest": "1.2.3",
+      "deprecated": null,
+      "peers": {
+        "react": ">= 16.8.0",
+        "react-dom": ">= 16.8.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-timeline-animation/latest"
+    },
+    {
+      "name": "react-use",
+      "spec": "^17.6.1",
+      "installed": "17.6.1",
+      "registryName": "react-use",
+      "latest": "17.6.1",
+      "deprecated": null,
+      "peers": {
+        "react": "*",
+        "react-dom": "*"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/react-use/latest"
+    },
+    {
+      "name": "sitemap",
+      "spec": "7.1.1",
+      "installed": "7.1.1",
+      "registryName": "sitemap",
+      "latest": "10.0.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "npm": ">=10.8.2",
+        "node": ">=22.22.1"
+      },
+      "source": "https://registry.npmjs.org/sitemap/latest"
+    },
+    {
+      "name": "smoothscroll-polyfill",
+      "spec": "0.4.4",
+      "installed": "0.4.4",
+      "registryName": "smoothscroll-polyfill",
+      "latest": "0.4.4",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/smoothscroll-polyfill/latest"
+    },
+    {
+      "name": "storyblok",
+      "spec": "4.25.0",
+      "installed": "4.25.0",
+      "registryName": "storyblok",
+      "latest": "4.25.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/storyblok/latest"
+    },
+    {
+      "name": "storyblok-js-client",
+      "spec": "7.8.1",
+      "installed": "7.8.1",
+      "registryName": "storyblok-js-client",
+      "latest": "7.8.1",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/storyblok-js-client/latest"
+    },
+    {
+      "name": "storybook",
+      "spec": "10.6.4",
+      "installed": "10.6.4",
+      "registryName": "storybook",
+      "latest": "10.6.4",
+      "deprecated": null,
+      "peers": {
+        "prettier": "^2 || ^3",
+        "vite-plus": "^0.1.15 || ^0.2.0",
+        "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/storybook/latest"
+    },
+    {
+      "name": "swiper",
+      "spec": "14.3.0",
+      "installed": "14.3.0",
+      "registryName": "swiper",
+      "latest": "14.3.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">= 4.7.0"
+      },
+      "source": "https://registry.npmjs.org/swiper/latest"
+    },
+    {
+      "name": "swr",
+      "spec": "2.5.1",
+      "installed": "2.5.1",
+      "registryName": "swr",
+      "latest": "2.5.1",
+      "deprecated": null,
+      "peers": {
+        "react": "^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/swr/latest"
+    },
+    {
+      "name": "ts-node",
+      "spec": "^10.4.0",
+      "installed": "10.9.1",
+      "registryName": "ts-node",
+      "latest": "10.9.2",
+      "deprecated": null,
+      "peers": {
+        "@swc/core": ">=1.2.50",
+        "@swc/wasm": ">=1.2.50",
+        "typescript": ">=2.7",
+        "@types/node": "*"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/ts-node/latest"
+    },
+    {
+      "name": "tsconfig-paths-webpack-plugin",
+      "spec": "4.2.0",
+      "installed": "4.2.0",
+      "registryName": "tsconfig-paths-webpack-plugin",
+      "latest": "4.2.0",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=10.13.0"
+      },
+      "source": "https://registry.npmjs.org/tsconfig-paths-webpack-plugin/latest"
+    },
+    {
+      "name": "tslib",
+      "spec": "^2.3.1",
+      "installed": "2.4.1",
+      "registryName": "tslib",
+      "latest": "2.8.1",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/tslib/latest"
+    },
+    {
+      "name": "tss-react",
+      "spec": "4.9.21",
+      "installed": "4.9.21",
+      "registryName": "tss-react",
+      "latest": "4.9.21",
+      "deprecated": null,
+      "peers": {
+        "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
+        "@types/react": "^16.8.0 || ^17.0.2 || ^18.0.0 || ^19.0.0",
+        "@mui/material": "^5.0.0 || ^6.0.0 || ^7.0.0 || ^9.0.0",
+        "@emotion/react": "^11.4.1",
+        "@emotion/server": "^11.4.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/tss-react/latest"
+    },
+    {
+      "name": "typescript",
+      "spec": "npm:@typescript/typescript6@6.0.2",
+      "installed": "6.0.2",
+      "registryName": "@typescript/typescript6",
+      "latest": "6.0.2",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/%40typescript%2Ftypescript6/latest"
+    },
+    {
+      "name": "use-count-up",
+      "spec": "3.0.1",
+      "installed": "3.0.1",
+      "registryName": "use-count-up",
+      "latest": "3.0.1",
+      "deprecated": null,
+      "peers": {
+        "react": ">=16.8.0"
+      },
+      "engines": {},
+      "source": "https://registry.npmjs.org/use-count-up/latest"
+    },
+    {
+      "name": "use-debounce",
+      "spec": "10.1.1",
+      "installed": "10.1.1",
+      "registryName": "use-debounce",
+      "latest": "10.1.1",
+      "deprecated": null,
+      "peers": {
+        "react": "*"
+      },
+      "engines": {
+        "node": ">= 16.0.0"
+      },
+      "source": "https://registry.npmjs.org/use-debounce/latest"
+    },
+    {
+      "name": "uuid",
+      "spec": "^11.1.1",
+      "installed": "11.1.1",
+      "registryName": "uuid",
+      "latest": "14.0.3",
+      "deprecated": null,
+      "peers": {},
+      "engines": {},
+      "source": "https://registry.npmjs.org/uuid/latest"
+    },
+    {
+      "name": "vite",
+      "spec": "8.3.5",
+      "installed": "8.3.5",
+      "registryName": "vite",
+      "latest": "8.3.5",
+      "deprecated": null,
+      "peers": {
+        "tsx": "^4.8.1",
+        "jiti": ">=1.21.0",
+        "less": "^4.0.0",
+        "sass": "^1.70.0",
+        "yaml": "^2.4.2",
+        "stylus": ">=0.54.8",
+        "terser": "^5.16.0",
+        "esbuild": "^0.27.0 || ^0.28.0",
+        "sugarss": "^5.0.0",
+        "@types/node": "^20.19.0 || >=22.12.0",
+        "sass-embedded": "^1.70.0",
+        "@vitejs/devtools": "^0.7.1 || ^0.8.0"
+      },
+      "engines": {
+        "node": "^20.19.0 || >=22.12.0"
+      },
+      "source": "https://registry.npmjs.org/vite/latest"
+    },
+    {
+      "name": "vitest",
+      "spec": "5.0.5",
+      "installed": "5.0.5",
+      "registryName": "vitest",
+      "latest": "5.0.5",
+      "deprecated": null,
+      "peers": {
+        "vite": "^6.4.0 || ^7.0.0 || ^8.0.0",
+        "jsdom": "*",
+        "happy-dom": "*",
+        "@vitest/ui": "5.0.5",
+        "@types/node": "^22.0.0 || >=24.0.0",
+        "@edge-runtime/vm": "*",
+        "@opentelemetry/api": "^1.9.0",
+        "@vitest/coverage-v8": "5.0.5",
+        "@vitest/browser-preview": "5.0.5",
+        "@vitest/coverage-istanbul": "5.0.5",
+        "@vitest/browser-playwright": "5.0.5",
+        "@vitest/browser-webdriverio": "^5.0.0-beta.5 || >=5.0.0"
+      },
+      "engines": {
+        "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+      },
+      "source": "https://registry.npmjs.org/vitest/latest"
+    },
+    {
+      "name": "webpack",
+      "spec": "^5.99.0",
+      "installed": "5.112.2",
+      "registryName": "webpack",
+      "latest": "5.112.2",
+      "deprecated": null,
+      "peers": {},
+      "engines": {
+        "node": ">=10.13.0"
+      },
+      "source": "https://registry.npmjs.org/webpack/latest"
+    },
+    {
+      "name": "zustand",
+      "spec": "4.1.5",
+      "installed": "4.1.5",
+      "registryName": "zustand",
+      "latest": "5.0.16",
+      "deprecated": null,
+      "peers": {
+        "immer": ">=9.0.6",
+        "react": ">=18.0.0",
+        "@types/react": ">=18.0.0",
+        "use-sync-external-store": ">=1.2.0"
+      },
+      "engines": {
+        "node": ">=12.20.0"
+      },
+      "source": "https://registry.npmjs.org/zustand/latest"
+    }
+  ],
+  "scope": "127 root direct dependency entries: 126 npm packages/aliases and one Git dependency. Registry latest tags compared with installed versions; legacy base/ excluded.",
+  "exceptions": {
+    "graphql": "Keep 16.14.2 by user instruction; do not move to 17.",
+    "@types/node": "Keep Node 24 types aligned with the supported Node 24 runtime.",
+    "typescript": "Keep the explicit TypeScript 6 compiler-API compatibility alias alongside the TypeScript 7 compiler.",
+    "@lumen/storyblok-material-icons": "Git dependency requires separate upstream review; not comparable to an npm latest tag."
+  }
+}

@@ -33,7 +33,9 @@ export default function LmSectionParallax({
       }) => {
         const layerProps: BannerLayer = {}
         Object.keys(props).forEach((key) => {
-          const lProp = props[key].split(',').map((i: string) => {
+          const value = props[key]
+          if (typeof value !== 'string') return
+          const lProp = value.split(',').map((i: string) => {
             const trimmed = i.trim()
             return Number(trimmed) ? Number(trimmed) : trimmed
           })

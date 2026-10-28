@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next'
 import getPageProps from './getPageProps'
 import { AppPageProps } from '../../typings/app'
-import { LmStoryblokService } from './StoryblokService'
 
 const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
@@ -26,16 +25,23 @@ const pagesGetStaticProps: GetStaticProps<AppPageProps> = async (props) => {
     } // do nothing _dev_ mode is active
   }
   try {
-    if (preview) {
-      LmStoryblokService.setDevMode()
-      LmStoryblokService.setQuery(previewData)
-    }
-    const pageProps = await getPageProps(slug, {
-      locale,
-      defaultLocale,
-      locales,
-      insideStoryblok: preview
-    })
+    const release =
+      preview &&
+      previewData &&
+      typeof previewData === 'object' &&
+      '_storyblok_release' in previewData
+        ? String(previewData._storyblok_release)
+        : undefined
+    const pageProps = await getPageProps(
+      slug,
+      {
+        locale,
+        defaultLocale,
+        locales,
+        insideStoryblok: preview
+      },
+      { from_release: release }
+    )
 
     if (!pageProps.page || !pageProps.settings) {
       return {

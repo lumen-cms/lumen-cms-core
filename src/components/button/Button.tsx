@@ -2,15 +2,15 @@ import Button, { ButtonProps } from '@mui/material/Button'
 import Fab, { FabProps } from '@mui/material/Fab'
 import { FC, PropsWithChildren } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
-import { useTheme } from '@mui/material/styles'
+import { Theme, useTheme } from '@mui/material/styles'
 import { LmCoreComponents } from '@CONFIG'
 import type { LmMuiAvatarProps } from '../avatar/avatarTypes'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
 import { LmButtonProps } from './buttonTypes'
-import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
-import { SxProps } from '@mui/material'
+import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
+import { SystemStyleObject } from '@mui/system'
 import clsx from 'clsx'
 
 // fab and button: small medium large, default: large
@@ -59,7 +59,7 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
   additionalClassName
 }) => {
   const theme = useTheme()
-  const { classes: advancedClasses } = useStylesAdvanced({
+  const advancedSx = getAdvancedSx({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
@@ -68,7 +68,7 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
   const properties = content.properties || []
   const disableRipple = properties.includes('disable-ripple')
   const color = content.color ? mapColor[content.color] : 'grey'
-  const sxProps: SxProps = {
+  const sxProps: SystemStyleObject<Theme> = {
     // MUI adds a zero-width character to icon slots. An empty slot inherits
     // display:block from CMS visibility classes and otherwise adds a blank line.
     // Keep the existing slot margins so inline buttons retain their old width.
@@ -123,10 +123,6 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
     })
   }
   const className = clsx(content.class_names?.values, additionalClassName, {
-    [advancedClasses.advanced]: !!content.styles?.length,
-    [advancedClasses.advancedMobile]: !!content.styles_mobile?.length,
-    [advancedClasses.advancedTablet]: !!content.styles_tablet?.length,
-    [advancedClasses.advancedHover]: !!content.styles_hover?.length,
     'lm-default-color': !content.color,
     [content.corners as string]: !!content.corners,
     'lm-unelevated':
@@ -174,12 +170,15 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
         variant={content.label ? 'extended' : undefined}
         {...btnProps}
         className={className}
-        sx={{
-          ...sxProps,
-          backgroundColor: content.custom_color?.rgba
-            ? content.custom_color.rgba
-            : undefined
-        }}
+        sx={[
+          {
+            ...sxProps,
+            backgroundColor: content.custom_color?.rgba
+              ? content.custom_color.rgba
+              : undefined
+          },
+          advancedSx
+        ]}
         size={mapSize[content.size as any] || 'medium'}
         color={color as FabProps['color']}
         disableRipple={disableRipple}
@@ -202,16 +201,19 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
         {...btnProps}
         size={mapIconButtonSize[content.size as string] || 'medium'}
         disableRipple={disableRipple}
-        sx={{
-          ...sxProps,
-          color: content.custom_color?.rgba
-            ? content.custom_color.rgba
-            : undefined,
-          borderColor:
-            content.variant === 'outlined' && content.custom_color?.rgba
+        sx={[
+          {
+            ...sxProps,
+            color: content.custom_color?.rgba
               ? content.custom_color.rgba
-              : undefined
-        }}
+              : undefined,
+            borderColor:
+              content.variant === 'outlined' && content.custom_color?.rgba
+                ? content.custom_color.rgba
+                : undefined
+          },
+          advancedSx
+        ]}
         className={className}
         type={type || 'button'}
       >
@@ -235,24 +237,27 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
       className={className}
       variant={mapVariant[content.variant as string]}
       color={color as ButtonProps['color']}
-      sx={{
-        ...sxProps,
-        justifyContent: content.align ? content.align : undefined,
-        color:
-          !['raised', 'unelevated'].includes(content.variant || '') &&
-          content.custom_color?.rgba
-            ? content.custom_color.rgba
-            : undefined,
-        backgroundColor:
-          ['raised', 'unelevated'].includes(content.variant || '') &&
-          content.custom_color?.rgba
-            ? content.custom_color.rgba
-            : undefined,
-        borderColor:
-          content.variant === 'outlined' && content.custom_color?.rgba
-            ? content.custom_color.rgba
-            : undefined
-      }}
+      sx={[
+        {
+          ...sxProps,
+          justifyContent: content.align ? content.align : undefined,
+          color:
+            !['raised', 'unelevated'].includes(content.variant || '') &&
+            content.custom_color?.rgba
+              ? content.custom_color.rgba
+              : undefined,
+          backgroundColor:
+            ['raised', 'unelevated'].includes(content.variant || '') &&
+            content.custom_color?.rgba
+              ? content.custom_color.rgba
+              : undefined,
+          borderColor:
+            content.variant === 'outlined' && content.custom_color?.rgba
+              ? content.custom_color.rgba
+              : undefined
+        },
+        advancedSx
+      ]}
       startIcon={<StartIcon />}
       endIcon={
         content.trailing_icon?.name ? (

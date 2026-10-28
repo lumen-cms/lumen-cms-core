@@ -1,3 +1,4 @@
+import { storyblokRelationIds } from './storyblokRelations'
 import { ListStoriesStoryblok } from '../../typings/generated/components-schema'
 import { AppPageProps } from '../../typings/app'
 import {
@@ -32,8 +33,8 @@ export const getListStoriesParams = (
   // @ts-ignore
   params.filter_query.__or = []
   const categoryFilters: string[] = [
-    ...(item.event_categories || []),
-    ...(item.news_categories || [])
+    ...storyblokRelationIds(item.event_categories),
+    ...storyblokRelationIds(item.news_categories)
   ]
   if (categoryFilters.length) {
     // @ts-ignore
@@ -48,7 +49,7 @@ export const getListStoriesParams = (
     params.filter_query.__or.push({
       categories: {
         [item.match_all_categories ? 'all_in_array' : 'in_array']:
-          item.page_categories.join(',')
+          storyblokRelationIds(item.page_categories).join(',')
       }
     })
   }

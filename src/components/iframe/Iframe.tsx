@@ -14,9 +14,9 @@ export default function LmIframe({
   const [loaded, setLoaded] = useState<boolean>(false)
   const urlSrc = useMemo(() => {
     if (inView) {
-      return content.url
+      return content.url || undefined
     }
-    return ''
+    return undefined
   }, [content.url, inView])
   const properties = content.property || []
   const allowed = content.allow || []

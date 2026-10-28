@@ -4,17 +4,18 @@ import ImageListItem from '@mui/material/ImageListItem'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
 import dynamic from 'next/dynamic'
-import { useImageListStyles } from './useImageListStyles'
+import { imageListAspectRatioSx, imageListRootSx } from './imageListStyles'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmImageListProps } from './imageListTypes'
 import { COLUMN_COUNT } from '../card/cardListStyles'
+import Box from '@mui/material/Box'
+import clsx from 'clsx'
 
 const ImageListLightbox = dynamic(() => import('./ImageListLightbox'))
 
 export default function LmImageList({
   content
 }: LmImageListProps): React.JSX.Element {
-  const { classes, cx } = useImageListStyles()
   const [lightbox, setLightbox] = useState('')
 
   const gutterSize = content.column_gap ? Number(content.column_gap) : 2
@@ -26,18 +27,16 @@ export default function LmImageList({
   const body = content.body || []
 
   const isMasonry = content.variant === 'masonry' || content.masonry
+  const hasAspectRatio = !!(content.aspect_ratio && !isMasonry)
 
   return (
     <div className="lm-imagelist__container">
-      <div
-        className={cx(classes.root, {
-          // [gridClasses.masonry]: content.masonry,
-          [classes.aspectRatio]: !!(content.aspect_ratio && !isMasonry),
-          [`ratio-${content.aspect_ratio}`]: !!(
-            content.aspect_ratio && !isMasonry
-          ),
+      <Box
+        className={clsx({
+          [`ratio-${content.aspect_ratio}`]: hasAspectRatio,
           'with-lightbox': content.enable_lightbox
         })}
+        sx={[imageListRootSx, hasAspectRatio && imageListAspectRatioSx]}
       >
         <ImageList
           rowHeight={content.row_height ? Number(content.row_height) : 'auto'}
@@ -114,7 +113,7 @@ export default function LmImageList({
             )
           })}
         </ImageList>
-      </div>
+      </Box>
       {lightbox && (
         <ImageListLightbox
           elements={body}

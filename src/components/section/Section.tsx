@@ -6,38 +6,39 @@ import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
 import { LmSectionProps } from './sectionTypes'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
-import { useFormColorStyles } from '../../utils/jss/formColorStyles'
-import { makeStyles } from 'tss-react/mui'
+import { formColorDarkSx } from '../../utils/jss/formColorStyles'
+import Box from '@mui/material/Box'
+import { Theme, useTheme } from '@mui/material/styles'
+import { SystemStyleObject } from '@mui/system'
+import clsx from 'clsx'
 
-const useStyles = makeStyles({ name: 'Section' })({
-  fullHeight: {
-    width: '100%',
-    height: '100%',
-    minHeight: '100vh',
-    '& .lm-grid-row__wrap': {
-      minHeight: 'inherit'
-    },
-    '& .lm-grid-column__wrap': {
-      height: '100%'
-    }
+const fullHeightSx: SystemStyleObject<Theme> = {
+  width: '100%',
+  height: '100%',
+  minHeight: '100vh',
+  '& .lm-grid-row__wrap': {
+    minHeight: 'inherit'
   },
-  background: {
-    position: 'relative',
-    '& .MuiGrid2-root': {
-      position: 'relative'
-    }
+  '& .lm-grid-column__wrap': {
+    height: '100%'
   }
-})
+}
+
+const backgroundSx: SystemStyleObject<Theme> = {
+  position: 'relative',
+  '& .MuiGrid2-root': {
+    position: 'relative'
+  }
+}
 
 export function LmSection({
   content,
   sectionPosition
 }: LmSectionProps): React.JSX.Element {
-  const { classes, cx: clsx, theme } = useStyles()
-  const classesForms = useFormColorStyles().classes
+  const theme = useTheme()
   const background: BackgroundStoryblok | undefined = content.background?.[0]
 
-  const { style, className } = useBackgroundBox({
+  const { style, className, sx } = useBackgroundBox({
     variant: content.variant || content.presetVariant,
     background,
     styles: content.styles,
@@ -67,13 +68,9 @@ export function LmSection({
 
   // todo className doubled used
   return (
-    <div
-      className={clsx(
-        'lm-section',
-        classes.background,
-        { [classesForms.dark]: !!content.variant },
-        className
-      )}
+    <Box
+      className={clsx('lm-section', className)}
+      sx={[backgroundSx, !!content.variant && formColorDarkSx, ...sx]}
       style={{
         ...style,
         overflow: content.property?.includes('allow_overflow')
@@ -95,14 +92,13 @@ export function LmSection({
       <Container
         style={containerStyles}
         maxWidth={maxWidth as ContainerProps['maxWidth']}
-        className={clsx(className, {
-          [classes.fullHeight]: isFullHeight
-        })}
+        className={className}
+        sx={[...sx, isFullHeight && fullHeightSx]}
       >
         {body.map((blok) => (
           <LmComponentRender content={blok} key={blok._uid} />
         ))}
       </Container>
-    </div>
+    </Box>
   )
 }

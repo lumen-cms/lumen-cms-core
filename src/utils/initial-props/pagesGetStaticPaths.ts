@@ -21,6 +21,12 @@ const pagesGetStaticPaths: GetStaticPaths = async ({
   defaultLocale,
   locales
 }) => {
+  const fallback = getFallbackMode()
+  // `next dev` reruns getStaticPaths in a fresh worker on every request, so
+  // listing all stories there competes with the page's own Storyblok requests.
+  if (process.env.NODE_ENV === 'development' && fallback !== false) {
+    return { paths: [], fallback }
+  }
   const stories: PageItem[] = await getAllStoriesOfProject()
 
   let paths = stories.map((pageItem) => {
@@ -49,7 +55,7 @@ const pagesGetStaticPaths: GetStaticPaths = async ({
   })
   return {
     paths,
-    fallback: getFallbackMode()
+    fallback
   }
 }
 

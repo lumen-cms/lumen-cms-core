@@ -1,7 +1,8 @@
 import { GetStaticPropsContext } from 'next'
 import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
 import { CategoryComponent, PageComponent } from './generated/schema'
-import { ISbResult, ISbStoryData } from 'storyblok-js-client'
+import { ISbStoryData } from 'storyblok-js-client'
+import type { StoryblokResponse } from '../utils/initial-props/storyblokResponse'
 
 export interface IClaims {
   [key: string]: any // just a copy of the IClaim
@@ -21,24 +22,22 @@ export type AllStoryData = ISbStoryData<PageComponent>[]
 export type AllCategoryData = ISbStoryData<CategoryComponent>[]
 
 export type AppApiRequestPayload = {
-  page: ISbResult
-  settings: ISbResult
+  page: StoryblokResponse | null
+  settings: StoryblokResponse | null
   user?: IClaims
-  googleFontString?: string
 }
 
-export type AppPageProps = Pick<AppApiRequestPayload, 'googleFontString'> &
-  PagePropsOptions & {
-    page?: PageStoryblok | null
-    settings?: GlobalStoryblok | null
-    error?: LmErrorProps
-    query?: any
-    user?: IClaims
-    pageNotFound?: boolean
-    slug?: string
-    needAuth?: boolean
-    // [k: string]: any
-  }
+export type AppPageProps = PagePropsOptions & {
+  page?: PageStoryblok | null
+  settings?: GlobalStoryblok | null
+  error?: LmErrorProps
+  query?: any
+  user?: IClaims
+  pageNotFound?: boolean
+  slug?: string
+  needAuth?: boolean
+  // [k: string]: any
+}
 
 export type ComponentRenderFuncProps = {
   content?: any

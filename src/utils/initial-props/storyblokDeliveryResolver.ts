@@ -23,6 +23,7 @@ const getSettingsPath = ({
 
 type ApiProps = PagePropsOptions & {
   pageSlug: string
+  requestParams?: ISbStoryParams
 }
 
 export const fetchSettings = async ({ locale }: { locale?: string }) => {
@@ -32,6 +33,7 @@ export const fetchSettings = async ({ locale }: { locale?: string }) => {
 export const apiRequestResolver = async ({
   pageSlug,
   insideStoryblok,
+  requestParams,
   ...options
 }: ApiProps): Promise<AppApiRequestPayload> => {
   const locale =
@@ -46,6 +48,8 @@ export const apiRequestResolver = async ({
     : `${locale ? `${locale}/` : ''}${pageSlug}`
 
   const params: ISbStoryParams = {
+    ...requestParams,
+    ...(insideStoryblok ? { version: 'draft' as const } : {}),
     ...(CONFIG.fieldLevelTranslation && locale
       ? {
           language: locale
@@ -53,8 +57,7 @@ export const apiRequestResolver = async ({
       : {})
   }
 
-  // @ts-ignore
-  const [{ value: page }, { value: settings }] = await Promise.allSettled([
+  const [page, settings] = await Promise.all([
     LmStoryblokService.getStory(currentSlug, params),
     LmStoryblokService.getStory(
       getSettingsPath({ locale, overwriteSettingPath }),

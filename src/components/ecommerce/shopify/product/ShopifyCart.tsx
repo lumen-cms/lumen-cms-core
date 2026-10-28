@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import Drawer from '@mui/material/Drawer'
-import { Theme, Toolbar } from '@mui/material'
+import { Toolbar } from '@mui/material'
 import Grid from '../../../../vendor/grid'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
@@ -15,35 +15,14 @@ import {
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
 import { getTotalCartAmount, getTotalCartQuantity } from '../lib/shopifyHelpers'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles()((theme: Theme) => ({
-  cartItemContent: {
-    padding: theme.spacing(3),
-    overflowY: 'auto'
-  },
-  cartActions: {
-    padding: theme.spacing(3)
-  },
-  cartCheckoutButton: {
-    marginTop: theme.spacing(2)
-  },
-  cartVariantDivider: {
-    marginTop: theme.spacing(1)
-  },
-  cartFooterHeadline: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(2)
-  }
-}))
+import Box from '@mui/material/Box'
+import { useTheme } from '@mui/material/styles'
 
 function CheckoutButton() {
   const { onCheckout, config, cartVariants } = useShopifySdkContext()
-  const { classes } = useStyles()
   const [loading, setLoading] = useState<boolean>(false)
   return (
-    <div className={classes.cartCheckoutButton}>
+    <Box sx={{ marginTop: 2 }}>
       <LmComponentRender
         content={
           {
@@ -63,13 +42,13 @@ function CheckoutButton() {
           setLoading(false)
         }}
       />
-    </div>
+    </Box>
   )
 }
 
 export function ShopfiyCart() {
   const { cartOpen, setCartOpen, cartVariants, config } = useShopifySdkContext()
-  const { classes, theme } = useStyles()
+  const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
 
   const footer: HeadlineStoryblok = {
@@ -124,17 +103,23 @@ export function ShopfiyCart() {
           </Toolbar>
           <Divider />
         </Grid>
-        <Grid xs className={classes.cartItemContent}>
+        <Grid xs sx={{ padding: 3, overflowY: 'auto' }}>
           {cartVariants.map((lineItem) => (
             <div key={lineItem.variant.id}>
               <ShopifyCartVariantItem lineItem={lineItem} config={config} />
-              <Divider className={classes.cartVariantDivider} />
+              <Divider sx={{ marginTop: 1 }} />
             </div>
           ))}
         </Grid>
         <Divider />
-        <Grid className={classes.cartActions}>
-          <div className={classes.cartFooterHeadline}>
+        <Grid sx={{ padding: 3 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginBottom: 2
+            }}
+          >
             <LmComponentRender content={footer} />
             <LmComponentRender
               content={{
@@ -142,7 +127,7 @@ export function ShopfiyCart() {
                 text: `${config?.currency_prefix || ''} ${totalAmount}`
               }}
             />
-          </div>
+          </Box>
           {config?.cart_footer_additional?.map((blok: HeadlineStoryblok) => (
             <LmComponentRender content={blok} key={blok._uid} />
           ))}

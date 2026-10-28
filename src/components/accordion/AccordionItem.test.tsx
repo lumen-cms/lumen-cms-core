@@ -41,7 +41,6 @@ it('preserves custom CMS headings and image buttons through browser HTML parsing
       opened=""
       setOpen={() => {}}
       iteration={0}
-      classes={{ advanced: '' }}
     />
   )
   // parse5 (Cheerio's default) performs the same heading repair as a browser.

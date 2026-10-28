@@ -1,42 +1,38 @@
 import { AppPageProps } from '../../../typings/app'
 import { SSR_CONFIG } from '@SSR_CONFIG'
+import { timed } from '../debugTiming'
 
 export const fetchComponentData = async (props: AppPageProps) => {
-  const walkArray = async (elements: any[]) => {
-    for (const item of elements) {
-      const callback = SSR_CONFIG.ssrHooks.componentData[item.component]
-
-      if (typeof callback === 'function') {
-        item[item.component + '_data'] = await callback(item, props)
-        // listWidgets.push(item)
-      }
-      if (Array.isArray(item.elements)) {
-        await walkArray(item.elements)
-      }
-      if (Array.isArray(item.body)) {
-        await walkArray(item.body)
-      }
-      if (Array.isArray(item.container?.content?.body)) {
-        await walkArray(item.container.content.body)
-      }
-      if (Array.isArray(item.background)) {
-        await walkArray(item.background)
-      }
-    }
+  // Loaders run concurrently so identical Storyblok requests share one fetch.
+  const walkArray = async (elements: any[]): Promise<void> => {
+    await Promise.all(
+      elements.map(async (item) => {
+        const callback = SSR_CONFIG.ssrHooks.componentData[item.component]
+        const children = [
+          item.elements,
+          item.body,
+          item.container?.content?.body,
+          item.background
+        ].filter(Array.isArray)
+        await Promise.all([
+          typeof callback === 'function' &&
+            timed(`component ${item.component}`, () =>
+              callback(item, props)
+            ).then((data) => {
+              item[item.component + '_data'] = data
+            }),
+          ...children.map(walkArray)
+        ])
+      })
+    )
   }
   if (Array.isArray(props)) {
     await walkArray(props)
   } else {
-    if (props.page) {
-      if (Array.isArray(props.page.body)) {
-        await walkArray(props.page.body)
-      }
-      if (Array.isArray(props.page.right_body)) {
-        await walkArray(props.page.right_body)
-      }
-    }
-    if (props.settings?.footer && Array.isArray(props.settings.footer)) {
-      await walkArray(props.settings.footer)
-    }
+    await Promise.all(
+      [props.page?.body, props.page?.right_body, props.settings?.footer]
+        .filter(Array.isArray)
+        .map(walkArray)
+    )
   }
 }

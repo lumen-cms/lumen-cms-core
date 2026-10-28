@@ -1,4 +1,4 @@
-import { SocialProfileJsonLd } from 'next-seo'
+import { JsonLdScript, OrganizationJsonLd } from 'next-seo'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
 
 export function SeoSocialProfile() {
@@ -11,12 +11,27 @@ export function SeoSocialProfile() {
   if (!profile) {
     return null
   }
+  const sameAs = profile.same_as.split(',').map((str: string) => str.trim())
+  if (profile.type === 'Person') {
+    return (
+      <JsonLdScript
+        scriptKey="jsonld-social"
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: profile.name,
+          url: profile.url,
+          sameAs
+        }}
+      />
+    )
+  }
   return (
-    <SocialProfileJsonLd
-      url={profile.url}
-      type={profile.type || 'Organization'}
+    <OrganizationJsonLd
+      scriptId="jsonld-social"
       name={profile.name}
-      sameAs={profile.same_as.split(',').map((str: string) => str.trim())}
+      url={profile.url}
+      sameAs={sameAs}
     />
   )
 }

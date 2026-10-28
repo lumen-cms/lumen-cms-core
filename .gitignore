@@ -61,3 +61,6 @@ build-storybook.log
 .next-dev-verification
 
 .env.reference.local
+
+# Local Storyblok CLI exports and type-migration candidates
+.storyblok/

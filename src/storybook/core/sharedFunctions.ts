@@ -1,6 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
-
-export const getUid = () => uuidv4()
+export const getUid = () => crypto.randomUUID()
 export const storyImageUrls = [
   'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png',
   'https://a.storyblok.com/f/69529/3000x1688/50d31aa864/img_0766.jpg',

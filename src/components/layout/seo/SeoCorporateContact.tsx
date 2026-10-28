@@ -1,6 +1,11 @@
-import { CorporateContactJsonLd } from 'next-seo'
+import { ContactPoint, OrganizationJsonLd } from 'next-seo'
 import { SeoCorporateContactPointStoryblok } from '../../../typings/generated/components-schema'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
+
+type CorporateContactPoint = Omit<ContactPoint, '@type'> & {
+  areaServed?: string[]
+  availableLanguage?: string[]
+}
 
 export function SeoCorporateContact() {
   const settings = useSettings()
@@ -13,11 +18,12 @@ export function SeoCorporateContact() {
     return null
   }
   return (
-    <CorporateContactJsonLd
+    <OrganizationJsonLd
+      scriptId="jsonld-corporate-contact"
       url={business.url}
       logo={business.logo}
       contactPoint={business.contact_point.map(
-        (point: SeoCorporateContactPointStoryblok) => ({
+        (point: SeoCorporateContactPointStoryblok): CorporateContactPoint => ({
           telephone: point.telephone,
           contactType: point.contact_type,
           areaServed: point.area_served?.split(',').map((i) => i.trim()),

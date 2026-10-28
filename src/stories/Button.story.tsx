@@ -961,6 +961,10 @@ export const ButtonLinkObfuscating = () => (
         ...presetContent,
         label: 'Email',
         link: {
+          fieldtype: 'multilink',
+          id: '',
+          url: '',
+          cached_url: '',
           email: 'info@lumen.media',
           linktype: 'email'
         }
@@ -971,6 +975,9 @@ export const ButtonLinkObfuscating = () => (
         ...presetContent,
         label: 'Telefon',
         link: {
+          fieldtype: 'multilink',
+          id: '',
+          url: '',
           cached_url: '+4912345678',
           linktype: 'url'
         }

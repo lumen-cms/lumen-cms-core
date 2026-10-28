@@ -1,5 +1,17 @@
-import Carousel, { CarouselProps } from 'nuka-carousel'
-import { PropsWithChildren } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { A11y, Autoplay } from 'swiper/modules'
+import type { Swiper as SwiperClass } from 'swiper/types'
+import 'swiper/css'
+import {
+  Children,
+  CSSProperties,
+  isValidElement,
+  PropsWithChildren,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState
+} from 'react'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import ChevronLeft from 'mdi-material-ui/ChevronLeft'
@@ -12,45 +24,125 @@ import Minus from 'mdi-material-ui/Minus'
 const DARK = 'rgba(0,0,0,0.8)'
 const LIGHT = 'rgba(255,255,255,0.8)'
 
-type LmNukaCarouselProps = PropsWithChildren<
-  CarouselProps & {
-    hidePagination?: boolean
-    paginationBelowContent?: boolean
-    arrowsBesidePagination?: boolean
-    hideArrows?: boolean
-    darkArrows?: boolean
-    darkPagination?: boolean // the property should render minus
-    paginationCircle?: boolean
-  }
->
+type LmNukaCarouselProps = PropsWithChildren<{
+  slideIndex?: number
+  slidesToShow?: number
+  wrapAround?: boolean
+  autoplay?: boolean
+  autoplayInterval?: number
+  pauseOnHover?: boolean
+  disableAnimation?: boolean
+  adaptiveHeight?: boolean
+  withoutControls?: boolean
+  style?: CSSProperties
+  beforeSlide?: (currentSlideIndex: number, endSlideIndex: number) => void
+  afterSlide?: (endSlideIndex: number) => void
+  hidePagination?: boolean
+  paginationBelowContent?: boolean
+  arrowsBesidePagination?: boolean
+  hideArrows?: boolean
+  darkArrows?: boolean
+  darkPagination?: boolean // the property should render minus
+  paginationCircle?: boolean
+}>
+
+const overlay = (alignItems: string, justifyContent: string) =>
+  ({
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    alignItems,
+    justifyContent,
+    zIndex: 2,
+    pointerEvents: 'none',
+    '& > *': { pointerEvents: 'auto' }
+  } as const)
 
 export default function LmNukaCarousel({
+  children,
+  slideIndex = 0,
+  slidesToShow = 1,
+  wrapAround = true,
+  autoplay,
+  autoplayInterval = 3000,
+  pauseOnHover = true,
+  disableAnimation,
+  adaptiveHeight,
+  withoutControls,
+  style,
+  beforeSlide,
+  afterSlide,
   hidePagination,
   paginationBelowContent,
   arrowsBesidePagination,
   hideArrows,
   darkArrows,
   darkPagination,
-  paginationCircle,
-  ...carouselProps
+  paginationCircle
 }: LmNukaCarouselProps) {
+  const slides = Children.toArray(children)
+  const [swiper, setSwiper] = useState<SwiperClass>()
+  const [currentSlide, setCurrentSlide] = useState(slideIndex)
+  const [edges, setEdges] = useState({ isBeginning: true, isEnd: false })
+  const previousSlide = useRef(slideIndex)
+  const loop = wrapAround && slides.length > slidesToShow
+
+  useEffect(() => {
+    if (!swiper || swiper.destroyed || swiper.realIndex === slideIndex) {
+      return
+    }
+    if (loop) {
+      swiper.slideToLoop(slideIndex)
+    } else {
+      swiper.slideTo(slideIndex)
+    }
+  }, [swiper, slideIndex, loop])
+
+  const goToSlide = (index: number) =>
+    loop ? swiper?.slideToLoop(index) : swiper?.slideTo(index)
+
   const ActiveIndicator = paginationCircle ? <MinusThick /> : <CircleMedium />
   const DefaultIndicator = paginationCircle ? <Minus /> : <CircleSmall />
-  return (
-    <Carousel
-      {...Carousel.defaultProps}
-      wrapAround={true}
-      {...Object.fromEntries(
-        Object.entries(carouselProps).filter(([, value]) => value !== undefined)
-      )}
-      renderBottomCenterControls={({
-        pagingDotsIndices,
-        goToSlide,
-        currentSlide,
-        previousSlide,
-        nextSlide
-      }) => {
-        return (
+  const previousDisabled = !loop && edges.isBeginning
+  const nextDisabled = !loop && edges.isEnd
+
+  let controls: ReactNode = null
+  if (!withoutControls) {
+    controls = (
+      <>
+        <Box sx={overlay('center', 'flex-start')}>
+          {!hideArrows && (
+            <IconButton
+              size={'large'}
+              onClick={() => swiper?.slidePrev()}
+              disabled={previousDisabled}
+              aria-label="previous slide"
+              sx={{
+                color: darkArrows ? DARK : LIGHT,
+                fontSize: '4rem'
+              }}
+            >
+              <ChevronLeft fontSize={'inherit'} />
+            </IconButton>
+          )}
+        </Box>
+        <Box sx={overlay('center', 'flex-end')}>
+          {!hideArrows && (
+            <IconButton
+              size={'large'}
+              onClick={() => swiper?.slideNext()}
+              disabled={nextDisabled}
+              aria-label="next slide"
+              sx={{
+                color: darkArrows ? DARK : LIGHT,
+                fontSize: '4rem'
+              }}
+            >
+              <ChevronRight fontSize={'inherit'} />
+            </IconButton>
+          )}
+        </Box>
+        <Box sx={overlay('flex-end', 'center')}>
           <Box
             sx={{
               display: hidePagination ? 'none' : undefined,
@@ -63,23 +155,24 @@ export default function LmNukaCarousel({
                 display: arrowsBesidePagination ? 'inline-flex' : 'none'
               }}
               size="small"
-              onClick={() => previousSlide()}
+              onClick={() => swiper?.slidePrev()}
               color={'inherit'}
             >
               <ChevronLeft color={'inherit'} />
             </IconButton>
-            {pagingDotsIndices.map((i) => (
+            {slides.map((_, i) => (
               <IconButton
                 color="inherit"
                 size="small"
                 key={`pagination_${i}`}
+                aria-label={`slide ${i + 1}`}
                 onClick={() => goToSlide(i)}
               >
                 {currentSlide === i ? ActiveIndicator : DefaultIndicator}
               </IconButton>
             ))}
             <IconButton
-              onClick={() => nextSlide()}
+              onClick={() => swiper?.slideNext()}
               color="inherit"
               size="small"
               sx={{
@@ -89,38 +182,54 @@ export default function LmNukaCarousel({
               <ChevronRight color={'inherit'} />
             </IconButton>
           </Box>
-        )
-      }}
-      renderCenterLeftControls={({ previousDisabled, previousSlide }) =>
-        !hideArrows ? (
-          <IconButton
-            size={'large'}
-            onClick={previousSlide}
-            disabled={previousDisabled}
-            sx={{
-              color: darkArrows ? DARK : LIGHT,
-              fontSize: '4rem'
-            }}
-          >
-            <ChevronLeft fontSize={'inherit'} />
-          </IconButton>
-        ) : null
-      }
-      renderCenterRightControls={({ nextDisabled, nextSlide }) =>
-        !hideArrows ? (
-          <IconButton
-            size={'large'}
-            onClick={nextSlide}
-            disabled={nextDisabled}
-            sx={{
-              color: darkArrows ? DARK : LIGHT,
-              fontSize: '4rem'
-            }}
-          >
-            <ChevronRight fontSize={'inherit'} />
-          </IconButton>
-        ) : null
-      }
-    />
+        </Box>
+      </>
+    )
+  }
+
+  return (
+    <Box
+      className="lm-carousel"
+      sx={{ position: 'relative', '& > .swiper': { height: '100%' } }}
+      style={style}
+    >
+      <Swiper
+        modules={[A11y, Autoplay]}
+        slidesPerView={slidesToShow}
+        initialSlide={slideIndex}
+        loop={loop}
+        speed={disableAnimation ? 0 : 500}
+        autoHeight={adaptiveHeight}
+        autoplay={
+          autoplay
+            ? {
+                delay: autoplayInterval,
+                pauseOnMouseEnter: pauseOnHover,
+                disableOnInteraction: false
+              }
+            : false
+        }
+        onSwiper={(instance) => {
+          setSwiper(instance)
+          setEdges({ isBeginning: instance.isBeginning, isEnd: instance.isEnd })
+        }}
+        onRealIndexChange={(instance) => {
+          beforeSlide?.(previousSlide.current, instance.realIndex)
+          previousSlide.current = instance.realIndex
+          setCurrentSlide(instance.realIndex)
+          setEdges({ isBeginning: instance.isBeginning, isEnd: instance.isEnd })
+        }}
+        onSlideChangeTransitionEnd={(instance) =>
+          afterSlide?.(instance.realIndex)
+        }
+      >
+        {slides.map((slide, i) => (
+          <SwiperSlide key={isValidElement(slide) ? slide.key ?? i : i}>
+            {slide}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      {controls}
+    </Box>
   )
 }

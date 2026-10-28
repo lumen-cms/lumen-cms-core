@@ -4,20 +4,17 @@ import { useState } from 'react'
 import Fade from '@mui/material/Fade'
 import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
 import { LmImageProps } from './imageTypes'
-import { makeStyles } from 'tss-react/mui'
+import Box from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
+import clsx from 'clsx'
 
-const useStyles = makeStyles()({
-  root: {
-    display: 'inline-block'
-  },
-  svg: {
-    display: 'inline-block',
-    width: 120,
-    height: 120,
-    '&.has-color': {
-      '& path': {
-        fill: 'currentColor'
-      }
+const StyledSvg = styled(SVG)({
+  display: 'inline-block',
+  width: 120,
+  height: 120,
+  '&.has-color': {
+    '& path': {
+      fill: 'currentColor'
     }
   }
 })
@@ -26,7 +23,6 @@ export default function ImageSvg({
   content,
   onClick
 }: LmImageProps): React.JSX.Element {
-  const { classes, cx } = useStyles()
   const [refIntersectionObserver, inView] = useInView(intersectionImageOptions)
   let src = inView ? content.source : ''
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -44,9 +40,9 @@ export default function ImageSvg({
   }
   return (
     <Fade in={loaded}>
-      <div className={classes.root} ref={refIntersectionObserver}>
+      <Box sx={{ display: 'inline-block' }} ref={refIntersectionObserver}>
         {!!src && (
-          <SVG
+          <StyledSvg
             width={content.width}
             height={content.height}
             src={src as string}
@@ -61,12 +57,12 @@ export default function ImageSvg({
             }}
             onLoad={afterSvgLoaded}
             onError={onErrorHandler}
-            className={cx(classes.svg, {
+            className={clsx({
               'has-color': !!fitInColor
             })}
           />
         )}
-      </div>
+      </Box>
     </Fade>
   )
 }

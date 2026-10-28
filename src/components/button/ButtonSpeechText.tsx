@@ -1,8 +1,6 @@
 import { LmComponentRender } from '@LmComponentRender'
 import { useRef } from 'react'
-// eslint-disable-next-line
-// @ts-ignore
-import { useSpeechSynthesis } from 'react-speech-kit'
+import { useSpeechSynthesis } from '../../utils/hooks/useSpeechSynthesis'
 import { LmButtonSpeechTextProps } from './buttonTypes'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import { useAppContext } from '@context/AppContext'
@@ -27,15 +25,13 @@ export default function LmButtonSpeechText({
     )
 
     const allNodes = full_page
-      ? document.querySelectorAll('.enable__speech') || []
+      ? document.querySelectorAll<HTMLElement>('.enable__speech') || []
       : ref.current
           ?.closest('.lm-section')
-          ?.querySelectorAll('.enable__speech') || []
+          ?.querySelectorAll<HTMLElement>('.enable__speech') || []
 
     const texts: string[] = []
     allNodes.forEach((node) => {
-      // eslint-disable-next-line
-      // @ts-ignore
       texts.push(node.innerText)
     })
     speak({ text: texts.join('\n'), voice: selectedVoice })

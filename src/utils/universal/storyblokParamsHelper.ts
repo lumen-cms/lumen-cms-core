@@ -1,3 +1,4 @@
+import { getStoryblokRequest } from '../initial-props/storyblokRequestContext'
 import { AppPageProps } from '../../typings/app'
 import { localeStoriesHelper } from '../initial-props/component-data/localeStoriesHelper'
 import {
@@ -31,6 +32,7 @@ export const getStoriesDefaultParams = (
 ): ISbStoriesParams => {
   const params: ISbStoriesParams = {
     ...rootParams,
+    ...getStoryblokRequest(props),
     excluding_fields: excludeListForStories,
     ...localeStoriesHelper(props)
   }

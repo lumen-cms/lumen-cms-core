@@ -1,6 +1,3 @@
-import type { BigNumber, Contract } from 'ethers'
-import { MoralisMintProps } from '../components/web3/moralisTypings'
-
 type AppConfigProps = {
   publicToken: string
   previewToken: string
@@ -24,18 +21,6 @@ type AppConfigProps = {
   }[]
   shopifyGql: string
   shopifyAccessToken: string
-  web3MintFunction: (
-    contract: Contract,
-    options: {
-      mintAmount: number
-      sale: MoralisMintProps['content']['sale']
-      account: string
-      maxMintAmount?: number
-      signed?: string
-      value?: BigNumber | 0
-      code?: string
-    }
-  ) => Promise<void>
   redirects?: Map<string, string>
   [k: string]: any
 }
@@ -62,10 +47,7 @@ export const CONFIG: AppConfigProps = {
   shopifyGql: process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN
     ? `https://${process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN}/api/2020-10/graphql.json`
     : '',
-  shopifyAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN || '',
-  web3MintFunction: async () => {
-    throw new Error('You must overwrite CONFIG.web3MintFunction inside _app')
-  }
+  shopifyAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN || ''
 }
 
 type LmCoreComponentsProps = {

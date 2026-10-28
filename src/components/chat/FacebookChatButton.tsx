@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import useScript, { ScriptStatus } from '@charlietango/use-script'
+import { useEffect } from 'react'
+import { useExternalScript as useScript } from '../../utils/hooks/useExternalScript'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { FacbookChatButtonProps } from './chatTypings'
 import { useAppContext } from '@context/AppContext'
@@ -27,8 +27,20 @@ export default function LmFacebookChatButton({
   const isScrolled = useScrollOnce()
   const startInclude =
     !insideStoryblok && content.page_id && (content.disable_lazy || isScrolled)
-  const [initialized, setInitialized] = useState<boolean>(false)
-  const [, status] = useScript(
+  // Register before the script-loader effect; never access window during SSR.
+  useEffect(() => {
+    if (!startInclude) return
+    const previous = window.fbAsyncInit
+    const initialize = () => {
+      window.FB?.init({ xfbml: true, version: 'v8.0' })
+    }
+    window.fbAsyncInit = initialize
+    if (window.FB) initialize()
+    return () => {
+      if (window.fbAsyncInit === initialize) window.fbAsyncInit = previous
+    }
+  }, [startInclude])
+  const status = useScript(
     startInclude
       ? 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js'
       : '',
@@ -38,16 +50,7 @@ export default function LmFacebookChatButton({
       }
     }
   )
-  if (!initialized) {
-    window.fbAsyncInit = () => {
-      window.FB?.init({
-        xfbml: true,
-        version: 'v8.0'
-      })
-      setInitialized(true)
-    }
-  }
-  if (ScriptStatus.ERROR === status) {
+  if ('error' === status) {
     console.log(status)
   }
 

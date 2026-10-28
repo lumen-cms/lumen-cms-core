@@ -4,8 +4,10 @@ import Container, { ContainerProps } from '@mui/material/Container'
 import { LmComponentRender } from '@LmComponentRender'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmSectionVideoProps } from './sectionTypes'
-import { makeStyles } from 'tss-react/mui'
 import dynamic from 'next/dynamic'
+import Box from '@mui/material/Box'
+import { Theme, useTheme } from '@mui/material/styles'
+import { SystemStyleObject } from '@mui/system'
 
 const FullscreenVideoBg = dynamic(
   () => import(/* webpackChunkName: 'video' */ './FullscreenVideoBg'),
@@ -14,67 +16,65 @@ const FullscreenVideoBg = dynamic(
   }
 )
 
-const useStyles = makeStyles()({
-  videoSection: {
-    position: 'relative',
-    overflow: 'hidden',
-    display: 'flex',
+const videoSectionSx: SystemStyleObject<Theme> = {
+  position: 'relative',
+  overflow: 'hidden',
+  display: 'flex',
+  height: '100%',
+  alignItems: 'end',
+  justifyItems: 'center',
+  '& > div:last-of-type': {
+    zIndex: 0,
     height: '100%',
-    alignItems: 'end',
-    justifyItems: 'center',
-    '& > div:last-of-type': {
-      zIndex: 0,
-      height: '100%',
-      width: '100%',
-      position: 'absolute'
-    },
-    '& video[poster]': {
-      objectFit: 'cover'
-    },
+    width: '100%',
+    position: 'absolute'
+  },
+  '& video[poster]': {
+    objectFit: 'cover'
+  },
 
-    '& .videobg': {
-      position: 'relative',
-      width: '100%' /* Set video container element width here */,
-      height: '100%' /* Set video container element height here */,
-      overflow: 'hidden',
-      background: '#111' /* bg color, if video is not high enough */
-    },
+  '& .videobg': {
+    position: 'relative',
+    width: '100%' /* Set video container element width here */,
+    height: '100%' /* Set video container element height here */,
+    overflow: 'hidden',
+    background: '#111' /* bg color, if video is not high enough */
+  },
 
-    /* horizontally center the video */
-    '& .videobg-width': {
-      position: 'absolute',
-      width: '100%' /* Change width value to cover more area */,
-      height: '100%',
-      left: '-9999px',
-      right: '-9999px',
-      margin: 'auto'
-    },
-    /* set video aspect ratio and vertically center */
-    '& .videobg-aspect': {
-      position: 'absolute',
-      width: '100%',
-      height: 0,
-      top: '-9999px',
-      bottom: '-9999px',
-      margin: 'auto',
-      // padding-bottom: 56.25%; /* 16:9 ratio this is calculated inside the component */
-      overflow: 'hidden'
-    },
+  /* horizontally center the video */
+  '& .videobg-width': {
+    position: 'absolute',
+    width: '100%' /* Change width value to cover more area */,
+    height: '100%',
+    left: '-9999px',
+    right: '-9999px',
+    margin: 'auto'
+  },
+  /* set video aspect ratio and vertically center */
+  '& .videobg-aspect': {
+    position: 'absolute',
+    width: '100%',
+    height: 0,
+    top: '-9999px',
+    bottom: '-9999px',
+    margin: 'auto',
+    // padding-bottom: 56.25%; /* 16:9 ratio this is calculated inside the component */
+    overflow: 'hidden'
+  },
 
-    '& .videobg-make-height': {
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0
-    }
+  '& .videobg-make-height': {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
   }
-})
+}
 
 export default function LmSectionVideo({
   content
 }: LmSectionVideoProps): React.JSX.Element {
-  const { classes, theme } = useStyles()
+  const theme = useTheme()
   const [intersectionRef, inView, intersectionElement] = useInView(
     intersectionDefaultOptions
   )
@@ -125,8 +125,8 @@ export default function LmSectionVideo({
     : theme.defaultContainerWidth
 
   return (
-    <div
-      className={classes.videoSection}
+    <Box
+      sx={videoSectionSx}
       style={containerStyle}
       ref={intersectionRef}
       id={content.section_identifier || content._uid}
@@ -158,6 +158,6 @@ export default function LmSectionVideo({
           </Container>
         </div>
       )}
-    </div>
+    </Box>
   )
 }

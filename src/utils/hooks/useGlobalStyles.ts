@@ -1,6 +1,5 @@
 import getNprogressJss from '../jss/npgrogress'
-import { Theme } from '@mui/material/styles'
-import { CSSObject } from 'tss-react'
+import { CSSObject, Theme } from '@mui/material/styles'
 
 export const createGlobalStyles = (theme: Theme): CSSObject => {
   const genSpacing = (breakpoint = ''): CSSObject => {

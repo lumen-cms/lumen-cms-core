@@ -1,5 +1,5 @@
 import { FastSpringProduct } from '../fastSpringTypes'
-import create from 'zustand'
+import { create } from 'zustand'
 
 export type FastSpringContextProps = {
   products: FastSpringProduct[]

@@ -6,30 +6,12 @@ import {
   HeadlineStoryblok
 } from '../../../../typings/generated/components-schema'
 import { useEffectOnce } from 'react-use'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles()((theme) => ({
-  redColor: {
-    color: theme.palette.error.main
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    marginTop: theme.spacing(2),
-    columnGap: theme.spacing(2),
-    rowGap: theme.spacing(1)
-  },
-  buttonSpace: {
-    marginTop: theme.spacing(2)
-  }
-}))
+import Box from '@mui/material/Box'
 
 export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
   const { selectedVariant, onVariantSelect, config } = useShopifySdkContext()
 
   const { currency_prefix } = config
-  const { classes } = useStyles()
   const firstVariant = item.variants?.edges[0].node
   useEffectOnce(() => {
     onVariantSelect({ ...firstVariant, productTitle: item.title })
@@ -37,7 +19,7 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
   const hasMultipleOptions = item.variants.edges?.length > 1
   return (
     <div>
-      <div className={classes.buttonSpace}>
+      <Box sx={{ marginTop: 2 }}>
         {selectedVariant && (
           <LmComponentRender
             content={
@@ -51,20 +33,20 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
             }
           >
             {selectedVariant.compareAtPriceV2 && (
-              <s className={classes.redColor}>
+              <Box component="s" sx={{ color: 'error.main' }}>
                 {currency_prefix || ''}{' '}
                 {selectedVariant.compareAtPriceV2?.amount}
-              </s>
+              </Box>
             )}{' '}
             <span>
               {currency_prefix || ''} {selectedVariant.priceV2?.amount}
             </span>
           </LmComponentRender>
         )}
-      </div>
+      </Box>
       {hasMultipleOptions && (
         <>
-          <div className={classes.buttonSpace}>
+          <Box sx={{ marginTop: 2 }}>
             <LmComponentRender
               content={
                 {
@@ -80,8 +62,17 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
                 } as HeadlineStoryblok
               }
             />
-          </div>
-          <div className={classes.buttonContainer}>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+              marginTop: 2,
+              columnGap: 2,
+              rowGap: 1
+            }}
+          >
             {item.variants.edges.map((variant) => (
               <LmComponentRender
                 key={variant.node.id}
@@ -107,7 +98,7 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
                 }
               />
             ))}
-          </div>
+          </Box>
         </>
       )}
     </div>

@@ -5,7 +5,6 @@ import {
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import Image from 'next/image'
 import { CSSProperties } from 'react'
-import { AspectRatio } from 'react-aspect-ratio'
 
 type ImageBaseProps = {
   src: string
@@ -15,11 +14,17 @@ type ImageBaseProps = {
 }
 
 export function ImageBase({ src, alt, respectRatio, style }: ImageBaseProps) {
+  if (!src) {
+    return null
+  }
   const { width, height } = getOriginalImageDimensions(src)
 
   if (respectRatio) {
     return (
-      <AspectRatio ratio={width / height}>
+      <div
+        className="react-aspect-ratio-placeholder"
+        style={width && height ? { aspectRatio: `${width} / ${height}` } : {}}
+      >
         <Image
           alt={alt || `image url ${src}`}
           src={getRootImageUrl(src)}
@@ -32,7 +37,7 @@ export function ImageBase({ src, alt, respectRatio, style }: ImageBaseProps) {
           }}
           {...storyblokImageLoader(src)}
         />
-      </AspectRatio>
+      </div>
     )
   }
   return (

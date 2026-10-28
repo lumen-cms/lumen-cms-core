@@ -1,0 +1,256 @@
+{
+  "comparedAt": "2026-10-27T06:27:59.428Z",
+  "baseline": "/tmp/lumen-consumer-no-web3",
+  "candidate": "/tmp/lumen-consumer-integrations",
+  "ignored": [
+    "*.list_widget_data.cv (numeric Date.now build timestamp)",
+    "*.form_data.fbzx (nonempty numeric Google Forms hidden token)"
+  ],
+  "sites": {
+    "baliinternships": {
+      "routes": 597,
+      "candidateRoutes": 597,
+      "missing": [],
+      "added": [],
+      "beforeCounts": {
+        "components": 85803,
+        "arrayItems": 159440,
+        "stories": 2278,
+        "listItems": 1874,
+        "formFields": 0
+      },
+      "afterCounts": {
+        "components": 85803,
+        "arrayItems": 159440,
+        "stories": 2278,
+        "listItems": 1874,
+        "formFields": 0
+      },
+      "differences": []
+    },
+    "planet-training": {
+      "routes": 694,
+      "candidateRoutes": 694,
+      "missing": [],
+      "added": [],
+      "beforeCounts": {
+        "components": 130401,
+        "arrayItems": 273022,
+        "stories": 479,
+        "listItems": 479,
+        "formFields": 24
+      },
+      "afterCounts": {
+        "components": 130401,
+        "arrayItems": 273022,
+        "stories": 479,
+        "listItems": 479,
+        "formFields": 24
+      },
+      "differences": []
+    },
+    "upskill": {
+      "routes": 205,
+      "candidateRoutes": 205,
+      "missing": [],
+      "added": [],
+      "beforeCounts": {
+        "components": 44891,
+        "arrayItems": 88350,
+        "stories": 199,
+        "listItems": 199,
+        "formFields": 0
+      },
+      "afterCounts": {
+        "components": 44891,
+        "arrayItems": 88350,
+        "stories": 199,
+        "listItems": 199,
+        "formFields": 0
+      },
+      "differences": []
+    }
+  },
+  "branch": "feature/mui-v9",
+  "screenshots": "paused",
+  "unitTests": 67,
+  "unitTestFiles": 21,
+  "focusedFinalTests": 14,
+  "typescript": "7.0.2",
+  "lint": {
+    "errors": 0,
+    "warnings": 99
+  },
+  "storybook": "/tmp/lumen-storybook-integrations-final",
+  "coreArchive": "/tmp/lumen-candidate-integrations-final.tgz",
+  "coreArchiveSha256": "f36fce89179cf34c243addd68af05c52fc5c1476b92d662447b9f1a08d0c84fb",
+  "httpSmoke": {
+    "baliinternships": [
+      {
+        "path": "/",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 427185
+      },
+      {
+        "path": "/architecture-internship",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 187791
+      },
+      {
+        "path": "/de/home",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 345182
+      }
+    ],
+    "planet-training": [
+      {
+        "path": "/",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 488404
+      },
+      {
+        "path": "/de/home",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 482235
+      },
+      {
+        "path": "/es/home",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 483163
+      },
+      {
+        "path": "/it/home",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 485818
+      }
+    ],
+    "upskill": [
+      {
+        "path": "/",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 525582
+      },
+      {
+        "path": "/de/home",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 522711
+      },
+      {
+        "path": "/en/home",
+        "status": 200,
+        "headers": {
+          "X-DNS-Prefetch-Control": "on",
+          "X-XSS-Protection": "1; mode=block",
+          "Referrer-Policy": "origin-when-cross-origin",
+          "X-Content-Type-Options": "nosniff",
+          "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        },
+        "hasNextData": true,
+        "bytes": 525598
+      }
+    ]
+  },
+  "security": {
+    "critical": 0,
+    "high": 1,
+    "moderate": 1,
+    "low": 1,
+    "info": 0
+  },
+  "productionSecurity": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "dependencies": 511,
+    "devDependencies": 0,
+    "optionalDependencies": 0,
+    "totalDependencies": 511
+  },
+  "removed": [
+    "@charlietango/use-script",
+    "react-speech-kit",
+    "next-safe"
+  ],
+  "added": {
+    "@charlietango/hooks": "2.3.0"
+  },
+  "consumerManifestMatches": true,
+  "packedSourceMismatches": [],
+  "packedManifestSemanticallyMatches": true
+}

@@ -31,7 +31,10 @@ export default function LmSquareImage({
   image,
   imageProps,
   sizeIsHeight
-}: LmSquareImageProps): React.JSX.Element {
+}: LmSquareImageProps): React.JSX.Element | null {
+  if (!image) {
+    return null
+  }
   return (
     <Image
       src={getRootImageUrl(image)}

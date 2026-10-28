@@ -1,7 +1,8 @@
 import { FC, PropsWithChildren } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmFlexRowProps } from './flexRowTypes'
-import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
+import clsx from 'clsx'
 import Stack, { StackProps } from '@mui/material/Stack'
 
 export const LmFlexRow: FC<PropsWithChildren<LmFlexRowProps>> = ({
@@ -9,7 +10,7 @@ export const LmFlexRow: FC<PropsWithChildren<LmFlexRowProps>> = ({
   children
 }) => {
   const body = content.body || []
-  const { classes, cx } = useStylesAdvanced({
+  const advancedSx = getAdvancedSx({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
@@ -30,27 +31,28 @@ export const LmFlexRow: FC<PropsWithChildren<LmFlexRowProps>> = ({
           </>
         )
       })}
-      className={cx(content.class_names?.values, {
-        'mh-100': content.full_height,
-        [classes.advanced]: !!content.styles?.length,
-        [classes.advancedMobile]: !!content.styles_mobile?.length,
-        [classes.advancedTablet]: !!content.styles_tablet?.length,
-        [classes.advancedHover]: !!content.styles_hover?.length
+      className={clsx(content.class_names?.values, {
+        'mh-100': content.full_height
       })}
-      sx={{
-        flexWrap: content.flex_wrap || 'wrap',
-        width: '100%',
-        justifyContent: content.justify ? content.justify : undefined,
-        alignItems: content.align_items ? content.align_items : undefined,
-        alignContent: content.align_content ? content.align_content : undefined,
-        gap: Number(content.gap || 0),
+      sx={[
+        {
+          flexWrap: content.flex_wrap || 'wrap',
+          width: '100%',
+          justifyContent: content.justify ? content.justify : undefined,
+          alignItems: content.align_items ? content.align_items : undefined,
+          alignContent: content.align_content
+            ? content.align_content
+            : undefined,
+          gap: Number(content.gap || 0),
 
-        ...(content.column_mobile_only && {
-          '& .MuiDivider-root': {
-            display: ['none', 'flex']
-          }
-        })
-      }}
+          ...(content.column_mobile_only && {
+            '& .MuiDivider-root': {
+              display: ['none', 'flex']
+            }
+          })
+        },
+        advancedSx
+      ]}
     >
       {children ? (
         <>{children}</>

@@ -68,28 +68,30 @@ export default function LmImageListItem({
       fitInColor={listProps.fit_in_color}
       respectImgRatio={respectImgRatio}
     >
-      <Image
-        src={imageSource}
-        width={width}
-        height={height}
-        style={{
-          objectFit:
-            listProps.fit_in_color || !listProps.aspect_ratio
-              ? 'contain'
-              : undefined
-        }}
-        sizes={`(min-width: 0) and (max-width: ${
-          breakpoints.values.sm - 1
-        }px) ${phoneVw}vw, (min-width: ${
-          breakpoints.values.sm
-        }px) and (max-width: ${
-          breakpoints.values.md - 1
-        }px): ${tabletVw}vw, ${desktopVw}vw`}
-        {...storyblokImageLoader(imageSource)}
-        placeholder={'empty'}
-        className={'MuiImageListItem-img'}
-        alt={content.alt || content.label || 'image list item'}
-      />
+      {imageSource && (
+        <Image
+          src={imageSource}
+          width={width}
+          height={height}
+          style={{
+            objectFit:
+              listProps.fit_in_color || !listProps.aspect_ratio
+                ? 'contain'
+                : undefined
+          }}
+          sizes={`(min-width: 0) and (max-width: ${
+            breakpoints.values.sm - 1
+          }px) ${phoneVw}vw, (min-width: ${
+            breakpoints.values.sm
+          }px) and (max-width: ${
+            breakpoints.values.md - 1
+          }px): ${tabletVw}vw, ${desktopVw}vw`}
+          {...storyblokImageLoader(imageSource)}
+          placeholder={'empty'}
+          className={'MuiImageListItem-img'}
+          alt={content.alt || content.label || 'image list item'}
+        />
+      )}
       {(content.label || content.sub_title) && (
         <ImageListItemBar
           title={content.label}

@@ -1,12 +1,11 @@
-import { Theme } from '@mui/material/styles'
+import { CSSObject, Theme } from '@mui/material/styles'
+import { SystemStyleObject } from '@mui/system'
 import { getThemeColor } from '../themeColor'
 
 import {
   ItemKeyValueStoryblok,
   StylesStoryblok
 } from '../../typings/generated/components-schema'
-import { makeStyles } from 'tss-react/mui'
-import { CSSObject } from 'tss-react'
 
 const addImportant = (value?: string) =>
   value ? `${value} !important` : undefined
@@ -16,7 +15,18 @@ const snakeToCamelCase = (key: string) =>
 const capitalizeFirstLetter = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1)
 
-const getStyles = (content: StylesStoryblok, theme: Theme) => {
+export const cssKeyToCamelCase = (key: string) => {
+  const trimmed = key.trim()
+  if (!trimmed || trimmed.startsWith('--')) {
+    return trimmed
+  }
+  return trimmed
+    .replace(/^-ms-/, 'ms-')
+    .replace(/^-([a-z])/, (_, m) => m.toUpperCase())
+    .replace(/-([a-z])/g, (_, m) => m.toUpperCase())
+}
+
+export const getStyles = (content: StylesStoryblok, theme: Theme) => {
   const getThemeMainColor = (color: string) => {
     const parts = color.split('.')
     return getThemeColor(theme, parts[0], parts[1] || 'main')
@@ -38,26 +48,30 @@ const getStyles = (content: StylesStoryblok, theme: Theme) => {
     if (key === 'css_properties') {
       if (content.css_properties?.length) {
         content.css_properties?.forEach((k: ItemKeyValueStoryblok) => {
-          cssRules[k.key as string] = k.value_color?.rgba
-            ? k.value_color?.rgba
-            : k.value
+          const cssKey = cssKeyToCamelCase(k.key ?? '')
+          const cssValue = k.value_color?.rgba || k.value
+          if (!cssKey || !cssValue) {
+            return
+          }
+          cssRules[cssKey] = cssValue
         })
       }
     } else if (content[key]) {
-      // eslint-disable-next-line no-prototype-builtins
-      const curVal = content[key]?.hasOwnProperty('rgba')
-        ? content[key]?.rgba
-        : content[key]
+      const value = content[key]
+      const curVal =
+        value && typeof value === 'object' && 'rgba' in value
+          ? value.rgba
+          : value
       if (!curVal) {
         return
       }
-      cssRules[snakeToCamelCase(key)] = addImportant(curVal)
+      cssRules[snakeToCamelCase(key)] = addImportant(String(curVal))
     }
   })
   // edge cases
   if (content.box_shadow || content.elevation) {
     cssRules.boxShadow = content.elevation
-      ? theme.shadows[`${content.elevation}`]
+      ? theme.shadows[Number(content.elevation)]
       : content.box_shadow
   }
   if (content.border_color?.rgba || content.border_color_theme) {
@@ -90,38 +104,86 @@ const getStyles = (content: StylesStoryblok, theme: Theme) => {
   return cssRules
 }
 
-type UseStylesAdvancedProps = {
+type AdvancedStylesProps = {
   props?: StylesStoryblok[]
   propsTablet?: StylesStoryblok[]
   propsMobile?: StylesStoryblok[]
   propsHover?: StylesStoryblok[]
 }
 
-export const useStylesAdvanced = makeStyles<UseStylesAdvancedProps>({
-  name: 'StylesAdvanced'
-})((theme, { props, propsHover, propsMobile, propsTablet }) => {
-  return {
-    advanced: props?.[0] ? getStyles(props[0], theme) : {},
-    advancedMobile: propsMobile?.[0]
-      ? {
-          [theme.breakpoints.only('xs')]: {
-            ...getStyles(propsMobile[0], theme)
-          }
-        }
-      : {},
-    advancedTablet: propsTablet?.[0]
-      ? {
-          [theme.breakpoints.between('sm', 'md')]: {
-            ...getStyles(propsTablet[0], theme)
-          }
-        }
-      : {},
-    advancedHover: propsHover?.[0]
-      ? {
-          '&:hover': {
-            ...getStyles(propsHover[0], theme)
-          }
-        }
-      : {}
+export type AdvancedSx = ((theme: Theme) => SystemStyleObject<Theme>) | false
+
+// Same hyphenation as emotion, so the emitted CSS is unchanged.
+const hyphenate = (key: string) =>
+  key.startsWith('--') ? key : key.replace(/[A-Z]|^ms/g, '-$&').toLowerCase()
+
+// sx turns unitless numbers up to 1 into percentages and palette paths into
+// theme colors. Such raw values were invalid CSS, so they are dropped. Zero
+// lengths stay, as sx renders them equivalently ('0%').
+const isReinterpretedBySx = (key: string, value: unknown, theme: Theme) => {
+  if (typeof value !== 'string') {
+    return false
   }
-})
+  if (key === 'width' || key === 'height') {
+    const number = Number(value)
+    return number <= 1 && !(value.trim() && number === 0)
+  }
+  if (key === 'color' && value !== 'grey') {
+    return !!value
+      .split('.')
+      .reduce<any>((palette, path) => palette?.[path], theme.palette)
+  }
+  return false
+}
+
+// sx also resolves camelCase keys against the theme (boxShadow '2' becomes
+// theme.shadows[2], maxWidth 'sm' a breakpoint). Kebab-case keys are passed
+// through, so CMS values render verbatim.
+const getCmsDeclarations = (
+  content: StylesStoryblok,
+  theme: Theme
+): Record<string, unknown> => {
+  const declarations: Record<string, unknown> = getStyles(content, theme)
+  return Object.fromEntries(
+    Object.entries(declarations)
+      .filter(([key, value]) => !isReinterpretedBySx(key, value, theme))
+      .map(([key, value]) => [hyphenate(key), value])
+  )
+}
+
+export const getAdvancedSx = ({
+  props,
+  propsHover,
+  propsMobile,
+  propsTablet
+}: AdvancedStylesProps): AdvancedSx => {
+  if (
+    !props?.[0] &&
+    !propsMobile?.[0] &&
+    !propsTablet?.[0] &&
+    !propsHover?.[0]
+  ) {
+    return false
+  }
+  return (theme) => {
+    const sx: Record<string, unknown> = props?.[0]
+      ? { ...getCmsDeclarations(props[0], theme) }
+      : {}
+    if (propsMobile?.[0]) {
+      sx[theme.breakpoints.only('xs')] = getCmsDeclarations(
+        propsMobile[0],
+        theme
+      )
+    }
+    if (propsTablet?.[0]) {
+      sx[theme.breakpoints.between('sm', 'md')] = getCmsDeclarations(
+        propsTablet[0],
+        theme
+      )
+    }
+    if (propsHover?.[0]) {
+      sx['&:hover'] = getCmsDeclarations(propsHover[0], theme)
+    }
+    return sx as SystemStyleObject<Theme>
+  }
+}

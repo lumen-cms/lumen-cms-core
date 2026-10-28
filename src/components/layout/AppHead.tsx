@@ -1,7 +1,7 @@
 import NextHead from 'next/head'
 import NextScript from 'next/script'
-import { MetaTag } from 'next-seo/lib/types'
-import { LogoJsonLd } from 'next-seo'
+import type { MetaTag } from 'next-seo/pages'
+import { OrganizationJsonLd } from 'next-seo'
 import { imageServiceNoWebp } from '../../utils/imageServices'
 import FbqPixel from '../tracking/FbqPixel'
 import Gtag from '../tracking/Gtag'
@@ -9,7 +9,7 @@ import AdRoll from '../tracking/AdRoll'
 import { useSettings } from '../provider/SettingsPageProvider'
 import GtmManager from '../tracking/GtmManager'
 import { useAppContext } from '@context/AppContext'
-import { getFontBasedOnSetting } from '../../utils/parseFont'
+import { GoogleFontsLivePreview } from './GoogleFontsLivePreview'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -65,7 +65,8 @@ function AppHead(): React.JSX.Element {
   return (
     <>
       {settings.website_logo && settings.seo_website_url && (
-        <LogoJsonLd
+        <OrganizationJsonLd
+          scriptId="jsonld-logo"
           logo={imageServiceNoWebp(settings.website_logo)}
           url={settings.seo_website_url}
         />
@@ -89,12 +90,6 @@ function AppHead(): React.JSX.Element {
           href="https://img2.storyblok.com"
           crossOrigin="anonymous"
         />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
         {favicon && (
           <>
             <link
@@ -126,10 +121,10 @@ function AppHead(): React.JSX.Element {
             }}
           />
         )}
-        {!process.env.NEXT_PUBLIC_DISABLE_GOOGLE_FONTS && (
-          <link href={getFontBasedOnSetting(settings)} rel={'stylesheet'} />
-        )}
       </NextHead>
+      {insideStoryblok && !process.env.NEXT_PUBLIC_DISABLE_GOOGLE_FONTS && (
+        <GoogleFontsLivePreview />
+      )}
 
       {!isDevelopment && !insideStoryblok && settings?.setup_facebook_pixel && (
         <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />

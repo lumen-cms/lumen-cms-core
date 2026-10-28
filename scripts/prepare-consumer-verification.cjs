@@ -27,6 +27,9 @@ writeJson(path.join(target, 'package.json'), {
   name: 'lumen-consumer-verification',
   private: true,
   packageManager: 'yarn@4.6.0',
+  // Dependency-package resolutions are not inherited by Yarn consumers.
+  // Mirror the reviewed root overrides, including Storyblok's HTML parser fix.
+  resolutions: core.resolutions,
   workspaces: sites.map((site) => `packages/${site}`)
 })
 fs.mkdirSync(path.join(target, '.yarn/releases'), { recursive: true })
@@ -83,7 +86,7 @@ for (const site of sites) {
     // Candidate archives can share a package version. Webpack otherwise reuses
     // immutable node_modules snapshots from the preceding candidate.
     build:
-      'yarn check-types && node -e "require(\'node:fs\').rmSync(\'.next/cache\', { recursive: true, force: true })" && next build --webpack',
+      "yarn check-types && node -e \"require('node:fs').rmSync('.next/cache', { recursive: true, force: true })\" && next build --webpack",
     'check-types':
       'node ../../node_modules/@typescript/native/bin/tsc --project tsconfig.json --noEmit --incremental false'
   })

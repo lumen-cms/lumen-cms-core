@@ -5,40 +5,37 @@ import {
 import { LmImageProps } from './imageTypes'
 import LmAspectRatio from './LmAspectRatio'
 import LmSquareImage from '../avatar/LmSquareImage'
-import { ImageStoryblok } from '../../typings/generated/components-schema'
-import { makeStyles } from 'tss-react/mui'
+import Box from '@mui/material/Box'
+import { SystemStyleObject } from '@mui/system'
+import { Theme } from '@mui/material/styles'
+import clsx from 'clsx'
 
-const useStyles = makeStyles<ImageStoryblok>({ name: 'Image' })(
-  (theme, props) => ({
-    image: {
-      margin: 'auto'
-    },
-    imgAddons: {
-      '&.square, &.rounded-0 img': {
-        borderRadius: 0
-      },
-      '&.rounded img': {
-        borderRadius: theme.shape.borderRadius
-      },
-      '&.rounded-circle img': {
-        borderRadius: '50%'
-      },
-      '&.rounded-circle': {
-        borderRadius: '50%',
-        overflow: 'hidden'
-      }
-    },
-    customImage: {
-      borderRadius: props.border_radius ? props.border_radius : undefined
-    }
-  })
-)
+const imgAddonsSx: SystemStyleObject<Theme> = {
+  '&.square, &.rounded-0 img': {
+    borderRadius: 0
+  },
+  '&.rounded img': {
+    borderRadius: 1
+  },
+  '&.rounded-circle img': {
+    borderRadius: '50%'
+  },
+  '&.rounded-circle': {
+    borderRadius: '50%',
+    overflow: 'hidden'
+  }
+}
 
 export default function LmImage({
   content,
   onClick
 }: LmImageProps): React.JSX.Element | null {
-  const { classes, cx: clsx } = useStyles(content)
+  const imageSx: SystemStyleObject<Theme> = {
+    ...imgAddonsSx,
+    ...(content.border_radius && {
+      '& img': { borderRadius: content.border_radius }
+    })
+  }
   const definedWidth = content.width
   const definedHeight = content.height
   const property = content.property || []
@@ -73,8 +70,8 @@ export default function LmImage({
     ((definedWidth && !definedHeight) || (!definedWidth && definedHeight))
   ) {
     isProportional = true
-    proportionalWidth = definedWidth || 0
-    proportionalHeight = definedHeight || 0
+    proportionalWidth = Number(definedWidth || 0)
+    proportionalHeight = Number(definedHeight || 0)
   }
 
   if (isSquare && squareSize) {
@@ -83,16 +80,16 @@ export default function LmImage({
         <LmAspectRatio
           ratio={`1/1`}
           style={{
-            height: squareSize <= 360 ? `${squareSize}px` : undefined,
-            width: squareSize <= 360 ? `${squareSize}px` : undefined,
+            height: Number(squareSize) <= 360 ? `${squareSize}px` : undefined,
+            width: Number(squareSize) <= 360 ? `${squareSize}px` : undefined,
             margin: 'auto'
           }}
           className={clsx(
             'lm-image',
             content.class_names?.values,
-            classes.imgAddons,
             content.property
           )}
+          sx={imageSx}
         >
           <LmSquareImage
             image={imageSource}
@@ -105,8 +102,7 @@ export default function LmImage({
                 objectPosition: 'center'
               },
               loading,
-              fill: true,
-              className: classes.customImage
+              fill: true
             }}
           />
         </LmAspectRatio>
@@ -119,14 +115,13 @@ export default function LmImage({
       imageCalculateHeight(proportionalWidth, originalDimensions))
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
-    <div
+    <Box
       className={clsx(
         'lm-image',
         content.class_names?.values,
-        classes.image,
-        classes.imgAddons,
         content.property
       )}
+      sx={{ margin: 'auto', ...imageSx }}
       style={{
         maxWidth:
           isProportional && proportionalWidth
@@ -155,7 +150,6 @@ export default function LmImage({
             priority,
             onClick: onClick ? () => onClick() : undefined,
             alt: content.alt || 'website image',
-            className: classes.customImage,
             ...(isProportional
               ? proportionalHeightCalc
                 ? {
@@ -184,6 +178,6 @@ export default function LmImage({
           }}
         />
       </div>
-    </div>
+    </Box>
   )
 }

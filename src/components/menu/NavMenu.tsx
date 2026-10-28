@@ -9,25 +9,15 @@ import { LmCoreComponents } from '@CONFIG'
 import { useEffectOnce } from 'react-use'
 import { Popover } from '@mui/material'
 import LmIcon from '../icon/LmIcon'
-import { NavMenuStoryblok } from '../../typings/generated/components-schema'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmMenuProps } from './menuTypes'
 import { useAppContext } from '@context/AppContext'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles<NavMenuStoryblok>({ name: 'NavMenu' })(
-  (_, props) => ({
-    paper: {
-      borderRadius: props.border_radius
-    }
-  })
-)
+import clsx from 'clsx'
 
 export function LmMenu({
   content,
   initialOpen
 }: LmMenuProps): React.JSX.Element {
-  const { classes, cx } = useStyles(content)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [active, setActive] = useState<boolean>(false)
   const menuItems = content.body || []
@@ -141,7 +131,7 @@ export function LmMenu({
               content={blok}
               key={blok._uid}
               onClick={handleClick}
-              className={cx(triggerClassName, {
+              className={clsx(triggerClassName, {
                 lm_menu_active: active
               })}
             />
@@ -157,7 +147,7 @@ export function LmMenu({
           }
           aria-controls="simple-menu"
           aria-haspopup="true"
-          className={cx(triggerClassName, 'lm-default-color', {
+          className={clsx(triggerClassName, 'lm-default-color', {
             lm_menu_active: active
           })}
           onMouseOver={content.open_on_hover ? handleClick : undefined}
@@ -174,11 +164,9 @@ export function LmMenu({
         slotProps={{
           paper: {
             variant: content.outlined ? 'outlined' : undefined,
-            elevation: content.elevation ? Number(content.elevation) : 8
+            elevation: content.elevation ? Number(content.elevation) : 8,
+            sx: { borderRadius: content.border_radius }
           }
-        }}
-        classes={{
-          paper: classes.paper
         }}
         {...addons}
       >
@@ -190,10 +178,13 @@ export function LmMenu({
           </div>
         ) : (
           menuItems.map((nestedProps) => {
+            const link = nestedProps.link
             const btnProps: any =
-              nestedProps.link?.cached_url ||
-              nestedProps.link?.url ||
-              nestedProps.link?.email
+              link &&
+              typeof link === 'object' &&
+              (('cached_url' in link && link.cached_url) ||
+                ('url' in link && link.url) ||
+                ('email' in link && link.email))
                 ? {
                     ...getLinkAttrs(nestedProps.link as LinkType, {
                       openExternal: !!nestedProps.open_external

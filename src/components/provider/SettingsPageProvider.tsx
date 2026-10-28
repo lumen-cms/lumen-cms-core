@@ -9,17 +9,14 @@ import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
-import NextScript from 'next/script'
+import { loadStoryblokBridge } from '@storyblok/react'
+import type StoryblokBridge from '@storyblok/preview-bridge'
+import type { ISbStoryData } from 'storyblok-js-client'
+import { defaultResolveRelations } from '../../utils/universal/storyblokParamsHelper'
 import { useAppContext } from '@context/AppContext'
 
 const SettingsContext = createContext<GlobalStoryblok>({} as GlobalStoryblok)
 const PageContext = createContext<PageStoryblok>({} as PageStoryblok)
-
-declare global {
-  interface Window {
-    StoryblokBridge: any
-  }
-}
 
 function SettingsPageProvider({
   settings,
@@ -49,47 +46,54 @@ function SettingsPageProvider({
     })
   }, [settings])
 
+  useEffect(() => {
+    if (!insideStoryblok) return
+    let cancelled = false
+    let bridge: StoryblokBridge | undefined
+    loadStoryblokBridge()
+      .then(() => {
+        if (cancelled) return
+        bridge = new window.StoryblokBridge({
+          resolveRelations: defaultResolveRelations.split(','),
+          resolveLinks: 'url'
+        }) as unknown as StoryblokBridge
+        bridge.on('input', (event) => {
+          const story = event.story as unknown as ISbStoryData<
+            GlobalStoryblok | PageStoryblok
+          >
+          if (cancelled || !story?.content) return
+          const content = { ...story.content, uuid: story.uuid }
+          if (
+            story.content.component === 'global' &&
+            story.uuid === settings?.uuid
+          ) {
+            setSettings(content as GlobalStoryblok)
+          } else if (story.uuid === page?.uuid) {
+            setPage(content as PageStoryblok)
+          }
+        })
+        bridge.on(['change', 'published'], (event) => {
+          if (
+            !cancelled &&
+            (event.action === 'published' ||
+              ('reload' in event && event.reload))
+          )
+            window.location.reload()
+        })
+      })
+      .catch((error) => {
+        if (!cancelled)
+          console.error('[Storyblok] Could not load preview bridge', error)
+      })
+    return () => {
+      cancelled = true
+      bridge?.destroy()
+    }
+  }, [insideStoryblok, page?.uuid, settings?.uuid])
+
   return (
     <SettingsContext.Provider value={stateSettings}>
       <PageContext.Provider value={statePage as PageStoryblok}>
-        {insideStoryblok && (
-          <NextScript
-            strategy={'lazyOnload'}
-            src="//app.storyblok.com/f/storyblok-v2-latest.js"
-            onLoad={() => {
-              const { StoryblokBridge } = window
-
-              if (typeof StoryblokBridge !== 'undefined') {
-                const storyblokInstance = new StoryblokBridge()
-
-                storyblokInstance.on(
-                  ['change', 'published', 'unpublished'],
-                  () => {
-                    console.log('published triggered')
-                    // window.location.reload()
-                  }
-                )
-
-                storyblokInstance.on('input', (event: any) => {
-                  const newContent = {
-                    ...event?.story.content,
-                    uuid: event?.story.uuid
-                  }
-                  if (
-                    event?.story.content.component === 'global' &&
-                    event?.story.uuid === settings?.uuid
-                  ) {
-                    setSettings(newContent)
-                    return
-                  }
-                  if (event?.story.uuid === page?.uuid) {
-                    setPage(newContent)
-                  }
-                })
-              }
-            }}
-          />
-        )}
         {children}
       </PageContext.Provider>
     </SettingsContext.Provider>

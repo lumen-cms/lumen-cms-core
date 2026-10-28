@@ -3,26 +3,36 @@ import { LmTimelineProps } from './timelineTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import TimelineObserver from 'react-timeline-animation'
 import { Box } from '@mui/material'
-import { useReward } from 'react-rewards'
+import { balloon, confetti, emoji, useReward } from 'react-rewards'
 import Timeline from '@mui/lab/Timeline'
+import { useRef } from 'react'
+import { ConfettiStoryblok } from '../../typings/generated/components-schema'
+
+const rewardEffects = { balloons: balloon, confetti, emoji }
+
+function rewardConfig(rewardObject?: ConfettiStoryblok) {
+  const config: { count?: number; colors?: string[]; emojis?: string[] } = {}
+  if (rewardObject?.elementCount) {
+    config.count = Number(rewardObject.elementCount)
+  }
+  if (rewardObject?.colors) {
+    config.colors = rewardObject.colors.split(',').map((i) => i.trim())
+  }
+  if (rewardObject?.emojis) {
+    config.emojis = rewardObject.emojis.split(',')
+  }
+  return config
+}
 
 export default function LmTimeline({ content }: LmTimelineProps) {
   const { isMobile } = useDeviceDimensions()
   const rewardObject = content.confetti?.[0]
+  const rewardRef = useRef<HTMLSpanElement>(null)
   const { reward } = useReward(
-    'confetti-' + content._uid,
-    rewardObject?.type || 'confetti',
-    {
-      position: 'absolute',
-      zIndex: 99999,
-      elementCount: rewardObject?.elementCount
-        ? Number(rewardObject.elementCount)
-        : undefined,
-      colors: rewardObject?.colors
-        ? rewardObject.colors.split(',').map((i) => i.trim())
-        : undefined,
-      emoji: rewardObject?.emojis ? rewardObject.emojis.split(',') : undefined
-    }
+    rewardRef,
+    rewardEffects[rewardObject?.type || 'confetti'],
+    rewardConfig(rewardObject),
+    { zIndex: 99999 }
   )
 
   const initialColor = content.connector_color?.rgba
@@ -64,7 +74,7 @@ export default function LmTimeline({ content }: LmTimelineProps) {
               alignItems: 'center'
             }}
           >
-            <span id={'confetti-' + content._uid} />
+            <span id={'confetti-' + content._uid} ref={rewardRef} />
           </Box>
         )}
       </>

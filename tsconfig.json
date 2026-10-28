@@ -31,9 +31,6 @@
     "jsx": "react-jsx",
     "traceResolution": false,
     "paths": {
-      "@polyfills": [
-        "./client/polyfills.js"
-      ],
       "@LmComponentRender": [
         "./src/components/CoreComponents.tsx"
       ],

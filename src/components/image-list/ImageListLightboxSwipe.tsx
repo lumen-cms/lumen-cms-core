@@ -18,10 +18,12 @@ function CarouselImageItem({ content }: { content: ImageListItemStoryblok }) {
         alignItems: 'center'
       }}
     >
-      <ImageBase
-        src={imageSource}
-        style={{ height: '100%', objectFit: 'contain' }}
-      />
+      {imageSource && (
+        <ImageBase
+          src={imageSource}
+          style={{ height: '100%', objectFit: 'contain' }}
+        />
+      )}
       {(content.label || content.sub_title) && (
         <Box
           sx={{

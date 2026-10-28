@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import useScript, { ScriptStatus } from '@charlietango/use-script'
+import { useExternalScript as useScript } from '../../utils/hooks/useExternalScript'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { TawktoProps } from './chatTypings'
 import { useAppContext } from '@context/AppContext'
@@ -29,8 +29,8 @@ export default function LmTawktoChatButton({ content }: TawktoProps) {
     !insideStoryblok && tawkToId && startInclude
       ? `https://embed.tawk.to/${tawkToId}/default`
       : ''
-  const [, status] = useScript(tawkToScriptName)
-  if (status === ScriptStatus.ERROR) {
+  const status = useScript(tawkToScriptName)
+  if (status === 'error') {
     console.error('Tawkto script could not load')
   }
   useEffect(() => {

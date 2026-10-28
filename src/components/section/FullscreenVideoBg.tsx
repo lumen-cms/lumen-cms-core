@@ -1,4 +1,5 @@
-import ReactPlayer, { ReactPlayerProps } from 'react-player/lazy'
+import ReactPlayer from 'react-player'
+import type { ReactPlayerProps } from 'react-player/types'
 import { useState } from 'react'
 import BackgroundImageContainer from './BackgroundImage'
 import videoUrlHelper from '../../utils/videoUrlHelper'
@@ -39,11 +40,11 @@ export default function FullscreenVideoBg(
     playing: properties.includes('autoplay'),
     muted,
     controls: properties.includes('controls'),
-    playsinline: properties.includes('playsinline'),
+    playsInline: properties.includes('playsinline'),
     light: properties.includes('light')
       ? content.fallback_image || true
       : false,
-    onError: (error) => setError(error),
+    onError: (event) => setError(event),
     volume: muted ? 0 : undefined
   }
 
@@ -73,6 +74,7 @@ export default function FullscreenVideoBg(
         >
           <div className="videobg-make-height">
             <ReactPlayer
+              wrapper="div"
               {...videoUrlHelper(content, inView)}
               className={className}
               width="100%"

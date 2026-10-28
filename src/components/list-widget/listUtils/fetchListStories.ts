@@ -20,9 +20,10 @@ export const fetchListStories = async ({
   content,
   searchCategories
 }: FetchListStoriesProps): Promise<LmListStoriesPayload> => {
-  let pageCategories = [...searchCategories, content.page_categories].filter(
-    (i) => i
-  )
+  const pageCategories = [
+    ...searchCategories,
+    ...(content.page_categories || [])
+  ]
   const storiesParams: ISbStoriesParams = {
     ...getListStoriesParams(
       {

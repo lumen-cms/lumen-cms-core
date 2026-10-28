@@ -1,5 +1,5 @@
 import { useInView } from 'react-intersection-observer'
-import ReactPlayer from 'react-player/lazy'
+import ReactPlayer from 'react-player'
 import { useState } from 'react'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmPlayerProps } from './playerTypes'
@@ -36,7 +36,7 @@ export default function LmPlayer({
             objectFit: 'cover'
           },
           ...(content.border_radius && {
-            '& iframe, & > div > div': {
+            '& > div > *': {
               borderRadius: 'inherit'
             }
           }),
@@ -49,6 +49,7 @@ export default function LmPlayer({
       >
         {(content.disable_lazy_load || inView) && (
           <ReactPlayer
+            wrapper="div"
             onMouseEnter={() => {
               togglePlay()
             }}
@@ -72,12 +73,12 @@ export default function LmPlayer({
             volume={content.muted ? 0 : Number(content.volume || 0)}
             loop={content.loop}
             muted={content.muted}
-            playsinline={content.playsinline}
+            playsInline={content.playsinline}
             playing={playing}
             light={content.light ? content.fallback_image || true : false}
             controls={content.controls}
-            height={content.ratio ? '100%' : content.height || undefined}
-            width={content.ratio ? '100%' : content.width || undefined}
+            height={content.ratio ? '100%' : content.height || '360px'}
+            width={content.ratio ? '100%' : content.width || '640px'}
           />
         )}
       </LmAspectRatio>

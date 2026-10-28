@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmAccordionProps } from './accordionTypes'
-import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 
 export default function LmAccordion({
   content
 }: LmAccordionProps): React.JSX.Element {
   const [opened, setOpen] = useState<string>('')
-  const { classes } = useStylesAdvanced({
+  const advancedSx = getAdvancedSx({
     props: content.styles
   })
 
@@ -21,7 +21,7 @@ export default function LmAccordion({
           setOpen={setOpen}
           iteration={iteration}
           key={blok._uid}
-          classes={classes}
+          advancedSx={advancedSx}
         />
       ))}
     </div>

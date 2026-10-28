@@ -1,19 +1,25 @@
-import useScript, { ScriptStatus } from '@charlietango/use-script'
+import { useId } from 'react'
+import { useExternalScript as useScript } from '../../utils/hooks/useExternalScript'
 import { LmHubspotMeetingProps } from './hubspotTypes'
 
 export default function LmHubspotMeeting({
   content,
   disableEmbed
 }: LmHubspotMeetingProps): React.JSX.Element {
+  const instanceId = useId()
   const dataSrc = `https://app.hubspot.com/meetings/${
     content.meeting_name
   }?embed-true=${disableEmbed ? 'false' : 'true'}`
-  const [, status] = useScript(
+  const status = useScript(
     content.meeting_name
-      ? `https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=${new Date().getTime()}`
+      ? `https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js?id=${encodeURIComponent(
+          instanceId
+        )}&meeting=${encodeURIComponent(content.meeting_name)}&embed=${
+          disableEmbed ? 'false' : 'true'
+        }`
       : ''
   )
-  if (status === ScriptStatus.ERROR) {
+  if (status === 'error') {
     console.error('script of hubspot not loaded')
   }
   return (

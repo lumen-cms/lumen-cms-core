@@ -1,3 +1,4 @@
+import type { StoryblokFields } from '../../typings/storyblok-extensions'
 import Image from 'next/image'
 import {
   GalleryStoryblok,
@@ -9,17 +10,18 @@ import {
   imageCalculateWidth
 } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
-import { ClassNameMap } from '@mui/material'
+import Box from '@mui/material/Box'
+import type { AdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 
 type LmGalleryImageProps = {
   content: ImageCoreStoryblok
-  options: Omit<GalleryStoryblok, 'content'>
-  imageStyles: ClassNameMap<'advanced'>
+  options: Omit<StoryblokFields<GalleryStoryblok>, 'content'>
+  imageSx: AdvancedSx
 }
 export default function LmGalleryImage({
   content,
   options,
-  imageStyles
+  imageSx
 }: LmGalleryImageProps) {
   const imageSource = content.url
 
@@ -29,14 +31,14 @@ export default function LmGalleryImage({
 
   const originalDimensions = getOriginalImageDimensions(imageSource || '')
   let width = originalDimensions.width
-  const height = options.image_height || originalDimensions.height
+  const height = Number(options.image_height || originalDimensions.height)
   if (options.image_height) {
     width = imageCalculateWidth(height, originalDimensions)
   }
   return (
-    <div
+    <Box
       style={{ height: height + 'px', width: width + 'px', overflow: 'hidden' }}
-      className={imageStyles.advanced}
+      sx={[imageSx]}
     >
       <Image
         src={getRootImageUrl(imageSource)}
@@ -49,6 +51,6 @@ export default function LmGalleryImage({
         }}
         alt={content.alt || 'gallery image'}
       />
-    </div>
+    </Box>
   )
 }

@@ -4,20 +4,13 @@ import { ButtonStoryblok } from '../../../../typings/generated/components-schema
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { ShopifyProductDescription } from './ShopifyProductDescription'
-import { makeStyles } from 'tss-react/mui'
-
-const useStyles = makeStyles()((theme) => ({
-  buttonSpace: {
-    marginTop: theme.spacing(3)
-  }
-}))
+import Box from '@mui/material/Box'
 
 function AddToCartButton() {
   const { addToCart, config } = useShopifySdkContext()
-  const { classes } = useStyles()
 
   return (
-    <div className={classes.buttonSpace}>
+    <Box sx={{ marginTop: 3 }}>
       <LmComponentRender
         content={
           {
@@ -34,17 +27,16 @@ function AddToCartButton() {
           addToCart()
         }}
       />
-    </div>
+    </Box>
   )
 }
 
 function CheckoutButton() {
-  const { classes } = useStyles()
   const { config, onCheckout } = useShopifySdkContext()
   const [loading, setLoading] = useState<boolean>(false)
 
   return (
-    <div className={classes.buttonSpace}>
+    <Box sx={{ marginTop: 3 }}>
       <LmComponentRender
         content={
           {
@@ -64,21 +56,20 @@ function CheckoutButton() {
           setLoading(false)
         }}
       />
-    </div>
+    </Box>
   )
 }
 
 export function ShopifyItemActions({ item }: ShopifyProductItemProps) {
   const { config } = useShopifySdkContext()
-  const { classes } = useStyles()
   return (
     <div>
       <AddToCartButton />
       <CheckoutButton />
       {!config?.hide_description && (
-        <div className={classes.buttonSpace}>
+        <Box sx={{ marginTop: 3 }}>
           <ShopifyProductDescription item={item} />
-        </div>
+        </Box>
       )}
     </div>
   )

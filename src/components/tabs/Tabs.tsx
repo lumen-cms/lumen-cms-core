@@ -145,10 +145,7 @@ export default function LmTabs({ content }: LmTabsProps) {
             beforeSlide={(_, endSlideIndex) => {
               setActiveTab(`${endSlideIndex}`)
             }}
-            {...(content.dynamic_height && {
-              adaptiveHeight: true,
-              adaptiveHeightAnimation: true
-            })}
+            adaptiveHeight={!!content.dynamic_height}
           >
             {body.map((tab: TabsItemStoryblok, index) => (
               <TabPanel value={`${index}`} key={`content_${tab._uid}`}>

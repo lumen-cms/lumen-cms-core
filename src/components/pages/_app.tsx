@@ -7,13 +7,17 @@ import { AppPageProps } from '../../typings/app'
 import { LmAppContainer } from '../layout/AppContainer'
 import { analyticsOnPageChange } from '../../utils/analyticsHelper'
 import { EmotionCache } from '@emotion/react'
-import { withAppEmotionCache_mui } from '../global-theme/muiCache'
-
-// Client-side cache, shared for the whole session of the user in the browser.
+import createCache from '@emotion/cache'
+import { AppCacheProvider } from '@mui/material-nextjs/v16-pagesRouter'
 
 export type LmAppProps = AppProps<AppPageProps> & {
-  emotionCache: EmotionCache
+  emotionCache?: EmotionCache
 }
+
+// Not material-nextjs' createEmotionCache: it adopts the emotion-insertion-point
+// <meta> that MUI prepends to <head>, which would move the hydrated styles
+// above the stylesheet links. Without an insertion point they stay last.
+const clientEmotionCache = createCache({ key: 'css' })
 
 export function MyApp(appProps: LmAppProps) {
   const { Component, pageProps, router } = appProps
@@ -62,4 +66,10 @@ export function MyApp(appProps: LmAppProps) {
   )
 }
 
-export const LmApp = withAppEmotionCache_mui(MyApp)
+export function LmApp(props: LmAppProps) {
+  return (
+    <AppCacheProvider emotionCache={props.emotionCache ?? clientEmotionCache}>
+      <MyApp {...props} />
+    </AppCacheProvider>
+  )
+}

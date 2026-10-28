@@ -47,7 +47,7 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
     }
     const timer = setTimeout(() => {
       setOpen(false)
-    }, content.auto_close)
+    }, Number(content.auto_close))
 
     return () => clearTimeout(timer)
   }, [content.auto_close])
@@ -56,9 +56,12 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
     if (!content.auto_show && !cookieExists.current) {
       return undefined
     }
-    const timer = setTimeout(() => {
-      setOpen(true)
-    }, content.auto_show)
+    const timer = setTimeout(
+      () => {
+        setOpen(true)
+      },
+      content.auto_show === undefined ? undefined : Number(content.auto_show)
+    )
 
     return () => clearTimeout(timer)
   }, [content.auto_show])
@@ -127,7 +130,7 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
       }}
     >
       <SnackbarContent
-        elevation={content.elevation || undefined}
+        elevation={content.elevation ? Number(content.elevation) : undefined}
         variant={content.variant === 'outlined' ? 'outlined' : 'elevation'}
         style={{
           width: content.width ? content.width : undefined,

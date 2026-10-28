@@ -1,8 +1,9 @@
+import Box from '@mui/material/Box'
+import clsx from 'clsx'
 import LmIconMwc from './LmIcon'
 import { LmIconProps } from './iconTypes'
-import { makeStyles } from 'tss-react/mui'
 
-const useStyles = makeStyles({ name: 'Icon' })({
+const iconSizes: Record<string, { fontSize: string; height: string }> = {
   xmall: {
     fontSize: '1rem',
     height: '1rem'
@@ -30,31 +31,26 @@ const useStyles = makeStyles({ name: 'Icon' })({
   xxxlarge: {
     fontSize: '4rem',
     height: '4rem'
-  },
-  icon: {}
-})
+  }
+}
 
 export function LmIcon({ content, onClick }: LmIconProps): React.JSX.Element {
-  const { classes, cx: clsx } = useStyles()
+  const size = iconSizes[content.size || 'medium']
   return (
-    <div
-      className={clsx(content.class_names?.values, {
-        [classes[content.size || 'medium']]: true
-      })}
+    <Box
+      className={clsx(content.class_names?.values)}
+      sx={{ ...size, '& .lm-svg-icon': size }}
     >
       <LmIconMwc
         onClick={() => {
           onClick && onClick()
         }}
-        className={clsx(classes.icon, {
-          [classes[content.size || 'medium']]: true
-        })}
         iconUrl={content.icon_url}
         style={{
           color: content.color?.rgba || undefined
         }}
         iconName={content.name?.name}
       />
-    </div>
+    </Box>
   )
 }

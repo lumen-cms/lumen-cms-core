@@ -14,7 +14,7 @@ export default function LmAccordionItem({
   setOpen,
   opened,
   iteration,
-  classes
+  advancedSx = false
 }: LmAccordionItemProps): React.JSX.Element {
   const [isOpen, setIsOpen] = useState<string>('')
   const panelKey = `panel-${iteration}`
@@ -35,9 +35,7 @@ export default function LmAccordionItem({
           ? setOpen(isExpanded ? panelKey : '')
           : setIsOpen(isExpanded ? panelKey : '')
       }}
-      classes={{
-        root: classes.advanced
-      }}
+      sx={[advancedSx]}
     >
       <AccordionSummary
         component={titleCustom.length ? 'div' : 'button'}

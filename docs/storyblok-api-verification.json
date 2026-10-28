@@ -1,0 +1,95 @@
+{
+  "comparedAt": "2026-10-27T05:49:14.953Z",
+  "baseline": "/tmp/lumen-consumer-storyblok-types",
+  "candidate": "/tmp/lumen-consumer-storyblok-api-final",
+  "ignored": [
+    "*.list_widget_data.cv (numeric Date.now build timestamp)",
+    "*.form_data.fbzx (nonempty numeric Google Forms hidden token)"
+  ],
+  "sites": {
+    "baliinternships": {
+      "routes": 597,
+      "candidateRoutes": 597,
+      "missing": [],
+      "added": [],
+      "beforeCounts": {
+        "components": 85803,
+        "arrayItems": 159440,
+        "stories": 2278,
+        "listItems": 1874,
+        "formFields": 0
+      },
+      "afterCounts": {
+        "components": 85803,
+        "arrayItems": 159440,
+        "stories": 2278,
+        "listItems": 1874,
+        "formFields": 0
+      },
+      "differences": []
+    },
+    "planet-training": {
+      "routes": 694,
+      "candidateRoutes": 694,
+      "missing": [],
+      "added": [],
+      "beforeCounts": {
+        "components": 130401,
+        "arrayItems": 273022,
+        "stories": 479,
+        "listItems": 479,
+        "formFields": 24
+      },
+      "afterCounts": {
+        "components": 130401,
+        "arrayItems": 273022,
+        "stories": 479,
+        "listItems": 479,
+        "formFields": 24
+      },
+      "differences": []
+    },
+    "upskill": {
+      "routes": 205,
+      "candidateRoutes": 205,
+      "missing": [],
+      "added": [],
+      "beforeCounts": {
+        "components": 44891,
+        "arrayItems": 88350,
+        "stories": 199,
+        "listItems": 199,
+        "formFields": 0
+      },
+      "afterCounts": {
+        "components": 44891,
+        "arrayItems": 88350,
+        "stories": 199,
+        "listItems": 199,
+        "formFields": 0
+      },
+      "differences": []
+    }
+  },
+  "branch": "feature/mui-v9",
+  "client": "@storyblok/api-client@0.9.1",
+  "unitTests": 54,
+  "unitTestFiles": 19,
+  "typescript": "7.0.2",
+  "storybook": "/tmp/lumen-storybook-api-client",
+  "screenshots": "paused",
+  "formTokenCheck": {
+    "requests": 2,
+    "method": "GET",
+    "bothNonemptyNumeric": true,
+    "tokenChanged": true
+  },
+  "builtArchive": "/tmp/lumen-candidate-storyblok-api-final.tgz",
+  "builtArchiveSha256": "4d1867864e4f756d07fcb4582990e71d9cb4058944a3b798303c3c24ccf5c7d0",
+  "reviewedArchive": "/tmp/lumen-candidate-storyblok-api-reviewed.tgz",
+  "reviewedArchiveSha256": "647fedf5cf6ac4f8bcade0c6181b59343b88ce18acdd5d545ebf302ed7b2217a",
+  "productionFilesChangedSinceBuild": [],
+  "reviewedArchiveSourceMismatches": [],
+  "reviewedManifestMatches": true,
+  "totalRoutes": 1496
+}

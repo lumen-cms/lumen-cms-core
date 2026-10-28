@@ -59,7 +59,7 @@ The root manifest contains 125 unique direct dependencies across runtime, develo
 | react-hook-form-mui | 6.0.1 | 9.0.1 | Upgrade with the MUI 9 stack |
 | date-fns | 2.29.3 | 4.4.0 | Migrate adapter and locale imports with pickers |
 | mdi-material-ui | 7.6.0 | 8.0.0 | Latest declares MUI 9 compatibility |
-| tss-react | 4.8.2 | 4.9.21 | Latest declares MUI 9 compatibility; preserve style insertion order |
+| tss-react | 4.8.2 | Removed | Upgraded to 4.9.21 during the MUI 9 upgrade, then replaced by `sx`, `styled` and `@mui/material-nextjs` (see [migration verification](migration-verification.md#tss-react-removal--28-october-2026)) |
 | Storybook React | 6.5.13 | 10.6.3 | Migrate framework and addons; preserve story identity |
 | Chromatic | 6.11.3 | 18.13.3 | Update with Storybook and validate baseline continuity |
 | Storyblok JS client | 7.1.5 | 7.8.1 | Update separately from renderer replacements |
@@ -80,7 +80,7 @@ The largest regression risk is the repository's layout code, rather than the for
 - The MUI 6 migration changes Grid sizing and offset props and replaces its spacing mechanism with CSS gap. Reproduce the current widths, gutters, reverse ordering and background positioning explicitly. See the [MUI 6 migration](https://mui.com/material-ui/migration/upgrade-to-v6/).
 - MUI 9 removes column-direction Grid support and changes the default ListItemIcon width. Vertical layouts in `FormBuilder` and section components need Stack or a compatible flex wrapper; theme overrides should retain the existing icon spacing. Also review removed props, slots, keyboard handling and icon names. See the [MUI 9 migration](https://mui.com/material-ui/migration/upgrade-to-v9/).
 - Pickers 9 require their accessible field DOM. Match existing labels, field height, helper text, focus styling and calendar layout while preserving the new accessible semantics. See the [picker migration](https://mui.com/x/migration/migration-pickers-v8/).
-- Keep Emotion and tss-react for this upgrade. Verify server-rendered CSS, style ordering and hydration. A styling-engine rewrite would add an independent source of visual changes.
+- Keep Emotion and tss-react for this upgrade. Verify server-rendered CSS, style ordering and hydration. A styling-engine rewrite would add an independent source of visual changes. tss-react was removed in a separate follow-up after this upgrade passed visual sign-off; Emotion remains as MUI's styling engine.
 
 MUI Lab remains a beta package: use its compatible v9 beta for the existing tabs and timeline, recording this exception to the stable-only policy. MUI 9 also raises the supported browser floor, including Safari 17; check site analytics and the supported-browser policy before adopting that floor. If older Safari remains required, MUI needs an explicit version exception rather than an unsupported deployment.
 

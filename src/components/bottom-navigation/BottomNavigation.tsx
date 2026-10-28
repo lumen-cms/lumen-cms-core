@@ -2,45 +2,39 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import { LmComponentRender } from '@LmComponentRender'
 import { LmCoreComponents } from '@CONFIG'
-import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 import {
   LmBottomNavigationItemProps,
   LmBottomNavigationProps
 } from './bottomNavigationTypes'
 import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
 import { useTheme } from '@mui/material/styles'
-import clsx from 'clsx'
 
 export default function LmBottomNavigation({
   content
 }: LmBottomNavigationProps) {
   const theme = useTheme()
-  const classesAdvanced = useStylesAdvanced({
+  const advancedSx = getAdvancedSx({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  }).classes
+  })
   const bodyElements: LmBottomNavigationItemProps[] = content.body || []
   return (
     <BottomNavigation
       showLabels
-      sx={{
-        ...(content.stick_to_bottom && {
-          width: '100%',
-          position: 'fixed',
-          bottom: 0,
-          zIndex: theme.zIndex.snackbar
-        })
-      }}
-      classes={{
-        root: clsx({
-          [classesAdvanced.advanced]: !!content.styles?.length,
-          [classesAdvanced.advancedMobile]: !!content.styles_mobile?.length,
-          [classesAdvanced.advancedTablet]: !!content.styles_tablet?.length,
-          [classesAdvanced.advancedHover]: !!content.styles_hover?.length
-        })
-      }}
+      sx={[
+        {
+          ...(content.stick_to_bottom && {
+            width: '100%',
+            position: 'fixed',
+            bottom: 0,
+            zIndex: theme.zIndex.snackbar
+          })
+        },
+        advancedSx
+      ]}
     >
       {bodyElements.map((item) => {
         const btnProps: any = isValidLink(item.link as LinkType)

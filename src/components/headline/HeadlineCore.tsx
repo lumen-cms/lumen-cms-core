@@ -2,7 +2,8 @@ import React, { CSSProperties, ElementType, FC } from 'react'
 import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { LmHeadlineProps } from './headlineTypes'
-import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
+import clsx from 'clsx'
 import { typographyColor } from '../../utils/themeColor'
 
 export const LmHeadlineCore: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
@@ -10,7 +11,7 @@ export const LmHeadlineCore: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
   onClick,
   children
 }) => {
-  const { classes, cx: clsx } = useStylesAdvanced({
+  const advancedSx = getAdvancedSx({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
@@ -25,16 +26,12 @@ export const LmHeadlineCore: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
         content.class_names?.values,
         {
           enable__speech: content.enable_speech,
-          [classes.advanced]: !!content.styles?.length,
-          [classes.advancedMobile]: !!content.styles_mobile?.length,
-          [classes.advancedTablet]: !!content.styles_tablet?.length,
-          [classes.advancedHover]: !!content.styles_hover?.length,
           [`lm-font-${content.font}`]: !!content.font
         }
       )}
       component={(content.tag ? content.tag : undefined) as ElementType}
       align={content.align ? content.align : undefined}
-      sx={{ color: typographyColor(content.color) }}
+      sx={[{ color: typographyColor(content.color) }, advancedSx]}
       style={{
         cursor: onClick ? 'pointer' : undefined,
         color:

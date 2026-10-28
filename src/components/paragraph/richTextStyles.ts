@@ -1,18 +1,15 @@
-import { makeStyles } from 'tss-react/mui'
+import { Theme } from '@mui/material/styles'
+import { SystemStyleObject } from '@mui/system'
 
-export const useRichTextStyles = makeStyles({ name: 'RichTextStyles' })(
-  (theme) => ({
-    richText: {
-      '& > p': {
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-        '&:first-of-type': {
-          marginTop: 0
-        },
-        '&:last-of-type': {
-          marginBottom: 0
-        }
-      }
+export const richTextSx: SystemStyleObject<Theme> = {
+  '& > p': {
+    marginTop: 1,
+    marginBottom: 1,
+    '&:first-of-type': {
+      marginTop: 0
+    },
+    '&:last-of-type': {
+      marginBottom: 0
     }
-  })
-)
+  }
+}

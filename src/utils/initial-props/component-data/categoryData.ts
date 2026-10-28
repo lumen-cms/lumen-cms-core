@@ -6,10 +6,7 @@ export const getCategoryData = async (
   item: CategoryBoxStoryblok,
   props: AppPageProps
 ) => {
-  const allItems = await getAllCategories({
-    locale: props.locale || '',
-    defaultLocale: props.defaultLocale || ''
-  })
+  const allItems = await getAllCategories(props)
   let filtered = filterAllCategory(allItems, item)
   return filtered
 }

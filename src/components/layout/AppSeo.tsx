@@ -1,5 +1,11 @@
-import { NextSeo, NextSeoProps } from 'next-seo'
-import { OpenGraph, OpenGraphMedia, Twitter } from 'next-seo/lib/types.d'
+import NextHead from 'next/head'
+import {
+  generateNextSeo,
+  NextSeoProps,
+  OpenGraph,
+  OpenGraphMedia,
+  Twitter
+} from 'next-seo/pages'
 import { CONFIG } from '@CONFIG'
 import { AppContextProps, useAppContext } from '@context/AppContext'
 import {
@@ -83,7 +89,11 @@ export function AppSeo(): React.JSX.Element {
   const appCtx = useAppContext()
   const seoBody = settings.seo_body || []
   if (appCtx?.pageNotFound || !page) {
-    return <NextSeo title="Not Found" noindex nofollow />
+    return (
+      <NextHead>
+        {generateNextSeo({ title: 'Not Found', noindex: true, nofollow: true })}
+      </NextHead>
+    )
   }
   const pageSeoBody = page.seo_body || []
   const robotsIndexFollow =
@@ -139,7 +149,7 @@ export function AppSeo(): React.JSX.Element {
   }
   return (
     <>
-      <NextSeo {...seo} />
+      <NextHead>{generateNextSeo(seo)}</NextHead>
       <SeoProduct />
       <SeoSocialProfile />
       <SeoLocalBusiness />

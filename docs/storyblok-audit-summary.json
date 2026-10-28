@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-10-27T05:03:14.166Z",
+  "unique": 8529,
+  "sites": {
+    "baliinternships": 1986,
+    "planet-training": 11634,
+    "upskill": 2758
+  },
+  "nodes": {
+    "doc": 8529,
+    "paragraph": 23671,
+    "text": 34013,
+    "heading": 2633,
+    "hard_break": 2589,
+    "bullet_list": 1222,
+    "list_item": 8727,
+    "ordered_list": 782,
+    "horizontal_rule": 180,
+    "blockquote": 129
+  },
+  "marks": {
+    "styled": 3642,
+    "textStyle": 5855,
+    "bold": 6964,
+    "link": 653,
+    "italic": 2090,
+    "underline": 147,
+    "strike": 20,
+    "code": 3
+  },
+  "htmlDifferences": 0,
+  "baselineSha256": "8e642a1f282018fac746520f8be37c3c0d50ddc2fafbe52545903b0d3693e1c3",
+  "unitTests": 30,
+  "unitFiles": 16,
+  "typeCheck": "passed",
+  "lint": {
+    "errors": 0,
+    "warnings": 103,
+    "formatFiles": 436
+  },
+  "storybook": "passed",
+  "consumerBuilds": {
+    "baliinternships": "passed",
+    "planetTraining": "passed",
+    "upskill": "passed"
+  },
+  "schemaCandidate": {
+    "components": 141,
+    "normalizedLegacyFields": 12,
+    "applicationDiagnostics": 195,
+    "adopted": false
+  },
+  "screenshots": "deferred at user request",
+  "liveEditor": "pending authenticated smoke test",
+  "security": {
+    "critical": 0,
+    "high": 11,
+    "moderate": 13,
+    "low": 2
+  }
+}

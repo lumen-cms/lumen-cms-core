@@ -1,39 +1,29 @@
 import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
-import { useRichTextStyles } from './richTextStyles'
+import { richTextSx } from './richTextStyles'
 import { LmRichTextParagraphProps } from './paragraphTypes'
-import { useStylesAdvanced } from '../../utils/hooks/useStylesAdvanced'
+import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
+import clsx from 'clsx'
 import { renderRichText } from './renderRichText'
 import { typographyColor } from '../../utils/themeColor'
 
 export function LmRichTextParagraph({
   content
 }: LmRichTextParagraphProps): React.JSX.Element {
-  const { classes, cx } = useRichTextStyles()
-  const advancedClasses = useStylesAdvanced({
+  const advancedSx = getAdvancedSx({
     props: content.styles,
     propsMobile: content.styles_mobile,
     propsTablet: content.styles_tablet,
     propsHover: content.styles_hover
-  }).classes
+  })
   return (
     <Typography
-      className={cx(
-        'lm-markup',
-        classes.richText,
-        content.style,
-        content.class_names?.values,
-        {
-          enable__speech: !!content.enable_speech,
-          [advancedClasses.advanced]: !!content.styles?.length,
-          [advancedClasses.advancedTablet]: !!content.styles_tablet?.length,
-          [advancedClasses.advancedMobile]: !!content.styles_mobile?.length,
-          [advancedClasses.advancedHover]: !!content.styles_hover?.length,
-          [`lm-font-${content.font}`]: !!content.font
-        }
-      )}
+      className={clsx('lm-markup', content.style, content.class_names?.values, {
+        enable__speech: !!content.enable_speech,
+        [`lm-font-${content.font}`]: !!content.font
+      })}
       align={content.align ? content.align : undefined}
-      sx={{ color: typographyColor(content.color) }}
+      sx={[richTextSx, { color: typographyColor(content.color) }, advancedSx]}
       component="div"
       style={{
         color: content.custom_color?.rgba ?? undefined,

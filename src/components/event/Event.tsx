@@ -17,8 +17,8 @@ export default function LmEvent({ content }: LmEventProps) {
       {
         component: 'image',
         _uid: 'image',
-        source: content.image?.filename,
-        alt: content.image?.alt
+        source: content.image?.filename ?? undefined,
+        alt: content.image?.alt ?? undefined
       },
       {
         component: 'headline',

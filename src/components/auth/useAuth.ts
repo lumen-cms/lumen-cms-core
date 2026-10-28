@@ -1,5 +1,4 @@
-import create from 'zustand'
-import shallow from 'zustand/shallow'
+import { create } from 'zustand'
 import { User } from '@auth0/auth0-react'
 
 type UserProps = User & {
@@ -22,6 +21,5 @@ const useAuthContext = create<AuthContext>()((setState) => ({
   }
 }))
 
-export const useUserData = () => useAuthContext((state) => state.user, shallow)
-export const useUserActions = () =>
-  useAuthContext((state) => state.actions, shallow)
+export const useUserData = () => useAuthContext((state) => state.user)
+export const useUserActions = () => useAuthContext((state) => state.actions)

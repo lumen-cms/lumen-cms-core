@@ -1,4 +1,4 @@
-module.exports = function customTypeParser (key, obj) {
+module.exports = function customTypeParser(key, obj) {
   switch (obj.field_type) {
     case 'bootstrap-utility-class-selector':
       return {
@@ -37,7 +37,9 @@ module.exports = function customTypeParser (key, obj) {
         }
       }
     case 'tags-select':
-      const isSingle = obj.options.find(item => item.name === 'single' && item.value === 'true')
+      const isSingle = obj.options.find(
+        (item) => item.name === 'single' && item.value === 'true'
+      )
       if (isSingle) {
         return {
           [key]: {
@@ -60,7 +62,6 @@ module.exports = function customTypeParser (key, obj) {
                 type: 'string'
               }
             }
-
           }
         }
       }
@@ -70,10 +71,12 @@ module.exports = function customTypeParser (key, obj) {
           type: 'object',
           properties: {
             tbody: {
-              type: 'array'
+              type: 'array',
+              items: { type: 'array', items: { type: 'string' } }
             },
             thead: {
-              type: 'array'
+              type: 'array',
+              items: { type: 'string' }
             }
           }
         }

@@ -72,18 +72,17 @@ const NextLinkComposed = forwardRef<HTMLAnchorElement, NextComposedProps>(
     }
     return (
       <NextLink
+        ref={ref}
+        {...other}
         href={currentHref}
         prefetch={prefetch}
         replace={replace}
         scroll={scroll}
         shallow={shallow}
-        passHref={passHref}
-        legacyBehavior={true}
         locale={detectedLocale !== locale ? false : undefined}
-      >
-        {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
-        <a ref={ref} {...other} onClick={handleClick} onKeyDown={handleClick} />
-      </NextLink>
+        onClick={handleClick}
+        onKeyDown={handleClick}
+      />
     )
   }
 )

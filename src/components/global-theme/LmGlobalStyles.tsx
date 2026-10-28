@@ -1,11 +1,8 @@
 import { memo } from 'react'
+import GlobalStyles from '@mui/material/GlobalStyles'
 import { createGlobalStyles } from '../../utils/hooks/useGlobalStyles'
-import { useTheme } from '@mui/material/styles'
-import { GlobalStyles } from 'tss-react'
 
-export const LmGlobalStyles = memo(() => {
-  const theme = useTheme()
-  // useGlobalStyles()
-  return <GlobalStyles styles={createGlobalStyles(theme) as any} />
-})
+export const LmGlobalStyles = memo(() => (
+  <GlobalStyles styles={createGlobalStyles} />
+))
 LmGlobalStyles.displayName = 'GlobalStyles'

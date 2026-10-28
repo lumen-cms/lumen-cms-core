@@ -2,7 +2,7 @@ import { Attributes, createElement } from 'react'
 import { LmCoreComponents } from '@CONFIG'
 import { ComponentRenderFuncProps } from '../typings/app'
 import { useAppContext } from '@context/AppContext'
-import SbEditable from 'storyblok-react'
+import { StoryblokEditable } from './provider/StoryblokEditable'
 
 export function LmComponentRender<P>(props: ComponentRenderFuncProps) {
   const { insideStoryblok } = useAppContext()
@@ -18,8 +18,11 @@ export function LmComponentRender<P>(props: ComponentRenderFuncProps) {
       ...rest
     } as unknown as Attributes & P)
     if (insideStoryblok) {
-      // @ts-ignore
-      return <SbEditable content={content}>{CurrentElement}</SbEditable>
+      return (
+        <StoryblokEditable content={content}>
+          {CurrentElement}
+        </StoryblokEditable>
+      )
     }
     return CurrentElement
   }

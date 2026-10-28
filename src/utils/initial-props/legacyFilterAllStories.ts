@@ -53,7 +53,7 @@ export const legacyFilterAllStories = (
       return 0
     })
   if (content.maximum_items) {
-    return stories.slice(0, content.maximum_items)
+    return stories.slice(0, Number(content.maximum_items))
   }
   return stories
 }

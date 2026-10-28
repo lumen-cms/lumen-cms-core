@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-27",
+  "branch": "feature/mui-v9",
+  "typescript": "7.0.2",
+  "generatedComponents": 141,
+  "unitTests": 34,
+  "unitTestFiles": 17,
+  "richTextDocuments": 8529,
+  "richTextHtmlDifferences": 0,
+  "ssgComparison": {
+    "method": "Parsed body tokens including inline styles and attributes, excluding scripts; compared with the preceding Storyblok runtime batch. No screenshots.",
+    "sites": {
+      "baliinternships": {
+        "compared": 600,
+        "differences": [],
+        "added": [],
+        "missing": []
+      },
+      "planet-training": {
+        "compared": 698,
+        "differences": [],
+        "added": [],
+        "missing": []
+      },
+      "upskill": {
+        "compared": 207,
+        "differences": [],
+        "added": [],
+        "missing": []
+      }
+    },
+    "totalCompared": 1505
+  },
+  "archive": "/tmp/lumen-candidate-storyblok-types.tgz",
+  "sha256": "b16444409cf6aa6bd2dce0e7e3961c4eb15c472c325fb84712bcc3bfba724520",
+  "packedSourceFilesChecked": 483,
+  "packedSourceMismatches": [],
+  "screenshots": "paused",
+  "authenticatedVisualEditor": "pending",
+  "packedManifestMatches": true
+}

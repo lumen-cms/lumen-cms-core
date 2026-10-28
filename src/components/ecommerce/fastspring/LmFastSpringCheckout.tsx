@@ -1,7 +1,7 @@
 import { LmComponentRender } from '@LmComponentRender'
 import { useFastspringContext } from './context/FastSpringContext'
 import { FastSpringCheckoutProps } from './fastSpringTypes'
-import shallow from 'zustand/shallow'
+import { useShallow } from 'zustand/react/shallow'
 import { useUserData } from '../../auth/useAuth'
 
 export default function LmFastSpringCheckout({
@@ -9,12 +9,11 @@ export default function LmFastSpringCheckout({
   trigger
 }: FastSpringCheckoutProps) {
   const { products, setRedirect, currency } = useFastspringContext(
-    (state) => ({
+    useShallow((state) => ({
       products: state.products,
       setRedirect: state.setRedirect,
       currency: state.currency
-    }),
-    shallow
+    }))
   )
   const user = useUserData()
   const { path } = content
@@ -29,12 +28,12 @@ export default function LmFastSpringCheckout({
   }
 
   const findStringAndReplace = (key: string) => {
-    trigger[key] = trigger[key].replace('{price}', currentItem?.price || '')
-    trigger[key] = trigger[key].replace('{total}', currentItem?.total || '')
-    trigger[key] = trigger[key].replace(
-      '{discount}',
-      currentItem?.unitDiscount || ''
-    )
+    const value = trigger[key]
+    if (typeof value !== 'string') return
+    trigger[key] = value
+      .replace('{price}', currentItem.price || '')
+      .replace('{total}', currentItem.total || '')
+      .replace('{discount}', currentItem.unitDiscount || '')
   }
   if (trigger.label) {
     findStringAndReplace('label')
@@ -53,9 +52,11 @@ export default function LmFastSpringCheckout({
           return
         }
 
-        const cachedUrl = content.on_successful_redirect?.cached_url
-          ? content.on_successful_redirect.story?.url ||
-            content.on_successful_redirect.cached_url
+        const redirect = content.on_successful_redirect
+        const story =
+          redirect?.linktype === 'story' ? redirect.story : undefined
+        const cachedUrl = redirect?.cached_url
+          ? (story && 'url' in story && story.url) || redirect.cached_url
           : null
 
         setRedirect(cachedUrl ? `/${cachedUrl}` : '')

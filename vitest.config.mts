@@ -7,8 +7,7 @@ const aliases = {
   '@CONFIG': resolve('./src/utils/config.ts'),
   '@SSR_CONFIG': resolve('./src/utils/initial-props/ssrConfig.ts'),
   '@LmComponentRender': resolve('./src/components/CoreComponents.tsx'),
-  '@context': resolve('./src/components/provider/context'),
-  '@polyfills': resolve('./client/polyfills.js')
+  '@context': resolve('./src/components/provider/context')
 }
 
 export default defineConfig({

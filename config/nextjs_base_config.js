@@ -68,15 +68,6 @@ module.exports = ({
       if (!isServer) {
         config.resolve.alias['@sentry/node'] = '@sentry/browser'
       }
-
-      const originalEntry = config.entry
-      config.entry = async () => {
-        const entries = await originalEntry()
-        if (entries['main.js']) {
-          entries['main.js'].unshift('@polyfills')
-        }
-        return entries
-      }
       return config
     },
     async rewrites() {

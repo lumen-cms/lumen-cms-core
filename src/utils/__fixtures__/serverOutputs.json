@@ -1,0 +1,206 @@
+{
+  "seo": [
+    {
+      "name": "NextSeo",
+      "props": {
+        "title": "A & B",
+        "description": "Description <quoted>",
+        "canonical": "https://example.com/de/page",
+        "noindex": false,
+        "nofollow": false,
+        "openGraph": {
+          "title": "OG title",
+          "type": "website",
+          "site_name": "Site",
+          "url": "https://example.com/de/page",
+          "locale": "de_DE",
+          "images": [
+            {
+              "url": "https://example.com/image.jpg",
+              "width": 1200,
+              "height": 630,
+              "alt": "Image"
+            }
+          ]
+        },
+        "twitter": {
+          "cardType": "summary_large_image",
+          "site": "@site"
+        },
+        "facebook": {
+          "appId": "123"
+        }
+      },
+      "html": "<title>A &amp; B</title><meta name=\"robots\" content=\"index,follow\"/><meta name=\"description\" content=\"Description &lt;quoted&gt;\"/><meta name=\"twitter:card\" content=\"summary_large_image\"/><meta name=\"twitter:site\" content=\"@site\"/><meta property=\"fb:app_id\" content=\"123\"/><meta property=\"og:title\" content=\"OG title\"/><meta property=\"og:description\" content=\"Description &lt;quoted&gt;\"/><meta property=\"og:url\" content=\"https://example.com/de/page\"/><meta property=\"og:type\" content=\"website\"/><meta property=\"og:image\" content=\"https://example.com/image.jpg\"/><meta property=\"og:image:alt\" content=\"Image\"/><meta property=\"og:image:width\" content=\"1200\"/><meta property=\"og:image:height\" content=\"630\"/><meta property=\"og:locale\" content=\"de_DE\"/><meta property=\"og:site_name\" content=\"Site\"/><link rel=\"canonical\" href=\"https://example.com/de/page\"/>"
+    },
+    {
+      "name": "NextSeo",
+      "props": {
+        "title": "Not Found",
+        "noindex": true,
+        "nofollow": true
+      },
+      "html": "<title>Not Found</title><meta name=\"robots\" content=\"noindex,nofollow\"/><meta property=\"og:title\" content=\"Not Found\"/>"
+    },
+    {
+      "name": "LogoJsonLd",
+      "props": {
+        "logo": "https://example.com/logo.png",
+        "url": "https://example.com"
+      },
+      "html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"logo\":\"https://example.com/logo.png\",\"url\":\"https://example.com\"}</script>"
+    },
+    {
+      "name": "SocialProfileJsonLd",
+      "props": {
+        "type": "Organization",
+        "name": "Company",
+        "url": "https://example.com",
+        "sameAs": [
+          "https://example.com/social"
+        ]
+      },
+      "html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"name\":\"Company\",\"url\":\"https://example.com\",\"sameAs\":[\"https://example.com/social\"]}</script>"
+    },
+    {
+      "name": "CorporateContactJsonLd",
+      "props": {
+        "url": "https://example.com",
+        "logo": "https://example.com/logo.png",
+        "contactPoint": [
+          {
+            "telephone": "+12345",
+            "contactType": "customer service",
+            "areaServed": [
+              "DE",
+              "GB"
+            ],
+            "availableLanguage": [
+              "German",
+              "English"
+            ]
+          }
+        ]
+      },
+      "html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Organization\",\"url\":\"https://example.com\",\"logo\":\"https://example.com/logo.png\",\"contactPoint\":[{\"telephone\":\"+12345\",\"contactType\":\"customer service\",\"areaServed\":[\"DE\",\"GB\"],\"availableLanguage\":[\"German\",\"English\"],\"@type\":\"ContactPoint\"}]}</script>"
+    },
+    {
+      "name": "LocalBusinessJsonLd",
+      "props": {
+        "id": "https://example.com",
+        "type": "TravelAgency",
+        "name": "Agency",
+        "images": [
+          "https://example.com/image.png"
+        ],
+        "description": "Description",
+        "url": "https://example.com",
+        "telephone": "+12345",
+        "geo": {
+          "latitude": "-8.6",
+          "longitude": "115.2"
+        },
+        "openingHours": [
+          {
+            "opens": "09:00",
+            "closes": "18:00",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday"
+            ]
+          }
+        ],
+        "address": {
+          "streetAddress": "Main Street",
+          "addressLocality": "City",
+          "addressRegion": "Region",
+          "postalCode": "12345",
+          "addressCountry": "ID"
+        }
+      },
+      "html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"TravelAgency\",\"@id\":\"https://example.com\",\"name\":\"Agency\",\"description\":\"Description\",\"url\":\"https://example.com\",\"telephone\":\"+12345\",\"image\":[\"https://example.com/image.png\"],\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"Main Street\",\"addressLocality\":\"City\",\"addressRegion\":\"Region\",\"postalCode\":\"12345\",\"addressCountry\":\"ID\"},\"geo\":{\"latitude\":\"-8.6\",\"longitude\":\"115.2\",\"@type\":\"GeoCoordinates\"},\"openingHoursSpecification\":[{\"opens\":\"09:00\",\"closes\":\"18:00\",\"dayOfWeek\":[\"Monday\",\"Tuesday\"],\"@type\":\"OpeningHoursSpecification\"}]}</script>"
+    },
+    {
+      "name": "ProductJsonLd",
+      "props": {
+        "productName": "Study program",
+        "brand": "Upskill",
+        "description": "Program",
+        "images": [
+          "https://example.com/program.jpg"
+        ],
+        "sku": "sku-1",
+        "offers": [
+          {
+            "price": "500",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "itemCondition": "https://schema.org/NewCondition",
+            "url": "https://example.com/program",
+            "seller": {
+              "name": "Provider"
+            }
+          }
+        ]
+      },
+      "html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Product\",\"description\":\"Program\",\"sku\":\"sku-1\",\"image\":[\"https://example.com/program.jpg\"],\"brand\":{\"@type\":\"Brand\",\"name\":\"Upskill\"},\"offers\":[{\"price\":\"500\",\"priceCurrency\":\"EUR\",\"availability\":\"https://schema.org/InStock\",\"itemCondition\":\"https://schema.org/NewCondition\",\"url\":\"https://example.com/program\",\"@type\":\"Offer\",\"seller\":{\"@type\":\"Organization\",\"name\":\"Provider\"}}],\"name\":\"Study program\"}</script>"
+    }
+  ],
+  "feed": {
+    "options": {
+      "id": "https://example.com",
+      "title": "News & updates",
+      "description": "Study programs",
+      "link": "https://example.com",
+      "copyright": "Company",
+      "language": "en",
+      "updated": "2026-01-01T00:00:00.000Z",
+      "feedLinks": {
+        "rss": "https://example.com/feed.xml"
+      }
+    },
+    "items": [
+      {
+        "title": "First & second",
+        "id": "1",
+        "link": "https://example.com/news/first",
+        "date": "2025-12-01T12:00:00.000Z",
+        "description": "A < B",
+        "content": "<p>Text &amp; more</p>",
+        "category": [
+          {
+            "name": "News"
+          }
+        ],
+        "image": "https://example.com/image.jpg"
+      }
+    ],
+    "rss": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<rss version=\"2.0\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:content=\"http://purl.org/rss/1.0/modules/content/\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n    <channel>\n        <title>News &amp; updates</title>\n        <link>https://example.com</link>\n        <description>Study programs</description>\n        <lastBuildDate>Thu, 01 Jan 2026 00:00:00 GMT</lastBuildDate>\n        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>\n        <generator>https://github.com/jpmonette/feed</generator>\n        <language>en</language>\n        <copyright>Company</copyright>\n        <atom:link href=\"https://example.com/feed.xml\" rel=\"self\" type=\"application/rss+xml\"/>\n        <item>\n            <title><![CDATA[First & second]]></title>\n            <link>https://example.com/news/first</link>\n            <guid>1</guid>\n            <pubDate>Mon, 01 Dec 2025 12:00:00 GMT</pubDate>\n            <description><![CDATA[A < B]]></description>\n            <content:encoded><![CDATA[<p>Text &amp; more</p>]]></content:encoded>\n            <category>News</category>\n            <enclosure url=\"https://example.com/image.jpg\" length=\"0\" type=\"image/jpg\"/>\n        </item>\n    </channel>\n</rss>",
+    "atom": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<feed xmlns=\"http://www.w3.org/2005/Atom\">\n    <id>https://example.com</id>\n    <title>News &amp; updates</title>\n    <updated>2026-01-01T00:00:00.000Z</updated>\n    <generator>https://github.com/jpmonette/feed</generator>\n    <link rel=\"alternate\" href=\"https://example.com\"/>\n    <subtitle>Study programs</subtitle>\n    <rights>Company</rights>\n    <entry>\n        <title type=\"html\"><![CDATA[First & second]]></title>\n        <id>1</id>\n        <link href=\"https://example.com/news/first\"/>\n        <updated>2025-12-01T12:00:00.000Z</updated>\n        <summary type=\"html\"><![CDATA[A < B]]></summary>\n        <content type=\"html\"><![CDATA[<p>Text &amp; more</p>]]></content>\n        <category label=\"News\"/>\n    </entry>\n</feed>",
+    "json": "{\n    \"version\": \"https://jsonfeed.org/version/1\",\n    \"title\": \"News & updates\",\n    \"home_page_url\": \"https://example.com\",\n    \"description\": \"Study programs\",\n    \"items\": [\n        {\n            \"id\": \"1\",\n            \"content_html\": \"<p>Text &amp; more</p>\",\n            \"url\": \"https://example.com/news/first\",\n            \"title\": \"First & second\",\n            \"summary\": \"A < B\",\n            \"image\": \"https://example.com/image.jpg\",\n            \"date_modified\": \"2025-12-01T12:00:00.000Z\",\n            \"tags\": [\n                \"News\"\n            ]\n        }\n    ]\n}"
+  },
+  "sitemap": {
+    "items": [
+      {
+        "url": "/",
+        "lastmod": "2026-01-01T00:00:00Z",
+        "priority": 1
+      },
+      {
+        "url": "/de/page?x=1&y=2",
+        "lastmod": "2025-12-01T12:00:00Z",
+        "priority": 0.5
+      },
+      {
+        "url": "/日本語",
+        "links": [
+          {
+            "lang": "en",
+            "url": "https://example.com/en"
+          }
+        ]
+      }
+    ],
+    "xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:news=\"http://www.google.com/schemas/sitemap-news/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\" xmlns:image=\"http://www.google.com/schemas/sitemap-image/1.1\" xmlns:video=\"http://www.google.com/schemas/sitemap-video/1.1\"><url><loc>https://example.com/</loc><lastmod>2026-01-01T00:00:00.000Z</lastmod><priority>1.0</priority></url><url><loc>https://example.com/de/page?x=1&amp;y=2</loc><lastmod>2025-12-01T12:00:00.000Z</lastmod><priority>0.5</priority></url><url><loc>https://example.com/%E6%97%A5%E6%9C%AC%E8%AA%9E</loc><xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"https://example.com/en\"/></url></urlset>"
+  }
+}

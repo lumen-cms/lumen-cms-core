@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 import { DrawerProps } from '@mui/material/Drawer'
 
 type NavigationStore = {

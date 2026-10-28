@@ -7,7 +7,9 @@ import {
   useNavigationStore
 } from '../../../utils/state/navigationState'
 import useScrollTop from '../../../utils/hooks/useScrollTop'
-import { makeStyles } from 'tss-react/mui'
+import { Theme } from '@mui/material/styles'
+import { SystemStyleObject } from '@mui/system'
+import clsx from 'clsx'
 
 const mapToolbarColor: Record<
   string,
@@ -19,53 +21,52 @@ const mapToolbarColor: Record<
   white: 'inherit'
 }
 
-const useStyles = makeStyles({ name: 'TopAppContainer' })((theme) => ({
-  topAppBar: {
-    '& .logo-img__invert': {
+const topAppBarSx = (theme: Theme): SystemStyleObject<Theme> => ({
+  '& .logo-img__invert': {
+    display: 'none'
+  },
+  '&.lm-toolbar__has-feature': {
+    backgroundColor: 'transparent',
+    '& .MuiButtonBase-root': {
+      color: '#fff'
+    },
+    '& .lm-system-bar': {
+      backgroundColor: 'transparent !important'
+    },
+    '& .logo-img__default': {
       display: 'none'
     },
-    '&.lm-toolbar__has-feature': {
-      backgroundColor: 'transparent',
-      '& .MuiButtonBase-root': {
-        color: '#fff'
-      },
-      '& .lm-system-bar': {
-        backgroundColor: 'transparent !important'
-      },
-      '& .logo-img__default': {
-        display: 'none'
-      },
-      '& .logo-img__invert:not(.logo-img__mobile)': {
+    '& .logo-img__invert:not(.logo-img__mobile)': {
+      display: 'block'
+    },
+    [theme.breakpoints.only('xs')]: {
+      '& .logo-img__mobile.logo-img__invert': {
         display: 'block'
       },
-      [theme.breakpoints.only('xs')]: {
-        '& .logo-img__mobile.logo-img__invert': {
-          display: 'block'
-        },
-        '& .logo-img__invert.logo-img__desktop:not(.logo-img__mobile)': {
-          display: 'none'
-        }
+      '& .logo-img__invert.logo-img__desktop:not(.logo-img__mobile)': {
+        display: 'none'
       }
-    },
-    '& .MuiIconButton-root': {
-      color: 'inherit'
-    },
-    '&.lm-toolbar__text-bold .MuiButton-root': {
-      fontWeight: 'bold'
     }
   },
-  leftShift: {
-    marginLeft: theme.drawer.left,
-    width: `calc(100% - ${theme.drawer.left})`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    }),
-    [theme.breakpoints.only('xs')]: {
-      marginLeft: 0
-    }
+  '& .MuiIconButton-root': {
+    color: 'inherit'
+  },
+  '&.lm-toolbar__text-bold .MuiButton-root': {
+    fontWeight: 'bold'
   }
-}))
+})
+
+const leftShiftSx = (theme: Theme): SystemStyleObject<Theme> => ({
+  marginLeft: theme.drawer.left,
+  width: `calc(100% - ${theme.drawer.left})`,
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen
+  }),
+  [theme.breakpoints.only('xs')]: {
+    marginLeft: 0
+  }
+})
 
 const LmTopAppContainer: FC<React.PropsWithChildren<unknown>> = ({
   children
@@ -73,7 +74,6 @@ const LmTopAppContainer: FC<React.PropsWithChildren<unknown>> = ({
   const settings = useSettings()
   const page = usePage() || {}
   const drawerVariant = useNavigationStore(drawerVariantSelector)
-  const { classes, cx } = useStyles()
   const toolbarConfig = settings.toolbar_config || []
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const scrolledWithoutHysteresis = useScrollTop()
@@ -97,18 +97,13 @@ const LmTopAppContainer: FC<React.PropsWithChildren<unknown>> = ({
   return (
     <AppBar
       elevation={elevation}
-      className={cx(classes.topAppBar, {
+      className={clsx({
         'lm-toolbar__has-feature':
           !scrolledWithoutHysteresis && hasFeatureImage,
         'lm-toolbar__text-bold': toolbarConfig.includes('text_bold'),
-        [`lm-toolbar__${toolbarVariant}`]: !!toolbarVariant,
-        [classes.leftShift]: showLeftShift,
-        [classes[
-          `left-mobile-${
-            settings.mobile_nav_breakpoint || 'sm'
-          }` as keyof typeof classes
-        ]]: showLeftShift
+        [`lm-toolbar__${toolbarVariant}`]: !!toolbarVariant
       })}
+      sx={[topAppBarSx, showLeftShift && leftShiftSx]}
       style={{
         background: settings.toolbar_background ?? undefined,
         backgroundColor:

@@ -45,7 +45,7 @@ export const generateBackgroundStyles = ({
     borderRadius: background.border_radius,
     color: mapColor[variant as string],
     boxShadow: background.elevation
-      ? theme.shadows[background.elevation]
+      ? theme.shadows[Number(background.elevation)]
       : undefined,
     minHeight: background.height
   }

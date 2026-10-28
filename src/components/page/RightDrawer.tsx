@@ -3,7 +3,9 @@ import Drawer from '@mui/material/Drawer'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '@LmComponentRender'
 import { ContentSpace } from '../layout/ContentSpace'
-import { usePageStyles } from './usePageStyle'
+import Box from '@mui/material/Box'
+import { useTheme } from '@mui/material/styles'
+import { rightDrawerPaperSx, rightModalSx } from './pageStyles'
 import { usePage } from '../provider/SettingsPageProvider'
 import {
   closeRightNavigationSelector,
@@ -14,7 +16,7 @@ import {
 const RightDrawerContainer: FunctionComponent<
   React.PropsWithChildren<unknown>
 > = ({ children }) => {
-  const { classes, theme } = usePageStyles()
+  const theme = useTheme()
   const closeRightNavigation = useNavigationStore(closeRightNavigationSelector)
   const page = usePage()
   const matches = useMediaQuery(
@@ -25,19 +27,17 @@ const RightDrawerContainer: FunctionComponent<
     <Drawer
       variant={!matches ? 'temporary' : 'permanent'}
       anchor="right"
+      sx={rightModalSx}
       slotProps={{
         paper: {
-          sx: matches
-            ? {
-                width: theme.drawer.right,
-                zIndex: theme.zIndex.appBar - 1
-              }
-            : undefined
+          sx: [
+            matches && {
+              width: theme.drawer.right,
+              zIndex: theme.zIndex.appBar - 1
+            },
+            rightDrawerPaperSx
+          ]
         }
-      }}
-      classes={{
-        paper: classes.rightDrawerPaper,
-        modal: classes.rightModal
       }}
       open={!matches ? rightIsOpen : true}
       onClose={closeRightNavigation}
@@ -54,16 +54,14 @@ type RightDrawerProps = {
 }
 
 function RightDrawer({ rightBody }: RightDrawerProps): React.JSX.Element {
-  const { classes } = usePageStyles()
-
   return (
     <RightDrawerContainer>
       <ContentSpace />
-      <div className={classes.rightContent}>
+      <Box sx={{ overflowY: 'auto' }}>
         {rightBody.map((blok) => (
           <LmComponentRender content={blok} key={blok._uid} />
         ))}
-      </div>
+      </Box>
     </RightDrawerContainer>
   )
 }

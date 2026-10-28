@@ -1,10 +1,28 @@
 import { ListStoriesData } from '../listWidgetTypes'
 import { getDateLocalized } from '../../../utils/intlDateHelper'
-import {
-  CategoryStoryblok,
-  DateTimeFormatStoryblok
-} from '../../../typings/generated/components-schema'
+import { DateTimeFormatStoryblok } from '../../../typings/generated/components-schema'
 import { ISbStoryData } from 'storyblok-js-client'
+import type { StoryblokAsset } from '../../../typings/storyblok'
+
+// Shared preview fields across page, news, and event content. Structural typing
+// preserves the existing fallback order without reading unknown union fields.
+interface PreviewFields {
+  published?: string
+  preview_publish_date?: string
+  start?: string
+  end?: string
+  category?: string | ISbStoryData<{ component: string; name?: unknown }>
+  categories?: (string | ISbStoryData<{ component: string; name?: unknown }>)[]
+  image?: StoryblokAsset
+  preview_image?: string
+  title?: string
+  preview_title?: string
+  meta_title?: string
+  description?: string
+  preview_teaser?: string
+  meta_description?: string
+  preview_subtitle?: string
+}
 
 export const getContentFields = (
   content: ListStoriesData,
@@ -14,40 +32,35 @@ export const getContentFields = (
     locale?: string
   }
 ) => {
-  let publishedAt =
-    content.content.published ||
-    content.content.preview_publish_date ||
-    content.content.start
+  const fields: PreviewFields = content.content
+  const publishedAt =
+    fields.published || fields.preview_publish_date || fields.start
 
-  const getCategories = () => {
-    return (
-      content.content.category?.content?.name ??
-      content.content.categories
-        ?.map((i: ISbStoryData<CategoryStoryblok>) => i.content?.name)
-        .filter((i: any) => i)
-        .join(', ')
-    )
+  const categoryName = (category: PreviewFields['category']) => {
+    const name =
+      category && typeof category === 'object'
+        ? category.content?.name
+        : undefined
+    return typeof name === 'string' ? name : undefined
   }
+  const getCategories = () =>
+    categoryName(fields.category) ??
+    fields.categories?.map(categoryName).filter(Boolean).join(', ')
   return {
-    image: content.content.preview_image || content.content.image?.filename,
+    image: fields.preview_image || fields.image?.filename,
     title:
-      content.content.title ||
-      content.content.preview_title ||
-      content.content.meta_title ||
-      content.name,
+      fields.title || fields.preview_title || fields.meta_title || content.name,
     description:
-      content.content.description ||
-      content.content.preview_teaser ||
-      content.content.meta_description,
+      fields.description || fields.preview_teaser || fields.meta_description,
     subtitle: [
       publishedAt
         ? getDateLocalized({
             start: publishedAt,
-            end: content.content.end || null,
+            end: fields.end || undefined,
             locale: options.locale,
             options: options.date_format?.[0]
           })
-        : content.content.preview_subtitle,
+        : fields.preview_subtitle,
       options.hide_category ? null : getCategories()
     ]
       .filter((i) => i)

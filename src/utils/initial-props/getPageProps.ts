@@ -1,3 +1,5 @@
+import { setStoryblokRequest } from './storyblokRequestContext'
+import type { ISbStoryParams } from 'storyblok-js-client'
 import { SSR_CONFIG } from '@SSR_CONFIG'
 import cleanDeep from 'clean-deep'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
@@ -14,6 +16,8 @@ import { getCategoryData } from './component-data/categoryData'
 import { getEventData } from './component-data/eventData'
 import { listStoriesData } from './component-data/listStoriesData'
 import { getAuth0RoleOnPath } from '../auth0/auth0Helpers'
+import { LmStoryblokService } from './StoryblokService'
+import { isDebugTiming, logTiming, timed } from './debugTiming'
 
 SSR_CONFIG.ssrHooks.componentData = {
   list_widget: listWidgetGetData,
@@ -25,14 +29,20 @@ SSR_CONFIG.ssrHooks.componentData = {
 
 const getPageProps = async (
   slug: string | string[],
-  options: PagePropsOptions
+  options: PagePropsOptions,
+  requestParams?: ISbStoryParams
 ): Promise<AppPageProps> => {
   const { pageSlug } = prepareForStoryblok(slug, options)
+  const startedAt = performance.now()
+  const requestsBefore = LmStoryblokService.requestCount
 
-  const { page, settings } = await apiRequestResolver({
-    ...options,
-    pageSlug
-  })
+  const { page, settings } = await timed(`${pageSlug} page+settings`, () =>
+    apiRequestResolver({
+      ...options,
+      pageSlug,
+      requestParams
+    })
+  )
 
   const pageProps = page?.data?.story?.content as PageStoryblok | undefined
   const settingsProps = settings?.data?.story?.content as
@@ -68,8 +78,28 @@ const getPageProps = async (
     needAuth
   }
 
-  await fetchComponentData(props)
-  await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
+  if (requestParams) setStoryblokRequest(props, requestParams)
+  await Promise.all([
+    timed(`${pageSlug} component data`, () => fetchComponentData(props)),
+    typeof window === 'undefined' &&
+      timed(`${pageSlug} google fonts`, () =>
+        import('./processGoogleFonts').then(({ loadGoogleFontsCss }) =>
+          loadGoogleFontsCss(props.settings)
+        )
+      )
+  ])
+  await timed(`${pageSlug} pageProps hooks`, () =>
+    Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
+  )
+  if (isDebugTiming()) {
+    // Concurrent renders share the service, so the count is approximate.
+    logTiming(
+      `${pageSlug} total (~${
+        LmStoryblokService.requestCount - requestsBefore
+      } Storyblok requests)`,
+      startedAt
+    )
+  }
 
   return cleanDeep(props, {
     emptyObjects: false

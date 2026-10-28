@@ -1,9 +1,8 @@
 import { PropsWithChildren, useEffect } from 'react'
 import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
 import Router, { useRouter } from 'next/router'
-import { LmAppProps, MyApp } from './_app'
+import { LmApp, LmAppProps } from './_app'
 import { useUserActions } from '../auth/useAuth'
-import { withAppEmotionCache_mui } from '../global-theme/muiCache'
 
 export { reportWebVitals } from './_appDefault'
 
@@ -70,12 +69,10 @@ function Auth0Wrap({ children }: PropsWithChildren) {
   )
 }
 
-export const Auth0App = withAppEmotionCache_mui(function Auth0AppFunc(
-  props: LmAppProps
-) {
+export function Auth0App(props: LmAppProps) {
   return (
     <Auth0Wrap>
-      <MyApp {...props} />
+      <LmApp {...props} />
     </Auth0Wrap>
   )
-})
+}

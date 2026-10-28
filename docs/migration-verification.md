@@ -2,6 +2,35 @@
 
 Branch: `feature/mui-v9`. Updated: 27 October 2026. Status: local migration candidate; **not approved for release**. Prepared as a local migration checkpoint; not deployed.
 
+## Storyblok fetching update — 27 October
+
+Fetching now uses `@storyblok/api-client` 0.9.1. All three final production builds
+pass. The [server-data regression gate](storyblok-fetching-migration.md) compares
+all 1,496 page-data routes against the preceding build: complete props and counts
+match, with only the validated widget timestamp and Google Forms hidden token
+normalized. TypeScript 7, 54 unit tests, Storybook, immutable install, and lint
+pass. Screenshots stay paused; visual/editor and residual security follow-ups
+remain open. See [fetching evidence](storyblok-api-verification.json).
+
+## Storyblok runtime update — 27 October
+
+The subsequent [Storyblok audit and migration](storyblok-upgrade.md) moves the
+runtime to the stable official React/preview/rich-text packages. All three
+production builds and 8,529 rich-text HTML comparisons pass. All 141 component
+types now use the official CLI, with reproducible generation and TypeScript 7
+checks. All 34 unit tests pass; 1,505 static pages have unchanged parsed body
+markup against the preceding runtime builds (scripts excluded). Screenshots
+remain on hold and live editor validation is pending. Consumer dependency
+overrides are required as documented. See [type migration evidence](storyblok-types-verification.json).
+
+## Subsequent security/tooling batch — 2026-10-27
+
+The security and ESLint update after the Swiper audit is recorded in
+[security-tooling-update.md](security-tooling-update.md). Its nonvisual checks
+pass, with residual security and lint findings documented there. The user asked
+to defer screenshot comparisons until more dependencies are upgraded; the
+earlier visual sign-off below must not be treated as acceptance of this batch.
+
 ## Swiper 14 follow-up — 27 October
 
 Swiper is upgraded from 8.4.7 to **14.3.0**. Modules now import from
@@ -212,3 +241,34 @@ The captures inspect visible states, not every page, scroll position, browser or
 4. Establish required remote CI/branch checks; this checkout did not contain a GitHub Actions workflow and no branch protections were changed.
 
 Non-fatal development warnings remain for legacy Next Link/ref behavior, CMS CSS keys using kebab-case, empty image sources, and font stylesheet placement. These are recorded rather than hidden with a console-error allowance. The deferred dependency families and legacy `base/` package are listed in the upgrade plan; this change does not claim every npm package is current.
+
+
+## Wallet extraction — 27 October 2026
+
+Wallet code is now in the independent sibling lumen-cms-web3 repository. Core production dependencies audit clean; all three builds, 1,496 page-prop comparisons and 10 production HTTP requests pass. Screenshots remain paused. See [web3-extraction.md](web3-extraction.md) and [verification evidence](web3-extraction-verification.json) for scope, remaining Storybook findings and artifact hashes.
+
+
+## Unsupported integrations — 27 October 2026
+
+Replaced the deprecated script hook with React-19-compatible @charlietango/hooks, replaced the used speech synthesis hook with a typed native wrapper, and removed unused next-safe while preserving response headers. All three production builds, 1,496 page-prop comparisons, 10 HTTP/header checks, 67 unit tests and TypeScript 7 pass. Screenshots remain paused. See [unsupported-integrations.md](unsupported-integrations.md) and [verification evidence](unsupported-integrations-verification.json).
+
+## tss-react removal — 28 October 2026
+
+Baseline before the migration: the full `feature/mui-v9` working tree (on top of `16c98d8`, including uncommitted and untracked files) is snapshotted as tag `pre-tss-react-migration` (commit `f2dc42c`, tree `1476a8d`) without moving the branch. The packed baseline is `/tmp/lumen-candidate-pre-tss-baseline.tgz`, SHA-256 `ec89005f0bac78b52711129edcb0c02e36f9334d3fdef1c2a507c79bc3f1f579`. The consumer UI parity run for baliinternships, planet-training and upskill is deferred; compare the post-migration candidate against this baseline and the live sites using the process in [visual-signoff-plan.md](visual-signoff-plan.md).
+
+What changed: `tss-react` is removed and `@mui/material-nextjs@9.5.0` is added. Every `makeStyles` hook is now `sx`, `styled()` or MUI `GlobalStyles`. Storyblok style fields resolve through `getAdvancedSx`. Server rendering uses `documentGetInitialProps` and `AppCacheProvider` with the existing `css` cache key. Emotion style tags are still emitted through Next's `styles` slot, so they stay last in `<head>`, after the stylesheet links. `DocumentHeadTags` is not used, because React hoists its insertion-point `<meta>` to the top of `<head>`. The DOM gains `MuiBox-root` classes where plain `div` elements became `Box`; neither core nor the three consumer sites target that class. `Html` still renders without `lm-html__root`, matching the previous output, where `divProps.className` overwrote that class.
+
+Raw CMS `css_properties` values would otherwise be reinterpreted by `sx` theme lookups. To prevent this, CMS declarations use kebab-case keys. Unitless `width`/`height` values up to 1 and palette paths in `color` were invalid CSS before, so they are dropped. A scan of 1,520 prerendered pages of the three consumers found no such values in use. `box_shadow: "0"` always appears with `elevation: "0"`, which takes precedence.
+
+Local checks on 28 October:
+
+- Both servers ran `next dev` from the baseline tag (via a temporary worktree) and the candidate, with the same Storyblok draft content. A Playwright script captured the computed styles and geometry of every element at 1280px and 375px.
+- Bali Internships: `/`, `/info/faq`, `/blog-articles`, `/contact`, `/fees`, `/traineeship-bali-indonesia` and `/turtle-conservation-volunteer-bali-indonesia` show no differences after every phase. The only exception is the existing mobile-homepage carousel noise, which also appears between two baseline runs.
+- Planet Training: `/`, `/pricing`, `/app-sports-coaches` and `/support` match.
+- Upskill: `/`, `/sustainable-tourism-summer-course-bali`, `/accommodation-study-abroad-bali` and `/application` match. The only differences are inside the rotating announcement Swiper, which differs between baseline runs as well.
+- Interaction states also match: the open left drawer (both widths, Bali and Upskill), expanded accordions (Bali FAQ, Upskill course), card and button hover, and the scrolled toolbar. The only exception is the opacity of an always-animating `span`.
+- SSR emotion CSS on the Bali homepage is byte-identical after the server-rendering change.
+- TypeScript 6 and 7, ESLint (0 errors; the same 97 warnings as the baseline), 144 unit tests, the Storybook build and a production `next build` pass.
+- Production HTML keeps the emotion style tags last in `<head>`.
+
+Candidate archive: `/tmp/lumen-candidate-no-tss.tgz`, SHA-256 `d801a41547693abaa2fbf5e0334bb72898c4b8d875d56b38a89dc575c9d51d69`. It also contains unrelated Storyblok data-fetching edits that were made in the working tree in parallel: `StoryblokService`, `pagesGetStaticPaths`, `api/clear-cache` and `traversePageContent`. Repack once those are settled if the consumer run should isolate the styling change. Still open: the full consumer route sweep against the live sites, Shopify and image-list lightbox states (not used on the inspected pages), Safari and Firefox.

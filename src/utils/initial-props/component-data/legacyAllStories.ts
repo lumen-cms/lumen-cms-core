@@ -1,3 +1,4 @@
+import { getStoryblokRequest } from '../storyblokRequestContext'
 import { LmStoryblokService } from '../StoryblokService'
 import { localeStoriesHelper } from './localeStoriesHelper'
 import { AppPageProps } from '../../../typings/app'
@@ -6,10 +7,11 @@ import { ISbStoriesParams } from 'storyblok-js-client'
 
 export const legacyAllStories = async (options: AppPageProps) => {
   const params: ISbStoriesParams = {
-    per_page: 25,
+    per_page: 100,
     excluding_fields: excludeListForStories,
     sort_by: 'published_at:desc',
     ...localeStoriesHelper(options),
+    ...getStoryblokRequest(options),
     filter_query: {
       component: {
         in: 'page'
@@ -20,10 +22,5 @@ export const legacyAllStories = async (options: AppPageProps) => {
     params.version = 'draft'
   }
 
-  try {
-    return LmStoryblokService.getAll('cdn/stories', params)
-  } catch (e) {
-    console.log('an error occured while fetching legacy stories', params)
-    return []
-  }
+  return LmStoryblokService.getAll('cdn/stories', params)
 }

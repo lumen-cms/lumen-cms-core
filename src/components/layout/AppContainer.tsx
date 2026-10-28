@@ -12,7 +12,7 @@ export const LmAppContainer: FunctionComponent<
 > = ({ content, children }) => {
   // const set = useAppStore.getState().settings
   // const pag = useAppStore.getState().page
-  const { page, settings, error, googleFontString, ...rest } = content
+  const { page, settings, error, ...rest } = content
   if (error) {
     return <Error statusCode={500} />
   }

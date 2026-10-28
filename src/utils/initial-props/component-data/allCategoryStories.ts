@@ -1,21 +1,19 @@
+import type { PagePropsOptions } from '../../../typings/app'
+import { getStoryblokRequest } from '../storyblokRequestContext'
 import { CONFIG } from '@CONFIG'
 import { LmStoryblokService } from '../StoryblokService'
 import { AllCategoryData } from '../../../typings/app'
 import { CategoryBoxStoryblok } from '../../../typings/generated/components-schema'
 import { ISbStoriesParams } from 'storyblok-js-client'
 
-let allCategories: AllCategoryData
-
-export const getAllCategories = async (props: {
-  locale: string
-  defaultLocale: string
-}) => {
-  if (typeof allCategories !== 'undefined') {
-    return allCategories
-  }
+export const getAllCategories = async (
+  props: PagePropsOptions
+): Promise<AllCategoryData> => {
   const locale = props.locale !== props.defaultLocale ? props.locale : null
   const params: ISbStoriesParams = {
-    per_page: 25,
+    ...getStoryblokRequest(props),
+    ...(props.insideStoryblok ? { version: 'draft' as const } : {}),
+    per_page: 100,
     sort_by: 'content.name:asc,name:asc',
     filter_query: {
       component: {
@@ -28,8 +26,7 @@ export const getAllCategories = async (props: {
       CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
     }`
   }
-  allCategories = await LmStoryblokService.getAll('cdn/stories', params)
-  return allCategories
+  return LmStoryblokService.getAll('cdn/stories', params)
 }
 
 export const filterAllCategory = (

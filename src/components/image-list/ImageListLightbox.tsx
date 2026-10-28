@@ -4,14 +4,13 @@ import IconButton from '@mui/material/IconButton'
 import Close from 'mdi-material-ui/Close'
 import Swipe from './ImageListLightboxSwipe'
 import { ImageListLightboxProps } from './imageListTypes'
-import { useImageListLightboxStyles } from './useImageListLightboxStyles'
+import { imageListLightboxSx } from './imageListLightboxStyles'
 
 function ImageListLightbox(props: ImageListLightboxProps): React.JSX.Element {
-  const { classes } = useImageListLightboxStyles()
   return (
     <Dialog
       fullScreen
-      className={classes.lightbox}
+      sx={imageListLightboxSx}
       onClose={() => {
         props.setLightbox('')
       }}

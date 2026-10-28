@@ -7,63 +7,66 @@ import {
 import { getRootImageUrl } from '../../utils/imageServices'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
 import { LmImagePlaceholder } from '../image/imageTypes'
-import { makeStyles } from 'tss-react/mui'
+import Box from '@mui/material/Box'
+import { styled, Theme } from '@mui/material/styles'
+import { SystemStyleObject } from '@mui/system'
+import clsx from 'clsx'
 
-const useStyles = makeStyles({ name: 'BackgroundImage' })((theme) => ({
-  root: {
-    '@media (orientation: landscape)': {
-      '&.portrait': {
-        display: 'none !important'
-      }
-    },
-    '@media (orientation: portrait)': {
-      '&.landscape': {
-        display: 'none !important'
-      }
-    },
-    '&.hide__xs': {
-      [theme.breakpoints.only('xs')]: {
-        display: 'none !important'
-      }
-    },
-    '&.hide__sm': {
-      [theme.breakpoints.down('md')]: {
-        display: 'none !important'
-      }
-    },
-    '&.hide__md': {
-      [theme.breakpoints.down('lg')]: {
-        display: 'none !important'
-      }
+const BackgroundImageRoot = styled(Image)(({ theme }) => ({
+  '@media (orientation: landscape)': {
+    '&.portrait': {
+      display: 'none !important'
     }
   },
-  rootFixedImage: {
-    position: 'absolute',
+  '@media (orientation: portrait)': {
+    '&.landscape': {
+      display: 'none !important'
+    }
+  },
+  '&.hide__xs': {
+    [theme.breakpoints.only('xs')]: {
+      display: 'none !important'
+    }
+  },
+  '&.hide__sm': {
+    [theme.breakpoints.down('md')]: {
+      display: 'none !important'
+    }
+  },
+  '&.hide__md': {
+    [theme.breakpoints.down('lg')]: {
+      display: 'none !important'
+    }
+  }
+}))
+
+const rootFixedImageSx = (theme: Theme): SystemStyleObject<Theme> => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  zIndex: -1,
+  // disable for mobile
+  [theme.breakpoints.up('sm')]: {
+    clip: 'rect(0,auto,auto,0)!important',
+    clipPath: 'polygon(0px 0px,100% 0px,100% 100%,0px 100%)!important',
+    zIndex: 0
+  }
+})
+
+const fixedCoverImageWrapSx = (theme: Theme): SystemStyleObject<Theme> => ({
+  // disable for mobile
+  [theme.breakpoints.up('sm')]: {
+    position: 'fixed',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
-    zIndex: -1,
-    // disable for mobile
-    [theme.breakpoints.up('sm')]: {
-      clip: 'rect(0,auto,auto,0)!important',
-      clipPath: 'polygon(0px 0px,100% 0px,100% 100%,0px 100%)!important',
-      zIndex: 0
-    }
-  },
-  fixedCoverImageWrap: {
-    // disable for mobile
-    [theme.breakpoints.up('sm')]: {
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      overflow: 'hidden',
-      zIndex: -1
-    }
+    overflow: 'hidden',
+    zIndex: -1
   }
-}))
+})
 
 type BackgroundImageProps = {
   content: BackgroundStoryblok & {
@@ -78,8 +81,6 @@ const BackgroundImage = ({
   backgroundStyle,
   sectionPosition
 }: BackgroundImageProps): React.JSX.Element | null => {
-  const { classes, cx } = useStyles()
-
   const {
     image,
     alternative_image,
@@ -107,7 +108,7 @@ const BackgroundImage = ({
     //   image_focal_point ? `?focalPoint=${image_focal_point}` : ''
     // }`
     return (
-      <Image
+      <BackgroundImageRoot
         className={className}
         alt={'bg image ' + src}
         src={getRootImageUrl(src)}
@@ -132,15 +133,15 @@ const BackgroundImage = ({
   }
   const Wrap: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
     return ['fixed_cover', 'fixed_image'].includes(backgroundStyle || '') ? (
-      <div className={classes.rootFixedImage}>
-        <div className={classes.fixedCoverImageWrap}>{children}</div>
-      </div>
+      <Box sx={rootFixedImageSx}>
+        <Box sx={fixedCoverImageWrapSx}>{children}</Box>
+      </Box>
     ) : (
       <>{children}</>
     )
   }
 
-  const defaultImgClassNames = cx(classes.root, {
+  const defaultImgClassNames = clsx({
     [`hide__${hide_image_on_breakpoint}`]: !!hide_image_on_breakpoint
   })
   return (
@@ -148,7 +149,7 @@ const BackgroundImage = ({
       {imageSource && (
         <BgImage
           src={imageSource}
-          className={cx(defaultImgClassNames, {
+          className={clsx(defaultImgClassNames, {
             landscape: !!imageSourcePortrait
           })}
         />
@@ -156,7 +157,7 @@ const BackgroundImage = ({
       {imageSourcePortrait && (
         <BgImage
           src={imageSourcePortrait}
-          className={cx(defaultImgClassNames, 'portrait')}
+          className={clsx(defaultImgClassNames, 'portrait')}
         />
       )}
     </Wrap>

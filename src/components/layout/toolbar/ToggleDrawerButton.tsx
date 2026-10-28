@@ -2,7 +2,7 @@ import IconButton from '@mui/material/IconButton'
 import MenuUi from 'mdi-material-ui/Menu'
 import AppsIcon from 'mdi-material-ui/Apps'
 import CloseIcon from 'mdi-material-ui/Close'
-import shallow from 'zustand/shallow'
+import { useShallow } from 'zustand/react/shallow'
 import LmIcon from '../../icon/LmIcon'
 import { LmToggleDrawerButtonProps } from './toolbarTypes'
 import { usePage, useSettings } from '../../provider/SettingsPageProvider'
@@ -12,13 +12,12 @@ import clsx from 'clsx'
 
 const useDrawer = () =>
   useNavigationStore(
-    (state) => ({
+    useShallow((state) => ({
       toggleLeftNavigation: state.toggleLeftDrawer,
       toggleRightNavigation: state.toggleRightDrawer,
       isLeftOpen: state.leftNavigationDrawer,
       isRightOpen: state.rightNavigationDrawer
-    }),
-    shallow
+    }))
   )
 
 export function LmToggleDrawerButton({

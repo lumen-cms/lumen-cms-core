@@ -18,20 +18,22 @@ export function SeoProduct() {
   }
   return (
     <ProductJsonLd
-      productName={product.product_name}
+      scriptId="jsonld-product"
+      name={product.product_name}
       brand={product.brand}
       description={product.description}
-      images={product.images?.map((image: ImageCoreStoryblok) =>
+      image={product.images?.map((image: ImageCoreStoryblok) =>
         getImageCoreUrl(image)
       )}
       sku={product.sku}
       offers={product.offers.map((offer: SeoProductOfferStoryblok) => ({
-        availability: offer.availability,
-        itemCondition: offer.item_condition,
+        availability: offer.availability || undefined,
+        itemCondition: offer.item_condition || undefined,
         price: `${offer.price}`,
         priceCurrency: offer.price_currency,
         url: offer.url,
         seller: {
+          '@type': 'Organization' as const,
           name: offer.seller_name
         }
       }))}

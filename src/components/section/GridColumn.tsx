@@ -55,7 +55,7 @@ export function LmGridColumn({
   parent
 }: LmGridColumnProps): React.JSX.Element {
   const background: BackgroundStoryblok | undefined = content.background?.[0]
-  const { className, style } = useBackgroundBox({
+  const { className, style, sx } = useBackgroundBox({
     background,
     styles: content.styles,
     stylesMobile: content.styles_mobile,
@@ -88,7 +88,10 @@ export function LmGridColumn({
           .filter((i) => i)
           .join(' ')}
         style={style}
-        hasCustomStyles={!!(style || className || background?.image)}
+        sx={sx}
+        hasCustomStyles={
+          !!(style || className || sx.length || background?.image)
+        }
       >
         {background?.image && <BackgroundImage content={background} />}
         {background?.background_elements &&

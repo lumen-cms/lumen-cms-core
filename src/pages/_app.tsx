@@ -2,7 +2,6 @@ import { CONFIG, LmCoreComponents } from '@CONFIG'
 // import '../components/ecommerce/shopify/ShopifyComponents' // dont forget to enable SSR Hook in _documents
 import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
 // import { redirectsSga } from '../../redirects'
-// import '../components/web3/MoralisComponents'
 
 export { Auth0App as default } from '../components/pages/_appAuth0'
 // export { LmDefaultApp as default } from '../components/pages/_appDefault'
@@ -52,17 +51,3 @@ CONFIG.authPathRequiredRoles = [
 //     destination
 //   ])
 // )
-
-// CONFIG.web3MintFunction = async (contract, options) => {
-//   if (options.sale === 'whitelist' || options.sale === 'code') {
-//     console.log(options)
-//     await contract.functions.mint(
-//       options.mintAmount,
-//       options.signed,
-//       options.maxMintAmount || 1,
-//       options.code
-//     )
-//   } else {
-//     await contract.functions.publicMint(options.mintAmount)
-//   }
-// }

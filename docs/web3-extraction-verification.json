@@ -1,0 +1,170 @@
+{
+  "comparedAt": "2026-10-27T06:08:02.986Z",
+  "baseline": "/tmp/lumen-consumer-storyblok-api-final",
+  "candidate": "/tmp/lumen-consumer-no-web3",
+  "ignored": [
+    "*.list_widget_data.cv (numeric Date.now build timestamp)",
+    "*.form_data.fbzx (nonempty numeric Google Forms hidden token)"
+  ],
+  "sites": {
+    "baliinternships": {
+      "routes": 597,
+      "candidateRoutes": 597,
+      "missing": [],
+      "added": [],
+      "beforeCounts": {
+        "components": 85803,
+        "arrayItems": 159440,
+        "stories": 2278,
+        "listItems": 1874,
+        "formFields": 0
+      },
+      "afterCounts": {
+        "components": 85803,
+        "arrayItems": 159440,
+        "stories": 2278,
+        "listItems": 1874,
+        "formFields": 0
+      },
+      "differences": []
+    },
+    "planet-training": {
+      "routes": 694,
+      "candidateRoutes": 694,
+      "missing": [],
+      "added": [],
+      "beforeCounts": {
+        "components": 130401,
+        "arrayItems": 273022,
+        "stories": 479,
+        "listItems": 479,
+        "formFields": 24
+      },
+      "afterCounts": {
+        "components": 130401,
+        "arrayItems": 273022,
+        "stories": 479,
+        "listItems": 479,
+        "formFields": 24
+      },
+      "differences": []
+    },
+    "upskill": {
+      "routes": 205,
+      "candidateRoutes": 205,
+      "missing": [],
+      "added": [],
+      "beforeCounts": {
+        "components": 44891,
+        "arrayItems": 88350,
+        "stories": 199,
+        "listItems": 199,
+        "formFields": 0
+      },
+      "afterCounts": {
+        "components": 44891,
+        "arrayItems": 88350,
+        "stories": 199,
+        "listItems": 199,
+        "formFields": 0
+      },
+      "differences": []
+    }
+  },
+  "branch": "feature/mui-v9",
+  "screenshots": "paused",
+  "coreUnitTests": 53,
+  "web3UnitTests": 3,
+  "typescript": "7.0.2",
+  "storybook": "passed",
+  "coreArchive": "/tmp/lumen-candidate-no-web3.tgz",
+  "coreArchiveSha256": "d5d3567c2b936506e650eb120d276d1f7a8a4bd1adfb7ba8cc785bae624c37da",
+  "web3Archive": "/tmp/lumen-cms-web3-0.1.0.tgz",
+  "web3ArchiveSha256": "86d7941d097a4199a8fa6836c8a56772ae201fa162fefc72bb4daca60e21d85f",
+  "web3Repository": "/Users/dominicgarms/Documents/Coding/react/lumen-cms-web3",
+  "httpSmoke": {
+    "baliinternships": [
+      {
+        "path": "/",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 427185
+      },
+      {
+        "path": "/architecture-internship",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 187791
+      },
+      {
+        "path": "/de/home",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 345182
+      }
+    ],
+    "planet-training": [
+      {
+        "path": "/",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 488404
+      },
+      {
+        "path": "/de/home",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 482235
+      },
+      {
+        "path": "/es/home",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 483163
+      },
+      {
+        "path": "/it/home",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 485818
+      }
+    ],
+    "upskill": [
+      {
+        "path": "/",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 525582
+      },
+      {
+        "path": "/de/home",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 522711
+      },
+      {
+        "path": "/en/home",
+        "status": 200,
+        "hasNextData": true,
+        "bytes": 525598
+      }
+    ]
+  },
+  "security": {
+    "critical": 0,
+    "high": 1,
+    "moderate": 1,
+    "low": 1,
+    "info": 0
+  },
+  "productionSecurity": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0
+  },
+  "consumerWalletPackagesAbsent": true,
+  "packedSourceMismatches": [],
+  "packedManifestSemanticallyMatches": true
+}

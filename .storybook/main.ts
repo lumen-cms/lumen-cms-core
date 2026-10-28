@@ -8,6 +8,9 @@ const config: StorybookConfig = {
   addons: ['@storybook/addon-docs'],
   typescript: { reactDocgen: false },
   webpackFinal: async (config) => {
+    // Keep a slash-terminated publicPath: older webpack-dev-middleware versions
+    // can escape the output directory when a path prefix has no trailing slash.
+    config.output = { ...config.output, publicPath: '/' }
     config.resolve = config.resolve || {}
     config.resolve.alias = {
       ...config.resolve.alias,

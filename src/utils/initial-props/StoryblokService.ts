@@ -1,282 +1,345 @@
-import StoryblokClient, {
+import { createApiClient, type ContentApiClient } from '@storyblok/api-client'
+import type {
   ISbStoriesParams,
-  ISbStoryParams
+  ISbStoryParams,
+  ISbStoryData
 } from 'storyblok-js-client'
 import { CONFIG } from '@CONFIG'
+import { renderRichText } from '@storyblok/richtext'
 import { rootParams } from '../universal/storyblokParamsHelper'
+import {
+  resolveStoryblokPayload,
+  storyblokCacheKey,
+  type StoryblokPayload,
+  type StoryblokResponse
+} from './storyblokResponse'
+import { timed } from './debugTiming'
 
-class StoryblokServiceClass {
-  private devMode: boolean
+type StoryQuery = NonNullable<
+  Parameters<ContentApiClient['stories']['list']>[0]
+>['query']
 
-  // private token: string
+export class StoryblokServiceClass {
+  private devMode = process.env.NODE_ENV !== 'production'
+  private query: Record<string, unknown> = {}
+  private clients = new Map<string, ContentApiClient>()
+  private versions = new Map<string, Promise<number>>()
+  private allCache = new Map<string, ISbStoryData[]>()
+  private settingsCache = new Map<string, StoryblokResponse>()
+  private inFlight = new Map<string, Promise<ISbStoryData[]>>()
+  private draftCache = new Map<string, { expires: number; value: unknown }>()
+  public requestCount = 0
+  public richTextResolver = { render: renderRichText }
 
-  private client: StoryblokClient
+  private client(token: string) {
+    let client = this.clients.get(token)
+    if (!client) {
+      client = createApiClient({
+        accessToken: token,
+        region: 'eu',
+        // Retain our build/settings caches; don't introduce another response
+        // cache or allow stale fallback responses to mask fetch failures.
+        cache: {
+          strategy: ({ loadNetwork }) => loadNetwork(),
+          cv: 'manual',
+          ttlMs: 0
+        },
+        inlineRelations: false,
+        // Each Next build worker has its own client. Keep nine workers below
+        // the shared token's 50 req/s origin limit, with room for editor traffic.
+        // `next dev` is a single process; 6 req/s is Storyblok's uncached
+        // limit for listings of 75-100 entries.
+        rateLimit: {
+          requestsPerSecond: this.devMode ? 6 : 4,
+          adaptToServerHeaders: false,
+          cacheAware: false
+        },
+        retry: { limit: 5, retryOnTimeout: true }
+      })
+      this.clients.set(token, client)
+    }
+    return client
+  }
 
-  private query: any
+  private async cacheVersion(token: string) {
+    let pending = this.versions.get(token)
+    if (!pending) {
+      pending = (async () => {
+        const result = await this.client(token).spaces.get()
+        if (result.error) throw result.error
+        const version = result.data?.space.version
+        if (!version)
+          throw new Error('Storyblok space response is missing its version')
+        return version
+      })()
+      this.versions.set(token, pending)
+      pending.catch(() => this.versions.delete(token))
+    }
+    return pending
+  }
 
-  public richTextResolver: any
+  private async parameters(params: ISbStoriesParams = {}) {
+    const draft =
+      !process.env.STORYBOOK &&
+      (params.version === 'draft' ||
+        !!this.query._storyblok ||
+        this.devMode ||
+        (typeof window !== 'undefined' && !!window.StoryblokBridge))
+    const token = draft ? CONFIG.previewToken : CONFIG.publicToken
+    const current = {
+      ...rootParams,
+      ...params,
+      token,
+      version: draft ? ('draft' as const) : ('published' as const)
+    }
+    if (this.query._storyblok_release)
+      current.from_release = String(this.query._storyblok_release)
+    if (Array.isArray(current.resolve_relations))
+      current.resolve_relations = current.resolve_relations.join(',')
+    if (current.resolve_relations !== undefined) current.resolve_level = 2
+    if (!draft && !current.cv) current.cv = await this.cacheVersion(token)
+    return current
+  }
 
-  private static cacheVersion?: number
-  private static cacheVersionPromise?: Promise<void>
-  private static getAllCache = new Map<string, any>()
-  private inFlight = new Map<string, Promise<any>>()
+  /**
+   * Drafts fetched only because of `next dev` may be reused briefly. Explicit
+   * draft/release requests (Storyblok editor, preview) always stay fresh.
+   */
+  private devDraftTtl(params: ISbStoriesParams = {}) {
+    if (
+      !this.devMode ||
+      typeof window !== 'undefined' ||
+      process.env.STORYBOOK ||
+      params.version === 'draft' ||
+      params.from_release ||
+      this.query._storyblok ||
+      this.query._storyblok_release
+    )
+      return 0
+    const seconds = Number(process.env.STORYBLOK_DEV_CACHE_TTL ?? 60)
+    return Number.isFinite(seconds) && seconds > 0 ? seconds * 1000 : 0
+  }
 
-  // deduplication + retry helpers
-  private responseCache = new Map<string, any>()
-  // 🔒 Define which keys should be permanently cached across pages
-  private cacheableKeys = ['settings:published']
+  private readDraft<T>(key: string, ttl: number): T | undefined {
+    if (!ttl) return undefined
+    const entry = this.draftCache.get(key)
+    if (!entry) return undefined
+    if (entry.expires <= Date.now()) {
+      this.draftCache.delete(key)
+      return undefined
+    }
+    return structuredClone(entry.value) as T
+  }
 
-  constructor() {
-    // this.token =
-    //   process.env.NODE_ENV === 'production'
-    //     ? CONFIG.publicToken
-    //     : CONFIG.previewToken
-    this.devMode = process.env.NODE_ENV !== 'production' // If true it always loads draft
+  private writeDraft(key: string, ttl: number, value: unknown) {
+    if (ttl)
+      this.draftCache.set(key, {
+        expires: Date.now() + ttl,
+        value: structuredClone(value)
+      })
+  }
 
-    this.client = new StoryblokClient({
-      accessToken: CONFIG.previewToken,
-      cache: {
-        clear: 'manual',
-        type: 'none'
+  private requestQuery(params: ISbStoriesParams): StoryQuery {
+    const { token: _token, ...query } = params
+    // Bridge the existing public parameter type to CAPI's stricter query type.
+    // Number/enum differences are normalized here; nested filters are retained.
+    return {
+      ...query,
+      resolve_relations: Array.isArray(query.resolve_relations)
+        ? query.resolve_relations.join(',')
+        : query.resolve_relations,
+      resolve_level: query.resolve_level === 2 ? 2 : undefined,
+      resolve_assets: query.resolve_assets === 1 ? 1 : undefined,
+      resolve_links:
+        query.resolve_links === '0'
+          ? undefined
+          : query.resolve_links === '1'
+          ? 'story'
+          : query.resolve_links,
+      ...(query.from_release
+        ? { from_release: Number(query.from_release) }
+        : {})
+    } as StoryQuery
+  }
+
+  private async fetch(
+    slug: string | undefined,
+    params: ISbStoriesParams
+  ): Promise<StoryblokResponse> {
+    const client = this.client(params.token!)
+    const query = this.requestQuery(params)
+    this.requestCount++
+    const result = await timed(
+      `storyblok ${slug ?? `list page ${params.page ?? 1}`}`,
+      async () =>
+        slug === undefined
+          ? await client.stories.list({ query })
+          : await client.stories.get(slug, { query })
+    )
+    if (result.error) throw result.error
+    if (!result.data) throw new Error('Storyblok returned no response data')
+    const data: StoryblokPayload = result.data as StoryblokPayload
+    // CAPI separates overflow relation/link UUIDs. Fetch them using the same
+    // token, language, release and pinned version as the original request.
+    const fetchReferences = async (uuids: string[]) => {
+      const stories: ISbStoryData[] = []
+      for (let offset = 0; offset < uuids.length; offset += 50) {
+        this.requestCount++
+        const related = await client.stories.list({
+          query: {
+            version: query?.version,
+            language: query?.language,
+            fallback_lang: query?.fallback_lang,
+            cv: query?.cv,
+            from_release: query?.from_release,
+            per_page: 50,
+            by_uuids: uuids.slice(offset, offset + 50).join(',')
+          }
+        })
+        if (related.error) throw related.error
+        if (!related.data)
+          throw new Error('Storyblok returned no related stories')
+        stories.push(...(related.data.stories as ISbStoryData[]))
       }
-    })
-    // regression: check https://github.com/storyblok/storyblok-js-client/issues/416
-    this.client.resolveNestedRelations = true
-    this.richTextResolver = this.client.richTextResolver
-
-    this.query = {}
+      return stories
+    }
+    if (data.rel_uuids?.length && params.resolve_relations) {
+      data.rels = await fetchReferences(data.rel_uuids)
+      if (data.rels.length) delete data.rel_uuids
+    }
+    if (data.link_uuids?.length && params.resolve_links) {
+      data.links = await fetchReferences(data.link_uuids)
+    }
+    resolveStoryblokPayload(
+      data,
+      String(params.resolve_relations || ''),
+      !!params.resolve_links && params.resolve_links !== '0'
+    )
+    return {
+      data,
+      headers: Object.fromEntries(result.response.headers),
+      perPage: Number(result.response.headers.get('per-page') || 0),
+      total: Number(result.response.headers.get('total') || 0)
+    }
   }
 
-  private async ensureCacheVersion() {
-    // Avoid duplicate requests (important if pages fetch in parallel)
-    if (StoryblokServiceClass.cacheVersion) return
-    if (StoryblokServiceClass.cacheVersionPromise)
-      return StoryblokServiceClass.cacheVersionPromise
-
-    StoryblokServiceClass.cacheVersionPromise = (async () => {
-      try {
-        // In dev mode (preview token), we can skip this entirely
-        if (this.devMode) {
-          StoryblokServiceClass.cacheVersion = Date.now() // something unique to prevent stale caching
-          return
-        }
-
-        const space = await this.client.get('cdn/spaces/me')
-
-        if (!space?.data?.space?.version) {
-          throw new Error(
-            'Invalid response from Storyblok CDN: missing version'
-          )
-        }
-
-        StoryblokServiceClass.cacheVersion = space.data.space.version
-        console.log(
-          `[Storyblok] Cache version set to ${StoryblokServiceClass.cacheVersion}`
-        )
-      } catch (error) {
-        console.error('[Storyblok] Failed to fetch cache version:', error)
-        // Fallback to a timestamp to prevent total failure
-        StoryblokServiceClass.cacheVersion = Date.now()
-      }
-    })()
-
-    await StoryblokServiceClass.cacheVersionPromise
-  }
-
-  private async processParamsForCaching(params: ISbStoryParams) {
-    if (params.version === 'draft') {
-      return params
-    }
-    await this.ensureCacheVersion()
-    params.cv = StoryblokServiceClass.cacheVersion
-    return params
-  }
-
-  private getDefaultParams() {
-    const params: ISbStoryParams = {
-      version: 'published',
-      token: CONFIG.publicToken
-    }
-
-    const getFromRelease = this.getQuery('_storyblok_release')
-    if (getFromRelease) {
-      params.from_release = getFromRelease
-    }
-
-    if (process.env.STORYBOOK) {
-      params.version = 'published'
-      params.token = CONFIG.publicToken
-      this.devMode = false
-    } else if (
-      this.getQuery('_storyblok') ||
-      this.devMode ||
-      (typeof window !== 'undefined' && window.StoryblokBridge) ||
-      params.version === 'draft'
-    ) {
-      params.version = 'draft'
-      params.token = CONFIG.previewToken
-      // this.token = params.token
-    }
-    return params
-  }
-
-  private async safeFetch<T>(
-    fn: () => Promise<T>,
-    fallback: T | (() => T),
-    label: string,
-    cacheKey?: string,
-    retries = 3,
-    delayMs = 500
-  ): Promise<T> {
-    const key = cacheKey || label
-    const shouldCache = this.cacheableKeys.some((k) => key.includes(k))
-
-    if (shouldCache && this.responseCache.has(key)) {
-      // console.log(`[Storyblok] Reusing cached response for ${key}`)
-      return this.responseCache.get(key)
-    }
-
-    const isFunction = <U>(val: U | (() => U)): val is () => U =>
-      typeof val === 'function'
-
-    for (let attempt = 1; attempt <= retries; attempt++) {
-      try {
-        const result = await fn()
-        if (shouldCache) this.responseCache.set(key, result)
-        return result
-      } catch (error: any) {
-        const transient =
-          error?.message?.includes('ECONNRESET') ||
-          error?.message?.includes('429') ||
-          error?.message?.includes('503')
-
-        if (!transient || attempt === retries) {
-          console.error(`[Storyblok] ${label} ultimately failed`, error)
-          const fallbackValue = isFunction(fallback) ? fallback() : fallback
-          if (shouldCache) this.responseCache.set(key, fallbackValue)
-          return fallbackValue
-        }
-
-        await new Promise((r) => setTimeout(r, delayMs * attempt))
-      }
-    }
-
-    throw new Error(`[Storyblok] ${label} failed all retries`)
-  }
-
-  public async getStory(slug: string, params?: ISbStoryParams) {
-    // Skip requests for service worker, static files, or empty slugs
+  public async getStory(
+    slug: string,
+    params?: ISbStoryParams
+  ): Promise<StoryblokResponse | null> {
     if (
       !slug ||
       slug.endsWith('.js') ||
       slug.startsWith('_next') ||
       slug === 'favicon.ico'
-    ) {
-      // console.warn(`[Storyblok] Skipping getStory for static asset: ${slug}`)
+    )
       return null
+    const draftTtl = this.devDraftTtl(params)
+    const current = await this.parameters(params)
+    const key = storyblokCacheKey({ slug, ...current })
+    const draftCached = this.readDraft<StoryblokResponse>(key, draftTtl)
+    if (draftCached) return draftCached
+    const cacheable =
+      current.version === 'published' && slug.split('/').pop() === 'settings'
+    const cached = cacheable ? this.settingsCache.get(key) : undefined
+    if (cached) return structuredClone(cached)
+    try {
+      const result = await this.fetch(slug, current)
+      if (cacheable) this.settingsCache.set(key, structuredClone(result))
+      this.writeDraft(key, draftTtl, result)
+      return result
+    } catch (error) {
+      // Missing pages are expected. Authentication/network errors must fail the
+      // build instead of silently publishing an empty page or list.
+      if (
+        error &&
+        typeof error === 'object' &&
+        'response' in error &&
+        (error.response as { status?: number }).status === 404
+      )
+        return null
+      throw error
     }
-    const currentParams = await this.processParamsForCaching({
-      ...rootParams,
-      ...params,
-      ...this.getDefaultParams()
-    })
-    // Settings are cached across stories. Include the selected space and locale
-    // so switching reference websites cannot reuse another website's settings.
-    const key = `getStory:${slug}:${currentParams.version}:${JSON.stringify(
-      currentParams
-    )}`
-
-    return this.safeFetch(
-      () => this.client.getStory(slug, currentParams),
-      { data: null } as any,
-      `getStory(${slug})`,
-      key
-    )
   }
 
-  public async getStories(params?: ISbStoriesParams) {
-    const currentParams: ISbStoriesParams = await this.processParamsForCaching({
-      ...rootParams,
-      ...params,
-      ...this.getDefaultParams()
-    })
-    const key = `getStories:${JSON.stringify(currentParams)}`
-
-    return this.safeFetch(
-      () => this.client.getStories(currentParams),
-      { data: { stories: [] } } as any,
-      'getStories',
-      key
-    )
-  }
-
-  public async getAll(slug: string, params = {}): Promise<any[]> {
-    const currentParams = await this.processParamsForCaching({
-      ...rootParams,
-      ...params,
-      ...this.getDefaultParams()
-    })
-    // 🔑 Use a hash of the params so even deep object differences are captured
-    const paramHash = hashParams(currentParams)
-
-    const key = `getAll:${slug}:${currentParams.version}:${
-      currentParams.cv ?? 'noCV'
-    }${paramHash}`
-    if (this.inFlight.has(key)) {
-      return this.inFlight.get(key)!
-    }
-    // ✅ Reuse cached result if present
-    const showLog = false
-    const cached = StoryblokServiceClass.getAllCache.get(key)
-    if (cached) {
-      if (showLog) {
-        console.log(`[CACHED - Storyblok] Using getAll cache for ${key}`)
-      }
-      return cached
-    }
-
-    const promise = this.safeFetch(
-      () => this.client.getAll(slug, currentParams, 'stories'),
-      [],
-      `getAll(${slug})`,
-      key
-    )
-    this.inFlight.set(key, promise)
-    const result = await promise
-    this.inFlight.delete(key)
-    if (showLog) {
-      const sizeKB = Buffer.byteLength(JSON.stringify(result)) / 1024
-      console.log(`[LOG - Storyblok] ${key} size: ${sizeKB.toFixed(2)} KB`)
-    }
-    StoryblokServiceClass.getAllCache.set(key, result)
+  public async getStories(
+    params?: ISbStoriesParams
+  ): Promise<StoryblokResponse> {
+    const draftTtl = this.devDraftTtl(params)
+    const current = await this.parameters(params)
+    const key = storyblokCacheKey({ method: 'getStories', ...current })
+    const draftCached = this.readDraft<StoryblokResponse>(key, draftTtl)
+    if (draftCached) return draftCached
+    const result = await this.fetch(undefined, current)
+    this.writeDraft(key, draftTtl, result)
     return result
+  }
+
+  public async getAll(
+    slug: string,
+    params: ISbStoriesParams = {}
+  ): Promise<any[]> {
+    if (slug.replace(/^\//, '') !== 'cdn/stories')
+      throw new Error('getAll supports cdn/stories only')
+    const draftTtl = this.devDraftTtl(params)
+    const current = await this.parameters(params)
+    const key = storyblokCacheKey({ slug, ...current })
+    const cached =
+      current.version === 'published'
+        ? this.allCache.get(key)
+        : this.readDraft<ISbStoryData[]>(key, draftTtl)
+    if (cached) return structuredClone(cached)
+    const pending = this.inFlight.get(key)
+    if (pending) return structuredClone(await pending)
+    const request = (async () => {
+      const perPage = current.per_page || 100
+      const first = await this.fetch(undefined, {
+        ...current,
+        per_page: perPage,
+        page: 1
+      })
+      const pages = Math.ceil(first.total / (first.perPage || perPage))
+      const rest = await Promise.all(
+        Array.from({ length: Math.max(0, pages - 1) }, (_, index) =>
+          this.fetch(undefined, {
+            ...current,
+            per_page: perPage,
+            page: index + 2
+          })
+        )
+      )
+      const stories = [first, ...rest].flatMap(
+        (result) => result.data.stories || []
+      )
+      if (current.version === 'published')
+        this.allCache.set(key, structuredClone(stories))
+      else this.writeDraft(key, draftTtl, stories)
+      return stories
+    })()
+    this.inFlight.set(key, request)
+    try {
+      return structuredClone(await request)
+    } finally {
+      this.inFlight.delete(key)
+    }
+  }
+
+  public clearCaches() {
+    this.draftCache.clear()
+    this.allCache.clear()
+    this.settingsCache.clear()
+    this.versions.clear()
   }
 
   public setDevMode() {
     this.devMode = true
   }
-
-  public getQuery(param: StoryblokServiceClass['query']) {
+  public getQuery(param: string) {
     return this.query[param]
   }
-
-  public setQuery(params: any) {
+  public setQuery(params: Record<string, unknown> = {}) {
     this.query = params
   }
-}
-
-function hashParams(obj: any): string {
-  const str = JSON.stringify(obj, Object.keys(obj).sort())
-  let hash = 0,
-    i,
-    chr
-  if (str.length === 0) return '0'
-  for (i = 0; i < str.length; i++) {
-    chr = str.charCodeAt(i)
-    hash = (hash << 5) - hash + chr
-    hash |= 0 // Convert to 32bit integer
-  }
-  return Math.abs(hash).toString(36) // shorter, URL-safe hash
 }
 
 export const LmStoryblokService = new StoryblokServiceClass()

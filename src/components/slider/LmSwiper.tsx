@@ -12,7 +12,7 @@ import {
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-import '../../vendor/swiper-navigation/icons.css'
+import navigationIcons from '../../vendor/swiper-navigation/icons.module.css'
 
 import { LmComponentRender } from '@LmComponentRender'
 import { PaginationOptions } from 'swiper/types'
@@ -71,7 +71,7 @@ export default function LmSwiper({ content }: LmSwiperProps) {
   const themeColors = content.theme_color?.split('.')
   return (
     <Box
-      className="lm-swiper"
+      className={`lm-swiper ${navigationIcons.root}`}
       sx={{
         '--swiper-theme-color': (theme: Theme) =>
           themeColors?.[0]

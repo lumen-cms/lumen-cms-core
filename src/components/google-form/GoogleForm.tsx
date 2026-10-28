@@ -11,7 +11,8 @@ import {
 } from '../../typings/generated/components-schema'
 import GoogleFormElement, { TextFieldElement } from './GoogleFormElement'
 import { GoogleForm, submitToGoogleForms } from '../../vendor/google-forms'
-import { useFormColorStyles } from '../../utils/jss/formColorStyles'
+import { formColorDarkSx } from '../../utils/jss/formColorStyles'
+import Box from '@mui/material/Box'
 
 const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
 // url(https://medium.com/@levvi/how-to-use-google-forms-as-a-free-email-service-for-your-custom-react-form-or-any-other-1aa837422a4)
@@ -26,7 +27,6 @@ export default function LmGoogleForm({
   formStructure: GoogleForm
   content: LmGoogleFormProps['content']
 }): React.JSX.Element {
-  const { classes, cx: clsx } = useFormColorStyles()
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false)
   // @TODO mode is no-cors, can't detect result status
   // const [submitError, setSubmitError] = useState<boolean>(false)
@@ -99,13 +99,11 @@ export default function LmGoogleForm({
   let submitButtonEl = content.submit_button[0]
 
   return (
-    <div
+    <Box
       style={{
         color: content.color?.rgba || undefined
       }}
-      className={clsx({
-        [classes.dark]: !!content.color?.rgba
-      })}
+      sx={[!!content.color?.rgba && formColorDarkSx]}
     >
       <Wrap>
         <FormContainer
@@ -174,6 +172,6 @@ export default function LmGoogleForm({
           </div>
         </FormContainer>
       </Wrap>
-    </div>
+    </Box>
   )
 }

@@ -1,5 +1,4 @@
 import { GraphQLClient } from 'graphql-request';
-import * as Dom from 'graphql-request/dist/types.dom';
 import gql from 'graphql-tag';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -6232,16 +6231,16 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    allProducts(variables?: AllProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AllProductsQuery> {
+    allProducts(variables?: AllProductsQueryVariables, requestHeaders?: RequestInit["headers"]): Promise<AllProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<AllProductsQuery>(AllProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'allProducts', 'query');
     },
-    checkoutCreate(variables: CheckoutCreateMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CheckoutCreateMutation> {
+    checkoutCreate(variables: CheckoutCreateMutationVariables, requestHeaders?: RequestInit["headers"]): Promise<CheckoutCreateMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CheckoutCreateMutation>(CheckoutCreateDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'checkoutCreate', 'mutation');
     },
-    product(variables: ProductQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductQuery> {
+    product(variables: ProductQueryVariables, requestHeaders?: RequestInit["headers"]): Promise<ProductQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProductQuery>(ProductDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'product', 'query');
     },
-    products(variables: ProductsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ProductsQuery> {
+    products(variables: ProductsQueryVariables, requestHeaders?: RequestInit["headers"]): Promise<ProductsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<ProductsQuery>(ProductsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'products', 'query');
     }
   };

@@ -6,7 +6,7 @@ export const getNews = async (
   ignoreRichTextResolve?: boolean
 ): Promise<
   (ISbStoryData<LmNews> & {
-    contentHtml?: string
+    contentHtml?: string | null
   })[]
 > => {
   const news: ISbStoryData<LmNews>[] = await LmStoryblokService.getAll(

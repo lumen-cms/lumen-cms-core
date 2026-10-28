@@ -81,7 +81,13 @@ export const SelectedLink = {
             _uid: 'selected-drawer-link',
             component: 'button',
             label: 'Selected link',
-            link: { linktype: 'story', cached_url: 'selected' }
+            link: {
+              fieldtype: 'multilink',
+              id: '',
+              url: '',
+              linktype: 'story',
+              cached_url: 'selected'
+            }
           }}
         />
       </div>

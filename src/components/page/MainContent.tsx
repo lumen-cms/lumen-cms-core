@@ -1,6 +1,13 @@
 import { FunctionComponent } from 'react'
 import { LmComponentRender } from '@LmComponentRender'
-import { usePageStyles } from './usePageStyle'
+import Box from '@mui/material/Box'
+import {
+  contentSx,
+  contentWithRightSx,
+  leftMobileSx,
+  leftShiftSx,
+  rightMobileSx
+} from './pageStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
 import {
   drawerVariantSelector,
@@ -11,28 +18,23 @@ import {
 const MainContentContainer: FunctionComponent<
   React.PropsWithChildren<unknown>
 > = ({ children }) => {
-  const { classes, cx: clsx } = usePageStyles()
   const settings = useSettings()
   const page = usePage()
   const drawerVariant = useNavigationStore(drawerVariantSelector)
   const isOpen = useNavigationStore(leftNavigationDrawerSelector)
   const hasRightDrawer = page?.right_body?.length
+  const isLeftShift = drawerVariant !== 'temporary' && isOpen
   return (
-    <main
-      className={clsx(classes.content, {
-        [classes.contentWithRight]: !!hasRightDrawer,
-        [classes[
-          `right-mobile-${
-            page?.mobile_breakpoint || 'sm'
-          }` as keyof typeof classes
-        ]]: true,
-        [classes.leftShift]: drawerVariant !== 'temporary' && isOpen,
-        [classes[
-          `left-mobile-${
-            settings.mobile_nav_breakpoint || 'sm'
-          }` as keyof typeof classes
-        ]]: drawerVariant !== 'temporary' && isOpen
-      })}
+    <Box
+      component="main"
+      sx={[
+        contentSx,
+        !!hasRightDrawer && contentWithRightSx,
+        rightMobileSx[page?.mobile_breakpoint || 'sm'] ?? false,
+        isLeftShift && leftShiftSx,
+        isLeftShift &&
+          (leftMobileSx[settings.mobile_nav_breakpoint || 'sm'] ?? false)
+      ]}
     >
       {!page.property?.includes('has_feature') &&
         !page.property?.includes('disable_promotion') &&
@@ -40,7 +42,7 @@ const MainContentContainer: FunctionComponent<
           <LmComponentRender content={blok} key={blok._uid} />
         ))}
       {children}
-    </main>
+    </Box>
   )
 }
 MainContentContainer.displayName = 'MainContentContainer'

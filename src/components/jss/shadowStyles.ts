@@ -1,6 +1,7 @@
-import { makeStyles } from 'tss-react/mui'
+import { Theme } from '@mui/material/styles'
+import { SystemStyleObject } from '@mui/system'
 
-const useShadowStyles = makeStyles()({
+export const shadowEffectSx: Record<string, SystemStyleObject<Theme>> = {
   faded: {
     boxShadow:
       '0 2px 4px -2px rgba(0,0,0,0.24), 0 4px 24px -2px rgba(0, 0, 0, 0.2)'
@@ -46,6 +47,4 @@ const useShadowStyles = makeStyles()({
       boxShadow: '0 0.2rem 0.8rem rgba(0,0,0,.15)'
     }
   }
-})
-
-export default useShadowStyles
+}

@@ -37,7 +37,7 @@ export default function LmEventCalendar({ content }: LmEventCalendarProps) {
 
   const [selectedEvent, setSelectedEvent] = useState<EventCalendar | null>()
   const views = content.views?.length
-    ? content.views
+    ? content.views.filter((view) => view !== '')
     : [Views.MONTH, Views.WEEK, Views.DAY, Views.AGENDA]
   const currentView = views.includes(content.view || Views.MONTH)
     ? content.view || Views.MONTH
