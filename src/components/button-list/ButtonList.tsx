@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmButtonListProps } from './buttonListTypes'
 import clsx from 'clsx'
 

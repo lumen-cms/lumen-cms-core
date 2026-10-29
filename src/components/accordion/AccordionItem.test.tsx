@@ -3,7 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { load } from 'cheerio'
 import LmAccordionItem from './AccordionItem'
 
-vi.mock('@LmComponentRender', () => ({
+vi.mock('../CoreComponents', () => ({
   LmComponentRender: ({
     content
   }: {

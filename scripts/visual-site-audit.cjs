@@ -16,6 +16,9 @@ const { values } = parseArgs({
     'settle-ms': { type: 'string', default: '80' },
     'freeze-swipers': { type: 'boolean', default: false },
     limit: { type: 'string' },
+    strict: { type: 'boolean', default: false },
+    'local-origin': { type: 'string' },
+    'max-diff-percent': { type: 'string', default: '0' },
     run: { type: 'boolean', default: false }
   }
 })
@@ -39,6 +42,13 @@ const allowed = new Set([
   'http://127.0.0.1:3061',
   'http://127.0.0.1:3062'
 ])
+if (values['local-origin']) {
+  const url = new URL(values['local-origin'])
+  if (url.protocol !== 'http:' || !['127.0.0.1', 'localhost', '[::1]'].includes(url.hostname) ||
+      url.username || url.password || url.pathname !== '/' || url.search || url.hash)
+    throw new Error('--local-origin must be a loopback HTTP origin')
+  allowed.add(url.origin)
+}
 const safeUrl = (input) => {
   const url = new URL(input)
   if (!allowed.has(url.origin) || url.username || url.password || url.search) {
@@ -64,11 +74,12 @@ async function main() {
   const workers = Number(values.workers)
   const settleMs = Number(values['settle-ms'])
   const limit = values.limit ? Number(values.limit) : Infinity
+  const maxDiffPercent = Number(values['max-diff-percent'])
   if (
     widths.some((w) => !Number.isInteger(w) || w < 320 || w > 1920) ||
     !Number.isInteger(workers) || workers < 1 || workers > 3 ||
     !Number.isInteger(settleMs) || settleMs < 0 || settleMs > 1000 ||
-    !(limit > 0)
+    !(limit > 0) || !Number.isFinite(maxDiffPercent) || maxDiffPercent < 0 || maxDiffPercent > 100
   ) throw new Error('Invalid width, worker count (1–3), or limit')
   const inventory = JSON.parse(await fs.readFile(values.inventory, 'utf8'))
   const output = path.resolve(values.output)
@@ -98,6 +109,8 @@ async function main() {
     r.candidate === values.candidate && r.status !== 'failed'
   ).map((r) => r.key))
   const queue = cases.filter((c) => !completed.has(c.key)).slice(0, limit)
+  if (values.strict && (!cases.length || previous.length))
+    throw new Error('Strict runs require a nonempty inventory and a fresh output directory')
   console.log(JSON.stringify({ mode: values.run ? 'run' : 'dry-run', cases: cases.length,
     resumed: completed.size, queued: queue.length, workers, widths, settleMs, output }))
   if (!values.run) return
@@ -107,12 +120,15 @@ async function main() {
   const sharp = require('sharp')
   await fs.mkdir(output, { recursive: true })
   const browser = await chromium.launch({ headless: true })
-  await fs.writeFile(path.join(output, 'run.json'), JSON.stringify({
+  const run = {
     startedAt: new Date().toISOString(), candidate: values.candidate,
+    site: inventory.routes[0]?.site,
     browser: browser.version(), widths, workers, settleMs, totalCases: cases.length,
     freezeSwipers: values['freeze-swipers'],
+    maxDiffPercent,
     policy: 'Raw images retained. Different pixels require review; never auto-accept.'
-  }, null, 2))
+  }
+  await fs.writeFile(path.join(output, 'run.json'), JSON.stringify(run, null, 2))
 
   async function capture(row, side) {
     const context = await browser.newContext({
@@ -127,12 +143,13 @@ async function main() {
     await page.route('**/*', (route) => {
       const request = route.request()
       if (request.isNavigationRequest() && request.frame() === page.mainFrame() &&
-          !allowed.has(new URL(request.url()).origin)) return route.abort()
+          (values.strict ? new URL(request.url()).origin !== new URL(row[side]).origin
+            : !allowed.has(new URL(request.url()).origin))) return route.abort()
       return route.continue()
     })
     const started = Date.now()
     try {
-      const response = await page.goto(row[side], { waitUntil: 'domcontentloaded', timeout: 30000 })
+      const response = await page.goto(row[side], { waitUntil: 'domcontentloaded', timeout: 60000 })
       await page.locator('body').waitFor()
       await page.waitForFunction(() => window.next?.router?.isReady === true,
         null, { timeout: 15000 })
@@ -165,7 +182,7 @@ async function main() {
       await dismiss()
       // Visit overlapping viewports to trigger CMS intersection-observer images.
       // A bounded scrolling pass avoids an infinite third-party feed.
-      for (let y = 0, step = 0; step < 100; step++) {
+      for (let y = 0, step = 0; step < 250; step++) {
         const size = await page.evaluate(() => ({ height: document.documentElement.scrollHeight, viewport: innerHeight }))
         if (y >= size.height) break
         await page.evaluate((top) => window.scrollTo({ top, behavior: 'instant' }), y)
@@ -176,7 +193,7 @@ async function main() {
       await page.evaluate(async () => {
         await Promise.race([
           Promise.all([...document.images].map((image) => image.decode().catch(() => {}))),
-          new Promise((resolve) => setTimeout(resolve, 8000))
+          new Promise((resolve) => setTimeout(resolve, 30000))
         ])
         window.scrollTo({ top: 0, behavior: 'instant' })
       })
@@ -184,7 +201,7 @@ async function main() {
       // Give that content a bounded settling period and retain any unresolved
       // placeholders in the metadata rather than concealing them in screenshots.
       await page.waitForFunction(() => ![...document.querySelectorAll('.MuiSkeleton-root')]
-        .some((e) => e.getBoundingClientRect().width > 0), null, { timeout: 5000 }).catch(() => {})
+        .some((e) => e.getBoundingClientRect().width > 0), null, { timeout: 15000 }).catch(() => {})
       await page.evaluate(async () => {
         await Promise.race([document.fonts.ready, new Promise((resolve) => setTimeout(resolve, 8000))])
       })
@@ -202,11 +219,27 @@ async function main() {
         await page.evaluate(() => {
           for (const el of document.querySelectorAll('.swiper')) {
             el.swiper?.autoplay?.stop()
-            el.swiper?.slideTo(0, 0)
+            if (el.swiper?.params?.loop) el.swiper.slideToLoop(0, 0)
+            else el.swiper?.slideTo(0, 0)
           }
         })
         await page.waitForTimeout(350)
       }
+      // Lazy chunks can insert new assets after the first scrolling pass. Wait
+      // for all rendered images, including newly inserted ones, before capture.
+      await page.waitForFunction(() => [...document.images].every((e) =>
+        e.complete || !e.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) ||
+        !e.getBoundingClientRect().width || !e.getBoundingClientRect().height ||
+        e.getBoundingClientRect().right <= 0 || e.getBoundingClientRect().left >= innerWidth
+      ), null, { timeout: 30000 }).catch(() => {})
+      await page.evaluate(async () => {
+        await document.fonts.ready
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+      })
+      await page.mouse.move(row.width - 1, 0)
+      const transformNormalizations = values['freeze-swipers']
+        ? await page.evaluate(require('./website-dynamics.cjs').stabilizeCarouselTransforms)
+        : []
       const metrics = await page.evaluate(() => ({
         url: location.origin + location.pathname, title: document.title,
         height: document.documentElement.scrollHeight,
@@ -229,17 +262,27 @@ async function main() {
         headings: [...document.querySelectorAll('h1,h2,h3,h4')]
           .filter((e) => e.getBoundingClientRect().width > 0)
           .map((e) => { const r = e.getBoundingClientRect(), s = getComputedStyle(e)
-            return { text: e.textContent.trim(), x: r.x, y: r.y + scrollY,
+            return { text: e.textContent.trim(), level: e.tagName, x: r.x, y: r.y + scrollY,
               width: r.width, height: r.height, font: s.fontSize,
               fontFamily: s.fontFamily, lineHeight: s.lineHeight, color: s.color } }),
         brokenImages: [...document.images]
           .filter((e) => e.complete && e.naturalWidth === 0 && e.getBoundingClientRect().width > 0)
           .map((e) => ({ alt: e.alt, src: e.currentSrc.split('?')[0] })),
-        pendingImages: [...document.images].filter((e) => !e.complete)
+        pendingImages: [...document.images].filter((e) => !e.complete &&
+          e.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) &&
+          e.getBoundingClientRect().width > 0 && e.getBoundingClientRect().height > 0 &&
+          e.getBoundingClientRect().right > 0 && e.getBoundingClientRect().left < innerWidth)
           .map((e) => ({ alt: e.alt, src: e.currentSrc.split('?')[0] })),
         links: [...document.querySelectorAll('a[href]')]
           .map((e) => ({ text: e.textContent.trim(), href: e.href.split('?')[0] }))
       }))
+      metrics.expectedSearchRegions = await page.evaluate(
+        require('./website-expected-changes.cjs').collectSearchRegions
+      )
+      metrics.reviewedRegions = await page.evaluate(
+        require('./website-dynamics.cjs').collectReviewedRegions, { site: row.site }
+      )
+      metrics.transformNormalizations = transformNormalizations
       const file = `${row.key}-${side}.png`
       await page.screenshot({ path: path.join(output, file), fullPage: true,
         animations: 'disabled', caret: 'hide', timeout: 30000 })
@@ -262,6 +305,8 @@ async function main() {
     if (captures.length !== 2) return { status: 'failed', errors: pair
       .filter((r) => r.status === 'rejected').map((r) => scrub(r.reason?.message)) }
     const [local, live] = captures
+    if (values.strict) return require('./website-results.cjs')
+      .compareCaptures(local, live, output, row.key, maxDiffPercent)
     const [a, b] = await Promise.all(captures.map((c) => sharp(path.join(output, c.file))
       .removeAlpha().raw().toBuffer({ resolveWithObject: true })))
     const same = a.info.width === b.info.width && a.info.height === b.info.height
@@ -292,6 +337,7 @@ async function main() {
       maxChannelDifference: max, differenceBands: rows }
   }
   let cursor = 0, finished = 0
+  const results = []
   try {
     await Promise.all(Array.from({ length: workers }, async () => {
       while (cursor < queue.length) {
@@ -302,9 +348,22 @@ async function main() {
         const entry = { key: row.key, site: row.site, path: row.path, locale: row.locale,
           width: row.width, candidate: values.candidate, completedAt: new Date().toISOString(), ...result }
         await fs.appendFile(path.join(output, 'results.jsonl'), JSON.stringify(entry) + '\n')
-        console.log(JSON.stringify({ completed: ++finished, queued: queue.length, ...entry }))
+        results.push(entry)
+        finished++
+        if (values.strict) console.log(
+          `[${finished}/${queue.length}] ${entry.status.toUpperCase()} ${row.path} (${row.width}px)` +
+          (entry.reasons?.length ? ` — ${entry.reasons.join('; ')}` : '') +
+          (entry.errors?.length ? ` — ${entry.errors.join('; ')}` : '')
+        )
+        else console.log(JSON.stringify({ completed: finished, queued: queue.length, ...entry }))
       }
     }))
   } finally { await browser.close() }
+  if (values.strict) {
+    const summary = await require('./website-results.cjs').writeReport(output, results, run)
+    console.log(`Report: ${path.join(output, 'report.html')}`)
+    console.log(`${summary.passed} exact passes; ${summary.dynamicOnly} dynamic-only; ${summary.failed} failures`)
+    if (summary.failed || results.length !== cases.length) process.exitCode = 1
+  }
 }
 main().catch((error) => { console.error(scrub(error.message)); process.exitCode = 1 })

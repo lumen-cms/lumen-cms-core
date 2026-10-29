@@ -1,5 +1,5 @@
 import { storyblokRelationIds } from './storyblokRelations'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../config'
 import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { queryStringify } from './paramsToQueryString'
 import { getStoriesSortHelper } from './storyblokParamsHelper'

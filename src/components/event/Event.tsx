@@ -1,5 +1,5 @@
 import { LmEventProps } from './eventTypes'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import {
   HeadlineStoryblok,
   ImageStoryblok,
@@ -7,7 +7,7 @@ import {
   SectionStoryblok
 } from '../../typings/generated/components-schema'
 import { getDateLocalized } from '../../utils/intlDateHelper'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 export default function LmEvent({ content }: LmEventProps) {
   const { locale } = useAppContext()

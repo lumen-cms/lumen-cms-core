@@ -1,10 +1,10 @@
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../../utils/config'
 import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
 import { LmPageProps } from './pageTypes'
 import { usePage } from '../provider/SettingsPageProvider'
 import EmptyContent from './EmptyContent'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 
 export function LmPage({ content }: LmPageProps): React.JSX.Element {
   const page = usePage()

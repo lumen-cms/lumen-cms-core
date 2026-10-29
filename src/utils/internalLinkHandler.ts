@@ -1,4 +1,4 @@
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from './config'
 
 export const internalLinkHandler = (url: string) => {
   const urlArray = url.split('/')

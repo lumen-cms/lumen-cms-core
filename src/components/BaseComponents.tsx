@@ -1,4 +1,4 @@
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../utils/config'
 import LmAccordion from './accordion/Accordion'
 import LmTable from './table/Table'
 import { LmDivider } from './divider/Divider'

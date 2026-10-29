@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import Drawer from '@mui/material/Drawer'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { ContentSpace } from '../layout/ContentSpace'
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'

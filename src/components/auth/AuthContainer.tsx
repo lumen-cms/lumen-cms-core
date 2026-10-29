@@ -1,16 +1,16 @@
 import { FC, PropsWithChildren } from 'react'
-import { LmComponentRender } from '@LmComponentRender'
-import { useAppContext } from '@context/AppContext'
+import { LmComponentRender } from '../CoreComponents'
+import { useAppContext } from '../provider/context/AppContext'
 import { AuthContainerStoryblok } from '../../typings/generated/components-schema'
 import { hasAuth0Credentials } from '../../utils/auth0/auth0Helpers'
 import { useUserData } from './useAuth'
 
-const LmAuthContainer: FC<
-  PropsWithChildren<{ content: AuthContainerStoryblok }>
-> = ({ content, children }) => {
-  const { insideStoryblok } = useAppContext() || {}
-  const user = useUserData()
+type AuthUser = ReturnType<typeof useUserData>
 
+function canDisplayAuthContent(
+  content: AuthContainerStoryblok,
+  user: AuthUser
+) {
   let hideOnRole = true
   let requireRole = true
   let showContent = true
@@ -37,26 +37,44 @@ const LmAuthContainer: FC<
     requireRole = user ? !!hasAuth0Credentials(rolesRequired, user) : false
   }
 
-  if (!insideStoryblok && !(hideOnRole && showContent && requireRole)) {
+  return hideOnRole && showContent && requireRole
+}
+
+function personalizeBlock(
+  blok: NonNullable<AuthContainerStoryblok['body']>[number],
+  user: AuthUser
+) {
+  const personalize = (text?: string) =>
+    text
+      ?.replace('{email}', user?.email ?? '')
+      .replace('{firstName}', user?.firstName ?? '')
+      .replace('{lastName}', user?.lastName ?? '')
+  if (blok.component === 'headline')
+    return { ...blok, text: personalize(blok.text) }
+  if (blok.component === 'button')
+    return { ...blok, label: personalize(blok.label) }
+  return blok
+}
+
+const LmAuthContainer: FC<
+  PropsWithChildren<{ content: AuthContainerStoryblok }>
+> = ({ content, children }) => {
+  const { insideStoryblok } = useAppContext() || {}
+  const user = useUserData()
+
+  if (!insideStoryblok && !canDisplayAuthContent(content, user)) {
     return <span className="lm-empty__auth" /> // some condition is not matched
   }
   if (content.body?.length) {
     return (
       <>
         {content.body.map((blok) => {
-          if (blok.component === 'headline') {
-            blok.text = blok.text?.replace('{email}', user?.email ?? '')
-            blok.text = blok.text?.replace('{firstName}', user?.firstName ?? '')
-            blok.text = blok.text?.replace('{lastName}', user?.lastName ?? '')
-          } else if (blok.component === 'button') {
-            blok.label = blok.label?.replace('{email}', user?.email ?? '')
-            blok.label = blok.label?.replace(
-              '{firstName}',
-              user?.firstName ?? ''
-            )
-            blok.label = blok.label?.replace('{lastName}', user?.lastName ?? '')
-          }
-          return <LmComponentRender content={blok} key={blok._uid} />
+          return (
+            <LmComponentRender
+              content={personalizeBlock(blok, user)}
+              key={blok._uid}
+            />
+          )
         })}
       </>
     )

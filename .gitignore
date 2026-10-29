@@ -59,8 +59,18 @@ build-storybook.log
 
 .next-reference
 .next-dev-verification
+.next-security-verification
 
 .env.reference.local
+.env.bali
+.env.planet
+.env.upskill
 
 # Local Storyblok CLI exports and type-migration candidates
 .storyblok/
+
+# Website comparison captures, logs and isolated consumers
+.website-tests/
+
+# Optional repository-local pnpm store
+.pnpm-store/

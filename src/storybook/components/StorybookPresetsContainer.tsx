@@ -1,5 +1,5 @@
 import { findPresets } from '../findStorybookPresets'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../../components/CoreComponents'
 
 export default function StorybookPresetsContainer({
   componentName,

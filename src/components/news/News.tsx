@@ -5,9 +5,9 @@ import {
   RichTextEditorStoryblok,
   SectionStoryblok
 } from '../../typings/generated/components-schema'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { getDateLocalized } from '../../utils/intlDateHelper'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 export default function LmNews({ content }: LmNewsProps) {
   const { locale } = useAppContext()

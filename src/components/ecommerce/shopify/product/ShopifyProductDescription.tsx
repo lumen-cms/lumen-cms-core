@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../../../CoreComponents'
 import { useState } from 'react'
 import Dialog from '@mui/material/Dialog'
 import DialogContentText from '@mui/material/DialogContentText'
@@ -9,6 +9,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ButtonStoryblok } from '../../../../typings/generated/components-schema'
 import { ShopifyProductItemProps } from '../shopifyTypes'
+import { sanitizeProductDescription } from './sanitizeProductDescription'
 
 export function ShopifyProductDescription({ item }: ShopifyProductItemProps) {
   const { config } = useShopifySdkContext()
@@ -47,7 +48,10 @@ export function ShopifyProductDescription({ item }: ShopifyProductItemProps) {
         </Toolbar>
         <DialogContent>
           <DialogContentText
-            dangerouslySetInnerHTML={{ __html: item.descriptionHtml }}
+            component="div"
+            dangerouslySetInnerHTML={{
+              __html: sanitizeProductDescription(item.descriptionHtml)
+            }}
           />
         </DialogContent>
       </Dialog>

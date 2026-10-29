@@ -1,4 +1,4 @@
-import { LmComponentRender as LmMotion } from '@LmComponentRender'
+import { LmComponentRender as LmMotion } from '../components/CoreComponents'
 import { HeadlineStoryblok } from '../typings/generated/components-schema'
 import { storyMotion } from '../storybook/core/various'
 

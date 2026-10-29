@@ -1,5 +1,5 @@
 import LinearProgress from '@mui/material/LinearProgress'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../../provider/context/AppContext'
 import { ShopifyProductItem } from './product/ShopifyProductItem'
 import { LmShopifyCheckoutProps } from './shopifyTypes'
 import { AllProductsQuery } from '../../../typings/generated/shopify-schema'

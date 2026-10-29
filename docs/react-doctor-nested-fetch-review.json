@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source root causes: navigation render identity, button leading-icon identity, and server Google Form HTTP handling. Generated artifacts, unused fetch helpers, and concurrent search-palette work left alone.",
+  "rootCauses": [
+    {
+      "name": "Navigation-list render identity",
+      "file": "src/components/nav-list/NavList.tsx",
+      "findings": 4,
+      "impact": "Parent updates remounted navigation children and headings. Tests reproduced lost input DOM identity; stable identity now preserves input values and focus, plus accordion open state. Actual production user-data loss was not observed.",
+      "fix": "Hoist HeadlineHeader and ChildrenRender to module scope and pass content as props. Preserve responsive collapse conditions, styling, child keys, and headline defaults.",
+      "tests": "Two before-failing regressions pass for plain and collapsed layouts, checking DOM identity, input value/focus, updated heading text and expanded state."
+    },
+    {
+      "name": "Button leading-icon render identity",
+      "file": "src/components/button/Button.tsx",
+      "findings": 2,
+      "impact": "Lower-severity visual reliability issue: parent updates unnecessarily remounted the leading icon/avatar. The real icon uses visibility/loading state, so remounting can restart that state. DOM replacement was reproduced; no production flicker measurement is claimed.",
+      "fix": "Hoist StartIcon and pass content explicitly. Preserve the component slot even when empty, image/icon precedence, size choices and click behavior.",
+      "tests": "Before-failing raised/FAB icon-identity tests now pass and assert an icon is actually present. Existing CMS action/callback test passes."
+    },
+    {
+      "name": "Google Form HTTP status handling",
+      "file": "src/utils/initial-props/component-data/googleFormsToJson.ts",
+      "findings": 1,
+      "impact": "HTTP failures were parsed as successful form downloads, causing misleading parser errors or accepting a form-shaped error response. This matters when Google denies access, rate-limits requests, or is unavailable.",
+      "fix": "Reject non-OK responses before reading their body, with a status-only error that does not expose the request URL. Keep successful parsing and googleFormGetData error logging/null fallback unchanged.",
+      "tests": "403/404/429/500 form-shaped responses reproduced the bug before the fix. All now reject before body consumption and retain null fallback. Existing successful label, field, choice and date parsing tests pass."
+    }
+  ],
+  "recipes": {
+    "no-nested-component-definition": "https://react.doctor/docs/rules/react-doctor/no-nested-component-definition",
+    "no-unstable-nested-components": "https://react.doctor/docs/rules/react-doctor/no-unstable-nested-components",
+    "no-fetch-response-used-without-status-check": "https://react.doctor/docs/rules/react-doctor/no-fetch-response-used-without-status-check"
+  },
+  "recipeReview": "Fetched all three recipes using curl with Cache-Control:no-cache and Pragma:no-cache. Source review and failing runtime tests establish real defects. Module-scope components with explicit props and response.ok before consuming text follow canonical fixes. No suppressions.",
+  "grouping": "Selected diagnostics have no fixGroupId. Duplicate nesting rules grouped with their underlying component identity. Both navigation helpers share the navigation-list render-identity repair.",
+  "validation": {
+    "unitTests": "13 passed across 3 files; 8 new cases failed before implementation",
+    "eslint": "Six changed source/test files pass with no warnings/errors",
+    "format": "Prettier and git diff --check pass",
+    "typecheck": "Changed code has no reported errors after fixing a return-statement mistake. Full tsc --noEmit remains blocked by unrelated concurrent search-palette edits: searchPaletteData.ts:38 incompatible story content type and SearchPaletteDialog.tsx:1 unused React import. Those files were not edited in this pass.",
+    "reactDoctorCommand": "npx react-doctor@latest --verbose",
+    "runs": {
+      "navigation": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-3027f5b8-c0a8-45ee-9682-4e023e914fd0/diagnostics.json",
+        "totalFindings": 157
+      },
+      "button": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-af8dbed7-2a54-4789-980c-e32608e1ba6e/diagnostics.json",
+        "totalFindings": 155
+      },
+      "final": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-16ce7ae1-2162-4a86-a67b-a3f4a3e0d7fa/diagnostics.json",
+        "totalFindings": 156
+      }
+    },
+    "targetedFindingsRemaining": 0,
+    "findingsRemoved": 7,
+    "newFindingsInChangedFiles": 0,
+    "totalChange": "161 to 156 overall: seven targeted findings removed; two complexity warnings added by concurrent list-search/search-palette edits outside this pass.",
+    "build": "No production build or live-provider/browser verification performed. DOM regression tests use happy-dom and mocked leaf components; HTTP tests use real Response objects with mocked fetch."
+  },
+  "remaining": {
+    "total": 156,
+    "source": 84,
+    "sourceErrors": [
+      {
+        "file": "src/components/section/SectionParallax.tsx",
+        "rule": "jsx-key"
+      },
+      {
+        "file": "src/components/tracking/FbqPixel.tsx",
+        "rule": "alt-text"
+      }
+    ],
+    "priorities": [
+      "Remaining nested components in drawer icons, toolbar and background images.",
+      "Unchecked responses in generic fetcher, client Google Forms proxy and Instagram helpers.",
+      "Parallax keys, tracking-pixel accessibility, state synchronization and complexity findings."
+    ],
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 26,
+      "jsx-no-constructed-context-values": 1,
+      "nextjs-no-a-element": 1,
+      "nextjs-image-missing-sizes": 1,
+      "no-spread-accumulator-in-reduce": 2,
+      "no-derived-useState": 2,
+      "rerender-lazy-state-init": 2,
+      "no-nested-component-definition": 5,
+      "no-unstable-nested-components": 5,
+      "js-set-map-lookups": 11,
+      "no-effect-chain": 3,
+      "no-adjust-state-on-prop-change": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-state": 2,
+      "jsx-key": 1,
+      "no-array-index-as-key": 4,
+      "alt-text": 1,
+      "no-fetch-response-used-without-status-check": 4,
+      "rerender-functional-setstate": 1,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    }
+  }
+}

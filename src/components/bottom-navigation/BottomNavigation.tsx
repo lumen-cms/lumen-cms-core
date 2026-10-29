@@ -1,7 +1,7 @@
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import BottomNavigation from '@mui/material/BottomNavigation'
-import { LmComponentRender } from '@LmComponentRender'
-import { LmCoreComponents } from '@CONFIG'
+import { LmComponentRender } from '../CoreComponents'
+import { LmCoreComponents } from '../../utils/config'
 import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 import {
   LmBottomNavigationItemProps,

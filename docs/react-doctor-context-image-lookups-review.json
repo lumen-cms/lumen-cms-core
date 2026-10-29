@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source root causes. Generated artifacts, suppression/configuration, dependencies and unrelated changes left alone.",
+  "rootCauses": [
+    {
+      "name": "Shopify context identity",
+      "file": "src/components/ecommerce/shopify/ShopifySdkProvider.tsx",
+      "findings": 1,
+      "impact": "Unrelated parent renders recreated the context value and woke memoized consumers. A failing regression reproduced identity changes and unnecessary consumer rendering. This is avoidable rendering work, not a claimed checkout failure.",
+      "fix": "Memoize action callbacks with actual state/config dependencies and memoize the complete context value. Preserve analytics, cart state, checkout link navigation and current action semantics.",
+      "tests": "Context identity/consumer-render regression now passes. Variant selection, add-to-cart, quantity updates and checkout after changed configuration use current state and credentials. Existing checkout recovery tests pass."
+    },
+    {
+      "name": "Product carousel responsive image sizes",
+      "file": "src/components/ecommerce/shopify/product/ShopifyProductCarousel.tsx",
+      "findings": 1,
+      "impact": "The browser previously assumed full-viewport width for images that normally occupy half the desktop grid. Can download unnecessarily large sources; no live bandwidth or LCP measurement claimed.",
+      "fix": "Use the actual theme sm breakpoint and configured numeric first-column share; default 6/12 becomes 50vw. Mobile uses 100vw. Flexible/unknown widths conservatively use 100vw. Preserve fill, contain, source, alt text, height, carousel and selection behavior.",
+      "tests": "Six server-render tests use the real Next Image implementation, verify generated sizes/srcset for default, 3-column, full-width and flexible layouts plus a custom breakpoint, and retain afterSlide selection. Tests initially had a fixture syntax/type issue; these were corrected and the final suite passes."
+    },
+    {
+      "name": "Repeated selected-category UUID lookup",
+      "file": "src/utils/initial-props/component-data/allCategoryStories.ts",
+      "findings": 1,
+      "impact": "Every category linearly searched the same selected-ID list. Larger selections spend measurable CPU on repeated membership checks; small lists have negligible costs and Set construction can be slightly slower.",
+      "fix": "Build a Set once per filter call and reuse has for category IDs. Leave the separate per-category tag includes checks unchanged. Preserve tag/ID precedence, missing tag_reference behavior, any/all matching, output order, object references and duplicate selection semantics.",
+      "tests": "Seven cases cover empty/default filters, duplicate and missing IDs, any/all tags, mixed ID/tag filters, and input/object preservation. Outputs match the previous function in measured workloads."
+    }
+  ],
+  "canonicalRecipes": {
+    "jsx-no-constructed-context-values": "https://react.doctor/docs/rules/react-doctor/jsx-no-constructed-context-values",
+    "nextjs-image-missing-sizes": "https://react.doctor/docs/rules/react-doctor/nextjs-image-missing-sizes",
+    "js-set-map-lookups": "https://react.doctor/docs/rules/react-doctor/js-set-map-lookups"
+  },
+  "recipeReview": "Fetched current recipes with no-cache curl and reviewed validation/false-positive criteria. Context identity verified at runtime, rather than merely moving the literal. Image import is next/image and sizes follow the actual grid/theme rules. UUID lookup Set is reused outside the loop; benchmarks include construction and approximate extra memory. Local Next image sizes documentation was read.",
+  "grouping": "No fixGroupId on selected diagnostics. Category UUID membership is one repeated lookup root; two per-category tag lookup findings remain for separate workload review.",
+  "benchmark": {
+    "method": "Run actual before/after filterAllCategory functions transpiled from source. Five warmups and 25 timed calls; report median. Output equivalence asserted. Synthetic workloads, not production measurements. Approximate Set memory is GC-bracketed heap difference over 100 retained sets divided by 100 and is noisy.",
+    "results": [
+      {
+        "count": 100,
+        "selected": 5,
+        "beforeMs": 0.004917000000006055,
+        "afterMs": 0.006500000000016826,
+        "approxBytesPerSet": 105,
+        "retainedSets": 100
+      },
+      {
+        "count": 1000,
+        "selected": 100,
+        "beforeMs": 0.18387500000000045,
+        "afterMs": 0.03508400000001188,
+        "approxBytesPerSet": 2460,
+        "retainedSets": 100
+      },
+      {
+        "count": 10000,
+        "selected": 1000,
+        "beforeMs": 16.415000000000077,
+        "afterMs": 0.4120830000000524,
+        "approxBytesPerSet": 17692,
+        "retainedSets": 100
+      }
+    ]
+  },
+  "validation": {
+    "tests": "16 tests pass across 4 files, including existing checkout recovery coverage",
+    "typecheck": "tsc --noEmit passes",
+    "eslint": "Zero errors; one pre-existing set-state-in-effect warning in ShopifySdkProvider cart cleanup remains untouched.",
+    "format": "Prettier and git diff --check pass",
+    "reactDoctorCommand": "npx react-doctor@latest --verbose",
+    "runs": {
+      "context": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-d9cfb8bf-d43b-4632-b27d-e8c4d6d5741b/diagnostics.json",
+        "totalFindings": 78
+      },
+      "image": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-89bbe8d2-0c1f-478d-8084-3f8e966dd073/diagnostics.json",
+        "totalFindings": 77
+      },
+      "context-image-final": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-45df8c69-3947-4e02-a779-1409b65fbf2b/diagnostics.json",
+        "totalFindings": 76
+      }
+    },
+    "targetedFindingsRemoved": 3,
+    "targetedFindingsRemaining": 0,
+    "newFindings": 0,
+    "overallCount": "106 to 76 across scans. Three source removals belong to this pass; 27 generated diagnostics also disappeared outside this work and are not claimed as fixes.",
+    "limitations": "No production build, real-browser image download measurement or live Shopify checkout. Context tests mock provider surfaces/SDK; image tests render actual Next Image on the server; benchmarks are synthetic."
+  },
+  "remaining": {
+    "total": 76,
+    "source": 50,
+    "sourceErrors": [],
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 25,
+      "nextjs-no-a-element": 1,
+      "no-derived-useState": 2,
+      "rerender-lazy-state-init": 2,
+      "js-set-map-lookups": 10,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "followUp": [
+      "Remaining component complexity, repeated per-item tag lookups and lazy initialization findings.",
+      "Existing hidden checkout anchor warning and other source diagnostics.",
+      "Generated findings left untouched."
+    ]
+  }
+}

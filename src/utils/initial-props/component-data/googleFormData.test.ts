@@ -109,3 +109,26 @@ describe('Google Form parsing', () => {
     expect(fetch).not.toHaveBeenCalled()
   })
 })
+
+test.each([403, 404, 429, 500])(
+  'rejects HTTP %s before parsing a form-shaped response and preserves the null fallback',
+  async (status) => {
+    const response = new Response(formHtml, { status })
+    const text = vi.spyOn(response, 'text')
+    vi.mocked(fetch).mockResolvedValue(response)
+    await expect(googleFormsToJson(url)).rejects.toThrow(
+      `Google Form request failed: ${status}`
+    )
+    expect(text).not.toHaveBeenCalled()
+    const log = vi.spyOn(console, 'error').mockImplementation(() => {})
+    expect(
+      await googleFormGetData({
+        api: url,
+        submit_button: [],
+        _uid: 'test',
+        component: 'form'
+      })
+    ).toBeNull()
+    expect(log).toHaveBeenCalled()
+  }
+)

@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-29",
+  "scope": "Exactly three source complexity roots. Generated artifacts, lookup code, suppressions and unrelated concurrent edits unchanged.",
+  "rootCauses": [
+    {
+      "name": "Gallery image sizing complexity",
+      "file": "src/components/image-list/ImageListItem.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "Component cyclomatic complexity 18. Responsive image-size configuration obscured image/caption rendering.",
+      "impact": "Low-severity maintenance risk; no known user-facing failure or speedup claimed.",
+      "fix": "Extract pure getImageSizes calculation with explicit list settings and theme breakpoints. Preserve exact sizes string, intrinsic dimensions, loader, fit behavior, captions and alt fallback.",
+      "tests": "Three tests pass before and after: default/override sizes, image dimensions/loader, alt precedence, fit-color wrapper and masonry exceptions, caption position and missing content."
+    },
+    {
+      "name": "Grid-column layout complexity",
+      "file": "src/components/section/GridColumn.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "Component cyclomatic complexity 19, cognitive complexity 18. Width fallbacks and conditional child stacking mixed with background/style ownership.",
+      "impact": "Low-severity maintenance risk; no intended layout or interaction change.",
+      "fix": "Separate width calculation and module-scope ColumnBody; retain background hook ownership, child keys/order, wrapping decisions and all width fallback semantics.",
+      "tests": "Seven tests pass before and after: five width/default/false/auto cases, row versus column stacking, alignment, child and background order, wrapper styles. Test casts explicitly exercise legacy vertical CMS directions excluded by current MUI GridDirection typing without changing production types."
+    },
+    {
+      "name": "Toolbar appearance complexity",
+      "file": "src/components/layout/toolbar/LmTopAppContainer.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "Component cyclomatic complexity 20, cognitive complexity 19. Visual settings were interleaved with subscriptions and drawer layout decisions.",
+      "impact": "Low-severity maintenance risk; no known broken toolbar behavior.",
+      "fix": "Extract cohesive getToolbarAppearance calculation. Preserve hook order, drawer shift conditions, scroll behavior, elevation, colors, classes, fixed positioning and child ownership.",
+      "tests": "Three tests pass before and after: feature-image scrolling, mounted input identity, default/zero/configured elevation, colors, text-bold/fixed classes and all drawer shift conditions."
+    }
+  ],
+  "canonicalRecipes": {
+    "no-high-complexity-react-function": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function",
+    "js-set-map-lookups": "https://react.doctor/docs/rules/react-doctor/js-set-map-lookups"
+  },
+  "recipeReview": "Fetched both recipes via curl with Cache-Control: no-cache and Pragma: no-cache. Reviewed complexity evidence and meaningful responsibility extraction. Read installed Next Image documentation and React best-practices lookup guidance. No suppression or hook ownership changes.",
+  "lookupReview": "Remaining source lookup findings reviewed: Google Forms and settings paths use substring searches, not array membership; remaining any-tag and small breakpoint scans lack evidence that Set construction improves the real workload. Prior benchmark concerns retained. All six remain unchanged rather than applying an unproven conversion.",
+  "grouping": "Selected diagnostics have no fixGroupId; three independent component roots.",
+  "validation": {
+    "tests": "24 tests pass across six files: ImageListItem, ImageList, GridColumn, grid, LmTopAppContainer and ToggleDrawerButton. All 13 new preservation tests also passed before source edits.",
+    "typecheck": "tsc --noEmit passes after correcting the new test-only vertical-direction fixture typing",
+    "lint": "All six changed source/test files pass with zero errors/warnings",
+    "format": "Prettier and git diff --check pass",
+    "command": "npx react-doctor@latest --verbose",
+    "runs": {
+      "imageItem": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-31dc04b7-9b70-4d2c-8fbb-1f6d265c3f99/diagnostics.json",
+        "totalFindings": 59
+      },
+      "gridColumn": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-3111f920-b562-4981-9538-7a572d277149/diagnostics.json",
+        "totalFindings": 58
+      },
+      "toolbar": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-90470527-b683-4a20-ae9d-7953d84b73fb/diagnostics.json",
+        "totalFindings": 57
+      }
+    },
+    "targetedFindingsRemaining": 0,
+    "newFindings": 0,
+    "sourceCount": "37 to 34",
+    "overallCount": "61 to 57: three selected source removals plus one generated insecure-crypto warning disappearing outside this pass; generated removal is not claimed.",
+    "limitations": "No production build or browser visual comparison. Component tests mock rendering boundaries; neighboring grid tests render the actual grid. Doctor completes with exit 1 due to remaining findings.",
+    "dependencyCoordination": "Dependencies temporarily disappeared due to another task reinstalling. One frozen-lockfile restore attempt stopped at existing minimum-release-age policy; no policy override attempted. User confirmed concurrent reinstall. Verification ran successfully after dependencies became available; package changes belong to the other task."
+  },
+  "remaining": {
+    "total": 57,
+    "source": 34,
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 16,
+      "nextjs-no-a-element": 1,
+      "js-set-map-lookups": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "sourceErrors": [],
+    "followUp": "Remaining 16 complexity warnings, six lookup warnings, and other source findings need individual review. Leave generated findings alone and require workload evidence for membership indexing."
+  }
+}

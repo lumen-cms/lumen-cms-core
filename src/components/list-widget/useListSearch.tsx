@@ -58,6 +58,10 @@ export function useListSearch(isEnabled: boolean) {
    */
 }
 
+function escapeRegExp(text: string) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 export const legacyClientListWidgetSearch = (
   items: AllStoryData,
   {
@@ -65,22 +69,22 @@ export const legacyClientListWidgetSearch = (
     searchText
   }: { searchParamsCategories: string[]; searchText?: string }
 ) => {
+  const selectedCategories = new Set(searchParamsCategories)
+  const searchPattern = searchText
+    ? new RegExp(escapeRegExp(searchText), 'i')
+    : undefined
   const filteredItems = items.filter((item) => {
     const itemCategories = item.tag_list || []
     const inCategory = searchParamsCategories.length
-      ? searchParamsCategories.some((element) =>
-          itemCategories.includes(element)
-        )
+      ? itemCategories.some((tag) => selectedCategories.has(tag))
       : false
     if (inCategory) {
       return true
     }
     const pageContent = item.content
-    const inSearchText = searchText
+    const inSearchText = searchPattern
       ? [item.full_slug, pageContent.preview_title].some(
-          // eslint-disable-next-line
-          // @ts-ignore
-          (term) => term && term.search(new RegExp(searchText, 'i')) !== -1
+          (term) => term && term.search(searchPattern) !== -1
         )
       : undefined
     if (inSearchText === undefined) {

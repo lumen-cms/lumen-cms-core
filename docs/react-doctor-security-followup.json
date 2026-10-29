@@ -1,0 +1,213 @@
+{
+  "date": "2026-10-29",
+  "rootCauses": [
+    {
+      "rule": "no-eval",
+      "files": [
+        "src/components/button/Button.tsx",
+        "src/components/card/CardListItem.tsx",
+        "src/components/link/Link.tsx",
+        "src/components/nav-list/NavItem.tsx"
+      ],
+      "impact": "CMS text was executed in the visitor origin after a click. A malicious CMS edit could execute arbitrary client code. High impact; content-publishing access required.",
+      "fix": "Map of application-owned callbacks, selected by exact CMS action name. No string evaluation. Unknown actions fail closed. Explicit React callback precedence preserved.",
+      "migration": "Move existing CMS JavaScript snippets into application-owned callbacks; CMS field now contains registered name."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "files": [
+        "src/components/ecommerce/shopify/product/ShopifyProductDescription.tsx"
+      ],
+      "impact": "Raw external product HTML reached a browser HTML sink. Exploitation requires malicious product/import data reaching this prop; no evidence of an actual attack.",
+      "fix": "sanitize-html at the sink, allowlisted formatting/links/images; removes executable tags, event attributes, CSS and unsafe URL schemes on server and browser."
+    },
+    {
+      "rule": "window-open-without-noopener",
+      "files": [
+        "src/components/chat/WhatsappChatButton.tsx"
+      ],
+      "impact": "Opened destination could retain a handle to the original tab. Lower practical risk with fixed wa.me destination.",
+      "fix": "Open _blank with noopener; original tab is inaccessible to the opened page."
+    }
+  ],
+  "recipes": {
+    "no-eval": "https://react.doctor/docs/rules/react-doctor/no-eval",
+    "dangerous-html-sink": "https://react.doctor/docs/rules/react-doctor/dangerous-html-sink",
+    "window-open-without-noopener": "https://react.doctor/docs/rules/react-doctor/window-open-without-noopener",
+    "artifact-secret-leak": "https://react.doctor/docs/rules/react-doctor/artifact-secret-leak",
+    "postmessage-origin-risk": "https://react.doctor/docs/rules/react-doctor/postmessage-origin-risk"
+  },
+  "recipeFetch": "All fetched via curl with Cache-Control: no-cache and Pragma: no-cache before edits. Fixes use canonical lookup-table, sanitizer-at-sink, and noopener recipes.",
+  "grouping": "Four no-eval occurrences share the same source pattern/fingerprint, treated as one root cause; generated Shopify copy belongs to source HTML root cause. No fixGroupId on selected occurrences.",
+  "generatedArtifactReview": [
+    {
+      "rule": "artifact-secret-leak",
+      "file": ".next-react19/static/chunks/pages/_app-5fff29b1f9f0bad6.js",
+      "line": 209,
+      "outcome": "Rejected",
+      "evidence": "JOSE/Auth0 PKCS#8 import function checks the BEGIN PRIVATE KEY header. No key body at the reported match. All seven reported bundles/maps inspected."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": ".next-reference/bali/static/chunks/pages/_app-1219683c6732badb.js",
+      "line": 237,
+      "outcome": "Rejected",
+      "evidence": "JOSE/Auth0 PKCS#8 import function checks the BEGIN PRIVATE KEY header. No key body at the reported match. All seven reported bundles/maps inspected."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": ".next-reference/planet/static/chunks/pages/_app-a8b122e3f3130ab6.js",
+      "line": 237,
+      "outcome": "Rejected",
+      "evidence": "JOSE/Auth0 PKCS#8 import function checks the BEGIN PRIVATE KEY header. No key body at the reported match. All seven reported bundles/maps inspected."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": ".next-reference/upskill/static/chunks/pages/_app-170e26300ddcaddb.js",
+      "line": 237,
+      "outcome": "Rejected",
+      "evidence": "JOSE/Auth0 PKCS#8 import function checks the BEGIN PRIVATE KEY header. No key body at the reported match. All seven reported bundles/maps inspected."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": ".next-security-verification/static/chunks/pages/_app-c691cbb862fcd1a4.js",
+      "line": 234,
+      "outcome": "Rejected",
+      "evidence": "JOSE/Auth0 PKCS#8 import function checks the BEGIN PRIVATE KEY header. No key body at the reported match. All seven reported bundles/maps inspected."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": "public_storybook/1988.aad0fb20.iframe.bundle.js",
+      "line": 1,
+      "outcome": "Rejected",
+      "evidence": "JOSE/Auth0 PKCS#8 import function checks the BEGIN PRIVATE KEY header. No key body at the reported match. All seven reported bundles/maps inspected."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": "public_storybook/1988.aad0fb20.iframe.bundle.js.map",
+      "line": 1,
+      "outcome": "Rejected",
+      "evidence": "JOSE/Auth0 PKCS#8 import function checks the BEGIN PRIVATE KEY header. No key body at the reported match. All seven reported bundles/maps inspected."
+    },
+    {
+      "rule": "postmessage-origin-risk",
+      "file": "public_storybook/8816.61dc753d.iframe.bundle.js",
+      "line": 1,
+      "outcome": "Rejected",
+      "evidence": "Prism worker message handler exists only in the branch where self.document is absent; consumes highlighting jobs and posts highlighted code. Not a window cross-origin message listener."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerDash.175e8e55.iframe.bundle.js",
+      "line": 2,
+      "outcome": "Rejected",
+      "evidence": "ce-la-react SSR template wrapper delegates to media element templates. custom-media-element allowlists media attributes and escapes names/values. HLS additionally escapes less-than signs in JSON configuration, preventing script closing-tag injection."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerHls.9c51d470.iframe.bundle.js",
+      "line": 2,
+      "outcome": "Rejected",
+      "evidence": "ce-la-react SSR template wrapper delegates to media element templates. custom-media-element allowlists media attributes and escapes names/values. HLS additionally escapes less-than signs in JSON configuration, preventing script closing-tag injection."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerSpotify.173b14b3.iframe.bundle.js",
+      "line": 2,
+      "outcome": "Rejected",
+      "evidence": "getTemplateHTML delegates attribute values and names to escapeHtml; iframe URLs use fixed provider HTTPS origins and serialized query parameters."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerYouTube.ce221219.iframe.bundle.js",
+      "line": 2,
+      "outcome": "Rejected",
+      "evidence": "getTemplateHTML delegates attribute values and names to escapeHtml; iframe URLs use fixed provider HTTPS origins and serialized query parameters."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/shopify.2ea0db81.iframe.bundle.js",
+      "line": 1,
+      "outcome": "Confirmed failure",
+      "evidence": "Historical copy of ShopifyProductDescription raw item.descriptionHtml sink. Fixed in source; rebuilt Storybook no longer reports it. Historical artifact retained."
+    }
+  ],
+  "validation": {
+    "tests": "19 passed across four focused Vitest files, including real React click dispatch in happy-dom and adversarial HTML payloads",
+    "typecheck": "tsc --noEmit passed",
+    "builds": "Next webpack smoke production build passed including 12 static pages; Storybook webpack build passed",
+    "lint": "Zero ESLint errors; two pre-existing StartIcon static-components warnings in Button.tsx left unchanged. Prettier and git diff --check pass.",
+    "intermediateDoctor": "Full real React Doctor scans after action/opener fixes and HTML fix show all six selected source occurrences gone.",
+    "storybookDoctor": {
+      "path": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-238b1f39-0092-44d4-a213-c9e4da957486/diagnostics.json",
+      "htmlFindings": 4,
+      "shopifyHtmlFindings": 0,
+      "limitation": "Standalone generated-output scan reports incomplete maintainability checks; security diagnostics available."
+    },
+    "additionalGeneratedWarning": "Sanitizer brings PostCSS nanoid/non-secure into a generated chunk. Source map traces randomness to CSS input identifiers, not security credentials; reviewed, not suppressed.",
+    "finalDoctor": {
+      "command": "npx react-doctor@latest --verbose",
+      "diagnosticsPath": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-c1cb27b8-d18b-4342-82a1-d7a47fbf7c1f/diagnostics.json",
+      "totalFindings": 190,
+      "countsByRule": {
+        "insecure-crypto-risk": 55,
+        "artifact-env-leak": 9,
+        "public-env-secret-name": 5,
+        "artifact-secret-leak": 7,
+        "no-create-ref-in-function-component": 2,
+        "exhaustive-deps": 1,
+        "no-fetch-response-used-without-status-check": 6,
+        "postmessage-origin-risk": 1,
+        "dangerous-html-sink": 5,
+        "no-high-complexity-react-function": 24,
+        "no-loading-flag-reset-outside-finally": 4,
+        "no-nested-component-definition": 9,
+        "no-unstable-nested-components": 9,
+        "effect-needs-cleanup": 5,
+        "jsx-no-constructed-context-values": 1,
+        "nextjs-no-a-element": 1,
+        "nextjs-image-missing-sizes": 1,
+        "no-spread-accumulator-in-reduce": 2,
+        "no-mutating-array-method-on-prop-or-hook-result": 2,
+        "no-derived-useState": 2,
+        "iframe-missing-sandbox": 2,
+        "rerender-lazy-state-init": 2,
+        "js-set-map-lookups": 11,
+        "no-effect-chain": 3,
+        "no-adjust-state-on-prop-change": 6,
+        "no-unescaped-dynamic-string-in-regexp": 1,
+        "nextjs-no-css-link": 2,
+        "no-derived-state": 2,
+        "jsx-key": 1,
+        "no-array-index-as-key": 4,
+        "alt-text": 1,
+        "rerender-functional-setstate": 1,
+        "async-await-in-loop": 1,
+        "no-json-parse-stringify-clone": 1,
+        "no-object-keys-values-entries-on-maybe-undefined": 1
+      },
+      "selectedSourceFindings": 0,
+      "remainingSourceSecurity": [
+        {
+          "rule": "iframe-missing-sandbox",
+          "file": "src/components/iframe/Iframe.tsx"
+        },
+        {
+          "rule": "iframe-missing-sandbox",
+          "file": "src/components/pages/_document.tsx"
+        }
+      ],
+      "incomplete": false
+    }
+  },
+  "remainingSourceSecurity": [
+    "src/components/iframe/Iframe.tsx: iframe sandbox permissions need embed compatibility review",
+    "src/components/pages/_document.tsx: GTM noscript iframe sandbox permissions need review"
+  ],
+  "deploymentNotes": [
+    "CMS click snippets must migrate to registered callbacks before deploying.",
+    "Preview credential rotation/redeployment from prior pass remains required.",
+    "Historical bundles still include old code; do not redeploy them.",
+    "No rules disabled, findings hidden, or generated dependencies patched. Other rules left untouched."
+  ]
+}

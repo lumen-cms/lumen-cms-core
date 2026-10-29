@@ -1,6 +1,6 @@
 import { ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax'
 import Image from 'next/image'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmSectionParallaxProps } from './sectionTypes'
 import {
   getOriginalImageDimensions,
@@ -44,12 +44,12 @@ export default function LmSectionParallax({
         })
         return (
           <ParallaxBannerLayer
-            key={_uid}
             shouldAlwaysCompleteAnimation={always_complete_animation || false}
             speed={amount ? Number(amount) * 10 : speed ? Number(speed) : -20}
             expanded={expanded}
             easing={easing || undefined}
             {...layerProps}
+            key={_uid}
           >
             <>
               {image && (

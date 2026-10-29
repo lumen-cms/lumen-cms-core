@@ -1,4 +1,4 @@
-import { LmComponentRender as LmParagraph } from '@LmComponentRender'
+import { LmComponentRender as LmParagraph } from '../components/CoreComponents'
 import { ParagraphStoryblok } from '../typings/generated/components-schema'
 import { storyParagraph } from '../storybook/core/various'
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'

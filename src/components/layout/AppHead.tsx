@@ -1,3 +1,4 @@
+import { parseToAttributes } from './scriptAttributes'
 import NextHead from 'next/head'
 import NextScript from 'next/script'
 import type { MetaTag } from 'next-seo/pages'
@@ -8,10 +9,37 @@ import Gtag from '../tracking/Gtag'
 import AdRoll from '../tracking/AdRoll'
 import { useSettings } from '../provider/SettingsPageProvider'
 import GtmManager from '../tracking/GtmManager'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 import { GoogleFontsLivePreview } from './GoogleFontsLivePreview'
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
+
+function TrackingScripts({
+  settings,
+  insideStoryblok
+}: {
+  settings: ReturnType<typeof useSettings>
+  insideStoryblok: ReturnType<typeof useAppContext>['insideStoryblok']
+}) {
+  if (isDevelopment || insideStoryblok) return null
+  return (
+    <>
+      {settings?.setup_facebook_pixel && (
+        <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />
+      )}
+      {settings?.setup_ad_roll_adv_id && settings?.setup_ad_roll_pix_id && (
+        <AdRoll
+          advId={settings.setup_ad_roll_adv_id}
+          pixId={settings.setup_ad_roll_pix_id}
+        />
+      )}
+      {settings?.setup_google_analytics && (
+        <Gtag googleAnalyticsId={settings.setup_google_analytics} />
+      )}
+      {process.env.NEXT_PUBLIC_GTM_CONTAINER && <GtmManager />}
+    </>
+  )
+}
 
 function AppHead(): React.JSX.Element {
   const settings = useSettings()
@@ -126,26 +154,7 @@ function AppHead(): React.JSX.Element {
         <GoogleFontsLivePreview />
       )}
 
-      {!isDevelopment && !insideStoryblok && settings?.setup_facebook_pixel && (
-        <FbqPixel facebookPixelId={settings.setup_facebook_pixel} />
-      )}
-      {!isDevelopment &&
-        !insideStoryblok &&
-        settings?.setup_ad_roll_adv_id &&
-        settings?.setup_ad_roll_pix_id && (
-          <AdRoll
-            advId={settings.setup_ad_roll_adv_id}
-            pixId={settings.setup_ad_roll_pix_id}
-          />
-        )}
-      {!isDevelopment &&
-        !insideStoryblok &&
-        settings?.setup_google_analytics && (
-          <Gtag googleAnalyticsId={settings.setup_google_analytics} />
-        )}
-      {!isDevelopment &&
-        !insideStoryblok &&
-        process.env.NEXT_PUBLIC_GTM_CONTAINER && <GtmManager />}
+      <TrackingScripts settings={settings} insideStoryblok={insideStoryblok} />
       {settings.scripts?.map((item) =>
         item.url ? (
           <NextScript
@@ -167,20 +176,6 @@ function AppHead(): React.JSX.Element {
       )}
     </>
   )
-}
-
-function parseToAttributes(attributes?: string) {
-  if (attributes) {
-    const stripped = attributes.split(',').map((i) => i.trim())
-    return stripped.reduce((previousValue, currentValue) => {
-      const val = currentValue.split('=')
-      return {
-        ...previousValue,
-        [val[0]]: val[1]
-      }
-    }, {})
-  }
-  return undefined
 }
 
 export default AppHead

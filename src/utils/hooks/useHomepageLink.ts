@@ -1,5 +1,5 @@
-import { CONFIG } from '@CONFIG'
-import { useAppContext } from '@context/AppContext'
+import { CONFIG } from '../config'
+import { useAppContext } from '../../components/provider/context/AppContext'
 
 export function useHomepageLink() {
   const { locale, defaultLocale } = useAppContext()

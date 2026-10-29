@@ -1,5 +1,5 @@
 import CardActions from '@mui/material/CardActions'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { CardListItemProps } from './cardTypes'
 
 function CardListItemActions({

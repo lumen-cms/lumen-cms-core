@@ -1,32 +1,16 @@
-import { CSSProperties } from 'react'
 import LmIcon from '../icon/LmIcon'
 import { LmDividerProps } from './dividerTypes'
 import Divider, { DividerProps } from '@mui/material/Divider'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 
-export function LmDivider({
-  content,
-  isStackDivider
-}: LmDividerProps): React.JSX.Element {
-  const style: CSSProperties = {}
+function getDividerProps(
+  content: LmDividerProps['content'],
+  isStackDivider?: boolean
+): DividerProps {
   const customColor = content.color?.rgba
-  const iconName = content.icon?.name
-  const iconSize = content.size
-
-  if (iconSize) {
-    style.height = `${iconSize}px`
-  }
-
-  const childStyle: CSSProperties = {
-    borderTopWidth: `${content.thickness || 1}px`
-  }
-  if (content.width) {
-    childStyle.width = `${content.width}%`
-  }
-
   const isVertical = isStackDivider || content.orientation === 'vertical'
 
-  const dividerProps: DividerProps = {
+  return {
     orientation: isVertical ? 'vertical' : 'horizontal',
     flexItem: isVertical ? true : undefined,
     textAlign: content.alignment || 'center',
@@ -70,6 +54,15 @@ export function LmDivider({
       }
     }
   }
+}
+
+export function LmDivider({
+  content,
+  isStackDivider
+}: LmDividerProps): React.JSX.Element {
+  const iconName = content.icon?.name
+  const iconSize = content.size
+  const dividerProps = getDividerProps(content, isStackDivider)
   if (iconName || content.body?.length) {
     dividerProps.children = (
       <>

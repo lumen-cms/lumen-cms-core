@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source root causes. No generated-artifact edits, new suppressions, dependency changes or edits to concurrent search-palette work.",
+  "rootCauses": [
+    {
+      "name": "Collapsible drawer icon identity",
+      "file": "src/components/layout/drawer/CollapsibleListSection.tsx",
+      "findings": 4,
+      "impact": "Low-severity visual reliability risk: parent updates replaced the expand/collapse icon DOM and restarted custom icon state. No production flicker or navigation failure claimed.",
+      "fix": "Hoist both icon components to module scope and pass content explicitly. Preserve custom icon names/URLs/spread precedence, default chevrons, initial openedPath state and toggle behavior.",
+      "tests": "Both initially-open and initially-closed identity tests failed before the fix; now preserve DOM identity and verify configured URLs, title updates and click-driven state/icon changes."
+    },
+    {
+      "name": "Google Forms proxy HTTP errors",
+      "file": "src/utils/initial-props/component-data/fetchGoogleFormData.ts",
+      "findings": 1,
+      "impact": "HTTP error HTML was returned as if it were successful form content. No active internal caller found; defensive reliability fix, not a confirmed live-page outage.",
+      "fix": "Check response.ok before reading text and throw a status-only error. Preserve proxy URL encoding, trimmed source URL, unsupported-input empty result, successful HTML and network errors.",
+      "tests": "Four pre-fix failures for 403/404/429/500 now reject before body consumption. Success/proxy URL, unsupported URL and network-error tests pass."
+    },
+    {
+      "name": "Instagram helper HTTP errors",
+      "file": "src/utils/instagram/instagramHelpers.ts",
+      "findings": 2,
+      "impact": "HTTP failures could appear as missing users or successful list data. No active internal caller found; live-site impact unestablished.",
+      "fix": "Check response.ok before JSON consumption in both user lookup and list fetching. Preserve request URLs/options, exact username matching, successful missing-user undefined, successful list payloads and original network failures.",
+      "tests": "Both helper regressions failed before the fix. Each now rejects 401/404/429/500 without reading JSON; successful lookup/list and network errors remain covered."
+    }
+  ],
+  "canonicalRecipes": {
+    "no-nested-component-definition": "https://react.doctor/docs/rules/react-doctor/no-nested-component-definition",
+    "no-unstable-nested-components": "https://react.doctor/docs/rules/react-doctor/no-unstable-nested-components",
+    "no-fetch-response-used-without-status-check": "https://react.doctor/docs/rules/react-doctor/no-fetch-response-used-without-status-check"
+  },
+  "recipeReview": "Fetched all three canonical pages with no-cache curl headers and read validation/false-positive criteria. Confirmed actual JSX component use and DOM remounts; HTTP tests confirm success-shaped handling of error statuses. Fixes follow module-scope identity and response.ok-before-body recipes.",
+  "grouping": "No fixGroupId on selected diagnostics. Four duplicate nesting diagnostics grouped as one drawer icon lifecycle root cause; two Instagram response sites grouped as one helper HTTP handling root cause.",
+  "validation": {
+    "tests": "15 tests pass across 3 files; 8 cases failed before implementation. Instagram error cases each cover four HTTP statuses.",
+    "typecheck": "Full tsc --noEmit reports only unrelated src/components/list-widget/SearchPalette.integration.test.tsx:5 unused BrowserContext import. Changed files have no reported type errors.",
+    "eslint": "Zero errors; one pre-existing unused react/no-unused-prop-types suppression warning in CollapsibleListSection.tsx:22, left untouched.",
+    "format": "Prettier check and git diff --check pass",
+    "reactDoctorCommand": "npx react-doctor@latest --verbose",
+    "runs": {
+      "collapse": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-ca0573a3-0ed0-4e5d-8fb1-c75c0678ba65/diagnostics.json",
+        "totalFindings": 143
+      },
+      "proxy": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-6bcfca2e-930f-4741-a9f4-00841341fad4/diagnostics.json",
+        "totalFindings": 142
+      },
+      "drawer-http-final": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-374de5e3-8b17-44b8-b240-38d6b52a4493/diagnostics.json",
+        "totalFindings": 140
+      }
+    },
+    "findingsRemoved": 7,
+    "selectedFindingsRemaining": 0,
+    "remainingNestedOrUncheckedFetchSourceFindings": 0,
+    "newFindings": 0,
+    "overallCount": "147 to 140",
+    "limitations": "No production rebuild, live-provider calls or real-browser checks. Drawer tests use happy-dom and mocked icons/collapse; HTTP tests use real Response objects and mocked fetch."
+  },
+  "remaining": {
+    "total": 140,
+    "source": 68,
+    "sourceErrors": [
+      {
+        "file": "src/components/section/SectionParallax.tsx",
+        "rule": "jsx-key"
+      },
+      {
+        "file": "src/components/tracking/FbqPixel.tsx",
+        "rule": "alt-text"
+      }
+    ],
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 26,
+      "jsx-no-constructed-context-values": 1,
+      "nextjs-no-a-element": 1,
+      "nextjs-image-missing-sizes": 1,
+      "no-spread-accumulator-in-reduce": 2,
+      "no-derived-useState": 2,
+      "rerender-lazy-state-init": 2,
+      "js-set-map-lookups": 11,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-effect-chain": 2,
+      "no-derived-state": 2,
+      "no-adjust-state-on-prop-change": 5,
+      "jsx-key": 1,
+      "no-array-index-as-key": 4,
+      "alt-text": 1,
+      "rerender-functional-setstate": 1,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "followUp": [
+      "Parallax JSX key handling and tracking-pixel alternate text remain source errors.",
+      "State synchronization, initial-state computation, complexity and other source warnings remain.",
+      "Generated false positives remain untouched."
+    ]
+  }
+}

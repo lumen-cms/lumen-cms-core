@@ -1,10 +1,10 @@
 import MuiNextLink from '../link/MuiNextLink'
 import { LmNewsListItemProps } from './listWidgetTypes'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { renderRichText } from '../paragraph/renderRichText'
 import { getContentFields } from './listUtils/getContentFields'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 export default function LmNewsListItem({
   content,

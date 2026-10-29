@@ -1,6 +1,2 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.BUNDLE_ANALYZE === 'true'
-})
-// const withTM = require('next-transpile-modules')
-
-module.exports = (config, transpile = []) => withBundleAnalyzer(config)
+// Keep the old entry point; use `next analyze` for Turbopack bundle reports.
+module.exports = require('./nextjs_prod_config')

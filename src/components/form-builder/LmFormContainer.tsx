@@ -1,5 +1,5 @@
 import { LmFormContainerProps } from './formBuilderTypes'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 
 export default function LmFormContainer({ content }: LmFormContainerProps) {
   return content.form?.content ? (

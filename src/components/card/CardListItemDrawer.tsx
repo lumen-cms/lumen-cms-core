@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Close from 'mdi-material-ui/Close'
 import IconButton from '@mui/material/IconButton'
 import Grid from '../../vendor/grid'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { CardListItemProps } from './cardTypes'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 

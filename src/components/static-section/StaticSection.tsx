@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmStaticSectionProps } from './staticTypes'
 import clsx from 'clsx'
 

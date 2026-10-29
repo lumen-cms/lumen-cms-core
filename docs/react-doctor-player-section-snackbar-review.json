@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-29",
+  "scope": "Exactly three source complexity roots. Generated artifacts, suppressions, dependencies and unrelated concurrent edits unchanged.",
+  "rootCauses": [
+    {
+      "name": "Player presentation complexity",
+      "file": "src/components/player/Player.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "Cyclomatic complexity 18 and cognitive complexity 17; presentation defaults obscured playback and viewport ownership.",
+      "impact": "Maintenance improvement, not a confirmed visible bug or measured performance improvement.",
+      "fix": "Extract pure presentation props for dimensions, poster, audio volume and inline styles. Keep playback state, hover handlers, viewport subscription and source selection in the parent.",
+      "tests": "Three tests pass before and after: lazy gating/bypass, source helper gating, default/custom sizes, ratios, poster/audio, hover toggling, mount-owned playback state and mounted player identity."
+    },
+    {
+      "name": "Section container-layout complexity",
+      "file": "src/components/section/Section.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "Cyclomatic complexity 17 and cognitive complexity 18; width/padding/full-height configuration was mixed with background rendering.",
+      "impact": "Maintenance improvement with no intended visual or interaction change.",
+      "fix": "Extract pure container layout calculation; retain theme/background hook ownership, style precedence, element order and identifiers.",
+      "tests": "Six tests pass before and after: absent/one/two/four-part padding, full-height mode, theme and explicit widths, none width, overflow, identifiers, background order, child order and variant precedence."
+    },
+    {
+      "name": "Snackbar presentation complexity",
+      "file": "src/components/snackbar/Snackbar.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "Cyclomatic complexity 23 and cognitive complexity 31; dialog/toast branches and styling obscured timer, cookie and visibility ownership.",
+      "impact": "Maintenance improvement; no intended dismissal, timing, hydration or appearance changes.",
+      "fix": "Extract module-scope dialog and toast components plus toast style calculation. Keep visibility state, cookie handling, timers, cleanup and acceptance handler in the parent.",
+      "tests": "Six existing lifecycle tests plus three new presentation tests pass before and after: hydration DOM identity, SSR, show/hide-on-scroll, timers and cleanup, cookie writes, dialog dismissal policy, action order/colors, toast style/anchors and editor preview."
+    }
+  ],
+  "canonicalRecipe": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function",
+  "recipeReview": "Fetched with curl Cache-Control: no-cache and Pragma: no-cache and read validation/fix/evidence boundaries. Separated cohesive configuration and render branches while preserving hook, state and effect ownership. Read installed Next lazy-loading guide; no loading boundary changes.",
+  "grouping": "Three independent diagnostics with no fixGroupId.",
+  "preservedFindings": "Player no-derived-useState remains: initial playing state is intentionally owned by subsequent hover interactions. Preservation tests ensure prop updates do not overwrite it. No suppression added.",
+  "validation": {
+    "tests": "25 tests pass across Player, Section, GridColumn, Snackbar and Snackbar.presentation. All new tests and existing snackbar tests passed before their respective production changes.",
+    "typecheck": "tsc --noEmit passes",
+    "lint": "Six changed source/test files pass with zero errors/warnings",
+    "format": "Prettier and git diff --check pass",
+    "command": "npx react-doctor@latest --verbose",
+    "runs": {
+      "player": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-54a60df4-9af0-4bf5-afb1-4a1177d8602f/diagnostics.json",
+        "totalFindings": 56
+      },
+      "section": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-66ab7b3d-b233-4455-993a-11740cff2ab2/diagnostics.json",
+        "totalFindings": 55
+      },
+      "snackbar": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-619447a3-3abf-405d-b851-9412be571b18/diagnostics.json",
+        "totalFindings": 45
+      }
+    },
+    "targetedComplexityFindingsRemaining": 0,
+    "newSourceFindings": 0,
+    "sourceCount": "34 to 31, exactly the three selected complexity findings removed",
+    "overallCount": "57 to 45; generated diagnostics changed independently (18 disappeared and 9 appeared). No generated changes claimed as fixes.",
+    "limitations": "No production build, browser visual comparison or real media playback. Tests mock media and UI boundaries. Doctor exits 1 because remaining findings persist, while completing scans and writing diagnostics."
+  },
+  "remaining": {
+    "total": 45,
+    "source": 31,
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 13,
+      "nextjs-no-a-element": 1,
+      "js-set-map-lookups": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "sourceErrors": [],
+    "followUp": "Remaining 13 complexity findings, six lookup findings and other source warnings need individual review. Generated findings left alone; preserve intentional player state semantics."
+  }
+}

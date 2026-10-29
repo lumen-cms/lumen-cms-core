@@ -1,5 +1,6 @@
+import { getCmsClickProps } from '../../utils/cmsClickActions'
 import CardContent from '@mui/material/CardContent'
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../../utils/config'
 import CardMediaElement from './CardMediaElement'
 import CardWrap from './CardWrap'
 import CardListActionTitles from './CardLinkActionTitle'
@@ -18,12 +19,7 @@ export default function LmCardListItem(
 ): React.JSX.Element {
   const { content, options } = props
   const variants = options.variant || []
-  const onClickFunc: any =
-    typeof content.on_click_function === 'string'
-      ? {
-          onClick: () => new Function(content.on_click_function || '')()
-        }
-      : undefined
+  const onClickFunc = getCmsClickProps(content.on_click_function)
   const btnProps: LinkHandlerProps = content.link?.linktype
     ? {
         ...getLinkAttrs(content.link as LinkType, {

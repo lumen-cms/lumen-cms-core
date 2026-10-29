@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-29",
+  "scope": [
+    "js-set-map-lookups",
+    "no-unescaped-dynamic-string-in-regexp",
+    "nextjs-no-css-link"
+  ],
+  "canonicalRecipes": {
+    "js-set-map-lookups": "https://react.doctor/docs/rules/react-doctor/js-set-map-lookups",
+    "no-unescaped-dynamic-string-in-regexp": "https://react.doctor/docs/rules/react-doctor/no-unescaped-dynamic-string-in-regexp",
+    "nextjs-no-css-link": "https://react.doctor/docs/rules/react-doctor/nextjs-no-css-link"
+  },
+  "recipeFetch": "All recipes fetched using curl -fsSL with Cache-Control: no-cache and Pragma: no-cache; validation and fixes read before edits. Installed Next font and CSS docs consulted.",
+  "grouping": "Nine occurrences across three groups; none has fixGroupId. Three tag-membership occurrences share the same optimization pattern.",
+  "reviews": [
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/components/list-widget/useListSearch.tsx",
+      "line": 72,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed repeated membership: selected tags are shared across list rows. Construct one Set outside filtering and scan each row with Set.has. Preserve any/all modes, duplicate semantics, missing tags, category alternatives, order and item identity. No per-row Set allocation."
+    },
+    {
+      "rule": "no-unescaped-dynamic-string-in-regexp",
+      "file": "src/components/list-widget/useListSearch.tsx",
+      "line": 83,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed: active legacy list-widget search treated visitor text as regex syntax. Escape metacharacters using canonical helper and construct one case-insensitive expression per invocation. Prevents syntax exceptions and unintended matches; ordinary text and category-or-text behavior preserved."
+    },
+    {
+      "rule": "nextjs-no-css-link",
+      "file": "src/components/pages/DocumentGoogleFonts.tsx",
+      "line": 37,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Rejected: href comes from getFontBasedOnSetting, which always uses https://fonts.googleapis.com/css2. Canonical recipe explicitly excludes Google Fonts URLs. Runtime tests verify the generated URL. DocumentGoogleFonts also retains cached-inline CSS and remote fallback behavior; CoreDecorator supports runtime CMS font selection. No production change or suppression."
+    },
+    {
+      "rule": "nextjs-no-css-link",
+      "file": "src/storybook/components/CoreDecorator.tsx",
+      "line": 26,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Rejected: href comes from getFontBasedOnSetting, which always uses https://fonts.googleapis.com/css2. Canonical recipe explicitly excludes Google Fonts URLs. Runtime tests verify the generated URL. DocumentGoogleFonts also retains cached-inline CSS and remote fallback behavior; CoreDecorator supports runtime CMS font selection. No production change or suppression."
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/component-data/allCategoryStories.ts",
+      "line": 53,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed repeated membership: selected tags are shared across list rows. Construct one Set outside filtering and scan each row with Set.has. Preserve any/all modes, duplicate semantics, missing tags, category alternatives, order and item identity. No per-row Set allocation."
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/component-data/googleFormsToJson.ts",
+      "line": 72,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Rejected: $(el).html() returns a string. includes searches for the embedded Google Forms script marker, not array membership. A Set would change semantics."
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/legacyFilterAllStories.ts",
+      "line": 20,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed repeated membership: selected tags are shared across list rows. Construct one Set outside filtering and scan each row with Set.has. Preserve any/all modes, duplicate semantics, missing tags, category alternatives, order and item identity. No per-row Set allocation."
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/storyblokDeliveryResolver.ts",
+      "line": 44,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Rejected: pageSlug is a string. includes intentionally finds a configured substring, and find preserves first configured match priority. Not repeated array membership."
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/vendor/grid/gridGenerator.ts",
+      "line": 57,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Rejected for current workload: breakpoint intersection is bounded by the usual five theme breakpoint keys; caller uses this branch only when responsive keys are no more numerous. One million measured five-key/two-responsive-key calls: array 39.40ms versus Set including construction 74.42ms. Custom consumer themes may need reassessment if they have many breakpoints. Existing order/unknown-key/empty/scalar/array tests pass."
+    }
+  ],
+  "impact": {
+    "membership": "Scaling improvement for large tag-filtered lists. Local small workload shows negligible user-visible difference; not a claim of measured production latency improvement.",
+    "regex": "Search text such as ( previously could throw during list rendering; . previously matched arbitrary characters. Input now matches literally and case-insensitively.",
+    "fonts": "No violation of this rule: Google Fonts is explicitly excluded. External-font network/performance tradeoffs remain; no font-loading migration attempted."
+  },
+  "benchmark": {
+    "source": "Existing local reference-build page data; largest discovered tag list and CMS selected-tag filter",
+    "rows": 12,
+    "selected": 3,
+    "iterations": 20000,
+    "timings": {
+      "before": 5.85,
+      "afterIncludingSetConstruction": 5.6
+    },
+    "setEntries": 3,
+    "equalResults": true,
+    "memory": "One temporary Set with 3 unique filter entries per invocation; no per-row Set or retained cache."
+  },
+  "additionalBenchmarks": {
+    "synthetic100Rows5Tags5Selected": {
+      "arrayMs": 59.89,
+      "setIncludingConstructionMs": 45.22,
+      "iterations": 10000
+    },
+    "synthetic1000Rows20Tags30Selected": {
+      "arrayMs": 1000.44,
+      "setIncludingConstructionMs": 206.8,
+      "iterations": 1000
+    },
+    "limits": "Illustrative local microbenchmarks; reference data from existing local builds, not live production timing. No universal size cutoff inferred."
+  },
+  "validation": {
+    "tests": "52 passed across seven files: search punctuation/case/category union, any/all tags, duplicates/order, grid traversal, Google font URLs and inline/fallback paths.",
+    "typecheck": "pnpm run check-types passed.",
+    "format": "Prettier and scoped git diff --check passed.",
+    "doctorCommand": "npx react-doctor@latest --verbose",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-f7132030-61f1-4c3a-b871-10eed83f2a60/diagnostics.json",
+    "before": 41,
+    "after": 37,
+    "removed": 4,
+    "added": 0,
+    "intermediate": "React Doctor after tag changes confirmed three intended membership warnings gone before regex edit.",
+    "exitCode": 1,
+    "exitReason": "Previously reviewed artifact-secret false positives remain errors.",
+    "limits": "Focused tests; no full build or browser end-to-end run. No suppressed rules or changed scan exclusions."
+  },
+  "remaining": {
+    "reviewedReports": 29,
+    "unreviewedFindings": 8,
+    "unreviewedGroups": {
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "allCountsByRule": {
+      "artifact-secret-leak": 6,
+      "insecure-crypto-risk": 12,
+      "postmessage-origin-risk": 1,
+      "dangerous-html-sink": 4,
+      "nextjs-no-a-element": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "js-set-map-lookups": 3,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    }
+  }
+}

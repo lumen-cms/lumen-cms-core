@@ -9,7 +9,7 @@ import { ListsStoryblok } from '../../typings/generated/components-schema'
 import { internalLinkHandler } from '../../utils/internalLinkHandler'
 import { ListStoriesData } from './listWidgetTypes'
 import { getContentFields } from './listUtils/getContentFields'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 type ListWidgetListsProps = {
   items: ListStoriesData[]

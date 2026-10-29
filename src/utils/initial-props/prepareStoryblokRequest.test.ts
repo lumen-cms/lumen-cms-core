@@ -1,5 +1,5 @@
 import { afterEach, expect, it } from 'vitest'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../config'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 
 const initialRoot = CONFIG.rootDirectory

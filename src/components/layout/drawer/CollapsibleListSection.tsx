@@ -6,7 +6,7 @@ import Collapse from '@mui/material/Collapse'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../../CoreComponents'
 import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { DrawerButton } from './DrawerButton'
@@ -46,13 +46,39 @@ export function DrawerContentRender({
   return <LmComponentRender content={content} />
 }
 
+function ExpandIcon({ content }: Pick<CollapsibleListSectionProps, 'content'>) {
+  return content.icon?.name || content.icon_custom?.[0] ? (
+    <LmIcon
+      iconName={content.icon?.name}
+      iconUrl={content.icon_custom?.[0].icon_url}
+      {...content.icon_custom?.[0]}
+    />
+  ) : (
+    <ChevronDown />
+  )
+}
+
+function CloseIcon({ content }: Pick<CollapsibleListSectionProps, 'content'>) {
+  return content.icon_collapse?.name || content.icon_collapse_custom?.[0] ? (
+    <LmIcon
+      iconUrl={content.icon_collapse_custom?.[0].icon_url}
+      iconName={content.icon_collapse?.name}
+      {...content.icon_collapse_custom?.[0]}
+    />
+  ) : (
+    <ChevronUp />
+  )
+}
+
 export function CollapsibleListSection({
   content,
   openedPath
 }: CollapsibleListSectionProps): React.JSX.Element {
   const body = content.body || []
   const items: any[] = []
-  const [open, setOpen] = React.useState(openedPath.includes(content._uid))
+  const [open, setOpen] = React.useState(() =>
+    openedPath.includes(content._uid)
+  )
   // useEffect(() => {
   //   if (openedPath.includes(content._uid)) {
   //     setOpen(true)
@@ -82,26 +108,6 @@ export function CollapsibleListSection({
 
   const startIconName = content.start_icon?.name
 
-  const ExpandIcon = () =>
-    content.icon?.name || content.icon_custom?.[0] ? (
-      <LmIcon
-        iconName={content.icon?.name}
-        iconUrl={content.icon_custom?.[0].icon_url}
-        {...content.icon_custom?.[0]}
-      />
-    ) : (
-      <ChevronDown />
-    )
-  const CloseIcon = () =>
-    content.icon_collapse?.name || content.icon_collapse_custom?.[0] ? (
-      <LmIcon
-        iconUrl={content.icon_collapse_custom?.[0].icon_url}
-        iconName={content.icon_collapse?.name}
-        {...content.icon_collapse_custom?.[0]}
-      />
-    ) : (
-      <ChevronUp />
-    )
   return (
     <>
       <ListItemButton onClick={handleClick}>
@@ -117,7 +123,11 @@ export function CollapsibleListSection({
           </ListItemIcon>
         )}
         <ListItemText primary={content.title} />
-        {open ? <CloseIcon /> : <ExpandIcon />}
+        {open ? (
+          <CloseIcon content={content} />
+        ) : (
+          <ExpandIcon content={content} />
+        )}
       </ListItemButton>
       <Collapse in={open} timeout="auto">
         <List

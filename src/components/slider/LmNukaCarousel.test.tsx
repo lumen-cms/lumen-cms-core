@@ -28,6 +28,35 @@ it('omits controls when requested', () => {
   expect(html).not.toContain('aria-label="next slide"')
 })
 
+it('left-aligns slide content inside a centered parent while preserving explicit child alignment', async () => {
+  Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true })
+  const host = document.createElement('div')
+  host.style.textAlign = 'center'
+  document.body.append(host)
+  const root = createRoot(host)
+  await act(async () =>
+    root.render(
+      <LmNukaCarousel withoutControls wrapAround={false}>
+        <div>
+          <button>Apply Now</button>
+          <div style={{ textAlign: 'right' }}>Explicit alignment</div>
+        </div>
+      </LmNukaCarousel>
+    )
+  )
+  expect(getComputedStyle(host.querySelector('.swiper-slide')!).textAlign).toBe(
+    'left'
+  )
+  expect(getComputedStyle(host.querySelector('button')!).textAlign).not.toBe(
+    'center'
+  )
+  expect(
+    getComputedStyle(host.querySelector('.swiper-slide div div')!).textAlign
+  ).toBe('right')
+  await act(async () => root.unmount())
+  host.remove()
+})
+
 it('follows the controlled slide index and reports slide changes', async () => {
   Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true })
   const beforeSlide = vi.fn()

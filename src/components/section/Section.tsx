@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 import Container, { ContainerProps } from '@mui/material/Container'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
 import useBackgroundBox from './useBackgroundBox'
@@ -31,22 +31,10 @@ const backgroundSx: SystemStyleObject<Theme> = {
   }
 }
 
-export function LmSection({
-  content,
-  sectionPosition
-}: LmSectionProps): React.JSX.Element {
-  const theme = useTheme()
-  const background: BackgroundStoryblok | undefined = content.background?.[0]
-
-  const { style, className, sx } = useBackgroundBox({
-    variant: content.variant || content.presetVariant,
-    background,
-    styles: content.styles,
-    stylesMobile: content.styles_mobile,
-    stylesTablet: content.styles_tablet,
-    stylesHover: content.styles_hover
-  })
-  const body = content.body || []
+function getContainerLayout(
+  content: LmSectionProps['content'],
+  defaultWidth: Theme['defaultContainerWidth']
+) {
   const containerStyles: CSSProperties = {}
   const isFullHeight = !!(
     content.property && content.property.includes('is_full_height')
@@ -64,7 +52,31 @@ export function LmSection({
     ? content.max_width === 'none'
       ? false
       : content.max_width
-    : theme.defaultContainerWidth
+    : defaultWidth
+
+  return { containerStyles, isFullHeight, maxWidth }
+}
+
+export function LmSection({
+  content,
+  sectionPosition
+}: LmSectionProps): React.JSX.Element {
+  const theme = useTheme()
+  const background: BackgroundStoryblok | undefined = content.background?.[0]
+
+  const { style, className, sx } = useBackgroundBox({
+    variant: content.variant || content.presetVariant,
+    background,
+    styles: content.styles,
+    stylesMobile: content.styles_mobile,
+    stylesTablet: content.styles_tablet,
+    stylesHover: content.styles_hover
+  })
+  const body = content.body || []
+  const { containerStyles, isFullHeight, maxWidth } = getContainerLayout(
+    content,
+    theme.defaultContainerWidth
+  )
 
   // todo className doubled used
   return (

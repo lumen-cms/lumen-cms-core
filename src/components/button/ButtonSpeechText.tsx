@@ -1,9 +1,9 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { useRef } from 'react'
 import { useSpeechSynthesis } from '../../utils/hooks/useSpeechSynthesis'
 import { LmButtonSpeechTextProps } from './buttonTypes'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 export default function LmButtonSpeechText({
   content

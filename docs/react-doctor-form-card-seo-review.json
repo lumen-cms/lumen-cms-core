@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-29",
+  "scope": "Exactly three source complexity roots. Generated artifacts, suppressions, dependencies and unrelated concurrent edits unchanged.",
+  "rootCauses": [
+    {
+      "name": "Google Form submit-button rendering complexity",
+      "file": "src/components/google-form/GoogleForm.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "impact": "Maintenance risk: conditional button layout/defaults obscured form submission and state handling. No known user-facing failure fixed.",
+      "fix": "Extract module-scope SubmitButton with explicit content. Preserve inline/block spacing, button overrides, disabled navigation, form state, date provider and submission handling.",
+      "tests": "Three preservation tests pass before and after: field defaults and styling, date wrapper, button props/spacing/absence, honeypot rejection, successful submission, custom success content and existing false-result transition.",
+      "preservedBehavior": "Existing code shows success content even after submitToGoogleForms returns false; this refactor preserves that behavior and does not claim to fix submission failure reporting."
+    },
+    {
+      "name": "Standalone card media complexity",
+      "file": "src/components/card/CardStandalone.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "impact": "Maintenance risk from image presentation branches mixed with card backgrounds, actions and content. No intended visual or interaction change.",
+      "fix": "Extract module-scope StandaloneCardMedia. Preserve image presence check, aspect ratio, margin callback, fill/crop/position, sizes/alt and sibling order.",
+      "tests": "Two new media tests and two existing interaction tests pass before and after: defaults/overrides, missing media, content order, linked/unlinked input identity and focus."
+    },
+    {
+      "name": "Page social and canonical metadata complexity",
+      "file": "src/components/layout/AppSeo.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "impact": "Maintenance risk: changing metadata precedence could alter search listings or share previews. No SEO behavior change intended or ranking improvement claimed.",
+      "fix": "Extract social/canonical metadata assembly into a helper with explicit settings, page, context and local metadata object. Keep hooks, not-found branch, robots/title defaults, NextHead children and structured-data rendering in AppSeo. Preserve existing Twitter normalization behavior.",
+      "tests": "Eight tests pass before and after: missing-page/not-found metadata, defaults/overrides, robots policy, structured-data order, Open Graph precedence and image fallback, Facebook id precedence, Twitter normalization and four canonical locale/root/home cases."
+    }
+  ],
+  "canonicalRecipe": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function",
+  "recipeReview": "Fetched with curl Cache-Control: no-cache and Pragma: no-cache and reviewed evidence boundaries. Extracted cohesive render/configuration responsibilities without moving state/effect ownership or adding nested components. Read installed Next lazy-loading, Image and Head documentation. Preserve direct Head children for client-side navigation.",
+  "grouping": "Three independent component diagnostics; no fixGroupId supplied.",
+  "validation": {
+    "tests": "25 tests pass across six files: GoogleForm, GoogleFormElement, LmGoogleFormContainer, CardStandalone, CardStandalone.media and AppSeo. All new preservation tests also passed before edits.",
+    "typecheck": "tsc --noEmit passes",
+    "lint": "Zero errors; one pre-existing unused eslint-disable warning at GoogleForm.tsx:1 left unchanged",
+    "format": "Prettier and git diff --check pass",
+    "command": "npx react-doctor@latest --verbose",
+    "runs": {
+      "googleForm": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-a2af3b8d-539a-416e-b683-5a27bf51c352/diagnostics.json",
+        "totalFindings": 53
+      },
+      "card": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-6a067d6b-6a25-4529-b921-3fb723f81203/diagnostics.json",
+        "totalFindings": 52
+      },
+      "seo": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-830909d5-2ad7-4871-b20a-4ecd8d5ef4a0/diagnostics.json",
+        "totalFindings": 51
+      }
+    },
+    "targetedComplexityFindingsRemaining": 0,
+    "newSourceFindings": 0,
+    "sourceCount": "31 to 28, exactly three selected source removals",
+    "overallCount": "45 to 51. Nine generated diagnostics disappeared and 18 appeared outside this work; no generated changes claimed as fixes.",
+    "limitations": "No production build, browser visual comparison, live form submission or search-engine validation. Tests mock dynamic/media/SEO output boundaries while checking inputs and interactions. React Doctor completes with exit 1 because other findings remain."
+  },
+  "remaining": {
+    "total": 51,
+    "source": 28,
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 10,
+      "nextjs-no-a-element": 1,
+      "js-set-map-lookups": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "sourceErrors": [],
+    "followUp": "Review the remaining ten complexity roots, six lookup warnings and other source warnings individually. Generated artifacts untouched. Existing unsuccessful form-result success presentation can be reviewed separately as a behavior change."
+  }
+}

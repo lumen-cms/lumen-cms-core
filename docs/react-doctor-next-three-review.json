@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-29",
+  "scope": [
+    "dangerous-html-sink",
+    "nextjs-no-a-element",
+    "nextjs-no-css-link"
+  ],
+  "canonicalRecipes": {
+    "dangerous-html-sink": "https://react.doctor/docs/rules/react-doctor/dangerous-html-sink",
+    "nextjs-no-a-element": "https://react.doctor/docs/rules/react-doctor/nextjs-no-a-element",
+    "nextjs-no-css-link": "https://react.doctor/docs/rules/react-doctor/nextjs-no-css-link"
+  },
+  "recipeFetch": "curl -fsSL with Cache-Control: no-cache and Pragma: no-cache before review.",
+  "grouping": "None of the seven selected diagnostics supplies fixGroupId. Both stylesheet occurrences share the CMS Google Fonts URL helper; each media template reviewed individually.",
+  "result": "Seven false positives; no application changes or additional suppressions. Existing doctor.config.jsonc unchanged.",
+  "reviews": [
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerDash.7966a7db.iframe.bundle.js",
+      "line": 2,
+      "column": 1,
+      "fixGroupId": null,
+      "sha256": "2d4299adfec697c813b9b216f67405d448e98640aa5b5d10cf0c903773174c0d",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "ce-la-react SSR wrapper calls Dash getTemplateHTML, which removes src and delegates to custom-media-element. Its serializer allowlists media attribute names and escapes values."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerHls.e0aded62.iframe.bundle.js",
+      "line": 2,
+      "column": 1,
+      "fixGroupId": null,
+      "sha256": "6a999b1c03b0a170ba689fdfe2bcc51c3531af31c80f8041a9c17a408e67409d",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "ce-la-react SSR wrapper calls HLS getTemplateHTML. Configuration JSON replaces less-than signs with Unicode escapes, preventing script closing-tag injection. Media attributes use custom-media-element allowlist and escaping."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerSpotify.b8c081ed.iframe.bundle.js",
+      "line": 2,
+      "column": 1,
+      "fixGroupId": null,
+      "sha256": "24a792036a4b6b37d7cec139948fc7f553acef074ec3a9a1a617428adea41f9a",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "SSR template delegates to Spotify getTemplateHTML. Fixed-origin embed URL uses constrained path captures and URLSearchParams; serializeAttributes escapes names and values."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerYouTube.936c42b8.iframe.bundle.js",
+      "line": 2,
+      "column": 1,
+      "fixGroupId": null,
+      "sha256": "9ba39040df179026d969f50e962765157510c0396928fca7c7c1d3d17015ec7f",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "SSR template delegates to YouTube getTemplateHTML. Embed origin is fixed to YouTube/YouTube-nocookie; URLSearchParams serializes configuration and serializeAttributes escapes names and values, including JSON data-config."
+    },
+    {
+      "rule": "nextjs-no-a-element",
+      "file": "src/components/ecommerce/shopify/ShopifySdkProvider.tsx",
+      "line": 234,
+      "column": 7,
+      "fixGroupId": null,
+      "sha256": "5da5fbfdafcc226e4756aef644941e8548eba12f231e81f48b4804ad1e96bf64",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Hidden anchor is not in-app navigation. onCheckout assigns the checkout API webUrl immediately before click. Existing integration-style unit test verifies external checkout destination. Canonical internal-navigation precondition is not met."
+    },
+    {
+      "rule": "nextjs-no-css-link",
+      "file": "src/components/pages/DocumentGoogleFonts.tsx",
+      "line": 37,
+      "column": 11,
+      "fixGroupId": null,
+      "sha256": "4902efa885fc143fb16e2c629ffebf6021bc2eb74415347988e987714d90cdcb",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "getFontBasedOnSetting always constructs a fonts.googleapis.com/css2 URL from CMS font settings. Canonical recipe explicitly excludes Google Fonts URLs. Document component uses cached inline CSS when available and this link as fallback; Storybook renders selected fonts for preview. Existing rendering tests verify both paths."
+    },
+    {
+      "rule": "nextjs-no-css-link",
+      "file": "src/storybook/components/CoreDecorator.tsx",
+      "line": 26,
+      "column": 15,
+      "fixGroupId": null,
+      "sha256": "4dd181a1fb1f6166325f39a212c483d5ea80bb69300a81ac347a5183fb223e25",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "getFontBasedOnSetting always constructs a fonts.googleapis.com/css2 URL from CMS font settings. Canonical recipe explicitly excludes Google Fonts URLs. Document component uses cached inline CSS when available and this link as fallback; Storybook renders selected fonts for preview. Existing rendering tests verify both paths."
+    }
+  ],
+  "validation": {
+    "doctorCommand": "npx react-doctor@latest --verbose",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-8b22a8ed-0f0a-4a9b-a961-0c4cddd21877/diagnostics.json",
+    "total": 12,
+    "selectedStillVisible": 7,
+    "unchangedDiagnosticIdentities": true,
+    "templateChecks": "16 hostile-input checks passed using exact source-map template functions; tests cover injected tags, event attributes, script-closing text and embed origins. Not a complete media-player security audit.",
+    "templateScript": "/tmp/lumen-security-templates.cjs",
+    "unitTests": "6 tests passed across ShopifySdkProvider.test.tsx, DocumentGoogleFonts.test.tsx and CoreDecorator.test.tsx; checkout test intercepts anchor click, font tests render HTML without fetching remote fonts."
+  },
+  "followUp": [
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/component-data/googleFormsToJson.ts",
+      "line": 72
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/storyblokDeliveryResolver.ts",
+      "line": 44
+    },
+    {
+      "rule": "no-object-keys-values-entries-on-maybe-undefined",
+      "file": "src/utils/intlDateHelper.ts",
+      "line": 48
+    },
+    {
+      "rule": "async-await-in-loop",
+      "file": "src/utils/storyblok/StoryblokTransport.ts",
+      "line": 139
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/vendor/grid/gridGenerator.ts",
+      "line": 57
+    }
+  ]
+}

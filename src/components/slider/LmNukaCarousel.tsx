@@ -58,6 +58,138 @@ const overlay = (alignItems: string, justifyContent: string) =>
     '& > *': { pointerEvents: 'auto' }
   } as const)
 
+type CarouselSlide = { key: string; content: ReactNode }
+
+function getSlides(children: ReactNode): CarouselSlide[] {
+  const occurrences = new Map<string, number>()
+  return Children.toArray(children).map((content) => {
+    // React preserves caller keys here. Dynamic element lists must supply
+    // stable keys; primitive slides can use their value as identity.
+    const identity = isValidElement(content)
+      ? `element:${content.key}`
+      : JSON.stringify([typeof content, content])
+    const occurrence = occurrences.get(identity) || 0
+    occurrences.set(identity, occurrence + 1)
+    return { content, key: JSON.stringify([identity, occurrence]) }
+  })
+}
+
+function CarouselControls({
+  slides,
+  swiper,
+  loop,
+  currentSlide,
+  edges,
+  hidePagination,
+  paginationBelowContent,
+  arrowsBesidePagination,
+  hideArrows,
+  darkArrows,
+  darkPagination,
+  paginationCircle
+}: Pick<
+  LmNukaCarouselProps,
+  | 'hidePagination'
+  | 'paginationBelowContent'
+  | 'arrowsBesidePagination'
+  | 'hideArrows'
+  | 'darkArrows'
+  | 'darkPagination'
+  | 'paginationCircle'
+> & {
+  slides: CarouselSlide[]
+  swiper: SwiperClass | undefined
+  loop: boolean
+  currentSlide: number
+  edges: { isBeginning: boolean; isEnd: boolean }
+}) {
+  const goToSlide = (index: number) =>
+    loop ? swiper?.slideToLoop(index) : swiper?.slideTo(index)
+
+  const ActiveIndicator = paginationCircle ? <MinusThick /> : <CircleMedium />
+  const DefaultIndicator = paginationCircle ? <Minus /> : <CircleSmall />
+  const previousDisabled = !loop && edges.isBeginning
+  const nextDisabled = !loop && edges.isEnd
+
+  return (
+    <>
+      <Box sx={overlay('center', 'flex-start')}>
+        {!hideArrows && (
+          <IconButton
+            size={'large'}
+            onClick={() => swiper?.slidePrev()}
+            disabled={previousDisabled}
+            aria-label="previous slide"
+            sx={{
+              color: darkArrows ? DARK : LIGHT,
+              fontSize: '4rem'
+            }}
+          >
+            <ChevronLeft fontSize={'inherit'} />
+          </IconButton>
+        )}
+      </Box>
+      <Box sx={overlay('center', 'flex-end')}>
+        {!hideArrows && (
+          <IconButton
+            size={'large'}
+            onClick={() => swiper?.slideNext()}
+            disabled={nextDisabled}
+            aria-label="next slide"
+            sx={{
+              color: darkArrows ? DARK : LIGHT,
+              fontSize: '4rem'
+            }}
+          >
+            <ChevronRight fontSize={'inherit'} />
+          </IconButton>
+        )}
+      </Box>
+      <Box sx={overlay('flex-end', 'center')}>
+        <Box
+          sx={{
+            display: hidePagination ? 'none' : undefined,
+            marginBottom: paginationBelowContent ? '-64px' : undefined,
+            color: darkPagination ? DARK : LIGHT
+          }}
+        >
+          <IconButton
+            sx={{
+              display: arrowsBesidePagination ? 'inline-flex' : 'none'
+            }}
+            size="small"
+            onClick={() => swiper?.slidePrev()}
+            color={'inherit'}
+          >
+            <ChevronLeft color={'inherit'} />
+          </IconButton>
+          {slides.map((slide, i) => (
+            <IconButton
+              color="inherit"
+              size="small"
+              key={slide.key}
+              aria-label={`slide ${i + 1}`}
+              onClick={() => goToSlide(i)}
+            >
+              {currentSlide === i ? ActiveIndicator : DefaultIndicator}
+            </IconButton>
+          ))}
+          <IconButton
+            onClick={() => swiper?.slideNext()}
+            color="inherit"
+            size="small"
+            sx={{
+              display: arrowsBesidePagination ? 'inline-flex' : 'none'
+            }}
+          >
+            <ChevronRight color={'inherit'} />
+          </IconButton>
+        </Box>
+      </Box>
+    </>
+  )
+}
+
 export default function LmNukaCarousel({
   children,
   slideIndex = 0,
@@ -80,7 +212,7 @@ export default function LmNukaCarousel({
   darkPagination,
   paginationCircle
 }: LmNukaCarouselProps) {
-  const slides = Children.toArray(children)
+  const slides = getSlides(children)
   const [swiper, setSwiper] = useState<SwiperClass>()
   const [currentSlide, setCurrentSlide] = useState(slideIndex)
   const [edges, setEdges] = useState({ isBeginning: true, isEnd: false })
@@ -97,95 +229,6 @@ export default function LmNukaCarousel({
       swiper.slideTo(slideIndex)
     }
   }, [swiper, slideIndex, loop])
-
-  const goToSlide = (index: number) =>
-    loop ? swiper?.slideToLoop(index) : swiper?.slideTo(index)
-
-  const ActiveIndicator = paginationCircle ? <MinusThick /> : <CircleMedium />
-  const DefaultIndicator = paginationCircle ? <Minus /> : <CircleSmall />
-  const previousDisabled = !loop && edges.isBeginning
-  const nextDisabled = !loop && edges.isEnd
-
-  let controls: ReactNode = null
-  if (!withoutControls) {
-    controls = (
-      <>
-        <Box sx={overlay('center', 'flex-start')}>
-          {!hideArrows && (
-            <IconButton
-              size={'large'}
-              onClick={() => swiper?.slidePrev()}
-              disabled={previousDisabled}
-              aria-label="previous slide"
-              sx={{
-                color: darkArrows ? DARK : LIGHT,
-                fontSize: '4rem'
-              }}
-            >
-              <ChevronLeft fontSize={'inherit'} />
-            </IconButton>
-          )}
-        </Box>
-        <Box sx={overlay('center', 'flex-end')}>
-          {!hideArrows && (
-            <IconButton
-              size={'large'}
-              onClick={() => swiper?.slideNext()}
-              disabled={nextDisabled}
-              aria-label="next slide"
-              sx={{
-                color: darkArrows ? DARK : LIGHT,
-                fontSize: '4rem'
-              }}
-            >
-              <ChevronRight fontSize={'inherit'} />
-            </IconButton>
-          )}
-        </Box>
-        <Box sx={overlay('flex-end', 'center')}>
-          <Box
-            sx={{
-              display: hidePagination ? 'none' : undefined,
-              marginBottom: paginationBelowContent ? '-64px' : undefined,
-              color: darkPagination ? DARK : LIGHT
-            }}
-          >
-            <IconButton
-              sx={{
-                display: arrowsBesidePagination ? 'inline-flex' : 'none'
-              }}
-              size="small"
-              onClick={() => swiper?.slidePrev()}
-              color={'inherit'}
-            >
-              <ChevronLeft color={'inherit'} />
-            </IconButton>
-            {slides.map((_, i) => (
-              <IconButton
-                color="inherit"
-                size="small"
-                key={`pagination_${i}`}
-                aria-label={`slide ${i + 1}`}
-                onClick={() => goToSlide(i)}
-              >
-                {currentSlide === i ? ActiveIndicator : DefaultIndicator}
-              </IconButton>
-            ))}
-            <IconButton
-              onClick={() => swiper?.slideNext()}
-              color="inherit"
-              size="small"
-              sx={{
-                display: arrowsBesidePagination ? 'inline-flex' : 'none'
-              }}
-            >
-              <ChevronRight color={'inherit'} />
-            </IconButton>
-          </Box>
-        </Box>
-      </>
-    )
-  }
 
   return (
     <Box
@@ -223,13 +266,33 @@ export default function LmNukaCarousel({
           afterSlide?.(instance.realIndex)
         }
       >
-        {slides.map((slide, i) => (
-          <SwiperSlide key={isValidElement(slide) ? slide.key ?? i : i}>
-            {slide}
+        {slides.map((slide) => (
+          <SwiperSlide
+            key={slide.key}
+            // Nuka's slides reset inherited alignment. Keep that default for
+            // tab panels inside centered columns; blocks can still override it.
+            style={{ textAlign: 'left' }}
+          >
+            {slide.content}
           </SwiperSlide>
         ))}
       </Swiper>
-      {controls}
+      {!withoutControls && (
+        <CarouselControls
+          slides={slides}
+          swiper={swiper}
+          loop={loop}
+          currentSlide={currentSlide}
+          edges={edges}
+          hidePagination={hidePagination}
+          paginationBelowContent={paginationBelowContent}
+          arrowsBesidePagination={arrowsBesidePagination}
+          hideArrows={hideArrows}
+          darkArrows={darkArrows}
+          darkPagination={darkPagination}
+          paginationCircle={paginationCircle}
+        />
+      )}
     </Box>
   )
 }

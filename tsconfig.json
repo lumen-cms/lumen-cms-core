@@ -19,8 +19,6 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "importHelpers": true,
-    "declaration": true,
-    "sourceMap": true,
     "rootDir": "./src",
     "strict": true,
     "noUnusedLocals": true,
@@ -30,20 +28,6 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
     "traceResolution": false,
-    "paths": {
-      "@LmComponentRender": [
-        "./src/components/CoreComponents.tsx"
-      ],
-      "@CONFIG": [
-        "./src/utils/config.ts"
-      ],
-      "@context/*": [
-        "./src/components/provider/context/*"
-      ],
-      "@SSR_CONFIG": [
-        "./src/utils/initial-props/ssrConfig"
-      ]
-    },
     "incremental": true,
     "types": [
       "node",

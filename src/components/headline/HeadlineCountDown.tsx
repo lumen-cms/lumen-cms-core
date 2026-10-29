@@ -3,7 +3,7 @@ import { LmHeadlineProps } from './headlineTypes'
 import { useMemo } from 'react'
 import { getDateTime } from '../../utils/intlDateHelper'
 import Countdown from 'react-countdown'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 
 export default function HeadlineCountDown({
   content,

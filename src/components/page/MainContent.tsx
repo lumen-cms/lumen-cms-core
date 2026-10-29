@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import Box from '@mui/material/Box'
 import {
   contentSx,

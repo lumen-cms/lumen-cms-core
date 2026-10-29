@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source root causes only; generated artifacts, suppressions, dependencies and concurrent search-palette changes untouched.",
+  "rootCauses": [
+    {
+      "name": "Background image subtree identity",
+      "file": "src/components/section/BackgroundImage.tsx",
+      "findings": 4,
+      "impact": "Ordinary parent updates recreated image DOM nodes and fixed-layout wrappers, restarting image component state. Lower-severity visual/loading reliability risk; live flicker or repeated network transfers were not measured.",
+      "fix": "Move BgImage and Wrap to module scope; pass content, sectionPosition and backgroundStyle explicitly. Keep source URLs, orientation classes, sizing/position, priority, eager loading and quality rules unchanged.",
+      "tests": "Three tests failed on DOM identity before the fix and now pass for normal, fixed_cover and fixed_image modes. Both landscape/portrait images and wrapper identity remain stable; position/priority updates still apply."
+    },
+    {
+      "name": "Drawer-toggle active-icon identity",
+      "file": "src/components/layout/toolbar/ToggleDrawerButton.tsx",
+      "findings": 2,
+      "impact": "Parent updates unnecessarily remounted the active icon. The custom icon uses visibility/loading state, so remounting can restart that state. Low-severity visual reliability issue, not a demonstrated navigation failure.",
+      "fix": "Move ActiveIcon to module scope and pass content. Preserve custom/default icon selection, close icon transitions, breakpoint classes, configured button path, right-drawer visibility and toggle handlers.",
+      "tests": "Left/right identity regressions failed before the fix and now pass; the icon exists before comparison, stays mounted during unrelated updates, and clicks open/close only the selected drawer."
+    },
+    {
+      "name": "Shared JSON fetch HTTP handling",
+      "file": "src/utils/fetcher.ts",
+      "findings": 1,
+      "impact": "The helper accepted HTTP error JSON as success. Runtime tests demonstrate the failure, but no internal callers were found, so current live-page impact is unestablished and this is defensive hardening.",
+      "fix": "Reject non-OK responses before consuming JSON. Error includes only HTTP status, not URL or body. Successful JSON, fetch options and network rejection behavior remain unchanged.",
+      "tests": "Four status regressions (401/404/429/500) failed before the fix. All six helper tests now pass, covering untouched response bodies on errors, successful JSON/options and original network errors."
+    }
+  ],
+  "canonicalRecipes": {
+    "no-nested-component-definition": "https://react.doctor/docs/rules/react-doctor/no-nested-component-definition",
+    "no-unstable-nested-components": "https://react.doctor/docs/rules/react-doctor/no-unstable-nested-components",
+    "no-fetch-response-used-without-status-check": "https://react.doctor/docs/rules/react-doctor/no-fetch-response-used-without-status-check"
+  },
+  "recipeReview": "Fetched each recipe via curl with Cache-Control:no-cache and Pragma:no-cache. Read validation/false-positive predicates. These inner functions return JSX and are rendered as components; failing DOM identity tests confirm real remounts. HTTP Response tests confirm the unchecked-response behavior. Applied module-scope component identities and response.ok guard exactly as prescribed.",
+  "grouping": "No fixGroupId on selected diagnostics. Duplicate nesting rules grouped by underlying identity repair; the two background-image helpers form one background subtree repair.",
+  "validation": {
+    "tests": "11 passed across 3 files; 9 regression cases failed before the changes",
+    "typecheck": "tsc --noEmit passes",
+    "eslint": "Zero errors; one no-img-element warning in the intentional next/image test mock. Production files have no lint warnings. No suppression added.",
+    "format": "Prettier check and git diff --check pass",
+    "reactDoctorCommand": "npx react-doctor@latest --verbose",
+    "reactDoctorRuns": {
+      "bg": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-6c90d475-1fa1-4d7a-9c6e-a20edade3933/diagnostics.json",
+        "totalFindings": 150
+      },
+      "toggle": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-f7c3375a-e48c-4a86-b995-79f5fcf2b3e5/diagnostics.json",
+        "totalFindings": 148
+      },
+      "next3b-final": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-7c94ab15-d69a-4d48-b35f-b488ba0da041/diagnostics.json",
+        "totalFindings": 147
+      }
+    },
+    "selectedFindingsRemaining": 0,
+    "targetedFindingsRemoved": 7,
+    "newFindings": 0,
+    "overallCount": "156 in previous pass to 147 now: seven findings removed by this pass, two removed by concurrent ListSearchAutocompleteContainer changes.",
+    "limitations": "No production build, live-browser or live-network verification. DOM tests use happy-dom with mocked leaf images/icons; HTTP tests use real Response objects with mocked fetch."
+  },
+  "remaining": {
+    "total": 147,
+    "source": 75,
+    "sourceErrors": [
+      {
+        "file": "src/components/section/SectionParallax.tsx",
+        "rule": "jsx-key"
+      },
+      {
+        "file": "src/components/tracking/FbqPixel.tsx",
+        "rule": "alt-text"
+      }
+    ],
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 26,
+      "jsx-no-constructed-context-values": 1,
+      "nextjs-no-a-element": 1,
+      "nextjs-image-missing-sizes": 1,
+      "no-spread-accumulator-in-reduce": 2,
+      "no-derived-useState": 2,
+      "rerender-lazy-state-init": 2,
+      "no-nested-component-definition": 2,
+      "no-unstable-nested-components": 2,
+      "js-set-map-lookups": 11,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-effect-chain": 2,
+      "no-derived-state": 2,
+      "no-adjust-state-on-prop-change": 5,
+      "jsx-key": 1,
+      "no-array-index-as-key": 4,
+      "alt-text": 1,
+      "rerender-functional-setstate": 1,
+      "no-fetch-response-used-without-status-check": 3,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "followUp": [
+      "Nested expand/collapse icons in CollapsibleListSection.",
+      "Unchecked HTTP responses in the client Google Forms proxy and Instagram helpers; usage should be reviewed before prioritizing.",
+      "Parallax key handling, tracking-pixel accessibility, state synchronization and complexity findings.",
+      "Generated-artifact findings left alone."
+    ]
+  }
+}

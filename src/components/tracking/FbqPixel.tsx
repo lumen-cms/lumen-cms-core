@@ -33,6 +33,7 @@ export default function FbqPixel({ facebookPixelId }: PixelProps) {
             // eslint-disable-next-line  @next/next/no-img-element
             <img
               key={id}
+              alt=""
               height="1"
               width="1"
               style={{ display: 'none' }}

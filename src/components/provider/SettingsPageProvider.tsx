@@ -9,11 +9,7 @@ import {
   GlobalStoryblok,
   PageStoryblok
 } from '../../typings/generated/components-schema'
-import { loadStoryblokBridge } from '@storyblok/react'
-import type StoryblokBridge from '@storyblok/preview-bridge'
-import type { ISbStoryData } from 'storyblok-js-client'
-import { defaultResolveRelations } from '../../utils/universal/storyblokParamsHelper'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from './context/AppContext'
 
 const SettingsContext = createContext<GlobalStoryblok>({} as GlobalStoryblok)
 const PageContext = createContext<PageStoryblok>({} as PageStoryblok)
@@ -27,58 +23,42 @@ function SettingsPageProvider({
   page?: PageStoryblok | null
 }>) {
   const { insideStoryblok } = useAppContext()
-  const [stateSettings, setSettings] = useState(settings)
-  const [statePage, setPage] = useState<PageStoryblok | null>(page || null)
-  // keep page in sync when props change
-  useEffect(() => {
-    setPage((prev) => {
-      if (!page) return null
-      if (prev?.uuid === page.uuid) return prev
-      return page
-    })
-  }, [page])
-  // keep settings in sync when props change
-  useEffect(() => {
-    setSettings((prev) => {
-      if (!settings) return prev
-      if (prev?.uuid === settings.uuid) return prev
-      return settings
-    })
-  }, [settings])
+  const [state, setState] = useState({ settings, page: page || null })
+  const [previousInputs, setPreviousInputs] = useState({ page, settings })
+  // Preview edits own state within a UUID. Reconcile both incoming identities
+  // atomically before children render, preserving same-UUID edits.
+  if (previousInputs.page !== page || previousInputs.settings !== settings) {
+    setPreviousInputs({ page, settings })
+    setState((prev) => ({
+      page:
+        previousInputs.page === page
+          ? prev.page
+          : !page
+          ? null
+          : prev.page?.uuid === page.uuid
+          ? prev.page
+          : page,
+      settings:
+        previousInputs.settings === settings ||
+        !settings ||
+        prev.settings?.uuid === settings.uuid
+          ? prev.settings
+          : settings
+    }))
+  }
 
   useEffect(() => {
     if (!insideStoryblok) return
     let cancelled = false
-    let bridge: StoryblokBridge | undefined
-    loadStoryblokBridge()
-      .then(() => {
+    let unsubscribe: (() => void) | undefined
+    import('./storyblokPreview')
+      .then(({ subscribeStoryblokPreview }) => {
         if (cancelled) return
-        bridge = new window.StoryblokBridge({
-          resolveRelations: defaultResolveRelations.split(','),
-          resolveLinks: 'url'
-        }) as unknown as StoryblokBridge
-        bridge.on('input', (event) => {
-          const story = event.story as unknown as ISbStoryData<
-            GlobalStoryblok | PageStoryblok
-          >
-          if (cancelled || !story?.content) return
-          const content = { ...story.content, uuid: story.uuid }
-          if (
-            story.content.component === 'global' &&
-            story.uuid === settings?.uuid
-          ) {
-            setSettings(content as GlobalStoryblok)
-          } else if (story.uuid === page?.uuid) {
-            setPage(content as PageStoryblok)
-          }
-        })
-        bridge.on(['change', 'published'], (event) => {
-          if (
-            !cancelled &&
-            (event.action === 'published' ||
-              ('reload' in event && event.reload))
-          )
-            window.location.reload()
+        unsubscribe = subscribeStoryblokPreview({
+          pageUuid: page?.uuid,
+          settingsUuid: settings?.uuid,
+          setPage: (page) => setState((prev) => ({ ...prev, page })),
+          setSettings: (settings) => setState((prev) => ({ ...prev, settings }))
         })
       })
       .catch((error) => {
@@ -87,13 +67,13 @@ function SettingsPageProvider({
       })
     return () => {
       cancelled = true
-      bridge?.destroy()
+      unsubscribe?.()
     }
   }, [insideStoryblok, page?.uuid, settings?.uuid])
 
   return (
-    <SettingsContext.Provider value={stateSettings}>
-      <PageContext.Provider value={statePage as PageStoryblok}>
+    <SettingsContext.Provider value={state.settings}>
+      <PageContext.Provider value={state.page as PageStoryblok}>
         {children}
       </PageContext.Provider>
     </SettingsContext.Provider>

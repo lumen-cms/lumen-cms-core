@@ -1,0 +1,304 @@
+{
+  "date": "2026-10-29",
+  "scope": [
+    "artifact-secret-leak",
+    "insecure-crypto-risk",
+    "postmessage-origin-risk"
+  ],
+  "recipeFetch": "Fetched all three canonical URLs using curl -fsSL with Cache-Control: no-cache and Pragma: no-cache before assessment.",
+  "canonicalRecipes": {
+    "artifact-secret-leak": "https://react.doctor/docs/rules/react-doctor/artifact-secret-leak",
+    "insecure-crypto-risk": "https://react.doctor/docs/rules/react-doctor/insecure-crypto-risk",
+    "postmessage-origin-risk": "https://react.doctor/docs/rules/react-doctor/postmessage-origin-risk"
+  },
+  "grouping": "No selected occurrence supplies fixGroupId. Six secret matches share the Auth0 header-validation root cause; each artifact was read. All twelve randomness occurrences and the worker handler were inspected individually.",
+  "result": "19 false positives; no confirmed defect to fix. No source, generated artifact, dependency or scanner configuration changed; no suppression. Findings remain visible.",
+  "recipeAssessment": {
+    "artifact-secret-leak": "Prefix-only literal, not a live credential: rotation/server migration does not apply.",
+    "insecure-crypto-risk": "Canonical non-secret randomness exception: sorting, UI IDs, animation, retry delay and telemetry, not authentication credentials.",
+    "postmessage-origin-risk": "Canonical same-application Worker exception: handler registered only in !self.document branch."
+  },
+  "reviews": [
+    {
+      "rule": "artifact-secret-leak",
+      "file": ".next-reference/bali/dev/static/chunks/1osm_@auth0_auth0-react_dist_auth0-react_esm_1zwbtrr-tlvno.js.map",
+      "line": 5,
+      "column": 132036,
+      "fixGroupId": null,
+      "artifactSha256": "f895640b0eb5b3a24be728c5b8d332152fedcecd5bd37223b906f9f84cd51158",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Auth0 PKCS#8 import validator compares an input string against the literal BEGIN PRIVATE KEY header. The reported literal ends at the header; it contains no private key body and is not a credential."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": ".next-reference/planet/dev/static/chunks/1osm_@auth0_auth0-react_dist_auth0-react_esm_1zwbtrr-tlvno.js.map",
+      "line": 5,
+      "column": 132036,
+      "fixGroupId": null,
+      "artifactSha256": "f895640b0eb5b3a24be728c5b8d332152fedcecd5bd37223b906f9f84cd51158",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Auth0 PKCS#8 import validator compares an input string against the literal BEGIN PRIVATE KEY header. The reported literal ends at the header; it contains no private key body and is not a credential."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": ".next-reference/upskill/dev/static/chunks/1osm_@auth0_auth0-react_dist_auth0-react_esm_1zwbtrr-tlvno.js.map",
+      "line": 5,
+      "column": 132036,
+      "fixGroupId": null,
+      "artifactSha256": "f895640b0eb5b3a24be728c5b8d332152fedcecd5bd37223b906f9f84cd51158",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Auth0 PKCS#8 import validator compares an input string against the literal BEGIN PRIVATE KEY header. The reported literal ends at the header; it contains no private key body and is not a credential."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": ".website-tests/dev-release/dev/static/chunks/1osm_@auth0_auth0-react_dist_auth0-react_esm_1zwbtrr-tlvno.js.map",
+      "line": 5,
+      "column": 132036,
+      "fixGroupId": null,
+      "artifactSha256": "f895640b0eb5b3a24be728c5b8d332152fedcecd5bd37223b906f9f84cd51158",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Auth0 PKCS#8 import validator compares an input string against the literal BEGIN PRIVATE KEY header. The reported literal ends at the header; it contains no private key body and is not a credential."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/1035.b5a14f64.iframe.bundle.js",
+      "line": 125,
+      "column": 633257,
+      "fixGroupId": null,
+      "artifactSha256": "b2835feecb72ba5452cb9efb889b8e8c75ef7d880254739bd9e3cb1b2c9337be",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "source-map quick-sort chooses a random pivot. This affects sorting, not a credential."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/1604.0a23e4fe.iframe.bundle.js",
+      "line": 1,
+      "column": 26447,
+      "fixGroupId": null,
+      "artifactSha256": "3a905cf6f09d6264a24ec7dee85406766c7f2c5356b929fd9da569136c6c027a",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Prism markdown autoloader generates a DOM element ID to find code blocks after language loading."
+    },
+    {
+      "rule": "postmessage-origin-risk",
+      "file": "public_storybook/1604.0a23e4fe.iframe.bundle.js",
+      "line": 1,
+      "column": 72036,
+      "fixGroupId": null,
+      "artifactSha256": "3a905cf6f09d6264a24ec7dee85406766c7f2c5356b929fd9da569136c6c027a",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Prism registers this handler only in the !self.document worker branch; reads highlighting jobs and posts highlighted code. The canonical same-application Worker exception applies. No cross-window listener at this occurrence."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/2544.5b1c08e9.iframe.bundle.js",
+      "line": 2,
+      "column": 63092,
+      "fixGroupId": null,
+      "artifactSha256": "1f18e412b0ab1f45f3ac4b24ce0180f889b1e910f87a4a8a4112d2128ba3a0c4",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "react-rewards createRng seeds visual particle animation randomness."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/2985.96bbce73.iframe.bundle.js",
+      "line": 1,
+      "column": 26575,
+      "fixGroupId": null,
+      "artifactSha256": "28aac59751877964f6533df42ac366e5ae9260636cf00031745061a22d051fd4",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "HLS uuid fallback generates player-instance and CMCD media telemetry session IDs; these are not authentication sessions."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": "public_storybook/3912.f5b1e07b.iframe.bundle.js",
+      "line": 1,
+      "column": 81027,
+      "fixGroupId": null,
+      "artifactSha256": "23f7ff6f2573a2c62d55853dab881022ebda8519a5ee604cad1bf2fea5bd6e87",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Auth0 PKCS#8 import validator compares an input string against the literal BEGIN PRIVATE KEY header. The reported literal ends at the header; it contains no private key body and is not a credential."
+    },
+    {
+      "rule": "artifact-secret-leak",
+      "file": "public_storybook/3912.f5b1e07b.iframe.bundle.js.map",
+      "line": 1,
+      "column": 135735,
+      "fixGroupId": null,
+      "artifactSha256": "2f1f76e3452414467c8e335925863e7e28c4dfa19a255b30f1a04d526863c9dd",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Auth0 PKCS#8 import validator compares an input string against the literal BEGIN PRIVATE KEY header. The reported literal ends at the header; it contains no private key body and is not a credential."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/4299.178c06f6.iframe.bundle.js",
+      "line": 2,
+      "column": 20363,
+      "fixGroupId": null,
+      "artifactSha256": "706947825476fa730ea4af980a7329eccd91a12ae32be9e7d1abf0c00c086ac4",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "React DOM randomKey names internal element properties (__reactFiber, __reactProps, etc.)."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/6445.bf8a80a8.iframe.bundle.js",
+      "line": 53,
+      "column": 202033,
+      "fixGroupId": null,
+      "artifactSha256": "c3b1cdeffe8e6c8864bf097726fc8a0025bc5f535821035ea4d0e80181daf2b3",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "nanoid/non-secure is called by PostCSS Input to label anonymous CSS input for diagnostics (<input css ...>)."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/6518.fa408bb6.iframe.bundle.js",
+      "line": 1,
+      "column": 212959,
+      "fixGroupId": null,
+      "artifactSha256": "40eaa70985f99a5d1f689bf08841489e11726b2a0c5f849f38c7a98c43c550dc",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Dash bundled uuid function is exported by its utility module and called for CMCD reporter sid telemetry; not DRM authentication credentials."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/7756.af6b10be.iframe.bundle.js",
+      "line": 2,
+      "column": 135517,
+      "fixGroupId": null,
+      "artifactSha256": "88661a5574199ea27b43484f2863e1a1c30d5ba18e04c54b036a857477d127d9",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Storybook React Aria SSR context generates a prefix for component DOM IDs."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/9044.f6ff5656.iframe.bundle.js",
+      "line": 2,
+      "column": 32560,
+      "fixGroupId": null,
+      "artifactSha256": "db5ccb430b946b8885078ade746b1c3ccb9d7315ac13c2e43b3eed787589d668",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Ky calculateDelay randomizes HTTP retry timing (jitter)."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/9302.d8ec69c3.iframe.bundle.js",
+      "line": 1,
+      "column": 66323,
+      "fixGroupId": null,
+      "artifactSha256": "34e73d8288173450e6a9c5d17d081570c7b9b2614e3e6e24810f3b1fb4c7f066",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Swiper generates a wrapper DOM ID used for accessibility relationships."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/reactPlayerMux.286c9b2e.iframe.bundle.js",
+      "line": 2,
+      "column": 11395,
+      "fixGroupId": null,
+      "artifactSha256": "93eba7bf04a76b94ed2e406900abd58c242a40a43be7b6fddae9403c3759b263",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Mux UUID fallback supplies viewer, analytics session, player-instance and view IDs. Uses Web Crypto when available; fallback identifiers do not authorize playback."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/sb-addons/storybook-core-server-presets-0/common-manager-bundle.js",
+      "line": 2,
+      "column": 55824,
+      "fixGroupId": null,
+      "artifactSha256": "525c2cb1226c0cc3392d92dc8f9a894e8b5321a83b4e31c5aa44c221d704e8fc",
+      "outcome": "Rejected",
+      "confidence": "high",
+      "evidence": "Storybook channel assigns a sender identifier placed in outgoing event.from; identifier labels message source, not a secret token."
+    }
+  ],
+  "validation": {
+    "command": "npx react-doctor@latest --verbose",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-c0a94412-9134-4f28-9db8-7ddd08172c35/diagnostics.json",
+    "exitCode": 1,
+    "scannedFiles": 587,
+    "totalFindings": 31,
+    "unchangedDiagnosticIdentities": true,
+    "selectedStillReported": 19,
+    "tests": "No behavior changed; no application tests needed. Read exact artifact locations, checked source-map callers for HLS/Dash/Mux/PostCSS, and verified all 13 previously reviewed randomness/message occurrences have identical SHA-256 hashes."
+  },
+  "followUp": [
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerDash.7966a7db.iframe.bundle.js",
+      "line": 2
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerHls.e0aded62.iframe.bundle.js",
+      "line": 2
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerSpotify.b8c081ed.iframe.bundle.js",
+      "line": 2
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerYouTube.936c42b8.iframe.bundle.js",
+      "line": 2
+    },
+    {
+      "rule": "nextjs-no-a-element",
+      "file": "src/components/ecommerce/shopify/ShopifySdkProvider.tsx",
+      "line": 234
+    },
+    {
+      "rule": "nextjs-no-css-link",
+      "file": "src/components/pages/DocumentGoogleFonts.tsx",
+      "line": 37
+    },
+    {
+      "rule": "nextjs-no-css-link",
+      "file": "src/storybook/components/CoreDecorator.tsx",
+      "line": 26
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/component-data/googleFormsToJson.ts",
+      "line": 72
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/storyblokDeliveryResolver.ts",
+      "line": 44
+    },
+    {
+      "rule": "no-object-keys-values-entries-on-maybe-undefined",
+      "file": "src/utils/intlDateHelper.ts",
+      "line": 48
+    },
+    {
+      "rule": "async-await-in-loop",
+      "file": "src/utils/storyblok/StoryblokTransport.ts",
+      "line": 139
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/vendor/grid/gridGenerator.ts",
+      "line": 57
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { LmComponentRender as LmSection } from '@LmComponentRender'
+import { LmComponentRender as LmSection } from '../components/CoreComponents'
 import {
   BackgroundStoryblok,
   RowStoryblok,

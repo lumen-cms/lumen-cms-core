@@ -1,4 +1,4 @@
-import { LmComponentRender as LmTable } from '@LmComponentRender'
+import { LmComponentRender as LmTable } from '../components/CoreComponents'
 import { TableStoryblok } from '../typings/generated/components-schema'
 import { storyTable } from '../storybook/core/various'
 

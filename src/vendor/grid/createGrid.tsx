@@ -43,6 +43,33 @@ function useThemePropsDefault<T extends {}>(props: T) {
   })
 }
 
+function resolveGridSpacing(
+  inProps: GridProps,
+  defaults: Pick<
+    GridOwnerState,
+    'columns' | 'spacing' | 'rowSpacing' | 'columnSpacing'
+  >,
+  level: number
+) {
+  const {
+    columns: columnsProp,
+    spacing: spacingProp,
+    rowSpacing: rowSpacingProp,
+    columnSpacing: columnSpacingProp
+  } = defaults
+  const columns = inProps.columns ?? (level ? undefined : columnsProp)
+  const spacing = inProps.spacing ?? (level ? undefined : spacingProp)
+  const rowSpacing =
+    inProps.rowSpacing ??
+    inProps.spacing ??
+    (level ? undefined : rowSpacingProp)
+  const columnSpacing =
+    inProps.columnSpacing ??
+    inProps.spacing ??
+    (level ? undefined : columnSpacingProp)
+  return { columns, spacing, rowSpacing, columnSpacing }
+}
+
 export default function createGrid(
   options: {
     createStyledComponent?: typeof defaultCreateStyledComponent
@@ -146,16 +173,17 @@ export default function createGrid(
         }
       })
 
-      const columns = inProps.columns ?? (level ? undefined : columnsProp)
-      const spacing = inProps.spacing ?? (level ? undefined : spacingProp)
-      const rowSpacing =
-        inProps.rowSpacing ??
-        inProps.spacing ??
-        (level ? undefined : rowSpacingProp)
-      const columnSpacing =
-        inProps.columnSpacing ??
-        inProps.spacing ??
-        (level ? undefined : columnSpacingProp)
+      const { columns, spacing, rowSpacing, columnSpacing } =
+        resolveGridSpacing(
+          inProps,
+          {
+            columns: columnsProp,
+            spacing: spacingProp,
+            rowSpacing: rowSpacingProp,
+            columnSpacing: columnSpacingProp
+          },
+          level
+        )
       const ownerState = {
         ...props,
         level,

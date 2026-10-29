@@ -1,4 +1,4 @@
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../../config'
 import { AppPageProps } from '../../../typings/app'
 import { ISbStoriesParams } from 'storyblok-js-client'
 

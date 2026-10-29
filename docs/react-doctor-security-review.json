@@ -1,0 +1,812 @@
+{
+  "date": "2026-10-29",
+  "scope": [
+    "artifact-env-leak",
+    "insecure-crypto-risk",
+    "public-env-secret-name"
+  ],
+  "canonicalRecipes": {
+    "artifact-env-leak": "https://react.doctor/docs/rules/react-doctor/artifact-env-leak",
+    "insecure-crypto-risk": "https://react.doctor/docs/rules/react-doctor/insecure-crypto-risk",
+    "public-env-secret-name": "https://react.doctor/docs/rules/react-doctor/public-env-secret-name"
+  },
+  "recipeFetch": "curl -fsSL with Cache-Control: no-cache and Pragma: no-cache; all three validation/fix recipes read before editing",
+  "grouping": "None of the 88 selected findings has fixGroupId. Repeated generated copies were traced to shared source/dependencies, not edited individually.",
+  "validation": {
+    "focusedTests": "28 passed across four test files",
+    "nextBuild": "Next 16.4.3 webpack production smoke build passed, including TypeScript and 12 static pages",
+    "storybookBuild": "Passed; /tmp/lumen-security-storybook",
+    "artifactInspection": {
+      "nextFiles": 81,
+      "storybookFiles": 303,
+      "knownPreviewOrInstagramCredentialMatches": 0,
+      "legacyPublicEnvNameMatches": 0
+    },
+    "realDoctor": "npx react-doctor@latest --verbose; full unfiltered repository scan",
+    "diagnosticsPath": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-10105f88-7d38-48dd-b36e-a71279e1f1fd/diagnostics.json",
+    "freshNextAndChangedSourceEnvFindings": 0,
+    "separateFreshArtifactSecretFinding": "Auth0/JOSE PKCS#8 parser checks the literal BEGIN PRIVATE KEY header; not an embedded private key. Existing bundled dependency pattern, no source regression.",
+    "storybookDoctor": {
+      "diagnosticsPath": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-989f6488-d80c-4de8-8f2d-07c0b02e83ba/diagnostics.json",
+      "countsByRule": {
+        "artifact-secret-leak": 2,
+        "insecure-crypto-risk": 12,
+        "postmessage-origin-risk": 1,
+        "dangerous-html-sink": 5,
+        "no-default-props": 4,
+        "no-spread-accumulator-in-reduce": 13,
+        "js-set-map-lookups": 66,
+        "no-prop-callback-in-render": 4,
+        "no-high-complexity-react-function": 2,
+        "async-await-in-loop": 19,
+        "js-index-maps": 6,
+        "no-array-index-deref-without-bounds-or-empty-guard": 5,
+        "rules-of-hooks": 94,
+        "js-hoist-intl": 4,
+        "rerender-memo-with-default-value": 1,
+        "class-component-missing-component-will-unmount-teardown": 1,
+        "no-whole-object-default-losing-per-key-defaults": 1,
+        "no-fetch-response-used-without-status-check": 1
+      },
+      "envFindings": 0,
+      "limitation": "Security diagnostics emitted for 93 generated files, with zero env findings; standalone generated-output scan reports incomplete maintainability checks. Not a clean overall scan."
+    },
+    "eslint": "Passed for all five changed production/test TypeScript files"
+  },
+  "remaining": {
+    "fullScanCount": 198,
+    "countsByRule": {
+      "insecure-crypto-risk": 56,
+      "artifact-env-leak": 10,
+      "public-env-secret-name": 5,
+      "artifact-secret-leak": 7,
+      "no-create-ref-in-function-component": 2,
+      "exhaustive-deps": 1,
+      "no-fetch-response-used-without-status-check": 6,
+      "postmessage-origin-risk": 1,
+      "dangerous-html-sink": 6,
+      "no-high-complexity-react-function": 24,
+      "no-loading-flag-reset-outside-finally": 4,
+      "no-nested-component-definition": 9,
+      "no-unstable-nested-components": 9,
+      "no-eval": 4,
+      "window-open-without-noopener": 1,
+      "effect-needs-cleanup": 5,
+      "jsx-no-constructed-context-values": 1,
+      "nextjs-no-a-element": 1,
+      "nextjs-image-missing-sizes": 1,
+      "no-spread-accumulator-in-reduce": 2,
+      "no-mutating-array-method-on-prop-or-hook-result": 2,
+      "no-derived-useState": 2,
+      "iframe-missing-sandbox": 2,
+      "rerender-lazy-state-init": 2,
+      "js-set-map-lookups": 11,
+      "no-effect-chain": 3,
+      "no-adjust-state-on-prop-change": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-state": 2,
+      "jsx-key": 1,
+      "no-array-index-as-key": 4,
+      "alt-text": 1,
+      "rerender-functional-setstate": 1,
+      "async-await-in-loop": 1,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1
+    },
+    "limitations": [
+      "Historical comparison builds intentionally retained; their old credentials/names still trigger rules. No rules disabled or filtered.",
+      "Crypto findings are generated non-security randomness; no bulk cryptography migration warranted or performed.",
+      "Rotate previously exposed preview tokens through Storyblok and redeploy affected sites; not performed in this workspace.",
+      "Browser list/search now fetches published content. Additional draft fetching requires an authenticated server endpoint.",
+      "Local ignored .env migrated to new names; deployment environments must be migrated separately.",
+      "Other rules left for follow-up; counts include generated duplicates, not verified independent defects."
+    ]
+  },
+  "occurrences": [
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-dev-verification/dev/server/pages/404.js",
+      "line": 772,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Server build output is outside the browser-artifact scope. Shared source credential exposure was separately confirmed and fixed."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-dev-verification/dev/server/pages/[[...index]].js",
+      "line": 1092,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Server build output is outside the browser-artifact scope. Shared source credential exposure was separately confirmed and fixed."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-dev-verification/dev/server/pages/_app.js",
+      "line": 732,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Server build output is outside the browser-artifact scope. Shared source credential exposure was separately confirmed and fixed."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-dev-verification/dev/server/pages/_error.js",
+      "line": 762,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Server build output is outside the browser-artifact scope. Shared source credential exposure was separately confirmed and fixed."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-dev-verification/dev/server/vendor-chunks/next.js",
+      "line": 1355,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-dev-verification/dev/static/chunks/_pages-dir-browser_node_modules_dashjs_dist_modern_esm_dash_all_min_js.js",
+      "line": 18,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-dev-verification/dev/static/chunks/main.js",
+      "line": 280,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-dev-verification/dev/static/chunks/polyfills.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-dev-verification/dev/static/chunks/reactPlayerHls.js",
+      "line": 48,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-dev-verification/dev/static/chunks/reactPlayerMux.js",
+      "line": 118,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-foundation/server/chunks/403.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Server build output is outside the browser-artifact scope. Shared source credential exposure was separately confirmed and fixed."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-foundation/server/chunks/9072.js",
+      "line": 210,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-foundation/static/chunks/5938.c0caf649bec45cc9.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-foundation/static/chunks/7402.315374a670523073.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-foundation/static/chunks/845.3f38994038055bf8.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-foundation/static/chunks/8959.4edb45bdb42cd375.js",
+      "line": 29,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-foundation/static/chunks/framework-f9945a3298379151.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-foundation/static/chunks/main-f0f8bd2f1cbffd1f.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-foundation/static/chunks/pages/_app-2bf44f31bcd74729.js",
+      "line": 51,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Historical browser artifact contains known preview credential(s). Source fixed; fresh Next and Storybook artifacts verified. Historical comparison output retained; deployed credentials require rotation and old hosted output retirement."
+    },
+    {
+      "rule": "public-env-secret-name",
+      "file": ".next-foundation/static/chunks/pages/_app-2bf44f31bcd74729.js",
+      "line": 51,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Shared config preview exposure fixed. Storyblok published-only and Shopify public Storefront credentials use explicit publishable names. Historical app match itself references the optional Shopify env name, not proof of a privileged Shopify credential."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-foundation/static/chunks/pages/_app-2bf44f31bcd74729.js",
+      "line": 126,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-foundation/static/chunks/polyfills-42372ed130431b0a.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-react19/server/chunks/3747.js",
+      "line": 174,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-react19/server/chunks/403.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Server build output is outside the browser-artifact scope. Shared source credential exposure was separately confirmed and fixed."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-react19/static/chunks/5938.b5034faee29be448.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-react19/static/chunks/6.8ce52624d968fceb.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-react19/static/chunks/8399.a33d4c991254974c.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-react19/static/chunks/9880.517881f7db39c255.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-react19/static/chunks/framework-4f521680effd9d1a.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-react19/static/chunks/main-c9d20e1279b727ae.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-react19/static/chunks/pages/_app-5fff29b1f9f0bad6.js",
+      "line": 160,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Historical browser artifact contains known preview credential(s). Source fixed; fresh Next and Storybook artifacts verified. Historical comparison output retained; deployed credentials require rotation and old hosted output retirement."
+    },
+    {
+      "rule": "public-env-secret-name",
+      "file": ".next-react19/static/chunks/pages/_app-5fff29b1f9f0bad6.js",
+      "line": 160,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Shared config preview exposure fixed. Storyblok published-only and Shopify public Storefront credentials use explicit publishable names. Historical app match itself references the optional Shopify env name, not proof of a privileged Shopify credential."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-react19/static/chunks/pages/_app-5fff29b1f9f0bad6.js",
+      "line": 160,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-react19/static/chunks/polyfills-42372ed130431b0a.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/bali/server/chunks/3747.js",
+      "line": 174,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-reference/bali/server/chunks/403.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Server build output is outside the browser-artifact scope. Shared source credential exposure was separately confirmed and fixed."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/bali/static/chunks/5938.b5034faee29be448.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/bali/static/chunks/6.b7aec014e8619917.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/bali/static/chunks/8399.a33d4c991254974c.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/bali/static/chunks/9880.517881f7db39c255.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/bali/static/chunks/framework-4f521680effd9d1a.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/bali/static/chunks/main-c9d20e1279b727ae.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-reference/bali/static/chunks/pages/_app-1219683c6732badb.js",
+      "line": 187,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Historical browser artifact contains known preview credential(s). Source fixed; fresh Next and Storybook artifacts verified. Historical comparison output retained; deployed credentials require rotation and old hosted output retirement."
+    },
+    {
+      "rule": "public-env-secret-name",
+      "file": ".next-reference/bali/static/chunks/pages/_app-1219683c6732badb.js",
+      "line": 187,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Shared config preview exposure fixed. Storyblok published-only and Shopify public Storefront credentials use explicit publishable names. Historical app match itself references the optional Shopify env name, not proof of a privileged Shopify credential."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/bali/static/chunks/pages/_app-1219683c6732badb.js",
+      "line": 187,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/bali/static/chunks/polyfills-42372ed130431b0a.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/planet/server/chunks/3747.js",
+      "line": 174,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-reference/planet/server/chunks/403.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Server build output is outside the browser-artifact scope. Shared source credential exposure was separately confirmed and fixed."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/planet/static/chunks/5938.b5034faee29be448.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/planet/static/chunks/6.b7aec014e8619917.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/planet/static/chunks/8399.a33d4c991254974c.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/planet/static/chunks/9880.517881f7db39c255.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/planet/static/chunks/framework-4f521680effd9d1a.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/planet/static/chunks/main-c9d20e1279b727ae.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-reference/planet/static/chunks/pages/_app-a8b122e3f3130ab6.js",
+      "line": 187,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Historical browser artifact contains known preview credential(s). Source fixed; fresh Next and Storybook artifacts verified. Historical comparison output retained; deployed credentials require rotation and old hosted output retirement."
+    },
+    {
+      "rule": "public-env-secret-name",
+      "file": ".next-reference/planet/static/chunks/pages/_app-a8b122e3f3130ab6.js",
+      "line": 187,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Shared config preview exposure fixed. Storyblok published-only and Shopify public Storefront credentials use explicit publishable names. Historical app match itself references the optional Shopify env name, not proof of a privileged Shopify credential."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/planet/static/chunks/pages/_app-a8b122e3f3130ab6.js",
+      "line": 187,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/planet/static/chunks/polyfills-42372ed130431b0a.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/upskill/server/chunks/3747.js",
+      "line": 174,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-reference/upskill/server/chunks/403.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Server build output is outside the browser-artifact scope. Shared source credential exposure was separately confirmed and fixed."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/upskill/static/chunks/5938.b5034faee29be448.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/upskill/static/chunks/6.b7aec014e8619917.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/upskill/static/chunks/8399.a33d4c991254974c.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/upskill/static/chunks/9880.517881f7db39c255.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/upskill/static/chunks/framework-4f521680effd9d1a.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/upskill/static/chunks/main-c9d20e1279b727ae.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": ".next-reference/upskill/static/chunks/pages/_app-170e26300ddcaddb.js",
+      "line": 187,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Historical browser artifact contains known preview credential(s). Source fixed; fresh Next and Storybook artifacts verified. Historical comparison output retained; deployed credentials require rotation and old hosted output retirement."
+    },
+    {
+      "rule": "public-env-secret-name",
+      "file": ".next-reference/upskill/static/chunks/pages/_app-170e26300ddcaddb.js",
+      "line": 187,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Shared config preview exposure fixed. Storyblok published-only and Shopify public Storefront credentials use explicit publishable names. Historical app match itself references the optional Shopify env name, not proof of a privileged Shopify credential."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/upskill/static/chunks/pages/_app-170e26300ddcaddb.js",
+      "line": 187,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": ".next-reference/upskill/static/chunks/polyfills-42372ed130431b0a.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "public-env-secret-name",
+      "file": "config/localeRedirect.js",
+      "line": 2,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Next config helper runs on server, but migrated to unprefixed preview env variable to remove the upstream public credential configuration."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/2.213300c5.iframe.bundle.js",
+      "line": 2,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/2753.a3a6dd0e.iframe.bundle.js",
+      "line": 2,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/3257.67644555.iframe.bundle.js",
+      "line": 2,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/443.05a61273.iframe.bundle.js",
+      "line": 156,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/4480.1d8a4e79.iframe.bundle.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/4694.2b4a6561.iframe.bundle.js",
+      "line": 2,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/5868.01644d19.iframe.bundle.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/784.ddcef363.iframe.bundle.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/8816.61dc753d.iframe.bundle.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/9977.673507ff.iframe.bundle.js",
+      "line": 2,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": "public_storybook/main.c28e4297.iframe.bundle.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Historical browser artifact contains known preview credential(s). Source fixed; fresh Next and Storybook artifacts verified. Historical comparison output retained; deployed credentials require rotation and old hosted output retirement."
+    },
+    {
+      "rule": "public-env-secret-name",
+      "file": "public_storybook/main.c28e4297.iframe.bundle.js",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Shared config preview exposure fixed. Storyblok published-only and Shopify public Storefront credentials use explicit publishable names. Historical app match itself references the optional Shopify env name, not proof of a privileged Shopify credential."
+    },
+    {
+      "rule": "artifact-env-leak",
+      "file": "public_storybook/main.c28e4297.iframe.bundle.js.map",
+      "line": 1,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Historical browser artifact contains known preview credential(s). Source fixed; fresh Next and Storybook artifacts verified. Historical comparison output retained; deployed credentials require rotation and old hosted output retirement."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/reactPlayerMux.5cd0d06a.iframe.bundle.js",
+      "line": 2,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/sb-addons/storybook-core-server-presets-0/common-manager-bundle.js",
+      "line": 2,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Generated dependency code; reported Math.random creates UI/media/telemetry identifiers, animation randomness, retry jitter, polyfill symbols or sorting pivots. No security credential generation at the reported location. Canonical non-security exception applies; no suppression added."
+    },
+    {
+      "rule": "public-env-secret-name",
+      "file": "src/utils/config.ts",
+      "line": 29,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Shared config preview exposure fixed. Storyblok published-only and Shopify public Storefront credentials use explicit publishable names. Historical app match itself references the optional Shopify env name, not proof of a privileged Shopify credential."
+    },
+    {
+      "rule": "public-env-secret-name",
+      "file": "src/utils/instagram/instagramHelpers.ts",
+      "line": 37,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure",
+      "evidence": "Public env reference could publish an Instagram credential. Changed to unprefixed server env and reject browser execution. No in-repo callers or evidence of a deployed Instagram value."
+    }
+  ]
+}

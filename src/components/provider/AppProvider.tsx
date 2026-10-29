@@ -1,20 +1,16 @@
-import React, { FunctionComponent, useEffect, useState } from 'react'
-import { AppContext, AppContextProps } from '@context/AppContext'
+import React, { FunctionComponent, useMemo, useState } from 'react'
+import { AppContext, AppContextProps } from './context/AppContext'
 
 const AppProvider: FunctionComponent<
   React.PropsWithChildren<{ content: AppContextProps }>
 > = ({ children, content }) => {
-  const [appContent, setAppContent] = useState<AppContextProps>(content)
-  useEffect(() => {
-    if (content.locale !== appContent.locale) {
-      setAppContent((prevState) => ({ ...prevState, locale: content.locale }))
-    }
-  }, [appContent.locale, content.locale])
-  useEffect(() => {
-    if (content.slug !== appContent.slug) {
-      setAppContent((prevState) => ({ ...prevState, slug: content.slug }))
-    }
-  }, [appContent.slug, content.slug])
+  // Other app settings retain their existing mount-time lifetime. Only the
+  // route and locale track incoming props, without an effect-delayed render.
+  const [initialContent] = useState<AppContextProps>(content)
+  const appContent = useMemo(
+    () => ({ ...initialContent, locale: content.locale, slug: content.slug }),
+    [initialContent, content.locale, content.slug]
+  )
   return (
     <AppContext.Provider value={appContent}>{children}</AppContext.Provider>
   )

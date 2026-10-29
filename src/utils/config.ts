@@ -26,11 +26,13 @@ type AppConfigProps = {
 }
 
 export const CONFIG: AppConfigProps = {
-  previewToken: process.env.NEXT_PUBLIC_PREVIEW_TOKEN || '',
-  publicToken:
-    (process.env.NEXT_PUBLIC_PREVIEW_MODE
-      ? process.env.NEXT_PUBLIC_PREVIEW_TOKEN
-      : process.env.NEXT_PUBLIC_PUBLIC_TOKEN) || '',
+  // Never publish draft credentials, including on preview deployments.
+  previewToken:
+    typeof window === 'undefined'
+      ? process.env.STORYBLOK_PREVIEW_TOKEN || ''
+      : '',
+  // This must be a Storyblok Public token (published content only).
+  publicToken: process.env.NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY || '',
   rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
   enableLocaleSuffix: !!process.env.NEXT_PUBLIC_ENABLE_LOCALE_SUFFIX,
   fieldLevelTranslation: !!process.env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION,
@@ -47,7 +49,8 @@ export const CONFIG: AppConfigProps = {
   shopifyGql: process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN
     ? `https://${process.env.NEXT_PUBLIC_SHOPIFY_DOMAIN}/api/2020-10/graphql.json`
     : '',
-  shopifyAccessToken: process.env.NEXT_PUBLIC_SHOPIFY_ACCESS_TOKEN || ''
+  shopifyAccessToken:
+    process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_PUBLISHABLE_KEY || ''
 }
 
 type LmCoreComponentsProps = {

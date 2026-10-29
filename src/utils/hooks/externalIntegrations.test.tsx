@@ -10,7 +10,7 @@ import HubspotMeeting from '../../components/hubspot-meeting/HubspotMeeting'
 import FacebookChatButton from '../../components/chat/FacebookChatButton'
 import TawktoChatButton from '../../components/chat/TawktoChatButton'
 
-vi.mock('@context/AppContext', () => ({
+vi.mock('../../components/provider/context/AppContext', () => ({
   useAppContext: () => ({ insideStoryblok: false })
 }))
 vi.mock('./useScrolledOnce', () => ({ useScrollOnce: () => false }))
@@ -214,4 +214,34 @@ it('renders chat and embeds on the server without window or scripts', () => {
   } finally {
     vi.unstubAllGlobals()
   }
+})
+
+it('releases the persistent status recorder when an unfinished script is removed', async () => {
+  await act(async () =>
+    root.render(<Status url="https://scripts.invalid/removed.js" />)
+  )
+  const script = document.scripts[0]
+  await act(async () => root.render(null))
+  expect(script.getAttribute('data-status')).toBe('loading')
+  await act(async () => script.remove())
+  script.dispatchEvent(new Event('load'))
+  expect(script.getAttribute('data-status')).toBe('loading')
+})
+
+it('remembers an error after all consumers unmount and releases both one-shot listeners', async () => {
+  const url = 'https://scripts.invalid/late-error.js'
+  await act(async () => root.render(<Status url={url} />))
+  const script = document.scripts[0]
+  const remove = vi.spyOn(script, 'removeEventListener')
+  await act(async () => root.render(null))
+  remove.mockClear()
+  script.dispatchEvent(new Event('error'))
+  expect(script.getAttribute('data-status')).toBe('error')
+  expect(remove.mock.calls.map(([type]) => type).sort()).toEqual([
+    'error',
+    'load'
+  ])
+  await act(async () => root.render(<Status url={url} />))
+  expect(document.scripts).toHaveLength(1)
+  expect(host.textContent).toBe('error')
 })

@@ -9,7 +9,7 @@ import {
 import { LmImageListItemProps } from './imageListTypes'
 import { COLUMN_COUNT } from '../card/cardListStyles'
 import { storyblokImageLoader } from '../../utils/storyblokImageLoader'
-import { useTheme } from '@mui/material/styles'
+import { useTheme, type Theme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 
 const ImageWrap: FC<
@@ -39,6 +39,23 @@ const ImageWrap: FC<
   )
 }
 
+function getImageSizes(
+  listProps: LmImageListItemProps['listProps'],
+  breakpoints: Theme['breakpoints']
+) {
+  const { column_count, column_count_phone, column_count_tablet } = listProps
+  const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
+  const tabletVw = getVwByColCount(
+    column_count_tablet || column_count || COLUMN_COUNT.TABLET
+  )
+  const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
+  return `(min-width: 0) and (max-width: ${
+    breakpoints.values.sm - 1
+  }px) ${phoneVw}vw, (min-width: ${breakpoints.values.sm}px) and (max-width: ${
+    breakpoints.values.md - 1
+  }px): ${tabletVw}vw, ${desktopVw}vw`
+}
+
 export default function LmImageListItem({
   content,
   listProps
@@ -56,12 +73,6 @@ export default function LmImageListItem({
     listProps.masonry ||
     listProps.variant === 'masonry' ||
     !listProps.aspect_ratio
-  const { column_count, column_count_phone, column_count_tablet } = listProps
-  const phoneVw = getVwByColCount(column_count_phone || COLUMN_COUNT.PHONE)
-  const tabletVw = getVwByColCount(
-    column_count_tablet || column_count || COLUMN_COUNT.TABLET
-  )
-  const desktopVw = getVwByColCount(column_count || COLUMN_COUNT.DESKTOP)
 
   return (
     <ImageWrap
@@ -79,13 +90,7 @@ export default function LmImageListItem({
                 ? 'contain'
                 : undefined
           }}
-          sizes={`(min-width: 0) and (max-width: ${
-            breakpoints.values.sm - 1
-          }px) ${phoneVw}vw, (min-width: ${
-            breakpoints.values.sm
-          }px) and (max-width: ${
-            breakpoints.values.md - 1
-          }px): ${tabletVw}vw, ${desktopVw}vw`}
+          sizes={getImageSizes(listProps, breakpoints)}
           {...storyblokImageLoader(imageSource)}
           placeholder={'empty'}
           className={'MuiImageListItem-img'}

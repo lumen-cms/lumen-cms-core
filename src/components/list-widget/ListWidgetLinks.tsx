@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { NavListStoryblok } from '../../typings/generated/components-schema'
 import { ListStoriesData } from './listWidgetTypes'
 

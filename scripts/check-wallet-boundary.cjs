@@ -18,9 +18,9 @@ for (const section of [
     assert(!walletPackage.test(name), `${section} must not include ${name}`)
   }
 }
-const lock = fs.readFileSync(path.join(root, 'yarn.lock'), 'utf8')
+const lock = fs.readFileSync(path.join(root, 'pnpm-lock.yaml'), 'utf8')
 assert(
-  !/^"?(?:ethers@|@ethersproject\/|@walletconnect\/|@web3-react\/|@metamask\/|lumen-cms-web3@)/m.test(
+  !/^\s*['"]?(?:ethers@|@ethersproject\/|@walletconnect\/|@web3-react\/|@metamask\/|lumen-cms-web3@)/m.test(
     lock
   ),
   'Wallet packages remain in the core lockfile'

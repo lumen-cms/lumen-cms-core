@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import StoryblokClient, { type ISbStoriesParams } from 'storyblok-js-client'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../config'
 import { rootParams } from '../universal/storyblokParamsHelper'
 import { fixtureFetch } from './__fixtures__/storyblokDelivery'
 import { StoryblokServiceClass } from './StoryblokService'

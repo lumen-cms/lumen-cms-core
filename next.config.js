@@ -14,6 +14,7 @@ const nextConfig = {
     localeDetection: false
   },
   experimental: {
+    ...getBaseConfig().experimental,
     largePageDataBytes: 512 * 1000
   }
   // async redirects() {

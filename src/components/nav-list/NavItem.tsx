@@ -1,18 +1,18 @@
+import { getCmsClickProps } from '../../utils/cmsClickActions'
 import MuiLink from '@mui/material/Link'
 import { LmNavItemProps } from './navListTypes'
-import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-import { LmCoreComponents } from '@CONFIG'
+import {
+  getLinkAttrs,
+  LinkType,
+  LinkHandlerProps
+} from '../../utils/linkHandler'
+import { LmCoreComponents } from '../../utils/config'
 import { LmHeadlineCore } from '../headline/HeadlineCore'
 
 export default function LmNavItem({ content, options }: LmNavItemProps) {
   const getBtnProps = (blok: LmNavItemProps['content']) => {
-    const onClickFunc: any =
-      typeof content.on_click_function === 'string'
-        ? {
-            onClick: () => new Function(content.on_click_function || '')()
-          }
-        : undefined
-    const args = blok.link?.linktype
+    const onClickFunc = getCmsClickProps(content.on_click_function)
+    const args: LinkHandlerProps = blok.link?.linktype
       ? {
           ...getLinkAttrs(blok.link as LinkType, {
             openExternal: !!blok.open_external

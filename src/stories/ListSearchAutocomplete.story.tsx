@@ -1,3 +1,4 @@
+import { SearchPaletteProvider } from '../components/list-widget/SearchPaletteProvider'
 import { ListSearchAutocompleteStoryblok } from '../typings/generated/components-schema'
 import { storyListSearchAutocomplete } from '../storybook/layout/toolbar'
 import LmListSearchAutocomplete from '../components/list-widget/ListSearchAutocomplete'
@@ -12,7 +13,14 @@ const props: ListSearchAutocompleteStoryblok = {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  title: 'Design/Inputs/Autocomplete Search'
+  title: 'Design/Inputs/Autocomplete Search',
+  decorators: [
+    (Story: React.ComponentType) => (
+      <SearchPaletteProvider>
+        <Story />
+      </SearchPaletteProvider>
+    )
+  ]
 }
 
 export const Basic = () => (
@@ -117,7 +125,7 @@ export const Shaped = () => (
         menu_border_radius: '0px 4px 16px 16px'
       }}
     />
-    <h3>Align Menu to the right</h3>
+    <h3>Square dialog paper</h3>
     <div className="text-center">
       <LmListSearchAutocomplete
         content={{
@@ -125,8 +133,7 @@ export const Shaped = () => (
           label: undefined,
           outlined: true,
           shape: 'square',
-          menu_border_radius: '0px',
-          menu_align_right: true
+          menu_border_radius: '0px'
         }}
       />
     </div>
@@ -141,5 +148,32 @@ export const Playground = () => (
         }
       })}
     />
+  </div>
+)
+
+export const SharedCommandPalette = () => (
+  <div className="p-3">
+    <p>
+      Click either search opener, or press Cmd+K / Ctrl+K. Both use one dialog.
+    </p>
+    <LmListSearchAutocomplete
+      content={{ ...props, label: 'Search the site', outlined: true }}
+    />
+    <div className="mt-3">
+      <LmListSearchAutocomplete
+        content={{
+          ...props,
+          _uid: 'second-search',
+          label: 'Find content',
+          placeholder: 'Pages and landing pages',
+          fullwidth: true,
+          large: true,
+          height: 72,
+          shape: 'rounded',
+          menu_outlined: true,
+          menu_border_radius: '16px'
+        }}
+      />
+    </div>
   </div>
 )

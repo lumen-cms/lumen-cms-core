@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source root causes; no generated output edits, suppressions, or dependency changes.",
+  "rootCauses": [
+    {
+      "name": "Iframe hydration initialization",
+      "file": "src/components/iframe/Iframe.tsx",
+      "rule": "no-hydration-branch-on-browser-global",
+      "impact": "Browser-derived sandbox attributes could differ from the server if an iframe is immediately visible. The normal default lazy-loading path usually masks this; no production hydration failure was observed.",
+      "fix": "useSyncExternalStore with an explicit undefined server snapshot; defer src until both visibility and parent origin are known, preserving lazy loading and applying provider permissions before navigation. Origin subscription is intentionally inert because origin changes replace the document.",
+      "tests": "Server-render and hydrate with both initially visible and initially hidden observer states. Same iframe DOM node retained, no hydration errors, src deferred, existing sizing/fullscreen/feature permissions/provider sandbox preserved."
+    },
+    {
+      "name": "List pagination delayed scroll ownership",
+      "file": "src/components/list-widget/ListStories.tsx",
+      "rule": "effect-needs-cleanup",
+      "impact": "An old pagination timer can scroll after a newer page selection or after unmount. Route event cleanup already existed but did not cancel the timer.",
+      "fix": "Store timeout handle and cancel it in the same cleanup that unsubscribes the route listener. Preserve the one-second smooth-scroll delay for the current page.",
+      "tests": "Regression failed before fix due to stale scroll. Passes after: rapid page changes cancel older timers, newest page scrolls once at one second, unmount cancels pending work and removes route listener. Existing pagination/search data-fetch test also passes."
+    },
+    {
+      "name": "Menu deferred-open timer ownership",
+      "file": "src/components/menu/NavMenu.tsx",
+      "rule": "effect-needs-cleanup",
+      "impact": "Queued opening can run after initialOpen becomes false or after unmount, opening an unwanted menu or acting on stale component state.",
+      "fix": "Return timeout cancellation from the effect; explicit undefined when no timer was scheduled.",
+      "tests": "Regression failed before fix because menu opened after initialOpen=false. Passes after, including normal deferred opening and zero pending timers after Strict Mode unmount."
+    }
+  ],
+  "recipes": {
+    "hydration": "https://react.doctor/docs/rules/react-doctor/no-hydration-branch-on-browser-global",
+    "cleanup": "https://react.doctor/docs/rules/react-doctor/effect-needs-cleanup"
+  },
+  "recipeReview": "Hydration fetched with no-cache curl this pass; previously fetched cleanup recipe re-used. Explicit stable server snapshot and exact timer cleanup recipes followed.",
+  "grouping": "No fixGroupId on the three selected diagnostics. Each has its own independent resource/initialization lifecycle.",
+  "validation": {
+    "unitTests": "19 passed across 5 files; menu test rerun after strict-return correction also passes",
+    "browserTests": "5 existing Chromium sandbox/GTM integration tests pass",
+    "typecheck": "tsc --noEmit passes",
+    "eslint": "Zero errors; 9 pre-existing ref-in-render and state-in-effect warnings in list/menu code remain untouched",
+    "format": "Prettier and git diff --check pass",
+    "reactDoctor": {
+      "iframe": {
+        "path": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-bf0c4089-28e5-404b-8b37-263049f65b8c/diagnostics.json",
+        "totalFindings": 168,
+        "selectedFindings": [
+          {
+            "rule": "effect-needs-cleanup",
+            "file": "src/components/list-widget/ListStories.tsx"
+          },
+          {
+            "rule": "effect-needs-cleanup",
+            "file": "src/components/menu/NavMenu.tsx"
+          }
+        ],
+        "incomplete": false
+      },
+      "list": {
+        "path": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-f05967d1-7061-4d40-b139-16e52bba152d/diagnostics.json",
+        "totalFindings": 167,
+        "selectedFindings": [
+          {
+            "rule": "effect-needs-cleanup",
+            "file": "src/components/menu/NavMenu.tsx"
+          }
+        ],
+        "incomplete": false
+      },
+      "final": {
+        "path": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-1c711bac-279f-4cb1-9940-ad2b824cf19b/diagnostics.json",
+        "totalFindings": 166,
+        "selectedFindings": [],
+        "incomplete": false
+      }
+    },
+    "build": "No production rebuild this pass; SSR/hydration, unit, browser behavior, and full typecheck verified without changing generated artifacts."
+  },
+  "remainingSourceErrors": [
+    {
+      "rule": "jsx-key",
+      "file": "src/components/section/SectionParallax.tsx",
+      "line": 47
+    },
+    {
+      "rule": "alt-text",
+      "file": "src/components/tracking/FbqPixel.tsx",
+      "line": 34
+    },
+    {
+      "rule": "effect-needs-cleanup",
+      "file": "src/utils/hooks/useExternalScript.ts",
+      "line": 11
+    }
+  ],
+  "remainingSourceRuleCounts": {
+    "no-high-complexity-react-function": 24,
+    "no-nested-component-definition": 9,
+    "no-unstable-nested-components": 9,
+    "jsx-no-constructed-context-values": 1,
+    "nextjs-no-a-element": 1,
+    "nextjs-image-missing-sizes": 1,
+    "no-spread-accumulator-in-reduce": 2,
+    "no-mutating-array-method-on-prop-or-hook-result": 2,
+    "no-derived-useState": 2,
+    "rerender-lazy-state-init": 2,
+    "js-set-map-lookups": 11,
+    "no-effect-chain": 3,
+    "no-adjust-state-on-prop-change": 6,
+    "no-unescaped-dynamic-string-in-regexp": 1,
+    "nextjs-no-css-link": 2,
+    "no-derived-state": 2,
+    "jsx-key": 1,
+    "no-array-index-as-key": 4,
+    "alt-text": 1,
+    "no-fetch-response-used-without-status-check": 5,
+    "effect-needs-cleanup": 1,
+    "rerender-functional-setstate": 1,
+    "no-json-parse-stringify-clone": 1,
+    "no-object-keys-values-entries-on-maybe-undefined": 1,
+    "async-await-in-loop": 1
+  },
+  "followUp": [
+    "useExternalScript intentionally retains a one-shot status recorder after unmount so late script loads are remembered. Review persistent ownership before changing it; do not blindly remove listeners.",
+    "Remaining key/accessibility, nested-component, fetch-status, state, and complexity findings left for later.",
+    "Generated diagnostics left unchanged."
+  ]
+}

@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../components/CoreComponents'
 import {
   ChatFacebookStoryblok,
   ChatTawktoStoryblok,

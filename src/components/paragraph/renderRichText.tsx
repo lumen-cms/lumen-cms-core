@@ -5,7 +5,7 @@ import {
 } from '@storyblok/react'
 import { createElement, type ReactNode, type ImgHTMLAttributes } from 'react'
 import { getLinkAttrs } from '../../utils/linkHandler'
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../../utils/config'
 import MuiLink from '@mui/material/Link'
 
 type LegacyMark = { type: string; attrs?: Record<string, any> }

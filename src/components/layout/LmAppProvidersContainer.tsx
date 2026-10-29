@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../../utils/config'
 import { useSettings } from '../provider/SettingsPageProvider'
 
 export const LmAppProvidersContainer: FC<React.PropsWithChildren<unknown>> = ({

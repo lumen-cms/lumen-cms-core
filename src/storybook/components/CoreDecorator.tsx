@@ -1,3 +1,4 @@
+import { SearchPaletteProvider } from '../../components/list-widget/SearchPaletteProvider'
 import AppProvider from '../../components/provider/AppProvider'
 import SettingsPageProvider from '../../components/provider/SettingsPageProvider'
 import GlobalTheme from '../../components/global-theme/GlobalTheme'
@@ -6,11 +7,9 @@ import { getFontBasedOnSetting } from '../../utils/parseFont'
 import { FC, PropsWithChildren } from 'react'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 
-const CoreDecorator: FC<PropsWithChildren<{ settings: Partial<GlobalStoryblok> }>> = ({
-                                                                                        settings,
-                                                                                        children,
-                                                                                        ...rest
-                                                                                      }) => {
+const CoreDecorator: FC<
+  PropsWithChildren<{ settings: Partial<GlobalStoryblok> }>
+> = ({ settings, children, ...rest }) => {
   return (
     <AppProvider
       content={{
@@ -21,10 +20,12 @@ const CoreDecorator: FC<PropsWithChildren<{ settings: Partial<GlobalStoryblok> }
     >
       <SettingsPageProvider settings={settings as any} page={null}>
         <GlobalTheme>
-          <LmAppProvidersContainer>
-            <div>{children}</div>
-            <link href={getFontBasedOnSetting(settings)} rel='stylesheet' />
-          </LmAppProvidersContainer>
+          <SearchPaletteProvider>
+            <LmAppProvidersContainer>
+              <div>{children}</div>
+              <link href={getFontBasedOnSetting(settings)} rel="stylesheet" />
+            </LmAppProvidersContainer>
+          </SearchPaletteProvider>
         </GlobalTheme>
       </SettingsPageProvider>
     </AppProvider>

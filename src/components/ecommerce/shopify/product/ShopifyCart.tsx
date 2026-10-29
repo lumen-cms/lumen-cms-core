@@ -1,5 +1,6 @@
+import Alert from '@mui/material/Alert'
 import { useState } from 'react'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../../../CoreComponents'
 import Drawer from '@mui/material/Drawer'
 import { Toolbar } from '@mui/material'
 import Grid from '../../../../vendor/grid'
@@ -21,6 +22,7 @@ import { useTheme } from '@mui/material/styles'
 function CheckoutButton() {
   const { onCheckout, config, cartVariants } = useShopifySdkContext()
   const [loading, setLoading] = useState<boolean>(false)
+  const [failed, setFailed] = useState(false)
   return (
     <Box sx={{ marginTop: 2 }}>
       <LmComponentRender
@@ -38,10 +40,21 @@ function CheckoutButton() {
         disabled={loading || getTotalCartQuantity(cartVariants) < 1}
         onClick={async () => {
           setLoading(true)
-          await onCheckout()
-          setLoading(false)
+          setFailed(false)
+          try {
+            await onCheckout()
+          } catch {
+            setFailed(true)
+          } finally {
+            setLoading(false)
+          }
         }}
       />
+      {failed && (
+        <Alert severity="error">
+          Checkout could not be started. Please try again.
+        </Alert>
+      )}
     </Box>
   )
 }

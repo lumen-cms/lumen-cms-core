@@ -1,7 +1,7 @@
 import { Attributes, createElement } from 'react'
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../utils/config'
 import { ComponentRenderFuncProps } from '../typings/app'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from './provider/context/AppContext'
 import { StoryblokEditable } from './provider/StoryblokEditable'
 
 export function LmComponentRender<P>(props: ComponentRenderFuncProps) {

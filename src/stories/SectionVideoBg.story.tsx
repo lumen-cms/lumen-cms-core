@@ -1,4 +1,4 @@
-import { LmComponentRender as LmSectionVideo } from '@LmComponentRender'
+import { LmComponentRender as LmSectionVideo } from '../components/CoreComponents'
 import {
   storyBackground,
   storyColumn,

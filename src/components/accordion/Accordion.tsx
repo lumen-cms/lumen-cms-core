@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmAccordionProps } from './accordionTypes'
 import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 

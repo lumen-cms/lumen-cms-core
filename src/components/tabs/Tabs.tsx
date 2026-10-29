@@ -6,7 +6,7 @@ import TabContext from '@mui/lab/TabContext'
 
 import Grid, { Grid2Props } from '../../vendor/grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import LmIcon from '../icon/LmIcon'
 import {
   HeadlineStoryblok,
@@ -34,6 +34,68 @@ const widthMap = {
   true: true
 }
 
+function TabsHeader({
+  content,
+  isMobile,
+  orientation,
+  onSelect
+}: LmTabsProps & {
+  isMobile: boolean
+  orientation: 'vertical' | 'horizontal'
+  onSelect: (value: string) => void
+}) {
+  const body = content.body || []
+  const tabStyle = content.text_style?.[0]
+  return (
+    <TabList
+      aria-label="Tabs"
+      indicatorColor={
+        content.indicator_color ? content.indicator_color : undefined
+      }
+      textColor={content.text_color ? content.text_color : undefined}
+      scrollButtons
+      centered={!!content.centered && !isMobile}
+      variant={isMobile ? 'scrollable' : content.variant || 'fullWidth'}
+      orientation={orientation}
+      onChange={(_, value) => {
+        onSelect(value)
+      }}
+    >
+      {body.map((tab: TabsItemStoryblok, iteration) => (
+        <Tab
+          label={
+            tabStyle ? (
+              <LmComponentRender
+                content={
+                  {
+                    ...tabStyle,
+                    text: tab.title
+                  } as HeadlineStoryblok
+                }
+              />
+            ) : (
+              tab.title
+            )
+          }
+          wrapped={!!content.wrapped}
+          icon={
+            tab.icon &&
+            tab.icon.name && (
+              <LmIcon
+                style={{ fontSize: 24 }}
+                className="MuiIcon-root"
+                iconName={tab.icon.name}
+              />
+            )
+          }
+          value={`${iteration}`}
+          key={tab._uid}
+        />
+      ))}
+    </TabList>
+  )
+}
+
 export default function LmTabs({ content }: LmTabsProps) {
   const theme = useTheme()
   const isMobile = useMediaQuery(
@@ -45,7 +107,6 @@ export default function LmTabs({ content }: LmTabsProps) {
   const orientation =
     content.vertical_tabs && !isMobile ? 'vertical' : 'horizontal'
   const isVertical = orientation === 'vertical'
-  const tabStyle = content.text_style?.[0]
   return (
     <TabContext value={activeTab}>
       <Grid
@@ -81,52 +142,12 @@ export default function LmTabs({ content }: LmTabsProps) {
           }
         >
           <div>
-            <TabList
-              aria-label="Tabs"
-              indicatorColor={
-                content.indicator_color ? content.indicator_color : undefined
-              }
-              textColor={content.text_color ? content.text_color : undefined}
-              scrollButtons
-              centered={!!content.centered && !isMobile}
-              variant={isMobile ? 'scrollable' : content.variant || 'fullWidth'}
+            <TabsHeader
+              content={content}
+              isMobile={isMobile}
               orientation={orientation}
-              onChange={(_, value) => {
-                setActiveTab(value)
-              }}
-            >
-              {body.map((tab: TabsItemStoryblok, iteration) => (
-                <Tab
-                  label={
-                    tabStyle ? (
-                      <LmComponentRender
-                        content={
-                          {
-                            ...tabStyle,
-                            text: tab.title
-                          } as HeadlineStoryblok
-                        }
-                      />
-                    ) : (
-                      tab.title
-                    )
-                  }
-                  wrapped={!!content.wrapped}
-                  icon={
-                    tab.icon &&
-                    tab.icon.name && (
-                      <LmIcon
-                        style={{ fontSize: 24 }}
-                        className="MuiIcon-root"
-                        iconName={tab.icon.name}
-                      />
-                    )
-                  }
-                  value={`${iteration}`}
-                  key={tab._uid}
-                />
-              ))}
-            </TabList>
+              onSelect={setActiveTab}
+            />
           </div>
         </Grid>
         <Grid

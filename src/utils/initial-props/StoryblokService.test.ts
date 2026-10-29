@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import StoryblokClient from 'storyblok-js-client'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../config'
 import { StoryblokServiceClass } from './StoryblokService'
 import { rootParams } from '../universal/storyblokParamsHelper'
 import {
@@ -24,6 +24,19 @@ beforeEach(() => {
   vi.stubGlobal('fetch', vi.fn(fixtureFetch(requests)))
 })
 afterEach(() => Object.assign(CONFIG, originalConfig))
+
+it('uses only published content and the public token in the browser', async () => {
+  vi.stubGlobal('window', { StoryblokBridge: {} })
+  const service = new StoryblokServiceClass()
+  service.setDevMode()
+  service.setQuery({ _storyblok: 'editor' })
+  await service.getStory('home', { version: 'draft' })
+  expect(requests.length).toBeGreaterThan(0)
+  for (const url of requests) {
+    expect(url.searchParams.get('token')).toBe('public-test')
+    expect(url.searchParams.get('version')).not.toBe('draft')
+  }
+})
 
 it('matches the legacy SDK for nested relations, links, and pagination metadata', async () => {
   const legacy = new StoryblokClient({

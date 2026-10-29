@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { FormContainer, TextFieldElement } from 'react-hook-form-mui'
-import { Button } from '@mui/material'
-import { LmComponentRender } from '@LmComponentRender'
+import { Alert, Button } from '@mui/material'
+import { LmComponentRender } from '../CoreComponents'
 import { useAuth0 } from '@auth0/auth0-react'
 import { FieldError } from 'react-hook-form'
 import { Auth0FormProps } from './authTypes'
@@ -16,6 +16,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
   const locale = router.locale
   const auth0Hook = useAuth0()
   const [updating, setUpdating] = useState(false)
+  const [failed, setFailed] = useState(false)
   const defaults = {
     email: user?.email || '',
     given_name: user?.firstName || '',
@@ -27,6 +28,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
       given_name: 'Vorname',
       family_name: 'Nachname',
       submit: 'Aktualisieren',
+      request_error: 'Die Anfrage ist fehlgeschlagen. Bitte erneut versuchen.',
       error_required: 'Bitte das Pflichtfeld ausfüllen',
       error_email: 'Das ist keine gültige Email-Adresse',
       email_helper: 'Die Email Adresse kann nicht verändert werden.'
@@ -36,6 +38,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
       given_name: 'First Name',
       family_name: 'Surname',
       submit: 'Update',
+      request_error: 'The request failed. Please try again.',
       error_required: 'This field is required',
       error_email: 'This is not a valid email address',
       email_helper: 'The email can not be changed.'
@@ -53,31 +56,42 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
         return fieldError.message || ''
     }
   }
-  const onSuccess = async (data: any) => {
+  const requestAccountChange = async (url: string) => {
+    if (!auth0Hook) return false // Storyblok preview has no authenticated user.
     setUpdating(true)
+    setFailed(false)
+    try {
+      const accessToken = await auth0Hook.getAccessTokenSilently()
+      const response = await fetch(url, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      })
+      if (!response.ok) throw new Error('Account request failed')
+      return true
+    } catch {
+      setFailed(true)
+      return false
+    } finally {
+      setUpdating(false)
+    }
+  }
+  const onSuccess = async (data: any) => {
     const params = new URLSearchParams()
     params.append('sub', user?.sub as string)
     Object.keys(data).forEach((key) => {
       params.append(key, data[key])
     })
-    if (!auth0Hook) {
-      return // in case we are in backened of Storyblok
-    }
-    const accessToken = await auth0Hook.getAccessTokenSilently()
-    try {
-      await fetch(`${auth0Endpoint.api}/api/update-user?${params.toString()}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      })
-    } catch (e) {
-      console.error(e)
-    }
-    setUpdating(false)
+    await requestAccountChange(
+      `${auth0Endpoint.api}/api/update-user?${params.toString()}`
+    )
   }
 
   return (
     <>
+      {failed && (
+        <Alert severity="error">
+          {translations[currentLocale].request_error}
+        </Alert>
+      )}
       <FormContainer onSuccess={onSuccess as any} defaultValues={defaults}>
         <TextFieldElement
           name="given_name"
@@ -132,25 +146,12 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
           content={blok}
           disabled={updating}
           onClick={async () => {
-            setUpdating(true)
-            if (!auth0Hook) {
-              return // inside of Storyblok
-            }
-            const accessToken = await auth0Hook.getAccessTokenSilently()
-            try {
-              await fetch(
-                `${auth0Endpoint.api}/api/delete-user?sub=${user?.sub || ''}`,
-                {
-                  headers: {
-                    Authorization: `Bearer ${accessToken}`
-                  }
-                }
-              )
-            } catch (e) {
-              console.error(e)
-            }
-            setUpdating(false)
-            window.location.reload()
+            const deleted = await requestAccountChange(
+              `${auth0Endpoint.api}/api/delete-user?sub=${encodeURIComponent(
+                user?.sub || ''
+              )}`
+            )
+            if (deleted) window.location.reload()
           }}
         />
       ))}

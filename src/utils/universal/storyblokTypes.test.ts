@@ -14,8 +14,8 @@ import { getContentFields } from '../../components/list-widget/listUtils/getCont
 import type { ListStoriesData } from '../../components/list-widget/listWidgetTypes'
 
 const service = vi.hoisted(() => ({ getStories: vi.fn() }))
-vi.mock('../initial-props/StoryblokService', () => ({
-  LmStoryblokService: service
+vi.mock('../storyblok/browserClient', () => ({
+  getBrowserStories: service.getStories
 }))
 
 it('preserves named option types and accepts both numeric CMS representations', () => {

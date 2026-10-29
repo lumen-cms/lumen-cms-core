@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-29",
+  "scope": "Exactly three source complexity roots. Generated artifacts, suppression settings, dependencies and unrelated work unchanged.",
+  "rootCauses": [
+    {
+      "name": "Swiper configuration complexity",
+      "file": "src/components/slider/LmSwiper.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "Cyclomatic 19, cognitive 18; responsive/autoplay/effect options obscured slide rendering.",
+      "impact": "Maintenance improvement; no known user-visible failure or speedup claimed.",
+      "fix": "Extract pure getSwiperProps calculation. Preserve modules, options, effect conditions, default/zero fallbacks and rendering/SSR boundaries.",
+      "tests": "Three new configuration tests and two existing actual SSR/registry tests pass before and after. Cover autoplay, flags, breakpoints, effects, pagination, styles and content order."
+    },
+    {
+      "name": "Story-list fetch configuration and result rendering complexity",
+      "file": "src/components/list-widget/ListStories.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "Cyclomatic 26, cognitive 17; fallback/revalidation logic and loading/results decisions mixed with pagination subscriptions and state.",
+      "impact": "Maintenance improvement; no intended fetching, pagination or search behavior change.",
+      "fix": "Extract typed fetch configuration and module-scope StoryResults. Retain SWR ownership, page state, URL updates, search effects, loading indicator position, pagination order and route/timer cleanup.",
+      "tests": "Three new presentation/configuration tests plus existing real-SWR pagination/search and strict-mode timer/listener cleanup tests pass before and after. Cover initial fallback, missing data, loading/empty/results, max-items bypass and page/search resets."
+    },
+    {
+      "name": "Page-head tracking integration complexity",
+      "file": "src/components/layout/AppHead.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "Cyclomatic 25; repeated production/editor gates obscured metadata and custom script rendering.",
+      "impact": "Maintenance improvement; analytics must remain enabled only under the existing conditions. No tracking/privacy behavior change intended.",
+      "fix": "Extract module-scope TrackingScripts with explicit settings/editor flag and common production/editor guard. Preserve Facebook/AdRoll/GA/GTM order and requirements; keep metadata, preview fonts and custom scripts in parent.",
+      "tests": "Five tests pass before and after: production versus development/editor gating, IDs/GTM requirements, preview font disabling, PWA metadata, favicon sizes, logo, CSS, inline/external script strategies/attributes and incomplete PWA configuration. Existing script-attribute and tracking-pixel tests also pass."
+    }
+  ],
+  "canonicalRecipe": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function",
+  "recipeReview": "Fetched canonical recipe using curl with Cache-Control: no-cache and Pragma: no-cache. Reviewed evidence boundary and meaningful responsibility extraction. Read installed Next Head/Script docs. No hook ownership changes or suppressions.",
+  "grouping": "Three independent component diagnostics; no fixGroupId supplied.",
+  "validation": {
+    "tests": "25 tests pass across eight files: LmSwiper.config, LmSwiper, ListStories.presentation, ListStories, ListStories.cleanup, AppHead, scriptAttributes, FbqPixel. New tests and affected existing tests also passed before each refactor.",
+    "typecheck": "tsc --noEmit passes after narrowing extracted helper content to LmListStoriesProps rather than the broader fetcher type",
+    "lint": "Zero errors. Three pre-existing story-list hook warnings remain: render-time ref access and two setState-in-effect cases. ESLint of saved pre-change source reported the same rule patterns (eight warning instances). No suppressions added.",
+    "format": "Prettier and git diff --check pass",
+    "command": "npx react-doctor@latest --verbose",
+    "runs": {
+      "swiper": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-ac873f1b-e03c-4c64-8a33-f622526c646d/diagnostics.json",
+        "totalFindings": 52
+      },
+      "stories": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-147f4714-d65b-4296-af1c-ce7dc8a3c0af/diagnostics.json",
+        "totalFindings": 51
+      },
+      "head": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-f2d0faf1-3f79-4bbc-82c7-d02eced48cdf/diagnostics.json",
+        "totalFindings": 52
+      },
+      "verified": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-896066c3-c33c-4006-9ac4-81a19a6ab189/diagnostics.json",
+        "totalFindings": 53
+      }
+    },
+    "targetedComplexityFindingsRemaining": 0,
+    "newSourceFindings": 0,
+    "sourceCount": "28 to 25, exactly three selected source removals",
+    "overallCount": "51 to 53; non-source findings changed independently. Only source diagnostic deltas attributed to this pass.",
+    "limitations": "No production build or live browser/tracking calls. Tests mock selected rendering boundaries; existing Swiper tests exercise actual SSR/registry and story tests exercise real SWR. Doctor completes with exit 1 due to remaining findings."
+  },
+  "remaining": {
+    "total": 53,
+    "source": 25,
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 7,
+      "nextjs-no-a-element": 1,
+      "js-set-map-lookups": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "sourceErrors": [],
+    "followUp": "Review remaining seven complexity roots, six lookup warnings and other source warnings individually. Existing story-list hook warnings need a separate behavior review. Generated artifacts untouched."
+  }
+}

@@ -1,4 +1,4 @@
-import { LmComponentRender as LmHtml } from '@LmComponentRender'
+import { LmComponentRender as LmHtml } from '../components/CoreComponents'
 import { storyHtml } from '../storybook/core/various'
 
 // eslint-disable-next-line import/no-anonymous-default-export

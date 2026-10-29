@@ -1,7 +1,7 @@
 import { useInView } from 'react-intersection-observer'
 import { CSSProperties, useEffect, useState } from 'react'
 import Container, { ContainerProps } from '@mui/material/Container'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmSectionVideoProps } from './sectionTypes'
 import dynamic from 'next/dynamic'

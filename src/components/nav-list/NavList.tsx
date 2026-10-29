@@ -3,19 +3,15 @@ import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import LmIcon from '../icon/LmIcon'
 import { LmNavListProps } from './navListTypes'
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmFlexRow } from '../flex-row/FlexRow'
 import { HeadlineStoryblok } from '../../typings/generated/components-schema'
 import clsx from 'clsx'
 
-export function LmNavList({ content }: LmNavListProps): React.JSX.Element {
-  const { isMobile } = useDeviceDimensions()
-  const body = (content && content.body) || []
-  const properties = content.properties || []
-  const { header, headline_styles, navigation_item_styles } = content
-  let headlineStyle = headline_styles?.[0]
-  const listItemStyle = navigation_item_styles?.[0]
-  const HeadlineHeader = () => (
+function HeadlineHeader({ content }: LmNavListProps) {
+  const { header, headline_styles } = content
+  const headlineStyle = headline_styles?.[0]
+  return (
     <LmComponentRender
       content={
         {
@@ -31,9 +27,15 @@ export function LmNavList({ content }: LmNavListProps): React.JSX.Element {
       {header}
     </LmComponentRender>
   )
+}
+
+function ChildrenRender({ content }: LmNavListProps) {
+  const body = content.body || []
+  const properties = content.properties || []
+  const listItemStyle = content.navigation_item_styles?.[0]
   const isColumn = properties.some((i) => i === 'flex-column')
   const isCentered = properties.some((i) => i === 'justify-content-center')
-  const ChildrenRender = () => (
+  return (
     <LmFlexRow
       content={{
         _uid: content._uid,
@@ -53,6 +55,11 @@ export function LmNavList({ content }: LmNavListProps): React.JSX.Element {
       ))}
     </LmFlexRow>
   )
+}
+
+export function LmNavList({ content }: LmNavListProps): React.JSX.Element {
+  const { isMobile } = useDeviceDimensions()
+  const { header } = content
   if ((isMobile && content.collapse_on_mobile) || content.forceCollapse) {
     return (
       <Accordion>
@@ -73,13 +80,13 @@ export function LmNavList({ content }: LmNavListProps): React.JSX.Element {
             )
           }
         >
-          <HeadlineHeader />
+          <HeadlineHeader content={content} />
         </AccordionSummary>
         <AccordionDetails>
           <div
             className={clsx('lm-nav-list w-100', content.class_names?.values)}
           >
-            <ChildrenRender />
+            <ChildrenRender content={content} />
           </div>
         </AccordionDetails>
       </Accordion>
@@ -87,8 +94,8 @@ export function LmNavList({ content }: LmNavListProps): React.JSX.Element {
   }
   return (
     <div className={clsx('lm-nav-list w-100', content.class_names?.values)}>
-      {header && <HeadlineHeader />}
-      <ChildrenRender />
+      {header && <HeadlineHeader content={content} />}
+      <ChildrenRender content={content} />
     </div>
   )
 }

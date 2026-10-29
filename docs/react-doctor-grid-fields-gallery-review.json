@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source root causes only. Generated artifacts, configuration, suppression settings, dependencies and unrelated pre-existing work unchanged.",
+  "rootCauses": [
+    {
+      "name": "Redundant grid breakpoint membership check",
+      "file": "src/vendor/grid/gridGenerator.ts",
+      "rule": "js-set-map-lookups",
+      "outcome": "Observation",
+      "evidence": "Both branches selecting keys use breakpoints.keys or a filtered subset. Every selected key is already a valid breakpoint; internal traversal callbacks do not mutate the keys. The indexOf position was used only as membership, not as an index.",
+      "impact": "Tiny repeated work during responsive grid styling. No known visible failure and no claimed live page-speed improvement.",
+      "fix": "Remove the already-proven membership check without constructing another collection. Preserve ordering, undefined filtering and style append behavior. Leave the separate filterBreakpointKeys lookup unchanged.",
+      "tests": "Three traversal tests pass before/after: small and large object branches, unknown/undefined keys, order, arrays, scalar and empty inputs. Two existing real grid SSR style tests also pass.",
+      "memory": "No new Set, Map, cache or allocation added. Existing keys allocation remains unchanged; no heap improvement claimed."
+    },
+    {
+      "name": "Google Form field configuration complexity",
+      "file": "src/components/google-form/GoogleFormElement.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "impact": "Maintenance risk from duplicated required-error and label/style configuration across input branches. No known user-facing failure.",
+      "fix": "Extract shared field props and apply required/error configuration once; retain text/select/checkbox/date rendering, module-scope dynamic boundary, option order and filtering.",
+      "tests": "Nine tests pass before and after, covering all six supported field types, frozen options, empty option labels, placeholder/label choice, required errors, multiline rows, variant and date input styling."
+    },
+    {
+      "name": "Gallery layout configuration complexity",
+      "file": "src/components/image-list/ImageList.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "impact": "Maintenance risk from mixing responsive layout defaults with gallery/lightbox behavior. No known user-facing failure.",
+      "fix": "Extract cohesive gallery style calculation. Keep lightbox state, handlers, item keys, link selection and dynamic component ownership in the gallery.",
+      "tests": "Four tests pass before/after: standard/masonry default and override columns, aspect ratio, explicit variant precedence, spacing/row height, link versus lightbox behavior, item dimensions, lightbox persistence and closing, empty gallery."
+    }
+  ],
+  "canonicalRecipes": {
+    "js-set-map-lookups": "https://react.doctor/docs/rules/react-doctor/js-set-map-lookups",
+    "no-high-complexity-react-function": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function"
+  },
+  "recipeReview": "Fetched via curl with Cache-Control: no-cache and Pragma: no-cache; read evidence, false-positive and fix recipes. No Set conversion without amortization evidence. Removed a logically redundant membership test instead. Complexity fixes separate cohesive configuration without moving state/effects or adding nested components. Read installed Next lazy-loading documentation and React best-practices skill.",
+  "lookupReview": "Google Forms script HTML includes() and settings path includes() are substring searches, not array membership, so left unchanged. Any-tag paths remain unchanged after prior benchmark concerns. No blanket lookup conversion or suppression.",
+  "grouping": "Three independent roots. Grid file retains its distinct first-stage filtering lookup; only the redundant second-stage membership root is fixed.",
+  "benchmark": {
+    "method": "Transpile actual before/after grid source, execute traverseBreakpoints with equal-output assertions, 10000 warmup calls and median of 15 batches of 20000 calls. Includes existing key selection and style allocations. Synthetic representative grid inputs, not live-site traces.",
+    "results": [
+      {
+        "responsive": {
+          "xs": 1,
+          "lg": 4
+        },
+        "beforeMs": 14.199833000000012,
+        "afterMs": 14.089583999999945,
+        "calls": 20000
+      },
+      {
+        "responsive": {
+          "xs": 1,
+          "sm": 2,
+          "md": 3,
+          "lg": 4,
+          "xl": 5,
+          "invalid": 8
+        },
+        "beforeMs": 14.341625000000022,
+        "afterMs": 13.327625000000012,
+        "calls": 20000
+      },
+      {
+        "responsive": {
+          "invalid": 3
+        },
+        "beforeMs": 9.798250000000053,
+        "afterMs": 9.939458000000059,
+        "calls": 20000
+      }
+    ],
+    "interpretation": "Two normal responsive scenarios improved slightly; undefined-only scenario differed by +0.141 ms per 20000 calls (about 7 ns per call), too small to establish a meaningful regression. This is an optional redundant-work cleanup, not a demonstrated production performance defect."
+  },
+  "validation": {
+    "tests": "19 tests pass across five files",
+    "typecheck": "tsc --noEmit passes",
+    "lint": "Six changed source/test files pass with zero errors/warnings",
+    "format": "Prettier and git diff --check pass",
+    "command": "npx react-doctor@latest --verbose",
+    "runs": {
+      "grid": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-2ef351f8-8517-4e2b-81e6-53b850a3bf4e/diagnostics.json",
+        "totalFindings": 63
+      },
+      "fields": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-de159b80-4b84-42bb-8cb3-0af10f7cb297/diagnostics.json",
+        "totalFindings": 62
+      },
+      "gallery": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-9ba692d6-ee25-4efa-8be4-995a52435be6/diagnostics.json",
+        "totalFindings": 61
+      }
+    },
+    "targetedFindingsRemoved": 3,
+    "newFindings": 0,
+    "overallCount": "64 to 61; exactly the three selected source removals. Generated diagnostics unchanged.",
+    "limitations": "No production build or browser visual comparison. Gallery tests mock rendering boundaries; grid SSR tests use the actual grid. React Doctor completes with exit 1 because other findings remain."
+  },
+  "remaining": {
+    "total": 61,
+    "source": 37,
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 19,
+      "nextjs-no-a-element": 1,
+      "js-set-map-lookups": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "sourceErrors": [],
+    "followUp": "Review remaining complexity and lookup findings individually; preserve string-search semantics and require evidence before changing small-array or any-tag lookups. Other warnings and generated artifacts left alone."
+  }
+}

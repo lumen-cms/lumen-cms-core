@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { useSettings } from '../provider/SettingsPageProvider'
 
 export default function EmptyContent() {

@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-29",
+  "scope": [
+    "no-derived-useState",
+    "no-array-index-as-key",
+    "no-json-parse-stringify-clone"
+  ],
+  "canonicalRecipes": {
+    "no-derived-useState": "https://react.doctor/docs/rules/react-doctor/no-derived-useState",
+    "no-array-index-as-key": "https://react.doctor/docs/rules/react-doctor/no-array-index-as-key",
+    "no-json-parse-stringify-clone": "https://react.doctor/docs/rules/react-doctor/no-json-parse-stringify-clone"
+  },
+  "recipeFetch": "Fetched via curl -fsSL with Cache-Control:no-cache and Pragma:no-cache; read validation and fix recipes before edits. Consulted installed Next getStaticProps serialization requirements; continued React best-practices skill.",
+  "grouping": "Six occurrences across three rule groups; none has fixGroupId. Carousel and table occurrences grouped by shared identity root causes.",
+  "reviews": [
+    {
+      "rule": "no-derived-useState",
+      "file": "src/components/player/Player.tsx",
+      "line": 25,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed: playing was captured from content once even when the CMS value changed. Derive playing from current content.playing and independent hover state. Mouse enter/leave set hover state explicitly; hover reverses the configured playback setting. The previous regression test intentionally preserved old behavior but there is no initial-only prop contract; updated it to verify current CMS settings while retaining player DOM."
+    },
+    {
+      "rule": "no-array-index-as-key",
+      "file": "src/components/slider/LmNukaCarousel.tsx",
+      "line": 154,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed pagination identity mismatch and positional fallback for primitive slides. Build slide entries once with React child keys for elements and type/value identity for primitives, plus duplicate occurrence suffixes; use the same identity for wrappers and pagination. Existing Slider/Tabs callers provide CMS _uid keys. Reorder test preserves input nodes/values and pagination node, and verifies its updated navigation target."
+    },
+    {
+      "rule": "no-array-index-as-key",
+      "file": "src/components/slider/LmNukaCarousel.tsx",
+      "line": 255,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed pagination identity mismatch and positional fallback for primitive slides. Build slide entries once with React child keys for elements and type/value identity for primitives, plus duplicate occurrence suffixes; use the same identity for wrappers and pagination. Existing Slider/Tabs callers provide CMS _uid keys. Reorder test preserves input nodes/values and pagination node, and verifies its updated navigation target."
+    },
+    {
+      "rule": "no-array-index-as-key",
+      "file": "src/components/table/Table.tsx",
+      "line": 163,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed: positional keys moved DOM identity to another row/header on reorder. CMS data has no row or column IDs. Derive keys from JSON-encoded content plus duplicate occurrence counts; row/header/cell values preserve order and duplicate rendering. Reorder test confirms existing input value and node remain with the same distinct row. Removed obsolete array-index ESLint suppression."
+    },
+    {
+      "rule": "no-array-index-as-key",
+      "file": "src/components/table/Table.tsx",
+      "line": 170,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed: positional keys moved DOM identity to another row/header on reorder. CMS data has no row or column IDs. Derive keys from JSON-encoded content plus duplicate occurrence counts; row/header/cell values preserve order and duplicate rendering. Reorder test confirms existing input value and node remain with the same distinct row. Removed obsolete array-index ESLint suppression."
+    },
+    {
+      "rule": "no-json-parse-stringify-clone",
+      "file": "src/utils/initial-props/storyblokResponse.ts",
+      "line": 23,
+      "fixGroupId": null,
+      "outcome": "Confirmed failure, fixed",
+      "evidence": "Confirmed JSON round-trip clone. Replaced with structuredClone, already used throughout the enclosing Storyblok service. Source payload is parsed JSON-compatible Storyblok data, and relation expansion stays bounded by existing _stopResolving logic. Tests confirm independent copies, finite mutual references, legacy SDK payload equality and complete serialized page props."
+    }
+  ],
+  "humanImpact": {
+    "player": "CMS playback changes previously could leave a video playing or paused against the current setting. Fixed current-setting behavior without remounting.",
+    "keys": "After reorder React could attach focus or uncontrolled input state to the wrong row/slide control. Tests demonstrate state now follows distinct content/explicit slide identities.",
+    "clone": "Avoids unnecessary serialization work when copying relations. No production data-loss failure or measured speedup claimed for existing JSON-shaped API data."
+  },
+  "limitations": [
+    "Dynamic element children still require stable caller keys; React-generated positional keys cannot infer item identity. Existing CMS Slider and Tabs callers use stable IDs.",
+    "CMS table strings have no durable IDs. Content edits intentionally remount the affected row; identical duplicates are distinguished only by occurrence within that content, not by a nonexistent persistent identity.",
+    "structuredClone is not a JSON sanitizer; callers must preserve the existing JSON-compatible API-data contract.",
+    "Focused tests and complete serialized page-data fixtures, not a full production build or browser media-provider playback audit."
+  ],
+  "validation": {
+    "tests": "39 passed across eight files; player updates/hover, real Swiper behavior, mocked carousel reorder/control behavior, table DOM identity, Tabs, clone independence, Storyblok SDK parity and server page props.",
+    "typecheck": "pnpm run check-types passed.",
+    "format": "Prettier and scoped git diff --check passed.",
+    "lint": "Zero errors; one pre-existing unused react/no-danger suppression remains in Table.tsx. No suppression added.",
+    "intermediate": "Player scan: 36 remaining, playback warning gone. Key scan: 32 remaining, all four selected index-key warnings gone.",
+    "doctorCommand": "npx react-doctor@latest --verbose",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-b02eccbf-841a-474d-bacd-a6b95c082ac0/diagnostics.json",
+    "before": 37,
+    "after": 31,
+    "removed": 6,
+    "added": 0,
+    "exitCode": 1,
+    "exitReason": "Previously reviewed artifact-secret false positives still reported as errors."
+  },
+  "remaining": {
+    "reviewedReports": 29,
+    "unreviewedFindings": 2,
+    "unreviewedGroups": {
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "countsByRule": {
+      "artifact-secret-leak": 6,
+      "insecure-crypto-risk": 12,
+      "postmessage-origin-risk": 1,
+      "dangerous-html-sink": 4,
+      "nextjs-no-a-element": 1,
+      "nextjs-no-css-link": 2,
+      "js-set-map-lookups": 3,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    }
+  }
+}

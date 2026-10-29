@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
-import { LmComponentRender } from '@LmComponentRender'
-import { LmCoreComponents } from '@CONFIG'
+import { LmComponentRender } from '../CoreComponents'
+import { LmCoreComponents } from '../../utils/config'
 import dynamic from 'next/dynamic'
 import { imageListAspectRatioSx, imageListRootSx } from './imageListStyles'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
@@ -12,6 +12,54 @@ import Box from '@mui/material/Box'
 import clsx from 'clsx'
 
 const ImageListLightbox = dynamic(() => import('./ImageListLightbox'))
+
+function getImageListSx(
+  content: LmImageListProps['content'],
+  isMasonry: boolean
+) {
+  return {
+    '& .MuiImageListItem-woven, & .MuiImageListItem-quilted': {
+      overflow: 'hidden',
+      '& > span': {
+        height: '100%!important',
+        width: '100%!important'
+      }
+    },
+    ...(!isMasonry
+      ? {
+          gridTemplateColumns: {
+            xs: `repeat(${
+              content.column_count_phone ||
+              content.column_count ||
+              COLUMN_COUNT.PHONE
+            }, 1fr)!important`,
+            sm: `repeat(${
+              content.column_count_tablet ||
+              content.column_count ||
+              COLUMN_COUNT.TABLET
+            }, 1fr)!important`,
+            lg: `repeat(${
+              content.column_count || COLUMN_COUNT.DESKTOP
+            }, 1fr)!important`
+          }
+        }
+      : {
+          columnCount: {
+            xs: `${
+              content.column_count_phone ||
+              content.column_count ||
+              COLUMN_COUNT.PHONE_MASONRY
+            }!important`,
+            sm: `${
+              content.column_count_tablet ||
+              content.column_count ||
+              COLUMN_COUNT.TABLET
+            }!important`,
+            lg: `${content.column_count || COLUMN_COUNT.DESKTOP}!important`
+          }
+        })
+  }
+}
 
 export default function LmImageList({
   content
@@ -42,50 +90,7 @@ export default function LmImageList({
           rowHeight={content.row_height ? Number(content.row_height) : 'auto'}
           gap={gutterSize}
           variant={content.variant || (isMasonry ? 'masonry' : 'standard')}
-          sx={{
-            '& .MuiImageListItem-woven, & .MuiImageListItem-quilted': {
-              overflow: 'hidden',
-              '& > span': {
-                height: '100%!important',
-                width: '100%!important'
-              }
-            },
-            ...(!isMasonry
-              ? {
-                  gridTemplateColumns: {
-                    xs: `repeat(${
-                      content.column_count_phone ||
-                      content.column_count ||
-                      COLUMN_COUNT.PHONE
-                    }, 1fr)!important`,
-                    sm: `repeat(${
-                      content.column_count_tablet ||
-                      content.column_count ||
-                      COLUMN_COUNT.TABLET
-                    }, 1fr)!important`,
-                    lg: `repeat(${
-                      content.column_count || COLUMN_COUNT.DESKTOP
-                    }, 1fr)!important`
-                  }
-                }
-              : {
-                  columnCount: {
-                    xs: `${
-                      content.column_count_phone ||
-                      content.column_count ||
-                      COLUMN_COUNT.PHONE_MASONRY
-                    }!important`,
-                    sm: `${
-                      content.column_count_tablet ||
-                      content.column_count ||
-                      COLUMN_COUNT.TABLET
-                    }!important`,
-                    lg: `${
-                      content.column_count || COLUMN_COUNT.DESKTOP
-                    }!important`
-                  }
-                })
-          }}
+          sx={getImageListSx(content, !!isMasonry)}
         >
           {body.map((item, i) => {
             const btnProps: any =

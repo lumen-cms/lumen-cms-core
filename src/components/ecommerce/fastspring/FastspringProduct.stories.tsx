@@ -1,5 +1,5 @@
-import { LmCoreComponents } from '@CONFIG'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmCoreComponents } from '../../../utils/config'
+import { LmComponentRender } from '../../CoreComponents'
 import { appContext } from '../../../storybook/config'
 import {
   ButtonStoryblok,

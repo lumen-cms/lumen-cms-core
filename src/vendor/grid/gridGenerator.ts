@@ -84,19 +84,18 @@ export const traverseBreakpoints = <T = unknown>(
         ? breakpoints.keys
         : filterBreakpointKeys(breakpoints.keys, Object.keys(responsive))
 
+    // Both branches above select keys from breakpoints.keys.
     keys.forEach((key) => {
-      if (breakpoints.keys.indexOf(key as Breakpoint) !== -1) {
-        // @ts-ignore already checked that responsive is an object
-        const breakpointValue: T = responsive[key]
-        if (breakpointValue !== undefined) {
-          iterator((responsiveStyles, style) => {
-            if (smallestBreakpoint === key) {
-              Object.assign(responsiveStyles, style)
-            } else {
-              responsiveStyles[breakpoints.up(key as Breakpoint)] = style
-            }
-          }, breakpointValue)
-        }
+      // @ts-ignore already checked that responsive is an object
+      const breakpointValue: T = responsive[key]
+      if (breakpointValue !== undefined) {
+        iterator((responsiveStyles, style) => {
+          if (smallestBreakpoint === key) {
+            Object.assign(responsiveStyles, style)
+          } else {
+            responsiveStyles[breakpoints.up(key as Breakpoint)] = style
+          }
+        }, breakpointValue)
       }
     })
   } else if (typeof responsive === 'number' || typeof responsive === 'string') {

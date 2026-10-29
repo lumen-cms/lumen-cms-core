@@ -1,5 +1,5 @@
 import { AppPageProps } from '../../../typings/app'
-import { SSR_CONFIG } from '@SSR_CONFIG'
+import { SSR_CONFIG } from '../ssrConfig'
 import { timed } from '../debugTiming'
 
 export const fetchComponentData = async (props: AppPageProps) => {

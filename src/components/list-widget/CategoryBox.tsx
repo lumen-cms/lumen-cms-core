@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from 'react'
+import { CSSProperties, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
@@ -22,6 +22,7 @@ export default function LmCategoryBox({
       : [query.search__categories]
   }
   const [selected, setSelected] = useState<string[]>(initialValues)
+  const selectedIds = useMemo(() => new Set(selected), [selected])
   const [categories] = useState(content.category_box_data || []) //allCategories
   const setSearchCategory = useSearchStore(setSearchCategorySelector)
   const style: CSSProperties = {}
@@ -81,7 +82,7 @@ export default function LmCategoryBox({
                 <Checkbox
                   id={category.uuid}
                   name={category.uuid}
-                  checked={selected.includes(checkboxValue)}
+                  checked={selectedIds.has(checkboxValue)}
                   value={checkboxValue}
                   onChange={(event) => {
                     const { value, checked } = event.currentTarget

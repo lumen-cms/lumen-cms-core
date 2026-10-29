@@ -1,4 +1,4 @@
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../config'
 import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
 import { ISbStoryParams } from 'storyblok-js-client'

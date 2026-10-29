@@ -1,4 +1,4 @@
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../utils/config'
 import dynamic from 'next/dynamic'
 
 LmCoreComponents.table = dynamic(
@@ -6,12 +6,10 @@ LmCoreComponents.table = dynamic(
 )
 
 LmCoreComponents.section_video_bg = dynamic(
-  () => import(/* webpackChunkName: 'video' */ './section/SectionVideoBg')
+  () => import('./section/SectionVideoBg')
 )
 
-LmCoreComponents.player = dynamic(
-  () => import(/* webpackChunkName: 'video' */ './player/Player')
-)
+LmCoreComponents.player = dynamic(() => import('./player/Player'))
 
 LmCoreComponents.motion = dynamic(
   () => import(/* webpackChunkName: 'motion' */ './motion/Motion')
@@ -28,16 +26,13 @@ LmCoreComponents.instagram_post = () => null // instagram disabled for now
 LmCoreComponents.instagram_list = () => null // instagram disabled for now
 
 LmCoreComponents.list_search_autocomplete = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: 'popper' */ './list-widget/ListSearchAutocomplete'
-    )
+  () => import('./list-widget/ListSearchAutocomplete')
 )
 LmCoreComponents.category_box = dynamic(
-  () => import(/* webpackChunkName: 'popper' */ './list-widget/CategoryBox')
+  () => import('./list-widget/CategoryBox')
 )
 LmCoreComponents.list_search_field = dynamic(
-  () => import(/* webpackChunkName: 'popper' */ './list-widget/ListSearchField')
+  () => import('./list-widget/ListSearchField')
 )
 
 LmCoreComponents.section_parallax = dynamic(
@@ -50,19 +45,13 @@ LmCoreComponents.accordion_item = dynamic(
   () => import(/* webpackChunkName: 'accordion' */ './accordion/AccordionItem')
 )
 
-LmCoreComponents.snackbar = dynamic(
-  () => import(/* webpackChunkName: 'popper' */ './snackbar/Snackbar')
-)
-LmCoreComponents.image_list = dynamic(
-  () => import(/* webpackChunkName: 'slider' */ './image-list/ImageList')
-)
+LmCoreComponents.snackbar = dynamic(() => import('./snackbar/Snackbar'))
+LmCoreComponents.image_list = dynamic(() => import('./image-list/ImageList'))
 LmCoreComponents.image_list_item = dynamic(
-  () => import(/* webpackChunkName: 'slider' */ './image-list/ImageListItem')
+  () => import('./image-list/ImageListItem')
 )
 
-LmCoreComponents.slider = dynamic(
-  () => import(/* webpackChunkName: 'slider' */ './slider/Slider')
-)
+LmCoreComponents.slider = dynamic(() => import('./slider/Slider'))
 LmCoreComponents.timeline_item = dynamic(
   () => import(/* webpackChunkName: 'timeline' */ './timeline/TimelineItem')
 )
@@ -72,17 +61,13 @@ LmCoreComponents.timeline = dynamic(
     ssr: false
   }
 )
-LmCoreComponents.tabs = dynamic(
-  () => import(/* webpackChunkName: 'slider' */ './tabs/Tabs')
-)
+LmCoreComponents.tabs = dynamic(() => import('./tabs/Tabs'))
 LmCoreComponents.hubspot_meeting = dynamic(
-  () =>
-    import(/* webpackChunkName: 'hubspot' */ './hubspot-meeting/HubspotMeeting')
+  () => import('./hubspot-meeting/HubspotMeeting')
 )
 
 LmCoreComponents.hubspot_form = dynamic(
-  () =>
-    import(/* webpackChunkName: 'hubspot' */ './hubspot-meeting/HubspotForm')
+  () => import('./hubspot-meeting/HubspotForm')
 )
 
 LmCoreComponents.paragraph = dynamic(
@@ -149,17 +134,11 @@ LmCoreComponents.form_checkbox = dynamic(
     import(/* webpackChunkName: 'formBuilder' */ './form-builder/FormCheckbox')
 )
 
-LmCoreComponents.card_list_item = dynamic(
-  () => import(/* webpackChunkName: 'lists' */ './card/CardListItem')
-)
+LmCoreComponents.card_list_item = dynamic(() => import('./card/CardListItem'))
 
-LmCoreComponents.card_list = dynamic(
-  () => import(/* webpackChunkName: 'lists' */ './card/CardList')
-)
+LmCoreComponents.card_list = dynamic(() => import('./card/CardList'))
 
-LmCoreComponents.list_widget = dynamic(
-  () => import(/* webpackChunkName: 'lists' */ './list-widget/ListWidget')
-)
+LmCoreComponents.list_widget = dynamic(() => import('./list-widget/ListWidget'))
 
 LmCoreComponents.event_calendar = dynamic(() => import('./event/EventCalendar'))
 
@@ -168,8 +147,9 @@ LmCoreComponents.list_stories = dynamic(
 )
 
 LmCoreComponents.swiper = dynamic(
-  () => /* webpackChunkName: 'swiper' */ import('./slider/LmSwiper'),
-  { ssr: false }
+  // Swiper React supports SSR. Render the CMS slide content on the server so
+  // slow slide chunks cannot leave initialized, zero-height carousels behind.
+  () => /* webpackChunkName: 'swiper' */ import('./slider/LmSwiper')
 )
 LmCoreComponents.swiper_item = dynamic(
   () => /* webpackChunkName: 'swiper' */ import('./slider/LmSwiperSlide')

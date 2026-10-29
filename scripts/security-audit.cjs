@@ -5,8 +5,8 @@ const { spawnSync } = require('node:child_process')
 
 const root = path.resolve(__dirname, '..')
 const result = spawnSync(
-  'yarn',
-  ['npm', 'audit', '--all', '--recursive', '--json'],
+  'pnpm',
+  ['audit', '--json'],
   {
     cwd: root,
     encoding: 'utf8',
@@ -31,7 +31,7 @@ const advisories = Object.values(audit.advisories).map((entry) => ({
   url: entry.url,
   patchedVersions: entry.patched_versions,
   // Registry paths can overattribute different installed versions of a package.
-  // Verify a specific chain with `yarn why <module>` before judging exposure.
+  // Verify a specific chain with `pnpm why <module>` before judging exposure.
   findings: entry.findings
 }))
 const counts = Object.fromEntries(
@@ -42,7 +42,7 @@ const counts = Object.fromEntries(
 )
 const report = {
   checkedAt: new Date().toISOString(),
-  command: 'yarn npm audit --all --recursive --json',
+  command: 'pnpm audit --json',
   scope:
     'Root package and transitive dependencies, including development dependencies; excludes legacy base/',
   counts,

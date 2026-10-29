@@ -1,6 +1,6 @@
 import { internalLinkHandler } from './internalLinkHandler'
 import { ReactElement } from 'react'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from './config'
 
 export interface LinkType {
   cached_url?: string

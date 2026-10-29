@@ -1,6 +1,6 @@
 import { useInView } from 'react-intersection-observer'
 import Box from '@mui/material/Box'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmHtmlProps } from './htmlTypes'
 import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'

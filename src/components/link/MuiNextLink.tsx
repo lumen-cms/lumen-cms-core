@@ -1,9 +1,9 @@
 import { AnchorHTMLAttributes, forwardRef, useCallback } from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@mui/material/Link'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../../utils/config'
 import { LinkProps, NextComposedProps } from './linkTypes'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 import clsx from 'clsx'
 
 const base64encode =

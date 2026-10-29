@@ -3,17 +3,64 @@ import MuiCardActions from '@mui/material/CardActions'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import { LmCardStandaloneProps } from './cardTypes'
 import CardContent from '@mui/material/CardContent'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import useBackgroundBox from '../section/useBackgroundBox'
 import BackgroundImage from '../section/BackgroundImage'
 import BackgroundElements from '../section/BackgroundElements'
-import { FC, PropsWithChildren } from 'react'
+import { PropsWithChildren } from 'react'
 import CardMedia from '@mui/material/CardMedia'
 import Image from 'next/image'
 import Box from '@mui/material/Box'
 import CardActionArea from '@mui/material/CardActionArea'
-import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
-import { LmCoreComponents } from '@CONFIG'
+import {
+  getLinkAttrs,
+  LinkType,
+  LinkHandlerProps
+} from '../../utils/linkHandler'
+import { LmCoreComponents } from '../../utils/config'
+
+function ActionArea({
+  children,
+  buttonProps
+}: PropsWithChildren<{ buttonProps?: LinkHandlerProps }>) {
+  return buttonProps?.href ? (
+    <CardActionArea {...buttonProps} sx={{ height: '100%' }}>
+      {children}
+    </CardActionArea>
+  ) : (
+    <>{children}</>
+  )
+}
+
+function StandaloneCardMedia({ content }: LmCardStandaloneProps) {
+  if (!content.media?.filename) return null
+  return (
+    <CardMedia
+      sx={{
+        position: 'relative',
+        overflow: 'hidden',
+        aspectRatio: content.media_aspect_ratio || '3/2',
+        margin: (theme) =>
+          content.media_margin
+            ? theme.spacing(Number(content.media_margin))
+            : undefined
+      }}
+    >
+      <Image
+        src={content.media?.filename}
+        fill
+        style={{
+          objectFit: content.object_fit || 'cover',
+          objectPosition: content.object_position || 'center'
+        }}
+        sizes={
+          content.media_max_width ? content.media_max_width + 'px' : '300px'
+        }
+        alt={content.media?.alt || 'card image'}
+      />
+    </CardMedia>
+  )
+}
 
 export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
   const background: BackgroundStoryblok | undefined = content.background?.[0]
@@ -35,15 +82,6 @@ export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
         component: LmCoreComponents.lm_link_render
       }
     : undefined
-  const ActionArea: FC<PropsWithChildren<unknown>> = ({ children }) =>
-    btnProps?.href ? (
-      <CardActionArea {...btnProps} sx={{ height: '100%' }}>
-        {children}
-      </CardActionArea>
-    ) : (
-      <>{children}</>
-    )
-
   return (
     <Card
       elevation={content.elevation ? Number(content.elevation) : undefined}
@@ -73,7 +111,7 @@ export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
       {!!background?.background_elements?.length && (
         <BackgroundElements elements={background.background_elements} />
       )}
-      <ActionArea>
+      <ActionArea buttonProps={btnProps}>
         {!!content.body_above_media?.length && (
           <CardContent
             sx={{
@@ -89,34 +127,7 @@ export default function LmCardStandalone({ content }: LmCardStandaloneProps) {
             ))}
           </CardContent>
         )}
-        {!!content.media?.filename && (
-          <CardMedia
-            sx={{
-              position: 'relative',
-              overflow: 'hidden',
-              aspectRatio: content.media_aspect_ratio || '3/2',
-              margin: (theme) =>
-                content.media_margin
-                  ? theme.spacing(Number(content.media_margin))
-                  : undefined
-            }}
-          >
-            <Image
-              src={content.media?.filename}
-              fill
-              style={{
-                objectFit: content.object_fit || 'cover',
-                objectPosition: content.object_position || 'center'
-              }}
-              sizes={
-                content.media_max_width
-                  ? content.media_max_width + 'px'
-                  : '300px'
-              }
-              alt={content.media?.alt || 'card image'}
-            />
-          </CardMedia>
-        )}
+        <StandaloneCardMedia content={content} />
         {!!content.body?.length && (
           <CardContent
             sx={{

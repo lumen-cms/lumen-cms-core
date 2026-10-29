@@ -1,9 +1,10 @@
+import { getCmsClickProps } from '../../utils/cmsClickActions'
 import Button, { ButtonProps } from '@mui/material/Button'
 import Fab, { FabProps } from '@mui/material/Fab'
 import { FC, PropsWithChildren } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { Theme, useTheme } from '@mui/material/styles'
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../../utils/config'
 import type { LmMuiAvatarProps } from '../avatar/avatarTypes'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
@@ -50,24 +51,23 @@ const mapColor: {
   warning: 'warning'
 }
 
-export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
-  children,
-  content,
-  onClick,
-  type,
-  disabled,
-  additionalClassName
-}) => {
-  const theme = useTheme()
-  const advancedSx = getAdvancedSx({
-    props: content.styles,
-    propsMobile: content.styles_mobile,
-    propsTablet: content.styles_tablet,
-    propsHover: content.styles_hover
-  })
+function StartIcon({ content }: Pick<LmButtonProps, 'content'>) {
+  return content.image ? (
+    <LmMuiAvatar
+      src={content.image}
+      size={content.image_size || mapAvatarSize[content.size as string]}
+    />
+  ) : content.icon?.name ? (
+    <LmIcon iconName={content.icon.name} buttonSize={content.size} />
+  ) : null
+}
+
+function getButtonAppearance(
+  content: LmButtonProps['content'],
+  theme: Theme,
+  additionalClassName?: string
+) {
   const properties = content.properties || []
-  const disableRipple = properties.includes('disable-ripple')
-  const color = content.color ? mapColor[content.color] : 'grey'
   const sxProps: SystemStyleObject<Theme> = {
     // MUI adds a zero-width character to icon slots. An empty slot inherits
     // display:block from CMS visibility classes and otherwise adds a blank line.
@@ -133,21 +133,34 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
     'w-100': properties.includes('fullWidth')
   })
 
-  const StartIcon = () =>
-    content.image ? (
-      <LmMuiAvatar
-        src={content.image}
-        size={content.image_size || mapAvatarSize[content.size as string]}
-      />
-    ) : content.icon?.name ? (
-      <LmIcon iconName={content.icon.name} buttonSize={content.size} />
-    ) : null
-  const onClickFunc: any =
-    typeof content.on_click_function === 'string'
-      ? {
-          onClick: () => new Function(content.on_click_function || '')()
-        }
-      : undefined
+  return { sxProps, className }
+}
+
+export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
+  children,
+  content,
+  onClick,
+  type,
+  disabled,
+  additionalClassName
+}) => {
+  const theme = useTheme()
+  const advancedSx = getAdvancedSx({
+    props: content.styles,
+    propsMobile: content.styles_mobile,
+    propsTablet: content.styles_tablet,
+    propsHover: content.styles_hover
+  })
+  const properties = content.properties || []
+  const disableRipple = properties.includes('disable-ripple')
+  const color = content.color ? mapColor[content.color] : 'grey'
+  const { sxProps, className } = getButtonAppearance(
+    content,
+    theme,
+    additionalClassName
+  )
+
+  const onClickFunc = getCmsClickProps(content.on_click_function)
   const btnProps: any = onClick
     ? {
         onClick
@@ -163,71 +176,132 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
       }
     : { ...onClickFunc }
   btnProps['aria-label'] = content.label || content.icon?.name
-  if (content.variant === 'fab') {
-    return (
-      <Fab
-        disabled={!!disabled}
-        variant={content.label ? 'extended' : undefined}
-        {...btnProps}
-        className={className}
-        sx={[
-          {
-            ...sxProps,
-            backgroundColor: content.custom_color?.rgba
+  const presentation = {
+    content,
+    children,
+    disabled,
+    type,
+    btnProps,
+    className,
+    sxProps,
+    advancedSx,
+    color,
+    disableRipple
+  }
+  if (content.variant === 'fab') return <FloatingButton {...presentation} />
+  if (!content.label) return <IconOnlyButton {...presentation} />
+  return <LabelledButton {...presentation} />
+}
+LmButton.displayName = 'LmButton'
+
+type ButtonPresentationProps = PropsWithChildren<LmButtonProps> & {
+  btnProps: any
+  className: string
+  sxProps: SystemStyleObject<Theme>
+  advancedSx: ReturnType<typeof getAdvancedSx>
+  color: ButtonProps['color']
+  disableRipple: boolean
+}
+
+function FloatingButton({
+  content,
+  children,
+  disabled,
+  type,
+  btnProps,
+  className,
+  sxProps,
+  advancedSx,
+  color,
+  disableRipple
+}: ButtonPresentationProps) {
+  return (
+    <Fab
+      disabled={!!disabled}
+      variant={content.label ? 'extended' : undefined}
+      {...btnProps}
+      className={className}
+      sx={[
+        {
+          ...sxProps,
+          backgroundColor: content.custom_color?.rgba
+            ? content.custom_color.rgba
+            : undefined
+        },
+        advancedSx
+      ]}
+      size={mapSize[content.size as any] || 'medium'}
+      color={color as FabProps['color']}
+      disableRipple={disableRipple}
+      type={type || 'button'}
+    >
+      <StartIcon content={content} />
+      {children || content.label}
+      <LmIcon
+        iconName={content.trailing_icon && content.trailing_icon.name}
+        buttonSize={content.size}
+      />
+    </Fab>
+  )
+}
+
+function IconOnlyButton({
+  content,
+  disabled,
+  type,
+  btnProps,
+  className,
+  sxProps,
+  advancedSx,
+  color,
+  disableRipple
+}: ButtonPresentationProps) {
+  return (
+    <IconButton
+      disabled={!!disabled}
+      color={color as IconButtonProps['color']}
+      {...btnProps}
+      size={mapIconButtonSize[content.size as string] || 'medium'}
+      disableRipple={disableRipple}
+      sx={[
+        {
+          ...sxProps,
+          color: content.custom_color?.rgba
+            ? content.custom_color.rgba
+            : undefined,
+          borderColor:
+            content.variant === 'outlined' && content.custom_color?.rgba
               ? content.custom_color.rgba
               : undefined
-          },
-          advancedSx
-        ]}
-        size={mapSize[content.size as any] || 'medium'}
-        color={color as FabProps['color']}
-        disableRipple={disableRipple}
-        type={type || 'button'}
-      >
-        <StartIcon />
-        {children || content.label}
-        <LmIcon
-          iconName={content.trailing_icon && content.trailing_icon.name}
-          buttonSize={content.size}
+        },
+        advancedSx
+      ]}
+      className={className}
+      type={type || 'button'}
+    >
+      <LmIcon iconName={content.icon?.name} buttonSize={content.size} />
+      {content.image && (
+        <LmMuiAvatar
+          src={content.image}
+          size={content.image_size || mapAvatarSize[content.size as string]}
         />
-      </Fab>
-    )
-  }
-  if (!content.label) {
-    return (
-      <IconButton
-        disabled={!!disabled}
-        color={color as IconButtonProps['color']}
-        {...btnProps}
-        size={mapIconButtonSize[content.size as string] || 'medium'}
-        disableRipple={disableRipple}
-        sx={[
-          {
-            ...sxProps,
-            color: content.custom_color?.rgba
-              ? content.custom_color.rgba
-              : undefined,
-            borderColor:
-              content.variant === 'outlined' && content.custom_color?.rgba
-                ? content.custom_color.rgba
-                : undefined
-          },
-          advancedSx
-        ]}
-        className={className}
-        type={type || 'button'}
-      >
-        <LmIcon iconName={content.icon?.name} buttonSize={content.size} />
-        {content.image && (
-          <LmMuiAvatar
-            src={content.image}
-            size={content.image_size || mapAvatarSize[content.size as string]}
-          />
-        )}
-      </IconButton>
-    )
-  }
+      )}
+    </IconButton>
+  )
+}
 
+function LabelledButton({
+  content,
+  children,
+  disabled,
+  type,
+  btnProps,
+  className,
+  sxProps,
+  advancedSx,
+  color,
+  disableRipple
+}: ButtonPresentationProps) {
   return (
     <Button
       disabled={!!disabled}
@@ -258,7 +332,7 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
         },
         advancedSx
       ]}
-      startIcon={<StartIcon />}
+      startIcon={<StartIcon content={content} />}
       endIcon={
         content.trailing_icon?.name ? (
           <LmIcon
@@ -273,4 +347,3 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
     </Button>
   )
 }
-LmButton.displayName = 'LmButton'

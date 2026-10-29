@@ -1,6 +1,6 @@
 import { setStoryblokRequest } from './storyblokRequestContext'
 import type { ISbStoryParams } from 'storyblok-js-client'
-import { SSR_CONFIG } from '@SSR_CONFIG'
+import { SSR_CONFIG } from './ssrConfig'
 import cleanDeep from 'clean-deep'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'

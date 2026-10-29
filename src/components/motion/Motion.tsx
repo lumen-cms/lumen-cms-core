@@ -5,7 +5,7 @@ import Fade, { FadeProps } from '@mui/material/Fade'
 import Grow, { GrowProps } from '@mui/material/Grow'
 import Zoom, { ZoomProps } from '@mui/material/Zoom'
 import Collapse, { CollapseProps } from '@mui/material/Collapse'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmMotionProps } from './motionTypes'
 import Box from '@mui/material/Box'
 

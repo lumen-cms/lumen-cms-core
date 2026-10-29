@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-29",
+  "scope": "Exactly three independent source complexity roots. Generated artifacts, suppressions, dependencies and unrelated edits untouched.",
+  "rootCauses": [
+    {
+      "name": "Search opener presentation complexity",
+      "file": "src/components/list-widget/ListSearchAutocomplete.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "SearchOpener cyclomatic 23/cognitive 23: label and style decisions obscured registration, responsive mode and focus/open behavior.",
+      "impact": "Maintenance risk only; no confirmed visible failure or performance improvement claimed.",
+      "fix": "Extract pure opener styles and module-scope SearchOpenerLabel. Retain palette registration, refs/effects, responsive query, focus and open handler in SearchOpener.",
+      "tests": "Three new presentation tests pass before/after for labels, ARIA/data attributes, defaults, dimensions/shapes/outline and breakpoint gating. Existing search behavior tests retain keyboard shortcuts, clicked configuration, focus restore, cleanup and mobile mode."
+    },
+    {
+      "name": "Search result status branching complexity",
+      "file": "src/components/list-widget/SearchPaletteDialog.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "SearchResults cyclomatic 19/cognitive 24 with nested status branches mixed into query/autocomplete logic.",
+      "impact": "Maintenance risk; inaccurate status changes could confuse keyboard or screen-reader users. No known such failure fixed.",
+      "fix": "Extract module-scope SearchStatus with query length, busy/error/count, empty label and retry callback. Keep the polite live region, exact text and decision order; state, debounce, SWR and autocomplete ownership unchanged.",
+      "tests": "New status sequence test passes before/after for short query, searching, custom empty label, result count and clearing. Existing tests cover stale responses, retry, keyboard/pointer selection, backdrop dismissal and focus."
+    },
+    {
+      "name": "Carousel controls complexity",
+      "file": "src/components/slider/LmNukaCarousel.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "LmNukaCarousel cyclomatic 18/cognitive 24: controls rendering mixed with Swiper state and controlled-index synchronization.",
+      "impact": "Maintenance risk; no intended navigation, rendering or timing change.",
+      "fix": "Extract module-scope CarouselControls with explicit Swiper/state/configuration props. Preserve parent state/effect/callback ownership, arrows, pagination styles/indicators and navigation methods.",
+      "tests": "Three new controls tests plus four existing real-Swiper/SSR tests pass before/after: edge disabling, loop/non-loop methods, controlled selection, callbacks, autoplay, indicator changes, hidden controls, SSR slides and alignment."
+    }
+  ],
+  "canonicalRecipe": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function",
+  "recipeReview": "Fetched via curl with Cache-Control: no-cache and Pragma: no-cache and reviewed evidence, validation and fix instructions. Changes separate meaningful presentation responsibilities, keep components at module scope, and preserve state/effect ownership. Read installed Next lazy-loading guide; loading boundaries unchanged.",
+  "grouping": "Three independent component findings, no fixGroupId supplied. Opener and search-status findings have distinct responsibilities and changes.",
+  "validation": {
+    "unitTests": "22 tests pass across six files: ListSearchAutocomplete.presentation, SearchPalette, searchPaletteData, LmNukaCarousel.controls, LmNukaCarousel and Tabs. New tests and affected existing tests passed before production edits. Final controls fixture adjustment was rerun successfully.",
+    "browserTests": "Two existing SearchPalette.integration tests pass in real Chromium via integration project.",
+    "typecheck": "tsc --noEmit passes",
+    "lint": "Zero errors. One existing react/no-array-index-key warning in carousel pagination remains; confirmed on saved pre-change source. New test hook dependency warning corrected without suppression.",
+    "format": "Prettier and git diff --check pass",
+    "command": "npx react-doctor@latest --verbose",
+    "runs": {
+      "opener": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-8e3c4916-0537-4141-9b43-1ef1e2047ddf/diagnostics.json",
+        "totalFindings": 51
+      },
+      "status": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-45e3378d-5e7f-4692-b6db-3c4dc9beff4a/diagnostics.json",
+        "totalFindings": 50
+      },
+      "carousel": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-40c40c7e-1d7d-4825-8e15-b7ec5b746e77/diagnostics.json",
+        "totalFindings": 49
+      }
+    },
+    "targetedComplexityFindingsRemaining": 0,
+    "newSourceFindings": 0,
+    "sourceCount": "25 to 22, exactly three selected complexity removals",
+    "overallCount": "53 to 49; one additional non-source diagnostic disappeared independently and is not claimed.",
+    "limitations": "No production build or live CMS search. Browser tests use the existing local search fixture. Doctor completes with exit 1 because remaining findings persist."
+  },
+  "remaining": {
+    "total": 49,
+    "source": 22,
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 4,
+      "nextjs-no-a-element": 1,
+      "js-set-map-lookups": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "sourceErrors": [],
+    "followUp": "Four remaining complexity roots: Button, Image, NavMenu, vendor GridComponent. Six lookup warnings and other source warnings remain. Generated artifacts untouched."
+  }
+}

@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../../../utils/config'
 import { LmShopifySdkProvider } from './ShopifySdkProvider'
 
 LmCoreComponents.ecommerce_shopify_checkout = dynamic(

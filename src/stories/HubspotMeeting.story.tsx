@@ -1,4 +1,4 @@
-import { LmComponentRender as LmHubspotMeeting } from '@LmComponentRender'
+import { LmComponentRender as LmHubspotMeeting } from '../components/CoreComponents'
 import { storyHubspotMeeting } from '../storybook/core/various'
 
 // eslint-disable-next-line import/no-anonymous-default-export

@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-29",
+  "configuration": "Added only the seven previously reviewed occurrences from docs/react-doctor-next-three-review.json using exact file/rule overrides. Five newly reviewed occurrences remain visible; no global rule disable.",
+  "canonicalRecipes": {
+    "async-await-in-loop": "https://react.doctor/docs/rules/react-doctor/async-await-in-loop",
+    "js-set-map-lookups": "https://react.doctor/docs/rules/react-doctor/js-set-map-lookups",
+    "no-object-keys-values-entries-on-maybe-undefined": "https://react.doctor/docs/rules/react-doctor/no-object-keys-values-entries-on-maybe-undefined"
+  },
+  "recipeFetch": "Fetched with curl -fsSL, Cache-Control: no-cache and Pragma: no-cache before review.",
+  "grouping": "None of the five occurrences provides fixGroupId.",
+  "reviews": [
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/component-data/googleFormsToJson.ts",
+      "line": 72,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Cheerio html() yields script text. includes checks for a substring marker, not membership in an array. Set replacement would break extraction semantics.",
+      "sha256": "d4834246589fe2a8a020f7367131fb7bdbed1530da0d6ba6515f76e768a019d0"
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/utils/initial-props/storyblokDeliveryResolver.ts",
+      "line": 44,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "pageSlug is typed string. includes checks configured path substrings and find preserves first configured match priority. Not an array membership lookup.",
+      "sha256": "f32ace2aea649f62d945d67d6cfd9e35038c0ce9da48778a73d74890e9817917"
+    },
+    {
+      "rule": "no-object-keys-values-entries-on-maybe-undefined",
+      "file": "src/utils/intlDateHelper.ts",
+      "line": 48,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Object.keys(options) is inside if (options). No reassignment invalidates the null guard. Existing null and undefined tests verify default and all-day handling. Canonical guard correction is already present.",
+      "sha256": "66a069a449946e9aefbaba8b9a39b83776ece463d5573dede784bd59b59fc479"
+    },
+    {
+      "rule": "async-await-in-loop",
+      "file": "src/utils/storyblok/StoryblokTransport.ts",
+      "line": 139,
+      "fixGroupId": null,
+      "outcome": "Rejected",
+      "evidence": "Client uses a shared rate-limit queue; sequential 50-ID batches stop before starting later batches if an error or missing data is returned. Canonical recipe explicitly preserves rate-limited and prior-outcome-dependent execution. Deferred-call tests verify scheduling, output order, context and stop-on-failure semantics.",
+      "sha256": "7277bbdd94a4ada4f71e507e1dff5c0412bab478fde25517003b72e8f8a8f03d"
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "file": "src/vendor/grid/gridGenerator.ts",
+      "line": 57,
+      "fixGroupId": null,
+      "outcome": "Rejected for current workload",
+      "evidence": "GlobalTheme defines five breakpoint keys. Caller only uses filterBreakpointKeys when responsive key count is at most breakpoint count. Local benchmark including Set construction is slower for two and five responsive keys. Preserve order and existing membership checks; reassess for consumers with substantially more custom breakpoints.",
+      "sha256": "45d52865e66d7452ee63e9ecab3ca174f0532a2ceee9aa8bfc035149af39cfcc"
+    }
+  ],
+  "validation": {
+    "command": "npx react-doctor@latest --verbose",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-d2d440c8-b222-488e-8c11-0569dc4ffdcd/diagnostics.json",
+    "exitCode": 0,
+    "remainingFindings": 5,
+    "approvedSevenExcluded": true,
+    "remainingIdentitiesUnchanged": true,
+    "tests": "16 tests passed across intlDateHelper, gridGenerator, StoryblokTransport and fetchGoogleFormData.",
+    "benchmark": {
+      "method": "Node performance.now, five samples of one million calls after warmup; compare median including Set construction, consume result lengths. Microbenchmark only, not production latency.",
+      "fiveBreakpointsTwoResponsiveKeysMs": {
+        "array": 42.63,
+        "set": 82.39
+      },
+      "fiveBreakpointsFiveResponsiveKeysMs": {
+        "array": 50.89,
+        "set": 106.74
+      }
+    }
+  },
+  "result": "No confirmed production defects among these five; production source unchanged. All five reviewed reports still visible, no unreviewed findings in this scan."
+}

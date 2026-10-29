@@ -6,6 +6,7 @@ import AppProvider from '../provider/AppProvider'
 import { LmAppProvidersContainer } from './LmAppProvidersContainer'
 import { AppContainerProps } from './layoutTypes'
 import SettingsPageProvider from '../provider/SettingsPageProvider'
+import { SearchPaletteProvider } from '../list-widget/SearchPaletteProvider'
 
 export const LmAppContainer: FunctionComponent<
   React.PropsWithChildren<AppContainerProps>
@@ -25,7 +26,9 @@ export const LmAppContainer: FunctionComponent<
       <SettingsPageProvider settings={settings} page={page}>
         <AppSetupProvider>
           <GlobalTheme>
-            <LmAppProvidersContainer>{children}</LmAppProvidersContainer>
+            <SearchPaletteProvider>
+              <LmAppProvidersContainer>{children}</LmAppProvidersContainer>
+            </SearchPaletteProvider>
           </GlobalTheme>
         </AppSetupProvider>
       </SettingsPageProvider>

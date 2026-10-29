@@ -1,4 +1,4 @@
-import { CONFIG, LmCoreComponents } from '@CONFIG'
+import { CONFIG, LmCoreComponents } from '../utils/config'
 // import '../components/ecommerce/shopify/ShopifyComponents' // dont forget to enable SSR Hook in _documents
 import { LmFastSpringProvider } from '../components/ecommerce/fastspring/LmFastspringProvider'
 // import { redirectsSga } from '../../redirects'

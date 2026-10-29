@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmFlexRowProps } from './flexRowTypes'
 import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 import clsx from 'clsx'

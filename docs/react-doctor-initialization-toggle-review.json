@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-29",
+  "scope": "Exactly three source roots. Generated artifacts, suppression configuration and unrelated concurrent edits left unchanged.",
+  "rootCauses": [
+    {
+      "name": "Google Form schema frozen at mount",
+      "file": "src/components/google-form/LmGoogleFormContainer.tsx",
+      "rule": "no-derived-useState",
+      "impact": "Functional correctness risk when updated form data arrives without unmounting: fields and submission target could remain stale. No evidence of an actual incorrect submission in production.",
+      "fix": "Read current content.form_data directly; preserve module-scope dynamic import and child identity without a key or state reset.",
+      "tests": "Regression failed before fix and passes afterward. Updated title/action propagate; existing input DOM, typed value and focus survive."
+    },
+    {
+      "name": "Repeated initial drawer-path lookup",
+      "file": "src/components/layout/drawer/CollapsibleListSection.tsx",
+      "rule": "rerender-lazy-state-init",
+      "impact": "Minor wasted work on rerenders, with no known visible failure.",
+      "fix": "Use a pure lazy useState initializer. Mount-only semantics are intentional: later content/path updates must not override user toggles.",
+      "tests": "Regression failed before fix and passes afterward; initial path lookup runs once, later rerenders do not repeat it or reset the closed state. Existing icon identity tests pass. Strict Mode may independently invoke pure initialization twice."
+    },
+    {
+      "name": "Drawer-toggle branching complexity",
+      "file": "src/components/layout/toolbar/ToggleDrawerButton.tsx",
+      "rule": "no-high-complexity-react-function",
+      "impact": "Maintenance risk: interleaving drawer selection with custom/icon rendering made behavior changes harder to review. No known user-facing failure or claimed speedup.",
+      "fix": "Extract module-scope DrawerToggleControl with explicit content, breakpoint, selected open state and handler; retain provider/store ownership and missing-right-drawer guard in parent.",
+      "tests": "Five tests pass before and after refactor: both drawer directions, custom control clicks, force-show and breakpoint classes, icon identity/open-close transitions and missing right drawer."
+    }
+  ],
+  "canonicalRecipes": {
+    "no-derived-useState": "https://react.doctor/docs/rules/react-doctor/no-derived-useState",
+    "rerender-lazy-state-init": "https://react.doctor/docs/rules/react-doctor/rerender-lazy-state-init",
+    "no-high-complexity-react-function": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function"
+  },
+  "recipeReview": "Fetched all three recipes via curl with Cache-Control: no-cache and Pragma: no-cache. Checked intentional initial-state exceptions, pure lazy initialization and meaningful responsibility extraction. Read installed Next lazy-loading documentation before editing. Player playing state remains untouched because hover interactions own it after initialization.",
+  "grouping": "Each selected diagnostic has no fixGroupId and represents an independent source root.",
+  "validation": {
+    "tests": "13 tests pass across five files: LmGoogleFormContainer, GoogleFormElement, CollapsibleListSection, DrawerContentList, ToggleDrawerButton.",
+    "typecheck": "tsc --noEmit passes",
+    "lint": "Zero errors on six changed source/test files; one pre-existing unused eslint-disable warning at CollapsibleListSection.tsx:22 left unchanged.",
+    "format": "Prettier formatted six files; git diff --check passes.",
+    "command": "npx react-doctor@latest --verbose",
+    "runs": {
+      "form": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-c091be7e-8a95-4b5a-b73e-39ecdab7c3ad/diagnostics.json",
+        "totalFindings": 66
+      },
+      "drawer": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-c272bea6-8eb5-45be-86bb-5657e1bb5ad1/diagnostics.json",
+        "totalFindings": 65
+      },
+      "toggle": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-93516e98-c92f-4754-b8ee-f98c393f6046/diagnostics.json",
+        "totalFindings": 64
+      }
+    },
+    "targetedFindingsRemaining": 0,
+    "newFindings": 0,
+    "overallCount": "67 to 64, exactly the three selected source findings removed.",
+    "limitations": "Component tests mock child/dynamic-render boundaries. No production build, live Google submission or browser visual comparison performed. Doctor exits 1 because unrelated findings remain, while completing all scans and writing diagnostics."
+  },
+  "remaining": {
+    "total": 64,
+    "source": 40,
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 21,
+      "nextjs-no-a-element": 1,
+      "js-set-map-lookups": 7,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "sourceErrors": [],
+    "followUp": "Remaining component complexity, lookup warnings and other source findings need individual review. Player initialization is intentionally user-controlled after mount; do not change merely to silence the finding. Generated and other non-src findings left alone."
+  }
+}

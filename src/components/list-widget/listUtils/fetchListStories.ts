@@ -1,4 +1,3 @@
-import { LmStoryblokService } from '../../../utils/initial-props/StoryblokService'
 import { getListStoriesParams } from '../../../utils/universal/getListStoriesParams'
 import { ListStoriesData, LmListStoriesPayload } from '../listWidgetTypes'
 import { AppPageProps } from '../../../typings/app'
@@ -37,7 +36,10 @@ export const fetchListStories = async ({
       search_term: searchText
     })
   }
-  const { data, total } = await LmStoryblokService.getStories(storiesParams)
+  const { getBrowserStories } = await import(
+    '../../../utils/storyblok/browserClient'
+  )
+  const { data, total } = await getBrowserStories(storiesParams)
   return {
     stories: data.stories as ListStoriesData[],
     page: page,

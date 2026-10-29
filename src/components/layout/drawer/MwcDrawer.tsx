@@ -17,7 +17,7 @@ import {
   leftNavigationDrawerSelector,
   useNavigationStore
 } from '../../../utils/state/navigationState'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../../provider/context/AppContext'
 
 type DrawerContainerProps = {
   backgroundProps?: UseBackgroundPayload

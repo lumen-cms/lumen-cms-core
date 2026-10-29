@@ -1,5 +1,5 @@
 import { LmSwiperItemProps } from './sliderTypes'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import NextImage, { ImageProps } from 'next/image'
 import { getOriginalImageDimensions } from '../../utils/imageServices'
 

@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three roots: shared all-tag matching, avatar styling complexity, and tabs header complexity. Generated artifacts, suppressions, dependencies and unrelated edits untouched.",
+  "rootCauses": [
+    {
+      "name": "Repeated all-tag scans across story/category filtering",
+      "files": [
+        "src/utils/initial-props/legacyFilterAllStories.ts",
+        "src/utils/initial-props/component-data/allCategoryStories.ts",
+        "src/utils/initial-props/matchesAllTags.ts"
+      ],
+      "findings": 2,
+      "impact": "All-tag filters repeatedly searched each item's tag list for every required tag. Large matching lists incur repeated work. Small inputs can be slightly slower with indexing; no live-site speedup claimed.",
+      "fix": "Share a requested-tag Set across items, retain a fast first-tag rejection, then count unique matching tags. Preserve duplicate semantics and empty requirements. Leave any-tag paths as original array scans; no Set is allocated for that mode.",
+      "tests": "Seven matcher/story tests cover empty inputs, duplicates, case sensitivity, successful/failed membership, sorting, limits and source identity. Seven existing category tests cover any/all tags, ID fallback, duplicates, missing tag references and order."
+    },
+    {
+      "name": "Avatar style precedence complexity",
+      "file": "src/components/avatar/LmAvatar.tsx",
+      "findings": 1,
+      "impact": "Maintenance improvement; no intended visual or interaction change. Size presets, custom size, explicit font size, colors and image-background precedence were mixed with rendering.",
+      "fix": "Extract cohesive style calculation and leave Avatar rendering/content order in the component. Preserve unknown-size logging, default variant and all precedence rules.",
+      "tests": "Five tests pass before and after: preset letter sizes, icon sizing, custom/font overrides, image transparency, custom color, class/variant and child order."
+    },
+    {
+      "name": "Tabs header rendering complexity",
+      "file": "src/components/tabs/Tabs.tsx",
+      "findings": 1,
+      "impact": "Maintenance improvement; no intended UI behavior change. Header labels/icons and responsive TabList configuration obscured selection and carousel coordination.",
+      "fix": "Extract a module-scope TabsHeader with explicit content/responsive/orientation/selection props. Keep active state, grid layout, panels and carousel ownership in LmTabs.",
+      "tests": "Two tests pass before and after with plain/styled labels, desktop vertical widths, icons, tab-to-carousel and carousel-to-tab synchronization, mobile scrollable layout and preserving selection across responsive updates."
+    }
+  ],
+  "canonicalRecipes": {
+    "js-set-map-lookups": "https://react.doctor/docs/rules/react-doctor/js-set-map-lookups",
+    "no-high-complexity-react-function": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function"
+  },
+  "recipeReview": "Fetched canonical recipes with no-cache curl and read validation/false-positive criteria. Benchmarked indexing including construction. Rejected any-tag conversion after measured regression. Retained the first-tag fast rejection after a wider benchmark exposed a regression in the first all-tag version. UI refactors separate coherent responsibilities while preserving state/render order and interfaces.",
+  "grouping": "Both all-tag loops use the same matching algorithm and one shared correction, counted as one root. Avatar and tabs are independent complexity roots.",
+  "benchmark": {
+    "method": "Actual old/new legacyFilterAllStories source transpiled and executed with equal-output assertions. Five warmups and 25 timed calls, median. Includes requested Set construction, per-item matching and sorting. Synthetic workloads, not live CMS data. Requested Set uses O(unique required tags) memory; transient matched Set is bounded by the same count. Exploratory heap measurements were noisy and not treated as reliable byte counts.",
+    "results": [
+      {
+        "count": 100,
+        "tagCount": 5,
+        "filterCount": 2,
+        "scenario": "all-match",
+        "beforeMs": 0.05254200000001674,
+        "afterMs": 0.08341700000002561
+      },
+      {
+        "count": 100,
+        "tagCount": 5,
+        "filterCount": 2,
+        "scenario": "missing-first",
+        "beforeMs": 0.0033749999999770353,
+        "afterMs": 0.00437499999998181
+      },
+      {
+        "count": 1000,
+        "tagCount": 100,
+        "filterCount": 30,
+        "scenario": "all-match",
+        "beforeMs": 7.0674999999999955,
+        "afterMs": 4.323292000000038
+      },
+      {
+        "count": 1000,
+        "tagCount": 100,
+        "filterCount": 30,
+        "scenario": "missing-first",
+        "beforeMs": 0.10537500000009459,
+        "afterMs": 0.1187080000000833
+      }
+    ],
+    "tradeoff": "Small inputs are slower by roughly 0.001\u20130.031 ms per measured batch. Large all-match workload improves by about 2.74 ms; first-tag rejection remains close to the original. Other tag distributions can have different tradeoffs."
+  },
+  "validation": {
+    "tests": "21 tests pass across 4 files; avatar and tabs preservation tests also passed before changes",
+    "typecheck": "tsc --noEmit passes",
+    "eslint": "Eight changed source/test files pass without warnings/errors",
+    "format": "Prettier and git diff --check pass",
+    "reactDoctorCommand": "npx react-doctor@latest --verbose",
+    "runs": {
+      "tags": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-55e71740-8c6c-4478-beab-81b9bc3460bc/diagnostics.json",
+        "totalFindings": 70
+      },
+      "avatar": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-bc067518-4f37-46d9-bbf3-3ae1bd4e6c3c/diagnostics.json",
+        "totalFindings": 68
+      },
+      "tags-complex-final": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-1c0bab83-fd7f-49a1-9152-1aa934d45e31/diagnostics.json",
+        "totalFindings": 67
+      }
+    },
+    "targetedFindingsRemoved": 4,
+    "targetedFindingsRemaining": 0,
+    "newFindings": 0,
+    "overallCount": "72 to 67. Four source removals belong to this pass; one generated diagnostic also disappeared outside this work and is not claimed as a fix.",
+    "limitations": "No production build, browser visual comparison or live CMS benchmark. UI tests mock rendering boundaries and responsiveness."
+  },
+  "remaining": {
+    "total": 67,
+    "source": 43,
+    "sourceErrors": [],
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 22,
+      "nextjs-no-a-element": 1,
+      "no-derived-useState": 2,
+      "rerender-lazy-state-init": 1,
+      "js-set-map-lookups": 7,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "followUp": [
+      "Any-tag membership loops intentionally unchanged after benchmark evidence.",
+      "Other component complexity, tiny grid lookups, initialization and remaining source warnings.",
+      "Generated findings left alone."
+    ]
+  }
+}

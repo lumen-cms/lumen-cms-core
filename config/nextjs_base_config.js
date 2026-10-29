@@ -1,16 +1,22 @@
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const getSecureHeader = require('./nextjs_csp_generator')
 module.exports = ({
   contentSecurityPolicy = {},
   ignoreCsp,
   transpilePackages = ['lumen-cms-core']
-}) => {
+} = {}) => {
   /**
    * @type {import('next').NextConfig}
    */
   const config = {
     reactStrictMode: true,
-    transpilePackages,
+    experimental: {
+      // Match production chunking in dev to avoid missing next/dynamic preloads.
+      // https://github.com/vercel/next.js/issues/99149
+      turbopackClientSideNestedAsyncChunking: true
+    },
+    // Lab's TabList must share the bundled Material UI context with Tab.
+    // Externalizing Lab while bundling Material creates two server contexts.
+    transpilePackages: [...new Set(['@mui/lab', ...transpilePackages])],
     async headers() {
       return [
         {
@@ -49,26 +55,6 @@ module.exports = ({
       ],
       deviceSizes: [360, 640, 768, 1024, 1280, 1536],
       imageSizes: [16, 32, 48, 64, 96, 128, 256, 384]
-    },
-    webpack: (config, { isServer }) => {
-      // Fast Refresh adds import.meta to CommonJS MUI/icon modules and Babel
-      // helpers. Let Webpack parse both syntaxes while keeping their exports.
-      config.module.rules.push({
-        test: /[/\\](?:@babel[/\\]runtime[/\\]helpers|@mui|mdi-material-ui)[/\\].*\.js$/,
-        type: 'javascript/auto'
-      })
-
-      if (!isServer) {
-        config.resolve.fallback.fs = false
-      }
-
-      config.resolve.plugins.push(
-        new TsconfigPathsPlugin({ baseUrl: process.cwd() })
-      )
-      if (!isServer) {
-        config.resolve.alias['@sentry/node'] = '@sentry/browser'
-      }
-      return config
     },
     async rewrites() {
       return {

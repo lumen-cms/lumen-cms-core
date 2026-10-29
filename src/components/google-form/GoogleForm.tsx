@@ -2,7 +2,7 @@
 import { CSSProperties, FC, PropsWithChildren, useState } from 'react'
 import { FormContainer } from 'react-hook-form-mui'
 import Alert from '@mui/material/Alert'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import dynamic from 'next/dynamic'
 import { LmGoogleFormProps } from './googleFormProps'
 import {
@@ -19,6 +19,44 @@ const DateFnsProvider = dynamic(() => import('./DateFnsProvider'))
 const SimpleWrap: FC<PropsWithChildren<unknown>> = ({ children }) => (
   <>{children}</>
 )
+
+function SubmitButton({ content }: LmGoogleFormProps) {
+  const submitButtonEl = content.submit_button[0]
+  if (!(content?.submit_button?.length > 0)) return null
+  return (
+    <div
+      style={{
+        ...(content.inline
+          ? {
+              alignSelf: 'center',
+              marginLeft: content.fields_gap
+                ? Number(content.fields_gap)
+                : '8px'
+            }
+          : {
+              display: 'flex',
+              width: '100%',
+              justifyContent: submitButtonEl.align || 'center',
+              marginTop: content.fields_gap ? Number(content.fields_gap) : '8px'
+            })
+      }}
+    >
+      <LmComponentRender
+        content={
+          {
+            color: 'primary',
+            variant: 'contained',
+            label: 'Submit',
+            ...submitButtonEl,
+            link: undefined
+          } as ButtonStoryblok
+        }
+        type="submit"
+        key={submitButtonEl._uid}
+      />
+    </div>
+  )
+}
 
 export default function LmGoogleForm({
   formStructure,
@@ -96,7 +134,6 @@ export default function LmGoogleForm({
     (field) => field.type === 'DATE'
   )
   const Wrap = hasDateField ? DateFnsProvider : SimpleWrap
-  let submitButtonEl = content.submit_button[0]
 
   return (
     <Box
@@ -134,41 +171,7 @@ export default function LmGoogleForm({
                 key={`${formField.id}`}
               />
             ))}
-            {content?.submit_button?.length > 0 && (
-              <div
-                style={{
-                  ...(content.inline
-                    ? {
-                        alignSelf: 'center',
-                        marginLeft: content.fields_gap
-                          ? Number(content.fields_gap)
-                          : '8px'
-                      }
-                    : {
-                        display: 'flex',
-                        width: '100%',
-                        justifyContent: submitButtonEl.align || 'center',
-                        marginTop: content.fields_gap
-                          ? Number(content.fields_gap)
-                          : '8px'
-                      })
-                }}
-              >
-                <LmComponentRender
-                  content={
-                    {
-                      color: 'primary',
-                      variant: 'contained',
-                      label: 'Submit',
-                      ...submitButtonEl,
-                      link: undefined
-                    } as ButtonStoryblok
-                  }
-                  type="submit"
-                  key={submitButtonEl._uid}
-                />
-              </div>
-            )}
+            <SubmitButton content={content} />
           </div>
         </FormContainer>
       </Wrap>

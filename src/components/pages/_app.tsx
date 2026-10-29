@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { AppProps } from 'next/app'
 import NProgress from 'nprogress'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../../utils/config'
 import Head from 'next/head'
 import { AppPageProps } from '../../typings/app'
 import { LmAppContainer } from '../layout/AppContainer'

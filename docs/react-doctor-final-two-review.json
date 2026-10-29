@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-29",
+  "scope": [
+    "no-object-keys-values-entries-on-maybe-undefined",
+    "async-await-in-loop"
+  ],
+  "canonicalRecipes": {
+    "no-object-keys-values-entries-on-maybe-undefined": "https://react.doctor/docs/rules/react-doctor/no-object-keys-values-entries-on-maybe-undefined",
+    "async-await-in-loop": "https://react.doctor/docs/rules/react-doctor/async-await-in-loop"
+  },
+  "recipeFetch": "Fetched via curl -fsSL with Cache-Control:no-cache and Pragma:no-cache. Read validation, exceptions and candidate corrections before assessment.",
+  "grouping": "Two occurrences, neither has fixGroupId.",
+  "reviews": [
+    {
+      "rule": "no-object-keys-values-entries-on-maybe-undefined",
+      "file": "src/utils/intlDateHelper.ts",
+      "line": 48,
+      "outcome": "Rejected",
+      "evidence": "Object.keys(options) is dominated by if (options). No assignment invalidates that guard. The existing guard already satisfies the canonical recipe; undefined/null never reach the Object.keys call.",
+      "impact": "A missing-object access could crash date rendering, but that failure is not present at this guarded call. Added tests for omitted/null options, all-day defaults, explicit component options, hidden time and date/time styles.",
+      "change": "Regression tests only; production code unchanged."
+    },
+    {
+      "rule": "async-await-in-loop",
+      "file": "src/utils/storyblok/StoryblokTransport.ts",
+      "line": 139,
+      "outcome": "Rejected",
+      "evidence": "The shared token client is configured at 4 requests/second normally, 6 in development, with retry limit 5. Installed @storyblok/api-client/dist/utils/rate-limit.mjs confirms requestsPerSecond config uses a fixed shared queue. Overflow relation batches contain at most 50 IDs and intentionally stop on the first error/missing-data result before later requests are started. Canonical recipe explicitly retains sequential execution for rate-limited services and prior-outcome-dependent error handling.",
+      "impact": "Parallelism might reduce latency under some workloads, but is not established as a safe improvement here. Starting siblings would change fail-stop behavior and consume requests after an earlier failure. No production speedup or no-speedup claim made.",
+      "validation": "Deferred SDK calls verify only one batch has started before releasing it, 101 IDs split into 50/50/1, output ordering and language/release/cache-version context preserved. Error and missing-data tests verify only the first batch starts. Existing real SDK service/browser-client tests also pass.",
+      "change": "Regression tests only; production code unchanged."
+    }
+  ],
+  "validation": {
+    "tests": "24 passed across four files: intlDateHelper, StoryblokTransport, browserClient and StoryblokService.",
+    "typecheck": "pnpm run check-types passed.",
+    "lint": "ESLint on both new test files passed without warnings/errors.",
+    "format": "Prettier and scoped git diff --check passed.",
+    "doctorCommand": "npx react-doctor@latest --verbose",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-06b28120-d426-4b05-b143-1fe37f527d27/diagnostics.json",
+    "before": 31,
+    "after": 31,
+    "removed": 0,
+    "added": 0,
+    "exitCode": 1,
+    "exitReason": "Previously reviewed secret-pattern false positives remain reported as errors.",
+    "limitations": "Transport scheduling tests use a mocked SDK boundary; actual SDK limiter inspected locally. No load benchmark or production behavior change.",
+    "previousReports": "No previously reviewed code or report files edited; no suppressions or scan exclusions added."
+  },
+  "remaining": {
+    "unreviewedFindings": 0,
+    "reviewedReportsStillVisible": 31,
+    "countsByRule": {
+      "artifact-secret-leak": 6,
+      "insecure-crypto-risk": 12,
+      "postmessage-origin-risk": 1,
+      "dangerous-html-sink": 4,
+      "nextjs-no-a-element": 1,
+      "nextjs-no-css-link": 2,
+      "js-set-map-lookups": 3,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    }
+  }
+}

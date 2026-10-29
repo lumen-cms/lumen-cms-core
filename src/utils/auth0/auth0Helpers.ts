@@ -1,4 +1,4 @@
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../config'
 import { User } from '@auth0/auth0-react'
 
 export const hasAuth0Credentials = (roles: string[], user: User) => {

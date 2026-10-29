@@ -1,4 +1,5 @@
-import { LmCoreComponents } from '@CONFIG'
+import dynamic from 'next/dynamic'
+import { LmCoreComponents } from '../utils/config'
 import { LmStaticSection } from './static-section/StaticSection'
 import { LmStaticContainer } from './static-section/StaticContainer'
 import { LmDivider } from './divider/Divider'
@@ -24,15 +25,22 @@ import MuiNextLink from './link/MuiNextLink'
 import { LmToolbarRow } from './layout/toolbar/ToolbarRow'
 import { LmImageElement } from './image/ImageElement'
 import LmGoogleFormContainer from './google-form/LmGoogleFormContainer'
-import LmIframe from './iframe/Iframe'
-import LmWhatsappChatButton from './chat/WhatsappChatButton'
-import LmFacebookChatButton from './chat/FacebookChatButton'
-import LmTawktoChatButton from './chat/TawktoChatButton'
 import LmDialogElement from './dialog/DialogElement'
-import LmNews from './news/News'
-import LmEvent from './event/Event'
 import LmNavItem from './nav-list/NavItem'
-import LmCardStandalone from './card/CardStandalone'
+
+const LmIframe = dynamic(() => import('./iframe/Iframe'))
+
+const LmWhatsappChatButton = dynamic(() => import('./chat/WhatsappChatButton'))
+
+const LmFacebookChatButton = dynamic(() => import('./chat/FacebookChatButton'))
+
+const LmTawktoChatButton = dynamic(() => import('./chat/TawktoChatButton'))
+
+const LmNews = dynamic(() => import('./news/News'))
+
+const LmEvent = dynamic(() => import('./event/Event'))
+
+const LmCardStandalone = dynamic(() => import('./card/CardStandalone'))
 
 LmCoreComponents.static_section = LmStaticSection
 LmCoreComponents.static_container = LmStaticContainer

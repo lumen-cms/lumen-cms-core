@@ -4,15 +4,82 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import ChevronDown from 'mdi-material-ui/ChevronDown'
 import ChevronUp from 'mdi-material-ui/ChevronUp'
-import { LmComponentRender } from '@LmComponentRender'
-import { LmCoreComponents } from '@CONFIG'
+import { LmComponentRender } from '../CoreComponents'
+import { LmCoreComponents } from '../../utils/config'
 import { useEffectOnce } from 'react-use'
 import { Popover } from '@mui/material'
 import LmIcon from '../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmMenuProps } from './menuTypes'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 import clsx from 'clsx'
+
+function getMenuAlignment(alignment: LmMenuProps['content']['alignment']) {
+  let addons = {}
+
+  if (alignment === 'bottomStart') {
+    addons = {
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'left'
+      },
+      transformOrigin: {
+        vertical: 'top',
+        horizontal: 'left'
+      }
+    }
+  } else if (alignment === 'bottomEnd') {
+    addons = {
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'right'
+      },
+      transformOrigin: {
+        vertical: 'top',
+        horizontal: 'right'
+      }
+    }
+  } else if (alignment === 'bottomCenter') {
+    addons = {
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'center'
+      },
+      transformOrigin: {
+        vertical: 'top',
+        horizontal: 'center'
+      }
+    }
+  }
+  return addons
+}
+
+function MenuToggleIcon({
+  content,
+  expanded
+}: Pick<LmMenuProps, 'content'> & { expanded: boolean }) {
+  const ExpandIcon =
+    content.icon?.name || content.icon_custom?.[0] ? (
+      <LmIcon
+        iconName={content.icon?.name}
+        iconUrl={content.icon_custom?.[0].icon_url}
+        {...content.icon_custom?.[0]}
+      />
+    ) : (
+      <ChevronDown />
+    )
+  const CloseIcon =
+    content.icon_collapse?.name || content.icon_collapse_custom?.[0] ? (
+      <LmIcon
+        iconName={content.icon_collapse?.name}
+        iconUrl={content.icon_collapse_custom?.[0].icon_url}
+        {...content.icon_collapse_custom?.[0]}
+      />
+    ) : (
+      <ChevronUp />
+    )
+  return expanded ? CloseIcon : ExpandIcon
+}
 
 export function LmMenu({
   content,
@@ -35,11 +102,13 @@ export function LmMenu({
         `.${triggerClassName}`
       )
       if (el) {
-        setTimeout(() => {
+        const openTimer = setTimeout(() => {
           setAnchorEl(el)
         })
+        return () => clearTimeout(openTimer)
       }
     }
+    return undefined
   }, [initialOpen, setAnchorEl, triggerClassName])
   useEffectOnce(() => {
     if (isCustom) {
@@ -64,62 +133,7 @@ export function LmMenu({
     setAnchorEl(anchorEl ? null : event.currentTarget)
   }
 
-  let addons = {}
-
-  if (content.alignment === 'bottomStart') {
-    addons = {
-      anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'left'
-      },
-      transformOrigin: {
-        vertical: 'top',
-        horizontal: 'left'
-      }
-    }
-  } else if (content.alignment === 'bottomEnd') {
-    addons = {
-      anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'right'
-      },
-      transformOrigin: {
-        vertical: 'top',
-        horizontal: 'right'
-      }
-    }
-  } else if (content.alignment === 'bottomCenter') {
-    addons = {
-      anchorOrigin: {
-        vertical: 'bottom',
-        horizontal: 'center'
-      },
-      transformOrigin: {
-        vertical: 'top',
-        horizontal: 'center'
-      }
-    }
-  }
-  const ExpandIcon =
-    content.icon?.name || content.icon_custom?.[0] ? (
-      <LmIcon
-        iconName={content.icon?.name}
-        iconUrl={content.icon_custom?.[0].icon_url}
-        {...content.icon_custom?.[0]}
-      />
-    ) : (
-      <ChevronDown />
-    )
-  const CloseIcon =
-    content.icon_collapse?.name || content.icon_collapse_custom?.[0] ? (
-      <LmIcon
-        iconName={content.icon_collapse?.name}
-        iconUrl={content.icon_collapse_custom?.[0].icon_url}
-        {...content.icon_collapse_custom?.[0]}
-      />
-    ) : (
-      <ChevronUp />
-    )
+  const addons = getMenuAlignment(content.alignment)
   // const StartIcon = content.start_icon?.name ? <LmIcon iconName={content.start_icon.name} /> : null
   const Wrap = isCustom ? Popover : Menu
   return (
@@ -139,7 +153,9 @@ export function LmMenu({
         })
       ) : (
         <Button
-          endIcon={anchorEl ? CloseIcon : ExpandIcon}
+          endIcon={
+            <MenuToggleIcon content={content} expanded={Boolean(anchorEl)} />
+          }
           startIcon={
             content.start_icon?.name && (
               <LmIcon iconName={content.start_icon.name} />

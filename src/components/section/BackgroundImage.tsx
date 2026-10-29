@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import {
   BackgroundStoryblok,
@@ -76,17 +76,18 @@ type BackgroundImageProps = {
   sectionPosition?: number
 }
 
-const BackgroundImage = ({
+function BgImage({
+  src,
+  className,
   content,
-  backgroundStyle,
   sectionPosition
-}: BackgroundImageProps): React.JSX.Element | null => {
+}: Pick<BackgroundImageProps, 'content' | 'sectionPosition'> & {
+  src: string
+  className: string
+}) {
   const {
-    image,
-    alternative_image,
     background_position,
     background_size,
-    hide_image_on_breakpoint,
     priority,
     disable_lazy_loading,
     // image_focal_point,
@@ -100,54 +101,66 @@ const BackgroundImage = ({
     : disable_lazy_loading
     ? 'eager'
     : undefined
-  const imageSource = image
-  const imageSourcePortrait = alternative_image || undefined
+  // const rootImageUrl = `${getRootImageUrl(src)}${
+  //   image_focal_point ? `?focalPoint=${image_focal_point}` : ''
+  // }`
+  return (
+    <BackgroundImageRoot
+      className={className}
+      alt={'bg image ' + src}
+      src={getRootImageUrl(src)}
+      {...storyblokImageLoader(src)}
+      priority={priorityLoading}
+      quality={
+        quality
+          ? isNaN(Number(quality))
+            ? undefined
+            : Number(quality)
+          : undefined
+      }
+      loading={loading}
+      style={{
+        objectFit:
+          background_size === 'auto' ? 'cover' : background_size || 'cover',
+        objectPosition: background_position || 'center'
+      }}
+      fill
+    />
+  )
+}
 
-  const BgImage = ({ src, className }: { src: string; className: string }) => {
-    // const rootImageUrl = `${getRootImageUrl(src)}${
-    //   image_focal_point ? `?focalPoint=${image_focal_point}` : ''
-    // }`
-    return (
-      <BackgroundImageRoot
-        className={className}
-        alt={'bg image ' + src}
-        src={getRootImageUrl(src)}
-        {...storyblokImageLoader(src)}
-        priority={priorityLoading}
-        quality={
-          quality
-            ? isNaN(Number(quality))
-              ? undefined
-              : Number(quality)
-            : undefined
-        }
-        loading={loading}
-        style={{
-          objectFit:
-            background_size === 'auto' ? 'cover' : background_size || 'cover',
-          objectPosition: background_position || 'center'
-        }}
-        fill
-      />
-    )
-  }
-  const Wrap: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
-    return ['fixed_cover', 'fixed_image'].includes(backgroundStyle || '') ? (
-      <Box sx={rootFixedImageSx}>
-        <Box sx={fixedCoverImageWrapSx}>{children}</Box>
-      </Box>
-    ) : (
-      <>{children}</>
-    )
-  }
+function Wrap({
+  children,
+  backgroundStyle
+}: React.PropsWithChildren<Pick<BackgroundImageProps, 'backgroundStyle'>>) {
+  return ['fixed_cover', 'fixed_image'].includes(backgroundStyle || '') ? (
+    <Box sx={rootFixedImageSx}>
+      <Box sx={fixedCoverImageWrapSx}>{children}</Box>
+    </Box>
+  ) : (
+    <>{children}</>
+  )
+}
 
+const BackgroundImage = ({
+  content,
+  backgroundStyle,
+  sectionPosition
+}: BackgroundImageProps): React.JSX.Element | null => {
+  const {
+    image: imageSource,
+    alternative_image: imageSourcePortrait,
+    hide_image_on_breakpoint
+  } = content
   const defaultImgClassNames = clsx({
     [`hide__${hide_image_on_breakpoint}`]: !!hide_image_on_breakpoint
   })
   return (
-    <Wrap>
+    <Wrap backgroundStyle={backgroundStyle}>
       {imageSource && (
         <BgImage
+          content={content}
+          sectionPosition={sectionPosition}
           src={imageSource}
           className={clsx(defaultImgClassNames, {
             landscape: !!imageSourcePortrait
@@ -156,6 +169,8 @@ const BackgroundImage = ({
       )}
       {imageSourcePortrait && (
         <BgImage
+          content={content}
+          sectionPosition={sectionPosition}
           src={imageSourcePortrait}
           className={clsx(defaultImgClassNames, 'portrait')}
         />

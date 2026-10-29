@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { SectionProps } from '../section/sectionTypes'
 
 type LmSliderChildProps = { body: any[]; sectionVariant: any }

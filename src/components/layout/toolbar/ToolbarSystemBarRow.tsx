@@ -1,6 +1,6 @@
 import Container, { ContainerProps } from '@mui/material/Container'
 import Grid from '../../../vendor/grid'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../../CoreComponents'
 import React, { FC } from 'react'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 import { Collapse } from '@mui/material'

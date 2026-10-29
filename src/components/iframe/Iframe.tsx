@@ -1,9 +1,15 @@
 import { useInView } from 'react-intersection-observer'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useSyncExternalStore } from 'react'
 import Skeleton from '@mui/material/Skeleton'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
 import { LmIframeProps } from './iframeTypes'
 import clsx from 'clsx'
+import { getIframeSandbox } from './iframeSandbox'
+
+// An origin change replaces the document; no in-document subscription is needed.
+const subscribeToOrigin = () => () => {}
+const getBrowserOrigin = () => window.location.origin
+const getServerOrigin = () => undefined
 
 export default function LmIframe({
   content
@@ -12,12 +18,17 @@ export default function LmIframe({
     intersectionDefaultOptions
   )
   const [loaded, setLoaded] = useState<boolean>(false)
+  const parentOrigin = useSyncExternalStore(
+    subscribeToOrigin,
+    getBrowserOrigin,
+    getServerOrigin
+  )
   const urlSrc = useMemo(() => {
-    if (inView) {
+    if (inView && parentOrigin) {
       return content.url || undefined
     }
     return undefined
-  }, [content.url, inView])
+  }, [content.url, inView, parentOrigin])
   const properties = content.property || []
   const allowed = content.allow || []
   content.responsive_ratio
@@ -44,6 +55,7 @@ export default function LmIframe({
       )}
       <iframe
         title={`iframe_${content.url}`}
+        sandbox={getIframeSandbox(urlSrc, parentOrigin)}
         allow={allowed.join(' ')}
         src={urlSrc}
         aria-hidden

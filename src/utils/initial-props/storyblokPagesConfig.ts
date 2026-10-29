@@ -1,4 +1,4 @@
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../config'
 import { PageItem } from '../../typings/generated/schema'
 import { LmStoryblokService } from './StoryblokService'
 import { excludingFieldsForLists } from '../universal/storyblokParamsHelper'

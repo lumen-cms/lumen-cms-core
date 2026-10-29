@@ -51,6 +51,9 @@ const assertValidUrl = (formUrl: string): void => {
 
 const getFormHtml = async (formUrl: string) => {
   const response = await fetch(formUrl)
+  if (!response.ok) {
+    throw new Error(`Google Form request failed: ${response.status}`)
+  }
   const html = await response.text()
   return html
 }

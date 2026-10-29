@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { DrawerContentRender } from './CollapsibleListSection'
 import { useSettings } from '../../provider/SettingsPageProvider'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../../provider/context/AppContext'
 
 const findPathDeep = require('deepdash/findPathDeep')
 
@@ -67,7 +67,7 @@ export function DrawerContentList(): React.JSX.Element {
       })
     })
   }
-  const [openedPath] = useState<string[]>(
+  const [openedPath] = useState<string[]>(() =>
     getUidsOfSlug(childs, activeRoutePath)
   )
 

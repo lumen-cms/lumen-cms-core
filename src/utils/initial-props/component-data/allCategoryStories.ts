@@ -1,6 +1,7 @@
+import { matchesAllTags } from '../matchesAllTags'
 import type { PagePropsOptions } from '../../../typings/app'
 import { getStoryblokRequest } from '../storyblokRequestContext'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../../config'
 import { LmStoryblokService } from '../StoryblokService'
 import { AllCategoryData } from '../../../typings/app'
 import { CategoryBoxStoryblok } from '../../../typings/generated/components-schema'
@@ -34,8 +35,10 @@ export const filterAllCategory = (
   content: CategoryBoxStoryblok
 ) => {
   const filterByTags = content.filter_by_tags?.values || []
-  const filterByCategories = content.filter_categories || []
-  if (filterByTags || filterByCategories.length) {
+  const selectedTags = new Set(filterByTags)
+  const requiredTags = content.match_all_tags ? selectedTags : null
+  const filterByCategories = new Set(content.filter_categories || [])
+  if (filterByTags || filterByCategories.size) {
     return categories.filter((category) => {
       const categoryContent = category.content
       let exists = true
@@ -46,13 +49,13 @@ export const filterAllCategory = (
         }
         const tagList = category.tag_list || []
         exists =
-          tagList.length && content.match_all_tags
-            ? filterByTags.every((element) => tagList.includes(element))
-            : filterByTags.some((element) => tagList.includes(element))
+          tagList.length && requiredTags
+            ? matchesAllTags(tagList, requiredTags)
+            : tagList.some((tag) => selectedTags.has(tag))
         if (exists) return true
       }
-      if (filterByCategories.length) {
-        return filterByCategories.includes(category.uuid)
+      if (filterByCategories.size) {
+        return filterByCategories.has(category.uuid)
       }
       return exists
     })

@@ -8,9 +8,9 @@ export function useInfiniteScroll(collection: any[], perPage = 30) {
 
   useEffect(() => {
     if (inView) {
-      setPage(page + 1)
+      setPage((previousPage) => previousPage + 1)
     }
-  }, [inView, page, setPage])
+  }, [inView])
 
   return {
     ref: useRef,

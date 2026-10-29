@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source roots: AuthContainer complexity/immutable personalization, form hidden-field construction, script attribute construction. No generated-file edits, suppressions, dependency or unrelated changes.",
+  "rootCauses": [
+    {
+      "name": "AuthContainer mixed visibility and personalization",
+      "file": "src/components/auth/AuthContainer.tsx",
+      "findings": 1,
+      "impact": "Shared CMS headline/button templates were mutated on render. Subsequent users could retain previous personalization; frozen content throws. Regression reproduced the frozen-content failure. Complexity mixed role/display decisions with this mutation.",
+      "fix": "Extract cohesive visibility and personalization functions. Personalize copies of headline/button blocks and preserve other blocks. Keep display/role rules, comma trimming, editor bypass, first-occurrence placeholder replacement and body/children precedence. These remain client-side display rules, not authorization enforcement.",
+      "tests": "Nine tests cover changing users with frozen CMS templates and the existing anonymous/logged-in/role/editor visibility matrix. Original personalization regression failed before the change."
+    },
+    {
+      "name": "Hidden-field accumulator copying",
+      "file": "src/components/form-builder/FormBuilder.tsx",
+      "helper": "src/components/form-builder/additionalFormData.ts",
+      "findings": 1,
+      "impact": "Repeatedly copies every accumulated field during submission. Small forms have negligible absolute cost; synthetic large lists show quadratic growth and measurable blocking work. Production input sizes/latency not established.",
+      "fix": "Build once with Object.fromEntries, preserving literal special keys and last-entry precedence. Keep CMS fields before caller fields, numeric conversions, downstream falsy filtering and onSubmit semantics.",
+      "tests": "Immutable input and exact old/new equivalence including duplicate keys, numeric/empty/invalid values, __proto__ and constructor. Large-list coverage plus actual component submission test validates payload and callback behavior."
+    },
+    {
+      "name": "Script attribute accumulator copying",
+      "file": "src/components/layout/AppHead.tsx",
+      "helper": "src/components/layout/scriptAttributes.ts",
+      "findings": 1,
+      "impact": "Every AppHead render repeatedly copied earlier attributes. Small lists cost little; large synthetic lists reveal quadratic growth. No measured production page slowdown claimed.",
+      "fix": "Extract the parser and build one object with Object.fromEntries. Preserve existing comma/equal splitting, whitespace, duplicate precedence and undefined/empty results; do not silently change malformed-input parsing.",
+      "tests": "Nine parser tests cover old/new equivalence for empty input, whitespace, duplicates, missing values, extra equals, special names and large lists."
+    }
+  ],
+  "canonicalRecipes": {
+    "no-high-complexity-react-function": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function",
+    "no-spread-accumulator-in-reduce": "https://react.doctor/docs/rules/react-doctor/no-spread-accumulator-in-reduce"
+  },
+  "recipeReview": "Fetched canonical recipes with no-cache curl and reviewed validation/false-positive boundaries. Complexity fix separates meaningful visibility and personalization responsibilities, confirmed by runtime tests. Object.fromEntries follows the recipe's candidate correction; unlike naive property assignment it preserves own __proto__ keys. Benchmarked original algorithms against actual new helper implementations with equal outputs.",
+  "grouping": "Three independent source roots; two repeated-copy sites have different data contracts and callers. No duplicate sites were counted as separate fixes within one root.",
+  "benchmark": {
+    "method": "Node performance.now, 3 warmups then 10 samples per actual old/new helper algorithm, median sample. Includes parsing/mapping and object construction. Synthetic input sizes, not live-site measurements. Module-loading time excluded.",
+    "results": [
+      {
+        "size": 20,
+        "form": {
+          "beforeMs": 0.005833000000002642,
+          "afterMs": 0.00274999999999892
+        },
+        "attributes": {
+          "beforeMs": 0.009292000000002076,
+          "afterMs": 0.008334000000004949
+        }
+      },
+      {
+        "size": 200,
+        "form": {
+          "beforeMs": 0.549042,
+          "afterMs": 0.02049999999999841
+        },
+        "attributes": {
+          "beforeMs": 0.5909169999999975,
+          "afterMs": 0.048292000000003554
+        }
+      },
+      {
+        "size": 1000,
+        "form": {
+          "beforeMs": 44.951333000000034,
+          "afterMs": 0.11149999999997817
+        },
+        "attributes": {
+          "beforeMs": 46.63883400000009,
+          "afterMs": 0.2590419999999085
+        }
+      }
+    ]
+  },
+  "validation": {
+    "tests": "21 pass across 4 files",
+    "typecheck": "tsc --noEmit passes",
+    "eslint": "All nine changed source/test files pass without warnings/errors",
+    "format": "Prettier check and git diff --check pass",
+    "reactDoctorCommand": "npx react-doctor@latest --verbose",
+    "runs": {
+      "auth-complex": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-f122ed32-90c7-4943-9cd6-c6f3de9bfa20/diagnostics.json",
+        "totalFindings": 118
+      },
+      "form-perf": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-56b8a04a-a055-439b-91f8-009fb8e65342/diagnostics.json",
+        "totalFindings": 107
+      },
+      "performance-final": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-1f2a0bd6-4565-4576-a1b7-c57bfc8c8dd8/diagnostics.json",
+        "totalFindings": 106
+      }
+    },
+    "targetedFindingsRemoved": 3,
+    "targetedFindingsRemaining": 0,
+    "newFindings": 0,
+    "overallCount": "128 to 106 across scans, but only three source removals belong to this pass. Nineteen generated-artifact diagnostics also disappeared outside this work; do not attribute them to these fixes.",
+    "limitations": "No production build, browser-performance trace or live auth/provider tests. Component tests mock rendering boundaries and role checks; performance measurements are synthetic."
+  },
+  "remaining": {
+    "total": 106,
+    "source": 53,
+    "sourceErrors": [],
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 25,
+      "jsx-no-constructed-context-values": 1,
+      "nextjs-no-a-element": 1,
+      "nextjs-image-missing-sizes": 1,
+      "no-derived-useState": 2,
+      "rerender-lazy-state-init": 2,
+      "js-set-map-lookups": 11,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "followUp": [
+      "Other high-complexity components and hooks.",
+      "Repeated membership checks require workload measurement before Set conversion.",
+      "Context-value identity, image sizing and initial-state warnings remain.",
+      "Generated findings left alone."
+    ]
+  }
+}

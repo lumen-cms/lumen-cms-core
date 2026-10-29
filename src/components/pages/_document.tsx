@@ -2,7 +2,7 @@ import { Head, Html, Main, NextScript } from 'next/document'
 import type { DocumentContext, DocumentProps } from 'next/document'
 import createCache from '@emotion/cache'
 import { documentGetInitialProps } from '@mui/material-nextjs/v16-pagesRouter'
-import { SSR_CONFIG } from '@SSR_CONFIG'
+import { SSR_CONFIG } from '../../utils/initial-props/ssrConfig'
 import { DocumentGoogleFonts } from './DocumentGoogleFonts'
 import type { AppPageProps } from '../../typings/app'
 
@@ -28,6 +28,7 @@ function AppDocument(props: DocumentProps) {
           <noscript>
             <iframe
               title="googletagmanager"
+              sandbox="allow-same-origin"
               src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_CONTAINER}`}
               height="0"
               width="0"

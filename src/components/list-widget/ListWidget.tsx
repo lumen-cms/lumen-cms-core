@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { legacyClientListWidgetSearch, useListSearch } from './useListSearch'
 import { ListWidgetContainer } from './ListWidgetContainer'
 import { ListStoriesData, LmListWidgetProps } from './listWidgetTypes'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 
 export default function LmListWidget({
   content

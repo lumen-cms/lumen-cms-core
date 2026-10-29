@@ -1,0 +1,2181 @@
+{
+  "date": "2026-10-29",
+  "method": "Isolated Next.js production Webpack builds of a fresh working-tree baseline and optimization candidate; TEST=TRUE sampled routes, same diagnostic routes in each build. Gzip sizes estimated per file; browser timings are single local samples, not field performance claims.",
+  "archives": {
+    "baseline": {
+      "path": "/tmp/lumen-render-optimization/baseline.tgz",
+      "sha256": "effb102778b1d9f5c8da97f63842b40199c40d5bfd08cfffd82c2217ac9c3436"
+    },
+    "candidate": {
+      "path": "/tmp/lumen-render-optimization/candidate.tgz",
+      "sha256": "1fe3dd1c1f5adb9a737807709f14f062f8a69ba4090d8760727a73d2c62c79d9"
+    }
+  },
+  "bundleChecks": {
+    "sites": {
+      "baliinternships": {
+        "before": {
+          "shared": {
+            "files": 5,
+            "rawBytes": 1081095,
+            "gzipBytes": 338130
+          },
+          "fixtures": {
+            "plain": {
+              "files": 8,
+              "rawBytes": 1194683,
+              "gzipBytes": 378317
+            },
+            "slider": {
+              "files": 11,
+              "rawBytes": 1320049,
+              "gzipBytes": 417459
+            },
+            "snackbar": {
+              "files": 12,
+              "rawBytes": 1391620,
+              "gzipBytes": 443494
+            }
+          },
+          "iframeAliases": []
+        },
+        "after": {
+          "shared": {
+            "files": 5,
+            "rawBytes": 1024657,
+            "gzipBytes": 318362
+          },
+          "fixtures": {
+            "plain": {
+              "files": 8,
+              "rawBytes": 1138245,
+              "gzipBytes": 358548
+            },
+            "slider": {
+              "files": 10,
+              "rawBytes": 1234560,
+              "gzipBytes": 387769
+            },
+            "snackbar": {
+              "files": 10,
+              "rawBytes": 1156642,
+              "gzipBytes": 365259
+            }
+          },
+          "iframeAliases": [
+            [
+              "static/chunks/7993.3125a402c0c3435e.js"
+            ]
+          ]
+        },
+        "sharedGzipSavedBytes": 19768,
+        "violations": [
+          "plain did not include its intended renderer"
+        ]
+      },
+      "planet-training": {
+        "before": {
+          "shared": {
+            "files": 5,
+            "rawBytes": 1081045,
+            "gzipBytes": 338547
+          },
+          "fixtures": {
+            "plain": {
+              "files": 8,
+              "rawBytes": 1195930,
+              "gzipBytes": 379364
+            },
+            "slider": {
+              "files": 11,
+              "rawBytes": 1321296,
+              "gzipBytes": 418491
+            },
+            "snackbar": {
+              "files": 12,
+              "rawBytes": 1392866,
+              "gzipBytes": 444552
+            }
+          },
+          "iframeAliases": []
+        },
+        "after": {
+          "shared": {
+            "files": 5,
+            "rawBytes": 1024607,
+            "gzipBytes": 318525
+          },
+          "fixtures": {
+            "plain": {
+              "files": 8,
+              "rawBytes": 1139492,
+              "gzipBytes": 359345
+            },
+            "slider": {
+              "files": 10,
+              "rawBytes": 1235807,
+              "gzipBytes": 388580
+            },
+            "snackbar": {
+              "files": 10,
+              "rawBytes": 1157890,
+              "gzipBytes": 366072
+            }
+          },
+          "iframeAliases": [
+            [
+              "static/chunks/6734.b533bb2e2f8f47a8.js"
+            ]
+          ]
+        },
+        "sharedGzipSavedBytes": 20022,
+        "violations": [
+          "plain did not include its intended renderer"
+        ]
+      },
+      "upskill": {
+        "before": {
+          "shared": {
+            "files": 5,
+            "rawBytes": 1081112,
+            "gzipBytes": 338565
+          },
+          "fixtures": {
+            "plain": {
+              "files": 8,
+              "rawBytes": 1195991,
+              "gzipBytes": 379378
+            },
+            "slider": {
+              "files": 11,
+              "rawBytes": 1321357,
+              "gzipBytes": 418505
+            },
+            "snackbar": {
+              "files": 12,
+              "rawBytes": 1392927,
+              "gzipBytes": 444566
+            }
+          },
+          "iframeAliases": []
+        },
+        "after": {
+          "shared": {
+            "files": 5,
+            "rawBytes": 1024674,
+            "gzipBytes": 318544
+          },
+          "fixtures": {
+            "plain": {
+              "files": 8,
+              "rawBytes": 1139553,
+              "gzipBytes": 359361
+            },
+            "slider": {
+              "files": 10,
+              "rawBytes": 1235868,
+              "gzipBytes": 388596
+            },
+            "snackbar": {
+              "files": 10,
+              "rawBytes": 1157951,
+              "gzipBytes": 366088
+            }
+          },
+          "iframeAliases": [
+            [
+              "static/chunks/6734.b533bb2e2f8f47a8.js"
+            ]
+          ]
+        },
+        "sharedGzipSavedBytes": 20021,
+        "violations": [
+          "plain did not include its intended renderer"
+        ]
+      }
+    },
+    "passed": false
+  },
+  "pageData": {
+    "comparedAt": "2026-10-29T01:32:30.747Z",
+    "baseline": "/tmp/lumen-render-optimization/baseline",
+    "candidate": "/tmp/lumen-render-optimization/candidate",
+    "ignored": [
+      "*.list_widget_data.cv (numeric Date.now build timestamp)",
+      "*.form_data.fbzx (nonempty numeric Google Forms hidden token)"
+    ],
+    "sites": {
+      "baliinternships": {
+        "routes": 11,
+        "candidateRoutes": 11,
+        "missing": [],
+        "added": [],
+        "beforeCounts": {
+          "components": 2743,
+          "arrayItems": 4820,
+          "stories": 22,
+          "listItems": 22,
+          "formFields": 0
+        },
+        "afterCounts": {
+          "components": 2743,
+          "arrayItems": 4820,
+          "stories": 22,
+          "listItems": 22,
+          "formFields": 0
+        },
+        "differences": []
+      },
+      "planet-training": {
+        "routes": 13,
+        "candidateRoutes": 13,
+        "missing": [],
+        "added": [],
+        "beforeCounts": {
+          "components": 8324,
+          "arrayItems": 31480,
+          "stories": 0,
+          "listItems": 0,
+          "formFields": 0
+        },
+        "afterCounts": {
+          "components": 8324,
+          "arrayItems": 31480,
+          "stories": 0,
+          "listItems": 0,
+          "formFields": 0
+        },
+        "differences": []
+      },
+      "upskill": {
+        "routes": 9,
+        "candidateRoutes": 9,
+        "missing": [],
+        "added": [],
+        "beforeCounts": {
+          "components": 3200,
+          "arrayItems": 5999,
+          "stories": 36,
+          "listItems": 36,
+          "formFields": 0
+        },
+        "afterCounts": {
+          "components": 3200,
+          "arrayItems": 5999,
+          "stories": 36,
+          "listItems": 36,
+          "formFields": 0
+        },
+        "differences": []
+      }
+    }
+  },
+  "browser": {
+    "comparisons": [
+      {
+        "site": "baliinternships",
+        "route": "/__bundle-check/plain",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "baliinternships",
+        "route": "/__bundle-check/slider",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "baliinternships",
+        "route": "/__bundle-check/snackbar",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "baliinternships",
+        "route": "/",
+        "width": 375,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "baliinternships",
+        "route": "/",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "baliinternships",
+        "route": "/info/faq",
+        "width": 375,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "baliinternships",
+        "route": "/info/faq",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "planet-training",
+        "route": "/__bundle-check/plain",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "planet-training",
+        "route": "/__bundle-check/slider",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "planet-training",
+        "route": "/__bundle-check/snackbar",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "planet-training",
+        "route": "/",
+        "width": 375,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": -1
+      },
+      {
+        "site": "planet-training",
+        "route": "/",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "planet-training",
+        "route": "/pricing",
+        "width": 375,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "planet-training",
+        "route": "/pricing",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "upskill",
+        "route": "/__bundle-check/plain",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "upskill",
+        "route": "/__bundle-check/slider",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "upskill",
+        "route": "/__bundle-check/snackbar",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "upskill",
+        "route": "/",
+        "width": 375,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "upskill",
+        "route": "/",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "upskill",
+        "route": "/blog-articles",
+        "width": 375,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "upskill",
+        "route": "/blog-articles",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "upskill",
+        "route": "/faq-study-bali",
+        "width": 375,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "upskill",
+        "route": "/faq-study-bali",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "baliinternships",
+        "route": "/blog-articles",
+        "width": 375,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "baliinternships",
+        "route": "/blog-articles",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "planet-training",
+        "route": "/support/faq",
+        "width": 375,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      },
+      {
+        "site": "planet-training",
+        "route": "/support/faq",
+        "width": 1280,
+        "headingsMatch": true,
+        "statusMatch": true,
+        "newErrors": [],
+        "newOverflow": false,
+        "previewDownloaded": false,
+        "heightDelta": 0
+      }
+    ],
+    "samples": [
+      {
+        "site": "baliinternships",
+        "variant": "baseline",
+        "route": "/__bundle-check/plain",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 7,
+          "gzipBytes": 338690
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 20,
+          "cls": 0,
+          "dcl": 73,
+          "scriptTransferBytes": 339199
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "baseline",
+        "route": "/__bundle-check/slider",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 10,
+          "gzipBytes": 377832
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 28,
+          "cls": 0,
+          "dcl": 78.2000002861023,
+          "scriptTransferBytes": 378341
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "baseline",
+        "route": "/__bundle-check/snackbar",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 11,
+          "gzipBytes": 403867
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 0,
+          "cls": 0,
+          "dcl": 72.7999997138977,
+          "scriptTransferBytes": 404376
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "baseline",
+        "route": "/",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 16,
+          "gzipBytes": 464266
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 436,
+          "cls": 0.0010425124568257745,
+          "dcl": 103,
+          "scriptTransferBytes": 465016
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 10302,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "baseline",
+        "route": "/",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 16,
+          "gzipBytes": 464266
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 636,
+          "cls": 0.0046003508037991,
+          "dcl": 507.2000002861023,
+          "scriptTransferBytes": 465016
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 6527,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "baseline",
+        "route": "/info/faq",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 14,
+          "gzipBytes": 430861
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 136,
+          "cls": 0.14379426072227344,
+          "dcl": 193.5,
+          "scriptTransferBytes": 431340
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 5950,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "baseline",
+        "route": "/info/faq",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 14,
+          "gzipBytes": 430861
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 40,
+          "cls": 0.15288197339905632,
+          "dcl": 106.19999980926514,
+          "scriptTransferBytes": 431340
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 3827,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "candidate",
+        "route": "/__bundle-check/plain",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 7,
+          "gzipBytes": 318921
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 20,
+          "cls": 0,
+          "dcl": 81.5,
+          "scriptTransferBytes": 319431
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "candidate",
+        "route": "/__bundle-check/slider",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 9,
+          "gzipBytes": 348142
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 28,
+          "cls": 0,
+          "dcl": 75.09999990463257,
+          "scriptTransferBytes": 348652
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "candidate",
+        "route": "/__bundle-check/snackbar",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 9,
+          "gzipBytes": 325632
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 0,
+          "cls": 0,
+          "dcl": 74.10000038146973,
+          "scriptTransferBytes": 326142
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "candidate",
+        "route": "/",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 25,
+          "gzipBytes": 442195
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 264,
+          "cls": 0.0010425124568257745,
+          "dcl": 104.2999997138977,
+          "scriptTransferBytes": 442946
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 10302,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "candidate",
+        "route": "/",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 25,
+          "gzipBytes": 442195
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 368,
+          "cls": 0.0046003508037991,
+          "dcl": 223.5,
+          "scriptTransferBytes": 442946
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 6527,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "candidate",
+        "route": "/info/faq",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 19,
+          "gzipBytes": 397460
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 1432,
+          "cls": 0.13401844200447716,
+          "dcl": 1483.3000001907349,
+          "scriptTransferBytes": 397940
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 5950,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "candidate",
+        "route": "/info/faq",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 19,
+          "gzipBytes": 397460
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 40,
+          "cls": 0.15288197339905632,
+          "dcl": 87.30000019073486,
+          "scriptTransferBytes": 397940
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 3827,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "baseline",
+        "route": "/__bundle-check/plain",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 7,
+          "gzipBytes": 339737
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 24,
+          "cls": 0,
+          "dcl": 70.09999990463257,
+          "scriptTransferBytes": 340144
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "baseline",
+        "route": "/__bundle-check/slider",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 10,
+          "gzipBytes": 378864
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 28,
+          "cls": 0,
+          "dcl": 76.39999961853027,
+          "scriptTransferBytes": 379271
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "baseline",
+        "route": "/__bundle-check/snackbar",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 11,
+          "gzipBytes": 404925
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 0,
+          "cls": 0,
+          "dcl": 75.90000009536743,
+          "scriptTransferBytes": 405332
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "baseline",
+        "route": "/",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 382203
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 212,
+          "cls": 0.03126109720419084,
+          "dcl": 95.90000009536743,
+          "scriptTransferBytes": 382955
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 11827,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "baseline",
+        "route": "/",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 382203
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 168,
+          "cls": 0.011020475149154664,
+          "dcl": 87.59999990463257,
+          "scriptTransferBytes": 382955
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 8720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "baseline",
+        "route": "/pricing",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 10,
+          "gzipBytes": 346690
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 24,
+          "cls": 0.0010202470182484407,
+          "dcl": 261.19999980926514,
+          "scriptTransferBytes": 347172
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 8727,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "baseline",
+        "route": "/pricing",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 10,
+          "gzipBytes": 346690
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 24,
+          "cls": 0.002643259048461914,
+          "dcl": 232.09999990463257,
+          "scriptTransferBytes": 347172
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 6140,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "candidate",
+        "route": "/__bundle-check/plain",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 7,
+          "gzipBytes": 319718
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 24,
+          "cls": 0,
+          "dcl": 70.09999990463257,
+          "scriptTransferBytes": 320124
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "candidate",
+        "route": "/__bundle-check/slider",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 9,
+          "gzipBytes": 348953
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 28,
+          "cls": 0,
+          "dcl": 75,
+          "scriptTransferBytes": 349359
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "candidate",
+        "route": "/__bundle-check/snackbar",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 9,
+          "gzipBytes": 326445
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 0,
+          "cls": 0,
+          "dcl": 67.2999997138977,
+          "scriptTransferBytes": 326851
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "candidate",
+        "route": "/",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 15,
+          "gzipBytes": 364914
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 280,
+          "cls": 0.03142676060094073,
+          "dcl": 92.2999997138977,
+          "scriptTransferBytes": 365665
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 11826,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "candidate",
+        "route": "/",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 15,
+          "gzipBytes": 364914
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 236,
+          "cls": 0.011020475149154664,
+          "dcl": 86.7999997138977,
+          "scriptTransferBytes": 365665
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 8720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "candidate",
+        "route": "/pricing",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 326988
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 28,
+          "cls": 0.0010202470182484407,
+          "dcl": 209.80000019073486,
+          "scriptTransferBytes": 327469
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 8727,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "candidate",
+        "route": "/pricing",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 326988
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 36,
+          "cls": 0.002643259048461914,
+          "dcl": 218.2999997138977,
+          "scriptTransferBytes": 327469
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 6140,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "baseline",
+        "route": "/__bundle-check/plain",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 7,
+          "gzipBytes": 339751
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 20,
+          "cls": 0,
+          "dcl": 68.09999990463257,
+          "scriptTransferBytes": 340156
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "baseline",
+        "route": "/__bundle-check/slider",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 10,
+          "gzipBytes": 378878
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 24,
+          "cls": 0,
+          "dcl": 72.69999980926514,
+          "scriptTransferBytes": 379283
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "baseline",
+        "route": "/__bundle-check/snackbar",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 11,
+          "gzipBytes": 404939
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 0,
+          "cls": 0,
+          "dcl": 69.59999990463257,
+          "scriptTransferBytes": 405344
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "baseline",
+        "route": "/",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 390767
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 272,
+          "cls": 0.09248667046336964,
+          "dcl": 96.30000019073486,
+          "scriptTransferBytes": 391517
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 15559,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "baseline",
+        "route": "/",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 390767
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 308,
+          "cls": 0.007056777238845824,
+          "dcl": 150.30000019073486,
+          "scriptTransferBytes": 391517
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 9873,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "baseline",
+        "route": "/blog-articles",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 413485
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 1664,
+          "cls": 0.13129245532933742,
+          "dcl": 1511.3999996185303,
+          "scriptTransferBytes": 413965
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 53635,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "baseline",
+        "route": "/blog-articles",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 413485
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 232,
+          "cls": 0.007485238869984943,
+          "dcl": 81.2000002861023,
+          "scriptTransferBytes": 413965
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 32996,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "baseline",
+        "route": "/faq-study-bali",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 12,
+          "gzipBytes": 399780
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 1712,
+          "cls": 0.09970569978139887,
+          "dcl": 1761,
+          "scriptTransferBytes": 400260
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 6761,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "baseline",
+        "route": "/faq-study-bali",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 12,
+          "gzipBytes": 399780
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 36,
+          "cls": 0.01813058042526245,
+          "dcl": 84.40000009536743,
+          "scriptTransferBytes": 400260
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 4496,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "candidate",
+        "route": "/__bundle-check/plain",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 7,
+          "gzipBytes": 319734
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 20,
+          "cls": 0,
+          "dcl": 66.7999997138977,
+          "scriptTransferBytes": 320137
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "candidate",
+        "route": "/__bundle-check/slider",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 9,
+          "gzipBytes": 348969
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 28,
+          "cls": 0,
+          "dcl": 70.59999990463257,
+          "scriptTransferBytes": 349372
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "candidate",
+        "route": "/__bundle-check/snackbar",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 9,
+          "gzipBytes": 326461
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 0,
+          "cls": 0,
+          "dcl": 71.2999997138977,
+          "scriptTransferBytes": 326864
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 720,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "candidate",
+        "route": "/",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 19,
+          "gzipBytes": 370746
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 184,
+          "cls": 0.09248667046336964,
+          "dcl": 93.69999980926514,
+          "scriptTransferBytes": 371494
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 15559,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "candidate",
+        "route": "/",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 19,
+          "gzipBytes": 370746
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 320,
+          "cls": 0.007056777238845824,
+          "dcl": 179.5,
+          "scriptTransferBytes": 371494
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 9873,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "candidate",
+        "route": "/blog-articles",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 16,
+          "gzipBytes": 372816
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 1764,
+          "cls": 0.13129245532933742,
+          "dcl": 1433,
+          "scriptTransferBytes": 373294
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 53635,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "candidate",
+        "route": "/blog-articles",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 16,
+          "gzipBytes": 372816
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 272,
+          "cls": 0.007488977273305256,
+          "dcl": 83.40000009536743,
+          "scriptTransferBytes": 373294
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 32996,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "candidate",
+        "route": "/faq-study-bali",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 12,
+          "gzipBytes": 371936
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 2132,
+          "cls": 0.09970569978139887,
+          "dcl": 2179.0999999046326,
+          "scriptTransferBytes": 372414
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 6761,
+          "overflow": false
+        }
+      },
+      {
+        "site": "upskill",
+        "variant": "candidate",
+        "route": "/faq-study-bali",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 12,
+          "gzipBytes": 371936
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 36,
+          "cls": 0.015475484795040552,
+          "dcl": 84.59999990463257,
+          "scriptTransferBytes": 372414
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 4496,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "baseline",
+        "route": "/blog-articles",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 430031
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 1420,
+          "cls": 0.008291275431843367,
+          "dcl": 1174.5,
+          "scriptTransferBytes": 430510
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 95755,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "baseline",
+        "route": "/blog-articles",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 13,
+          "gzipBytes": 430031
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 220,
+          "cls": 0.011899211671617296,
+          "dcl": 88.2999997138977,
+          "scriptTransferBytes": 430510
+        },
+        "interaction": {
+          "type": "search",
+          "value": "bali"
+        },
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 56175,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "candidate",
+        "route": "/blog-articles",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 19,
+          "gzipBytes": 400222
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 1756,
+          "cls": 0.008291275431843367,
+          "dcl": 1496.2999997138977,
+          "scriptTransferBytes": 400702
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 95755,
+          "overflow": false
+        }
+      },
+      {
+        "site": "baliinternships",
+        "variant": "candidate",
+        "route": "/blog-articles",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 22,
+          "gzipBytes": 407387
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 248,
+          "cls": 0.011899211671617296,
+          "dcl": 89.69999980926514,
+          "scriptTransferBytes": 407867
+        },
+        "interaction": {
+          "type": "search",
+          "value": "bali"
+        },
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 56175,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "baseline",
+        "route": "/support/faq",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 14,
+          "gzipBytes": 411878
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 1268,
+          "cls": 0.07658627931701811,
+          "dcl": 1192.2999997138977,
+          "scriptTransferBytes": 412360
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 7099,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "baseline",
+        "route": "/support/faq",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 14,
+          "gzipBytes": 411878
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 380,
+          "cls": 0.009672693928082784,
+          "dcl": 85.40000009536743,
+          "scriptTransferBytes": 412360
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 4002,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "candidate",
+        "route": "/support/faq",
+        "width": 375,
+        "status": 200,
+        "initialJs": {
+          "requests": 19,
+          "gzipBytes": 377193
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 1288,
+          "cls": 0.07370047015164567,
+          "dcl": 1179.5,
+          "scriptTransferBytes": 377674
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 7099,
+          "overflow": false
+        }
+      },
+      {
+        "site": "planet-training",
+        "variant": "candidate",
+        "route": "/support/faq",
+        "width": 1280,
+        "status": 200,
+        "initialJs": {
+          "requests": 19,
+          "gzipBytes": 377193
+        },
+        "additionalJs": {
+          "requests": 0,
+          "gzipBytes": 0
+        },
+        "timing": {
+          "lcp": 232,
+          "cls": 0.012444450603591072,
+          "dcl": 100.40000009536743,
+          "scriptTransferBytes": 377674
+        },
+        "interaction": null,
+        "errorCount": 0,
+        "previewDownloaded": false,
+        "layout": {
+          "height": 4002,
+          "overflow": false
+        }
+      }
+    ]
+  },
+  "search": {
+    "baseline": {
+      "variant": "baseline",
+      "value": "bali",
+      "requests": [
+        {
+          "path": "/v2/cdn/spaces/me",
+          "status": 200
+        },
+        {
+          "path": "/v2/cdn/stories",
+          "status": 200
+        }
+      ],
+      "initialJs": {
+        "requests": 13,
+        "gzipBytes": 430031
+      },
+      "interactionJs": {
+        "requests": 0,
+        "gzipBytes": 0
+      },
+      "extra": [],
+      "options": 14,
+      "errors": []
+    },
+    "candidate": {
+      "variant": "candidate",
+      "value": "bali",
+      "requests": [
+        {
+          "path": "/v2/cdn/spaces/me",
+          "status": 200
+        },
+        {
+          "path": "/v2/cdn/stories",
+          "status": 200
+        }
+      ],
+      "initialJs": {
+        "requests": 22,
+        "gzipBytes": 407387
+      },
+      "interactionJs": {
+        "requests": 2,
+        "gzipBytes": 16881
+      },
+      "extra": [
+        "static/chunks/4166.e121c3ee4e6e312b.js",
+        "static/chunks/3671.0c0c90554cbdad7a.js"
+      ],
+      "options": 14,
+      "errors": []
+    }
+  },
+  "notes": [
+    "The first Planet FAQ probe used an invalid /help/faq path; it was replaced with /support/faq from the repository test manifest. Both versions returned 404 on the invalid path.",
+    "A long Bali desktop listing initially had different measured heights; the delayed recheck matched all 223 cards and page height. Existing pending offscreen images were identical.",
+    "There is a one-pixel height difference on the Planet mobile homepage. No new errors, heading differences, horizontal overflow or preview downloads were observed.",
+    "Browser typing was tested with real sequential keystrokes; initial fill-only samples did not trigger autocomplete fetching.",
+    "Other concurrent workspace edits after the archived candidate are not included in these production bundle measurements."
+  ],
+  "navigation": {
+    "dismissedDialog": false,
+    "drawerOpen": 1,
+    "destination": "/fees",
+    "navigated": "/fees",
+    "clientNavigation": true,
+    "errors": []
+  },
+  "validation": {
+    "unitTests": {
+      "passed": 209,
+      "files": 49
+    },
+    "typecheck": "passed at final recorded run",
+    "lint": {
+      "errors": 0,
+      "warnings": 91
+    },
+    "storybook": "production build passed",
+    "consumerBuilds": "three baseline and three candidate production builds passed",
+    "formatting": {
+      "changedFiles": "passed",
+      "repository": "unrelated src/utils/initial-props/component-data/traversePageContent.test.ts still flagged"
+    }
+  }
+}

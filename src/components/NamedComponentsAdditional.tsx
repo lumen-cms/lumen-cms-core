@@ -1,4 +1,4 @@
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../utils/config'
 import LmAccordion from './accordion/Accordion'
 import LmAccordionItem from './accordion/AccordionItem'
 import LmCardList from './card/CardList'

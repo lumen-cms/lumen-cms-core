@@ -1,4 +1,12 @@
-import { FC, PropsWithChildren, useEffect, useRef, useState } from 'react'
+import {
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  useMemo
+} from 'react'
 import {
   ShopifyProductFragment,
   ShopifySdkContext
@@ -38,32 +46,38 @@ export const LmShopifySdkProvider: FC<PropsWithChildren<unknown>> = ({
     }
   }, [cartOpen, setCartVariants])
 
-  const initCheckout = async (input: CheckoutCreateInput) => {
-    const { checkoutCreate } = await shopifyGraphqlSdk({
-      domain: shopifyConfig?.domain,
-      accessToken: shopifyConfig?.access_token
-    }).checkoutCreate({ input })
+  const initCheckout = useCallback(
+    async (input: CheckoutCreateInput) => {
+      const { checkoutCreate } = await shopifyGraphqlSdk({
+        domain: shopifyConfig?.domain,
+        accessToken: shopifyConfig?.access_token
+      }).checkoutCreate({ input })
 
-    return checkoutCreate?.checkout
-  }
+      return checkoutCreate?.checkout
+    },
+    [shopifyConfig?.domain, shopifyConfig?.access_token]
+  )
 
-  const onVariantSelect = async (variant: ShopifyProductFragment) => {
-    window.gtag &&
-      gtag('event', 'select_content', {
-        items: [variant.id]
-      })
+  const onVariantSelect = useCallback(
+    async (variant: ShopifyProductFragment) => {
+      window.gtag &&
+        gtag('event', 'select_content', {
+          items: [variant.id]
+        })
 
-    window.fbq &&
-      fbq('track', 'CustomizeProduct', {
-        content_ids: [variant.id as string],
-        content_type: 'product'
-      })
+      window.fbq &&
+        fbq('track', 'CustomizeProduct', {
+          content_ids: [variant.id as string],
+          content_type: 'product'
+        })
 
-    setSelectedVariant(variant)
-    currencyCode = variant.priceV2.currencyCode
-  }
+      setSelectedVariant(variant)
+      currencyCode = variant.priceV2.currencyCode
+    },
+    []
+  )
 
-  const addToCart = () => {
+  const addToCart = useCallback(() => {
     if (!selectedVariant?.id) {
       return // always one should be selected
     }
@@ -98,9 +112,9 @@ export const LmShopifySdkProvider: FC<PropsWithChildren<unknown>> = ({
 
     setCartVariants(items)
     setCartOpen(true)
-  }
+  }, [selectedVariant, cartVariants])
 
-  const onCheckout = async () => {
+  const onCheckout = useCallback(async () => {
     let lineItems = cartVariants.map((i) => ({
       quantity: i.quantity,
       variantId: i.variant.id
@@ -151,60 +165,71 @@ export const LmShopifySdkProvider: FC<PropsWithChildren<unknown>> = ({
       anchor.click()
     }
     return webUrl
-  }
+  }, [cartVariants, selectedVariant, initCheckout])
 
-  const updateCartItemQuantity = (
-    variant: ShopifyProductFragment,
-    quantity: number
-  ) => {
-    const items = cartVariants.map((i) => {
-      return {
-        variant: i.variant,
-        quantity:
-          i.variant.id === variant.id
-            ? quantity < 0
-              ? 0
-              : quantity
-            : i.quantity
-      }
-    })
-    setCartVariants(items)
-
-    const totalPrice = getTotalCartAmount(cartVariants)
-
-    window.fbq &&
-      fbq('track', 'AddToCart', {
-        content_ids: items.map((i) => `${i.variant.id}`),
-        value: totalPrice,
-        content_type: 'product',
-        currency: currencyCode
+  const updateCartItemQuantity = useCallback(
+    (variant: ShopifyProductFragment, quantity: number) => {
+      const items = cartVariants.map((i) => {
+        return {
+          variant: i.variant,
+          quantity:
+            i.variant.id === variant.id
+              ? quantity < 0
+                ? 0
+                : quantity
+              : i.quantity
+        }
       })
+      setCartVariants(items)
 
-    window.gtag &&
-      gtag('event', 'add_to_cart', {
-        items: items.map((i) => ({
-          id: i.variant.id,
-          quantity: i.quantity
-        })),
-        content_type: 'product',
-        currency: currencyCode,
-        value: totalPrice
-      })
-  }
+      const totalPrice = getTotalCartAmount(cartVariants)
+
+      window.fbq &&
+        fbq('track', 'AddToCart', {
+          content_ids: items.map((i) => `${i.variant.id}`),
+          value: totalPrice,
+          content_type: 'product',
+          currency: currencyCode
+        })
+
+      window.gtag &&
+        gtag('event', 'add_to_cart', {
+          items: items.map((i) => ({
+            id: i.variant.id,
+            quantity: i.quantity
+          })),
+          content_type: 'product',
+          currency: currencyCode,
+          value: totalPrice
+        })
+    },
+    [cartVariants]
+  )
+  const contextValue = useMemo(
+    () => ({
+      onVariantSelect,
+      selectedVariant,
+      onCheckout,
+      cartOpen,
+      setCartOpen,
+      cartVariants,
+      addToCart,
+      updateCartItemQuantity,
+      config: shopifyConfig as EcommerceShopifyConfigStoryblok
+    }),
+    [
+      onVariantSelect,
+      selectedVariant,
+      onCheckout,
+      cartOpen,
+      cartVariants,
+      addToCart,
+      updateCartItemQuantity,
+      shopifyConfig
+    ]
+  )
   return (
-    <ShopifySdkContext.Provider
-      value={{
-        onVariantSelect,
-        selectedVariant,
-        onCheckout,
-        cartOpen,
-        setCartOpen,
-        cartVariants,
-        addToCart,
-        updateCartItemQuantity,
-        config: shopifyConfig as EcommerceShopifyConfigStoryblok
-      }}
-    >
+    <ShopifySdkContext.Provider value={contextValue}>
       {children}
       <a
         href="/#"

@@ -1,92 +1,107 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useEffectEvent, useSyncExternalStore } from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import Cookies from 'js-cookie'
 import SnackbarContent from '@mui/material/SnackbarContent'
 import { Dialog, DialogActions, DialogContent } from '@mui/material'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { LmSnackbarProps } from './snackbarTypes'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 
-export default function LmSnackbar({ content }: LmSnackbarProps) {
-  const { insideStoryblok } = useAppContext()
-  const [open, setOpen] = React.useState<boolean>(false)
-  const isScrolled = useScrollOnce()
+// Server output and the first hydration render stay closed. Visibility is
+// reconciled before children render once the client snapshot is available.
+const subscribeToMount = () => () => {}
+const clientMounted = () => true
+const serverMounted = () => false
 
-  const cookieExists = useRef<boolean>(
-    content.cookie_name ? !!Cookies.get(content.cookie_name) : false
+type VisibilityInputs = {
+  mounted: boolean
+  display: LmSnackbarProps['content']['display']
+  autoShow: LmSnackbarProps['content']['auto_show']
+  isScrolled: boolean
+}
+
+function getNextVisibility(
+  previous: VisibilityInputs,
+  current: VisibilityInputs,
+  open: boolean,
+  cookieExists: boolean
+) {
+  if (!current.mounted) return open
+  const reset =
+    previous.mounted !== current.mounted ||
+    previous.display !== current.display ||
+    previous.autoShow !== current.autoShow
+  const scrollChanged =
+    previous.mounted !== current.mounted ||
+    previous.isScrolled !== current.isScrolled ||
+    previous.display !== current.display
+  let nextOpen = reset
+    ? !(
+        cookieExists ||
+        current.autoShow ||
+        current.display === 'show_on_scroll'
+      )
+    : open
+  if (scrollChanged && current.isScrolled) {
+    if (current.display === 'show_on_scroll' && !cookieExists) nextOpen = true
+    else if (current.display === 'hide_on_scroll') nextOpen = false
+  }
+  return nextOpen
+}
+
+function useSnackbarOpen(
+  content: LmSnackbarProps['content'],
+  cookieExists: boolean
+) {
+  const mounted = useSyncExternalStore(
+    subscribeToMount,
+    clientMounted,
+    serverMounted
   )
-
-  useEffect(() => {
-    let initalValue = true
-    if (
-      cookieExists.current ||
-      content.auto_show ||
-      content.display === 'show_on_scroll'
-    ) {
-      initalValue = false
+  const isScrolled = useScrollOnce()
+  const [open, setOpen] = React.useState(false)
+  const [previous, setPrevious] = React.useState({
+    mounted: false,
+    display: content.display,
+    autoShow: content.auto_show,
+    isScrolled: false
+  })
+  if (
+    previous.mounted !== mounted ||
+    previous.display !== content.display ||
+    previous.autoShow !== content.auto_show ||
+    previous.isScrolled !== isScrolled
+  ) {
+    const current = {
+      mounted,
+      display: content.display,
+      autoShow: content.auto_show,
+      isScrolled
     }
-    setOpen(initalValue)
-  }, [content.display, content.auto_show])
-
-  useEffect(() => {
-    if (!content.display || !isScrolled) {
-      return
-    }
-    if (content.display === 'show_on_scroll' && !cookieExists.current) {
-      setOpen(true)
-    } else if (content.display === 'hide_on_scroll') {
-      setOpen(false)
-    }
-  }, [isScrolled, content.display])
-
-  useEffect(() => {
-    if (!content.auto_close) {
-      return undefined
-    }
-    const timer = setTimeout(() => {
-      setOpen(false)
-    }, Number(content.auto_close))
-
-    return () => clearTimeout(timer)
-  }, [content.auto_close])
-
-  useEffect(() => {
-    if (!content.auto_show && !cookieExists.current) {
-      return undefined
-    }
-    const timer = setTimeout(
-      () => {
-        setOpen(true)
-      },
-      content.auto_show === undefined ? undefined : Number(content.auto_show)
-    )
-
-    return () => clearTimeout(timer)
-  }, [content.auto_show])
-
-  const handleAccept = () => {
-    setOpen(false)
-
-    if (content.cookie_name) {
-      const cookieOptions: Cookies.CookieAttributes = {
-        expires: content?.expire_in_days ? Number(content.expire_in_days) : 1,
-        sameSite: 'lax',
-        secure: window.location ? window.location.protocol === 'https:' : true
-      }
-      Cookies.set(content.cookie_name, 'true', cookieOptions)
-      cookieExists.current = true
-    }
+    setPrevious(current)
+    setOpen(getNextVisibility(previous, current, open, cookieExists))
   }
-  if (cookieExists.current && !insideStoryblok) {
-    return null
-  }
-  return content.dialog ? (
+  return [open, setOpen] as const
+}
+
+type SnackbarPresentationProps = LmSnackbarProps & {
+  open: boolean
+  handleAccept: () => void
+}
+
+function SnackbarDialog({
+  content,
+  open,
+  handleAccept,
+  onClose
+}: SnackbarPresentationProps & { onClose: () => void }) {
+  return (
     <Dialog
       open={open}
       maxWidth={content.max_width || false}
-      onClose={content.prevent_click_outside ? undefined : () => setOpen(false)}
+      onClose={content.prevent_click_outside ? undefined : onClose}
       slotProps={{
         paper: {
           elevation: content.elevation ? Number(content.elevation) : undefined,
@@ -117,7 +132,29 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
         ))}
       </DialogActions>
     </Dialog>
-  ) : (
+  )
+}
+
+function getToastStyle(
+  content: LmSnackbarProps['content']
+): React.CSSProperties {
+  return {
+    width: content.width ? content.width : undefined,
+    backgroundColor: content.background_color?.rgba || undefined,
+    alignItems: content.button_top_align ? 'flex-start' : undefined,
+    border: content.border_color?.rgba
+      ? `1px solid ${content.border_color.rgba}`
+      : undefined,
+    borderRadius: content.square ? 0 : undefined
+  }
+}
+
+function SnackbarToast({
+  content,
+  open,
+  handleAccept
+}: SnackbarPresentationProps) {
+  return (
     <Snackbar
       anchorOrigin={{
         horizontal: content.anchor_horizontal || 'center',
@@ -132,15 +169,7 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
       <SnackbarContent
         elevation={content.elevation ? Number(content.elevation) : undefined}
         variant={content.variant === 'outlined' ? 'outlined' : 'elevation'}
-        style={{
-          width: content.width ? content.width : undefined,
-          backgroundColor: content.background_color?.rgba || undefined,
-          alignItems: content.button_top_align ? 'flex-start' : undefined,
-          border: content.border_color?.rgba
-            ? `1px solid ${content.border_color.rgba}`
-            : undefined,
-          borderRadius: content.square ? 0 : undefined
-        }}
+        style={getToastStyle(content)}
         message={
           <>
             {(content?.descriptions || []).map((blok) => (
@@ -171,5 +200,66 @@ export default function LmSnackbar({ content }: LmSnackbarProps) {
         }
       />
     </Snackbar>
+  )
+}
+
+export default function LmSnackbar({ content }: LmSnackbarProps) {
+  const { insideStoryblok } = useAppContext()
+  const [cookieExists, setCookieExists] = React.useState(() =>
+    content.cookie_name ? !!Cookies.get(content.cookie_name) : false
+  )
+  const [open, setOpen] = useSnackbarOpen(content, cookieExists)
+  const hasDismissalCookie = useEffectEvent(() => cookieExists)
+
+  useEffect(() => {
+    if (!content.auto_close) {
+      return undefined
+    }
+    const timer = setTimeout(() => {
+      setOpen(false)
+    }, Number(content.auto_close))
+
+    return () => clearTimeout(timer)
+  }, [content.auto_close, setOpen])
+
+  useEffect(() => {
+    if (!content.auto_show && !hasDismissalCookie()) {
+      return undefined
+    }
+    const timer = setTimeout(
+      () => {
+        setOpen(true)
+      },
+      content.auto_show === undefined ? undefined : Number(content.auto_show)
+    )
+
+    return () => clearTimeout(timer)
+  }, [content.auto_show, setOpen])
+
+  const handleAccept = () => {
+    setOpen(false)
+
+    if (content.cookie_name) {
+      const cookieOptions: Cookies.CookieAttributes = {
+        expires: content?.expire_in_days ? Number(content.expire_in_days) : 1,
+        sameSite: 'lax',
+        secure: window.location ? window.location.protocol === 'https:' : true
+      }
+      Cookies.set(content.cookie_name, 'true', cookieOptions)
+      setCookieExists(true)
+    }
+  }
+  if (cookieExists && !insideStoryblok) {
+    return null
+  }
+  return content.dialog ? (
+    <SnackbarDialog
+      content={content}
+      open={open}
+      handleAccept={handleAccept}
+      onClose={() => setOpen(false)}
+    />
+  ) : (
+    <SnackbarToast content={content} open={open} handleAccept={handleAccept} />
   )
 }

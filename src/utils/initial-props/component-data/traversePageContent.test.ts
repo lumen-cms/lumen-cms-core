@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import { CONFIG } from '@CONFIG'
-import { SSR_CONFIG } from '@SSR_CONFIG'
+import { CONFIG } from '../../config'
+import { SSR_CONFIG } from '../ssrConfig'
 import { fetchComponentData } from './traversePageContent'
 import { listWidgetGetData } from './listWidgetData'
 import { fixtureFetch } from '../__fixtures__/storyblokDelivery'
@@ -45,11 +45,7 @@ it('shares one uncached story listing between concurrent list widgets', async ()
   await fetchComponentData(props)
 
   const page = props.page as any
-  const widgets = [
-    page.body[0],
-    page.body[1].body[0],
-    page.right_body[0]
-  ]
+  const widgets = [page.body[0], page.body[1].body[0], page.right_body[0]]
   for (const widget of widgets) {
     expect(widget.list_widget_data.items.map((i: any) => i.uuid)).toEqual([
       'item-1',

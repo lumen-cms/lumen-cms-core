@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmEcommerceCheckoutProps } from './ecommerceTpyes'
 
 export default function LmEcommerceCheckout({

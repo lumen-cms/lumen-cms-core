@@ -14,14 +14,14 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import navigationIcons from '../../vendor/swiper-navigation/icons.module.css'
 
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { PaginationOptions } from 'swiper/types'
 import Box from '@mui/material/Box'
 import { Theme } from '@mui/material/styles'
 import { getThemeColor } from '../../utils/themeColor'
 import LmSwiperContainer from './LmSwiperContainer'
 
-export default function LmSwiper({ content }: LmSwiperProps) {
+function getSwiperProps(content: LmSwiperProps['content']) {
   const { property } = content
   const showPagination = !property?.includes('hide_pagination')
 
@@ -68,6 +68,11 @@ export default function LmSwiper({ content }: LmSwiperProps) {
     }
   }
 
+  return swiperProps
+}
+
+export default function LmSwiper({ content }: LmSwiperProps) {
+  const swiperProps = getSwiperProps(content)
   const themeColors = content.theme_color?.split('.')
   return (
     <Box

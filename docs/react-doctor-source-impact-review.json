@@ -1,0 +1,144 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source-code root causes only; generated artifacts and unrelated existing work untouched.",
+  "rootCauses": [
+    {
+      "name": "Shopify checkout failure recovery",
+      "rule": "no-loading-flag-reset-outside-finally",
+      "files": [
+        "src/components/ecommerce/shopify/product/ShopifyCart.tsx",
+        "src/components/ecommerce/shopify/product/ShopifyItemActions.tsx"
+      ],
+      "impact": "A rejected checkout request permanently disabled the checkout button until reload. Shoppers could not retry.",
+      "fix": "Catch the failure, show an accessible error, clear pending state in finally, clear stale error on retry. Preserve existing empty-cart disable condition.",
+      "tests": "Both real component surfaces: deferred request disables button, rejection re-enables it with an alert, second successful request clears alert."
+    },
+    {
+      "name": "Account mutation failure recovery",
+      "rule": "no-loading-flag-reset-outside-finally",
+      "file": "src/components/auth/AuthForm.tsx",
+      "impact": "Token errors could leave account update/delete controls disabled. Failed deletion reloaded the page, concealing failure. HTTP error responses were treated as success.",
+      "fix": "Shared request handler catches token/network failures, checks HTTP success, always resets busy state in finally; reload only after confirmed successful deletion. English/German visible failure messages.",
+      "tests": "Both update and delete: deferred token rejection, HTTP 503, then HTTP 204 success; failed delete never reloads, successful delete does."
+    },
+    {
+      "name": "Dialog route subscription leak",
+      "rule": "effect-needs-cleanup",
+      "file": "src/components/dialog/DialogElement.tsx",
+      "impact": "Cleanup registered another route-error listener instead of releasing it, retaining stale component closures across navigation. Strict Mode duplicates the handler immediately.",
+      "fix": "Unsubscribe the exact route-error handler with events.off, matching route-complete cleanup.",
+      "tests": "Regression test failed before fix (two listeners instead of one), passes after; three Strict Mode mount/unmount cycles, both events still close an open dialog, zero listeners remain after unmount."
+    }
+  ],
+  "grouping": "No fixGroupId on selected findings. Two checkout sites are one duplicated behavior; two account operations share one request-state root cause; dialog cleanup is independent. Five original findings addressed.",
+  "recipes": {
+    "no-loading-flag-reset-outside-finally": "https://react.doctor/docs/rules/react-doctor/no-loading-flag-reset-outside-finally",
+    "effect-needs-cleanup": "https://react.doctor/docs/rules/react-doctor/effect-needs-cleanup",
+    "no-fetch-response-used-without-status-check": "https://react.doctor/docs/rules/react-doctor/no-fetch-response-used-without-status-check"
+  },
+  "recipeFetch": "curl with Cache-Control: no-cache and Pragma: no-cache; validation and fix prompts reviewed before editing.",
+  "validation": {
+    "focusedTests": "5 tests passed in 3 files; each test exercises multiple failure/retry or lifecycle stages",
+    "typecheck": "tsc --noEmit passed",
+    "lint": "ESLint passed with no output for all 7 touched production/test files",
+    "format": "Prettier and git diff --check passed",
+    "reactDoctor": {
+      "checkout": {
+        "path": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-57e2361b-97b0-4fde-a787-64a7126eb04f/diagnostics.json",
+        "total": 172,
+        "loadingFindings": [
+          [
+            "src/components/auth/AuthForm.tsx",
+            76
+          ],
+          [
+            "src/components/auth/AuthForm.tsx",
+            152
+          ]
+        ],
+        "dialogCleanupFindings": 1,
+        "incomplete": false
+      },
+      "auth": {
+        "path": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-6c6eec08-4a54-4587-90d0-c7ae6138655c/diagnostics.json",
+        "total": 170,
+        "loadingFindings": [],
+        "dialogCleanupFindings": 1,
+        "incomplete": false
+      },
+      "final": {
+        "path": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-b452ce2a-f2fb-4a03-9c39-7fdf5573852f/diagnostics.json",
+        "total": 169,
+        "loadingFindings": [],
+        "dialogCleanupFindings": 0,
+        "incomplete": false
+      }
+    },
+    "build": "Not rerun in this pass; no dependencies or build configuration changed. Component behavior tests and full typecheck completed."
+  },
+  "remainingSourceErrors": [
+    {
+      "rule": "no-hydration-branch-on-browser-global",
+      "file": "src/components/iframe/Iframe.tsx",
+      "line": 50
+    },
+    {
+      "rule": "effect-needs-cleanup",
+      "file": "src/components/list-widget/ListStories.tsx",
+      "line": 67
+    },
+    {
+      "rule": "effect-needs-cleanup",
+      "file": "src/components/menu/NavMenu.tsx",
+      "line": 32
+    },
+    {
+      "rule": "jsx-key",
+      "file": "src/components/section/SectionParallax.tsx",
+      "line": 47
+    },
+    {
+      "rule": "alt-text",
+      "file": "src/components/tracking/FbqPixel.tsx",
+      "line": 34
+    },
+    {
+      "rule": "effect-needs-cleanup",
+      "file": "src/utils/hooks/useExternalScript.ts",
+      "line": 11
+    }
+  ],
+  "remainingSourceCounts": {
+    "no-high-complexity-react-function": 24,
+    "no-nested-component-definition": 9,
+    "no-unstable-nested-components": 9,
+    "jsx-no-constructed-context-values": 1,
+    "nextjs-no-a-element": 1,
+    "nextjs-image-missing-sizes": 1,
+    "no-spread-accumulator-in-reduce": 2,
+    "no-mutating-array-method-on-prop-or-hook-result": 2,
+    "no-derived-useState": 2,
+    "no-hydration-branch-on-browser-global": 1,
+    "rerender-lazy-state-init": 2,
+    "js-set-map-lookups": 11,
+    "no-effect-chain": 3,
+    "no-adjust-state-on-prop-change": 6,
+    "effect-needs-cleanup": 3,
+    "no-unescaped-dynamic-string-in-regexp": 1,
+    "nextjs-no-css-link": 2,
+    "no-derived-state": 2,
+    "jsx-key": 1,
+    "no-array-index-as-key": 4,
+    "alt-text": 1,
+    "no-fetch-response-used-without-status-check": 5,
+    "rerender-functional-setstate": 1,
+    "no-json-parse-stringify-clone": 1,
+    "no-object-keys-values-entries-on-maybe-undefined": 1,
+    "async-await-in-loop": 1
+  },
+  "limitations": [
+    "Auth0 and Shopify requests mocked; no live account changes, deletion or purchases performed.",
+    "Historical generated diagnostics are not fixed or suppressed.",
+    "Other concurrent workspace changes preserved; aggregate count differences are not all attributed to this pass."
+  ]
+}

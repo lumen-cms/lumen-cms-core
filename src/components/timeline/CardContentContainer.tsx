@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import CardActionArea from '@mui/material/CardActionArea'
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../../utils/config'
 import {
   TimelineItemStoryblok,
   TimelineStoryblok

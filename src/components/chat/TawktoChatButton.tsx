@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useExternalScript as useScript } from '../../utils/hooks/useExternalScript'
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { TawktoProps } from './chatTypings'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 declare global {
   interface Window {

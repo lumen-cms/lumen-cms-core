@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import Header from './toolbar/Header'
 import Footer from './Footer'
 import { ChatTawktoStoryblok } from '../../typings/generated/components-schema'

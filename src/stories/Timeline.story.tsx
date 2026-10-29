@@ -1,4 +1,4 @@
-import { LmComponentRender as LmTimeline } from '@LmComponentRender'
+import { LmComponentRender as LmTimeline } from '../components/CoreComponents'
 import { storyTimeline, storyTimelineItem } from '../storybook/core/section'
 import { getSentences, storyAvatar } from '../storybook/core/various'
 import { HeadlineStoryblok } from '../typings/generated/components-schema'

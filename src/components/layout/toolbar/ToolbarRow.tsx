@@ -1,5 +1,5 @@
 import Grid from '../../../vendor/grid'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../../CoreComponents'
 import { LmToolbarRowProps } from './toolbarTypes'
 import ToolbarSystemBarRow from './ToolbarSystemBarRow'
 

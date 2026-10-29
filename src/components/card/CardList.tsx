@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmCardListProps } from './cardTypes'
 import Grid from '../../vendor/grid'
 import { COLUMN_COUNT } from './cardListStyles'

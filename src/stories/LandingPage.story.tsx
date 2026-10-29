@@ -1,5 +1,5 @@
 import { StoryFn } from '@storybook/react'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../utils/config'
 import { INITIAL_VIEWPORTS } from 'storybook/viewport'
 import SettingsPageProvider from '../components/provider/SettingsPageProvider'
 import GlobalTheme from '../components/global-theme/GlobalTheme'
@@ -72,7 +72,6 @@ export const Studentsgoabroad = Template.bind({})
 Studentsgoabroad.loaders = [
   async () => {
     CONFIG.publicToken = 'm85LRUo0sX4yo9Q96VMQlQtt'
-    CONFIG.previewToken = 'qASJXPT2cwH76pA9vpJbxAtt'
     CONFIG.rootDirectory = 'en'
     const data = await getPageProps('home', defaultOptions)
     return { data }
@@ -100,7 +99,6 @@ export const PlanetTraining = Template.bind({})
 PlanetTraining.loaders = [
   async () => {
     CONFIG.publicToken = 'itXwOvXYhANlzgPbwrA2Nwtt'
-    CONFIG.previewToken = 'MbZE9l5hGQp6BHIMkooB9Qtt'
     CONFIG.rootDirectory = ''
     const data = await getPageProps('', {
       ...defaultOptions,
@@ -121,7 +119,6 @@ export const UpskillStudy = Template.bind({})
 UpskillStudy.loaders = [
   async () => {
     CONFIG.publicToken = 'g2AKoarFAJ3BRbUkuafWwQtt'
-    CONFIG.previewToken = 'frxOrvW4RwWV5Xcrg4b3awtt'
     CONFIG.rootDirectory = ''
     const data = await getPageProps('', {
       ...defaultOptions,
@@ -142,7 +139,6 @@ export const Baliinternships = Template.bind({})
 Baliinternships.loaders = [
   async () => {
     CONFIG.publicToken = 'Xzl0aUdUwWqtCsD37fHMmQtt'
-    CONFIG.previewToken = 'IQrhrTP6aL0WYgDXmersbgtt'
     CONFIG.rootDirectory = ''
     const data = await getPageProps('', {
       ...defaultOptions,
@@ -175,7 +171,6 @@ export const Session = Template.bind({})
 Session.loaders = [
   async () => {
     CONFIG.publicToken = 'M6FMSs1PwBZARqJIrI7LDwtt'
-    CONFIG.previewToken = 'EI7JZ8ZBbjLWyN8dijyoSAtt'
     CONFIG.rootDirectory = ''
     const data = await getPageProps('', {
       ...defaultOptions,
@@ -205,7 +200,6 @@ export const GameMarketer = Template.bind({})
 GameMarketer.loaders = [
   async () => {
     CONFIG.publicToken = '1N2PMM9b5injDsNfTyn7cQtt'
-    CONFIG.previewToken = 'H903zyNHgIrEmoePMTKc7gtt'
     CONFIG.rootDirectory = ''
     const data = await getPageProps('', {
       ...defaultOptions,
@@ -238,7 +232,6 @@ export const Chatlabs = Template.bind({})
 Chatlabs.loaders = [
   async () => {
     CONFIG.publicToken = 'gfiuPfTDZQPeYwgnhOSSjwtt'
-    CONFIG.previewToken = 'GQ4XH9a9sMoYg4NWGWv3awtt'
     CONFIG.rootDirectory = ''
     const data = await getPageProps('demo-library/content-mn-001', {
       ...defaultOptions,

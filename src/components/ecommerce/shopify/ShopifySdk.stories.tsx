@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../../CoreComponents'
 import { StoryFn } from '@storybook/react'
 import { FC, PropsWithChildren } from 'react'
 import {

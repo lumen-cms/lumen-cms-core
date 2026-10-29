@@ -3,9 +3,19 @@ import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import LmNukaCarousel from '../../../slider/LmNukaCarousel'
 import Box from '@mui/material/Box'
+import { useTheme } from '@mui/material/styles'
 
 export function ShopifyProductCarousel({ item }: ShopifyProductItemProps) {
   const { selectedVariant, onVariantSelect, config } = useShopifySdkContext()
+  const theme = useTheme()
+  const columnWidth = config?.columns_first_width
+    ? Number(config.columns_first_width)
+    : 6
+  const desktopWidth =
+    columnWidth > 0 && columnWidth <= 12 ? (columnWidth / 12) * 100 : 100
+  const imageSizes = `${theme.breakpoints
+    .up('sm')
+    .replace('@media ', '')} ${desktopWidth}vw, 100vw`
   const variants = item.variants.edges
   const height = config?.image_container_height
     ? Number(config.image_container_height)
@@ -50,6 +60,7 @@ export function ShopifyProductCarousel({ item }: ShopifyProductItemProps) {
               src={currentItem.node.image?.transformedSrc}
               alt={currentItem.node.title}
               fill
+              sizes={imageSizes}
               style={{
                 objectFit: 'contain'
               }}

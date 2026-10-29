@@ -1,5 +1,5 @@
 import Grid from '../../vendor/grid'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { BackgroundStoryblok } from '../../typings/generated/components-schema'
 import BackgroundImage from './BackgroundImage'
 import BackgroundElements from './BackgroundElements'
@@ -50,6 +50,49 @@ const mdSpanMap: Record<string, number | boolean | 'auto' | undefined> = {
   true: true
 }
 
+function getColumnWidths(content: LmGridColumnProps['content']) {
+  const mdWidth = mdSpanMap[content.width_general as string]
+  let smWidth = smSpanMap[content.width_tablet as string]
+  if (!smWidth && mdWidth) {
+    smWidth = mdWidth
+    if (typeof mdWidth === 'number' && mdWidth > 8) {
+      smWidth = 12
+    }
+  }
+
+  return {
+    xs: content.width_phone ? xsSpanMap[content.width_phone as string] : 12,
+    sm: smWidth,
+    md: mdWidth
+  }
+}
+
+function ColumnBody({ content, parent }: LmGridColumnProps) {
+  const renderStackElement =
+    !['column', 'column-reverse'].includes(parent.direction) &&
+    (content.justify || content.align_content || content.align_items)
+  return renderStackElement ? (
+    <Stack
+      className={'lm-column-stack__root'}
+      direction="column"
+      sx={{
+        justifyContent: content.justify ? content.justify : undefined,
+        alignItems: content.align_items ? content.align_items : undefined,
+        alignContent: content.align_content ? content.align_content : undefined,
+        minHeight: '100%'
+      }}
+    >
+      {content.body?.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
+    </Stack>
+  ) : (
+    content.body?.map((blok) => (
+      <LmComponentRender content={blok} key={blok._uid} />
+    ))
+  )
+}
+
 export function LmGridColumn({
   content,
   parent
@@ -62,23 +105,12 @@ export function LmGridColumn({
     stylesTablet: content.styles_tablet,
     stylesHover: content.styles_hover
   })
-  const mdWidth = mdSpanMap[content.width_general as string]
-  let smWidth = smSpanMap[content.width_tablet as string]
-  if (!smWidth && mdWidth) {
-    smWidth = mdWidth
-    if (typeof mdWidth === 'number' && mdWidth > 8) {
-      smWidth = 12
-    }
-  }
-
-  const renderStackElement =
-    !['column', 'column-reverse'].includes(parent.direction) &&
-    (content.justify || content.align_content || content.align_items)
+  const { xs, sm, md } = getColumnWidths(content)
   return (
     <Grid
-      xs={content.width_phone ? xsSpanMap[content.width_phone as string] : 12}
-      sm={smWidth}
-      md={mdWidth}
+      xs={xs}
+      sm={sm}
+      md={md}
       className={clsx({
         'lm-column__bg-image': !!background?.image
       })}
@@ -98,28 +130,7 @@ export function LmGridColumn({
           background.background_elements.length > 0 && (
             <BackgroundElements elements={background.background_elements} />
           )}
-        {renderStackElement ? (
-          <Stack
-            className={'lm-column-stack__root'}
-            direction="column"
-            sx={{
-              justifyContent: content.justify ? content.justify : undefined,
-              alignItems: content.align_items ? content.align_items : undefined,
-              alignContent: content.align_content
-                ? content.align_content
-                : undefined,
-              minHeight: '100%'
-            }}
-          >
-            {content.body?.map((blok) => (
-              <LmComponentRender content={blok} key={blok._uid} />
-            ))}
-          </Stack>
-        ) : (
-          content.body?.map((blok) => (
-            <LmComponentRender content={blok} key={blok._uid} />
-          ))
-        )}
+        <ColumnBody content={content} parent={parent} />
       </WrapGridContainer>
     </Grid>
   )

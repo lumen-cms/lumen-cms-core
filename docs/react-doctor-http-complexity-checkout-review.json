@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-29",
+  "scope": [
+    "no-fetch-response-used-without-status-check",
+    "no-high-complexity-react-function",
+    "nextjs-no-a-element"
+  ],
+  "canonicalRecipes": {
+    "no-fetch-response-used-without-status-check": "https://react.doctor/docs/rules/react-doctor/no-fetch-response-used-without-status-check",
+    "no-high-complexity-react-function": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function",
+    "nextjs-no-a-element": "https://react.doctor/docs/rules/react-doctor/nextjs-no-a-element"
+  },
+  "recipeFetch": "curl -fsSL with Cache-Control: no-cache and Pragma: no-cache; read validation and correction recipes before edits. Also read installed Next Link documentation and React best-practices skill.",
+  "grouping": "Three rule categories, six occurrences; none has fixGroupId. Reviewed all four separate complexity occurrences.",
+  "reviews": [
+    {
+      "file": "config/localeRedirect.js",
+      "rule": "no-fetch-response-used-without-status-check",
+      "outcome": "Confirmed failure, fixed",
+      "impact": "HTTP errors were parsed as page data and could produce misleading failures during redirect generation. Current Next config has its redirects call commented out, so no active outage demonstrated.",
+      "fix": "Check response.ok before json(); throw an error with HTTP status without logging the credential-bearing URL.",
+      "validation": "HTTP 401 and 500 rejected without reading body; successful locale mapping unchanged. Intermediate Doctor scan confirms warning gone."
+    },
+    {
+      "file": "src/components/button/Button.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed maintainability finding, fixed",
+      "impact": "No demonstrated user-facing failure. Interleaved styles and three button variants make changes harder to review.",
+      "fix": "Extract shared appearance calculation and module-level floating, icon-only and labelled button components; preserve click resolution and leading icon identity."
+    },
+    {
+      "file": "src/components/image/Image.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed maintainability finding, fixed",
+      "impact": "No demonstrated image failure. Sizing rules and two rendering paths were interleaved.",
+      "fix": "Separate layout calculation and square/proportional presentations; preserve source guard, dimensions, classes, loading and click behavior."
+    },
+    {
+      "file": "src/components/menu/NavMenu.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed maintainability finding, fixed",
+      "impact": "No demonstrated navigation failure. Alignment and icon branches obscured menu state/effects.",
+      "fix": "Extract alignment resolver and module-level toggle-icon presentation; keep state, effects and handlers in existing owner."
+    },
+    {
+      "file": "src/vendor/grid/createGrid.tsx",
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed maintainability finding, fixed",
+      "impact": "No demonstrated layout failure. Root versus nested default rules were mixed with rendering.",
+      "fix": "Extract cohesive spacing/column inheritance resolver; keep context, refs, child levels and explicit zero overrides unchanged."
+    },
+    {
+      "file": "src/components/ecommerce/shopify/ShopifySdkProvider.tsx",
+      "rule": "nextjs-no-a-element",
+      "outcome": "Rejected",
+      "evidence": "Hidden anchor has placeholder /#; onCheckout sets anchor.href to checkout.webUrl before click. This is external checkout navigation, not an internal Next route. Existing runtime test extended to assert the destination at click is https://example.com/checkout.",
+      "fix": "No production change or suppression; keep warning visible."
+    }
+  ],
+  "validation": {
+    "focusedTests": "13 passed across seven files; adjusted grid theme fixture rerun passes. Tests cover HTTP failure/success, CMS button callbacks and icon identity, image sizing/loading/clicks, menu timers, grid spacing/overflow and checkout destination.",
+    "parity": "74 before/after server-rendered markup comparisons passed: 20 button, 37 image, 8 menu and 9 nested grid configurations. One-off comparison test archived to /tmp/lumen-nonsecurity-parity.test.tsx; originals in /tmp/lumen-nonsecurity-before.",
+    "typecheck": "pnpm run check-types passes.",
+    "format": "Prettier check and scoped git diff --check pass.",
+    "lint": "Zero errors. Warnings: config file ignored by existing ESLint config; img test mock; pre-existing unused image a11y directive and menu setState-in-effect pattern. No new suppressions.",
+    "doctorCommand": "npx react-doctor@latest --verbose",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-6b8b92fd-efa1-44b6-abfd-8c067242e556/diagnostics.json",
+    "before": 46,
+    "after": 41,
+    "removed": 5,
+    "new": 0,
+    "exitCode": 1,
+    "exitReason": "Previously reviewed artifact secret false positives still reported as errors.",
+    "limits": "Focused behavior and server-rendering checks; no full production build or end-to-end browser walkthrough."
+  },
+  "remaining": {
+    "reviewedSecurityFalsePositives": 23,
+    "reviewedCheckoutFalsePositive": 1,
+    "otherFindings": 17,
+    "countsByRule": {
+      "artifact-secret-leak": 6,
+      "insecure-crypto-risk": 12,
+      "postmessage-origin-risk": 1,
+      "dangerous-html-sink": 4,
+      "nextjs-no-a-element": 1,
+      "js-set-map-lookups": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    }
+  }
+}

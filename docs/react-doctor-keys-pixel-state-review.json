@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source root causes; generated artifacts, rule configuration, suppressions and unrelated changes left untouched.",
+  "rootCauses": [
+    {
+      "name": "Parallax layer key precedence",
+      "file": "src/components/section/SectionParallax.tsx",
+      "findings": 1,
+      "impact": "Conditional child-state loss: CMS extension data named key could override the stable layer ID and recreate a layer when it changed. A test reproduced input DOM replacement. No production occurrence claimed.",
+      "fix": "Place explicit key={_uid} after the spread so the stable CMS identity wins. Layer options, images and other behavior unchanged.",
+      "tests": "Before-failing test now preserves input node, typed value and focus when spread key changes; speed updates still apply."
+    },
+    {
+      "name": "Decorative tracking pixel accessible name",
+      "file": "src/components/tracking/FbqPixel.tsx",
+      "findings": 1,
+      "impact": "Small accessibility semantics fix. The non-content tracking image has no useful description and should have empty alternate text. It is already display:none, so normal screen-reader exposure is unlikely; no observed assistive-technology failure claimed.",
+      "fix": "Add alt=\"\" only. Preserve pixel URLs/count, hidden 1x1 styling and JavaScript tracking setup.",
+      "tests": "Server-rendered multi-pixel output verifies empty alt for every image, same dimensions/visibility/request URLs, script ID and afterInteractive strategy, per-pixel init and PageView call."
+    },
+    {
+      "name": "App context route/locale synchronization",
+      "file": "src/components/provider/AppProvider.tsx",
+      "findings": 4,
+      "fixGroupId": "309f3b1dea840a7e",
+      "impact": "Consumers briefly receive the previous locale and route when props update, followed by an avoidable corrective render. Regression reproduced two renders instead of one. No production wrong-language flash was observed.",
+      "fix": "Retain mount-time settings in an initialization snapshot, derive current locale/slug during render and memoize the context value. Remove both synchronizing effects. Preserve the existing mount-time lifetime of defaultLocale, locales, insideStoryblok and extension fields.",
+      "tests": "Before-failing test now sees one render with current locale/slug; other context fields retain initialization values."
+    }
+  ],
+  "canonicalRecipes": {
+    "react/jsx-key": "https://react.doctor/docs/rules/react/jsx-key",
+    "jsx-a11y/alt-text": "https://react.doctor/docs/rules/jsx-a11y/alt-text",
+    "react-doctor/no-derived-state": "https://react.doctor/docs/rules/react-doctor/no-derived-state",
+    "react-doctor/no-effect-chain": "https://react.doctor/docs/rules/react-doctor/no-effect-chain"
+  },
+  "recipeReview": "Fetched recipes with no-cache curl and read validation/false-positive checks. Pixel uses the canonical empty-alt fix. Context derives changing values during render; retained initialization-only state is intentional behavior, not an effect-synchronized copy. Key documentation incorrectly instructs key-before-spread, contradicting the actual diagnostic. Followed the stable-identity principle, verified key-after-spread at runtime and confirmed the actual rule clears. No suppression used.",
+  "grouping": "Two AppProvider derived-state diagnostics share fixGroupId 309f3b1dea840a7e; associated effect-chain diagnostics share the same synchronization root cause. Parallax and pixel are independent roots.",
+  "validation": {
+    "tests": "3 focused regression tests pass across 3 files; all failed before changes",
+    "typecheck": "tsc --noEmit passes",
+    "eslint": "Six changed source/test files pass without warnings/errors",
+    "format": "Prettier check and git diff --check pass",
+    "reactDoctorCommand": "npx react-doctor@latest --verbose",
+    "runs": {
+      "parallax": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-c0fc5cc5-a80b-42bb-86b2-e5180ba58c8c/diagnostics.json",
+        "totalFindings": 139
+      },
+      "pixel": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-530df2b3-97c8-4d91-b6c2-f18b4634cb25/diagnostics.json",
+        "totalFindings": 138
+      },
+      "keys-state-final": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-c0ac4004-20d9-410f-b21b-c0b6f6e5ba01/diagnostics.json",
+        "totalFindings": 134
+      }
+    },
+    "targetedFindingsRemaining": 0,
+    "removed": 6,
+    "newFindings": 0,
+    "overallCount": "140 to 134",
+    "limitations": "DOM tests use happy-dom with parallax/child mocks; pixel tests render server HTML with Head/Script mocks. No live tracking requests, browser accessibility-tree check or production rebuild performed."
+  },
+  "remaining": {
+    "total": 134,
+    "source": 62,
+    "sourceErrors": [],
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 26,
+      "jsx-no-constructed-context-values": 1,
+      "nextjs-no-a-element": 1,
+      "nextjs-image-missing-sizes": 1,
+      "no-spread-accumulator-in-reduce": 2,
+      "no-derived-useState": 2,
+      "rerender-lazy-state-init": 2,
+      "js-set-map-lookups": 11,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-adjust-state-on-prop-change": 5,
+      "no-array-index-as-key": 4,
+      "rerender-functional-setstate": 1,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "followUp": [
+      "SettingsPageProvider and Snackbar state synchronization.",
+      "Other performance/complexity warnings and initial-state computations.",
+      "Parallax body overlay still uses a count-based key; review its lifecycle separately if dynamic layer counts are supported.",
+      "Generated findings left untouched."
+    ]
+  }
+}

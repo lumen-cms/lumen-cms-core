@@ -1,6 +1,6 @@
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { SSR_CONFIG } from '@SSR_CONFIG'
+import { SSR_CONFIG } from '../../utils/initial-props/ssrConfig'
 import { getAllStoriesOfProject } from '../../utils/initial-props/storyblokPagesConfig'
 import { PageItem } from '../../typings/generated/schema'
 import { internalLinkHandler } from '../../utils/internalLinkHandler'

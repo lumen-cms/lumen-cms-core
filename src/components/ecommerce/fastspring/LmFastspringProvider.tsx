@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react'
 import Router from 'next/router'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../../provider/context/AppContext'
 import { useFastspringContext } from './context/FastSpringContext'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import Script from 'next/script'

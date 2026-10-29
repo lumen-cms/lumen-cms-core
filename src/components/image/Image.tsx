@@ -26,30 +26,12 @@ const imgAddonsSx: SystemStyleObject<Theme> = {
   }
 }
 
-export default function LmImage({
-  content,
-  onClick
-}: LmImageProps): React.JSX.Element | null {
-  const imageSx: SystemStyleObject<Theme> = {
-    ...imgAddonsSx,
-    ...(content.border_radius && {
-      '& img': { borderRadius: content.border_radius }
-    })
-  }
+function getImageLayout(content: LmImageProps['content']) {
   const definedWidth = content.width
   const definedHeight = content.height
   const property = content.property || []
   const imageSource = content.source
 
-  const { priority, disable_lazy_loading } = content
-  if (!imageSource) {
-    return <div /> // don't need to render anything
-  }
-  const loading = priority
-    ? undefined
-    : disable_lazy_loading
-    ? 'eager'
-    : undefined
   const originalDimensions =
     content.image_data || getOriginalImageDimensions(imageSource || '')
 
@@ -74,41 +56,107 @@ export default function LmImage({
     proportionalHeight = Number(definedHeight || 0)
   }
 
-  if (isSquare && squareSize) {
-    return (
-      <>
-        <LmAspectRatio
-          ratio={`1/1`}
-          style={{
-            height: Number(squareSize) <= 360 ? `${squareSize}px` : undefined,
-            width: Number(squareSize) <= 360 ? `${squareSize}px` : undefined,
-            margin: 'auto'
-          }}
-          className={clsx(
-            'lm-image',
-            content.class_names?.values,
-            content.property
-          )}
-          sx={imageSx}
-        >
-          <LmSquareImage
-            image={imageSource}
-            size={squareSize}
-            imageProps={{
-              onClick: onClick ? () => onClick() : undefined,
-              alt: content.alt || 'website image',
-              style: {
-                objectFit: 'cover',
-                objectPosition: 'center'
-              },
-              loading,
-              fill: true
-            }}
-          />
-        </LmAspectRatio>
-      </>
-    )
+  return {
+    originalDimensions,
+    isSquare,
+    squareSize,
+    isProportional,
+    proportionalWidth,
+    proportionalHeight
   }
+}
+
+export default function LmImage({
+  content,
+  onClick
+}: LmImageProps): React.JSX.Element | null {
+  const imageSx: SystemStyleObject<Theme> = {
+    ...imgAddonsSx,
+    ...(content.border_radius && {
+      '& img': { borderRadius: content.border_radius }
+    })
+  }
+  if (!content.source) return <div />
+  const loading =
+    !content.priority && content.disable_lazy_loading ? 'eager' : undefined
+  const layout = getImageLayout(content)
+  const presentation: ImagePresentationProps = {
+    content,
+    onClick,
+    imageSx,
+    loading,
+    layout
+  }
+  if (layout.isSquare && layout.squareSize)
+    return <SquareImage {...presentation} />
+  return <ProportionalImage {...presentation} />
+}
+
+type ImagePresentationProps = LmImageProps & {
+  imageSx: SystemStyleObject<Theme>
+  loading: 'eager' | undefined
+  layout: ReturnType<typeof getImageLayout>
+}
+
+function SquareImage({
+  content,
+  onClick,
+  imageSx,
+  loading,
+  layout
+}: ImagePresentationProps) {
+  const imageSource = content.source!
+  const { squareSize } = layout
+  return (
+    <>
+      <LmAspectRatio
+        ratio={`1/1`}
+        style={{
+          height: Number(squareSize) <= 360 ? `${squareSize}px` : undefined,
+          width: Number(squareSize) <= 360 ? `${squareSize}px` : undefined,
+          margin: 'auto'
+        }}
+        className={clsx(
+          'lm-image',
+          content.class_names?.values,
+          content.property
+        )}
+        sx={imageSx}
+      >
+        <LmSquareImage
+          image={imageSource}
+          size={squareSize}
+          imageProps={{
+            onClick: onClick ? () => onClick() : undefined,
+            alt: content.alt || 'website image',
+            style: {
+              objectFit: 'cover',
+              objectPosition: 'center'
+            },
+            loading,
+            fill: true
+          }}
+        />
+      </LmAspectRatio>
+    </>
+  )
+}
+
+function ProportionalImage({
+  content,
+  onClick,
+  imageSx,
+  loading,
+  layout
+}: ImagePresentationProps) {
+  const imageSource = content.source!
+  const { priority } = content
+  const {
+    isProportional,
+    proportionalHeight,
+    proportionalWidth,
+    originalDimensions
+  } = layout
   const proportionalHeightCalc =
     isProportional &&
     (proportionalHeight ||

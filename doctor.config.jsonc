@@ -1,0 +1,106 @@
+// Reviewed false positives only; evidence:
+// docs/react-doctor-top-three-security-review.json
+// docs/react-doctor-next-three-review.json
+// docs/react-doctor-remaining-five-review.json
+// Exact artifact names intentionally require a fresh review after bundles change.
+{
+  "$schema": "https://react.doctor/schema/config.json",
+  "ignore": {
+    "overrides": [
+      {
+        "files": [
+          ".next-reference/bali/dev/static/chunks/1osm_@auth0_auth0-react_dist_auth0-react_esm_1zwbtrr-tlvno.js.map",
+          ".next-reference/planet/dev/static/chunks/1osm_@auth0_auth0-react_dist_auth0-react_esm_1zwbtrr-tlvno.js.map",
+          ".next-reference/upskill/dev/static/chunks/1osm_@auth0_auth0-react_dist_auth0-react_esm_1zwbtrr-tlvno.js.map",
+          ".website-tests/dev-release/dev/static/chunks/1osm_@auth0_auth0-react_dist_auth0-react_esm_1zwbtrr-tlvno.js.map",
+          "public_storybook/3912.f5b1e07b.iframe.bundle.js",
+          "public_storybook/3912.f5b1e07b.iframe.bundle.js.map"
+        ],
+        "rules": [
+          "react-doctor/artifact-secret-leak"
+        ]
+      },
+      {
+        "files": [
+          "public_storybook/1035.b5a14f64.iframe.bundle.js",
+          "public_storybook/1604.0a23e4fe.iframe.bundle.js",
+          "public_storybook/2544.5b1c08e9.iframe.bundle.js",
+          "public_storybook/2985.96bbce73.iframe.bundle.js",
+          "public_storybook/4299.178c06f6.iframe.bundle.js",
+          "public_storybook/6445.bf8a80a8.iframe.bundle.js",
+          "public_storybook/6518.fa408bb6.iframe.bundle.js",
+          "public_storybook/7756.af6b10be.iframe.bundle.js",
+          "public_storybook/9044.f6ff5656.iframe.bundle.js",
+          "public_storybook/9302.d8ec69c3.iframe.bundle.js",
+          "public_storybook/reactPlayerMux.286c9b2e.iframe.bundle.js",
+          "public_storybook/sb-addons/storybook-core-server-presets-0/common-manager-bundle.js"
+        ],
+        "rules": [
+          "react-doctor/insecure-crypto-risk"
+        ]
+      },
+      {
+        "files": [
+          "public_storybook/1604.0a23e4fe.iframe.bundle.js"
+        ],
+        "rules": [
+          "react-doctor/postmessage-origin-risk"
+        ]
+      },
+      {
+        "files": [
+          "public_storybook/reactPlayerDash.7966a7db.iframe.bundle.js",
+          "public_storybook/reactPlayerHls.e0aded62.iframe.bundle.js",
+          "public_storybook/reactPlayerSpotify.b8c081ed.iframe.bundle.js",
+          "public_storybook/reactPlayerYouTube.936c42b8.iframe.bundle.js"
+        ],
+        "rules": [
+          "react-doctor/dangerous-html-sink"
+        ]
+      },
+      {
+        "files": [
+          "src/components/ecommerce/shopify/ShopifySdkProvider.tsx"
+        ],
+        "rules": [
+          "react-doctor/nextjs-no-a-element"
+        ]
+      },
+      {
+        "files": [
+          "src/components/pages/DocumentGoogleFonts.tsx",
+          "src/storybook/components/CoreDecorator.tsx"
+        ],
+        "rules": [
+          "react-doctor/nextjs-no-css-link"
+        ]
+      },
+      {
+        "files": [
+          "src/utils/initial-props/component-data/googleFormsToJson.ts",
+          "src/utils/initial-props/storyblokDeliveryResolver.ts",
+          "src/vendor/grid/gridGenerator.ts"
+        ],
+        "rules": [
+          "react-doctor/js-set-map-lookups"
+        ]
+      },
+      {
+        "files": [
+          "src/utils/intlDateHelper.ts"
+        ],
+        "rules": [
+          "react-doctor/no-object-keys-values-entries-on-maybe-undefined"
+        ]
+      },
+      {
+        "files": [
+          "src/utils/storyblok/StoryblokTransport.ts"
+        ],
+        "rules": [
+          "react-doctor/async-await-in-loop"
+        ]
+      }
+    ]
+  }
+}

@@ -29,13 +29,14 @@ export const getInstagramApi = ({
   userId,
   token
 }: GetInstagramProps) => {
+  if (typeof window !== 'undefined') {
+    throw new Error('Instagram API credentials must only be used on the server')
+  }
   return {
     media: new URL(
       `https://graph.facebook.com/${
         userId || process.env.NEXT_PUBLIC_INSTAGRAM_USER_ID
-      }/media/?access_token=${
-        token || process.env.NEXT_PUBLIC_INSTAGRAM_ACCESS_TOKEN
-      }`
+      }/media/?access_token=${token || process.env.INSTAGRAM_ACCESS_TOKEN}`
     ).toString(),
     channel: new URL(
       `https://www.instagram.com/${username}/channel/?__a=1`
@@ -47,7 +48,11 @@ export const fetchInstagramUserId = async (username: string) => {
   const url = new URL(
     `https://www.instagram.com/web/search/topsearch/?query=${username}`
   )
-  const list = await fetch(url.toString()).then((r) => r.json())
+  const response = await fetch(url.toString())
+  if (!response.ok) {
+    throw new Error(`Instagram request failed: ${response.status}`)
+  }
+  const list = await response.json()
   const foundUser = list?.users?.find((i: any) => i.user.username === username)
   return foundUser?.user?.pk
 }
@@ -80,6 +85,9 @@ export async function fetchInstagramList<JSON = any>(
     //     'csrftoken=QEKxzScyOjedNQcjxbfFjBbzcXasIQhf; rur=ASH; ig_nrcb=1; ig_did=7BF640D5-0A5F-4AE1-BD5A-7B3ED41C9AD9; mid=YEroewAEAAHiV2HBULNrCJFqvTCJ'
     // }
   })
+  if (!res.ok) {
+    throw new Error(`Instagram request failed: ${res.status}`)
+  }
   return res.json()
 }
 

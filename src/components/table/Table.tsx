@@ -1,19 +1,28 @@
-/* eslint-disable react/no-array-index-key,react/no-danger */
+/* eslint-disable react/no-danger */
 import { LmTableProps } from './tableTypes'
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 import clsx from 'clsx'
 
-type TableRowProps = { content: string[]; index: number }
+// The CMS table field contains strings, not row/cell IDs. Content identifies
+// distinct entries; an occurrence suffix keeps identical entries separate.
+function withContentKeys<T extends string | string[]>(items: T[]) {
+  const occurrences = new Map<string, number>()
+  return items.map((value) => {
+    const contentKey = JSON.stringify(value)
+    const occurrence = occurrences.get(contentKey) || 0
+    occurrences.set(contentKey, occurrence + 1)
+    return { value, key: JSON.stringify([contentKey, occurrence]) }
+  })
+}
 
-function TableRow({ content, index }: TableRowProps): React.JSX.Element {
+type TableRowProps = { content: string[] }
+
+function TableRow({ content }: TableRowProps): React.JSX.Element {
   return (
     <tr>
-      {content.map((column: string, iterator: number) => (
-        <td
-          key={`column_${index}_${iterator}`}
-          dangerouslySetInnerHTML={{ __html: column }}
-        />
+      {withContentKeys(content).map(({ value: column, key }) => (
+        <td key={key} dangerouslySetInnerHTML={{ __html: column }} />
       ))}
     </tr>
   )
@@ -159,15 +168,15 @@ export default function LmTable({ content }: LmTableProps): React.JSX.Element {
         {!content.disable_table_head && (
           <thead>
             <tr>
-              {tableHead.map((c, i) => (
-                <th key={`head_${i}`}>{c}</th>
+              {withContentKeys(tableHead).map(({ value: c, key }) => (
+                <th key={key}>{c}</th>
               ))}
             </tr>
           </thead>
         )}
         <tbody>
-          {tableBody.map((row, i) => (
-            <TableRow key={`row_${i}`} index={i} content={row} />
+          {withContentKeys(tableBody).map(({ value: row, key }) => (
+            <TableRow key={key} content={row} />
           ))}
         </tbody>
       </Box>

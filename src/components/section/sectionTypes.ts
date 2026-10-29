@@ -1,4 +1,4 @@
-import { GridDirection } from '@mui/material'
+import type { GridDirection } from '../../vendor/grid/GridProps'
 import {
   ColumnStoryblok,
   RowStoryblok,

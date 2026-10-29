@@ -10,12 +10,59 @@ import {
   fetchListStories,
   FetchListStoriesProps
 } from './listUtils/fetchListStories'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import LmListStoriesContainer from './ListStoriesContainer'
 import { CircularProgress } from '@mui/material'
 import LmListStoriesPagination from './ListStoriesPagination'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 import { Router } from 'next/router'
+
+function getStorySWRConfig(
+  content: LmListStoriesProps['content'],
+  { page, searchText, searchCategories }: FetchListStoriesProps,
+  initialized: boolean
+) {
+  const storyData = content.list_stories_data
+  const revalidateOnMount = content.enable_search && !storyData?.data?.stories
+  return {
+    fallbackData: {
+      stories: storyData?.data?.stories ?? [],
+      cv: storyData?.data.cv,
+      total: storyData?.total ?? 0,
+      page: 1
+    },
+    revalidateOnMount:
+      initialized ||
+      revalidateOnMount ||
+      page > 1 ||
+      !!searchText ||
+      !!searchCategories.length
+  }
+}
+
+function StoryResults({
+  content,
+  data,
+  isLoading
+}: LmListStoriesProps & {
+  data: LmListStoriesPayload | undefined
+  isLoading: boolean
+}) {
+  if (isLoading) return null
+  return data?.stories?.length ? (
+    <LmListStoriesContainer
+      layout={content.layout}
+      _uid={content._uid}
+      items={data.stories}
+    />
+  ) : (
+    <div>
+      {content.not_found_message?.map((blok) => (
+        <LmComponentRender content={blok} key={blok._uid} />
+      ))}
+    </div>
+  )
+}
 
 export default function LmListStories({ content }: LmListStoriesProps) {
   const { locale, defaultLocale, locales, insideStoryblok } = useAppContext()
@@ -27,7 +74,6 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const anchorId = `list_stories_${content._uid}`
 
   const storyData = content.list_stories_data
-  const revalidateOnMount = content.enable_search && !storyData?.data?.stories
 
   const fetchProps: FetchListStoriesProps = {
     searchText,
@@ -39,20 +85,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
   const { data, error, isLoading } = useSWR<LmListStoriesPayload>(
     content.max_items ? null : fetchProps,
     fetchListStories,
-    {
-      fallbackData: {
-        stories: storyData?.data?.stories ?? [],
-        cv: storyData?.data.cv,
-        total: storyData?.total ?? 0,
-        page: 1
-      },
-      revalidateOnMount:
-        initialize.current ||
-        revalidateOnMount ||
-        page > 1 ||
-        !!searchText ||
-        !!searchCategories.length
-    }
+    getStorySWRConfig(content, fetchProps, initialize.current)
   )
   useEffect(() => {
     if (searchCategories?.length) {
@@ -65,6 +98,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
     }
   }, [searchText])
   useEffect(() => {
+    let scrollTimer: ReturnType<typeof setTimeout> | undefined
     const handleRouteChange = () => {
       const urlParams = new URLSearchParams(window.location.search)
       const p = urlParams.get('page')
@@ -80,7 +114,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
       if (initialize.current) {
         const destination = document.getElementById(anchorId)
         if (destination) {
-          setTimeout(() => {
+          scrollTimer = setTimeout(() => {
             destination.scrollIntoView({
               behavior: 'smooth'
             })
@@ -90,6 +124,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
     }
     Router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
+      if (scrollTimer !== undefined) clearTimeout(scrollTimer)
       Router.events.off('routeChangeComplete', handleRouteChange)
     }
   }, [page, anchorId, content._uid])
@@ -145,20 +180,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
           onChange={onPageChange}
         />
       )}
-      {!isLoading && !data?.stories?.length && (
-        <div>
-          {content.not_found_message?.map((blok) => (
-            <LmComponentRender content={blok} key={blok._uid} />
-          ))}
-        </div>
-      )}
-      {!isLoading && !!data?.stories?.length && (
-        <LmListStoriesContainer
-          layout={content.layout}
-          _uid={content._uid}
-          items={data?.stories || []}
-        />
-      )}
+      <StoryResults content={content} data={data} isLoading={isLoading} />
       {showPagination && paginationPosition.includes('bottom') && (
         <LmListStoriesPagination
           page={page}

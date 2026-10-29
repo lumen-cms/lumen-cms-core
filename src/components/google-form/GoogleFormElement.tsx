@@ -24,45 +24,33 @@ type GoogleFormElementProps = {
   baseStyle: CSSProperties
 }
 
-/*
-
-questionTypeCode 4: multi select
-questionTypeCode 9: date picker
-questionTypeCode 1: textarea
-questionTypeCode 0: text field
-questionTypeCode 2,3: select
-4 = DROPDOWN
-
-
- */
+function getFieldProps({
+  formField,
+  options,
+  baseStyle
+}: GoogleFormElementProps) {
+  return {
+    ...(options.label_as_placeholder
+      ? { placeholder: formField.label }
+      : { label: formField.label }),
+    name: `${formField.id}`,
+    fullWidth: options.fields_full_width,
+    style: baseStyle,
+    required: formField.required,
+    parseError: options.error_msg_required
+      ? () => options.error_msg_required as string
+      : undefined
+  }
+}
 
 export default function GoogleFormElement({
   formField,
   options,
   baseStyle
 }: GoogleFormElementProps): React.JSX.Element | null {
-  const hasVariant = !['DATE'].includes(formField.type)
-  const baseFieldProps = {
-    ...(options.label_as_placeholder
-      ? {
-          placeholder: formField.label
-        }
-      : {
-          label: formField.label
-        }),
-    name: `${formField.id}`,
-    fullWidth: options.fields_full_width,
-    style: baseStyle
-    /* formField.questionTypeCode === 4
-      formField.type === 'DROPDOWN'
-        ? {
-            maxWidth: baseStyle.maxWidth,
-            minWidth: baseStyle.minWidth
-          }
-        : baseStyle*/
-  }
+  const baseFieldProps = getFieldProps({ formField, options, baseStyle })
   const additionalProps: Record<string, any> = {}
-  if (hasVariant) {
+  if (formField.type !== 'DATE') {
     additionalProps.variant = options.fields_border
   }
 
@@ -71,34 +59,17 @@ export default function GoogleFormElement({
       additionalProps.multiline = true
       additionalProps.rows = 2
     }
-    return (
-      <TextFieldElement
-        {...baseFieldProps}
-        {...additionalProps}
-        required={formField.required}
-        parseError={
-          options?.error_msg_required
-            ? () => options.error_msg_required as string
-            : undefined
-        }
-      />
-    )
+    return <TextFieldElement {...baseFieldProps} {...additionalProps} />
   }
   if (formField.type === 'DROPDOWN' || formField.type === 'RADIO') {
     return (
       <SelectElement
         {...baseFieldProps}
         {...additionalProps}
-        options={formField.options.sort().map((opt) => ({
+        options={[...formField.options].sort().map((opt) => ({
           id: opt.label,
           label: opt.label || '--'
         }))}
-        required={formField.required}
-        parseError={
-          options?.error_msg_required
-            ? () => options.error_msg_required as string
-            : undefined
-        }
       />
     )
   }
@@ -106,13 +77,7 @@ export default function GoogleFormElement({
   if (formField.type === 'CHECKBOX') {
     return (
       <MultiSelectElement
-        required={formField.required}
-        parseError={
-          options?.error_msg_required
-            ? () => options.error_msg_required as string
-            : undefined
-        }
-        options={formField.options
+        options={[...formField.options]
           .sort()
           .filter((opt) => !!opt.label)
           .map((opt) => opt.label)}
@@ -125,12 +90,6 @@ export default function GoogleFormElement({
   if (formField.type === 'DATE') {
     return (
       <DatePickerElement
-        required={formField.required}
-        parseError={
-          options?.error_msg_required
-            ? () => options.error_msg_required as string
-            : undefined
-        }
         {...baseFieldProps}
         inputProps={{
           fullWidth: options.fields_full_width,

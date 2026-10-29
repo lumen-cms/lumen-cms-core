@@ -1,0 +1,223 @@
+{
+  "date": "2026-10-29",
+  "scope": [
+    "insecure-crypto-risk",
+    "postmessage-origin-risk",
+    "dangerous-html-sink"
+  ],
+  "grouping": "Reviewed three rule categories (17 occurrences). None has fixGroupId. Repeated generated HTML wrapper pattern reviewed with each concrete template implementation.",
+  "canonicalRecipes": {
+    "insecure-crypto-risk": "https://react.doctor/docs/rules/react-doctor/insecure-crypto-risk",
+    "postmessage-origin-risk": "https://react.doctor/docs/rules/react-doctor/postmessage-origin-risk",
+    "dangerous-html-sink": "https://react.doctor/docs/rules/react-doctor/dangerous-html-sink"
+  },
+  "recipeFetch": "All fetched with curl -fsSL and Cache-Control:no-cache / Pragma:no-cache; validation, exceptions and fix recipes read before assessment.",
+  "result": "No confirmed defects at these occurrences; no source, dependencies, generated bundles or lint configuration changed. No suppression added.",
+  "humanImpact": {
+    "insecure-crypto-risk": "Predictable credentials would allow impersonation. These occurrences generate non-secret UI, sorting, timing and telemetry values, so no authentication weakness was established.",
+    "postmessage-origin-risk": "Untrusted window messages could trigger actions in the app. This occurrence receives worker highlighting jobs, not messages from arbitrary browser windows.",
+    "dangerous-html-sink": "Unescaped HTML could execute attacker code in the visitor origin. These concrete template paths already escape or restrict dynamic data; hostile-input tests found no injected tags or event attributes."
+  },
+  "reviews": [
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/1035.b5a14f64.iframe.bundle.js",
+      "line": 125,
+      "column": 633257,
+      "fixGroupId": null,
+      "artifactSha256": "b2835feecb72ba5452cb9efb889b8e8c75ef7d880254739bd9e3cb1b2c9337be",
+      "outcome": "Rejected",
+      "evidence": "source-map quick-sort chooses a random pivot. This affects sorting, not a credential."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/1604.0a23e4fe.iframe.bundle.js",
+      "line": 1,
+      "column": 26447,
+      "fixGroupId": null,
+      "artifactSha256": "3a905cf6f09d6264a24ec7dee85406766c7f2c5356b929fd9da569136c6c027a",
+      "outcome": "Rejected",
+      "evidence": "Prism markdown autoloader generates a DOM element ID to find code blocks after language loading."
+    },
+    {
+      "rule": "postmessage-origin-risk",
+      "file": "public_storybook/1604.0a23e4fe.iframe.bundle.js",
+      "line": 1,
+      "column": 72036,
+      "fixGroupId": null,
+      "artifactSha256": "3a905cf6f09d6264a24ec7dee85406766c7f2c5356b929fd9da569136c6c027a",
+      "outcome": "Rejected",
+      "evidence": "Prism registers this handler only in the !self.document worker branch; reads highlighting jobs and posts highlighted code. The canonical same-application Worker exception applies. No cross-window listener at this occurrence."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/2544.5b1c08e9.iframe.bundle.js",
+      "line": 2,
+      "column": 63092,
+      "fixGroupId": null,
+      "artifactSha256": "1f18e412b0ab1f45f3ac4b24ce0180f889b1e910f87a4a8a4112d2128ba3a0c4",
+      "outcome": "Rejected",
+      "evidence": "react-rewards createRng seeds visual particle animation randomness."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/2985.96bbce73.iframe.bundle.js",
+      "line": 1,
+      "column": 26575,
+      "fixGroupId": null,
+      "artifactSha256": "28aac59751877964f6533df42ac366e5ae9260636cf00031745061a22d051fd4",
+      "outcome": "Rejected",
+      "evidence": "HLS uuid fallback generates player-instance and CMCD media telemetry session IDs; these are not authentication sessions."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/4299.178c06f6.iframe.bundle.js",
+      "line": 2,
+      "column": 20363,
+      "fixGroupId": null,
+      "artifactSha256": "706947825476fa730ea4af980a7329eccd91a12ae32be9e7d1abf0c00c086ac4",
+      "outcome": "Rejected",
+      "evidence": "React DOM randomKey names internal element properties (__reactFiber, __reactProps, etc.)."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/6445.bf8a80a8.iframe.bundle.js",
+      "line": 53,
+      "column": 202033,
+      "fixGroupId": null,
+      "artifactSha256": "c3b1cdeffe8e6c8864bf097726fc8a0025bc5f535821035ea4d0e80181daf2b3",
+      "outcome": "Rejected",
+      "evidence": "nanoid/non-secure is called by PostCSS Input to label anonymous CSS input for diagnostics (<input css ...>)."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/6518.fa408bb6.iframe.bundle.js",
+      "line": 1,
+      "column": 212959,
+      "fixGroupId": null,
+      "artifactSha256": "40eaa70985f99a5d1f689bf08841489e11726b2a0c5f849f38c7a98c43c550dc",
+      "outcome": "Rejected",
+      "evidence": "Dash bundled uuid function is exported by its utility module and called for CMCD reporter sid telemetry; not DRM authentication credentials."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/7756.af6b10be.iframe.bundle.js",
+      "line": 2,
+      "column": 135517,
+      "fixGroupId": null,
+      "artifactSha256": "88661a5574199ea27b43484f2863e1a1c30d5ba18e04c54b036a857477d127d9",
+      "outcome": "Rejected",
+      "evidence": "Storybook React Aria SSR context generates a prefix for component DOM IDs."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/9044.f6ff5656.iframe.bundle.js",
+      "line": 2,
+      "column": 32560,
+      "fixGroupId": null,
+      "artifactSha256": "db5ccb430b946b8885078ade746b1c3ccb9d7315ac13c2e43b3eed787589d668",
+      "outcome": "Rejected",
+      "evidence": "Ky calculateDelay randomizes HTTP retry timing (jitter)."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/9302.d8ec69c3.iframe.bundle.js",
+      "line": 1,
+      "column": 66323,
+      "fixGroupId": null,
+      "artifactSha256": "34e73d8288173450e6a9c5d17d081570c7b9b2614e3e6e24810f3b1fb4c7f066",
+      "outcome": "Rejected",
+      "evidence": "Swiper generates a wrapper DOM ID used for accessibility relationships."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerDash.7966a7db.iframe.bundle.js",
+      "line": 2,
+      "column": 1,
+      "fixGroupId": null,
+      "artifactSha256": "2d4299adfec697c813b9b216f67405d448e98640aa5b5d10cf0c903773174c0d",
+      "outcome": "Rejected",
+      "evidence": "ce-la-react SSR wrapper calls Dash getTemplateHTML, which removes src and delegates to custom-media-element. Its serializer allowlists media attribute names and escapes values."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerHls.e0aded62.iframe.bundle.js",
+      "line": 2,
+      "column": 1,
+      "fixGroupId": null,
+      "artifactSha256": "6a999b1c03b0a170ba689fdfe2bcc51c3531af31c80f8041a9c17a408e67409d",
+      "outcome": "Rejected",
+      "evidence": "ce-la-react SSR wrapper calls HLS getTemplateHTML. Configuration JSON replaces less-than signs with Unicode escapes, preventing script closing-tag injection. Media attributes use custom-media-element allowlist and escaping."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/reactPlayerMux.286c9b2e.iframe.bundle.js",
+      "line": 2,
+      "column": 11395,
+      "fixGroupId": null,
+      "artifactSha256": "93eba7bf04a76b94ed2e406900abd58c242a40a43be7b6fddae9403c3759b263",
+      "outcome": "Rejected",
+      "evidence": "Mux UUID fallback supplies viewer, analytics session, player-instance and view IDs. Uses Web Crypto when available; fallback identifiers do not authorize playback."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerSpotify.b8c081ed.iframe.bundle.js",
+      "line": 2,
+      "column": 1,
+      "fixGroupId": null,
+      "artifactSha256": "24a792036a4b6b37d7cec139948fc7f553acef074ec3a9a1a617428adea41f9a",
+      "outcome": "Rejected",
+      "evidence": "SSR template delegates to Spotify getTemplateHTML. Fixed-origin embed URL uses constrained path captures and URLSearchParams; serializeAttributes escapes names and values."
+    },
+    {
+      "rule": "dangerous-html-sink",
+      "file": "public_storybook/reactPlayerYouTube.936c42b8.iframe.bundle.js",
+      "line": 2,
+      "column": 1,
+      "fixGroupId": null,
+      "artifactSha256": "9ba39040df179026d969f50e962765157510c0396928fca7c7c1d3d17015ec7f",
+      "outcome": "Rejected",
+      "evidence": "SSR template delegates to YouTube getTemplateHTML. Embed origin is fixed to YouTube/YouTube-nocookie; URLSearchParams serializes configuration and serializeAttributes escapes names and values, including JSON data-config."
+    },
+    {
+      "rule": "insecure-crypto-risk",
+      "file": "public_storybook/sb-addons/storybook-core-server-presets-0/common-manager-bundle.js",
+      "line": 2,
+      "column": 55824,
+      "fixGroupId": null,
+      "artifactSha256": "525c2cb1226c0cc3392d92dc8f9a894e8b5321a83b4e31c5aa44c221d704e8fc",
+      "outcome": "Rejected",
+      "evidence": "Storybook channel assigns a sender identifier placed in outgoing event.from; identifier labels message source, not a secret token."
+    }
+  ],
+  "validation": {
+    "templateChecks": 16,
+    "templateMethod": "Executed exact function bodies from reported source maps using Node VM, parsed resulting HTML with happy-dom. Four hostile quote/closing-tag/entity payloads against Dash/HLS/Spotify/YouTube. Asserted no injected img, no on* attributes, no executable script, fixed iframe origins and intact HLS JSON.",
+    "templateScript": "/tmp/lumen-security-templates.cjs",
+    "templateLimit": "Focused serializer tests, not a complete browser playback or dependency security audit.",
+    "sourceMaps": "Maps have coarse mappings in some bundles; used literal match context and sourcesContent/callers rather than treating approximate source positions as precise.",
+    "doctorCommand": "npx react-doctor@latest --verbose",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-909e7903-141e-47d0-9334-4317e973161b/diagnostics.json",
+    "total": 46,
+    "comparison": "All 46 diagnostic identities unchanged; 17 reviewed warnings remain visible. No false claim that findings were cleared.",
+    "exitCode": 1,
+    "exitReason": "Six previously reviewed secret false positives still reported as errors."
+  },
+  "remaining": {
+    "reviewedSecurityReports": 23,
+    "otherFindings": 23,
+    "countsByRule": {
+      "no-fetch-response-used-without-status-check": 1,
+      "no-high-complexity-react-function": 4,
+      "nextjs-no-a-element": 1,
+      "js-set-map-lookups": 6,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-derived-useState": 1,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    }
+  }
+}

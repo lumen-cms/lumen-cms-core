@@ -1,4 +1,4 @@
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../config'
 import { PagePropsOptions } from '../../typings/app'
 
 export const prepareForStoryblok = (

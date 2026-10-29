@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-29",
+  "scope": [
+    "src/components/iframe/Iframe.tsx",
+    "src/components/pages/_document.tsx"
+  ],
+  "canonicalRecipe": {
+    "url": "https://react.doctor/docs/rules/react-doctor/iframe-missing-sandbox",
+    "fetch": "curl -fsSL with Cache-Control: no-cache and Pragma: no-cache before editing",
+    "application": "Minimum per-provider capabilities; scripts plus origin access granted only to reviewed external provider origins, never arbitrary CMS URLs or same-origin pages."
+  },
+  "risk": "Unsandboxed cross-origin frames are still constrained by same-origin policy but lack sandbox limits on navigation and capabilities. Same-origin frames with both scripts and normal origin access could remove their sandbox.",
+  "cmsPolicy": {
+    "fallback": "allow-scripts allow-forms allow-presentation; opaque origin, no popups, no parent navigation",
+    "trustedProviders": {
+      "https://www.youtube.com": "scripts, origin storage, presentation, popups with unrestricted destination pages",
+      "https://www.youtube-nocookie.com": "same as YouTube",
+      "https://docs.google.com": "scripts, origin storage, forms, popups with unrestricted destination pages",
+      "https://mysga.studentsgoabroad.com": "scripts, origin storage, forms, popups with unrestricted destination pages, downloads"
+    },
+    "trustBoundary": "Exact URL origin equality; HTTPS only, default ports only; parent origin must be known and different. CMS cannot override policy. Provider redirects and content are trusted within these exceptions. A new storage-dependent provider requires source review.",
+    "preserved": "Existing src lazy loading, sizing, responsive classes, feature allow attribute and fullscreen option unchanged.",
+    "blocked": "All frames lack automatic and user-activated top-navigation permissions. Unknown/same-origin frames lack normal origin access and popups."
+  },
+  "gtmPolicy": {
+    "sandbox": "allow-same-origin",
+    "reason": "Noscript fallback needs ordinary origin/network behavior for image tags, not script execution, forms, popups or top navigation. Normal JavaScript GTM path unchanged.",
+    "limits": "Consent, tracking prevention and third-party cookie policies still apply; no live production tag firing or analytics delivery claimed."
+  },
+  "verification": {
+    "unitTests": "16 passed across iframe policy/rendering and existing WhatsApp regression test",
+    "browserTests": "5 passed in Chromium: three provider fixtures run scripts/storage (forms where permitted), same-origin frame cannot access parent DOM/storage/frameElement, GTM noscript image request with JavaScript disabled. All fixture network traffic intercepted.",
+    "productionBuild": "Next webpack smoke build passed, including TypeScript and 12 generated pages. GTM-TEST sentinel used only for verification output.",
+    "generatedHtml": "All 12 generated HTML files contain GTM sandbox=allow-same-origin, correct GTM test URL, and hidden zero-sized iframe.",
+    "lint": "ESLint zero errors/warnings for changed iframe/document files; tsc --noEmit and git diff --check passed.",
+    "liveGoogleForm": [
+      {
+        "sandboxed": false,
+        "inputs": 4,
+        "formTitleVisible": true
+      },
+      {
+        "sandboxed": true,
+        "inputs": 4,
+        "formTitleVisible": true
+      }
+    ],
+    "liveLimitations": [
+      "YouTube sample returns a player-configuration error with and without sandbox; playback could not be validated.",
+      "Saved application-portal URL returns not found with and without sandbox; full application/login/download flows could not be validated.",
+      "Google Form rendering checked without submitting any personal data."
+    ],
+    "doctorCaveat": "React Doctor skips unresolved computed sandbox strings. Its clean result is supplemented by exact-origin policy tests and real Chromium isolation/compatibility tests, not treated as proof by itself.",
+    "finalReactDoctor": {
+      "command": "npx react-doctor@latest --verbose",
+      "diagnosticsPath": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-694b889c-40a2-4f4a-befa-64d4c9cb2b25/diagnostics.json",
+      "totalFindings": 182,
+      "iframeFindings": 0,
+      "sourceSecurityFindings": [],
+      "incomplete": false
+    }
+  },
+  "otherChange": "Corrected pre-existing WhatsApp test fixture component literal to chat_whatsapp to unblock repository type checking. No runtime WhatsApp change.",
+  "remaining": "No additional source security findings in the first post-change React Doctor scan. Historical generated findings and unrelated rules remain; prior exposed-token rotation remains outstanding."
+}

@@ -1,11 +1,11 @@
 import { FormContainer } from 'react-hook-form-mui'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import { LmFormBuilderProps } from './formBuilderTypes'
 import { useState } from 'react'
 import Grid from '../../vendor/grid'
 import Alert from '@mui/material/Alert'
 import { TextFieldElement } from '../google-form/GoogleFormElement'
-import { FormHiddenFieldStoryblok } from '../../typings/generated/components-schema'
+import { additionalFormData } from './additionalFormData'
 
 export default function LmFormBuilder({
   content,
@@ -55,19 +55,10 @@ export default function LmFormBuilder({
             return
           }
           delete data.current_address
-          const additionalData =
-            [
-              ...(content.additional_fields || []),
-              ...(additional_fields || [])
-            ]?.reduce<FormHiddenFieldStoryblok>(
-              (previousValue, currentValue) => ({
-                ...previousValue,
-                [currentValue.name]: currentValue.is_number
-                  ? Number(currentValue.value)
-                  : currentValue.value
-              }),
-              {} as FormHiddenFieldStoryblok
-            ) || {}
+          const additionalData = additionalFormData([
+            ...(content.additional_fields || []),
+            ...(additional_fields || [])
+          ])
           const body = { ...data, ...additionalData }
           const cleanObj = Object.fromEntries(
             Object.entries(body).filter(([_, v]) => !!v)

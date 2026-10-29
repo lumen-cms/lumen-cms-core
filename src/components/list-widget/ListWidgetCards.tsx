@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import {
   CardListItemStoryblok,
   CardListStoryblok
@@ -6,7 +6,7 @@ import {
 import { ListStoriesData } from './listWidgetTypes'
 import { getContentFields } from './listUtils/getContentFields'
 import { LmImagePlaceholder } from '../image/imageTypes'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../provider/context/AppContext'
 
 type ListWidgetCardsProps = {
   _uid: string

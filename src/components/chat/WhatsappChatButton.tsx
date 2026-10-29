@@ -16,7 +16,7 @@ export default function LmWhatsappChatButton({
     <Tooltip placement="top" title={content.tooltip || ''}>
       <Fab
         onClick={() => {
-          window.open(url.toString())
+          window.open(url.toString(), '_blank', 'noopener')
         }}
         style={{
           position: 'fixed',

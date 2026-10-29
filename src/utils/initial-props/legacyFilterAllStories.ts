@@ -1,3 +1,4 @@
+import { matchesAllTags } from './matchesAllTags'
 import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { PageComponent } from '../../typings/generated/schema'
 import { ISbStoryData } from 'storyblok-js-client'
@@ -7,15 +8,17 @@ export const legacyFilterAllStories = (
   allStories: ISbStoryData<PageComponent>[]
 ) => {
   const filter = (content.tags && content.tags.values) || []
+  const selectedTags = new Set(filter)
+  const requiredTags = content.match_all_tags ? selectedTags : null
   const { sort } = content
   const sortDescending = content.sort_descending
   const stories = (allStories || [])
     .filter((item) => {
       const itemCategories = item.tag_list || []
       if (filter.length) {
-        return content.match_all_tags
-          ? filter.every((element) => itemCategories.includes(element))
-          : filter.some((element) => itemCategories.includes(element))
+        return requiredTags
+          ? matchesAllTags(itemCategories, requiredTags)
+          : itemCategories.some((tag) => selectedTags.has(tag))
       }
       if (content.only_tagged) {
         return !!itemCategories.length

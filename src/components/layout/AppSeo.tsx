@@ -6,8 +6,8 @@ import {
   OpenGraphMedia,
   Twitter
 } from 'next-seo/pages'
-import { CONFIG } from '@CONFIG'
-import { AppContextProps, useAppContext } from '@context/AppContext'
+import { CONFIG } from '../../utils/config'
+import { AppContextProps, useAppContext } from '../provider/context/AppContext'
 import {
   ImageCoreStoryblok,
   SeoOpenGraphStoryblok,
@@ -83,33 +83,14 @@ const getCanonicalUrl = (hostname = '', router: AppContextProps) => {
   return hostname + url
 }
 
-export function AppSeo(): React.JSX.Element {
-  const settings = useSettings()
-  const page = usePage()
-  const appCtx = useAppContext()
+function addSocialAndCanonicalMetadata(
+  seo: NextSeoProps,
+  settings: ReturnType<typeof useSettings>,
+  page: NonNullable<ReturnType<typeof usePage>>,
+  appCtx: AppContextProps
+) {
   const seoBody = settings.seo_body || []
-  if (appCtx?.pageNotFound || !page) {
-    return (
-      <NextHead>
-        {generateNextSeo({ title: 'Not Found', noindex: true, nofollow: true })}
-      </NextHead>
-    )
-  }
   const pageSeoBody = page.seo_body || []
-  const robotsIndexFollow =
-    CONFIG.overwriteDisableIndex || page.meta_robots || !settings.seo_robots
-
-  const seo: NextSeoProps = {
-    title:
-      page.meta_title || settings.seo_title || 'Website made by Lumen Media',
-    description:
-      page.meta_description ||
-      settings.seo_description ||
-      'Website made by Lumen Media',
-    noindex: robotsIndexFollow, // important to change if go live
-    nofollow: robotsIndexFollow
-  }
-
   // open graphs
   const settingsOpenGraphs: Partial<SeoOpenGraphStoryblok> = seoBody.find(
     (i) => i.component === 'seo_open_graph'
@@ -147,6 +128,34 @@ export function AppSeo(): React.JSX.Element {
       'set up seo_website_url inside of settings to have a canonical tag'
     )
   }
+}
+
+export function AppSeo(): React.JSX.Element {
+  const settings = useSettings()
+  const page = usePage()
+  const appCtx = useAppContext()
+  if (appCtx?.pageNotFound || !page) {
+    return (
+      <NextHead>
+        {generateNextSeo({ title: 'Not Found', noindex: true, nofollow: true })}
+      </NextHead>
+    )
+  }
+  const robotsIndexFollow =
+    CONFIG.overwriteDisableIndex || page.meta_robots || !settings.seo_robots
+
+  const seo: NextSeoProps = {
+    title:
+      page.meta_title || settings.seo_title || 'Website made by Lumen Media',
+    description:
+      page.meta_description ||
+      settings.seo_description ||
+      'Website made by Lumen Media',
+    noindex: robotsIndexFollow, // important to change if go live
+    nofollow: robotsIndexFollow
+  }
+
+  addSocialAndCanonicalMetadata(seo, settings, page, appCtx)
   return (
     <>
       <NextHead>{generateNextSeo(seo)}</NextHead>

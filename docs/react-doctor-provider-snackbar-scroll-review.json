@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source root causes; generated artifacts, suppressions, dependency versions and unrelated workspace changes left untouched.",
+  "rootCauses": [
+    {
+      "name": "Settings/page synchronization with live preview",
+      "file": "src/components/provider/SettingsPageProvider.tsx",
+      "findings": 2,
+      "fixGroupId": "881ca7c0052c28ee",
+      "impact": "On navigation, children first rendered the old page/settings before an effect corrected them. A regression reproduced the stale child render.",
+      "fix": "Keep page/settings together as preview-owned state. A converging render guard reconciles changed inputs atomically before children render. Preserve same-UUID state, null-page clearing and preview bridge lifecycle. A keyed reset would unnecessarily remount children; deriving entirely from props would discard preview edits.",
+      "tests": "Changed-UUID and null-page transitions expose only current data to children. Same UUID retains state. Existing bridge tests cover matching/unrelated events, page/global preview updates, reloads, cleanup and cancellation of pending bridge creation."
+    },
+    {
+      "name": "Snackbar visibility synchronization",
+      "file": "src/components/snackbar/Snackbar.tsx",
+      "findings": 3,
+      "fixGroupId": "68ff2049e5d1d6b7",
+      "impact": "Display/scroll changes exposed old visibility to children before corrective effects. Regression reproduced the extra stale render. This can briefly show a notice that should already be hidden.",
+      "fix": "Use a converging render guard and a pure visibility calculation for configuration/scroll changes; keep timer and manual dismissal state. A stable server snapshot keeps SSR and initial hydration closed. Cookie dismissal is state; an Effect Event reads current cookie status without restarting the opening timer on acceptance.",
+      "tests": "Show/hide on scroll, immediate configuration visibility, dismissal across unrelated updates, delayed open/close, cancellation of pending timers, cookie writes/hiding, closed server output and hydration preserving the DOM without recoverable errors."
+    },
+    {
+      "name": "Infinite-scroll self-triggered page updates",
+      "file": "src/utils/hooks/useInfiniteScroll.ts",
+      "findings": 1,
+      "impact": "When visible, changing page retriggered the same effect indefinitely. A bounded regression reproduced the repeated update loop. No active internal callers were found, so current production impact is unestablished.",
+      "fix": "Use a functional state updater and depend only on observer visibility. Advance one page per false-to-true transition instead of triggering another update from the page change.",
+      "tests": "Initial page, first visibility entry, unrelated rerender, exit/reentry and end-of-collection hasMore/data behavior. Test includes a render limit so the original loop fails safely."
+    }
+  ],
+  "canonicalRecipes": {
+    "no-adjust-state-on-prop-change": "https://react.doctor/docs/rules/react-doctor/no-adjust-state-on-prop-change",
+    "rerender-functional-setstate": "https://react.doctor/docs/rules/react-doctor/rerender-functional-setstate"
+  },
+  "recipeReview": "Fetched with no-cache curl and read validation predicates. Provider/Snackbar require partially adjustable state because preview events, timers and user events own updates. Applied the recipe's explicitly permitted converging guarded-render adjustment. Infinite scroll uses the prescribed latest-state updater; removing page from dependencies stops the feedback loop. No suppressions.",
+  "grouping": "Provider diagnostics share fixGroupId 881ca7c0052c28ee; Snackbar diagnostics share 68ff2049e5d1d6b7. Infinite scroll is independent.",
+  "validation": {
+    "tests": "11 tests pass across 3 files; three new regressions failed before implementation, and additional preservation tests pass",
+    "typecheck": "tsc --noEmit passes",
+    "eslint": "Zero errors. One pre-existing set-state-in-effect warning remains in useInfiniteScroll: the observer-driven effect still performs one state update per visibility entry. No suppression added.",
+    "format": "Prettier and git diff --check pass",
+    "reactDoctorCommand": "npx react-doctor@latest --verbose",
+    "runs": {
+      "settings": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-f128afdd-b571-498a-b1e8-ecd397421d74/diagnostics.json",
+        "totalFindings": 133
+      },
+      "snackbar": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-dc759bf6-6200-4a84-84f7-e30167c4cdbb/diagnostics.json",
+        "totalFindings": 129
+      },
+      "sync-final": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-e8a20329-0140-4d51-9989-30de1a80eaab/diagnostics.json",
+        "totalFindings": 128
+      }
+    },
+    "finalTargetedFindingsRemaining": 0,
+    "findingsRemoved": 6,
+    "newFindings": 0,
+    "overallCount": "134 to 128",
+    "limitations": "DOM tests use happy-dom, mocked snackbar surfaces/scroll state and mocked preview bridge. No production build or real-browser/provider integration run."
+  },
+  "remaining": {
+    "total": 128,
+    "source": 56,
+    "sourceErrors": [],
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 26,
+      "jsx-no-constructed-context-values": 1,
+      "nextjs-no-a-element": 1,
+      "nextjs-image-missing-sizes": 1,
+      "no-spread-accumulator-in-reduce": 2,
+      "no-derived-useState": 2,
+      "rerender-lazy-state-init": 2,
+      "js-set-map-lookups": 11,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "followUp": [
+      "Remaining source performance and complexity findings, including lazy state initialization and lookup/reduce patterns.",
+      "Review responsive/image sizing and other remaining Next.js warnings.",
+      "Generated diagnostics left untouched."
+    ]
+  }
+}

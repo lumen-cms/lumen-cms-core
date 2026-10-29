@@ -17,7 +17,7 @@ if (
   (flags.includes('--smoke') && action !== 'build')
 ) {
   console.error(
-    'Usage: yarn reference:site <dev|build|start> <bali|planet|upskill> [--smoke (build only)]'
+    'Usage: pnpm reference:site <dev|build|start> <bali|planet|upskill> [--smoke (build only)]'
   )
   process.exit(1)
 }
@@ -30,10 +30,10 @@ const credentials = { ...readEnv('.env.reference.local'), ...process.env }
 const profile = profiles[site]
 const previewToken =
   credentials[`REFERENCE_${profile.key}_PREVIEW_TOKEN`] ||
-  (site === 'bali' ? base.NEXT_PUBLIC_PREVIEW_TOKEN : undefined)
+  (site === 'bali' ? base.STORYBLOK_PREVIEW_TOKEN : undefined)
 const publicToken =
   credentials[`REFERENCE_${profile.key}_PUBLIC_TOKEN`] ||
-  (site === 'bali' ? base.NEXT_PUBLIC_PUBLIC_TOKEN : undefined)
+  (site === 'bali' ? base.NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY : undefined)
 if (!previewToken || !publicToken) {
   console.error(
     `Set REFERENCE_${profile.key}_PREVIEW_TOKEN and REFERENCE_${profile.key}_PUBLIC_TOKEN in .env.reference.local`
@@ -42,8 +42,8 @@ if (!previewToken || !publicToken) {
 }
 const env = {
   ...base,
-  NEXT_PUBLIC_PREVIEW_TOKEN: previewToken,
-  NEXT_PUBLIC_PUBLIC_TOKEN: publicToken,
+  STORYBLOK_PREVIEW_TOKEN: previewToken,
+  NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY: publicToken,
   NEXT_DIST_DIR: `.next-reference/${site}`
 }
 if (flags.includes('--smoke')) env.TEST = 'TRUE'
@@ -63,10 +63,9 @@ if (action === 'build') {
 }
 const args =
   action === 'build'
-    ? ['build', '--webpack']
+    ? ['build']
     : [
         action,
-        ...(action === 'dev' ? ['--webpack'] : []),
         '-p',
         String(profile.port),
         '--hostname',

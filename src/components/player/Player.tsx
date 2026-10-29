@@ -6,18 +6,28 @@ import { LmPlayerProps } from './playerTypes'
 import videoUrlHelper from '../../utils/videoUrlHelper'
 import LmAspectRatio from '../image/LmAspectRatio'
 
+function getPlayerPresentation(content: LmPlayerProps['content']) {
+  return {
+    style: {
+      ...(content.ratio && { position: 'absolute' as const, top: 0, left: 0 }),
+      borderRadius: content.border_radius ? content.border_radius : undefined
+    },
+    volume: content.muted ? 0 : Number(content.volume || 0),
+    light: content.light ? content.fallback_image || true : false,
+    height: content.ratio ? '100%' : content.height || '360px',
+    width: content.ratio ? '100%' : content.width || '640px'
+  }
+}
+
 export default function LmPlayer({
   content
 }: LmPlayerProps): React.JSX.Element {
-  const [playing, setPlaying] = useState<boolean>(!!content.playing)
+  const [hovered, setHovered] = useState(false)
+  const playing =
+    !!content.playing !== (!!content.toggle_play_on_hover && hovered)
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
-  const togglePlay = () => {
-    if (content.toggle_play_on_hover) {
-      setPlaying((prev) => !prev)
-    }
-  }
 
   let ratios: string[] = []
   if (content.ratio) {
@@ -51,34 +61,21 @@ export default function LmPlayer({
           <ReactPlayer
             wrapper="div"
             onMouseEnter={() => {
-              togglePlay()
+              setHovered(true)
             }}
             onMouseLeave={() => {
-              togglePlay()
+              setHovered(false)
             }}
-            style={{
-              ...(content.ratio && {
-                position: 'absolute',
-                top: 0,
-                left: 0
-              }),
-              borderRadius: content.border_radius
-                ? content.border_radius
-                : undefined
-            }}
+            {...getPlayerPresentation(content)}
             {...videoUrlHelper(
               content,
               content.disable_lazy_load ? true : inView
             )}
-            volume={content.muted ? 0 : Number(content.volume || 0)}
             loop={content.loop}
             muted={content.muted}
             playsInline={content.playsinline}
             playing={playing}
-            light={content.light ? content.fallback_image || true : false}
             controls={content.controls}
-            height={content.ratio ? '100%' : content.height || '360px'}
-            width={content.ratio ? '100%' : content.width || '640px'}
           />
         )}
       </LmAspectRatio>

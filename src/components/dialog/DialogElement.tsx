@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../CoreComponents'
 import dynamic from 'next/dynamic'
 import { LmDialogAsyncProps, LmDialogProps } from './dialogTypes'
 import { useRouter } from 'next/router'
@@ -36,7 +36,7 @@ export default function LmDialogElement({
     events.on('routeChangeError', onRouteChange)
     return () => {
       events.off('routeChangeComplete', onRouteChange)
-      events.on('routeChangeError', onRouteChange)
+      events.off('routeChangeError', onRouteChange)
     }
   }, [events, setOpen])
 

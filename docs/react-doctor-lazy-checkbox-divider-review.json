@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-29",
+  "scope": "Three source root causes. No generated output, suppression, dependency or unrelated changes.",
+  "rootCauses": [
+    {
+      "name": "Drawer deep traversal initialization",
+      "file": "src/components/layout/drawer/DrawerContentList.tsx",
+      "findings": 1,
+      "impact": "Deep menu traversal ran on every render although React discarded all but its first result. Repeated work grows with menu size. No production latency measurement claimed.",
+      "fix": "Pass a pure initializer function to useState. Preserve the existing mount-time openedPath rather than changing route synchronization behavior. Development Strict Mode may still invoke the initializer twice.",
+      "tests": "Regression instruments nested menu reads and demonstrates traversal stops after initialization while the original openedPath reference is preserved after a changed slug. It failed before the change."
+    },
+    {
+      "name": "Category checkbox selected-ID lookups",
+      "file": "src/components/list-widget/CategoryBox.tsx",
+      "findings": 1,
+      "impact": "Each category searched the same selected array on every render. Larger selections incur repeated scanning; small lists have negligible costs and initial Set creation can be slightly slower.",
+      "fix": "Memoize a Set by selected-array identity and use has. Preserve duplicates in the actual selected array, store updates, removal behavior, and the existing non-matching behavior for array-valued tag references.",
+      "tests": "Regression proves no selected-array includes calls during checkbox rendering, correct checked flags, adding a category and removing all copies of an ID. It failed before the change."
+    },
+    {
+      "name": "Divider styling/rendering complexity",
+      "file": "src/components/divider/Divider.tsx",
+      "findings": 1,
+      "impact": "Maintenance improvement, with no intended visual or interaction change. Orientation, dimension and color branches obscured the simpler child rendering path. Two computed style objects were never used.",
+      "fix": "Separate cohesive Divider prop/style calculation from icon/body rendering and remove unused style calculations. Keep defaults and style precedence unchanged.",
+      "tests": "Five tests pass before and after: default horizontal/stack modes, configured horizontal/vertical dimensions and color/alignment, icon/body rendering and custom-color fallback."
+    }
+  ],
+  "canonicalRecipes": {
+    "rerender-lazy-state-init": "https://react.doctor/docs/rules/react-doctor/rerender-lazy-state-init",
+    "js-set-map-lookups": "https://react.doctor/docs/rules/react-doctor/js-set-map-lookups",
+    "no-high-complexity-react-function": "https://react.doctor/docs/rules/react-doctor/no-high-complexity-react-function"
+  },
+  "recipeReview": "Fetched current recipes with no-cache curl and read evidence boundaries. Runtime tests prove repeated traversal/lookups; the lookup benchmark includes Set construction and an approximate heap estimate. Divider extraction separates meaningful styling from rendering rather than introducing arbitrary component boundaries. No suppressions added.",
+  "grouping": "Three independent source root causes, one diagnostic each.",
+  "benchmark": {
+    "method": "Equivalent selected.includes versus Set.has loops over synthetic category values; Set construction included on every measured after call although the component memoizes it. Five warmups, 25 samples, median. Approximate heap increase uses 100 retained sets divided by 100 after GC; noisy estimate. No production latency or browser rendering benchmark.",
+    "results": [
+      {
+        "count": 20,
+        "selectedCount": 3,
+        "beforeMs": 0.0008339999999975589,
+        "afterMs": 0.0009170000000153777,
+        "approxBytesPerSet": 201,
+        "retainedSets": 100
+      },
+      {
+        "count": 1000,
+        "selectedCount": 100,
+        "beforeMs": 0.18549999999999045,
+        "afterMs": 0.029832999999996446,
+        "approxBytesPerSet": 2241,
+        "retainedSets": 100
+      },
+      {
+        "count": 10000,
+        "selectedCount": 1000,
+        "beforeMs": 53.33341599999994,
+        "afterMs": 0.35608300000012605,
+        "approxBytesPerSet": 16296,
+        "retainedSets": 100
+      }
+    ]
+  },
+  "validation": {
+    "tests": "7 pass across 3 files; 2 performance regressions failed before changes; Divider preservation suite passes before/after",
+    "typecheck": "Final tsc --noEmit passes. An earlier run reported an unrelated grid type-portability error which was no longer present in the final workspace check. No grid code changed in this pass.",
+    "eslint": "Zero errors; one pre-existing unused eslint-disable warning in DrawerContentList remains untouched.",
+    "format": "Prettier check and git diff --check pass",
+    "reactDoctorCommand": "npx react-doctor@latest --verbose",
+    "runs": {
+      "lazy": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-6cff0a1a-a8f9-4d9e-8a01-068f2e6d1bb6/diagnostics.json",
+        "totalFindings": 75
+      },
+      "checkbox": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-8cb1214c-cd5c-45b0-af8f-7199ec79f7ec/diagnostics.json",
+        "totalFindings": 74
+      },
+      "lazy-complex-final": {
+        "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-0516b229-676b-4a9f-b585-5f8347411b30/diagnostics.json",
+        "totalFindings": 72
+      }
+    },
+    "targetedFindingsRemoved": 3,
+    "targetedFindingsRemaining": 0,
+    "newSourceFindings": 0,
+    "overallCount": "76 to 72; three source removals belong to this pass. Generated Storybook artifacts changed between scans outside this work, with a net reduction of one diagnostic.",
+    "limitations": "No production build, real-browser visual verification or live-site benchmark. UI tests use mocked boundaries with happy-dom/server rendering."
+  },
+  "remaining": {
+    "total": 72,
+    "source": 47,
+    "sourceErrors": [],
+    "sourceRuleCounts": {
+      "no-high-complexity-react-function": 24,
+      "nextjs-no-a-element": 1,
+      "no-derived-useState": 2,
+      "rerender-lazy-state-init": 1,
+      "js-set-map-lookups": 9,
+      "no-unescaped-dynamic-string-in-regexp": 1,
+      "nextjs-no-css-link": 2,
+      "no-array-index-as-key": 4,
+      "no-json-parse-stringify-clone": 1,
+      "no-object-keys-values-entries-on-maybe-undefined": 1,
+      "async-await-in-loop": 1
+    },
+    "followUp": [
+      "Remaining component complexity, tag-membership loops and small initialization warnings.",
+      "Review lookup findings carefully: substring searches are not Set membership and tiny breakpoint lists may not justify conversion.",
+      "Generated findings left alone."
+    ]
+  }
+}

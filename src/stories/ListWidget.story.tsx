@@ -3,7 +3,7 @@ import { LmListWidgetProps } from '../components/list-widget/listWidgetTypes'
 import { findPresets } from '../storybook/findStorybookPresets'
 import LmListWidget from '../components/list-widget/ListWidget'
 import { getComponentArgTypes } from '../storybook/configControls'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../utils/config'
 import { listWidgetGetData } from '../utils/initial-props/component-data/listWidgetData'
 
 const COMPONENT_NAME = 'list_widget'
@@ -19,7 +19,6 @@ export default {
     // @ts-ignore
     async ({ args }: { args: any }) => {
       CONFIG.publicToken = 'm85LRUo0sX4yo9Q96VMQlQtt'
-      CONFIG.previewToken = 'qASJXPT2cwH76pA9vpJbxAtt'
       CONFIG.rootDirectory = 'en'
       return {
         list_widget_data: await listWidgetGetData(args, {

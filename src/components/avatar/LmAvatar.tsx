@@ -30,7 +30,7 @@ const getVariant = (variant: LmAvatarProps['content']['variant']) => {
   return mapVariants[variant] as AvatarProps['variant']
 }
 
-export function LmAvatar({ content }: LmAvatarProps): React.JSX.Element {
+function getAvatarStyle(content: LmAvatarProps['content']): CSSProperties {
   const iconName = content.icon?.name
   const customSize = getNumber(content.custom_size) as number
 
@@ -61,6 +61,12 @@ export function LmAvatar({ content }: LmAvatarProps): React.JSX.Element {
     style.fontSize = Number(content.font_size)
   }
 
+  return style
+}
+
+export function LmAvatar({ content }: LmAvatarProps): React.JSX.Element {
+  const iconName = content.icon?.name
+  const style = getAvatarStyle(content)
   return (
     <Avatar
       variant={getVariant(content.variant) ?? 'circular'}

@@ -1,11 +1,11 @@
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import { LmCoreComponents } from '@CONFIG'
+import { LmCoreComponents } from '../../../utils/config'
 import { ButtonStoryblok } from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../../utils/linkHandler'
-import { useAppContext } from '@context/AppContext'
+import { useAppContext } from '../../provider/context/AppContext'
 
 type DrawerButtonProps = { content: ButtonStoryblok }
 

@@ -1,5 +1,6 @@
+import Alert from '@mui/material/Alert'
 import { useState } from 'react'
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../../../CoreComponents'
 import { ButtonStoryblok } from '../../../../typings/generated/components-schema'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
@@ -34,6 +35,7 @@ function AddToCartButton() {
 function CheckoutButton() {
   const { config, onCheckout } = useShopifySdkContext()
   const [loading, setLoading] = useState<boolean>(false)
+  const [failed, setFailed] = useState(false)
 
   return (
     <Box sx={{ marginTop: 3 }}>
@@ -52,10 +54,21 @@ function CheckoutButton() {
         disabled={loading}
         onClick={async () => {
           setLoading(true)
-          await onCheckout()
-          setLoading(false)
+          setFailed(false)
+          try {
+            await onCheckout()
+          } catch {
+            setFailed(true)
+          } finally {
+            setLoading(false)
+          }
         }}
       />
+      {failed && (
+        <Alert severity="error">
+          Checkout could not be started. Please try again.
+        </Alert>
+      )}
     </Box>
   )
 }

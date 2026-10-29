@@ -20,7 +20,7 @@ export type StoryblokResponse = {
 
 const record = (value: unknown): value is JsonRecord =>
   !!value && typeof value === 'object' && !Array.isArray(value)
-const copy = <T>(value: T): T => JSON.parse(JSON.stringify(value))
+const copy = <T>(value: T): T => structuredClone(value)
 
 /**
  * Preserve the serializable relation/link shape supplied to existing renderers.

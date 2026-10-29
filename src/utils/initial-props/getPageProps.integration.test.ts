@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from 'vitest'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../config'
 import getPageProps from './getPageProps'
 
 const initialConfig = { ...CONFIG }

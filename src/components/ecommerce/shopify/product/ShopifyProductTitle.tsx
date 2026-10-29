@@ -1,4 +1,4 @@
-import { LmComponentRender } from '@LmComponentRender'
+import { LmComponentRender } from '../../../CoreComponents'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { HeadlineStoryblok } from '../../../../typings/generated/components-schema'

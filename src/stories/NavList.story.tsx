@@ -1,4 +1,4 @@
-import { LmComponentRender as LmNavList } from '@LmComponentRender'
+import { LmComponentRender as LmNavList } from '../components/CoreComponents'
 import { boolean } from '../storybook/legacyControls'
 import { storyNavItem, storyNavList } from '../storybook/core/various'
 

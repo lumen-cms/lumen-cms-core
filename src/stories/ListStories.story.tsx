@@ -3,7 +3,7 @@ import { StoryFn } from '@storybook/react'
 import { LmListStoriesProps } from '../components/list-widget/listWidgetTypes'
 import LmListStories from '../components/list-widget/ListStories'
 import { findFirstPreset } from '../storybook/findStorybookPresets'
-import { CONFIG } from '@CONFIG'
+import { CONFIG } from '../utils/config'
 import { listStoriesData } from '../utils/initial-props/component-data/listStoriesData'
 
 const COMPONENT_NAME = 'list_stories'
@@ -18,7 +18,6 @@ export default {
   loaders: [
     // @ts-ignore
     async ({ args }) => {
-      CONFIG.previewToken = 'irBTkf8Yqq6UJvRRQH8Bmwtt'
       CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
       CONFIG.rootDirectory = ''
       return {

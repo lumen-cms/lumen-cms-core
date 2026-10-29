@@ -1,4 +1,4 @@
-import { LmComponentRender as LmIframe } from '@LmComponentRender'
+import { LmComponentRender as LmIframe } from '../components/CoreComponents'
 import {
   IframeAdvancedStoryblok,
   IframeStoryblok

@@ -1,17 +1,13 @@
+import { getCmsClickProps } from '../../utils/cmsClickActions'
 import MuiLink from '@mui/material/Link'
-import { LmComponentRender } from '@LmComponentRender'
-import { LmCoreComponents } from '@CONFIG'
+import { LmComponentRender } from '../CoreComponents'
+import { LmCoreComponents } from '../../utils/config'
 import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
 import { LmLinkProps } from './linkTypes'
 import clsx from 'clsx'
 
 export function LmLink({ content }: LmLinkProps): React.JSX.Element {
-  const onClickFunc: any =
-    typeof content.on_click_function === 'string'
-      ? {
-          onClick: () => new Function(content.on_click_function || '')()
-        }
-      : undefined
+  const onClickFunc = getCmsClickProps(content.on_click_function)
   const btnProps: any = {
     ...getLinkAttrs(content.link as LinkType, {
       openExternal: !!content.open_external

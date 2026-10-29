@@ -4,10 +4,10 @@ const { resolve } = require('node:path')
 const [baseline, candidate, report] = process.argv.slice(2)
 if (!baseline || !candidate)
   throw new Error(
-    'Usage: yarn test:page-data <baseline consumer root> <candidate consumer root> [report.json]'
+    'Usage: pnpm test:page-data <baseline consumer root> <candidate consumer root> [report.json]'
   )
 const result = spawnSync(
-  'yarn',
+  'pnpm',
   [
     'vitest',
     'run',
