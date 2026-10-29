@@ -271,4 +271,15 @@ Local checks on 28 October:
 - TypeScript 6 and 7, ESLint (0 errors; the same 97 warnings as the baseline), 144 unit tests, the Storybook build and a production `next build` pass.
 - Production HTML keeps the emotion style tags last in `<head>`.
 
-Candidate archive: `/tmp/lumen-candidate-no-tss.tgz`, SHA-256 `d801a41547693abaa2fbf5e0334bb72898c4b8d875d56b38a89dc575c9d51d69`. It also contains unrelated Storyblok data-fetching edits that were made in the working tree in parallel: `StoryblokService`, `pagesGetStaticPaths`, `api/clear-cache` and `traversePageContent`. Repack once those are settled if the consumer run should isolate the styling change. Still open: the full consumer route sweep against the live sites, Shopify and image-list lightbox states (not used on the inspected pages), Safari and Firefox.
+Consumer production verification on 28 October:
+
+- The three consumers were built from a styling-only baseline: the current tree with only the migration files reverted, `/tmp/lumen-candidate-tss-style-baseline.tgz`, SHA-256 `5e87781fde94599477cdbec6f529158dd4cd31575aecdb83894612aac9f0d3a1`. They were also built from the candidate, and all six production builds pass.
+- The 1,505 prerendered pages are structurally identical once these are normalized: emotion class hashes, `MuiBox-root`, React `useId` values, and a stray `undefined` class that `Icon` previously added for unknown sizes.
+- Comparing computed styles on 75 routes covering every CMS component type found two regressions, both now fixed:
+  - `sx` hoists standard-breakpoint media queries above custom ones. The landscape toolbar height then overrode the custom desktop height (48px instead of 81px on Bali `de`/`id`). `LmAppBarCollapse` now uses `styled()`.
+  - `createEmotionCache` from `@mui/material-nextjs` adopts the `emotion-insertion-point` meta that MUI's StyledEngineProvider prepends to `<head>`. Hydration then moved all emotion styles above the stylesheet links. Both caches now use `createCache({ key: 'css' })` from `@emotion/cache`.
+- After both fixes, the emotion style position after hydration matches the baseline on all three sites. The remaining differences were inside Swiper autoplay carousels and third-party embeds, which also differ between two baseline runs.
+- Upskill `de` pages that are rendered on demand re-fetch the Google Fonts CSS at runtime. That shifts text widths by 1/64px independently of styling.
+- The final full computed-style sweep after the second fix was not run.
+
+Candidate archive: `/tmp/lumen-candidate-no-tss.tgz`, SHA-256 `12a27c9cfc4aa298b9bfca8d541aaaaf721d00cbd49df55a067c72d75e4d9a8b`. It also contains unrelated Storyblok data-fetching edits that were made in the working tree in parallel: `StoryblokService`, `pagesGetStaticPaths`, `api/clear-cache` and `traversePageContent`. Repack once those are settled if the consumer run should isolate the styling change. Still open: the full consumer route sweep against the live sites, Shopify and image-list lightbox states (not used on the inspected pages), Safari and Firefox.

@@ -6,7 +6,9 @@ export const prepareForStoryblok = (
   options: PagePropsOptions
 ) => {
   const { rootDirectory } = CONFIG
-  const slugAsArray = Array.isArray(slug) ? [...slug] : [slug]
+  const slugAsArray = Array.isArray(slug)
+    ? [...slug]
+    : [slug.replace(/^\/+|\/+$/g, '')]
   const [first] = slugAsArray
 
   if (options?.defaultLocale === slugAsArray?.[0]) {

@@ -28,3 +28,10 @@ it('does not change the caller’s route segments', () => {
   )
   expect(route).toEqual(['en', 'internships', 'design'])
 })
+
+it('strips surrounding slashes from string slugs', () => {
+  CONFIG.rootDirectory = ''
+  expect(prepareForStoryblok('/search', options).pageSlug).toBe('search')
+  expect(prepareForStoryblok('/info/faq/', options).pageSlug).toBe('info/faq')
+  expect(prepareForStoryblok('/', options).pageSlug).toBe('home')
+})
