@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+  // The published package exposes source and config subpaths to consumers.
+  "entry": ["src/**/*.{ts,tsx}", "config/**/*.js"],
+  // Historical standalone package, excluded from pnpm-workspace.yaml.
+  "ignorePatterns": ["base/**"],
+  "ignoreDependencies": [
+    // Invoked through a Node subprocess in scripts/storyblok-schema.cjs.
+    "storyblok",
+    // tsconfig.json enables importHelpers for the published TypeScript source.
+    "tslib"
+  ]
+}

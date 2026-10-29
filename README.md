@@ -73,6 +73,19 @@ directory aside before installing; do not mix dependency layouts. Clear the
 application's old `.next` build cache when switching bundlers, then restart the
 development server to avoid stale chunk URLs.
 
+## Dependency usage audit
+
+Run `pnpm audit:deps` to check unused dependencies with the pinned, project-local
+[Fallow CLI](https://www.fallow.tools/docs/cli/dead-code/). Findings return a
+nonzero exit status when error-level issues remain; this command does not remove
+packages. For other analyses, use `pnpm exec fallow --help`.
+
+The configuration includes published source/config subpaths, excludes the
+historical `base/` package (outside the pnpm workspace), and keeps the Storyblok
+CLI subprocess and TypeScript helper dependency as documented exceptions.
+Review findings against scripts, peer requirements and consumer usage before
+removing packages.
+
 ## Core 2.0 / websites migration
 
 Core 2.0 requires Node.js 24, Next.js 16 and React 19. Keep
