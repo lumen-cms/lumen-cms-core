@@ -6,6 +6,14 @@ Use Node.js 24 (`nvm use`) and the repository's pinned pnpm version. Install wit
 `pnpm install --frozen-lockfile`, then run `pnpm dev`. Next.js development and
 production builds use Turbopack. Storybook retains its separate webpack builder.
 
+`pnpm install` also enables the versioned `.githooks/pre-push` hook for this
+checkout. Before each push, it runs `pnpm check:react-doctor`: a full,
+noninteractive scan using the latest React Doctor, blocking on warnings, errors,
+or a failed scan. The command requires network access to resolve the latest CLI.
+Run `pnpm run prepare` to enable the hook in an existing checkout, or
+`pnpm check:react-doctor` to check manually. The scan checks the current working
+tree; local hooks can be bypassed with Git's `--no-verify` option.
+
 For everyday development, select a website with one command:
 
 | Command | Local URL |

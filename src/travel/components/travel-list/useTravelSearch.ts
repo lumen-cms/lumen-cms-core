@@ -16,7 +16,11 @@ const fetcher = async ([url, paramsStr, locale]: string[]) => {
   }
   const searchStr = searchVars.toString()
   const fetchUrl = searchStr ? `${url}?${searchStr}` : url
-  return fetch(fetchUrl).then((r) => r.json())
+  const response = await fetch(fetchUrl)
+  if (!response.ok) {
+    throw new Error(`Travel category request failed: ${response.status}`)
+  }
+  return response.json()
 }
 
 export default function useTravelSearch(isDeactive?: boolean) {

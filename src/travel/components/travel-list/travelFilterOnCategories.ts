@@ -1,6 +1,9 @@
 import { CategoryStateProp } from '../page/pageContextTypes'
 import { AllTravelsQuery } from '../../typings/generated/hasura-schema'
 
+const escapeRegExp = (text: string) =>
+  text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
 export const travelFilterOnCategories = (
   travels: AllTravelsQuery['travel'],
   { branch, travelType, city, country, searchtext }: CategoryStateProp
@@ -32,7 +35,7 @@ export const travelFilterOnCategories = (
       for (let i = 0; i < textArr.length; i++) {
         const searchText = textArr[i]
         isTrueArray.push(
-          travel.title?.search(new RegExp(searchText, 'i')) !== -1
+          travel.title?.search(new RegExp(escapeRegExp(searchText), 'i')) !== -1
         )
       }
     }

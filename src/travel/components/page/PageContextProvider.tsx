@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react'
+import { PropsWithChildren, useCallback, useMemo, useState } from 'react'
 import { CategoryStateProp } from './pageContextTypes'
 import { PageContext } from './PageContext'
 
@@ -23,30 +23,36 @@ export function PageContextProvider({ children }: PropsWithChildren<{}>) {
   //   window.history.replaceState({ path: currentUrl.href }, '', currentUrl.href)
   // }
 
-  const updateContext = (passedValue: CategoryStateProp) => {
-    const newOptions = {
-      ...value
-    }
-    Object.keys(passedValue).forEach((key) => {
-      // @ts-ignore
-      if (passedValue[key]) {
-        // @ts-ignore
-        newOptions[key] = passedValue[key]
-      } else {
-        // @ts-ignore
-        delete newOptions[key]
+  const updateContext = useCallback(
+    (passedValue: CategoryStateProp) => {
+      const newOptions = {
+        ...value
       }
-    })
+      Object.keys(passedValue).forEach((key) => {
+        // @ts-ignore
+        if (passedValue[key]) {
+          // @ts-ignore
+          newOptions[key] = passedValue[key]
+        } else {
+          // @ts-ignore
+          delete newOptions[key]
+        }
+      })
 
-    // console.log("inside of updatecontext", passedValue)
-    setValue(newOptions)
-    // updateHistory(newOptions)
-    window.scrollTo(0, 0)
-  }
+      // console.log("inside of updatecontext", passedValue)
+      setValue(newOptions)
+      // updateHistory(newOptions)
+      window.scrollTo(0, 0)
+    },
+    [value]
+  )
+
+  const contextValue = useMemo(
+    () => ({ value, updateContext }),
+    [value, updateContext]
+  )
 
   return (
-    <PageContext.Provider value={{ value, updateContext }}>
-      {children}
-    </PageContext.Provider>
+    <PageContext.Provider value={contextValue}>{children}</PageContext.Provider>
   )
 }

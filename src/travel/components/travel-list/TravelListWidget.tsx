@@ -15,6 +15,8 @@ import {
 import { AllTravelsQuery } from '../../typings/generated/hasura-schema'
 import { useCurrency } from './helpers'
 
+const categoryTypeSet = new Set(categoryTypes)
+
 export type TravelListWidgetProps = {
   _uid: string
   component: 'travel_list_widget'
@@ -46,7 +48,7 @@ function TravelListWidget({
   const contextStringified = JSON.stringify(value)
 
   const filterOn = contextStringified !== '{}' ? value : query
-  if (Object.keys(filterOn).some((item) => categoryTypes.includes(item))) {
+  if (Object.keys(filterOn).some((item) => categoryTypeSet.has(item))) {
     travels = travelFilterOnCategories(travels, filterOn)
   }
   const optionsFromContent = content.card_options && content.card_options[0]

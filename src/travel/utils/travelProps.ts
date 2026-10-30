@@ -24,7 +24,7 @@ export const getStaticProps: GetStaticProps<AppPageProps> = async (context) => {
   const path = `${
     process.env.TRAVELS_SLUG || (locale === 'de' ? 'reisen' : 'travels')
   }/${slug}`
-  const { pageSlug } = prepareForStoryblok(path, options)
+  const pageSlug: string = prepareForStoryblok(path, options).pageSlug
   const settingsLocale =
     locale !== defaultLocale || CONFIG.enableLocaleSuffix ? locale : undefined
   const release =
