@@ -1,0 +1,44 @@
+query allCategories($travelFilter: travel_bool_exp!) {
+  travel_type(where: { mn_travel_travel_types: { travel: $travelFilter } }) {
+    id
+    title
+    title_de
+    mn_travel_travel_types_aggregate(where: { travel: $travelFilter }) {
+      aggregate {
+        count
+      }
+    }
+  }
+  city(where: { travels: $travelFilter }) {
+    id
+    title
+    title_de
+    travels_aggregate(where: $travelFilter) {
+      aggregate {
+        count
+      }
+    }
+  }
+  country(where: { cities: { travels: $travelFilter } }) {
+    id
+    title
+    title_de
+    cities {
+      travels_aggregate(where: $travelFilter) {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+  branch(where: { mn_travel_branches: { travel: $travelFilter } }) {
+    id
+    title
+    title_de
+    mn_travel_branches_aggregate(where: { travel: $travelFilter }) {
+      aggregate {
+        count
+      }
+    }
+  }
+}

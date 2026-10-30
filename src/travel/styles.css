@@ -1,0 +1,7 @@
+#travel-detail .swiper img, #travel-detail .team-card img {
+    object-fit: cover;
+}
+
+#travel-detail .swiper img {
+    max-height: 100%;
+}

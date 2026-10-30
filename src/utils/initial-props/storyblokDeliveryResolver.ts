@@ -26,8 +26,19 @@ type ApiProps = PagePropsOptions & {
   requestParams?: ISbStoryParams
 }
 
-export const fetchSettings = async ({ locale }: { locale?: string }) => {
-  return LmStoryblokService.getStory(getSettingsPath({ locale }))
+export const fetchSettings = async ({
+  locale,
+  overwriteSettingPath,
+  requestParams
+}: {
+  locale?: string
+  overwriteSettingPath?: string
+  requestParams?: ISbStoryParams
+}) => {
+  return LmStoryblokService.getStory(
+    getSettingsPath({ locale, overwriteSettingPath }),
+    requestParams
+  )
 }
 
 export const apiRequestResolver = async ({

@@ -1,0 +1,90 @@
+query travelBySlug($slug: String!) {
+    travel(where: { slug: { _eq: $slug } }) {
+        id
+        title
+        meta_description
+        page_title
+        description
+        slug
+        overview
+        travel_service {
+            id
+            description
+        }
+        travel_itinerary {
+            id
+            description
+        }
+        travel_accommodation {
+            id
+            description
+        }
+        travel_team {
+            id
+            description
+            file_storyblok {
+                id
+                url
+                url_new
+            }
+        }
+
+        travel_fast_fact {
+            id
+            title
+            accommodation
+            airport_transport
+            duration
+            education
+            language_skill
+            meal
+            payment
+            minimum_age
+        }
+
+        fileStoryblokByHeaderImageId {
+            id
+            url
+            url_new
+        }
+        file_storybloks {
+            id
+            url
+            url_new
+        }
+        product {
+            id
+            title
+            title_de
+            duration
+            duration_days
+            product_price {
+                aus
+                eur
+                gbp
+                usd
+                id
+            }
+        }
+        city {
+            title
+            title_de
+            country {
+                title
+                title_de
+            }
+        }
+        mn_travel_branches {
+            branch {
+                title
+                title_de
+            }
+        }
+        mn_travel_travel_types {
+            travel_type {
+                title
+                title_de
+            }
+        }
+    }
+}

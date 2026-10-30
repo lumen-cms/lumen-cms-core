@@ -137,6 +137,9 @@ importers:
       js-cookie:
         specifier: ^3.0.8
         version: 3.0.8
+      locale-currency:
+        specifier: 1.1.0
+        version: 1.1.0
       marked:
         specifier: 18.1.2
         version: 18.1.2
@@ -5920,6 +5923,10 @@ packages:
   local-ssl-proxy@2.0.5:
     resolution: {integrity: sha512-/oWxo8IX12HTVNWza+Ui1HNz7TfrNsVyD0+ZSyf5UZocJXdR70wfNb/xHgNfEPFyjgbsaRFdqFdfxg2d11aANQ==}
     hasBin: true
+
+  locale-currency@1.1.0:
+    resolution: {integrity: sha512-iUGW0j2UiNnf5r4jeBaZgnGkY0Dp8cSnbXni1UsdDpsHEi3Us6kX4GIs8Z7SxI37EgyulbTDO9TQEJU3M6vofQ==}
+    engines: {node: '>=14.0.0'}
 
   localforage@1.10.0:
     resolution: {integrity: sha512-14/H1aX7hzBBmmh7sGPd+AOMkkIrHM3Z1PAyGgZigA1H1p5O5ANnMyWzvpAETtG68/dC4pC0ncy3+PPGzXZHPg==}
@@ -14176,6 +14183,8 @@ snapshots:
       http-proxy: 1.18.1(debug@4.4.3(supports-color@8.1.1))
     transitivePeerDependencies:
       - debug
+
+  locale-currency@1.1.0: {}
 
   localforage@1.10.0:
     dependencies:

@@ -1,0 +1,62 @@
+query allTravels($locale: enum_language_enum!) {
+    travel(order_by: { updated_at: desc_nulls_last, id: desc, title: asc }, where: {
+        language_key: { _eq: $locale }
+        slug: { _neq: "" },
+        published: { _eq: true },
+        title: { _neq: "" },
+        product_id: { _gte: 1 },
+        preview_image_id: { _gte: 1 }
+    }) {
+        id
+        title
+        updated_at
+        slug
+        teaser_text
+        language_key
+        fileStoryblokByPreviewImageId {
+            id
+            url
+            url_new
+        }
+        product {
+            id
+            title
+            title_de
+            duration
+            duration_days
+            product_price {
+                aus
+                eur
+                gbp
+                usd
+                id
+            }
+        }
+        city_id
+        city {
+            id
+            title
+            title_de
+            country_id
+            country {
+                id
+                title
+                title_de
+            }
+        }
+        mn_travel_branches {
+            branch_id
+            branch {
+                title
+                title_de
+            }
+        }
+        mn_travel_travel_types {
+            travel_type_id
+            travel_type {
+                title
+                title_de
+            }
+        }
+    }
+}

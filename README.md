@@ -316,3 +316,7 @@ origin and image-based requests without allowing scripts, forms, popups, or
 parent navigation. The JavaScript GTM path is unchanged. Browser consent,
 tracking-prevention, and third-party-cookie policies still apply.
 
+
+## Optional travel integration
+
+Travel and Auslandszeit are opt-in subpaths of this package. See [the travel integration guide](docs/travel.md) for client registration, page loaders, API routes, and migration from `lumen-cms-travel`.

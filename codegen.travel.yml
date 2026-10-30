@@ -1,0 +1,14 @@
+overwrite: true
+schema: ${TRAVEL_SCHEMA_PATH:./schema.graphql}
+documents: src/travel/lib/**/*.graphql
+generates:
+  src/travel/typings/generated/hasura-types.ts:
+    plugins:
+      - typescript
+  src/travel/typings/generated/hasura-sdk.ts:
+    config:
+      defaultScalarType: any
+      importSchemaTypesFrom: ./src/travel/typings/generated/hasura-types
+    plugins:
+      - typescript-operations
+      - typescript-graphql-request
