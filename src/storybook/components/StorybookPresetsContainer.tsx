@@ -18,9 +18,9 @@ export default function StorybookPresetsContainer({
   }
   return (
     <>
-      {items.map((item: any, i) => {
+      {items.map((item: any) => {
         return (
-          <div key={item._uid + '_' + i}>
+          <div key={JSON.stringify([item._uid, item.storybook_name])}>
             <h3>{item.storybook_name}</h3>
             <LmComponentRender content={item} />
           </div>

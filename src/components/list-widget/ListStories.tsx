@@ -64,11 +64,7 @@ function StoryResults({
   )
 }
 
-export default function LmListStories({ content }: LmListStoriesProps) {
-  const { locale, defaultLocale, locales, insideStoryblok } = useAppContext()
-  const initialize = useRef<boolean>(false)
-  const [initialized, setInitialized] = useState(false)
-  const paginate = content.pagination?.[0]
+function useStorySearchPagination() {
   const [page, setPage] = useState<number>(1)
   const searchText = useSearchStore(searchTextSelector)
   const searchCategories = useSearchStore(categorySelector)
@@ -89,6 +85,16 @@ export default function LmListStories({ content }: LmListStoriesProps) {
       setPage(1)
     }
   }
+  return { page, setPage, searchText, searchCategories }
+}
+
+export default function LmListStories({ content }: LmListStoriesProps) {
+  const { locale, defaultLocale, locales, insideStoryblok } = useAppContext()
+  const initialize = useRef<boolean>(false)
+  const [initialized, setInitialized] = useState(false)
+  const paginate = content.pagination?.[0]
+  const { page, setPage, searchText, searchCategories } =
+    useStorySearchPagination()
   const anchorId = `list_stories_${content._uid}`
 
   const storyData = content.list_stories_data
@@ -135,7 +141,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
       if (scrollTimer !== undefined) clearTimeout(scrollTimer)
       Router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [page, anchorId, content._uid])
+  }, [page, anchorId, content._uid, setPage])
 
   if (error) {
     console.error(error)

@@ -1,11 +1,17 @@
-// Reviewed false positives only; evidence:
+// Generated build output is excluded from source analysis.
+// Reviewed source/artifact overrides below retain their existing evidence:
 // docs/react-doctor-top-three-security-review.json
 // docs/react-doctor-next-three-review.json
 // docs/react-doctor-remaining-five-review.json
-// Exact artifact names intentionally require a fresh review after bundles change.
+// Historical artifact overrides are retained for their review provenance.
 {
   "$schema": "https://react.doctor/schema/config.json",
   "ignore": {
+    "files": [
+      ".next/**",
+      ".next-*/**",
+      "public_storybook/**"
+    ],
     "overrides": [
       {
         "files": [

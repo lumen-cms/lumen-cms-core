@@ -9,13 +9,10 @@ import clsx from 'clsx'
 
 const chunkSize = 30
 
-export default function LmCardList({
-  content,
-  disablePagination
-}: LmCardListProps): React.JSX.Element {
-  const { body = [], ...rest } = content
-  const gutterSize = content.column_gap ? Number(content.column_gap) : 24
-  const enableInView = !disablePagination && body.length > chunkSize
+function useCardPagination(
+  body: NonNullable<LmCardListProps['content']['body']>,
+  disablePagination: LmCardListProps['disablePagination']
+) {
   const [intersectionLoadMoreRef, loadMoreInView] = useInView()
   const [page, setPage] = useState<number>(1)
   const [previousPagination, setPreviousPagination] = useState({
@@ -34,6 +31,26 @@ export default function LmCardList({
       setPage((v) => v + 1)
     }
   }
+
+  return {
+    data,
+    intersectionLoadMoreRef:
+      !disablePagination && body.length > chunkSize && data.length < body.length
+        ? intersectionLoadMoreRef
+        : undefined
+  }
+}
+
+export default function LmCardList({
+  content,
+  disablePagination
+}: LmCardListProps): React.JSX.Element {
+  const { body = [], ...rest } = content
+  const gutterSize = content.column_gap ? Number(content.column_gap) : 24
+  const { data, intersectionLoadMoreRef } = useCardPagination(
+    body,
+    disablePagination
+  )
 
   const variant = content.variant || []
 
@@ -137,13 +154,7 @@ export default function LmCardList({
           </Grid>
         ))}
       </Grid>
-      <div
-        ref={
-          enableInView && data.length < body.length
-            ? intersectionLoadMoreRef
-            : undefined
-        }
-      />
+      <div ref={intersectionLoadMoreRef} />
     </Box>
   )
 }

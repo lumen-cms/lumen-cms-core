@@ -8,9 +8,11 @@ import {
 import { storyInstagramList, storyInstagramPost } from '../src/storybook/core/various'
 import { storyFlexRow } from '../src/storybook/core/section'
 
-export default {
+const instagramStory = {
   title: 'Instagram'
 }
+
+export default instagramStory
 
 export const Basic = () => (
   <Renderer content={{
