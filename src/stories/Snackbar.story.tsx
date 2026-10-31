@@ -1,6 +1,6 @@
 import { StoryFn } from '@storybook/react'
 import { storySnackbar } from '../storybook/core/various'
-import { ButtonStoryblok } from '../typings/generated/components-schema'
+
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'
 import LmSnackbar from '../components/snackbar/Snackbar'
 import { getComponentArgTypes } from '../storybook/configControls'
@@ -48,14 +48,14 @@ ShowOnScroll.args = {
 export const Autohide = Template.bind({})
 Autohide.args = {
   ...presetContent[1],
-  auto_show: 0,
-  auto_close: 4000
+  auto_show: '0',
+  auto_close: '4000'
 }
 
 export const Autoshow = Template.bind({})
 Autoshow.args = {
   ...presetContent[1],
-  auto_show: 4000
+  auto_show: '4000'
 }
 
 export const Dialog = () => (
@@ -79,7 +79,7 @@ export const Dialog = () => (
             icon: {
               name: 'close'
             }
-          } as ButtonStoryblok
+          }
         ]
       }}
     />
@@ -104,7 +104,7 @@ export const Playground = () => (
           icon: {
             name: 'close'
           }
-        } as ButtonStoryblok
+        }
       ]
     }}
   />

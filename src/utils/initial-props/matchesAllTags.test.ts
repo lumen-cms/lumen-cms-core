@@ -22,7 +22,7 @@ it('preserves story sorting, limiting, duplicate filters and object identity', (
     { name: 'Zulu', tag_list: ['a', 'b'], content: {} },
     { name: 'Alpha', tag_list: ['b', 'a', 'a'], content: {} },
     { name: 'Missing', tag_list: ['a'], content: {} }
-  ] as any
+  ]
   expect(
     legacyFilterAllStories(
       {
@@ -30,7 +30,7 @@ it('preserves story sorting, limiting, duplicate filters and object identity', (
         match_all_tags: true,
         sort: 'title',
         maximum_items: '1'
-      } as any,
+      },
       stories
     )
   ).toEqual([stories[1]])
@@ -42,17 +42,18 @@ it('preserves any-tag matches, missing tags, duplicate filters and sorting', () 
     { name: 'Zulu', tag_list: ['a', 'a'], content: {} },
     { name: 'Alpha', tag_list: ['b'], content: {} },
     { name: 'Missing', content: {} }
-  ] as any
+  ]
   expect(
     legacyFilterAllStories(
-      { tags: { values: ['a', 'b', 'b'] }, sort: 'title' } as any,
+      { tags: { values: ['a', 'b', 'b'] }, sort: 'title' },
       stories
     )
   ).toEqual([stories[1], stories[0]])
-  expect(
-    legacyFilterAllStories({ tags: { values: ['A'] } } as any, stories)
-  ).toEqual([])
-  expect(legacyFilterAllStories({ only_tagged: true } as any, stories)).toEqual(
-    [stories[0], stories[1]]
+  expect(legacyFilterAllStories({ tags: { values: ['A'] } }, stories)).toEqual(
+    []
   )
+  expect(legacyFilterAllStories({ only_tagged: true }, stories)).toEqual([
+    stories[0],
+    stories[1]
+  ])
 })

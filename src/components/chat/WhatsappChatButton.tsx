@@ -1,5 +1,5 @@
 import Fab from '@mui/material/Fab'
-import Whatsapp from 'mdi-material-ui/Whatsapp'
+import { Whatsapp } from 'mdi-material-ui'
 import Tooltip from '@mui/material/Tooltip'
 import { WhatsappChatButtonProps } from './chatTypings'
 

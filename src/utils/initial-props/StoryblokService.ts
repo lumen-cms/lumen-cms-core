@@ -132,10 +132,10 @@ export class StoryblokServiceClass {
     return result
   }
 
-  public async getAll(
+  public async getAll<Content = unknown>(
     slug: string,
     params: ISbStoriesParams = {}
-  ): Promise<any[]> {
+  ): Promise<ISbStoryData<Content>[]> {
     if (slug.replace(/^\//, '') !== 'cdn/stories')
       throw new Error('getAll supports cdn/stories only')
     const draftTtl = this.devDraftTtl(params)
@@ -145,9 +145,10 @@ export class StoryblokServiceClass {
       current.version === 'published'
         ? this.allCache.get(key)
         : this.readDraft<ISbStoryData[]>(key, draftTtl)
-    if (cached) return structuredClone(cached)
+    if (cached) return structuredClone(cached) as ISbStoryData<Content>[]
     const pending = this.inFlight.get(key)
-    if (pending) return structuredClone(await pending)
+    if (pending)
+      return structuredClone(await pending) as ISbStoryData<Content>[]
     const request = (async () => {
       const perPage = current.per_page || 100
       const first = await this.transport.fetch(undefined, {
@@ -175,7 +176,7 @@ export class StoryblokServiceClass {
     })()
     this.inFlight.set(key, request)
     try {
-      return structuredClone(await request)
+      return structuredClone(await request) as ISbStoryData<Content>[]
     } finally {
       this.inFlight.delete(key)
     }

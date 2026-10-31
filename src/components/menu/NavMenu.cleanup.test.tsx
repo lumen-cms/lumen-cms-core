@@ -1,12 +1,16 @@
 // @vitest-environment happy-dom
 import { act, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { expect, it, vi } from 'vitest'
+import { afterEach, expect, it, vi } from 'vitest'
 import { LmMenu } from './NavMenu'
 
+const route = vi.hoisted(() => ({ slug: '/home' }))
 vi.mock('../provider/context/AppContext', () => ({
-  useAppContext: () => ({ slug: '/home' })
+  useAppContext: () => route
 }))
+afterEach(() => {
+  route.slug = '/home'
+})
 vi.mock('../CoreComponents', () => ({ LmComponentRender: () => null }))
 vi.mock('@mui/material/Menu', () => ({
   default: ({ open }: { open: boolean }) =>
@@ -54,5 +58,41 @@ it('cancels superseded initial opening, preserves deferred opening, and clears i
     if (!unmounted) await act(async () => root.unmount())
     host.remove()
     vi.useRealTimers()
+  }
+})
+
+it('keeps the menu open on same-route renders and closes on route changes', async () => {
+  vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)
+  const host = document.createElement('div')
+  const root = createRoot(host)
+  const render = async () => {
+    await act(async () =>
+      root.render(
+        <StrictMode>
+          <LmMenu
+            content={{
+              component: 'nav_menu',
+              _uid: 'route-menu',
+              title: 'Menu',
+              body: []
+            }}
+          />
+        </StrictMode>
+      )
+    )
+  }
+  try {
+    await render()
+    await act(async () => host.querySelector('button')!.click())
+    expect(host.querySelector('[role="menu"]')).not.toBeNull()
+    await render()
+    expect(host.querySelector('[role="menu"]')).not.toBeNull()
+    route.slug = '/next'
+    await render()
+    expect(host.querySelector('[role="menu"]')).toBeNull()
+    await act(async () => host.querySelector('button')!.click())
+    expect(host.querySelector('[role="menu"]')).not.toBeNull()
+  } finally {
+    await act(async () => root.unmount())
   }
 })

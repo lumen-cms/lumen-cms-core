@@ -1,5 +1,16 @@
-import { EcommerceCheckoutStoryblok } from '../../typings/generated/components-schema'
+import {
+  EcommerceCheckoutStoryblok,
+  EcommerceShopifyCheckoutStoryblok
+} from '../../typings/generated/components-schema'
 
 export type LmEcommerceCheckoutProps = {
-  content: EcommerceCheckoutStoryblok
+  content: Omit<
+    import('../../typings/storyblok-extensions').StoryblokFields<EcommerceCheckoutStoryblok>,
+    'integration'
+  > & {
+    integration?: (
+      | NonNullable<EcommerceCheckoutStoryblok['integration']>[number]
+      | EcommerceShopifyCheckoutStoryblok
+    )[]
+  }
 }

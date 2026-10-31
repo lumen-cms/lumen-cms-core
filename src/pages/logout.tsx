@@ -6,7 +6,7 @@ export default function Logout() {
   const { logout } = useAuth0()
 
   useEffect(() => {
-    logout({
+    void logout({
       logoutParams: {
         returnTo: window.location.origin
       }

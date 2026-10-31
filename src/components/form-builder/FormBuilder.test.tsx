@@ -1,14 +1,21 @@
 // @vitest-environment happy-dom
-import { act } from 'react'
+import { act, type ReactNode } from 'react'
+type Submit = (data: Record<string, unknown>) => Promise<void>
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import FormBuilder from './FormBuilder'
 import type { LmFormBuilderProps } from './formBuilderTypes'
 const form = vi.hoisted(() => ({
-  submit: undefined as undefined | ((data: any) => Promise<void>)
+  submit: undefined as undefined | Submit
 }))
 vi.mock('react-hook-form-mui', () => ({
-  FormContainer: ({ onSuccess, children }: any) => {
+  FormContainer: ({
+    onSuccess,
+    children
+  }: {
+    onSuccess: Submit
+    children?: ReactNode
+  }) => {
     form.submit = onSuccess
     return <div>{children}</div>
   }
@@ -17,7 +24,7 @@ vi.mock('../google-form/GoogleFormElement', () => ({
   TextFieldElement: () => null
 }))
 vi.mock('../../vendor/grid', () => ({
-  default: ({ children }: any) => <div>{children}</div>
+  default: ({ children }: { children?: ReactNode }) => <div>{children}</div>
 }))
 vi.mock('../CoreComponents', () => ({ LmComponentRender: () => null }))
 it('preserves submitted payload precedence, falsy filtering and callback data', async () => {

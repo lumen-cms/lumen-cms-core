@@ -102,7 +102,7 @@ export const Shaped = () => (
         menu_border_radius: '0px',
         large: true,
         shape: 'square',
-        height: 80
+        height: '80'
       }}
     />
     <h3>Fullwidth:</h3>
@@ -168,7 +168,7 @@ export const SharedCommandPalette = () => (
           placeholder: 'Pages and landing pages',
           fullwidth: true,
           large: true,
-          height: 72,
+          height: '72',
           shape: 'rounded',
           menu_outlined: true,
           menu_border_radius: '16px'

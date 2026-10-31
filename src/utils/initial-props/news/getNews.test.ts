@@ -1,15 +1,16 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { LmStoryblokService } from '../StoryblokService'
+
+const mocks = vi.hoisted(() => ({ getAll: vi.fn() }))
 
 vi.mock('../StoryblokService', () => ({
   LmStoryblokService: {
-    getAll: vi.fn(),
+    getAll: mocks.getAll,
     richTextResolver: { render: vi.fn(() => '<p>News body</p>') }
   }
 }))
 
 beforeEach(() => {
-  vi.mocked(LmStoryblokService.getAll).mockResolvedValue([
+  mocks.getAll.mockResolvedValue([
     {
       id: 1,
       full_slug: 'https://example.com/news/first',
@@ -38,7 +39,7 @@ describe('test get news', () => {
     const news = await getNews()
     expect(news).toHaveLength(1)
     expect(news[0].contentHtml).toBe('<p>News body</p>')
-    expect(LmStoryblokService.getAll).toHaveBeenCalledWith('cdn/stories', {
+    expect(mocks.getAll).toHaveBeenCalledWith('cdn/stories', {
       filter_query: { component: { in: 'news' } }
     })
   })

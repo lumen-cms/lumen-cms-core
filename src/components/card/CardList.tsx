@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { LmComponentRender } from '../CoreComponents'
 import { LmCardListProps } from './cardTypes'
@@ -18,14 +18,22 @@ export default function LmCardList({
   const enableInView = !disablePagination && body.length > chunkSize
   const [intersectionLoadMoreRef, loadMoreInView] = useInView()
   const [page, setPage] = useState<number>(1)
+  const [previousPagination, setPreviousPagination] = useState({
+    disablePagination,
+    loadMoreInView: false
+  })
   const data =
     (!disablePagination ? body.slice(0, page * chunkSize) : body) || []
 
-  useEffect(() => {
+  if (
+    previousPagination.disablePagination !== disablePagination ||
+    previousPagination.loadMoreInView !== loadMoreInView
+  ) {
+    setPreviousPagination({ disablePagination, loadMoreInView })
     if (!disablePagination && loadMoreInView) {
       setPage((v) => v + 1)
     }
-  }, [disablePagination, loadMoreInView, setPage])
+  }
 
   const variant = content.variant || []
 

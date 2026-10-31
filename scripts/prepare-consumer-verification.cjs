@@ -93,9 +93,10 @@ for (const site of sites) {
     react: core.devDependencies.react,
     'react-dom': core.devDependencies['react-dom']
   })
+  delete manifest.devDependencies['@typescript/native']
+  delete manifest.devDependencies['ts-node']
   Object.assign(manifest.devDependencies, {
     typescript: core.devDependencies.typescript,
-    '@typescript/native': core.devDependencies['@typescript/native'],
     '@types/node': core.devDependencies['@types/node'],
     '@types/react': core.dependencies['@types/react'],
     '@types/react-dom': core.dependencies['@types/react-dom']

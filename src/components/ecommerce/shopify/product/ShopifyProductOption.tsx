@@ -1,10 +1,7 @@
 import { LmComponentRender } from '../../../CoreComponents'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
-import {
-  ButtonStoryblok,
-  HeadlineStoryblok
-} from '../../../../typings/generated/components-schema'
+
 import { useEffectOnce } from 'react-use'
 import Box from '@mui/material/Box'
 
@@ -22,15 +19,13 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
       <Box sx={{ marginTop: 2 }}>
         {selectedVariant && (
           <LmComponentRender
-            content={
-              {
-                _uid: '234',
-                component: 'headline',
-                typography: 'headline5',
-                align: 'center',
-                ...(config?.product_price?.[0] || {})
-              } as HeadlineStoryblok
-            }
+            content={{
+              _uid: '234',
+              component: 'headline',
+              typography: 'headline5',
+              align: 'center',
+              ...(config?.product_price?.[0] || {})
+            }}
           >
             {selectedVariant.compareAtPriceV2 && (
               <Box component="s" sx={{ color: 'error.main' }}>
@@ -48,19 +43,17 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
         <>
           <Box sx={{ marginTop: 2 }}>
             <LmComponentRender
-              content={
-                {
-                  component: 'headline',
-                  _uid: '3453',
-                  align: 'center',
-                  text:
-                    selectedVariant?.selectedOptions &&
-                    selectedVariant?.selectedOptions[0]?.name,
-                  typography: 'headline6',
-                  color: 'textSecondary',
-                  ...(config?.product_variant_name || {})
-                } as HeadlineStoryblok
-              }
+              content={{
+                component: 'headline',
+                _uid: '3453',
+                align: 'center',
+                text:
+                  selectedVariant?.selectedOptions &&
+                  selectedVariant?.selectedOptions[0]?.name,
+                typography: 'headline6',
+                color: 'textSecondary',
+                ...(config?.product_variant_name || {})
+              }}
             />
           </Box>
           <Box
@@ -79,23 +72,22 @@ export function ShopifyProductOptions({ item }: ShopifyProductItemProps) {
                 onClick={() => {
                   onVariantSelect({ ...variant.node, productTitle: item.title })
                 }}
-                content={
-                  {
-                    component: 'button',
-                    variant:
-                      selectedVariant?.id === variant.node.id
-                        ? 'unelevated'
-                        : 'outlined',
-                    ...(selectedVariant?.id === variant.node.id
-                      ? config?.product_active_variant?.length
-                        ? config.product_active_variant[0]
-                        : {}
-                      : config?.product_variant?.length
+                content={{
+                  component: 'button',
+                  _uid: variant.node.id,
+                  variant:
+                    selectedVariant?.id === variant.node.id
+                      ? 'unelevated'
+                      : 'outlined',
+                  ...(selectedVariant?.id === variant.node.id
+                    ? config?.product_active_variant?.length
+                      ? config.product_active_variant[0]
+                      : {}
+                    : config?.product_variant?.length
                       ? config.product_variant[0]
                       : {}),
-                    label: variant.node.title
-                  } as ButtonStoryblok
-                }
+                  label: variant.node.title
+                }}
               />
             ))}
           </Box>

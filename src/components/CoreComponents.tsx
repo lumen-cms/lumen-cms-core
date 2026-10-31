@@ -1,22 +1,44 @@
-import { Attributes, createElement } from 'react'
+import { createElement, type ComponentType } from 'react'
 import { LmCoreComponents } from '../utils/config'
-import { ComponentRenderFuncProps } from '../typings/app'
+import {
+  ComponentRenderFuncProps,
+  ComponentRenderContent
+} from '../typings/app'
 import { useAppContext } from './provider/context/AppContext'
 import { StoryblokEditable } from './provider/StoryblokEditable'
 
-export function LmComponentRender<P>(props: ComponentRenderFuncProps) {
-  const { insideStoryblok } = useAppContext()
-  const { content, i, ...rest } = props
+const registryHooks = new Set([
+  'lm_app_providers',
+  'lm_link_render',
+  'parallax_provider'
+])
 
-  if (typeof LmCoreComponents[content.component] !== 'undefined') {
-    const CurrentElement = createElement(LmCoreComponents[content.component], {
-      content,
+export function LmComponentRender<C extends ComponentRenderContent>(
+  props: ComponentRenderFuncProps<C>
+) {
+  const { insideStoryblok } = useAppContext()
+  const { content } = props
+  const i = props.i
+
+  if (
+    !registryHooks.has(content.component) &&
+    Object.hasOwn(LmCoreComponents, content.component) &&
+    typeof LmCoreComponents[content.component] !== 'undefined'
+  ) {
+    // The keyed registry checks registration; content.component selects that same key.
+    // TypeScript cannot retain that correlation through a dynamic indexed lookup.
+    const Renderer = LmCoreComponents[content.component] as ComponentType<
+      ComponentRenderFuncProps<C>
+    >
+    const rendererProps = { ...props }
+    delete rendererProps.i
+    const CurrentElement = createElement(Renderer, {
+      ...rendererProps,
       key:
         typeof i === 'number'
           ? `${content.component}_${content._uid || i}`
-          : undefined,
-      ...rest
-    } as unknown as Attributes & P)
+          : undefined
+    })
     if (insideStoryblok) {
       return (
         <StoryblokEditable content={content}>

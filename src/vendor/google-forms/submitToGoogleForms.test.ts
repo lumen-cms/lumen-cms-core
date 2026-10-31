@@ -6,7 +6,9 @@ describe('Google Forms submission compatibility', () => {
   const form = { action: 'e/test-fixture' } as GoogleForm
 
   it('encodes answers, repeated checkbox entries and other-option answers', async () => {
-    const fetch = vi.fn().mockResolvedValue({ ok: true, status: 200 })
+    const fetch = vi
+      .fn<typeof globalThis.fetch>()
+      .mockResolvedValue(new Response())
     vi.stubGlobal('fetch', fetch)
     await expect(
       submitToGoogleForms(form, {
@@ -20,7 +22,7 @@ describe('Google Forms submission compatibility', () => {
       })
     ).resolves.toBe(true)
     const [request, options] = fetch.mock.calls[0]
-    const url = new URL(request)
+    const url = new URL(request instanceof Request ? request.url : request)
     expect(url.origin + url.pathname).toBe(
       'https://docs.google.com/forms/d/e/test-fixture/formResponse'
     )

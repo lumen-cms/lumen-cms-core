@@ -107,7 +107,7 @@ export const Spacing = () => {
       content={{
         _uid: 'spacing',
         component: 'form_builder',
-        spacing: 2,
+        spacing: '2',
         variant: 'outlined',
         submit: submit,
         fields: formFields?.slice(0)
@@ -162,7 +162,7 @@ export const SelectVariants = () => {
         _uid: 'inline',
         component: 'form_builder',
         endpoint,
-        spacing: 2,
+        spacing: '2',
         submit: submit,
         fields: [
           {

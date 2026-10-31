@@ -1,5 +1,7 @@
 import { CONFIG } from '../config'
-import { PageItem } from '../../typings/generated/schema'
+import type { PageStoryblok } from '../../typings/generated/components-schema'
+import type { ISbStoryData } from 'storyblok-js-client'
+export type ProjectPageStory = ISbStoryData<PageStoryblok>
 import { LmStoryblokService } from './StoryblokService'
 import { excludingFieldsForLists } from '../universal/storyblokParamsHelper'
 import { ISbStoriesParams } from 'storyblok-js-client'
@@ -30,8 +32,8 @@ export function getStoryblokPagesConfig(pageConfig?: ISbStoriesParams) {
 
 export const getAllStoriesOfProject = async (
   pageConfig?: ISbStoriesParams
-): Promise<PageItem[]> => {
-  const all = await LmStoryblokService.getAll(
+): Promise<ProjectPageStory[]> => {
+  const all = await LmStoryblokService.getAll<PageStoryblok>(
     'cdn/stories',
     getStoryblokPagesConfig(pageConfig)
   )

@@ -3,18 +3,24 @@ import { expect, it, vi } from 'vitest'
 import type { ReactNode } from 'react'
 import Card from './CardStandalone'
 import type { LmCardStandaloneProps } from './cardTypes'
+type MediaCapture = {
+  sx: {
+    aspectRatio?: string
+    margin: (theme: { spacing: (n: number) => number }) => number
+  }
+}
 const seen = vi.hoisted(() => ({
-  image: {} as Record<string, any>,
-  media: {} as Record<string, any>
+  image: {} as Record<string, unknown>,
+  media: {} as MediaCapture
 }))
 vi.mock('next/image', () => ({
-  default: (p: Record<string, any>) => {
+  default: (p: Record<string, unknown>) => {
     seen.image = p
     return <span>Media</span>
   }
 }))
 vi.mock('@mui/material/CardMedia', () => ({
-  default: ({ children, ...p }: { children: ReactNode }) => {
+  default: ({ children, ...p }: { children: ReactNode } & MediaCapture) => {
     seen.media = p
     return <div>{children}</div>
   }

@@ -7,9 +7,10 @@ const baseline = process.env.MARKDOWN_BASELINE
 it.skipIf(!baseline)(
   'preserves all captured three-site Markdown documents',
   () => {
-    const cases: { source: string; html: string }[] = JSON.parse(
-      readFileSync(baseline!, 'utf8')
-    )
+    const cases = JSON.parse(readFileSync(baseline!, 'utf8')) as {
+      source: string
+      html: string
+    }[]
     const canonical = (html: string) => {
       const $ = load(html, null, false)
       $.root()
@@ -24,8 +25,8 @@ it.skipIf(!baseline)(
               node.parent?.type === 'root'
                 ? 'root'
                 : node.parent && 'name' in node.parent
-                ? node.parent.name
-                : ''
+                  ? node.parent.name
+                  : ''
             )
           )
             $(node).remove()

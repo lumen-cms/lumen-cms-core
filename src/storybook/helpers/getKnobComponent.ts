@@ -9,7 +9,7 @@ import {
 } from '../legacyControls'
 // eslint-disable-next-line
 // @ts-ignore
-import COMPONENT_JSON from '../../../components.82895.json'
+import COMPONENT_JSON from '../../typings/storyblok/components/82895/components.json'
 import { classNameOpts } from './utilityClassNamesHelper'
 import iconObj from './iconListHelper'
 // import { getGlobalState } from '../components/SetStoriesDecorator'
@@ -57,7 +57,7 @@ const getKnobComponents = <ComponentName extends string>({
   knob?: string
   count?: number
 }) => {
-  const findComponents = COMPONENT_JSON.components.find((component) => {
+  const findComponents = COMPONENT_JSON.find((component) => {
     return component.name === componentName
   })
   const schema: Record<string, StorybookSchemaField | undefined> | undefined =

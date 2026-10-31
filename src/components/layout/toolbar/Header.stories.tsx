@@ -165,7 +165,7 @@ export const CustomHeightSystemBar = () => (
     settings={{
       ...customSettingsSystemBar,
       toolbar_variant: 'dark',
-      toolbar_main_height: 80,
+      toolbar_main_height: '80',
       toolbar_config: ['fixed', 'enable_system_bar'],
       website_logo: companyLogos[3]
     }}
@@ -182,7 +182,7 @@ export const VariantLogo = () => (
     settings={{
       ...customSettingsSystemBar,
       toolbar_variant: 'dark',
-      toolbar_main_height: 80,
+      toolbar_main_height: '80',
       toolbar_config: ['fixed', 'enable_system_bar'],
       website_logo: companyLogos[1]
     }}
@@ -200,7 +200,7 @@ export const VariantSize = () => (
       ...customSettingsSystemBar,
       toolbar_variant: 'dark',
       toolbar_font_size: '20px',
-      toolbar_main_height: 80,
+      toolbar_main_height: '80',
       toolbar_config: ['fixed', 'enable_system_bar'],
       website_logo: companyLogos[1]
     }}
@@ -217,7 +217,7 @@ export const HasFeature = () => (
     settings={{
       ...customSettingsSystemBar,
       toolbar_variant: 'dark',
-      toolbar_main_height: 80,
+      toolbar_main_height: '80',
       toolbar_config: ['fixed', 'enable_system_bar'],
       website_logo: companyLogos[1]
     }}

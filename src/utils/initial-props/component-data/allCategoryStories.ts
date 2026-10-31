@@ -27,7 +27,10 @@ export const getAllCategories = async (
       CONFIG.rootDirectory ? `${CONFIG.rootDirectory}/` : ''
     }`
   }
-  return LmStoryblokService.getAll('cdn/stories', params)
+  return LmStoryblokService.getAll<AllCategoryData[number]['content']>(
+    'cdn/stories',
+    params
+  )
 }
 
 export const filterAllCategory = (

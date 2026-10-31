@@ -1,3 +1,5 @@
+import type { AuslandszeitListWidgetProps } from '../components/auslandszeit/AuslandszeitListWidget'
+
 export async function getAuslandszeitContent(props: { query_filter?: string }) {
   const apiKey = process.env.AUSLANDSZEIT_API_KEY
   if (!apiKey)
@@ -15,6 +17,7 @@ export async function getAuslandszeitContent(props: { query_filter?: string }) {
   })
   if (!auslandszeitData.ok)
     throw new Error(`Jobs feed request failed: ${auslandszeitData.status}`)
-  const data = await auslandszeitData.json()
+  const data =
+    (await auslandszeitData.json()) as AuslandszeitListWidgetProps['content']['auslandszeit_list_widget_data']
   return data
 }

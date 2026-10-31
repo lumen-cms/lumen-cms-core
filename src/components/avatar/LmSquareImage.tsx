@@ -17,6 +17,7 @@ type LmSquareImageProps = {
       | 'onLoad'
       | 'onClick'
       | 'priority'
+      | 'preload'
       | 'quality'
       | 'alt'
       | 'className'

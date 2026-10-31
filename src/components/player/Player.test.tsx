@@ -1,13 +1,19 @@
 // @vitest-environment happy-dom
-import { act, type ReactNode } from 'react'
+import { act, type ComponentProps } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import Player from './Player'
+import type ReactPlayer from 'react-player'
+import type AspectRatio from '../image/LmAspectRatio'
+type PlayerCapture = Omit<
+  ComponentProps<typeof ReactPlayer>,
+  'onMouseEnter' | 'onMouseLeave'
+> & { onMouseEnter: () => void; onMouseLeave: () => void }
 import type { LmPlayerProps } from './playerTypes'
 const seen = vi.hoisted(() => ({
   inView: false,
-  props: {} as Record<string, any>,
-  ratio: {} as Record<string, any>,
+  props: {} as PlayerCapture,
+  ratio: {} as Partial<ComponentProps<typeof AspectRatio>>,
   observer: vi.fn(),
   source: vi.fn(() => ({ src: 'video.mp4' }))
 }))
@@ -15,14 +21,14 @@ vi.mock('react-intersection-observer', () => ({
   useInView: () => [seen.observer, seen.inView]
 }))
 vi.mock('react-player', () => ({
-  default: (props: Record<string, any>) => {
+  default: (props: PlayerCapture) => {
     seen.props = props
     return <div data-player />
   }
 }))
 vi.mock('../../utils/videoUrlHelper', () => ({ default: seen.source }))
 vi.mock('../image/LmAspectRatio', () => ({
-  default: ({ children, ...props }: { children: ReactNode }) => {
+  default: ({ children, ...props }: ComponentProps<typeof AspectRatio>) => {
     seen.ratio = props
     return <div>{children}</div>
   }

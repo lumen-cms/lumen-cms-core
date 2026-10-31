@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import ChevronDown from 'mdi-material-ui/ChevronDown'
-import ChevronUp from 'mdi-material-ui/ChevronUp'
+import { ChevronDown, ChevronUp } from 'mdi-material-ui'
 import { LmComponentRender } from '../CoreComponents'
 import { LmCoreComponents } from '../../utils/config'
 import { useEffectOnce } from 'react-use'
 import { Popover } from '@mui/material'
 import LmIcon from '../icon/LmIcon'
-import { getLinkAttrs, LinkType } from '../../utils/linkHandler'
+import {
+  getLinkAttrs,
+  LinkType,
+  type LinkHandlerProps
+} from '../../utils/linkHandler'
 import { LmMenuProps } from './menuTypes'
 import { useAppContext } from '../provider/context/AppContext'
 import clsx from 'clsx'
@@ -92,6 +95,12 @@ export function LmMenu({
   const isCustom =
     menuItems.length && menuItems[0].component !== 'nav_menu_item'
   const { slug } = useAppContext()
+  const [previousSlug, setPreviousSlug] = useState(slug)
+
+  if (previousSlug !== slug) {
+    setPreviousSlug(slug)
+    setAnchorEl(null)
+  }
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -125,10 +134,6 @@ export function LmMenu({
     }
   })
 
-  useEffect(() => {
-    handleClose()
-  }, [slug])
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget)
   }
@@ -145,9 +150,6 @@ export function LmMenu({
               content={blok}
               key={blok._uid}
               onClick={handleClick}
-              className={clsx(triggerClassName, {
-                lm_menu_active: active
-              })}
             />
           )
         })
@@ -195,7 +197,7 @@ export function LmMenu({
         ) : (
           menuItems.map((nestedProps) => {
             const link = nestedProps.link
-            const btnProps: any =
+            const btnProps: LinkHandlerProps =
               link &&
               typeof link === 'object' &&
               (('cached_url' in link && link.cached_url) ||
@@ -217,7 +219,7 @@ export function LmMenu({
                 key={nestedProps._uid}
                 className={btnProps.href === slug ? 'lm_active' : ''}
               >
-                {nestedProps.label}
+                {nestedProps.label as React.ReactNode}
               </MenuItem>
             )
           })

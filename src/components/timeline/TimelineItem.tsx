@@ -22,23 +22,23 @@ export default function LmTimelineItem({
   setObserver
 }: LmTimelineItemProps) {
   const theme = useTheme()
-  const timeline1 = useRef(null)
-  const timeline2 = useRef(null)
-  const dot1 = useRef(null)
+  const timeline1 = useRef<HTMLSpanElement>(null)
+  const timeline2 = useRef<HTMLSpanElement>(null)
+  const dot1 = useRef<HTMLSpanElement>(null)
   const hasOppositeContent = !!content.opposite_body?.length
 
   useEffectOnce(() => {
     if (typeof setObserver === 'function') {
-      setObserver(timeline1.current as any)
-      setObserver(dot1.current as any)
+      setObserver(timeline1.current!)
+      setObserver(dot1.current!)
       if (isLast) {
-        setObserver(timeline2.current as any, () => {
+        setObserver(timeline2.current!, () => {
           if (typeof onFinish === 'function') {
             onFinish()
           }
         })
       } else {
-        setObserver(timeline2.current as any)
+        setObserver(timeline2.current!)
       }
     }
   })

@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useMotionStart } from './useMotionStart'
 import { IntersectionOptions, useInView } from 'react-intersection-observer'
 import Slide, { SlideProps } from '@mui/material/Slide'
 import Fade, { FadeProps } from '@mui/material/Fade'
 import Grow, { GrowProps } from '@mui/material/Grow'
 import Zoom, { ZoomProps } from '@mui/material/Zoom'
-import Collapse, { CollapseProps } from '@mui/material/Collapse'
+import Collapse from '@mui/material/Collapse'
 import { LmComponentRender } from '../CoreComponents'
 import { LmMotionProps } from './motionTypes'
 import Box from '@mui/material/Box'
@@ -12,7 +12,6 @@ import Box from '@mui/material/Box'
 export default function LmMotion({
   content
 }: LmMotionProps): React.JSX.Element {
-  const timeoutRef = useRef<number>(undefined)
   const type = content.type || 'fade'
   const options: IntersectionOptions = {
     triggerOnce: true
@@ -25,27 +24,9 @@ export default function LmMotion({
     options.threshold = Number((Number(content.threshold) / 100).toFixed(2))
   }
   const [viewRef, inView] = useInView(options)
-  const [start, setStart] = useState<boolean>()
   const delay = content.delay ? Number(content.delay) : 0
 
-  useEffect(() => {
-    if (inView) {
-      if (delay) {
-        timeoutRef.current = window.setTimeout(() => {
-          setStart(true)
-        }, delay)
-      } else {
-        setStart(true)
-      }
-    } else {
-      if (timeoutRef.current) {
-        window.clearTimeout(timeoutRef.current)
-      }
-    }
-    return () => {
-      window.clearTimeout(timeoutRef.current)
-    }
-  }, [inView, delay])
+  const start = useMotionStart(inView, delay)
 
   const transitionProps: { timeout?: number } = {}
   if (content.duration) {
@@ -110,7 +91,7 @@ export default function LmMotion({
             </Zoom>
           ),
           collapse: (
-            <Collapse in={start} {...(transitionProps as CollapseProps)}>
+            <Collapse in={start} {...transitionProps}>
               <div>
                 {content.body?.map((blok) => (
                   <LmComponentRender content={blok} key={blok._uid} />

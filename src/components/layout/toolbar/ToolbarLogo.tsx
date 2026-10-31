@@ -95,7 +95,7 @@ export function LmToolbarLogo(): React.JSX.Element {
                 image={source as string}
                 size={toolbarHeight}
                 imageProps={{
-                  priority: true,
+                  preload: true,
                   quality: 95,
                   style: {
                     objectFit: 'contain',

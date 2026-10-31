@@ -33,6 +33,8 @@ it.each([false, true])(
     const recoverable = vi.fn()
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {})
     const serverFrame = container.querySelector('iframe')!
+    expect(serverFrame.hasAttribute('frameborder')).toBe(false)
+    expect(serverFrame.style.borderWidth).toBe('0px')
     let root!: ReturnType<typeof hydrateRoot>
     try {
       await act(async () => {
@@ -41,6 +43,8 @@ it.each([false, true])(
         })
       })
       expect(container.querySelector('iframe')).toBe(serverFrame)
+      expect(serverFrame.hasAttribute('frameborder')).toBe(false)
+      expect(serverFrame.style.borderWidth).toBe('0px')
       expect(recoverable).not.toHaveBeenCalled()
       expect(consoleError).not.toHaveBeenCalled()
       if (!visible) expect(serverFrame.hasAttribute('src')).toBe(false)

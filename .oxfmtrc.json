@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 80,
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "sortPackageJson": false,
+  "ignorePatterns": [
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "**/generated/*.tsx",
+    "**/generated/*.ts",
+    "src/typings/storyblok.d.ts",
+    "src/typings/storyblok/types/**",
+    "stories/**/*.*",
+    "src/storybook/**/*.*",
+    "__generated__/**/*.*",
+    "**/*.graphql.d.ts",
+    "**/*.js",
+    "jest*"
+  ],
+  "sortImports": false
+}

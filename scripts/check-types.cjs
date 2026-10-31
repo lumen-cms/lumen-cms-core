@@ -1,7 +1,7 @@
-// Avoid depending on which TypeScript package last linked the `tsc` binary.
+// Resolve the project-local TypeScript compiler explicitly.
 const path = require('node:path')
 const { spawnSync } = require('node:child_process')
-const manifest = require.resolve('@typescript/native/package.json')
+const manifest = require.resolve('typescript/package.json')
 const compiler = path.resolve(path.dirname(manifest), require(manifest).bin.tsc)
 const result = spawnSync(
   process.execPath,

@@ -8,6 +8,9 @@ generates:
     plugins:
       - "typescript"
 #  src/typings/generated/shopify-schema.ts:
+#    config:
+#      scalars:
+#        URL: string
 #    schema:
 #      - https://kembalisales.myshopify.com/api/2022-04/graphql.json:
 #          headers:

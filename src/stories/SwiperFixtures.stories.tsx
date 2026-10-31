@@ -6,7 +6,7 @@ import type { SwiperStoryblok } from '../typings/generated/components-schema'
 const content: SwiperStoryblok = {
   _uid: 'swiper-regression',
   component: 'swiper',
-  height: 300,
+  height: '300',
   theme_color: 'primary.main',
   body: ['#c8e6c9', '#bbdefb', '#ffe0b2', '#e1bee7', '#b2dfdb'].map(
     (color, index) => ({
@@ -71,7 +71,7 @@ export const Responsive: Story = {
 }
 export const Autoplay: Story = {
   args: {
-    content: { ...content, autoslide_duration: 1000, pause_on_hover: true }
+    content: { ...content, autoslide_duration: '1000', pause_on_hover: true }
   }
 }
 export const Fade: Story = { args: { content: { ...content, effect: 'fade' } } }

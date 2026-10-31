@@ -1,7 +1,7 @@
 // Synthetic public content: no CMS tokens or captured customer data.
-export const story = (
+export const story = <Content extends Record<string, unknown>>(
   uuid: string,
-  content: Record<string, unknown>,
+  content: Content,
   slug = uuid
 ) => ({
   id: Number(uuid.replace(/\D/g, '')) || 1,

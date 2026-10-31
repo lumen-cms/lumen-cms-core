@@ -2,13 +2,8 @@ import { LmCoreComponents } from '../../../utils/config'
 import { LmComponentRender } from '../../CoreComponents'
 import { appContext } from '../../../storybook/config'
 import {
-  ButtonStoryblok,
-  EcommerceCheckoutStoryblok,
-  EcommerceFastspringConfigStoryblok,
   EcommerceFastspringProductStoryblok,
-  GlobalStoryblok,
-  HeadlineStoryblok,
-  ImageStoryblok
+  GlobalStoryblok
 } from '../../../typings/generated/components-schema'
 import { LmFastSpringProvider } from './LmFastspringProvider'
 import { LmAppContainer } from '../../layout/AppContainer'
@@ -34,7 +29,7 @@ export default {
             data_accesss_key: accessKey,
             data_storefront: storefront,
             url
-          } as EcommerceFastspringConfigStoryblok
+          }
         ]
       } as GlobalStoryblok
       return (
@@ -57,59 +52,53 @@ export const CheckoutButtons = () => {
     <div style={{ textAlign: 'center' }}>
       <div style={{ marginBottom: 16 }}>
         <LmComponentRender
-          content={
-            {
-              _uid: '123',
-              component: 'ecommerce_checkout',
-              integration: [integration],
-              trigger: [
-                {
-                  _uid: '2432',
-                  component: 'button',
-                  label: '{price}: Buy Now !!'
-                } as ButtonStoryblok
-              ]
-            } as EcommerceCheckoutStoryblok
-          }
+          content={{
+            _uid: '123',
+            component: 'ecommerce_checkout',
+            integration: [integration],
+            trigger: [
+              {
+                _uid: '2432',
+                component: 'button',
+                label: '{price}: Buy Now !!'
+              }
+            ]
+          }}
         />
       </div>
       <div style={{ marginBottom: 16 }}>
         <LmComponentRender
-          content={
-            {
-              _uid: '123',
-              component: 'ecommerce_checkout',
-              integration: [integration],
-              trigger: [
-                {
-                  _uid: '2432',
-                  component: 'image',
-                  width: 300,
-                  source:
-                    'https://a.storyblok.com/f/82895/1280x1044/d20df0f536/buy-now-606685_1280.png'
-                } as ImageStoryblok
-              ]
-            } as EcommerceCheckoutStoryblok
-          }
+          content={{
+            _uid: '123',
+            component: 'ecommerce_checkout',
+            integration: [integration],
+            trigger: [
+              {
+                _uid: '2432',
+                component: 'image',
+                width: '300',
+                source:
+                  'https://a.storyblok.com/f/82895/1280x1044/d20df0f536/buy-now-606685_1280.png'
+              }
+            ]
+          }}
         />
       </div>
       <div style={{ marginBottom: 16 }}>
         <LmComponentRender
-          content={
-            {
-              _uid: '123',
-              component: 'ecommerce_checkout',
-              integration: [integration],
-              trigger: [
-                {
-                  _uid: '2432',
-                  component: 'headline',
-                  typography: 'headline2',
-                  text: 'Buy Now And Fast!! only {price}'
-                } as HeadlineStoryblok
-              ]
-            } as EcommerceCheckoutStoryblok
-          }
+          content={{
+            _uid: '123',
+            component: 'ecommerce_checkout',
+            integration: [integration],
+            trigger: [
+              {
+                _uid: '2432',
+                component: 'headline',
+                typography: 'headline2',
+                text: 'Buy Now And Fast!! only {price}'
+              }
+            ]
+          }}
         />
       </div>
     </div>
@@ -125,26 +114,24 @@ export const DisplayText = () => (
         }}
       />
       <LmComponentRender
-        content={
-          {
-            _uid: '123',
-            component: 'ecommerce_checkout',
-            integration: [
-              {
-                ...integration,
-                text_only: true
-              } as EcommerceFastspringProductStoryblok
-            ],
-            trigger: [
-              {
-                _uid: '2432',
-                component: 'headline',
-                typography: 'headline4',
-                text: 'Buy Now reduced: {discount}, new price: {total}'
-              } as HeadlineStoryblok
-            ]
-          } as EcommerceCheckoutStoryblok
-        }
+        content={{
+          _uid: '123',
+          component: 'ecommerce_checkout',
+          integration: [
+            {
+              ...integration,
+              text_only: true
+            }
+          ],
+          trigger: [
+            {
+              _uid: '2432',
+              component: 'headline',
+              typography: 'headline4',
+              text: 'Buy Now reduced: {discount}, new price: {total}'
+            }
+          ]
+        }}
       />
     </div>
   </div>

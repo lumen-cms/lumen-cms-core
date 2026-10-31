@@ -1,4 +1,4 @@
-export default async function fetcher<JSON = any>(
+export default async function fetcher<JSON = unknown>(
   input: RequestInfo,
   init?: RequestInit
 ): Promise<JSON> {
@@ -6,5 +6,5 @@ export default async function fetcher<JSON = any>(
   if (!res.ok) {
     throw new Error(`Request failed: ${res.status}`)
   }
-  return res.json()
+  return res.json() as Promise<JSON>
 }

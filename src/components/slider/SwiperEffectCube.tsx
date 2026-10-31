@@ -1,7 +1,8 @@
 import { EffectCube } from 'swiper/modules'
 import 'swiper/css/effect-cube'
 import { FC, PropsWithChildren } from 'react'
-import { Swiper, SwiperProps } from 'swiper/react'
+import type { SwiperProps } from 'swiper/react'
+import { DeferredSwiper as Swiper } from './DeferredSwiper'
 import Box from '@mui/material/Box'
 
 const SwiperEffectCube: FC<

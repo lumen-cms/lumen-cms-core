@@ -1,18 +1,18 @@
 import { PropsWithChildren, useEffect } from 'react'
-import { Auth0Provider, useAuth0 } from '@auth0/auth0-react'
+import { Auth0Provider, useAuth0, type AppState } from '@auth0/auth0-react'
 import Router, { useRouter } from 'next/router'
 import { LmApp, LmAppProps } from './_app'
-import { useUserActions } from '../auth/useAuth'
+import { useUserActions, type AuthUser } from '../auth/useAuth'
 
 export { reportWebVitals } from './_appDefault'
 
-const onRedirectCallback = (appState: any) => {
-  return Router.replace(appState?.returnTo || '/home')
+const onRedirectCallback = (appState?: AppState) => {
+  void Router.replace(appState?.returnTo || '/home')
 }
 
 function AppContainer({ children }: PropsWithChildren) {
   const { locales, asPath, locale, push } = useRouter()
-  const { user, error } = useAuth0()
+  const { user, error } = useAuth0<AuthUser>()
   const { setUser } = useUserActions()
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function AppContainer({ children }: PropsWithChildren) {
         locale !== currentUserLocale &&
         locales?.includes(currentUserLocale)
       ) {
-        push(asPath, undefined, { locale: currentUserLocale })
+        void push(asPath, undefined, { locale: currentUserLocale })
       }
     }
   }, [user, locales, asPath, locale, push])

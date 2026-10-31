@@ -74,10 +74,10 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
       setUpdating(false)
     }
   }
-  const onSuccess = async (data: any) => {
+  const onSuccess = async (data: typeof defaults) => {
     const params = new URLSearchParams()
     params.append('sub', user?.sub as string)
-    Object.keys(data).forEach((key) => {
+    ;(Object.keys(data) as (keyof typeof data)[]).forEach((key) => {
       params.append(key, data[key])
     })
     await requestAccountChange(
@@ -85,6 +85,14 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
     )
   }
 
+  const handleDeleteAccount = async () => {
+    const deleted = await requestAccountChange(
+      `${auth0Endpoint.api}/api/delete-user?sub=${encodeURIComponent(
+        user?.sub || ''
+      )}`
+    )
+    if (deleted) window.location.reload()
+  }
   return (
     <>
       {failed && (
@@ -92,7 +100,7 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
           {translations[currentLocale].request_error}
         </Alert>
       )}
-      <FormContainer onSuccess={onSuccess as any} defaultValues={defaults}>
+      <FormContainer onSuccess={onSuccess} defaultValues={defaults}>
         <TextFieldElement
           name="given_name"
           fullWidth
@@ -145,13 +153,8 @@ export default function LmAuthForm({ content }: Auth0FormProps) {
           key={blok._uid}
           content={blok}
           disabled={updating}
-          onClick={async () => {
-            const deleted = await requestAccountChange(
-              `${auth0Endpoint.api}/api/delete-user?sub=${encodeURIComponent(
-                user?.sub || ''
-              )}`
-            )
-            if (deleted) window.location.reload()
+          onClick={() => {
+            void handleDeleteAccount()
           }}
         />
       ))}

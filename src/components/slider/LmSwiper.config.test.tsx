@@ -1,20 +1,29 @@
 import { renderToStaticMarkup } from 'react-dom/server'
-import type { ReactNode } from 'react'
+import type { ReactNode, ComponentProps, CSSProperties } from 'react'
+import type { Theme } from '@mui/material/styles'
+import type Container from './LmSwiperContainer'
+type BoxCapture = {
+  children?: ReactNode
+  sx: {
+    '--swiper-theme-color': (theme: Theme) => unknown
+    '& .swiper': CSSProperties
+  }
+}
 import { expect, it, vi } from 'vitest'
 import Swiper from './LmSwiper'
 import type { LmSwiperProps } from './sliderTypes'
 const seen = vi.hoisted(() => ({
-  props: {} as Record<string, any>,
-  box: {} as Record<string, any>
+  props: {} as ComponentProps<typeof Container>,
+  box: {} as BoxCapture
 }))
 vi.mock('./LmSwiperContainer', () => ({
-  default: ({ children, ...p }: { children: ReactNode }) => {
+  default: ({ children, ...p }: ComponentProps<typeof Container>) => {
     seen.props = p
     return <div>{children}</div>
   }
 }))
 vi.mock('@mui/material/Box', () => ({
-  default: ({ children, ...p }: { children: ReactNode }) => {
+  default: ({ children, ...p }: BoxCapture) => {
     seen.box = p
     return <div>{children}</div>
   }
@@ -61,7 +70,7 @@ it('preserves default configuration and slide order', () => {
   expect(
     seen.box.sx['--swiper-theme-color']({
       palette: { text: { primary: 'default' } }
-    })
+    } as Theme)
   ).toBe('default')
 })
 it('preserves flags, autoplay and responsive zero-value fallback', () => {
@@ -103,7 +112,7 @@ it('preserves effect-specific sizing, pagination and style overrides', () => {
     dynamicBullets: true
   })
   expect(seen.box.sx['& .swiper']).toEqual({ height: '200px', width: '400px' })
-  expect(seen.box.sx['--swiper-theme-color']({})).toBe('custom-color')
+  expect(seen.box.sx['--swiper-theme-color']({} as Theme)).toBe('custom-color')
   render({ effect: 'fade', slides_per_view: '2,3' })
-  expect(seen.props.swiperProps.breakpoints[900].slidesPerView).toBe(3)
+  expect(seen.props.swiperProps.breakpoints![900].slidesPerView).toBe(3)
 })

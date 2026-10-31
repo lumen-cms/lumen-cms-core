@@ -5,7 +5,7 @@ import { getBaseProps } from '../utils/initial-props/getBaseProps'
 export default function Refetch() {
   const { loginWithPopup } = useAuth0()
   useEffect(() => {
-    loginWithPopup({
+    void loginWithPopup({
       authorizationParams: {
         redirect_uri: window.location.origin
       }

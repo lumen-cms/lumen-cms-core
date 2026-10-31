@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react'
+import { StoryFn } from '@storybook/react'
 import { getComponentArgTypes } from '../storybook/configControls'
 import LmGoogleFormContainer from '../components/google-form/LmGoogleFormContainer'
 import { findPresets } from '../storybook/findStorybookPresets'
@@ -18,8 +18,7 @@ export default {
     ...getComponentArgTypes(COMPONENT_NAME)
   },
   loaders: [
-    // @ts-ignore
-    async ({ args }: any) => {
+    async ({ args }: { args: LmGoogleFormProps['content'] }) => {
       // const res = await fetchGoogleFormDataClient(args.api as string)
       // const parsedData = parseHijackedFormData(res)
       const parsedData = await googleFormGetData(args)
@@ -28,7 +27,7 @@ export default {
       }
     }
   ]
-} as Meta
+}
 
 const Template: StoryFn<LmGoogleFormProps['content']> = (
   args,
@@ -38,7 +37,7 @@ const Template: StoryFn<LmGoogleFormProps['content']> = (
     <LmGoogleFormContainer
       content={{
         ...args,
-        form_data: formStructure
+        form_data: formStructure as LmGoogleFormProps['content']['form_data']
       }}
     />
   )

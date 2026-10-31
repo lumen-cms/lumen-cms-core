@@ -3,6 +3,6 @@ import { GoogleFormWithDate } from '../../utils/initial-props/component-data/goo
 
 export type LmGoogleFormProps = {
   content: FormStoryblok & {
-    form_data: GoogleFormWithDate
+    form_data?: GoogleFormWithDate
   }
 }

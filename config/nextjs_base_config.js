@@ -10,6 +10,8 @@ module.exports = ({
   const config = {
     reactStrictMode: true,
     experimental: {
+      // Resolve renderer/editor exports without bundling unused SDK helpers.
+      optimizePackageImports: ['@storyblok/react'],
       // Match production chunking in dev to avoid missing next/dynamic preloads.
       // https://github.com/vercel/next.js/issues/99149
       turbopackClientSideNestedAsyncChunking: true

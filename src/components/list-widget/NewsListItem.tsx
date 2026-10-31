@@ -3,7 +3,7 @@ import { LmNewsListItemProps } from './listWidgetTypes'
 import { LmComponentRender } from '../CoreComponents'
 import { renderRichText } from '../paragraph/renderRichText'
 import { getContentFields } from './listUtils/getContentFields'
-import { HeadlineStoryblok } from '../../typings/generated/components-schema'
+
 import { useAppContext } from '../provider/context/AppContext'
 
 export default function LmNewsListItem({
@@ -22,39 +22,37 @@ export default function LmNewsListItem({
     <div key={content.uuid} className={'my-3'}>
       <MuiNextLink href={`/${content.full_slug}`}>
         <LmComponentRender
-          content={
-            {
-              component: 'headline',
-              typography: 'headline4',
-              ...options.title?.[0],
-              text: title
-            } as HeadlineStoryblok
-          }
+          content={{
+            component: 'headline',
+            _uid: `${content.uuid}_title`,
+            typography: 'headline4',
+            ...options.title?.[0],
+            text: title
+          }}
         />
       </MuiNextLink>
       <LmComponentRender
-        content={
-          {
-            component: 'headline',
-            typography: 'body2',
-            ...options.subtitle?.[0],
-            text: subtitle
-          } as HeadlineStoryblok
-        }
+        content={{
+          component: 'headline',
+          _uid: `${content.uuid}_subtitle`,
+          typography: 'body2',
+          ...options.subtitle?.[0],
+          text: subtitle
+        }}
       />
       <LmComponentRender
-        content={
-          {
-            component: 'headline',
-            typography: 'body1',
-            ...options.description?.[0],
-            text:
-              typeof description === 'string'
-                ? description
-                : renderRichText(description)
-          } as HeadlineStoryblok
-        }
-      />
+        content={{
+          component: 'headline',
+          _uid: `${content.uuid}_description`,
+          typography: 'body1',
+          ...options.description?.[0],
+          text: typeof description === 'string' ? description : undefined
+        }}
+      >
+        {typeof description !== 'string'
+          ? renderRichText(description)
+          : undefined}
+      </LmComponentRender>
       {readMoreLabel && (
         <MuiNextLink href={`/${content.full_slug}`}>
           <LmComponentRender content={readMoreLabel} />

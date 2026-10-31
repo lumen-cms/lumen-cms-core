@@ -3,11 +3,17 @@ import { act, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import Snackbar from './Snackbar'
+import type {
+  DialogProps,
+  SnackbarProps,
+  SnackbarContentProps
+} from '@mui/material'
+type DialogCapture = Omit<DialogProps, 'onClose'> & { onClose?: () => void }
 import type { LmSnackbarProps } from './snackbarTypes'
 const seen = vi.hoisted(() => ({
-  dialog: {} as Record<string, any>,
-  snack: {} as Record<string, any>,
-  body: {} as Record<string, any>,
+  dialog: {} as Partial<DialogCapture>,
+  snack: {} as SnackbarProps,
+  body: {} as SnackbarContentProps,
   preview: false,
   cookie: undefined as string | undefined
 }))
@@ -21,7 +27,7 @@ vi.mock('js-cookie', () => ({
   default: { get: () => seen.cookie, set: vi.fn() }
 }))
 vi.mock('@mui/material', () => ({
-  Dialog: ({ children, ...p }: { children: ReactNode }) => {
+  Dialog: ({ children, ...p }: DialogCapture) => {
     seen.dialog = p
     return <div data-dialog>{children}</div>
   },
@@ -33,13 +39,13 @@ vi.mock('@mui/material', () => ({
   )
 }))
 vi.mock('@mui/material/Snackbar', () => ({
-  default: ({ children, ...p }: { children: ReactNode }) => {
+  default: ({ children, ...p }: SnackbarProps) => {
     seen.snack = p
     return <div>{children}</div>
   }
 }))
 vi.mock('@mui/material/SnackbarContent', () => ({
-  default: (p: Record<string, any>) => {
+  default: (p: SnackbarContentProps) => {
     seen.body = p
     return (
       <div>
@@ -120,7 +126,7 @@ it('preserves dialog styling, action order and outside dismissal policy', async 
     )
     await render({ dialog: true })
     expect(seen.dialog.maxWidth).toBe(false)
-    await act(async () => seen.dialog.onClose())
+    await act(async () => seen.dialog.onClose!())
     expect(seen.dialog.open).toBe(false)
   }))
 it('preserves toast styles, anchoring, action precedence and accept behavior', async () =>
@@ -135,7 +141,7 @@ it('preserves toast styles, anchoring, action precedence and accept behavior', a
       square: true,
       button_top_align: true,
       elevation: '2'
-    } as Partial<LmSnackbarProps['content']>)
+    })
     expect(seen.snack).toMatchObject({
       open: true,
       anchorOrigin: { horizontal: 'left', vertical: 'top' },

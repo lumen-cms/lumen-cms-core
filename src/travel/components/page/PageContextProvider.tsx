@@ -28,16 +28,15 @@ export function PageContextProvider({ children }: PropsWithChildren<{}>) {
       const newOptions = {
         ...value
       }
-      Object.keys(passedValue).forEach((key) => {
-        // @ts-ignore
-        if (passedValue[key]) {
-          // @ts-ignore
-          newOptions[key] = passedValue[key]
-        } else {
-          // @ts-ignore
-          delete newOptions[key]
+      ;(Object.keys(passedValue) as (keyof CategoryStateProp)[]).forEach(
+        <Key extends keyof CategoryStateProp>(key: Key) => {
+          if (passedValue[key]) {
+            newOptions[key] = passedValue[key]
+          } else {
+            delete newOptions[key]
+          }
         }
-      })
+      )
 
       // console.log("inside of updatecontext", passedValue)
       setValue(newOptions)

@@ -10,11 +10,10 @@ export default async function exitPreview(
   res.clearPreviewData()
 
   // set the cookies to None
-  const cookies = res.getHeader('Set-Cookie')
+  // Next's preview helpers write Set-Cookie as an array.
+  const cookies = res.getHeader('Set-Cookie') as string[]
   res.setHeader(
     'Set-Cookie',
-    // eslint-disable-next-line
-    // @ts-ignore
     cookies.map((cookie) =>
       cookie.replace('SameSite=Lax', 'SameSite=None;Secure')
     )

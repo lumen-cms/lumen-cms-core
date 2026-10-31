@@ -5,7 +5,7 @@ import { expect, it, vi } from 'vitest'
 import Container from './LmGoogleFormContainer'
 import type { LmGoogleFormProps } from './googleFormProps'
 type FormProps = {
-  formStructure: LmGoogleFormProps['content']['form_data']
+  formStructure: NonNullable<LmGoogleFormProps['content']['form_data']>
   content: LmGoogleFormProps['content']
 }
 const observed = vi.hoisted(() => ({ props: {} as FormProps }))
@@ -40,7 +40,7 @@ it('passes current form data without remounting the form on schema updates', asy
     input.focus()
     const next = {
       ...content,
-      form_data: { ...content.form_data, title: 'Updated', action: 'updated' }
+      form_data: { ...content.form_data!, title: 'Updated', action: 'updated' }
     }
     await act(async () => root.render(<Container content={next} />))
     expect(observed.props.formStructure).toBe(next.form_data)

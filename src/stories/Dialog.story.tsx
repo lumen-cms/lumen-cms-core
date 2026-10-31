@@ -1,10 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react'
 import {
-  ButtonStoryblok,
   DialogStoryblok,
   HeadlineStoryblok,
-  IconStoryblok,
-  IframeStoryblok,
   ImageStoryblok
 } from '../typings/generated/components-schema'
 import LmDialog from '../components/dialog/DialogElement'
@@ -12,7 +9,6 @@ import { LmDialogProps } from '../components/dialog/dialogTypes'
 import { getComponentArgTypes } from '../storybook/configControls'
 
 const COMPONENT_NAME = 'dialog'
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Feedback/Dialog',
   component: LmDialog,
@@ -41,7 +37,7 @@ const basicProps = {
       component: 'button',
       _uid: 'adfasfasfasdfas',
       label: 'A button trigger'
-    } as ButtonStoryblok
+    }
   ]
 } as DialogStoryblok
 
@@ -66,7 +62,7 @@ Fullscreen.args = {
       _uid: 'iframex',
       full_height: true,
       url: `https://students-react-iframe-signup.now.sh?light=1`
-    } as IframeStoryblok
+    }
   ],
   trigger: [
     {
@@ -78,7 +74,7 @@ Fullscreen.args = {
       label: 'Signup',
       variant: 'fab',
       color: 'primary'
-    } as ButtonStoryblok
+    }
   ]
 }
 
@@ -99,7 +95,7 @@ export const Trigger = () => (
               component: 'headline',
               _uid: 'sdfgsdg',
               text: 'Headline Trigger'
-            } as HeadlineStoryblok
+            }
           ]
         } as DialogStoryblok
       }
@@ -115,7 +111,7 @@ export const Trigger = () => (
               _uid: 'sgsfdgsdfg',
               source:
                 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
-            } as ImageStoryblok
+            }
           ]
         } as DialogStoryblok
       }
@@ -132,7 +128,7 @@ export const Trigger = () => (
               property: ['square'],
               source:
                 'https://a.storyblok.com/f/69529/4896x2755/95e0b03c15/img_9046.jpg'
-            } as ImageStoryblok
+            }
           ]
         } as DialogStoryblok
       }
@@ -156,7 +152,7 @@ export const Trigger = () => (
               class_names: {
                 values: ['text-danger']
               }
-            } as IconStoryblok
+            }
           ]
         } as DialogStoryblok
       }

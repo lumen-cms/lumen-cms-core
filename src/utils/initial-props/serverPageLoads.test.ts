@@ -28,10 +28,12 @@ vi.mock('./StoryblokService', async (importOriginal) => {
 vi.mock('./processGoogleFonts', () => ({
   loadGoogleFontsCss: async () => undefined
 }))
-const serialized = (value: unknown) =>
+const serialized = (value: unknown): unknown =>
   JSON.parse(
-    JSON.stringify(value, (key, item) =>
-      key === 'list_widget_data' ? { ...item, cv: '<build timestamp>' } : item
+    JSON.stringify(value, (key, item: unknown) =>
+      key === 'list_widget_data'
+        ? { ...(item as Record<string, unknown>), cv: '<build timestamp>' }
+        : item
     )
   )
 const originalConfig = { ...CONFIG }
@@ -128,7 +130,7 @@ for (const site of sites)
           expect(serialized(after)).toEqual(serialized(before))
           expect('props' in after).toBe(true)
           if (!('props' in after)) throw new Error('Expected page props')
-          const props = await after.props
+          const props = after.props
           expect(props.page?.body).toHaveLength(4)
           expect(props.settings?.uuid).toBe('settings-20')
           expect(

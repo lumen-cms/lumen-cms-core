@@ -4,15 +4,24 @@ import {
   type StoryblokRichTextInput
 } from '@storyblok/react'
 import { createElement, type ReactNode, type ImgHTMLAttributes } from 'react'
-import { getLinkAttrs } from '../../utils/linkHandler'
+import { getLinkAttrs, type LinkType } from '../../utils/linkHandler'
 import { LmCoreComponents } from '../../utils/config'
 import MuiLink from '@mui/material/Link'
 
-type LegacyMark = { type: string; attrs?: Record<string, any> }
+type LegacyMark = {
+  type: string
+  attrs?: {
+    href?: string
+    linktype?: LinkType['linktype']
+    target?: string
+    class?: string
+    [key: string]: unknown
+  }
+}
 type RichTextNode = {
   type: string
   text?: string
-  attrs?: Record<string, any>
+  attrs?: Record<string, unknown>
   marks?: LegacyMark[]
   content?: RichTextNode[]
   legacyMarks?: LegacyMark[]
@@ -33,7 +42,7 @@ function renderLegacyMarks(text: ReactNode, legacyMarks: LegacyMark[] = []) {
   return legacyMarks.reduceRight<ReactNode>((children, mark) => {
     const attrs = mark.attrs || {}
     if (mark.type === 'link') {
-      const props: any = {
+      const props = {
         ...getLinkAttrs(
           { cached_url: attrs.href, linktype: attrs.linktype },
           { openExternal: attrs.target === '_blank' }
@@ -53,7 +62,10 @@ function renderLegacyMarks(text: ReactNode, legacyMarks: LegacyMark[] = []) {
       : children
   }, text)
 }
-function LegacyText({ text, legacyMarks }: RichTextNode) {
+function LegacyText({
+  text,
+  legacyMarks
+}: Pick<RichTextNode, 'text' | 'legacyMarks'>) {
   return renderLegacyMarks(text, legacyMarks)
 }
 function MarkedNode({
@@ -66,7 +78,13 @@ function MarkedNode({
   return renderLegacyMarks(children, legacyMarks)
 }
 const container = (tag: string) =>
-  function LegacyContainer({ children, content }: any) {
+  function LegacyContainer({
+    children,
+    content
+  }: {
+    children?: ReactNode
+    content?: readonly unknown[]
+  }) {
     return content?.length ? createElement(tag, null, children) : null
   }
 const components: StoryblokReactRichTextComponentMap = {
@@ -111,8 +129,9 @@ function preserveMarks(node: RichTextNode): RichTextNode | null {
   if (node.type === 'text') return { ...normalized, legacyMarks: marks }
   return { type: 'doc', content: [normalized], legacyMarks: marks }
 }
-export const renderRichText = (body: any): ReactNode => {
+export const renderRichText = (body: unknown): ReactNode => {
   if (typeof body === 'string') return body
-  if (body?.type !== 'doc' || !Array.isArray(body.content)) return null
-  return render(preserveMarks(body) as StoryblokRichTextInput)
+  const document = body as RichTextNode | null | undefined
+  if (document?.type !== 'doc' || !Array.isArray(document.content)) return null
+  return render(preserveMarks(document) as StoryblokRichTextInput)
 }

@@ -2,9 +2,10 @@ import { Theme } from '@mui/material/styles'
 import { CSSObject } from '@mui/material'
 
 const getNprogressJss = (theme: Theme): CSSObject => ({
-  // NProgress
-  '#nprogress': {
+  // Keep the existing bar appearance and linear completion fade.
+  '.bprogress': {
     pointerEvents: 'none',
+    transitionTimingFunction: 'linear !important',
     '& .bar': {
       position: 'fixed',
       background: theme?.toolbar?.progressColor

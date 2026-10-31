@@ -3,16 +3,24 @@ import { act } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import Stories from './ListStories'
+import type { SWRConfiguration } from 'swr'
+import type { FetchListStoriesProps } from './listUtils/fetchListStories'
+import type { LmListStoriesPaginationProps } from './listWidgetTypes'
+type SearchFixture = { searchText: string; categories: string[] }
 import type { LmListStoriesProps } from './listWidgetTypes'
 const seen = vi.hoisted(() => ({
   loading: false,
-  data: { stories: [], total: 60 } as Record<string, any>,
-  key: null as any,
-  config: {} as Record<string, any>,
+  data: { stories: [] as { id: string }[], total: 60 },
+  key: null as FetchListStoriesProps | null,
+  config: {} as SWRConfiguration<unknown>,
   search: { searchText: '', categories: [] as string[] }
 }))
 vi.mock('swr', () => ({
-  default: (key: unknown, _fetch: unknown, config: Record<string, any>) => {
+  default: (
+    key: FetchListStoriesProps | null,
+    _fetch: unknown,
+    config: SWRConfiguration<unknown>
+  ) => {
     seen.key = key
     seen.config = config
     return { data: seen.data, isLoading: seen.loading }
@@ -26,9 +34,10 @@ vi.mock('../provider/context/AppContext', () => ({
   useAppContext: () => ({ locale: 'en', defaultLocale: 'en', locales: ['en'] })
 }))
 vi.mock('../../utils/state/searchState', () => ({
-  searchTextSelector: (s: any) => s.searchText,
-  categorySelector: (s: any) => s.categories,
-  useSearchStore: (selector: (s: any) => unknown) => selector(seen.search)
+  searchTextSelector: (s: SearchFixture) => s.searchText,
+  categorySelector: (s: SearchFixture) => s.categories,
+  useSearchStore: (selector: (s: SearchFixture) => unknown) =>
+    selector(seen.search)
 }))
 vi.mock('../CoreComponents', () => ({
   LmComponentRender: () => <span>Empty</span>
@@ -39,7 +48,13 @@ vi.mock('./ListStoriesContainer', () => ({
   )
 }))
 vi.mock('./ListStoriesPagination', () => ({
-  default: ({ page, onChange, disabled, totalCount, className }: any) => (
+  default: ({
+    page,
+    onChange,
+    disabled,
+    totalCount,
+    className
+  }: LmListStoriesPaginationProps) => (
     <button
       data-count={totalCount}
       className={className}
@@ -122,13 +137,13 @@ it('preserves fallback and revalidation rules, page URLs and search reset', asyn
     })
     expect(seen.config.revalidateOnMount).toBe(false)
     await act(async () => host.querySelector('button')!.click())
-    expect(seen.key.page).toBe(2)
+    expect(seen.key!.page).toBe(2)
     expect(seen.config.revalidateOnMount).toBe(true)
     expect(new URL(window.location.href).searchParams.get('page')).toBe('2')
     seen.search.searchText = 'term'
     await render()
-    expect(seen.key.page).toBe(1)
-    expect(seen.key.searchText).toBe('term')
+    expect(seen.key!.page).toBe(1)
+    expect(seen.key!.searchText).toBe('term')
   }))
 it('preserves empty fallback and fetch-on-mount without supplied stories', async () =>
   check(async (render) => {

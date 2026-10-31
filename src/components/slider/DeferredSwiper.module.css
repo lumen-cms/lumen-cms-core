@@ -1,0 +1,28 @@
+.root {
+  --lm-slides: var(--lm-slides-mobile);
+  --lm-gap: var(--lm-gap-mobile);
+}
+
+.root:not(:global(.swiper-initialized))
+  > :global(.swiper-wrapper)
+  > :global(.swiper-slide) {
+  width: calc(
+    (100% - (var(--lm-slides, 1) - 1) * var(--lm-gap, 0px)) /
+      var(--lm-slides, 1)
+  );
+  margin-inline-end: var(--lm-gap, 0px);
+}
+
+@media (min-width: 600px) {
+  .root {
+    --lm-slides: var(--lm-slides-tablet);
+    --lm-gap: var(--lm-gap-tablet);
+  }
+}
+
+@media (min-width: 900px) {
+  .root {
+    --lm-slides: var(--lm-slides-desktop);
+    --lm-gap: var(--lm-gap-desktop);
+  }
+}

@@ -61,7 +61,7 @@ export default function LmEvent({ content }: LmEventProps) {
       component: 'rich_text_editor',
       _uid: 'rich_text_' + content._uid,
       body: rteContent
-    } as RichTextEditorStoryblok)
+    })
   }
 
   const items: SectionStoryblok = {

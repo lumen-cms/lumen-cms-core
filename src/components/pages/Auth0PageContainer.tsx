@@ -16,7 +16,7 @@ function PageContainer({ children }: PropsWithChildren) {
         defaultLocale
       })
     ) {
-      replace('/')
+      void replace('/')
     }
   }, [asPath, user, replace, locale, defaultLocale])
   if (error) {

@@ -1,7 +1,7 @@
 import { GetStaticPaths } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import { getAllStoriesOfProject } from './storyblokPagesConfig'
-import { PageItem } from '../../typings/generated/schema'
+import type { ProjectPageStory } from './storyblokPagesConfig'
 import { internalLinkHandler } from '../internalLinkHandler'
 
 const getFallbackMode = () => {
@@ -27,7 +27,7 @@ const pagesGetStaticPaths: GetStaticPaths = async ({
   if (process.env.NODE_ENV === 'development' && fallback !== false) {
     return { paths: [], fallback }
   }
-  const stories: PageItem[] = await getAllStoriesOfProject()
+  const stories: ProjectPageStory[] = await getAllStoriesOfProject()
 
   let paths = stories.map((pageItem) => {
     const fullSlug = pageItem.full_slug || ''

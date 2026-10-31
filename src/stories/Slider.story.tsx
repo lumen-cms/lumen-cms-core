@@ -43,7 +43,7 @@ NavigationBelow.args = {
 export const Autoslide = Template.bind({})
 Autoslide.args = {
   ...presetContent,
-  autoslide: 5000
+  autoslide: '5000'
 }
 
 export const Light = Template.bind({})
@@ -88,7 +88,7 @@ export const MultiSlides = Template.bind({})
 MultiSlides.args = {
   ...presetContent,
   section_variant: 'dark',
-  slides_per_view: 2,
+  slides_per_view: '2',
   property: [
     'pagination_below_content',
     'pagination_dark',

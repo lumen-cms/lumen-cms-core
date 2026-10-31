@@ -30,8 +30,8 @@ export default function LmSlider({ content }: LmSliderProps) {
         autoplayInterval={autoSlide ? Number(content.autoslide) : undefined}
         darkArrows={properties.includes('arrows_dark')}
         darkPagination={properties.includes('pagination_dark')}
-        hideArrows={['hide_arrows', 'arrows_beside_pagination'].some((i) =>
-          properties.includes(i as any)
+        hideArrows={(['hide_arrows', 'arrows_beside_pagination'] as const).some(
+          (i) => properties.includes(i)
         )}
         hidePagination={properties.includes('hide_pagination')}
         paginationCircle={properties.includes('pagination_circle')}

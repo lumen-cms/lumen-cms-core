@@ -1,4 +1,3 @@
-import type { SectionStoryblok } from '../../../typings/generated/components-schema'
 import { LmComponentRender } from '../../../components/CoreComponents'
 import translations from '../../utils/translations'
 import { mainFlexRowHeadline } from './travelSectionContent'
@@ -12,19 +11,17 @@ export function TravelTeam({ content, langKey }: TravelSectionProps) {
   return (
     <Container sx={{ paddingBottom: '60px' }} maxWidth={'lg'}>
       <LmComponentRender
-        content={
-          {
-            _uid: 'travel-team',
-            component: 'section',
-            padding: '0 0 0 0',
-            body: [
-              mainFlexRowHeadline({
-                icon: 'account-group-outline',
-                text: translations[langKey].travelDetail.team
-              })
-            ]
-          } as SectionStoryblok
-        }
+        content={{
+          _uid: 'travel-team',
+          component: 'section',
+          padding: '0 0 0 0',
+          body: [
+            mainFlexRowHeadline({
+              icon: 'account-group-outline',
+              text: translations[langKey].travelDetail.team
+            })
+          ]
+        }}
       />
       <Card
         className={'team-card'}
@@ -83,7 +80,7 @@ export function TravelTeam({ content, langKey }: TravelSectionProps) {
               content={{
                 _uid: '2342',
                 component: 'html',
-                body: content.travel_team?.description
+                body: content.travel_team?.description ?? undefined
               }}
             />
           </Grid2>

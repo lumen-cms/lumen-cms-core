@@ -28,7 +28,10 @@ function load(root: string, site: string) {
         entry.name.endsWith('.json') &&
         !entry.name.endsWith('.nft.json')
       ) {
-        const data = JSON.parse(readFileSync(file, 'utf8'))
+        const data = JSON.parse(readFileSync(file, 'utf8')) as Record<
+          string,
+          Json
+        >
         if ('pageProps' in data)
           pages.set(relative(directory, file), data.pageProps)
       }

@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from 'react-dom/server'
-import { forwardRef } from 'react'
+import { forwardRef, type ReactNode } from 'react'
 import { expect, it } from 'vitest'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import createGrid from './createGrid'
@@ -7,14 +7,18 @@ import type { GridOwnerState } from './GridProps'
 
 it('inherits nested spacing and overflow while respecting explicit zero and child overrides', () => {
   const states: GridOwnerState[] = []
-  const Root = forwardRef<HTMLDivElement, any>(function Root(
-    { ownerState, children },
-    ref
-  ) {
+  const Root = forwardRef<
+    HTMLDivElement,
+    { ownerState: GridOwnerState; children?: ReactNode }
+  >(function Root({ ownerState, children }, ref) {
     states.push(ownerState)
     return <div ref={ref}>{children}</div>
   })
-  const Grid = createGrid({ createStyledComponent: (() => Root) as any })
+  const Grid = createGrid({
+    createStyledComponent: (() => Root) as unknown as NonNullable<
+      NonNullable<Parameters<typeof createGrid>[0]>['createStyledComponent']
+    >
+  })
   const theme = createTheme({
     ...createTheme(),
     components: {

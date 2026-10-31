@@ -7,7 +7,6 @@ import { findFirstPreset } from '../storybook/findStorybookPresets'
 import StorybookSpacingContainer from '../storybook/components/StorybookSpacingContainer'
 import { expect, within } from 'storybook/test'
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Inputs/Button',
   component: LmButton,

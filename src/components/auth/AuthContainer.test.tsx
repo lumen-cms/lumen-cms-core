@@ -2,19 +2,30 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { expect, it, vi } from 'vitest'
 import AuthContainer from './AuthContainer'
 import type { AuthContainerStoryblok } from '../../typings/generated/components-schema'
-const fixture = vi.hoisted(() => ({ user: undefined as any, preview: false }))
+type UserFixture = {
+  firstName?: string
+  lastName?: string
+  email?: string
+  roles?: string[]
+}
+const fixture = vi.hoisted(() => ({
+  user: undefined as UserFixture | undefined,
+  preview: false
+}))
 vi.mock('./useAuth', () => ({ useUserData: () => fixture.user }))
 vi.mock('../provider/context/AppContext', () => ({
   useAppContext: () => ({ insideStoryblok: fixture.preview })
 }))
 vi.mock('../../utils/auth0/auth0Helpers', () => ({
-  hasAuth0Credentials: (roles: string[], user: any) =>
+  hasAuth0Credentials: (roles: string[], user: UserFixture) =>
     roles.some((role) => user.roles?.includes(role))
 }))
 vi.mock('../CoreComponents', () => ({
-  LmComponentRender: ({ content }: any) => (
-    <span>{content.text || content.label}</span>
-  )
+  LmComponentRender: ({
+    content
+  }: {
+    content: { text?: string; label?: string }
+  }) => <span>{content.text || content.label}</span>
 }))
 it('personalizes shared CMS blocks for the current user without modifying them', () => {
   const headline = Object.freeze({
@@ -61,7 +72,7 @@ it.each([
   'preserves visibility for user %j and options %j in preview %s',
   (user, options, preview, visible) => {
     fixture.user = user
-    fixture.preview = preview as boolean
+    fixture.preview = preview
     const content = {
       _uid: 'auth',
       component: 'auth_container',

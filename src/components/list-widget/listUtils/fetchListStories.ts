@@ -36,9 +36,8 @@ export const fetchListStories = async ({
       search_term: searchText
     })
   }
-  const { getBrowserStories } = await import(
-    '../../../utils/storyblok/browserClient'
-  )
+  const { getBrowserStories } =
+    await import('../../../utils/storyblok/browserClient')
   const { data, total } = await getBrowserStories(storiesParams)
   return {
     stories: data.stories as ListStoriesData[],

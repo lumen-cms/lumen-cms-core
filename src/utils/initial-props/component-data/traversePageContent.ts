@@ -2,9 +2,18 @@ import { AppPageProps } from '../../../typings/app'
 import { SSR_CONFIG } from '../ssrConfig'
 import { timed } from '../debugTiming'
 
+type EnrichedBlock = {
+  component: string
+  elements?: EnrichedBlock[]
+  body?: EnrichedBlock[]
+  background?: EnrichedBlock[]
+  container?: { content?: { body?: EnrichedBlock[] } }
+  [key: string]: unknown
+}
+
 export const fetchComponentData = async (props: AppPageProps) => {
   // Loaders run concurrently so identical Storyblok requests share one fetch.
-  const walkArray = async (elements: any[]): Promise<void> => {
+  const walkArray = async (elements: EnrichedBlock[]): Promise<void> => {
     await Promise.all(
       elements.map(async (item) => {
         const callback = SSR_CONFIG.ssrHooks.componentData[item.component]
@@ -27,7 +36,7 @@ export const fetchComponentData = async (props: AppPageProps) => {
     )
   }
   if (Array.isArray(props)) {
-    await walkArray(props)
+    await walkArray(props as EnrichedBlock[])
   } else {
     await Promise.all(
       [props.page?.body, props.page?.right_body, props.settings?.footer]

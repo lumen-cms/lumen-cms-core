@@ -2,11 +2,10 @@ import LinearProgress from '@mui/material/LinearProgress'
 import { useAppContext } from '../../provider/context/AppContext'
 import { ShopifyProductItem } from './product/ShopifyProductItem'
 import { LmShopifyCheckoutProps } from './shopifyTypes'
-import { AllProductsQuery } from '../../../typings/generated/shopify-schema'
 
 export default function LmShopifyProduct({ content }: LmShopifyCheckoutProps) {
   const ctx = useAppContext()
-  const products: AllProductsQuery['products']['edges'] = ctx.allShopifyProducts
+  const products = ctx.allShopifyProducts
 
   // const { data } = useAllProductsQuery()
   // const edges = data?.products.edges || []

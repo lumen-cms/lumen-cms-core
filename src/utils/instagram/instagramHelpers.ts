@@ -1,6 +1,10 @@
 // @ts-ignore
 import ig from 'instagram-scraping'
 
+// Consumer-side contract for the legacy, untyped optional integration.
+// This assertion does not validate or install the package; results stay unknown.
+const scraper = ig as { scrapeUserPage: (user: string) => unknown }
+
 // here is the "pk" user ID of an account
 // https://www.instagram.com/web/search/topsearch/?query=studentsgoabroad
 
@@ -52,12 +56,14 @@ export const fetchInstagramUserId = async (username: string) => {
   if (!response.ok) {
     throw new Error(`Instagram request failed: ${response.status}`)
   }
-  const list = await response.json()
-  const foundUser = list?.users?.find((i: any) => i.user.username === username)
+  const list = (await response.json()) as {
+    users?: { user: { username: string; pk?: unknown } }[]
+  } | null
+  const foundUser = list?.users?.find((i) => i.user.username === username)
   return foundUser?.user?.pk
 }
 
-export async function fetchInstagramList<JSON = any>(
+export async function fetchInstagramList<JSON = unknown>(
   username: string
 ): Promise<JSON> {
   // username = 3086246170
@@ -88,10 +94,10 @@ export async function fetchInstagramList<JSON = any>(
   if (!res.ok) {
     throw new Error(`Instagram request failed: ${res.status}`)
   }
-  return res.json()
+  return res.json() as Promise<JSON>
 }
 
-export const scrapeInstagramUser = async (user: string) => {
-  const data = await ig.scrapeUserPage(user)
+export const scrapeInstagramUser = async (user: string): Promise<unknown> => {
+  const data: unknown = await scraper.scrapeUserPage(user)
   return data
 }

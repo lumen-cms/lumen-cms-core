@@ -4,7 +4,7 @@ import { shopifyGraphqlSdk } from './shopify-graphql-request'
 describe('Shopify GraphQL client compatibility', () => {
   it('preserves query variables and authentication with the native fetch client', async () => {
     const fetch = vi
-      .fn()
+      .fn<typeof globalThis.fetch>()
       .mockResolvedValue(
         Response.json({ data: { product: { id: 'test-product' } } })
       )
@@ -22,8 +22,10 @@ describe('Shopify GraphQL client compatibility', () => {
       'https://shop.example.test/api/2021-07/graphql.json'
     )
     expect(
-      new Headers(request.headers).get('X-Shopify-Storefront-Access-Token')
+      new Headers(request?.headers).get('X-Shopify-Storefront-Access-Token')
     ).toBe('test-token')
+    expect(typeof request?.body).toBe('string')
+    if (typeof request?.body !== 'string') throw new Error('Expected JSON body')
     expect(JSON.parse(request.body)).toMatchObject({
       variables: { handle: 'test-product' }
     })

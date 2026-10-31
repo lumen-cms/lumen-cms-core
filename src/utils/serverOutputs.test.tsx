@@ -14,6 +14,7 @@ import { generateNextSeo, type NextSeoProps } from 'next-seo/pages'
 import { Feed } from 'feed'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import baseline from './__fixtures__/serverOutputs.json'
+import type { GlobalStoryblok } from '../typings/generated/components-schema'
 import SettingsPageProvider from '../components/provider/SettingsPageProvider'
 import AppHead from '../components/layout/AppHead'
 import { SeoProduct } from '../components/layout/seo/SeoProduct'
@@ -24,7 +25,9 @@ import { SeoCorporateContact } from '../components/layout/seo/SeoCorporateContac
 const fixture = (name: string, index = 0) =>
   baseline.seo.filter((item) => item.name === name)[index]
 const jsonLd = (html: string) =>
-  JSON.parse(load(html)('script[type="application/ld+json"]').html() || '')
+  JSON.parse(
+    load(html)('script[type="application/ld+json"]').html() || ''
+  ) as Record<string, unknown>
 
 it.each(
   baseline.seo
@@ -59,7 +62,11 @@ const renderWithSettings = (
   node: ReactNode
 ) =>
   renderToStaticMarkup(
-    createElement(SettingsPageProvider, { settings: settings as any }, node)
+    createElement(
+      SettingsPageProvider,
+      { settings: settings as GlobalStoryblok },
+      node
+    )
   )
 
 it('preserves the logo structured data', () => {
@@ -77,7 +84,8 @@ it('preserves the logo structured data', () => {
 })
 
 it('preserves the social profile structured data', () => {
-  const props = fixture('SocialProfileJsonLd').props as any
+  const props = fixture('SocialProfileJsonLd').props
+  if (!props.sameAs) throw new Error('Invalid SocialProfileJsonLd fixture')
   const html = renderWithSettings(
     {
       seo_body: [
@@ -96,7 +104,9 @@ it('preserves the social profile structured data', () => {
 })
 
 it('preserves the corporate contact structured data', () => {
-  const props = fixture('CorporateContactJsonLd').props as any
+  const props = fixture('CorporateContactJsonLd').props
+  if (!props.contactPoint)
+    throw new Error('Invalid CorporateContactJsonLd fixture')
   const html = renderWithSettings(
     {
       seo_body: [
@@ -104,7 +114,7 @@ it('preserves the corporate contact structured data', () => {
           component: 'seo_corporate_contact',
           url: props.url,
           logo: props.logo,
-          contact_point: props.contactPoint.map((point: any) => ({
+          contact_point: props.contactPoint.map((point) => ({
             telephone: point.telephone,
             contact_type: point.contactType,
             area_served: point.areaServed.join(', '),
@@ -119,7 +129,9 @@ it('preserves the corporate contact structured data', () => {
 })
 
 it('preserves the local business structured data including @id', () => {
-  const props = fixture('LocalBusinessJsonLd').props as any
+  const props = fixture('LocalBusinessJsonLd').props
+  if (!props.geo || !props.openingHours || !props.address)
+    throw new Error('Invalid LocalBusinessJsonLd fixture')
   const html = renderWithSettings(
     {
       seo_body: [
@@ -134,7 +146,7 @@ it('preserves the local business structured data including @id', () => {
           images: [{ url: 'https://a.storyblok.com/f/1/image.png' }],
           geo_latitude: props.geo.latitude,
           geo_longitude: props.geo.longitude,
-          opening_hours: props.openingHours.map((opening: any) => ({
+          opening_hours: props.openingHours.map((opening) => ({
             opens: opening.opens,
             closes: opening.closes,
             day_of_week: opening.dayOfWeek
@@ -156,7 +168,8 @@ it('preserves the local business structured data including @id', () => {
 })
 
 it('preserves the product structured data', () => {
-  const props = fixture('ProductJsonLd').props as any
+  const props = fixture('ProductJsonLd').props
+  if (!props.offers) throw new Error('Invalid ProductJsonLd fixture')
   const html = renderWithSettings(
     {
       seo_body: [
@@ -167,7 +180,7 @@ it('preserves the product structured data', () => {
           description: props.description,
           images: [{ url: 'https://a.storyblok.com/f/1/program.jpg' }],
           sku: props.sku,
-          offers: props.offers.map((offer: any) => ({
+          offers: props.offers.map((offer) => ({
             price: offer.price,
             price_currency: offer.priceCurrency,
             availability: offer.availability,

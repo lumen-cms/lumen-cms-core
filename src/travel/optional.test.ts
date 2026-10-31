@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
 import { expect, it, vi } from 'vitest'
-import ts from 'typescript'
+import { parse } from '@babel/parser'
 
 it('does not make travel reachable from the default core entry points', () => {
   const visited = new Set<string>()
@@ -9,26 +9,26 @@ it('does not make travel reachable from the default core entry points', () => {
     if (visited.has(file)) return
     visited.add(file)
     expect(file).not.toContain('/src/travel/')
-    const source = ts.createSourceFile(
-      file,
-      readFileSync(file, 'utf8'),
-      ts.ScriptTarget.Latest,
-      true
-    )
-    const walk = (node: ts.Node) => {
+    const source = parse(readFileSync(file, 'utf8'), {
+      sourceType: 'unambiguous',
+      plugins: ['typescript', 'jsx'],
+      createImportExpressions: true
+    })
+    const walk = (value: unknown) => {
+      if (!value || typeof value !== 'object') return
+      const node = value as Record<string, unknown>
       const specifier =
-        ts.isImportDeclaration(node) || ts.isExportDeclaration(node)
-          ? node.moduleSpecifier
-          : ts.isCallExpression(node) &&
-            node.expression.kind === ts.SyntaxKind.ImportKeyword
-          ? node.arguments[0]
+        node.type === 'ImportDeclaration' ||
+        node.type === 'ExportNamedDeclaration' ||
+        node.type === 'ExportAllDeclaration' ||
+        node.type === 'ImportExpression'
+          ? (node.source as { type?: string; value?: string })
           : undefined
       if (
-        specifier &&
-        ts.isStringLiteral(specifier) &&
-        specifier.text.startsWith('.')
+        specifier?.type === 'StringLiteral' &&
+        specifier.value?.startsWith('.')
       ) {
-        const target = resolve(dirname(file), specifier.text)
+        const target = resolve(dirname(file), specifier.value)
         const resolved = [
           target,
           ...['.ts', '.tsx', '.js', '/index.ts', '/index.tsx'].map(
@@ -40,7 +40,10 @@ it('does not make travel reachable from the default core entry points', () => {
         )
         if (resolved) visit(resolved)
       }
-      ts.forEachChild(node, walk)
+      for (const child of Object.values(node)) {
+        if (Array.isArray(child)) child.forEach(walk)
+        else walk(child)
+      }
     }
     walk(source)
   }

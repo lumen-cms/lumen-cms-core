@@ -25,11 +25,11 @@ export function LmHtml({ content }: LmHtmlProps): React.JSX.Element {
         sx={[advancedSx]}
         style={style}
         dangerouslySetInnerHTML={{
-          __html: (!content.lazy_load
+          __html: !content.lazy_load
             ? content.body || ''
             : inView
-            ? content.body || ''
-            : '') as string
+              ? content.body || ''
+              : ''
         }}
         ref={content.lazy_load ? refIntersectionObserver : undefined}
       />

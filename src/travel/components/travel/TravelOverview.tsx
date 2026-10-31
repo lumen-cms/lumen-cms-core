@@ -1,7 +1,3 @@
-import type {
-  BackgroundStoryblok,
-  RowStoryblok
-} from '../../../typings/generated/components-schema'
 import { LmComponentRender } from '../../../components/CoreComponents'
 import type { TravelSectionProps } from './travelSectionContent'
 import { useCurrency } from '../travel-list/helpers'
@@ -26,13 +22,13 @@ export function TravelOverview({ content, langKey }: TravelSectionProps) {
               getTravelDetailsColumn({ content, langKey }),
               getTravelBookingColumn({ content, langKey }, currency)
             ]
-          } as RowStoryblok
+          }
         ],
         background: [
           {
             _uid: '2',
             component: 'background'
-          } as BackgroundStoryblok
+          }
         ]
       }}
     />

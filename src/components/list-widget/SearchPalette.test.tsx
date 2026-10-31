@@ -41,7 +41,7 @@ const result = (uuid: string, title: string, component = 'page'): SearchStory =>
     name: title,
     full_slug: title.toLowerCase(),
     content: { component, title }
-  } as SearchStory)
+  }) as SearchStory
 const key = async (target: Element | Document, value: string, extra = {}) => {
   await act(async () => {
     target.dispatchEvent(

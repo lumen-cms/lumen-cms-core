@@ -1,7 +1,8 @@
 import { EffectCreative } from 'swiper/modules'
 import 'swiper/css/effect-creative'
 import { FC, PropsWithChildren } from 'react'
-import { Swiper, SwiperProps } from 'swiper/react'
+import type { SwiperProps } from 'swiper/react'
+import { DeferredSwiper as Swiper } from './DeferredSwiper'
 import Box from '@mui/material/Box'
 
 const SwiperEffectCreative: FC<

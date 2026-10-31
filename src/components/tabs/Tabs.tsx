@@ -8,10 +8,7 @@ import Grid, { Grid2Props } from '../../vendor/grid'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { LmComponentRender } from '../CoreComponents'
 import LmIcon from '../icon/LmIcon'
-import {
-  HeadlineStoryblok,
-  TabsItemStoryblok
-} from '../../typings/generated/components-schema'
+import { TabsItemStoryblok } from '../../typings/generated/components-schema'
 import { LmTabsProps } from './tabsTypes'
 import LmNukaCarousel from '../slider/LmNukaCarousel'
 import { useTheme } from '@mui/material/styles'
@@ -57,7 +54,7 @@ function TabsHeader({
       centered={!!content.centered && !isMobile}
       variant={isMobile ? 'scrollable' : content.variant || 'fullWidth'}
       orientation={orientation}
-      onChange={(_, value) => {
+      onChange={(_, value: string) => {
         onSelect(value)
       }}
     >
@@ -66,12 +63,10 @@ function TabsHeader({
           label={
             tabStyle ? (
               <LmComponentRender
-                content={
-                  {
-                    ...tabStyle,
-                    text: tab.title
-                  } as HeadlineStoryblok
-                }
+                content={{
+                  ...tabStyle,
+                  text: tab.title
+                }}
               />
             ) : (
               tab.title

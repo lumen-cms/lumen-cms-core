@@ -15,7 +15,7 @@ export default function LmFormBuilder({
 }: LmFormBuilderProps) {
   const [success, setSuccess] = useState<boolean>()
   const [loading, setLoading] = useState<boolean>()
-  const [error, setError] = useState<any>()
+  const [error, setError] = useState<unknown>()
   const { fields, submit, endpoint, spacing, form_inline, ...options } = content
   const successMessage = success_message?.length
     ? success_message
@@ -36,7 +36,7 @@ export default function LmFormBuilder({
         : 'successful submit..'}
     </div>
   ) : (
-    <FormContainer
+    <FormContainer<Record<string, unknown>>
       FormProps={{
         ...(content.full_width
           ? {
@@ -77,7 +77,7 @@ export default function LmFormBuilder({
                 body: JSON.stringify(cleanObj)
               }
             )
-            const fetchResult = await res.json()
+            const fetchResult: unknown = await res.json()
             if (res.status !== 200) {
               window.gtag &&
                 gtag('event', 'exception', {

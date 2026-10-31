@@ -1,13 +1,21 @@
 // @vitest-environment happy-dom
-import { act } from 'react'
+import { act, type ComponentProps } from 'react'
+import type SquareImage from '../avatar/LmSquareImage'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import LmImage from './Image'
 import type { LmImageProps } from './imageTypes'
 
 vi.mock('../avatar/LmSquareImage', () => ({
-  default: ({ imageProps, size }: any) => (
-    <img alt="" {...imageProps} data-size={size} />
+  default: ({ imageProps, size }: ComponentProps<typeof SquareImage>) => (
+    <span
+      data-image-probe
+      data-alt={imageProps?.alt || ''}
+      data-loading={imageProps?.loading}
+      data-size={size}
+      style={imageProps?.style}
+      onClick={imageProps?.onClick}
+    />
   )
 }))
 
@@ -30,22 +38,22 @@ it('preserves sizing, clicks and loading options when switching image layouts', 
         <LmImage content={{ ...content, ...overrides }} onClick={onClick} />
       )
     )
-    return host.querySelector('img')!
+    return host.querySelector<HTMLElement>('[data-image-probe]')!
   }
   try {
     let image = await render({})
     expect(image.style.maxHeight).toBe('60px')
-    expect(image.getAttribute('loading')).toBe('eager')
+    expect(image.getAttribute('data-loading')).toBe('eager')
     await act(async () => image.click())
     expect(onClick).toHaveBeenCalledOnce()
     image = await render({ height: '120', property: ['square'] })
     expect(image.style.objectFit).toBe('cover')
     expect(image.getAttribute('data-size')).toBe('120')
     image = await render({ priority: true })
-    expect(image.getAttribute('loading')).toBeNull()
-    expect(image.alt).toBe('Example')
+    expect(image.getAttribute('data-loading')).toBeNull()
+    expect(image.getAttribute('data-alt')).toBe('Example')
     await render({ source: '' })
-    expect(host.querySelector('img')).toBeNull()
+    expect(host.querySelector<HTMLElement>('[data-image-probe]')).toBeNull()
   } finally {
     await act(async () => root.unmount())
   }

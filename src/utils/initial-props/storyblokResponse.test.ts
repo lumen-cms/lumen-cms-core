@@ -18,7 +18,7 @@ it('gives repeated relation references independent nested data and keeps page pr
     'page.cards',
     false
   )
-  const [first, second] = result.story!.content.cards
+  const [first, second] = result.story!.content.cards as (typeof relation)[]
   expect(first).toEqual(second)
   expect(first).not.toBe(second)
   first.content.nested.label = 'Edited'

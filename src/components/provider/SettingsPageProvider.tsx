@@ -34,10 +34,10 @@ function SettingsPageProvider({
         previousInputs.page === page
           ? prev.page
           : !page
-          ? null
-          : prev.page?.uuid === page.uuid
-          ? prev.page
-          : page,
+            ? null
+            : prev.page?.uuid === page.uuid
+              ? prev.page
+              : page,
       settings:
         previousInputs.settings === settings ||
         !settings ||

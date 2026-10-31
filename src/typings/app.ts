@@ -1,5 +1,9 @@
 import { GetStaticPropsContext } from 'next'
-import { GlobalStoryblok, PageStoryblok } from './generated/components-schema'
+import {
+  CategoryStoryblok,
+  GlobalStoryblok,
+  PageStoryblok
+} from './generated/components-schema'
 import { CategoryComponent, PageComponent } from './generated/schema'
 import { ISbStoryData } from 'storyblok-js-client'
 import type { StoryblokResponse } from '../utils/initial-props/storyblokResponse'
@@ -19,7 +23,11 @@ export type LmErrorProps = {
 }
 
 export type AllStoryData = ISbStoryData<PageComponent>[]
-export type AllCategoryData = ISbStoryData<CategoryComponent>[]
+export type AllCategoryData = ISbStoryData<
+  Omit<CategoryComponent, 'tag_reference'> & {
+    tag_reference?: CategoryStoryblok['tag_reference'] | null
+  }
+>[]
 
 export type AppApiRequestPayload = {
   page: StoryblokResponse | null
@@ -39,12 +47,11 @@ export type AppPageProps = PagePropsOptions & {
   // [k: string]: any
 }
 
-export type ComponentRenderFuncProps = {
-  content?: any
-  _uid?: string
-  i?: number // iteration in case of array render
-  [k: string]: any
-}
+export type ComponentRenderContent =
+  import('./storyblok-registry').StoryblokContent
+export type ComponentRenderFuncProps<
+  C extends ComponentRenderContent = ComponentRenderContent
+> = import('./storyblok-registry').DynamicStoryblokProps<C>
 
 export type PagePropsOptions = Pick<
   GetStaticPropsContext,

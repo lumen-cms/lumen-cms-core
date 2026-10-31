@@ -1,11 +1,10 @@
 import TextField from '@mui/material/TextField'
-import Magnify from 'mdi-material-ui/Magnify'
+import { Magnify, CloseCircle } from 'mdi-material-ui'
 import React, { useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { LmListSearchFieldProps } from './listWidgetTypes'
 import { useRouter } from 'next/router'
 import InputAdornment from '@mui/material/InputAdornment'
-import CloseCircle from 'mdi-material-ui/CloseCircle'
 import IconButton from '@mui/material/IconButton'
 import clsx from 'clsx'
 

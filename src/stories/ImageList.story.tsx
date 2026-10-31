@@ -73,7 +73,6 @@ const content4: ImageListStoryblok = {
   enable_lightbox: true
 }
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Layout/Image List',
   component: LmImageList,
@@ -140,13 +139,11 @@ export const ImageRatio = () => (
     />
     <h3>Default 1x1</h3>
     <LmImageList
-      content={
-        {
-          ...content4,
-          aspect_ratio: '1x1',
-          image_crop: 'crop'
-        } as ImageListStoryblok
-      }
+      content={{
+        ...content4,
+        aspect_ratio: '1x1',
+        image_crop: 'crop'
+      }}
     />
     <h3>Fit in color:</h3>
     <LmImageList
@@ -167,7 +164,7 @@ export const Playground = () => (
       content={{
         ...storyImageList({
           options: {
-            column_count: 4,
+            column_count: '4',
             column_gap: '24'
           }
         }),

@@ -4,9 +4,9 @@ import { expect, it, vi } from 'vitest'
 import { LmGridColumn } from './GridColumn'
 import type { LmGridColumnProps } from './sectionTypes'
 const seen = vi.hoisted(() => ({
-  grid: {} as Record<string, any>,
-  wrap: {} as Record<string, any>,
-  stack: {} as Record<string, any>
+  grid: {} as Record<string, unknown>,
+  wrap: {} as Record<string, unknown>,
+  stack: {} as Record<string, unknown>
 }))
 vi.mock('../../vendor/grid', () => ({
   default: ({ children, ...p }: { children: ReactNode }) => {

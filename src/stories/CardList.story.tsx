@@ -16,7 +16,6 @@ import { getStorybookImageOnIteration } from '../storybook/contentHelper'
 
 const COMPONENT_NAME = 'card_list'
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Surfaces/Cards',
   component: LmCardList,
@@ -204,7 +203,7 @@ export const CardListCroppedDescription = () => (
       content={{
         ...cardList,
         body: cardListLongDescription,
-        description_max_character: 120
+        description_max_character: '120'
       }}
     />
     <h3>No description with value 0</h3>
@@ -212,7 +211,7 @@ export const CardListCroppedDescription = () => (
       content={{
         ...cardList,
         body: cardListLongDescription,
-        description_max_character: 0
+        description_max_character: '0'
       }}
     />
   </>
@@ -227,7 +226,7 @@ export const CardsOfTravels = () => {
           component: 'card_list',
           shadow_effect: 'soft',
           variant: ['over_media', 'text_bottom', 'overlay_content_no_space'],
-          description_max_character: 40,
+          description_max_character: '40',
           title_class_name: {
             values: ['badge-square', 'badge-dark-transparent']
           },
@@ -261,7 +260,7 @@ export const CardsOfTravels = () => {
                   ] as HeadlineStoryblok[]
                 }
               ] as FlexRowStoryblok[]
-            } as CardListItemStoryblok
+            }
           })
         }}
       />
@@ -300,7 +299,7 @@ export const CardsCustomText = () => {
               component: 'headline',
               typography: 'body2',
               color: 'textSecondary',
-              max_lines: 2
+              max_lines: '2'
             }
           ],
           card_actions_disable_spacing: true,
@@ -335,7 +334,7 @@ export const CardsCustomText = () => {
                   ] as HeadlineStoryblok[]
                 }
               ] as FlexRowStoryblok[]
-            } as CardListItemStoryblok
+            }
           })
         }}
       />
@@ -371,7 +370,7 @@ export const CardActions = () => (
               typography: 'headline5',
               color: 'textSecondary',
               text: `Some Sidebar Action`
-            } as HeadlineStoryblok
+            }
           ],
           body: [
             {

@@ -34,6 +34,7 @@ export type FastSpringProduct = {
   priceTotalValue: number
   unitPrice: string
   unitPriceValue: number
+  unitDiscount?: string
   unitDiscountValue: number
   discountTotal: string
   discountTotalValue: number
@@ -63,11 +64,19 @@ export type FastSpringWebhookReceivedData = {
 
 declare global {
   interface Window {
-    fastspring: any
+    fastspring: {
+      builder: {
+        push: (data: {
+          products: { path?: string; quantity: number }[]
+          tags: Record<string, string>
+        }) => unknown
+        checkout: () => unknown
+      }
+    }
     fscDataCallback: (data: FastSpringData) => void
     fscDataPopupClosed: (
       data: { id?: string; reference?: string } | null
-    ) => void
+    ) => void | Promise<void>
     fscDataPopupWebhookReceived: (data: FastSpringWebhookReceivedData) => void
   }
 }

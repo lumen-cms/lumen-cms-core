@@ -37,7 +37,7 @@ export function ShopifyCartVariantItem({
       <Grid>
         <Avatar>
           <Image
-            src={image?.transformedSrc}
+            src={(image?.transformedSrc)!}
             fill
             style={{
               objectFit: 'cover'

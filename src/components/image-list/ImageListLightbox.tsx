@@ -1,7 +1,7 @@
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
-import Close from 'mdi-material-ui/Close'
+import { Close } from 'mdi-material-ui'
 import Swipe from './ImageListLightboxSwipe'
 import { ImageListLightboxProps } from './imageListTypes'
 import { imageListLightboxSx } from './imageListLightboxStyles'

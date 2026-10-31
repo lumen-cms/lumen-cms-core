@@ -1,4 +1,4 @@
-import InlineSVG from 'react-inlinesvg'
+import InlineSVG from '../image/LazyInlineSvg'
 import { CSSProperties } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { ButtonStoryblok } from '../../typings/generated/components-schema'
@@ -50,7 +50,7 @@ function IconCore({
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
-  iconName = iconName ? iconMap[iconName as string] || iconName : undefined
+  iconName = iconName ? iconMap[iconName] || iconName : undefined
   let iconSrc = ''
   if (inView && (iconUrl || iconName)) {
     iconSrc =

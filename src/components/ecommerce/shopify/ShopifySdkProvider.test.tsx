@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { act, memo } from 'react'
+import { act, memo, StrictMode, useLayoutEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import { LmShopifySdkProvider } from './ShopifySdkProvider'
@@ -36,6 +36,55 @@ vi.mock('./product/ShopifyCart', () => ({ ShopfiyCart: () => null }))
 vi.mock('./product/ShopifyFloatingCart', () => ({
   ShopifyFloatingCart: () => null
 }))
+
+it('cleans zero quantities only on closing and preserves positive cart items', async () => {
+  vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)
+  const root = createRoot(document.createElement('div'))
+  let current!: ShopifySdkContextProps
+  function Consumer() {
+    const value = useShopifySdkContext()
+    useLayoutEffect(() => {
+      current = value
+    })
+    return null
+  }
+  const variant = {
+    id: 'cleanup-variant',
+    priceV2: { amount: '12', currencyCode: 'EUR' }
+  } as ShopifyProductFragment
+  try {
+    await act(async () =>
+      root.render(
+        <StrictMode>
+          <LmShopifySdkProvider>
+            <Consumer />
+          </LmShopifySdkProvider>
+        </StrictMode>
+      )
+    )
+    await act(async () => current.onVariantSelect(variant))
+    await act(async () => current.addToCart())
+    await act(async () => current.updateCartItemQuantity(variant, 0))
+    expect(current.cartOpen).toBe(true)
+    expect(current.cartVariants).toEqual([{ variant, quantity: 0 }])
+    await act(async () => current.setCartOpen(false))
+    expect(current.cartVariants).toEqual([])
+
+    await act(async () => current.addToCart())
+    await act(async () => current.updateCartItemQuantity(variant, 2))
+    await act(async () => current.setCartOpen(false))
+    expect(current.cartVariants).toEqual([{ variant, quantity: 2 }])
+    await act(async () => current.updateCartItemQuantity(variant, 0))
+    await act(async () => current.setCartOpen(false))
+    expect(current.cartVariants).toEqual([{ variant, quantity: 0 }])
+    await act(async () => current.setCartOpen(true))
+    expect(current.cartVariants).toEqual([{ variant, quantity: 0 }])
+    await act(async () => current.setCartOpen(false))
+    expect(current.cartVariants).toEqual([])
+  } finally {
+    await act(async () => root.unmount())
+  }
+})
 it('keeps context stable on unrelated renders and keeps actions current after state/config changes', async () => {
   vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)
   const destinations: string[] = []
@@ -48,8 +97,11 @@ it('keeps context stable on unrelated renders and keeps actions current after st
   let current!: ShopifySdkContextProps
   let renders = 0
   const Consumer = memo(function Consumer() {
-    current = useShopifySdkContext()
-    renders++
+    const value = useShopifySdkContext()
+    useLayoutEffect(() => {
+      current = value
+      renders++
+    })
     return null
   })
   const variant = {

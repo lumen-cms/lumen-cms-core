@@ -26,7 +26,7 @@ export default function FullscreenVideoBg(
   const properties = property || []
   const videoAspect = ratioHeight / ratioWidth
   // let fixedToRatio = content.fixedToRatio
-  const [error, setError] = useState<any>()
+  const [error, setError] = useState<unknown>()
   const className = clsx('react-player')
   const videoUrl = content.url_internal?.filename || content.url || ''
 

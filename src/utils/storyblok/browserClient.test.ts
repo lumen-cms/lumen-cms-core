@@ -93,11 +93,14 @@ it('matches nested and overflow relation/link resolution with pinned request con
   const before = await new StoryblokServiceClass().getStories(params)
   const after = await getBrowserStories(params)
   expect(after).toEqual(before)
-  expect(
-    after.data.stories?.[0].content.body[1].container.content.body[1].container
-      .content.body[0].text
-  ).toBe('Nested content')
-  expect(after.data.stories?.[0].content.body[0].link.story.uuid).toBe('target')
+  expect(after.data.stories?.[0].content).toHaveProperty(
+    'body.1.container.content.body.1.container.content.body.0.text',
+    'Nested content'
+  )
+  expect(after.data.stories?.[0].content).toHaveProperty(
+    'body.0.link.story.uuid',
+    'target'
+  )
   expect(() => JSON.stringify(after)).not.toThrow()
   for (const url of requests) {
     expect(url.searchParams.get('language')).toBe('de')

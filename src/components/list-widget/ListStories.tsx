@@ -67,10 +67,28 @@ function StoryResults({
 export default function LmListStories({ content }: LmListStoriesProps) {
   const { locale, defaultLocale, locales, insideStoryblok } = useAppContext()
   const initialize = useRef<boolean>(false)
+  const [initialized, setInitialized] = useState(false)
   const paginate = content.pagination?.[0]
   const [page, setPage] = useState<number>(1)
   const searchText = useSearchStore(searchTextSelector)
   const searchCategories = useSearchStore(categorySelector)
+  const [previousSearch, setPreviousSearch] = useState({
+    searchText,
+    searchCategories
+  })
+  if (
+    previousSearch.searchText !== searchText ||
+    previousSearch.searchCategories !== searchCategories
+  ) {
+    setPreviousSearch({ searchText, searchCategories })
+    if (
+      (previousSearch.searchText !== searchText && searchText) ||
+      (previousSearch.searchCategories !== searchCategories &&
+        searchCategories?.length)
+    ) {
+      setPage(1)
+    }
+  }
   const anchorId = `list_stories_${content._uid}`
 
   const storyData = content.list_stories_data
@@ -82,21 +100,11 @@ export default function LmListStories({ content }: LmListStoriesProps) {
     content,
     searchCategories
   }
-  const { data, error, isLoading } = useSWR<LmListStoriesPayload>(
+  const { data, error, isLoading } = useSWR<LmListStoriesPayload, unknown>(
     content.max_items ? null : fetchProps,
     fetchListStories,
-    getStorySWRConfig(content, fetchProps, initialize.current)
+    getStorySWRConfig(content, fetchProps, initialized)
   )
-  useEffect(() => {
-    if (searchCategories?.length) {
-      setPage(1)
-    }
-  }, [searchCategories])
-  useEffect(() => {
-    if (searchText) {
-      setPage(1)
-    }
-  }, [searchText])
   useEffect(() => {
     let scrollTimer: ReturnType<typeof setTimeout> | undefined
     const handleRouteChange = () => {
@@ -145,6 +153,7 @@ export default function LmListStories({ content }: LmListStoriesProps) {
     url.searchParams.set('page', `${val}`)
     window.history.pushState({ path: url.href }, '', url.href)
     initialize.current = true
+    setInitialized(true)
   }
   return (
     <div

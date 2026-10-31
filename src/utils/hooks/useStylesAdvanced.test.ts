@@ -68,7 +68,7 @@ describe('getAdvancedSx', () => {
   const styles = (fields: Partial<StylesStoryblok>) =>
     [{ _uid: 'styles', component: 'styles', ...fields }] as StylesStoryblok[]
   const resolve = (sx: ReturnType<typeof getAdvancedSx>) =>
-    styleFunctionSx({ sx, theme } as Parameters<typeof styleFunctionSx>[0])
+    styleFunctionSx({ sx, theme })
 
   it('returns false without styles', () => {
     expect(getAdvancedSx({})).toBe(false)

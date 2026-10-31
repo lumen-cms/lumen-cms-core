@@ -1,6 +1,6 @@
 import { LmHeadlineCore } from './HeadlineCore'
 import { LmHeadlineProps } from './headlineTypes'
-import { useMemo } from 'react'
+import { useState } from 'react'
 import { getDateTime } from '../../utils/intlDateHelper'
 import Countdown from 'react-countdown'
 import { LmComponentRender } from '../CoreComponents'
@@ -9,18 +9,24 @@ export default function HeadlineCountDown({
   content,
   onClick
 }: LmHeadlineProps) {
-  const date = useMemo(() => {
-    if (!content.countdown_time) {
-      return new Date()
+  const countdownTime = content.countdown_time
+  const createDeadline = () => {
+    if (!countdownTime) return { source: countdownTime, date: new Date() }
+    const [startDate, startTime] = countdownTime.split(' ')
+    return {
+      source: countdownTime,
+      date: getDateTime(startDate, startTime, true)
     }
-    const [startDate, startTime] = content.countdown_time.split(' ')
-    return getDateTime(startDate, startTime, true)
-  }, [content.countdown_time])
+  }
+  const [deadline, setDeadline] = useState(createDeadline)
+  if (deadline.source !== countdownTime) {
+    setDeadline(createDeadline)
+  }
 
   return (
     <LmHeadlineCore content={content} onClick={onClick}>
       <Countdown
-        date={date}
+        date={deadline.date}
         now={() => new Date().getTime()}
         intervalDelay={
           content.countdown_interval ? Number(content.countdown_interval) : 1000

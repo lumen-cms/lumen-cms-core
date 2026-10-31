@@ -105,8 +105,8 @@ export class StoryblokTransport {
         query.resolve_links === '0'
           ? undefined
           : query.resolve_links === '1'
-          ? 'story'
-          : query.resolve_links,
+            ? 'story'
+            : query.resolve_links,
       ...(query.from_release
         ? { from_release: Number(query.from_release) }
         : {})

@@ -1,34 +1,43 @@
 // @vitest-environment happy-dom
-import { act } from 'react'
+import { act, type ComponentProps, type ReactNode } from 'react'
+import type Carousel from '../slider/LmNukaCarousel'
+import type { TabsStoryblok } from '../../typings/generated/components-schema'
+type TabListMockProps = {
+  children?: ReactNode
+  orientation?: string
+  centered?: boolean
+  variant?: string
+  onChange: (event: null, value: string) => void
+}
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import Tabs from './Tabs'
 const fixture = vi.hoisted(() => ({
   mobile: false,
-  list: {} as any,
-  carousel: {} as any
+  list: {} as Partial<TabListMockProps>,
+  carousel: {} as ComponentProps<typeof Carousel>
 }))
 vi.mock('@mui/material/useMediaQuery', () => ({
   default: () => fixture.mobile
 }))
 vi.mock('../../vendor/grid', () => ({
-  default: ({ children, sm }: any) => (
+  default: ({ children, sm }: { children?: ReactNode; sm?: number }) => (
     <div data-width={sm === undefined ? undefined : String(sm)}>{children}</div>
   )
 }))
 vi.mock('@mui/lab/TabContext', () => ({
-  default: ({ children, value }: any) => (
+  default: ({ children, value }: { children?: ReactNode; value: string }) => (
     <div data-active={value}>{children}</div>
   )
 }))
 vi.mock('@mui/lab/TabList', () => ({
-  default: ({ children, ...props }: any) => {
+  default: ({ children, ...props }: TabListMockProps) => {
     fixture.list = props
     return <div>{children}</div>
   }
 }))
 vi.mock('@mui/material/Tab', () => ({
-  default: ({ label, icon }: any) => (
+  default: ({ label, icon }: { label?: ReactNode; icon?: ReactNode }) => (
     <div>
       {icon}
       {label}
@@ -36,23 +45,25 @@ vi.mock('@mui/material/Tab', () => ({
   )
 }))
 vi.mock('@mui/lab/TabPanel', () => ({
-  default: ({ children, value }: any) => (
+  default: ({ children, value }: { children?: ReactNode; value: string }) => (
     <div data-panel={value}>{children}</div>
   )
 }))
 vi.mock('../slider/LmNukaCarousel', () => ({
-  default: ({ children, ...props }: any) => {
+  default: ({ children, ...props }: ComponentProps<typeof Carousel>) => {
     fixture.carousel = props
     return <div>{children}</div>
   }
 }))
 vi.mock('../CoreComponents', () => ({
-  LmComponentRender: ({ content }: any) => (
-    <span>{content.text || content._uid}</span>
-  )
+  LmComponentRender: ({
+    content
+  }: {
+    content: { text?: string; _uid: string }
+  }) => <span>{content.text || content._uid}</span>
 }))
 vi.mock('../icon/LmIcon', () => ({
-  default: ({ iconName }: any) => <span>{iconName}</span>
+  default: ({ iconName }: { iconName: string }) => <span>{iconName}</span>
 }))
 it.each([false, true])(
   'preserves tab/carousel coordination and responsive layout (styled labels: %s)',
@@ -61,7 +72,7 @@ it.each([false, true])(
     fixture.mobile = false
     const host = document.createElement('div'),
       root = createRoot(host)
-    const content = {
+    const content: TabsStoryblok = {
       _uid: 'tabs',
       component: 'tabs',
       vertical_tabs: true,
@@ -85,7 +96,7 @@ it.each([false, true])(
           body: [{ _uid: 'second-body', component: 'paragraph' }]
         }
       ]
-    } as any
+    }
     try {
       await act(async () => root.render(<Tabs content={content} />))
       expect(fixture.list.orientation).toBe('vertical')
@@ -95,7 +106,7 @@ it.each([false, true])(
       expect(host.querySelector('[data-width="9"]')).not.toBeNull()
       expect(host.textContent).toContain('StarFirstSecond')
       expect(fixture.carousel.adaptiveHeight).toBe(true)
-      await act(async () => fixture.list.onChange(null, '1'))
+      await act(async () => fixture.list.onChange!(null, '1'))
       expect(
         host.querySelector('[data-active]')?.getAttribute('data-active')
       ).toBe('1')
@@ -107,7 +118,7 @@ it.each([false, true])(
       expect(fixture.list.centered).toBe(false)
       expect(host.querySelectorAll('[data-width="12"]')).toHaveLength(2)
       expect(fixture.carousel.slideIndex).toBe(1)
-      await act(async () => fixture.carousel.beforeSlide(1, 0))
+      await act(async () => fixture.carousel.beforeSlide!(1, 0))
       expect(
         host.querySelector('[data-active]')?.getAttribute('data-active')
       ).toBe('0')

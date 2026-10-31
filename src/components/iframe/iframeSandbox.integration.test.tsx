@@ -42,8 +42,8 @@ it.each([
           url.hostname === 'parent.test'
             ? `<iframe src="${src}" sandbox="${sandbox}"></iframe>`
             : url.pathname === '/submitted'
-            ? '<p>Form submitted</p>'
-            : `<form action="/submitted"><button>Submit</button></form><script>
+              ? '<p>Form submitted</p>'
+              : `<form action="/submitted"><button>Submit</button></form><script>
               localStorage.setItem('sandbox-test', 'works');
               document.body.dataset.ready = localStorage.getItem('sandbox-test');
               try { top.location.href='https://escaped.test'; } catch {}
@@ -130,8 +130,8 @@ it('keeps the GTM noscript frame and its image requests working with JavaScript 
         body: url.startsWith('https://parent.test')
           ? html
           : url.includes('/ns.html')
-          ? '<img src="https://pixel.test/noscript">'
-          : ''
+            ? '<img src="https://pixel.test/noscript">'
+            : ''
       })
     })
     const page = await context.newPage()

@@ -1,7 +1,17 @@
 import { beforeEach, expect, it, vi } from 'vitest'
 import { StoryblokTransport } from './StoryblokTransport'
 
-const sdk = vi.hoisted(() => ({ get: vi.fn(), list: vi.fn(), create: vi.fn() }))
+const sdk = vi.hoisted(() => ({
+  get: vi.fn(),
+  list: vi.fn<
+    (args: { query: { by_uuids: string; [key: string]: unknown } }) => Promise<{
+      data?: unknown
+      response?: { headers: Headers }
+      error?: unknown
+    }>
+  >(),
+  create: vi.fn()
+}))
 vi.mock('@storyblok/api-client', () => ({
   createApiClient: (config: unknown) => {
     sdk.create(config)

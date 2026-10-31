@@ -1,8 +1,12 @@
 import { create } from 'zustand'
 import { User } from '@auth0/auth0-react'
 
-type UserProps = User & {
-  id: string
+export type AuthUser = User & {
+  id?: string
+  lang?: string
+}
+
+type UserProps = AuthUser & {
   sub?: string
   email?: string
   firstName?: string

@@ -19,7 +19,7 @@ const categoryTypeSet = new Set(categoryTypes)
 
 export type TravelListWidgetProps = {
   _uid: string
-  component: 'travel_list_widget'
+  component: 'travels_list_widget'
   is_search?: boolean
   filter_country?: string
   filter_city?: string
@@ -62,7 +62,7 @@ function TravelListWidget({
     column_count_phone: '1',
     elevation: '0',
     variant: [],
-    border_radius: '12' as any,
+    border_radius: '12',
     title_typography: 'body1',
     title_class_name: { values: ['font-weight-bold'] },
     description_typography: 'body2',
@@ -71,7 +71,7 @@ function TravelListWidget({
       {
         component: 'headline',
         _uid: 'desc',
-        max_lines: 2,
+        max_lines: '2',
         styles: [{ component: 'styles', _uid: 'some_styles_desc' }],
         class_names: { values: ['text-black-50'] }
       }
@@ -90,20 +90,18 @@ function TravelListWidget({
     >
       {content.is_search && (
         <LmComponentRender
-          content={
-            {
-              _uid: 'headline-1',
-              tag: 'h4',
-              typography: 'subtitle1',
-              component: 'headline',
-              text: `${translations[locale as 'EN' | 'DE'].search_result}: ${
-                travels.length
-              }`,
-              class_names: {
-                values: ['pl-3', 'pt-3']
-              }
-            } as HeadlineStoryblok
-          }
+          content={{
+            _uid: 'headline-1',
+            tag: 'h4',
+            typography: 'subtitle1',
+            component: 'headline',
+            text: `${translations[locale as 'EN' | 'DE'].search_result}: ${
+              travels.length
+            }`,
+            class_names: {
+              values: ['pl-3', 'pt-3']
+            }
+          }}
         />
       )}
       <div style={{ padding: content.is_search ? '16px' : 0 }}>

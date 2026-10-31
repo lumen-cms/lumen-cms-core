@@ -1,15 +1,20 @@
 // @vitest-environment happy-dom
-import { act, type ReactNode } from 'react'
+import { act } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import Toolbar from './LmTopAppContainer'
+import type { AppBarProps } from '@mui/material/AppBar'
+import type {
+  GlobalStoryblok,
+  PageStoryblok
+} from '../../../typings/generated/components-schema'
 const state = vi.hoisted(() => ({
-  settings: {} as Record<string, any>,
-  page: {} as Record<string, any>,
+  settings: {} as Partial<GlobalStoryblok>,
+  page: {} as Partial<PageStoryblok>,
   scroll: false,
   variant: 'temporary',
   open: false,
-  props: {} as Record<string, any>
+  props: {} as AppBarProps
 }))
 vi.mock('../../provider/SettingsPageProvider', () => ({
   useSettings: () => state.settings,
@@ -19,16 +24,21 @@ vi.mock('../../../utils/hooks/useScrollTop', () => ({
   default: () => state.scroll
 }))
 vi.mock('../../../utils/state/navigationState', () => ({
-  drawerVariantSelector: (s: Record<string, any>) => s.variant,
-  leftNavigationDrawerSelector: (s: Record<string, any>) => s.open,
+  drawerVariantSelector: (s: typeof state) => s.variant,
+  leftNavigationDrawerSelector: (s: typeof state) => s.open,
   useNavigationStore: (select: (s: typeof state) => unknown) => select(state)
 }))
 vi.mock('@mui/material/AppBar', () => ({
-  default: ({ children, ...props }: { children: ReactNode }) => {
+  default: ({ children, ...props }: AppBarProps) => {
     state.props = props
     return <header>{children}</header>
   }
 }))
+function capturedStyles(): readonly unknown[] {
+  const styles = state.props.sx
+  if (!Array.isArray(styles)) throw new Error('Expected an sx array')
+  return styles
+}
 async function check(
   test: (render: () => Promise<void>, host: HTMLDivElement) => Promise<void>
 ) {
@@ -80,7 +90,7 @@ it('preserves feature-image scroll colors, elevation and mounted children', asyn
     state.scroll = true
     await render()
     expect(state.props.elevation).toBe(7)
-    expect(state.props.style.backgroundColor).toBe('red')
+    expect(state.props.style?.backgroundColor).toBe('red')
     expect(state.props.className).not.toContain('lm-toolbar__has-feature')
     expect(host.querySelector('input')).toBe(input)
   }))
@@ -101,7 +111,7 @@ it('preserves defaults, unelevated configuration and zero elevation', async () =
     await render()
     expect(state.props.elevation).toBe(0)
     expect(state.props.color).toBe('inherit')
-    expect(state.props.style.backgroundColor).toBe('blue')
+    expect(state.props.style?.backgroundColor).toBe('blue')
     state.scroll = true
     await render()
     expect(state.props.elevation).toBe(0)
@@ -110,17 +120,17 @@ it('preserves drawer shift conditions', async () =>
   check(async (render) => {
     state.open = true
     await render()
-    expect(state.props.sx[1]).toBe(false)
+    expect(capturedStyles()[1]).toBe(false)
     state.variant = 'persistent'
     await render()
-    expect(typeof state.props.sx[1]).toBe('function')
+    expect(typeof capturedStyles()[1]).toBe('function')
     for (const flag of ['drawer_below_toolbar', 'drawer_below_toolbar_xs']) {
       state.settings = { [flag]: true }
       await render()
-      expect(state.props.sx[1]).toBe(false)
+      expect(capturedStyles()[1]).toBe(false)
     }
     state.settings = {}
     state.open = false
     await render()
-    expect(state.props.sx[1]).toBe(false)
+    expect(capturedStyles()[1]).toBe(false)
   }))

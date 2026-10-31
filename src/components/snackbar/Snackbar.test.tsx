@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { act } from 'react'
+import { act, type ReactNode, type MouseEventHandler } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import { renderToString } from 'react-dom/server'
 import { afterEach, expect, it, vi } from 'vitest'
@@ -18,18 +18,20 @@ vi.mock('js-cookie', () => ({
   default: { get: () => fixture.cookie, set: fixture.setCookie }
 }))
 vi.mock('@mui/material/Snackbar', () => ({
-  default: ({ open, children }: any) => {
+  default: ({ open, children }: { open: boolean; children?: ReactNode }) => {
     fixture.opens.push(open)
     return <div data-open={String(open)}>{children}</div>
   }
 }))
 vi.mock('@mui/material/SnackbarContent', () => ({
-  default: ({ action }: any) => <div>{action}</div>
+  default: ({ action }: { action?: ReactNode }) => <div>{action}</div>
 }))
 vi.mock('../CoreComponents', () => ({
-  LmComponentRender: ({ onClick }: any) => (
-    <button onClick={onClick}>Accept</button>
-  )
+  LmComponentRender: ({
+    onClick
+  }: {
+    onClick?: MouseEventHandler<HTMLButtonElement>
+  }) => <button onClick={onClick}>Accept</button>
 }))
 const content = {
   _uid: 'notice',

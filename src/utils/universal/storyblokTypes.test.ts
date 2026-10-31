@@ -18,14 +18,12 @@ vi.mock('../storyblok/browserClient', () => ({
   getBrowserStories: service.getStories
 }))
 
-it('preserves named option types and accepts both numeric CMS representations', () => {
+it('preserves named option types and uses the official numeric CMS representation', () => {
   expectTypeOf<CardListItemProps['options']['title_custom']>().not.toBeAny()
   expectTypeOf<LmFormTextFieldProps['options']['full_width']>().toEqualTypeOf<
     boolean | undefined
   >()
-  expectTypeOf<ImageStoryblok['width']>().toEqualTypeOf<
-    string | number | undefined
-  >()
+  expectTypeOf<ImageStoryblok['width']>().toEqualTypeOf<string | undefined>()
   expectTypeOf<ImageStoryblok['unmodelled_field']>().toBeUnknown()
 })
 
@@ -74,7 +72,7 @@ it('combines searched and configured categories without nested arrays', async ()
             }
           }
         ]
-      })
+      }) as unknown
     })
   )
 })

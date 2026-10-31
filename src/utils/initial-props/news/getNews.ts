@@ -9,7 +9,7 @@ export const getNews = async (
     contentHtml?: string | null
   })[]
 > => {
-  const news: ISbStoryData<LmNews>[] = await LmStoryblokService.getAll(
+  const news: ISbStoryData<LmNews>[] = await LmStoryblokService.getAll<LmNews>(
     'cdn/stories',
     {
       filter_query: {

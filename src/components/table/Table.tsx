@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import { LmTableProps } from './tableTypes'
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'

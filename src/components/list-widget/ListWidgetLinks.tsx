@@ -13,18 +13,22 @@ export function ListWidgetLinks({
   options,
   _uid
 }: ListWidgetLinksProps): React.JSX.Element {
-  const listProps = {
+  const listProps: NavListStoryblok = {
     ...options,
     _uid: _uid,
     body: items.map((item) => ({
       _uid: item.uuid,
       component: 'nav_item',
-      name:
-        item.content.preview_title ||
-        item.content.title ||
-        item.content.meta_title ||
-        item.name,
+      name: [
+        item.content.preview_title,
+        item.content.title,
+        item.content.meta_title,
+        item.name
+      ].find((value): value is string => typeof value === 'string' && !!value),
       link: {
+        fieldtype: 'multilink',
+        id: item.uuid,
+        url: '',
         cached_url: item.full_slug,
         linktype: 'story'
       }

@@ -6,7 +6,9 @@ export default async function formEndpoint(
   res: NextApiResponse
 ) {
   await corsMiddleware(req, res)
-  const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body
+  const body = (
+    typeof req.body === 'string' ? JSON.parse(req.body) : req.body
+  ) as Record<string, unknown> | null | undefined
   if (body) {
     res.send({ statusMessage: 'ok, data received.', ...body })
   } else {

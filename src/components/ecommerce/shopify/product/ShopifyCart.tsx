@@ -11,10 +11,7 @@ import Divider from '@mui/material/Divider'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyCartVariantItem } from './ShopifyCartVariantItem'
-import {
-  ButtonStoryblok,
-  HeadlineStoryblok
-} from '../../../../typings/generated/components-schema'
+import { HeadlineStoryblok } from '../../../../typings/generated/components-schema'
 import { getTotalCartAmount, getTotalCartQuantity } from '../lib/shopifyHelpers'
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
@@ -23,31 +20,32 @@ function CheckoutButton() {
   const { onCheckout, config, cartVariants } = useShopifySdkContext()
   const [loading, setLoading] = useState<boolean>(false)
   const [failed, setFailed] = useState(false)
+  const handleCheckout = async () => {
+    setLoading(true)
+    setFailed(false)
+    try {
+      await onCheckout()
+    } catch {
+      setFailed(true)
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <Box sx={{ marginTop: 2 }}>
       <LmComponentRender
-        content={
-          {
-            component: 'button',
-            label: 'Checkout',
-            _uid: '1321',
-            variant: 'raised',
-            color: 'primary',
-            class_names: { values: ['w-100'] },
-            ...((config?.cart_checkout && config.cart_checkout[0]) || {})
-          } as ButtonStoryblok
-        }
+        content={{
+          component: 'button',
+          label: 'Checkout',
+          _uid: '1321',
+          variant: 'raised',
+          color: 'primary',
+          class_names: { values: ['w-100'] },
+          ...((config?.cart_checkout && config.cart_checkout[0]) || {})
+        }}
         disabled={loading || getTotalCartQuantity(cartVariants) < 1}
-        onClick={async () => {
-          setLoading(true)
-          setFailed(false)
-          try {
-            await onCheckout()
-          } catch {
-            setFailed(true)
-          } finally {
-            setLoading(false)
-          }
+        onClick={() => {
+          void handleCheckout()
         }}
       />
       {failed && (
@@ -93,15 +91,13 @@ export function ShopfiyCart() {
         <Grid>
           <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
             <LmComponentRender
-              content={
-                {
-                  component: 'headline',
-                  text: 'Shopping Cart',
-                  _uid: '123',
-                  typography: 'headline4',
-                  ...((config?.cart_toolbar && config.cart_toolbar[0]) || {})
-                } as HeadlineStoryblok
-              }
+              content={{
+                component: 'headline',
+                text: 'Shopping Cart',
+                _uid: '123',
+                typography: 'headline4',
+                ...((config?.cart_toolbar && config.cart_toolbar[0]) || {})
+              }}
             />
 
             <IconButton

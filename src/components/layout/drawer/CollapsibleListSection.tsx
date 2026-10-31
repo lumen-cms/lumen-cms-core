@@ -3,11 +3,16 @@ import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
-import ChevronDown from 'mdi-material-ui/ChevronDown'
-import ChevronUp from 'mdi-material-ui/ChevronUp'
+import { ChevronDown, ChevronUp } from 'mdi-material-ui'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { LmComponentRender } from '../../CoreComponents'
-import { NavMenuStoryblok } from '../../../typings/generated/components-schema'
+import {
+  NavMenuStoryblok,
+  NavMenuItemStoryblok,
+  ToolbarSearchStoryblok,
+  ColumnStoryblok,
+  GlobalStoryblok
+} from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { DrawerButton } from './DrawerButton'
 import { DrawerNavList } from './DrawerNavList'
@@ -17,9 +22,14 @@ type CollapsibleListSectionProps = {
   openedPath: string[]
 }
 
+export type DrawerContent =
+  | NonNullable<ColumnStoryblok['body']>[number]
+  | NonNullable<GlobalStoryblok['toolbar']>[number]
+  | NavMenuItemStoryblok
+  | ToolbarSearchStoryblok
+
 type DrawerContentRenderProps = {
-  content: any
-  // eslint-disable-next-line react/no-unused-prop-types
+  content: DrawerContent
   i?: number
   openedPath: string[]
   [k: string]: any
@@ -75,7 +85,7 @@ export function CollapsibleListSection({
   openedPath
 }: CollapsibleListSectionProps): React.JSX.Element {
   const body = content.body || []
-  const items: any[] = []
+  const items: DrawerContent[] = []
   const [open, setOpen] = React.useState(() =>
     openedPath.includes(content._uid)
   )
@@ -95,7 +105,7 @@ export function CollapsibleListSection({
       // mega menu: consist of row / column / nav_list | button
       firstLevel.body?.forEach((secondLevel) => {
         if (secondLevel.body && secondLevel.body.length) {
-          secondLevel.body.forEach((thirdLevel: any) => {
+          secondLevel.body.forEach((thirdLevel) => {
             items.push(thirdLevel)
           })
         }

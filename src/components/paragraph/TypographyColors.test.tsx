@@ -20,7 +20,7 @@ describe('CMS typography colors', () => {
             content={{
               _uid: 'pricing',
               component: 'rich_text_editor',
-              color: 'secondary.main' as any,
+              color: 'secondary.main',
               body: {
                 type: 'doc',
                 content: [

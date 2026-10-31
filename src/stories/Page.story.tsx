@@ -1,10 +1,7 @@
 import { boolean } from '../storybook/legacyControls'
 import {
-  ButtonStoryblok,
   GlobalStoryblok,
-  HeadlineStoryblok,
   PageStoryblok,
-  SnackbarStoryblok,
   ToolbarRowSectionStoryblok,
   ToolbarRowStoryblok
 } from '../typings/generated/components-schema'
@@ -196,7 +193,7 @@ export const Playground = () => {
     ...getBasicSettings(),
     multi_toolbar: customSettingsSystemBar.multi_toolbar,
     footer: customSettingsSystemBar.footer,
-    toolbar_main_height: 70,
+    toolbar_main_height: '70',
     toolbar_color: {
       rgba: '#669966'
     },
@@ -212,22 +209,22 @@ export const Playground = () => {
             typography: 'body1',
             _uid: 'dsfdfs',
             component: 'headline'
-          } as HeadlineStoryblok,
+          },
           {
             text: 'As you can see...',
             typography: 'body2',
             _uid: '321',
             component: 'headline'
-          } as HeadlineStoryblok
+          }
         ],
         close_action: [
           {
             label: 'I understand!',
             component: 'button',
             _uid: '12313'
-          } as ButtonStoryblok
+          }
         ]
-      } as SnackbarStoryblok
+      }
     ]
   } as GlobalStoryblok
   return (

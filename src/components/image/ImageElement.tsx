@@ -9,7 +9,7 @@ export function LmImageElement({
   const isSvgImage = content.source?.endsWith('.svg')
   const containerProps: Partial<LmImageProps> = {}
   if (onClick) {
-    containerProps.onClick = () => onClick()
+    containerProps.onClick = onClick
   }
   if (isSvgImage) {
     return <ImageSvg content={content} {...containerProps} />

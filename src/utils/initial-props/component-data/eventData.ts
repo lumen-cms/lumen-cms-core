@@ -1,3 +1,4 @@
+import type { LmEventStoryblok } from '../../../components/event/eventTypes'
 import { EventCalendarStoryblok } from '../../../typings/generated/components-schema'
 import { AppPageProps } from '../../../typings/app'
 import { LmStoryblokService } from '../StoryblokService'
@@ -16,7 +17,10 @@ export const getEventData = async (
       }
     }
   }
-  const storyData = await LmStoryblokService.getAll('cdn/stories', params)
+  const storyData = await LmStoryblokService.getAll<LmEventStoryblok>(
+    'cdn/stories',
+    params
+  )
 
   return storyData
 }

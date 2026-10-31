@@ -69,7 +69,7 @@ function getColumnWidths(content: LmGridColumnProps['content']) {
 
 function ColumnBody({ content, parent }: LmGridColumnProps) {
   const renderStackElement =
-    !['column', 'column-reverse'].includes(parent.direction) &&
+    !['column', 'column-reverse'].includes(parent.direction || '') &&
     (content.justify || content.align_content || content.align_items)
   return renderStackElement ? (
     <Stack

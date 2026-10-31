@@ -76,9 +76,9 @@ const SelectCalendarView: FC<
   )
 }
 
-export const CalendarToolbar: FC<
-  React.PropsWithChildren<ToolbarProps<Event>>
-> = (props) => {
+export function CalendarToolbar<TEvent extends Event>(
+  props: React.PropsWithChildren<ToolbarProps<TEvent>>
+) {
   let currentViews = Array.isArray(props.views) ? props.views : []
   return (
     <div

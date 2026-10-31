@@ -1,13 +1,8 @@
+import type { AppPageProps } from '../../../typings/app'
 import { LmComponentRender } from '../../CoreComponents'
 import { StoryFn } from '@storybook/react'
 import { FC, PropsWithChildren } from 'react'
-import {
-  ButtonStoryblok,
-  EcommerceCheckoutStoryblok,
-  EcommerceShopifyCheckoutStoryblok,
-  EcommerceShopifyConfigStoryblok,
-  GlobalStoryblok
-} from '../../../typings/generated/components-schema'
+import { GlobalStoryblok } from '../../../typings/generated/components-schema'
 import { getShopifyPageProps } from './lib/getShopifyPageProps'
 import CoreDecorator from '../../../storybook/components/CoreDecorator'
 import getBasicSettings from '../../../storybook/components/basicSettings'
@@ -35,24 +30,28 @@ const getShopifySettings = (context?: {
         domain: context?.domain || DOMAIN,
         access_token: context?.accessToken || ACCESS_TOKEN,
         currency_prefix: '€',
-        image_container_height: 250,
+        image_container_height: '250',
         product_active_variant: [
           {
             _uid: '123123121',
             component: 'button',
             color: 'primary'
-          } as ButtonStoryblok
+          }
         ]
-      } as EcommerceShopifyConfigStoryblok
+      }
     ]
   }
   return settings
 }
 
+type ShopifyStoryData = Omit<AppPageProps, 'settings'> & {
+  settings?: Partial<GlobalStoryblok>
+}
+
 const ShopifyStoryContainer: FC<
   PropsWithChildren<{
-    pageProps: any
-    settings: GlobalStoryblok
+    pageProps: ShopifyStoryData
+    settings: Partial<GlobalStoryblok>
   }>
 > = ({ children, settings, pageProps }) => {
   return (
@@ -66,21 +65,22 @@ const Template: StoryFn<{
   handle: string
 }> = ({ handle }, { loaded: { data, settings } }) => {
   return (
-    <ShopifyStoryContainer settings={settings} pageProps={data}>
+    <ShopifyStoryContainer
+      settings={settings as Partial<GlobalStoryblok>}
+      pageProps={data as ShopifyStoryData}
+    >
       <LmComponentRender
-        content={
-          {
-            _uid: '123',
-            component: 'ecommerce_checkout',
-            integration: [
-              {
-                _uid: 'gjhkghjkhfgjh',
-                component: 'ecommerce_shopify_checkout',
-                handle
-              } as EcommerceShopifyCheckoutStoryblok
-            ] as any
-          } as EcommerceCheckoutStoryblok
-        }
+        content={{
+          _uid: '123',
+          component: 'ecommerce_checkout',
+          integration: [
+            {
+              _uid: 'gjhkghjkhfgjh',
+              component: 'ecommerce_shopify_checkout',
+              handle
+            }
+          ]
+        }}
       />
     </ShopifyStoryContainer>
   )
@@ -90,13 +90,12 @@ export const LuzideNew = Template.bind({})
 LuzideNew.args = {
   handle: 'lucid-dream-eye-mask-45185'
 }
-// eslint-disable-next-line
 // @ts-ignore
 LuzideNew.loaders = [
   async () => {
     const settings = getShopifySettings()
     const data = { page: {}, settings }
-    await getShopifyPageProps(data as any)
+    await getShopifyPageProps(data as AppPageProps)
     return { data, settings }
   }
 ]
@@ -105,13 +104,12 @@ export const Cake = Template.bind({})
 Cake.args = {
   handle: 'surprise-cake-stand-1-tier-81761'
 }
-// eslint-disable-next-line
 // @ts-ignore
 Cake.loaders = [
   async () => {
     const settings = getShopifySettings()
     const data = { page: {}, settings }
-    await getShopifyPageProps(data as any)
+    await getShopifyPageProps(data as AppPageProps)
     return { data, settings }
   }
 ]
@@ -120,13 +118,12 @@ export const CakeAlternative = Template.bind({})
 CakeAlternative.args = {
   handle: 'surprise-cake-stand-19372'
 }
-// eslint-disable-next-line
 // @ts-ignore
 CakeAlternative.loaders = [
   async () => {
     const settings = getShopifySettings()
     const data = { page: {}, settings }
-    await getShopifyPageProps(data as any)
+    await getShopifyPageProps(data as AppPageProps)
     return { data, settings }
   }
 ]
@@ -135,7 +132,6 @@ export const BaliShivaEye = Template.bind({})
 BaliShivaEye.args = {
   handle: 'bali-shiva-eye-necklace'
 }
-// eslint-disable-next-line
 // @ts-ignore
 BaliShivaEye.loaders = [
   async () => {
@@ -144,7 +140,7 @@ BaliShivaEye.loaders = [
       accessToken: '88efcb67ee87736026853608d38041f4'
     })
     const data = { page: {}, settings }
-    await getShopifyPageProps(data as any)
+    await getShopifyPageProps(data as AppPageProps)
     return { data, settings }
   }
 ]

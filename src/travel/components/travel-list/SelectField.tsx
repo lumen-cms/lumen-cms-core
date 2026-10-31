@@ -63,7 +63,7 @@ export function SelectField({
   const options: Options = data?.[optionKey] || ([] as Options)
 
   const translation = translations[router.locale?.toUpperCase() as 'EN' | 'DE']
-  const labelText = translation[label] as string
+  const labelText = translation[label]
   const stringValue = selectValue ? `${selectValue}` : ''
   const hasSelection = Boolean(stringValue)
   const labelShrinks = hasSelection || focused || menuOpen

@@ -1,5 +1,4 @@
 import postcss from 'postcss'
-// @ts-ignore
 import minifier from 'cssnano-simple'
 import { GlobalStoryblok } from '../../typings/generated/components-schema'
 import { getFontBasedOnSetting } from '../parseFont'

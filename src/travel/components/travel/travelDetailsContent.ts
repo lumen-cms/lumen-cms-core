@@ -1,11 +1,8 @@
 import type {
-  BackgroundStoryblok,
   ColumnStoryblok,
-  DividerStoryblok,
   FlexRowStoryblok,
   HeadlineStoryblok,
   HtmlStoryblok,
-  IconStoryblok,
   RowStoryblok
 } from '../../../typings/generated/components-schema'
 import translations from '../../utils/translations'
@@ -58,7 +55,7 @@ export function getTravelDetailsColumn({
       {
         _uid: 'col-1',
         component: 'flex_row',
-        gap: 1,
+        gap: '1',
         body: [
           {
             _uid: 'head-1',
@@ -78,7 +75,7 @@ export function getTravelDetailsColumn({
             text: translations[langKey].adShort
           }
         ] as HeadlineStoryblok[]
-      } as FlexRowStoryblok,
+      },
       {
         component: 'row',
         _uid: 'row22',
@@ -96,10 +93,10 @@ export function getTravelDetailsColumn({
                 {
                   component: 'background',
                   _uid: 'bg',
-                  elevation: 1,
+                  elevation: '1',
                   border_radius: '12px',
                   shadow_effect: 'soft'
-                } as BackgroundStoryblok
+                }
               ],
               styles_hover: [
                 {
@@ -117,14 +114,14 @@ export function getTravelDetailsColumn({
                 {
                   component: 'flex_row',
                   column: true,
-                  gap: 1,
+                  gap: '1',
                   align_items: 'center',
                   body: [
                     {
                       component: 'icon',
                       _uid: `icon-${index}`,
                       name: { name: fact.icon }
-                    } as IconStoryblok,
+                    },
                     {
                       component: 'headline',
                       _uid: `head-1-${index}`,
@@ -133,7 +130,7 @@ export function getTravelDetailsColumn({
                       typography: 'body2',
                       align: 'center',
                       class_names: { values: ['font-weight-800'] }
-                    } as HeadlineStoryblok,
+                    },
                     {
                       component: 'headline',
                       _uid: `head-2-${index}`,
@@ -144,13 +141,13 @@ export function getTravelDetailsColumn({
                   ]
                 } as FlexRowStoryblok
               ]
-            } as ColumnStoryblok)
-        ) as ColumnStoryblok[]
+            }) as ColumnStoryblok
+        )
       } as RowStoryblok,
       {
         component: 'divider',
         _uid: 'dddi1'
-      } as DividerStoryblok,
+      },
       mainFlexRowHeadline({
         icon: 'map-marker-check-outline',
         text: translations[langKey].travelDetail.overview
@@ -164,7 +161,7 @@ export function getTravelDetailsColumn({
       {
         component: 'divider',
         _uid: 'dddi1assa'
-      } as DividerStoryblok,
+      },
       mainFlexRowHeadline({
         icon: 'map-check-outline',
         text: translations[langKey].travelDetail.description

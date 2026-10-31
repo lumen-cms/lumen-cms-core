@@ -3,7 +3,7 @@
 // const readFile = promises.readFile
 // const writeFile = promises.writeFile
 // const cacheRootPath = os.tmpdir() + '/'
-let localCache: { key: string; content: any }[] = []
+let localCache: { key: string; content: unknown }[] = []
 
 export const clearFileCache = () => {
   localCache = []
@@ -15,15 +15,18 @@ export const checkCacheFileExists = (filename: string) => {
   return !!localCache.find((item) => item.key === filename)
 }
 
-export const readCacheFile = async (filename: string) => {
+export const readCacheFile = async <Content = unknown>(filename: string) => {
   const current = localCache.find((item) => item.key === filename)
   if (current) {
-    return current.content
+    return current.content as Content
   }
   throw new Error('cache not found')
 }
 
-export const writeCacheFile = async (filename: string, content: any) => {
+export const writeCacheFile = async <Content>(
+  filename: string,
+  content: Content
+) => {
   if (!localCache.find((item) => item.key === filename)) {
     localCache.push({ key: filename, content })
   }

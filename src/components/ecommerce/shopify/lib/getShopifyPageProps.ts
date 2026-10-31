@@ -8,9 +8,7 @@ export const getShopifyPageProps = async (props: AppPageProps) => {
   }
   const shopifyConfig: EcommerceShopifyConfigStoryblok | undefined = (
     props.settings?.ecommerce || []
-  ).find(
-    (i) => i.component === 'ecommerce_shopify_config'
-  ) as EcommerceShopifyConfigStoryblok
+  ).find((i) => i.component === 'ecommerce_shopify_config')
   if (shopifyConfig?.domain && shopifyConfig?.access_token) {
     try {
       const { products } = await shopifyGraphqlSdk({

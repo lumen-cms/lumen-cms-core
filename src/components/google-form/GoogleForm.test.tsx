@@ -1,16 +1,31 @@
 // @vitest-environment happy-dom
-import { act, type ReactNode } from 'react'
+import {
+  act,
+  type ReactNode,
+  type ComponentProps,
+  type ButtonHTMLAttributes
+} from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import Form from './GoogleForm'
+import type GoogleFormElement from './GoogleFormElement'
+type FormCapture = {
+  children?: ReactNode
+  defaultValues?: Record<string, unknown>
+  onSuccess: (data: Record<string, string>) => Promise<void>
+}
+type ButtonCapture = {
+  content: { label?: string; _uid: string }
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
+}
 const seen = vi.hoisted(() => ({
-  form: {} as Record<string, any>,
-  button: {} as Record<string, any>,
-  fields: [] as Record<string, any>[],
+  form: {} as FormCapture,
+  button: {} as Partial<ButtonCapture>,
+  fields: [] as ComponentProps<typeof GoogleFormElement>[],
   submit: vi.fn(async () => true)
 }))
 vi.mock('react-hook-form-mui', () => ({
-  FormContainer: ({ children, ...p }: { children: ReactNode }) => {
+  FormContainer: ({ children, ...p }: FormCapture) => {
     seen.form = p
     return <form>{children}</form>
   }
@@ -19,14 +34,14 @@ vi.mock('../../vendor/google-forms', () => ({
   submitToGoogleForms: seen.submit
 }))
 vi.mock('./GoogleFormElement', () => ({
-  default: (p: Record<string, any>) => {
+  default: (p: ComponentProps<typeof GoogleFormElement>) => {
     seen.fields.push(p)
     return <input data-field={p.formField.id} />
   },
   TextFieldElement: () => <input name="current_address" />
 }))
 vi.mock('../CoreComponents', () => ({
-  LmComponentRender: ({ content, ...p }: Record<string, any>) => {
+  LmComponentRender: ({ content, ...p }: ButtonCapture) => {
     seen.button = { content, ...p }
     return <button type={p.type}>{content.label || content._uid}</button>
   }
@@ -34,8 +49,9 @@ vi.mock('../CoreComponents', () => ({
 vi.mock('next/dynamic', () => ({
   default:
     () =>
-    ({ children }: { children: ReactNode }) =>
+    ({ children }: { children: ReactNode }) => (
       <div data-date-provider>{children}</div>
+    )
 }))
 type Content = Parameters<typeof Form>[0]['content']
 const structure = {
@@ -100,7 +116,7 @@ it('preserves date defaults, submit overrides, field styles and inline spacing',
       content: {
         label: 'Send',
         color: 'primary',
-        variant: 'contained',
+        variant: '',
         link: undefined
       }
     })

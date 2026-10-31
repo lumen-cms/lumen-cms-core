@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { act } from 'react'
+import { act, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import { useInfiniteScroll } from './useInfiniteScroll'
@@ -36,6 +36,48 @@ it('advances once on entry without a self-triggered update loop', async () => {
     visibility.inView = true
     await act(async () => root.render(<Consumer />))
     expect(host.textContent).toBe('90:false')
+  } finally {
+    await act(async () => root.unmount())
+    visibility.inView = false
+  }
+})
+
+it('retains the page across collection and page-size changes in StrictMode', async () => {
+  vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)
+  const host = document.createElement('div')
+  const root = createRoot(host)
+  function Consumer({ count, perPage }: { count: number; perPage: number }) {
+    const { data, hasMore } = useInfiniteScroll(
+      Array.from({ length: count }, (_, i) => i),
+      perPage
+    )
+    return (
+      <span>
+        {data.length}:{String(hasMore)}
+      </span>
+    )
+  }
+  const render = async (count = 100, perPage = 10) => {
+    await act(async () =>
+      root.render(
+        <StrictMode>
+          <Consumer count={count} perPage={perPage} />
+        </StrictMode>
+      )
+    )
+    return host.textContent
+  }
+  try {
+    expect(await render()).toBe('10:true')
+    visibility.inView = true
+    expect(await render()).toBe('20:true')
+    expect(await render()).toBe('20:true')
+    expect(await render(5)).toBe('5:false')
+    expect(await render(100, 15)).toBe('30:true')
+    visibility.inView = false
+    expect(await render(100, 15)).toBe('30:true')
+    visibility.inView = true
+    expect(await render(100, 15)).toBe('45:true')
   } finally {
     await act(async () => root.unmount())
     visibility.inView = false

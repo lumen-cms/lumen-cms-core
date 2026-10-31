@@ -1,10 +1,11 @@
-import React, { CSSProperties, ElementType, FC } from 'react'
+import React, { ElementType, FC } from 'react'
 import Typography from '@mui/material/Typography'
 import { mapTypographyVariant } from '../../utils/muiMapProps'
 import { LmHeadlineProps } from './headlineTypes'
 import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 import clsx from 'clsx'
 import { typographyColor } from '../../utils/themeColor'
+import styles from './HeadlineCore.module.css'
 
 export const LmHeadlineCore: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
   content,
@@ -19,8 +20,9 @@ export const LmHeadlineCore: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
   })
   return (
     <Typography
-      {...(onClick ? { onClick: () => onClick() } : {})}
+      {...(onClick ? { onClick } : {})}
       className={clsx(
+        content.max_lines && styles.clamped,
         content.style,
         content.style_props,
         content.class_names?.values,
@@ -45,13 +47,12 @@ export const LmHeadlineCore: FC<React.PropsWithChildren<LmHeadlineProps>> = ({
           ? content.letter_spacing
           : undefined,
         ...(content.max_lines
-          ? ({
+          ? {
               WebkitLineClamp: Number(content.max_lines),
               textOverflow: 'ellipsis',
               overflow: 'hidden',
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical'
-            } as CSSProperties)
+              display: '-webkit-box'
+            }
           : {})
       }}
       variant={

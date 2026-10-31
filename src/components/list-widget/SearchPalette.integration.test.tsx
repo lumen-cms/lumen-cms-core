@@ -1,7 +1,12 @@
 import { afterAll, beforeAll, expect, it } from 'vitest'
 import { chromium, type Browser, type Page } from 'playwright'
 import webpack from 'webpack'
-import { createServer, type Server } from 'node:http'
+import {
+  createServer,
+  type IncomingMessage,
+  type ServerResponse,
+  type Server
+} from 'node:http'
 import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
@@ -56,7 +61,10 @@ beforeAll(async () => {
       })
     })
   )
-  server = createServer(async (request, response) => {
+  const handleRequest = async (
+    request: IncomingMessage,
+    response: ServerResponse
+  ) => {
     const pathname = new URL(request.url || '/', 'http://fixture.test').pathname
     if (pathname.endsWith('.js')) {
       try {
@@ -73,6 +81,9 @@ beforeAll(async () => {
         '<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><div id="root"></div><script src="/fixture.js"></script></body></html>'
       )
     }
+  }
+  server = createServer((request, response) => {
+    void handleRequest(request, response)
   })
   await new Promise<void>((resolve, reject) => {
     server.once('error', reject)

@@ -9,10 +9,10 @@ export type ShopifyProductFragment =
 export type ShopifySdkContextProps = {
   selectedVariant?: ShopifyProductFragment
   onVariantSelect: (data: ShopifyProductFragment) => void
-  onCheckout: () => Promise<void>
+  onCheckout: () => Promise<string | undefined>
   cartOpen: boolean
   setCartOpen: (bool: boolean) => void
-  addToCart: () => void
+  addToCart: () => void | Promise<void>
   cartVariants: {
     quantity: number
     variant: ShopifyProductFragment
@@ -28,7 +28,7 @@ const noop = () => {
   // do nothing
 }
 
-const asyncNoop = async () => {
+const asyncNoop = async (): Promise<undefined> => {
   // do nothing
 }
 

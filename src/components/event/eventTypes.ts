@@ -11,14 +11,14 @@ export type LmEventStoryblok = EventStoryblok & {
 }
 
 export type LmEventProps = {
-  content: LmEventStoryblok
+  content: EventStoryblok
 }
 
-export type EventCalendar = Event & {
+export type EventCalendar = Omit<Event, 'resource'> & {
   resource: LmEventStoryblok
 }
 export type LmEventCalendarProps = {
   content: EventCalendarStoryblok & {
-    event_calendar_data: ISbStoryData<LmEventStoryblok>[]
+    event_calendar_data?: ISbStoryData<LmEventStoryblok>[]
   }
 }

@@ -11,7 +11,11 @@ export type LmCardListProps = {
 }
 export type CardListItemProps = {
   content: CardListItemStoryblok
-  options: Omit<StoryblokFields<CardListStoryblok>, 'body' | 'column_gap'>
+  // Programmatic callers also supply numeric limits; CMS declarations stay unchanged.
+  options: Omit<
+    StoryblokFields<CardListStoryblok>,
+    'body' | 'column_gap' | 'description_max_character'
+  > & { description_max_character?: string | number }
 }
 
 export type LmCardStandaloneProps = {

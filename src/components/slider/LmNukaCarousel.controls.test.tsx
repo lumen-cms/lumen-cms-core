@@ -3,8 +3,25 @@ import { act, useEffect, useRef, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import Carousel from './LmNukaCarousel'
+type SwiperProbe = {
+  destroyed: boolean
+  realIndex: number
+  isBeginning: boolean
+  isEnd: boolean
+  slidePrev: () => void
+  slideNext: () => void
+  slideTo: (index: number) => void
+  slideToLoop: (index: number) => void
+}
+type SwiperPropsProbe = {
+  children?: ReactNode
+  loop?: boolean
+  onSwiper: (instance: SwiperProbe) => void
+  onRealIndexChange: (instance: SwiperProbe) => void
+  onSlideChangeTransitionEnd: (instance: SwiperProbe) => void
+}
 const seen = vi.hoisted(() => ({
-  props: {} as Record<string, any>,
+  props: {} as SwiperPropsProbe,
   instance: {
     destroyed: false,
     realIndex: 0,
@@ -17,13 +34,7 @@ const seen = vi.hoisted(() => ({
   }
 }))
 vi.mock('swiper/react', () => ({
-  Swiper: ({
-    children,
-    ...p
-  }: {
-    children: ReactNode
-    onSwiper: (i: unknown) => void
-  }) => {
+  Swiper: ({ children, ...p }: SwiperPropsProbe) => {
     seen.props = p
     const onSwiper = useRef(p.onSwiper)
     useEffect(() => onSwiper.current(seen.instance), [])

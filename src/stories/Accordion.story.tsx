@@ -6,7 +6,6 @@ import { findFirstPreset } from '../storybook/findStorybookPresets'
 import { getComponentArgTypes } from '../storybook/configControls'
 import { expect, within } from 'storybook/test'
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Surfaces/Accordion',
   component: LmAccordion,

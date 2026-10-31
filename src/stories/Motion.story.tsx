@@ -30,7 +30,7 @@ export const Overview = () => (
           _uid: '1231',
           component: 'motion',
           type: 'slide',
-          duration: 1000,
+          duration: '1000',
           body
         }}
       />
@@ -41,7 +41,7 @@ export const Overview = () => (
           _uid: '21312',
           type: 'collapse',
           component: 'motion',
-          duration: 5000,
+          duration: '5000',
           body
         }}
       />
@@ -51,7 +51,7 @@ export const Overview = () => (
           _uid: '21312',
           type: 'fade',
           component: 'motion',
-          duration: 5000,
+          duration: '5000',
           body
         }}
       />
@@ -61,7 +61,7 @@ export const Overview = () => (
           _uid: 'aw3',
           type: 'grow',
           component: 'motion',
-          duration: 5000,
+          duration: '5000',
           body
         }}
       />
@@ -71,7 +71,7 @@ export const Overview = () => (
           _uid: 'adsfa',
           type: 'zoom',
           component: 'motion',
-          duration: 5000,
+          duration: '5000',
           body
         }}
       />
@@ -85,7 +85,7 @@ export const Playground = () => (
       <h3>Start of presentation of motion</h3>
       <LmMotion
         content={{
-          ...storyMotion({ options: { duration: 5000 } }),
+          ...storyMotion({ options: { duration: '5000' } }),
           body
         }}
       />

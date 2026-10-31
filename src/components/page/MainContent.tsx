@@ -1,3 +1,4 @@
+import type { PageStoryblok } from '../../typings/generated/components-schema'
 import { FunctionComponent } from 'react'
 import { LmComponentRender } from '../CoreComponents'
 import Box from '@mui/material/Box'
@@ -48,7 +49,7 @@ const MainContentContainer: FunctionComponent<
 MainContentContainer.displayName = 'MainContentContainer'
 
 type MainContentProps = {
-  body: any[]
+  body: NonNullable<PageStoryblok['body']>
 }
 
 export function MainContent({ body }: MainContentProps): React.JSX.Element {

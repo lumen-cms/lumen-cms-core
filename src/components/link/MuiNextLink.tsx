@@ -1,15 +1,16 @@
-import { AnchorHTMLAttributes, forwardRef, useCallback } from 'react'
+import {
+  AnchorHTMLAttributes,
+  forwardRef,
+  useCallback,
+  type SyntheticEvent
+} from 'react'
 import NextLink from 'next/link'
 import MuiLink from '@mui/material/Link'
 import { CONFIG } from '../../utils/config'
 import { LinkProps, NextComposedProps } from './linkTypes'
 import { useAppContext } from '../provider/context/AppContext'
 import clsx from 'clsx'
-
-const base64encode =
-  typeof btoa !== 'undefined'
-    ? btoa
-    : (b: string) => Buffer.from(b).toString('base64')
+import { scrollToLinkAnchor } from './scrollToLinkAnchor'
 
 const NextLinkComposed = forwardRef<HTMLAnchorElement, NextComposedProps>(
   function NextLinkComposedFunc(
@@ -20,21 +21,8 @@ const NextLinkComposed = forwardRef<HTMLAnchorElement, NextComposedProps>(
 
     // enable smooth scroll
     const handleClick = useCallback(
-      async (e: any) => {
-        const [, anchorName] = href.split('#')
-        if (anchorName) {
-          const destination = document.getElementById(anchorName)
-          if (destination) {
-            if (e.target.closest('.MuiDrawer-root')) {
-              return
-            }
-            e.preventDefault()
-            // window.location.hash = anchorName // this causes not working on /#myValue on home
-            destination.scrollIntoView({
-              behavior: 'smooth'
-            })
-          }
-        }
+      (e: SyntheticEvent<HTMLAnchorElement>) => {
+        void scrollToLinkAnchor(href, e)
       },
       [href]
     )
@@ -44,7 +32,7 @@ const NextLinkComposed = forwardRef<HTMLAnchorElement, NextComposedProps>(
         href.startsWith('mailto:') || href.startsWith('tel:')
           ? ({
               href: '/#',
-              'data-href': base64encode(href),
+              'data-href': btoa(href),
               onClick: (event) => {
                 event.preventDefault()
                 window.location.href = atob(
@@ -53,10 +41,9 @@ const NextLinkComposed = forwardRef<HTMLAnchorElement, NextComposedProps>(
               }
             } as AnchorHTMLAttributes<HTMLAnchorElement>)
           : {
-              href: href as string
+              href: href
             }
 
-      // eslint-disable-next-line jsx-a11y/anchor-has-content
       return <a ref={ref} {...other} {...currentLinkProps} />
     }
     const detectedLocale =
@@ -104,7 +91,6 @@ const MuiNextLink = forwardRef<HTMLAnchorElement, LinkProps>(
     // const className = classNameProps
     if (!href) {
       // console.log(props)
-      // eslint-disable-next-line jsx-a11y/anchor-has-content
       return <a {...other} className={className} />
     }
 

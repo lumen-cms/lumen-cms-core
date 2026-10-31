@@ -429,5 +429,5 @@ export const createGlobalStyles = (theme: Theme): CSSObject => {
         textAlign: 'justify'
       }
     }
-  } as CSSObject
+  }
 }

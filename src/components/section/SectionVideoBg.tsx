@@ -1,5 +1,5 @@
 import { useInView } from 'react-intersection-observer'
-import { CSSProperties, useEffect, useState } from 'react'
+import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react'
 import Container, { ContainerProps } from '@mui/material/Container'
 import { LmComponentRender } from '../CoreComponents'
 import { intersectionDefaultOptions } from '../../utils/intersectionObserverConfig'
@@ -78,6 +78,14 @@ export default function LmSectionVideo({
   const [intersectionRef, inView, intersectionElement] = useInView(
     intersectionDefaultOptions
   )
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const setContainerRef = useCallback(
+    (element: HTMLDivElement | null) => {
+      containerRef.current = element
+      return intersectionRef(element)
+    },
+    [intersectionRef]
+  )
   const [containerDimensions, setContainerDimensions] = useState({
     width: 0,
     height: 0
@@ -108,8 +116,8 @@ export default function LmSectionVideo({
 
   useEffect(() => {
     if (inView) {
-      if (!fixedToRatio && intersectionElement) {
-        const current = intersectionElement.target
+      if (!fixedToRatio && intersectionElement && containerRef.current) {
+        const current = containerRef.current
         setContainerDimensions({
           width: current.clientWidth,
           height: current.clientHeight
@@ -128,7 +136,7 @@ export default function LmSectionVideo({
     <Box
       sx={videoSectionSx}
       style={containerStyle}
-      ref={intersectionRef}
+      ref={setContainerRef}
       id={content.section_identifier || content._uid}
     >
       {!!videoUrl && (

@@ -3,7 +3,6 @@ import { Meta, StoryFn } from '@storybook/react'
 import { getComponentArgTypes } from '../storybook/configControls'
 import { LmPlayerProps } from '../components/player/playerTypes'
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Player',
   component: LmPlayer,

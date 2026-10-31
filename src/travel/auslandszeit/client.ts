@@ -1,3 +1,4 @@
+import type {} from '../typings/registry'
 import dynamic from 'next/dynamic'
 import { LmCoreComponents } from '../../utils/config'
 const AuslandszeitListWidget = dynamic(

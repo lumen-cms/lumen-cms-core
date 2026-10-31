@@ -37,7 +37,7 @@ module.exports = function customTypeParser(key, obj) {
         }
       }
     case 'tags-select':
-      const isSingle = obj.options.find(
+      const isSingle = (obj.options || []).find(
         (item) => item.name === 'single' && item.value === 'true'
       )
       if (isSingle) {
@@ -82,6 +82,6 @@ module.exports = function customTypeParser(key, obj) {
         }
       }
     default:
-      return {}
+      throw new Error(`No TypeScript mapping for custom field ${obj.field_type} (${key})`)
   }
 }

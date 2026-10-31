@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { act, memo } from 'react'
+import { act, memo, useLayoutEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import { PageContextProvider } from './PageContextProvider'
@@ -11,9 +11,12 @@ it('only notifies readers when filter state changes', async () => {
   let renders = 0
   let context: ReturnType<typeof usePageContext>
   const Reader = memo(function Reader() {
-    renders++
-    context = usePageContext()
-    return <span>{JSON.stringify(context.value)}</span>
+    const value = usePageContext()
+    useLayoutEffect(() => {
+      renders++
+      context = value
+    })
+    return <span>{JSON.stringify(value.value)}</span>
   })
   const container = document.createElement('div')
   const root = createRoot(container)
@@ -24,21 +27,21 @@ it('only notifies readers when filter state changes', async () => {
       </PageContextProvider>
     )
   try {
-    await act(render)
+    await act(async () => render())
     const initialRenders = renders
-    await act(render)
+    await act(async () => render())
     expect(renders).toBe(initialRenders)
-    await act(() => context.updateContext({ city: '1' }))
+    await act(async () => context.updateContext({ city: '1' }))
     expect(container.textContent).toBe('{"city":"1"}')
-    await act(() => context.updateContext({ country: '2' }))
-    expect(JSON.parse(container.textContent!)).toEqual({
+    await act(async () => context.updateContext({ country: '2' }))
+    expect(JSON.parse(container.textContent)).toEqual({
       city: '1',
       country: '2'
     })
-    await act(() => context.updateContext({ city: '' }))
+    await act(async () => context.updateContext({ city: '' }))
     expect(container.textContent).toBe('{"country":"2"}')
     expect(window.scrollTo).toHaveBeenCalledTimes(3)
   } finally {
-    await act(() => root.unmount())
+    await act(async () => root.unmount())
   }
 })

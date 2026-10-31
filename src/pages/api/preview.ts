@@ -10,11 +10,10 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
   res.setPreviewData({})
 
   // Set cookie to None, so it can be read in the Storyblok iframe
-  const cookies = res.getHeader('Set-Cookie')
+  // Next's preview helpers write Set-Cookie as an array.
+  const cookies = res.getHeader('Set-Cookie') as string[]
   res.setHeader(
     'Set-Cookie',
-    // eslint-disable-next-line
-    // @ts-ignore
     (cookies || []).map((cookie) =>
       cookie.replace('SameSite=Lax', 'SameSite=None;Secure')
     )
@@ -22,7 +21,6 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
   const params = new URLSearchParams()
   Object.keys(req.query).forEach((key) => {
     if (!['secret', 'slug'].includes(key)) {
-      // eslint-disable-next-line
       // @ts-ignore
       params.append(key, req.query[key])
     }

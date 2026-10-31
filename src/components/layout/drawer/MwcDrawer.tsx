@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import Drawer from '@mui/material/Drawer'
+import dynamic from 'next/dynamic'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { UseBackgroundPayload } from '../../section/useBackgroundBox'
 import {
@@ -18,6 +18,9 @@ import {
   useNavigationStore
 } from '../../../utils/state/navigationState'
 import { useAppContext } from '../../provider/context/AppContext'
+
+// SSR stays enabled so visible desktop drawers are rendered and preloaded.
+const Drawer = dynamic(() => import('@mui/material/Drawer'))
 
 type DrawerContainerProps = {
   backgroundProps?: UseBackgroundPayload
@@ -41,11 +44,13 @@ const DrawerContainer: FunctionComponent<
     }
   }, [slug, drawerVariant, closeDrawer, matches])
 
-  useEffect(() => {
-    if (leftNavigationDrawer && !mountedOnce) {
-      setMountedOnce(true)
-    }
-  }, [leftNavigationDrawer, mountedOnce])
+  if (leftNavigationDrawer && !mountedOnce) {
+    setMountedOnce(true)
+  }
+
+  // Keep the instance after opening so MUI can finish its exit transition.
+  if (drawerVariant === 'temporary' && !leftNavigationDrawer && !mountedOnce)
+    return null
 
   const drawerBelowToolbar =
     settings.drawer_below_toolbar_xs || settings.drawer_below_toolbar

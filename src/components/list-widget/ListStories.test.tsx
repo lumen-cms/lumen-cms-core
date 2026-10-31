@@ -3,6 +3,10 @@ import { act } from 'react'
 import { createRoot } from 'react-dom/client'
 import { SWRConfig } from 'swr'
 import { expect, it, vi } from 'vitest'
+import type {
+  LmListStoriesProps,
+  LmListStoriesPaginationProps
+} from './listWidgetTypes'
 import { AppContext } from '../provider/context/AppContext'
 import { useSearchStore } from '../../utils/state/searchState'
 
@@ -15,15 +19,20 @@ vi.mock('next/router', () => ({
   Router: { events: { on: vi.fn(), off: vi.fn() } }
 }))
 vi.mock('./ListStoriesContainer', () => ({
-  default: ({ items }: any) => (
-    <div>{items.map((item: any) => item.content.preview_title).join(',')}</div>
+  default: ({ items }: { items: { content: { preview_title: string } }[] }) => (
+    <div>{items.map((item) => item.content.preview_title).join(',')}</div>
   )
 }))
 vi.mock('./ListStoriesPagination', () => ({
-  default: ({ onChange, disabled }: any) => (
-    <button disabled={disabled} onClick={() => onChange(2)}>
-      Next page
-    </button>
+  default: ({ onChange, disabled, page }: LmListStoriesPaginationProps) => (
+    <>
+      <button disabled={disabled} onClick={() => onChange(2)}>
+        Next page
+      </button>
+      <button disabled={disabled} onClick={() => onChange(page)}>
+        Current page
+      </button>
+    </>
   )
 }))
 import ListStories from './ListStories'
@@ -58,20 +67,26 @@ it('renders initial data without loading a client, then fetches pagination and s
           }}
         >
           <AppContext.Provider
-            value={
-              {
-                locale: 'en',
-                defaultLocale: 'en',
-                locales: ['en', 'de']
-              } as any
-            }
+            value={{
+              locale: 'en',
+              defaultLocale: 'en',
+              locales: ['en', 'de']
+            }}
           >
-            <ListStories content={content as any} />
+            <ListStories
+              content={content as unknown as LmListStoriesProps['content']}
+            />
           </AppContext.Provider>
         </SWRConfig>
       )
     )
     expect(host.textContent).toContain('Initial')
+    expect(browser.loaded).not.toHaveBeenCalled()
+    expect(browser.getStories).not.toHaveBeenCalled()
+    await act(async () => {
+      host.querySelectorAll('button')[1].click()
+      await vi.dynamicImportSettled()
+    })
     expect(browser.loaded).not.toHaveBeenCalled()
     expect(browser.getStories).not.toHaveBeenCalled()
     await act(async () => {
@@ -89,6 +104,38 @@ it('renders initial data without loading a client, then fetches pagination and s
     })
     expect(browser.getStories).toHaveBeenLastCalledWith(
       expect.objectContaining({ page: 1, search_term: 'training' })
+    )
+    await act(async () => {
+      host.querySelector('button')!.click()
+      await vi.dynamicImportSettled()
+    })
+    expect(browser.getStories).toHaveBeenLastCalledWith(
+      expect.objectContaining({ page: 2, search_term: 'training' })
+    )
+    await act(async () => {
+      useSearchStore.setState({ searchText: '' })
+      await vi.dynamicImportSettled()
+    })
+    expect(browser.getStories).toHaveBeenLastCalledWith(
+      expect.objectContaining({ page: 2 })
+    )
+    await act(async () => {
+      useSearchStore.setState({ categories: ['category'] })
+      await vi.dynamicImportSettled()
+    })
+    expect(browser.getStories).toHaveBeenLastCalledWith(
+      expect.objectContaining({ page: 1 })
+    )
+    await act(async () => {
+      host.querySelector('button')!.click()
+      await vi.dynamicImportSettled()
+    })
+    await act(async () => {
+      useSearchStore.setState({ categories: [] })
+      await vi.dynamicImportSettled()
+    })
+    expect(browser.getStories).toHaveBeenLastCalledWith(
+      expect.objectContaining({ page: 2 })
     )
   } finally {
     await act(async () => root.unmount())

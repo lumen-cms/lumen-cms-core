@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
-import Magnify from 'mdi-material-ui/Magnify'
+import { Magnify } from 'mdi-material-ui'
 import LmIcon from '../icon/LmIcon'
 import { LmListSearchAutocompleteProps } from './listWidgetTypes'
 import {

@@ -99,8 +99,8 @@ function BgImage({
   const loading = priorityLoading
     ? undefined
     : disable_lazy_loading
-    ? 'eager'
-    : undefined
+      ? 'eager'
+      : undefined
   // const rootImageUrl = `${getRootImageUrl(src)}${
   //   image_focal_point ? `?focalPoint=${image_focal_point}` : ''
   // }`

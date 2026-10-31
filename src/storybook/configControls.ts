@@ -1,7 +1,7 @@
 import type { StorybookSchemaField } from './schema'
 import { ArgTypes, Meta } from '@storybook/react'
 // @ts-ignore
-import COMPONENT_JSON from '../../components.82895.json'
+import COMPONENT_JSON from '../typings/storyblok/components/82895/components.json'
 
 export const genericArgTypes = {
   component: {
@@ -40,7 +40,7 @@ const controlTypeMap: Record<
 }
 
 export function getComponentArgTypes(componentName: string): Meta['argTypes'] {
-  const findComponents = COMPONENT_JSON.components.find((component) => {
+  const findComponents = COMPONENT_JSON.find((component) => {
     return component.name === componentName
   })
   const obj = {} as ArgTypes

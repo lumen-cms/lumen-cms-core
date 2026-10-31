@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import SnackbarContent from '@mui/material/SnackbarContent'
 import { Dialog, DialogActions, DialogContent } from '@mui/material'
 import { LmComponentRender } from '../CoreComponents'
-import { ButtonStoryblok } from '../../typings/generated/components-schema'
+
 import { useScrollOnce } from '../../utils/hooks/useScrolledOnce'
 import { LmSnackbarProps } from './snackbarTypes'
 import { useAppContext } from '../provider/context/AppContext'
@@ -112,7 +112,7 @@ function SnackbarDialog({
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         {(content?.close_action || []).map((blok) => (
           <LmComponentRender
-            content={{ color: 'secondary_text', ...blok } as ButtonStoryblok}
+            content={{ color: 'secondary_text', ...blok }}
             key={blok._uid}
             onClick={handleAccept}
           />
@@ -126,7 +126,7 @@ function SnackbarDialog({
       <DialogActions>
         {(content?.additional_actions || []).map((blok) => (
           <LmComponentRender
-            content={{ color: 'secondary_text', ...blok } as ButtonStoryblok}
+            content={{ color: 'secondary_text', ...blok }}
             key={blok._uid}
           />
         ))}
@@ -181,17 +181,13 @@ function SnackbarToast({
           <>
             {(content?.additional_actions || []).map((blok) => (
               <LmComponentRender
-                content={
-                  { color: 'secondary_text', ...blok } as ButtonStoryblok
-                }
+                content={{ color: 'secondary_text', ...blok }}
                 key={blok._uid}
               />
             ))}
             {(content?.close_action || []).map((blok) => (
               <LmComponentRender
-                content={
-                  { color: 'secondary_text', ...blok } as ButtonStoryblok
-                }
+                content={{ color: 'secondary_text', ...blok }}
                 key={blok._uid}
                 onClick={handleAccept}
               />

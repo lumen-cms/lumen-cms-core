@@ -26,9 +26,9 @@ describe('videoUrlHelper', () => {
         {
           component: 'player',
           _uid: '1',
-          url_internal: { filename: 'https://a.storyblok.com/clip.mp4' } as any,
+          url_internal: { filename: 'https://a.storyblok.com/clip.mp4' },
           url_alternatives: [{ filename: 'https://a.storyblok.com/clip.webm' }]
-        } as any,
+        } as Parameters<typeof videoUrlHelper>[0],
         true
       ).src
     ).toMatch(/clip\.(mp4|webm)$/)

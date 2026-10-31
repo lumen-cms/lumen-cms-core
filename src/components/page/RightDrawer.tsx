@@ -1,11 +1,8 @@
-import React, { FunctionComponent } from 'react'
-import Drawer from '@mui/material/Drawer'
+import dynamic from 'next/dynamic'
+import { useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { LmComponentRender } from '../CoreComponents'
-import { ContentSpace } from '../layout/ContentSpace'
-import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
-import { rightDrawerPaperSx, rightModalSx } from './pageStyles'
+import type { PageStoryblok } from '../../typings/generated/components-schema'
 import { usePage } from '../provider/SettingsPageProvider'
 import {
   closeRightNavigationSelector,
@@ -13,57 +10,32 @@ import {
   useNavigationStore
 } from '../../utils/state/navigationState'
 
-const RightDrawerContainer: FunctionComponent<
-  React.PropsWithChildren<unknown>
-> = ({ children }) => {
+const RightDrawerContent = dynamic(() => import('./RightDrawerContent'))
+
+export default function RightDrawer({
+  rightBody
+}: {
+  rightBody: NonNullable<PageStoryblok['right_body']>
+}) {
   const theme = useTheme()
-  const closeRightNavigation = useNavigationStore(closeRightNavigationSelector)
   const page = usePage()
   const matches = useMediaQuery(
     theme.breakpoints.up(page?.mobile_breakpoint || 'sm')
   )
   const rightIsOpen = useNavigationStore(rightNavigationDrawerSelector)
+  const closeRightNavigation = useNavigationStore(closeRightNavigationSelector)
+  const [mountedOnce, setMountedOnce] = useState(false)
+  if ((matches || rightIsOpen) && !mountedOnce) setMountedOnce(true)
+
+  // Permanent drawers render immediately; temporary drawers wait for first open.
+  if (!matches && !rightIsOpen && !mountedOnce) return null
+
   return (
-    <Drawer
-      variant={!matches ? 'temporary' : 'permanent'}
-      anchor="right"
-      sx={rightModalSx}
-      slotProps={{
-        paper: {
-          sx: [
-            matches && {
-              width: theme.drawer.right,
-              zIndex: theme.zIndex.appBar - 1
-            },
-            rightDrawerPaperSx
-          ]
-        }
-      }}
-      open={!matches ? rightIsOpen : true}
-      onClose={closeRightNavigation}
-    >
-      {children}
-    </Drawer>
+    <RightDrawerContent
+      rightBody={rightBody}
+      matches={matches}
+      rightIsOpen={rightIsOpen}
+      closeRightNavigation={closeRightNavigation}
+    />
   )
 }
-RightDrawerContainer.displayName = 'RightDrawerContainer'
-
-type RightDrawerProps = {
-  rightBody: any[]
-  // body: any[]
-}
-
-function RightDrawer({ rightBody }: RightDrawerProps): React.JSX.Element {
-  return (
-    <RightDrawerContainer>
-      <ContentSpace />
-      <Box sx={{ overflowY: 'auto' }}>
-        {rightBody.map((blok) => (
-          <LmComponentRender content={blok} key={blok._uid} />
-        ))}
-      </Box>
-    </RightDrawerContainer>
-  )
-}
-
-export default RightDrawer

@@ -9,7 +9,7 @@ import Button from '@mui/material/Button'
 import useAutocomplete from '@mui/material/useAutocomplete'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
-import Close from 'mdi-material-ui/Close'
+import { Close } from 'mdi-material-ui'
 import useSWR from 'swr'
 import { CONFIG } from '../../utils/config'
 import { useAppContext } from '../provider/context/AppContext'
@@ -132,7 +132,10 @@ function SearchResults({
   if (CONFIG.rootDirectory) prefix = CONFIG.rootDirectory
   if (CONFIG.enableLocaleSuffix) prefix = locale
   const ready = query.length >= 2 && query === debounced
-  const { data, error, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, mutate } = useSWR<
+    Awaited<ReturnType<typeof fetchSearchStories>>,
+    unknown
+  >(
     ready
       ? ([
           'search-palette-pages',

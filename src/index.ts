@@ -1,6 +1,20 @@
 /// <reference path="./typings/analytics.d.ts" />
 
-export { CONFIG, LmCoreComponents } from './utils/config'
+export {
+  CONFIG,
+  LmCoreComponents,
+  registerStoryblokComponent,
+  registerStoryblokComponents
+} from './utils/config'
+export type {
+  StoryblokComponentMap,
+  StoryblokComponentName,
+  StoryblokContent,
+  CoreStoryblokContent,
+  StoryblokRendererProps,
+  StoryblokRendererPropsOverrides,
+  StoryblokRendererRegistry
+} from './typings/storyblok-registry'
 export { cmsClickActions } from './utils/cmsClickActions'
 export { LmComponentRender } from './components/CoreComponents'
 

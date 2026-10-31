@@ -158,16 +158,18 @@ export default function createGrid(
       // collect breakpoints related props because they can be customized from the theme.
       const gridSize = {} as GridOwnerState['gridSize']
       const gridOffset = {} as GridOwnerState['gridOffset']
-      const other: Record<string, any> = {}
+      const other: Record<string, unknown> = {}
 
-      Object.entries(rest).forEach(([key, val]) => {
+      Object.entries(rest as Record<string, unknown>).forEach(([key, val]) => {
         if (theme.breakpoints.values[key as Breakpoint] !== undefined) {
-          gridSize[key as Breakpoint] = val
+          gridSize[key as Breakpoint] =
+            val as GridOwnerState['gridSize'][Breakpoint]
         } else if (
           theme.breakpoints.values[key.replace('Offset', '') as Breakpoint] !==
           undefined
         ) {
-          gridOffset[key.replace('Offset', '') as Breakpoint] = val
+          gridOffset[key.replace('Offset', '') as Breakpoint] =
+            val as GridOwnerState['gridOffset'][Breakpoint]
         } else {
           other[key] = val
         }

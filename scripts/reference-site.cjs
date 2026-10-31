@@ -49,7 +49,7 @@ const env = {
 if (flags.includes('--smoke')) env.TEST = 'TRUE'
 else delete env.TEST
 if (action === 'build') {
-  const compilerPackage = require.resolve('@typescript/native/package.json')
+  const compilerPackage = require.resolve('typescript/package.json')
   const compiler = path.resolve(
     path.dirname(compilerPackage),
     require(compilerPackage).bin.tsc

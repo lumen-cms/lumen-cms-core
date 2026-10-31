@@ -21,7 +21,7 @@ Work is on `feature/mui-v9`, based on `feature/mui-v5`. The migration checkpoint
 | GraphQL | 16.14.2 (17 intentionally excluded) |
 | Node | 24, pinned in `.nvmrc` |
 
-TypeScript 7 currently does not expose the compiler API used by ESLint and other tools. Following [Microsoft's side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-60), `@typescript/native` aliases TypeScript 7.0.2 and provides `tsc`, while `typescript` aliases `@typescript/typescript6` 6.0.2 for API consumers. `check-types`, `build`, and reference production builds run the TypeScript 7 gate. Jest and ts-jest are removed; strict checking remains enabled.
+TypeScript 7.0.2 is now the standard `typescript` dependency. The TypeScript 6 compatibility alias and unused `ts-node` dependency have been removed. Storyblok schema generation calls the official CLI directly; the travel dependency-boundary test uses Babel's TypeScript parser; the isolated search browser fixture uses esbuild. Next.js 16.4 uses the project-local compiler CLI, and Storybook keeps compiler-API doc generation disabled. `check-types`, `build`, and reference production builds retain the TypeScript 7 gate.
 
 ### Compatibility work implemented
 

@@ -1,3 +1,4 @@
+import type { PageComponent } from '../../../typings/generated/schema'
 import { getStoryblokRequest } from '../storyblokRequestContext'
 import { LmStoryblokService } from '../StoryblokService'
 import { localeStoriesHelper } from './localeStoriesHelper'
@@ -22,5 +23,5 @@ export const legacyAllStories = async (options: AppPageProps) => {
     params.version = 'draft'
   }
 
-  return LmStoryblokService.getAll('cdn/stories', params)
+  return LmStoryblokService.getAll<PageComponent>('cdn/stories', params)
 }

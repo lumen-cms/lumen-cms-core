@@ -5,11 +5,10 @@ import { usePageContext } from '../page/PageContext'
 import { AllCategoriesQuery } from '../../typings/generated/hasura-schema'
 
 const fetcher = async ([url, paramsStr, locale]: string[]) => {
-  const params: CategoryStateProp = JSON.parse(paramsStr)
+  const params = JSON.parse(paramsStr) as CategoryStateProp
   const searchVars = new URLSearchParams()
-  Object.keys(params).forEach((key) => {
-    // @ts-ignore
-    searchVars.append(key, params[key])
+  ;(Object.keys(params) as (keyof CategoryStateProp)[]).forEach((key) => {
+    searchVars.append(key, String(params[key]))
   })
   if (locale) {
     searchVars.append('locale', locale)
@@ -20,7 +19,7 @@ const fetcher = async ([url, paramsStr, locale]: string[]) => {
   if (!response.ok) {
     throw new Error(`Travel category request failed: ${response.status}`)
   }
-  return response.json()
+  return response.json() as Promise<AllCategoriesQuery>
 }
 
 export default function useTravelSearch(isDeactive?: boolean) {
@@ -28,7 +27,7 @@ export default function useTravelSearch(isDeactive?: boolean) {
   const { value } = usePageContext()
   const stringify = JSON.stringify(value)
 
-  const { data, error } = useSWR<AllCategoriesQuery>(
+  const { data, error } = useSWR<AllCategoriesQuery, unknown>(
     !isDeactive ? ['/api/categories', stringify, locale] : null,
     fetcher,
     {

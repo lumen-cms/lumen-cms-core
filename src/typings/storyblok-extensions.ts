@@ -2,7 +2,7 @@
 // CMS schema. Kept separate so official CLI regeneration cannot erase them.
 import type { CSSProperties } from 'react'
 
-declare module './generated/components-schema' {
+declare module './storyblok/types/82895/components' {
   interface GlobalStoryblok {
     uuid?: string
   }
@@ -33,6 +33,10 @@ declare module './generated/components-schema' {
   interface ImageStoryblok {
     fit_in_color?: string
   }
+  interface IframeAdvancedStoryblok {
+    name?: string
+    position?: CSSProperties['position']
+  }
   interface IframeStoryblok {
     name?: string
     position?: CSSProperties['position']
@@ -56,9 +60,7 @@ declare module './generated/components-schema' {
 // Omit<T, K> erases known properties when T has a string index signature.
 // Key remapping preserves them while removing open-ended fields.
 export type StoryblokFields<T> = {
-  [K in keyof T as string extends K
-    ? never
-    : number extends K
-    ? never
-    : K]: T[K]
+  [
+    K in keyof T as string extends K ? never : number extends K ? never : K
+  ]: T[K]
 }

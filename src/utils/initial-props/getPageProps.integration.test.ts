@@ -2,6 +2,24 @@ import { beforeEach, describe, expect, test } from 'vitest'
 import { CONFIG } from '../config'
 import getPageProps from './getPageProps'
 
+// These checks consume the enriched response, including fields supplied by SSR hooks.
+type EnrichedBlock = {
+  component?: string
+  body?: unknown[]
+  list_widget_data?: {
+    total?: unknown
+    cv?: unknown
+    perPage?: unknown
+    items?: unknown[]
+  }
+  category_box_data?: unknown[]
+  list_stories_data?: {
+    total?: unknown
+    perPage?: unknown
+    data?: { cv?: unknown; stories?: unknown[] }
+  }
+  form_data?: { title?: unknown; action?: unknown; fields?: unknown[] }
+}
 const initialConfig = { ...CONFIG }
 beforeEach(() => Object.assign(CONFIG, initialConfig))
 
@@ -30,11 +48,11 @@ describe('Get page props of a certain URL', () => {
       defaultOptions
     )
     expect(!!data.page).toBeTruthy()
-    const callback = (item: any) => {
+    const callback = (item: EnrichedBlock) => {
       expect(typeof item.list_widget_data?.total).toBe('number')
       expect(typeof item.list_widget_data?.cv).toBe('number')
       expect(typeof item.list_widget_data?.perPage).toBe('number')
-      expect(item.list_widget_data?.items?.length > 0).toBeTruthy()
+      expect(item.list_widget_data?.items?.length! > 0).toBeTruthy()
     }
     recursiveTestCallback(data.page?.body ?? [], 'list_widget', callback)
   })
@@ -44,11 +62,11 @@ describe('Get page props of a certain URL', () => {
       configureSpace('UPSKILL')
       const data = await getPageProps('search', defaultOptions)
       expect(!!data.page).toBeTruthy()
-      const callback = (item: any) => {
+      const callback = (item: EnrichedBlock) => {
         expect(typeof item.list_widget_data?.total).toBe('number')
         expect(typeof item.list_widget_data?.cv).toBe('number')
         expect(typeof item.list_widget_data?.perPage).toBe('number')
-        expect(item.list_widget_data?.items?.length > 0).toBeTruthy()
+        expect(item.list_widget_data?.items?.length! > 0).toBeTruthy()
       }
       recursiveTestCallback(data.page?.body ?? [], 'list_widget', callback)
     })
@@ -58,7 +76,7 @@ describe('Get page props of a certain URL', () => {
     configureSpace('UPSKILL')
     const data = await getPageProps('search', defaultOptions)
     expect(!!data.page).toBeTruthy()
-    const callback = (item: any) => {
+    const callback = (item: EnrichedBlock) => {
       expect(item.category_box_data?.length).toBeGreaterThan(0)
     }
     recursiveTestCallback(data.page?.right_body ?? [], 'category_box', callback)
@@ -86,12 +104,12 @@ describe('Get page props of a certain URL', () => {
       'demo-content/list-stories-demo',
       defaultOptions
     )
-    const callback = (item: any) => {
+    const callback = (item: EnrichedBlock) => {
       const storyData = item.list_stories_data
       expect(typeof storyData?.total).toBe('number')
       expect(typeof storyData?.perPage).toBe('number')
       expect(typeof storyData?.data?.cv).toBe('number')
-      expect(storyData?.data?.stories?.length > 0).toBeTruthy()
+      expect(storyData?.data?.stories?.length! > 0).toBeTruthy()
     }
     recursiveTestCallback(data.page?.body ?? [], 'list_stories', callback)
   })
@@ -119,7 +137,7 @@ describe('Get page props of a certain URL', () => {
   test('support category box data', async () => {
     configureSpace('UPSKILL')
     const data = await getPageProps('/search', defaultOptions)
-    const callback = (item: any) => {
+    const callback = (item: EnrichedBlock) => {
       expect(item.category_box_data?.length).toBeGreaterThan(0)
     }
     recursiveTestCallback(data.page?.right_body ?? [], 'category_box', callback)
@@ -127,13 +145,14 @@ describe('Get page props of a certain URL', () => {
 })
 
 function recursiveTestCallback(
-  elements: any[],
+  elements: unknown[],
   lookup: string,
-  callback: (item: any) => void
+  callback: (item: EnrichedBlock) => void
 ) {
   let found = false
-  const walkArray = (elements: any[]) => {
-    for (const item of elements) {
+  const walkArray = (elements: unknown[]) => {
+    for (const value of elements) {
+      const item = value as EnrichedBlock
       if (item.component === lookup) {
         callback(item)
         found = true
@@ -147,7 +166,7 @@ function recursiveTestCallback(
   expect(found).toBeTruthy()
 }
 
-function callbackFormTest(item: any) {
+function callbackFormTest(item: EnrichedBlock) {
   const currentFormToTest = item.form_data
   expect(!!currentFormToTest).toBeTruthy()
   // expect(typeof currentFormToTest?.formId).toBe('string')

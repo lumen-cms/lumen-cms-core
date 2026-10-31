@@ -127,7 +127,7 @@ function SquareImage({
           image={imageSource}
           size={squareSize}
           imageProps={{
-            onClick: onClick ? () => onClick() : undefined,
+            onClick,
             alt: content.alt || 'website image',
             style: {
               objectFit: 'cover',
@@ -162,7 +162,6 @@ function ProportionalImage({
     (proportionalHeight ||
       imageCalculateHeight(proportionalWidth, originalDimensions))
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
     <Box
       className={clsx(
         'lm-image',
@@ -195,8 +194,8 @@ function ProportionalImage({
           sizeIsHeight={!!content.height}
           imageProps={{
             loading,
-            priority,
-            onClick: onClick ? () => onClick() : undefined,
+            preload: priority,
+            onClick,
             alt: content.alt || 'website image',
             ...(isProportional
               ? proportionalHeightCalc

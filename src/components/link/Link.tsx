@@ -8,7 +8,7 @@ import clsx from 'clsx'
 
 export function LmLink({ content }: LmLinkProps): React.JSX.Element {
   const onClickFunc = getCmsClickProps(content.on_click_function)
-  const btnProps: any = {
+  const btnProps = {
     ...getLinkAttrs(content.link as LinkType, {
       openExternal: !!content.open_external
     }),

@@ -70,14 +70,15 @@ it('fetches every page, deduplicates concurrent calls, and isolates nested filte
   const service = new StoryblokServiceClass()
   const params = { per_page: 2, filter_query: { component: { in: 'page' } } }
   const [first, second] = await Promise.all([
-    service.getAll('cdn/stories', params),
+    service.getAll<{ preview_title: string }>('cdn/stories', params),
     service.getAll('cdn/stories', params)
   ])
   expect(first.map((i) => i.uuid)).toEqual(['item-1', 'item-2', 'item-3'])
   expect(second).toEqual(first)
   first[0].content.preview_title = 'Mutation must not leak'
   expect(
-    (await service.getAll('cdn/stories', params))[0].content.preview_title
+    (await service.getAll<{ preview_title: string }>('cdn/stories', params))[0]
+      .content.preview_title
   ).toBe('Item 1')
   expect(
     requests.filter((url) => url.pathname.endsWith('/stories'))
@@ -158,11 +159,14 @@ it('resolves overflow relations and links with the original language and release
     language: 'de',
     from_release: '123'
   })
-  expect(
-    result?.data.story?.content.body[1].container.content.body[1].container
-      .content.body[0].text
-  ).toBe('Nested content')
-  expect(result?.data.story?.content.body[0].link.story.uuid).toBe('target')
+  expect(result?.data.story?.content).toHaveProperty(
+    'body.1.container.content.body.1.container.content.body.0.text',
+    'Nested content'
+  )
+  expect(result?.data.story?.content).toHaveProperty(
+    'body.0.link.story.uuid',
+    'target'
+  )
   for (const request of requests) {
     expect(request.searchParams.get('token')).toBe('preview-test')
     expect(request.searchParams.get('language')).toBe('de')

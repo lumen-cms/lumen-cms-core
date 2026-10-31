@@ -1,19 +1,29 @@
+import type { CSSProperties } from 'react'
+import type { DividerProps } from '@mui/material/Divider'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { expect, it, vi } from 'vitest'
 import { LmDivider } from './Divider'
 import type { LmDividerProps } from './dividerTypes'
-const fixture = vi.hoisted(() => ({ props: {} as any }))
+const fixture = vi.hoisted(() => ({ props: {} as DividerProps }))
 vi.mock('@mui/material/Divider', () => ({
-  default: (props: any) => {
+  default: (props: DividerProps) => {
     fixture.props = props
     return <div>{props.children}</div>
   }
 }))
 vi.mock('../icon/LmIcon', () => ({
-  default: ({ iconName, style }: any) => <span style={style}>{iconName}</span>
+  default: ({
+    iconName,
+    style
+  }: {
+    iconName: string
+    style?: CSSProperties
+  }) => <span style={style}>{iconName}</span>
 }))
 vi.mock('../CoreComponents', () => ({
-  LmComponentRender: ({ content }: any) => <b>{content._uid}</b>
+  LmComponentRender: ({ content }: { content: { _uid: string } }) => (
+    <b>{content._uid}</b>
+  )
 }))
 it.each([false, true])(
   'preserves default horizontal/stack styles (stack: %s)',
@@ -76,14 +86,12 @@ it.each(['horizontal', 'vertical'] as const)(
 it('uses a custom color when no theme color is configured', () => {
   renderToStaticMarkup(
     <LmDivider
-      content={
-        {
-          _uid: 'd',
-          component: 'divider',
-          color: { rgba: 'red' }
-        } as LmDividerProps['content']
-      }
+      content={{
+        _uid: 'd',
+        component: 'divider',
+        color: { rgba: 'red' }
+      }}
     />
   )
-  expect(fixture.props.sx.color).toBe('red')
+  expect(fixture.props.sx).toMatchObject({ color: 'red' })
 })

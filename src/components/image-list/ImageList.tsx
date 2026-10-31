@@ -68,7 +68,7 @@ export default function LmImageList({
 
   const gutterSize = content.column_gap ? Number(content.column_gap) : 2
 
-  const onImageClick = (element: any) => {
+  const onImageClick = (element: { _uid: string; count?: number }) => {
     content.enable_lightbox && setLightbox(element._uid)
   }
 
@@ -109,7 +109,7 @@ export default function LmImageList({
                 rows={item.rows ? Number(item.rows) : 1}
                 key={item._uid}
                 {...btnProps}
-                onClick={(ev: any) =>
+                onClick={(ev: React.MouseEvent<HTMLElement>) =>
                   onImageClick({ _uid: item._uid, count: i, ...ev })
                 }
               >

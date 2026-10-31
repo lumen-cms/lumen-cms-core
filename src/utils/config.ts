@@ -1,3 +1,11 @@
+import type {
+  StoryblokRendererRegistry,
+  StoryblokComponentName
+} from '../typings/storyblok-registry'
+import type { ComponentType, ElementType, PropsWithChildren } from 'react'
+import type { GlobalStoryblok } from '../typings/generated/components-schema'
+import type { LinkProps } from '../components/link/linkTypes'
+
 type AppConfigProps = {
   publicToken: string
   previewToken: string
@@ -53,64 +61,35 @@ export const CONFIG: AppConfigProps = {
     process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_PUBLISHABLE_KEY || ''
 }
 
-type LmCoreComponentsProps = {
-  // page?: ReactElement<LmPageProps>
-  // accordion?: (props: LmAccordionProps) => ReactNode
-  // accordion_item?: (props: LmAccordionItemProps) => ReactNode
-  // table?: FunctionComponentFactory<LmTableProps>
-  // static_section?: ReactElement<LmStaticSectionProps>
-  // static_container?: ReactElement<LmStaticContainerProps>
-  // divider?: ReactElement<LmDividerProps>
-  // html?: ReactElement<LmHtmlProps>
-  // hubspot_meeting?: ReactElement<LmHubspotMeetingProps>
-  // hubspot_form?: ReactElement<LmHubspotFormProps>
-  // button_list?: ReactElement<LmButtonListProps>
-  // section?: ReactElement<LmSectionProps>
-  // headline?: ReactElement<LmHeadlineProps>
-  // paragraph?: ReactElement<LmParagraphProps>
-  // row?: ReactElement<LmGridRowProps>
-  // column?: ReactElement<LmGridColumnProps>
-  // image?: ReactElement<LmImageProps>
-  // image_list?: ReactElement<LmImageListProps>
-  // image_list_item?: ReactElement<LmImageListItemProps>
-  // button?: ReactElement<LmButtonProps>
-  // nav_list?: ReactElement<LmNavListProps>
-  // nav_item?: ReactElement<LmNavItemProps>
-  // nav_menu?: ReactElement<LmMenuProps>
-  // icon?: ReactElement<LmIconProps>
-  // iframe?: ReactElement<LmIframeProps>
-  // slider?: ReactElement<LmSliderProps>
-  // section_video_bg?: ReactElement<LmSectionVideoProps>
-  // card_list?: ReactElement<LmCardListProps>
-  // card_list_item?: ReactElement<CardListItemProps>
-  // section_parallax?: ReactElement<LmSectionParallaxProps>
-  // tabs?: ReactElement<LmTabsProps>
-  // list_widget?: ReactElement<LmListWidgetProps>
-  // flex_row?: ReactElement<LmFlexRowProps>
-  // iframe_advanced?: ReactElement<LmIframeAdvancedProps>
-  // category_box?: ReactElement<LmCategoryBoxProps>
-  // list_search_field?: ReactElement<LmListSearchFieldProps>
-  // link?: ReactElement<LmLinkProps>
-  // // eslint-disable-next-line
-  // list_search_autocomplete?: ReactElement<LmListSearchAutocompleteProps>
-  // rich_text_editor?: ReactElement<LmRichTextParagraphProps>
-  // timeline?: FunctionComponentElement<any>
-  // timeline_item?: ReactElement<LmTimelineItemProps>
-  // avatar?: ReactElement<LmAvatarProps>
-  // date_headline?: ReactElement<LmDateHeadlineProps>
-  // motion?: ReactElement<LmMotionProps>
-  // toolbar_logo?: ReactElement<LmToolbarLogoProps>
-  // toolbar_navi_button?: ReactElement<LmToggleDrawerButtonProps>
-  // player?: ReactElement<LmPlayerProps>
-  // toolbar_row_section?: ReactElement<LmToolbarSectionProps>
-  // toolbar_row?: ReactElement<LmToolbarRowProps>
-  // dialog?: ReactElement<LmDialogProps>
-  // lm_link_render?: ReactElement<LinkProps>
-  // lm_app_providers: ReactNode[]
-  // parallax_provider?: ReactElement<any>
-  [k: string]: any
+export type LmCoreComponentsProps = StoryblokRendererRegistry & {
+  lm_app_providers: ComponentType<
+    PropsWithChildren<{ settings: GlobalStoryblok }>
+  >[]
+  lm_link_render?: ElementType<LinkProps>
+  parallax_provider?: ComponentType<PropsWithChildren>
 }
 
 export const LmCoreComponents: LmCoreComponentsProps = {
   lm_app_providers: []
+}
+
+type RendererRegistration = {
+  [K in StoryblokComponentName]: [
+    name: K,
+    renderer: NonNullable<StoryblokRendererRegistry[K]>
+  ]
+}[StoryblokComponentName]
+
+/** A correlated tuple also rejects an un-narrowed union of component names. */
+export function registerStoryblokComponent(
+  ...[name, renderer]: RendererRegistration
+) {
+  Object.assign(LmCoreComponents, { [name]: renderer })
+}
+
+/** Checked alternative to Object.assign, which does not check target property types. */
+export function registerStoryblokComponents<
+  R extends StoryblokRendererRegistry
+>(renderers: R & Record<Exclude<keyof R, StoryblokComponentName>, never>) {
+  Object.assign(LmCoreComponents, renderers)
 }

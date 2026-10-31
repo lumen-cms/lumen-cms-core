@@ -6,5 +6,6 @@ export default function LmEcommerceCheckout({
 }: LmEcommerceCheckoutProps) {
   const trigger = content.trigger && content.trigger[0]
   const integration = content.integration && content.integration[0]
-  return <LmComponentRender content={integration} trigger={trigger} />
+  // Preserve the existing required-integration assumption; no fallback is introduced.
+  return <LmComponentRender content={integration!} trigger={trigger!} />
 }

@@ -28,13 +28,13 @@ const isSupported = () =>
 function createVoiceStore() {
   let snapshot = serverSnapshot
   return {
-    subscribe(notify: () => void) {
+    subscribe(this: void, notify: () => void) {
       if (!isSupported()) return () => {}
       const synthesis = window.speechSynthesis
       synthesis.addEventListener('voiceschanged', notify)
       return () => synthesis.removeEventListener('voiceschanged', notify)
     },
-    getSnapshot() {
+    getSnapshot(this: void) {
       if (!isSupported()) return serverSnapshot
       const voices = window.speechSynthesis.getVoices()
       // Browsers can return a fresh array each time; snapshots must be stable.

@@ -1,3 +1,7 @@
+import type {
+  PageStoryblok,
+  SectionStoryblok
+} from '../../typings/generated/components-schema'
 import { LmCoreComponents } from '../../utils/config'
 import RightDrawer from './RightDrawer'
 import { MainContent } from './MainContent'
@@ -6,17 +10,23 @@ import { usePage } from '../provider/SettingsPageProvider'
 import EmptyContent from './EmptyContent'
 import { LmComponentRender } from '../CoreComponents'
 
+function sectionForContent(
+  page: PageStoryblok | NonNullable<SectionStoryblok['body']>[number]
+): SectionStoryblok {
+  return {
+    component: 'section',
+    _uid: page._uid,
+    body: page.component === 'page' ? [] : [page]
+  }
+}
+
 export function LmPage({ content }: LmPageProps): React.JSX.Element {
   const page = usePage()
   const currentContent = page || content
   const body = currentContent?.body || []
   const rightBody = currentContent?.right_body || []
   if (page.component !== 'page') {
-    return (
-      <LmComponentRender
-        content={{ component: 'section', _uid: page._uid, body: [page] }}
-      />
-    )
+    return <LmComponentRender content={sectionForContent(page)} />
   }
   if (!body.length) {
     return <EmptyContent />
@@ -27,9 +37,7 @@ export function LmPage({ content }: LmPageProps): React.JSX.Element {
     body.some((i) => i.component === 'section_parallax')
   ) {
     return (
-      // eslint-disable-next-line
       // @ts-ignore
-      // eslint-disable-next-line react/jsx-pascal-case
       <LmCoreComponents.parallax_provider>
         {rightBody.length > 0 && <RightDrawer rightBody={rightBody} />}
         <MainContent body={body} />
@@ -37,9 +45,7 @@ export function LmPage({ content }: LmPageProps): React.JSX.Element {
     )
   }
   return (
-    // eslint-disable-next-line
     // @ts-ignore
-    // eslint-disable-next-line react/jsx-pascal-case
     <>
       {rightBody.length > 0 && <RightDrawer rightBody={rightBody} />}
       <MainContent body={body} />

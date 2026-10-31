@@ -2,7 +2,11 @@ import { createRequire } from 'node:module'
 import { expect, it, vi } from 'vitest'
 
 const require = createRequire(import.meta.url)
-const localeRedirects = require('../../config/localeRedirect.js')
+const localeRedirects = require('../../config/localeRedirect.js') as (
+  locales: string[]
+) => Promise<
+  { source: string; destination: string; locale: false; permanent: true }[]
+>
 
 it.each([401, 500])(
   'rejects HTTP %s before reading the error body',

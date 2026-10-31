@@ -1,11 +1,11 @@
-import ChevronDown from 'mdi-material-ui/ChevronDown'
+import { ChevronDown } from 'mdi-material-ui'
 import useDeviceDimensions from '../../utils/hooks/useDeviceDimensions'
 import LmIcon from '../icon/LmIcon'
 import { LmNavListProps } from './navListTypes'
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 import { LmComponentRender } from '../CoreComponents'
 import { LmFlexRow } from '../flex-row/FlexRow'
-import { HeadlineStoryblok } from '../../typings/generated/components-schema'
+
 import clsx from 'clsx'
 
 function HeadlineHeader({ content }: LmNavListProps) {
@@ -13,16 +13,14 @@ function HeadlineHeader({ content }: LmNavListProps) {
   const headlineStyle = headline_styles?.[0]
   return (
     <LmComponentRender
-      content={
-        {
-          _uid: headlineStyle?._uid || content._uid,
-          component: 'headline',
-          text: headlineStyle?.text || header,
-          tag: headlineStyle?.tag || 'h5',
-          typography: headlineStyle?.typography || 'headline5',
-          ...headlineStyle
-        } as HeadlineStoryblok
-      }
+      content={{
+        _uid: headlineStyle?._uid || content._uid,
+        component: 'headline',
+        text: headlineStyle?.text || header,
+        tag: headlineStyle?.tag || 'h5',
+        typography: headlineStyle?.typography || 'headline5',
+        ...headlineStyle
+      }}
     >
       {header}
     </LmComponentRender>
@@ -40,7 +38,7 @@ function ChildrenRender({ content }: LmNavListProps) {
       content={{
         _uid: content._uid,
         component: 'flex_row',
-        gap: isColumn ? 0.5 : 1,
+        gap: isColumn ? '0.5' : '1',
         column: isColumn,
         justify: isCentered ? 'center' : undefined,
         align_content: isCentered ? 'center' : undefined

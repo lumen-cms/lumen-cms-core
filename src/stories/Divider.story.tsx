@@ -4,14 +4,9 @@ import StorybookPresetsContainer from '../storybook/components/StorybookPresetsC
 import { findFirstPreset, findPresets } from '../storybook/findStorybookPresets'
 import { LmDividerProps } from '../components/divider/dividerTypes'
 import { LmDivider } from '../components/divider/Divider'
-import {
-  HeadlineStoryblok,
-  ImageStoryblok
-} from '../typings/generated/components-schema'
 
 const COMPONENT_NAME = 'divider'
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Divider',
   component: LmDivider,
@@ -47,8 +42,8 @@ export const Examples = () => (
       <LmDivider
         content={{
           ...presetContent,
-          size: 24,
-          width: 70
+          size: '24',
+          width: '70'
         }}
       />
     </div>
@@ -56,19 +51,9 @@ export const Examples = () => (
       <LmDivider
         content={{
           ...presetContent,
-          size: 24,
-          width: 70,
-          thickness: 5
-        }}
-      />
-    </div>
-    <div>
-      <LmDivider
-        content={{
-          ...presetContent,
-          icon: { name: 'chevron_down' },
-          size: 24,
-          width: 70
+          size: '24',
+          width: '70',
+          thickness: '5'
         }}
       />
     </div>
@@ -77,9 +62,8 @@ export const Examples = () => (
         content={{
           ...presetContent,
           icon: { name: 'chevron_down' },
-          size: 24,
-          width: 70,
-          thickness: 5
+          size: '24',
+          width: '70'
         }}
       />
     </div>
@@ -88,7 +72,18 @@ export const Examples = () => (
         content={{
           ...presetContent,
           icon: { name: 'chevron_down' },
-          size: 30
+          size: '24',
+          width: '70',
+          thickness: '5'
+        }}
+      />
+    </div>
+    <div>
+      <LmDivider
+        content={{
+          ...presetContent,
+          icon: { name: 'chevron_down' },
+          size: '30'
         }}
       />
     </div>
@@ -103,8 +98,8 @@ export const Examples = () => (
           color: {
             rgba: 'rgba(121,121,121,1)'
           },
-          size: 40,
-          width: 15
+          size: '40',
+          width: '15'
         }}
       />
     </div>
@@ -118,8 +113,8 @@ export const Examples = () => (
           color: {
             rgba: 'rgba(121,121,121,1)'
           },
-          size: 50,
-          width: 30
+          size: '50',
+          width: '30'
         }}
       />
     </div>
@@ -133,8 +128,8 @@ export const Examples = () => (
           color: {
             rgba: 'rgba(22,22,1212,1)'
           },
-          size: 60,
-          width: 30
+          size: '60',
+          width: '30'
         }}
       />
     </div>
@@ -148,8 +143,8 @@ export const Examples = () => (
           color: {
             rgba: 'rgba(22,333,1212,1)'
           },
-          size: 79,
-          width: 30
+          size: '79',
+          width: '30'
         }}
       />
     </div>
@@ -163,9 +158,9 @@ export const Examples = () => (
           color: {
             rgba: 'rgba(22,333,1212,1)'
           },
-          size: 79,
-          width: 30,
-          thickness: 8
+          size: '79',
+          width: '30',
+          thickness: '8'
         }}
       />
     </div>
@@ -187,7 +182,7 @@ ExampleWithText.args = {
       _uid: '123123',
       component: 'headline',
       text: 'Hello'
-    } as HeadlineStoryblok
+    }
   ]
 }
 
@@ -200,7 +195,7 @@ ExampleWithImage.args = {
       component: 'image',
       source:
         'https://cdnjs.cloudflare.com/ajax/libs/simple-icons/3.0.1/airbnb.svg'
-    } as ImageStoryblok
+    }
   ]
 }
 

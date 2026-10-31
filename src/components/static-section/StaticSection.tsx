@@ -5,11 +5,11 @@ import clsx from 'clsx'
 export function LmStaticSection({
   content
 }: LmStaticSectionProps): React.JSX.Element | null {
-  if (!content.container) {
+  if (!content.container || typeof content.container === 'string') {
     return null
   }
   // is related resolve_relations: 'static_section.container'
-  const body: any[] = content.container.content?.body ?? []
+  const body = content.container.content?.body ?? []
   return (
     <div className={clsx(content.class_names?.values)}>
       {body.map((blok) => (

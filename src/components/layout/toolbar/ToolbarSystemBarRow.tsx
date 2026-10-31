@@ -52,10 +52,7 @@ export default function ToolbarSystemBarRow({
           // height: `${content.height || 40}px`
         }}
       >
-        <Container
-          className="h-100"
-          maxWidth={toolbarWidth as ContainerProps['maxWidth']}
-        >
+        <Container className="h-100" maxWidth={toolbarWidth}>
           <Grid
             container
             className="h-100"

@@ -19,8 +19,8 @@ export function markdownDom(html: string) {
           node.parent?.type === 'root'
             ? 'root'
             : node.parent && 'name' in node.parent
-            ? node.parent.name
-            : ''
+              ? node.parent.name
+              : ''
         )
       ) {
         $(node).remove()

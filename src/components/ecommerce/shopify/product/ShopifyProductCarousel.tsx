@@ -57,7 +57,7 @@ export function ShopifyProductCarousel({ item }: ShopifyProductItemProps) {
             }}
           >
             <Image
-              src={currentItem.node.image?.transformedSrc}
+              src={(currentItem.node.image?.transformedSrc)!}
               alt={currentItem.node.title}
               fill
               sizes={imageSizes}

@@ -1,35 +1,29 @@
 import DialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
-import Close from 'mdi-material-ui/Close'
+import { Close } from 'mdi-material-ui'
 import { LmComponentRender } from '../CoreComponents'
 import DialogContent from '@mui/material/DialogContent'
 import Dialog from '@mui/material/Dialog'
 import React from 'react'
-import Slide from '@mui/material/Slide'
+import Slide, { type SlideProps } from '@mui/material/Slide'
 import { LmDialogAsyncProps } from './dialogTypes'
 
-const TransitionSlideUp = React.forwardRef(function TransitionSlideUp(
-  props,
-  ref
-) {
-  return (
-    // @ts-ignore
-    <Slide direction="up" ref={ref} {...props} />
-  )
-})
+const TransitionSlideUp = React.forwardRef<unknown, SlideProps>(
+  function TransitionSlideUp(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />
+  }
+)
 
 export default function LmDialog({
   dialogProps,
   content,
   setOpen
 }: LmDialogAsyncProps) {
-  if (content.slide_up) {
-    // eslint-disable-next-line
-    // @ts-ignore
-    dialogProps.TransitionComponent = TransitionSlideUp
-  }
+  const resolvedDialogProps = content.slide_up
+    ? { ...dialogProps, TransitionComponent: TransitionSlideUp }
+    : dialogProps
   return (
-    <Dialog {...dialogProps}>
+    <Dialog {...resolvedDialogProps}>
       <DialogTitle
         sx={{
           display:

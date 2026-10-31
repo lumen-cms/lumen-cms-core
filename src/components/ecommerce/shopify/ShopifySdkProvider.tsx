@@ -1,7 +1,6 @@
 import {
   FC,
   PropsWithChildren,
-  useEffect,
   useRef,
   useState,
   useCallback,
@@ -26,9 +25,7 @@ export const LmShopifySdkProvider: FC<PropsWithChildren<unknown>> = ({
   const settings = useSettings()
   const shopifyConfig: EcommerceShopifyConfigStoryblok | undefined = (
     settings.ecommerce || []
-  ).find(
-    (i) => i.component === 'ecommerce_shopify_config'
-  ) as EcommerceShopifyConfigStoryblok
+  ).find((i) => i.component === 'ecommerce_shopify_config')
   const checkoutLinkRef = useRef<HTMLAnchorElement | null>(null)
   const [selectedVariant, setSelectedVariant] =
     useState<ShopifyProductFragment>()
@@ -39,12 +36,14 @@ export const LmShopifySdkProvider: FC<PropsWithChildren<unknown>> = ({
     }[]
   >([])
   const [cartOpen, setCartOpen] = useState<boolean>(false)
+  const [previousCartOpen, setPreviousCartOpen] = useState(false)
 
-  useEffect(() => {
+  if (previousCartOpen !== cartOpen) {
+    setPreviousCartOpen(cartOpen)
     if (!cartOpen) {
       setCartVariants((items) => items.filter((i) => i.quantity > 0))
     }
-  }, [cartOpen, setCartVariants])
+  }
 
   const initCheckout = useCallback(
     async (input: CheckoutCreateInput) => {
@@ -67,7 +66,7 @@ export const LmShopifySdkProvider: FC<PropsWithChildren<unknown>> = ({
 
       window.fbq &&
         fbq('track', 'CustomizeProduct', {
-          content_ids: [variant.id as string],
+          content_ids: [variant.id],
           content_type: 'product'
         })
 
@@ -161,7 +160,8 @@ export const LmShopifySdkProvider: FC<PropsWithChildren<unknown>> = ({
     const webUrl = c?.webUrl
     const anchor = checkoutLinkRef.current
     if (anchor !== null) {
-      anchor.href = webUrl
+      // Keep the existing DOM assignment even when checkout has no URL.
+      anchor.href = webUrl!
       anchor.click()
     }
     return webUrl

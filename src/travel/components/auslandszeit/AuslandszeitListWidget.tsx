@@ -39,11 +39,11 @@ export default function AuslandszeitListWidget({
     'address_string',
     'country_string',
     'description'
-  ]
+  ] as const
 
   const filteredJobs = search
     ? content.auslandszeit_list_widget_data.jobs.filter((job) =>
-        fields.some((field) => (job as any)[field]?.toLowerCase().includes(q))
+        fields.some((field) => job[field]?.toLowerCase().includes(q))
       )
     : content.auslandszeit_list_widget_data.jobs
 

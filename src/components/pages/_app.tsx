@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { AppProps } from 'next/app'
-import NProgress from 'nprogress'
+import { RouteProgress } from '../../utils/routeProgress'
 import { CONFIG } from '../../utils/config'
 import Head from 'next/head'
 import { AppPageProps } from '../../typings/app'
@@ -21,21 +21,21 @@ const clientEmotionCache = createCache({ key: 'css' })
 
 export function MyApp(appProps: LmAppProps) {
   const { Component, pageProps, router } = appProps
-  const { settings } = pageProps as AppPageProps
+  const { settings } = pageProps
 
   const googleAnaliyticsId = CONFIG.GA || settings?.setup_google_analytics
   const facebookPixelId = settings?.setup_facebook_pixel
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
-      NProgress.done()
+      RouteProgress.done()
       analyticsOnPageChange({ googleAnaliyticsId, url, facebookPixelId })
     }
     const handleRouteStart = () => {
-      NProgress.start()
+      RouteProgress.start()
     }
     const handleRouteError = () => {
-      NProgress.done()
+      RouteProgress.done()
     }
     router.events.on('routeChangeComplete', handleRouteChange)
     router.events.on('routeChangeStart', handleRouteStart)

@@ -3,30 +3,32 @@ import { expect, it, vi } from 'vitest'
 import GoogleFormElement from './GoogleFormElement'
 import type { FieldWithDate } from '../../utils/initial-props/component-data/googleFormsToJsonTypes'
 
+type FieldCapture = Record<string, unknown> & { parseError?: () => string }
+
 const fields = vi.hoisted(() => ({
   options: undefined as unknown,
-  props: {} as Record<string, any>
+  props: {} as FieldCapture
 }))
 vi.mock('react-hook-form-mui', () => ({
-  SelectElement: (props: Record<string, any>) => {
+  SelectElement: (props: FieldCapture) => {
     const { options } = props
     fields.props = props
     fields.options = options
     return <select />
   },
-  MultiSelectElement: (props: Record<string, any>) => {
+  MultiSelectElement: (props: FieldCapture) => {
     const { options } = props
     fields.props = props
     fields.options = options
     return <select multiple />
   },
-  TextFieldElement: (props: Record<string, any>) => {
+  TextFieldElement: (props: FieldCapture) => {
     fields.props = props
     return <input />
   }
 }))
 vi.mock('next/dynamic', () => ({
-  default: () => (props: Record<string, any>) => {
+  default: () => (props: FieldCapture) => {
     fields.props = props
     return <input type="date" />
   }
@@ -117,7 +119,7 @@ it.each([
     expect(fields.props.required).toBe(true)
     expect(fields.props.style).toBe(baseStyle)
     expect(fields.props.fullWidth).toBe(true)
-    expect(fields.props.parseError()).toBe('Required please')
+    expect(fields.props.parseError!()).toBe('Required please')
     expect(fields.props[placeholder ? 'placeholder' : 'label']).toBe('Question')
     expect(fields.props[placeholder ? 'label' : 'placeholder']).toBeUndefined()
     expect(fields.props.variant).toBe(type === 'DATE' ? undefined : 'outlined')

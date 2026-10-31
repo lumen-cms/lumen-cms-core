@@ -36,7 +36,9 @@ export default function LmNews({ content }: LmNewsProps) {
             locale,
             options: content.date_format?.[0]
           }),
-          content.category?.content?.name
+          typeof content.category === 'object'
+            ? content.category?.content?.name
+            : undefined
         ]
           .filter((i) => i)
           .join(' - ')

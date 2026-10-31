@@ -1,7 +1,9 @@
 import IconButton from '@mui/material/IconButton'
-import MenuUi from 'mdi-material-ui/Menu'
-import AppsIcon from 'mdi-material-ui/Apps'
-import CloseIcon from 'mdi-material-ui/Close'
+import {
+  Menu as MenuUi,
+  Apps as AppsIcon,
+  Close as CloseIcon
+} from 'mdi-material-ui'
 import { useShallow } from 'zustand/react/shallow'
 import LmIcon from '../../icon/LmIcon'
 import { LmToggleDrawerButtonProps } from './toolbarTypes'

@@ -1,5 +1,8 @@
 import { LmComponentRender as LmParagraph } from '../components/CoreComponents'
-import { ParagraphStoryblok } from '../typings/generated/components-schema'
+import {
+  ParagraphStoryblok,
+  RichTextEditorStoryblok
+} from '../typings/generated/components-schema'
 import { storyParagraph } from '../storybook/core/various'
 import StorybookPresetsContainer from '../storybook/components/StorybookPresetsContainer'
 
@@ -8,12 +11,12 @@ const props: ParagraphStoryblok = {
   component: 'paragraph',
   text: 'Hello World'
 }
-const rte = {
+const rte: NonNullable<RichTextEditorStoryblok['body']> = {
   type: 'doc',
   content: [
     {
       type: 'heading',
-      attrs: { level: 4 },
+      attrs: { level: 4, textAlign: null },
       content: [{ text: 'hallo', type: 'text' }]
     },
     {
@@ -53,6 +56,7 @@ const rte = {
             {
               type: 'link',
               attrs: {
+                anchor: null,
                 href: '/interning-to-bali-have-you-got-these-documents-prepared',
                 uuid: '2b53d62f-7420-4eb6-aff1-1a79b01fd6f3',
                 target: null,
@@ -68,6 +72,7 @@ const rte = {
             {
               type: 'link',
               attrs: {
+                anchor: null,
                 href: '/interning-to-bali-have-you-got-these-documents-prepared',
                 uuid: '2b53d62f-7420-4eb6-aff1-1a79b01fd6f3',
                 target: null,
@@ -129,6 +134,7 @@ const rte = {
                     {
                       type: 'link',
                       attrs: {
+                        anchor: null,
                         href: '/internship-at-the-childrens-home-in-jimbaran',
                         uuid: '8c9ffed9-f69b-46e6-a2ce-a2ce7aeaac24',
                         target: '_blank',
@@ -171,17 +177,17 @@ const rte = {
     },
     {
       type: 'heading',
-      attrs: { level: 1 },
+      attrs: { level: 1, textAlign: null },
       content: [{ text: 'Headings:', type: 'text' }]
     },
     {
       type: 'heading',
-      attrs: { level: 2 },
+      attrs: { level: 2, textAlign: null },
       content: [{ text: 'hallo', type: 'text' }]
     },
     {
       type: 'heading',
-      attrs: { level: 3 },
+      attrs: { level: 3, textAlign: null },
       content: [{ text: 'hallo', type: 'text' }]
     },
     { type: 'paragraph' },

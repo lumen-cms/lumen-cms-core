@@ -10,6 +10,6 @@ export type LmNavListProps = {
 
 export type LmNavItemProps = {
   content: NavItemStoryblok
-  options: HeadlineStoryblok
+  options?: HeadlineStoryblok
 }
 export type LmNavListItemProps = NavItemStoryblok

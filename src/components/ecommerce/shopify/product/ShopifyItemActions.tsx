@@ -1,7 +1,7 @@
 import Alert from '@mui/material/Alert'
 import { useState } from 'react'
 import { LmComponentRender } from '../../../CoreComponents'
-import { ButtonStoryblok } from '../../../../typings/generated/components-schema'
+
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { ShopifyProductDescription } from './ShopifyProductDescription'
@@ -13,19 +13,17 @@ function AddToCartButton() {
   return (
     <Box sx={{ marginTop: 3 }}>
       <LmComponentRender
-        content={
-          {
-            component: 'button',
-            label: 'Add to cart',
-            _uid: '1321',
-            variant: 'outlined',
-            color: 'secondary',
-            class_names: { values: ['w-100'] },
-            ...(config?.product_add_to_cart?.[0] || {})
-          } as ButtonStoryblok
-        }
+        content={{
+          component: 'button',
+          label: 'Add to cart',
+          _uid: '1321',
+          variant: 'outlined',
+          color: 'secondary',
+          class_names: { values: ['w-100'] },
+          ...(config?.product_add_to_cart?.[0] || {})
+        }}
         onClick={() => {
-          addToCart()
+          void addToCart()
         }}
       />
     </Box>
@@ -37,31 +35,32 @@ function CheckoutButton() {
   const [loading, setLoading] = useState<boolean>(false)
   const [failed, setFailed] = useState(false)
 
+  const handleCheckout = async () => {
+    setLoading(true)
+    setFailed(false)
+    try {
+      await onCheckout()
+    } catch {
+      setFailed(true)
+    } finally {
+      setLoading(false)
+    }
+  }
   return (
     <Box sx={{ marginTop: 3 }}>
       <LmComponentRender
-        content={
-          {
-            component: 'button',
-            label: 'Checkout',
-            _uid: '1321',
-            variant: 'raised',
-            color: 'primary',
-            class_names: { values: ['w-100'] },
-            ...((config?.product_checkout && config.product_checkout[0]) || {})
-          } as ButtonStoryblok
-        }
+        content={{
+          component: 'button',
+          label: 'Checkout',
+          _uid: '1321',
+          variant: 'raised',
+          color: 'primary',
+          class_names: { values: ['w-100'] },
+          ...((config?.product_checkout && config.product_checkout[0]) || {})
+        }}
         disabled={loading}
-        onClick={async () => {
-          setLoading(true)
-          setFailed(false)
-          try {
-            await onCheckout()
-          } catch {
-            setFailed(true)
-          } finally {
-            setLoading(false)
-          }
+        onClick={() => {
+          void handleCheckout()
         }}
       />
       {failed && (

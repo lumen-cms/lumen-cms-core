@@ -11,7 +11,6 @@ import { LmFlexRowProps } from '../components/flex-row/flexRowTypes'
 import { getComponentArgTypes } from '../storybook/configControls'
 
 const COMPONENT_NAME = 'flex_row'
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Layout/Flex Row',
   component: LmFlexRow,
@@ -71,7 +70,7 @@ const props3: FlexRowStoryblok = {
 const flexRowProps = {
   _uid: '2we',
   component: 'flex_row',
-  gap: 2,
+  gap: '2',
   align_items: 'center',
   body: [{ ...icon, size: 'small' }, headline]
 } as FlexRowStoryblok
@@ -83,7 +82,7 @@ export const FlexGap = () => {
         <LmFlexRow
           content={{
             ...flexRowProps,
-            gap: 1
+            gap: '1'
           }}
         />
       </div>
@@ -96,7 +95,7 @@ export const FlexGap = () => {
         <LmFlexRow
           content={{
             ...flexRowProps,
-            gap: 3
+            gap: '3'
           }}
         />
       </div>

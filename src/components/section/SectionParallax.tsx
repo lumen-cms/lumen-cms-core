@@ -1,4 +1,6 @@
-import { ParallaxBanner, ParallaxBannerLayer } from 'react-scroll-parallax'
+import { useRef } from 'react'
+import { DeferredParallaxLayer } from './DeferredParallaxLayer'
+import { useNearViewport } from '../../utils/hooks/useNearViewport'
 import Image from 'next/image'
 import { LmComponentRender } from '../CoreComponents'
 import { LmSectionParallaxProps } from './sectionTypes'
@@ -15,7 +17,9 @@ export default function LmSectionParallax({
   sectionPosition
 }: LmSectionParallaxProps) {
   const contentHeight = content.height
-  const isPriority = sectionPosition === 0 || !!content.disable_lazy_load
+  const isPriority = sectionPosition === 0
+  const { ref, isNear } = useNearViewport<HTMLDivElement>()
+  const bannerRef = useRef<HTMLDivElement>(null)
 
   const Children =
     content.elements?.map(
@@ -43,7 +47,9 @@ export default function LmSectionParallax({
           Object.assign(layerProps, { [key]: lProp })
         })
         return (
-          <ParallaxBannerLayer
+          <DeferredParallaxLayer
+            active={isNear}
+            bannerRef={bannerRef}
             shouldAlwaysCompleteAnimation={always_complete_animation || false}
             speed={amount ? Number(amount) * 10 : speed ? Number(speed) : -20}
             expanded={expanded}
@@ -56,6 +62,8 @@ export default function LmSectionParallax({
                 <Image
                   {...getOriginalImageDimensions(image)}
                   priority={isPriority}
+                  loading={content.disable_lazy_load ? 'eager' : undefined}
+                  fetchPriority={isPriority ? 'high' : 'low'}
                   style={{
                     width: '100%',
                     height: 'auto'
@@ -78,7 +86,7 @@ export default function LmSectionParallax({
                 <LmComponentRender content={child} key={child._uid} />
               ))}
             </>
-          </ParallaxBannerLayer>
+          </DeferredParallaxLayer>
         )
       }
     ) ?? []
@@ -111,6 +119,8 @@ export default function LmSectionParallax({
   }
   return Children.length ? (
     <Box
+      ref={ref}
+      data-lm-parallax={isNear ? 'active' : 'pending'}
       sx={{
         position: 'relative',
         width: '100%',
@@ -131,14 +141,17 @@ export default function LmSectionParallax({
         overflow: content.allow_overflow ? 'visible' : undefined
       }}
     >
-      <ParallaxBanner
+      <div
+        ref={bannerRef}
         style={{
+          position: 'relative',
+          width: '100%',
           height: '100%',
           overflow: content.allow_overflow ? 'visible' : 'hidden'
         }}
       >
         {Children}
-      </ParallaxBanner>
+      </div>
     </Box>
   ) : null
 }

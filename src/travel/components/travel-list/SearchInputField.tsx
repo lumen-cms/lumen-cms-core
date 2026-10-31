@@ -22,9 +22,7 @@ export function SearchInputField(): React.JSX.Element {
       variant="outlined"
       margin="normal"
       slotProps={{ htmlInput: { autoComplete: 'new-password' } }}
-      label={
-        translations[locale?.toUpperCase() as 'EN' | 'DE'].search as string
-      }
+      label={translations[locale?.toUpperCase() as 'EN' | 'DE'].search}
       onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
         debounced(event.currentTarget.value)
       }

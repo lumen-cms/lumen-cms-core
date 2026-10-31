@@ -31,7 +31,12 @@ vi.mock('./ListStoriesPagination', () => ({
   }: {
     page: number
     onChange: (page: number) => void
-  }) => <button onClick={() => onChange(page + 1)}>Page {page}</button>
+  }) => (
+    <>
+      <button onClick={() => onChange(page + 1)}>Page {page}</button>
+      <button onClick={() => onChange(page)}>Current page</button>
+    </>
+  )
 }))
 
 it('scrolls only for the latest page and cancels pending scrolling and route listeners on unmount', async () => {
@@ -59,6 +64,9 @@ it('scrolls only for the latest page and cancels pending scrolling and route lis
       )
     )
     expect(route.listeners.size).toBe(1)
+    await act(async () => host.querySelectorAll('button')[1].click())
+    await act(async () => vi.advanceTimersByTime(1000))
+    expect(scroll).not.toHaveBeenCalled()
     await act(async () => host.querySelector('button')!.click())
     await act(async () => vi.advanceTimersByTime(500))
     expect(scroll).not.toHaveBeenCalled()

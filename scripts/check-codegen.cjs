@@ -70,7 +70,7 @@ async function main() {
     execFileSync(
       process.execPath,
       [
-        path.join(root, 'node_modules/@typescript/native/bin/tsc'),
+        path.join(root, 'node_modules/typescript/bin/tsc'),
         '--project',
         output('tsconfig.json')
       ],

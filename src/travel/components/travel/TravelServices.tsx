@@ -1,7 +1,4 @@
-import type {
-  DividerStoryblok,
-  HtmlStoryblok
-} from '../../../typings/generated/components-schema'
+import type { HtmlStoryblok } from '../../../typings/generated/components-schema'
 import { LmComponentRender } from '../../../components/CoreComponents'
 import translations from '../../utils/translations'
 import { mainFlexRowHeadline } from './travelSectionContent'
@@ -27,7 +24,7 @@ export function TravelServices({ content, langKey }: TravelSectionProps) {
           {
             component: 'divider',
             _uid: '123322asdsa'
-          } as DividerStoryblok,
+          },
           mainFlexRowHeadline({
             icon: 'beaker-check-outline',
             text: translations[langKey].travelDetail.service

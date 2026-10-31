@@ -1,12 +1,15 @@
+import type { ComponentProps } from 'react'
+import type Carousel from '../../../slider/LmNukaCarousel'
+import type { EcommerceShopifyConfigStoryblok } from '../../../../typings/generated/components-schema'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { expect, it, vi } from 'vitest'
 import { ShopifyProductCarousel } from './ShopifyProductCarousel'
 import type { ShopifyProductItemProps } from '../shopifyTypes'
 const fixture = vi.hoisted(() => ({
-  config: {} as any,
+  config: {} as Partial<EcommerceShopifyConfigStoryblok>,
   select: vi.fn(),
-  carousel: {} as any
+  carousel: {} as ComponentProps<typeof Carousel>
 }))
 vi.mock('../context/ShopifySdkContext', () => ({
   useShopifySdkContext: () => ({
@@ -15,7 +18,7 @@ vi.mock('../context/ShopifySdkContext', () => ({
   })
 }))
 vi.mock('../../../slider/LmNukaCarousel', () => ({
-  default: ({ children, ...props }: any) => {
+  default: ({ children, ...props }: ComponentProps<typeof Carousel>) => {
     fixture.carousel = props
     return <div>{children}</div>
   }
@@ -48,20 +51,26 @@ it.each([
   ['12', 100],
   ['auto', 100],
   ['true', 100]
-])('uses layout-aware sizing for first-column width %s', (width, percent) => {
-  fixture.config = { columns_first_width: width, image_container_height: '420' }
-  const html = renderToStaticMarkup(<ShopifyProductCarousel item={item} />)
-  expect(html).toContain(`sizes="(min-width:600px) ${percent}vw, 100vw"`)
-  expect(html).toContain('object-fit:contain')
-  expect(html).toContain('alt="First"')
-  expect(html).toContain('srcSet=')
-  expect(fixture.carousel.slideIndex).toBe(0)
-  fixture.carousel.afterSlide(1)
-  expect(fixture.select).toHaveBeenLastCalledWith({
-    ...item.variants.edges[1].node,
-    productTitle: 'Product'
-  })
-})
+] as const)(
+  'uses layout-aware sizing for first-column width %s',
+  (width, percent) => {
+    fixture.config = {
+      columns_first_width: width,
+      image_container_height: '420'
+    }
+    const html = renderToStaticMarkup(<ShopifyProductCarousel item={item} />)
+    expect(html).toContain(`sizes="(min-width:600px) ${percent}vw, 100vw"`)
+    expect(html).toContain('object-fit:contain')
+    expect(html).toContain('alt="First"')
+    expect(html).toContain('srcSet=')
+    expect(fixture.carousel.slideIndex).toBe(0)
+    fixture.carousel.afterSlide!(1)
+    expect(fixture.select).toHaveBeenLastCalledWith({
+      ...item.variants.edges[1].node,
+      productTitle: 'Product'
+    })
+  }
+)
 it('uses the actual theme breakpoint instead of assuming the default', () => {
   fixture.config = {}
   const theme = createTheme({

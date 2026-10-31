@@ -27,26 +27,19 @@ export default function LmFastSpringCheckout({
     return null
   }
 
-  const findStringAndReplace = (key: string) => {
-    const value = trigger[key]
-    if (typeof value !== 'string') return
-    trigger[key] = value
-      .replace('{price}', currentItem.price || '')
-      .replace('{total}', currentItem.total || '')
-      .replace('{discount}', currentItem.unitDiscount || '')
-  }
-  if (trigger.label) {
-    findStringAndReplace('label')
-  }
-  if (trigger.text) {
-    findStringAndReplace('text')
-  }
-  if (trigger.text_xs) {
-    findStringAndReplace('text_xs')
+  const resolvedTrigger = { ...trigger }
+  for (const key of ['label', 'text', 'text_xs'] as const) {
+    const value = resolvedTrigger[key]
+    if (typeof value === 'string') {
+      resolvedTrigger[key] = value
+        .replaceAll('{price}', currentItem.price || '')
+        .replaceAll('{total}', currentItem.total || '')
+        .replaceAll('{discount}', currentItem.unitDiscount || '')
+    }
   }
   return currentItem ? (
     <LmComponentRender
-      content={trigger}
+      content={resolvedTrigger}
       onClick={() => {
         if (content.text_only) {
           return

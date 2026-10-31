@@ -1,10 +1,11 @@
 import { renderToStaticMarkup } from 'react-dom/server'
+import type { ScriptProps } from 'next/script'
 import type { ReactNode } from 'react'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 const seen = vi.hoisted(() => ({
-  settings: {} as Record<string, any>,
+  settings: {} as Record<string, unknown>,
   preview: false,
-  scripts: [] as Record<string, any>[]
+  scripts: [] as ScriptProps[]
 }))
 vi.mock('../provider/SettingsPageProvider', () => ({
   useSettings: () => seen.settings
@@ -16,7 +17,7 @@ vi.mock('next/head', () => ({
   default: ({ children }: { children: ReactNode }) => <>{children}</>
 }))
 vi.mock('next/script', () => ({
-  default: (p: Record<string, any>) => {
+  default: (p: ScriptProps) => {
     seen.scripts.push({ ...p })
     return <span data-script={p.id} />
   }
@@ -59,6 +60,9 @@ async function render(env = 'production') {
   vi.stubEnv('NODE_ENV', env)
   vi.resetModules()
   const { default: Head } = await import('./AppHead')
+  const { default: Loadable } =
+    await import('next/dist/shared/lib/loadable.shared-runtime')
+  await Loadable.preloadAll()
   return renderToStaticMarkup(<Head />)
 }
 it.each([
@@ -68,14 +72,14 @@ it.each([
 ])(
   'preserves tracking gate in %s / editor %s',
   async (env, preview, enabled) => {
-    seen.preview = preview as boolean
+    seen.preview = preview
     seen.settings = {
       setup_facebook_pixel: 'fb',
       setup_google_analytics: 'ga',
       setup_ad_roll_adv_id: 'adv',
       setup_ad_roll_pix_id: 'pixel'
     }
-    const html = await render(env as string)
+    const html = await render(env)
     expect(html.includes('data-tracking')).toBe(enabled)
     if (enabled) {
       expect(html).toContain('fb:fb')

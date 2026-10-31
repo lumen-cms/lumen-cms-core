@@ -59,7 +59,6 @@ export default function LmIframe({
         allow={allowed.join(' ')}
         src={urlSrc}
         aria-hidden
-        frameBorder={0}
         onLoad={() => setLoaded(true)}
         className={clsx({
           'embed-responsive-item': !!content.responsive_ratio
@@ -69,6 +68,7 @@ export default function LmIframe({
         name={content.name || ''}
         width={content.width || '100%'}
         style={{
+          border: 0,
           position: content.position,
           display: content.display,
           height: content.height || '100%',

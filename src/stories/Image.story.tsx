@@ -30,24 +30,22 @@ export const Basic = () => (
     <h3>Default:</h3>
     <LmImageElement content={props} />
     <h3>Fixed width 150px</h3>
-    <LmImageElement content={{ ...props, width: 150 }} />
+    <LmImageElement content={{ ...props, width: '150' }} />
     <h3>Rounded Circle 150px height:</h3>
     <LmImageElement
-      content={
-        {
-          ...props,
-          property: ['rounded-circle'],
-          height: 150
-        } as ImageStoryblok
-      }
+      content={{
+        ...props,
+        property: ['rounded-circle'],
+        height: '150'
+      }}
     />
     <h3>Square 150px height:</h3>
     <LmImageElement
-      content={{ ...props, height: 150, property: ['square', 'rounded-0'] }}
+      content={{ ...props, height: '150', property: ['square', 'rounded-0'] }}
     />
     <h3>Square 150px height rounded:</h3>
     <LmImageElement
-      content={{ ...props, height: 150, property: ['square', 'rounded'] }}
+      content={{ ...props, height: '150', property: ['square', 'rounded'] }}
     />
     <h3>Not Round:</h3>
     <LmImageElement content={{ ...props, property: ['rounded-0'] }} />
@@ -55,20 +53,24 @@ export const Basic = () => (
     <LmImageElement content={{ ...props, property: ['rounded'] }} />
     <h3>Square:</h3>
     <LmImageElement
-      content={{ ...props, height: 150, property: ['square', 'rounded'] }}
+      content={{ ...props, height: '150', property: ['square', 'rounded'] }}
     />
     <h3>Resized images with fixed height or width:</h3>
-    <LmImageElement content={{ ...props, width: 140 }} />
-    <LmImageElement content={{ ...props, height: 64 }} />
+    <LmImageElement content={{ ...props, width: '140' }} />
+    <LmImageElement content={{ ...props, height: '64' }} />
     <LmImageElement
-      content={{ ...props, property: ['rounded-circle'], width: 100 }}
+      content={{ ...props, property: ['rounded-circle'], width: '100' }}
     />
     <LmImageElement
-      content={{ ...props, property: ['rounded-circle'], height: 64 }}
+      content={{ ...props, property: ['rounded-circle'], height: '64' }}
     />
-    <LmImageElement content={{ ...props, property: ['square'], height: 64 }} />
+    <LmImageElement
+      content={{ ...props, property: ['square'], height: '64' }}
+    />
 
-    <LmImageElement content={{ ...props, property: ['rounded'], height: 64 }} />
+    <LmImageElement
+      content={{ ...props, property: ['rounded'], height: '64' }}
+    />
   </div>
 )
 
@@ -78,19 +80,21 @@ export const DefinedHeight = () => (
       content={{
         ...props,
         source: '//a.storyblok.com/f/69069/112x180/3bb1b505d4/elements-2.png',
-        height: 70
+        height: '70'
       }}
     />
     <LmImageElement
       content={{
         ...props,
         source: '//a.storyblok.com/f/69069/15x180/0c3a0ffb9e/elements-7.png',
-        height: 70
+        height: '70'
       }}
     />
-    <LmImageElement content={{ ...props, height: 100 }} />
-    <LmImageElement content={{ ...props, width: 64 }} />
-    <LmImageElement content={{ ...props, property: ['square'], height: 64 }} />
+    <LmImageElement content={{ ...props, height: '100' }} />
+    <LmImageElement content={{ ...props, width: '64' }} />
+    <LmImageElement
+      content={{ ...props, property: ['square'], height: '64' }}
+    />
   </div>
 )
 export const ImageSVG = () => (
@@ -101,10 +105,16 @@ export const ImageSVG = () => (
       overflow: 'hidden'
     }}
   >
-    <LmImageElement content={{ ...svg, height: 64 }} />
-    <LmImageElement content={{ ...svg, color: { rgba: '#ccc' }, height: 64 }} />
-    <LmImageElement content={{ ...svg, color: { rgba: '#eee' }, height: 64 }} />
-    <LmImageElement content={{ ...svg, color: { rgba: '#ccc' }, height: 64 }} />
+    <LmImageElement content={{ ...svg, height: '64' }} />
+    <LmImageElement
+      content={{ ...svg, color: { rgba: '#ccc' }, height: '64' }}
+    />
+    <LmImageElement
+      content={{ ...svg, color: { rgba: '#eee' }, height: '64' }}
+    />
+    <LmImageElement
+      content={{ ...svg, color: { rgba: '#ccc' }, height: '64' }}
+    />
   </div>
 )
 export const ImageFocalPoint = () => {
@@ -157,8 +167,8 @@ export const ImageFocalPoint = () => {
             knob: 'Image with height & width',
             options: {
               source: src,
-              width: 500,
-              height: 150,
+              width: '500',
+              height: '150',
               focal_point: '0x100'
             }
           })}

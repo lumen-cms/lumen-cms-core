@@ -1,4 +1,4 @@
-import { SwiperProps, SwiperSlide } from 'swiper/react'
+import type { SwiperProps } from 'swiper/react'
 import { LmSwiperProps } from './sliderTypes'
 import {
   A11y,
@@ -15,7 +15,7 @@ import 'swiper/css/navigation'
 import navigationIcons from '../../vendor/swiper-navigation/icons.module.css'
 
 import { LmComponentRender } from '../CoreComponents'
-import { PaginationOptions } from 'swiper/types'
+
 import Box from '@mui/material/Box'
 import { Theme } from '@mui/material/styles'
 import { getThemeColor } from '../../utils/themeColor'
@@ -37,7 +37,7 @@ function getSwiperProps(content: LmSwiperProps['content']) {
           ? Number(content.max_pagination_bullets)
           : undefined,
         dynamicBullets: !!content.max_pagination_bullets
-      } as PaginationOptions
+      }
     })
   }
   if (content.autoslide_duration) {
@@ -80,7 +80,7 @@ export default function LmSwiper({ content }: LmSwiperProps) {
       sx={{
         '--swiper-theme-color': (theme: Theme) =>
           themeColors?.[0]
-            ? getThemeColor(theme, themeColors[0], themeColors[1]) ?? null
+            ? (getThemeColor(theme, themeColors[0], themeColors[1]) ?? null)
             : theme.palette.text.primary,
         '--swiper-navigation-size': `${content.navigation_size || 44}px`,
         '--swiper-pagination-bottom': '10px',
@@ -96,13 +96,13 @@ export default function LmSwiper({ content }: LmSwiperProps) {
       <LmSwiperContainer swiperProps={swiperProps} effect={content.effect}>
         {content.body?.map((blok) => {
           return (
-            <SwiperSlide key={blok._uid}>
+            <div className="swiper-slide" key={blok._uid}>
               <LmComponentRender
                 key={blok._uid}
                 content={blok}
                 options={content}
               />
-            </SwiperSlide>
+            </div>
           )
         })}
       </LmSwiperContainer>

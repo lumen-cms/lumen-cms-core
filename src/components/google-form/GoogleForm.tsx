@@ -1,14 +1,10 @@
-/* eslint-disable react/no-array-index-key */
 import { CSSProperties, FC, PropsWithChildren, useState } from 'react'
 import { FormContainer } from 'react-hook-form-mui'
 import Alert from '@mui/material/Alert'
 import { LmComponentRender } from '../CoreComponents'
 import dynamic from 'next/dynamic'
 import { LmGoogleFormProps } from './googleFormProps'
-import {
-  ButtonStoryblok,
-  RichTextEditorStoryblok
-} from '../../typings/generated/components-schema'
+
 import GoogleFormElement, { TextFieldElement } from './GoogleFormElement'
 import { GoogleForm, submitToGoogleForms } from '../../vendor/google-forms'
 import { formColorDarkSx } from '../../utils/jss/formColorStyles'
@@ -42,15 +38,14 @@ function SubmitButton({ content }: LmGoogleFormProps) {
       }}
     >
       <LmComponentRender
-        content={
-          {
-            color: 'primary',
-            variant: 'contained',
-            label: 'Submit',
-            ...submitButtonEl,
-            link: undefined
-          } as ButtonStoryblok
-        }
+        content={{
+          color: 'primary',
+          // The old unsupported 'contained' value fell back to the default variant.
+          variant: '',
+          label: 'Submit',
+          ...submitButtonEl,
+          link: undefined
+        }}
         type="submit"
         key={submitButtonEl._uid}
       />
@@ -69,7 +64,7 @@ export default function LmGoogleForm({
   // @TODO mode is no-cors, can't detect result status
   // const [submitError, setSubmitError] = useState<boolean>(false)
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: Parameters<typeof submitToGoogleForms>[1]) => {
     if (!(formStructure?.action && content.api)) {
       console.log(data)
       return
@@ -116,12 +111,9 @@ export default function LmGoogleForm({
       <Alert severity="success">
         {content?.success_body?.length ? (
           <LmComponentRender
-            content={
-              {
-                ...content.success_body[0]
-              } as RichTextEditorStoryblok
-            }
-            type="submit"
+            content={{
+              ...content.success_body[0]
+            }}
             key={content.success_body[0]._uid}
           />
         ) : (

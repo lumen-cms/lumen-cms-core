@@ -68,8 +68,8 @@ LmCoreComponents.toolbar_row_section = LmToolbarSection
 LmCoreComponents.toolbar_row = LmToolbarRow
 LmCoreComponents.lm_link_render = MuiNextLink
 LmCoreComponents.form = LmGoogleFormContainer
-LmCoreComponents.iframe = LmIframe
-LmCoreComponents.iframe_advanced = LmIframe
+LmCoreComponents.iframe = (props) => <LmIframe {...props} />
+LmCoreComponents.iframe_advanced = (props) => <LmIframe {...props} />
 LmCoreComponents.chat_tawkto = LmTawktoChatButton
 LmCoreComponents.chat_facebook = LmFacebookChatButton
 LmCoreComponents.chat_whatsapp = LmWhatsappChatButton

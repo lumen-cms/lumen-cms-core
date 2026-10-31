@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
-import { Swiper, SwiperProps } from 'swiper/react'
+import type { SwiperProps } from 'swiper/react'
+import { DeferredSwiper as Swiper } from './DeferredSwiper'
 import dynamic from 'next/dynamic'
 import { SwiperStoryblok } from '../../typings/generated/components-schema'
 

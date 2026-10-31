@@ -3,15 +3,21 @@ import { act, type ReactNode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import LmImageList from './ImageList'
+import type { ImageListProps } from '@mui/material/ImageList'
+import type { ImageListItemProps } from '@mui/material/ImageListItem'
+import type { ImageListLightboxProps } from './imageListTypes'
 import type { LmImageListProps } from './imageListTypes'
 
+type ListCapture = Omit<ImageListProps, 'children' | 'sx'> & {
+  sx: Record<string, unknown>
+}
 const observed = vi.hoisted(() => ({
-  list: {} as Record<string, any>,
-  item: {} as Record<string, any>,
-  lightbox: {} as Record<string, any>
+  list: {} as ListCapture,
+  item: {} as ImageListItemProps & { href?: string },
+  lightbox: {} as Partial<ImageListLightboxProps>
 }))
 vi.mock('@mui/material/ImageList', () => ({
-  default: ({ children, ...props }: { children: ReactNode }) => {
+  default: ({ children, ...props }: ListCapture & { children: ReactNode }) => {
     observed.list = props
     return <ul>{children}</ul>
   }
@@ -42,7 +48,7 @@ vi.mock('../../utils/linkHandler', () => ({
   getLinkAttrs: () => ({ href: '/target' })
 }))
 vi.mock('next/dynamic', () => ({
-  default: () => (props: Record<string, any>) => {
+  default: () => (props: ImageListLightboxProps) => {
     observed.lightbox = props
     return (
       <button data-close onClick={() => props.setLightbox('')}>

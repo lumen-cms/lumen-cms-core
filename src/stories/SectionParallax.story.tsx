@@ -8,12 +8,8 @@ import { simpleSettings } from '../storybook/toolbar'
 import { LmPage } from '../components/page/Page'
 import {
   BackgroundStoryblok,
-  ColumnStoryblok,
-  FlexRowStoryblok,
-  HeadlineStoryblok,
   PageStoryblok,
-  ParallaxItemStoryblok,
-  RowStoryblok
+  ParallaxItemStoryblok
 } from '../typings/generated/components-schema'
 import LmSectionParallax from '../components/section/SectionParallax'
 import { storyImageUrls } from '../storybook/contentHelper'
@@ -34,13 +30,13 @@ const getObj = () => {
         elements: [
           storyParallaxItem({
             options: {
-              speed: -20,
+              speed: '-20',
               image:
                 'https://a.storyblok.com/f/57008/5000x3334/bae4d23fcf/amsterdam-retouch.png'
             }
           }),
           {
-            speed: -10,
+            speed: '-10',
             scale: '1,1.5',
             opacity: '0.5, 1',
             // always_complete_animation: true,
@@ -61,9 +57,9 @@ const getObj = () => {
                       rgba: '#fff'
                     },
                     text: 'Some Headline'
-                  } as HeadlineStoryblok
+                  }
                 ]
-              } as FlexRowStoryblok
+              }
             ]
           } as ParallaxItemStoryblok
         ]
@@ -80,7 +76,7 @@ export const Basic = () => (
         content={{
           _uid: 'section_parallax_headline',
           component: 'section_parallax',
-          height: 80,
+          height: '80',
           elements: [
             {
               _uid: '14213',
@@ -117,11 +113,11 @@ export const Basic = () => (
                       align: 'center',
                       text: 'Some Headline Title',
                       custom_color: { rgba: '#fff' }
-                    } as HeadlineStoryblok
+                    }
                   ]
-                } as ColumnStoryblok
+                }
               ]
-            } as RowStoryblok
+            }
           ]
         }}
       />

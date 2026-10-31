@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-export function useInfiniteScroll(collection: any[], perPage = 30) {
+export function useInfiniteScroll<T>(collection: T[], perPage = 30) {
   const [page, setPage] = useState<number>(1)
   const [useRef, inView] = useInView()
+  const [previousInView, setPreviousInView] = useState(false)
   const offset = (page - 1) * perPage
 
-  useEffect(() => {
+  // Count visibility transitions without committing a stale page first.
+  if (previousInView !== inView) {
+    setPreviousInView(inView)
     if (inView) {
       setPage((previousPage) => previousPage + 1)
     }
-  }, [inView])
+  }
 
   return {
     ref: useRef,

@@ -69,7 +69,14 @@ it.each([
     const html = renderToStaticMarkup(<TravelComponent content={content} />)
     const $ = load(html)
     const blocks = $('[data-travel-block]')
-      .map((_, el) => JSON.parse($(el).attr('data-travel-block')!))
+      .map(
+        (_, el) =>
+          JSON.parse($(el).attr('data-travel-block')!) as {
+            _uid: string
+            background: { image: string }[]
+            body: { body: unknown[] }[]
+          }
+      )
       .get()
     expect(blocks.map((block) => block._uid)).toEqual([
       'section_parallax_headline',

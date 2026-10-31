@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { act } from 'react'
+import { act, type ReactElement, type InputHTMLAttributes } from 'react'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import CategoryBox from './CategoryBox'
@@ -13,10 +13,12 @@ vi.mock('../../utils/state/searchState', () => ({
   useSearchStore: () => fixture.set
 }))
 vi.mock('@mui/material/FormControlLabel', () => ({
-  default: ({ control }: any) => control
+  default: ({ control }: { control: ReactElement }) => control
 }))
 vi.mock('@mui/material/Checkbox', () => ({
-  default: (props: any) => <input type="checkbox" {...props} />
+  default: (props: InputHTMLAttributes<HTMLInputElement>) => (
+    <input type="checkbox" {...props} />
+  )
 }))
 it('uses indexed membership and preserves selection/removal and array-valued tags', async () => {
   vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)

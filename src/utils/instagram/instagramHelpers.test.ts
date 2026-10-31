@@ -1,6 +1,45 @@
 import { expect, it, vi } from 'vitest'
-import { fetchInstagramList, fetchInstagramUserId } from './instagramHelpers'
-vi.mock('instagram-scraping', () => ({ default: {} }))
+import {
+  fetchInstagramList,
+  fetchInstagramUserId,
+  scrapeInstagramUser
+} from './instagramHelpers'
+const scraper = vi.hoisted(() => ({ scrapeUserPage: vi.fn() }))
+vi.mock('instagram-scraping', () => ({ default: scraper }))
+
+it('preserves the scraper method receiver', async () => {
+  scraper.scrapeUserPage.mockImplementationOnce(function (this: unknown) {
+    expect(this).toBe(scraper)
+    return undefined
+  })
+  await expect(scrapeInstagramUser('example')).resolves.toBeUndefined()
+})
+
+it.each([false, true])(
+  'preserves scraper result identity with a promise return of %s',
+  async (promiseReturn) => {
+    const data = { items: [{ id: 'photo' }] }
+    scraper.scrapeUserPage.mockReturnValueOnce(
+      promiseReturn ? Promise.resolve(data) : data
+    )
+    await expect(scrapeInstagramUser('example')).resolves.toBe(data)
+    expect(scraper.scrapeUserPage).toHaveBeenLastCalledWith('example')
+  }
+)
+
+it('preserves rejected scraper errors', async () => {
+  const error = new Error('scrape failed')
+  scraper.scrapeUserPage.mockRejectedValueOnce(error)
+  await expect(scrapeInstagramUser('example')).rejects.toBe(error)
+})
+
+it('preserves synchronous scraper failures as rejected promises', async () => {
+  const error = new Error('scrape threw')
+  scraper.scrapeUserPage.mockImplementationOnce(() => {
+    throw error
+  })
+  await expect(scrapeInstagramUser('example')).rejects.toBe(error)
+})
 
 it('preserves exact username matching and missing-user results', async () => {
   vi.mocked(fetch).mockResolvedValueOnce(

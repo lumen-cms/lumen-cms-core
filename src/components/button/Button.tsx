@@ -1,6 +1,6 @@
 import { getCmsClickProps } from '../../utils/cmsClickActions'
 import Button, { ButtonProps } from '@mui/material/Button'
-import Fab, { FabProps } from '@mui/material/Fab'
+import Fab from '@mui/material/Fab'
 import { FC, PropsWithChildren } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import { Theme, useTheme } from '@mui/material/styles'
@@ -8,7 +8,12 @@ import { LmCoreComponents } from '../../utils/config'
 import type { LmMuiAvatarProps } from '../avatar/avatarTypes'
 import { LmMuiAvatar } from '../avatar/LmMuiAvatar'
 import LmIcon from '../icon/LmIcon'
-import { getLinkAttrs, isValidLink, LinkType } from '../../utils/linkHandler'
+import {
+  getLinkAttrs,
+  isValidLink,
+  LinkType,
+  type LinkHandlerProps
+} from '../../utils/linkHandler'
 import { LmButtonProps } from './buttonTypes'
 import { getAdvancedSx } from '../../utils/hooks/useStylesAdvanced'
 import { SystemStyleObject } from '@mui/system'
@@ -161,20 +166,20 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
   )
 
   const onClickFunc = getCmsClickProps(content.on_click_function)
-  const btnProps: any = onClick
+  const btnProps: LinkHandlerProps & { 'aria-label'?: string } = onClick
     ? {
         onClick
       }
     : isValidLink(content.link as LinkType)
-    ? {
-        ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external
-        }),
-        naked: true,
-        component: LmCoreComponents.lm_link_render,
-        ...onClickFunc
-      }
-    : { ...onClickFunc }
+      ? {
+          ...getLinkAttrs(content.link as LinkType, {
+            openExternal: !!content.open_external
+          }),
+          naked: true,
+          component: LmCoreComponents.lm_link_render,
+          ...onClickFunc
+        }
+      : { ...onClickFunc }
   btnProps['aria-label'] = content.label || content.icon?.name
   const presentation = {
     content,
@@ -195,7 +200,7 @@ export const LmButton: FC<PropsWithChildren<LmButtonProps>> = ({
 LmButton.displayName = 'LmButton'
 
 type ButtonPresentationProps = PropsWithChildren<LmButtonProps> & {
-  btnProps: any
+  btnProps: LinkHandlerProps & { 'aria-label'?: string }
   className: string
   sxProps: SystemStyleObject<Theme>
   advancedSx: ReturnType<typeof getAdvancedSx>
@@ -230,8 +235,8 @@ function FloatingButton({
         },
         advancedSx
       ]}
-      size={mapSize[content.size as any] || 'medium'}
-      color={color as FabProps['color']}
+      size={mapSize[content.size!] || 'medium'}
+      color={color}
       disableRipple={disableRipple}
       type={type || 'button'}
     >
@@ -259,7 +264,7 @@ function IconOnlyButton({
   return (
     <IconButton
       disabled={!!disabled}
-      color={color as IconButtonProps['color']}
+      color={color}
       {...btnProps}
       size={mapIconButtonSize[content.size as string] || 'medium'}
       disableRipple={disableRipple}
@@ -310,7 +315,7 @@ function LabelledButton({
       {...btnProps}
       className={className}
       variant={mapVariant[content.variant as string]}
-      color={color as ButtonProps['color']}
+      color={color}
       sx={[
         {
           ...sxProps,

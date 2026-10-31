@@ -16,8 +16,7 @@ export default {
     ...getComponentArgTypes(COMPONENT_NAME)
   },
   loaders: [
-    // @ts-ignore
-    async ({ args }) => {
+    async ({ args }: { args: LmListStoriesProps['content'] }) => {
       CONFIG.publicToken = 'HvyhDYHDPgo3U4lB7s44jgtt'
       CONFIG.rootDirectory = ''
       return {
@@ -33,7 +32,15 @@ export default {
 const Template: StoryFn<LmListStoriesProps['content']> = (
   args,
   { loaded: { list_stories_data } }
-) => <LmListStories content={{ ...args, list_stories_data }} />
+) => (
+  <LmListStories
+    content={{
+      ...args,
+      list_stories_data:
+        list_stories_data as LmListStoriesProps['content']['list_stories_data']
+    }}
+  />
+)
 
 const presetContent =
   findFirstPreset<LmListStoriesProps['content']>(COMPONENT_NAME)
@@ -46,7 +53,7 @@ AllStories.args = {
 export const MaxItems = Template.bind({})
 MaxItems.args = {
   ...presetContent,
-  max_items: 5
+  max_items: '5'
 }
 
 export const CustomPagination = Template.bind({})
@@ -56,7 +63,7 @@ CustomPagination.args = {
     {
       component: 'pagination',
       _uid: 'pagination',
-      items_per_page: 5,
+      items_per_page: '5',
       size: 'large',
       color: 'secondary',
       shape: 'rounded'

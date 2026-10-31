@@ -81,7 +81,7 @@ const extractFormData = (html: string): FormData => {
   scriptHtml = scriptHtml.slice(0, -1)
   scriptHtml = scriptHtml.replace(scriptStringIdentifier, '')
 
-  const formDataRaw = JSON.parse(scriptHtml)
+  const formDataRaw = JSON.parse(scriptHtml) as FormData['formData']
 
   return { formData: formDataRaw, fbzx }
 }

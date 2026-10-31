@@ -155,9 +155,9 @@ export const BasicWithBackground = () => (
             border_color: {
               rgba: 'red'
             },
-            border_size: 3,
+            border_size: '3',
             border_radius: '24px 4px',
-            elevation: 12
+            elevation: '12'
           }
         ] as BackgroundStoryblok[]
       }}
@@ -175,7 +175,7 @@ export const BasicWithBackground = () => (
             border_color: {
               rgba: 'rgba(0,0,0,1)'
             },
-            border_size: 3,
+            border_size: '3',
             border_radius: '12px',
             border_style: 'dotted'
           }
@@ -194,7 +194,7 @@ export const BasicWithBackground = () => (
             border_color: {
               rgba: 'rgba(0,0,0,1)'
             },
-            border_size: 3,
+            border_size: '3',
             border_radius: '12px',
             border_style: 'dotted'
           }

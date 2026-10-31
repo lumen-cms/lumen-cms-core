@@ -12,7 +12,6 @@ import { LmDateHeadline } from '../components/headline/DateHeadline'
 
 const COMPONENT_NAME = 'headline'
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Headline',
   component: LmHeadline,
@@ -265,7 +264,7 @@ HeadlineCounter.parameters = {
 }
 HeadlineCounter.args = {
   ...props,
-  count_end: 10000,
+  count_end: '10000',
   prefix: '+ ',
   suffix: ' Users'
 }
@@ -291,13 +290,11 @@ HeadlineWithCountdown.args = {
 export const WithStyles = () => (
   <div className="p-5 text-center">
     <LmHeadline
-      content={
-        {
-          ...props,
-          styles: [storyStyles({ knob: 'Styles', count: 1 })],
-          styles_hover: [storyStyles({ knob: 'Styles Hover', count: 2 })]
-        } as HeadlineStoryblok
-      }
+      content={{
+        ...props,
+        styles: [storyStyles({ knob: 'Styles', count: 1 })],
+        styles_hover: [storyStyles({ knob: 'Styles Hover', count: 2 })]
+      }}
     />
   </div>
 )

@@ -2,9 +2,7 @@ import type {
   ButtonStoryblok,
   CardStoryblok,
   ColumnStoryblok,
-  FlexRowStoryblok,
-  HeadlineStoryblok,
-  IconStoryblok
+  HeadlineStoryblok
 } from '../../../typings/generated/components-schema'
 import translations from '../../utils/translations'
 import type { TravelSectionProps } from './travelSectionContent'
@@ -23,11 +21,11 @@ export function getTravelBookingColumn(
       {
         _uid: 'card',
         component: 'card',
-        content_padding: 4,
+        content_padding: '4',
         styles: [
           {
             margin: '0 25px',
-            elevation: 0,
+            elevation: '0',
             border_radius: '12px',
             border_color: { rgba: 'rgba(28,27,27,0.25)' },
             css_properties: [
@@ -42,7 +40,7 @@ export function getTravelBookingColumn(
         ],
         styles_hover: [
           {
-            elevation: 4,
+            elevation: '4',
             css_properties: [
               {
                 component: 'item_key_value',
@@ -62,7 +60,7 @@ export function getTravelBookingColumn(
             tag: 'h3',
             text: translations[langKey].readyStart,
             class_names: { values: ['mb-0'] }
-          } as HeadlineStoryblok,
+          },
           {
             component: 'headline',
             _uid: 'el-2',
@@ -70,7 +68,7 @@ export function getTravelBookingColumn(
             font: 'alt1',
             class_names: { values: ['pb-2', 'font-weight-800'] },
             text: content.title
-          } as HeadlineStoryblok,
+          },
           {
             component: 'flex_row',
             _uid: 'el-3',
@@ -83,15 +81,15 @@ export function getTravelBookingColumn(
                 _uid: 'el-4',
                 name: { name: 'check-bold' },
                 class_names: { values: ['text-primary'] }
-              } as IconStoryblok,
+              },
               {
                 component: 'headline',
                 _uid: 'el-5',
                 typography: 'body1',
                 text: translations[langKey].flexibleStart
-              } as HeadlineStoryblok
+              }
             ]
-          } as FlexRowStoryblok,
+          },
           {
             component: 'flex_row',
             _uid: 'el-4',
@@ -104,7 +102,7 @@ export function getTravelBookingColumn(
                 _uid: 'el-4',
                 name: { name: 'check-bold' },
                 class_names: { values: ['text-primary'] }
-              } as IconStoryblok,
+              },
               {
                 component: 'headline',
                 _uid: 'el-5',
@@ -112,7 +110,7 @@ export function getTravelBookingColumn(
                 text: content.travel_fast_fact?.duration
               } as HeadlineStoryblok
             ]
-          } as FlexRowStoryblok,
+          },
           {
             component: 'flex_row',
             _uid: 'el-5',
@@ -125,7 +123,7 @@ export function getTravelBookingColumn(
                 _uid: 'el-4',
                 name: { name: 'check-bold' },
                 class_names: { values: ['text-primary'] }
-              } as IconStoryblok,
+              },
               {
                 component: 'headline',
                 _uid: 'el-5',
@@ -135,9 +133,9 @@ export function getTravelBookingColumn(
                       translations[langKey].minimumAge as Record<number, string>
                     )[content.travel_fast_fact?.minimum_age]
                   : ''
-              } as HeadlineStoryblok
+              }
             ]
-          } as FlexRowStoryblok,
+          },
           {
             component: 'flex_row',
             _uid: 'el-6',
@@ -150,7 +148,7 @@ export function getTravelBookingColumn(
                 _uid: 'el-4',
                 name: { name: 'check-bold' },
                 class_names: { values: ['text-primary'] }
-              } as IconStoryblok,
+              },
               {
                 component: 'headline',
                 _uid: 'el-5',
@@ -163,9 +161,9 @@ export function getTravelBookingColumn(
                       >
                     )[content.travel_fast_fact?.language_skill]
                   : ''
-              } as HeadlineStoryblok
+              }
             ]
-          } as FlexRowStoryblok,
+          },
           {
             component: 'flex_row',
             _uid: 'el-7',
@@ -178,7 +176,7 @@ export function getTravelBookingColumn(
                 _uid: 'el-4',
                 typography: 'body1',
                 text: translations[langKey].price_starting
-              } as HeadlineStoryblok,
+              },
               {
                 component: 'headline',
                 _uid: 'el-5',
@@ -189,9 +187,9 @@ export function getTravelBookingColumn(
                   content.product?.product_price?.[currency] +
                   ' ' +
                   currency.toUpperCase()
-              } as HeadlineStoryblok
+              }
             ]
-          } as FlexRowStoryblok,
+          },
           {
             _uid: 'el-9787',
             component: 'button',
@@ -236,7 +234,7 @@ export function getTravelBookingColumn(
             typography: 'body2',
             class_names: { values: ['mt-3'] },
             text: translations[langKey].questionText
-          } as HeadlineStoryblok,
+          },
           {
             component: 'button',
             _uid: 'elasdas9',

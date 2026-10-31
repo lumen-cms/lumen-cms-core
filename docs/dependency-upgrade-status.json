@@ -1739,7 +1739,7 @@
   "exceptions": {
     "graphql": "Keep 16.14.2 by user instruction; do not move to 17.",
     "@types/node": "Keep Node 24 types aligned with the supported Node 24 runtime.",
-    "typescript": "Keep the explicit TypeScript 6 compiler-API compatibility alias alongside the TypeScript 7 compiler.",
+    "typescript": "Resolved: TypeScript 7.0.2 is the standard dependency; compiler API consumers were migrated to Babel/esbuild and TypeScript 6 was removed. Package entries above retain the original audit snapshot.",
     "@lumen/storyblok-material-icons": "Git dependency requires separate upstream review; not comparable to an npm latest tag."
   }
 }

@@ -1,19 +1,21 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { expect, it, vi } from 'vitest'
+import type { ImageProps } from 'next/image'
+import type { ImageListItemBarProps } from '@mui/material'
 import Item from './ImageListItem'
 import type { LmImageListItemProps } from './imageListTypes'
 const seen = vi.hoisted(() => ({
-  image: {} as Record<string, any>,
-  bar: {} as Record<string, any>
+  image: {} as ImageProps,
+  bar: {} as ImageListItemBarProps
 }))
 vi.mock('next/image', () => ({
-  default: (props: Record<string, any>) => {
+  default: (props: ImageProps) => {
     seen.image = props
     return <span data-image />
   }
 }))
 vi.mock('@mui/material/ImageListItemBar', () => ({
-  default: (props: Record<string, any>) => {
+  default: (props: ImageListItemBarProps) => {
     seen.bar = props
     return <span data-bar />
   }
@@ -76,7 +78,7 @@ it('preserves fit-color wrapping and masonry/aspect-ratio exceptions', () => {
   expect(render({ fit_in_color: '#123456' })).toContain(
     'background-color:#123456'
   )
-  expect(seen.image.style.objectFit).toBe('contain')
+  expect(seen.image.style?.objectFit).toBe('contain')
   for (const overrides of [
     { masonry: true },
     { variant: 'masonry' as const },
@@ -86,9 +88,9 @@ it('preserves fit-color wrapping and masonry/aspect-ratio exceptions', () => {
       'background-color:#123456'
     )
   render()
-  expect(seen.image.style.objectFit).toBeUndefined()
+  expect(seen.image.style?.objectFit).toBeUndefined()
   render({ aspect_ratio: undefined })
-  expect(seen.image.style.objectFit).toBe('contain')
+  expect(seen.image.style?.objectFit).toBe('contain')
 })
 it('preserves caption precedence and missing image/caption handling', () => {
   render({ label_position: 'top' }, { label_position: 'below' })

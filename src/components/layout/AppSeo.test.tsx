@@ -1,19 +1,26 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import type { ReactNode } from 'react'
+import type { NextSeoProps } from 'next-seo/pages'
+type SeoBlockFixture = {
+  component: string
+  images?: { url?: string }[]
+  [key: string]: unknown
+}
+type ContentFixture = Record<string, unknown> & { seo_body?: SeoBlockFixture[] }
 import { beforeEach, expect, it, vi } from 'vitest'
 import { AppSeo } from './AppSeo'
 const seen = vi.hoisted(() => ({
-  settings: {} as Record<string, any>,
-  page: {} as Record<string, any> | null,
-  context: {} as Record<string, any>,
+  settings: {} as ContentFixture,
+  page: {} as ContentFixture | null,
+  context: {} as Record<string, unknown>,
   config: { rootDirectory: '', overwriteDisableIndex: false },
-  seo: {} as Record<string, any>
+  seo: {} as NextSeoProps
 }))
 vi.mock('next/head', () => ({
   default: ({ children }: { children: ReactNode }) => <>{children}</>
 }))
 vi.mock('next-seo/pages', () => ({
-  generateNextSeo: (seo: Record<string, any>) => {
+  generateNextSeo: (seo: NextSeoProps) => {
     seen.seo = seo
     return <title>{seo.title}</title>
   }
@@ -129,11 +136,11 @@ it('preserves social precedence, image fallback, settings Facebook id and Twitte
     url: 'https://example.com'
   })
   expect(seen.seo.facebook).toEqual({ appId: 'settings-id' })
-  expect(seen.seo.twitter.cardType).toBe('summary')
-  expect(seen.seo.twitter.card_type).toBeUndefined()
-  seen.page.seo_body[0].images = [{}]
+  expect(seen.seo.twitter?.cardType).toBe('summary')
+  expect(seen.seo.twitter).not.toHaveProperty('card_type')
+  seen.page.seo_body![0].images = [{}]
   renderToStaticMarkup(<AppSeo />)
-  expect(seen.seo.openGraph.images).toEqual([{ url: 'site.jpg' }])
+  expect(seen.seo.openGraph?.images).toEqual([{ url: 'site.jpg' }])
 })
 it.each([
   ['/home/', 'en', '', 'https://example.com'],
@@ -147,6 +154,6 @@ it.each([
     seen.config.rootDirectory = root
     renderToStaticMarkup(<AppSeo />)
     expect(seen.seo.canonical).toBe(expected)
-    expect(seen.seo.openGraph.url).toBe(expected)
+    expect(seen.seo.openGraph?.url).toBe(expected)
   }
 )

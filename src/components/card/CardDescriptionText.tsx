@@ -15,7 +15,7 @@ function CardDescriptionText({
     descriptionMaxCharacter &&
     description.length > Number(descriptionMaxCharacter)
   ) {
-    description = `${description.substr(0, Number(descriptionMaxCharacter))}..`
+    description = `${description.slice(0, Math.max(0, Number(descriptionMaxCharacter)))}..`
   }
   return (
     <LmHeadline

@@ -7,7 +7,7 @@ import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import { useShopifySdkContext } from '../context/ShopifySdkContext'
-import { ButtonStoryblok } from '../../../../typings/generated/components-schema'
+
 import { ShopifyProductItemProps } from '../shopifyTypes'
 import { sanitizeProductDescription } from './sanitizeProductDescription'
 
@@ -17,14 +17,12 @@ export function ShopifyProductDescription({ item }: ShopifyProductItemProps) {
   return (
     <>
       <LmComponentRender
-        content={
-          {
-            component: 'button',
-            label: 'About this item',
-            _uid: '1321',
-            ...config?.product_description_trigger?.[0]
-          } as ButtonStoryblok
-        }
+        content={{
+          component: 'button',
+          label: 'About this item',
+          _uid: '1321',
+          ...config?.product_description_trigger?.[0]
+        }}
         onClick={() => {
           setOpen(true)
         }}

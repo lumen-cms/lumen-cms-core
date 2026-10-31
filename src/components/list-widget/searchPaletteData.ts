@@ -31,9 +31,8 @@ export async function fetchSearchStories([
     ].join(','),
     ...(prefix ? { starts_with: `${prefix}/` } : {})
   }
-  const { getBrowserStories } = await import(
-    '../../utils/storyblok/browserClient'
-  )
+  const { getBrowserStories } =
+    await import('../../utils/storyblok/browserClient')
   const { data } = await getBrowserStories(params)
   return (data.stories || []) as SearchStory[]
 }

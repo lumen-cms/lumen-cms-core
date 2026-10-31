@@ -5,7 +5,7 @@ import {
   type SSR_CONFIG_PROPS
 } from '../../utils/initial-props/ssrConfig'
 import { getAllStoriesOfProject } from '../../utils/initial-props/storyblokPagesConfig'
-import { PageItem } from '../../typings/generated/schema'
+import type { ProjectPageStory } from '../../utils/initial-props/storyblokPagesConfig'
 import { internalLinkHandler } from '../../utils/internalLinkHandler'
 // import { createGzip } from 'zlib'
 
@@ -15,7 +15,7 @@ export function createSitemapApi(
   return async function sitemapApi(req: NextApiRequest, res: NextApiResponse) {
     // res.setHeader('Content-Encoding', 'gzip')
     try {
-      const stories: PageItem[] = await getAllStoriesOfProject({
+      const stories: ProjectPageStory[] = await getAllStoriesOfProject({
         language: process.env.SITEMAP_LOCALE
           ? process.env.SITEMAP_LOCALE
           : undefined
@@ -27,9 +27,10 @@ export function createSitemapApi(
         ? process.env.SITEMAP_LOCALE
         : undefined
       if (process.env.LOCALE_DOMAIN_MAP) {
-        const domainMap: { locale: string; domain: string }[] = JSON.parse(
-          process.env.LOCALE_DOMAIN_MAP
-        )
+        const domainMap = JSON.parse(process.env.LOCALE_DOMAIN_MAP) as {
+          locale: string
+          domain: string
+        }[]
         const checkMap = domainMap.find(
           (items) => items.domain === req.headers.host
         )
@@ -66,7 +67,7 @@ export function createSitemapApi(
 
       for (let i = 0; i < stories.length; i++) {
         const story = stories[i]
-        const fullSlug = story.full_slug as string
+        const fullSlug = story.full_slug
         const shouldIndex = !ignoreList.some((ignorePath: string) =>
           fullSlug.includes(ignorePath)
         )

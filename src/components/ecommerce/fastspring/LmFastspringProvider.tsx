@@ -18,7 +18,7 @@ export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
 
   const onLoad = () => {
     window.fscDataCallback = (data) => {
-      const fetchedProducts: any[] = data.groups[0].items
+      const fetchedProducts = data.groups[0].items
       setProducts(fetchedProducts)
       setCurrency(data.currency)
     }
@@ -50,7 +50,8 @@ export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
       if (data?.id && data?.reference) {
         // update elastic if defined
         if (appCtx?.user) {
-          window.location.href = '/refetch'
+          // Resolve against the document base, retaining a full-page server refresh.
+          window.location.href = new URL('/refetch', document.baseURI).href
           setRedirect('')
         } else if (redirect) {
           await Router.push(redirect)

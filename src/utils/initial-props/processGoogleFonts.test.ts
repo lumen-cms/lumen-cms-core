@@ -29,7 +29,7 @@ describe('loadGoogleFontsCss', () => {
     expect(getGoogleFontsCss(href)).toBe(css)
     expect(fetchMock).toHaveBeenCalledWith(
       href,
-      expect.objectContaining({ signal: expect.any(AbortSignal) })
+      expect.objectContaining({ signal: expect.any(AbortSignal) as unknown })
     )
 
     await loadGoogleFontsCss(settings)

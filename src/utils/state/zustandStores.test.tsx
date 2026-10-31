@@ -1,5 +1,9 @@
 // @vitest-environment happy-dom
-import { act, StrictMode } from 'react'
+import type {
+  GlobalStoryblok,
+  PageStoryblok
+} from '../../typings/generated/components-schema'
+import { act, StrictMode, useLayoutEffect } from 'react'
 import { createRoot, type Root } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { useNavigationStore } from './navigationState'
@@ -31,8 +35,8 @@ describe('navigation store', () => {
       root.render(
         <StrictMode>
           <SettingsPageProvider
-            settings={{} as any}
-            page={{ right_body: [{}] } as any}
+            settings={{} as GlobalStoryblok}
+            page={{ right_body: [{}] } as PageStoryblok}
           >
             <LmToggleDrawerButton
               content={{ _uid: 'left', component: 'toolbar_navi_button' }}
@@ -69,7 +73,10 @@ describe('auth store', () => {
     let actions: ReturnType<typeof useUserActions> | undefined
     function Probe() {
       const user = useUserData()
-      actions = useUserActions()
+      const value = useUserActions()
+      useLayoutEffect(() => {
+        actions = value
+      })
       return <span>{user?.email ?? 'anonymous'}</span>
     }
     await act(async () => root.render(<Probe />))

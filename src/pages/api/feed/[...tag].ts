@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { PageItem } from '../../../typings/generated/schema'
+import type { ProjectPageStory } from '../../../utils/initial-props/storyblokPagesConfig'
 import { getAllStoriesOfProject } from '../../../utils/initial-props/storyblokPagesConfig'
 import { fetchSettings } from '../../../utils/initial-props/storyblokDeliveryResolver'
 import { ISbStoriesParams } from 'storyblok-js-client'
 
-const storiesRssXML = (stories: PageItem[], host: string) => {
+const storiesRssXML = (stories: ProjectPageStory[], host: string) => {
   let latestPostDate = ''
   let rssItemsXml = ''
   stories.forEach((story) => {
@@ -37,12 +37,12 @@ const storiesRssXML = (stories: PageItem[], host: string) => {
   }
 }
 
-const getLocaleFromSlug = (_: string) => {
+const getLocaleFromSlug = (_: unknown) => {
   // TODO need to write a function for this
   return ''
 }
 
-const getXmlFeed = async (stories: PageItem[], host: string) => {
+const getXmlFeed = async (stories: ProjectPageStory[], host: string) => {
   const { rssItemsXml, latestPostDate } = storiesRssXML(stories, host)
   // const { knownLocale } = prepareForStoryblok()
   const settings = await fetchSettings({})

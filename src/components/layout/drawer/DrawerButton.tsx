@@ -2,26 +2,42 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { LmCoreComponents } from '../../../utils/config'
-import { ButtonStoryblok } from '../../../typings/generated/components-schema'
+import {
+  ButtonStoryblok,
+  NavMenuItemStoryblok,
+  NavItemStoryblok,
+  NavMenuStoryblok
+} from '../../../typings/generated/components-schema'
 import LmIcon from '../../icon/LmIcon'
 import { getLinkAttrs, LinkType } from '../../../utils/linkHandler'
 import { useAppContext } from '../../provider/context/AppContext'
 
-type DrawerButtonProps = { content: ButtonStoryblok }
+type DrawerButtonProps = {
+  content:
+    | ButtonStoryblok
+    | NavMenuItemStoryblok
+    | NavItemStoryblok
+    | NavMenuStoryblok
+}
 
 export function DrawerButton({
   content
 }: DrawerButtonProps): React.JSX.Element {
   const { slug } = useAppContext()
+  // Legacy navigation blocks share these optional presentation fields.
+  const fields = content as Pick<
+    ButtonStoryblok,
+    'label' | 'name' | 'icon' | 'link' | 'open_external'
+  >
   const buttonProps = {
-    text: content.label || content.name,
-    graphic: content.icon?.name
+    text: fields.label || fields.name,
+    graphic: fields.icon?.name
   }
-  const cachedUrl = content.link?.cached_url
+  const cachedUrl = fields.link?.cached_url
   const btnProps: any = cachedUrl
     ? {
-        ...getLinkAttrs(content.link as LinkType, {
-          openExternal: !!content.open_external
+        ...getLinkAttrs(fields.link as LinkType, {
+          openExternal: !!fields.open_external
         }),
         activeClassName: 'Mui-selected',
         // naked: true,
@@ -30,7 +46,7 @@ export function DrawerButton({
     : {}
 
   const isActiveRoute = cachedUrl
-    ? slug?.includes(`/${cachedUrl}`) ?? false
+    ? (slug?.includes(`/${cachedUrl}`) ?? false)
     : false
 
   return (

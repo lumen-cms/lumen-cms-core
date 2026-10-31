@@ -3,7 +3,7 @@
 This batch follows the security/tooling update on `feature/mui-v9`. Runtime
 integrations now use current stable Storyblok packages. The official CLI now
 generates the active component types, with explicit application extensions and
-number/string compatibility for existing callers. Screenshots remain deferred at
+official numeric field types. Screenshots remain deferred at
 the user's request. This is not a visual or live-editor release sign-off.
 
 ## Package and integration decisions
@@ -73,46 +73,35 @@ sites. No schema or content was pushed to Storyblok during this work.
 
 ## Component-type migration
 
-`yarn gen-ts-schema` generates the active types from `components.82895.json`.
-`yarn check:storyblok-types` verifies byte-for-byte reproducibility without
-replacing them. Both commands are local and require no CMS token. An optional
-space ID selects another checked-in snapshot. `yarn storyblok:types:candidate`
-retains raw CLI output in the ignored `.storyblok/types-candidate/` directory.
+`pnpm gen-ts-schema` invokes the official CLI directly from package.json, with
+`--type-suffix Storyblok` and our existing custom field parser. There is no
+schema wrapper. A subsequent indexing script generates a separate component-name
+to interface map for the typed renderer registry; it never rewrites CLI output.
+The CLI reads the checked-in native
+layout at `src/typings/storyblok/components/82895/components.json` and writes
+untouched declarations under `src/typings/storyblok/types/`.
 
-The adapter normalizes legacy export shapes and string `filter_content_type`
-values in a temporary copy, reuses the custom field parser, invokes CLI 4 with
-the `Storyblok` suffix, and checks that output exists (CLI errors can exit 0).
-It preserves the public `components-schema` import path and adds the official
-asset, multilink and rich-text declarations. `@storyblok/js` is a direct
-dependency because the generated types import it.
+All 141 component interfaces and their content fields are checked by the unit
+suite. The obsolete, unused `button.file` field remains `unknown`, as it was
+before this change: the official CLI does not support the legacy `file` type. Custom icon, color, utility-class, tag, and table fields keep their explicit
+types. Numeric fields use the official string representation; fixtures and
+programmatic CMS content now match it. Card description options separately support
+numeric limits for programmatic callers.
 
-CLI 4 emits CMS number fields as strings. Existing component callers and
-Storybook fixtures also pass numbers, so the adapter uses the TypeScript AST
-and schema field metadata to widen **only number fields** to `number | string`.
-Numeric consumers explicitly convert values where arithmetic or library props
-require numbers. Other unknown fields remain `unknown`, rather than reverting
-to the old catch-all `any` signature.
+Stable type re-exports preserve existing component and field-type import paths.
+Application metadata and legacy fields are declared separately through module
+augmentation in `src/typings/storyblok-extensions.ts`, included by the re-export.
+`@storyblok/js` remains a dependency because the official declarations import it.
 
-Application UUIDs, derived placeholders and supported legacy fields are declared
-in `src/typings/storyblok-extensions.ts`; regeneration cannot erase them. A
-mapped type preserves known fields when deriving component option types with
-`Omit`. Custom table plugin rows/cells now have explicit string-array types.
-Nullable assets, rich-text node unions and resolved/unresolved relations are
-handled explicitly. Relation filters now use UUIDs, and searched/configured
-page categories are combined into one flat array. The initial isolated check's
-195 diagnostics have been resolved; the active TypeScript 7 check passes.
+`pnpm fetch-storyblok-components` and `pnpm push-storyblok-components` call CLI
+`components pull` and `components push` directly against the same directory.
+Run a pull before pushing so group/preset metadata is current. No remote schema
+was changed during this simplification. Storybook reads this same local snapshot.
 
-The new tests cover option types, numeric inputs, unknown-field safety,
-resolved/unresolved category filtering, combined search filters and preview
-field fallback order. The obsolete `generate-ts-schema.js` entry point delegates
-to the official generator for compatibility.
-
-`fetch-storyblok-components` now uses the pinned CLI's `components pull` and
-preserves the root snapshot for local generation. It only updates the
-snapshot after a fresh export exists. `push-storyblok-components` uses CLI 4's
-component export directory and requires a prior pull for group/preset metadata.
-CLI 4 includes that metadata in pushes; review it before running the command.
-Neither network command was executed in this audit.
+`pnpm check:storyblok-types` regenerates, compares generated files against Git,
+and type-checks the project. Commit intended schema/type changes before using
+this clean-tree check. The unit schema-coverage test also detects missing fields
+if generation fails or a new custom field lacks a parser mapping.
 
 ## Dependency security and consumer requirements
 

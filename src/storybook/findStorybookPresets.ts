@@ -1,7 +1,7 @@
 // @ts-ignore
-import { components } from '../../components.82895.json'
+import components from '../typings/storyblok/components/82895/components.json'
 // @ts-ignore
-import { presets } from '../../presets.82895.json'
+import presets from '../typings/storyblok/components/82895/presets.json'
 
 export function findPresets<T = undefined>(componentName: string): T[] {
   const found = components.find((item) => item.name === componentName)

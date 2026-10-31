@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react'
+import { StoryFn } from '@storybook/react'
 import { LmListWidgetProps } from '../components/list-widget/listWidgetTypes'
 import { findPresets } from '../storybook/findStorybookPresets'
 import LmListWidget from '../components/list-widget/ListWidget'
@@ -16,8 +16,7 @@ export default {
     ...getComponentArgTypes(COMPONENT_NAME)
   },
   loaders: [
-    // @ts-ignore
-    async ({ args }: { args: any }) => {
+    async ({ args }: { args: LmListWidgetProps['content'] }) => {
       CONFIG.publicToken = 'm85LRUo0sX4yo9Q96VMQlQtt'
       CONFIG.rootDirectory = 'en'
       return {
@@ -28,7 +27,7 @@ export default {
       }
     }
   ]
-} as Meta
+}
 
 const presets = findPresets<LmListWidgetProps['content']>(COMPONENT_NAME)
 
@@ -36,7 +35,15 @@ const Template: StoryFn<LmListWidgetProps['content']> = (
   args,
   { loaded: { list_widget_data } }
 ) => {
-  return <LmListWidget content={{ ...args, list_widget_data }} />
+  return (
+    <LmListWidget
+      content={{
+        ...args,
+        list_widget_data:
+          list_widget_data as LmListWidgetProps['content']['list_widget_data']
+      }}
+    />
+  )
 }
 //
 export const Basic = Template.bind({})

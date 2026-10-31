@@ -1,9 +1,6 @@
 import ListWidgetLists from './ListWidgetLists'
 
-import {
-  CardListStoryblok,
-  ListWidgetStoryblok
-} from '../../typings/generated/components-schema'
+import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { ListWidgetCards } from './ListWidgetCards'
 import { ListWidgetLinks } from './ListWidgetLinks'
 import { ListStoriesData, LmListWidgetProps } from './listWidgetTypes'
@@ -28,10 +25,6 @@ export function ListWidgetContainer(
     )
   }
   return (
-    <ListWidgetCards
-      _uid={content._uid}
-      options={listOption as CardListStoryblok}
-      items={items}
-    />
+    <ListWidgetCards _uid={content._uid} options={listOption} items={items} />
   )
 }

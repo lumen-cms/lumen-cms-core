@@ -10,7 +10,13 @@ import AdRoll from '../tracking/AdRoll'
 import { useSettings } from '../provider/SettingsPageProvider'
 import GtmManager from '../tracking/GtmManager'
 import { useAppContext } from '../provider/context/AppContext'
-import { GoogleFontsLivePreview } from './GoogleFontsLivePreview'
+import dynamic from 'next/dynamic'
+
+const GoogleFontsLivePreview = dynamic(() =>
+  import('./GoogleFontsLivePreview').then(
+    (module) => module.GoogleFontsLivePreview
+  )
+)
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 

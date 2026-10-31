@@ -1,5 +1,8 @@
 // @vitest-environment happy-dom
-import { act } from 'react'
+import { act, type MouseEventHandler } from 'react'
+import type LmDialog from './LmDialog'
+import type { LmDialogAsyncProps } from './dialogTypes'
+import type { DialogStoryblok } from '../../typings/generated/components-schema'
 import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import { LmCoreComponents } from '../../utils/config'
@@ -13,12 +16,12 @@ vi.mock('next/router', () => ({
 vi.mock('next/dynamic', async () => {
   const { lazy, Suspense } = await import('react')
   return {
-    default: (loader: any) => {
+    default: (loader: () => Promise<{ default: typeof LmDialog }>) => {
       const Component = lazy(async () => {
         loaded()
         return loader()
       })
-      return (props: any) => (
+      return (props: LmDialogAsyncProps) => (
         <Suspense fallback={null}>
           <Component {...props} />
         </Suspense>
@@ -34,9 +37,13 @@ it('keeps its trigger rendered and loads dialog content only when opened', async
   document.body.append(host)
   const root = createRoot(host)
   const previous = LmCoreComponents.dialog_test_button
-  LmCoreComponents.dialog_test_button = ({ content, onClick }: any) => (
-    <button onClick={onClick}>{content.label}</button>
-  )
+  LmCoreComponents.dialog_test_button = ({
+    content,
+    onClick
+  }: {
+    content: { label: string }
+    onClick?: MouseEventHandler<HTMLButtonElement>
+  }) => <button onClick={onClick}>{content.label}</button>
   try {
     await act(async () =>
       root.render(
@@ -51,14 +58,14 @@ it('keeps its trigger rendered and loads dialog content only when opened', async
                 _uid: 'trigger',
                 label: 'Open dialog'
               }
-            ] as any,
+            ] as unknown as DialogStoryblok['trigger'],
             body: [
               {
                 component: 'dialog_test_button',
                 _uid: 'body',
                 label: 'Dialog body'
               }
-            ] as any
+            ] as unknown as DialogStoryblok['body']
           }}
         />
       )
@@ -82,3 +89,19 @@ it('keeps its trigger rendered and loads dialog content only when opened', async
     else delete LmCoreComponents.dialog_test_button
   }
 })
+
+declare module '../../typings/storyblok-registry' {
+  interface StoryblokComponentMap {
+    dialog_test_button: {
+      component: 'dialog_test_button'
+      _uid: string
+      label: string
+    }
+  }
+  interface StoryblokRendererPropsOverrides {
+    dialog_test_button: {
+      content: StoryblokComponentMap['dialog_test_button']
+      onClick?: MouseEventHandler<HTMLButtonElement>
+    }
+  }
+}

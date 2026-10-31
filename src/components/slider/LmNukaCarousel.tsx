@@ -14,12 +14,14 @@ import {
 } from 'react'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
-import ChevronLeft from 'mdi-material-ui/ChevronLeft'
-import ChevronRight from 'mdi-material-ui/ChevronRight'
-import CircleMedium from 'mdi-material-ui/CircleMedium'
-import MinusThick from 'mdi-material-ui/MinusThick'
-import CircleSmall from 'mdi-material-ui/CircleSmall'
-import Minus from 'mdi-material-ui/Minus'
+import {
+  ChevronLeft,
+  ChevronRight,
+  CircleMedium,
+  MinusThick,
+  CircleSmall,
+  Minus
+} from 'mdi-material-ui'
 
 const DARK = 'rgba(0,0,0,0.8)'
 const LIGHT = 'rgba(255,255,255,0.8)'
@@ -56,7 +58,7 @@ const overlay = (alignItems: string, justifyContent: string) =>
     zIndex: 2,
     pointerEvents: 'none',
     '& > *': { pointerEvents: 'auto' }
-  } as const)
+  }) as const
 
 type CarouselSlide = { key: string; content: ReactNode }
 

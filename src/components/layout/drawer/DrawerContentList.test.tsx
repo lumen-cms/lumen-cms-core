@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { expect, it, vi } from 'vitest'
 import { DrawerContentList } from './DrawerContentList'
 const fixture = vi.hoisted(() => ({
-  settings: {} as any,
+  settings: {} as Record<string, unknown>,
   slug: '/target',
   paths: [] as string[][]
 }))
@@ -15,7 +15,13 @@ vi.mock('../../provider/context/AppContext', () => ({
   useAppContext: () => ({ slug: fixture.slug })
 }))
 vi.mock('./CollapsibleListSection', () => ({
-  DrawerContentRender: ({ content, openedPath }: any) => {
+  DrawerContentRender: ({
+    content,
+    openedPath
+  }: {
+    content: { _uid: string }
+    openedPath: string[]
+  }) => {
     fixture.paths.push(openedPath)
     return <span>{content._uid}</span>
   }

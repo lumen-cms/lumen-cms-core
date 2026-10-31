@@ -192,7 +192,7 @@ export const Alignment = () => (
           ...props,
           _uid: '45345',
           alignment: 'bottomStart',
-          elevation: 1
+          elevation: '1'
         }}
         initialOpen
       />
@@ -232,7 +232,7 @@ export const OnHover = () => (
         ...props,
         _uid: '45345',
         alignment: 'bottomStart',
-        elevation: 4,
+        elevation: '4',
         open_on_hover: true
       }}
     />

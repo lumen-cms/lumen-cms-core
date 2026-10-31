@@ -7,7 +7,7 @@ export type SSR_CONFIG_PROPS = {
     pageProps: ((props: AppPageProps) => Promise<void>)[]
     sitemap: ((stream: SitemapStream, locale?: string) => Promise<void>)[]
     componentData: {
-      [k: string]: (item: any, props: AppPageProps) => Promise<any>
+      [k: string]: (item: any, props: AppPageProps) => Promise<unknown>
     }
   }
 }

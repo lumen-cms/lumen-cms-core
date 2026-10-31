@@ -6,5 +6,5 @@ import {
 export type LmDateHeadlineProps = { content: DateHeadlineStoryblok }
 export type LmHeadlineProps = {
   content: HeadlineStoryblok
-  onClick?: () => void
+  onClick?: import('react').MouseEventHandler<HTMLElement>
 }

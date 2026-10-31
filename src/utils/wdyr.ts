@@ -1,9 +1,9 @@
 import React from 'react'
 
 if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
-  const whyDidYouRender = require('@welldone-software/why-did-you-render')
+  const whyDidYouRender =
+    require('@welldone-software/why-did-you-render') as typeof import('@welldone-software/why-did-you-render').default
 
-  // eslint-disable-next-line no-console
   console.debug(
     'Applying whyDidYouRender, to help you locate unnecessary re-renders during development. See https://github.com/welldone-software/why-did-you-render'
   )

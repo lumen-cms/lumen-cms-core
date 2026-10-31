@@ -7,11 +7,12 @@ export default createSitemapApi([
       locale || process.env.NEXT_PUBLIC_ROOT_DIRECTORY
     )
     items.forEach((travel) => {
-      stream.write({
+      const item: { url: string; lastmod: unknown; priority: number } = {
         url: `${process.env.TRAVELS_SLUG || 'travels'}/${travel.slug}`,
         lastmod: travel.updated_at,
         priority: 0.5
-      })
+      }
+      stream.write(item)
     })
   }
 ])

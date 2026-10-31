@@ -33,7 +33,7 @@ const TopAppBar: FunctionComponent<
         <LmTopAppContainer>
           {props.SystemBar}
           <LmAppBarCollapse>
-            <Container maxWidth={toolbarWidth as ContainerProps['maxWidth']}>
+            <Container maxWidth={toolbarWidth}>
               <Toolbar
                 disableGutters
                 className="lm-toolbar__main"

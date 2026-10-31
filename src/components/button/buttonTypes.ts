@@ -5,7 +5,7 @@ import {
 
 export type LmButtonProps = {
   content: ButtonStoryblok
-  onClick?: () => void
+  onClick?: import('react').MouseEventHandler<HTMLElement>
   type?: string
   disabled?: boolean
   additionalClassName?: string

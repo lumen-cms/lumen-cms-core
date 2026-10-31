@@ -1,7 +1,4 @@
-import type {
-  FlexRowStoryblok,
-  IconStoryblok
-} from '../../../typings/generated/components-schema'
+import type { FlexRowStoryblok } from '../../../typings/generated/components-schema'
 import type { Travel } from '../../typings/generated/hasura-schema'
 
 export type TravelSectionProps = { content: Travel; langKey: 'DE' | 'EN' }
@@ -16,7 +13,7 @@ export const mainFlexRowHeadline = ({
   ({
     _uid: icon,
     component: 'flex_row',
-    gap: 1,
+    gap: '1',
     styles: [{ margin: '40px 0 0 0' }],
     body: [
       {
@@ -24,7 +21,7 @@ export const mainFlexRowHeadline = ({
         _uid: 'icon-' + icon,
         class_names: { values: ['text-primary'] },
         name: { name: icon }
-      } as IconStoryblok,
+      },
       {
         _uid: 'head-' + icon,
         component: 'headline',
@@ -34,4 +31,4 @@ export const mainFlexRowHeadline = ({
         text: text
       }
     ]
-  } as FlexRowStoryblok)
+  }) as FlexRowStoryblok

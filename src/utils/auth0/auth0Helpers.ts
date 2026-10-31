@@ -1,9 +1,12 @@
 import { CONFIG } from '../config'
 import { User } from '@auth0/auth0-react'
 
+type AuthRole = string | Record<string, unknown>
+
 export const hasAuth0Credentials = (roles: string[], user: User) => {
-  const userCurrentRoles =
-    user[process.env.NEXT_PUBLIC_AUTH_PERMISSION as string] || []
+  const userCurrentRoles = (user[
+    process.env.NEXT_PUBLIC_AUTH_PERMISSION as string
+  ] || []) as AuthRole[]
   console.log(userCurrentRoles, roles, user.email)
   if (roles.includes('any') && !!user) {
     return true
@@ -12,9 +15,11 @@ export const hasAuth0Credentials = (roles: string[], user: User) => {
     return false
   }
   return roles.find((role) =>
-    userCurrentRoles.find((item: string | any) =>
+    userCurrentRoles.find((item) =>
       process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY
-        ? item[process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY] === role
+        ? (item as Record<string, unknown>)[
+            process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY
+          ] === role
         : item === role
     )
   )
@@ -26,7 +31,7 @@ export const getAuth0RoleOnPath = (
 ) => {
   let currentPath = Array.isArray(routeParams)
     ? routeParams.join('/')
-    : routeParams ?? ''
+    : (routeParams ?? '')
   if (options.locale && options.defaultLocale !== options.locale) {
     currentPath = `/${options.locale}${currentPath}`
   }

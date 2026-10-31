@@ -3,10 +3,29 @@ import { ListWidgetStoryblok } from '../../typings/generated/components-schema'
 import { PageComponent } from '../../typings/generated/schema'
 import { ISbStoryData } from 'storyblok-js-client'
 
-export const legacyFilterAllStories = (
-  content: ListWidgetStoryblok,
-  allStories: ISbStoryData<PageComponent>[]
-) => {
+type FilterOptions = Pick<
+  ListWidgetStoryblok,
+  | 'tags'
+  | 'match_all_tags'
+  | 'sort'
+  | 'sort_descending'
+  | 'maximum_items'
+  | 'only_tagged'
+>
+type FilterStory = Pick<ISbStoryData<PageComponent>, 'name'> &
+  Partial<
+    Pick<
+      ISbStoryData<PageComponent>,
+      'tag_list' | 'published_at' | 'created_at'
+    >
+  > & {
+    content: Pick<PageComponent, 'preview_publish_date' | 'preview_title'>
+  }
+
+export const legacyFilterAllStories = <T extends FilterStory>(
+  content: FilterOptions,
+  allStories: T[]
+): T[] => {
   const filter = (content.tags && content.tags.values) || []
   const selectedTags = new Set(filter)
   const requiredTags = content.match_all_tags ? selectedTags : null

@@ -1,13 +1,11 @@
 // Transpile the actual component sources for the isolated browser integration fixture.
-const ts = require('typescript')
+const { transformSync } = require('esbuild')
 module.exports = function (source) {
-  return ts.transpileModule(source, {
-    fileName: this.resourcePath,
-    compilerOptions: {
-      target: ts.ScriptTarget.ES2022,
-      module: ts.ModuleKind.ESNext,
-      jsx: ts.JsxEmit.ReactJSX,
-      esModuleInterop: true
-    }
-  }).outputText
+  return transformSync(source, {
+    sourcefile: this.resourcePath,
+    loader: this.resourcePath.endsWith('.tsx') ? 'tsx' : 'ts',
+    target: 'es2022',
+    format: 'esm',
+    jsx: 'automatic'
+  }).code
 }

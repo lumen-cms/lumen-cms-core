@@ -17,7 +17,13 @@ export const Playground = () => {
         body: [
           {
             ...storyNavItem({ count: 1 }),
-            link: { cached_url: 'https://google.com', linktype: 'external' }
+            link: {
+              fieldtype: 'multilink',
+              id: '',
+              url: 'https://google.com',
+              cached_url: 'https://google.com',
+              linktype: 'url'
+            }
           },
           storyNavItem({ count: 2 }),
           storyNavItem({ count: 3 }),

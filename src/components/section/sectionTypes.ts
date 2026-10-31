@@ -18,14 +18,14 @@ export type LmSectionParallaxProps = {
 }
 export type LmSectionVideoProps = {
   content: SectionVideoBgStoryblok & {
-    section_video_bg_data: LmImagePlaceholder
+    section_video_bg_data?: LmImagePlaceholder
   }
   sectionPosition?: number
 }
 export type LmGridRowProps = { content: RowStoryblok }
 export type LmGridColumnProps = {
   content: ColumnStoryblok
-  parent: { direction: GridDirection }
+  parent: { direction?: GridDirection | '' }
 }
 export type LmSectionProps = {
   content: SectionProps

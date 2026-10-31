@@ -23,12 +23,13 @@ vi.mock('next/image', () => ({
     priority?: boolean
     quality?: number
   }) => (
-    <img
-      src={src}
-      alt={alt}
+    <span
+      data-image-probe
+      data-src={src}
+      data-alt={alt}
       className={className}
       style={style}
-      loading={loading}
+      data-loading={loading}
       data-priority={String(priority)}
       data-quality={quality}
     />
@@ -61,11 +62,13 @@ it.each([undefined, 'fixed_cover', 'fixed_image'] as const)(
           />
         )
       )
-      const images = Array.from(host.querySelectorAll('img'))
+      const images = Array.from(
+        host.querySelectorAll<HTMLElement>('[data-image-probe]')
+      )
       expect(images).toHaveLength(2)
       expect(images[0].className).toContain('landscape')
       expect(images[1].className).toContain('portrait')
-      expect(images[0].loading).toBe('eager')
+      expect(images[0].getAttribute('data-loading')).toBe('eager')
       const wrapper = images[0].parentElement
       await act(async () =>
         root.render(
@@ -76,13 +79,17 @@ it.each([undefined, 'fixed_cover', 'fixed_image'] as const)(
           />
         )
       )
-      expect(host.querySelectorAll('img')[0]).toBe(images[0])
-      expect(host.querySelectorAll('img')[1]).toBe(images[1])
+      expect(host.querySelectorAll<HTMLElement>('[data-image-probe]')[0]).toBe(
+        images[0]
+      )
+      expect(host.querySelectorAll<HTMLElement>('[data-image-probe]')[1]).toBe(
+        images[1]
+      )
       expect(images[0].parentElement).toBe(wrapper)
       expect(images[0].style.objectPosition).toBe('top')
       expect(images[0].getAttribute('data-priority')).toBe('true')
       expect(images[0].getAttribute('data-quality')).toBe('80')
-      expect(images[0].getAttribute('loading')).toBeNull()
+      expect(images[0].getAttribute('data-loading')).toBeNull()
     } finally {
       await act(async () => root.unmount())
       host.remove()

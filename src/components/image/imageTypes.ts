@@ -10,5 +10,5 @@ export type LmImageProps = {
   content: ImageStoryblok & {
     image_data?: LmImagePlaceholder
   }
-  onClick?: () => void
+  onClick?: import('react').MouseEventHandler<Element>
 }

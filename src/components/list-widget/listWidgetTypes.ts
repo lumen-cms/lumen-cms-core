@@ -19,7 +19,7 @@ import { ISbStoryData } from 'storyblok-js-client'
 
 export type LmListWidgetProps = {
   content: ListWidgetStoryblok & {
-    list_widget_data: {
+    list_widget_data?: {
       items: ISbStoryData<PageComponent>[]
       total: number
       perPage: number
@@ -29,7 +29,7 @@ export type LmListWidgetProps = {
 }
 export type LmCategoryBoxProps = {
   content: CategoryBoxStoryblok & {
-    category_box_data: AllCategoryData
+    category_box_data?: AllCategoryData
   }
 }
 export type LmListSearchAutocompleteProps = {
@@ -54,7 +54,7 @@ export type ListStoriesData = ISbStoryData<ListStoriesTypes>
 
 export type LmListStoriesPayload = {
   stories: ListStoriesData[]
-  cv: number
+  cv?: number
   rels?: any[]
   links?: {
     name: string
@@ -89,7 +89,7 @@ export type LmListStoriesData = {
 
 export type LmListStoriesProps = {
   content: ListStoriesStoryblok & {
-    list_stories_data: LmListStoriesData
+    list_stories_data?: LmListStoriesData
   }
 }
 export type LmNewsListItemProps = {

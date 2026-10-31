@@ -2,11 +2,26 @@
 import { act } from 'react'
 import { createRoot } from 'react-dom/client'
 import { describe, expect, it, vi } from 'vitest'
+import type {
+  GlobalStoryblok,
+  PageStoryblok
+} from '../../typings/generated/components-schema'
 import { AppContext } from './context/AppContext'
 
+type PreviewEvent = {
+  story?: { uuid: string; content: Partial<GlobalStoryblok | PageStoryblok> }
+  action?: string
+  reload?: boolean
+}
+type BridgeOptions = { resolveLinks: string; resolveRelations: string[] }
+type BridgeInstance = {
+  options: BridgeOptions
+  listeners: Record<string, (event: PreviewEvent) => void>
+  destroy: () => void
+}
 const bridge = vi.hoisted(() => ({
   load: vi.fn(async () => {}),
-  instances: [] as any[]
+  instances: [] as BridgeInstance[]
 }))
 vi.mock('@storyblok/react', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@storyblok/react')>()),
@@ -28,12 +43,12 @@ describe('Storyblok preview lifecycle', () => {
   it('updates the matching page/settings and destroys the bridge on unmount', async () => {
     Object.assign(globalThis, { IS_REACT_ACT_ENVIRONMENT: true })
     class MockBridge {
-      listeners: Record<string, any> = {}
+      listeners: BridgeInstance['listeners'] = {}
       destroy = vi.fn()
-      constructor(public options: any) {
+      constructor(public options: BridgeOptions) {
         bridge.instances.push(this)
       }
-      on(events: string | string[], callback: any) {
+      on(events: string | string[], callback: (event: PreviewEvent) => void) {
         for (const event of [events].flat()) this.listeners[event] = callback
       }
     }
@@ -42,10 +57,15 @@ describe('Storyblok preview lifecycle', () => {
     const root = createRoot(host)
     await act(async () =>
       root.render(
-        <AppContext.Provider value={{ insideStoryblok: true } as any}>
+        <AppContext.Provider value={{ insideStoryblok: true }}>
           <SettingsPageProvider
-            settings={{ uuid: 'settings', title: 'Global' } as any}
-            page={{ uuid: 'page', title: 'Page' } as any}
+            settings={
+              {
+                uuid: 'settings',
+                title: 'Global'
+              } as unknown as GlobalStoryblok
+            }
+            page={{ uuid: 'page', title: 'Page' } as unknown as PageStoryblok}
           >
             <Consumer />
           </SettingsPageProvider>
@@ -55,7 +75,7 @@ describe('Storyblok preview lifecycle', () => {
     await act(async () => {
       await vi.dynamicImportSettled()
     })
-    const instance = bridge.instances.at(-1)
+    const instance = bridge.instances.at(-1)!
     expect(instance.options.resolveLinks).toBe('url')
     expect(instance.options.resolveRelations).toContain('form_container.form')
     await act(async () =>
@@ -96,7 +116,7 @@ describe('Storyblok preview lifecycle', () => {
     const root = createRoot(document.createElement('div'))
     await act(async () =>
       root.render(
-        <SettingsPageProvider settings={{} as any}>
+        <SettingsPageProvider settings={{} as GlobalStoryblok}>
           <Consumer />
         </SettingsPageProvider>
       )
@@ -115,8 +135,10 @@ describe('Storyblok preview lifecycle', () => {
     const root = createRoot(document.createElement('div'))
     await act(async () =>
       root.render(
-        <AppContext.Provider value={{ insideStoryblok: true } as any}>
-          <SettingsPageProvider settings={{ uuid: 'settings' } as any}>
+        <AppContext.Provider value={{ insideStoryblok: true }}>
+          <SettingsPageProvider
+            settings={{ uuid: 'settings' } as GlobalStoryblok}
+          >
             <Consumer />
           </SettingsPageProvider>
         </AppContext.Provider>
@@ -142,9 +164,15 @@ it('publishes changed UUIDs and cleared pages without a stale child render', asy
     seen.push(`${usePage()?.title || ''}|${useSettings()?.title}`)
     return null
   }
-  const render = (page: any, settings: any) =>
+  const render = (
+    page: Partial<PageStoryblok> | null,
+    settings: Partial<GlobalStoryblok>
+  ) =>
     root.render(
-      <SettingsPageProvider page={page} settings={settings}>
+      <SettingsPageProvider
+        page={page as PageStoryblok | null}
+        settings={settings as GlobalStoryblok}
+      >
         <Snapshot />
       </SettingsPageProvider>
     )

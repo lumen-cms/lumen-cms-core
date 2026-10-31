@@ -8,5 +8,5 @@ export type LmNews = NewsStoryblok & {
   category: ISbStoryData<NewsCategoryStoryblok>
 }
 export type LmNewsProps = {
-  content: LmNews
+  content: NewsStoryblok
 }

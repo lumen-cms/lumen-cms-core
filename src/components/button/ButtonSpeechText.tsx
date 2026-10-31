@@ -2,7 +2,7 @@ import { LmComponentRender } from '../CoreComponents'
 import { useRef } from 'react'
 import { useSpeechSynthesis } from '../../utils/hooks/useSpeechSynthesis'
 import { LmButtonSpeechTextProps } from './buttonTypes'
-import { ButtonStoryblok } from '../../typings/generated/components-schema'
+
 import { useAppContext } from '../provider/context/AppContext'
 
 export default function LmButtonSpeechText({
@@ -42,22 +42,20 @@ export default function LmButtonSpeechText({
   return (
     <div ref={ref}>
       <LmComponentRender
-        content={
-          {
-            id: content._uid,
-            _uid: content._uid,
-            component: 'button',
-            label: 'Click to speech',
-            ...(trigger || {}),
-            ...(speaking
-              ? {
-                  trailing_icon: {
-                    name: 'account-voice'
-                  }
+        content={{
+          id: content._uid,
+          _uid: content._uid,
+          component: 'button',
+          label: 'Click to speech',
+          ...(trigger || {}),
+          ...(speaking
+            ? {
+                trailing_icon: {
+                  name: 'account-voice'
                 }
-              : {})
-          } as ButtonStoryblok
-        }
+              }
+            : {})
+        }}
         onClick={onClick}
       />
     </div>

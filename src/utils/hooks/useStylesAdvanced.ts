@@ -10,7 +10,7 @@ import {
 const addImportant = (value?: string) =>
   value ? `${value} !important` : undefined
 const snakeToCamelCase = (key: string) =>
-  key.replace(/_([a-z])/g, (_, m) => m.toUpperCase())
+  key.replace(/_([a-z])/g, (_: string, m: string) => m.toUpperCase())
 
 const capitalizeFirstLetter = (string: string) =>
   string.charAt(0).toUpperCase() + string.slice(1)
@@ -22,8 +22,8 @@ export const cssKeyToCamelCase = (key: string) => {
   }
   return trimmed
     .replace(/^-ms-/, 'ms-')
-    .replace(/^-([a-z])/, (_, m) => m.toUpperCase())
-    .replace(/-([a-z])/g, (_, m) => m.toUpperCase())
+    .replace(/^-([a-z])/, (_: string, m: string) => m.toUpperCase())
+    .replace(/-([a-z])/g, (_: string, m: string) => m.toUpperCase())
 }
 
 export const getStyles = (content: StylesStoryblok, theme: Theme) => {
@@ -57,7 +57,7 @@ export const getStyles = (content: StylesStoryblok, theme: Theme) => {
         })
       }
     } else if (content[key]) {
-      const value = content[key]
+      const value: unknown = content[key]
       const curVal =
         value && typeof value === 'object' && 'rgba' in value
           ? value.rgba
@@ -131,7 +131,11 @@ const isReinterpretedBySx = (key: string, value: unknown, theme: Theme) => {
   if (key === 'color' && value !== 'grey') {
     return !!value
       .split('.')
-      .reduce<any>((palette, path) => palette?.[path], theme.palette)
+      .reduce<unknown>(
+        (palette, path) =>
+          (palette as Record<string, unknown> | null | undefined)?.[path],
+        theme.palette
+      )
   }
   return false
 }
@@ -184,6 +188,6 @@ export const getAdvancedSx = ({
     if (propsHover?.[0]) {
       sx['&:hover'] = getCmsDeclarations(propsHover[0], theme)
     }
-    return sx as SystemStyleObject<Theme>
+    return sx
   }
 }

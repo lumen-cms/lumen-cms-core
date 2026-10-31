@@ -1,5 +1,6 @@
 import { internalLinkHandler } from './internalLinkHandler'
-import { ReactElement } from 'react'
+import type { ElementType } from 'react'
+import type { LinkProps } from '../components/link/linkTypes'
 import { CONFIG } from './config'
 
 export interface LinkType {
@@ -35,8 +36,8 @@ export type LinkHandlerProps = {
   download?: string
   email?: string
   naked?: boolean
-  component?: ReactElement
-  onClick?: () => void
+  component?: ElementType<LinkProps>
+  onClick?: import('react').MouseEventHandler<HTMLElement>
 }
 
 export const linkHandler = (
@@ -100,7 +101,7 @@ export const isValidLink = (link?: LinkType): boolean | string | undefined => {
 }
 
 export const getLinkAttrs = (
-  link: LinkType = {} as LinkType,
+  link: LinkType = {},
   options: LinkOptions = {}
 ): LinkHandlerProps => {
   return linkHandler(link, options)

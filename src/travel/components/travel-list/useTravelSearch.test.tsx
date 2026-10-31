@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { act } from 'react'
+import { act, useLayoutEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { SWRConfig } from 'swr'
 import { expect, it, vi } from 'vitest'
@@ -22,7 +22,10 @@ it.each([200, 400, 500])('handles HTTP %s through SWR', async (status) => {
   } as unknown as Response)
   let result: ReturnType<typeof useTravelSearch>
   function Reader() {
-    result = useTravelSearch()
+    const value = useTravelSearch()
+    useLayoutEffect(() => {
+      result = value
+    })
     return null
   }
   const root = createRoot(document.createElement('div'))
@@ -45,11 +48,13 @@ it.each([200, 400, 500])('handles HTTP %s through SWR', async (status) => {
       expect(json).toHaveBeenCalledOnce()
     } else {
       expect(result!.error).toBeInstanceOf(Error)
+      if (!(result!.error instanceof Error))
+        throw new Error('Expected request error')
       expect(result!.error.message).toContain(String(status))
       expect(result!.data).toBeUndefined()
       expect(json).not.toHaveBeenCalled()
     }
   } finally {
-    await act(() => root.unmount())
+    await act(async () => root.unmount())
   }
 })

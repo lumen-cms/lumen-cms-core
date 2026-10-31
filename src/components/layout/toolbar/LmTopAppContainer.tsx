@@ -82,8 +82,8 @@ function getToolbarAppearance(
     (hasFeatureImage || toolbarConfig.includes('unelevated'))
       ? 0
       : settings.toolbar_elevation
-      ? Number(settings.toolbar_elevation)
-      : 4
+        ? Number(settings.toolbar_elevation)
+        : 4
   return {
     elevation,
     className: clsx({
@@ -95,7 +95,7 @@ function getToolbarAppearance(
       background: settings.toolbar_background ?? undefined,
       backgroundColor:
         settings.toolbar_color?.rgba && (!hasFeatureImage || toolbarScrolled)
-          ? settings.toolbar_color?.rgba ?? undefined
+          ? (settings.toolbar_color?.rgba ?? undefined)
           : undefined
     },
     color: mapToolbarColor[toolbarVariant || 'default'],

@@ -1,3 +1,7 @@
+import type {
+  GlobalStoryblok,
+  PageStoryblok
+} from '../typings/generated/components-schema'
 import { StoryFn } from '@storybook/react'
 import { CONFIG } from '../utils/config'
 import { INITIAL_VIEWPORTS } from 'storybook/viewport'
@@ -32,7 +36,11 @@ export default {
   }
 }
 
-const StoryWrap = (data: any) => (
+type LandingPageData = Awaited<ReturnType<typeof getPageProps>> & {
+  formData?: Record<string, unknown>
+}
+
+const StoryWrap = (data: LandingPageData) => (
   <AppProvider
     content={{
       allCategories: [],
@@ -41,7 +49,10 @@ const StoryWrap = (data: any) => (
       formData: data.formData || {}
     }}
   >
-    <SettingsPageProvider settings={data.settings || {}} page={data.page || {}}>
+    <SettingsPageProvider
+      settings={data.settings || ({} as GlobalStoryblok)}
+      page={data.page || ({} as PageStoryblok)}
+    >
       <AppSetupProvider>
         <GlobalTheme>
           <LmAppProvidersContainer>
@@ -62,12 +73,12 @@ const StoryWrap = (data: any) => (
   </AppProvider>
 )
 
-const Template: StoryFn<any> = (_args, { loaded: { data } }) => {
+const Template: StoryFn = (_args, { loaded }) => {
+  const data = loaded.data as LandingPageData
   return <StoryWrap {...data} />
 }
 
 export const Studentsgoabroad = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 Studentsgoabroad.loaders = [
   async () => {
@@ -83,7 +94,6 @@ Studentsgoabroad.parameters = {
 }
 
 export const StudentsgoabroadMobile = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 StudentsgoabroadMobile.loaders = Studentsgoabroad.loaders
 StudentsgoabroadMobile.globals = {
@@ -94,7 +104,6 @@ StudentsgoabroadMobile.parameters = {
 }
 
 export const PlanetTraining = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 PlanetTraining.loaders = [
   async () => {
@@ -114,7 +123,6 @@ PlanetTraining.parameters = {
 }
 
 export const UpskillStudy = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 UpskillStudy.loaders = [
   async () => {
@@ -134,7 +142,6 @@ UpskillStudy.parameters = {
 }
 
 export const Baliinternships = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 Baliinternships.loaders = [
   async () => {
@@ -154,7 +161,6 @@ Baliinternships.parameters = {
 }
 
 export const BaliinternshipsMobile = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 BaliinternshipsMobile.loaders = Baliinternships.loaders
 BaliinternshipsMobile.globals = {
@@ -166,7 +172,6 @@ BaliinternshipsMobile.parameters = {
 }
 
 export const Session = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 Session.loaders = [
   async () => {
@@ -185,7 +190,6 @@ Session.parameters = {
   chromatic: { delay: 15000 }
 }
 export const SessionMobile = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 SessionMobile.loaders = Session.loaders
 SessionMobile.globals = { viewport: { value: 'iphone6', isRotated: false } }
@@ -195,7 +199,6 @@ SessionMobile.parameters = {
 }
 
 export const GameMarketer = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 GameMarketer.loaders = [
   async () => {
@@ -215,7 +218,6 @@ GameMarketer.parameters = {
   chromatic: { delay: 15000 }
 }
 export const GameMarketerMobile = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 GameMarketerMobile.loaders = GameMarketer.loaders
 GameMarketerMobile.globals = {
@@ -227,7 +229,6 @@ GameMarketerMobile.parameters = {
 }
 
 export const Chatlabs = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 Chatlabs.loaders = [
   async () => {
@@ -247,7 +248,6 @@ Chatlabs.parameters = {
   chromatic: { delay: 15000 }
 }
 export const ChatlabsMobile = Template.bind({})
-// eslint-disable-next-line
 // @ts-ignore
 ChatlabsMobile.loaders = Chatlabs.loaders
 ChatlabsMobile.globals = { viewport: { value: 'iphone6', isRotated: false } }

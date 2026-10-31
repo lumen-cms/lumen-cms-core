@@ -1,7 +1,15 @@
 import { LmComponentRender } from '../CoreComponents'
 import { SectionProps } from '../section/sectionTypes'
 
-type LmSliderChildProps = { body: any[]; sectionVariant: any }
+type LmSliderChildProps = {
+  body: (
+    | NonNullable<
+        import('../../typings/generated/components-schema').ColumnStoryblok['body']
+      >[number]
+    | SectionProps
+  )[]
+  sectionVariant: SectionProps['presetVariant']
+}
 
 export function LmSliderChild({
   body,

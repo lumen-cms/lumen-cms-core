@@ -1,5 +1,5 @@
 import { useInView } from 'react-intersection-observer'
-import SVG from 'react-inlinesvg'
+import SVG from './LazyInlineSvg'
 import { useState } from 'react'
 import Fade from '@mui/material/Fade'
 import { intersectionImageOptions } from '../../utils/intersectionObserverConfig'
@@ -45,16 +45,14 @@ export default function ImageSvg({
           <StyledSvg
             width={content.width}
             height={content.height}
-            src={src as string}
+            src={src}
             style={{
               cursor: onClick ? 'pointer' : undefined,
               color: fitInColor,
               width: content.width && `${content.width}px`,
               height: content.height && `${content.height}px`
             }}
-            onClick={() => {
-              onClick && onClick()
-            }}
+            onClick={onClick}
             onLoad={afterSvgLoaded}
             onError={onErrorHandler}
             className={clsx({

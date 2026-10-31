@@ -6,7 +6,6 @@ import { findFirstPreset, findPresets } from '../storybook/findStorybookPresets'
 import { LmAvatar } from '../components/avatar/LmAvatar'
 import StorybookSpacingContainer from '../storybook/components/StorybookSpacingContainer'
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Data Display/Avatar',
   component: LmAvatar,
@@ -45,7 +44,7 @@ export const Sizes = () => (
     <LmAvatar content={{ ...presetContent }} />
     <LmAvatar content={{ ...presetContent, size: 'large' }} />
     <LmAvatar content={{ ...presetContent, size: 'xlarge' }} />
-    <LmAvatar content={{ ...presetContent, custom_size: 120 }} />
+    <LmAvatar content={{ ...presetContent, custom_size: '120' }} />
   </StorybookSpacingContainer>
 )
 

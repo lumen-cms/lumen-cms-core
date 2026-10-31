@@ -6,6 +6,11 @@ Use Node.js 24 (`nvm use`) and the repository's pinned pnpm version. Install wit
 `pnpm install --frozen-lockfile`, then run `pnpm dev`. Next.js development and
 production builds use Turbopack. Storybook retains its separate webpack builder.
 
+Run `pnpm lint` for Oxlint (including type-aware and React Compiler checks) and
+Oxfmt validation. Use `pnpm lint:fix` for safe lint fixes and formatting, or
+`pnpm format:fix` for formatting alone. See [the Oxc tooling guide](docs/oxc-tooling.md)
+for rule coverage, warning adoption, and editor setup.
+
 `pnpm install` also enables the versioned `.githooks/pre-push` hook for this
 checkout. Before each push, it runs `pnpm check:react-doctor`: a full,
 noninteractive scan using the latest React Doctor, blocking on warnings, errors,
@@ -154,10 +159,9 @@ the preview token must stay server-only.
 ## Validation during the upgrade
 
 - `pnpm test`: offline Vitest tests for Google Forms parsing, news feeds and signing.
-- `pnpm check-types`: strict TypeScript 7 check. The `@typescript/native` alias
-  provides `tsc` 7.0.2. The `typescript` alias supplies Microsoft's TypeScript 6
-  API compatibility package for ESLint/Next tooling; it does not replace this
-  TypeScript 7 gate. See [Microsoft's side-by-side guidance](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-60).
+- `pnpm check-types`: strict TypeScript 7.0.2 check using the standard
+  `typescript` dependency. Schema generation uses the official Storyblok CLI directly;
+  no TypeScript 6 compiler API compatibility package is required.
 - `pnpm test:integration`: explicit live Storyblok/Google Forms checks. Copy
   `.env.test.example` to `.env.test.local` and supply the listed space tokens.
   These depend on external content and are separate from the offline suite.
@@ -328,3 +332,90 @@ tracking-prevention, and third-party-cookie policies still apply.
 ## Optional travel integration
 
 Travel and Auslandszeit are opt-in subpaths of this package. See [the travel integration guide](docs/travel.md) for client registration, page loaders, API routes, and migration from `lumen-cms-travel`.
+
+## Storyblok component workflow
+
+The intended workflow is:
+
+1. Update or add a component in Storyblok.
+2. Pull the schema with `pnpm fetch-storyblok-components`.
+3. Generate TypeScript types with `pnpm gen-ts-schema`.
+4. Implement or update the React renderer using its generated content type, and
+   register it under the Storyblok component name.
+
+The CMS schema is the source of truth for content types. `pnpm gen-ts-schema`
+runs the official CLI, then indexes its declarations into
+`src/typings/storyblok/types/82895/registry.ts`. Added, renamed, and removed
+components automatically update the registry's types; there is no manual content
+union to maintain. The index references the CLI interfaces without copying fields
+or modifying its output, so custom field types and application augmentations remain
+available.
+
+You still implement and register the React renderer manually. Generation cannot
+choose which React component should render a CMS block. TypeScript checks that
+each registration accepts the correct content props.
+
+### Generated component types
+
+Run `pnpm fetch-storyblok-components` after changing the CMS schema, then
+`pnpm gen-ts-schema`. Both scripts call the pinned official Storyblok CLI directly.
+The checked-in schema lives in `src/typings/storyblok/components/82895/` and
+untouched CLI declarations in `src/typings/storyblok/types/`. Generation is local;
+fetching requires CLI authentication. Pulling also refreshes group/preset metadata.
+
+`generate-ts-schema-custom-types.js` supplies the custom field mappings. Application
+metadata and legacy fields remain in `src/typings/storyblok-extensions.ts`.
+Existing `typings/generated/components-schema` imports remain supported by a type
+re-export. Numeric CMS fields use the CLI's `string` type; convert them to numbers
+when calculating values. Do not edit generated declarations.
+
+`pnpm check:storyblok-types` regenerates types, checks the generated files against
+Git, and runs TypeScript. Run it after committing intentional schema/type updates.
+The unit suite checks that every schema component and content field has an explicit
+generated declaration, including all custom fields.
+
+### Typed renderer registration
+
+`LmCoreComponents` has a schema-specific renderer type for each of the 141 CMS
+components. Assignments and overrides must accept that component's content.
+`LmComponentRender` also checks content fields and parent-provided props, such as
+card-list options, accordion state, and swiper options. Lazy and memoized renderers
+use the same contracts. Provider/link hooks are typed separately from CMS names.
+
+Prefer the checked helpers for registration, especially for batches:
+
+```tsx
+import { registerStoryblokComponent, registerStoryblokComponents } from 'lumen-cms-core'
+import { LmButton } from './Button'
+import { LmImage } from './Image'
+
+registerStoryblokComponent('button', LmButton)
+registerStoryblokComponents({ image: LmImage })
+// registerStoryblokComponent('button', LmImage) // Type error
+```
+
+For consumer-owned CMS blocks generated from a separate schema, augment the
+component map with the generated type (blocks in the core schema are discovered
+automatically):
+
+```ts
+import type { PromoStoryblok } from './generated/storyblok'
+import type {} from 'lumen-cms-core/src/typings/storyblok-registry'
+
+declare module 'lumen-cms-core/src/typings/storyblok-registry' {
+  interface StoryblokComponentMap {
+    promo: PromoStoryblok // Must declare component: 'promo'.
+  }
+}
+```
+
+If a custom renderer requires props beyond `content`, also augment
+`StoryblokRendererPropsOverrides` with its full props type under the same name.
+The registry remains partial because deployments select their own renderers and
+many schema blocks are configuration data. Unregistered blocks retain the visible
+missing-component fallback. Avoid `Object.assign` for registration: its standard
+TypeScript signature does not check source properties against the target; use
+`registerStoryblokComponents` or `satisfies StoryblokRendererRegistry` instead.
+
+Run `pnpm test:storyblok-registry` to check automatic discovery against an isolated
+CLI schema, including schema additions/removals and generated content type errors.

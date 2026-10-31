@@ -1,11 +1,19 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-const mocks = vi.hoisted(() => ({
-  fetchTravels: vi.fn(),
-  pagesGetStaticProps: vi.fn(),
-  hooks: { componentData: {} as Record<string, unknown> },
-  components: { lm_app_providers: [] } as Record<string, any>
-}))
+const mocks = vi.hoisted(() => {
+  const hooks: { componentData: Record<string, unknown> } = {
+    componentData: {}
+  }
+  const components: { lm_app_providers: unknown[]; [key: string]: unknown } = {
+    lm_app_providers: []
+  }
+  return {
+    fetchTravels: vi.fn(),
+    pagesGetStaticProps: vi.fn(),
+    hooks,
+    components
+  }
+})
 vi.mock('./utils/travels', () => ({ fetchTravels: mocks.fetchTravels }))
 vi.mock('./utils/travelProps', () => ({
   getStaticPaths: vi.fn(),
@@ -38,7 +46,7 @@ describe('core integration', () => {
       expect(mocks.hooks.componentData.auslandszeit_list_widget).toBeUndefined()
       return { props: { locale: 'de' } }
     })
-    expect(await travelPagesGetStaticProps({} as never)).toEqual({
+    expect(await travelPagesGetStaticProps({})).toEqual({
       props: { locale: 'de' }
     })
     expect(mocks.hooks.componentData.existing).toBe('preserved')
@@ -55,11 +63,10 @@ describe('core integration', () => {
   })
 
   it('keeps sequential and concurrent locale requests separate', async () => {
-    mocks.fetchTravels.mockImplementation(async (locale) => [
+    mocks.fetchTravels.mockImplementation(async (locale: string) => [
       { id: locale, title: locale }
     ])
-    const read = (locale: string) =>
-      getTravelListData({} as never, { locale } as never)
+    const read = (locale: string) => getTravelListData({} as never, { locale })
     expect(await read('de')).toEqual([{ id: 'de', title: 'de' }])
     expect(await read('en')).toEqual([{ id: 'en', title: 'en' }])
     expect(await Promise.all([read('de'), read('en')])).toEqual([

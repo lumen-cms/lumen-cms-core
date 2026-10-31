@@ -2,7 +2,7 @@ import { alpha, createTheme, ThemeProvider } from '@mui/material/styles'
 import { FunctionComponent, PropsWithChildren, useMemo } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { responsiveFontSizesCompatible as responsiveFontSizes } from '../../utils/responsiveFontSizes'
-import parseFont from '../../utils/parseFont'
+import parseFont from '../../utils/parseFontName'
 import { LmGlobalStyles } from './LmGlobalStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
 import { grey } from '@mui/material/colors'
@@ -118,10 +118,6 @@ const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
       return responsiveFontSizes(createTheme(), responsiveFontSizeOptions)
     }
 
-    if (!settings.theme_font_default) {
-      settings.theme_font_default =
-        'Nunito:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700'
-    }
     let defaultContainerWidth: string | boolean = 'lg'
     if (settings.theme_container_width) {
       defaultContainerWidth =
@@ -152,28 +148,28 @@ const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
         }),
         mode: mapThemeType[(settings.theme_base as string) || 'base'],
         primary: {
-          main: (settings.theme_primary as string) || '#1769aa',
-          contrastText: (settings.theme_primary_contrast as string) || '#fff'
+          main: settings.theme_primary || '#1769aa',
+          contrastText: settings.theme_primary_contrast || '#fff'
         },
         secondary: {
-          main: (settings.theme_secondary as string) || '#ab003c',
-          contrastText: (settings.theme_secondary_contrast as string) || '#fff'
+          main: settings.theme_secondary || '#ab003c',
+          contrastText: settings.theme_secondary_contrast || '#fff'
         },
         error: {
-          main: (settings.theme_error as string) || '#f44336',
-          contrastText: (settings.theme_error_contrast as string) || '#fff'
+          main: settings.theme_error || '#f44336',
+          contrastText: settings.theme_error_contrast || '#fff'
         },
         success: {
-          main: (settings.theme_success as string) || '#2e7d32',
-          contrastText: (settings.theme_success_contrast as string) || '#fff'
+          main: settings.theme_success || '#2e7d32',
+          contrastText: settings.theme_success_contrast || '#fff'
         },
         info: {
           main: settings.theme_info || '#0288d1',
-          contrastText: (settings.theme_info_contrast as string) || '#fff'
+          contrastText: settings.theme_info_contrast || '#fff'
         },
         warning: {
-          main: (settings.theme_warning as string) || '#ed6c02',
-          contrastText: (settings.theme_warning_contrast as string) || '#fff'
+          main: settings.theme_warning || '#ed6c02',
+          contrastText: settings.theme_warning_contrast || '#fff'
         },
         grey: augmentColor({ color: { main: grey[300] } }),
         ...(settings.body_background_color?.rgba && {
@@ -203,8 +199,10 @@ const GlobalTheme: FunctionComponent<PropsWithChildren<unknown>> = ({
       typography: {
         fontFamily:
           process.env.NEXT_PUBLIC_FONT_DEFAULT ||
-          (settings.theme_font_default &&
-            (parseFont(settings.theme_font_default) as string))
+          (parseFont(
+            settings.theme_font_default ||
+              'Nunito:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700'
+          ) as string)
       },
       alternativeFont: {
         alt1:

@@ -9,7 +9,6 @@ import { LmButtonListProps } from '../components/button-list/buttonListTypes'
 import { getComponentArgTypes } from '../storybook/configControls'
 import { LmButtonList } from '../components/button-list/ButtonList'
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   title: 'Design/Inputs/Button List',
   component: LmButtonList,

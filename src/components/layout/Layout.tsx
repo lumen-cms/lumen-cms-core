@@ -2,22 +2,12 @@ import React, { FC } from 'react'
 import { LmComponentRender } from '../CoreComponents'
 import Header from './toolbar/Header'
 import Footer from './Footer'
-import { ChatTawktoStoryblok } from '../../typings/generated/components-schema'
+
 import DrawerElement from './drawer/DrawerElement'
 import { useSettings } from '../provider/SettingsPageProvider'
 
 const Layout: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
   const settings = useSettings()
-  // legacy code for old projects.. remove after all tawkto are integrated
-  if (settings.tawkto) {
-    settings.chat_button = [
-      {
-        _uid: 'chat button',
-        component: 'chat_tawkto',
-        account: settings.tawkto
-      } as ChatTawktoStoryblok
-    ]
-  }
   return (
     <>
       <Header />

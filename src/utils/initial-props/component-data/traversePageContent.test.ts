@@ -6,6 +6,11 @@ import { listWidgetGetData } from './listWidgetData'
 import { fixtureFetch } from '../__fixtures__/storyblokDelivery'
 import type { AppPageProps } from '../../../typings/app'
 
+type EnrichedWidget = {
+  component: 'list_widget'
+  _uid: string
+  list_widget_data?: Awaited<ReturnType<typeof listWidgetGetData>>
+}
 const originalConfig = { ...CONFIG }
 const originalComponentData = SSR_CONFIG.ssrHooks.componentData
 let requests: URL[]
@@ -27,27 +32,29 @@ afterEach(() => {
 })
 
 it('shares one uncached story listing between concurrent list widgets', async () => {
+  const first: EnrichedWidget = { component: 'list_widget', _uid: 'a' }
+  const nested: EnrichedWidget = { component: 'list_widget', _uid: 'nested' }
+  const right: EnrichedWidget = { component: 'list_widget', _uid: 'b' }
   const props = {
     insideStoryblok: true,
     page: {
       body: [
-        { component: 'list_widget', _uid: 'a' },
+        first,
         {
           component: 'section',
           _uid: 'section',
-          body: [{ component: 'list_widget', _uid: 'nested' }]
+          body: [nested]
         }
       ],
-      right_body: [{ component: 'list_widget', _uid: 'b' }]
+      right_body: [right]
     }
   } as unknown as AppPageProps
 
   await fetchComponentData(props)
 
-  const page = props.page as any
-  const widgets = [page.body[0], page.body[1].body[0], page.right_body[0]]
+  const widgets = [first, nested, right]
   for (const widget of widgets) {
-    expect(widget.list_widget_data.items.map((i: any) => i.uuid)).toEqual([
+    expect(widget.list_widget_data!.items.map((i) => i.uuid)).toEqual([
       'item-1',
       'item-2',
       'item-3'

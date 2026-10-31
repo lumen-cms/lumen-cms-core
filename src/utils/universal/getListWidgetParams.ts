@@ -11,23 +11,21 @@ export const getListWidgetParams = (
 ) => {
   const locale = props.locale !== props.defaultLocale ? props.locale : null
 
+  const filterQuery: Record<string, Record<string, string>> = {
+    component: { in: 'page' }
+  }
   const params: ISbStoriesParams = {
     per_page: Number(item.maximum_items || 25),
     excluding_fields:
       'body,right_body,meta_robots,property,meta_description,seo_body',
     sort_by: getStoriesSortHelper(item),
-    filter_query: {
-      component: {
-        in: 'page'
-      }
-    }
+    filter_query: filterQuery
   }
   if (item.tags?.values?.length) {
     params.with_tag = item.tags.values.join(',')
   }
   if (item.categories?.length) {
-    // @ts-ignore
-    params.filter_query.categories = {
+    filterQuery.categories = {
       [item.match_all_tags ? 'all_in_array' : 'in_array']: storyblokRelationIds(
         item.categories
       ).join(',')

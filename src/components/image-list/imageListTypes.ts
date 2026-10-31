@@ -10,7 +10,7 @@ export type LmImageListProps = {
 export type LmImageListItemProps = {
   content: ImageListItemStoryblok
   listProps: ImageListStoryblok
-  inView: boolean
+  inView?: boolean
 }
 
 export type ImageListLightboxProps = {

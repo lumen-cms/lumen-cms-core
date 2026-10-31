@@ -1,0 +1,5 @@
+/* Required by -webkit-line-clamp. Keep the other clamp styles inline so
+   typography and advanced theme styles retain their existing precedence. */
+.clamped {
+  -webkit-box-orient: vertical;
+}

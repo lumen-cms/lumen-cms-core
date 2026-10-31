@@ -5,9 +5,10 @@ import { SSR_CONFIG } from '../initial-props/ssrConfig'
 // Helper method to wait for a middleware to execute before continuing
 // And to throw an error when an error happens in a middleware
 const initMiddleware =
-  (middleware: any) => (req: NextApiRequest, res: NextApiResponse) =>
-    new Promise((resolve, reject) => {
-      middleware(req, res, (result: any) => {
+  (middleware: ReturnType<typeof Cors>) =>
+  (req: NextApiRequest, res: NextApiResponse) =>
+    new Promise<unknown>((resolve, reject) => {
+      middleware(req, res, (result: unknown) => {
         if (result instanceof Error) {
           return reject(result)
         }

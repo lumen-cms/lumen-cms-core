@@ -1,31 +1,33 @@
 import { renderToStaticMarkup } from 'react-dom/server'
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { expect, it, vi } from 'vitest'
 import { LmSection } from './Section'
 import type { LmSectionProps } from './sectionTypes'
+type ContainerCapture = Record<string, unknown> & { sx: unknown[] }
+type BoxCapture = Record<string, unknown> & { style: CSSProperties }
 const seen = vi.hoisted(() => ({
-  container: {} as Record<string, any>,
-  box: {} as Record<string, any>,
-  background: {} as Record<string, any>,
-  hook: {} as Record<string, any>
+  container: {} as ContainerCapture,
+  box: {} as BoxCapture,
+  background: {} as Record<string, unknown>,
+  hook: {} as Record<string, unknown>
 }))
 vi.mock('@mui/material/styles', () => ({
   useTheme: () => ({ defaultContainerWidth: 'lg' })
 }))
 vi.mock('@mui/material/Container', () => ({
-  default: ({ children, ...p }: { children: ReactNode }) => {
+  default: ({ children, ...p }: { children: ReactNode } & ContainerCapture) => {
     seen.container = p
     return <main>{children}</main>
   }
 }))
 vi.mock('@mui/material/Box', () => ({
-  default: ({ children, ...p }: { children: ReactNode }) => {
+  default: ({ children, ...p }: { children: ReactNode } & BoxCapture) => {
     seen.box = p
     return <div>{children}</div>
   }
 }))
 vi.mock('./useBackgroundBox', () => ({
-  default: (p: Record<string, any>) => {
+  default: (p: Record<string, unknown>) => {
     seen.hook = p
     return {
       style: { color: 'red' },
@@ -35,7 +37,7 @@ vi.mock('./useBackgroundBox', () => ({
   }
 }))
 vi.mock('./BackgroundImage', () => ({
-  default: (p: Record<string, any>) => {
+  default: (p: Record<string, unknown>) => {
     seen.background = p
     return <span>Background</span>
   }
