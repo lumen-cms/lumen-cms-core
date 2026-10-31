@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-31",
+  "scope": [
+    "insecure-crypto-risk",
+    "no-high-complexity-react-function",
+    "js-set-map-lookups"
+  ],
+  "grouping": "No fixGroupId in supplied diagnostics. Reviewed all six occurrences.",
+  "recipes": "Fetched all three requested canonical URLs using curl -fsSL with Cache-Control: no-cache and Pragma: no-cache; read validation and fix recipes before editing.",
+  "reviews": [
+    {
+      "rule": "insecure-crypto-risk",
+      "outcome": "Rejected",
+      "evidence": {
+        "public_storybook/1761.b1b06a73.iframe.bundle.js": "nanoid/non-secure called by PostCSS Input for <input css ...> diagnostic identifiers.",
+        "public_storybook/3885.082aa8f9.iframe.bundle.js": "source-map quick-sort randomIntInRange selects sorting pivot.",
+        "public_storybook/8443.2801b508.iframe.bundle.js": "Swiper random value used for wrapper DOM ID and accessibility relationships."
+      },
+      "impact": "Non-secret randomness; no credential or authorization weakness established. Generated artifacts unchanged."
+    },
+    {
+      "rule": "no-high-complexity-react-function",
+      "outcome": "Confirmed failure",
+      "evidence": "CardList and ListStories combine pagination state branches with layout. Extracted cohesive pagination hooks preserving state ownership and behavior. Added stable setter dependency after extraction.",
+      "impact": "Maintenance risk when modifying pagination; no existing user-facing failure established."
+    },
+    {
+      "rule": "js-set-map-lookups",
+      "outcome": "Rejected",
+      "evidence": "sitemap fullSlug is a string (story.full_slug); includes checks substrings, not array membership. Set.has would break exclusion semantics, e.g. demo-content nested in a slug.",
+      "impact": "No repeated array lookup defect established; sitemap unchanged."
+    }
+  ],
+  "verification": {
+    "tests": "Existing CardList and three ListStories test files: six tests passed. Type check passed. Final scan recorded below after completion.",
+    "command": "npx react-doctor@latest --verbose --yes --scope full",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-fabccdff-e7cd-4e47-aeed-f9708ac893c6/diagnostics.json",
+    "result": "681 files scanned; 8 findings reduced to 6; both complexity findings absent, no new findings. Four reviewed false positives and two deferred warnings remain.",
+    "checks": "Six component tests passed; five story tests re-passed after dependency adjustment; type check, oxlint, changed-file formatting and git diff --check passed."
+  },
+  "followUp": [],
+  "suppression": "None; false-positive warnings intentionally remain visible.",
+  "remainingWarningsPass": {
+    "changes": [
+      "Replaced index-dependent preset key with JSON-encoded [_uid, storybook_name]. All 163 preset identities checked; duplicate _uid values exist, but the compound identity is unique within each component.",
+      "Named Instagram default export instagramStory."
+    ],
+    "canonicalGuidance": [
+      "https://oxc.rs/docs/guide/usage/linter/rules/react/no-array-index-key.html",
+      "https://oxc.rs/docs/guide/usage/linter/rules/import/no-anonymous-default-export.html"
+    ],
+    "verification": "Latest React Doctor full scan: 681 files, four warnings, both additional warnings gone. Type check and project lint passed. Targeted lint/format commands exclude these Storybook paths under existing configuration; no formatting pass claimed. git diff --check passed.",
+    "diagnostics": "/var/folders/5w/ft468r392g99dk5b_ckw00y00000gn/T/react-doctor-f6cddfc4-7c56-48d9-81f4-6c55753761f9/diagnostics.json",
+    "remaining": "Rechecked four false positives documented above. No suppressions or generated-bundle edits."
+  }
+}
