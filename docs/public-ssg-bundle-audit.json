@@ -1,0 +1,140 @@
+{
+  "date": "2026-11-02",
+  "decision": "Do not retain another runtime change from this audit. The measured candidates either saved negligible bytes, added requests, or increased the hydrated footprint on a sampled route. All experimental source changes were reverted; earlier workspace work is preserved.",
+  "baseline": {
+    "description": "Includes the earlier preview-context and StoryblokEditable controller optimizations, plus the pre-existing page/theme changes.",
+    "nextVersion": "16.4.3",
+    "bundler": "Turbopack",
+    "sharedJavaScript": {
+      "files": 17,
+      "rawBytes": 1039339,
+      "gzipBytes": 324090,
+      "brotliBytes": 282076
+    }
+  },
+  "previewAudit": {
+    "method": "Inspect Next analyzer bootstrap groups for the public catch-all route and the scripts requested by production browser samples.",
+    "excludedFromInitialModules": [
+      "src/components/provider/StoryblokEditableAttributes.tsx",
+      "src/components/provider/storyblokPreview.ts",
+      "src/components/layout/GoogleFontsLivePreview.tsx",
+      "@storyblok/preview-bridge"
+    ],
+    "remaining": "Small synchronous context/marker boundaries and the conditional bridge subscription loader remain. SettingsPageProvider also owns public document reconciliation, so its state handling is not exclusively preview code.",
+    "publicStoryblokCode": "The remaining @storyblok/react rich-text renderer and @storyblok/richtext code render public CMS content; they are not editor-only dependencies.",
+    "publicEditorChunkRequests": 0
+  },
+  "experiments": [
+    {
+      "name": "Replace two next-seo processor calls with equivalent object mappings",
+      "sharedGzipSavedBytes": 5,
+      "sharedRawSavedBytes": -21,
+      "sharedBrotliSavedBytes": 35,
+      "result": "Discarded. The emitted processor registry remained in the public module despite removing these call sites; the production saving was negligible."
+    },
+    {
+      "name": "SSR-enabled dynamic registration for navigation lists",
+      "sharedGzipSavedBytes": 739,
+      "sharedRawSavedBytes": 7802,
+      "sharedScriptRequestDelta": 1,
+      "result": "Discarded. Too little compressed saving to justify another initial request."
+    },
+    {
+      "name": "SSR-enabled dynamic registrations for navigation lists and dividers",
+      "sharedGzipSavedBytes": 1770,
+      "sharedRawSavedBytes": 12188,
+      "sharedScriptRequestDelta": 1,
+      "result": "Discarded. Added an initial request; the subsequent divider-only browser trace also established an additional cost on pages rendering dividers after hydration."
+    },
+    {
+      "name": "SSR-enabled dynamic registration for dividers only",
+      "sharedGzipSavedBytes": 676,
+      "sharedRawSavedBytes": 4365,
+      "sharedBrotliSavedBytes": 676,
+      "sharedScriptRequestDelta": 0,
+      "initialHtmlScriptGzipSavedBytes": 677,
+      "browser": {
+        "englishHomepageAndTwoDetailRoutes": {
+          "gzipSavedBytes": 677,
+          "scriptRequestDelta": 0
+        },
+        "germanRoute": {
+          "gzipSavedBytes": -1068,
+          "scriptRequestDelta": 1
+        },
+        "widths": [1280, 375],
+        "explanation": "The initial HTML script counts omitted a divider chunk loaded after hydration on /de/de. Full browser request capture revealed that the total cost increased there."
+      },
+      "result": "Discarded after browser measurement. UI and compatibility checks passed, but the small savings elsewhere did not justify the additional request and bytes on this route."
+    }
+  ],
+  "largerDependencies": {
+    "auth0": "The analyzer attributed roughly 242 KB minified / 66 KB individually compressed to @auth0/auth0-react. This app explicitly uses Auth0App and Auth0Page; removing or deferring initialization could change session restoration, redirects, locale selection, and authenticated UI. No auth behavior was changed.",
+    "nextSeo": "The analyzer attributed about 22 KB minified to next-seo's main module. Its processor registry is a potential packaging/tree-shaking investigation, but the direct call-site experiment did not remove it. No dependency patch or replacement serializer was introduced.",
+    "reactAndMui": "Most other large initial modules implement React, routing, theming, and visible/interacting Material UI components. No private theme APIs or alternate rendering implementations were substituted."
+  },
+  "validation": {
+    "productionBuilds": {
+      "commandPattern": "TEST=TRUE NEXT_DIST_DIR=<isolated-directory> pnpm run build",
+      "directories": [
+        ".next-reference/public-before",
+        ".next-reference/public-after",
+        ".next-reference/public-nav-after",
+        ".next-reference/public-renderers-after",
+        ".next-reference/public-divider-after"
+      ],
+      "result": "All five builds passed, including TypeScript. TEST=TRUE selects four CMS SSG routes rather than enumerating all published routes."
+    },
+    "unit": {
+      "command": "pnpm test",
+      "files": 141,
+      "tests": 593,
+      "result": "passed on the final tested candidate before reverting it"
+    },
+    "checks": "Standalone typecheck, scoped oxlint, formatting, and git diff --check passed.",
+    "dividerCandidateSsg": "All four sampled production routes had byte-identical #__next markup, Emotion CSS, and JSON-LD scripts.",
+    "productionBrowser": {
+      "routes": 4,
+      "widths": [1280, 375],
+      "pageComparisons": 8,
+      "changedPixels": 0,
+      "domMetricsMatch": true,
+      "pageErrors": [],
+      "hydrationErrors": [],
+      "clientNavigationAndMobileDrawer": "passed",
+      "controls": "Fixed clock, stopped carousel autoplay, disabled animations, identical YouTube iframe documents, and waited for the real Chatwoot button in both builds. No screenshot regions were masked.",
+      "pixelThreshold": "Zero pixels with an RGB channel difference greater than 16.",
+      "existingAssetIssue": "Both builds had the same two broken images on the mobile German route."
+    },
+    "isolatedProductionFixtures": {
+      "bundler": "Webpack, with the actual repository sources and normal Emotion integration",
+      "builds": "Both passed with the repository's ambient types included.",
+      "ssgCases": 8,
+      "identicalMarkupAndStyles": true,
+      "browserComparisons": 8,
+      "changedPixels": 0,
+      "passed": [
+        "No divider chunk requested on the plain page",
+        "Horizontal and vertical divider rendering",
+        "Server content visible while the divider chunk download is blocked",
+        "Hydration retains the server node and input typed before hydration",
+        "Input, focus, component state, and DOM nodes survive content edits",
+        "Client navigation to a divider page",
+        "Preview markers, updates, unmount cleanup, and remount",
+        "Consumer registry overrides, including in preview"
+      ],
+      "pageErrors": [],
+      "hydrationErrors": []
+    }
+  },
+  "measurementMethod": "Compressed bytes are sums of Node gzipSync/brotliCompressSync results for emitted files, not HTTP transfer sizes. Browser comparisons include requested chunks beyond the initial HTML; homepage samples also include a detail-page navigation and return. Analyzer per-module compressed sizes are diagnostic and are not additive substitutes for compressed chunk totals.",
+  "artifacts": {
+    "directory": "/tmp/lumen-public-bundle-20261102",
+    "initialModuleAudit": "/tmp/lumen-public-bundle-20261102/initial-module-audit.json",
+    "dividerCandidateMeasurement": "/tmp/lumen-public-bundle-20261102/measurement.json",
+    "productionBrowser": "/tmp/lumen-public-bundle-20261102/browser-report.json",
+    "fixtureBrowser": "/tmp/lumen-public-bundle-20261102/fixture-browser-report.json",
+    "seoExperiment": "/tmp/lumen-public-bundle-20261102/seo-experiment-measurement.json"
+  },
+  "limitations": "This is a scoped audit of the configured repository and four sampled routes, not proof that no further optimization is possible. No field LCP/INP improvement is claimed. The preview fixture did not connect to a live Storyblok Visual Editor session."
+}

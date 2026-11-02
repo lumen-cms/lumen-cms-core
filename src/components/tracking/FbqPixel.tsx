@@ -3,9 +3,13 @@ import Script from 'next/script'
 
 type PixelProps = {
   facebookPixelId: string
+  headFallback?: boolean
 }
 
-export default function FbqPixel({ facebookPixelId }: PixelProps) {
+export default function FbqPixel({
+  facebookPixelId,
+  headFallback = true
+}: PixelProps) {
   const multiPixel = facebookPixelId.split(',').map((i) => i.trim())
   return (
     <>
@@ -27,21 +31,23 @@ export default function FbqPixel({ facebookPixelId }: PixelProps) {
           `
         }}
       />
-      <Head>
-        <noscript>
-          {multiPixel.map((id) => (
-            // eslint-disable-next-line  @next/next/no-img-element
-            <img
-              key={id}
-              alt=""
-              height="1"
-              width="1"
-              style={{ display: 'none' }}
-              src={`https://www.facebook.com/tr?id=${facebookPixelId}&ev=PageView&noscript=1`}
-            />
-          ))}
-        </noscript>
-      </Head>
+      {headFallback && (
+        <Head>
+          <noscript>
+            {multiPixel.map((id) => (
+              // eslint-disable-next-line  @next/next/no-img-element
+              <img
+                key={id}
+                alt=""
+                height="1"
+                width="1"
+                style={{ display: 'none' }}
+                src={`https://www.facebook.com/tr?id=${facebookPixelId}&ev=PageView&noscript=1`}
+              />
+            ))}
+          </noscript>
+        </Head>
+      )}
     </>
   )
 }

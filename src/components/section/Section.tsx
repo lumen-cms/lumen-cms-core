@@ -59,7 +59,8 @@ function getContainerLayout(
 
 export function LmSection({
   content,
-  sectionPosition
+  sectionPosition,
+  children
 }: LmSectionProps): React.JSX.Element {
   const theme = useTheme()
   const background: BackgroundStoryblok | undefined = content.background?.[0]
@@ -107,9 +108,11 @@ export function LmSection({
         className={className}
         sx={[...sx, isFullHeight && fullHeightSx]}
       >
-        {body.map((blok) => (
-          <LmComponentRender content={blok} key={blok._uid} />
-        ))}
+        {children !== undefined
+          ? children
+          : body.map((blok) => (
+              <LmComponentRender content={blok} key={blok._uid} />
+            ))}
       </Container>
     </Box>
   )

@@ -1,0 +1,964 @@
+{
+  "measuredAt": "2026-11-02T07:42:21.620Z",
+  "versions": {
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "mui": "9.5.0",
+    "node": "v24.14.0"
+  },
+  "method": "Same published CMS snapshots, same core source, production Turbopack builds. Auth0 remains in both apps. Fresh browser contexts, disabled browser cache and shared-link prefetch. The existing toolbar logo retains its own prefetch behavior; out-of-pilot home prefetches return 404 and are recorded. External scripts/iframe documents are stubbed identically; external image/font/style responses are recorded once and replayed. CDP network/CPU throttling, alternating engine order. LCP/FCP/long tasks are lab observations, not field Web Vitals. JavaScript bytes include local chunks requested through six seconds after hydration, before test interactions; each file compressed independently.",
+  "profiles": [
+    {
+      "name": "desktop",
+      "width": 1280,
+      "height": 900,
+      "cpu": 1,
+      "latency": 20,
+      "throughput": 1250000
+    },
+    {
+      "name": "mobile",
+      "width": 375,
+      "height": 812,
+      "cpu": 4,
+      "latency": 150,
+      "throughput": 200000
+    }
+  ],
+  "runsPerModeRouteProfile": 5,
+  "publicSnapshots": [
+    {
+      "path": "/privacy-policy",
+      "slug": "privacy-policy",
+      "locale": "en",
+      "file": "privacy-policy.json",
+      "prebuild": true,
+      "sha256": "4939699fb47f319f0230f38f9eee0f74140984c6a2e81a69217dba9846521585"
+    },
+    {
+      "path": "/de/datenschutzerklaerung",
+      "slug": "datenschutzerklaerung",
+      "locale": "de",
+      "file": "datenschutzerklaerung.json",
+      "prebuild": true,
+      "sha256": "c6b6a1a071ef2f907bb48fe7e24d018ac2a5e23419cae72c812bfbeef1c196fb"
+    },
+    {
+      "path": "/imprint",
+      "slug": "imprint",
+      "locale": "en",
+      "file": "imprint.json",
+      "prebuild": false,
+      "sha256": "6c3de347d459fbe726ffeac76e24ef4a6337c071cfda1402d1bffb07c1b85492"
+    }
+  ],
+  "artifactSizes": [
+    {
+      "mode": "pages",
+      "route": "/privacy-policy",
+      "html": {
+        "raw": 234355,
+        "gzip": 48716,
+        "brotli": 31447
+      },
+      "initialJavaScript": {
+        "files": 23,
+        "bytes": {
+          "raw": 1112488,
+          "gzip": 349097,
+          "brotli": 302947
+        }
+      }
+    },
+    {
+      "mode": "pages",
+      "route": "/de/datenschutzerklaerung",
+      "html": {
+        "raw": 237168,
+        "gzip": 51129,
+        "brotli": 32948
+      },
+      "initialJavaScript": {
+        "files": 24,
+        "bytes": {
+          "raw": 1131687,
+          "gzip": 355467,
+          "brotli": 308556
+        }
+      }
+    },
+    {
+      "mode": "app",
+      "route": "/privacy-policy",
+      "html": {
+        "raw": 265434,
+        "gzip": 52536,
+        "brotli": 33005
+      },
+      "initialJavaScript": {
+        "files": 16,
+        "bytes": {
+          "raw": 1144534,
+          "gzip": 356073,
+          "brotli": 307424
+        }
+      }
+    },
+    {
+      "mode": "app",
+      "route": "/de/datenschutzerklaerung",
+      "html": {
+        "raw": 262299,
+        "gzip": 54845,
+        "brotli": 34514
+      },
+      "initialJavaScript": {
+        "files": 16,
+        "bytes": {
+          "raw": 1144534,
+          "gzip": 356073,
+          "brotli": 307424
+        }
+      }
+    }
+  ],
+  "staticContract": {
+    "pages": {
+      "known": [
+        "HIT",
+        "HIT"
+      ],
+      "firstVisit": "MISS",
+      "repeatedVisit": "HIT",
+      "warmVisitCausesNoGeneration": true,
+      "missingStatus": 404
+    },
+    "app": {
+      "known": [
+        "HIT",
+        "HIT"
+      ],
+      "firstVisit": "MISS",
+      "repeatedVisit": "HIT",
+      "warmVisitCausesNoGeneration": true,
+      "missingStatus": 404
+    }
+  },
+  "staticVerifiedAt": "2026-11-02T07:42:21.620Z",
+  "noJavaScript": [
+    {
+      "mode": "pages",
+      "route": "/privacy-policy",
+      "mainTextLength": 22958,
+      "mainTextHash": "8d6a3470b593d084fe274ece95ba45fb8cd4725535575f1d20231920f793ebfe",
+      "language": "en",
+      "facebookFallbacks": 1
+    },
+    {
+      "mode": "pages",
+      "route": "/de/datenschutzerklaerung",
+      "mainTextLength": 26394,
+      "mainTextHash": "ec12500da5672ab0f88e101ca76c05496678e09533cf2af2724f71c6008ffadd",
+      "language": "de",
+      "facebookFallbacks": 1
+    },
+    {
+      "mode": "app",
+      "route": "/privacy-policy",
+      "mainTextLength": 22958,
+      "mainTextHash": "8d6a3470b593d084fe274ece95ba45fb8cd4725535575f1d20231920f793ebfe",
+      "language": "en",
+      "facebookFallbacks": 1
+    },
+    {
+      "mode": "app",
+      "route": "/de/datenschutzerklaerung",
+      "mainTextLength": 26394,
+      "mainTextHash": "ec12500da5672ab0f88e101ca76c05496678e09533cf2af2724f71c6008ffadd",
+      "language": "de",
+      "facebookFallbacks": 1
+    }
+  ],
+  "liveGeneration": {
+    "checkedAt": "2026-11-02T07:52:36.435Z",
+    "route": "/imprint",
+    "source": "live published CMS",
+    "snapshotFileAbsent": true,
+    "firstStatus": 200,
+    "firstCache": "MISS",
+    "repeatedCache": "HIT",
+    "dataLoaderCalls": 1,
+    "repeatedVisitCausesNoGeneration": true,
+    "htmlSha256": "d9f61f5136ce1fb716ebe000058ab1f236d4e181acb079d382bd85d23f25ffcc",
+    "firstGenerationMs": 1194
+  },
+  "parity": [
+    {
+      "route": "/privacy-policy",
+      "profile": "desktop",
+      "sameContent": true,
+      "sameHeadings": true,
+      "pixels": {
+        "sameDimensions": true,
+        "changedPixels": 0,
+        "totalPixels": 8833280,
+        "changedPercent": 0
+      },
+      "mainTextHash": "8d6a3470b593d084fe274ece95ba45fb8cd4725535575f1d20231920f793ebfe",
+      "metadata": {
+        "title": "Privacy Policy | Bali Internships",
+        "description": "Find more information about Bali Internships privacy policy here.",
+        "canonical": "https://baliinternships.com/privacy-policy",
+        "robots": "index,follow",
+        "jsonLd": [
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": "https://baliinternships.com",
+            "logo": "https://a.storyblok.com/f/66717/672x160/db392f6ffa/logo-white.png"
+          }
+        ],
+        "language": "en",
+        "alternates": []
+      },
+      "browserErrors": {
+        "pages": [],
+        "app": []
+      },
+      "consoleWarnings": {
+        "pages": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ],
+        "app": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ]
+      },
+      "failedResponses": {
+        "pages": [
+          "404 http://127.0.0.1:3217/_next/data/1sDAr_tJAsKuNROH_CT93/en/home.json"
+        ],
+        "app": [
+          "404 http://127.0.0.1:3218/home"
+        ]
+      },
+      "interactions": {
+        "pages": {
+          "drawer": false,
+          "navigation": {
+            "sameDocument": true,
+            "text": "Privacy Policy\n\nPrior to every use of all registration based services on our website, you must agree"
+          }
+        },
+        "app": {
+          "drawer": false,
+          "navigation": {
+            "sameDocument": true,
+            "text": "Imprint\n\nContact:\nBaliInternships P.T.\nJl. Patih Jelantik\nInstana Kuta Geleria\nBlok RS/11\nKuta - Bad"
+          }
+        }
+      },
+      "screenshots": {
+        "pages": ".next-reference/app-router-pilot/results/pages-0-desktop.png",
+        "app": ".next-reference/app-router-pilot/results/app-0-desktop.png"
+      }
+    },
+    {
+      "route": "/de/datenschutzerklaerung",
+      "profile": "desktop",
+      "sameContent": true,
+      "sameHeadings": true,
+      "pixels": {
+        "sameDimensions": true,
+        "changedPixels": 0,
+        "totalPixels": 9472000,
+        "changedPercent": 0
+      },
+      "mainTextHash": "ec12500da5672ab0f88e101ca76c05496678e09533cf2af2724f71c6008ffadd",
+      "metadata": {
+        "title": "Datenschutzerklärung | Bali Internships",
+        "description": "Hier erfährst du alles rund um unsere Datenschutzrichtlinien.",
+        "canonical": "https://baliinternships.com/de/datenschutzerklaerung",
+        "robots": "index,follow",
+        "jsonLd": [
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": "https://baliinternships.com",
+            "logo": "https://a.storyblok.com/f/66717/672x160/db392f6ffa/logo-white.png"
+          }
+        ],
+        "language": "de",
+        "alternates": []
+      },
+      "browserErrors": {
+        "pages": [],
+        "app": []
+      },
+      "consoleWarnings": {
+        "pages": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ],
+        "app": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ]
+      },
+      "failedResponses": {
+        "pages": [
+          "404 http://127.0.0.1:3217/_next/data/1sDAr_tJAsKuNROH_CT93/de/home.json"
+        ],
+        "app": [
+          "404 http://127.0.0.1:3218/de/home"
+        ]
+      },
+      "interactions": {
+        "pages": {
+          "drawer": false,
+          "navigation": null
+        },
+        "app": {
+          "drawer": false,
+          "navigation": null
+        }
+      },
+      "screenshots": {
+        "pages": ".next-reference/app-router-pilot/results/pages-1-desktop.png",
+        "app": ".next-reference/app-router-pilot/results/app-1-desktop.png"
+      }
+    },
+    {
+      "route": "/privacy-policy",
+      "profile": "mobile",
+      "sameContent": true,
+      "sameHeadings": true,
+      "pixels": {
+        "sameDimensions": true,
+        "changedPixels": 0,
+        "totalPixels": 6046875,
+        "changedPercent": 0
+      },
+      "mainTextHash": "8d6a3470b593d084fe274ece95ba45fb8cd4725535575f1d20231920f793ebfe",
+      "metadata": {
+        "title": "Privacy Policy | Bali Internships",
+        "description": "Find more information about Bali Internships privacy policy here.",
+        "canonical": "https://baliinternships.com/privacy-policy",
+        "robots": "index,follow",
+        "jsonLd": [
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": "https://baliinternships.com",
+            "logo": "https://a.storyblok.com/f/66717/672x160/db392f6ffa/logo-white.png"
+          }
+        ],
+        "language": "en",
+        "alternates": []
+      },
+      "browserErrors": {
+        "pages": [],
+        "app": []
+      },
+      "consoleWarnings": {
+        "pages": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ],
+        "app": []
+      },
+      "failedResponses": {
+        "pages": [
+          "404 http://127.0.0.1:3217/_next/data/1sDAr_tJAsKuNROH_CT93/en/home.json"
+        ],
+        "app": []
+      },
+      "interactions": {
+        "pages": {
+          "drawer": true,
+          "navigation": {
+            "sameDocument": true,
+            "text": "Privacy Policy\n\nPrior to every use of all registration based services on our website, you must agree"
+          }
+        },
+        "app": {
+          "drawer": true,
+          "navigation": {
+            "sameDocument": true,
+            "text": "Imprint\n\nContact:\nBaliInternships P.T.\nJl. Patih Jelantik\nInstana Kuta Geleria\nBlok RS/11\nKuta - Bad"
+          }
+        }
+      },
+      "screenshots": {
+        "pages": ".next-reference/app-router-pilot/results/pages-0-mobile.png",
+        "app": ".next-reference/app-router-pilot/results/app-0-mobile.png"
+      }
+    },
+    {
+      "route": "/de/datenschutzerklaerung",
+      "profile": "mobile",
+      "sameContent": true,
+      "sameHeadings": true,
+      "pixels": {
+        "sameDimensions": true,
+        "changedPixels": 0,
+        "totalPixels": 6999750,
+        "changedPercent": 0
+      },
+      "mainTextHash": "ec12500da5672ab0f88e101ca76c05496678e09533cf2af2724f71c6008ffadd",
+      "metadata": {
+        "title": "Datenschutzerklärung | Bali Internships",
+        "description": "Hier erfährst du alles rund um unsere Datenschutzrichtlinien.",
+        "canonical": "https://baliinternships.com/de/datenschutzerklaerung",
+        "robots": "index,follow",
+        "jsonLd": [
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "url": "https://baliinternships.com",
+            "logo": "https://a.storyblok.com/f/66717/672x160/db392f6ffa/logo-white.png"
+          }
+        ],
+        "language": "de",
+        "alternates": []
+      },
+      "browserErrors": {
+        "pages": [],
+        "app": []
+      },
+      "consoleWarnings": {
+        "pages": [
+          "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        ],
+        "app": []
+      },
+      "failedResponses": {
+        "pages": [
+          "404 http://127.0.0.1:3217/_next/data/1sDAr_tJAsKuNROH_CT93/de/home.json"
+        ],
+        "app": []
+      },
+      "interactions": {
+        "pages": {
+          "drawer": true,
+          "navigation": null
+        },
+        "app": {
+          "drawer": true,
+          "navigation": null
+        }
+      },
+      "screenshots": {
+        "pages": ".next-reference/app-router-pilot/results/pages-1-mobile.png",
+        "app": ".next-reference/app-router-pilot/results/app-1-mobile.png"
+      }
+    }
+  ],
+  "externalAssetFailures": [
+    {
+      "host": "a.storyblok.com",
+      "kind": "image",
+      "error": "route.fetch: Request context disposed."
+    },
+    {
+      "host": "a.storyblok.com",
+      "kind": "image",
+      "error": "route.fetch: Request context disposed."
+    }
+  ],
+  "comparisons": [
+    {
+      "route": "/privacy-policy",
+      "profile": "desktop",
+      "pages": {
+        "samples": 5,
+        "timing": {
+          "responseStartMs": {
+            "median": 5.7,
+            "min": 5.7,
+            "max": 6
+          },
+          "fcpMs": {
+            "median": 80,
+            "min": 76,
+            "max": 80
+          },
+          "lcpMs": {
+            "median": 80,
+            "min": 76,
+            "max": 80
+          },
+          "hydrationEffectMs": {
+            "median": 484.3,
+            "min": 480.9,
+            "max": 487.4
+          },
+          "totalBlockingMs": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "scriptDurationMs": {
+            "median": 71.28,
+            "min": 70.59,
+            "max": 74.26
+          },
+          "taskDurationMs": {
+            "median": 190.51,
+            "min": 181.81,
+            "max": 202.09
+          },
+          "searchOpenMs": {
+            "median": 842.5,
+            "min": 839.81,
+            "max": 844.1
+          }
+        },
+        "loadedJavaScriptGzipBytes": {
+          "median": 358657,
+          "min": 358657,
+          "max": 358657
+        },
+        "loadedJavaScriptRequests": {
+          "median": 25,
+          "min": 25,
+          "max": 25
+        }
+      },
+      "app": {
+        "samples": 5,
+        "timing": {
+          "responseStartMs": {
+            "median": 5.8,
+            "min": 5.5,
+            "max": 8.8
+          },
+          "fcpMs": {
+            "median": 72,
+            "min": 72,
+            "max": 72
+          },
+          "lcpMs": {
+            "median": 72,
+            "min": 72,
+            "max": 72
+          },
+          "hydrationEffectMs": {
+            "median": 405.3,
+            "min": 403.3,
+            "max": 409.2
+          },
+          "totalBlockingMs": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "scriptDurationMs": {
+            "median": 70.05,
+            "min": 65.87,
+            "max": 75.72
+          },
+          "taskDurationMs": {
+            "median": 177.49,
+            "min": 174.29,
+            "max": 178.53
+          },
+          "searchOpenMs": {
+            "median": 840.5,
+            "min": 835.68,
+            "max": 849.14
+          }
+        },
+        "loadedJavaScriptGzipBytes": {
+          "median": 329268,
+          "min": 329268,
+          "max": 329268
+        },
+        "loadedJavaScriptRequests": {
+          "median": 19,
+          "min": 19,
+          "max": 19
+        }
+      },
+      "deltaPercent": {
+        "responseStartMs": 1.75,
+        "fcpMs": -10,
+        "lcpMs": -10,
+        "hydrationEffectMs": -16.31,
+        "totalBlockingMs": 0,
+        "scriptDurationMs": -1.73,
+        "taskDurationMs": -6.83,
+        "searchOpenMs": -0.24
+      }
+    },
+    {
+      "route": "/privacy-policy",
+      "profile": "mobile",
+      "pages": {
+        "samples": 5,
+        "timing": {
+          "responseStartMs": {
+            "median": 5.5,
+            "min": 5.5,
+            "max": 5.6
+          },
+          "fcpMs": {
+            "median": 412,
+            "min": 408,
+            "max": 420
+          },
+          "lcpMs": {
+            "median": 412,
+            "min": 408,
+            "max": 420
+          },
+          "hydrationEffectMs": {
+            "median": 2775.5,
+            "min": 2766.4,
+            "max": 2776.3
+          },
+          "totalBlockingMs": {
+            "median": 231,
+            "min": 230,
+            "max": 238
+          },
+          "scriptDurationMs": {
+            "median": 291.02,
+            "min": 284.03,
+            "max": 295
+          },
+          "taskDurationMs": {
+            "median": 684.25,
+            "min": 676.6,
+            "max": 690.68
+          },
+          "searchOpenMs": {
+            "median": 899.52,
+            "min": 884.66,
+            "max": 904.65
+          }
+        },
+        "loadedJavaScriptGzipBytes": {
+          "median": 350930,
+          "min": 350930,
+          "max": 350930
+        },
+        "loadedJavaScriptRequests": {
+          "median": 24,
+          "min": 24,
+          "max": 24
+        }
+      },
+      "app": {
+        "samples": 5,
+        "timing": {
+          "responseStartMs": {
+            "median": 5.8,
+            "min": 5.4,
+            "max": 6.2
+          },
+          "fcpMs": {
+            "median": 364,
+            "min": 356,
+            "max": 368
+          },
+          "lcpMs": {
+            "median": 364,
+            "min": 356,
+            "max": 368
+          },
+          "hydrationEffectMs": {
+            "median": 2419.7,
+            "min": 2409.9,
+            "max": 2431
+          },
+          "totalBlockingMs": {
+            "median": 73,
+            "min": 70,
+            "max": 77
+          },
+          "scriptDurationMs": {
+            "median": 439.75,
+            "min": 425.84,
+            "max": 448.69
+          },
+          "taskDurationMs": {
+            "median": 863.4,
+            "min": 843.84,
+            "max": 880.86
+          },
+          "searchOpenMs": {
+            "median": 900.91,
+            "min": 896.03,
+            "max": 906.86
+          }
+        },
+        "loadedJavaScriptGzipBytes": {
+          "median": 321540,
+          "min": 321540,
+          "max": 321540
+        },
+        "loadedJavaScriptRequests": {
+          "median": 18,
+          "min": 18,
+          "max": 18
+        }
+      },
+      "deltaPercent": {
+        "responseStartMs": 5.45,
+        "fcpMs": -11.65,
+        "lcpMs": -11.65,
+        "hydrationEffectMs": -12.82,
+        "totalBlockingMs": -68.4,
+        "scriptDurationMs": 51.11,
+        "taskDurationMs": 26.18,
+        "searchOpenMs": 0.15
+      }
+    },
+    {
+      "route": "/de/datenschutzerklaerung",
+      "profile": "desktop",
+      "pages": {
+        "samples": 5,
+        "timing": {
+          "responseStartMs": {
+            "median": 6.6,
+            "min": 5.4,
+            "max": 12.4
+          },
+          "fcpMs": {
+            "median": 84,
+            "min": 76,
+            "max": 84
+          },
+          "lcpMs": {
+            "median": 84,
+            "min": 76,
+            "max": 84
+          },
+          "hydrationEffectMs": {
+            "median": 492.3,
+            "min": 484.8,
+            "max": 495.8
+          },
+          "totalBlockingMs": {
+            "median": 0,
+            "min": 0,
+            "max": 1
+          },
+          "scriptDurationMs": {
+            "median": 104.34,
+            "min": 101.75,
+            "max": 106.72
+          },
+          "taskDurationMs": {
+            "median": 237.39,
+            "min": 232.55,
+            "max": 244.88
+          },
+          "searchOpenMs": {
+            "median": 842.6,
+            "min": 351.39,
+            "max": 847.08
+          }
+        },
+        "loadedJavaScriptGzipBytes": {
+          "median": 363194,
+          "min": 363194,
+          "max": 363194
+        },
+        "loadedJavaScriptRequests": {
+          "median": 25,
+          "min": 25,
+          "max": 25
+        }
+      },
+      "app": {
+        "samples": 5,
+        "timing": {
+          "responseStartMs": {
+            "median": 5.7,
+            "min": 5.5,
+            "max": 5.8
+          },
+          "fcpMs": {
+            "median": 72,
+            "min": 72,
+            "max": 76
+          },
+          "lcpMs": {
+            "median": 72,
+            "min": 72,
+            "max": 76
+          },
+          "hydrationEffectMs": {
+            "median": 415.1,
+            "min": 412.9,
+            "max": 416.3
+          },
+          "totalBlockingMs": {
+            "median": 0,
+            "min": 0,
+            "max": 0
+          },
+          "scriptDurationMs": {
+            "median": 100.84,
+            "min": 94.5,
+            "max": 107.4
+          },
+          "taskDurationMs": {
+            "median": 230.06,
+            "min": 217.41,
+            "max": 233.64
+          },
+          "searchOpenMs": {
+            "median": 840.02,
+            "min": 837.26,
+            "max": 850.4
+          }
+        },
+        "loadedJavaScriptGzipBytes": {
+          "median": 340434,
+          "min": 340434,
+          "max": 340434
+        },
+        "loadedJavaScriptRequests": {
+          "median": 22,
+          "min": 22,
+          "max": 22
+        }
+      },
+      "deltaPercent": {
+        "responseStartMs": -13.64,
+        "fcpMs": -14.29,
+        "lcpMs": -14.29,
+        "hydrationEffectMs": -15.68,
+        "totalBlockingMs": 0,
+        "scriptDurationMs": -3.35,
+        "taskDurationMs": -3.09,
+        "searchOpenMs": -0.31
+      }
+    },
+    {
+      "route": "/de/datenschutzerklaerung",
+      "profile": "mobile",
+      "pages": {
+        "samples": 5,
+        "timing": {
+          "responseStartMs": {
+            "median": 5.3,
+            "min": 5.2,
+            "max": 7
+          },
+          "fcpMs": {
+            "median": 420,
+            "min": 412,
+            "max": 424
+          },
+          "lcpMs": {
+            "median": 420,
+            "min": 412,
+            "max": 424
+          },
+          "hydrationEffectMs": {
+            "median": 2823.1,
+            "min": 2812.2,
+            "max": 2849.8
+          },
+          "totalBlockingMs": {
+            "median": 238,
+            "min": 233,
+            "max": 264
+          },
+          "scriptDurationMs": {
+            "median": 348.84,
+            "min": 339.92,
+            "max": 392.07
+          },
+          "taskDurationMs": {
+            "median": 805.19,
+            "min": 801.9,
+            "max": 856.72
+          },
+          "searchOpenMs": {
+            "median": 900.36,
+            "min": 891.14,
+            "max": 906.28
+          }
+        },
+        "loadedJavaScriptGzipBytes": {
+          "median": 363194,
+          "min": 363194,
+          "max": 363194
+        },
+        "loadedJavaScriptRequests": {
+          "median": 25,
+          "min": 25,
+          "max": 25
+        }
+      },
+      "app": {
+        "samples": 5,
+        "timing": {
+          "responseStartMs": {
+            "median": 5.5,
+            "min": 5.4,
+            "max": 5.8
+          },
+          "fcpMs": {
+            "median": 372,
+            "min": 368,
+            "max": 372
+          },
+          "lcpMs": {
+            "median": 372,
+            "min": 368,
+            "max": 372
+          },
+          "hydrationEffectMs": {
+            "median": 2468.5,
+            "min": 2462.8,
+            "max": 2478.9
+          },
+          "totalBlockingMs": {
+            "median": 70,
+            "min": 68,
+            "max": 76
+          },
+          "scriptDurationMs": {
+            "median": 498.73,
+            "min": 485.21,
+            "max": 502.74
+          },
+          "taskDurationMs": {
+            "median": 968.38,
+            "min": 961.43,
+            "max": 985.93
+          },
+          "searchOpenMs": {
+            "median": 896.71,
+            "min": 444.78,
+            "max": 897.68
+          }
+        },
+        "loadedJavaScriptGzipBytes": {
+          "median": 340434,
+          "min": 340434,
+          "max": 340434
+        },
+        "loadedJavaScriptRequests": {
+          "median": 22,
+          "min": 22,
+          "max": 22
+        }
+      },
+      "deltaPercent": {
+        "responseStartMs": 3.77,
+        "fcpMs": -11.43,
+        "lcpMs": -11.43,
+        "hydrationEffectMs": -12.56,
+        "totalBlockingMs": -70.59,
+        "scriptDurationMs": 42.97,
+        "taskDurationMs": 20.27,
+        "searchOpenMs": -0.41
+      }
+    }
+  ],
+  "rawReport": ".next-reference/app-router-pilot/results/report.json"
+}

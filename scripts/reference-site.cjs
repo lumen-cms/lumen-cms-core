@@ -66,6 +66,7 @@ const args =
     ? ['build']
     : [
         action,
+        ...(action === 'dev' ? ['--experimental-https'] : []),
         '-p',
         String(profile.port),
         '--hostname',
@@ -73,7 +74,7 @@ const args =
       ]
 console.log(
   `Reference site: ${site}; ${action}; ${env.NEXT_DIST_DIR}${
-    action === 'build' ? '' : `; http://127.0.0.1:${profile.port}`
+    action === 'build' ? '' : `; ${action === 'dev' ? 'https' : 'http'}://127.0.0.1:${profile.port}`
   }`
 )
 const result = spawnSync(

@@ -124,6 +124,7 @@ it('renders a lazy registration and applies preview markers to its resolved root
       resolve({ default: () => <button>Ready</button> })
       await loaded
     })
+    await act(async () => vi.dynamicImportSettled())
     expect(host.querySelector('button')?.getAttribute('data-blok-uid')).toBe(
       '42-lazy'
     )

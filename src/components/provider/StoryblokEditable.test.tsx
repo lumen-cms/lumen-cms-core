@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 import { act } from 'react'
 import { createRoot } from 'react-dom/client'
-import { expect, it } from 'vitest'
+import { expect, it, vi } from 'vitest'
 import { StoryblokEditable } from './StoryblokEditable'
 
 it('annotates the rendered root and follows lazy replacements without a layout wrapper', async () => {
@@ -20,6 +20,7 @@ it('annotates the rendered root and follows lazy replacements without a layout w
         </StoryblokEditable>
       )
     )
+    await act(async () => vi.dynamicImportSettled())
     expect(host.querySelector('span')?.getAttribute('data-blok-uid')).toBe(
       '42-button'
     )

@@ -1,67 +1,25 @@
-import type { PageStoryblok } from '../../typings/generated/components-schema'
-import { FunctionComponent } from 'react'
-import { LmComponentRender } from '../CoreComponents'
-import Box from '@mui/material/Box'
-import {
-  contentSx,
-  contentWithRightSx,
-  leftMobileSx,
-  leftShiftSx,
-  rightMobileSx
-} from './pageStyles'
 import { usePage, useSettings } from '../provider/SettingsPageProvider'
-import {
-  drawerVariantSelector,
-  leftNavigationDrawerSelector,
-  useNavigationStore
-} from '../../utils/state/navigationState'
+import { LmComponentRender } from '../CoreComponents'
+import { PageFrame, PageBody, type PageBodyProps } from './PageFrame'
 
-const MainContentContainer: FunctionComponent<
-  React.PropsWithChildren<unknown>
-> = ({ children }) => {
-  const settings = useSettings()
+// Compatibility adapter for consumers that use the document contexts.
+export function MainContent({ body }: PageBodyProps): React.JSX.Element {
   const page = usePage()
-  const drawerVariant = useNavigationStore(drawerVariantSelector)
-  const isOpen = useNavigationStore(leftNavigationDrawerSelector)
-  const hasRightDrawer = page?.right_body?.length
-  const isLeftShift = drawerVariant !== 'temporary' && isOpen
+  const settings = useSettings()
   return (
-    <Box
-      component="main"
-      sx={[
-        contentSx,
-        !!hasRightDrawer && contentWithRightSx,
-        rightMobileSx[page?.mobile_breakpoint || 'sm'] ?? false,
-        isLeftShift && leftShiftSx,
-        isLeftShift &&
-          (leftMobileSx[settings.mobile_nav_breakpoint || 'sm'] ?? false)
-      ]}
-    >
-      {!page.property?.includes('has_feature') &&
-        !page.property?.includes('disable_promotion') &&
+    <PageFrame
+      hasRightDrawer={!!page?.right_body?.length}
+      mobileBreakpoint={page?.mobile_breakpoint}
+      mobileNavBreakpoint={settings.mobile_nav_breakpoint}
+      promotion={
+        !page?.property?.includes('has_feature') &&
+        !page?.property?.includes('disable_promotion') &&
         settings.promotion?.map((blok) => (
           <LmComponentRender content={blok} key={blok._uid} />
-        ))}
-      {children}
-    </Box>
-  )
-}
-MainContentContainer.displayName = 'MainContentContainer'
-
-type MainContentProps = {
-  body: NonNullable<PageStoryblok['body']>
-}
-
-export function MainContent({ body }: MainContentProps): React.JSX.Element {
-  return (
-    <MainContentContainer>
-      {body.map((blok, iteration) => (
-        <LmComponentRender
-          content={blok}
-          key={blok._uid}
-          sectionPosition={iteration}
-        />
-      ))}
-    </MainContentContainer>
+        ))
+      }
+    >
+      <PageBody body={body} />
+    </PageFrame>
   )
 }

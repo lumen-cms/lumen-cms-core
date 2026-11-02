@@ -48,6 +48,11 @@ it('loads only in enabled editor previews and preserves live font updates', asyn
     expect(previewLink()).toBeNull()
     state.settings = { theme_font_default: 'Roboto:wght@400' }
     await act(async () => root.render(<AppHead />))
+    // The dynamic module can finish before its loadable subscription commits.
+    await vi.waitFor(async () => {
+      await act(async () => vi.dynamicImportSettled())
+      expect(previewLink()).not.toBeNull()
+    })
     const link = previewLink()!
     expect(link.href).toBe(getFontBasedOnSetting(state.settings))
     expect(link.rel).toBe('stylesheet')

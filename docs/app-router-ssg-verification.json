@@ -1,0 +1,32 @@
+{
+  "verifiedAt": "2026-11-02T06:46:22.887Z",
+  "nextVersion": "16.4.3",
+  "nodeVersion": "v24.14.0",
+  "bundler": "Turbopack",
+  "fixture": ".next-reference/app-router-ssg-qC5sgG",
+  "policy": {
+    "cacheComponents": false,
+    "dynamic": "error",
+    "dynamicParams": true,
+    "revalidate": false
+  },
+  "checks": {
+    "buildPrerenderedKnownPage": true,
+    "knownPageHasNoRequestTimeRender": true,
+    "firstUnknownPublishedPageGenerated": true,
+    "repeatRequestHasNoRender": true,
+    "rscRequestHasNoRender": true,
+    "missingPage404": true,
+    "clientInteractionAndNavigation": true,
+    "contentVisibleWithoutJavaScript": true,
+    "cookiesInsideSuspenseFailBuild": true
+  },
+  "cacheHeaders": {
+    "known": "HIT",
+    "firstNew": "MISS",
+    "repeatedNew": "HIT",
+    "rsc": "HIT"
+  },
+  "browserErrors": [],
+  "limitations": "Synthetic routes validate the rendering contract, not CMS/MUI/preview compatibility, deployment cache durability, concurrent cold misses, or a production performance improvement. The deliberate failed build replaces fixture build output; rerun the probe to rebuild."
+}

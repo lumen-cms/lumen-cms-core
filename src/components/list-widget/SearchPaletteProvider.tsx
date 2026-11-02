@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState
 } from 'react'
-import { Router } from 'next/router'
+import { useAppContext } from '../provider/context/AppContext'
 import type { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
 
 const SearchPaletteDialog = lazy(() => import('./SearchPaletteDialog'))
@@ -31,11 +31,18 @@ export function SearchPaletteProvider({ children }: React.PropsWithChildren) {
 }
 
 function SearchPaletteRoot({ children }: React.PropsWithChildren) {
+  const { locale, slug } = useAppContext()
+  const navigationKey = `${locale}:${slug}`
+  const [previousNavigation, setPreviousNavigation] = useState(navigationKey)
   const openers = useRef(new Set<Opener>())
   const [count, setCount] = useState(0)
   const [active, setActive] = useState<ListSearchAutocompleteStoryblok | null>(
     null
   )
+  if (previousNavigation !== navigationKey) {
+    setPreviousNavigation(navigationKey)
+    setActive(null)
+  }
   const register = useCallback((opener: Opener) => {
     openers.current.add(opener)
     setCount(openers.current.size)
@@ -66,12 +73,10 @@ function SearchPaletteRoot({ children }: React.PropsWithChildren) {
       }
     }
     document.addEventListener('keydown', keydown)
-    Router.events.on('routeChangeStart', close)
     return () => {
       document.removeEventListener('keydown', keydown)
-      Router.events.off('routeChangeStart', close)
     }
-  }, [count, close])
+  }, [count])
   return (
     <Context.Provider value={value}>
       {children}

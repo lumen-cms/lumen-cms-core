@@ -1,4 +1,5 @@
 import type { GridDirection } from '../../vendor/grid/GridProps'
+import type { ReactNode } from 'react'
 import {
   ColumnStoryblok,
   RowStoryblok,
@@ -22,12 +23,14 @@ export type LmSectionVideoProps = {
   }
   sectionPosition?: number
 }
-export type LmGridRowProps = { content: RowStoryblok }
+export type LmGridRowProps = { content: RowStoryblok; children?: ReactNode }
 export type LmGridColumnProps = {
   content: ColumnStoryblok
   parent: { direction?: GridDirection | '' }
+  children?: ReactNode
 }
 export type LmSectionProps = {
   content: SectionProps
   sectionPosition?: number
+  children?: ReactNode
 }

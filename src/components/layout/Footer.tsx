@@ -9,9 +9,9 @@ import {
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 
-const FooterContainer: FunctionComponent<React.PropsWithChildren<unknown>> = ({
-  children
-}) => {
+export const FooterContainer: FunctionComponent<
+  React.PropsWithChildren<unknown>
+> = ({ children }) => {
   const theme = useTheme()
   const isLeftDrawerOpen = useNavigationStore(leftNavigationDrawerSelector)
   const drawerVariant = useNavigationStore(drawerVariantSelector)

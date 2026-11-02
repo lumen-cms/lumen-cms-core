@@ -67,7 +67,7 @@ function getColumnWidths(content: LmGridColumnProps['content']) {
   }
 }
 
-function ColumnBody({ content, parent }: LmGridColumnProps) {
+function ColumnBody({ content, parent, children }: LmGridColumnProps) {
   const renderStackElement =
     !['column', 'column-reverse'].includes(parent.direction || '') &&
     (content.justify || content.align_content || content.align_items)
@@ -82,10 +82,14 @@ function ColumnBody({ content, parent }: LmGridColumnProps) {
         minHeight: '100%'
       }}
     >
-      {content.body?.map((blok) => (
-        <LmComponentRender content={blok} key={blok._uid} />
-      ))}
+      {children !== undefined
+        ? children
+        : content.body?.map((blok) => (
+            <LmComponentRender content={blok} key={blok._uid} />
+          ))}
     </Stack>
+  ) : children !== undefined ? (
+    children
   ) : (
     content.body?.map((blok) => (
       <LmComponentRender content={blok} key={blok._uid} />
@@ -95,7 +99,8 @@ function ColumnBody({ content, parent }: LmGridColumnProps) {
 
 export function LmGridColumn({
   content,
-  parent
+  parent,
+  children
 }: LmGridColumnProps): React.JSX.Element {
   const background: BackgroundStoryblok | undefined = content.background?.[0]
   const { className, style, sx } = useBackgroundBox({
@@ -130,7 +135,9 @@ export function LmGridColumn({
           background.background_elements.length > 0 && (
             <BackgroundElements elements={background.background_elements} />
           )}
-        <ColumnBody content={content} parent={parent} />
+        <ColumnBody content={content} parent={parent}>
+          {children}
+        </ColumnBody>
       </WrapGridContainer>
     </Grid>
   )

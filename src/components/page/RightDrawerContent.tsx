@@ -2,7 +2,6 @@ import type { PageStoryblok } from '../../typings/generated/components-schema'
 import React, { FunctionComponent } from 'react'
 import Drawer from '@mui/material/Drawer'
 import { LmComponentRender } from '../CoreComponents'
-import { ContentSpace } from '../layout/ContentSpace'
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 import { rightDrawerPaperSx, rightModalSx } from './pageStyles'
@@ -43,16 +42,18 @@ RightDrawerContainer.displayName = 'RightDrawerContainer'
 
 type RightDrawerProps = {
   rightBody: NonNullable<PageStoryblok['right_body']>
+  headerSpace?: React.ReactNode
   // body: any[]
 }
 
 function RightDrawerContent({
   rightBody,
+  headerSpace,
   ...state
 }: RightDrawerProps & RightDrawerState): React.JSX.Element {
   return (
     <RightDrawerContainer {...state}>
-      <ContentSpace />
+      {headerSpace}
       <Box sx={{ overflowY: 'auto' }}>
         {rightBody.map((blok) => (
           <LmComponentRender content={blok} key={blok._uid} />

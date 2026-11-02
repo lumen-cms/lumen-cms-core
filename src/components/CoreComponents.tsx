@@ -4,7 +4,10 @@ import {
   ComponentRenderFuncProps,
   ComponentRenderContent
 } from '../typings/app'
-import { useAppContext } from './provider/context/AppContext'
+import {
+  StoryblokPreviewProvider,
+  useStoryblokPreview
+} from './provider/context/StoryblokPreviewContext'
 import { StoryblokEditable } from './provider/StoryblokEditable'
 
 const registryHooks = new Set([
@@ -16,7 +19,17 @@ const registryHooks = new Set([
 export function LmComponentRender<C extends ComponentRenderContent>(
   props: ComponentRenderFuncProps<C>
 ) {
-  const { insideStoryblok } = useAppContext()
+  return (
+    <StoryblokPreviewProvider>
+      <ComponentRender {...props} />
+    </StoryblokPreviewProvider>
+  )
+}
+
+function ComponentRender<C extends ComponentRenderContent>(
+  props: ComponentRenderFuncProps<C>
+) {
+  const insideStoryblok = useStoryblokPreview()
   const { content } = props
   const i = props.i
 

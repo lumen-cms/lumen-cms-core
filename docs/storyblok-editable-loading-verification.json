@@ -1,0 +1,132 @@
+{
+  "date": "2026-11-02",
+  "decision": "Keep the optimization: a modest, measured reduction in public JavaScript with unchanged CMS output and retained preview child state.",
+  "scope": "Lazy-load Storyblok editable attributes and their MutationObserver. Both builds include the earlier preview-context optimization and the existing page/theme working-tree changes.",
+  "implementation": {
+    "files": [
+      "src/components/provider/StoryblokEditable.tsx",
+      "src/components/provider/StoryblokEditableAttributes.tsx"
+    ],
+    "description": "Keep the two template markers, their refs, and CMS children synchronous. Load a null-rendering sibling controller with next/dynamic and ssr:false. Move the original attribute/observer effect unchanged into that controller, including metadata updates, root replacement, ownership checks, and cleanup.",
+    "previewTiming": "Editor attributes become available after the controller downloads. CMS content renders immediately; downloading the controller does not replace or remount that content. The preview-context and native AppContext override logic is unchanged."
+  },
+  "footprint": {
+    "method": "Sum separately compressed distinct shared _app and catch-all JavaScript files from each production build manifest using Node gzipSync and brotliCompressSync. These are compressed file sizes, not measured HTTP transfer sizes.",
+    "before": {
+      "files": 18,
+      "rawBytes": 1040806,
+      "gzipBytes": 325389,
+      "brotliBytes": 283264
+    },
+    "after": {
+      "files": 17,
+      "rawBytes": 1039339,
+      "gzipBytes": 324090,
+      "brotliBytes": 282076
+    },
+    "saved": {
+      "files": 1,
+      "rawBytes": 1467,
+      "gzipBytes": 1299,
+      "brotliBytes": 1188
+    },
+    "browser": "All eight route/viewport samples requested one fewer script and 1309 fewer gzip-compressed bytes, including route-specific runtime differences. No candidate public sample requested a chunk containing the editor marker implementation.",
+    "controllerChunk": {
+      "rawBytes": 1848,
+      "gzipBytes": 1043,
+      "note": "This is the controller chunk alone, not the total preview dependency graph."
+    }
+  },
+  "validation": {
+    "unit": {
+      "command": "pnpm test",
+      "files": 141,
+      "tests": 593,
+      "result": "passed",
+      "newCoverage": "A deferred controller import verifies no public import, immediate preview content, retained DOM/input/component state, metadata changes during download, unmount before completion, root replacement, and cleanup.",
+      "testAdjustments": "Existing marker assertions wait for the dynamic import. The existing intermittent GoogleFontsLivePreview test now waits for its loadable subscription to commit the expected DOM effect; font runtime code is unchanged."
+    },
+    "typecheck": "pnpm run check-types and both production builds passed.",
+    "lint": "oxlint and oxfmt --check passed for all seven changed TypeScript files; git diff --check passed.",
+    "builds": {
+      "nextVersion": "16.4.3",
+      "bundler": "Turbopack",
+      "commands": [
+        "TEST=TRUE NEXT_DIST_DIR=.next-reference/editable-before pnpm run build",
+        "TEST=TRUE NEXT_DIST_DIR=.next-reference/editable-after pnpm run build"
+      ],
+      "result": "Both fresh builds passed. TEST=TRUE selects four CMS SSG routes rather than enumerating every published route.",
+      "ssg": [
+        {
+          "route": "en",
+          "bodyIdentical": true,
+          "stylesIdentical": true
+        },
+        {
+          "route": "de/de",
+          "bodyIdentical": true,
+          "stylesIdentical": true
+        },
+        {
+          "route": "en/digital-marketing-social-media-internship-for-a-restaurant-bar-in-seminyak-bali",
+          "bodyIdentical": true,
+          "stylesIdentical": true
+        },
+        {
+          "route": "en/food-beverage-inventory-management-and-business-analytics-internship-for-a-restaurant-bar-in-bali",
+          "bodyIdentical": true,
+          "stylesIdentical": true
+        }
+      ],
+      "comparison": "The #__next body markup and all Emotion style text are byte-identical."
+    },
+    "productionPreviewFixture": {
+      "bundler": "Webpack",
+      "reason": "An isolated Next fixture imports the actual repository source through a symlink outside the fixture root. The real-site builds use Turbopack.",
+      "publicEditorRequests": 0,
+      "delayedControllerDownload": true,
+      "retainedDomNode": true,
+      "retainedFocus": true,
+      "retainedInput": true,
+      "retainedComponentState": true,
+      "noAdditionalChildMounts": true,
+      "latestMetadataApplied": true,
+      "unmountedPendingInstanceNotAnnotated": true,
+      "rootReplacementAnnotated": true,
+      "oldRootCleared": true,
+      "unmountCleanedUp": true,
+      "remountAnnotated": true,
+      "pageErrors": [],
+      "hydrationErrors": []
+    },
+    "browser": {
+      "routes": 4,
+      "widths": [1280, 375],
+      "allDomMetricsMatch": true,
+      "pageErrors": [],
+      "hydrationErrors": [],
+      "fontsLoaded": true,
+      "publicPreviewInactive": true,
+      "navigation": "Client navigation from homepage to detail and back passed at both widths in both builds.",
+      "drawer": "Mobile drawer opened in both builds; its screenshots matched.",
+      "pixels": {
+        "method": "Count pixels with an RGB channel difference greater than 16; allow zero changed pixels. Fix the clock, stop carousel autoplay, disable animations, and serve identical YouTube iframe documents while waiting for their loading skeletons to disappear.",
+        "initialMatchingPages": 7,
+        "totalPages": 8,
+        "initialDifference": "3338 mobile-homepage pixels confined to Chatwoot's asynchronous fixed chat button and shadow (x 291-354, y 816-887).",
+        "followup": "Repeat the mobile homepage comparison after the real Chatwoot open button is visible in both builds. Button geometry, markup and styling match; full-page screenshots have zero changed pixels. No page region was masked.",
+        "followupChangedPixels": 0
+      },
+      "existingAssetIssue": "Both builds had the same two broken images on the mobile German route; no new broken images appeared."
+    }
+  },
+  "artifacts": {
+    "directory": "/tmp/lumen-editable-loading-20261102",
+    "footprint": "/tmp/lumen-editable-loading-20261102/measurement.json",
+    "ssg": "/tmp/lumen-editable-loading-20261102/ssg-comparison.json",
+    "browser": "/tmp/lumen-editable-loading-20261102/browser-report.json",
+    "chatFollowup": "/tmp/lumen-editable-loading-20261102/video-followup/browser-report.json",
+    "preview": "/tmp/lumen-editable-loading-20261102/preview-browser-report.json"
+  },
+  "limitations": "Coverage is the four sampled routes in this repository configuration, not every consumer site. The preview browser fixture exercises real production code with a delayed chunk, but does not connect to a live Storyblok Visual Editor session. Existing bridge and context override tests pass. No field LCP/INP improvement is claimed."
+}

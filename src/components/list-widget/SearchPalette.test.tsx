@@ -7,16 +7,10 @@ import LmListSearchAutocomplete from './ListSearchAutocomplete'
 import { SearchPaletteProvider } from './SearchPaletteProvider'
 import SearchPaletteDialog from './SearchPaletteDialog'
 import { fetchSearchStories, SearchStory } from './searchPaletteData'
+import { AppContext } from '../provider/context/AppContext'
 
-const route = vi.hoisted(() => ({ listeners: new Set<() => void>() }))
-vi.mock('next/router', () => ({
-  Router: {
-    events: {
-      on: (_name: string, cb: () => void) => route.listeners.add(cb),
-      off: (_name: string, cb: () => void) => route.listeners.delete(cb)
-    }
-  }
-}))
+let currentSlug = '/initial'
+let currentElement: React.ReactNode
 vi.mock('./searchPaletteData', async (original) => ({
   ...(await original<typeof import('./searchPaletteData')>()),
   fetchSearchStories: vi.fn()
@@ -75,15 +69,26 @@ const tick = async (ms = 450) => {
   })
 }
 const render = async (element: React.ReactNode) => {
+  currentElement = element
   await act(async () => {
     root.render(
-      <SWRConfig value={{ provider: () => new Map(), dedupingInterval: 0 }}>
-        {element}
-      </SWRConfig>
+      <AppContext.Provider
+        value={{
+          slug: currentSlug,
+          locale: 'en',
+          defaultLocale: 'en',
+          locales: ['en']
+        }}
+      >
+        <SWRConfig value={{ provider: () => new Map(), dedupingInterval: 0 }}>
+          {element}
+        </SWRConfig>
+      </AppContext.Provider>
     )
   })
 }
 beforeEach(() => {
+  currentSlug = '/initial'
   vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)
   vi.useFakeTimers()
   vi.mocked(fetchSearchStories).mockReset().mockResolvedValue([])
@@ -137,12 +142,10 @@ it('shares one dialog, honors clicked configuration, restores focus, resets and 
   expect(document.querySelector('input')?.value).toBe('')
   await key(document, 'k', { ctrlKey: true })
   expect(document.querySelectorAll('[role="dialog"]')).toHaveLength(1)
-  await act(async () => {
-    route.listeners.forEach((cb) => cb())
-  })
+  currentSlug = '/another-page'
+  await render(currentElement)
   expect(document.querySelector('[role="dialog"]')).toBeNull()
   await render(<></>)
-  expect(route.listeners.size).toBe(0)
   await key(document, 'k', { ctrlKey: true })
   expect(document.querySelector('[role="dialog"]')).toBeNull()
 })

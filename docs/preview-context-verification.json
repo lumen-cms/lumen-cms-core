@@ -1,0 +1,186 @@
+{
+  "date": "2026-11-02",
+  "scope": "Preview context isolation for CMS renderers; existing page/theme working-tree changes were included unchanged in both builds.",
+  "implementation": {
+    "files": [
+      "src/components/CoreComponents.tsx",
+      "src/components/provider/context/StoryblokPreviewContext.tsx"
+    ],
+    "description": "A local adapter reads the nearest native AppContext and provides only insideStoryblok to its stable child. Context-only route updates still render adapters but do not invalidate unchanged content. Normal parent renders are intentionally preserved; no memo comparator, external store, or global provider replacement is introduced."
+  },
+  "regressionTests": {
+    "file": "src/components/CoreComponents.preview.test.tsx",
+    "cases": 6,
+    "before": "The render-isolation test failed with 100 content renders after a route-only update; the five compatibility cases passed.",
+    "after": "All six pass: 100 initial content renders, zero additional unchanged-content renders on route or locale changes; route-aware children still update.",
+    "coverage": [
+      "AppProvider mount-time preview mode",
+      "Nested native AppContext.Provider and React 19 shorthand overrides, including undefined",
+      "Ordinary parent updates with mutated content and runtime renderer registration overrides",
+      "Public and preview server markup, hydration retaining the server DOM, and editor markers"
+    ]
+  },
+  "validation": {
+    "unit": {
+      "command": "pnpm test",
+      "files": 140,
+      "tests": 592,
+      "result": "passed",
+      "note": "An existing asynchronous GoogleFontsLivePreview test failed in targeted runs; isolated and full-suite reruns passed without changing that test or its component."
+    },
+    "typecheck": "pnpm run check-types passed; both builds also passed Next TypeScript checks.",
+    "lint": "oxlint and oxfmt --check passed for all three changed TypeScript files; git diff --check passed.",
+    "builds": {
+      "nextVersion": "16.4.3",
+      "bundler": "Turbopack",
+      "commands": [
+        "TEST=TRUE NEXT_DIST_DIR=.next-reference/preview-context-before pnpm run build",
+        "TEST=TRUE NEXT_DIST_DIR=.next-reference/preview-context-after pnpm run build"
+      ],
+      "result": "Both passed. TEST=TRUE selects four CMS SSG routes rather than enumerating every published route.",
+      "ssg": [
+        {
+          "route": "en",
+          "bodyEqual": true,
+          "stylesEqual": true,
+          "headingsEqual": true,
+          "beforeBodyBytes": 302188,
+          "afterBodyBytes": 302188
+        },
+        {
+          "route": "de/de",
+          "bodyEqual": true,
+          "stylesEqual": true,
+          "headingsEqual": true,
+          "beforeBodyBytes": 278932,
+          "afterBodyBytes": 278932
+        },
+        {
+          "route": "en/digital-marketing-social-media-internship-for-a-restaurant-bar-in-seminyak-bali",
+          "bodyEqual": true,
+          "stylesEqual": true,
+          "headingsEqual": true,
+          "beforeBodyBytes": 153623,
+          "afterBodyBytes": 153623
+        },
+        {
+          "route": "en/food-beverage-inventory-management-and-business-analytics-internship-for-a-restaurant-bar-in-bali",
+          "bodyEqual": true,
+          "stylesEqual": true,
+          "headingsEqual": true,
+          "beforeBodyBytes": 153538,
+          "afterBodyBytes": 153538
+        }
+      ]
+    },
+    "bundles": {
+      "before": {
+        "files": 18,
+        "rawBytes": 1040608,
+        "gzipBytes": 325343
+      },
+      "after": {
+        "files": 18,
+        "rawBytes": 1040806,
+        "gzipBytes": 325389
+      },
+      "gzipDeltaBytes": 46,
+      "method": "Sum gzip sizes of the distinct shared _app and catch-all JavaScript files in each production build manifest; this is a rendering optimization, not a download reduction."
+    },
+    "pageData": [
+      {
+        "file": "de/de.json",
+        "differences": [
+          ".pageProps.page.body.5.body.0.body.1.body.0.list_widget_data.cv"
+        ],
+        "onlyCacheVersion": true
+      },
+      {
+        "file": "de/logout.json",
+        "differences": [],
+        "onlyCacheVersion": true
+      },
+      {
+        "file": "de/refetch.json",
+        "differences": [],
+        "onlyCacheVersion": true
+      },
+      {
+        "file": "en/digital-marketing-social-media-internship-for-a-restaurant-bar-in-seminyak-bali.json",
+        "differences": [
+          ".pageProps.page.body.3.body.0.body.0.body.1.list_widget_data.cv"
+        ],
+        "onlyCacheVersion": true
+      },
+      {
+        "file": "en/food-beverage-inventory-management-and-business-analytics-internship-for-a-restaurant-bar-in-bali.json",
+        "differences": [
+          ".pageProps.page.body.3.body.0.body.0.body.1.list_widget_data.cv"
+        ],
+        "onlyCacheVersion": true
+      },
+      {
+        "file": "en/logout.json",
+        "differences": [],
+        "onlyCacheVersion": true
+      },
+      {
+        "file": "en/refetch.json",
+        "differences": [],
+        "onlyCacheVersion": true
+      },
+      {
+        "file": "en.json",
+        "differences": [
+          ".pageProps.page.body.2.body.1.body.0.body.1.list_widget_data.cv"
+        ],
+        "onlyCacheVersion": true
+      }
+    ],
+    "browser": {
+      "routes": 4,
+      "widths": [
+        1280,
+        375
+      ],
+      "captures": 16,
+      "allDomMetricsMatch": true,
+      "pageErrors": [],
+      "hydrationErrors": [],
+      "fontsLoaded": true,
+      "publicPreviewInactive": true,
+      "navigation": "Client navigation from the homepage to the first detail page and back passed at both widths in both builds.",
+      "drawer": "Mobile drawer opened in both builds and its screenshots matched.",
+      "pixels": {
+        "comparison": "Count pixels with an RGB channel difference greater than 16; allow zero changed pixels outside controlled external content.",
+        "initialMatchingPages": 7,
+        "totalPages": 8,
+        "initialDifference": "Mobile homepage: 72463 pixels, entirely within the YouTube iframe loading rectangle (x 32–342, y 5710–5942). Surrounding pixels and all DOM metrics matched.",
+        "followup": "Re-ran the mobile homepage with an identical deterministic YouTube iframe document, waiting for iframe load and removal of the existing skeleton in both builds.",
+        "followupComparisons": [
+          {
+            "route": "/",
+            "width": 375,
+            "pixels": {
+              "sameDimensions": true,
+              "changedPixels": 0,
+              "totalPixels": 3870750
+            },
+            "sameState": true,
+            "newErrors": [],
+            "hydrationErrors": [],
+            "navigationMatches": true
+          }
+        ]
+      },
+      "existingAssetIssue": "Both builds had the same two broken images on the mobile German route; no new broken images appeared."
+    }
+  },
+  "artifacts": {
+    "directory": "/tmp/lumen-preview-context-20261102",
+    "buildComparison": "/tmp/lumen-preview-context-20261102/build-comparison.json",
+    "browser": "/tmp/lumen-preview-context-20261102/browser-report.json",
+    "videoFollowup": "/tmp/lumen-preview-context-20261102/video-followup/browser-report.json"
+  },
+  "limitations": "Browser coverage is the four sampled routes in this repository configuration, not every consumer site. Actual Storyblok editor connectivity was not exercised in a browser; existing bridge tests and new override/hydration tests cover that behavior. No field LCP/INP improvement is claimed."
+}

@@ -1,0 +1,99 @@
+{
+  "measuredAt": "2026-11-02T06:41:37.095Z",
+  "buildDirectory": ".next-reference/public-before",
+  "buildId": "ZHKcLWkyWrRUYZYLhGyhy",
+  "buildModifiedAt": "2026-11-02T06:03:35.499Z",
+  "method": "Existing build; not rebuilt by this command. Bytes, not KB. HTML includes embedded data and CSS. JS sums each unique local script referenced by the initial HTML, compressed independently with Node defaults. Embedded data compression is diagnostic and cannot be subtracted from compressed HTML. Excludes later hydration chunks, prefetched scripts and third-party requests; not HTTP transfer or Web Vitals.",
+  "routes": [
+    {
+      "route": "/de/de",
+      "sourceRoute": "/[[...index]]",
+      "revalidate": false,
+      "html": {
+        "raw": 424100,
+        "gzip": 65058,
+        "brotli": 44070
+      },
+      "embeddedNextData": {
+        "raw": 124910,
+        "gzip": 30387,
+        "brotli": 25252
+      },
+      "initialJavaScriptFiles": 34,
+      "initialJavaScript": {
+        "raw": 1324371,
+        "gzip": 416325,
+        "brotli": 362655
+      }
+    },
+    {
+      "route": "/en",
+      "sourceRoute": "/[[...index]]",
+      "revalidate": false,
+      "html": {
+        "raw": 481968,
+        "gzip": 75249,
+        "brotli": 52049
+      },
+      "embeddedNextData": {
+        "raw": 159724,
+        "gzip": 40594,
+        "brotli": 32507
+      },
+      "initialJavaScriptFiles": 32,
+      "initialJavaScript": {
+        "raw": 1279715,
+        "gzip": 401788,
+        "brotli": 349642
+      }
+    },
+    {
+      "route": "/en/digital-marketing-social-media-internship-for-a-restaurant-bar-in-seminyak-bali",
+      "sourceRoute": "/[[...index]]",
+      "revalidate": false,
+      "html": {
+        "raw": 259053,
+        "gzip": 44800,
+        "brotli": 32836
+      },
+      "embeddedNextData": {
+        "raw": 85879,
+        "gzip": 22922,
+        "brotli": 18818
+      },
+      "initialJavaScriptFiles": 28,
+      "initialJavaScript": {
+        "raw": 1264140,
+        "gzip": 397309,
+        "brotli": 345769
+      }
+    },
+    {
+      "route": "/en/food-beverage-inventory-management-and-business-analytics-internship-for-a-restaurant-bar-in-bali",
+      "sourceRoute": "/[[...index]]",
+      "revalidate": false,
+      "html": {
+        "raw": 253580,
+        "gzip": 43792,
+        "brotli": 31917
+      },
+      "embeddedNextData": {
+        "raw": 80421,
+        "gzip": 21914,
+        "brotli": 18029
+      },
+      "initialJavaScriptFiles": 28,
+      "initialJavaScript": {
+        "raw": 1264140,
+        "gzip": 397309,
+        "brotli": 345769
+      }
+    }
+  ],
+  "fallbacks": {
+    "/[[...index]]": {
+      "fallback": null,
+      "compute": "blocking"
+    }
+  }
+}

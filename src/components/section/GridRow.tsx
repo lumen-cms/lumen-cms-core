@@ -59,7 +59,10 @@ const smColumnReverseSx = (theme: Theme): SystemStyleObject<Theme> => ({
   [theme.breakpoints.only('sm')]: columnReverse
 })
 
-export function LmGridRow({ content }: LmGridRowProps): React.JSX.Element {
+export function LmGridRow({
+  content,
+  children
+}: LmGridRowProps): React.JSX.Element {
   const spacing = Number(content.spacing || 3)
 
   const background: BackgroundStoryblok | undefined = content.background?.[0]
@@ -104,13 +107,15 @@ export function LmGridRow({ content }: LmGridRowProps): React.JSX.Element {
           background.background_elements.length > 0 && (
             <BackgroundElements elements={background.background_elements} />
           )}
-        {content.body?.map((blok) => (
-          <LmComponentRender
-            content={blok}
-            key={blok._uid}
-            parent={{ direction: content.direction }}
-          />
-        ))}
+        {children !== undefined
+          ? children
+          : content.body?.map((blok) => (
+              <LmComponentRender
+                content={blok}
+                key={blok._uid}
+                parent={{ direction: content.direction }}
+              />
+            ))}
       </Grid>
     </WrapGridContainer>
   )

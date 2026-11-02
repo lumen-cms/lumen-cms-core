@@ -6,6 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { afterEach, expect, it, vi } from 'vitest'
 import Loadable from 'next/dist/shared/lib/loadable.shared-runtime'
 import RightDrawer from './RightDrawer'
+import { PageRightDrawer } from './PageRightDrawer'
 import MwcDrawer from '../layout/drawer/MwcDrawer'
 import { useNavigationStore } from '../../utils/state/navigationState'
 
@@ -41,7 +42,7 @@ afterEach(() => {
   })
 })
 
-it.each(['left', 'right'] as const)(
+it.each(['left', 'right', 'right-explicit'] as const)(
   'defers a closed %s drawer, opens, focuses and closes with Escape/backdrop',
   async (side) => {
     vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)
@@ -65,6 +66,12 @@ it.each(['left', 'right'] as const)(
           <MwcDrawer>
             <button data-content>Left content</button>
           </MwcDrawer>
+        ) : side === 'right-explicit' ? (
+          <PageRightDrawer
+            rightBody={rightBody}
+            mobileBreakpoint="md"
+            headerSpace={<div>Explicit spacer</div>}
+          />
         ) : (
           <RightDrawer rightBody={rightBody} />
         )}

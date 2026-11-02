@@ -3,7 +3,18 @@
 ## Local development
 
 Use Node.js 24 (`nvm use`) and the repository's pinned pnpm version. Install with
-`pnpm install --frozen-lockfile`, then run `pnpm dev`. Next.js development and
+`pnpm install --frozen-lockfile`, then run `pnpm dev` at `https://localhost:3000`.
+All development commands use Next.js's built-in `--experimental-https`, as
+recommended by [Storyblok's visual preview guide](https://www.storyblok.com/docs/quickstarts/nextjs/visual-preview).
+Next.js generates local certificates in the ignored `certificates/` directory
+and may prompt for your system password when installing its local certificate
+authority on the first run. Open the preview URL in a separate browser tab first
+and accept the certificate if prompted, then set that URL in Storyblok under
+**Settings > Visual Editor > Default environment**.
+
+The old `devs`, `dev-safe`, and `devss` commands have been removed; use `pnpm dev`
+or one of the site commands below. No separate SSL proxy or manual certificates
+are needed. Next.js development and
 production builds use Turbopack. Storybook retains its separate webpack builder.
 
 Run `pnpm lint` for Oxlint (including type-aware and React Compiler checks) and
@@ -23,9 +34,9 @@ For everyday development, select a website with one command:
 
 | Command | Local URL |
 | --- | --- |
-| `pnpm dev:bali` | http://127.0.0.1:3009 |
-| `pnpm dev:planet` | http://127.0.0.1:3010 |
-| `pnpm dev:upskill` | http://127.0.0.1:3011 |
+| `pnpm dev:bali` | https://127.0.0.1:3009 |
+| `pnpm dev:planet` | https://127.0.0.1:3010 |
+| `pnpm dev:upskill` | https://127.0.0.1:3011 |
 
 Each command loads one private file containing the site's tokens and settings:
 `.env.bali`, `.env.planet`, or `.env.upskill`. These files are ignored by Git.
@@ -35,7 +46,7 @@ Edit the selected site's file once instead of commenting settings in and out of
 Next.js automatically loads `.env`, `.env.local`, and files for its standard
 `development`, `production`, and `test` environments. Project names are not
 Next.js environments: do not set `NODE_ENV=bali` (or another project name).
-The commands use `dotenv-cli` (`dotenv -e .env.<project> -- next dev`) to
+The commands use `dotenv-cli` (`dotenv -e .env.<project> -- next dev --experimental-https`) to
 load the chosen file before starting Next.js directly. `--no-expand` preserves
 literal values, matching the previous loader. No custom launcher or reference-token
 lookup is used. Shell variables take priority over the project file; Next.js's
@@ -69,7 +80,7 @@ This runs the core repo's existing Next.js application against the selected
 Storyblok space. It does not load a consumer website's custom Next config or
 components from `../websites`.
 
-Plain `pnpm dev` still uses the original workflow at port 3000: select the
+Plain `pnpm dev` serves HTTPS at port 3000: select the
 Storyblok space tokens in the ignored `.env` file:
 
 ```dotenv
@@ -243,7 +254,7 @@ migration and [verification record](docs/migration-verification.md) for release 
 # install dependencies
 $ npm install # Or pnpm install
 
-# serve with hot reload at localhost:3000
+# serve with hot reload at https://localhost:3000
 $ npm run dev
 
 # build for production and launch server
