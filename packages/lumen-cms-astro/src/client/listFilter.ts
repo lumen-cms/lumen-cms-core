@@ -6,6 +6,7 @@ export function initializeListFilters() {
  const read = () => { const params = new URL(location.href).searchParams; return { text: params.get('search__text') || '', categories: params.getAll('search__categories') } }
  const update = () => {
   const { text, categories } = read()
+  const selectedCategories = new Set(categories)
   document.querySelectorAll<HTMLElement>('[data-lm-list-widget]').forEach(widget => {
    const items: SearchableListItem[] = JSON.parse(widget.dataset.listItems || '[]')
    const allIds = new Set(items.map(item => item.uuid))
@@ -25,7 +26,7 @@ export function initializeListFilters() {
    widget.dispatchEvent(new CustomEvent('lumen:list-filter', { bubbles: true }))
   })
   document.querySelectorAll<HTMLInputElement>('[data-list-search] input').forEach(input => { if (document.activeElement !== input) input.value = text })
-  document.querySelectorAll<HTMLInputElement>('[data-category-box] input[type=checkbox]').forEach(input => input.checked = categories.includes(input.value))
+  document.querySelectorAll<HTMLInputElement>('[data-category-box] input[type=checkbox]').forEach(input => input.checked = selectedCategories.has(input.value))
   document.dispatchEvent(new CustomEvent('lumen:search-change'))
  }
  document.querySelectorAll<HTMLElement>('[data-list-search]').forEach(root => {

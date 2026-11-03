@@ -15,9 +15,9 @@ export function initializeDeferred(selector: string, load: () => Promise<{ mount
    if (loading || ready || lifetime.signal.aborted) return
    loading = true; root.dataset.deferredState = 'loading'; root.setAttribute('aria-busy', 'true'); status?.remove()
    try {
-    const module = await load()
+    const enhancement = await load()
     if (lifetime.signal.aborted || !root.isConnected) return
-    const cleanup = await module.mount(root, lifetime.signal)
+    const cleanup = await enhancement.mount(root, lifetime.signal)
     if (lifetime.signal.aborted || !root.isConnected) { cleanup?.(); return }
     dispose = cleanup; ready = true; observer?.disconnect(); root.dataset.deferredState = 'ready'
    } catch {

@@ -67,7 +67,7 @@
     "@astrojs/check": "0.9.12",
     "typescript": "6.0.3",
     "lumen-cms-shared": "workspace:*",
-    "@types/js-cookie": "^3.0.8",
+    "@types/js-cookie": "^3.0.6",
     "astro": "7.4.4",
     "@storyblok/astro": "10.4.0"
   },

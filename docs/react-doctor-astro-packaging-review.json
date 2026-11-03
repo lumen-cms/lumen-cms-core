@@ -1,0 +1,48 @@
+{
+  "scope": "Astro consumer packaging pre-push diagnostics",
+  "policy": "Retain warning-blocking full-scope checks; suppress only file/rule combinations with reviewed semantics.",
+  "reviewed_exceptions": [
+    {
+      "files": [
+        "packages/lumen-cms-shared/src/core/utils/initial-props/component-data/googleFormsToJson.ts",
+        "packages/lumen-cms-shared/src/core/utils/initial-props/storyblokDeliveryResolver.ts",
+        "src/pages/api/sitemap.ts"
+      ],
+      "rule": "react-doctor/js-set-map-lookups",
+      "classification": "false positive",
+      "confidence": "high",
+      "reason": "These includes() calls search substrings inside strings. Exact Set membership would change script discovery, settings-path matching, and sitemap exclusions."
+    },
+    {
+      "files": [
+        "packages/lumen-cms-shared/src/core/utils/storyblok/StoryblokTransport.ts"
+      ],
+      "rule": "react-doctor/async-await-in-loop",
+      "classification": "intentional bounded sequential work",
+      "confidence": "high",
+      "reason": "Overflow relations are fetched in batches of 50 through the rate-limited delivery client. Preserve bounded outstanding work and fail-fast behavior. This mirrors the existing root transport exception."
+    },
+    {
+      "files": [
+        "packages/lumen-cms-astro/src-server/pages/fixture-cms-preview.astro",
+        "packages/lumen-cms-astro/src/pages/[fixture].astro"
+      ],
+      "rule": "react-doctor/no-unguarded-browser-global-at-module-scope",
+      "classification": "false positive",
+      "confidence": "high",
+      "reason": "The preview fixture access is inside an Astro browser-only script. The product-description fixture contains deliberately malicious HTML as a string to test sanitization; it is not executed server code. Neither fixture page is shipped in the package."
+    },
+    {
+      "files": [
+        "src/app-router/Providers.tsx"
+      ],
+      "rules": [
+        "react-doctor/nextjs-no-client-side-redirect",
+        "react-doctor/no-hydration-branch-on-browser-global"
+      ],
+      "classification": "false positive for this provider",
+      "confidence": "high",
+      "reason": "Locale navigation depends on Auth0 client session data after mount. Browser origin is an SDK initialization option, not a DOM/render branch; Auth0 renders the same initial loading state on both sides. The installed SDK captures options in a useState initializer, so delaying origin through a hydration store loses the login callback URI. Preserve the existing initialization rather than introducing an authentication regression."
+    }
+  ]
+}

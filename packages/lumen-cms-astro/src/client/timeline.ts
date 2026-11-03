@@ -25,12 +25,11 @@ export function initializeTimelines() {
     const bounds = element.getBoundingClientRect()
     if (!bounds.height) return
     if (bounds.bottom < halfway) {
-     element.style.background = fill; element.style.transform = ''; passed.add(element)
+     Object.assign(element.style, { background: fill, transform: '' }); passed.add(element)
      if (element.hasAttribute('data-timeline-last')) void reward()
     } else if (bounds.top < halfway && bounds.bottom > halfway) {
      const depth = (bounds.bottom - halfway) / bounds.height * 100
-     element.style.background = `linear-gradient(to top, ${initial} ${depth}%, ${fill} ${depth}% 100%)`
-     element.style.transform = 'translateZ(0)'
+     Object.assign(element.style, { background: `linear-gradient(to top, ${initial} ${depth}%, ${fill} ${depth}% 100%)`, transform: 'translateZ(0)' })
     }
    })
   }

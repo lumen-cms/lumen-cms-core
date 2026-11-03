@@ -88,8 +88,9 @@ export function initializeTabs() {
    touch = { x: event.touches[0].clientX, y: event.touches[0].clientY, index: active }
   }, { passive: true, signal })
   viewport.addEventListener('touchend', event => {
-   if (!touch || !event.changedTouches.length) return
-   const dx = (touch.x - event.changedTouches[0].clientX) * (rtl ? -1 : 1), dy = touch.y - event.changedTouches[0].clientY
+   const changedTouch = event.changedTouches[0]
+   if (!touch || !changedTouch) return
+   const dx = (touch.x - changedTouch.clientX) * (rtl ? -1 : 1), dy = touch.y - changedTouch.clientY
    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) && ((touch.index === tabs.length - 1 && dx > 0) || (touch.index === 0 && dx < 0))) go(touch.index + Math.sign(dx))
    touch = undefined
   }, { passive: true, signal })

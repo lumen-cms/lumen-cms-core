@@ -7,8 +7,10 @@ const xml = (value: unknown) => String(value ?? '').replaceAll('&', '&amp;').rep
 const cdata = (value: unknown) => `<![CDATA[${String(value ?? '').replaceAll(']]>', ']]]]><![CDATA[>')}]]>`
 
 export async function feedResponse(request: Request, tags: string | undefined, dependencies: FeedDependencies) {
- const stories = await dependencies.loadStories({ excluding_fields: 'body,right_body,property,seo_body', with_tag: tags?.split('/').join(',') })
- const settings = await dependencies.loadSettings()
+ const [stories, settings] = await Promise.all([
+  dependencies.loadStories({ excluding_fields: 'body,right_body,property,seo_body', with_tag: tags?.split('/').join(',') }),
+  dependencies.loadSettings(),
+ ])
  const host = request.headers.get('host') || new URL(request.url).host
  let latestPostDate = ''
  const items = stories.map(story => {

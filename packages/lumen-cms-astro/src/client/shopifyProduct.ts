@@ -6,8 +6,14 @@ import { onUnmount } from './lifecycle'
 
 export function initializeShopifyProducts() {
  document.querySelectorAll<HTMLElement>('[data-lm-shopify-product]:not([data-shopify-initialized])').forEach(root => {
+  let payload: { variants: ShopifyVariant[]; config?: EcommerceShopifyConfigStoryblok; autoplay: boolean }
+  try {
+   const parsed: unknown = JSON.parse(root.dataset.lmShopifyProduct || 'null')
+   if (!parsed || typeof parsed !== 'object' || !('variants' in parsed) || !Array.isArray(parsed.variants)) return
+   payload = parsed as typeof payload
+  } catch { return }
+  const { variants, config, autoplay } = payload
   root.dataset.shopifyInitialized = 'true'
-  const { variants, config, autoplay } = JSON.parse(root.dataset.lmShopifyProduct!) as { variants: ShopifyVariant[]; config?: EcommerceShopifyConfigStoryblok; autoplay: boolean }
   const store = initializeShopifyProvider(config || { component: 'ecommerce_shopify_config', _uid: '' })
   const listeners = new AbortController()
   let disposed = false, pending = false, syncing = false

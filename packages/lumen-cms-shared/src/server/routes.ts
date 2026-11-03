@@ -25,7 +25,9 @@ export function createStaticRoutes(
   stories: readonly { full_slug: string }[],
   config: RouteConfig
 ): CmsRoute[] {
-  if (!config.locales.includes(config.defaultLocale)) {
+  const locales = new Set(config.locales)
+  const languages = new Set(config.languages || [])
+  if (!locales.has(config.defaultLocale)) {
     throw new Error('The default locale must be included in locales')
   }
   const routes = new Map<string, CmsRoute>()
@@ -42,12 +44,12 @@ export function createStaticRoutes(
   }
   for (const story of stories) {
     const parts = story.full_slug.split('/').filter(Boolean)
-    const locale = config.locales.includes(parts[0]) ? parts.shift()! : config.defaultLocale
+    const locale = locales.has(parts[0]) ? parts.shift()! : config.defaultLocale
     const root = config.rootDirectory?.split('/').filter(Boolean) || []
     if (root.length && root.every((part, index) => parts[index] === part)) parts.splice(0, root.length)
     if (parts.at(-1) === 'home') parts.pop()
     const omitLocale = locale === config.defaultLocale || (
-      config.suppressSlugLocale && config.languages?.includes(locale) && parts.length > 0
+      config.suppressSlugLocale && languages.has(locale) && parts.length > 0
     )
     add([...(omitLocale ? [] : [locale]), ...parts].join('/'), locale, story.full_slug)
   }

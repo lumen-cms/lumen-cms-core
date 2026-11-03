@@ -14,7 +14,13 @@ let environmentRedirects = new Map<string, string>()
 function redirectMap() {
  const source = process.env.LUMEN_LINK_REDIRECTS || '{}'
  if (source !== redirectEnvironment) {
-  const rules = JSON.parse(source) as Record<string, string | { destination: string }>
+  let rules: Record<string, string | { destination: string }>
+  try {
+   const parsed: unknown = JSON.parse(source)
+   if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) throw new Error('Expected a redirect object')
+   rules = parsed as typeof rules
+   if (Object.values(rules).some(rule => typeof rule !== 'string' && (!rule || typeof rule.destination !== 'string'))) throw new Error('Invalid redirect destination')
+  } catch (cause) { throw new Error('LUMEN_LINK_REDIRECTS must contain a JSON object of redirect destinations', { cause }) }
   environmentRedirects = new Map(Object.entries(rules).map(([path, rule]) => [path, typeof rule === 'string' ? rule : rule.destination]))
   redirectEnvironment = source
  }
@@ -25,24 +31,25 @@ function redirectMap() {
  * Same-origin absolute URLs can also be old CMS links; external URLs stay put. */
 export function resolveLinkRedirect(href: string): string {
  const origin = process.env.LUMEN_SITE_URL || 'https://lumen.invalid'
- let url: URL
- try { url = new URL(href, origin) } catch { return href }
- if (url.origin !== new URL(origin).origin || !['http:', 'https:'].includes(url.protocol) || href.startsWith('#') || href.startsWith('?')) return href
+ let url: URL, originUrl: URL
+ try { originUrl = new URL(origin); url = new URL(href, originUrl) } catch { return href }
+ if (url.origin !== originUrl.origin || !['http:', 'https:'].includes(url.protocol) || href.startsWith('#') || href.startsWith('?')) return href
  const rules = redirectMap()
  const seen = new Set<string>()
  let changed = false
  while (rules.has(url.pathname)) {
   if (seen.has(url.pathname)) return href // Keep cyclic configuration visible to the build audit.
   seen.add(url.pathname)
-  const destination = new URL(rules.get(url.pathname)!, origin)
+  let destination: URL
+  try { destination = new URL(rules.get(url.pathname)!, originUrl) } catch { return href }
   if (!destination.search) destination.search = url.search
   if (!destination.hash) destination.hash = url.hash
   url = destination
   changed = true
-  if (url.origin !== new URL(origin).origin) break
+  if (url.origin !== originUrl.origin) break
  }
  if (!changed) return href
- return /^https?:\/\//.test(href) || url.origin !== new URL(origin).origin ? url.href : url.pathname + url.search + url.hash
+ return /^https?:\/\//.test(href) || url.origin !== originUrl.origin ? url.href : url.pathname + url.search + url.hash
 }
 
 // Read only the routing settings required for links, not the legacy renderer's

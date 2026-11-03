@@ -5,7 +5,7 @@ import { beforeEach, expect, it, vi } from 'vitest'
 import { load } from 'cheerio'
 import { AppSeo } from '../../src/components/layout/AppSeo'
 import AppHead from '../../src/components/layout/AppHead'
-import { pageMetadata, structuredData, type SeoContext } from '../../packages/lumen-cms-shared/src/seo'
+import { pageMetadata, structuredData, serializeJsonLd, type SeoContext } from '../../packages/lumen-cms-shared/src/seo'
 
 // Only replace application state and unrelated tracking; Head, next-seo, the
 // image helpers and every legacy schema component remain the real implementation.
@@ -42,7 +42,7 @@ function parity(context: SeoContext) {
  const schemas = $('script[type="application/ld+json"]').toArray().map(el => JSON.parse($(el).text()))
  const stable = (value: unknown): unknown => Array.isArray(value) ? value.map(stable) : value && typeof value === 'object' ? Object.fromEntries(Object.entries(value).sort(([a],[b]) => a.localeCompare(b)).map(([key, item]) => [key, stable(item)])) : value
  const order = (values: Record<string, unknown>[]) => values.map(stable).sort((a,b) => JSON.stringify(a).localeCompare(JSON.stringify(b)))
- expect(order(JSON.parse(JSON.stringify(structuredData(context).map(item => item.data))))).toEqual(order(schemas))
+ expect(order(structuredData(context).map(item => JSON.parse(serializeJsonLd(item.data))))).toEqual(order(schemas))
 }
 const base = (): SeoContext => ({ settings: { seo_website_url: 'https://example.com', seo_robots: true }, page: {}, slug: '/home', locale: 'en', defaultLocale: 'en' })
 beforeEach(() => { state.context = base() })

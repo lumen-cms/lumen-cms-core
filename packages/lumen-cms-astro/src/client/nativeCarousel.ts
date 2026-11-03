@@ -71,8 +71,9 @@ export function nativeCarousel(root: HTMLElement, viewport: HTMLElement, options
   if (Math.abs(dx) > Math.abs(dy) && (touch.index === slides.length - 1 && dx > 0 || touch.index === 0 && dx < 0)) event.preventDefault()
  }, { passive: false, signal })
  viewport.addEventListener('touchend', event => {
-  if (!touch || !event.changedTouches.length) return
-  const dx = (touch.x - event.changedTouches[0].clientX) * (rtl ? -1 : 1), dy = touch.y - event.changedTouches[0].clientY
+  const changedTouch = event.changedTouches[0]
+  if (!touch || !changedTouch) return
+  const dx = (touch.x - changedTouch.clientX) * (rtl ? -1 : 1), dy = touch.y - changedTouch.clientY
   if (options.loop && Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) && (touch.index === slides.length - 1 && dx > 0 || touch.index === 0 && dx < 0)) {
    const target = touch.index + Math.sign(dx)
    // Finish the browser's touch gesture before rewinding at a boundary.

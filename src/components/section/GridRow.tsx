@@ -59,14 +59,28 @@ const smColumnReverseSx = (theme: Theme): SystemStyleObject<Theme> => ({
   [theme.breakpoints.only('sm')]: columnReverse
 })
 
+function rowLayout(content: LmGridRowProps['content']) {
+  return {
+    id: content.section_identifier || undefined,
+    spacing: Number(content.spacing || 3),
+    alignItems: content.align_items || undefined,
+    direction: content.direction || undefined,
+    sx: [
+      gridRowSx,
+      !!content.reverse_on_mobile && xsColumnReverseSx,
+      !!content.reverse_on_tablet && smColumnReverseSx
+    ],
+    wrap: content.flex_wrap || undefined,
+    justifyContent: content.justify || undefined,
+    alignContent: content.align_content || undefined
+  }
+}
+
 export function LmGridRow({
   content,
   children
 }: LmGridRowProps): React.JSX.Element {
-  const spacing = Number(content.spacing || 3)
-
   const background: BackgroundStoryblok | undefined = content.background?.[0]
-  const { direction } = content
   const { style, className, sx } = useBackgroundBox({
     background,
     styles: content.styles,
@@ -81,22 +95,7 @@ export function LmGridRow({
       className={clsx('lm-grid-row__wrap', className)}
       sx={sx}
     >
-      <Grid
-        id={content.section_identifier || undefined}
-        container
-        spacing={spacing}
-        alignItems={content.align_items ? content.align_items : undefined}
-        direction={direction || undefined}
-        className="lm-grid__row"
-        sx={[
-          gridRowSx,
-          !!content.reverse_on_mobile && xsColumnReverseSx,
-          !!content.reverse_on_tablet && smColumnReverseSx
-        ]}
-        wrap={content.flex_wrap || undefined}
-        justifyContent={content.justify ? content.justify : undefined}
-        alignContent={content.align_content ? content.align_content : undefined}
-      >
+      <Grid {...rowLayout(content)} container className="lm-grid__row">
         {background?.image && (
           <BackgroundImage
             content={background}

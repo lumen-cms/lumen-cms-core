@@ -18,7 +18,9 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
   for (const [name, value] of Object.entries(defaults)) process.env[name] ??= value
   process.env.LUMEN_LOCALES ??= locales.join(',')
   process.env.LUMEN_SITE_URL ??= site
-  process.env.SITEMAP_HOSTNAME ??= new URL(process.env.LUMEN_SITE_URL).host
+  const siteUrl = URL.parse(process.env.LUMEN_SITE_URL || '')
+  if (!siteUrl || !['http:', 'https:'].includes(siteUrl.protocol)) throw new Error('LUMEN_SITE_URL must be an absolute HTTP(S) URL')
+  process.env.SITEMAP_HOSTNAME ??= siteUrl.host
   process.env.LUMEN_PUBLIC_DIR ??= resolve('public')
   if (rootDirectory) process.env.NEXT_PUBLIC_ROOT_DIRECTORY ??= rootDirectory
   // Legacy names remain supported, but draft tokens never become public tokens.

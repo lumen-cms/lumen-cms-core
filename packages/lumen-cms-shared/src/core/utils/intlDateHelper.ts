@@ -44,10 +44,8 @@ export const getDateFormatIntlOption = (
         timeStyle: options.timeStyle || undefined
       }
     } else {
-      delete options.hide_time
-      Object.keys(options).forEach((key) => {
-        let optionValue = options[key]
-        if (optionValue) {
+      Object.entries(options ?? {}).forEach(([key, optionValue]) => {
+        if (key !== 'hide_time' && optionValue) {
           Object.assign(startOptions, { [key]: optionValue })
         }
       })

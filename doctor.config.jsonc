@@ -4,6 +4,7 @@
 // docs/react-doctor-next-three-review.json
 // docs/react-doctor-remaining-five-review.json
 // Historical artifact overrides are retained for their review provenance.
+// Additional reviewed cases: docs/react-doctor-astro-packaging-review.json
 {
   "$schema": "https://react.doctor/schema/config.json",
   "ignore": {
@@ -105,6 +106,42 @@
         ],
         "rules": [
           "react-doctor/async-await-in-loop"
+        ]
+      },
+      {
+        "files": [
+          "packages/lumen-cms-shared/src/core/utils/initial-props/component-data/googleFormsToJson.ts",
+          "packages/lumen-cms-shared/src/core/utils/initial-props/storyblokDeliveryResolver.ts",
+          "src/pages/api/sitemap.ts"
+        ],
+        "rules": [
+          "react-doctor/js-set-map-lookups"
+        ]
+      },
+      {
+        "files": [
+          "packages/lumen-cms-shared/src/core/utils/storyblok/StoryblokTransport.ts"
+        ],
+        "rules": [
+          "react-doctor/async-await-in-loop"
+        ]
+      },
+      {
+        "files": [
+          "packages/lumen-cms-astro/src-server/pages/fixture-cms-preview.astro",
+          "packages/lumen-cms-astro/src/pages/[fixture].astro"
+        ],
+        "rules": [
+          "react-doctor/no-unguarded-browser-global-at-module-scope"
+        ]
+      },
+      {
+        "files": [
+          "src/app-router/Providers.tsx"
+        ],
+        "rules": [
+          "react-doctor/nextjs-no-client-side-redirect",
+          "react-doctor/no-hydration-branch-on-browser-global"
         ]
       }
     ]

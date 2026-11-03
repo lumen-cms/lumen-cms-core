@@ -20,11 +20,11 @@ it('preserves compact pagination boundaries for short and long result lists', ()
    let expected: unknown[] = []
    function Reference() {
     const { items } = usePagination({ count, page })
-    expected = items.filter(item => !['previous', 'next'].includes(item.type)).map(item => item.type === 'page' ? item.page : item.type)
-    return null
+    const expected = items.filter(item => !['previous', 'next'].includes(item.type)).map(item => item.type === 'page' ? item.page : item.type)
+    return createElement('output', null, JSON.stringify(expected))
    }
-   renderToStaticMarkup(createElement(Reference))
-   expect(paginationItems(page, count), `page ${page}/${count}`).toEqual(expected)
+   const actual = renderToStaticMarkup(createElement('output', null, JSON.stringify(paginationItems(page, count))))
+   expect(actual, `page ${page}/${count}`).toBe(renderToStaticMarkup(createElement(Reference)))
   }
  }
 })

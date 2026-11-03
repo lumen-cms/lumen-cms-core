@@ -2,11 +2,8 @@ import 'server-only'
 
 import type { ComponentRenderContent } from '../typings/app'
 import type { GridDirection } from '../vendor/grid/GridProps'
-import {
-  StaticParagraph,
-  StaticHeadline,
-  supportsStaticHeadline
-} from './StaticText'
+import { StaticParagraph, StaticHeadline } from './StaticText'
+import { supportsStaticHeadline } from './staticTextPolicy'
 import { ClientBlock, type ClientBlockContent } from './ClientBlock'
 import {
   SectionFrame,

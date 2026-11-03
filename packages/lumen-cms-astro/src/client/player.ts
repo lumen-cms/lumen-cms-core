@@ -67,7 +67,7 @@ export function initializePlayers() {
    const showImage = (url: string) => { preview.style.backgroundImage = `url(${JSON.stringify(url)})` }
    if (content.fallback_image) showImage(content.fallback_image)
    else if (thumbnails.has(src)) showImage(thumbnails.get(src)!)
-   else void fetch(`https://noembed.com/embed?url=${encodeURIComponent(src)}`).then(response => response.json()).then(data => { if (data.thumbnail_url) { const image = String(data.thumbnail_url).replace('height=100', 'height=480').replace('-d_295x166', '-d_640'); thumbnails.set(src, image); if (!disposed) showImage(image) } }).catch(() => {})
+   else void fetch(`https://noembed.com/embed?url=${encodeURIComponent(src)}`).then(response => { if (!response.ok) throw new Error(`Thumbnail request failed: ${response.status}`); return response.json() }).then(data => { if (data.thumbnail_url) { const image = String(data.thumbnail_url).replace('height=100', 'height=480').replace('-d_295x166', '-d_640'); thumbnails.set(src, image); if (!disposed) showImage(image) } }).catch(() => {})
    preview.addEventListener('click', () => { preview.disabled = true; void mount(src) }, { once: true })
    surface.replaceChildren(preview); root.dataset.playerReady = 'preview'
   }

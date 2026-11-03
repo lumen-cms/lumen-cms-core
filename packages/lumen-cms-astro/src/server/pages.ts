@@ -15,6 +15,7 @@ import { previewProducts, type PreviewServerData } from '../lib/previewServerDat
 
 export async function staticRoutes(): Promise<CmsRoute[]> {
   const locales = (process.env.LUMEN_LOCALES || 'en,de').split(',')
+  const localeSet = new Set(locales)
   const config = {
     locales, defaultLocale: locales[0],
     rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
@@ -29,7 +30,7 @@ export async function staticRoutes(): Promise<CmsRoute[]> {
       const slug = path.replace(/^\/+|\/+$/g, '')
       const first = slug.split('/')[0]
       return { params: { slug: slug || undefined }, props: {
-        locale: locales.includes(first) ? first : config.defaultLocale,
+        locale: localeSet.has(first) ? first : config.defaultLocale,
         defaultLocale: config.defaultLocale, locales, cmsSlug: slug || 'home'
       } }
     })
