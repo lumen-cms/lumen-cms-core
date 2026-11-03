@@ -1,0 +1,25 @@
+---
+import type { CardListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: CardListStoryblok }
+const { content } = Astro.props
+const items = content.body || []
+---
+<section data-server-list data-server-count={items.length}>
+ {items.map(item => <article data-server-item={item._uid}>
+  {item.title?.includes('special') ? <strong data-special-result>{item.title.toUpperCase()}</strong> : <span data-normal-result>{item.title}</span>}
+  <a href={item.link?.cached_url}>{item.description}</a><button type="button" data-server-action>Custom action</button>
+ </article>)}
+</section>
+<style>
+ [data-server-list] { border-left: 3px solid rgb(23,105,170); }
+</style>
+<script>
+ function mountServerListFixture() {
+  document.querySelectorAll<HTMLButtonElement>('[data-server-action]:not([data-ready])').forEach(button => {
+   button.dataset.ready = 'true'
+   button.addEventListener('click', () => button.textContent = 'Clicked')
+  })
+ }
+ mountServerListFixture()
+ document.addEventListener('lumen:content-mounted', mountServerListFixture)
+</script>

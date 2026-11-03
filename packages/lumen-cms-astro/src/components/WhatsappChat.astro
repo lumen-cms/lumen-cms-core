@@ -1,0 +1,9 @@
+---
+import type { ChatWhatsappStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import Icon from './Icon.astro'
+interface Props { content: ChatWhatsappStoryblok }
+const { content } = Astro.props
+const phone = (content.phone_number || '').replace(/[^\w\s]/gi, '').replace(/ /g, '')
+const href = new URL(`https://wa.me/${phone}`).toString()
+---
+<a href={href} target="_blank" rel="noopener" class="lm-whatsapp-chat" title={content.tooltip || undefined} aria-label={content.tooltip || 'WhatsApp'}><Icon name="whatsapp" size={24} /></a>

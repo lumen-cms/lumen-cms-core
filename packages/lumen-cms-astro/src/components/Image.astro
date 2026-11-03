@@ -1,0 +1,32 @@
+---
+import Image from './CmsImage.astro'
+import { imageConfig } from 'astro:assets'
+import { imageDimensions } from '../images/dimensions'
+import type { ImageStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import { inlineSvg } from '../lib/svg'
+interface Props { content: ImageStoryblok & { image_data?: { width?: number; height?: number } } }
+const { content } = Astro.props
+const source = content.source?.startsWith('//') ? `https:${content.source}` : content.source
+const svgSource = !!source?.split('?')[0].endsWith('.svg')
+const dimensions = source && !svgSource ? await imageDimensions(source, imageConfig, content.image_data) : { width: Number(content.width) || 120, height: Number(content.height) || 120 }
+const naturalWidth = dimensions.width
+const naturalHeight = dimensions.height
+const properties = content.property || []
+const width = Number(content.width) || undefined
+const height = Number(content.height) || undefined
+const square = (width && height && width === height) || properties.includes('rounded-circle') || properties.includes('square')
+const squareSize = square ? height || width || naturalWidth : undefined
+const proportional = !properties.includes('rounded-circle') && !properties.includes('square') && !!((width && !height) || (!width && height))
+const maxHeight = proportional ? height || (width! * naturalHeight / naturalWidth) : undefined
+const isSvg = !!source?.split('?')[0].endsWith('.svg')
+const svg = source && isSvg ? await inlineSvg(source).catch(() => { console.warn('SVG image could not be loaded'); return '' }) : undefined
+const radius = content.border_radius || (properties.includes('rounded-circle') ? '50%' : properties.includes('rounded') ? '4px' : undefined)
+const imageStyle = { borderRadius: radius, width: '100%', height: square ? '100%' : 'auto', objectFit: square ? 'cover' : proportional ? 'contain' : undefined, ...(square ? { position: 'absolute', inset: '0' } : {}), ...(maxHeight ? { maxHeight: `${maxHeight}px` } : {}) }
+---
+{!source ? <div /> : isSvg ?
+ <span class:list={['lm-inline-svg', content.class_names?.values, properties, { 'has-color': !!(content.color?.rgba || content.fit_in_color) }]} role="img" aria-label={content.alt || 'website image'} style={{ color: content.color?.rgba || content.fit_in_color, width: `${width || 120}px`, height: `${height || 120}px`, borderRadius: radius, overflow: properties.includes('rounded-circle') ? 'hidden' : undefined }} set:html={svg} /> :
+ <div class:list={['lm-image', content.class_names?.values, properties]} style={{ ...(squareSize ? { aspectRatio: '1 / 1', position: 'relative', ...(squareSize <= 360 ? { width: `${squareSize}px`, height: `${squareSize}px` } : {}) } : {}), ...(proportional && width ? { maxWidth: `${width}px` } : {}), ...(maxHeight ? { maxHeight: `${maxHeight}px` } : {}), borderRadius: radius, overflow: properties.includes('rounded-circle') ? 'hidden' : undefined }}>
+  <Image src={source} fill={!!square} width={naturalWidth} height={naturalHeight} alt={content.alt || 'website image'}
+   widths={[320, 640, 960, 1280, 1920]} sizes={squareSize && squareSize <= 360 ? `${squareSize}px` : proportional ? `(max-width:${width || height! * naturalWidth / naturalHeight}px) 100vw, ${width || height! * naturalWidth / naturalHeight}px` : '100vw'}
+   preload={content.priority} loading={content.priority || content.disable_lazy_loading ? 'eager' : 'lazy'} fetchpriority={content.priority ? 'high' : undefined} style={imageStyle} />
+ </div>}

@@ -1,0 +1,19 @@
+---
+import type { RowStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { CmsTheme } from 'lumen-cms-shared/theme'
+import { generateBackgroundStyles, backgroundShadowClass } from 'lumen-cms-shared/background'
+import { blockStyles } from '../lib/blockStyles'
+import GridRowSurface from './GridRowSurface.astro'
+interface Props { content: RowStoryblok; theme: CmsTheme }
+const { content, theme } = Astro.props
+const { className, css } = blockStyles(content, theme)
+const background = content.background?.[0]
+const shadowClass = backgroundShadowClass(background)
+const style = generateBackgroundStyles({ background, theme })
+// Empty CMS background/style blocks still create the legacy padded wrapper.
+const wrapped = !!(background || content.styles?.[0] || content.styles_mobile?.[0] || content.styles_tablet?.[0] || content.styles_hover?.[0])
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+{wrapped ? <div class:list={['lm-grid-row__wrap', className, shadowClass, background?.classNames?.values]} style={style}>
+  <GridRowSurface content={content}><slot name="background" slot="background" /><slot /></GridRowSurface>
+</div> : <GridRowSurface content={content}><slot name="background" slot="background" /><slot /></GridRowSurface>}

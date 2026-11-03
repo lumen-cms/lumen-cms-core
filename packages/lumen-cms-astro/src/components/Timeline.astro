@@ -1,0 +1,18 @@
+---
+import type { TimelineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+interface Props { content: TimelineStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const animated = !!(content.connector_color?.rgba && content.connector_color_scroll?.rgba)
+---
+<div data-lm-timeline data-initial-color={animated ? content.connector_color?.rgba : undefined} data-fill-color={animated ? content.connector_color_scroll?.rgba : undefined} data-reward={animated && content.confetti?.[0] ? JSON.stringify(content.confetti[0]) : undefined}>
+ <ul class:list={['lm-timeline', `lm-timeline-${content.align || 'alternate'}`]}>{content.body?.map((item, index) => <Block content={item} context={context} options={content} isLast={index === content.body!.length - 1} />)}</ul>
+ {animated && content.confetti?.length && <div style="display:flex;align-items:center;justify-content:center"><span id={`confetti-${content._uid}`} data-timeline-reward /></div>}
+</div>
+<script>
+ import { initializeTimelines } from '../client/timeline'
+ initializeTimelines()
+ document.addEventListener('astro:page-load', initializeTimelines)
+ document.addEventListener('lumen:content-mounted', initializeTimelines)
+</script>

@@ -1,0 +1,30 @@
+---
+import type { TabsStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+import Headline from './CmsHeadline.astro'
+import Icon from './Icon.astro'
+interface Props { content: TabsStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const items = content.body || []
+const id = `lm-tabs-${content._uid}`
+const mobileBelow = { xs: 0, sm: 600, md: 900 }[content.mobile_breakpoint || 'xs']
+const width = (value: string | undefined) => !value || value === 'auto' ? 'auto' : value === 'false' ? '100%' : value === 'true' ? '0px' : `${Number(value) / 12 * 100}%`
+---
+<div class:list={['lm-tabs', { 'lm-tabs-wrapped': content.wrapped }]} data-lm-tabs data-centered={!!content.centered} data-content-grow={content.content_width === 'true'} data-vertical={!!content.vertical_tabs} data-mobile-below={mobileBelow} data-variant={content.variant || 'fullWidth'} data-dynamic-height={!!content.dynamic_height} style={{ '--lm-tabs-width': width(content.tabs_width), '--lm-tabs-content-width': width(content.content_width), '--lm-tabs-color': content.text_color === 'inherit' ? 'inherit' : `var(--color-${content.text_color || 'primary'})`, '--lm-tabs-indicator': `var(--color-${content.indicator_color || 'primary'})` }}>
+ <div class="lm-tab-list" role="tablist" aria-label={`Topics: ${items.map(item => item.title).filter(Boolean).join(", ") || "Content"}`}>
+  {items.map((item, index) => <button type="button" role="tab" id={`${id}-tab-${index}`} aria-controls={`${id}-panel-${index}`} aria-selected={index === 0} tabindex={index === 0 ? 0 : -1} class="lm-tab">
+   {item.icon?.name && <Icon name={item.icon.name} size={24} />}
+   {content.text_style?.[0] ? <Headline content={{ ...content.text_style[0], text: item.title }} context={context} /> : item.title}
+  </button>)}
+ </div>
+ <div class="carousel carousel-start lm-tab-panels">
+  {items.map((item, index) => <div class="carousel-item lm-tab-slide" role="tabpanel" id={`${id}-panel-${index}`} aria-labelledby={`${id}-tab-${index}`} tabindex={0} aria-hidden={index !== 0} inert={index !== 0}><div class="lm-tab-panel" hidden={index !== 0}>{item.body?.map(child => <Block content={child} context={context} />)}</div></div>)}
+ </div>
+</div>
+<script>
+ import { initializeTabs } from '../client/tabs'
+ initializeTabs()
+ document.addEventListener('astro:page-load', initializeTabs)
+ document.addEventListener('lumen:content-mounted', initializeTabs)
+</script>

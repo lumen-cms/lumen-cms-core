@@ -1,0 +1,46 @@
+---
+import type { GalleryStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { blockStyles } from '../lib/blockStyles'
+import Image from './CmsImage.astro'
+import { imageConfig } from 'astro:assets'
+import { imageDimensions } from '../images/dimensions'
+interface Props { content: GalleryStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const { className, css } = blockStyles({ styles: content.image_style }, context.theme)
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+<div class="lm-gallery" data-lm-gallery style={{ transform: content.rotate ? `rotate(${content.rotate}deg)` : undefined }}>
+ {content.content?.map(row => <div id={`row-${row._uid}`} data-gallery-row data-scroll-left={!!row.scroll_to_left}>
+  <div class="lm-gallery-row" style={{ display: 'flex', flexWrap: 'nowrap', width: '100%', gap: content.space_between_images ? `${content.space_between_images}px` : undefined }}>
+   {row.content?.map(async item => {
+    if (!item.url) return null
+    const { width: originalWidth, height: originalHeight } = await imageDimensions(item.url, imageConfig)
+    const height = Number(content.image_height || originalHeight)
+    const width = content.image_height ? Math.round(height * originalWidth / originalHeight) : originalWidth
+    return <div style="flex:0 0 auto;max-width:none">
+     {item.url && <div class={className} data-gallery-image style={{ height: `${height}px`, width: `${width}px`, overflow: 'hidden' }}><Image src={item.url} width={width} height={height} sizes={`${width}px`} alt={item.alt || 'gallery image'} style={{ width: '100%', height: 'auto' }} /></div>}
+     <div style={{ paddingBottom: content.space_between_rows ? `${content.space_between_rows}px` : undefined }} />
+    </div>
+   })}
+  </div>
+ </div>)}
+</div>
+<script>
+ import { ParallaxController } from 'parallax-controller'
+ import { onUnmount } from '../client/lifecycle'
+ function initializeGalleries() {
+  document.querySelectorAll<HTMLElement>('[data-lm-gallery]:not([data-gallery-ready])').forEach(root => {
+   root.dataset.galleryReady = 'true'
+   const controller = ParallaxController.init({ scrollAxis: 'vertical' })
+   const listeners = new AbortController()
+   root.querySelectorAll<HTMLElement>('[data-gallery-row]').forEach(el => controller.createElement({ el, props: { translateX: el.dataset.scrollLeft === 'true' ? [0, -100] : [-100, 0] } }))
+   root.querySelectorAll('img').forEach(image => { if (!image.complete) image.addEventListener('load', () => controller.update(), { once: true, signal: listeners.signal }) })
+   controller.update()
+   onUnmount(root, () => { listeners.abort(); controller.destroy() })
+  })
+ }
+ initializeGalleries()
+ document.addEventListener('astro:page-load', initializeGalleries)
+ document.addEventListener('lumen:content-mounted', initializeGalleries)
+</script>

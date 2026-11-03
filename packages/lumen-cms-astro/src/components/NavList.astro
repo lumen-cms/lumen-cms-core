@@ -1,0 +1,35 @@
+---
+import type { NavListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Headline from './CmsHeadline.astro'
+import Block from './Block.astro'
+import Icon from './Icon.astro'
+interface Props { content: NavListStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const heading = content.headline_styles?.[0]
+const title = { _uid: content._uid, component: 'headline' as const, text: content.header, tag: 'h5' as const, typography: 'headline5' as const, ...heading }
+const column = content.properties?.includes('flex-column')
+const centered = content.properties?.includes('justify-content-center')
+const collapsible = content.collapse_on_mobile || content.forceCollapse
+---
+<div class:list={['lm-nav-list', 'w-100', content.class_names?.values]}>
+ {collapsible ? <details class:list={['lm-nav-collapse', { 'lm-nav-collapse-mobile': !content.forceCollapse }]} data-mobile-collapse={!content.forceCollapse || undefined}>
+  <summary><Headline content={title} context={context}>{content.header}</Headline><Icon name={content.collapse_icon?.name || 'chevron-down'} /></summary>
+  <div class="lm-nav-items" style={{ flexDirection: column ? 'column' : 'row', gap: column ? '4px' : '8px', justifyContent: centered ? 'center' : undefined, alignContent: centered ? 'center' : undefined }}>{content.body?.map(child => <Block content={child} context={context} options={content.navigation_item_styles?.[0]} />)}</div>
+ </details> : <>{content.header && <Headline content={title} context={context}>{content.header}</Headline>}<div class="lm-nav-items" style={{ flexDirection: column ? 'column' : 'row', gap: column ? '4px' : '8px', justifyContent: centered ? 'center' : undefined, alignContent: centered ? 'center' : undefined }}>{content.body?.map(child => <Block content={child} context={context} options={content.navigation_item_styles?.[0]} />)}</div></>}
+</div>
+<script>
+ import { onUnmount } from '../client/lifecycle'
+ function setup() {
+  document.querySelectorAll<HTMLDetailsElement>('[data-mobile-collapse]').forEach(details => {
+   if (details.dataset.initialized) return
+   details.dataset.initialized = 'true'
+   const mobile = matchMedia('(max-width:599.95px)')
+   const update = () => { details.open = !mobile.matches }
+   update(); mobile.addEventListener('change', update)
+   onUnmount(details, () => mobile.removeEventListener('change', update))
+   details.querySelector('summary')?.addEventListener('click', event => { if (!mobile.matches) event.preventDefault() })
+  })
+ }
+ setup(); document.addEventListener('astro:page-load', setup); document.addEventListener('lumen:content-mounted', setup)
+</script>

@@ -91,6 +91,7 @@ async function main() {
         default: process.env.WEBSITE_CONSUMERS_ROOT || '../websites'
       },
       'base-url': { type: 'string' },
+      'local-framework': { type: 'string', default: 'next' },
       limit: { type: 'string' },
       widths: { type: 'string', default: '1280,375' },
       workers: { type: 'string', default: '2' },
@@ -104,6 +105,10 @@ async function main() {
     return
   }
   const [site] = positionals
+  if (!['next', 'astro'].includes(values['local-framework']))
+    throw new Error('--local-framework must be next or astro')
+  if (values['local-framework'] === 'astro' && !values['base-url'])
+    throw new Error('--local-framework astro requires --base-url for the Astro server')
   if (positionals.length !== 1 || !Object.hasOwn(sites, site))
     throw new Error('Choose bali, planet or upskill. Use --help for options.')
   const profile = sites[site]
@@ -297,6 +302,7 @@ async function main() {
           site,
           candidate,
           source: origin,
+          localFramework: values['local-framework'],
           createdAt: new Date().toISOString(),
           routes: routes.length,
           widths,
@@ -324,6 +330,8 @@ async function main() {
         root,
         '--local-origin',
         origin,
+        '--local-framework',
+        values['local-framework'],
         '--widths',
         values.widths,
         '--workers',

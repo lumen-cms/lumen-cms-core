@@ -4,6 +4,7 @@ const fs = require('node:fs/promises')
 const path = require('node:path')
 const { createRequire } = require('node:module')
 const { parseArgs } = require('node:util')
+const { isAnalyticsRequest } = require('./website-analytics.cjs')
 
 const { values } = parseArgs({
   options: {
@@ -18,6 +19,7 @@ const { values } = parseArgs({
     limit: { type: 'string' },
     strict: { type: 'boolean', default: false },
     'local-origin': { type: 'string' },
+    'local-framework': { type: 'string', default: 'next' },
     'max-diff-percent': { type: 'string', default: '0' },
     run: { type: 'boolean', default: false }
   }
@@ -67,6 +69,8 @@ const scrub = (text) =>
   })
 
 async function main() {
+  if (!['next', 'astro'].includes(values['local-framework']))
+    throw new Error('--local-framework must be next or astro')
   if (!values.inventory || !values.output || !values.candidate) {
     throw new Error('Provide --inventory, --output and --candidate; add --run to execute')
   }
@@ -125,6 +129,8 @@ async function main() {
     site: inventory.routes[0]?.site,
     browser: browser.version(), widths, workers, settleMs, totalCases: cases.length,
     freezeSwipers: values['freeze-swipers'],
+    localFramework: values['local-framework'],
+    analytics: 'Provider scripts and tracking requests blocked on both sides',
     maxDiffPercent,
     policy: 'Raw images retained. Different pixels require review; never auto-accept.'
   }
@@ -142,6 +148,7 @@ async function main() {
     // Do not follow a top-level redirect out of the three reference sites.
     await page.route('**/*', (route) => {
       const request = route.request()
+      if (isAnalyticsRequest(request.url())) return route.fulfill({ status: 200, contentType: 'application/javascript', body: '' })
       if (request.isNavigationRequest() && request.frame() === page.mainFrame() &&
           (values.strict ? new URL(request.url()).origin !== new URL(row[side]).origin
             : !allowed.has(new URL(request.url()).origin))) return route.abort()
@@ -151,8 +158,14 @@ async function main() {
     try {
       const response = await page.goto(row[side], { waitUntil: 'domcontentloaded', timeout: 60000 })
       await page.locator('body').waitFor()
-      await page.waitForFunction(() => window.next?.router?.isReady === true,
-        null, { timeout: 15000 })
+      if (side === 'local' && values['local-framework'] === 'astro') {
+        await page.waitForFunction(() =>
+          document.documentElement.dataset.lumenRenderer === 'astro' &&
+          document.readyState !== 'loading', null, { timeout: 15000 })
+      } else {
+        await page.waitForFunction(() => window.next?.router?.isReady === true,
+          null, { timeout: 15000 })
+      }
       await page.keyboard.press('Escape')
       await page.evaluate(async () => {
         await Promise.race([document.fonts.ready, new Promise((resolve) => setTimeout(resolve, 8000))])

@@ -1,0 +1,20 @@
+---
+import type { HTMLTag } from 'astro/types'
+import type { HeadlineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { CmsTheme } from 'lumen-cms-shared/theme'
+import { blockStyles } from '../lib/blockStyles'
+interface Props { content: HeadlineStoryblok; theme: CmsTheme }
+const { content, theme } = Astro.props
+const { className, css } = blockStyles(content, theme)
+const variant = (content.typography || 'headline4').replace('headline', 'h')
+const Tag = (content.tag || (/^h[1-6]$/.test(variant) ? variant : ['subtitle1', 'subtitle2'].includes(variant) ? 'h6' : ['body1', 'body2'].includes(variant) ? 'p' : 'span')) as HTMLTag
+const aliases: Record<string, string> = { textPrimary: 'text.primary', textSecondary: 'text.secondary', textDisabled: 'text.disabled' }
+const [group, shade = 'main'] = (aliases[content.color || ''] || content.color || '').split('.')
+const color = (theme.palette[group] as Record<string, string> | undefined)?.[shade] || content.color
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+<Tag aria-hidden={!Astro.slots.has('default') && !content.text?.trim() && !content.text_xs?.trim() ? 'true' : undefined} class:list={[{ 'enable__speech': content.enable_speech }, 'MuiTypography-root', `lm-typography-${variant}`, `MuiTypography-${variant}`, className, content.style, content.style_props, content.class_names?.values, content.font && `lm-font-${content.font}`]}
+ style={{ color: content.custom_color?.rgba, '--lm-headline-color': color, '--lm-headline-align': content.align || undefined, 'line-height': content.line_height || undefined, 'font-size': content.font_size || undefined, 'white-space': content.support_linebreak ? 'pre-line' : undefined, 'letter-spacing': content.letter_spacing || undefined, ...(content.max_lines ? { '-webkit-line-clamp': Number(content.max_lines), 'text-overflow': 'ellipsis', overflow: 'hidden', display: '-webkit-box', '-webkit-box-orient': 'vertical' } : {}) }}>
+ <slot>{content.text_xs ? <><span class="d-none d-sm-block">{content.text}</span><span class="d-block d-sm-none">{content.text_xs}</span></> : content.text}</slot>
+</Tag>
+

@@ -1,0 +1,18 @@
+---
+import type { ButtonSpeechTextStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Button from './CmsButton.astro'
+import Icon from './Icon.astro'
+interface Props { content: ButtonSpeechTextStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const trigger = { component: 'button' as const, _uid: content._uid, label: 'Click to speech', ...content.trigger?.[0], link: undefined, on_click_function: undefined }
+---
+<div data-lm-speech data-full-page={!!content.full_page} data-locale={context.page.locale || 'de'}>
+ <Button content={trigger} context={context}><span class="lm-speaking-icon"><Icon name="account-voice" /></span></Button>
+</div>
+<script>
+ import { initializeSpeech } from '../client/speech'
+ initializeSpeech()
+ document.addEventListener('astro:page-load', initializeSpeech)
+ document.addEventListener('lumen:content-mounted', initializeSpeech)
+</script>

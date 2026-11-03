@@ -1,0 +1,25 @@
+---
+import type { RenderContext } from '../lib/context'
+import { pageMetadata, structuredData, seoImageUrl, serializeJsonLd } from 'lumen-cms-shared/seo'
+interface Props { page: RenderContext['page'] }
+const { page } = Astro.props
+const context = {
+ settings: page.settings!, page: page.page, slug: page.slug, locale: page.locale, defaultLocale: page.defaultLocale,
+ pageNotFound: page.pageNotFound, preview: !!page.insideStoryblok, rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
+ disableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,
+}
+const metadata = pageMetadata(context)
+const schemas = structuredData(context)
+const favicon = page.settings?.setup_favicon
+---
+<title data-lumen-preview-head>{metadata.title}</title>
+{metadata.meta.map(meta => <meta data-lumen-preview-head {...meta} />)}
+{metadata.canonical && <link data-lumen-preview-head rel="canonical" href={metadata.canonical} />}
+{page.settings?.pwa_app_name && page.settings?.pwa_app_description && <link data-lumen-preview-head rel="manifest" href="/manifest.json" />}
+{schemas.map(schema => <script data-lumen-preview-head is:inline id={schema.id} type="application/ld+json" set:html={serializeJsonLd(schema.data)} />)}
+{favicon && <>
+ <link data-lumen-preview-head rel="icon" sizes="32x32" href={seoImageUrl(favicon, '32x32')} />
+ <link data-lumen-preview-head rel="apple-touch-icon-precomposed" href={seoImageUrl(favicon, '152x152')} />
+ <link data-lumen-preview-head rel="apple-touch-icon" sizes="180x180" href={seoImageUrl(favicon, '180x180')} />
+</>}
+{['https://cdn.jsdelivr.net', 'https://a.storyblok.com', 'https://img2.storyblok.com'].map(href => <link rel="preconnect" href={href} crossorigin="anonymous" />)}

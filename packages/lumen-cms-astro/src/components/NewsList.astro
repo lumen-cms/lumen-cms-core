@@ -1,0 +1,25 @@
+---
+import CmsAnchor from './CmsAnchor.astro'
+import type { NewsListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { ListStoriesData } from 'lumen-cms-shared/core/components/list-widget/listWidgetTypes'
+import type { RenderContext } from '../lib/context'
+import { getContentFields } from 'lumen-cms-shared/core/components/list-widget/listUtils/getContentFields'
+import { getLinkAttrs } from '../lib/links'
+import RichText from './RichText.astro'
+import Headline from './CmsHeadline.astro'
+import Block from './Block.astro'
+interface Props { items: ListStoriesData[]; options: Partial<NewsListStoryblok>; context: RenderContext }
+const { items, options, context } = Astro.props
+---
+{items.map(item => {
+ const fields = getContentFields(item, { locale: context.page.locale, hide_category: options.hide_category, date_format: options.date_format })
+ const link = getLinkAttrs({ cached_url: item.full_slug, linktype: 'story' }, {}, context.page)
+ return <div class="my-3" data-lm-list-item={item.uuid}>
+  <CmsAnchor context={context} {...link}><Headline content={{ component: 'headline', _uid: `${item.uuid}_title`, typography: 'headline4', ...options.title?.[0], text: fields.title }} context={context} /></CmsAnchor>
+  <Headline content={{ component: 'headline', _uid: `${item.uuid}_subtitle`, typography: 'body2', ...options.subtitle?.[0], text: fields.subtitle }} context={context} />
+  <Headline content={{ component: 'headline', _uid: `${item.uuid}_description`, typography: 'body1', ...options.description?.[0], text: typeof fields.description === 'string' ? fields.description : undefined }} context={context}>
+   {typeof fields.description === 'string' ? fields.description : <RichText body={fields.description} context={context} />}
+  </Headline>
+  {options.read_more_label?.[0] && <CmsAnchor context={context} {...link}><Block content={options.read_more_label[0]} context={context} /></CmsAnchor>}
+ </div>
+})}

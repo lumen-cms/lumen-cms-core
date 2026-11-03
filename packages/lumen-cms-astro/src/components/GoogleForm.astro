@@ -1,0 +1,42 @@
+---
+import type { LmGoogleFormProps } from 'lumen-cms-shared/core/components/google-form/googleFormProps'
+import type { RenderContext } from '../lib/context'
+import Button from './CmsButton.astro'
+import Block from './Block.astro'
+interface Props { content: LmGoogleFormProps['content']; context: RenderContext }
+const { content, context } = Astro.props
+const structure = content.form_data
+const gap = Number(content.fields_gap) || 2
+const submitGap = content.fields_gap ? Number(content.fields_gap) : 8
+const supported = ['SHORT_ANSWER', 'LONG_ANSWER', 'DROPDOWN', 'RADIO', 'CHECKBOX', 'DATE']
+const submit = content.submit_button?.[0]
+---
+{structure && <div data-lm-google-form data-structure={JSON.stringify(structure)} data-api={!!content.api} data-required-message={content.error_msg_required} style={{ color: content.color?.rgba }}>
+ <form class="lm-google-form">
+  <div style={{ display: content.inline ? 'flex' : undefined }}>
+   <div hidden><label>Current Address<input name="current_address" autocomplete="off" tabindex="-1" /></label></div>
+   {structure.fields.filter(field => supported.includes(field.type)).map(field => {
+    const id = `form-${content._uid}-${field.id}`
+    const common = { id, name: field.id, required: field.required, 'aria-label': field.label }
+    return <div class:list={['lm-form-field', `lm-field-${content.fields_border || 'outlined'}`]} style={{ margin: `${gap}px`, maxWidth: `calc(100% - ${Number(content.fields_gap || 2) * 2}px)`, minWidth: `${content.fields_min_width || 180}px`, width: content.fields_full_width ? '100%' : undefined }}>
+     {!content.label_as_placeholder && <label for={id} class="label">{field.label}{field.required && ' *'}</label>}
+     {field.type === 'SHORT_ANSWER' ? <input {...common} class="input w-full" placeholder={content.label_as_placeholder ? field.label : undefined} /> :
+      field.type === 'LONG_ANSWER' ? <textarea {...common} class="textarea w-full" rows={2} placeholder={content.label_as_placeholder ? field.label : undefined} /> :
+      field.type === 'DATE' ? <input {...common} class="input w-full" type="date" /> :
+      (field.type === 'RADIO' || field.type === 'DROPDOWN' || field.type === 'CHECKBOX') && <select {...common} class="select w-full" multiple={field.type === 'CHECKBOX'}>
+       {field.type !== 'CHECKBOX' && <option value="">{content.label_as_placeholder ? field.label : ''}</option>}
+       {[...field.options].sort().filter(option => field.type !== 'CHECKBOX' || !!option.label).map(option => <option value={option.label}>{option.label || '--'}</option>)}
+      </select>}
+    </div>
+   })}
+   {submit && <div style={content.inline ? { alignSelf: 'center', marginLeft: `${submitGap}px` } : { display: 'flex', width: '100%', justifyContent: submit.align || 'center', marginTop: `${submitGap}px` }}><Button content={{ color: 'primary', variant: '', label: 'Submit', ...submit, link: undefined }} type="submit" context={context} /></div>}
+  </div>
+ </form>
+ <div hidden data-form-success role="status" tabindex="-1" class="alert alert-success">{content.success_body?.[0] ? <Block content={content.success_body[0]} context={context} /> : 'Submit successfull'}</div>
+ <div hidden data-form-error role="alert" class="alert alert-error">Unable to submit. Please try again.</div>
+</div>}
+<script>
+ import { initializeGoogleForms } from '../client/googleForm'
+ initializeGoogleForms()
+ document.addEventListener('astro:page-load', initializeGoogleForms); document.addEventListener('lumen:content-mounted', initializeGoogleForms)
+</script>

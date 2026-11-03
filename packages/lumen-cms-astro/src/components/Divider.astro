@@ -1,0 +1,15 @@
+---
+import type { DividerStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Icon from './Icon.astro'
+import Block from './Block.astro'
+interface Props { content: DividerStoryblok; context: RenderContext; isStackDivider?: boolean }
+const { content, context, isStackDivider } = Astro.props
+const vertical = isStackDivider || content.orientation === 'vertical'
+const hasChildren = !!(content.icon?.name || content.body?.length)
+const [group, shade] = (content.theme_color || 'grey.400').split('.')
+const color = content.theme_color ? (context.theme.palette[group] as Record<string, string>)?.[shade] : content.color?.rgba || (context.theme.palette.grey as Record<string, string>)?.['400']
+---
+<div role="separator" aria-orientation={vertical ? 'vertical' : 'horizontal'} class:list={['lm-divider', 'MuiDivider-root', { 'lm-divider-vertical': vertical, 'lm-divider-children': hasChildren }, `lm-divider-${content.alignment || 'center'}`]} style={{ color, width: content.width ? `${content.width}%` : vertical ? '50%' : '100%', height: vertical && content.vertical_height ? `${content.vertical_height}px` : undefined, marginInline: content.width && !vertical ? 'auto' : undefined, '--lm-divider-thickness': `${content.thickness || 1}px` }}>
+ {hasChildren && <span class="lm-divider-content">{content.icon?.name && <Icon name={content.icon.name} size={Number(content.size) || 24} />}{content.body?.map(child => <Block content={child} context={context} />)}</span>}
+</div>

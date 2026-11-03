@@ -1,0 +1,10 @@
+---
+import StoryListResults from './StoryListResults.astro'
+import { collectPageStyles } from '../lib/blockStyles'
+import type { RenderContext } from '../lib/context'
+import type { ListStoriesData, LmListStoriesProps } from 'lumen-cms-shared/core/components/list-widget/listWidgetTypes'
+interface Props { items: ListStoriesData[]; content: LmListStoriesProps['content']; context: RenderContext }
+const { items, content, context } = Astro.props
+---
+<style is:inline set:html={collectPageStyles([content.layout, items], context.theme)} />
+<StoryListResults items={items} layout={content.layout} uid={content._uid} context={context} />

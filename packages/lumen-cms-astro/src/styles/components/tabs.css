@@ -1,0 +1,32 @@
+/* CMS tab layout and responsive sizing, with native DaisyUI scroll-snap panels. */
+@layer components {
+ .lm-tabs { display: flex; flex-wrap: wrap; width: 100%; min-width: 0; }
+ .lm-tab-list { display: flex; width: 100%; min-height: 48px; overflow: auto; }
+ .lm-tab[aria-selected=true] { opacity: 1; color: var(--lm-tabs-color); }
+ .lm-tab[aria-selected=true]::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--lm-tabs-indicator); }
+ .lm-tabs-full .lm-tab { flex: 1; max-width: none; }
+ .lm-tabs-centered .lm-tab-list { justify-content: center; }
+ .lm-tabs-wrapped .lm-tab { font-size: .75rem; }
+ .lm-tab-panels { width: 100%; min-width: 0; margin: 0; }
+ .lm-tab-slide { width: 100%; min-width: 0; text-align: left; }
+ .lm-tab-panel { padding: 24px; }
+ .lm-tabs-vertical .lm-tab-list { flex-direction: column; width: var(--lm-tabs-width); border-right: 1px solid #0002; }
+ .lm-tabs-vertical .lm-tab-panels { width: var(--lm-tabs-content-width); flex-grow: 1; }
+ .lm-tabs-vertical .lm-tab[aria-selected=true]::after { left: auto; top: 0; bottom: 0; width: 2px; height: auto; }
+ @media(min-width:600px) {
+  .lm-tabs-vertical[data-content-grow=true] > .lm-tab-panels { flex-basis: 0; flex-grow: 1; }
+  .lm-tabs-vertical[data-content-grow=false] > .lm-tab-panels { flex-grow: 0; }
+ }
+ @media(max-width:599.95px) {
+  .lm-tabs-vertical > .lm-tab-list, .lm-tabs-vertical > .lm-tab-panels { width: 100%; flex-basis: auto; }
+ }
+}
+
+/* Scope above DaisyUI utilities without changing other carousels. */
+.lm-tabs > .lm-tab-panels { display: flex; align-items: flex-start; overflow-y: hidden; position: relative; }
+.lm-tab-panels > .lm-tab-slide { display: block; box-sizing: border-box; }
+.lm-tabs[data-dynamic-height=true] > .lm-tab-panels { transition: height .2s ease; }
+.lm-tabs > .lm-tab-panels[data-dragging] { scroll-snap-type: none; scroll-behavior: auto; cursor: grabbing; user-select: none; }
+@media(prefers-reduced-motion:reduce) {
+ .lm-tabs > .lm-tab-panels { scroll-behavior: auto; transition: none; }
+}

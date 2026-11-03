@@ -1,0 +1,39 @@
+---
+import Document from '../../layouts/Document.astro'
+import type { RenderContext } from '../../lib/context'
+
+export function getStaticPaths() {
+ return process.env.LUMEN_SITE ? [] : ['text', 'tabs', 'swiper', 'advanced', 'slider', 'images', 'lightbox', 'shopify', 'shopify-checkout', 'calendar', 'calendar-month', 'calendar-below', 'advanced-below', 'parallax-below', 'youtube-light', 'list', 'video'].map(example => ({ params: { example } }))
+}
+const headline = { component: 'headline' as const, _uid: 'heading', text: 'Bundle isolation', tag: 'h1' }
+const examples = {
+ text: headline,
+ tabs: { component: 'tabs', _uid: 'tabs', body: [{ component: 'tabs_item', _uid: 'tab-a', title: 'First', body: [headline] }, { component: 'tabs_item', _uid: 'tab-b', title: 'Second', body: [{ ...headline, _uid: 'second', text: 'Second panel' }] }] },
+ swiper: { component: 'swiper', _uid: 'swiper', property: ['arrows'], body: [{ component: 'swiper_item', _uid: 'slide-a', body: [headline] }, { component: 'swiper_item', _uid: 'slide-b', body: [{ ...headline, _uid: 'second' }] }] },
+ advanced: { component: 'swiper', _uid: 'advanced', effect: 'fade', body: [{ component: 'swiper_item', _uid: 'a', body: [headline] }, { component: 'swiper_item', _uid: 'b', body: [headline] }] },
+ slider: { component: 'slider', _uid: 'slider', body: [headline, { ...headline, _uid: 'b' }] },
+ images: { component: 'image_list', _uid: 'images', body: [{ component: 'image_list_item', _uid: 'a', alt: 'Image one', source: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' }] },
+ lightbox: { component: 'image_list', _uid: 'lightbox', enable_lightbox: true, body: [{ component: 'image_list_item', _uid: 'a', alt: 'Image one', source: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' }, { component: 'image_list_item', _uid: 'b', alt: 'Image two', source: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' }] },
+ 'shopify-checkout': { component: 'ecommerce_shopify_checkout', _uid: 'shopify-checkout', handle: 'fixture-product' },
+ shopify: { component: 'ecommerce_shopify_checkout', _uid: 'shopify', handle: 'fixture-product' },
+ calendar: { component: 'event_calendar', _uid: 'calendar', event_calendar_data: [] },
+ video: { component: 'player', _uid: 'video', url: '/fixture-video.mp4', controls: true },
+}
+const extra = {
+ 'calendar-month': { ...examples.calendar, views: ['month'], language: 'fr' },
+ 'calendar-below': examples.calendar,
+ 'advanced-below': examples.advanced,
+ 'parallax-below': { component: 'section_parallax', _uid: 'parallax', height: '50', elements: [{ component: 'parallax_item', _uid: 'layer', speed: '5', children: [headline] }] },
+ 'youtube-light': { component: 'player', _uid: 'youtube', url: 'https://www.youtube.com/watch?v=aqz-KE-bpKQ', light: true, controls: true, fallback_image: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' },
+ list: { component: 'list_stories', _uid: 'list', pagination: [{ component: 'pagination', _uid: 'pages', items_per_page: '1', position: 'bottom' }], list_stories_data: { data: { stories: [] }, perPage: 1, total: 2 } },
+}
+const example = Astro.params.example!
+const block = { ...examples, ...extra }[example as keyof typeof examples | keyof typeof extra]
+const page = {
+ allShopifyProducts: [{ node: { id: 'product', handle: 'fixture-product', title: 'Product', variants: { edges: ['Small', 'Large'].map((title, index) => ({ node: { id: `variant-${index}`, title, priceV2: { amount: '10.00', currencyCode: 'EUR' }, selectedOptions: [{ name: 'Size', value: title }], image: { transformedSrc: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' } } })) } } }],
+ locale: 'en', defaultLocale: 'en', insideStoryblok: false,
+ settings: { component: 'global', _uid: 'settings', theme_base: 'base', website_title: 'Bundle isolation', ...(Astro.params.example === 'shopify-checkout' ? { ecommerce: [{ component: 'ecommerce_shopify_config', _uid: 'checkout-config', domain: 'fixture.myshopify.com', access_token: 'public-test-token' }] } : {}) },
+ page: { component: 'page', _uid: 'page', property: ['disable_promotion'], body: [...(example.endsWith('-below') ? [{ component: 'html', _uid: 'spacer', body: '<div style="height:4000px">Scroll to load the component</div>' }] : []), block] },
+} as RenderContext['page']
+---
+<Document page={page} />

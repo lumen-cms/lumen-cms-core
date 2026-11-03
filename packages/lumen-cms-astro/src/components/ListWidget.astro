@@ -1,0 +1,21 @@
+---
+import type { ListStoriesData, LmListWidgetProps } from 'lumen-cms-shared/core/components/list-widget/listWidgetTypes'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+import StoryListResults from './StoryListResults.astro'
+interface Props { content: LmListWidgetProps['content']; context: RenderContext }
+const { content, context } = Astro.props
+const items = (content.list_widget_data?.items || []) as unknown as ListStoriesData[]
+const options = content.list_options?.[0]
+const searchable = items.map(item => ({ uuid: item.uuid, full_slug: item.full_slug, tag_list: item.tag_list, content: { preview_title: item.content.preview_title } }))
+
+---
+<div data-lm-list-widget={content.enable_for_search ? content._uid : undefined} data-list-items={content.enable_for_search ? JSON.stringify(searchable) : undefined} style={{ minHeight: content.enable_for_search ? 'calc(100vh - 120px)' : undefined }}>
+ <div data-list-empty hidden={!!items.length}>{content.not_found_content?.map(child => <Block content={child} context={context} />)}</div>
+ <StoryListResults items={items} layout={[options || { component: 'card_list', _uid: content._uid }]} uid={content._uid} context={context} disablePagination={false} />
+</div>
+
+<script>
+ import { initializeListFilters } from '../client/listFilter'
+ initializeListFilters(); document.addEventListener('astro:page-load', initializeListFilters); document.addEventListener('lumen:content-mounted', initializeListFilters)
+</script>

@@ -306,3 +306,16 @@ it('retries a transient HTTP failure through the official client', async () => {
   expect(result?.data.story?.uuid).toBe('page-10')
   expect(fetchMock).toHaveBeenCalledTimes(2)
 })
+
+it('keeps explicit published requests public even in development with preview query state', async () => {
+  const service = new StoryblokServiceClass()
+  service.setDevMode()
+  service.setQuery({ _storyblok: 'editor', _storyblok_release: '123' })
+  await service.getStory('home', { version: 'published' })
+  expect(requests.length).toBeGreaterThan(0)
+  for (const url of requests) {
+    expect(url.searchParams.get('token')).toBe('public-test')
+    expect(url.searchParams.get('version')).not.toBe('draft')
+    expect(url.searchParams.has('from_release')).toBe(false)
+  }
+})

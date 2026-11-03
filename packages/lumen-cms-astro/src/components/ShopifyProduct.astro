@@ -1,0 +1,68 @@
+---
+import Image from './CmsImage.astro'
+import type { EcommerceShopifyCheckoutStoryblok, EcommerceShopifyConfigStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { columnSizeCss } from 'lumen-cms-shared/grid'
+import Headline from './CmsHeadline.astro'
+import Button from './CmsButton.astro'
+import ShopifyProductDescription from './ShopifyProductDescription.astro'
+import '../styles/nativeCarousel.css'
+interface Props { content: EcommerceShopifyCheckoutStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const item = context.page.allShopifyProducts?.find(product => product.node.handle === content.handle)?.node
+const config = context.page.settings?.ecommerce?.find(value => value.component === 'ecommerce_shopify_config') as EcommerceShopifyConfigStoryblok | undefined
+const variants = item?.variants.edges.map(edge => ({ ...edge.node, productTitle: item.title })) || []
+const width = (value: string | undefined) => columnSizeCss(value === 'true' ? true : value === 'auto' ? 'auto' : Number(value || 6))
+const imageHeight = Number(config?.image_container_height || 300)
+const columnWidth = Number(config?.columns_first_width || 6)
+const imageSizes = `(min-width:600px) ${columnWidth > 0 && columnWidth <= 12 ? columnWidth / 12 * 100 : 100}vw, 100vw`
+const scope = `lm-shopify-${content._uid.replace(/[^a-zA-Z0-9_-]/g, '')}`
+const price = { component: 'headline' as const, _uid: `${content._uid}-price`, typography: 'headline5' as const, align: 'center' as const, ...config?.product_price?.[0] }
+const errorColor = (context.theme.palette.error as { main: string }).main
+const action = (checkout: boolean) => ({ component: 'button' as const, _uid: `${content._uid}-${checkout ? 'checkout' : 'cart'}`, label: checkout ? 'Checkout' : 'Add to cart', variant: checkout ? 'raised' as const : 'outlined' as const, color: checkout ? 'primary' as const : 'secondary' as const, class_names: { values: ['w-100'] }, ...(checkout ? config?.product_checkout?.[0] : config?.product_add_to_cart?.[0]), link: undefined, on_click_function: undefined })
+---
+{!item ? <progress class="progress progress-primary" aria-label="Loading product" /> : <>
+ <style is:inline set:html={`@media(min-width:600px){.${scope}>.lm-shopify-images{${width(config?.columns_first_width)}}.${scope}>.lm-shopify-details{${width(config?.columns_second_width)}}}`} />
+ <div class:list={['lm-shopify-product', scope]} data-lm-shopify-product={JSON.stringify({ variants, config, autoplay: !!config?.carousel_auto_play })} style={{ justifyContent: config?.columns_justify || 'center', alignItems: config?.columns_align_items || 'center' }}>
+  <div class="lm-shopify-images">
+  {config?.carousel_auto_play && <button type="button" class="btn btn-sm" data-carousel-pause>Pause slideshow</button>}
+   <div class="lm-carousel" style="position:relative"><div class="carousel carousel-start lm-native-carousel" data-shopify-carousel>
+    {variants.map(variant => <div class="carousel-item" style={{ height: `${imageHeight}px` }}>
+     {variant.image?.transformedSrc && <Image src={variant.image.transformedSrc} fill alt={variant.title} sizes={imageSizes} style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain" />}
+    </div>)}</div>
+    {variants.length > 1 && <div class="lm-shopify-arrows"><button type="button" class="btn btn-ghost btn-circle" data-shopify-prev aria-label="Previous slide">‹</button><button type="button" class="btn btn-ghost btn-circle" data-shopify-next aria-label="Next slide">›</button></div>}
+    {!(config?.carousel_hide_indicator && variants.length === 1) && <div class="lm-shopify-indicators">{variants.map((_variant, index) => <button type="button" class="btn btn-ghost btn-circle" data-shopify-slide={index} aria-label={`Go to slide ${index + 1}`}>−</button>)}</div>}
+   </div>
+  </div>
+  <div class="lm-shopify-details">
+   <Headline content={{ component: 'headline', _uid: `${content._uid}-title`, align: 'center', typography: 'headline4', ...config?.product_title?.[0], text: item.title }} context={context} />
+   <div style="margin-top:16px"><Headline content={price} context={context}><s data-shopify-compare style={{ color: errorColor }} hidden={!variants[0]?.compareAtPriceV2}>{config?.currency_prefix || ''} {variants[0]?.compareAtPriceV2?.amount}</s>{' '}<span data-shopify-price>{config?.currency_prefix || ''} {variants[0]?.priceV2.amount}</span></Headline></div>
+   {variants.length > 1 && <>
+    <div style="margin-top:16px" data-shopify-option-name><Headline content={{ component: 'headline', _uid: `${content._uid}-option`, align: 'center', typography: 'headline6', color: 'textSecondary', text: variants[0]?.selectedOptions?.[0]?.name }} context={context} /></div>
+    <div class="lm-shopify-options">{variants.map((variant, index) => <div data-shopify-variant={index}>
+     {[false, true].map(active => <div data-shopify-option-state={String(active)} hidden={active !== (index === 0)}><Button content={{ component: 'button', _uid: variant.id, variant: active ? 'unelevated' : 'outlined', ...(active ? config?.product_active_variant?.[0] : config?.product_variant?.[0]), label: variant.title, link: undefined, on_click_function: undefined }} context={context} /></div>)}
+    </div>)}</div>
+   </>}
+   <div style="margin-top:24px" data-shopify-add><Button content={action(false)} context={context} /></div>
+   <div style="margin-top:24px" data-shopify-checkout><Button content={action(true)} context={context} /><div class="alert alert-error" role="alert" data-shopify-error hidden>Checkout could not be started. Please try again.</div></div>
+   {!config?.hide_description && <div style="margin-top:24px"><ShopifyProductDescription uid={content._uid} descriptionHtml={item.descriptionHtml} config={config} context={context} /></div>}
+  </div>
+ </div>
+</>}
+<style is:global>
+ .lm-shopify-product [hidden] { display:none; }
+ .lm-shopify-product { display:flex; flex-wrap:wrap; }
+ .lm-shopify-images,.lm-shopify-details { width:100%; min-width:0; }
+ .lm-shopify-options { display:flex; justify-content:center; flex-wrap:wrap; column-gap:16px; row-gap:8px; margin-top:16px; }
+ .lm-shopify-arrows { position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; pointer-events:none; z-index:2; }
+ .lm-shopify-arrows button { pointer-events:auto; color:rgba(0,0,0,.8); }
+ .lm-shopify-indicators { position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:center; z-index:2; }
+ .lm-shopify-indicators button { opacity:.5; color:rgba(0,0,0,.8); }
+ .lm-shopify-indicators button[aria-current=true] { opacity:1; }
+</style>
+<script>
+ import { initializeShopifyProducts } from '../client/shopifyProduct'
+ initializeShopifyProducts()
+ document.addEventListener('astro:page-load', initializeShopifyProducts)
+ document.addEventListener('lumen:content-mounted', initializeShopifyProducts)
+</script>

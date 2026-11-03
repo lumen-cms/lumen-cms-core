@@ -1,0 +1,17 @@
+---
+import Image from '../../components/CmsImage.astro'
+export function getStaticPaths() { return process.env.LUMEN_IMAGE_AUDIT_ORIGIN ? [{ params: { fixture: 'images' } }] : [] }
+const origin = process.env.LUMEN_IMAGE_AUDIT_ORIGIN!
+const source = `${origin}/photo.png`
+---
+<html><head><title>Image pipeline regression fixture</title></head><body>
+ <Image id="remote" src={source} alt="Remote image" sizes="(max-width:600px) 100vw, 240px" widths={[120,240]} />
+ <Image id="density" src={source} width={120} height={60} densities={[1,2]} alt="Retina image" />
+ <div style="position:relative;width:180px;height:180px"><Image id="fill" src={source} fill sizes="180px" widths={[180,360]} alt="Fill image" style={{objectFit:'contain'}} /></div>
+ <Image id="avif" src={source} width={120} height={60} format="avif" alt="AVIF" />
+ <Image id="crop" src={source} width={60} height={60} fit="cover" position="left" alt="Explicit crop" />
+ <Image id="priority" src="https://a.storyblok.com/f/1/240x120/photo.jpg" width={120} height={60} preload sizes="120px" widths={[120,240]} alt="Priority image" />
+ <Image id="blur" src={source} width={120} height={60} blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Blur image" />
+ <Image id="svg" src="https://a.storyblok.com/f/logo.svg?v=2" width={80} height={40} alt="SVG" />
+ <Image id="public" src="/image-audit.png" width={120} height={60} alt="Public image" />
+</body></html>

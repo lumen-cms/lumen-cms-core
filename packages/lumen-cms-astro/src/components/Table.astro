@@ -1,0 +1,11 @@
+---
+import type { TableStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+interface Props { content: TableStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const palette = context.theme.palette
+---
+<div style="overflow-x:auto"><table class:list={['lm-table', content.class_names?.values, content.variant && `lm-table__${content.variant}`]} style={{ '--lm-table-border': context.theme.mode === 'dark' ? palette.common.white : palette.common.black, '--lm-table-divider': palette.divider as string, '--lm-table-paper': (palette.background as Record<string,string>).paper, '--lm-table-secondary': (palette.text as Record<string,string>).secondary }}>
+ {!content.disable_table_head && <thead><tr>{content.body?.thead?.map(value => <th>{value}</th>)}</tr></thead>}
+ <tbody>{content.body?.tbody?.map(row => <tr>{row.map(value => <td set:html={value} />)}</tr>)}</tbody>
+</table></div>

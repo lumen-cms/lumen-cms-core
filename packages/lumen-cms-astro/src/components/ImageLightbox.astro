@@ -1,0 +1,43 @@
+---
+import type { ImageListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import ImageListItem from './ImageListItem.astro'
+import '../styles/nativeCarousel.css'
+interface Props { content: ImageListStoryblok }
+const { content } = Astro.props
+---
+<dialog class="lm-image-lightbox" aria-label="Image gallery">
+ <button type="button" data-lightbox-close class="btn btn-ghost btn-circle lm-lightbox-close" aria-label="Close gallery">×</button>
+ <div class="carousel carousel-start lm-native-carousel">{content.body?.map(item => <div class="carousel-item"><ImageListItem content={item} lightbox /></div>)}</div>
+ <button type="button" data-lightbox-prev class="lm-lightbox-prev" aria-label="Previous image">‹</button>
+ <button type="button" data-lightbox-next class="lm-lightbox-next" aria-label="Next image">›</button>
+ <div class="lm-lightbox-pagination" aria-live="polite"></div>
+</dialog>
+<script>
+ import { nativeCarousel } from '../client/nativeCarousel'
+ import { onUnmount } from '../client/lifecycle'
+ function setupGalleries() {
+  document.querySelectorAll<HTMLElement>('[data-lm-image-list]').forEach(root => {
+   const dialog = root.querySelector<HTMLDialogElement>('dialog')
+   if (!dialog || root.dataset.initialized) return
+   root.dataset.initialized = 'true'
+   const listeners = new AbortController(), signal = listeners.signal
+   let carousel: ReturnType<typeof nativeCarousel> | undefined
+   const status = () => { root.querySelector('.lm-lightbox-pagination')!.textContent = `${(carousel?.index || 0) + 1} / ${dialog.querySelector('.carousel')!.children.length}` }
+   const open = (index: number) => {
+    dialog.showModal()
+    carousel ||= nativeCarousel(root, dialog.querySelector<HTMLElement>('.carousel')!, { loop: true, onChange: status })
+    carousel.go(index, false); status()
+   }
+   root.querySelectorAll<HTMLElement>('[data-lightbox-index]').forEach(item => {
+    item.addEventListener('click', () => open(Number(item.dataset.lightboxIndex)), { signal })
+    item.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(Number(item.dataset.lightboxIndex)) } }, { signal })
+   })
+   dialog.querySelector('[data-lightbox-close]')!.addEventListener('click', () => dialog.close(), { signal })
+   dialog.querySelector('[data-lightbox-prev]')!.addEventListener('click', () => carousel?.previous(), { signal })
+   dialog.querySelector('[data-lightbox-next]')!.addEventListener('click', () => carousel?.next(), { signal })
+   dialog.addEventListener('keydown', event => { if (event.key === 'ArrowRight') { event.preventDefault(); carousel?.next() } if (event.key === 'ArrowLeft') { event.preventDefault(); carousel?.previous() } }, { signal })
+   onUnmount(root, () => { listeners.abort(); carousel?.destroy(); if (dialog.open) dialog.close(); delete root.dataset.initialized })
+  })
+ }
+ setupGalleries(); document.addEventListener('astro:page-load', setupGalleries); document.addEventListener('lumen:content-mounted', setupGalleries)
+</script>

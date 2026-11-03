@@ -1,0 +1,19 @@
+---
+import type { NewsStoryblok, SectionStoryblok, ColumnStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { getDateLocalized } from 'lumen-cms-shared/core/utils/intlDateHelper'
+import Block from './Block.astro'
+interface Props { content: NewsStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const subtitle = [getDateLocalized({ start: content.published, locale: context.page.locale, options: content.date_format?.[0] ? { ...content.date_format[0] } : undefined }), typeof content.category === 'object' ? content.category?.content?.name : undefined].filter(Boolean).join(' - ')
+const body: ColumnStoryblok['body'] = [
+ { component: 'image', _uid: 'image', source: content.image?.filename ?? undefined },
+ { component: 'headline', _uid: 'headline', tag: 'h1', typography: 'headline2', text: content.title },
+ { component: 'headline', _uid: 'subtitle1', tag: 'h5', typography: 'subtitle1', text: subtitle },
+ { component: 'headline', _uid: 'body1', tag: 'p', typography: 'body1', support_linebreak: true, text: content.description },
+ ...(content.content ? [{ component: 'rich_text_editor' as const, _uid: 'richtext', body: content.content }] : []),
+ ...(Array.isArray(content.body) ? content.body as NonNullable<ColumnStoryblok['body']> : [])
+]
+const section: SectionStoryblok = { component: 'section', _uid: content._uid, body: [{ component: 'row', _uid: 'row', body: [{ component: 'column', _uid: 'column', body }] }] }
+---
+<Block content={section} context={context} />

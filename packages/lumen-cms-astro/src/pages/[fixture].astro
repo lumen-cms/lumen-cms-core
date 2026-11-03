@@ -1,0 +1,335 @@
+---
+import '../styles/global.css'
+import AuslandszeitList from '../travel/AuslandszeitList.astro'
+import type { AuslandszeitData } from 'lumen-cms-shared/core/travel/components/auslandszeit/auslandszeitTypes'
+import TravelDetail from '../travel/Travel.astro'
+import TravelList from '../travel/TravelList.astro'
+import TravelSearchBox from '../travel/TravelSearchBox.astro'
+import type { Travel, AllTravelsQuery } from 'lumen-cms-shared/core/travel/typings/generated/hasura-schema'
+import type { ISbStoryData } from 'storyblok-js-client'
+import type { RichTextEditorStoryblok, FormBuilderStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import OverrideListLayout from '../components/fixtures/OverrideListLayout.astro'
+import OverrideNavItem from '../components/fixtures/OverrideNavItem.astro'
+import OverrideHeadline from '../components/fixtures/OverrideHeadline.astro'
+import CmsHeadline from '../components/CmsHeadline.astro'
+import CmsButton from '../components/CmsButton.astro'
+import OverrideButton from '../components/fixtures/OverrideButton.astro'
+import OverrideField from '../components/fixtures/OverrideField.astro'
+import OverrideCollectionItem from '../components/fixtures/OverrideCollectionItem.astro'
+import OverrideImageListItem from '../components/fixtures/OverrideImageListItem.astro'
+import OverrideFormBuilder from '../components/fixtures/OverrideFormBuilder.astro'
+import OverrideLink from '../components/fixtures/OverrideLink.astro'
+import RichText from '../components/RichText.astro'
+import { renderRichText } from '../lib/richText'
+import AppWrappers from '../components/AppWrappers.astro'
+import OuterWrapper from '../components/fixtures/OuterWrapper.astro'
+import InnerWrapper from '../components/fixtures/InnerWrapper.astro'
+import Header from '../components/Header.astro'
+import Button from '../components/Button.astro'
+import CustomScripts from '../components/CustomScripts.astro'
+import FastSpringProvider from '../components/FastSpringProvider.astro'
+import ShopifyProductDescription from '../components/ShopifyProductDescription.astro'
+import ShopifyCart from '../components/ShopifyCart.astro'
+import EventCalendar from '../components/EventCalendar.astro'
+import Drawers from '../components/Drawers.astro'
+import StoryListResults from '../components/StoryListResults.astro'
+import ListStories from '../components/ListStories.astro'
+import type { LmListStoriesProps } from 'lumen-cms-shared/core/components/list-widget/listWidgetTypes'
+import type { ListStoriesData } from 'lumen-cms-shared/core/components/list-widget/listWidgetTypes'
+import type { LmListWidgetProps, LmCategoryBoxProps } from 'lumen-cms-shared/core/components/list-widget/listWidgetTypes'
+import type { RenderContext } from '../lib/context'
+import GoogleForm from '../components/GoogleForm.astro'
+import Block from '../components/Block.astro'
+import Headline from '../components/Headline.astro'
+import FlexRow from '../components/FlexRow.astro'
+import Html from '../components/Html.astro'
+import Section from '../components/Section.astro'
+import GridRow from '../components/GridRow.astro'
+import GridColumn from '../components/GridColumn.astro'
+import { createCmsTheme, themeCss } from 'lumen-cms-shared/theme'
+export function getStaticPaths() { return process.env.LUMEN_SITE ? [] : ['__fixture', '__story_list', '__navigation', '__header', '__tabs', '__story_links', '__story_props', '__travel_en', '__travel_de', '__jobs'].map(fixture => ({ params: { fixture } })) }
+const richTextFixture = { type: 'doc', content: [
+ { type: 'heading', attrs: { level: 2 }, content: [{ type: 'text', text: 'Rich heading' }] },
+ { type: 'paragraph', content: [{ type: 'text', text: '<Safe> & linked', marks: [{ type: 'link', attrs: { href: 'de/home?source=rich#section', linktype: 'story', target: '_blank' } }, { type: 'bold' }, { type: 'italic' }] }, { type: 'hard_break' }, { type: 'text', text: 'styled', marks: [{ type: 'styled', attrs: { class: 'fixture-style' } }, { type: 'underline' }, { type: 'strike' }] }] },
+ { type: 'blockquote', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Quoted', marks: [{ type: 'strong' }] }] }] },
+ { type: 'ordered_list', content: [{ type: 'list_item', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Ordered' }] }] }] },
+ { type: 'bullet_list', content: [{ type: 'list_item', content: [{ type: 'text', text: 'Bullet', marks: [{ type: 'code' }] }] }] },
+ { type: 'code_block', attrs: { class: 'language-js' }, content: [{ type: 'text', text: 'a < b && c' }] },
+ { type: 'horizontal_rule' }, { type: 'paragraph', content: [] },
+ { type: 'image', attrs: { src: '/fixture-image.png', alt: 'A "quote"', width: 12, height: 10, onclick: 'unsafe()' } },
+ { type: 'unknown', content: [{ type: 'text', text: 'Unknown preserved', marks: [{ type: 'unknown' }] }] },
+ { type: 'blok', attrs: { body: [] } }
+] }
+const referencedForm = { content: { component: 'form_builder', _uid: 'referenced-builder', additional_fields: [{ component: 'form_hidden_field', _uid: 'default-extra', name: 'source', value: 'default' }], success_message: [{ component: 'headline', _uid: 'default-success', text: 'Default success' }] } } as ISbStoryData<FormBuilderStoryblok>
+const theme = createCmsTheme()
+const calendarStart = new Date(); calendarStart.setHours(10, 0, 0, 0)
+const calendarEnd = new Date(calendarStart); calendarEnd.setHours(11)
+const calendarCmsDate = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:00`
+const shopifyFixtureContext: RenderContext = { theme, preview: false, page: {
+ settings: { component: 'global', theme_base: 'base', _uid: 'shopify-settings', ecommerce: [{ component: 'ecommerce_shopify_config', _uid: 'shopify-config', currency_prefix: '€', domain: 'fixture.myshopify.com', access_token: 'public-fixture-token', columns_first_width: '4', columns_second_width: '8', image_container_height: '240', product_title: [{ component: 'headline', _uid: 'product-title', typography: 'headline3', text: 'This must be replaced' }], product_variant: [{ component: 'button', _uid: 'variant-inactive', color: 'secondary' }], product_active_variant: [{ component: 'button', _uid: 'variant-active', color: 'primary' }] }] },
+ allShopifyProducts: [{ node: { id: 'fixture-product', handle: 'fixture-product', title: 'Native Shopify product', descriptionHtml: '<p>Product description from Shopify</p>', variants: { edges: ['Small', 'Large'].map((title, index) => ({ node: { id: `fixture-variant-${index}`, title, priceV2: { amount: index ? '20.00' : '10.00', currencyCode: 'EUR' }, compareAtPriceV2: index ? null : { amount: '15.00', currencyCode: 'EUR' }, selectedOptions: [{ name: 'Size', value: title }], image: { transformedSrc: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' } } })) } } }] as unknown as NonNullable<RenderContext['page']['allShopifyProducts']>
+} }
+const travelFixture = { id: 42, title: 'Native travel fixture', city: { title: 'City', title_de: 'Stadt', country: { title: 'Country', title_de: 'Land' } }, mn_travel_travel_types: [{ travel_type: { title: 'Internship', title_de: 'Praktikum' } }], product: { product_price: { eur: 1200, usd: 1500 } }, fileStoryblokByHeaderImageId: { url_new: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' }, file_storybloks: [{ id: 1, url_new: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' }], overview: '<p>Travel overview fixture</p>', description: '<p>Travel description fixture</p>', travel_accommodation: { description: '<p>Travel accommodation fixture</p>' }, travel_service: { description: '<p>Travel services fixture</p>' }, travel_team: { description: '<p>Travel team fixture</p>', file_storyblok: { url_new: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' } } } as unknown as Travel
+const newsItems = [{ uuid: 'fixture-news', full_slug: 'fixture-news', name: 'News fallback', content: { component: 'news', title: 'Native news title', description: 'Native news description' } }] as ListStoriesData[]
+const storyListFixture = { component: 'list_stories', _uid: 'paginated-fixture', layout: [{ component: 'card_list', _uid: 'story-cards', description_max_character: '8' }], pagination: [{ component: 'pagination', _uid: 'story-pagination', items_per_page: '2', position: 'top_bottom' }], list_stories_data: { data: { stories: newsItems }, perPage: 2, total: 6 }, not_found_message: [{ component: 'headline', _uid: 'story-empty', text: 'No matching stories' }] } as LmListStoriesProps['content']
+const navContext: RenderContext = { theme, preview: false, page: { locale: 'en', defaultLocale: 'en', settings: { component: 'global', theme_base: 'base', _uid: 'settings', website_title: 'Fixture navigation', multi_toolbar: [{ component: 'toolbar_row', _uid: 'toolbar', body: [{ component: 'toolbar_row_section', _uid: 'brand', body: [{ component: 'toolbar_logo', _uid: 'logo' }] }, { component: 'toolbar_row_section', _uid: 'links', use_media_query: true, body: [{ component: 'nav_menu', _uid: 'nav-menu', title: 'Explore fixture', body: [{ component: 'nav_menu_item', _uid: 'menu-a', label: 'Menu A', link: { fieldtype: 'multilink', linktype: 'url', url: '#a', cached_url: '#a', id: '' } }, { component: 'nav_menu_item', _uid: 'menu-b', label: 'Menu B', link: { fieldtype: 'multilink', linktype: 'url', url: '#b', cached_url: '#b', id: '' } }] }] }, { component: 'toolbar_row_section', _uid: 'mobile', inv_use_media_query: true, body: [{ component: 'toolbar_navi_button', _uid: 'toggle' }] }] }] } } }
+
+const headerContext = (variant: 'dark' | 'white' | 'primary', feature = false): RenderContext => ({ ...navContext, page: { ...navContext.page, page: { component: 'page', _uid: `header-${variant}`, property: feature ? ['has_feature'] : [] }, settings: { ...navContext.page.settings!, toolbar_variant: variant, toolbar_elevation: '0', toolbar_font_size: '19px', toolbar_config: ['text_bold'], multi_toolbar: [{ component: 'toolbar_row', _uid: 'header-row', body: [{ component: 'toolbar_row_section', _uid: 'header-section', body: [{ component: 'button', _uid: 'header-button', label: 'Header button' }, { component: 'toolbar_navi_button', _uid: 'header-toggle', force_show: true }, { component: 'list_search_autocomplete', _uid: `header-search-${variant}`, placeholder: 'Header search' }] }] }] } } })
+
+// The fixture omits delivery metadata unused by these presentational components.
+const filterWidget = { component: 'list_widget', _uid: 'filter-widget', enable_for_search: true, list_options: [{ component: 'lists', _uid: 'filter-options', hide_image: true }], list_widget_data: { items: [{ uuid: 'one', name: 'Alpha', full_slug: 'alpha', tag_list: ['tag-a'], content: { component: 'page', preview_title: 'Alpha' } }, { uuid: 'two', name: 'Beta', full_slug: 'beta', tag_list: ['tag-b'], content: { component: 'page', preview_title: 'Beta' } }] }, not_found_content: [{ component: 'headline', _uid: 'empty', text: 'No fixture matches' }] } as unknown as LmListWidgetProps['content']
+const categoryFixture = { component: 'category_box', _uid: 'category-fixture', category_box_data: [{ uuid: 'category-a', name: 'Category A', content: { component: 'category', name: 'Category A', tag_reference: { values: 'tag-a' } } }, { uuid: 'category-b', name: 'Category B', content: { component: 'category', name: 'Category B', tag_reference: { values: 'tag-b' } } }] } as unknown as LmCategoryBoxProps['content']
+
+---
+<!doctype html>
+<html lang="en">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><title>Lumen Astro migration fixtures</title><style is:inline set:html={themeCss(theme)} /><style is:inline>@layer components { .fixture-layer-sentinel { display: block; } }</style>{Astro.params.fixture === '__fixture' && <CustomScripts scripts={[
+    { component: 'script', _uid: 'cms-before', strategy: 'beforeInteractive', script_body: 'window.cmsScriptFixture = ["before"];' },
+    { component: 'script', _uid: 'cms-interactive', attributes: 'nonce=fixture-nonce,data-mode=fixture', script_body: 'window.cmsScriptFixture.push("interactive");' },
+    { component: 'script', _uid: 'cms-external', url: '/cms-fixture.js' },
+    { component: 'script', _uid: 'cms-external-duplicate', url: '/cms-fixture.js' },
+    { component: 'script', _uid: 'cms-lazy', strategy: 'lazyOnload', script_body: 'window.cmsScriptFixture.push("lazy");' }
+  ]} />}</head>
+  <body><Header context={navContext} /><main>
+    <div id="iframe-sizing-fixture" style="width:240px">
+      {(['16by9', '4by3', '3by2', '1by1'] as const).map(ratio => <Block context={navContext} content={{ component: 'iframe', _uid: `iframe-${ratio}`, url: 'about:blank', responsive_ratio: ratio }} />)}
+      <Block context={navContext} content={{ component: 'iframe', _uid: 'iframe-position', url: 'about:blank', responsive_ratio: '16by9', position: 'relative', width: '120px', height: '80px', name: 'position-override', property: ['allow_fullscreen'], allow: ['encrypted-media'] }} />
+      <div style="height:100px"><Block context={navContext} content={{ component: 'iframe', _uid: 'iframe-full', url: 'about:blank', full_height: true }} /></div>
+    </div>
+    <div id="display-utilities-fixture"><div data-display="phone" class="d-sm-none">Phone</div><div data-display="tablet" class="d-none d-sm-block d-md-none">Tablet</div><div data-display="desktop" class="d-none d-md-block">Desktop</div></div>
+    <div id="grid-image-spacing-fixture"><Block context={navContext} content={{ component: 'row', _uid: 'image-row', body: [1,2,3].map((item) => ({ component: 'column', _uid: `image-col-${item}`, width_general: '4', width_tablet: '3', width_phone: '4', align_items: 'center', body: [{ component: 'image', _uid: `image-${item}`, source: 'https://a.storyblok.com/f/123/800x400/fixture.jpg', width: '40', height: '40' }, { component: 'headline', _uid: `image-heading-${item}`, text: 'Aligned heading' }, { component: 'html', _uid: `image-body-${item}`, body: `<div style="height:${item * 50}px">Variable height</div>` }] })) }} /></div>
+
+    {Astro.params.fixture === '__header' && <div id="header-appearance-fixture">
+      <div id="header-dark"><Header context={headerContext('dark')} /></div>
+      <div id="header-white"><Header context={headerContext('white')} /></div>
+      <div id="header-feature"><Header context={headerContext('primary', true)} /></div>
+    </div>}
+
+    <Headline content={{ component: 'headline', _uid: 'heading', text: 'Lumen Astro migration', typography: 'headline1' }} theme={theme} />
+    <FlexRow content={{ component: 'flex_row', _uid: 'flex', gap: '2', column_mobile_only: true }} theme={theme}>
+      <button class="btn btn-primary">Primary button</button><button class="btn btn-secondary">Secondary button</button>
+    </FlexRow>
+    {Astro.params.fixture === '__tabs' && <div id="tabs-sizing-fixture" style="text-align:center">
+      <Block context={navContext} content={{ component: 'tabs', _uid: 'grow-tabs', vertical_tabs: true, tabs_width: '3', content_width: 'true', body: [{ component: 'tabs_item', _uid: 'grow-tab', title: 'Flexible tab', body: [{ component: 'headline', _uid: 'grow-panel', text: 'Flexible content' }] }] }} />
+      <Block context={navContext} content={{ component: 'tabs', _uid: 'scroll-tabs', centered: true, mobile_breakpoint: 'md', variant: 'scrollable', body: Array.from({ length: 12 }, (_, i) => ({ component: 'tabs_item' as const, _uid: `scroll-tab-${i}`, title: `Long tab title ${i}`, body: [] })) }} />
+      <Block context={navContext} content={{ component: 'tabs', _uid: 'fixed-list-tabs', vertical_tabs: true, tabs_width: '3', content_width: '9', body: [{ component: 'tabs_item', _uid: 'grow-list-tab', title: 'Fixed tab list', body: [{ component: 'headline', _uid: 'grow-list-panel', text: 'Left aligned panel' }] }] }} />
+    </div>}
+    <div id="renderer-override-fixture">
+      <AppWrappers context={navContext} wrappers={[OuterWrapper, InnerWrapper]}><span id="wrapped-content">Wrapped content</span></AppWrappers>
+      <AppWrappers context={navContext}><span id="unwrapped-content">Unwrapped content</span></AppWrappers>
+      <Block context={{ ...navContext, components: { headline: OverrideHeadline } }} content={{ component: 'section', _uid: 'override-section', body: [{ component: 'headline', _uid: 'overridden-heading', text: 'Nested overridden heading' }] }} />
+      <Block context={navContext} content={{ component: 'headline', _uid: 'default-heading', text: 'Default heading remains' }} />
+    </div>
+    <div id="nested-renderer-override-fixture" hidden>
+      <Block context={{ ...navContext, components: { headline: OverrideHeadline } }} content={{ component: 'nav_list', _uid: 'override-nav', header: 'Navigation slot wins', headline_styles: [{ component: 'headline', _uid: 'override-nav-style', text: 'Style fallback must not replace the slot' }] }} />
+      <Block context={{ ...navContext, components: { headline: OverrideHeadline } }} content={{ component: 'card_list_item', _uid: 'override-card', title: 'Overridden card title', description: 'Overridden card description' }} />
+      <CmsHeadline context={{ ...navContext, components: { headline: OverrideHeadline } }} content={{ component: 'headline', _uid: 'override-counter', count_end: '10', text: 'Overridden counter' }} />
+      <CmsHeadline context={navContext} content={{ component: 'headline', _uid: 'plain-slot', text: 'Unused fallback' }}><strong>Default slot remains</strong></CmsHeadline>
+    </div>
+    <div id="nested-button-override-fixture" hidden>
+      <CmsButton context={{ ...navContext, components: { button: OverrideButton } }} content={{ component: 'button', _uid: 'override-disabled', label: 'Disabled submit' }} type="submit" disabled><span data-override-slot>Extra content</span></CmsButton>
+      <Block context={{ ...navContext, components: { button: OverrideButton, form_textfield: OverrideField } }} content={{ component: 'form_builder', _uid: 'override-form', variant: 'outlined', fields: [{ component: 'form_textfield', _uid: 'override-field', name: 'custom', label: 'Custom field', required: true }], submit: [{ component: 'button', _uid: 'override-submit', label: 'Custom submit' }] }} />
+    </div>
+    <div id="link-renderer-override-fixture" hidden>
+      <Block context={{ ...navContext, linkRenderer: OverrideLink }} content={{ component: 'button', _uid: 'custom-linked-button', label: 'Custom linked button', open_external: true, link: { fieldtype: 'multilink', linktype: 'url', url: 'https://example.test/custom', cached_url: 'https://example.test/custom', id: '' } }} />
+      <Block context={{ ...navContext, linkRenderer: OverrideLink }} content={{ component: 'nav_item', _uid: 'custom-nav', name: 'Custom navigation link', link: { fieldtype: 'multilink', linktype: 'story', url: '', cached_url: 'home', id: 'home' } }} />
+      <Block context={{ ...navContext, linkRenderer: OverrideLink }} content={{ component: 'link', _uid: 'custom-content-link', link: { fieldtype: 'multilink', linktype: 'url', url: '#anchor-target', cached_url: '#anchor-target', id: '' }, body: [{ component: 'headline', _uid: 'custom-link-content', text: 'Linked content slot' }] }} />
+      <Block context={navContext} content={{ component: 'button', _uid: 'default-link-button', label: 'Default link renderer', link: { fieldtype: 'multilink', linktype: 'url', url: '#default-target', cached_url: '#default-target', id: '' } }} />
+    </div>
+    <div id="rich-text-renderer-fixture" hidden>
+      <div data-rich-reference set:html={renderRichText(richTextFixture)} />
+      <div data-rich-native><RichText body={richTextFixture} context={navContext} /></div>
+      <div data-rich-override><RichText body={richTextFixture} context={{ ...navContext, linkRenderer: OverrideLink }} /></div>
+    </div>
+    <div id="section-background-fixture" hidden>
+      <Section theme={theme} content={{ component: 'section', _uid: 'preset-only', presetVariant: 'dark', background: [{ component: 'background', _uid: 'preset-shadow', shadow_effect: 'soft' }] }}>Preset background</Section>
+      <Section theme={theme} content={{ component: 'section', _uid: 'explicit-variant', presetVariant: 'dark', variant: 'light' }}>Explicit background</Section>
+      <Block context={navContext} content={{ component: 'slider', _uid: 'preset-slider', section_variant: 'primary', body: [{ component: 'section', _uid: 'slider-preset-section' }] }} />
+      <Block context={navContext} content={{ component: 'row', _uid: 'shadow-only-row', background: [{ component: 'background', _uid: 'row-shadow', shadow_effect: 'soft' }], body: [{ component: 'column', _uid: 'shadow-only-column', background: [{ component: 'background', _uid: 'column-shadow', shadow_effect: 'float' }] }] }} />
+    </div>
+    <div id="card-background-fixture" hidden>
+      <div id="card-description-limits">
+        {[0, '0', -1, '3', undefined].map((limit, index) => <div data-limit-case={index}><Block context={navContext} options={{ component: 'card_list', _uid: `limit-options-${index}`, description_max_character: limit, column_count_phone: '2', column_count_tablet: '3', column_count: '4' }} content={{ component: 'card_list_item', _uid: `limit-card-${index}`, description: 'ABCDE', image: index === 4 ? 'https://a.storyblok.com/f/123/800x400/fixture.jpg' : undefined }} /></div>)}
+      </div>
+      <Block context={navContext} content={{ component: 'card', _uid: 'card-background-effect', background: [{ component: 'background', _uid: 'card-soft', shadow_effect: 'soft' }] }} />
+      <Block context={navContext} content={{ component: 'card', _uid: 'card-background-precedence', square: true, elevation: '8', background: [{ component: 'background', _uid: 'card-elevation', elevation: '0', border_radius: '13px', shadow_effect: 'soft' }] }} />
+    </div>
+    <div id="paragraph-color-fixture" hidden>
+      {([{ color: 'textSecondary' }, { color: 'primary.main' }, { color: 'textSecondary', styles: [{ component: 'styles' as const, _uid: 'paragraph-color-style', color: { rgba: 'rgb(12, 34, 56)' } }] }, { color: 'textSecondary', custom_color: { rgba: 'rgb(65, 43, 21)' } }, { color: 'textSecondary', custom_color: { rgba: 'rgb(65, 43, 21)' }, styles: [{ component: 'styles' as const, _uid: 'paragraph-custom-style', color: { rgba: 'rgb(12, 34, 56)' } }] }] satisfies Partial<RichTextEditorStoryblok>[]).map((props, index) => <Block context={navContext} content={{ component: 'rich_text_editor', _uid: `paragraph-color-${index}`, body: { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Colored paragraph' }] }] }, ...props }} />)}
+    </div>
+    <div id="image-svg-props-fixture" hidden>
+      <Block context={navContext} content={{ component: 'image', _uid: 'svg-image-props', source: 'https://cdn.jsdelivr.net/npm/@mdi/svg/svg/phone.svg', alt: 'Accessible SVG image', width: '40', height: '40', color: { rgba: 'rgb(20, 40, 60)' }, property: ['rounded-circle'], class_names: { values: ['cms-svg-class'] } }} />
+    </div>
+    <div id="card-asset-link-fixture" hidden>
+      {[navContext, { ...navContext, linkRenderer: OverrideLink }].map((context, index) => <>
+        <Block context={context} content={{ component: 'card', _uid: `asset-card-${index}`, link: { fieldtype: 'multilink', id: '', url: 'https://example.test/brochure.pdf', cached_url: 'https://example.test/brochure.pdf', linktype: 'asset' }, body: [{ component: 'headline', _uid: `asset-card-label-${index}`, text: 'Download brochure' }] }} />
+        <Block context={context} content={{ component: 'card_list_item', _uid: `asset-list-card-${index}`, title: 'Download brochure', link: { fieldtype: 'multilink', id: '', url: 'https://example.test/brochure.pdf', cached_url: 'https://example.test/brochure.pdf', linktype: 'asset' } }} />
+      </>)}
+      <Block context={navContext} content={{ component: 'card_list_item', _uid: 'asset-drawer-card', title: 'Open details', link: { fieldtype: 'multilink', id: '', url: 'https://example.test/brochure.pdf', cached_url: 'https://example.test/brochure.pdf', linktype: 'asset' }, body: [{ component: 'headline', _uid: 'asset-drawer-body', text: 'Drawer content' }] }} />
+    </div>
+    <div id="card-action-spacing-fixture" hidden>
+      {[false, true].map(linked => <Block context={navContext} content={{ component: 'card_list_item', _uid: `action-spacing-${linked}`, title: 'Card title', description: 'Card description', ...(linked ? { link: { fieldtype: 'multilink', id: '', cached_url: 'https://example.test', linktype: 'url', url: 'https://example.test' } } : {}) }} />)}
+    </div>
+    <div id="flex-wrap-keywords-fixture" style="width:300px;flex-wrap:wrap-reverse">
+      {(['inherit', 'initial', 'revert'] as const).map(wrap => <Block context={navContext} content={{ component: 'flex_row', _uid: `wrap-${wrap}`, flex_wrap: wrap, gap: '3', body: [{ component: 'icon', _uid: `wrap-icon-${wrap}`, icon: { name: 'mdi bed-outline' } }, { component: 'rich_text_editor', _uid: `wrap-text-${wrap}`, body: { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Private bedrooms with room for every student in shared accommodation.' }] }] } }] }} />)}
+      <Block context={navContext} content={{ component: 'flex_row', _uid: 'wrap-custom-override', flex_wrap: 'inherit', styles: [{ component: 'styles', _uid: 'wrap-style', css_properties: [{ component: 'item_key_value', _uid: 'wrap-property', key: 'flex-wrap', value: 'nowrap' }] }] }} />
+    </div>
+    <div id="empty-grid-wrapper-fixture">
+      {[{}, { background: [{ component: 'background' as const, _uid: 'empty-background' }] }, ...['styles', 'styles_mobile', 'styles_tablet', 'styles_hover'].map(key => ({ [key]: [{ component: 'styles' as const, _uid: `empty-${key}` }] }))].map((options, index) => <Block context={navContext} content={{ component: 'row', _uid: `empty-row-${index}`, ...options, body: [{ component: 'column', _uid: `empty-column-${index}`, ...options, body: [{ component: 'headline', _uid: `empty-heading-${index}`, text: 'Empty CMS styles preserve wrapper spacing' }] }] }} />)}
+    </div>
+    <div id="grid-text-spacing-fixture" hidden>
+      <Block context={navContext} content={{ component: 'row', _uid: 'text-spacing-row', body: [false, true].map(stacked => ({ component: 'column' as const, _uid: `text-spacing-${stacked}`, background: [{ component: 'background' as const, _uid: `color-only-${stacked}`, background_color: { rgba: '#fff' } }], ...(stacked ? { align_items: 'center' as const } : {}), body: [{ component: 'headline' as const, _uid: `first-${stacked}`, text: 'First heading' }, { component: 'rich_text_editor' as const, _uid: `middle-${stacked}`, body: { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Middle paragraph' }] }] } }, { component: 'headline' as const, _uid: `last-${stacked}`, text: 'Last heading' }] })) }} />
+    </div>
+    <div id="google-gap-fixture" hidden>
+      {[false, true].map(inline => <GoogleForm context={navContext} content={{ component: 'form', _uid: `zero-gap-${inline}`, fields_gap: '0', inline, submit_button: [{ component: 'button', _uid: `zero-gap-submit-${inline}`, label: 'Zero gap submit' }], form_data: { title: 'Gap fixture', action: '', fvv: 1, fbzx: '', pageHistory: 0, fieldsOrder: {}, fields: [] } }} />)}
+    </div>
+    <div id="menu-props-fixture" hidden>
+      <Block initialOpen context={navContext} content={{ component: 'nav_menu', _uid: 'initial-open-menu', title: 'Initially open menu', elevation: '0', body: [{ component: 'nav_menu_item', _uid: 'initial-open-item', label: 'Initial item' }] }} />
+    </div>
+    <div id="list-layout-override-fixture" hidden>
+      {[true, false].map(disablePagination => <StoryListResults uid={`generated-cards-${disablePagination}`} items={newsItems.map(item => ({ ...item, content: { ...item.content, story_data: { base64: 'fixture-image', width: 800, height: 400 } } }))} layout={[{ component: 'card_list', _uid: 'generated-layout' }]} disablePagination={disablePagination} context={{ ...navContext, components: { card_list: OverrideListLayout } }} />)}
+      <StoryListResults uid="generated-navigation" items={newsItems} layout={[{ component: 'nav_list', _uid: 'nav-layout' }]} context={{ ...navContext, components: { nav_list: OverrideListLayout } }} />
+      <Block context={{ ...navContext, components: { nav_item: OverrideNavItem } }} content={{ component: 'nav_list', _uid: 'custom-nav-items', navigation_item_styles: [{ component: 'headline', _uid: 'nav-item-style', typography: 'subtitle2' }], body: [{ component: 'nav_item', _uid: 'custom-nav-item', name: 'Custom navigation item' }] }} />
+    </div>
+    <div id="collection-override-fixture" hidden>
+      <div id="referenced-default-form"><Block context={navContext} content={{ component: 'form_container', _uid: 'default-form-container', form: referencedForm, additional_fields: [{ component: 'form_hidden_field', _uid: 'default-container-extra', name: 'source', value: 'container' }], success_message: [{ component: 'headline', _uid: 'default-container-success', text: 'Referenced container success' }] }} /></div>
+      <Block context={{ ...navContext, components: { form_builder: OverrideFormBuilder } }} content={{ component: 'form_container', _uid: 'custom-form-container', form: referencedForm, additional_fields: [{ component: 'form_hidden_field', _uid: 'container-extra', name: 'source', value: 'container' }], success_message: [{ component: 'headline', _uid: 'container-success', text: 'Container success' }] }} />
+      <Block context={{ ...navContext, components: { image_list_item: OverrideImageListItem } }} content={{ component: 'image_list', _uid: 'override-image-list', aspect_ratio: '1x1', fit_in_color: '#123456', body: [{ component: 'image_list_item', _uid: 'custom-image-item', label: 'Custom image' }] }} />
+      <Block context={{ ...navContext, components: { accordion_item: OverrideCollectionItem, timeline_item: OverrideCollectionItem } }} content={{ component: 'accordion', _uid: 'override-accordion', variant: 'outlined', body: [{ component: 'accordion_item', _uid: 'custom-accordion' }] }} />
+      <Block context={{ ...navContext, components: { accordion_item: OverrideCollectionItem, timeline_item: OverrideCollectionItem } }} content={{ component: 'timeline', _uid: 'override-timeline', align: 'right', body: [{ component: 'timeline_item', _uid: 'custom-timeline' }] }} />
+      <Block context={{ ...navContext, components: { swiper_item: OverrideCollectionItem, card_list_item: OverrideCollectionItem } }} content={{ component: 'swiper', _uid: 'override-swiper', image_object_fit: 'contain', body: [{ component: 'swiper_item', _uid: 'custom-slide' }] }} />
+      <Block context={{ ...navContext, components: { swiper_item: OverrideCollectionItem, card_list_item: OverrideCollectionItem } }} content={{ component: 'card_list', _uid: 'override-card-list', title_typography: 'headline3', body: [{ component: 'card_list_item', _uid: 'custom-card' }] }} />
+    </div>
+    <div id="swiper-effects-fixture">
+      {(['cards', 'cube', 'coverflow', 'creative', 'fade', 'flip'] as const).map(effect => <Block context={navContext} content={{ component: 'swiper', _uid: `effect-${effect}`, effect, height: '320', slides_per_view: effect === 'fade' ? '1' : '1,2,3', body: [1, 2, 3].map(index => ({ component: 'swiper_item' as const, _uid: `${effect}-slide-${index}`, body: [{ component: 'headline' as const, _uid: `${effect}-heading-${index}`, text: `${effect} slide ${index}` }] })) }} />)}
+    </div>
+    <div id="legacy-slider-props-fixture" style="padding-bottom:80px">
+      <Block context={navContext} content={{ component: 'slider', _uid: 'legacy-controls', disable_transition: true, autoslide: '60000', pause_on_hover: true, property: ['arrows_dark', 'pagination_dark', 'arrows_beside_pagination', 'pagination_below_content', 'pagination_circle'], body: [1, 2, 3].map(index => ({ component: 'section' as const, _uid: `legacy-slide-${index}`, body: [{ component: 'headline' as const, _uid: `legacy-heading-${index}`, text: `Legacy slide ${index}` }] })) }} />
+    </div>
+    <div id="remaining-props-fixture">
+      <Block context={navContext} content={{ component: 'form_textfield', _uid: 'growing-textarea', name: 'message', label: 'Growing message', textarea: true, rows: '2', max_rows: '4' }} />
+      <Block context={navContext} content={{ component: 'swiper', _uid: 'pagination-swiper', max_pagination_bullets: '3', property: ['hide_arrows'], body: Array.from({ length: 8 }, (_, i) => ({ component: 'swiper_item' as const, _uid: `pagination-slide-${i}`, body: [{ component: 'headline' as const, _uid: `pagination-heading-${i}`, text: `Slide ${i}` }] })) }} />
+    </div>
+    <div id="table-theme-fixture">
+      <Block context={{ ...navContext, theme: { ...theme, palette: { ...theme.palette, common: { white: '#fff', black: 'rgb(12, 34, 56)' } } } }} content={{ component: 'table', _uid: 'table-custom-common', variant: 'bordered', body: { thead: ['Theme border'], tbody: [['Cell']] } }} />
+    </div>
+    <div id="page-locale-links-fixture">
+      <Block context={{ ...navContext, page: { ...navContext.page, defaultLocale: 'de', locales: ['de', 'en'] } }} content={{ component: 'button', _uid: 'de-home-button', label: 'German home via page props', link: { fieldtype: 'multilink', id: 'de-home', url: '', linktype: 'story', cached_url: 'de/home' } }} />
+      <Block context={{ ...navContext, page: { ...navContext.page, defaultLocale: 'de', locales: ['de', 'en'] } }} content={{ component: 'card', _uid: 'en-home-card', title: 'English home via page props', link: { fieldtype: 'multilink', id: 'en-home', url: '', linktype: 'story', cached_url: 'en/home' } }} />
+      <RichText context={{ ...navContext, page: { ...navContext.page, defaultLocale: 'de', locales: ['de', 'en'] } }} body={{ type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'German rich link via page props', marks: [{ type: 'link', attrs: { linktype: 'story', href: 'de/home#content' } }] }] }] }} />
+    </div>
+    <div id="missing-svg-fixture">
+      <Block context={navContext} content={{ component: 'image', _uid: 'unavailable-svg', source: 'http://127.0.0.1:1/unavailable.svg', width: '40', height: '40', alt: 'Unavailable illustration' }} />
+      <span>Content after unavailable SVG</span>
+    </div>
+    <div id="rich-text-alignment-fixture">
+      <Block context={navContext} content={{ component: 'rich_text_editor', _uid: 'rich-responsive-align', align: 'right', styles_mobile: [{ component: 'styles', _uid: 'rich-align-mobile', text_align: 'left' }], styles_tablet: [{ component: 'styles', _uid: 'rich-align-tablet', text_align: 'center' }], body: { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Responsive rich text alignment' }] }] } }} />
+    </div>
+    <div id="image-list-sizing-fixture" style="width:240px">
+      {(['crop', 'fit', 'masonry'] as const).map(mode => <div data-image-list-mode={mode}><Block context={navContext} content={{ component: 'image_list', _uid: `image-list-${mode}`, aspect_ratio: '1x1', column_count: '1', fit_in_color: mode === 'fit' ? '#123456' : undefined, masonry: mode === 'masonry', body: [{ component: 'image_list_item', _uid: `image-list-item-${mode}`, source: 'https://a.storyblok.com/f/123/800x400/fixture.jpg', alt: `${mode} layout` }] }} /></div>)}
+    </div>
+    <div id="timeline-theme-fixture" style="color:rgb(10,20,30)">
+      <Block context={navContext} content={{ component: 'timeline', _uid: 'timeline-defaults', card_variant: 'outlined', body: [{ component: 'timeline_item', _uid: 'timeline-grey', title: 'Grey dot' }, { component: 'timeline_item', _uid: 'timeline-outlined', title: 'Outlined dot', dot_variant: 'outlined', dot_color: 'secondary' }] }} />
+      <Block context={{ ...navContext, theme: createCmsTheme({ theme_base: 'dark' }) }} content={{ component: 'timeline', _uid: 'timeline-dark', card_variant: 'outlined', body: [{ component: 'timeline_item', _uid: 'timeline-dark-card', title: 'Dark border' }] }} />
+    </div>
+    <div id="avatar-theme-fixture">
+      <Block context={{ ...navContext, theme: createCmsTheme({ theme_base: 'dark', body_background_color: { rgba: 'rgb(12, 34, 56)' } }) }} content={{ component: 'avatar', _uid: 'dark-avatar', letter: 'D' }} />
+      <Block context={{ ...navContext, theme: createCmsTheme({ theme_base: 'dark' }) }} content={{ component: 'avatar', _uid: 'custom-avatar', letter: 'C', color: { rgba: 'rgb(10, 20, 30)' }, background_color: { rgba: 'rgb(40, 50, 60)' } }} />
+      <Block context={navContext} content={{ component: 'avatar', _uid: 'light-avatar', letter: 'L' }} />
+    </div>
+    <div id="avatar-props-fixture">
+      {(['dense', 'large', 'xlarge'] as const).map(size => <Block context={navContext} content={{ component: 'avatar', _uid: `avatar-${size}`, size, letter: 'A' }} />)}
+      <Block context={navContext} content={{ component: 'avatar', _uid: 'avatar-default', letter: 'A' }} />
+    </div>
+    <div id="headline-counter-fixture">
+      <Block context={navContext} content={{ component: 'headline', _uid: 'countup-fixture', count_start: '2', count_end: '12', count_duration: '0.05', prefix: 'Over', suffix: 'students', animation: 'linear' }} />
+      <Block context={navContext} content={{ component: 'headline', _uid: 'countdown-fixture', countdown_time: '2000-01-01 00:00', countdown_finished: [{ component: 'button', _uid: 'countdown-complete', label: 'Countdown complete' }] }} />
+      <Block context={navContext} content={{ component: 'headline', _uid: 'countdown-active', countdown_time: '2099-01-01 00:00' }} />
+    </div>
+    <div id="nav-list-props-fixture">
+      <Block context={navContext} content={{ component: 'nav_list', _uid: 'nav-props', header: 'Navigation heading', collapse_on_mobile: true, headline_styles: [{ component: 'headline', _uid: 'nav-heading-style', text: 'Unused heading text', text_xs: 'Unused mobile heading', typography: 'headline5' }], navigation_item_styles: [{ component: 'headline', _uid: 'nav-item-style', text_xs: 'Unused mobile link', typography: 'body2' }], body: [{ component: 'nav_item', _uid: 'nav-props-item', name: 'Navigation destination', link: { fieldtype: 'multilink', linktype: 'url', url: '#navigation-target', cached_url: '#navigation-target', id: '' } }] }} />
+      <Headline theme={theme} content={{ component: 'headline', _uid: 'headline-align', text: 'Responsive headline alignment', align: 'right', styles_mobile: [{ component: 'styles', _uid: 'headline-align-mobile', text_align: 'left' }], styles_tablet: [{ component: 'styles', _uid: 'headline-align-tablet', text_align: 'center' }] }} />
+    </div>
+    <div id="button-props-fixture">
+      <Button theme={theme} content={{ component: 'button', _uid: 'custom-raised', label: 'Custom raised', variant: 'raised', align: 'flex-start', custom_color: { rgba: 'rgb(12, 34, 56)' }, image: '/favicon.ico', image_size: 'large' }} />
+      <Button theme={theme} content={{ component: 'button', _uid: 'custom-outline', label: 'Custom outlined', variant: 'outlined', custom_color: { rgba: 'rgb(12, 34, 56)' } }} />
+      <Button theme={theme} content={{ component: 'button', _uid: 'custom-fab', label: 'Custom floating', variant: 'fab', custom_color: { rgba: 'rgb(12, 34, 56)' } }} />
+      <Button theme={theme} content={{ component: 'button', _uid: 'custom-override', label: 'Custom overridden', variant: 'raised', custom_color: { rgba: 'rgb(12, 34, 56)' }, styles: [{ component: 'styles', _uid: 'button-override', background_color: { rgba: 'rgb(65, 43, 21)' } }], styles_mobile: [{ component: 'styles', _uid: 'button-mobile', background_color: { rgba: 'rgb(21, 43, 65)' } }], styles_tablet: [{ component: 'styles', _uid: 'button-tablet', background_color: { rgba: 'rgb(43, 65, 21)' } }], styles_hover: [{ component: 'styles', _uid: 'button-hover', background_color: { rgba: 'rgb(99, 88, 77)' } }] }} />
+    </div>
+    <Html content={{ component: 'html', _uid: 'html', body: '<h1 id="native-html-heading">Native HTML heading</h1><p>Native Astro component fixture. Consumer rendering is still in progress.</p>' }} theme={theme} />
+    <Section content={{ component: 'section', _uid: 'section', max_width: 'lg', section_identifier: 'grid-geometry-fixture' }} theme={theme}>
+      <GridRow content={{ component: 'row', _uid: 'row' }} theme={theme}>
+        <GridColumn content={{ component: 'column', _uid: 'col1', width_general: '6' }} theme={theme}><p>First column</p></GridColumn>
+        <GridColumn content={{ component: 'column', _uid: 'col2', width_general: '6' }} theme={theme}><p>Second column</p></GridColumn>
+      </GridRow>
+    </Section>
+    <Block context={{ theme, page: {}, preview: false }} content={{ component: 'flex_row', _uid: 'divider-fixture', column_mobile_only: true, divider: [{ component: 'divider', _uid: 'divider', thickness: '3', color: { rgba: 'rgb(255, 0, 0)' } }], body: [{ component: 'headline', _uid: 'before', text: 'Before' }, { component: 'headline', _uid: 'after', text: 'After' }] }} />
+    <Block context={{ theme, page: {}, preview: false }} content={{ component: 'tabs', _uid: 'tabs-fixture', centered: true, vertical_tabs: true, mobile_breakpoint: 'sm', tabs_width: '3', content_width: '9', dynamic_height: true, body: [{ component: 'tabs_item', _uid: 'tab1', title: 'First tab', body: [{ component: 'headline', _uid: 'panel1', text: 'First panel' }] }, { component: 'tabs_item', _uid: 'tab2', title: 'Second tab', body: [{ component: 'headline', _uid: 'panel2', text: 'Second panel' }] }] }} />
+    <GoogleForm context={{ theme, page: {}, preview: false }} content={{ component: 'form', _uid: 'google-fixture', api: 'fixture', error_msg_required: 'Please complete this field', submit_button: [{ component: 'button', _uid: 'submit', label: 'Send fixture' }], form_data: { title: 'Test form', action: 'test-action', fvv: 1, fbzx: '', pageHistory: 0, fieldsOrder: {}, fields: [{ type: 'SHORT_ANSWER', id: '1', label: 'Your name', required: true }, { type: 'CHECKBOX', id: '2', label: 'Interests', required: true, options: [{ label: 'A & B' }, { label: 'C' }] }, { type: 'DATE', id: '3', label: 'Start date', required: true }] } }} />
+    <Block context={{ theme, page: {}, preview: false }} content={{ component: 'form_builder', _uid: 'builder-fixture', endpoint: '/fixture-submit', additional_fields: [{ component: 'form_hidden_field', _uid: 'hidden', name: 'count', value: '12', is_number: true }], fields: [{ component: 'form_textfield', _uid: 'name', name: 'name', label: 'Builder name', required: true }, { component: 'form_select', _uid: 'choices', name: 'choices', label: 'Choices', type: 'checkbox', required: true, options: [{ component: 'form_select_option', _uid: 'a', label: 'Choice A', value: 'a' }, { component: 'form_select_option', _uid: 'b', label: 'Choice B', value: 'b' }] }, { component: 'form_checkbox', _uid: 'consent', name: 'consent', label: 'Accept', required: true }], submit: [{ component: 'button', _uid: 'send-builder', label: 'Send builder' }] }} />
+    <div hidden><Block context={navContext} content={{ component: 'list_search_autocomplete', _uid: 'hidden-search-fixture', label: 'Hidden search fixture' }} /></div>
+    <Block context={navContext} content={{ component: 'list_search_autocomplete', _uid: 'search-fixture', label: 'Search fixture', placeholder: 'Find pages', mobile_breakpoint: 'sm' }} />
+    <Block context={navContext} content={{ component: 'snackbar', _uid: 'snackbar-fixture', elevation: '0', cookie_name: 'astro-fixture-dismissed', descriptions: [{ component: 'headline', _uid: 'notice-title', text: 'Fixture notice' }], close_action: [{ component: 'button', _uid: 'notice-accept', label: 'Dismiss fixture notice' }] }} />
+    <Block context={navContext} content={{ component: 'list_search_field', _uid: 'filter-search', label: 'Filter fixture' }} />
+    <div id="category-appearance-fixture">
+      {(['standard', 'filled', 'outlined'] as const).map(variant => <Block context={navContext} content={{ ...categoryFixture, _uid: `category-${variant}`, display: 'autocomplete_checkbox', autocomplete_variant: variant, autocomplete_label: `${variant} category filter`, autocomplete_placeholder: 'Find a category', category_box_data: categoryFixture.category_box_data?.map(category => ({ ...category, content: { ...category.content, name: `Appearance ${category.content.name}` } })) }} />)}
+    </div>
+    <Block context={navContext} content={categoryFixture} />
+    <Block context={navContext} content={filterWidget} />
+    <Block context={navContext} content={{ component: 'image_list', _uid: 'gallery-fixture', enable_lightbox: true, aspect_ratio: '1x1', column_count: '2', body: [{ component: 'image_list_item', _uid: 'gallery-one', label: 'First gallery image' }, { component: 'image_list_item', _uid: 'gallery-two', label: 'Second gallery image' }] }} />
+    <Block context={navContext} content={{ component: 'section_parallax', _uid: 'parallax-fixture', height: '50', elements: [{ component: 'parallax_item', _uid: 'parallax-layer', speed: '5', children: [{ component: 'headline', _uid: 'layer-text', text: 'Animated layer' }] }] }} />
+    {(['fade', 'slide', 'grow', 'zoom', 'collapse'] as const).map(type => <Block context={navContext} content={{ component: 'motion', _uid: `motion-${type}`, type, duration: '100', delay: '50', body: [{ component: 'headline', _uid: `motion-text-${type}`, text: `${type} animation fixture` }] }} />)}
+    <Block context={navContext} content={{ component: 'player', _uid: 'player-fixture', url: '/fixture-video.mp4', ratio: '1x1,16x9', light: true, fallback_image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', controls: true, muted: true, playsinline: true, loop: true, toggle_play_on_hover: true }} />
+    <Block context={navContext} content={{ component: 'section_video_bg', _uid: 'video-section-fixture', url: '/fixture-video.mp4', height: '50', video_ratio: '16x9', property: ['autoplay', 'muted', 'loop', 'playsinline'], body: [{ component: 'row', _uid: 'video-row', body: [{ component: 'column', _uid: 'video-column', body: [{ component: 'headline', _uid: 'video-title', text: 'Video section content' }] }] }] }} />
+    <Block context={navContext} content={{ component: 'dialog', _uid: 'dialog-fixture', title: 'Fixture dialog', fullscreen: 'sm', trigger: [{ component: 'button', _uid: 'dialog-trigger', label: 'Open fixture dialog' }], body: [{ component: 'dialog', _uid: 'nested-dialog-fixture', title: 'Nested fixture dialog', trigger: [{ component: 'button', _uid: 'nested-dialog-trigger', label: 'Open nested dialog' }], body: [{ component: 'headline', _uid: 'nested-dialog-content', text: 'Nested dialog content' }] }, { component: 'html', _uid: 'dialog-input', body: '<label>Dialog value<input aria-label="Dialog value" value="Initial" /></label>' }, { component: 'tabs', _uid: 'dialog-tabs', body: [{ component: 'tabs_item', _uid: 'dialog-tab-a', title: 'Dialog first tab', body: [{ component: 'headline', _uid: 'dialog-panel-a', text: 'Dialog first panel' }] }, { component: 'tabs_item', _uid: 'dialog-tab-b', title: 'Dialog second tab', body: [{ component: 'headline', _uid: 'dialog-panel-b', text: 'Dialog second panel' }] }] }] }} />
+    <Block context={navContext} content={{ component: 'dialog', _uid: 'paginated-card-dialog', title: 'Paginated card dialog', trigger: [{ component: 'button', _uid: 'paginated-card-trigger', label: 'Open paginated cards' }], body: [{ component: 'card_list', _uid: 'dialog-card-list', column_count: '1', column_count_phone: '1', body: Array.from({ length: 31 }, (_, index) => ({ component: 'card_list_item' as const, _uid: `dialog-card-${index}`, title: `Dialog card ${index + 1}`, description: 'Pagination fixture content' })) }] }} />
+    <Block context={navContext} content={{ component: 'dialog', _uid: 'locked-dialog-fixture', title: 'Locked fixture dialog', prevent_click_outside: true, trigger: [{ component: 'button', _uid: 'locked-trigger', label: 'Open locked dialog' }], body: [{ component: 'headline', _uid: 'locked-body', text: 'Explicit close only' }] }} />
+    <Block context={navContext} content={{ component: 'accordion', _uid: 'exclusive-accordion', restrict_one: true, square: true, variant: 'outlined', use_plus: true, body: [{ component: 'accordion_item', _uid: 'accordion-a', title: 'Exclusive first', body: [{ component: 'headline', _uid: 'accordion-a-body', text: 'First accordion content' }] }, { component: 'accordion_item', _uid: 'accordion-b', title: 'Exclusive second', body: [{ component: 'headline', _uid: 'accordion-b-body', text: 'Second accordion content' }] }] }} />
+    <Block context={navContext} content={{ component: 'accordion_item', _uid: 'standalone-accordion', title: 'Standalone accordion', body: [{ component: 'headline', _uid: 'standalone-body', text: 'Standalone content' }] }} />
+    <Block context={navContext} content={{ component: 'swiper_item', _uid: 'standalone-slide', body: [{ component: 'headline', _uid: 'standalone-slide-title', text: 'Standalone slide content' }] }} />
+    <div id="standalone-slide-image" style="position:relative;width:300px;height:150px"><Block context={navContext} content={{ component: 'swiper_item', _uid: 'standalone-image', image: { id: 1, fieldtype: 'asset', filename: 'https://a.storyblok.com/f/123/800x400/fixture.jpg', alt: 'Slide image fixture', name: '', title: '', focus: '', copyright: '' } }} /></div>
+    <Block context={navContext} content={{ component: 'card_list_item', _uid: 'drawer-card', title: 'Drawer card fixture', action_width: '480px', link: { fieldtype: 'multilink', linktype: 'url', url: '/must-not-navigate', cached_url: '/must-not-navigate', id: '' }, action_headline: [{ component: 'headline', _uid: 'drawer-card-heading', text: 'Drawer heading' }], body: [{ component: 'headline', _uid: 'drawer-card-body', text: 'Drawer body content' }] }} />
+    <Block context={navContext} content={{ component: 'card_list_item', _uid: 'linked-card', title: 'Linked card fixture', link: { fieldtype: 'multilink', linktype: 'url', url: '#linked-card-target', cached_url: '#linked-card-target', id: '' } }} />
+    <Block context={navContext} content={{ component: 'card_list', _uid: 'shadow-fixture', shadow_effect: 'soft', elevation: '8', body: [{ component: 'card_list_item', _uid: 'shadow-card', title: 'Soft shadow fixture' }] }} />
+    <Block context={navContext} content={{ component: 'news', _uid: 'news-detail-fixture', title: 'News detail fixture', description: 'News introduction', published: '2026-11-02 10:00', date_format: [{ component: 'date_time_format', _uid: 'news-date', dateStyle: 'long' }], content: { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Full news article content' }] }] } }} />
+    <Block context={navContext} content={{ component: 'gallery', _uid: 'moving-gallery', image_height: '100', space_between_images: '12', space_between_rows: '16', image_style: [{ component: 'styles', _uid: 'gallery-style', border_radius: '10px' }], content: [{ component: 'gallery_row', _uid: 'gallery-left', scroll_to_left: true, content: [{ component: 'image_core', _uid: 'left-image', url: 'https://a.storyblok.com/f/123/800x400/fixture.jpg', alt: 'Moving gallery left' }] }, { component: 'gallery_row', _uid: 'gallery-right', content: [{ component: 'image_core', _uid: 'right-image', url: 'https://a.storyblok.com/f/123/800x400/fixture.jpg', alt: 'Moving gallery right' }] }] }} />
+    <div id="disabled-instagram-fixture"><Block context={navContext} content={{ component: 'instagram_post', _uid: 'disabled-post', url: 'https://www.instagram.com/p/fixture/' }} /><Block context={navContext} content={{ component: 'instagram_list', _uid: 'disabled-list', username: 'fixture' }} /></div>
+    <Block context={navContext} content={{ component: 'event', _uid: 'event-detail-fixture', title: 'Event detail fixture', start: '2026-11-01 10:00', date_format: [{ component: 'date_time_format', _uid: 'event-date', dateStyle: 'long' }], multiple_event_dates: [{ component: 'event_date', _uid: 'event-first', start: '2026-11-02 10:00', all_day: true }, { component: 'event_date', _uid: 'event-second', start: '2026-11-03 10:00', all_day: true }], content: { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Full event details' }] }] }, body: [{ component: 'headline', _uid: 'event-extra', text: 'Additional event block' }] }} />
+    <Block context={navContext} content={{ component: 'timeline', _uid: 'timeline-fixture', confetti: [{ component: 'confetti', _uid: 'timeline-reward', type: 'confetti', elementCount: '5' }], show_last_line: true, connector_color: { rgba: 'rgb(200, 200, 200)' }, connector_color_scroll: { rgba: 'rgb(255, 0, 0)' }, body: [{ component: 'timeline_item', _uid: 'timeline-first', dot_variant: 'outlined', dot_color: 'secondary', title: 'First timeline card', opposite_body: [{ component: 'headline', _uid: 'timeline-date-one', text: 'First timeline date' }], body: [{ component: 'headline', _uid: 'timeline-body-one', text: 'First timeline body' }] }, { component: 'timeline_item', _uid: 'timeline-second', title: 'Second timeline card', dot_variant: 'naked', opposite_body: [{ component: 'headline', _uid: 'timeline-date-two', text: 'Second timeline date' }], body: [{ component: 'headline', _uid: 'timeline-body-two', text: 'Second timeline body' }] }] }} />
+    <div aria-hidden="true" style="height:600px" />
+    <StoryListResults uid="news-results" items={newsItems} layout={[{ component: 'news_list', _uid: 'news-layout', read_more_label: [{ component: 'headline', _uid: 'read-more', text: 'Read fixture news' }] }]} context={navContext} />
+    {Astro.params.fixture === '__jobs' && <AuslandszeitList context={navContext} content={{ _uid: 'jobs', component: 'auslandszeit_list_widget', auslandszeit_list_widget_data: { jobs: [
+      { id: 1, title: 'Marine internship', category: 'Research', address_string: 'Denpasar', country_string: 'Indonesia', description: 'Coral conservation', type: 'Internship', duration: '4 weeks', start_date: 'June', url: 'https://example.test/marine', thumbnail_urls: { medium_large: ['https://a.storyblok.com/f/123/800x400/fixture.jpg'] } },
+      { id: 2, title: 'Teaching placement', category: 'Education', address_string: 'Berlin', country_string: 'Germany', description: 'Language classes', url: 'https://example.test/teaching', thumbnail_urls: { medium_large: [] } },
+      { id: 3, title: 'Hospitality', category: 'Tourism', address_string: 'Paris', country_string: 'France', description: 'Guest services', url: 'https://example.test/hospitality', thumbnail_urls: { medium_large: [] } }
+    ] as unknown as AuslandszeitData[] } }} />}
+    {Astro.params.fixture?.startsWith('__travel_') && <TravelSearchBox context={{ ...navContext, page: { ...navContext.page, locale: Astro.params.fixture === '__travel_de' ? 'de' : 'en' } }} />}
+    {Astro.params.fixture?.startsWith('__travel_') && <TravelList content={{ _uid: 'travel-list', component: 'travels_list_widget', is_search: true, travels_list_widget_data: [{ ...travelFixture, id: 42, slug: 'trip-a', city_id: 1 }, { ...travelFixture, id: 43, slug: 'trip-b', title: 'Other journey', city_id: 2 }] as unknown as AllTravelsQuery['travel'] }} context={{ ...navContext, page: { ...navContext.page, locale: Astro.params.fixture === '__travel_de' ? 'de' : 'en' } }} />}
+    {Astro.params.fixture?.startsWith('__travel_') && <TravelDetail content={{ ...travelFixture, language_key: Astro.params.fixture === '__travel_de' ? 'DE' as Travel['language_key'] : undefined }} context={navContext} />}
+    {Astro.params.fixture === '__story_list' && <ListStories content={storyListFixture} context={navContext} />}
+    {Astro.params.fixture === '__story_props' && <>
+      <ListStories context={{ ...navContext, components: { nav_item: OverrideNavItem } }} content={{ ...storyListFixture, _uid: 'custom-navigation-results', layout: [{ component: 'nav_list', _uid: 'custom-navigation-layout', navigation_item_styles: [{ component: 'headline', _uid: 'fetched-nav-style', typography: 'subtitle2' }] }] }} />
+      {[undefined, 'xsmall', 'small', 'medium', 'large', 'xlarge'].map((size, index) => <ListStories context={navContext} content={{ ...storyListFixture, _uid: `avatar-size-${index}`, layout: [{ component: 'lists', _uid: `avatar-layout-${index}`, image_size: size }], list_stories_data: { ...storyListFixture.list_stories_data!, data: { stories: newsItems.map(item => ({ ...item, content: { ...item.content, preview_image: 'https://a.storyblok.com/f/123/1200x800/fixture-image.jpg' } })) } } } as LmListStoriesProps['content']} />)}
+      {[0, '0'].map((limit, index) => <ListStories context={navContext} content={{ ...storyListFixture, _uid: `description-limit-${index}`, layout: [{ component: 'card_list', _uid: `limit-layout-${index}`, description_max_character: limit }] } as unknown as LmListStoriesProps['content']} />)}
+    </>}
+    {Astro.params.fixture === '__story_links' && <ListStories content={{ ...storyListFixture, layout: [{ component: 'news_list', _uid: 'rich-list-layout' }] }} context={{ ...navContext, linkRenderer: OverrideLink }} />}
+    {Astro.params.fixture === '__navigation' && <>
+     <FastSpringProvider config={{ component: 'ecommerce_fastspring_config', _uid: 'fastspring-config', url: 'https://example.test/fastspring-fixture.js', data_storefront: 'fixture-store' }} />
+     <Block context={navContext} content={{ component: 'ecommerce_checkout', _uid: 'checkout-fixture', trigger: [{ component: 'button', _uid: 'buy-fixture', label: 'Buy fixture for {price}' }], integration: [{ component: 'ecommerce_fastspring_product', _uid: 'product-fixture', path: 'fixture-course' }] }} />
+     <Block context={navContext} content={{ component: 'ecommerce_checkout', _uid: 'text-price-fixture', trigger: [{ component: 'headline', _uid: 'price-fixture', text: 'Total fixture {total}' }], integration: [{ component: 'ecommerce_fastspring_product', _uid: 'text-product', path: 'fixture-course', text_only: true }] }} />
+     <Block context={navContext} content={{ component: 'chat_tawkto', _uid: 'tawk-fixture', account: 'fixture-account', disable_lazy: true }} />
+     <Block context={navContext} content={{ component: 'chat_facebook', _uid: 'facebook-fixture', page_id: 'fixture-page', disable_lazy: true }} />
+     <Block context={navContext} content={{ component: 'hubspot_form', _uid: 'hubspot-one', region: 'eu1', portal_id: 'fixture-portal', form_id: 'fixture-form' }} />
+     <Block context={navContext} content={{ component: 'hubspot_form', _uid: 'hubspot-two', region: 'na1', portal_id: 'second-portal', form_id: 'second-form' }} />
+     <Block context={navContext} content={{ component: 'hubspot_meeting', _uid: 'hubspot-meeting', meeting_name: 'fixture/team' }} />
+     <Block context={navContext} content={{ component: 'dialog', _uid: 'hubspot-dialog', title: 'Embedded form', trigger: [{ component: 'button', _uid: 'hubspot-trigger', label: 'Open embedded form' }], body: [{ component: 'hubspot_form', _uid: 'hubspot-modal', region: 'eu1', portal_id: 'modal-portal', form_id: 'modal-form' }] }} />
+     <Block context={navContext} content={{ component: 'section', _uid: 'speech-section', styles: [{ component: 'styles', _uid: 'speech-space', padding: '40px 24px 140px' }], body: [{ component: 'headline', _uid: 'spoken-heading', text: 'Read this heading', enable_speech: true }, { component: 'rich_text_editor', _uid: 'spoken-text', enable_speech: true, body: { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Read this paragraph' }] }] } }, { component: 'button_speech_text', _uid: 'speech-fixture' }] }} />
+     <Block context={navContext} content={{ component: 'bottom_navigation', _uid: 'bottom-fixture', stick_to_bottom: true, styles: [{ component: 'styles', _uid: 'nav-desktop', height: '70px' }], styles_mobile: [{ component: 'styles', _uid: 'nav-mobile', height: '60px' }], styles_tablet: [{ component: 'styles', _uid: 'nav-tablet', height: '65px' }], body: [{ component: 'bottom_navigation_item', _uid: 'nav-internal', link: { fieldtype: 'multilink', linktype: 'url', url: '#navigation-target', cached_url: '#navigation-target', id: '' }, label: [{ component: 'headline', _uid: 'internal-label', text: 'Bottom internal' }] }, { component: 'bottom_navigation_item', _uid: 'nav-external', open_external: true, link: { fieldtype: 'multilink', linktype: 'url', url: 'https://example.com/', cached_url: 'https://example.com/', id: '' }, label: [{ component: 'headline', _uid: 'external-label', text: 'Bottom external' }] }] }} />
+     <Block context={navContext} content={{ component: 'chat_whatsapp', _uid: 'whatsapp-fixture', phone_number: '+49 (123) 456', tooltip: 'Chat fixture' }} />
+    </>}
+    <ShopifyProductDescription uid="fixture-product" context={navContext} config={{ component: 'ecommerce_shopify_config', _uid: 'shopify-fixture', product_description_trigger: [{ component: 'button', _uid: 'description-button', label: 'About the fixture product', variant: 'outlined', link: { fieldtype: 'multilink', linktype: 'url', url: 'https://example.test/should-not-navigate', cached_url: '', id: '' } }] }} descriptionHtml={'<h2>Product details</h2><p>Preserved <strong>description</strong></p><script>window.__unsafeDescription = true</script><a href="javascript:alert(1)">Unsafe link</a><img src="https://example.test/product.jpg" alt="Product detail" onerror="window.__unsafeDescription = true">'} />
+    <Block context={shopifyFixtureContext} content={{ component: 'ecommerce_shopify_checkout', _uid: 'shopify-product-fixture', handle: 'fixture-product' }} />
+    <EventCalendar context={navContext} content={{ component: 'event_calendar', _uid: 'calendar-fixture', scroll_to_time: '9', event_calendar_data: [{ content: { component: 'event', _uid: 'calendar-event', title: 'Native calendar event', start: calendarCmsDate(calendarStart), end: calendarCmsDate(calendarEnd), background_color: { rgba: 'rgb(120, 40, 80)' }, color: { rgba: 'rgb(255, 255, 255)' }, body: [{ component: 'headline', _uid: 'calendar-detail', text: 'Calendar event detail body' }] } }, { content: { component: 'event', _uid: 'calendar-expired', title: 'Expired calendar event', start: calendarCmsDate(calendarStart), end: calendarCmsDate(calendarEnd), expire_event_date: '2000-01-01' } }] }} />
+    <div aria-hidden="true" style="height:100px"></div>
+  </main><Drawers context={navContext} /><ShopifyCart context={shopifyFixtureContext} /></body>
+</html>

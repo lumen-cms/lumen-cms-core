@@ -1,0 +1,7 @@
+---
+import type { HeadlineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../../lib/context'
+interface Props { content: HeadlineStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+---
+<h3 data-fixture-renderer="override" data-preview={context.preview}><slot>{content.text}</slot></h3>

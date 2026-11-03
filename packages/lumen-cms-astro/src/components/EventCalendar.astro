@@ -1,0 +1,48 @@
+---
+import type { EventCalendarStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { CalendarResource } from 'lumen-cms-shared/calendar'
+import type { RenderContext } from '../lib/context'
+import Event from './Event.astro'
+import 'fullcalendar/skeleton.css'
+import 'fullcalendar/themes/monarch/theme.css'
+import 'fullcalendar/themes/monarch/palettes/blue.css'
+interface Props { content: EventCalendarStoryblok & { event_calendar_data?: { content: CalendarResource }[] }; context: RenderContext }
+const { content, context } = Astro.props
+const stories = content.event_calendar_data || []
+const scope = `calendar-${content._uid}`
+const resources = [...new Map(stories.map(story => [story.content._uid, story.content])).values()]
+---
+<div class="lm-calendar" style={{ '--fc-monarch-background': context.theme.palette.background.paper, '--fc-monarch-foreground': context.theme.palette.text.primary, '--fc-monarch-primary': context.theme.palette.primary.main, '--fc-monarch-primary-foreground': context.theme.palette.primary.contrastText }} data-lm-calendar={JSON.stringify({ language: content.language, view: content.view, views: content.views, scroll_to_time: content.scroll_to_time, stories, scope })}>
+ <div class="lm-calendar-toolbar">
+  <span data-calendar-label aria-live="polite" />
+  <div class="lm-calendar-controls">
+   <button type="button" class="btn btn-ghost btn-circle" data-calendar-today aria-label="Heute">▣</button>
+   <button type="button" class="btn btn-ghost btn-circle" data-calendar-prev aria-label="vorherige">‹</button>
+   <button type="button" class="btn btn-ghost btn-circle" data-calendar-next aria-label="nächste">›</button>
+   <select class="select select-ghost" data-calendar-view aria-label="Kalenderansicht" />
+  </div>
+ </div>
+ <div class="lm-calendar-body" data-calendar-body />
+</div>
+{resources.map(resource => <template id={`${scope}-${resource._uid}-template`}>
+ <dialog id={`${scope}-${resource._uid}`} class="lm-dialog lm-dialog-full-xl" aria-label={resource.title || 'Event'}>
+  <div style="display:flex;justify-content:flex-end;padding:16px 24px"><button type="button" class="btn btn-ghost btn-circle" data-dialog-close aria-label="Close dialog">×</button></div>
+  <div style="overflow-y:auto"><Event content={resource} context={context} /></div>
+ </dialog>
+</template>)}
+<style is:global>
+ .lm-calendar [hidden] { display:none; }
+ .lm-calendar { height:500px; width:100%; display:flex; flex-direction:column; }
+ .lm-calendar-toolbar { display:flex; align-items:center; padding:8px 0; gap:8px; }
+ .lm-calendar-controls { display:flex; align-items:center; margin-left:auto; }
+ .lm-calendar-controls select { width:auto; }
+ .lm-calendar-body { flex:1; min-height:0; }
+ @media(max-width:599.95px) { .lm-calendar-toolbar { flex-wrap:wrap; } .lm-calendar-controls { margin-left:0; } }
+</style>
+<script>
+ import { initializeDeferred } from '../client/deferred'
+ const initializeCalendars = () => initializeDeferred('[data-lm-calendar]', () => import('../client/calendar'))
+ initializeCalendars()
+ document.addEventListener('astro:page-load', initializeCalendars)
+ document.addEventListener('lumen:content-mounted', initializeCalendars)
+</script>

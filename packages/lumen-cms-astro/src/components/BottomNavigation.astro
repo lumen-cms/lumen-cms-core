@@ -1,0 +1,24 @@
+---
+import CmsAnchor from './CmsAnchor.astro'
+import type { BottomNavigationStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { blockStyles } from '../lib/blockStyles'
+import { getLinkAttrs, isValidLink, type LinkType } from '../lib/links'
+import Block from './Block.astro'
+interface Props { content: BottomNavigationStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const { className, css } = blockStyles(content, context.theme)
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+<nav class:list={['lm-bottom-navigation', 'MuiBottomNavigation-root', className, { 'lm-bottom-fixed': content.stick_to_bottom }]} style={{ '--lm-nav-secondary': context.theme.palette.text.secondary }}>
+ {content.body?.map(item => {
+  const attrs = isValidLink(item.link as LinkType) ? getLinkAttrs(item.link as LinkType, { openExternal: !!item.open_external }, context?.page) : {}
+  const Tag = attrs.href ? CmsAnchor : 'button'
+  // The legacy renderer reads this nested flag, not the schema's top-level show_label.
+  const hidden = (item.content as { show_label?: boolean } | undefined)?.show_label === false
+  return <Tag {...(Tag === CmsAnchor ? { context } : {})} {...attrs} type={Tag === 'button' ? 'button' : undefined} class:list={['lm-bottom-action', 'MuiBottomNavigationAction-root', { 'lm-bottom-icon-only': hidden }]}>
+   {item.icon?.[0] && <Block content={item.icon[0]} context={context} />}
+   <span class="lm-bottom-label MuiBottomNavigationAction-label">{item.label?.[0] && <Block content={item.label[0]} context={context} />}</span>
+  </Tag>
+ })}
+</nav>

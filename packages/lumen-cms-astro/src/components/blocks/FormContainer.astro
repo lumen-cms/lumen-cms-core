@@ -1,0 +1,7 @@
+---
+import type { BlockProps } from '../../lib/blockProps'
+import Block from '../Block.astro'
+interface Props extends Omit<BlockProps, 'content'> { content: Extract<BlockProps['content'], { component: 'form_container' }> }
+const { content, context } = Astro.props
+---
+{typeof content.form === 'object' && content.form?.content && <Block content={content.form.content} context={context} additional_fields={content.additional_fields} success_message={content.success_message} />}

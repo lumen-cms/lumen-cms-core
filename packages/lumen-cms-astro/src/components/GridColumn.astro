@@ -1,0 +1,24 @@
+---
+import type { ColumnStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { CmsTheme } from 'lumen-cms-shared/theme'
+import { generateBackgroundStyles, backgroundShadowClass } from 'lumen-cms-shared/background'
+import { blockStyles, columnStyles } from '../lib/blockStyles'
+interface Props { content: ColumnStoryblok; theme: CmsTheme; direction?: string }
+const { content, theme, direction } = Astro.props
+const { className, css } = blockStyles(content, theme)
+const { className: sizeClass, css: sizing } = columnStyles(content)
+const background = content.background?.[0]
+const shadowClass = backgroundShadowClass(background)
+const style = generateBackgroundStyles({ background, theme })
+// Empty CMS background/style blocks still create the legacy padded wrapper.
+const wrapped = !!(background || content.styles?.[0] || content.styles_mobile?.[0] || content.styles_tablet?.[0] || content.styles_hover?.[0])
+const stacked = !['column', 'column-reverse'].includes(direction || '') && !!(content.justify || content.align_content || content.align_items)
+---
+{!(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={`${sizing}${css}`} />}
+<div class:list={['MuiGrid2-root', 'lm-grid-column', sizeClass, { 'lm-column__bg-image': !!background?.image }]}>
+ {wrapped ? <div class:list={['lm-grid-column__wrap', className, shadowClass, background?.classNames?.values]} style={style}>
+   <slot name="background" />
+   {stacked ? <div class="lm-column-stack__root" style={{ justifyContent: content.justify || undefined, alignItems: content.align_items || undefined, alignContent: content.align_content || undefined }}><slot /></div> : <slot />}
+ </div> : stacked ? <div class="lm-column-stack__root" style={{ justifyContent: content.justify || undefined, alignItems: content.align_items || undefined, alignContent: content.align_content || undefined }}><slot /></div> : <slot />}
+</div>
+

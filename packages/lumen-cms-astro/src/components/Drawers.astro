@@ -1,0 +1,84 @@
+---
+import type { StoryblokContent } from 'lumen-cms-shared/core/typings/storyblok-registry'
+import type { RenderContext } from '../lib/context'
+import { getUidsOfSlug } from 'lumen-cms-shared/core/components/layout/drawer/getUidsOfSlug'
+import { generateBackgroundStyles, backgroundShadowClass } from 'lumen-cms-shared/background'
+import DrawerItem from './DrawerItem.astro'
+import Background from './Background.astro'
+import Block from './Block.astro'
+import ToolbarLogo from './ToolbarLogo.astro'
+interface Props { context: RenderContext }
+const { context } = Astro.props
+const settings = context.page.settings!
+const page = context.page.page
+const below = settings.drawer_below_toolbar || settings.drawer_below_toolbar_xs
+const background = settings.drawer_background?.[0]
+let items: StoryblokContent[] = settings.drawer_body?.length ? settings.drawer_body : settings.toolbar || []
+if (!settings.drawer_body?.length && settings.multi_toolbar?.length) items = settings.multi_toolbar.flatMap(row => row.body?.flatMap(section => section.body?.filter(item => ['toolbar_search', 'button', 'nav_menu'].includes(item.component)) || []) || [])
+const openedPath = getUidsOfSlug(items, context.page.slug)
+const breakpoints = { xs: 0, sm: 600, md: 900, lg: 1280, xl: 1920 }
+const system = settings.multi_toolbar?.[0]
+const systemHeight = system?.is_system_bar ? Number(system.height || 40) : 0
+---
+<div data-lm-drawers data-desktop-variant={settings.drawer_below_toolbar ? 'persistent' : settings.drawer_variant || 'temporary'} data-mobile-variant={settings.drawer_below_toolbar_xs ? 'persistent' : 'temporary'} data-left-breakpoint={breakpoints[settings.mobile_nav_breakpoint || 'sm']} data-right-breakpoint={breakpoints[page?.mobile_breakpoint || 'sm']} data-below-toolbar={!!below} style={{ '--lm-left-width': `${settings.drawer_width || 285}px`, '--lm-right-width': `${page?.right_drawer_width || 254}px`, '--lm-system-space': `${systemHeight}px`, '--lm-header-expanded': `${settings.toolbar_main_height ? Math.round(Number(settings.toolbar_main_height) * 1.15) : 64}px` }}>
+ <dialog id="lm-left-drawer" aria-label="Site navigation" class:list={['lm-drawer', 'lm-left-drawer', backgroundShadowClass(background), background?.classNames?.values, { 'lm-drawer-below': below, 'lm-drawer-full-mobile': settings.drawer_full_width_mobile }]} style={generateBackgroundStyles({ background, theme: context.theme })}>
+  <Background content={background} />
+  <div class="lm-drawer-content">
+   {below && <div class="lm-content-space" />}
+   {!settings.drawer_body?.length && !below && <div class="lm-drawer-brand"><ToolbarLogo preload={false} quality={75} context={{ ...context, page: { ...context.page, settings: { ...settings, toolbar_main_height: undefined, website_logo_xs: undefined, website_logo_invert: undefined, website_logo_invert_xs: undefined } } }} />{settings.website_slogan}</div>}
+   {items.map(item => <DrawerItem content={item} context={context} openedPath={openedPath} />)}
+  </div>
+ </dialog>
+ {page?.right_body?.length && <dialog id="lm-right-drawer" aria-label="Page navigation" class="lm-drawer lm-right-drawer"><div class="lm-content-space" />{page.right_body.map(child => <Block content={child} context={context} />)}</dialog>}
+</div>
+<script>
+ function setupDrawers() {
+  const root = document.querySelector<HTMLElement>('[data-lm-drawers]')
+  if (!root || root.dataset.initialized) return
+  root.dataset.initialized = 'true'
+  const mobile = matchMedia('(max-width:599.95px)')
+  const leftDesktop = matchMedia(`(min-width:${root.dataset.leftBreakpoint}px)`)
+  const rightDesktop = matchMedia(`(min-width:${root.dataset.rightBreakpoint}px)`)
+  const left = root.querySelector<HTMLDialogElement>('#lm-left-drawer')!
+  const right = root.querySelector<HTMLDialogElement>('#lm-right-drawer')
+  const triggers = Array.from(document.querySelectorAll<HTMLElement>('[data-drawer-trigger]'))
+  const variant = () => (mobile.matches ? root.dataset.mobileVariant : root.dataset.desktopVariant) || 'temporary'
+  let leftRequested = false
+  let rightRequested = false
+  const apply = (drawer: HTMLDialogElement, open: boolean, modal: boolean) => {
+   if (drawer.open && drawer.matches(':modal') !== modal) drawer.close()
+   if (open && !drawer.open) { if (modal) drawer.showModal(); else drawer.show() }
+   if (!open && drawer.open) drawer.close()
+   drawer.classList.toggle('lm-drawer-modal', modal)
+  }
+  const render = () => {
+   apply(left, variant() === 'permanent' || leftRequested, variant() === 'temporary')
+   if (right) apply(right, rightDesktop.matches || rightRequested, !rightDesktop.matches)
+   const shift = variant() !== 'temporary' && leftRequested && leftDesktop.matches
+   document.body.style.setProperty('--lm-left-shift', shift ? root.style.getPropertyValue('--lm-left-width') : '0px')
+   document.body.style.setProperty('--lm-header-left-shift', shift && root.dataset.belowToolbar !== 'true' ? root.style.getPropertyValue('--lm-left-width') : '0px')
+   document.body.style.setProperty('--lm-right-shift', right && rightDesktop.matches ? root.style.getPropertyValue('--lm-right-width') : '0px')
+   triggers.forEach(trigger => trigger.querySelectorAll('button,a').forEach(button => button.setAttribute('aria-expanded', String(trigger.dataset.drawerTrigger === 'right' ? !!right?.open : left.open))))
+  }
+  triggers.forEach(trigger => trigger.addEventListener('click', event => {
+   event.preventDefault()
+   if (trigger.dataset.drawerTrigger === 'right') rightRequested = !rightRequested
+   else leftRequested = !leftRequested
+   render()
+  }))
+  ;[left, right].forEach(drawer => {
+   if (!drawer) return
+   const close = () => { if (drawer === left) leftRequested = false; else rightRequested = false; render() }
+   drawer.addEventListener('cancel', event => { event.preventDefault(); close() })
+   drawer.addEventListener('click', event => {
+    if (event.target !== drawer || !drawer.matches(':modal')) return
+    const rect = drawer.getBoundingClientRect()
+    if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) close()
+   })
+  })
+  const resize = () => { if (variant() === 'temporary' || !leftDesktop.matches) leftRequested = false; rightRequested = false; render() }
+  mobile.addEventListener('change', resize); leftDesktop.addEventListener('change', resize); rightDesktop.addEventListener('change', resize)
+  render()
+ }
+ setupDrawers(); document.addEventListener('astro:page-load', setupDrawers); document.addEventListener('lumen:content-mounted', setupDrawers)
+</script>

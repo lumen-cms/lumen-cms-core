@@ -1,0 +1,22 @@
+---
+import CmsAnchor from './CmsAnchor.astro'
+import type { ButtonStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { StoryblokContent } from 'lumen-cms-shared/core/typings/storyblok-registry'
+import type { RenderContext } from '../lib/context'
+import { getLinkAttrs, type LinkType } from '../lib/links'
+import Block from './Block.astro'
+import DrawerItem from './DrawerItem.astro'
+import Icon from './Icon.astro'
+interface Props { content: StoryblokContent; context: RenderContext; openedPath: string[] }
+const { content, context, openedPath } = Astro.props
+const isLink = content.component === 'button' || content.component === 'nav_menu_item' || content.component === 'nav_item'
+const presentation = content as Pick<ButtonStoryblok, 'icon' | 'open_external'>
+const link = isLink ? content.link as LinkType : undefined
+const attrs = link?.cached_url ? getLinkAttrs(link, { openExternal: !!presentation.open_external }, context?.page) : {}
+const label = isLink ? content.component === 'nav_item' ? content.name : content.label : undefined
+const items: StoryblokContent[] = content.component === 'nav_menu' ? (content.body || []).flatMap<StoryblokContent>(item => item.component === 'row' ? (item.body || []).flatMap(column => column.body || []) : [item]) : []
+---
+{isLink ? <CmsAnchor context={context} {...attrs} class:list={['lm-drawer-link', { 'Mui-selected': link?.cached_url && context.page.slug?.includes(`/${link.cached_url}`) }]}>{presentation.icon?.name && <Icon name={presentation.icon.name} />}<span>{label}</span></CmsAnchor> :
+ content.component === 'nav_menu' ? <details class="lm-drawer-menu" open={openedPath.includes(content._uid)}><summary>{content.start_icon?.name && <Icon name={content.start_icon.name} />}<span>{content.title}</span><Icon name={content.icon?.name || 'chevron-down'} url={content.icon_custom?.[0]?.icon_url} /></summary><div style={{ marginLeft: content.start_icon?.name ? '55px' : '20px' }}>{items.map(child => <DrawerItem content={child} context={context} openedPath={openedPath} />)}</div></details> :
+ content.component === 'nav_list' ? <div class="lm-drawer-list"><div class="lm-drawer-subheader">{content.header}</div>{content.body?.map(child => <DrawerItem content={child} context={context} openedPath={openedPath} />)}</div> :
+ content.component !== 'list_search_autocomplete' && <Block content={content} context={context} />}

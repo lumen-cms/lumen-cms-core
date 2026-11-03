@@ -1,0 +1,14 @@
+---
+import Image from './CmsImage.astro'
+import type { ImageListItemStoryblok, ImageListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: ImageListItemStoryblok; options?: ImageListStoryblok; lightbox?: boolean }
+const { content, options, lightbox } = Astro.props
+const source = content.source?.replace(/^\/\//, 'https://')
+const position = lightbox ? 'top' : content.label_position || options?.label_position || 'bottom'
+const masonry = options?.masonry || options?.variant === 'masonry'
+const phone = Number(options?.column_count_phone || options?.column_count || (masonry ? 2 : 1))
+const tablet = Number(options?.column_count_tablet || options?.column_count || 3)
+const desktop = Number(options?.column_count || 4)
+---
+ {source && <Image src={source} alt={content.alt || content.label || 'image list item'} loading="lazy" widths={[320,640,960,1280,1920]} sizes={lightbox ? '100vw' : `(max-width:599.95px) ${Math.round(100/phone)}vw, (max-width:1279.95px) ${Math.round(100/tablet)}vw, ${Math.round(100/desktop)}vw`} class="MuiImageListItem-img" style={{ objectFit: lightbox || options?.fit_in_color || !options?.aspect_ratio ? 'contain' : undefined }} />}
+ {(content.label || content.sub_title) && <div class:list={['lm-image-list-bar', `lm-image-list-bar-${position}`]}><div><div class="lm-image-list-title">{content.label}</div>{content.sub_title && <div class="lm-image-list-subtitle">{content.sub_title}</div>}</div></div>}

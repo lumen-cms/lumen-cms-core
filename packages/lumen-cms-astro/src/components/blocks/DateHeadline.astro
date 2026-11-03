@@ -1,0 +1,7 @@
+---
+import type { BlockProps } from '../../lib/blockProps'
+import CmsHeadline from '../CmsHeadline.astro'
+interface Props extends Omit<BlockProps, 'content'> { content: Extract<BlockProps['content'], { component: 'date_headline' }> }
+const { content, context } = Astro.props
+---
+<CmsHeadline content={{ ...content, component: 'headline', text: content.text?.replace('{date}', String(new Date().getFullYear())), text_xs: content.text_xs?.replace('{date}', String(new Date().getFullYear())) }} context={context} />

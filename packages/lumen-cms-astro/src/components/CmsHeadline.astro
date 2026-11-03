@@ -1,0 +1,14 @@
+---
+import type { HeadlineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Headline from './Headline.astro'
+import AnimatedHeadline from './AnimatedHeadline.astro'
+interface Props { content: HeadlineStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const Override = context.components && Object.hasOwn(context.components, 'headline') ? context.components.headline : undefined
+---
+{Override ? (Astro.slots.has('default') ? <Override content={content} context={context}><slot /></Override> : <Override content={content} context={context} />)
+ : content.countdown_time || content.count_start || content.count_end
+ ? <AnimatedHeadline content={content} context={context} />
+ : Astro.slots.has('default') ? <Headline content={content} theme={context.theme}><slot /></Headline>
+ : <Headline content={content} theme={context.theme} />}

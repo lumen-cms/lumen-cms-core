@@ -1,0 +1,8 @@
+---
+import type { RenderContext } from '../lib/context'
+import RichTextNode from './RichTextNode.astro'
+interface Props { body: unknown; context?: RenderContext }
+const { body, context } = Astro.props
+const nodes: { type: string }[] = body && typeof body === 'object' && 'type' in body && body.type === 'doc' && 'content' in body && Array.isArray(body.content) ? body.content : []
+---
+{typeof body === 'string' ? body : nodes.map(node => <RichTextNode node={node} context={context} />)}

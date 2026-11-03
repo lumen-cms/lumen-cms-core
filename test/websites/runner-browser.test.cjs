@@ -82,14 +82,14 @@ test('browser runner returns zero for matching pages and nonzero with an HTML re
   let changed = false,
     requests = 0
   const server = http.createServer((req, res) => {
-    if (req.url !== '/') {
+    if (!['/', '/astro'].includes(req.url)) {
       res.writeHead(404)
       return res.end()
     }
     const color = changed && requests++ % 2 ? 'black' : 'white'
     res.setHeader('Content-Type', 'text/html')
     res.end(
-      `<html><head><title>Fixture</title><style>body{background:${color};margin:0}</style></head><body><h1>Fixture</h1><script>window.next={router:{isReady:true}}</script></body></html>`
+      `<html ${req.url === '/astro' ? 'data-lumen-renderer="astro"' : ''}><head><title>Fixture</title><style>body{background:${color};margin:0}</style></head><body><h1>Fixture</h1>${req.url === '/astro' ? '' : '<script>window.next={router:{isReady:true}}</script>'}</body></html>`
     )
   })
   t.after(async () => {
@@ -114,7 +114,7 @@ test('browser runner returns zero for matching pages and nonzero with an HTML re
       ]
     })
   )
-  const run = (directory) =>
+  const run = (directory, framework = 'next') =>
     exec(
       process.execPath,
       [
@@ -129,6 +129,8 @@ test('browser runner returns zero for matching pages and nonzero with an HTML re
         root,
         '--local-origin',
         origin,
+        '--local-framework',
+        framework,
         '--widths',
         '375',
         '--workers',
@@ -145,6 +147,18 @@ test('browser runner returns zero for matching pages and nonzero with an HTML re
     await fs.readFile(path.join(output, 'matching/summary.json'))
   )
   assert.equal(matching.passed, 1)
+  const astroInventory = JSON.parse(await fs.readFile(inventory, 'utf8'))
+  astroInventory.routes[0].local = origin + '/astro'
+  await fs.writeFile(inventory, JSON.stringify(astroInventory))
+  // A distinct path serves Astro without window.next. Readiness succeeds;
+  // the unchanged redirect guard must still reject differing final paths.
+  await assert.rejects(run(path.join(output, 'astro-matching'), 'astro'), error => error.code === 1)
+  const astroMatching = JSON.parse(await fs.readFile(path.join(output, 'astro-matching/summary.json')))
+  assert.equal(astroMatching.failed, 1)
+  assert.equal(astroMatching.results[0].changedPercent, 0)
+  assert.match(JSON.stringify(astroMatching.results[0]), /Redirect destinations differ/)
+  astroInventory.routes[0].local = origin
+  await fs.writeFile(inventory, JSON.stringify(astroInventory))
   changed = true
   await assert.rejects(
     run(path.join(output, 'different')),

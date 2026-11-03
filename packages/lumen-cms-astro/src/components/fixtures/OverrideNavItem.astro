@@ -1,0 +1,6 @@
+---
+import type { NavItemStoryblok, HeadlineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: NavItemStoryblok; options?: HeadlineStoryblok }
+const { content, options } = Astro.props
+---
+<span data-lm-list-item={content._uid} data-fixture-nav-item={content._uid} data-typography={options?.typography}>{content.name}</span>

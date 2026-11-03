@@ -1,0 +1,26 @@
+---
+import Document from '../../src/layouts/Document.astro'
+import { loadPage } from '../../src/server/pages'
+import { CmsPageNotFoundError, notFoundResponse } from '../../src/server/notFound'
+import { previewSessionKey } from 'lumen-cms-shared/server/preview'
+import { getPayload } from '@storyblok/astro'
+import type { PreviewServerData } from '../../src/lib/previewServerData'
+import type { ISbStoryData } from 'storyblok-js-client'
+import type { PageStoryblok, GlobalStoryblok, NewsStoryblok, EventStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+if (await Astro.session?.get(previewSessionKey) !== true) return new Response('CMS preview session required', { status: 401, headers: { 'Cache-Control': 'private, no-store' } })
+const locales = (process.env.LUMEN_LOCALES || 'en,de').split(',')
+const slug = Astro.params.slug
+const first = slug?.split('/')[0]
+const locale = first && locales.includes(first) ? first : locales[0]
+const payload = await getPayload<PreviewServerData, ISbStoryData<PageStoryblok | GlobalStoryblok | NewsStoryblok | EventStoryblok>>({ locals: Astro.locals })
+let page
+try {
+ page = await loadPage(slug, { locale, defaultLocale: locales[0], locales, cmsSlug: slug || 'home' }, true, { from_release: Astro.url.searchParams.get('_storyblok_release') || undefined }, payload.story, payload.serverData)
+} catch (error) {
+ if (error instanceof CmsPageNotFoundError) return notFoundResponse()
+ throw error
+}
+Astro.response.headers.set('Cache-Control', 'private, no-store')
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+---
+<Document page={page} />

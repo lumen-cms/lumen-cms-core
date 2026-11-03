@@ -1,0 +1,14 @@
+---
+import type { LmCategoryBoxProps } from 'lumen-cms-shared/core/components/list-widget/listWidgetTypes'
+interface Props { content: LmCategoryBoxProps['content'] }
+const { content } = Astro.props
+const autocomplete = content.display === 'autocomplete_checkbox'
+---
+<div data-category-box class:list={content.class_names?.values} style={{ maxHeight: content.max_height ? `${content.max_height}px` : undefined, overflowY: content.max_height ? 'auto' : undefined }}>
+ {autocomplete && <label class:list={['lm-category-search', 'label', `lm-field-${content.autocomplete_variant || 'outlined'}`]}>{content.autocomplete_label}<input type="search" class="input" aria-label={content.autocomplete_label || 'Filter categories'} placeholder={content.autocomplete_placeholder} /></label>}
+ {content.category_box_data?.map(category => <div data-category-option><label class="label lm-category-option"><input type="checkbox" class="checkbox" name={category.uuid} value={autocomplete ? category.uuid : String(category.content.tag_reference?.values || category.uuid)} />{category.content.name || category.name}</label></div>)}
+</div>
+<script>
+ import { initializeListFilters } from '../client/listFilter'
+ initializeListFilters(); document.addEventListener('astro:page-load', initializeListFilters); document.addEventListener('lumen:content-mounted', initializeListFilters)
+</script>

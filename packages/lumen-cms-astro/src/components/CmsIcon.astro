@@ -1,0 +1,10 @@
+---
+import type { IconStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import Icon from './Icon.astro'
+interface Props { content: IconStoryblok }
+const { content } = Astro.props
+const size = { xmall: 16, small: 20, medium: 24, large: 36, xlarge: 40, xxlarge: 48, xxxlarge: 64 }[content.size || 'medium']
+---
+<div class:list={['lm-icon-block', ...(content.class_names?.values || [])]} style={{ '--lm-icon-size': `${size}px`, color: content.color?.rgba }}>
+ <Icon name={content.name?.name} url={content.icon_url} size={size} />
+</div>

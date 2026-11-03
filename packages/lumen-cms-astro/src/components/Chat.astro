@@ -1,0 +1,13 @@
+---
+import type { ChatFacebookStoryblok, ChatTawktoStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+interface Props { content: ChatFacebookStoryblok | ChatTawktoStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+---
+<div style="display:contents" data-lm-chat={content.component === 'chat_facebook' ? 'facebook' : 'tawkto'} data-account={content.component === 'chat_facebook' ? content.page_id : content.account} data-preview={context.preview} data-eager={!!content.disable_lazy} />
+<script>
+ import { initializeChat } from '../client/chat'
+ initializeChat()
+ document.addEventListener('astro:page-load', initializeChat)
+ document.addEventListener('lumen:content-mounted', initializeChat)
+</script>

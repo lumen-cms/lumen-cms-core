@@ -1,0 +1,11 @@
+---
+import type { IframeStoryblok, IframeAdvancedStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import { getIframeSandbox } from 'lumen-cms-shared/core/components/iframe/iframeSandbox'
+interface Props { content: IframeStoryblok | IframeAdvancedStoryblok }
+const { content } = Astro.props
+---
+<div class:list={['lm-iframe', content.responsive_ratio && `embed-responsive embed-responsive-${content.responsive_ratio}`]} style={{ height: content.full_height ? '100%' : undefined }}>
+ <iframe class:list={[content.responsive_ratio && 'embed-responsive-item']} title={`iframe_${content.url}`} sandbox={getIframeSandbox(content.url, Astro.url.origin)} allow={(content.allow || []).join(' ')} src={content.url} loading="lazy"
+  allowfullscreen={content.property?.includes('allow_fullscreen')} height={content.height || '100%'} width={content.width || '100%'} name={content.name || ''}
+  style={{ border: '0', position: content.position, display: content.display || undefined, width: content.width || '100%', height: content.height || '100%' }} />
+</div>

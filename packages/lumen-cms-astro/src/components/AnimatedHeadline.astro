@@ -1,0 +1,23 @@
+---
+import type { HeadlineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { countLabel, countdownDeadline } from 'lumen-cms-shared/headlineCounter'
+import Headline from './Headline.astro'
+import Block from './Block.astro'
+interface Props { content: HeadlineStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const countdown = !!content.countdown_time
+const start = Number(content.count_start || 0)
+---
+<Headline content={content} theme={context.theme}>
+ {countdown ? <span data-lm-countdown data-deadline={countdownDeadline(content.countdown_time!)} data-interval={Number(content.countdown_interval || 1000)}>
+  <span data-countdown-value></span>
+  <template data-countdown-finished>{content.countdown_finished?.map(child => <Block content={child} context={context} />)}</template>
+ </span> : <span data-lm-countup data-start={start} data-end={Number(content.count_end || 1000)} data-duration={Number(content.count_duration || 2.5)} data-easing={content.animation || 'easeOutCubic'} data-prefix={content.prefix} data-suffix={content.suffix}>{countLabel(start, content.prefix, content.suffix)}</span>}
+</Headline>
+<script>
+ import { initializeHeadlineCounters } from '../client/headlineCounters'
+ initializeHeadlineCounters()
+ document.addEventListener('astro:page-load', initializeHeadlineCounters)
+ document.addEventListener('lumen:content-mounted', initializeHeadlineCounters)
+</script>

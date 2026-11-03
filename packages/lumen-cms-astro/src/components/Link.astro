@@ -1,0 +1,13 @@
+---
+import CmsAnchor from './CmsAnchor.astro'
+import type { LinkStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { getLinkAttrs, type LinkType } from '../lib/links'
+import Block from './Block.astro'
+interface Props { content: LinkStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const attrs = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }, context?.page)
+const linked = !!(attrs.href || content.on_click_function)
+const Tag = linked ? CmsAnchor : 'span'
+---
+<Tag {...(Tag === CmsAnchor ? { context } : {})} {...attrs} data-lm-action={content.on_click_function || undefined} class:list={[content.class_names?.values, { 'lm-link__container': linked }]} style={{ cursor: content.on_click_function ? 'pointer' : undefined }}>{content.body?.map(child => <Block content={child} context={context} />)}</Tag>

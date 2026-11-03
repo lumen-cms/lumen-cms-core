@@ -1,0 +1,27 @@
+---
+import type { HtmlStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { CmsTheme } from 'lumen-cms-shared/theme'
+import { blockStyles } from '../lib/blockStyles'
+interface Props { content: HtmlStoryblok; theme: CmsTheme }
+const { content, theme } = Astro.props
+const { className, css } = blockStyles(content, theme)
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+{content.blocks?.length ? <div class={className}><slot /></div> :
+ <div class={className} style={{ height: content.styles?.length ? undefined : '100%' }}>
+   {content.lazy_load ? <template data-lm-lazy-html set:html={content.body || ''} /> : <Fragment set:html={content.body || ''} />}
+ </div>}
+<script>
+ const observer = new IntersectionObserver(entries => {
+   for (const entry of entries) {
+     if (!entry.isIntersecting) continue
+     const template = entry.target.querySelector<HTMLTemplateElement>('template[data-lm-lazy-html]')
+     if (template) template.replaceWith(template.content.cloneNode(true))
+     observer.unobserve(entry.target)
+   }
+ })
+ const observeHtml = () => document.querySelectorAll('template[data-lm-lazy-html]').forEach(template => { if (template.parentElement) observer.observe(template.parentElement) })
+ observeHtml()
+ document.addEventListener('astro:page-load', observeHtml)
+ document.addEventListener('lumen:content-mounted', observeHtml)
+</script>

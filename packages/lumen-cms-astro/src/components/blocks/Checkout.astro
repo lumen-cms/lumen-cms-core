@@ -1,0 +1,10 @@
+---
+import type { BlockProps } from '../../lib/blockProps'
+import Block from '../Block.astro'
+import FastSpringProduct from '../FastSpringProduct.astro'
+interface Props extends Omit<BlockProps, 'content'> { content: Extract<BlockProps['content'], { component: 'ecommerce_checkout' }> }
+const { content, context } = Astro.props
+---
+{content.integration?.[0]?.component === 'ecommerce_fastspring_product'
+ ? <FastSpringProduct content={content.integration[0]} trigger={content.trigger?.[0]} context={context} />
+ : content.integration?.[0] && <Block content={content.integration[0]} context={context} />}

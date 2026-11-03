@@ -1,0 +1,6 @@
+---
+import type { ImageListItemStoryblok, ImageListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: ImageListItemStoryblok; listProps?: ImageListStoryblok }
+const { content, listProps } = Astro.props
+---
+<span data-fixture-image-item={content._uid} data-ratio={listProps?.aspect_ratio} data-fit={listProps?.fit_in_color}>{content.label}</span>

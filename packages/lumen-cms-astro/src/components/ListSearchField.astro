@@ -1,0 +1,14 @@
+---
+import type { ListSearchFieldStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import Icon from './Icon.astro'
+interface Props { content: ListSearchFieldStoryblok }
+const { content } = Astro.props
+---
+<div data-list-search class:list={[content.class_names?.values, `lm-field-${content.variant || 'outlined'}`, { 'w-100': content.fullwidth }]}>
+ {content.label && <label class="label" for={content._uid}>{content.label}</label>}
+ <div class:list={['input lm-list-search-input', { 'w-full': content.fullwidth, 'input-sm': content.size === 'small' }]}><Icon name="magnify" /><input id={content._uid} type="text" aria-label={content.label || content.placeholder || 'Search'} placeholder={content.placeholder} autocomplete="off" /><button type="button" hidden class="btn btn-ghost btn-circle btn-xs" aria-label="Clear search">×</button></div>
+</div>
+<script>
+ import { initializeListFilters } from '../client/listFilter'
+ initializeListFilters(); document.addEventListener('astro:page-load', initializeListFilters); document.addEventListener('lumen:content-mounted', initializeListFilters)
+</script>

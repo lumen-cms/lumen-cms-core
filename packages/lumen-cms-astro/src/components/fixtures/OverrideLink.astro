@@ -1,0 +1,6 @@
+---
+import type { AstroLinkProps } from '../../lib/context'
+interface Props extends AstroLinkProps {}
+const { context, ...attributes } = Astro.props
+---
+<a {...attributes} data-fixture-link="override" data-locale={context?.page.locale}><slot /></a>

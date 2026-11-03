@@ -1,0 +1,34 @@
+---
+import type { SectionVideoBgStoryblok, PlayerStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Player from './Player.astro'
+import Background from './Background.astro'
+import Block from './Block.astro'
+interface Props { content: SectionVideoBgStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const properties = content.property || []
+const [width, height] = (content.video_ratio || '16x9').split('x').map(value => parseInt(value))
+const aspect = height / width
+const maxWidth = content.max_width ? content.max_width === 'none' ? false : content.max_width : context.theme.defaultContainerWidth
+const player: PlayerStoryblok = { ...content, component: 'player', _uid: `${content._uid}-video`, width: '100%', height: '100%', ratio: undefined, playing: properties.includes('autoplay'), loop: properties.includes('loop'), muted: properties.includes('muted'), controls: properties.includes('controls'), playsinline: properties.includes('playsinline'), light: properties.includes('light'), volume: properties.includes('muted') ? '0' : '1' }
+---
+<div class="lm-video-section" id={content.section_identifier || content._uid} data-video-aspect={aspect} data-video-fixed-ratio={!content.height ? '' : undefined} style={{ height: content.height ? `${content.height}vh` : undefined, paddingBottom: !content.height ? `${(aspect * 100).toFixed(2)}%` : undefined }}>
+ {(content.url_internal?.filename || content.url) && <div class:list={['videobg-width', { 'video-no-mouse': properties.includes('suppress_mouse_events') }]}>
+  <div class="videobg-aspect" style={{ paddingBottom: `${(aspect * 100).toFixed(2)}%` }}><div class="videobg-make-height"><Player content={player} /></div></div>
+ </div>}
+ {content.fallback_image && <div data-video-fallback hidden><Background content={{ component: 'background', _uid: `bg_fallback_${content._uid}`, image: content.fallback_image, background_data: content.section_video_bg_data }} /></div>}
+ {!!content.body?.length && <div class="lm-video-body"><div class:list={['MuiContainer-root', 'lm-container', maxWidth && `lm-container-${maxWidth}`]}>{content.body.map(child => <Block content={child} context={context} />)}</div></div>}
+</div>
+<script>
+ import { onUnmount } from '../client/lifecycle'
+ function initializeVideoSections() {
+  document.querySelectorAll<HTMLElement>('[data-video-aspect]:not([data-video-initialized])').forEach(root => {
+   root.dataset.videoInitialized = 'true'
+   const fit = () => { const layer = root.querySelector<HTMLElement>('.videobg-width'); if (layer) layer.style.width = root.hasAttribute('data-video-fixed-ratio') ? '100%' : `${Math.max(100, root.clientHeight / root.clientWidth / Number(root.dataset.videoAspect) * 100).toFixed(2)}%` }
+   const observer = new ResizeObserver(fit); observer.observe(root); fit()
+   root.addEventListener('lumen:media-error', () => { const fallback = root.querySelector<HTMLElement>('[data-video-fallback]'); if (fallback) fallback.hidden = false })
+   onUnmount(root, () => observer.disconnect())
+  })
+ }
+ initializeVideoSections(); document.addEventListener('astro:page-load', initializeVideoSections); document.addEventListener('lumen:content-mounted', initializeVideoSections)
+</script>

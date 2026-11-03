@@ -1,0 +1,21 @@
+---
+import CmsAnchor from './CmsAnchor.astro'
+import { accessibleLinkName } from '../lib/accessibleLinkName'
+import type { CardStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { blockStyles } from '../lib/blockStyles'
+import { generateBackgroundStyles, backgroundShadowClass } from 'lumen-cms-shared/background'
+import { getLinkAttrs, type LinkType } from '../lib/links'
+import Background from './Background.astro'
+import CardBody from './CardBody.astro'
+interface Props { content: CardStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const { css, className } = blockStyles(content, context.theme)
+const background = content.background?.[0]
+const { href, target, rel, download } = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }, context?.page)
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+<div class:list={['card', 'MuiCard-root', 'lm-card', 'lm-card-standalone', className, backgroundShadowClass(background), background?.classNames?.values]} style={{ height: content.full_height ? '100%' : undefined, borderRadius: content.square ? '0' : undefined, border: content.variant === 'outlined' ? '1px solid rgba(0,0,0,.12)' : undefined, '--lm-card-elevation': content.variant !== 'outlined' ? context.theme.shadows[Number(content.elevation || 1)] : 'none', ...generateBackgroundStyles({ background, theme: context.theme }) }}>
+ <Background content={background} />
+ {href ? <CmsAnchor context={context} href={href} target={target} rel={rel} download={download} aria-label={!content.media?.filename && !content.body?.length && !content.body_above_media?.length && !content.body_actions?.length && !content.body_on_hover?.length ? accessibleLinkName(href) : undefined} class="MuiCardActionArea-root lm-card-link"><CardBody content={content} context={context} /></CmsAnchor> : <CardBody content={content} context={context} />}
+</div>

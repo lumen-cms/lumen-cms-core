@@ -1,0 +1,73 @@
+---
+import '../styles/global.css'
+import { createRenderContext } from '../lib/renderContext'
+import { storyblokEditable } from '@storyblok/astro'
+import StoryblokServerData from '@storyblok/astro/StoryblokServerData.astro'
+import { previewServerData } from '../lib/previewServerData'
+import type { RenderContext, AstroRendererOverrides, AstroAppWrappers } from '../lib/context'
+import AppWrappers from '../components/AppWrappers.astro'
+import { themeCss } from 'lumen-cms-shared/theme'
+import { collectPageStyles } from '../lib/blockStyles'
+import Drawers from '../components/Drawers.astro'
+import Header from '../components/Header.astro'
+import FastSpringProvider from '../components/FastSpringProvider.astro'
+import ShopifyCart from '../components/ShopifyCart.astro'
+import Block from '../components/Block.astro'
+import PageMetadata from '../components/PageMetadata.astro'
+import CustomScripts from '../components/CustomScripts.astro'
+import StoryblokPreview from '../components/StoryblokPreview.astro'
+import { trackingScripts } from 'lumen-cms-shared/tracking'
+import { getFontBasedOnSetting } from 'lumen-cms-shared/core/utils/parseFont'
+import { getGoogleFontsCss } from 'lumen-cms-shared/core/utils/initial-props/googleFontsCache'
+interface Props { page: RenderContext['page']; components?: AstroRendererOverrides; wrappers?: AstroAppWrappers; linkRenderer?: RenderContext['linkRenderer']; storyListEndpoint?: string }
+const { page, components, wrappers, linkRenderer, storyListEndpoint } = Astro.props
+const settings = page.settings!
+const fastSpringConfig = settings.ecommerce?.find(item => item.component === 'ecommerce_fastspring_config')
+const shopifyConfig = settings.ecommerce?.find(item => item.component === 'ecommerce_shopify_config')
+const context = createRenderContext(page, { components, linkRenderer, ...(storyListEndpoint ? { storyListEndpoint } : {}) })
+const theme = context.theme
+const serverData = previewServerData(page)
+const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.NEXT_PUBLIC_GTM_CONTAINER })
+const scripts = [...tracking.scripts, ...(settings.scripts || [])]
+;(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead = true
+const fontsHref = getFontBasedOnSetting(settings)
+const fontCss = getGoogleFontsCss(fontsHref)
+const showPromotion = !page.page || (page.page.component === 'page' && (!page.page.body?.length || (!page.page.property?.includes('has_feature') && !page.page.property?.includes('disable_promotion'))))
+---
+<!doctype html>
+<html lang={page.locale || 'en'} data-lumen-renderer="astro" data-lumen-preview={context.preview || undefined}>
+ <head>
+  <meta charset="utf-8" />{!(settings.pwa_app_name && settings.pwa_app_description) && <meta name="format-detection" content="telephone=no" />}<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <PageMetadata page={page} />
+  {scripts.length > 0 && <CustomScripts scripts={scripts} />}
+  <style data-lumen-preview-head is:inline set:html={themeCss(theme)} />
+  <style data-lumen-preview-head is:inline set:html={collectPageStyles(page, theme)} />
+  {fontCss ? <style data-lumen-preview-head is:inline set:html={fontCss} /> : <link data-lumen-preview-head rel="stylesheet" href={fontsHref} />}
+  {settings.custom_css && <style data-lumen-preview-head is:inline set:html={settings.custom_css} />}
+ </head>
+ <body>
+  {serverData && <StoryblokServerData {...serverData} />}
+  <a class="lm-skip-link" href="#lm-main-content">Skip to main content</a>
+  <AppWrappers context={context} wrappers={wrappers}>
+  {tracking.pixels.map(id => <noscript><img alt="" height="1" width="1" style="display:none" src={`https://www.facebook.com/tr?id=${encodeURIComponent(id)}&ev=PageView&noscript=1`} /></noscript>)}
+  {fastSpringConfig?.url && <FastSpringProvider config={fastSpringConfig} />}
+  <Header context={context} />
+  <main id="lm-main-content" tabindex="-1" class="lm-page-main" {...context.preview && page.page ? storyblokEditable(page.page) : {}}>
+   {showPromotion && settings.promotion?.map(content => <Block content={content} context={context} />)}
+   {page.page && <Block content={page.page} context={context} />}
+   {(!page.page || (page.page.component === 'page' && !page.page.body?.length)) && <div style="padding:20px;text-align:center">There is no content yet...</div>}
+  </main>
+  <Drawers context={context} />
+  {shopifyConfig && <ShopifyCart context={context} />}
+  <footer class="lm-page-footer">{settings.footer?.map(content => <Block content={content} context={context} />)}</footer>
+  {settings.snackbars?.map(content => <Block content={content} context={context} />)}
+  {settings.chat_button?.map(content => <Block content={content} context={context} />)}
+  </AppWrappers>
+
+<script>
+ import { initializeCmsActions } from '../client/actions'
+ initializeCmsActions()
+</script>
+ {context.preview && <StoryblokPreview />}
+ </body>
+</html>

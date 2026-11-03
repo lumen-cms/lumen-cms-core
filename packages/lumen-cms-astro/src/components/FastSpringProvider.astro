@@ -1,0 +1,17 @@
+---
+import type { EcommerceFastspringConfigStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { config?: EcommerceFastspringConfigStoryblok }
+const { config } = Astro.props
+---
+{config?.url && <div hidden data-lm-fastspring-provider={JSON.stringify({ component: config.component, _uid: config._uid, url: config.url, data_storefront: config.data_storefront, data_accesss_key: config.data_accesss_key })} />}
+<script>
+ import { initializeFastSpringProvider } from '../client/fastspringProvider'
+ function initialize() {
+  const root = document.querySelector<HTMLElement>('[data-lm-fastspring-provider]:not([data-initialized])')
+  if (!root) return
+  root.dataset.initialized = 'true'
+  void initializeFastSpringProvider(JSON.parse(root.dataset.lmFastspringProvider!)).catch(error => { root.dataset.error = 'true'; console.error('FastSpring SDK could not load', error) })
+ }
+ initialize()
+ document.addEventListener('astro:page-load', initialize)
+</script>

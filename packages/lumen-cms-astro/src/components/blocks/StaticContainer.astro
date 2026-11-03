@@ -1,0 +1,8 @@
+---
+import type { BlockProps } from '../../lib/blockProps'
+import { blockChildren } from '../../lib/blockProps'
+import Block from '../Block.astro'
+interface Props extends Omit<BlockProps, 'content'> { content: Extract<BlockProps['content'], { component: 'static_container' }> }
+const { content, context } = Astro.props
+---
+<div class="lm-static-container">{blockChildren(content.body).map(child => <Block content={child} context={context} />)}</div>

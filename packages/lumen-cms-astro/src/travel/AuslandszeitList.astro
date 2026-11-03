@@ -1,0 +1,62 @@
+---
+import type { AuslandszeitData } from 'lumen-cms-shared/core/travel/components/auslandszeit/auslandszeitTypes'
+import type { RenderContext } from '../lib/context'
+import Icon from '../components/Icon.astro'
+interface Props { content: { _uid: string; component: 'auslandszeit_list_widget'; auslandszeit_list_widget_data: { jobs: AuslandszeitData[] } }; context: RenderContext }
+const { content, context } = Astro.props
+const fields = ['title', 'category', 'address_string', 'country_string', 'description'] as const
+---
+<div data-lm-auslandszeit style={{ '--lm-job-text-secondary': context.theme.palette.text.secondary }}>
+ <label class="input input-sm w-full lm-jobs-search"><Icon name="magnify" size={20} /><input type="search" name="search" aria-label="Suche nach einem Auslandsjob" placeholder="Suche nach einem Auslandsjob..." autocomplete="new-password" /><button type="button" class="btn btn-ghost btn-circle btn-xs" data-jobs-clear aria-label="Suche löschen" hidden>×</button></label>
+ <div class="lm-jobs-grid">
+  {content.auslandszeit_list_widget_data.jobs.map(job => <article class="card lm-job-card" data-job-id={job.id} data-job-search={JSON.stringify(fields.map(field => job[field]?.toLowerCase() || ''))} style={{ boxShadow: context.theme.shadows[2] }}>
+   <a href={job.url} target="_blank" rel="noopener noreferrer" class="lm-job-link">
+    {job.thumbnail_urls.medium_large[0] && <img src={job.thumbnail_urls.medium_large[0]} alt={job.title} width={600} height={180} loading="lazy" class="lm-job-image" />}
+    <div class="lm-job-content">
+     <div class="lm-job-chips">{job.category && <span class="badge badge-sm lm-job-category">{job.category}</span>}{job.type && <span class="badge badge-sm badge-outline badge-primary">{job.type}</span>}</div>
+     <div class="MuiTypography-root MuiTypography-subtitle1 lm-job-title">{job.title}</div>
+     <div class="lm-job-details">
+      {job.start_date && <p class="MuiTypography-root MuiTypography-body2"><strong>Start:</strong> {job.start_date}</p>}
+      {job.duration && <p class="MuiTypography-root MuiTypography-body2"><strong>Dauer:</strong> {job.duration}</p>}
+      {job.address_string && <p class="MuiTypography-root MuiTypography-body2"><strong>Ort:</strong> {job.address_string}</p>}
+     </div>
+    </div>
+   </a>
+  </article>)}
+ </div>
+</div>
+<style>
+ .lm-jobs-search { margin: 8px 0 4px; }
+ .lm-jobs-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 16px; margin-top: 24px; }
+ .lm-job-card { min-width: 0; overflow: hidden; border-radius: 16px; position: relative; transition: .3s; color: var(--color-base-content); background: var(--color-base-100); }
+ .lm-job-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.12) !important; transform: translateY(-2px); }
+ .lm-job-card[hidden] { display: none; }
+ .lm-job-link { display: block; height: 100%; color: inherit; text-decoration: none; }
+ .lm-job-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+ .lm-job-image { display: block; width: 100%; height: 180px; object-fit: cover; }
+ .lm-job-content { padding: 20px; }
+ .lm-job-chips { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+ .lm-job-category { background: #00000014; border-color: transparent; }
+ .lm-job-title { font-weight: 600; margin-bottom: 8px; }
+ .lm-job-details { color: var(--lm-job-text-secondary); font-size: 14px; }
+ @media(min-width:600px) { .lm-jobs-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+ @media(min-width:900px) { .lm-jobs-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+</style>
+<script>
+ import { onUnmount } from '../client/lifecycle'
+ function initializeJobs() {
+  document.querySelectorAll<HTMLElement>('[data-lm-auslandszeit]').forEach(root => {
+   if (root.dataset.initialized) return
+   root.dataset.initialized = 'true'
+   const input = root.querySelector<HTMLInputElement>('input')!
+   const clear = root.querySelector<HTMLButtonElement>('[data-jobs-clear]')!
+   const items = [...root.querySelectorAll<HTMLElement>('[data-job-id]')].map(element => ({ element, fields: JSON.parse(element.dataset.jobSearch!) as string[] }))
+   let timer: ReturnType<typeof setTimeout>
+   const filter = () => { const query = input.value.toLowerCase(); items.forEach(({ element, fields }) => element.hidden = !!query && !fields.some(field => field.includes(query))) }
+   input.addEventListener('input', () => { clear.hidden = !input.value; clearTimeout(timer); timer = setTimeout(filter, 500) })
+   clear.addEventListener('click', () => { clearTimeout(timer); input.value = ''; clear.hidden = true; filter(); input.focus() })
+   onUnmount(root, () => clearTimeout(timer))
+  })
+ }
+ initializeJobs(); document.addEventListener('astro:page-load', initializeJobs); document.addEventListener('lumen:content-mounted', initializeJobs)
+</script>

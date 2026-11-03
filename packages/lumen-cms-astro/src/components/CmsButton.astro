@@ -1,0 +1,11 @@
+---
+import type { ButtonStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Button from './Button.astro'
+interface Props { content: ButtonStoryblok; context: RenderContext; type?: 'submit' | 'button'; disabled?: boolean }
+const { content, context, type = 'button', disabled } = Astro.props
+const Renderer = context.components && Object.hasOwn(context.components, 'button') && context.components.button || Button
+---
+{Astro.slots.has('default')
+ ? <Renderer content={content} context={context} theme={context.theme} type={type} disabled={disabled}><slot /></Renderer>
+ : <Renderer content={content} context={context} theme={context.theme} type={type} disabled={disabled} />}

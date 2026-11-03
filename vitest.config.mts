@@ -7,7 +7,7 @@ export default defineConfig({
         test: {
           name: 'unit',
           environment: 'node',
-          include: ['src/**/*.test.{ts,tsx}'],
+          include: ['src/**/*.test.{ts,tsx}', 'test/astro/**/*.test.ts'],
           exclude: ['src/**/*.integration.test.{ts,tsx}'],
           setupFiles: ['./test/setup.ts'],
           restoreMocks: true,

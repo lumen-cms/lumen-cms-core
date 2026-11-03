@@ -1,0 +1,7 @@
+---
+import type { ButtonStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../../lib/context'
+interface Props { content: ButtonStoryblok; context: RenderContext; type?: 'submit' | 'button'; disabled?: boolean }
+const { content, context, type, disabled } = Astro.props
+---
+<button data-fixture-button="override" data-locale={context.page.locale} type={type} disabled={disabled}>{content.label}<slot /></button>

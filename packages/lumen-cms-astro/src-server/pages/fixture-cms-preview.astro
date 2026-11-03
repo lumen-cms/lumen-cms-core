@@ -1,0 +1,20 @@
+---
+import { getPayload } from '@storyblok/astro'
+import Document from '../../src/layouts/Document.astro'
+import { previewSessionKey } from 'lumen-cms-shared/server/preview'
+import type { ISbStoryData } from 'storyblok-js-client'
+import type { PageStoryblok, GlobalStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+if (process.env.LUMEN_SITE) return new Response(null, { status: 404 })
+if (await Astro.session?.get(previewSessionKey) !== true) return new Response('Preview required', { status: 401 })
+const payload = await getPayload<never, ISbStoryData<PageStoryblok | GlobalStoryblok>>({ locals: Astro.locals })
+const initialPage = { component: 'page', _uid: 'preview-page', meta_title: 'Initial preview', body: [{ component: 'section', _uid: 'preview-section', body: [{ component: 'headline', _uid: 'preview-heading', text: 'Initial heading', tag: 'h1', styles: [{ component: 'styles', _uid: 'desktop', color: { rgba: 'rgb(120, 0, 0)' } }] }] }] } as PageStoryblok
+const settings = { component: 'global', _uid: 'preview-settings', website_title: 'Preview fixture', theme_base: 'base', custom_css: '.removed-setting { color: red; }' } as GlobalStoryblok
+const incoming = payload.story?.content
+const page = { locale: 'en', defaultLocale: 'en', insideStoryblok: true, slug: '/fixture-cms-preview', page: incoming?.component === 'page' ? incoming : initialPage, settings: incoming?.component === 'global' ? incoming : settings }
+Astro.response.headers.set('Cache-Control', 'private, no-store')
+---
+<Document page={page} />
+<script>
+ import { handleStoryblokMessage } from '@storyblok/astro'
+ ;(window as unknown as { fixtureStoryblokInput: (story: unknown) => void }).fixtureStoryblokInput = story => handleStoryblokMessage({ action: 'input', story } as Parameters<typeof handleStoryblokMessage>[0])
+</script>

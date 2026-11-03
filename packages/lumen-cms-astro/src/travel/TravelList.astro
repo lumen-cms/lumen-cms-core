@@ -1,0 +1,65 @@
+---
+import type { RenderContext } from '../lib/context'
+import Block from '../components/Block.astro'
+import { collectPageStyles } from '../lib/blockStyles'
+import { getTravelListContent, travelDetailPath, type TravelListContent } from 'lumen-cms-shared/travelList'
+import translations from 'lumen-cms-shared/core/travel/utils/translations'
+interface Props { content: TravelListContent; context: RenderContext }
+const { content, context } = Astro.props
+const language = context.page.locale?.toLowerCase() === 'de' ? 'DE' : 'EN'
+const cards = getTravelListContent(content, language)
+const locale = context.page.locale || 'en'
+const routeConfig = { locales: context.page.locales || (process.env.LUMEN_LOCALES || 'en,de').split(','), defaultLocale: context.page.defaultLocale || 'en', suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE, languages: process.env.NEXT_PUBLIC_LANGUAGES?.split(',') }
+for (const card of cards.body || []) {
+ const travel = content.travels_list_widget_data?.find(item => String(item.id) === card._uid)
+ if (travel?.slug && card.link) card.link.cached_url = travelDetailPath(travel.slug, locale, routeConfig, process.env.TRAVELS_SLUG)
+ const row = card.card_actions_body?.[0]
+ if (row?.component === 'flex_row') {
+  const price = row.body?.[0]
+  if (price?.component === 'headline') price.class_names = { values: [...(price.class_names?.values || []), 'lm-travel-list-price'] }
+ }
+}
+const travels = (content.travels_list_widget_data || []).map(travel => ({ id: travel.id, title: travel.title, city_id: travel.city_id, city: { country_id: travel.city?.country_id }, mn_travel_branches: travel.mn_travel_branches?.map(item => ({ branch_id: item.branch_id })), mn_travel_travel_types: travel.mn_travel_travel_types?.map(item => ({ travel_type_id: item.travel_type_id })), prices: travel.product?.product_price }))
+---
+<style is:inline set:html={collectPageStyles(cards, context.theme)} />
+<div data-lm-travel-list data-language={language} data-travels={JSON.stringify(travels)} data-price-label={translations[language].price_starting} style={{ minHeight: content.is_search ? '90vh' : undefined }}>
+ {content.is_search && <h4 class="MuiTypography-root MuiTypography-subtitle1 pl-3 pt-3">{translations[language].search_result}: <span data-travel-count>{travels.length}</span></h4>}
+ <div style={{ padding: content.is_search ? '16px' : 0 }}><Block content={cards} context={context} /></div>
+</div>
+<script>
+ import { getCurrency } from 'locale-currency'
+ import { travelFilterOnCategories } from 'lumen-cms-shared/core/travel/components/travel-list/travelFilterOnCategories'
+ import type { AllTravelsQuery } from 'lumen-cms-shared/core/travel/typings/generated/hasura-schema'
+ import { getTravelFilters } from './state'
+ import { onUnmount } from '../client/lifecycle'
+ function initializeTravelLists() {
+  document.querySelectorAll<HTMLElement>('[data-lm-travel-list]').forEach(root => {
+   if (root.dataset.initialized) return
+   root.dataset.initialized = 'true'
+   const travels = JSON.parse(root.dataset.travels || '[]') as (AllTravelsQuery['travel'][number] & { prices?: Record<string, number> })[]
+   const detected = getCurrency(navigator.language || 'en_US')?.toLowerCase() || 'usd'
+   const currency = root.dataset.language === 'DE' ? 'eur' : ['usd', 'aus', 'eur', 'gbp'].includes(detected) ? detected : 'eur'
+   const update = (event?: Event) => {
+    const state = (event as CustomEvent | undefined)?.detail
+    const filters = state ? (Object.keys(state).length ? state : Object.fromEntries(new URL(location.href).searchParams)) : getTravelFilters()
+    const matches = new Set(travelFilterOnCategories(travels, filters).map(travel => String(travel.id)))
+    let index = 0
+    root.querySelectorAll<HTMLElement>('[data-lm-list-item]').forEach(item => {
+     const id = item.dataset.lmListItem!
+     const match = matches.has(id)
+     item.toggleAttribute('data-filtered-out', !match)
+     item.hidden = !match || index++ >= 30
+     const travel = travels.find(travel => String(travel.id) === id)
+     item.querySelectorAll('.lm-travel-list-price').forEach(price => { price.textContent = `${root.dataset.priceLabel} ${travel?.prices?.[currency]} ${currency.toUpperCase()}` })
+    })
+    root.querySelectorAll('[data-travel-count]').forEach(node => node.textContent = String(matches.size))
+    root.dispatchEvent(new CustomEvent('lumen:list-filter', { bubbles: true }))
+   }
+   update()
+   document.addEventListener('lumen:travel-filter', update)
+   window.addEventListener('popstate', update)
+   onUnmount(root, () => { document.removeEventListener('lumen:travel-filter', update); window.removeEventListener('popstate', update) })
+  })
+ }
+ initializeTravelLists(); document.addEventListener('astro:page-load', initializeTravelLists); document.addEventListener('lumen:content-mounted', initializeTravelLists)
+</script>

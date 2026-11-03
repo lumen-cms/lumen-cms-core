@@ -1,0 +1,17 @@
+---
+import type { EcommerceFastspringProductStoryblok, EcommerceCheckoutStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+interface Props { content: EcommerceFastspringProductStoryblok; trigger?: NonNullable<EcommerceCheckoutStoryblok['trigger']>[number]; context: RenderContext }
+const { content, trigger, context } = Astro.props
+const presentation = trigger ? { ...trigger, link: undefined, on_click_function: undefined } : undefined
+---
+<div data-lm-fastspring-product={JSON.stringify(content)} hidden>
+ <template>{presentation && <Block content={presentation} context={context} />}</template><div data-fastspring-trigger />
+</div>
+<script>
+ import { initializeFastSpringProducts } from '../client/fastspringProduct'
+ initializeFastSpringProducts()
+ document.addEventListener('astro:page-load', initializeFastSpringProducts)
+ document.addEventListener('lumen:content-mounted', initializeFastSpringProducts)
+</script>

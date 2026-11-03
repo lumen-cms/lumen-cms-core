@@ -1,0 +1,21 @@
+---
+import type { SnackbarStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+interface Props { content: SnackbarStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const config = { cookie: content.cookie_name, days: content.expire_in_days, display: content.display, autoShow: content.auto_show, autoClose: content.auto_close, preventOutside: content.prevent_click_outside, preview: context.preview }
+const Tag = content.dialog ? 'dialog' : 'div'
+const maxWidths = { xs: 444, sm: 600, md: 900, lg: 1280, xl: 1920 }
+---
+<Tag hidden={!content.dialog} data-lm-snackbar data-options={JSON.stringify(config)} class:list={[content.dialog ? 'lm-snackbar-dialog' : 'lm-snackbar-toast', `lm-snackbar-${content.anchor_horizontal || 'center'}`, `lm-snackbar-${content.anchor_vertical || 'bottom'}`]} style={{ width: content.width || undefined, maxWidth: content.dialog && content.max_width ? `${maxWidths[content.max_width]}px` : undefined, backgroundColor: content.background_color?.rgba, alignItems: content.button_top_align ? 'flex-start' : undefined, border: content.border_color?.rgba ? `1px solid ${content.border_color.rgba}` : content.variant === 'outlined' ? '1px solid #0002' : undefined, borderRadius: content.square ? '0' : undefined, boxShadow: content.variant === 'outlined' ? 'none' : context.theme.shadows[content.elevation ? Number(content.elevation) : (content.dialog ? 24 : 6)] }} role={content.dialog ? 'dialog' : 'alert'}>
+ {content.dialog && <div class="lm-snackbar-close" data-snackbar-accept>{content.close_action?.map(child => <Block content={{ color: 'secondary_text', ...child }} context={context} />)}</div>}
+ <div class="lm-snackbar-message">{content.descriptions?.map(child => <Block content={child} context={context} />)}</div>
+ <div class="lm-snackbar-actions">{content.additional_actions?.map(child => <Block content={{ color: 'secondary_text', ...child }} context={context} />)}{!content.dialog && <span data-snackbar-accept>{content.close_action?.map(child => <Block content={{ color: 'secondary_text', ...child }} context={context} />)}</span>}</div>
+</Tag>
+<script>
+ import { initializeSnackbars } from '../client/snackbar'
+ initializeSnackbars()
+ document.addEventListener('astro:page-load', initializeSnackbars)
+ document.addEventListener('lumen:content-mounted', initializeSnackbars)
+</script>

@@ -1,0 +1,13 @@
+---
+import type { BlockProps } from '../../lib/blockProps'
+import { blockChildren } from '../../lib/blockProps'
+import Block from '../Block.astro'
+import GridRow from '../GridRow.astro'
+import Background from '../Background.astro'
+interface Props extends Omit<BlockProps, 'content'> { content: Extract<BlockProps['content'], { component: 'row' }> }
+const { content, context } = Astro.props
+---
+<GridRow content={content} theme={context.theme}>
+ <Background slot="background" content={content.background?.[0]} backgroundStyle={content.background_style} />
+ {blockChildren(content.body).map(item => <Block content={item} context={context} direction={content.direction} />)}
+</GridRow>

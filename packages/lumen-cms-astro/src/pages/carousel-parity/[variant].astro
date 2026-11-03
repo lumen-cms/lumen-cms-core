@@ -1,0 +1,15 @@
+---
+import '../../styles/global.css'
+import Block from '../../components/Block.astro'
+import { createCmsTheme } from 'lumen-cms-shared/theme'
+import { carouselFixtures, carouselSlides } from '../../../../../test/astro/fixtures/carousel-parity.mjs'
+import type { SliderStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../../lib/context'
+export function getStaticPaths() { return process.env.LUMEN_SITE ? [] : Object.keys(carouselFixtures).map(variant => ({ params: { variant } })) }
+const variant = Astro.params.variant as keyof typeof carouselFixtures
+const slides = variant === 'single' ? carouselSlides.slice(0, 1) : carouselSlides
+const content = { ...carouselFixtures[variant], body: slides } as unknown as SliderStoryblok
+const settings = { component: 'global' as const, _uid: 'settings', theme_base: 'base' as const }
+const context: RenderContext = { theme: createCmsTheme(settings), preview: false, page: { settings, locale: 'en', defaultLocale: 'en' } }
+---
+<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width" /><title>Carousel parity</title></head><body style="margin:0"><main style="width:100%;max-width:900px;margin:auto;padding-top:80px"><Block content={content} context={context} /></main></body></html>

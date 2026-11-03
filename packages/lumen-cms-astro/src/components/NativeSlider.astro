@@ -1,0 +1,74 @@
+---
+import type { SwiperStoryblok, SliderStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+import '../styles/nativeCarousel.css'
+interface Props { content: SwiperStoryblok | SliderStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const modern = content.component === 'swiper' ? content : undefined
+const legacy = content.component === 'slider' ? content : undefined
+const props: readonly string[] = content.property || []
+const options = { speed: legacy?.disable_transition ? 0 : 300, rewind: !!legacy, autoplay: modern?.autoslide_duration || legacy?.autoslide ? { delay: Number(modern?.autoslide_duration || legacy?.autoslide), pauseOnMouseEnter: legacy ? content.pause_on_hover !== false : !!content.pause_on_hover, disableOnInteraction: !legacy } : false }
+const [colorGroup, colorShade = 'main'] = (modern?.theme_color || '').split('.')
+const color = (context.theme.palette[colorGroup] as Record<string, string> | undefined)?.[colorShade] || context.theme.palette.text.primary
+---
+<div class:list={['lm-swiper', { 'lm-legacy-slider': !!legacy, 'lm-slider-pagination-below': !!legacy && props.includes('pagination_below_content'), 'lm-slider-pagination-bars': !!legacy && props.includes('pagination_circle') }]} style={{ '--swiper-theme-color': color, '--lm-slider-arrow-color': props.includes('arrows_dark') ? 'rgba(0,0,0,.8)' : 'rgba(255,255,255,.8)', '--lm-slider-pagination-color': props.includes('pagination_dark') ? 'rgba(0,0,0,.8)' : 'rgba(255,255,255,.8)', '--swiper-navigation-size': `${modern?.navigation_size || 44}px`, '--swiper-pagination-bullet-size': `${modern?.pagination_bullet_size || 8}px`, width: modern?.width ? `${modern.width}px` : undefined, marginInline: modern?.width ? 'auto' : undefined, backgroundColor: legacy?.background_color?.rgba }}>
+ <div class:list={['carousel carousel-start lm-native-carousel', { 'lm-carousel': !!legacy }]} data-lm-native-carousel={JSON.stringify(options)} style={{ height: modern?.height ? `${modern.height}px` : undefined, cursor: props.includes('grab_cursor') ? 'grab' : undefined }}>
+
+   {content.body?.map(child => <div class="carousel-item">
+    <Block content={legacy && child.component === 'section' ? { ...child, presetVariant: legacy.section_variant || 'transparent' } : child} context={context} options={modern} />
+   </div>)}
+ </div>
+  {!legacy && !props.includes('hide_arrows') && <><button class="swiper-button-prev" aria-label="Previous slide">‹</button><button class="swiper-button-next" aria-label="Next slide">›</button></>}
+  {!legacy && !props.includes('hide_pagination') && <div class="swiper-pagination">{content.body?.map((_, index) => <button type="button" class="swiper-pagination-bullet" data-slider-index={index} aria-label={`Slide ${index + 1}`} aria-current={index === 0 ? 'true' : undefined} />)}</div>}
+ {options.autoplay && <button type="button" class="btn btn-sm" data-carousel-pause>Pause slideshow</button>}
+ {legacy && <div class="lm-slider-controls">
+  {!props.includes('hide_arrows') && !props.includes('arrows_beside_pagination') && <><button type="button" class="lm-slider-arrow lm-slider-prev" data-slider-prev aria-label="Previous slide">‹</button><button type="button" class="lm-slider-arrow lm-slider-next" data-slider-next aria-label="Next slide">›</button></>}
+  {!props.includes('hide_pagination') && <div class="lm-slider-pagination">
+   {props.includes('arrows_beside_pagination') && <button type="button" data-slider-prev aria-label="Previous slide">‹</button>}
+   {content.body?.map((_, index) => <button type="button" data-slider-index={index} aria-label={`Slide ${index + 1}`} aria-current={index === 0 ? 'true' : undefined}><span /></button>)}
+   {props.includes('arrows_beside_pagination') && <button type="button" data-slider-next aria-label="Next slide">›</button>}
+  </div>}
+ </div>}
+</div>
+<script>
+ import { nativeCarousel } from '../client/nativeCarousel'
+ import { onUnmount } from '../client/lifecycle'
+ function initialize() {
+  document.querySelectorAll<HTMLElement>('[data-lm-native-carousel]').forEach(viewport => {
+   if (viewport.dataset.initialized) return
+   viewport.dataset.initialized = 'true'
+   const root = viewport.parentElement!, options = JSON.parse(viewport.dataset.lmNativeCarousel || '{}')
+   const listeners = new AbortController()
+   const update = (index: number) => {
+    root.querySelectorAll<HTMLElement>('[data-slider-index]').forEach(button => {
+     if (button.closest('.lm-swiper') !== root) return
+     if (Number(button.dataset.sliderIndex) === index) button.setAttribute('aria-current', 'true')
+     else button.removeAttribute('aria-current')
+    })
+    root.querySelectorAll<HTMLButtonElement>('.swiper-button-prev,[data-slider-prev]').forEach(button => { if (button.closest('.lm-swiper') === root) button.disabled = viewport.children.length <= 1 || !options.rewind && index === 0 })
+    root.querySelectorAll<HTMLButtonElement>('.swiper-button-next,[data-slider-next]').forEach(button => { if (button.closest('.lm-swiper') === root) button.disabled = viewport.children.length <= 1 || !options.rewind && index === viewport.children.length - 1 })
+   }
+   const carousel = nativeCarousel(root, viewport, { loop: options.rewind, instant: options.speed === 0, autoplay: options.autoplay?.delay, pauseOnHover: options.autoplay?.pauseOnMouseEnter, stopOnInteraction: !!options.autoplay && options.autoplay.disableOnInteraction !== false, onChange: update })
+   root.addEventListener('click', event => {
+    const button = (event.target as Element).closest<HTMLButtonElement>('button')
+    if (!button || button.closest('.lm-swiper') !== root) return
+    if (button.matches('[data-slider-prev],.swiper-button-prev')) carousel.previous()
+    else if (button.matches('[data-slider-next],.swiper-button-next')) carousel.next()
+    else if (button.dataset.sliderIndex !== undefined) carousel.go(Number(button.dataset.sliderIndex))
+   }, { signal: listeners.signal })
+   update(0)
+   onUnmount(root, () => { listeners.abort(); delete viewport.dataset.initialized })
+  })
+ }
+ initialize(); document.addEventListener('astro:page-load', initialize); document.addEventListener('lumen:content-mounted', initialize)
+</script>
+<style>
+ .lm-swiper { position:relative; }
+ .swiper-button-prev,.swiper-button-next { position:absolute; top:50%; transform:translateY(-50%); z-index:2; color:var(--swiper-theme-color); font-size:var(--swiper-navigation-size); cursor:pointer; }
+ .swiper-button-prev { left:10px; } .swiper-button-next { right:10px; }
+ .swiper-button-prev:disabled,.swiper-button-next:disabled { opacity:.35; cursor:auto; }
+ .swiper-pagination { position:absolute; bottom:8px; left:0; right:0; display:flex; justify-content:center; gap:8px; }
+ .swiper-pagination-bullet { width:var(--swiper-pagination-bullet-size); height:var(--swiper-pagination-bullet-size); border-radius:50%; background:var(--swiper-theme-color); opacity:.2; cursor:pointer; }
+ .swiper-pagination-bullet[aria-current=true] { opacity:1; }
+</style>

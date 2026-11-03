@@ -1,0 +1,21 @@
+---
+import type { ParagraphStoryblok, RichTextEditorStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { CmsTheme } from 'lumen-cms-shared/theme'
+import { blockStyles } from '../lib/blockStyles'
+import RichText from './RichText.astro'
+import type { RenderContext } from '../lib/context'
+import parseMarkdownContent from 'lumen-cms-shared/core/components/paragraph/markdown-helper'
+interface Props { content: ParagraphStoryblok | RichTextEditorStoryblok; theme: CmsTheme; context?: RenderContext }
+const { content, theme, context } = Astro.props
+const advanced = content.component === 'rich_text_editor' ? content : {}
+const { className, css } = blockStyles(advanced, theme)
+const rich = content.component === 'rich_text_editor' ? content : undefined
+const aliases: Record<string, string> = { textPrimary: 'text.primary', textSecondary: 'text.secondary', textDisabled: 'text.disabled' }
+const [group, shade = 'main'] = (aliases[rich?.color || ''] || rich?.color || '').split('.')
+const color = (theme.palette[group] as Record<string, string> | undefined)?.[shade] || rich?.color
+const variant = (content.typography || 'body1').replace('headline', 'h')
+const html = content.component === 'paragraph' ? parseMarkdownContent(content.text || '') : undefined
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+<div class:list={[{ 'enable__speech': rich?.enable_speech }, 'lm-markup', `lm-typography-${variant}`, className, content.style, content.class_names?.values, content.font && `lm-font-${content.font}`]}
+ style={{ '--lm-paragraph-align': rich?.align || undefined, '--lm-paragraph-color': color, color: rich?.custom_color?.rgba, lineHeight: rich?.line_height || undefined, fontSize: rich?.font_size || undefined, letterSpacing: rich?.letter_spacing || undefined }}>{rich ? <RichText body={rich.body} context={context} /> : <Fragment set:html={html} />}</div>

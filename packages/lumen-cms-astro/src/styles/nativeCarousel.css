@@ -1,0 +1,4 @@
+.lm-native-carousel.carousel { display:flex; width:100%; min-width:0; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:auto; overscroll-behavior-x:contain; }
+.lm-native-carousel > .carousel-item { display:block; position:relative; flex:0 0 100%; width:100%; min-width:0; scroll-snap-align:start; scroll-snap-stop:always; text-align:left; }
+.lm-native-carousel[data-dragging] { scroll-snap-type:none; user-select:none; cursor:grabbing; }
+.lm-native-carousel img { -webkit-user-drag:none; }

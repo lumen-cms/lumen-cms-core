@@ -1,0 +1,12 @@
+---
+import type { BlockProps } from '../../lib/blockProps'
+import { blockChildren } from '../../lib/blockProps'
+import Block from '../Block.astro'
+import FlexRow from '../FlexRow.astro'
+import Divider from '../Divider.astro'
+interface Props extends Omit<BlockProps, 'content'> { content: Extract<BlockProps['content'], { component: 'flex_row' }> }
+const { content, context } = Astro.props
+---
+<FlexRow content={content} theme={context.theme}>
+ {blockChildren(content.body).map((item, index) => <>{index > 0 && content.divider?.[0] && <Divider content={content.divider[0]} context={context} isStackDivider />}<Block content={item} context={context} /></>)}
+</FlexRow>

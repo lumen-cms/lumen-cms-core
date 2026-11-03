@@ -1,0 +1,34 @@
+---
+import type { LmListStoriesProps } from 'lumen-cms-shared/core/components/list-widget/listWidgetTypes'
+import type { RenderContext } from '../lib/context'
+import { getStoriesDefaultParams } from 'lumen-cms-shared/core/utils/universal/storyblokParamsHelper'
+import { templateLayout, templateStory } from '../lib/storyListTemplates'
+import StoryListResults from './StoryListResults.astro'
+import Block from './Block.astro'
+import CmsAnchor from './CmsAnchor.astro'
+interface Props { content: LmListStoriesProps['content']; context: RenderContext }
+const { content, context } = Astro.props
+const storyData = content.list_stories_data
+const items = storyData?.data?.stories || []
+const { starts_with, language, excluding_slugs, excluding_fields, resolve_links, resolve_relations } = getStoriesDefaultParams(context.page)
+const { list_stories_data: _data, ...query } = content
+const config = { renderEndpoint: context.storyListEndpoint, content: query, publicToken: process.env.NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY || '', defaults: { starts_with, language, excluding_slugs, excluding_fields, resolve_links, resolve_relations }, locale: context.page.locale, links: { locales: context.page.locales, defaultLocale: context.page.defaultLocale, rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY, suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE, languages: process.env.NEXT_PUBLIC_LANGUAGES?.split(',') || [] }, total: storyData?.total || 0, perPage: storyData?.perPage || 25, hasInitial: !!storyData?.data?.stories }
+const pagination = content.pagination?.[0]
+const position = pagination?.position || 'bottom'
+const paginationClass = ['lm-story-pagination', `lm-pagination-${pagination?.size || 'medium'}`, `lm-pagination-${pagination?.shape || 'round'}`, `lm-pagination-${pagination?.variant || 'text'}`]
+const templateOptions = templateLayout(content.layout)
+---
+<div id={`list_stories_${content._uid}`} data-story-list={content._uid} data-story-config={JSON.stringify(config)} style={{ position: 'relative', scrollMarginTop: '100px', width: '100%', minHeight: content.enable_min_height ? 'calc(100vh - 120px)' : undefined }}>
+ <div data-story-loading hidden role="status" class="lm-story-loading"><span class="loading loading-spinner" aria-hidden="true"></span><span class="sr-only">Loading stories</span></div>
+ <div data-story-error hidden role="alert">Stories could not be loaded. <button class="btn btn-ghost" type="button">Retry</button></div>
+ {position.includes('top') && <nav data-story-pagination hidden class:list={[paginationClass, 'mb-2']} aria-label="Story pages" data-color={pagination?.color || 'standard'} />}
+ <div data-story-results hidden={!items.length}><StoryListResults items={items} layout={content.layout} uid={content._uid} context={context} /></div>
+ <div data-story-empty hidden={!!items.length}>{content.not_found_message?.map(child => <Block content={child} context={context} />)}</div>
+ {position.includes('bottom') && <nav data-story-pagination hidden class:list={[paginationClass, 'mt-3']} aria-label="Story pages" data-color={pagination?.color || 'standard'} />}
+ {!context.storyListEndpoint && Array.from({ length: 8 }, (_, index) => <template data-story-template={index}><StoryListResults items={[templateStory(index)]} layout={templateOptions} uid={content._uid} context={context} /></template>)}
+ {context.linkRenderer && [false, true].map(external => <template data-story-rich-link={external ? 'blank' : 'same'}><CmsAnchor context={context} href="__LM_RICH_HREF__" class="lm-rich-link" target={external ? '_blank' : undefined} rel={external ? 'noopener noreferrer' : undefined}><span data-rich-link-slot /></CmsAnchor></template>)}
+</div>
+<script>
+ import { initializeStoryLists } from '../client/listStories'
+ initializeStoryLists(); document.addEventListener('astro:page-load', initializeStoryLists); document.addEventListener('lumen:content-mounted', initializeStoryLists)
+</script>

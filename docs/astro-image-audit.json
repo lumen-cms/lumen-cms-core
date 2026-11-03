@@ -1,0 +1,111 @@
+{
+  "date": "2026-11-03",
+  "scope": "All migrated image-rendering components; existing Next sources used as the behavior reference, not byte-identical generated URLs.",
+  "references": [
+    "https://docs.astro.build/en/guides/images/",
+    "https://docs.astro.build/en/reference/image-service-reference/",
+    "node_modules/next/dist/docs/01-app/03-api-reference/02-components/image.md"
+  ],
+  "implementation": {
+    "sharedWrapper": "packages/lumen-cms-astro/src/components/CmsImage.astro",
+    "configuration": "packages/lumen-cms-astro/src/images/config.mjs",
+    "service": "Astro Sharp for authorized non-Storyblok sources and explicit transforms; Storyblok width-only CDN URLs retain legacy CSS crop semantics. The former incomplete external service is no longer configured.",
+    "formats": "AVIF-first picture source plus Astro WebP fallback for JPEG/PNG; explicit formats supported; animated inputs keep Astro default handling; Storyblok retains CDN negotiation.",
+    "publicAssets": "Public raster assets are measured and passed as ImageMetadata with their filesystem path, allowing static and Node SSR optimization. LUMEN_PUBLIC_DIR must point to the consumer public directory, as configured by scripts/astro-site.cjs.",
+    "consumerSetup": "Independent consumers import lumenImageConfig from lumen-cms-astro/images/config and set image: lumenImageConfig in their Astro config."
+  },
+  "components": [
+    {
+      "astro": "Image.astro",
+      "legacy": "src/components/image/Image.tsx; src/components/avatar/LmSquareImage.tsx",
+      "review": "Measured/CMS intrinsic dimensions, square fill, proportional sizing, shape styles, eager/preload, inline SVG branch."
+    },
+    {
+      "astro": "Avatar.astro",
+      "legacy": "src/components/avatar/LmAvatar.tsx; src/components/avatar/LmSquareImage.tsx",
+      "review": "Fixed viewport size, CSS cover, responsive size hint."
+    },
+    {
+      "astro": "Button.astro",
+      "legacy": "src/components/button",
+      "review": "Fixed image dimensions and responsive hint; decorative alt retained."
+    },
+    {
+      "astro": "ToolbarLogo.astro",
+      "legacy": "src/components/layout/toolbar/ToolbarLogo.tsx",
+      "review": "Intrinsic aspect ratio, fixed logo sizing, quality 95 and preload for toolbar; drawer branding retains lazy loading and quality 75."
+    },
+    {
+      "astro": "Background.astro",
+      "legacy": "src/components/section/BackgroundImage.tsx",
+      "review": "CSS fill/fit/position, orientation variants, priority/preload, quality, lazy override."
+    },
+    {
+      "astro": "SectionParallax.astro",
+      "legacy": "src/components/section/SectionParallax.tsx",
+      "review": "Intrinsic ratio, original alt, section priority, eager override, restored blur placeholder and cleanup."
+    },
+    {
+      "astro": "CardBody.astro",
+      "legacy": "src/components/card/CardStandalone.tsx",
+      "review": "Fill without fabricated intrinsic dimensions; aspect ratio remains on container; CSS fit/position and sizes retained."
+    },
+    {
+      "astro": "CardListItem.astro",
+      "legacy": "src/components/card/CardMediaElement.tsx",
+      "review": "Fill, theme/column responsive hints, object-fit including auto, border radius."
+    },
+    {
+      "astro": "SwiperItem.astro",
+      "legacy": "src/components/slider/LmSwiperSlide.tsx",
+      "review": "Fill, configured width hint, CSS fit, responsive candidates."
+    },
+    {
+      "astro": "Gallery.astro",
+      "legacy": "src/components/gallery/LmGalleryImage.tsx",
+      "review": "Measured natural ratio and configured proportional height, fixed-size hint; existing scrolling behavior retained."
+    },
+    {
+      "astro": "ImageListMedia.astro",
+      "legacy": "src/components/image-list/ImageListItem.tsx; src/components/image/ImageBase.tsx",
+      "review": "Intrinsic dimensions and responsive column hints; same renderer covers lightbox with 100vw sizing."
+    },
+    {
+      "astro": "StoryListResults.astro",
+      "legacy": "src/components/avatar/LmMuiAvatar.tsx",
+      "review": "Fixed sizes, cover fit, responsive source sets; server-rendered pagination uses same wrapper."
+    },
+    {
+      "astro": "ShopifyProduct.astro",
+      "legacy": "src/components/ecommerce/shopify/product/ShopifyProductCarousel.tsx",
+      "review": "Authorized Shopify optimization, CSS contain fill and column sizes."
+    },
+    {
+      "astro": "ShopifyCart.astro",
+      "legacy": "src/components/ecommerce/shopify/product/ShopifyCartVariantItem.tsx",
+      "review": "Authorized Shopify optimization, 40px thumbnails, cover fit; templates retain generated assets."
+    },
+    {
+      "astro": "../travel/Travel.astro",
+      "legacy": "src/travel/components/travel/TravelTeam.tsx",
+      "review": "150px team image, remote Vercel host optimization, lazy default."
+    },
+    {
+      "astro": "../travel/AuslandszeitList.astro",
+      "legacy": "src/travel/components/auslandszeit/AuslandszeitListWidget.tsx",
+      "review": "Preserved ordinary img behavior for arbitrary WordPress sources; legacy did not use next/image."
+    }
+  ],
+  "intentionalUnoptimized": [
+    "Inline SVGs, SVG URLs (including query strings), data/blob URLs, favicon ICOs, explicit unoptimized inputs, and unauthorized remote URLs (per Astro documented policy).",
+    "Rich-text img nodes, CSS background decorations, video preview images and tracking pixels were not next/image renderers."
+  ],
+  "deploymentBoundary": "Published Document pages now default to /api/story-list. The production companion server renders pagination with the shared image pipeline. Split static/Node hosting must forward /api/story-list and /_image on the public origin; scripts/serve-astro-site.cjs supports LUMEN_SERVER_ORIGIN for this arrangement. Client-only templates remain available only for manually constructed contexts without an endpoint.",
+  "verification": {
+    "unit": "pnpm test:astro: 241 tests passed across 55 files in the final run.",
+    "typecheck": "astro check: zero errors, warnings or hints.",
+    "browser": "Existing fixture suite passed at 375, 599, 600, 899, 900, 1280px.",
+    "images": "pnpm test:astro:images verifies static and Node SSR actual image bytes, format/dimensions, crop, densities, preload, SVG passthrough, public assets, responsive browser selection, fill layout, and placeholder cleanup.",
+    "paginationImages": "pnpm test:astro:story-images passed: real static build, production published route/page loader, upstream CMS SDK requests, runtime responsive AVIF optimization, browser pagination/search/history, and malformed source/list/page rejection."
+  }
+}

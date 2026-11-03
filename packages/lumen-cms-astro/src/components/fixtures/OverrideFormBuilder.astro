@@ -1,0 +1,6 @@
+---
+import type { LmFormBuilderProps } from 'lumen-cms-shared/core/components/form-builder/formBuilderTypes'
+interface Props extends Omit<LmFormBuilderProps, 'onSubmit'> {}
+const { content, additional_fields, success_message } = Astro.props
+---
+<div data-fixture-form-builder={content._uid} data-fields={JSON.stringify(additional_fields)} data-success={success_message?.[0]?._uid}>Custom referenced form</div>

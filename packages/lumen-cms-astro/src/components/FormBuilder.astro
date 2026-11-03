@@ -1,0 +1,27 @@
+---
+import type { LmFormBuilderProps } from 'lumen-cms-shared/core/components/form-builder/formBuilderTypes'
+import type { RenderContext } from '../lib/context'
+import { additionalFormData } from 'lumen-cms-shared/core/components/form-builder/additionalFormData'
+import Block from './Block.astro'
+import Button from './CmsButton.astro'
+interface Props extends Omit<LmFormBuilderProps, 'onSubmit'> { context: RenderContext }
+const { content, context, additional_fields, success_message } = Astro.props
+const extra = additionalFormData([...(content.additional_fields || []), ...(additional_fields || [])])
+const success = success_message?.length ? success_message : content.success_message
+---
+<div data-lm-form-builder data-endpoint={content.endpoint} data-additional={JSON.stringify(extra)} style={{ width: content.full_width ? '100%' : undefined }}>
+ <form>
+  <div class="lm-form-builder-fields" style={{ display: 'flex', flexWrap: 'wrap', flexDirection: content.form_inline ? 'row' : 'column', gap: `${Number(content.spacing || 0) * 8}px` }}>
+   <div hidden><label>Current Address<input name="current_address" autocomplete="off" tabindex="-1" /></label></div>
+   {content.fields?.map(field => <div><Block content={field} context={context} options={content} /></div>)}
+   {content.submit?.map(button => <div style={{ alignSelf: content.form_inline ? 'center' : undefined }}><Button content={button} context={context} type="submit" /></div>)}
+  </div>
+ </form>
+ <div hidden data-form-success role="status" tabindex="-1">{success?.length ? success.map(child => <Block content={child} context={context} />) : 'successful submit..'}</div>
+ <div hidden data-form-error role="alert" class="alert alert-error"></div>
+</div>
+<script>
+ import { initializeFormBuilders } from '../client/formBuilder'
+ initializeFormBuilders()
+ document.addEventListener('astro:page-load', initializeFormBuilders); document.addEventListener('lumen:content-mounted', initializeFormBuilders)
+</script>

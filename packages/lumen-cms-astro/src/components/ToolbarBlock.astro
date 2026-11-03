@@ -1,0 +1,18 @@
+---
+import type { ToolbarRowStoryblok, ToolbarRowSectionStoryblok, ToolbarNaviButtonStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+import Button from './CmsButton.astro'
+import Icon from './Icon.astro'
+interface Props { content: ToolbarRowStoryblok | ToolbarRowSectionStoryblok | ToolbarNaviButtonStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const settings = context.page.settings!
+const breakpoint = content.component === 'toolbar_navi_button' && content.is_right_drawer ? context.page.page?.mobile_breakpoint || 'sm' : settings.mobile_nav_breakpoint || 'sm'
+const container = settings.toolbar_config?.includes('fixed_width') ? settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg' : ''
+---
+{content.component === 'toolbar_row' ? content.is_system_bar ? <div class="lm-system-bar" style={{ backgroundColor: content.background_color?.rgba || (context.theme.palette.primary as Record<string,string>).main }}><div class:list={['lm-container', 'h-100', container && `lm-container-${container}`]}><div class="lm-toolbar-row h-100" style={{ justifyContent: content.justify || 'space-between', alignContent: 'center' }}>{content.body?.map(child => <Block content={child} context={context} />)}</div></div></div> :
+ <div class="lm-toolbar-row h-100" style={{ justifyContent: content.justify || 'space-between' }}>{content.body?.map(child => <Block content={child} context={context} />)}</div> :
+ content.component === 'toolbar_row_section' ? <div class:list={[content.class_names?.values, { 'h-100 lm-toolbar-section-flex': !content.align }, content.use_media_query && `lm-hide-below-${breakpoint}`, content.inv_use_media_query && `lm-hide-from-${breakpoint}`]} style={{ alignItems: !content.align ? 'center' : undefined, alignSelf: content.align || 'center' }}>{content.body?.map(child => <Block content={child} context={context} />)}</div> :
+ (!content.is_right_drawer || !!context.page.page?.right_body?.length) && <span data-drawer-trigger={content.is_right_drawer ? 'right' : 'left'} class:list={[!content.force_show && `lm-hide-from-${breakpoint}`, content.class_names?.values]}>
+ {content.button?.[0] ? <Button content={content.button[0]} context={context} /> : <button type="button" class="btn btn-ghost btn-circle lm-drawer-toggle" aria-label={content.is_right_drawer ? 'Drawer right toggle' : 'Drawer left toggle'} aria-controls={content.is_right_drawer ? 'lm-right-drawer' : 'lm-left-drawer'} aria-expanded="false"><Icon name={content.icon?.name || (content.is_right_drawer ? 'apps' : 'menu')} /></button>}
+ </span>}

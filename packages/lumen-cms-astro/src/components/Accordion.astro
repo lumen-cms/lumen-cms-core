@@ -1,0 +1,13 @@
+---
+import type { AccordionStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { blockStyles } from '../lib/blockStyles'
+import Block from './Block.astro'
+interface Props { content: AccordionStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const { css, className } = blockStyles(content, context.theme)
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+<div class="lm-accordion">
+ {content.body?.map(item => <Block content={item} context={context} options={content} styleClass={className} />)}
+</div>

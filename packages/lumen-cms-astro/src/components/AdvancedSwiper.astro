@@ -1,0 +1,52 @@
+---
+import type { SwiperStoryblok, SliderStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/effect-fade'
+import 'swiper/css/effect-cube'
+import 'swiper/css/effect-coverflow'
+import 'swiper/css/effect-flip'
+import 'swiper/css/effect-cards'
+import 'swiper/css/effect-creative'
+import '../styles/swiperEffects.css'
+interface Props { content: SwiperStoryblok | SliderStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const modern = content.component === 'swiper' ? content : undefined
+const legacy = content.component === 'slider' ? content : undefined
+const props: readonly string[] = content.property || []
+const [mobile = 1, tablet = mobile, desktop = tablet] = modern ? (modern.slides_per_view || '1').split(',').map(Number) : [1, Number(legacy?.slides_per_view || 1), Number(legacy?.slides_per_view || 1)]
+const [gap = 0, tabletGap = gap, desktopGap = tabletGap] = (modern?.space_between_slides || '0').split(',').map(Number)
+const responsiveSlides = !modern?.effect || modern.effect === 'fade'
+const effectOptions = modern?.effect === 'coverflow' ? { centeredSlides: true, slidesPerView: 'auto', coverflowEffect: { rotate: 50, stretch: 0, depth: 100, modifier: 1, slideShadows: true } } : modern?.effect === 'creative' ? { creativeEffect: { prev: { shadow: true, translate: ['-120%', 0, -500] }, next: { shadow: true, translate: ['120%', 0, -500] } } } : modern?.effect === 'cube' ? { cubeEffect: { shadow: true, slideShadows: true, shadowOffset: 20, shadowScale: .94 } } : {}
+const options = { dynamicMainBullets: modern?.max_pagination_bullets ? Number(modern.max_pagination_bullets) : undefined, ...(responsiveSlides ? { slidesPerView: mobile, spaceBetween: gap, breakpoints: { 600: { slidesPerView: tablet, spaceBetween: tabletGap }, 900: { slidesPerView: desktop, spaceBetween: desktopGap } } } : {}), ...effectOptions, effect: modern?.effect || 'slide', speed: legacy?.disable_transition ? 0 : legacy ? 500 : 300, rewind: !!legacy, grabCursor: modern?.property?.includes('grab_cursor'), freeMode: modern?.property?.includes('free_mode'), autoplay: modern?.autoslide_duration || legacy?.autoslide ? { delay: Number(modern?.autoslide_duration || legacy?.autoslide), pauseOnMouseEnter: legacy ? content.pause_on_hover !== false : !!content.pause_on_hover, ...(legacy ? { disableOnInteraction: false } : {}) } : false }
+const [colorGroup, colorShade = 'main'] = (modern?.theme_color || '').split('.')
+const color = (context.theme.palette[colorGroup] as Record<string, string> | undefined)?.[colorShade] || context.theme.palette.text.primary
+---
+<div class:list={['lm-swiper', modern?.effect && `lm-swiper-effect-${modern.effect}`, { 'lm-legacy-slider': !!legacy, 'lm-slider-pagination-below': !!legacy && props.includes('pagination_below_content'), 'lm-slider-pagination-bars': !!legacy && props.includes('pagination_circle') }]} style={{ '--swiper-theme-color': color, '--lm-slider-arrow-color': props.includes('arrows_dark') ? 'rgba(0,0,0,.8)' : 'rgba(255,255,255,.8)', '--lm-slider-pagination-color': props.includes('pagination_dark') ? 'rgba(0,0,0,.8)' : 'rgba(255,255,255,.8)', '--swiper-navigation-size': `${modern?.navigation_size || 44}px`, '--swiper-pagination-bullet-size': `${modern?.pagination_bullet_size || 8}px`, '--lm-slides-mobile': mobile, '--lm-slides-tablet': tablet, '--lm-slides-desktop': desktop, backgroundColor: legacy?.background_color?.rgba }}>
+ <div class:list={['swiper', { 'lm-carousel': !!legacy }]} data-lm-swiper={JSON.stringify(options)} style={{ height: modern?.effect === 'cards' ? '320px' : modern?.effect === 'cube' ? '300px' : modern?.height ? `${modern.height}px` : undefined, width: modern?.effect === 'cards' ? '240px' : modern?.effect === 'cube' ? '300px' : modern?.effect === 'coverflow' ? '100%' : modern?.width ? `${modern.width}px` : undefined }}>
+  <div class="swiper-wrapper">
+   {content.body?.map(child => <div class="swiper-slide">
+    <Block content={legacy && child.component === 'section' ? { ...child, presetVariant: legacy.section_variant || 'transparent' } : child} context={context} options={modern} />
+   </div>)}
+  </div>
+  {!legacy && !props.includes('hide_arrows') && <><button class="swiper-button-prev" aria-label="Previous slide">‹</button><button class="swiper-button-next" aria-label="Next slide">›</button></>}
+  {!legacy && !props.includes('hide_pagination') && <div class="swiper-pagination" />}
+ </div>
+ {options.autoplay && <button type="button" class="btn btn-sm" data-carousel-pause>Pause slideshow</button>}
+ {legacy && <div class="lm-slider-controls">
+  {!props.includes('hide_arrows') && !props.includes('arrows_beside_pagination') && <><button type="button" class="lm-slider-arrow lm-slider-prev" data-slider-prev aria-label="Previous slide">‹</button><button type="button" class="lm-slider-arrow lm-slider-next" data-slider-next aria-label="Next slide">›</button></>}
+  {!props.includes('hide_pagination') && <div class="lm-slider-pagination">
+   {props.includes('arrows_beside_pagination') && <button type="button" data-slider-prev aria-label="Previous slide">‹</button>}
+   {content.body?.map((_, index) => <button type="button" data-slider-index={index} aria-label={`Slide ${index + 1}`} aria-current={index === 0 ? 'true' : undefined}><span /></button>)}
+   {props.includes('arrows_beside_pagination') && <button type="button" data-slider-next aria-label="Next slide">›</button>}
+  </div>}
+ </div>}
+</div>
+<script>
+ import { initializeDeferred } from '../client/deferred'
+ const initialize = () => initializeDeferred('[data-lm-swiper]', () => import('../client/advancedSwiper'))
+ initialize(); document.addEventListener('astro:page-load', initialize); document.addEventListener('lumen:content-mounted', initialize)
+</script>

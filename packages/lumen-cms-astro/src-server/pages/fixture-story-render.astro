@@ -1,0 +1,7 @@
+---
+import '../../src/styles/global.css'
+import ListStories from '../../src/components/ListStories.astro'
+import { content, context } from '../fixtures/storyListContext'
+if (process.env.LUMEN_SITE) return new Response(null, { status: 404 })
+---
+<html><head><title>Server list fixture</title></head><body><ListStories content={content} context={context} /></body></html>

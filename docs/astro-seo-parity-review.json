@@ -1,0 +1,181 @@
+{
+  "checkedAt": "2026-11-03T05:48:05.316Z",
+  "scope": "SEO helper parity and 90 published reference routes; not a full migration sign-off",
+  "nextSeoVersion": "7.3.0",
+  "previewException": "Preview remains noindex,nofollow; no public metadata differences are allowlisted.",
+  "comparison": "Exact title, html lang, metadata values (including duplicates and image order), canonical and icon links; parsed JSON-LD with only object-key/script-order normalization. Sitemap URL, lastmod and priority preserved.",
+  "sites": {
+    "bali": {
+      "origin": "https://baliinternships.com",
+      "routes": [
+        "/",
+        "/traineeship-bali-indonesia",
+        "/fees",
+        "/info/faq",
+        "/blog-articles",
+        "/contact",
+        "/about-us",
+        "/how-to-apply",
+        "/architecture-internship",
+        "/internship-in-an-architecture-studio-bali",
+        "/volunteer-nature-and-wildlife-conservation",
+        "/turtle-conservation-volunteer-bali-indonesia",
+        "/sports-and-environment-summer-school",
+        "/tropical-coastal-ecology-and-community-based-management-postgrad-study-bali",
+        "/info/accommodation",
+        "/info/internship-placement-fees",
+        "/info/fees-volunteering",
+        "/info/accommodation/project-kuta",
+        "/info/accommodation/project-sanur",
+        "/info/accommodation/projects-ubud",
+        "/info/accommodation/project-pemuteran",
+        "/interview-with-patrick-more-than-volunteering-community-conservation-and-purpose-in-bali",
+        "/5-things-you-need-to-know-about-accommodations-in-bali",
+        "/meeting",
+        "/de",
+        "/de/infos/faq",
+        "/de/infos/unterkunft",
+        "/de/infos/visum",
+        "/id/cara-mendaftar",
+        "/id/kontak"
+      ],
+      "matchingPages": 30,
+      "sitemaps": [
+        {
+          "endpoint": "/sitemap.xml",
+          "entries": 586,
+          "matches": true
+        },
+        {
+          "endpoint": "/api/sitemap",
+          "entries": 586,
+          "matches": true
+        }
+      ],
+      "publishedRobotsStatus": 404
+    },
+    "planet": {
+      "origin": "https://planet.training",
+      "routes": [
+        "/",
+        "/pricing",
+        "/app-sports-coaches",
+        "/app-sports-clubs",
+        "/app-sports-associations",
+        "/features",
+        "/solutions",
+        "/sports",
+        "/soccer",
+        "/basketball",
+        "/handball",
+        "/field-hockey",
+        "/volleyball",
+        "/drawing-tool",
+        "/drawing-tool-soccer",
+        "/drawing-tool-field-hockey",
+        "/drawing-tool-handball",
+        "/drawing-tool-volleyball",
+        "/drills-exercises",
+        "/support",
+        "/support/faq",
+        "/articles",
+        "/contact",
+        "/about-us",
+        "/de",
+        "/de/preise",
+        "/de/coaching-app-trainer",
+        "/de/hilfe/faq",
+        "/it",
+        "/es"
+      ],
+      "matchingPages": 30,
+      "sitemaps": [
+        {
+          "endpoint": "/sitemap.xml",
+          "entries": 685,
+          "matches": true
+        },
+        {
+          "endpoint": "/api/sitemap",
+          "entries": 685,
+          "matches": true
+        }
+      ],
+      "publishedRobotsStatus": 404
+    },
+    "upskill": {
+      "origin": "https://upskill.study",
+      "routes": [
+        "/",
+        "/sustainable-tourism-summer-course-bali",
+        "/accommodation-study-abroad-bali",
+        "/application",
+        "/faq-study-bali",
+        "/tuition-fee-study-bali",
+        "/dates-deadlines",
+        "/contact",
+        "/about-us",
+        "/study-programs-bali",
+        "/tropical-biology-marine-conservation-study-bali",
+        "/tropical-coastal-ecology-and-community-based-management-semester-bali",
+        "/intercultural-communication-summer-school-bali",
+        "/nature-outdoor-studies-sport-summer-course-bali",
+        "/summer-courses-accommodation",
+        "/visa-study-bali",
+        "/safety-health-insurance-study-bali",
+        "/activities-study-bali",
+        "/about-bali",
+        "/udayana-university-bali",
+        "/blog-articles",
+        "/general-living-costs-studying-in-bali",
+        "/grading-system",
+        "/indonesian-academic-credit-conversion-information",
+        "/de",
+        "/de/faq",
+        "/de/studiengebuehren",
+        "/de/termine-und-fristen",
+        "/de/unterkunft-auslandssemester-auf-bali",
+        "/de/sommerkurs-nachhaltigkeit-oekotourismus-bali"
+      ],
+      "matchingPages": 30,
+      "sitemaps": [
+        {
+          "endpoint": "/sitemap.xml",
+          "entries": 199,
+          "matches": true
+        },
+        {
+          "endpoint": "/api/sitemap",
+          "entries": 199,
+          "matches": true
+        }
+      ],
+      "publishedRobotsStatus": 404
+    }
+  },
+  "validation": {
+    "vitestTestsPassed": 152,
+    "comparisonGuardTestsPassed": 2,
+    "coreTypes": "passed",
+    "astroCheck": "0 errors, 0 warnings, 0 hints",
+    "builds": "Three production sample builds passed"
+  },
+  "astroSeo": {
+    "url": "https://github.com/jonasmerlin/astro-seo",
+    "decision": "Not added: canonical defaults and OG API differ; custom JSON-LD remains necessary. Retain the renderer validated against next-seo."
+  },
+  "limitations": [
+    "Only the listed 90 page bodies were rendered and compared for SEO tags, not every sitemap URL.",
+    "Deployment redirect rules, response headers, and full body-content parity are not certified.",
+    "Static sitemap refresh requires a content-triggered rebuild; hosting must serve both sitemap paths as XML."
+  ],
+  "commands": [
+    "pnpm test:seo:parity",
+    "pnpm astro:site bali build --sample",
+    "pnpm astro:site planet build --sample",
+    "pnpm astro:site upskill build --sample",
+    "pnpm test:seo:sites --fetch",
+    "pnpm test:seo:corpus",
+    "node --test test/websites/seo-parity.test.cjs"
+  ]
+}

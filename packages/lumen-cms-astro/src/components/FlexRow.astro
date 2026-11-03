@@ -1,0 +1,25 @@
+---
+import { blockStyles } from '../lib/blockStyles'
+import type { CmsTheme } from 'lumen-cms-shared/theme'
+import type { FlexRowStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: FlexRowStoryblok; theme: CmsTheme }
+const { content, theme } = Astro.props
+const { className, css } = blockStyles(content, theme)
+const direction = content.column ? 'column' : 'row'
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+<div
+  data-lm-flex-wrap={content.flex_wrap || undefined}
+  class:list={['lm-flex-row', className, content.class_names?.values, { 'mh-100': content.full_height, 'lm-flex-mobile-column': content.column_mobile_only }]}
+  style={{
+    '--lm-direction': direction,
+    '--lm-gap': `${Number(content.gap || 0) * 8}px`,
+    '--lm-wrap': content.flex_wrap || 'wrap',
+    '--lm-justify': content.justify || undefined,
+    '--lm-align-items': content.align_items || undefined,
+    '--lm-align-content': content.align_content || undefined
+  }}
+>
+  <slot />
+</div>
+

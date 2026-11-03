@@ -1,0 +1,69 @@
+---
+import type { Travel } from 'lumen-cms-shared/core/travel/typings/generated/hasura-schema'
+import type { RenderContext } from '../lib/context'
+import Image from '../components/CmsImage.astro'
+import Block from '../components/Block.astro'
+import { collectPageStyles } from '../lib/blockStyles'
+import { getTravelHeaderContent, getTravelOverviewContent, getTravelGalleryContent, getTravelServicesContent } from 'lumen-cms-shared/travelDetail'
+import { mainFlexRowHeadline } from 'lumen-cms-shared/core/travel/components/travel/travelSectionContent'
+import translations from 'lumen-cms-shared/core/travel/utils/translations'
+interface Props { content: Travel; context: RenderContext }
+const { content, context } = Astro.props
+const langKey: 'DE' | 'EN' = content.language_key === 'DE' || content.language_key === 'EN' ? content.language_key : context.page.locale?.toLowerCase() === 'de' ? 'DE' : 'EN'
+const props = { content, langKey }
+const sections = [getTravelHeaderContent(props), getTravelOverviewContent(props), getTravelGalleryContent(props), getTravelServicesContent(props)].filter(section => section !== null)
+function markPrice(value: unknown) {
+ if (!value || typeof value !== 'object') return
+ const node = value as Record<string, unknown>
+ if (node.component === 'headline' && node._uid === 'el-5') {
+  const classes = node.class_names as { values?: string[] } | undefined
+  node.class_names = { ...classes, values: [...(classes?.values || []), 'lm-travel-price'] }
+ }
+ Object.values(node).forEach(markPrice)
+}
+markPrice(sections)
+const teamHeading = { component: 'section' as const, _uid: 'travel-team', padding: '0 0 0 0', body: [mainFlexRowHeadline({ icon: 'account-group-outline', text: translations[langKey].travelDetail.team })] }
+const css = collectPageStyles([sections, teamHeading], context.theme)
+---
+<style is:inline set:html={css} />
+<div id="travel-detail" data-lm-travel-detail data-language={langKey} data-prices={JSON.stringify(content.product?.product_price || {})}>
+ {sections.map(section => <Block content={section} context={context} />)}
+ <div class="lm-container lm-container-lg lm-travel-team">
+  <Block content={teamHeading} context={context} />
+  <div class="card team-card lm-travel-team-card" style={{ boxShadow: context.theme.shadows[2] }}>
+   <div class="lm-travel-team-layout">
+    <div class="lm-travel-team-image"><Image src={content.travel_team?.file_storyblok?.url_new || 'https://cebytb37gqewrsv4.public.blob.vercel-storage.com/team-89665-dGAHJGyu3Fx9cuGwPmAKtAjSfwVqY3.jpg'} alt={translations[langKey].travelDetail.team} width={150} height={150} sizes="150px" style={{ borderRadius: '10px' }} /></div>
+    <div class="lm-travel-team-text">
+     <Block content={{ component: 'headline', _uid: 'headline-team', typography: 'body2', color: 'primary', tag: 'h4', text: translations[langKey].travelDetail.team }} context={context} />
+     <Block content={{ component: 'html', _uid: '2342', body: content.travel_team?.description || undefined }} context={context} />
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+<style is:global>
+ #travel-detail h3 { font-weight: 400; }
+ #travel-detail h2 { text-align: left; font-size: 1rem; line-height: 1.5; font-weight: 600; }
+ #travel-detail ul > li > p { margin: 0; }
+ .lm-travel-team { padding-bottom: 60px; }
+ .lm-travel-team-card { padding: 32px; margin-top: 32px; border-radius: 12px; background: linear-gradient(126deg,rgba(250,247,246,0) 0%,rgba(255,111,0,.05) 100%); }
+ .lm-travel-team-card:hover { background: linear-gradient(126deg,rgba(250,247,246,0) 0%,rgba(255,111,0,.15) 100%); }
+ .lm-travel-team-layout { display: flex; gap: 32px; flex-direction: column; }
+ .lm-travel-team-image { display: flex; justify-content: center; align-items: center; }
+ .lm-travel-team-text { flex: 1; min-width: 0; }
+ @media(min-width:600px) { .lm-travel-team-layout { flex-direction: row; } .lm-travel-team-image { flex-basis: calc(100% / 6); } }
+</style>
+<script>
+ import { getCurrency } from 'locale-currency'
+ function initializeTravelDetails() {
+  document.querySelectorAll<HTMLElement>('[data-lm-travel-detail]').forEach(root => {
+   if (root.dataset.currencyReady) return
+   root.dataset.currencyReady = 'true'
+   const detected = getCurrency(navigator.language || 'en_US')?.toLowerCase() || 'usd'
+   const currency = root.dataset.language === 'DE' ? 'eur' : ['usd', 'aus', 'eur', 'gbp'].includes(detected) ? detected : 'eur'
+   const prices = JSON.parse(root.dataset.prices || '{}')
+   root.querySelectorAll('.lm-travel-price').forEach(node => { node.textContent = `${prices[currency]} ${currency.toUpperCase()}` })
+  })
+ }
+ initializeTravelDetails(); document.addEventListener('astro:page-load', initializeTravelDetails); document.addEventListener('lumen:content-mounted', initializeTravelDetails)
+</script>

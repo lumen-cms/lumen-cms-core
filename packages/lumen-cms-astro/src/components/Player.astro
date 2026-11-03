@@ -1,0 +1,14 @@
+---
+import type { PlayerStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: PlayerStoryblok }
+const { content } = Astro.props
+const ratios = content.ratio?.replaceAll('x', '/').split(',').map(value => value.trim()) || []
+---
+<div class="lm-player" data-lm-player data-player-config={JSON.stringify(content)} style={Object.fromEntries(ratios.map((ratio, index) => [`--lm-player-ratio-${index}`, ratio]))} data-player-ratio={ratios.length ? '' : undefined}>
+ <div class="lm-player-surface" style={{ width: content.ratio ? '100%' : content.width || '640px', height: content.ratio ? '100%' : content.height || '360px', position: content.ratio ? 'absolute' : undefined, top: content.ratio ? 0 : undefined, left: content.ratio ? 0 : undefined, borderRadius: content.border_radius || undefined }}></div>
+</div>
+<script>
+ import { initializePlayers } from '../client/player'
+ initializePlayers()
+ document.addEventListener('astro:page-load', initializePlayers); document.addEventListener('lumen:content-mounted', initializePlayers)
+</script>

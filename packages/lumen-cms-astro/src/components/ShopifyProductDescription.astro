@@ -1,0 +1,28 @@
+---
+import type { EcommerceShopifyConfigStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { sanitizeProductDescription } from 'lumen-cms-shared/core/components/ecommerce/shopify/product/sanitizeProductDescription'
+import Block from './Block.astro'
+interface Props { uid: string; descriptionHtml: string; config?: EcommerceShopifyConfigStoryblok; context: RenderContext }
+const { uid, descriptionHtml, config, context } = Astro.props
+const id = `shopify-description-${uid}`
+const trigger = { component: 'button' as const, _uid: `${uid}-description-trigger`, label: 'About this item', ...config?.product_description_trigger?.[0], link: undefined, on_click_function: undefined }
+---
+<div data-lm-dialog-trigger={id}><Block content={trigger} context={context} /></div>
+<template id={`${id}-template`}>
+ <dialog id={id} class="lm-dialog lm-shopify-description" aria-label={trigger.label || 'About this item'}>
+  <div class="lm-shopify-description-toolbar"><button type="button" class="btn btn-ghost btn-circle" data-dialog-close aria-label="Close dialog">×</button></div>
+  <div class="lm-shopify-description-content"><div class="lm-typography-body1" style={{ color: context.theme.palette.text.secondary }} set:html={sanitizeProductDescription(descriptionHtml)} /></div>
+ </dialog>
+</template>
+<style is:global>
+ .lm-shopify-description-toolbar { min-height:56px; padding:0 16px; display:flex; align-items:center; justify-content:flex-end; }
+ .lm-shopify-description-content { padding:20px 24px; overflow-y:auto; }
+ @media (min-width:600px) { .lm-shopify-description-toolbar { min-height:64px; padding:0 24px; } }
+</style>
+<script>
+ import { initializeDialogs } from '../client/dialog'
+ initializeDialogs()
+ document.addEventListener('astro:page-load', initializeDialogs)
+ document.addEventListener('lumen:content-mounted', initializeDialogs)
+</script>

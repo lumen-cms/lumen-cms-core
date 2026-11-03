@@ -1,0 +1,19 @@
+---
+import type { EventStoryblok, SectionStoryblok, ColumnStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { getDateLocalized } from 'lumen-cms-shared/core/utils/intlDateHelper'
+import Block from './Block.astro'
+interface Props { content: EventStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const dates = content.multiple_event_dates?.length ? content.multiple_event_dates : [content]
+const subtitle = dates.map(date => getDateLocalized({ start: date.start, end: date.end, allDay: date.all_day, locale: context.page.locale, options: content.date_format?.[0] ? { ...content.date_format[0] } : undefined })).join('\n')
+const body: ColumnStoryblok['body'] = [
+ { component: 'image', _uid: 'image', source: content.image?.filename ?? undefined, alt: content.image?.alt ?? undefined },
+ { component: 'headline', _uid: 'headline', tag: 'h1', typography: 'headline2', align: 'center', text: content.title },
+ { component: 'headline', _uid: 'subtitle1', tag: 'h5', typography: 'subtitle1', align: 'center', support_linebreak: true, text: subtitle },
+ ...(content.content ? [{ component: 'rich_text_editor' as const, _uid: `rich_text_${content._uid}`, body: content.content }] : []),
+ ...(content.body || [])
+]
+const section: SectionStoryblok = { component: 'section', _uid: content._uid, body: [{ component: 'row', _uid: 'row', body: [{ component: 'column', _uid: 'column', body }] }] }
+---
+<Block content={section} context={context} />

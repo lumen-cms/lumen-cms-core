@@ -1,0 +1,88 @@
+---
+import type { RenderContext } from '../lib/context'
+import translations from 'lumen-cms-shared/core/travel/utils/translations'
+interface Props { context: RenderContext }
+const { context } = Astro.props
+const language = context.page.locale?.toLowerCase() === 'de' ? 'DE' : 'EN'
+const labels = translations[language]
+const selects = [{ name: 'travelType', key: 'travel_type', label: labels.travel_type }, { name: 'branch', key: 'branch', label: labels.branch }, { name: 'country', key: 'country', label: labels.travelCountry }, { name: 'city', key: 'city', label: labels.city }]
+---
+<div data-lm-travel-search data-language={language} data-locale={context.page.locale || 'en'}>
+ <label class="lm-travel-search-field"><span>{labels.search}</span><input class="input w-full" type="search" name="searchtext" autocomplete="new-password" /></label>
+ {selects.map(field => <label class="lm-travel-search-field"><span>{field.label}</span><span class="lm-travel-select-row"><select class="select w-full" name={field.name} data-option-key={field.key} disabled><option value="">{language === 'DE' ? 'Wählen…' : 'Choose…'}</option></select><button type="button" class="btn btn-ghost btn-square" data-clear={field.name} aria-label={language === 'DE' ? 'Auswahl löschen' : 'Clear selection'} hidden>×</button></span></label>)}
+ <div role="status" data-travel-search-status></div><button type="button" class="btn btn-ghost" data-travel-search-retry hidden>{language === 'DE' ? 'Erneut versuchen' : 'Retry'}</button>
+</div>
+<style>
+ .lm-travel-search-field { display: flex; flex-direction: column; gap: 4px; margin: 16px 0 8px; width: 100%; }
+ .lm-travel-select-row { display: flex; align-items: center; gap: 8px; }
+</style>
+<script>
+ import type { OptionItem } from 'lumen-cms-shared/core/travel/components/travel-list/travelListTypes'
+ import type { CategoryStateProp } from 'lumen-cms-shared/core/travel/components/page/pageContextTypes'
+ import { getTravelState, updateTravelState } from './state'
+ import { onUnmount } from '../client/lifecycle'
+ function optionLabel(option: OptionItem, language: string) {
+  let text = option[language === 'DE' ? 'title_de' : 'title']
+  const count = option.mn_travel_branches_aggregate?.aggregate.count ?? option.mn_travel_travel_types_aggregate?.aggregate.count ?? (option.cities ? option.cities.reduce((sum, city) => sum + city.travels_aggregate.aggregate.count, 0) : option.travels_aggregate?.aggregate.count)
+  if (count !== undefined) text += ` [${count}]`
+  return text
+ }
+ function initializeTravelSearch() {
+  document.querySelectorAll<HTMLElement>('[data-lm-travel-search]').forEach(root => {
+   if (root.dataset.initialized) return
+   root.dataset.initialized = 'true'
+   const input = root.querySelector<HTMLInputElement>('input')!
+   const selects = [...root.querySelectorAll<HTMLSelectElement>('select')]
+   const status = root.querySelector<HTMLElement>('[data-travel-search-status]')!
+   const retry = root.querySelector<HTMLButtonElement>('[data-travel-search-retry]')!
+   const interacted = new Set<string>()
+   let timer: ReturnType<typeof setTimeout>
+   let request: AbortController | undefined
+   let sequence = 0
+   const sync = () => {
+    const state = getTravelState() as Record<string, string | number>
+    const query = new URL(location.href).searchParams
+    for (const select of selects) {
+     const value = String(state[select.name] || (!interacted.has(select.name) && query.get(select.name)) || '')
+     if (value && ![...select.options].some(option => option.value === value)) select.add(new Option(value, value))
+     select.value = value
+     root.querySelector<HTMLButtonElement>(`[data-clear="${select.name}"]`)!.hidden = !value
+    }
+   }
+   const load = async () => {
+    const current = ++sequence
+    request?.abort(); request = new AbortController()
+    const params = new URLSearchParams(Object.entries(getTravelState()).map(([key, value]) => [key, String(value)]))
+    params.set('locale', root.dataset.locale || 'en')
+    retry.hidden = true; status.textContent = ''
+    try {
+     const response = await fetch(`/api/categories?${params}`, { signal: request.signal })
+     if (!response.ok) throw new Error('Category request failed')
+     const data = await response.json() as Record<string, OptionItem[]>
+     if (current !== sequence) return
+     for (const select of selects) {
+      const placeholder = select.options[0]
+      select.replaceChildren(placeholder)
+      for (const option of data[select.dataset.optionKey!] || []) select.add(new Option(optionLabel(option, root.dataset.language!), String(option.id)))
+      select.disabled = false
+     }
+     sync()
+    } catch {
+     if (current !== sequence || request.signal.aborted) return
+     status.textContent = root.dataset.language === 'DE' ? 'Filter konnten nicht geladen werden.' : 'Filters could not be loaded.'
+     retry.hidden = false
+    }
+   }
+   input.value = getTravelState().searchtext || ''
+   input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => updateTravelState({ searchtext: input.value }), 750) })
+   for (const select of selects) select.addEventListener('change', () => { interacted.add(select.name); updateTravelState({ [select.name]: select.value } as CategoryStateProp) })
+   root.querySelectorAll<HTMLButtonElement>('[data-clear]').forEach(button => button.addEventListener('click', () => { interacted.add(button.dataset.clear!); updateTravelState({ [button.dataset.clear!]: '' }); sync() }))
+   const change = () => { sync(); void load() }
+   document.addEventListener('lumen:travel-filter', change)
+   retry.addEventListener('click', load)
+   sync(); void load()
+   onUnmount(root, () => { ++sequence; clearTimeout(timer); request?.abort(); document.removeEventListener('lumen:travel-filter', change) })
+  })
+ }
+ initializeTravelSearch(); document.addEventListener('astro:page-load', initializeTravelSearch); document.addEventListener('lumen:content-mounted', initializeTravelSearch)
+</script>

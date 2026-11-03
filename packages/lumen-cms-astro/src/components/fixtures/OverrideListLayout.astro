@@ -1,0 +1,6 @@
+---
+import type { CardListStoryblok, NavListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: CardListStoryblok | NavListStoryblok; disablePagination?: boolean }
+const { content, disablePagination } = Astro.props
+---
+<div data-fixture-list-layout={content.component} data-pagination-disabled={disablePagination} data-items={JSON.stringify(content.body)}>{content._uid}</div>

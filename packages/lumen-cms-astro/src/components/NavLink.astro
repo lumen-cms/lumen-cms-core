@@ -1,0 +1,16 @@
+---
+import CmsAnchor from './CmsAnchor.astro'
+import type { NavItemStoryblok, NavMenuItemStoryblok, HeadlineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { getLinkAttrs, type LinkType } from '../lib/links'
+import Headline from './Headline.astro'
+interface Props { content: NavItemStoryblok | NavMenuItemStoryblok; context: RenderContext; options?: HeadlineStoryblok }
+const { content, context, options } = Astro.props
+const attrs = content.link?.linktype ? getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }, context?.page) : {}
+const menu = content.component === 'nav_menu_item'
+const label = menu ? content.label : content.name
+const active = attrs.href === context.page.slug
+---
+<CmsAnchor context={context} data-lm-list-item={content._uid} {...attrs} class:list={[menu ? 'lm-menu-item' : 'lm-nav-link', { lm_active: active }]} role={menu ? 'menuitem' : undefined} tabindex={menu ? -1 : undefined} data-lm-action={content.on_click_function || undefined}>
+ {menu ? label : <Headline content={{ ...options, _uid: content._uid, component: 'headline', text: label, typography: options?.typography || 'body1', tag: options?.tag || 'span' }} theme={context.theme}>{label}</Headline>}
+</CmsAnchor>

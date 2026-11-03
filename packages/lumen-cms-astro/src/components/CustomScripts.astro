@@ -1,0 +1,14 @@
+---
+import type { ScriptStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import { cmsScripts } from 'lumen-cms-shared/scripts'
+import { serializeJsonLd } from 'lumen-cms-shared/seo'
+interface Props { scripts?: ScriptStoryblok[] }
+const scripts = cmsScripts(Astro.props.scripts)
+---
+{scripts.filter(script => script.strategy === 'beforeInteractive').map(script => <script is:inline id={script.id} src={script.src} {...script.attributes} data-lm-cms-script={script.attributes.id || script.id} set:html={script.body?.replace(/<\/script/gi, '<\\/script')} />)}
+<script is:inline data-lumen-preview-head data-lm-cms-scripts type="application/json" set:html={serializeJsonLd(scripts.filter(script => script.strategy !== 'beforeInteractive'))} />
+<script>
+ import { initializeCmsScripts } from '../client/cmsScripts'
+ initializeCmsScripts()
+ document.addEventListener('astro:page-load', initializeCmsScripts)
+</script>

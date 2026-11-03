@@ -1,0 +1,54 @@
+---
+import { getImage, imageConfig } from 'astro:assets'
+import { isRemoteAllowed } from 'astro/assets/utils'
+import type { HTMLAttributes } from 'astro/types'
+import type { ImageOutputFormat } from 'astro'
+import { imageDimensions, publicImageMetadata } from '../images/dimensions'
+import { isStoryblokImage, isSvgImage, normalizeImageSource, responsiveCandidates } from '../images/policy'
+import { storyblokImageUrl } from '../images/storyblok-service'
+interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
+ src: string; alt: string; width?: number; height?: number; widths?: number[]; densities?: (number | `${number}x`)[]
+ quality?: number; format?: ImageOutputFormat; fit?: 'contain' | 'cover' | 'fill' | 'inside' | 'outside'; position?: string
+ fill?: boolean; preload?: boolean; blurDataURL?: string; unoptimized?: boolean
+}
+const { src: input, width, height, widths, densities, quality = Number(process.env.NEXT_PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, blurDataURL, unoptimized, style, ...attrs } = Astro.props
+const source = normalizeImageSource(input)
+const unauthorized = /^https?:/.test(source) && !isRemoteAllowed(source, imageConfig)
+const bypass = unauthorized || unoptimized || /\.ico(?:[?#]|$)/i.test(source) || isSvgImage(source) || /^(data:|blob:)/.test(source)
+// Unknown unoptimized fill sources need only a CSS box, not invented intrinsic attributes.
+const dimensions = width && height ? { width, height } : fill && bypass ? { width: 1536, height: 1536 } : await imageDimensions(source, imageConfig)
+const sizes = attrs.sizes || (fill ? '100vw' : undefined)
+const candidates = bypass ? [] : responsiveCandidates(dimensions.width, sizes, widths, densities)
+const useCdn = isStoryblokImage(source) && !bypass && !format && !fit && !position
+type ImageResult = { src: string; srcSet: { attribute: string }; attributes: Record<string, unknown> }
+let output: ImageResult
+let avif: ImageResult | undefined
+if (useCdn || bypass) {
+ output = { src: useCdn ? storyblokImageUrl(source, dimensions.width, quality) : source, srcSet: { attribute: useCdn ? candidates.map(c => `${storyblokImageUrl(source, c.width, quality)} ${c.descriptor}`).join(', ') : '' }, attributes: dimensions }
+} else {
+ const local = await publicImageMetadata(source)
+ const transform = { src: local || source, ...dimensions, quality, format, fit: fit || 'inside' as const, position,
+   ...(sizes || widths ? { widths: candidates.map(c => c.width) } : { densities: densities || [1, 2] }) }
+ output = await getImage(transform)
+ // Match the legacy AVIF-first policy for still raster sources. Animated
+ // formats stay on Astro's animation-preserving default pipeline.
+ if (!format && /\.(?:jpe?g|png)(?:[?#]|$)/i.test(source)) avif = await getImage({ ...transform, format: 'avif' })
+}
+const imageStyle = [fill ? 'position:absolute;inset:0;width:100%;height:100%' : '', typeof style === 'string' ? style : Object.entries(style || {}).map(([key,value]) => value == null ? '' : `${key.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`)}:${value}`).join(';'), blurDataURL ? `background-image:url("${blurDataURL}");background-size:cover;background-position:center` : ''].filter(Boolean).join(';')
+const htmlAttributes = { ...output.attributes, ...attrs, src: output.src, srcset: output.srcSet.attribute || undefined, sizes, width: fill ? undefined : dimensions.width, height: fill ? undefined : dimensions.height, loading: preload ? 'eager' as const : attrs.loading || 'lazy', decoding: attrs.decoding || 'async', style: imageStyle || undefined, 'data-lm-image-blur': blurDataURL ? '' : undefined }
+const preloadImage = avif || output
+---
+{preload && <link rel="preload" as="image" type={avif ? 'image/avif' : undefined} href={preloadImage.srcSet.attribute ? undefined : preloadImage.src} imagesrcset={preloadImage.srcSet.attribute || undefined} imagesizes={sizes} />}
+<>{avif ? <picture style="display:contents"><source type="image/avif" srcset={avif.srcSet.attribute || avif.src} sizes={sizes} /><img {...htmlAttributes} /></picture> : <img {...htmlAttributes} />}</>
+<script>
+ function clearImagePlaceholders() {
+  document.querySelectorAll<HTMLImageElement>('img[data-lm-image-blur]').forEach(image => {
+   const clear = () => { image.style.backgroundImage = ''; image.removeAttribute('data-lm-image-blur') }
+   if (image.complete) clear()
+   else { image.addEventListener('load', clear, { once: true }); image.addEventListener('error', clear, { once: true }) }
+  })
+ }
+ clearImagePlaceholders()
+ document.addEventListener('astro:page-load', clearImagePlaceholders)
+ document.addEventListener('lumen:content-mounted', clearImagePlaceholders)
+</script>

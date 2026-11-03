@@ -1,0 +1,19 @@
+---
+import type { AvatarStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import Icon from './Icon.astro'
+import type { RenderContext } from '../lib/context'
+import Image from './CmsImage.astro'
+interface Props { content: AvatarStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const defaultBackground = (context.theme.palette.grey as Record<string, string>)[context.theme.mode === 'dark' ? '600' : '400']
+const sizes: Record<string, number> = { dense: 30, large: 50, xlarge: 64 }
+const size = Number(content.custom_size) || sizes[content.size || ''] || 40
+const iconSizes: Record<string, number> = { dense: 18, large: 25, xlarge: 32 }
+const namedFontSize = iconSizes[content.size || '']
+const fontSize = content.font_size ? Number(content.font_size) : Number(content.custom_size) ? (content.icon?.name ? size / 2 : size / 3) : namedFontSize ? namedFontSize - (content.icon?.name ? 0 : 4) : 20
+---
+<div class:list={['avatar', 'lm-avatar', 'MuiAvatar-root', content.class_names?.values]}
+ style={{ width: `${size}px`, height: `${size}px`, fontSize: `${fontSize}px`, color: content.color?.rgba || context.theme.palette.background.default, backgroundColor: content.image ? 'transparent' : content.background_color?.rgba || defaultBackground, borderRadius: content.variant === 'square' ? '0' : content.variant === 'rounded' ? '4px' : '50%' }}>
+ {content.image && <Image src={content.image} width={size} height={size} sizes={`${size}px`} alt="website image" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+ {content.letter}{content.icon?.name && <Icon name={content.icon.name} size={fontSize} />}
+</div>

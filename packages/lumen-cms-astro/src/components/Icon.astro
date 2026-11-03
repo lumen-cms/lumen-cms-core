@@ -1,0 +1,9 @@
+---
+import { inlineSvg } from '../lib/svg'
+interface Props { name?: string; url?: string; size?: string | number; class?: string }
+const { name, url, size, class: className } = Astro.props
+const aliases: Record<string, string> = { call: 'phone', people: 'account-multiple', access_time: 'clock-outline', compare_arrows: 'compare', keyboard_arrow_down: 'chevron-down' }
+const source = url || (name ? `https://cdn.jsdelivr.net/npm/@mdi/svg/svg/${(aliases[name] || name).replaceAll('_', '-')}.svg` : undefined)
+const svg = source ? await inlineSvg(source).catch(() => { console.warn(`Icon could not be loaded: ${name || 'custom icon'}`); return '' }) : ''
+---
+{svg && <span class:list={['lm-svg-icon', className]} aria-hidden="true" style={{ fontSize: size ? `${size}px` : undefined }} set:html={svg} />}

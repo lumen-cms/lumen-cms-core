@@ -1,0 +1,7 @@
+---
+import type { BlockProps } from '../../lib/blockProps'
+interface Props extends BlockProps {}
+const { content } = Astro.props
+if (process.env.LUMEN_ALLOW_UNMIGRATED !== '1') throw new Error(`Unmigrated Astro component: ${content.component} (${content._uid})`)
+---
+<div data-lm-unmigrated={content.component} style="border:2px solid red;padding:8px">Unmigrated component: {content.component}</div>

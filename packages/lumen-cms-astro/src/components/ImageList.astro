@@ -1,0 +1,28 @@
+---
+import type { RenderContext } from '../lib/context'
+import CmsAnchor from './CmsAnchor.astro'
+import type { ImageListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import { getLinkAttrs, type LinkType } from '../lib/links'
+import ImageListItem from './ImageListItem.astro'
+import Block from './Block.astro'
+import ImageLightbox from './ImageLightbox.astro'
+interface Props { context?: RenderContext; content: ImageListStoryblok }
+const { content, context } = Astro.props
+const masonry = content.variant === 'masonry' || !!content.masonry
+const variant = content.variant || (masonry ? 'masonry' : 'standard')
+const gap = Number(content.column_gap || 2)
+const ratios: Record<string,string> = { '1x1':'100%', '4x3':'75%', '3x2':'66.66%', '16x9':'56.25%', '3x4':'133.33%', '2x3':'150%', '1x2':'200%', '2x1':'50%', '1x3':'300%', '3x1':'33.33%', '2.85x1':'35.09%' }
+---
+<div class="lm-imagelist__container" data-lm-image-list>
+ <div class:list={['lm-image-list-wrap', content.aspect_ratio && !masonry && `ratio-${content.aspect_ratio}`, { 'with-lightbox': content.enable_lightbox, 'lm-image-list-ratio': content.aspect_ratio && !masonry }]} style={{ '--lm-image-ratio': ratios[content.aspect_ratio || ''] }}>
+  <div role="group" aria-label="Images" class:list={['lm-image-list', `lm-image-list-${variant}`, { 'lm-image-list-columns': masonry }]} style={{ '--lm-image-columns': content.column_count_phone || content.column_count || (masonry ? 2 : 1), '--lm-image-tablet': content.column_count_tablet || content.column_count || 3, '--lm-image-desktop': content.column_count || 4, gap: `${gap}px` }}>
+   {content.body?.map((item, index) => {
+    const attrs = item.link?.cached_url && !content.enable_lightbox ? getLinkAttrs(item.link as LinkType, { openExternal: !!item.open_external }, context?.page) : {}
+    const Tag = attrs.href ? CmsAnchor : 'div'
+    const rows = Number(item.rows) || 1
+    return <Tag {...(Tag === CmsAnchor ? { context } : {})} {...attrs} class:list={['MuiImageListItem-root', `MuiImageListItem-${variant}`]} data-lightbox-index={content.enable_lightbox ? index : undefined} role={content.enable_lightbox ? 'button' : undefined} tabindex={content.enable_lightbox ? 0 : undefined} aria-label={content.enable_lightbox ? item.alt || item.label || `Open image ${index + 1}` : undefined} style={{ height: variant === 'woven' ? undefined : content.row_height ? `${Number(content.row_height) * rows + gap * (rows - 1)}px` : 'auto', gridColumnEnd: !masonry ? `span ${Number(item.cols) || 1}` : undefined, gridRowEnd: !masonry ? `span ${rows}` : undefined, marginBottom: masonry ? `${gap}px` : undefined, breakInside: masonry ? 'avoid' : undefined }}>{context ? <Block content={item} context={context} listProps={content} /> : <ImageListItem content={item} options={content} />}</Tag>
+   })}
+  </div>
+ </div>
+ {content.enable_lightbox && <ImageLightbox content={content} />}
+</div>

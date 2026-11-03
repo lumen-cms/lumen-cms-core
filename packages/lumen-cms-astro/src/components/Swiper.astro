@@ -1,0 +1,10 @@
+---
+import type { SwiperStoryblok, SliderStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import AdvancedSwiper from './AdvancedSwiper.astro'
+import NativeSlider from './NativeSlider.astro'
+import { canUseNativeCarousel } from '../lib/nativeCarousel'
+interface Props { content: SwiperStoryblok | SliderStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+---
+{canUseNativeCarousel(content) ? <NativeSlider content={content} context={context} /> : <AdvancedSwiper content={content} context={context} />}

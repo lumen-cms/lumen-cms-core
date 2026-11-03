@@ -1,0 +1,57 @@
+---
+import CmsAnchor from './CmsAnchor.astro'
+import type { CardListItemStoryblok, HeadlineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { CardListItemProps } from 'lumen-cms-shared/core/components/card/cardTypes'
+import type { RenderContext } from '../lib/context'
+import { getLinkAttrs, type LinkType } from '../lib/links'
+import Headline from './CmsHeadline.astro'
+import { shadowEffects } from 'lumen-cms-shared/shadowEffects'
+import Block from './Block.astro'
+import Image from './CmsImage.astro'
+interface Props { content: CardListItemStoryblok; options?: Partial<CardListItemProps['options']>; context: RenderContext }
+const { content, options = {}, context } = Astro.props
+const viewportWidth = (count: string | number) => Number(count) > 0 ? Math.round(100 / Number(count)) : 100
+const imageSizes = `(min-width:1920px) ${viewportWidth(options.column_count || 4)}vw, (min-width:600px) ${viewportWidth(options.column_count_tablet || options.column_count || 3)}vw, ${viewportWidth(options.column_count_phone || 1)}vw`
+const variants = options.variant || []
+const effect = options.shadow_effect && Object.hasOwn(shadowEffects, options.shadow_effect) ? options.shadow_effect : undefined
+const { href, target, rel, download } = getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }, context?.page)
+const drawer = !!content.body?.length
+const drawerId = `card-drawer-${content._uid}`
+const Tag = drawer ? 'button' : href ? CmsAnchor : content.on_click_function ? 'button' : 'div'
+const title: HeadlineStoryblok = { component: 'headline', _uid: `${content._uid}_title`, typography: options.title_typography || 'headline6', tag: options.title_tag || 'h3', class_names: options.title_class_name, ...options.title_custom?.[0], text: options.title_custom?.[0]?.text || content.title }
+const subtitle: HeadlineStoryblok = { component: 'headline', _uid: `${content._uid}_subtitle`, typography: options.subtitle_typography || 'subtitle2', tag: options.subtitle_tag || 'h4', class_names: options.subtitle_class_name, ...options.subtitle_custom?.[0], text: options.subtitle_custom?.[0]?.text || content.subtitle }
+let text = options.description_max_character === 0 ? '' : options.description_custom?.[0]?.text || content.description || ''
+if (options.description_max_character && text.length > Number(options.description_max_character)) text = text.slice(0, Math.max(0, Number(options.description_max_character))) + '..'
+const description: HeadlineStoryblok = { component: 'headline', _uid: `${content._uid}_description`, typography: options.description_typography || 'body1', tag: 'p', class_names: options.description_class_name, ...options.description_custom?.[0], text }
+const hasImage = content.image && !options.hide_image
+const top = hasImage && variants.includes('header_top')
+const overlay = hasImage && !top && variants.includes('over_media')
+---
+<div class:list={['card lm-card MuiCard-root', effect && `lm-shadow-${effect}`]} style={{ borderRadius: options.border_radius, backgroundColor: options.background_color?.rgba, '--lm-card-elevation': context.theme.shadows[Number(options.elevation || (variants.includes('raised') ? 8 : 1))], height: variants.includes('equal-heights') ? '100%' : undefined }}>
+ {top && <div class="MuiCardContent-root lm-card-content">{content.title && <Headline content={title} context={context} />}{content.subtitle && <Headline content={subtitle} context={context} />}</div>}
+ <Tag {...(Tag === CmsAnchor ? { context } : {})} href={drawer ? undefined : href} target={drawer ? undefined : target} rel={drawer ? undefined : rel} download={drawer ? undefined : download} type={Tag === 'button' ? 'button' : undefined} data-lm-dialog-trigger={drawer ? drawerId : undefined} data-lm-action={drawer ? undefined : content.on_click_function} class="MuiCardActionArea-root lm-card-link lm-card-item-action">
+  {hasImage && <div class="MuiCardMedia-root lm-list-card-media" style={{ margin: options.image_margin, color: variants.includes('font_white') ? 'white' : undefined }}>
+   <Image src={content.image!} fill widths={[320,640,960,1280]} sizes={imageSizes} alt="card image" style={{ position: 'absolute', inset: '0', width: '100%', height: '100%', objectFit: options.image_size === 'auto' ? undefined : options.image_size || 'cover', borderRadius: options.image_border_radius }} />
+   {overlay && <div class="MuiCardContent-root lm-card-content lm-card-overlay" style={{ padding: variants.includes('overlay_content_no_space') ? '0' : undefined }}>{content.title && <Headline content={title} context={context} />}{content.subtitle && <Headline content={subtitle} context={context} />}</div>}
+  </div>}
+  {(!top && !overlay || text) && <div class="MuiCardContent-root lm-card-content">
+   {!top && !overlay && <>{content.title && <Headline content={title} context={context} />}{content.subtitle && <Headline content={subtitle} context={context} />}</>}
+   {text && <Headline content={description} context={context} />}
+  </div>}
+ </Tag>
+ {content.card_actions_body?.length && <div class="MuiCardActions-root lm-card-actions" style={{ gap: options.card_actions_disable_spacing ? '0' : undefined }}>{content.card_actions_body.map(child => <Block content={child} context={context} />)}</div>}
+</div>
+
+{drawer && <template id={`${drawerId}-template`}>
+ <dialog id={drawerId} class="lm-card-drawer" aria-label={content.title || 'Card details'} style={{ '--lm-card-drawer-width': content.action_width || '420px' }}>
+  <div class="lm-card-drawer-toolbar">{content.action_headline?.map(child => <Block content={child} context={context} />)}<button type="button" class="btn btn-ghost btn-circle" data-dialog-close aria-label="Close card details">×</button></div>
+  <div class="lm-card-drawer-body">{content.body?.map(child => <Block content={child} context={context} />)}</div>
+ </dialog>
+</template>}
+<script>
+ import { initializeDialogs } from '../client/dialog'
+ import { initializeCmsActions } from '../client/actions'
+ initializeDialogs(); initializeCmsActions()
+ document.addEventListener('astro:page-load', initializeDialogs)
+ document.addEventListener('lumen:content-mounted', initializeDialogs)
+</script>

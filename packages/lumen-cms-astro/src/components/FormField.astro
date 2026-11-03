@@ -1,0 +1,29 @@
+---
+import type { FormBuilderStoryblok, FormTextfieldStoryblok, FormSelectStoryblok, FormCheckboxStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: FormTextfieldStoryblok | FormSelectStoryblok | FormCheckboxStoryblok; options?: FormBuilderStoryblok }
+const { content, options } = Astro.props
+const name = content.name || content._uid
+const id = `field-${content._uid}`
+const selectOptions = content.component === 'form_select' ? content.options?.map(option => ({ value: option.value || option.label || '', label: option.label || option.id })) || [] : []
+const common = { id, name, required: !!content.required, 'aria-describedby': content.help_text ? `${id}-help` : undefined }
+const grouped = content.component === 'form_select' && (content.type === 'radio' || content.type === 'checkbox')
+---
+<div class:list={['lm-form-field', `lm-field-${options?.variant || 'standard'}`]} style={{ width: options?.full_width ? '100%' : undefined, marginTop: options?.margin === 'normal' ? '16px' : options?.margin === 'dense' ? '8px' : undefined, marginBottom: options?.margin === 'normal' || options?.margin === 'dense' ? '8px' : undefined }}>
+ {content.component === 'form_checkbox' ? <label class="label"><input {...common} type="checkbox" class="checkbox" value={content.value || 'on'} data-value-kind="boolean" />{content.label}</label> : <>
+  {content.label && (grouped ? <span class="label" id={`${id}-label`}>{content.label}{content.required && <span aria-hidden="true"> *</span>}</span> : <label class="label" for={id}>{content.label}{content.required && <span aria-hidden="true"> *</span>}</label>)}
+  {content.component === 'form_textfield' ? content.textarea ? <textarea {...common} class="textarea" data-lm-autosize data-max-rows={content.max_rows || undefined} placeholder={content.placeholder} rows={Number(content.rows) || 3} style={{ minHeight: 0 }} /> : <input {...common} class="input" placeholder={content.placeholder} type={content.type || 'text'} /> :
+   content.type === 'radio' || content.type === 'checkbox' ? <div id={id} role="group" aria-labelledby={content.label ? `${id}-label` : undefined} aria-describedby={common['aria-describedby']} data-required-group={content.required && content.type === 'checkbox' ? name : undefined}>{selectOptions.map(option => <label class="label"><input type={content.type === 'radio' ? 'radio' : 'checkbox'} name={name} value={option.value} class={content.type === 'radio' ? 'radio' : 'checkbox'} required={content.type === 'radio' && content.required} data-value-kind={content.type === 'checkbox' ? 'array' : undefined} />{option.label}</label>)}</div> :
+   <select {...common} class="select" multiple={content.type === 'multi-select'} data-value-kind={content.type === 'multi-select' ? 'array' : undefined} style={{ minWidth: '168px' }}>
+    {content.type !== 'multi-select' && <option value="">{content.placeholder}</option>}
+    {selectOptions.map(option => <option value={option.value}>{option.label}</option>)}
+   </select>}
+  {content.help_text && <small id={`${id}-help`}>{content.help_text}</small>}
+ </>}
+</div>
+
+<script>
+ import { initializeTextareas } from '../client/textarea'
+ initializeTextareas()
+ document.addEventListener('astro:page-load', initializeTextareas)
+ document.addEventListener('lumen:content-mounted', initializeTextareas)
+</script>

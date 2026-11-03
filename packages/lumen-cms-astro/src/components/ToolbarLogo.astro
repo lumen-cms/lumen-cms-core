@@ -1,0 +1,28 @@
+---
+import CmsAnchor from './CmsAnchor.astro'
+import Image from './CmsImage.astro'
+import { imageConfig } from 'astro:assets'
+import { imageDimensions } from '../images/dimensions'
+import type { RenderContext } from '../lib/context'
+interface Props { context: RenderContext; preload?: boolean; quality?: number }
+const { context, preload = true, quality = 95 } = Astro.props
+const settings = context.page.settings!
+const home = !context.page.locale || context.page.locale === context.page.defaultLocale ? '/' : `/${context.page.locale}`
+const size = settings.toolbar_main_height ? Number(settings.toolbar_main_height) - 24 : 40
+const feature = context.page.page?.property?.includes('has_feature')
+const logos = await Promise.all([
+ { source: settings.website_logo, mobile: false, invert: false, desktop: !!settings.website_logo_xs },
+ { source: settings.website_logo_xs, mobile: true, invert: false, desktop: false },
+ { source: settings.website_logo_invert, mobile: false, invert: true, desktop: !!settings.website_logo_invert_xs },
+ { source: settings.website_logo_invert_xs, mobile: true, invert: true, desktop: false }
+].filter(item => item.source && (!item.invert || feature)).map(async item => {
+ const source = item.source!.replace(/^\/\//, 'https://')
+ const dimensions = await imageDimensions(source, imageConfig)
+ const ratio = dimensions.height / dimensions.width
+ return { ...item, source, width: ratio < 1 ? Math.round(size / ratio) : size, height: ratio < 1 ? size : Math.round(size * ratio) }
+}))
+---
+<div class="lm-logo-container"><CmsAnchor context={context} href={home} class:list={['lm-logo-header', { 'lm-logo-text': !settings.website_logo }]}>
+ {!settings.website_logo && <span>{settings.website_title}</span>}
+ {logos.map(logo => <span class:list={['logo-img', { 'logo-img__mobile': logo.mobile, 'logo-img__desktop': logo.desktop, 'logo-img__invert': logo.invert, 'logo-img__default': !logo.invert && !!(settings.website_logo_invert || settings.website_logo_invert_xs) }]}><Image src={logo.source} width={logo.width} height={logo.height} alt={settings.website_title || 'website logo'} preload={preload} sizes={`${logo.width}px`} loading={preload ? 'eager' : 'lazy'} fetchpriority={preload ? 'high' : undefined} quality={quality} style={{ objectFit: 'contain', objectPosition: 'left', height: 'auto' }} /></span>)}
+</CmsAnchor></div>

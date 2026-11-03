@@ -1,0 +1,36 @@
+---
+import CmsAnchor from './CmsAnchor.astro'
+import type { TimelineItemStoryblok, TimelineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import { getLinkAttrs, type LinkType } from '../lib/links'
+import Block from './Block.astro'
+interface Props { content: TimelineItemStoryblok; context: RenderContext; options?: Partial<TimelineStoryblok>; isLast?: boolean }
+const { content, context, options = {}, isLast = false } = Astro.props
+const naked = (content.dot_variant || options.variant) === 'naked'
+const outlined = content.dot_variant === 'outlined' || options.variant === 'outlined'
+const palette = context.theme.palette[content.dot_color || 'grey'] as { main?: string; contrastText?: string; 400?: string; 50?: string } | undefined
+const grey = context.theme.palette.grey as Record<string, string>
+const dotColor = content.dot_color ? palette?.main : grey[400]
+const dotText = content.dot_color ? palette?.contrastText : grey[50]
+const attrs = content.link?.cached_url || content.link?.url ? getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }, context?.page) : {}
+const Tag = attrs.href ? CmsAnchor : 'div'
+---
+<li class="lm-timeline-item">
+ <div class="lm-timeline-opposite">{content.opposite_body?.map(child => <Block content={child} context={context} />)}</div>
+ <div class="lm-timeline-separator">
+  <span id={`timeline1_${content._uid}`} class="lm-timeline-connector" data-timeline-track style={{ background: grey[400] }} />
+  <span id={`dot1_${content._uid}`} data-timeline-track class:list={['lm-timeline-dot', { 'lm-timeline-dot-naked': naked }]} style={{ background: outlined ? 'transparent' : dotColor, color: outlined ? undefined : dotText, borderColor: outlined ? dotColor : 'transparent', boxShadow: outlined ? 'none' : context.theme.shadows[1], margin: options.connect_separator ? '0' : undefined }}>
+   {content.icon?.map(child => <Block content={child} context={context} />)}
+  </span>
+  <span id={`timeline2_${content._uid}`} class="lm-timeline-connector" data-timeline-track data-timeline-last={isLast || undefined} style={{ background: grey[400], display: isLast && !options.show_last_line ? 'none' : undefined }} />
+ </div>
+ <div class="lm-timeline-content">
+  {content.opposite_body?.length && <div class="lm-timeline-mobile-opposite pb-2">{content.opposite_body.map(child => <Block content={child} context={context} />)}</div>}
+  <div class:list={{ 'lm-timeline-card': !options.disable_card, 'mb-2': !options.disable_card && !!content.opposite_body?.length }} style={options.disable_card ? undefined : { backgroundColor: options.card_background_color?.rgba || 'var(--color-base-100)', borderRadius: options.card_square ? '0' : '4px', border: options.card_variant === 'outlined' ? `1px solid ${context.theme.palette.divider}` : undefined, boxShadow: options.card_variant === 'outlined' ? 'none' : context.theme.shadows[Number(options.card_elevation || 1)] }}>
+   <Tag {...(Tag === CmsAnchor ? { context } : {})} {...attrs} class:list={{ 'lm-card-link': !!attrs.href }}>
+    {(content.title || content.subheader) && <div class="lm-timeline-card-header"><span class="lm-typography-h5">{content.title}</span><span class="lm-typography-body1" style={{ color: context.theme.palette.text.secondary }}>{content.subheader}</span></div>}
+    {content.body?.length && <div class="lm-timeline-card-body" style={{ padding: options.disable_card ? 0 : undefined }}>{content.body.map(child => <Block content={child} context={context} />)}</div>}
+   </Tag>
+  </div>
+ </div>
+</li>

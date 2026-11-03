@@ -1,0 +1,14 @@
+---
+import { storyblokEditable, type SbBlokData } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import { componentOptions, type BlockProps } from '../lib/blockProps'
+interface Props extends BlockProps {}
+const { content, context } = Astro.props
+const Override = context.components && Object.hasOwn(context.components, content.component) ? context.components[content.component] : undefined
+const editable = context.preview && content.component !== 'page' ? storyblokEditable(content) : undefined
+---
+{editable?.['data-blok-uid'] && <template data-lm-editable-start={content._uid} data-lm-editable-uid={editable['data-blok-uid']} data-lm-editable-c={editable['data-blok-c']} />}
+{Override
+ ? <Override {...Astro.props} />
+ : <StoryblokComponent blok={content as SbBlokData} {...Astro.props} theme={context.theme} options={componentOptions(Astro.props)} />}
+{editable?.['data-blok-uid'] && <template data-lm-editable-end={content._uid} />}

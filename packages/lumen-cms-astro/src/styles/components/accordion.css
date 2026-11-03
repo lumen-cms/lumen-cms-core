@@ -1,0 +1,24 @@
+/* Native details behavior and CMS accordion styling. Keep structural rules in components and DaisyUI overrides in utilities. */
+@layer components {
+ .lm-accordion-item { background: var(--color-base-100); box-shadow: 0 2px 1px -1px #0003,0 1px 1px #0002,0 1px 3px #0002; }
+ .lm-accordion-item + .lm-accordion-item { border-top: 1px solid #0002; }
+ .lm-accordion-item[open] { margin: 16px 0; }
+ .lm-accordion-summary { cursor: pointer; list-style: none; text-align: inherit; }
+ .lm-accordion-summary::-webkit-details-marker { display: none; }
+ .lm-accordion-indicator { font-size: 24px; }
+ .lm-accordion-item.lm-accordion-square { --radius-box: 0px; }
+ .lm-accordion-item.lm-accordion-outlined { border: 1px solid #0002; box-shadow: none; }
+}
+@layer utilities {
+ .collapse.lm-accordion-item { display: block; border-radius: 0; }
+ .collapse.lm-accordion-item:first-child { border-top-left-radius: 4px; border-top-right-radius: 4px; }
+ .collapse.lm-accordion-item:last-child { border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; }
+ .collapse.lm-accordion-item.lm-accordion-square { border-radius: 0; }
+ .collapse > .collapse-title.lm-accordion-summary { display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 16px; font-size: 1rem; font-weight: 400; line-height: 1.5; }
+ .lm-accordion-summary > span:first-child { margin: 12px 0; flex: 1; }
+ .lm-accordion-summary > .lm-accordion-indicator { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 24px; height: 24px; line-height: 1; }
+ .collapse > .collapse-content.lm-accordion-content { padding: 8px 16px 16px; }
+ .collapse.lm-accordion-item[open] > .lm-accordion-summary { min-height: 64px; }
+ .collapse.lm-accordion-item[open] > .lm-accordion-summary > span:first-child { margin: 20px 0; }
+ .collapse.lm-accordion-item[open] .lm-accordion-indicator { transform: rotate(180deg); }
+}

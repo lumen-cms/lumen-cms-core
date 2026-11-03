@@ -1,0 +1,32 @@
+---
+import type { HTMLTag } from 'astro/types'
+import type { RenderContext } from '../lib/context'
+import { getLinkAttrs } from '../lib/links'
+import CmsAnchor from './CmsAnchor.astro'
+import { hasRichTextContent } from 'lumen-cms-shared/richText'
+import RichTextNode from './RichTextNode.astro'
+interface Node { type: string; text?: string; attrs?: Record<string, any>; marks?: Node[]; content?: Node[] }
+interface Props { node: Node; context?: RenderContext }
+const { node, context } = Astro.props
+const [mark, ...remainingMarks] = node.marks || []
+const unmarked = { ...node, marks: remainingMarks }
+const marks: Record<string, HTMLTag> = { bold: 'b', strong: 'strong', italic: 'i', strike: 's', underline: 'u', code: 'code', styled: 'span' }
+const Mark = mark && marks[mark.type]
+const attrs = mark?.attrs || {}
+const link = mark?.type === 'link' ? getLinkAttrs({ ...attrs, id: attrs.uuid || attrs.id, cached_url: attrs.href, linktype: attrs.linktype }, { openExternal: attrs.target === '_blank' }, context?.page) : {}
+const containers: Record<string, HTMLTag> = { paragraph: 'p', blockquote: 'blockquote', ordered_list: 'ol', bullet_list: 'ul', list_item: 'li' }
+const Container = node.type === 'heading' ? `h${Math.min(6, Math.max(1, Number(node.attrs?.level) || 1))}` as HTMLTag : containers[node.type]
+const imageAttrs = Object.fromEntries(Object.entries(node.attrs || {}).filter(([key]) => ['src', 'alt', 'title', 'width', 'height', 'loading', 'class'].includes(key)))
+---
+{mark ? mark.type === 'link'
+ ? hasRichTextContent(node) ? <CmsAnchor context={context} href={link.href} target={link.target} rel={link.rel} download={link.download} class="lm-rich-link"><RichTextNode node={unmarked} context={context} /></CmsAnchor> : <RichTextNode node={unmarked} context={context} />
+ : Mark ? <Mark class={mark.type === 'styled' ? attrs.class : undefined}><RichTextNode node={unmarked} context={context} /></Mark>
+ : <RichTextNode node={unmarked} context={context} />
+ : node.type === 'text' ? node.text
+ : node.type === 'blok' ? null
+ : node.type === 'hard_break' ? <br />
+ : node.type === 'horizontal_rule' ? <hr />
+ : Container ? (node.type === 'heading' || !!node.content?.length) && <Container aria-hidden={node.type === 'heading' && !hasRichTextContent(node) ? 'true' : undefined}>{node.content?.map(child => <RichTextNode node={child} context={context} />)}</Container>
+ : node.type === 'code_block' ? <pre><code class={node.attrs?.class}>{node.content?.map(child => <RichTextNode node={child} context={context} />)}</code></pre>
+ : node.type === 'image' ? <img {...imageAttrs} />
+ : node.content?.map(child => <RichTextNode node={child} context={context} />)}

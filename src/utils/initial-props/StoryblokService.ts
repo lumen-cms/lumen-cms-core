@@ -28,12 +28,13 @@ export class StoryblokServiceClass {
     const draft =
       typeof window === 'undefined' &&
       !process.env.STORYBOOK &&
+      params.version !== 'published' &&
       (params.version === 'draft' || !!this.query._storyblok || this.devMode)
     const token = draft ? CONFIG.previewToken : CONFIG.publicToken
     return this.transport.parameters(
       {
         ...params,
-        ...(this.query._storyblok_release
+        ...(draft && this.query._storyblok_release
           ? { from_release: String(this.query._storyblok_release) }
           : {})
       },

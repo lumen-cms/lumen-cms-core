@@ -1,0 +1,15 @@
+---
+import type { HubspotFormStoryblok, HubspotMeetingStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: HubspotFormStoryblok | HubspotMeetingStoryblok; disableEmbed?: boolean }
+const { content, disableEmbed = false } = Astro.props
+---
+{content.component === 'hubspot_form' ? <div id={`form_${content._uid}`} data-lm-hubspot="form" data-region={content.region} data-portal-id={content.portal_id} data-form-id={content.form_id} /> :
+ <div id={`meeting_${content._uid}`} class="lm-hubspot-meeting" data-lm-hubspot="meeting" data-meeting-name={content.meeting_name} data-embed={String(!disableEmbed)}>
+  {content.meeting_name}<div class="meetings-iframe-container" data-src={`https://app.hubspot.com/meetings/${content.meeting_name}?embed-true=${!disableEmbed}`} />
+ </div>}
+<script>
+ import { initializeHubspot } from '../client/hubspot'
+ initializeHubspot()
+ document.addEventListener('astro:page-load', initializeHubspot)
+ document.addEventListener('lumen:content-mounted', initializeHubspot)
+</script>

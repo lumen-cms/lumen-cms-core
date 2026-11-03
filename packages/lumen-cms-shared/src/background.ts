@@ -1,0 +1,62 @@
+import type { CmsTheme as Theme } from './theme'
+import { shadowEffects } from './shadowEffects'
+type CSSProperties = Record<string, string | number | undefined>
+import {
+  BackgroundStoryblok,
+  SectionStoryblok
+} from 'lumen-cms-shared/core/typings/generated/components-schema'
+
+export function backgroundShadowClass(background?: Partial<BackgroundStoryblok>): string | undefined {
+  const effect = background?.shadow_effect
+  return effect && Object.hasOwn(shadowEffects, effect) ? `lm-shadow-${effect}` : undefined
+}
+
+export const generateBackgroundStyles = ({
+  background = {},
+  theme,
+  variant
+}: {
+  background?: Partial<BackgroundStoryblok>
+  theme: Theme
+  variant?: SectionStoryblok['variant']
+}) => {
+  const mapBgColor: Record<string, string | undefined> = {
+    dark: '#303030',
+    primary: theme.palette.primary.main,
+    secondary: theme.palette.secondary.main,
+    light: '#fafafa'
+  }
+  const mapColor: Record<string, string | undefined> = {
+    light: 'rgba(0, 0, 0, 0.87)',
+    dark_text: 'rgba(0, 0, 0, 0.87)',
+    dark: theme.palette.common.white,
+    light_text: theme.palette.common.white,
+    primary: theme.palette.common.white,
+    secondary: theme.palette.common.white
+  }
+
+  let border
+  if (background.border_color?.rgba) {
+    border = `${background.border_size || 1}px ${
+      background.border_style || 'solid'
+    } ${background.border_color && background.border_color.rgba}`
+  } else if (background.border_radius) {
+    border = '1px solid transparent'
+  }
+
+  const style: CSSProperties = {
+    backgroundColor:
+      background.background_color?.rgba || mapBgColor[variant as string],
+    border,
+    borderRadius: background.border_radius,
+    color: mapColor[variant as string],
+    boxShadow: background.elevation
+      ? theme.shadows[Number(background.elevation)]
+      : undefined,
+    minHeight: background.height
+  }
+  ;(Object.keys(style) as (keyof CSSProperties)[]).forEach(
+    (key) => !style[key] && delete style[key]
+  )
+  return style
+}

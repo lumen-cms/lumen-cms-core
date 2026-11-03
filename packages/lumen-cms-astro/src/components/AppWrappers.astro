@@ -1,0 +1,10 @@
+---
+import type { RenderContext, AstroAppWrappers } from '../lib/context'
+import AppWrappers from './AppWrappers.astro'
+interface Props { context: RenderContext; wrappers?: AstroAppWrappers }
+const { context, wrappers = [] } = Astro.props
+const [Wrapper, ...remaining] = wrappers
+---
+{Wrapper ? <Wrapper context={context} settings={context.page.settings}>
+ <AppWrappers context={context} wrappers={remaining}><slot /></AppWrappers>
+</Wrapper> : <slot />}

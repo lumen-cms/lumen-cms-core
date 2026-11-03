@@ -1,0 +1,6 @@
+---
+import type { FormBuilderStoryblok, FormTextfieldStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: FormTextfieldStoryblok; options?: FormBuilderStoryblok }
+const { content, options } = Astro.props
+---
+<input data-fixture-field="override" data-variant={options?.variant} name={content.name} aria-label={content.label} required={content.required} />

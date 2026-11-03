@@ -1,0 +1,21 @@
+---
+import Image from './CmsImage.astro'
+import CmsAnchor from './CmsAnchor.astro'
+import type { ListStoriesData, LmListStoriesProps } from 'lumen-cms-shared/core/components/list-widget/listWidgetTypes'
+import type { RenderContext } from '../lib/context'
+import { getContentFields } from 'lumen-cms-shared/core/components/list-widget/listUtils/getContentFields'
+import { internalLinkHandler } from '../lib/links'
+import Block from './Block.astro'
+import NewsList from './NewsList.astro'
+interface Props { items: ListStoriesData[]; layout: LmListStoriesProps['content']['layout']; uid: string; context: RenderContext; disablePagination?: boolean }
+const { items, layout, uid, context, disablePagination = true } = Astro.props
+const options = layout?.[0]
+const avatarSizes: Record<string, number> = { xmall: 20, xsmall: 20, small: 24, large: 52, xlarge: 56 }
+const avatarSize = options?.component === 'lists' ? avatarSizes[options.image_size || 'large'] || 24 : 52
+---
+{options?.component === 'card_list' ? <Block disablePagination={disablePagination} content={{ ...options, _uid: uid, component: 'card_list', body: items.map(item => { const fields = getContentFields(item, { locale: context.page.locale, date_format: options.date_format }); return { ...fields, story_data: item.content.story_data, image: fields.image || undefined, _uid: item.uuid, component: 'card_list_item', link: { fieldtype: 'multilink' as const, id: item.uuid, url: '', cached_url: item.full_slug, linktype: 'story' as const } } }) }} context={context} /> :
+ options?.component === 'nav_list' ? <Block content={{ ...options, _uid: uid, body: items.map(item => ({ _uid: item.uuid, component: 'nav_item' as const, name: [item.content.preview_title, item.content.title, item.content.meta_title, item.name].find((value): value is string => typeof value === 'string' && !!value), link: { fieldtype: 'multilink' as const, id: item.uuid, url: '', cached_url: item.full_slug, linktype: 'story' as const } })) }} context={context} /> :
+ options?.component === 'lists' ? <ul class="lm-widget-list">{items.map(item => {
+  const fields = getContentFields(item, { locale: context.page.locale })
+  return <li data-lm-list-item={item.uuid}><CmsAnchor context={context} href={internalLinkHandler(item.full_slug, context.page)}>{!options.hide_image && fields.image && <Image src={fields.image} width={avatarSize} height={avatarSize} sizes={`${avatarSize}px`} alt="website image" style={{ width: `${avatarSize}px`, height: `${avatarSize}px`, objectFit: 'cover' }} />}<span>{fields.title}{!options.hide_subtitle && <small>{fields.description}</small>}</span></CmsAnchor></li>
+ })}</ul> : <NewsList items={items} options={options?.component === 'news_list' ? options : {}} context={context} />}

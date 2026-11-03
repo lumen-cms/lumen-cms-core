@@ -1,0 +1,8 @@
+---
+import type { ImageListItemStoryblok, ImageListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import ImageListMedia from './ImageListMedia.astro'
+interface Props { content: ImageListItemStoryblok; options?: ImageListStoryblok; lightbox?: boolean }
+const { content, options, lightbox } = Astro.props
+const wrap = options?.fit_in_color && options.aspect_ratio && !options.masonry && options.variant !== 'masonry' && !lightbox
+---
+{wrap ? <div class="lm-image-list-fit" style={{ background: options?.fit_in_color }}><ImageListMedia content={content} options={options} lightbox={lightbox} /></div> : <ImageListMedia content={content} options={options} lightbox={lightbox} />}

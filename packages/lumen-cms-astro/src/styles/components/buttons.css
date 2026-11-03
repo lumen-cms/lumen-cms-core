@@ -1,0 +1,50 @@
+/* CMS button metrics and variants. Utilities override DaisyUI; authored CMS CSS remains unlayered. */
+@layer components {
+
+ [data-lm-speech]:not([data-speaking="true"]) .lm-speaking-icon, [data-lm-speech][data-speaking="true"] .lm-button-trailing { display: none; }
+ .lm-button-image { border-radius: 50%; object-fit: cover; }
+ .lm-button-list__margin-left > * { margin-left: 8px; }
+}
+@layer utilities {
+ .lm-button.lm-color-inherit,
+ [data-lm-form-color] .lm-button.lm-default-color { color: inherit; }
+ .lm-button.lm-color-inherit.lm-outlined,
+ [data-lm-form-color] .lm-button.lm-default-color.lm-outlined { border-color: currentColor; }
+ .btn.lm-button { height: auto; min-height: 0; min-width: 64px; padding: 6px 8px; border: 0; border-radius: 4px; font-family: inherit; font-weight: 500; font-size: .875rem; line-height: 1.75; text-transform: initial; text-decoration: none; box-shadow: none; justify-content: var(--lm-button-align, center); }
+ .btn.lm-button:not(.btn-ghost):not(.btn-outline) { padding: 6px 16px; box-shadow: var(--lm-button-shadow); }
+ .btn.lm-button.btn-outline { padding: 5px 15px; border: 1px solid currentColor; }
+ .btn.lm-button.btn-sm { padding: 4px 5px; font-size: .8125rem; }
+ .btn.lm-button.btn-sm.btn-outline { padding: 3px 9px; }
+ .btn.lm-button.btn-sm:not(.btn-ghost):not(.btn-outline) { padding: 4px 10px; }
+ .btn.lm-button.btn-lg { padding: 8px 11px; font-size: .9375rem; }
+ .btn.lm-button.btn-lg.btn-outline { padding: 7px 21px; }
+ .btn.lm-button.btn-lg:not(.btn-ghost):not(.btn-outline) { padding: 8px 22px; }
+ .btn.lm-button.lm-button-xlarge { font-size: 20px; }
+ .btn.lm-button.lm-button-shaped { border-radius: 2em; }
+ .btn.lm-button.lm-button-square { border-radius: 0; }
+ .btn.lm-button.lm-unelevated { box-shadow: none; }
+ .btn.lm-button.lm-grey-button { --btn-color: #e0e0e0; --btn-fg: rgba(0,0,0,.87); }
+ .btn.lm-button.lm-grey-button.btn-ghost:where(:not([data-custom-foreground])), .btn.lm-button.lm-grey-button.btn-outline:where(:not([data-custom-foreground])) { color: var(--color-base-content); }
+ .btn.lm-button.lm-icon-button { min-width: 0; padding: 8px; border-radius: 50%; }
+ .btn.lm-button.lm-icon-button.btn-sm { padding: 5px; }
+ .btn.lm-labelled-button { gap: 0; }
+ .lm-button-start, .lm-button-trailing { display: inline-flex; }
+ .lm-button-start { margin-left: -4px; margin-right: 8px; }
+ .lm-button-trailing { margin-left: 8px; margin-right: -4px; }
+ .lm-button-start .lm-svg-icon, .lm-button-trailing .lm-svg-icon { font-size: 20px; }
+ .btn-sm .lm-button-start { margin-left: -2px; }
+ .btn-sm .lm-button-trailing { margin-right: -2px; }
+ .btn-sm .lm-button-start .lm-svg-icon, .btn-sm .lm-button-trailing .lm-svg-icon { font-size: 18px; }
+ .btn-lg .lm-button-start .lm-svg-icon, .btn-lg .lm-button-trailing .lm-svg-icon { font-size: 30px; width: 30px; height: 30px; }
+ .lm-button-xlarge .lm-button-start .lm-svg-icon, .lm-button-xlarge .lm-button-trailing .lm-svg-icon { font-size: 40px; width: 40px; height: 40px; }
+ .btn.lm-button.lm-fab { width: 56px; height: 56px; min-width: 0; padding: 0; border-radius: 50%; }
+ .btn.lm-button.lm-fab.btn-sm { width: 40px; height: 40px; }
+ .btn.lm-button.lm-fab.lm-fab-extended { width: auto; height: 48px; padding: 0 16px; border-radius: 24px; }
+ .btn.lm-button.lm-fab.lm-fab-extended.btn-sm { height: 34px; padding: 0 8px; border-radius: 17px; }
+ .btn.lm-button.lm-fab.lm-button-xlarge { height: 64px; min-height: 64px; width: 64px; }
+ .btn.lm-button.lm-fab.lm-fab-extended.lm-button-xlarge { width: auto; padding: 0 1.8rem; border-radius: 31px; }
+ .btn.lm-button[data-custom-background] { background-color: var(--lm-button-custom-color); }
+ .btn.lm-button[data-custom-foreground] { color: var(--lm-button-custom-color); }
+ .btn.lm-button[data-custom-border] { border-color: var(--lm-button-custom-color); }
+ .lm-button .lm-button-image { width: var(--lm-button-image-size, 24px); height: var(--lm-button-image-size, 24px); }
+}

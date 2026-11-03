@@ -1,0 +1,15 @@
+---
+import '../../styles/global.css'
+import Block from '../../components/Block.astro'
+import { createCmsTheme } from 'lumen-cms-shared/theme'
+import { tabFixtures } from '../../../../../test/astro/fixtures/tabs-parity.mjs'
+import type { TabsStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../../lib/context'
+export function getStaticPaths() {
+ return process.env.LUMEN_SITE ? [] : Object.keys(tabFixtures).map(variant => ({ params: { variant } }))
+}
+const content = tabFixtures[Astro.params.variant as keyof typeof tabFixtures] as TabsStoryblok
+const settings = { component: 'global' as const, _uid: 'settings', theme_base: 'base' as const }
+const context: RenderContext = { theme: createCmsTheme(settings), preview: false, page: { settings, locale: 'en', defaultLocale: 'en' } }
+---
+<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width" /><title>Tab parity</title></head><body style="margin:0"><main style="width:100%;max-width:900px;margin:auto;padding-top:80px"><Block content={content} context={context} /></main></body></html>

@@ -1,0 +1,10 @@
+---
+import type { SwiperItemStoryblok, SwiperStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+import Image from './CmsImage.astro'
+interface Props { content: SwiperItemStoryblok; context: RenderContext; options?: Partial<SwiperStoryblok> }
+const { content, context, options = {} } = Astro.props
+---
+{content.image?.filename && <Image src={content.image.filename} fill widths={[320,640,960,1280]} sizes={options.width ? `${options.width}px` : '100vw'} alt={content.image.alt || 'swiper'} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: options.image_object_fit || 'cover' }} />}
+{content.body?.map(item => <Block content={item} context={context} />)}

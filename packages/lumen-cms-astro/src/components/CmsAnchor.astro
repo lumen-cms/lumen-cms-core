@@ -1,0 +1,9 @@
+---
+import { hoverPrefetch } from '../lib/linkPrefetch'
+import type { AstroLinkProps } from '../lib/context'
+interface Props extends AstroLinkProps {}
+const { context, ...attributes } = Astro.props
+const Override = context?.linkRenderer
+attributes['data-astro-prefetch'] = hoverPrefetch(attributes, Astro.url, Astro.site, context?.preview) as 'hover' | undefined
+---
+{Override ? <Override {...attributes} context={context}><slot /></Override> : <a {...attributes}><slot /></a>}

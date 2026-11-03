@@ -1,0 +1,16 @@
+---
+import type { MotionStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+interface Props { content: MotionStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+const type = content.type || 'fade'
+---
+<div class="lm-motion__root" data-lm-motion={type} data-motion-state="pending" data-motion-delay={content.delay || 0} data-motion-duration={content.duration} data-motion-threshold={content.threshold || 0} data-motion-direction={content.slide_direction || 'down'} style={{ overflow: content.enable_overflow ? undefined : 'hidden', width: content.body?.some(block => block.component === 'image') ? '100%' : undefined }}>
+ <div class="lm-motion__transition">{content.body?.map(block => <Block content={block} context={context} />)}</div>
+</div>
+<script>
+ import { initializeMotion } from '../client/motion'
+ initializeMotion()
+ document.addEventListener('astro:page-load', initializeMotion); document.addEventListener('lumen:content-mounted', initializeMotion)
+</script>

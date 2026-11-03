@@ -1,0 +1,14 @@
+---
+import type { AccordionItemStoryblok, AccordionStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+interface Props { content: AccordionItemStoryblok; context: RenderContext; options?: Partial<AccordionStoryblok>; styleClass?: string }
+const { content, context, options = {}, styleClass } = Astro.props
+---
+<details class:list={['collapse', 'lm-accordion-item', styleClass, { 'lm-accordion-square': options.square, 'lm-accordion-outlined': options.variant === 'outlined' }]} name={options.restrict_one ? `accordion-${options._uid}` : undefined}>
+ <summary class="collapse-title lm-accordion-summary">
+  <span>{content.title_custom?.length ? content.title_custom.map(child => <Block content={child} context={{ ...context, decorativeButtons: true }} />) : content.title}</span>
+  <span class="lm-accordion-indicator" aria-hidden="true">{content.use_plus_icon || options.use_plus ? '+' : '⌄'}</span>
+ </summary>
+ <div class="collapse-content lm-accordion-content"><div class="w-100">{content.body?.map(child => <Block content={child} context={context} />)}</div></div>
+</details>

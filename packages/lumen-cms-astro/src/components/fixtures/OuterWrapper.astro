@@ -1,0 +1,6 @@
+---
+import type { RenderContext } from '../../lib/context'
+interface Props { context: RenderContext; settings: RenderContext['page']['settings'] }
+const { context, settings } = Astro.props
+---
+<div data-fixture-wrapper="outer" data-locale={context.page.locale} data-settings={settings?._uid}><slot /></div>

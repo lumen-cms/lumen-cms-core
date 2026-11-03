@@ -1,0 +1,49 @@
+---
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+interface Props { context: RenderContext }
+const { context } = Astro.props
+const settings = context.page.settings!
+const rows = settings.multi_toolbar || []
+const system = rows.find(row => row.is_system_bar)
+const config = settings.toolbar_config || []
+const feature = context.page.page?.property?.includes('has_feature')
+const container = config.includes('fixed_width') ? settings.theme_container_width && settings.theme_container_width !== 'none' ? settings.theme_container_width : 'lg' : ''
+const variant = settings.toolbar_variant || 'primary'
+const palette = context.theme.palette
+const color = variant === 'primary' || variant === 'secondary' ? (palette[variant] as Record<string,string>) : undefined
+const background = settings.toolbar_color?.rgba || (variant === 'dark' ? '#424242' : color?.main || (palette.background as Record<string,string>).paper)
+const foreground = variant === 'dark' ? '#fff' : color?.contrastText || (palette.text as Record<string,string>).primary
+const systemHeight = rows[0]?.is_system_bar ? Number(rows[0].height || 40) : 0
+const custom = Number(settings.toolbar_main_height) || 0
+---
+{rows.length > 0 && <div class="lm-header-shell" style={{ '--lm-header-bg': background, '--lm-header-color': foreground, '--lm-header-shadow': context.theme.shadows[settings.toolbar_elevation ? Number(settings.toolbar_elevation) : 4], '--lm-system-height': `${systemHeight || 40}px`, '--lm-system-space': `${systemHeight}px`, '--lm-header-expanded': `${custom ? Math.round(custom * 1.15) : 64}px`, '--lm-toolbar-font-size': settings.toolbar_font_size }} data-lm-header data-feature={!!feature} data-scroll-collapse={config.includes('scroll_collapse')} data-custom-height={!!custom} data-unelevated={config.includes('unelevated')}>
+ <header class:list={['lm-site-header', variant && `lm-toolbar__${variant}`, { 'lm-toolbar__has-feature': feature, 'lm-toolbar__text-bold': config.includes('text_bold'), 'lm-header-fixed': config.includes('fixed') }]} style={{ background: settings.toolbar_background || undefined }}>
+  {system && <Block content={system} context={context} />}
+  <div class:list={['lm-container', container && `lm-container-${container}`]}><nav class="navbar lm-toolbar__main" aria-label="Main navigation">{rows.filter(row => !row.is_system_bar).map(row => <Block content={row} context={context} />)}</nav></div>
+ </header>
+ {config.includes('fixed') && !feature && <div class="lm-content-space" />}
+</div>}
+<script>
+ import { onUnmount } from '../client/lifecycle'
+ function setupHeaders() {
+  document.querySelectorAll<HTMLElement>('[data-lm-header]').forEach(root => {
+   if (root.dataset.initialized) return
+   root.dataset.initialized = 'true'
+   const header = root.querySelector('header')!
+   let previous = scrollY
+   const update = () => {
+    const y = scrollY
+    root.classList.toggle('lm-scrolled', y > 60)
+    root.classList.toggle('lm-header-collapsed', y > 100)
+    root.classList.toggle('lm-system-hidden', y > 500)
+    header.classList.toggle('lm-toolbar__has-feature', root.dataset.feature === 'true' && y <= 60)
+    if (root.dataset.scrollCollapse === 'true') root.classList.toggle('lm-header-hidden', y > 100 && y > previous)
+    previous = y
+   }
+   update(); window.addEventListener('scroll', update, { passive: true })
+   onUnmount(root, () => window.removeEventListener('scroll', update))
+  })
+ }
+ setupHeaders(); document.addEventListener('astro:page-load', setupHeaders); document.addEventListener('lumen:content-mounted', setupHeaders)
+</script>

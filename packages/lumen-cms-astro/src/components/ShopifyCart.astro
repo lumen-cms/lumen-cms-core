@@ -1,0 +1,64 @@
+---
+import Image from './CmsImage.astro'
+import type { RenderContext } from '../lib/context'
+import Headline from './CmsHeadline.astro'
+import Button from './CmsButton.astro'
+interface Props { context: RenderContext }
+const { context } = Astro.props
+const config = context.page.settings?.ecommerce?.find(value => value.component === 'ecommerce_shopify_config')
+const variants = context.page.allShopifyProducts?.flatMap(product => product.node.variants.edges.map(edge => ({ ...edge.node, productTitle: product.node.title }))) || []
+const footer = { component: 'headline' as const, text: 'Estimated Costs', _uid: 'shopify-cart-footer', typography: 'headline5' as const, ...config?.cart_footer?.[0] }
+const floating = context.theme.palette[config?.floating_button_color || 'primary'] as { main: string; dark: string; contrastText: string }
+const badge = context.theme.palette[config?.floating_badge_color || 'warning'] as { main: string; contrastText: string }
+---
+{config && <div data-lm-shopify-cart={JSON.stringify(config)} style={{ '--cart-paper': context.theme.palette.background.paper, '--cart-text': context.theme.palette.text.primary, '--cart-divider': String(context.theme.palette.divider), '--cart-button': floating.main, '--cart-button-hover': floating.dark, '--cart-button-text': floating.contrastText, '--cart-badge': badge.main, '--cart-badge-text': badge.contrastText }}>
+ <button type="button" class="btn lm-shopify-floating" data-cart-open aria-label="Open shopping cart" hidden>
+  <span class="indicator"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2M1 2v2h2l3.6 7.59-1.35 2.45A2 2 0 0 0 7 17h12v-2H7l1.1-2h7.45a2 2 0 0 0 1.75-1.03L20.88 5H5.21l-.94-2H1m18 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4M6.16 7h11.31l-2.76 5H8.53z" /></svg><span class="badge indicator-item" data-cart-count /></span>
+ </button>
+ <dialog class="lm-shopify-cart-dialog" aria-label="Shopping cart">
+  <header class="lm-shopify-cart-toolbar"><Headline content={{ component: 'headline', _uid: 'shopify-cart-title', text: 'Shopping Cart', typography: 'headline4', ...config.cart_toolbar?.[0] }} context={context} /><button type="button" class="btn btn-ghost btn-circle" data-cart-close aria-label="Close shopping cart">×</button></header>
+  <div class="lm-shopify-cart-items" data-cart-items />
+  <footer class="lm-shopify-cart-footer">
+   <div class="lm-shopify-cart-total"><Headline content={footer} context={context} /><div data-cart-total><Headline content={{ ...footer, text: `${config.currency_prefix || ''} 0` }} context={context} /></div></div>
+   {config.cart_footer_additional?.map(content => <Headline content={content} context={context} />)}
+   <div style="margin-top:16px" data-cart-checkout><Button content={{ component: 'button', _uid: 'shopify-cart-checkout', label: 'Checkout', variant: 'raised', color: 'primary', class_names: { values: ['w-100'] }, ...config.cart_checkout?.[0], link: undefined, on_click_function: undefined }} context={context} disabled /><div class="alert alert-error" role="alert" data-cart-error hidden>Checkout could not be started. Please try again.</div></div>
+  </footer>
+ </dialog>
+ {variants.map(variant => <template data-cart-template={variant.id}>
+  <div class="lm-shopify-cart-item" data-cart-item={variant.id}>
+   <div class="lm-shopify-cart-avatar">{variant.image?.transformedSrc && <Image src={variant.image.transformedSrc} width={40} height={40} sizes="40px" alt={variant.title} style="width:100%;height:100%;object-fit:cover" />}</div>
+   <div class="lm-shopify-cart-detail"><div>{config.product_title?.[0]?.text || variant.productTitle}</div><div>{variant.title}</div><div class="lm-shopify-cart-quantity">
+    <button type="button" class="btn btn-ghost btn-circle btn-sm" data-cart-decrease aria-label={`Decrease ${variant.title} quantity`}>−</button>
+    <input type="number" class="input input-ghost" data-cart-quantity aria-label={`${variant.title} quantity`} value="0" />
+    <button type="button" class="btn btn-ghost btn-circle btn-sm" data-cart-increase aria-label={`Increase ${variant.title} quantity`}>+</button>
+   </div></div>
+   <div class="lm-typography-subtitle1 lm-shopify-cart-price" data-cart-item-price />
+  </div>
+ </template>)}
+</div>}
+<style is:global>
+ [data-lm-shopify-cart] [hidden] { display:none; }
+ .lm-shopify-floating { position:fixed; right:0; top:50%; transform:translateY(-50%); border-radius:24px 0 0 24px; min-height:70px; width:56px; z-index:1050; background:var(--cart-button); color:var(--cart-button-text); border:0; box-shadow:0 3px 5px -1px #0003,0 6px 10px #00000024,0 1px 18px #0000001f; }
+ .lm-shopify-floating:hover { background:var(--cart-button-hover); }
+ .lm-shopify-floating .badge { background:var(--cart-badge); color:var(--cart-badge-text); border:0; min-width:20px; height:20px; padding:0 6px; font-size:12px; }
+ .lm-shopify-cart-dialog { position:fixed; inset:0; margin:0 0 0 auto; width:400px; max-width:100vw; height:100dvh; max-height:none; padding:0; border:0; border-radius:0; background:var(--cart-paper); color:var(--cart-text); box-shadow:0 8px 10px -5px #0003,0 16px 24px 2px #00000024,0 6px 30px 5px #0000001f; }
+ .lm-shopify-cart-dialog[open] { display:flex; flex-direction:column; }
+ .lm-shopify-cart-dialog::backdrop { background:rgba(0,0,0,.5); }
+ .lm-shopify-cart-toolbar { min-height:64px; padding:0 24px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--cart-divider); flex-shrink:0; }
+ .lm-shopify-cart-items { padding:24px; overflow-y:auto; flex:1; }
+ .lm-shopify-cart-footer { padding:24px; border-top:1px solid var(--cart-divider); flex-shrink:0; }
+ .lm-shopify-cart-total { display:flex; justify-content:space-between; margin-bottom:16px; }
+ .lm-shopify-cart-item { display:flex; gap:16px; padding-bottom:8px; border-bottom:1px solid var(--cart-divider); }
+ .lm-shopify-cart-avatar { width:40px; height:40px; border-radius:50%; overflow:hidden; flex-shrink:0; }
+ .lm-shopify-cart-detail { flex:1; min-width:0; }
+ .lm-shopify-cart-quantity { display:flex; align-items:center; }
+ .lm-shopify-cart-quantity input { width:70px; padding:4px 0 5px; height:32px; min-height:0; text-align:center; border-radius:0; border:0; border-bottom:1px solid var(--cart-divider); }
+ .lm-shopify-cart-price { align-self:flex-end; }
+ @media(max-width:599.95px) { .lm-shopify-cart-dialog { width:100%; } .lm-shopify-cart-toolbar { min-height:56px; padding:0 16px; } }
+</style>
+<script>
+ import { initializeShopifyCarts } from '../client/shopifyCart'
+ initializeShopifyCarts()
+ document.addEventListener('astro:page-load', initializeShopifyCarts)
+ document.addEventListener('lumen:content-mounted', initializeShopifyCarts)
+</script>

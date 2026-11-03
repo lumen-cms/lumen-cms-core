@@ -1,5 +1,6 @@
 packages:
   - .
+  - packages/*
 overrides:
   '@graphql-codegen/plugin-helpers>@graphql-tools/utils': '12.1.0'
   '@graphql-codegen/visitor-plugin-common>@graphql-tools/utils': '12.1.0'

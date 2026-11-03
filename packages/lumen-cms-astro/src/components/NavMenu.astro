@@ -1,0 +1,67 @@
+---
+import type { NavMenuStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+import Icon from './Icon.astro'
+interface Props { content: NavMenuStoryblok; context: RenderContext; initialOpen?: boolean }
+const { content, context, initialOpen = false } = Astro.props
+const custom = !!content.body?.length && content.body[0].component !== 'nav_menu_item'
+const hasColumns = (blocks: unknown): boolean => Array.isArray(blocks) && blocks.some(block => block && typeof block === 'object' && ((block.component === 'row' && block.body?.length > 1) || hasColumns(block.body)))
+const wide = custom && (content.body!.length > 1 || hasColumns(content.body))
+const id = `menu-${content._uid}`
+const active = custom && JSON.stringify(content.body).includes(`"full_slug":"${context.page.slug?.replace(/^\/+/, '')}"`)
+---
+<div class="dropdown lm-menu" data-lm-menu data-initial-open={initialOpen} data-hover={!!content.open_on_hover} data-alignment={content.alignment}>
+ {content.title_custom?.length ? <div data-menu-trigger>{content.title_custom.map(child => <Block content={child} context={context} />)}</div> :
+ <button type="button" data-menu-trigger aria-controls={id} aria-haspopup={custom ? 'dialog' : 'menu'} aria-expanded="false" class:list={['btn btn-ghost lm-button MuiButton-root lm-default-color', `lm-menu-trigger_${content._uid}`, { lm_menu_active: active }]}>
+  {content.start_icon?.name && <Icon name={content.start_icon.name} />}{content.title}
+  <span class="lm-menu-expand"><Icon name={content.icon?.name || (content.icon_custom?.[0] ? undefined : 'chevron-down')} url={content.icon_custom?.[0]?.icon_url} /></span>
+  <span class="lm-menu-collapse"><Icon name={content.icon_collapse?.name || (content.icon_collapse_custom?.[0] ? undefined : 'chevron-up')} url={content.icon_collapse_custom?.[0]?.icon_url} /></span>
+ </button>}
+ <div id={id} hidden data-menu-panel class:list={['dropdown-content bg-base-100 rounded-box lm-menu-panel', content.class_names?.values, { 'lm-menu-custom': custom, 'lm-menu-mega': wide }]} role={custom ? 'dialog' : 'menu'} aria-label={content.title} style={{ borderRadius: content.border_radius, border: content.outlined ? '1px solid #0002' : undefined, boxShadow: content.outlined ? 'none' : context.theme.shadows[content.elevation ? Number(content.elevation) : 8] }}>{custom ? content.body?.map(child => <Block content={child} context={context} />) : <ul class="menu w-full" role="presentation">{content.body?.map(child => <li role="none"><Block content={child} context={context} /></li>)}</ul>}</div>
+</div>
+<script>
+ import { onUnmount } from '../client/lifecycle'
+ function setupMenus() {
+  document.querySelectorAll<HTMLElement>('[data-lm-menu]').forEach(root => {
+   if (root.dataset.initialized) return
+   root.dataset.initialized = 'true'
+   const listeners = new AbortController()
+   onUnmount(root, () => listeners.abort())
+   const trigger = root.querySelector<HTMLElement>('[data-menu-trigger]')!
+   const panel = root.querySelector<HTMLElement>('[data-menu-panel]')!
+   const controls = trigger.matches('button,a') ? [trigger] : Array.from(trigger.querySelectorAll<HTMLElement>('button,a'))
+   controls.forEach(control => { control.setAttribute('aria-controls', panel.id); control.setAttribute('aria-expanded', 'false'); control.setAttribute('aria-haspopup', panel.getAttribute('role') || 'menu') })
+   const position = () => {
+    const rect = trigger.getBoundingClientRect()
+    const width = panel.getBoundingClientRect().width
+    const left = root.dataset.alignment === 'bottomEnd' ? rect.right - width : root.dataset.alignment === 'bottomCenter' ? rect.left + rect.width / 2 - width / 2 : rect.left
+    panel.style.left = `${Math.max(8, Math.min(left, innerWidth - width - 8))}px`
+    panel.style.top = `${Math.min(rect.bottom, Math.max(8, innerHeight - panel.offsetHeight - 8))}px`
+   }
+   const toggle = (open: boolean, focus = false) => {
+    panel.hidden = !open; root.classList.toggle('lm-menu-open', open); root.classList.toggle('dropdown-open', open)
+    controls.forEach(control => control.setAttribute('aria-expanded', String(open)))
+    if (open) { position(); if (focus) panel.querySelector<HTMLElement>('a,button,[tabindex]')?.focus() }
+   }
+   trigger.addEventListener('click', event => { event.preventDefault(); toggle(!!panel.hidden) })
+   trigger.addEventListener('keydown', event => { if (event.key === 'ArrowDown') { event.preventDefault(); toggle(true, true) } })
+   if (root.dataset.hover === 'true') trigger.addEventListener('mouseenter', () => toggle(true))
+   document.addEventListener('click', event => { if (!root.contains(event.target as Node)) toggle(false) }, { signal: listeners.signal })
+   root.addEventListener('keydown', event => {
+    if (event.key === 'Escape') { toggle(false); controls[0]?.focus() }
+    if (trigger.contains(event.target as Node) || panel.hidden || panel.getAttribute('role') !== 'menu' || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return
+    const items = Array.from(panel.querySelectorAll<HTMLElement>('[role="menuitem"]'))
+    if (!items.length) return
+    event.preventDefault()
+    const i = items.indexOf(document.activeElement as HTMLElement)
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : (i + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length
+    items[next].focus()
+   })
+   if (root.dataset.initialOpen === 'true') toggle(true)
+   window.addEventListener('resize', () => { if (!panel.hidden) position() }, { signal: listeners.signal })
+   window.addEventListener('scroll', () => { if (!panel.hidden) position() }, { passive: true, signal: listeners.signal })
+  })
+ }
+ setupMenus(); document.addEventListener('astro:page-load', setupMenus); document.addEventListener('lumen:content-mounted', setupMenus)
+</script>

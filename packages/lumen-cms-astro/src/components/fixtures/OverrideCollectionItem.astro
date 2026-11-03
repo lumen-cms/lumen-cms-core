@@ -1,0 +1,6 @@
+---
+import type { CardListItemStoryblok, CardListStoryblok, SwiperItemStoryblok, SwiperStoryblok, AccordionItemStoryblok, AccordionStoryblok, TimelineItemStoryblok, TimelineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: CardListItemStoryblok | SwiperItemStoryblok | AccordionItemStoryblok | TimelineItemStoryblok; options?: CardListStoryblok | SwiperStoryblok | AccordionStoryblok | TimelineStoryblok; isLast?: boolean; styleClass?: string }
+const { content, options, isLast, styleClass } = Astro.props
+---
+<div data-fixture-collection={content.component} data-parent={options?.component} data-last={isLast} data-style-class={styleClass} data-option={options?.component === 'swiper' ? options.image_object_fit : options?.component === 'card_list' ? options.title_typography : options?.component === 'accordion' ? options.variant : options?.align}>{content._uid}</div>

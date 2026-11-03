@@ -1,0 +1,25 @@
+---
+import type { SectionStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { CmsTheme } from 'lumen-cms-shared/theme'
+import { generateBackgroundStyles, backgroundShadowClass } from 'lumen-cms-shared/background'
+import { blockStyles } from '../lib/blockStyles'
+interface Props { content: SectionStoryblok & { presetVariant?: SectionStoryblok['variant'] }; theme: CmsTheme }
+const { content, theme } = Astro.props
+const { className, css } = blockStyles(content, theme)
+const background = content.background?.[0]
+const shadowClass = backgroundShadowClass(background)
+const fullHeight = content.property?.includes('is_full_height')
+const padding = content.padding?.split(' ') || []
+const maxWidth = content.max_width ? content.max_width === 'none' ? false : content.max_width : theme.defaultContainerWidth
+const bgStyle = generateBackgroundStyles({ background, theme, variant: content.variant || content.presetVariant })
+---
+{css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
+<div data-lm-form-color={!!content.variant || undefined} id={content.section_identifier || content._uid} class:list={['lm-section', className, shadowClass, background?.classNames?.values]}
+ style={{ ...bgStyle, overflow: content.property?.includes('allow_overflow') ? undefined : 'hidden' }}>
+ <slot name="background" />
+ <div class:list={['MuiContainer-root', 'lm-container', maxWidth && `lm-container-${maxWidth}`, className, shadowClass, background?.classNames?.values, { 'lm-full-height': fullHeight }]}
+   style={fullHeight ? {} : { ...(padding.length > 2 ? { padding: content.padding } : {}), paddingTop: padding[0] || '2.5rem', paddingBottom: padding[0] || '2.5rem' }}>
+   <slot />
+ </div>
+</div>
+

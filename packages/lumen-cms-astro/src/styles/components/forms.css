@@ -1,0 +1,10 @@
+/* CMS field layout and appearance. Variant overrides share the utilities layer with DaisyUI inputs. */
+@layer components {
+ .lm-form-field { display: inline-flex; flex-direction: column; vertical-align: top; }
+ .lm-form-field > .label { color: inherit; white-space: normal; }
+ .lm-form-field > small { display: block; font-size: .75rem; }
+}
+@layer utilities {
+ .lm-field-standard > :is(input,select,textarea) { border: 0; border-bottom: 1px solid currentColor; border-radius: 0; background: transparent; }
+ .lm-field-filled > :is(input,select,textarea) { background: #0000000f; border: 0; border-bottom: 1px solid currentColor; border-radius: 4px 4px 0 0; }
+}

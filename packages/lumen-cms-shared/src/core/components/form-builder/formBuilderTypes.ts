@@ -1,0 +1,42 @@
+import type { StoryblokFields } from '../../typings/storyblok-extensions'
+import {
+  FormBuilderStoryblok,
+  FormCheckboxStoryblok,
+  FormContainerStoryblok,
+  FormSelectStoryblok,
+  FormTextfieldStoryblok
+} from '../../typings/generated/components-schema'
+
+export type LmFormBuilderProps = {
+  content: FormBuilderStoryblok
+  onSubmit?: (data: Record<string, unknown>) => void
+  additional_fields?: FormBuilderStoryblok['additional_fields']
+  success_message?:
+    | FormBuilderStoryblok['success_message']
+    | FormContainerStoryblok['success_message']
+}
+
+export type LmFormTextFieldProps = {
+  content: FormTextfieldStoryblok
+  options: Omit<
+    StoryblokFields<FormBuilderStoryblok>,
+    'success_message' | 'fields' | 'submit' | 'endpoint'
+  >
+}
+export type LmSelectFieldProps = {
+  content: FormSelectStoryblok
+  options: Omit<
+    StoryblokFields<FormBuilderStoryblok>,
+    'success_message' | 'fields' | 'submit' | 'endpoint'
+  >
+}
+
+export type LmFormCheckboxProps = {
+  content: FormCheckboxStoryblok
+  options: Omit<
+    StoryblokFields<FormBuilderStoryblok>,
+    'success_message' | 'fields' | 'submit' | 'endpoint'
+  >
+}
+
+export type LmFormContainerProps = { content: FormContainerStoryblok }

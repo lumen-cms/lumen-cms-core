@@ -1,0 +1,9 @@
+---
+import { staticRoutes, loadPage } from '../server/pages'
+import Document from '../layouts/Document.astro'
+export async function getStaticPaths() {
+  return process.env.LUMEN_SITE ? staticRoutes() : []
+}
+const page = await loadPage(Astro.params.slug, Astro.props)
+---
+<Document page={page} />
