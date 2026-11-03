@@ -1,4 +1,5 @@
 import { initializeStoryblokEditable } from './storyblokEditable'
+import { updateRichTextPreview } from './richTextPreview'
 /** The SDK's default morph preserves old attributes and updates only the body.
  * CMS styles live in the head, so use its cancelable update event to replace
  * the server-rendered document content and remount our native controls. */
@@ -7,12 +8,22 @@ export function initializeStoryblokPreview() {
  initializeStoryblokEditable()
  document.addEventListener('lumen:content-mounted', initializeStoryblokEditable)
  let pending: AbortController | undefined
+ // Raw Bridge input arrives before the SDK's 500 ms debounce. Cancel any
+ // older render immediately so it cannot overwrite the text just typed.
+ const input = (event: Event) => {
+  const disabled = document.querySelector<HTMLMetaElement>('meta[name="storyblok-live-preview"]')?.content
+  if (disabled === 'disabled' || disabled === 'false') return
+  pending?.abort()
+  updateRichTextPreview((event as CustomEvent).detail?.story?.content)
+ }
+ document.addEventListener('lumen:preview-input', input)
  const scripts = new Set(Array.from(document.querySelectorAll<HTMLScriptElement>('script[src]'), script => script.src))
  const update = async (event: Event) => {
   const story = (event as CustomEvent).detail?.story
   if (!story) return
   event.preventDefault()
   pending?.abort()
+  updateRichTextPreview(story.content)
   const request = pending = new AbortController()
   try {
    // Preserve the official SDK's StoryblokServerData/getPayload round trip
@@ -41,7 +52,14 @@ export function initializeStoryblokPreview() {
    const newScripts = [...new Set(Array.from(next.querySelectorAll<HTMLScriptElement>('script[type="module"][src]'), script => new URL(script.getAttribute('src')!, location.href).href))].filter(src => !scripts.has(src))
    // Keep JSON configuration scripts, but activate executable modules ourselves.
    next.body.querySelectorAll('script:not([type]), script[type="module"], script[type="text/javascript"]').forEach(script => script.remove())
-   document.body.replaceWith(document.importNode(next.body, true))
+   const body = document.importNode(next.body, true)
+   // The official Bridge holds references to these editor controls. Preserve
+   // them across reconciliation so block selection keeps working after typing.
+   const controls = ['storyblok__hint', 'storyblok__highlight', 'storyblok__overlay', 'storyblok__overlay-menu', 'storyblok__field-overlay']
+   for (const child of Array.from(document.body.children)) {
+    if (controls.some(name => child.classList.contains(name))) body.append(child)
+   }
+   document.body.replaceWith(body)
    document.documentElement.lang = next.documentElement.lang
    // Existing modules retain their document listeners; new modules must execute
    // once so a component added in the editor can register its initializer.
@@ -69,6 +87,7 @@ export function initializeStoryblokPreview() {
  document.addEventListener('storyblok-live-preview-updating', update)
  return () => {
   pending?.abort()
+  document.removeEventListener('lumen:preview-input', input)
   document.removeEventListener('storyblok-live-preview-updating', update)
   document.removeEventListener('lumen:content-mounted', initializeStoryblokEditable)
  }

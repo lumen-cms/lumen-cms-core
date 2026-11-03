@@ -59,6 +59,26 @@ it('does not intercept SDK updates on public documents', () => {
  dispose = initializeStoryblokPreview()
  expect(input().defaultPrevented).toBe(false)
 })
+it('paints raw input immediately and cancels an older render before the SDK debounce fires', async () => {
+ setup()
+ const element = document.createElement('div')
+ element.dataset.lmRichtext = 'rich'
+ element.innerHTML = '<p>Initial</p>'
+ document.body.append(element)
+ let resolve!: (response: Response) => void
+ const fetcher = vi.fn().mockReturnValue(new Promise(done => { resolve = done }))
+ vi.stubGlobal('fetch', fetcher)
+ input()
+ const story = { content: { body: [{ component: 'rich_text_editor', _uid: 'rich', body: { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Instant' }] }] } }] } }
+ document.dispatchEvent(new CustomEvent('lumen:preview-input', { detail: { story } }))
+ expect(element.textContent).toBe('Instant')
+ expect(fetcher).toHaveBeenCalledOnce()
+ expect(fetcher.mock.calls[0][1].signal.aborted).toBe(true)
+ resolve(new Response(html))
+ await new Promise(done => setTimeout(done, 0))
+ expect(document.body.contains(element)).toBe(true)
+ expect(element.textContent).toBe('Instant')
+})
 it('round-trips StoryblokServerData and uses the replacement payload on subsequent edits', async () => {
  setup()
  const data = { shopify: { scope: 'fixture', products: [] } }
@@ -76,6 +96,16 @@ it('round-trips StoryblokServerData and uses the replacement payload on subseque
  input()
  await vi.waitFor(() => expect(fetcher).toHaveBeenCalledTimes(2))
  expect(JSON.parse(fetcher.mock.calls[1][1].body).serverData).toEqual(nextData)
+})
+it('preserves the official Bridge overlay nodes across server reconciliation', async () => {
+ setup()
+ const overlay = document.createElement('div')
+ overlay.className = 'storyblok__overlay'
+ document.body.append(overlay)
+ vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(html)))
+ input()
+ await vi.waitFor(() => expect(document.title).toBe('Edited'))
+ expect(document.querySelector('.storyblok__overlay')).toBe(overlay)
 })
 it('loads newly introduced widget modules once and remounts after they load', async () => {
  setup()

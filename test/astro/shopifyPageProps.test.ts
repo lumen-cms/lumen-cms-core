@@ -101,8 +101,9 @@ it('ignores unrelated SDK stories and all live payloads outside preview', async 
   const result = await loadPage('product', options, preview, undefined, liveStory(uuid, 'page'))
   expect(result.page?.meta_title).toBe('Saved')
  }
- expect(mocks.enrich).not.toHaveBeenCalled()
- expect(mocks.hook).not.toHaveBeenCalled()
+ // The unrelated preview payload still needs its deferred saved-page enrichment.
+ expect(mocks.enrich).toHaveBeenCalledOnce()
+ expect(mocks.hook).toHaveBeenCalledOnce()
 })
 it('enriches configured Astro pages using the existing Shopify server contract', async () => {
  mocks.page.mockResolvedValue({ page: { component: 'page' }, settings: { ecommerce: [config] } })
@@ -125,9 +126,9 @@ it('rejects protected static routes before requesting commerce data', async () =
 it('passes preview release metadata into the page loader for this request only', async () => {
  mocks.page.mockResolvedValue({ page: {}, settings: {} })
  await loadPage('product', options, true, { from_release: 'fixture-release' })
- expect(mocks.page).toHaveBeenLastCalledWith(['product'], { locale: 'en', defaultLocale: 'en', locales: ['en'], insideStoryblok: true }, { from_release: 'fixture-release' })
+ expect(mocks.page).toHaveBeenLastCalledWith(['product'], { locale: 'en', defaultLocale: 'en', locales: ['en'], insideStoryblok: true }, { from_release: 'fixture-release' }, { defer: false })
  await loadPage('product', options)
- expect(mocks.page).toHaveBeenLastCalledWith(['product'], { locale: 'en', defaultLocale: 'en', locales: ['en'], insideStoryblok: false }, undefined)
+ expect(mocks.page).toHaveBeenLastCalledWith(['product'], { locale: 'en', defaultLocale: 'en', locales: ['en'], insideStoryblok: false }, undefined, { defer: false })
 })
 
 
@@ -165,7 +166,7 @@ it('loads nested home stories by the original CMS slug while keeping their publi
    const route = routes.find(route => route.params.slug === path)!
    expect(route.props.cmsSlug).toBe(`${path}/home`)
    await loadPage(route.params.slug, route.props)
-   expect(mocks.page).toHaveBeenLastCalledWith(`${path}/home`.split('/'), expect.objectContaining({ locale: path.startsWith('de/') ? 'de' : 'en' }), undefined)
+   expect(mocks.page).toHaveBeenLastCalledWith(`${path}/home`.split('/'), expect.objectContaining({ locale: path.startsWith('de/') ? 'de' : 'en' }), undefined, { defer: false })
   }
  } finally { vi.unstubAllEnvs() }
 })

@@ -30,7 +30,8 @@ SSR_CONFIG.ssrHooks.componentData = {
 const getPageProps = async (
   slug: string | string[],
   options: PagePropsOptions,
-  requestParams?: ISbStoryParams
+  requestParams?: ISbStoryParams,
+  enrichment: { defer?: boolean } = {}
 ): Promise<AppPageProps> => {
   const { pageSlug } = prepareForStoryblok(slug, options)
   const startedAt = performance.now()
@@ -79,6 +80,8 @@ const getPageProps = async (
   }
 
   if (requestParams) setStoryblokRequest(props, requestParams)
+  // Astro applies the unsaved SDK payload before running these expensive hooks.
+  if (enrichment.defer) return props
   await Promise.all([
     timed(`${pageSlug} component data`, () => fetchComponentData(props)),
     typeof window === 'undefined' &&

@@ -76,6 +76,44 @@ SameSite=None on HTTPS. Use an HTTPS development host for the Storyblok iframe.
 Third-party-cookie restrictions and Vercel deployment protection still require
 testing in the actual editor environment.
 
+Live editing uses one official Storyblok Bridge, the SDK's exported preview
+middleware, `getPayload`, and `StoryblokServerData`. Lumen registers the middleware
+explicitly and disables the SDK's automatic Bridge bootstrap so it can handle
+input before forwarding it to `handleStoryblokMessage` (SDK 10.4.0 debounces that
+handler by 500 ms). Do not add a second Bridge: its `initOnlyOnce` guard can leave
+one of the listeners inactive in the editor iframe.
+
+Rich-text typing and common formatting update synchronously in the preview
+browser. Existing link text preserves its server-rendered anchor; changed link
+destinations, images, embedded blocks, and unsupported marks wait for SSR. The
+SDK still reconciles the complete document after typing pauses, including styles,
+fonts and widgets. New input cancels older responses immediately. Bridge overlay
+nodes survive reconciliation. Unsaved stories are applied before component/font/
+page-hook enrichment, so those hooks run once per update instead of twice.
+Public pages contain neither the rich-text snapshots nor this preview bootstrap.
+
+This is a Lumen optimization around the official SSR approach, not a claim that
+Astro's default preview renders everything client-side. See the
+[official Astro SDK guide](https://www.storyblok.com/docs/libraries/js/astro-sdk)
+for payload reuse and cancelable preview events, and the
+[official preview quickstart](https://www.storyblok.com/docs/quickstarts/astro/visual-preview)
+for using the live payload before falling back to a Content Delivery API fetch.
+The installed SDK source is authoritative for the 500 ms timing (the public guide
+currently labels itself version 8.x).
+
+Regression checks:
+
+```sh
+pnpm test:astro
+pnpm astro:check
+pnpm --filter lumen-cms-astro exec astro build --config astro.server.config.mjs
+node scripts/check-astro-preview.cjs
+```
+
+The browser check sends input through the actual Bridge inside a local iframe,
+asserts that 20 edits paint before any POST, and verifies a single SDK
+reconciliation request. It does not require live CMS credentials.
+
 Public requests explicitly use published content, including in development.
 Consumer documents currently return `private, no-store`; do not enable Vercel ISR
 until preview bypass and invalidation have been implemented and verified. CMS

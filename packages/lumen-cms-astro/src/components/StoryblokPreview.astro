@@ -1,4 +1,22 @@
 <script>
  import { initializeStoryblokPreview } from '../client/storyblokPreview'
+ import { loadStoryblokBridge, handleStoryblokMessage } from '@storyblok/astro'
  initializeStoryblokPreview()
+ // One official Bridge handles both immediate text and SDK reconciliation.
+ // A second instance would be ignored by the Bridge's initOnlyOnce guard.
+ if (document.documentElement.hasAttribute('data-lumen-preview')) {
+  loadStoryblokBridge().then(() => {
+   const bridge = new window.StoryblokBridge({
+    resolveLinks: 'url',
+    // Keep aligned with the delivery API's defaultResolveRelations.
+    resolveRelations: ['static_section.container', 'form_container.form', 'event.category', 'news.category', 'page.categories'],
+   })
+   bridge.on(['input', 'change', 'published'], event => {
+    if (!event) return
+    if (event.action === 'input' && event.story) document.dispatchEvent(new CustomEvent('lumen:preview-input', { detail: { story: event.story } }))
+    // SDK types require a story even for change/published, which reload directly.
+    void handleStoryblokMessage(event as Parameters<typeof handleStoryblokMessage>[0])
+   })
+  }).catch(error => console.error('[lumen-cms] Instant preview bridge failed', error))
+ }
 </script>

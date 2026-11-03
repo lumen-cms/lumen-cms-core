@@ -32,6 +32,20 @@ it('propagates consumer hook failures instead of publishing incomplete enrichmen
  await expect(loadPage('example', { locale: 'en', defaultLocale: 'en', locales: ['en'], cmsSlug: 'example' })).rejects.toThrow('Consumer backend unavailable')
 })
 
+it('enriches unsaved content once, without running hooks on the saved story first', async () => {
+ const componentHook = vi.fn(async block => ({ title: block.title }))
+ const pageHook = vi.fn(async () => {})
+ SSR_CONFIG.ssrHooks.componentData.consumer_fixture = componentHook
+ SSR_CONFIG.ssrHooks.pageProps.push(pageHook)
+ const result = await loadPage('example', { locale: 'en', defaultLocale: 'en', locales: ['en'] }, true, undefined, {
+  uuid: 'page', content: { component: 'page', _uid: 'page', body: [{ component: 'consumer_fixture', _uid: 'custom', title: 'Unsaved text' }] },
+ } as never)
+ expect(componentHook).toHaveBeenCalledOnce()
+ expect(componentHook.mock.calls[0][0].title).toBe('Unsaved text')
+ expect(pageHook).toHaveBeenCalledOnce()
+ expect(result.page?.body?.[0]).toMatchObject({ consumer_fixture_data: { title: 'Unsaved text' } })
+})
+
 it('shares registered sitemap hooks with the native endpoint', async () => {
  const { ALL } = await import('../../packages/lumen-cms-astro/src-server/pages/api/sitemap')
  const hook = vi.fn(async stream => { stream.write({ url: '/consumer-page' }) })

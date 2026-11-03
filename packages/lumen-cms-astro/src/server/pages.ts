@@ -47,25 +47,24 @@ export async function loadPage(slug: string | undefined, options: CmsRoute['prop
   const result = await getPageProps((options.cmsSlug || slug)?.split('/') || 'home', {
     locale: options.locale, defaultLocale: options.defaultLocale,
     locales: options.locales, insideStoryblok: preview
-  }, requestParams)
+  }, requestParams, { defer: preview && !!liveStory?.content })
   if (!result.page || !result.settings) throw new CmsPageNotFoundError(slug)
   if (result.needAuth && !preview) throw new CmsPageProtectedError(slug)
   if (preview && liveStory?.content) {
-    let changed = false
     if (liveStory.content.component === 'global' && liveStory.uuid === result.settings.uuid) {
-      result.settings = { ...liveStory.content, uuid: liveStory.uuid }; changed = true
+      result.settings = { ...liveStory.content, uuid: liveStory.uuid }
     } else if (['page', 'news', 'event'].includes(liveStory.content.component) && liveStory.uuid === result.page.uuid) {
       // Legacy AppPageProps types page narrowly, although its renderer supports news/events.
-      result.page = { ...liveStory.content, uuid: liveStory.uuid } as typeof result.page; changed = true
+      result.page = { ...liveStory.content, uuid: liveStory.uuid } as typeof result.page
     }
-    if (changed) {
-      if (requestParams) setStoryblokRequest(result, requestParams)
-      await Promise.all([
-        fetchComponentData(result),
-        import('lumen-cms-shared/core/utils/initial-props/processGoogleFonts').then(({ loadGoogleFontsCss }) => loadGoogleFontsCss(result.settings)),
-      ])
-      await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map(hook => hook(result)))
-    }
+    // The initial loader deferred enrichment, including for unrelated payloads.
+    // Run it exactly once against the content we will actually render.
+    if (requestParams) setStoryblokRequest(result, requestParams)
+    await Promise.all([
+      fetchComponentData(result),
+      import('lumen-cms-shared/core/utils/initial-props/processGoogleFonts').then(({ loadGoogleFontsCss }) => loadGoogleFontsCss(result.settings)),
+    ])
+    await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map(hook => hook(result)))
   }
   const enriched = result as RenderContext['page']
   // Reuse external catalog data on page edits. Global edits deliberately refetch
