@@ -90,7 +90,11 @@ credentials in dependency URLs. The separate `websites-astro` repository include
 `cms:local` and `cms:git` commands to keep all five apps on the same source.
 
 Validation in this repository: `pnpm astro:check`, `pnpm test:astro`, and
-`pnpm test:astro:packages`. Also pack and install in an external consumer before
+`pnpm test:astro:packages`. This also builds CSS from an isolated consumer with
+the renderer copied into `node_modules`, checking that Tailwind generates the
+DaisyUI controls and utilities used by the package. The stylesheet explicitly
+registers its source directories because Tailwind skips dependencies during
+automatic discovery. Also pack and install in an external consumer before
 shipping; workspace builds alone cannot detect missing files or undeclared peers.
 
 ## Shared layout and 404 pages

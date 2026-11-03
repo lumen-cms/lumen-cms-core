@@ -13,12 +13,12 @@ const active = custom && JSON.stringify(content.body).includes(`"full_slug":"${c
 ---
 <div class="dropdown lm-menu" data-lm-menu data-initial-open={initialOpen} data-hover={!!content.open_on_hover} data-alignment={content.alignment}>
  {content.title_custom?.length ? <div data-menu-trigger>{content.title_custom.map(child => <Block content={child} context={context} />)}</div> :
- <button type="button" data-menu-trigger aria-controls={id} aria-haspopup={custom ? 'dialog' : 'menu'} aria-expanded="false" class:list={['btn btn-ghost lm-button MuiButton-root lm-default-color', `lm-menu-trigger_${content._uid}`, { lm_menu_active: active }]}>
-  {content.start_icon?.name && <Icon name={content.start_icon.name} />}{content.title}
-  <span class="lm-menu-expand"><Icon name={content.icon?.name || (content.icon_custom?.[0] ? undefined : 'chevron-down')} url={content.icon_custom?.[0]?.icon_url} /></span>
-  <span class="lm-menu-collapse"><Icon name={content.icon_collapse?.name || (content.icon_collapse_custom?.[0] ? undefined : 'chevron-up')} url={content.icon_collapse_custom?.[0]?.icon_url} /></span>
+ <button type="button" data-menu-trigger aria-controls={id} aria-haspopup={custom ? 'dialog' : 'menu'} aria-expanded="false" class:list={['btn btn-ghost lm-button lm-labelled-button MuiButton-root lm-default-color', `lm-menu-trigger_${content._uid}`, { lm_menu_active: active }]}>
+  {content.start_icon?.name && <span class="lm-button-start"><Icon name={content.start_icon.name} /></span>}{content.title}
+  <span class="lm-menu-expand lm-button-trailing"><Icon name={content.icon?.name || (content.icon_custom?.[0] ? undefined : 'chevron-down')} url={content.icon_custom?.[0]?.icon_url} /></span>
+  <span class="lm-menu-collapse lm-button-trailing"><Icon name={content.icon_collapse?.name || (content.icon_collapse_custom?.[0] ? undefined : 'chevron-up')} url={content.icon_collapse_custom?.[0]?.icon_url} /></span>
  </button>}
- <div id={id} hidden data-menu-panel class:list={['dropdown-content bg-base-100 rounded-box lm-menu-panel', content.class_names?.values, { 'lm-menu-custom': custom, 'lm-menu-mega': wide }]} role={custom ? 'dialog' : 'menu'} aria-label={content.title} style={{ borderRadius: content.border_radius, border: content.outlined ? '1px solid #0002' : undefined, boxShadow: content.outlined ? 'none' : context.theme.shadows[content.elevation ? Number(content.elevation) : 8] }}>{custom ? content.body?.map(child => <Block content={child} context={context} />) : <ul class="menu w-full" role="presentation">{content.body?.map(child => <li role="none"><Block content={child} context={context} /></li>)}</ul>}</div>
+ <div id={id} hidden data-menu-panel class:list={['dropdown-content bg-base-100 rounded-box lm-menu-panel', content.class_names?.values, { 'lm-menu-custom': custom, 'lm-menu-mega': wide }]} role={custom ? 'dialog' : 'menu'} aria-label={content.title} style={{ borderRadius: content.border_radius, border: content.outlined ? '1px solid #0002' : undefined, boxShadow: content.outlined ? 'none' : context.theme.shadows[content.elevation ? Number(content.elevation) : 8] }}>{custom ? <div class="lm-menu-custom-body">{content.body?.map(child => <Block content={child} context={context} />)}</div> : <ul class="menu w-full" role="presentation">{content.body?.map(child => <li role="none"><Block content={child} context={context} /></li>)}</ul>}</div>
 </div>
 <script>
  import { onUnmount } from '../client/lifecycle'

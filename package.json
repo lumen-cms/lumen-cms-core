@@ -82,7 +82,7 @@
     "astro:a11y-report": "node scripts/report-astro-accessibility-ownership.cjs",
     "test:astro:images": "node scripts/check-astro-images.cjs",
     "test:astro:story-images": "node scripts/check-astro-story-images.cjs",
-    "test:astro:packages": "node scripts/check-astro-packages.cjs",
+    "test:astro:packages": "node scripts/check-astro-packages.cjs && node scripts/check-astro-consumer-css.mjs",
     "astro:sync-schemas": "node scripts/sync-astro-schemas.cjs"
   },
   "author": "Dominic Garms",

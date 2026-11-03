@@ -27,6 +27,9 @@
  .btn.lm-button.lm-grey-button.btn-ghost:where(:not([data-custom-foreground])), .btn.lm-button.lm-grey-button.btn-outline:where(:not([data-custom-foreground])) { color: var(--color-base-content); }
  .btn.lm-button.lm-icon-button { min-width: 0; padding: 8px; border-radius: 50%; }
  .btn.lm-button.lm-icon-button.btn-sm { padding: 5px; }
+ .lm-icon-button.btn-sm > .lm-svg-icon { font-size: 18px; }
+ .lm-icon-button.lm-button-large > .lm-svg-icon { width: 30px; height: 30px; }
+ .lm-icon-button.lm-button-xlarge > .lm-svg-icon { width: 40px; height: 40px; }
  .btn.lm-labelled-button { gap: 0; }
  .lm-button-start, .lm-button-trailing { display: inline-flex; }
  .lm-button-start { margin-left: -4px; margin-right: 8px; }

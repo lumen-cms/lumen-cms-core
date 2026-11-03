@@ -8,6 +8,14 @@
 @import "./components/accordion.css";
 @import "./components/forms.css";
 @import "./components/tabs.css";
+/* Consumers install this renderer in node_modules, which Tailwind does not
+   scan automatically. Resolve sources relative to this stylesheet so DaisyUI
+   components and utilities are generated in both workspace and package builds. */
+@source "../components";
+@source "../layouts";
+@source "../lib";
+@source "../client";
+@source "../travel";
 /* Native controllers use hidden for empty states, clear buttons and panels.
    Component display utilities must not override the browser's hidden state. */
 [hidden]:not([hidden="until-found"]) { display: none !important; }
