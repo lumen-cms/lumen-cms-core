@@ -50,12 +50,14 @@ function IconCore({
   const [refIntersectionObserver, inView] = useInView(
     intersectionDefaultOptions
   )
-  iconName = iconName ? iconMap[iconName] || iconName : undefined
+  iconName =
+    iconName && Object.hasOwn(iconMap, iconName) ? iconMap[iconName] : iconName
   let iconSrc = ''
   if (inView && (iconUrl || iconName)) {
     iconSrc =
       iconUrl ||
-      `https://cdn.jsdelivr.net/npm/@mdi/svg/svg/${underscoreToMinus(
+      // Keep aligned with the Astro renderer's pinned @mdi/svg dependency.
+      `https://cdn.jsdelivr.net/npm/@mdi/svg@7.4.47/svg/${underscoreToMinus(
         iconName as string
       )}.svg`
   }

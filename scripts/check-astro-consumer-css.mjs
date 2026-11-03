@@ -33,6 +33,14 @@ try {
   for (const selector of ['.btn', '.btn-primary', '.btn-secondary', '.btn-ghost', '.btn-outline', '.btn-neutral', '.btn-success', '.btn-info', '.btn-warning', '.btn-error', '.dropdown', '.menu', '.input', '.select', '.textarea', '.checkbox', '.bg-base-100', '.w-full']) {
     assert(selectors.has(selector), `Installed Astro package is missing generated CSS for ${selector}`)
   }
+  assert(selectors.has('.transition-transform'), 'Accordion transform transitions must survive package installation')
+  assert([...selectors].some(selector => selector.includes('lm-accordion-indicator') && selector.includes('rotate-180')), 'Accordion open-state rotation must survive package installation')
+  for (const selector of ['.avatar', '.badge', '.navbar', '.card', '.carousel', '.carousel-item', '.loading', '.collapse', '.label', '.alert', '.indicator', '.radio', '.progress']) {
+    assert(selectors.has(selector), `Renderer component styles must remain available: ${selector}`)
+  }
+  for (const selector of ['.tabs', '.countdown', '.table-zebra', '.drawer', '.timeline']) {
+    assert(!selectors.has(selector), `CMS names must not pull in unused DaisyUI components: ${selector}`)
+  }
   console.log('Installed Astro consumer CSS includes navigation, button variants, forms and layout utilities.')
 } finally {
   await rm(consumer, { recursive: true, force: true })

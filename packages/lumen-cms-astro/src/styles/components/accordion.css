@@ -20,5 +20,4 @@
  .collapse > .collapse-content.lm-accordion-content { padding: 8px 16px 16px; }
  .collapse.lm-accordion-item[open] > .lm-accordion-summary { min-height: 64px; }
  .collapse.lm-accordion-item[open] > .lm-accordion-summary > span:first-child { margin: 20px 0; }
- .collapse.lm-accordion-item[open] .lm-accordion-indicator { transform: rotate(180deg); }
 }

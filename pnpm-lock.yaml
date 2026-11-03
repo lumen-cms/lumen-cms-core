@@ -336,6 +336,9 @@ importers:
       '@astrojs/node':
         specifier: 11.1.9
         version: 11.1.9(astro@7.4.4(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(supports-color@8.1.1)
+      '@mdi/svg':
+        specifier: 7.4.47
+        version: 7.4.47
       '@mux/mux-player':
         specifier: 3.14.1
         version: 3.14.1(react@19.3.1)
@@ -2438,6 +2441,9 @@ packages:
 
   '@mdi/js@4.9.95':
     resolution: {integrity: sha512-6zKTCqZUCuDWJThdRcjdFTqp2BXfYwXI1UlYa68A1/kmCcy1ijpbpRbrJcUdZ+9WojencCh1DOGFqhj/x8I/eQ==}
+
+  '@mdi/svg@7.4.47':
+    resolution: {integrity: sha512-WQ2gDll12T9WD34fdRFgQVgO8bag3gavrAgJ0frN4phlwdJARpE6gO1YvLEMJR0KKgoc+/Ea/A0Pp11I00xBvw==}
 
   '@mdx-js/react@3.1.1':
     resolution: {integrity: sha512-f++rKLQgUVYDAtECQ6fn/is15GkEH9+nZPM3MS0RcxVqoTfawHvDlSCH7JbMhAM6uJ32v3eXLvLmLvjGu7PTQw==}
@@ -11152,6 +11158,8 @@ snapshots:
   '@keyv/serialize@1.1.1': {}
 
   '@mdi/js@4.9.95': {}
+
+  '@mdi/svg@7.4.47': {}
 
   '@mdx-js/react@3.1.1(@types/react@19.3.0)(react@19.3.1)':
     dependencies:

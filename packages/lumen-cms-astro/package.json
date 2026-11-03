@@ -63,7 +63,8 @@
     "@storyblok/richtext": "5.3.3",
     "clean-deep": "3.4.0",
     "sharp": "0.35.5",
-    "js-cookie": "^3.0.8"
+    "js-cookie": "^3.0.8",
+    "@mdi/svg": "7.4.47"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",

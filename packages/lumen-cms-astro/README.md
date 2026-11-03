@@ -9,6 +9,14 @@ alongside this package. Pin both Lumen packages to the same release/commit. Astr
 compiles the TypeScript and `.astro` source; no consumer install-time build of the
 CMS or React/Next dependency is required.
 
+Named icons use the exact `@mdi/svg` version in this package's dependencies.
+The Lumen integration embeds its SVG catalog in the server bundle at build time;
+only rendered SVG markup reaches the browser. Named icons need neither CDN
+requests nor runtime filesystem access. Custom CMS icon URLs still override
+names and are fetched, sanitized, and cached server-side. Unknown names render
+an empty icon with a warning. When upgrading the icon package, also update the
+legacy Next renderer's pinned CDN URL; `pnpm test:astro:packages` checks parity.
+
 ```js
 import vercel from '@astrojs/vercel'
 import { defineLumenConfig } from 'lumen-cms-astro/config'

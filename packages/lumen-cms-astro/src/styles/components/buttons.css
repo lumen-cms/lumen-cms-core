@@ -2,7 +2,8 @@
 @layer components {
 
  [data-lm-speech]:not([data-speaking="true"]) .lm-speaking-icon, [data-lm-speech][data-speaking="true"] .lm-button-trailing { display: none; }
- .lm-button-image { border-radius: 50%; object-fit: cover; }
+ .lm-button-image { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 50%; overflow: hidden; }
+ .lm-button-image img { display: block; width: 100%; height: auto; }
  .lm-button-list__margin-left > * { margin-left: 8px; }
 }
 @layer utilities {

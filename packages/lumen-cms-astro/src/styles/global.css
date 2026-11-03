@@ -111,6 +111,13 @@
 }
 @plugin "daisyui" {
   themes: false;
+  /* Keep the base/utility contracts and the components used by this renderer.
+     CMS component names (table, tabs, countdown, etc.) are also scanned as
+     tokens, but their lm-* implementations do not use DaisyUI's counterparts. */
+  include: rootcolor, svg, rootscrollgutter, properties, scrollbar, rootscrolllock,
+    avatar, checkbox, badge, button, navbar, input, tooltip, card, skeleton,
+    select, divider, carousel, menu, dropdown, loading, collapse, label, alert,
+    indicator, radio, progress, textarea, join, glass, radius, typography;
 }
 
 /* CMS breakpoints intentionally differ from Tailwind defaults. */
@@ -168,7 +175,7 @@
  .lm-markup > p:last-of-type { margin-bottom: 0; }
  .lm-markup ul { list-style: disc; padding-left: 40px; margin: 1em 0; }
  .lm-markup ol { list-style: decimal; padding-left: 40px; margin: 1em 0; }
- .lm-rich-link { color: var(--color-primary); text-decoration: underline; }
+ .lm-rich-link { color: var(--color-primary); text-decoration: none; }
  .lm-rich-link:hover { text-decoration: underline; }
  .lm-svg-icon { display: inline-flex; width: 1em; height: 1em; font-size: 24px; fill: currentColor; flex-shrink: 0; }
  .lm-svg-icon svg { width: 100%; height: 100%; }
@@ -395,5 +402,7 @@
 .lm-swiper .swiper-pagination-bullet::before { content: ''; position: absolute; width: max(100%, 24px); height: max(100%, 24px); left: 50%; top: 50%; transform: translate(-50%, -50%); }
 [data-lightbox-index]:focus-visible { outline: 3px solid currentColor; outline-offset: -3px; }
 
-/* Text links must remain distinguishable without relying on their color. */
-a.lm-rich-link, .lm-markup a[href]:not(.btn) { text-decoration-line: underline; text-underline-offset: .15em; }
+/* Match the legacy MuiLink underline="hover" default. Keep authored underline
+   marks intact and retain underlines for untyped HTML links. */
+.lm-markup a[href]:not(.btn):not(.lm-rich-link) { text-decoration-line: underline; text-underline-offset: .15em; }
+.lm-rich-link:focus-visible { text-decoration: underline; }

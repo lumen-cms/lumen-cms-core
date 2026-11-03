@@ -9,9 +9,9 @@ import { storyblokImageUrl } from '../images/storyblok-service'
 interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
  src: string; alt: string; width?: number; height?: number; widths?: number[]; densities?: (number | `${number}x`)[]
  quality?: number; format?: ImageOutputFormat; fit?: 'contain' | 'cover' | 'fill' | 'inside' | 'outside'; position?: string
- fill?: boolean; preload?: boolean; blurDataURL?: string; unoptimized?: boolean
+ fill?: boolean; preload?: boolean; blurDataURL?: string; unoptimized?: boolean; autoSizes?: boolean
 }
-const { src: input, width, height, widths, densities, quality = Number(process.env.PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, blurDataURL, unoptimized, style, ...attrs } = Astro.props
+const { src: input, width, height, widths, densities, quality = Number(process.env.PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, blurDataURL, unoptimized, autoSizes = true, style, ...attrs } = Astro.props
 const source = normalizeImageSource(input)
 const unauthorized = /^https?:/.test(source) && !isRemoteAllowed(source, imageConfig)
 const bypass = unauthorized || unoptimized || /\.ico(?:[?#]|$)/i.test(source) || isSvgImage(source) || /^(data:|blob:)/.test(source)
@@ -37,9 +37,18 @@ if (useCdn || bypass) {
 const imageStyle = [fill ? 'position:absolute;inset:0;width:100%;height:100%' : '', typeof style === 'string' ? style : Object.entries(style || {}).map(([key,value]) => value == null ? '' : `${key.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`)}:${value}`).join(';'), blurDataURL ? `background-image:url("${blurDataURL}");background-size:cover;background-position:center` : ''].filter(Boolean).join(';')
 const htmlAttributes = { ...output.attributes, ...attrs, src: output.src, srcset: output.srcSet.attribute || undefined, sizes, width: fill ? undefined : dimensions.width, height: fill ? undefined : dimensions.height, loading: preload ? 'eager' as const : attrs.loading || 'lazy', decoding: attrs.decoding || 'async', style: imageStyle || undefined, 'data-lm-image-blur': blurDataURL ? '' : undefined }
 const preloadImage = avif || output
+// Lazy images can use their laid-out width instead of the generic viewport
+// estimate. Preserve explicit sizing rules and eager/LCP hints.
+// Exclude fill images, whose intrinsic dimensions are deliberately omitted.
+const renderedSizes = autoSizes && !fill && htmlAttributes.loading === 'lazy' && sizes === '100vw' && /\d+w(?:,|$)/.test(output.srcSet.attribute)
+ ? `auto, ${sizes}` : sizes
+htmlAttributes.sizes = renderedSizes
+// Auto sizing enables size containment. Preserve the image's intrinsic box in
+// shrink-to-fit/flex layouts instead of the browser's default 300x150 fallback.
+if (renderedSizes !== sizes) htmlAttributes.style = `${imageStyle};contain-intrinsic-size:${dimensions.width}px ${dimensions.height}px`
 ---
 {preload && <link rel="preload" as="image" type={avif ? 'image/avif' : undefined} href={preloadImage.srcSet.attribute ? undefined : preloadImage.src} imagesrcset={preloadImage.srcSet.attribute || undefined} imagesizes={sizes} />}
-<>{avif ? <picture style="display:contents"><source type="image/avif" srcset={avif.srcSet.attribute || avif.src} sizes={sizes} /><img {...htmlAttributes} /></picture> : <img {...htmlAttributes} />}</>
+<>{avif ? <picture style="display:contents"><source type="image/avif" srcset={avif.srcSet.attribute || avif.src} sizes={renderedSizes} /><img {...htmlAttributes} /></picture> : <img {...htmlAttributes} />}</>
 <script>
  function clearImagePlaceholders() {
   document.querySelectorAll<HTMLImageElement>('img[data-lm-image-blur]').forEach(image => {

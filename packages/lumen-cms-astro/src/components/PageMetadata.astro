@@ -22,4 +22,4 @@ const favicon = page.settings?.setup_favicon
  <link data-lumen-preview-head rel="apple-touch-icon-precomposed" href={seoImageUrl(favicon, '152x152')} />
  <link data-lumen-preview-head rel="apple-touch-icon" sizes="180x180" href={seoImageUrl(favicon, '180x180')} />
 </>}
-{['https://cdn.jsdelivr.net', 'https://a.storyblok.com', 'https://img2.storyblok.com'].map(href => <link rel="preconnect" href={href} crossorigin="anonymous" />)}
+<link rel="preconnect" href="https://a.storyblok.com" />

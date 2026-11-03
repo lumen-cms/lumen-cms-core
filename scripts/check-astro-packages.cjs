@@ -36,7 +36,7 @@ for (const name of ['lumen-cms-shared', 'lumen-cms-astro']) {
     if (!target.startsWith(directory + path.sep)) errors.push(`${file}: import escapes package: ${spec}`)
     if (![target, ...['.ts', '.tsx', '.js', '.mjs', '.json', '.d.ts', '/index.ts', '/index.js'].map(ext => target + ext)].some(p => fs.existsSync(p) && fs.statSync(p).isFile())) errors.push(`${file}: missing relative module: ${spec}`)
    } else {
-    if (spec.startsWith('node:') || spec.startsWith('astro:') || builtinModules.includes(spec)) continue
+    if (spec.startsWith('node:') || spec.startsWith('astro:') || spec === 'virtual:lumen-mdi-icons' || builtinModules.includes(spec)) continue
     const dependency = spec.startsWith('@') ? spec.split('/').slice(0, 2).join('/') : spec.split('/')[0]
     if (dependency !== name && !declared[dependency]) errors.push(`${file}: undeclared dependency: ${dependency}`)
     if (/^(react|react-dom|next|@mui\/|@emotion\/|@auth0\/)/.test(dependency)) errors.push(`${file}: legacy UI dependency: ${dependency}`)
