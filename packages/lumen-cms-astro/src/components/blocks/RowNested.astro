@@ -1,0 +1,11 @@
+---
+import type { BlockProps } from '../../lib/blockProps'
+import type { RowStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import Row from './Row.astro'
+interface Props { content: Record<string, unknown> & { _uid: string }; context: BlockProps['context'] }
+const { content, context } = Astro.props
+// Legacy nested rows use the same column/body/background structure. Adapt the
+// discriminator at the boundary so normal child rendering and link policy apply.
+const row = { ...content, component: 'row', justify: content.align === 'right' ? 'flex-end' : content.align === 'left' ? 'flex-start' : undefined } as RowStoryblok
+---
+<Row content={row} context={context} />

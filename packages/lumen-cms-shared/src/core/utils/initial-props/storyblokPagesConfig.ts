@@ -35,7 +35,10 @@ export const getAllStoriesOfProject = async (
 ): Promise<ProjectPageStory[]> => {
   const all = await LmStoryblokService.getAll<PageStoryblok>(
     'cdn/stories',
-    getStoryblokPagesConfig(pageConfig)
+    // Bulk inventories consume every story. Use the API's maximum page size
+    // to avoid queuing four times as many requests behind the delivery throttle.
+    // Keep the normal list default and explicit caller page sizes unchanged.
+    getStoryblokPagesConfig({ per_page: 100, ...pageConfig })
   )
   return all
 }

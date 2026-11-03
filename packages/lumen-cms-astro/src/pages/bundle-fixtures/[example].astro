@@ -36,7 +36,7 @@ const page = {
  pageNotFound: example === 'layout-error',
  locale: 'en', defaultLocale: 'en', insideStoryblok: false,
  settings: { component: 'global', _uid: 'settings', theme_base: 'base', website_title: 'Bundle isolation', ...(Astro.params.example === 'shopify-checkout' ? { ecommerce: [{ component: 'ecommerce_shopify_config', _uid: 'checkout-config', domain: 'fixture.myshopify.com', access_token: 'public-test-token' }] } : {}) },
- page: { component: 'page', _uid: 'page', property: ['disable_promotion'], body: [...(example.endsWith('-below') ? [{ component: 'html', _uid: 'spacer', body: '<div style="height:4000px">Scroll to load the component</div>' }] : []), block] },
+ page: { component: example === 'layout-error' ? 'error_page' : 'page', _uid: 'page', property: ['disable_promotion'], body: [...(example.endsWith('-below') ? [{ component: 'html', _uid: 'spacer', body: '<div style="height:4000px">Scroll to load the component</div>' }] : []), block] },
 } as RenderContext['page']
 ---
 {example === 'layout-slot' ? <SiteLayout page={page}><h1>Custom slot content</h1></SiteLayout> : <SiteLayout page={page} />}

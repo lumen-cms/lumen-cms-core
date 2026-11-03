@@ -42,7 +42,9 @@ export async function staticRoutes(): Promise<CmsRoute[]> {
 
 export async function loadPage(slug: string | undefined, options: CmsRoute['props'], preview = false, requestParams?: ISbStoryParams, liveStory?: ISbStoryData<PageStoryblok | GlobalStoryblok | NewsStoryblok | EventStoryblok>, serverData?: PreviewServerData) {
   if (isUnsupportedPageSlug(slug)) throw new CmsPageNotFoundError(slug)
-  const result = await getPageProps(slug?.split('/') || 'home', {
+  // Public routing removes nested /home segments. Delivery must use the
+  // original CMS slug retained by getStaticPaths, not reconstruct it from URL.
+  const result = await getPageProps((options.cmsSlug || slug)?.split('/') || 'home', {
     locale: options.locale, defaultLocale: options.defaultLocale,
     locales: options.locales, insideStoryblok: preview
   }, requestParams)

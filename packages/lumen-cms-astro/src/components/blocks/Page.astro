@@ -2,7 +2,7 @@
 import type { BlockProps } from '../../lib/blockProps'
 import { blockChildren } from '../../lib/blockProps'
 import Block from '../Block.astro'
-interface Props extends Omit<BlockProps, 'content'> { content: Extract<BlockProps['content'], { component: 'page' }> }
+interface Props extends Omit<BlockProps, 'content'> { content: Extract<BlockProps['content'], { component: 'page' | 'error_page' }> }
 const { content, context } = Astro.props
 ---
 {blockChildren(content.body).map((item, index) => <Block content={item} context={context} sectionPosition={index} />)}

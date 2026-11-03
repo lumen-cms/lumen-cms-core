@@ -154,3 +154,18 @@ it('keeps sample static builds limited to the requested routes', async () => {
   expect(mocks.inventory).not.toHaveBeenCalled()
  } finally { vi.unstubAllEnvs() }
 })
+
+it('loads nested home stories by the original CMS slug while keeping their public routes', async () => {
+ mocks.inventory.mockResolvedValue([{ uuid: 'nested-home', full_slug: 'demo-content/home' }, { uuid: 'localized-home', full_slug: 'de/demo-content/home' }])
+ mocks.page.mockResolvedValue({ page: { uuid: 'nested-home' }, settings: {} })
+ vi.stubEnv('LUMEN_LOCALES', 'en,de')
+ try {
+  const routes = await staticRoutes()
+  for (const path of ['demo-content', 'de/demo-content']) {
+   const route = routes.find(route => route.params.slug === path)!
+   expect(route.props.cmsSlug).toBe(`${path}/home`)
+   await loadPage(route.params.slug, route.props)
+   expect(mocks.page).toHaveBeenLastCalledWith(`${path}/home`.split('/'), expect.objectContaining({ locale: path.startsWith('de/') ? 'de' : 'en' }), undefined)
+  }
+ } finally { vi.unstubAllEnvs() }
+})
