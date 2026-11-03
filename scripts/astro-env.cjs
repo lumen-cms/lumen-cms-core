@@ -33,7 +33,9 @@ const names = {
 /** Translate a private copy of legacy Next settings for Astro reference tooling. */
 function astroEnv(source) {
  const result = { ...source }
- for (const [oldName, newName] of Object.entries(names)) {
+ for (const oldName of Object.keys(source)) {
+  const newName = names[oldName] || (oldName.startsWith('NEXT_PUBLIC_') ? oldName.replace('NEXT_PUBLIC_', 'PUBLIC_') : undefined)
+  if (!newName) continue
   if (result[newName] === undefined && result[oldName] !== undefined) result[newName] = result[oldName]
   delete result[oldName]
  }
