@@ -11,6 +11,8 @@ import { chromium } from 'playwright'
 import lumenStoryblok from '../packages/lumen-cms-astro/integration.mjs'
 import { lumenImageConfig } from '../packages/lumen-cms-astro/src/images/config.mjs'
 import { localeErrorRouting } from '../packages/lumen-cms-astro/build/error-routing.mjs'
+import legacyEnvironment from './astro-env.cjs'
+const { astroEnv } = legacyEnvironment
 const root = resolve('packages/lumen-cms-astro')
 const require = createRequire(join(root, 'package.json'))
 const { build } = await import(pathToFileURL(require.resolve('astro')))
@@ -38,7 +40,7 @@ Astro.response.headers.set('X-Audit-Settings', page.settings?.uuid || 'missing')
  await build({ root, configFile: false, srcDir: join(temp, 'src/'), outDir: join(temp, 'dist/'), publicDir: resolve('public'), output: 'server', image: lumenImageConfig, adapter: node({ mode: 'standalone' }), integrations: [lumenStoryblok({ preview: true }), localeErrorRouting()], vite: { plugins: [tailwind()], ssr: { noExternal: ['lumen-cms-shared'] } } })
  browser = await chromium.launch({ headless: true })
  for (const [site, locales] of Object.entries(sites)) {
-  const env = { ...process.env, ...parseEnv(await readFile(`.env.${site}`, 'utf8')), LUMEN_LOCALES: locales.join(','), NODE_ENV: 'production' }
+  const env = astroEnv({ ...process.env, ...parseEnv(await readFile(`.env.${site}`, 'utf8')), LUMEN_LOCALES: locales.join(','), NODE_ENV: 'production' })
   const socket = createServer(); await new Promise(resolve => socket.listen(0, '127.0.0.1', resolve)); const port = socket.address().port; await new Promise(resolve => socket.close(resolve))
   server = spawn(process.execPath, [join(temp, 'dist/server/entry.mjs')], { env: { ...env, HOST: '127.0.0.1', PORT: String(port) }, stdio: ['ignore', 'pipe', 'pipe'] })
   // Consume logs without printing request credentials or response objects.
@@ -49,10 +51,10 @@ Astro.response.headers.set('X-Audit-Settings', page.settings?.uuid || 'missing')
   for (const locale of locales) {
    const record = { site, locale, passed: false }
    try {
-    const token = env.NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY || env.STORYBLOK_PUBLIC_TOKEN
-    const localePrefix = locale !== locales[0] || env.NEXT_PUBLIC_ENABLE_LOCALE_SUFFIX ? locale : ''
-    const slug = [!env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION && localePrefix, env.NEXT_PUBLIC_ROOT_DIRECTORY, 'error-404'].filter(Boolean).join('/')
-    const url = new URL(`https://api.storyblok.com/v2/cdn/stories/${slug}`); url.searchParams.set('token', token); url.searchParams.set('version', 'published'); if (env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION && localePrefix) url.searchParams.set('language', locale)
+    const token = env.PUBLIC_STORYBLOK_TOKEN
+    const localePrefix = locale !== locales[0] || env.PUBLIC_ENABLE_LOCALE_SUFFIX ? locale : ''
+    const slug = [!env.PUBLIC_FIELD_LEVEL_TRANSLATION && localePrefix, env.PUBLIC_ROOT_DIRECTORY, 'error-404'].filter(Boolean).join('/')
+    const url = new URL(`https://api.storyblok.com/v2/cdn/stories/${slug}`); url.searchParams.set('token', token); url.searchParams.set('version', 'published'); if (env.PUBLIC_FIELD_LEVEL_TRANSLATION && localePrefix) url.searchParams.set('language', locale)
     const storyResponse = await fetch(url)
     record.storySlug = slug; record.storyStatus = storyResponse.status
     const story = storyResponse.ok ? (await storyResponse.json()).story : undefined

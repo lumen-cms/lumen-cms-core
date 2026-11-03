@@ -9,7 +9,7 @@ const { content, context } = Astro.props
 const language = context.page.locale?.toLowerCase() === 'de' ? 'DE' : 'EN'
 const cards = getTravelListContent(content, language)
 const locale = context.page.locale || 'en'
-const routeConfig = { locales: context.page.locales || (process.env.LUMEN_LOCALES || 'en,de').split(','), defaultLocale: context.page.defaultLocale || 'en', suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE, languages: process.env.NEXT_PUBLIC_LANGUAGES?.split(',') }
+const routeConfig = { locales: context.page.locales || (process.env.LUMEN_LOCALES || 'en,de').split(','), defaultLocale: context.page.defaultLocale || 'en', suppressSlugLocale: !!process.env.PUBLIC_SUPPRESS_SLUG_LOCALE, languages: process.env.PUBLIC_LANGUAGES?.split(',') }
 for (const card of cards.body || []) {
  const travel = content.travels_list_widget_data?.find(item => String(item.id) === card._uid)
  if (travel?.slug && card.link) card.link.cached_url = travelDetailPath(travel.slug, locale, routeConfig, process.env.TRAVELS_SLUG)

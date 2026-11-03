@@ -7,7 +7,7 @@ export function createRenderContext(page: RenderContext['page'], overrides: Part
  return {
   page,
   preview: !!page.insideStoryblok,
-  theme: createCmsTheme(page.settings || undefined, { default: process.env.NEXT_PUBLIC_FONT_DEFAULT, ...Object.fromEntries([1,2,3,4].map(i => [`alt${i}`, process.env[`NEXT_PUBLIC_FONT_ALT${i}`]])) }),
+  theme: createCmsTheme(page.settings || undefined, { default: process.env.PUBLIC_FONT_DEFAULT, alt1: process.env.PUBLIC_FONT_ALT1, alt2: process.env.PUBLIC_FONT_ALT2, alt3: process.env.PUBLIC_FONT_ALT3, alt4: process.env.PUBLIC_FONT_ALT4 }),
   storyListEndpoint: page.insideStoryblok ? undefined : storyListEndpoint,
   ...overrides,
  }

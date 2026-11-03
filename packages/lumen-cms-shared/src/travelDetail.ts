@@ -24,7 +24,7 @@ export function getTravelHeaderContent({ content, langKey }: TravelSectionProps)
             // height: '50vh',
             image:
               content.fileStoryblokByHeaderImageId?.url_new ??
-              process.env.NEXT_PUBLIC_TRAVEL_HEADER_FALLBACK_IMG
+              process.env.PUBLIC_TRAVEL_HEADER_FALLBACK_IMG
           }
         ],
         body: [

@@ -27,7 +27,7 @@ const shopifyConfig = settings.ecommerce?.find(item => item.component === 'ecomm
 const context = createRenderContext(page, { components, linkRenderer, ...(storyListEndpoint ? { storyListEndpoint } : {}) })
 const theme = context.theme
 const serverData = previewServerData(page)
-const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.NEXT_PUBLIC_GTM_CONTAINER })
+const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.PUBLIC_GTM_CONTAINER })
 const scripts = [...tracking.scripts, ...(settings.scripts || [])]
 ;(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead = true
 const fontsHref = getFontBasedOnSetting(settings)

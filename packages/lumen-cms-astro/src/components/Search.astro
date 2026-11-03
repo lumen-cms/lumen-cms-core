@@ -8,9 +8,9 @@ const { content, context } = Astro.props
 const options: Partial<ListSearchAutocompleteStoryblok> = content.component === 'list_search_autocomplete' ? content : { placeholder: content.placeholder }
 const page = context.page
 let prefix = page.defaultLocale !== page.locale ? page.locale : undefined
-if (process.env.NEXT_PUBLIC_ROOT_DIRECTORY) prefix = process.env.NEXT_PUBLIC_ROOT_DIRECTORY
-if (process.env.NEXT_PUBLIC_ENABLE_LOCALE_SUFFIX) prefix = page.locale
-const config = { locales: page.locales, defaultLocale: page.defaultLocale, publicToken: process.env.NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY || '', prefix, additionalLocales: page.locales?.filter(locale => locale !== page.defaultLocale).join(',') || '', rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY, suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE, languages: process.env.NEXT_PUBLIC_LANGUAGES?.split(',') || [] }
+if (process.env.PUBLIC_ROOT_DIRECTORY) prefix = process.env.PUBLIC_ROOT_DIRECTORY
+if (process.env.PUBLIC_ENABLE_LOCALE_SUFFIX) prefix = page.locale
+const config = { locales: page.locales, defaultLocale: page.defaultLocale, publicToken: process.env.PUBLIC_STORYBLOK_TOKEN || '', prefix, additionalLocales: page.locales?.filter(locale => locale !== page.defaultLocale).join(',') || '', rootDirectory: process.env.PUBLIC_ROOT_DIRECTORY, suppressSlugLocale: !!process.env.PUBLIC_SUPPRESS_SLUG_LOCALE, languages: process.env.PUBLIC_LANGUAGES?.split(',') || [] }
 const label = options.label || options.placeholder || 'Search'
 const id = `search-${content._uid}`
 ---

@@ -61,8 +61,7 @@ Travel consumers use `loadConsumerTravelPage`, explicit detail routes, the
   and are retained for the internal preview service. New consumers use
   `server/request` instead; no external session store is required.
 
-Set `STORYBLOK_PUBLIC_TOKEN` (or the compatible
-`NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY`) for published requests. Draft requests
+Set `PUBLIC_STORYBLOK_TOKEN` for published requests. Draft requests
 require `STORYBLOK_PREVIEW_TOKEN` and a random `LUMEN_PREVIEW_SECRET` of at least
 32 characters. Preview uses an eight-hour signed, HttpOnly cookie, Secure and
 SameSite=None on HTTPS. Use an HTTPS development host for the Storyblok iframe.
@@ -127,3 +126,22 @@ pages. Static hosting must route missing locale URLs to their corresponding erro
 file **with status 404**; the local sample server does this automatically. Both
 sitemap endpoints exclude CMS paths containing an `error-404` segment regardless
 of editor robots settings. Custom sitemap hooks must also avoid adding error URLs.
+
+## Environment variables
+
+Use `PUBLIC_*` for non-secret site settings and browser-visible values. For example,
+`PUBLIC_ROOT_DIRECTORY`, `PUBLIC_LANGUAGES`, `PUBLIC_SUPPRESS_SLUG_LOCALE`,
+`PUBLIC_OVERWRITE_SETTINGS_PATHS`, `PUBLIC_TRAVEL_HEADER_FALLBACK_IMG`,
+`PUBLIC_GTM_CONTAINER`, and `PUBLIC_STORYBLOK_TOKEN` (published content only).
+The config helper embeds public settings into builds, including settings supplied
+through the consumer's committed `site-settings.json`.
+
+Server credentials have no public prefix: `STORYBLOK_PREVIEW_TOKEN`,
+`LUMEN_PREVIEW_SECRET`, `TRAVEL_GRAPHQL_ENDPOINT`, `AUSLANDSZEIT_API_KEY`,
+`SHOPIFY_GQL_AUTH`, and `AUTH_API`. Configure these in Vercel and an ignored local
+`.env.local`. Never place server credentials in `PUBLIC_*` settings.
+
+The Astro packages no longer read legacy Next environment names or
+`STORYBLOK_PUBLIC_TOKEN`; use `PUBLIC_STORYBLOK_TOKEN` instead. The independent
+Next renderer and existing Next consumer files retain their original names.
+Only the legacy comparison tooling translates a private copy of old settings.

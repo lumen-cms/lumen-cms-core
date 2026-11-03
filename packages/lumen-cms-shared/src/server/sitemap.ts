@@ -1,7 +1,7 @@
 import { SitemapStream, streamToPromise } from 'sitemap'
 
 type SitemapStory = { full_slug: string; slug: string; published_at?: string | null }
-type SitemapEnvironment = Partial<Record<'SITEMAP_LOCALE' | 'SITEMAP_HOSTNAME' | 'LOCALE_DOMAIN_MAP' | 'SITEMAP_IGNORE_PATH' | 'NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION', string>>
+type SitemapEnvironment = Partial<Record<'SITEMAP_LOCALE' | 'SITEMAP_HOSTNAME' | 'LOCALE_DOMAIN_MAP' | 'SITEMAP_IGNORE_PATH' | 'PUBLIC_FIELD_LEVEL_TRANSLATION', string>>
 export type SitemapHook = (stream: SitemapStream, locale?: string) => Promise<void>
 export interface SitemapDependencies {
  loadStories(options: { language?: string }): Promise<SitemapStory[]>
@@ -33,7 +33,7 @@ export async function sitemapResponse(request: Request, dependencies: SitemapDep
    if (story.full_slug.split('/').includes('error-404') || ignored.some(path => story.full_slug.includes(path))) continue
    const home = story.slug === 'home'
    const slug = home ? story.full_slug.replace('home', '') : story.full_slug
-   const stripLocale = (value: string) => env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION && env.SITEMAP_LOCALE ? value.replace(`/${env.SITEMAP_LOCALE}/`, '/') : value
+   const stripLocale = (value: string) => env.PUBLIC_FIELD_LEVEL_TRANSLATION && env.SITEMAP_LOCALE ? value.replace(`/${env.SITEMAP_LOCALE}/`, '/') : value
    // Preserve the existing ordering: home locales are stripped before link
    // normalization; other page locales are stripped after normalization.
    const url = home ? dependencies.internalLink(stripLocale(slug)) : stripLocale(dependencies.internalLink(slug))

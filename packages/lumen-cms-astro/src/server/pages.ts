@@ -18,9 +18,9 @@ export async function staticRoutes(): Promise<CmsRoute[]> {
   const localeSet = new Set(locales)
   const config = {
     locales, defaultLocale: locales[0],
-    rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
-    suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE,
-    languages: process.env.NEXT_PUBLIC_LANGUAGES?.split(',')
+    rootDirectory: process.env.PUBLIC_ROOT_DIRECTORY,
+    suppressSlugLocale: !!process.env.PUBLIC_SUPPRESS_SLUG_LOCALE,
+    languages: process.env.PUBLIC_LANGUAGES?.split(',')
   }
   // Development renders on demand: sample inventories must not break navigation
   // from search results or CMS links outside the visual-test selection.
@@ -80,7 +80,7 @@ export async function loadPage(slug: string | undefined, options: CmsRoute['prop
   await Promise.all([
     result.settings.ecommerce?.some(config => config.component === 'ecommerce_shopify_config') && !enriched.allShopifyProducts
       ? getShopifyPageProps(enriched) : undefined,
-    !preview ? publishedLinkIndex(process.env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION ? options.locale : undefined)
+    !preview ? publishedLinkIndex(process.env.PUBLIC_FIELD_LEVEL_TRANSLATION ? options.locale : undefined)
       .then(index => { enriched.storyLinkIndex = index }) : undefined,
   ])
   return enriched

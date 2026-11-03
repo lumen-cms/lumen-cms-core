@@ -11,7 +11,7 @@ interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> 
  quality?: number; format?: ImageOutputFormat; fit?: 'contain' | 'cover' | 'fill' | 'inside' | 'outside'; position?: string
  fill?: boolean; preload?: boolean; blurDataURL?: string; unoptimized?: boolean
 }
-const { src: input, width, height, widths, densities, quality = Number(process.env.NEXT_PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, blurDataURL, unoptimized, style, ...attrs } = Astro.props
+const { src: input, width, height, widths, densities, quality = Number(process.env.PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, blurDataURL, unoptimized, style, ...attrs } = Astro.props
 const source = normalizeImageSource(input)
 const unauthorized = /^https?:/.test(source) && !isRemoteAllowed(source, imageConfig)
 const bypass = unauthorized || unoptimized || /\.ico(?:[?#]|$)/i.test(source) || isSvgImage(source) || /^(data:|blob:)/.test(source)

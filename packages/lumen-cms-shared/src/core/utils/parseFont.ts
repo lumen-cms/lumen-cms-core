@@ -136,6 +136,6 @@ export const getGoogleFontFamilies = (
 export const getFontBasedOnSetting = (settings: Partial<GlobalStoryblok>) => {
   const families = getGoogleFontFamilies(settings).join('&family=')
   return `https://fonts.googleapis.com/css2?family=${families}${
-    process.env.NEXT_PUBLIC_LAZY_FONT_DISABLE ? '' : '&display=swap'
+    process.env.PUBLIC_LAZY_FONT_DISABLE ? '' : '&display=swap'
   }`
 }

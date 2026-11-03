@@ -1,0 +1,23 @@
+import { afterEach, expect, it, vi } from 'vitest'
+afterEach(() => { vi.unstubAllEnvs(); vi.resetModules() })
+it('keeps Astro public settings independent from the legacy Next configuration', async () => {
+ vi.stubEnv('PUBLIC_ROOT_DIRECTORY', 'de')
+ vi.stubEnv('PUBLIC_STORYBLOK_TOKEN', 'published-astro-token')
+ vi.stubEnv('STORYBLOK_PREVIEW_TOKEN', 'draft-server-token')
+ vi.stubEnv('NEXT_PUBLIC_ROOT_DIRECTORY', 'legacy-root')
+ vi.stubEnv('NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY', 'published-next-token')
+ const { CONFIG: astro } = await import('../../packages/lumen-cms-shared/src/core/utils/config')
+ const { CONFIG: next } = await import('../../src/utils/config')
+ expect(astro.rootDirectory).toBe('de')
+ expect(astro.publicToken).toBe('published-astro-token')
+ expect(astro.previewToken).toBe('draft-server-token')
+ expect(next.rootDirectory).toBe('legacy-root')
+ expect(next.publicToken).toBe('published-next-token')
+})
+it('does not use a draft or legacy token as the Astro published credential', async () => {
+ vi.stubEnv('PUBLIC_STORYBLOK_TOKEN', '')
+ vi.stubEnv('STORYBLOK_PREVIEW_TOKEN', 'draft-only-token')
+ vi.stubEnv('NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY', 'legacy-token')
+ const { CONFIG } = await import('../../packages/lumen-cms-shared/src/core/utils/config')
+ expect(CONFIG.publicToken).toBe('')
+})

@@ -55,8 +55,8 @@ describe('Storyblok link policy', () => {
 })
 
 it('preserves German folders with Planet’s dormant suppression flag', () => {
- vi.stubEnv('NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE', 'true')
- vi.stubEnv('NEXT_PUBLIC_LANGUAGES', '')
+ vi.stubEnv('PUBLIC_SUPPRESS_SLUG_LOCALE', 'true')
+ vi.stubEnv('PUBLIC_LANGUAGES', '')
  try {
   expect(getLinkAttrs({ linktype: 'story', cached_url: 'de/hilfe/trainingsverwaltung' }, {}, { locales: ['en', 'de'], defaultLocale: 'en' }).href).toBe('/de/hilfe/trainingsverwaltung')
  } finally { vi.unstubAllEnvs() }

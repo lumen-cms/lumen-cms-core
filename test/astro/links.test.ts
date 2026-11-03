@@ -24,9 +24,9 @@ it('preserves legacy link contracts under each routing configuration', () => {
 })
 
 it('reads the Astro routing environment at request time', () => {
- vi.stubEnv('NEXT_PUBLIC_ROOT_DIRECTORY', 'site')
+ vi.stubEnv('PUBLIC_ROOT_DIRECTORY', 'site')
  expect(astroLink({ linktype: 'story', cached_url: 'site/about' }).href).toBe('/about')
- vi.stubEnv('NEXT_PUBLIC_ROOT_DIRECTORY', '')
+ vi.stubEnv('PUBLIC_ROOT_DIRECTORY', '')
  expect(astroLink({ linktype: 'story', cached_url: 'site/about' }).href).toBe('/site/about')
 })
 
@@ -37,7 +37,7 @@ it('bundles link resolution without the legacy registry or UI runtime', async ()
 
 it('resolves CMS links to the published Astro routes while retaining anchors and targets', () => {
  vi.stubEnv('LUMEN_LOCALES', 'en,de')
- vi.stubEnv('NEXT_PUBLIC_ROOT_DIRECTORY', 'site')
+ vi.stubEnv('PUBLIC_ROOT_DIRECTORY', 'site')
  expect(astroLink({ linktype: 'story', cached_url: 'site/home', anchor: 'details' }, { openExternal: true })).toMatchObject({ href: '/#details', target: '_blank' })
  expect(astroLink({ linktype: 'story', cached_url: 'de/site/home?source=nav#details' }).href).toBe('/de?source=nav#details')
  expect(astroLink({ linktype: 'story', cached_url: 'en/site/about' }).href).toBe('/about')
@@ -47,6 +47,6 @@ it('resolves CMS links to the published Astro routes while retaining anchors and
 
 it('maps resolved translated story links with the configured default locale', () => {
  vi.stubEnv('LUMEN_LOCALES', 'de,en')
- vi.stubEnv('NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION', '1')
+ vi.stubEnv('PUBLIC_FIELD_LEVEL_TRANSLATION', '1')
  expect(astroLink({ linktype: 'story', cached_url: 'home', story: { name: 'Home', id: 1, uuid: 'home', slug: 'home', full_slug: 'en/home', url: 'home' } }).href).toBe('/en')
 })

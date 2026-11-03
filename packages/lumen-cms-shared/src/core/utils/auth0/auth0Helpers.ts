@@ -5,7 +5,7 @@ type AuthRole = string | Record<string, unknown>
 
 export const hasAuth0Credentials = (roles: string[], user: User) => {
   const userCurrentRoles = (user[
-    process.env.NEXT_PUBLIC_AUTH_PERMISSION as string
+    process.env.AUTH_PERMISSION as string
   ] || []) as AuthRole[]
   console.log(userCurrentRoles, roles, user.email)
   if (roles.includes('any') && !!user) {
@@ -16,9 +16,9 @@ export const hasAuth0Credentials = (roles: string[], user: User) => {
   }
   return roles.find((role) =>
     userCurrentRoles.find((item) =>
-      process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY
+      process.env.AUTH_PERMISSION_KEY
         ? (item as Record<string, unknown>)[
-            process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY
+            process.env.AUTH_PERMISSION_KEY
           ] === role
         : item === role
     )
@@ -54,6 +54,6 @@ export const hasAuth0PathCredentials = (
 export const auth0Endpoint = {
   api:
     process.env.NODE_ENV === 'production'
-      ? process.env.NEXT_PUBLIC_AUTH_API
+      ? process.env.AUTH_API
       : 'http://localhost:3001'
 }

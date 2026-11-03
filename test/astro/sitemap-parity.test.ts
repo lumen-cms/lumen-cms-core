@@ -8,10 +8,11 @@ vi.mock('../../src/utils/initial-props/ssrConfig', () => ({ SSR_CONFIG: { ssrHoo
 it.each(['default', 'root', 'suppress', 'translated', 'host'])('matches the real Next sitemap endpoint: %s', async mode => {
  state.config.rootDirectory = mode === 'root' ? 'site' : ''
  state.config.suppressSlugLocale = mode === 'suppress'
- vi.stubEnv('NEXT_PUBLIC_ROOT_DIRECTORY', state.config.rootDirectory)
- vi.stubEnv('NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE', state.config.suppressSlugLocale ? '1' : '')
- vi.stubEnv('NEXT_PUBLIC_LANGUAGES', 'en,de')
+ vi.stubEnv('PUBLIC_ROOT_DIRECTORY', state.config.rootDirectory)
+ vi.stubEnv('PUBLIC_SUPPRESS_SLUG_LOCALE', state.config.suppressSlugLocale ? '1' : '')
+ vi.stubEnv('PUBLIC_LANGUAGES', 'en,de')
  vi.stubEnv('NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION', mode === 'translated' ? '1' : '')
+ vi.stubEnv('PUBLIC_FIELD_LEVEL_TRANSLATION', mode === 'translated' ? '1' : '')
  vi.stubEnv('SITEMAP_LOCALE', mode === 'translated' ? 'de' : '')
  vi.stubEnv('SITEMAP_HOSTNAME', mode === 'host' ? 'canonical.test' : '')
  vi.stubEnv('LOCALE_DOMAIN_MAP', '')

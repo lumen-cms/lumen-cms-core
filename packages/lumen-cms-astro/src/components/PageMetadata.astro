@@ -5,8 +5,8 @@ interface Props { page: RenderContext['page'] }
 const { page } = Astro.props
 const context = {
  settings: page.settings!, page: page.page, slug: page.slug, locale: page.locale, defaultLocale: page.defaultLocale,
- pageNotFound: page.pageNotFound, preview: !!page.insideStoryblok, rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
- disableIndex: !!process.env.NEXT_PUBLIC_OVERWRITE_DISABLE_INDEX,
+ pageNotFound: page.pageNotFound, preview: !!page.insideStoryblok, rootDirectory: process.env.PUBLIC_ROOT_DIRECTORY,
+ disableIndex: !!process.env.PUBLIC_OVERWRITE_DISABLE_INDEX,
 }
 const metadata = pageMetadata(context)
 const schemas = structuredData(context)

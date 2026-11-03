@@ -21,7 +21,7 @@ it('preserves exclusions, home priority, deduplication, XML escaping and cache h
 it('retains distinct fetch locale, mapped hook locale and hostname override', async () => {
  const loadStories = vi.fn(async () => [story('de/course')])
  const hook = vi.fn(async (stream, locale) => { stream.write({ url: `/extra-${locale}` }) })
- const response = await sitemapResponse(request, dependencies({ loadStories, hooks: [hook], environment: { SITEMAP_LOCALE: 'de', SITEMAP_HOSTNAME: 'canonical.test', LOCALE_DOMAIN_MAP: JSON.stringify([{ domain: 'fixture.test', locale: 'fr' }]), NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION: 'true' } }))
+ const response = await sitemapResponse(request, dependencies({ loadStories, hooks: [hook], environment: { SITEMAP_LOCALE: 'de', SITEMAP_HOSTNAME: 'canonical.test', LOCALE_DOMAIN_MAP: JSON.stringify([{ domain: 'fixture.test', locale: 'fr' }]), PUBLIC_FIELD_LEVEL_TRANSLATION: 'true' } }))
  expect(loadStories).toHaveBeenCalledWith({ language: 'de' })
  expect(hook.mock.calls[0][1]).toBe('fr')
  const xml = await response.text()

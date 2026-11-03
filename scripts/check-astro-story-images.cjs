@@ -45,7 +45,7 @@ async function main() {
   const documentPath=pathToFileURL(path.join(pkg,'src/layouts/SiteLayout.astro')).href
   await fs.writeFile(path.join(staticSrc,'pages/pagination.astro'),`---\nimport SiteLayout from ${JSON.stringify(documentPath)}\nconst page=${JSON.stringify(initial)}\n---\n<SiteLayout page={page} />`)
   const config=path.join(temp,'astro.config.mjs')
-  const env={...process.env,NODE_ENV:'production',ASTRO_TELEMETRY_DISABLED:'1',LUMEN_SITE:'',LUMEN_LOCALES:'en,de',LUMEN_PUBLIC_DIR:publicDir,LUMEN_FIXTURE_UPSTREAM:origin,NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY:'public-fixture-token',NEXT_PUBLIC_STORYBLOK_PREVIEW_TOKEN:'unused-preview-token',NODE_OPTIONS:`--import=${pathToFileURL(intercept).href}`}
+  const env={...process.env,NODE_ENV:'production',ASTRO_TELEMETRY_DISABLED:'1',LUMEN_SITE:'',LUMEN_LOCALES:'en,de',LUMEN_PUBLIC_DIR:publicDir,LUMEN_FIXTURE_UPSTREAM:origin,PUBLIC_STORYBLOK_TOKEN:'public-fixture-token',STORYBLOK_PREVIEW_TOKEN:'unused-preview-token',NODE_OPTIONS:`--import=${pathToFileURL(intercept).href}`}
   async function build(base,srcDir,outDir){
    await fs.writeFile(config,`import base from ${JSON.stringify(pathToFileURL(path.join(pkg,base)).href)};export default {...base,root:${JSON.stringify(pkg)},srcDir:${JSON.stringify(srcDir)},outDir:${JSON.stringify(outDir)},publicDir:${JSON.stringify(publicDir)},image:{...base.image,remotePatterns:[...base.image.remotePatterns,{protocol:'http',hostname:'127.0.0.1'}]}}`)
    const child=spawn('pnpm',['--filter','lumen-cms-astro','build','--config',path.relative(pkg,config)],{cwd:root,env,stdio:['ignore','pipe','pipe']});let log='';child.stdout.on('data',c=>log+=c);child.stderr.on('data',c=>log+=c)

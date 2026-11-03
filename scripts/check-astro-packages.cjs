@@ -28,6 +28,7 @@ for (const name of ['lumen-cms-shared', 'lumen-cms-astro']) {
  for (const file of sourceFiles) {
   if (!/\.(ts|js|mjs|astro)$/.test(file) || file.includes('/src/pages/')) continue
   const text = fs.readFileSync(file, 'utf8')
+  if (/NEXT_PUBLIC_[A-Z_]+/.test(text)) errors.push(`${file}: legacy Next environment variable in Astro package`)
   const sources = file.endsWith('.astro') ? [text.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] || '', ...[...text.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(match => match[1])] : [text]
   for (const spec of sources.flatMap(imports)) {
    if (spec.startsWith('.')) {

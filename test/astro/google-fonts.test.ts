@@ -4,7 +4,7 @@ import { clearGoogleFontsCss } from '../../packages/lumen-cms-shared/src/core/ut
 
 beforeEach(() => {
   clearGoogleFontsCss()
-  vi.stubEnv('NEXT_PUBLIC_DISABLE_GOOGLE_FONTS', '')
+  vi.stubEnv('PUBLIC_DISABLE_GOOGLE_FONTS', '')
 })
 afterEach(() => {
   vi.unstubAllGlobals()

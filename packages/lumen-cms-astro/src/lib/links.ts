@@ -59,10 +59,10 @@ function linkConfig(page?: PageLocales): LinkConfig {
  const locales = page?.locales?.length ? page.locales : (process.env.LUMEN_LOCALES || 'en,de').split(',')
  return {
   publicRoutes: { locales, defaultLocale: page?.defaultLocale || locales[0] },
-  rootDirectory: process.env.NEXT_PUBLIC_ROOT_DIRECTORY,
-  suppressSlugLocale: !!process.env.NEXT_PUBLIC_SUPPRESS_SLUG_LOCALE,
-  languages: process.env.NEXT_PUBLIC_LANGUAGES?.split(',') || [],
-  fieldLevelTranslation: !!process.env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION
+  rootDirectory: process.env.PUBLIC_ROOT_DIRECTORY,
+  suppressSlugLocale: !!process.env.PUBLIC_SUPPRESS_SLUG_LOCALE,
+  languages: process.env.PUBLIC_LANGUAGES?.split(',') || [],
+  fieldLevelTranslation: !!process.env.PUBLIC_FIELD_LEVEL_TRANSLATION
  }
 }
 export function getLinkAttrs(link: LinkType = {}, options: LinkOptions = {}, page?: PageLocales) {

@@ -4,6 +4,7 @@ const { spawnSync } = require('node:child_process')
 const dotenv = require('dotenv')
 const { consumerRedirects } = require('./consumer-redirects.cjs')
 const { migrateConsumerEnv } = require('./consumer-env.cjs')
+const { astroEnv } = require('./astro-env.cjs')
 const sites = require('../test/websites/sites.json')
 const cms = process.argv[2] === '--cms'
 const [site, command = 'build', ...args] = cms
@@ -29,7 +30,7 @@ if (sample && command === 'dev') console.info('Astro dev exposes the full site f
 const limitArg = args.find(arg => arg.startsWith('--limit='))
 const limit = limitArg ? Number(limitArg.split('=')[1]) : sites[site].routes.length
 if (!Number.isInteger(limit) || limit < 1) throw new Error('--limit must be a positive integer')
-const runtimeEnv = {
+const runtimeEnv = astroEnv({
   ...env, ...process.env,
   ASTRO_TELEMETRY_DISABLED: '1',
   NODE_ENV: command === 'dev' ? 'development' : 'production',
@@ -39,8 +40,8 @@ const runtimeEnv = {
   LUMEN_SITE_URL: sites[site].origin,
   LUMEN_LOCALES: { bali: 'en,de,id', planet: 'en,de,it,es', upskill: 'en,de' }[site],
   ...(sample ? { LUMEN_SAMPLE_ROUTES: JSON.stringify(sites[site].routes.slice(0, limit)) } : {})
-}
-if (!runtimeEnv.NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY) throw new Error(`Missing published credential in ${consumer}`)
+})
+if (!runtimeEnv.PUBLIC_STORYBLOK_TOKEN) throw new Error(`Missing published credential in ${consumer}`)
 if (cms && !runtimeEnv.STORYBLOK_PREVIEW_TOKEN) throw new Error(`Missing STORYBLOK_PREVIEW_TOKEN in .env.${site} or ${consumer}`)
 const executable = command === 'inventory' ? process.execPath : 'pnpm'
 const commandArgs = command === 'inventory' ? [path.join(__dirname, 'astro-inventory.cjs')] : ['--filter', 'lumen-cms-astro', command, ...(cms ? ['--config', 'astro.cms.config.mjs'] : []), ...args.filter(a => a !== '--sample' && !a.startsWith('--limit='))]

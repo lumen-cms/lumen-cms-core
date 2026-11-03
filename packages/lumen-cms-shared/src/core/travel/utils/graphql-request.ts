@@ -4,10 +4,10 @@ import { getSdk } from '../typings/generated/hasura-schema'
 
 function getClient() {
   const endpoint =
-    process.env.TRAVEL_GRAPHQL_ENDPOINT || process.env.NEXT_PUBLIC_GQL_HOSTNAME
+    process.env.TRAVEL_GRAPHQL_ENDPOINT
   if (!endpoint)
     throw new Error(
-      'TRAVEL_GRAPHQL_ENDPOINT or NEXT_PUBLIC_GQL_HOSTNAME is required for travel requests'
+      'TRAVEL_GRAPHQL_ENDPOINT is required for travel requests'
     )
   return new GraphQLClient(endpoint)
 }

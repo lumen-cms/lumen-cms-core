@@ -30,11 +30,11 @@ export const travelApi: APIRoute = ({ request }) => travelResponse(request, fetc
 export const travelsApi: APIRoute = () => travelsResponse(fetchTravels)
 export const travelCategoriesApi: APIRoute = ({ request }) => travelCategoriesResponse(request,
  filter => hasuraGraphqlSdk.allCategories({ travelFilter: filter as Travel_Bool_Exp }),
- process.env.NEXT_PUBLIC_ROOT_DIRECTORY)
+ process.env.PUBLIC_ROOT_DIRECTORY)
 
 export function createTravelSitemapHook(): SitemapHook {
  return async (stream, locale) => {
-  const items = await fetchTravels(locale || process.env.NEXT_PUBLIC_ROOT_DIRECTORY)
+  const items = await fetchTravels(locale || process.env.PUBLIC_ROOT_DIRECTORY)
   for (const travel of items) stream.write({
    url: `${process.env.TRAVELS_SLUG || 'travels'}/${travel.slug}`,
    lastmod: travel.updated_at,

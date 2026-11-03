@@ -35,7 +35,7 @@ async function fetchGoogleFontsCss(href: string): Promise<string> {
 export const loadGoogleFontsCss = async (
   settings?: Partial<GlobalStoryblok> | null
 ): Promise<string | undefined> => {
-  if (process.env.NEXT_PUBLIC_DISABLE_GOOGLE_FONTS || !settings) {
+  if (process.env.PUBLIC_DISABLE_GOOGLE_FONTS || !settings) {
     return undefined
   }
   const href = getFontBasedOnSetting(settings)

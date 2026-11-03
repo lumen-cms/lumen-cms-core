@@ -82,7 +82,7 @@ export async function loadTravelPage(slug: string | undefined, { locale, default
               alt: travel.title,
               url:
                 travel.fileStoryblokByHeaderImageId?.url_new ??
-                process.env.NEXT_PUBLIC_TRAVEL_HEADER_FALLBACK_IMG
+                process.env.PUBLIC_TRAVEL_HEADER_FALLBACK_IMG
             }
           ]
         }

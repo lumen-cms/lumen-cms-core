@@ -42,7 +42,7 @@ export function createStoryListEndpoint(options: StoryListEndpointOptions): APIR
   if (!content) return response({ error: 'not-found' }, 404)
   if (content.max_items) return response({ error: 'pagination-disabled' }, 400)
   const { starts_with, language, excluding_slugs, excluding_fields, resolve_links, resolve_relations } = getStoriesDefaultParams(context.page)
-  const config = { content, publicToken: process.env.NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY || '', defaults: { starts_with, language, excluding_slugs, excluding_fields, resolve_links, resolve_relations } }
+  const config = { content, publicToken: process.env.PUBLIC_STORYBLOK_TOKEN || '', defaults: { starts_with, language, excluding_slugs, excluding_fields, resolve_links, resolve_relations } }
   const data = await (options.loadStories || fetchStoryListPage)(config, page, query.get('search__text') || '', query.getAll('search__categories'))
   const container = await experimental_AstroContainer.create()
   const html = await container.renderToString(StoryListFragment, { props: { items: data.stories, content, context }, request: api.request })
