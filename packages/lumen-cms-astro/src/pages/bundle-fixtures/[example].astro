@@ -1,12 +1,14 @@
 ---
-import Document from '../../layouts/Document.astro'
+import SiteLayout from '../../layouts/SiteLayout.astro'
 import type { RenderContext } from '../../lib/context'
 
 export function getStaticPaths() {
- return process.env.LUMEN_SITE ? [] : ['text', 'tabs', 'swiper', 'advanced', 'slider', 'images', 'lightbox', 'shopify', 'shopify-checkout', 'calendar', 'calendar-month', 'calendar-below', 'advanced-below', 'parallax-below', 'youtube-light', 'list', 'video'].map(example => ({ params: { example } }))
+ return process.env.LUMEN_SITE ? [] : ['layout-slot', 'layout-error', 'text', 'tabs', 'swiper', 'advanced', 'slider', 'images', 'lightbox', 'shopify', 'shopify-checkout', 'calendar', 'calendar-month', 'calendar-below', 'advanced-below', 'parallax-below', 'youtube-light', 'list', 'video'].map(example => ({ params: { example } }))
 }
 const headline = { component: 'headline' as const, _uid: 'heading', text: 'Bundle isolation', tag: 'h1' }
 const examples = {
+ 'layout-slot': headline,
+ 'layout-error': headline,
  text: headline,
  tabs: { component: 'tabs', _uid: 'tabs', body: [{ component: 'tabs_item', _uid: 'tab-a', title: 'First', body: [headline] }, { component: 'tabs_item', _uid: 'tab-b', title: 'Second', body: [{ ...headline, _uid: 'second', text: 'Second panel' }] }] },
  swiper: { component: 'swiper', _uid: 'swiper', property: ['arrows'], body: [{ component: 'swiper_item', _uid: 'slide-a', body: [headline] }, { component: 'swiper_item', _uid: 'slide-b', body: [{ ...headline, _uid: 'second' }] }] },
@@ -31,9 +33,10 @@ const example = Astro.params.example!
 const block = { ...examples, ...extra }[example as keyof typeof examples | keyof typeof extra]
 const page = {
  allShopifyProducts: [{ node: { id: 'product', handle: 'fixture-product', title: 'Product', variants: { edges: ['Small', 'Large'].map((title, index) => ({ node: { id: `variant-${index}`, title, priceV2: { amount: '10.00', currencyCode: 'EUR' }, selectedOptions: [{ name: 'Size', value: title }], image: { transformedSrc: 'https://a.storyblok.com/f/123/800x400/fixture.jpg' } } })) } } }],
+ pageNotFound: example === 'layout-error',
  locale: 'en', defaultLocale: 'en', insideStoryblok: false,
  settings: { component: 'global', _uid: 'settings', theme_base: 'base', website_title: 'Bundle isolation', ...(Astro.params.example === 'shopify-checkout' ? { ecommerce: [{ component: 'ecommerce_shopify_config', _uid: 'checkout-config', domain: 'fixture.myshopify.com', access_token: 'public-test-token' }] } : {}) },
  page: { component: 'page', _uid: 'page', property: ['disable_promotion'], body: [...(example.endsWith('-below') ? [{ component: 'html', _uid: 'spacer', body: '<div style="height:4000px">Scroll to load the component</div>' }] : []), block] },
 } as RenderContext['page']
 ---
-<Document page={page} />
+{example === 'layout-slot' ? <SiteLayout page={page}><h1>Custom slot content</h1></SiteLayout> : <SiteLayout page={page} />}

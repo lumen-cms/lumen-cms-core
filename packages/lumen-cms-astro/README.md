@@ -31,13 +31,13 @@ Create `src/pages/[...slug].astro`:
 
 ```astro
 ---
-import Document from 'lumen-cms-astro/Document.astro'
+import SiteLayout from 'lumen-cms-astro/SiteLayout.astro'
 import { loadConsumerPage } from 'lumen-cms-astro/server/consumer-pages'
 export const prerender = false
 const page = await loadConsumerPage(Astro)
 if (page instanceof Response) return page
 ---
-<Document page={page} />
+<SiteLayout page={page} />
 ```
 
 Load from route frontmatter, before rendering nested components, so missing pages
@@ -93,3 +93,37 @@ credentials in dependency URLs. The separate `websites-astro` repository include
 Validation in this repository: `pnpm astro:check`, `pnpm test:astro`, and
 `pnpm test:astro:packages`. Also pack and install in an external consumer before
 shipping; workspace builds alone cannot detect missing files or undeclared peers.
+
+## Shared layout and 404 pages
+
+`SiteLayout.astro` owns the document, SEO, scripts, header and footer. Its default
+slot renders the CMS page when no children are supplied. Custom pages can replace
+that content while keeping the site shell:
+
+```astro
+<SiteLayout page={page}>
+  <h1>Custom page</h1>
+  <p>Your custom content goes inside the layout's main landmark.</p>
+</SiteLayout>
+```
+
+The old `lumen-cms-astro/Document.astro` package export remains an alias for compatibility.
+
+`defineLumenConfig` automatically registers an on-demand `/404` fallback for
+server deployments, including Vercel. Unmatched requests retain their URL and
+select the locale from the first URL segment: `/de/missing` uses German,
+`/it/missing` uses Italian, and unprefixed or unknown locale paths use the first
+configured locale. No Vercel rewrites or redirects are needed. Keep the default
+integrations when customizing the config so the fallback remains registered.
+
+Consumer page loaders also render the CMS `error-404` story on missing routes with HTTP
+404 and noindex metadata. The shared resolver looks in the active locale and
+configured root folder (for example `de/site/error-404`), including field-level
+translations. If the story is absent but settings exist, the layout displays a
+basic not-found message. Delivery failures still surface as errors.
+
+Static builds emit the default `404.html` and localized `<locale>/404/index.html`
+pages. Static hosting must route missing locale URLs to their corresponding error
+file **with status 404**; the local sample server does this automatically. Both
+sitemap endpoints exclude CMS paths containing an `error-404` segment regardless
+of editor robots settings. Custom sitemap hooks must also avoid adding error URLs.

@@ -1,5 +1,6 @@
 ---
-import Document from '../../src/layouts/Document.astro'
+import SiteLayout from '../../src/layouts/SiteLayout.astro'
+import { loadErrorPage } from '../../src/server/errorPage'
 import { loadPage } from '../../src/server/pages'
 import { CmsPageNotFoundError, notFoundResponse } from '../../src/server/notFound'
 import { previewSessionKey } from 'lumen-cms-shared/server/preview'
@@ -17,10 +18,12 @@ let page
 try {
  page = await loadPage(slug, { locale, defaultLocale: locales[0], locales, cmsSlug: slug || 'home' }, true, { from_release: Astro.url.searchParams.get('_storyblok_release') || undefined }, payload.story, payload.serverData)
 } catch (error) {
- if (error instanceof CmsPageNotFoundError) return notFoundResponse()
- throw error
+ if (!(error instanceof CmsPageNotFoundError)) throw error
+ Astro.response.status = 404
+ page = await loadErrorPage({ locale, defaultLocale: locales[0], locales, cmsSlug: 'error-404' }, true, { from_release: Astro.url.searchParams.get('_storyblok_release') || undefined })
+ if (!page) return notFoundResponse()
 }
 Astro.response.headers.set('Cache-Control', 'private, no-store')
 Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow')
 ---
-<Document page={page} />
+<SiteLayout page={page} />

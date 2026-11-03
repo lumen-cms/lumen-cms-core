@@ -30,7 +30,9 @@ http.createServer(async (request, response) => {
   response.end(request.method === 'HEAD' ? undefined : body)
  } catch {
   try {
-   const body = await fs.readFile(path.join(root, '404.html'))
+   const locale = new URL(request.url, 'http://localhost').pathname.split('/')[1]
+   const localized = /^[a-z]{2}(?:-[A-Za-z]{2})?$/.test(locale) ? path.join(root, locale, '404', 'index.html') : undefined
+   const body = await (localized ? fs.readFile(localized).catch(() => fs.readFile(path.join(root, '404.html'))) : fs.readFile(path.join(root, '404.html')))
    response.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' })
    response.end(request.method === 'HEAD' ? undefined : body)
   } catch { response.writeHead(404).end('Not found') }

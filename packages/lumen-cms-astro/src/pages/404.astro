@@ -1,5 +1,8 @@
 ---
+import SiteLayout from '../layouts/SiteLayout.astro'
+import { loadErrorPage } from '../server/errorPage'
+import { pageOptions } from '../server/request'
+const page = process.env.LUMEN_SITE ? await loadErrorPage(pageOptions()) : undefined
 Astro.response.status = 404
 ---
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Not Found</title><meta property="og:title" content="Not Found" /></head><body><div>not found...</div></body></html>
+{page ? <SiteLayout page={page} /> : <html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="robots" content="noindex, nofollow" /><title>Not Found</title></head><body><h1>Page not found</h1></body></html>}

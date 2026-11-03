@@ -1,0 +1,11 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro'
+import { loadErrorPage } from '../../server/errorPage'
+export function getStaticPaths() {
+ return process.env.LUMEN_SITE ? (process.env.LUMEN_LOCALES || 'en,de').split(',').slice(1).map(locale => ({ params: { locale } })) : []
+}
+const locales = (process.env.LUMEN_LOCALES || 'en,de').split(',')
+const page = await loadErrorPage({ locale: Astro.params.locale!, defaultLocale: locales[0], locales, cmsSlug: 'error-404' })
+Astro.response.status = 404
+---
+{page ? <SiteLayout page={page} /> : <html lang={Astro.params.locale}><head><meta charset="utf-8" /><meta name="robots" content="noindex, nofollow" /><title>Not Found</title></head><body><h1>Page not found</h1></body></html>}

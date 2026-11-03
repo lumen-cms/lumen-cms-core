@@ -72,6 +72,7 @@
     "test:seo:parity": "vitest run --project unit test/astro/seo-parity.test.ts test/astro/seo.test.ts test/astro/sitemap-parity.test.ts test/astro/sitemap.test.ts test/astro/static-sitemap.test.ts",
     "test:seo:sites": "node scripts/check-seo-parity.cjs",
     "test:seo:corpus": "cross-env SEO_SITE_PARITY=1 vitest run --project unit test/astro/seo-parity.test.ts",
+    "test:astro:error-routing": "node scripts/check-astro-error-routing.mjs",
     "test:astro:fixture": "node scripts/check-astro-fixture.cjs",
     "test:astro:story-list": "node scripts/check-astro-story-list.cjs",
     "astro:registry": "node scripts/astro-registry-audit.cjs",

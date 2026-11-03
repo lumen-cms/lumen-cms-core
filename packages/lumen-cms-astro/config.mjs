@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 import lumenStoryblok from './integration.mjs'
 import { lumenImageConfig } from './src/images/config.mjs'
 import { runtimeAudit } from './build/runtime-audit.mjs'
+import { localeErrorRouting } from './build/error-routing.mjs'
 
 /** Load consumer settings before the delivery modules evaluate CONFIG. */
 export function defineLumenConfig({ site, locales = ['en'], rootDirectory, environment: defaults = {}, adapter, ...options }) {
@@ -32,7 +33,7 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
     site: process.env.LUMEN_SITE_URL,
     output: 'server',
     adapter,
-    integrations: [lumenStoryblok({ preview: true })],
+    integrations: [lumenStoryblok({ preview: true }), localeErrorRouting()],
     image: lumenImageConfig,
     vite: {
       define: Object.fromEntries(routingDefaults.filter(key => process.env[key] !== undefined).map(key => [`process.env.${key}`, JSON.stringify(process.env[key])])),

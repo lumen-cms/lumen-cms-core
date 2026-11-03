@@ -53,9 +53,11 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
   {fastSpringConfig?.url && <FastSpringProvider config={fastSpringConfig} />}
   <Header context={context} />
   <main id="lm-main-content" tabindex="-1" class="lm-page-main" {...context.preview && page.page ? storyblokEditable(page.page) : {}}>
+   <slot>
    {showPromotion && settings.promotion?.map(content => <Block content={content} context={context} />)}
    {page.page && <Block content={page.page} context={context} />}
-   {(!page.page || (page.page.component === 'page' && !page.page.body?.length)) && <div style="padding:20px;text-align:center">There is no content yet...</div>}
+   {(!page.page || (page.page.component === 'page' && !page.page.body?.length)) && <div style="padding:20px;text-align:center">{page.pageNotFound ? 'Page not found' : 'There is no content yet...'}</div>}
+   </slot>
   </main>
   <Drawers context={context} />
   {shopifyConfig && <ShopifyCart context={context} />}

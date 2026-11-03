@@ -41,3 +41,12 @@ it('returns 500 for failed delivery, malformed mapping and failed consumer hooks
   expect(onError).toHaveBeenCalledTimes(1)
  }
 })
+
+it('always excludes error stories at root, locale and configured folder paths', async () => {
+ const response = await sitemapResponse(request, dependencies({
+  loadStories: async () => ['error-404', 'de/error-404', 'site/error-404', 'de/site/error-404', 'error-404-guide'].map(value => story(value)),
+ }))
+ const xml = await response.text()
+ expect(xml.match(/<url>/g)).toHaveLength(1)
+ expect(xml).toContain('/error-404-guide</loc>')
+})

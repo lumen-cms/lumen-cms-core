@@ -30,7 +30,7 @@ export async function sitemapResponse(request: Request, dependencies: SitemapDep
   const ignored = [...(env.SITEMAP_IGNORE_PATH ? env.SITEMAP_IGNORE_PATH.split(',') : []), 'demo-content']
   const urls = new Set<string>()
   for (const story of stories) {
-   if (ignored.some(path => story.full_slug.includes(path))) continue
+   if (story.full_slug.split('/').includes('error-404') || ignored.some(path => story.full_slug.includes(path))) continue
    const home = story.slug === 'home'
    const slug = home ? story.full_slug.replace('home', '') : story.full_slug
    const stripLocale = (value: string) => env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION && env.SITEMAP_LOCALE ? value.replace(`/${env.SITEMAP_LOCALE}/`, '/') : value

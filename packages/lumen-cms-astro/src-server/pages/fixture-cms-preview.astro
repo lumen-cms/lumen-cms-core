@@ -1,6 +1,6 @@
 ---
 import { getPayload } from '@storyblok/astro'
-import Document from '../../src/layouts/Document.astro'
+import SiteLayout from '../../src/layouts/SiteLayout.astro'
 import { previewSessionKey } from 'lumen-cms-shared/server/preview'
 import type { ISbStoryData } from 'storyblok-js-client'
 import type { PageStoryblok, GlobalStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
@@ -13,7 +13,7 @@ const incoming = payload.story?.content
 const page = { locale: 'en', defaultLocale: 'en', insideStoryblok: true, slug: '/fixture-cms-preview', page: incoming?.component === 'page' ? incoming : initialPage, settings: incoming?.component === 'global' ? incoming : settings }
 Astro.response.headers.set('Cache-Control', 'private, no-store')
 ---
-<Document page={page} />
+<SiteLayout page={page} />
 <script>
  import { handleStoryblokMessage } from '@storyblok/astro'
  ;(window as unknown as { fixtureStoryblokInput: (story: unknown) => void }).fixtureStoryblokInput = story => handleStoryblokMessage({ action: 'input', story } as Parameters<typeof handleStoryblokMessage>[0])

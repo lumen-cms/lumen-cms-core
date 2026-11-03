@@ -42,8 +42,8 @@ async function main() {
   await fs.writeFile(intercept,`const original=globalThis.fetch;globalThis.fetch=(input,init)=>{const url=new URL(typeof input==='string'?input:input instanceof URL?input.href:input.url);return original(url.hostname==='api.storyblok.com'?new URL(url.pathname+url.search,process.env.LUMEN_FIXTURE_UPSTREAM):input,init)}`)
   const publicDir=path.join(temp,'public'), staticSrc=path.join(temp,'src'), staticOut=path.join(temp,'static'), serverOut=path.join(temp,'server')
   await fs.mkdir(publicDir);await fs.mkdir(path.join(staticSrc,'pages'),{recursive:true})
-  const documentPath=pathToFileURL(path.join(pkg,'src/layouts/Document.astro')).href
-  await fs.writeFile(path.join(staticSrc,'pages/pagination.astro'),`---\nimport Document from ${JSON.stringify(documentPath)}\nconst page=${JSON.stringify(initial)}\n---\n<Document page={page} />`)
+  const documentPath=pathToFileURL(path.join(pkg,'src/layouts/SiteLayout.astro')).href
+  await fs.writeFile(path.join(staticSrc,'pages/pagination.astro'),`---\nimport SiteLayout from ${JSON.stringify(documentPath)}\nconst page=${JSON.stringify(initial)}\n---\n<SiteLayout page={page} />`)
   const config=path.join(temp,'astro.config.mjs')
   const env={...process.env,NODE_ENV:'production',ASTRO_TELEMETRY_DISABLED:'1',LUMEN_SITE:'',LUMEN_LOCALES:'en,de',LUMEN_PUBLIC_DIR:publicDir,LUMEN_FIXTURE_UPSTREAM:origin,NEXT_PUBLIC_STORYBLOK_PUBLISHABLE_KEY:'public-fixture-token',NEXT_PUBLIC_STORYBLOK_PREVIEW_TOKEN:'unused-preview-token',NODE_OPTIONS:`--import=${pathToFileURL(intercept).href}`}
   async function build(base,srcDir,outDir){

@@ -9,6 +9,13 @@ const FONT_USER_AGENT =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
 const FONT_REQUEST_TIMEOUT_MS = 3000
 
+// Share pending requests across page bundles, like the completed CSS cache.
+// Only successful CSS is cached; failed requests can be retried by later renders.
+const globalFonts = globalThis as typeof globalThis & {
+  __lmGoogleFontsPending?: Map<string, Promise<string | undefined>>
+}
+const pendingFonts = (globalFonts.__lmGoogleFontsPending ??= new Map())
+
 async function fetchGoogleFontsCss(href: string): Promise<string> {
   const response = await fetch(href, {
     headers: { 'User-Agent': FONT_USER_AGENT },
@@ -36,17 +43,25 @@ export const loadGoogleFontsCss = async (
   if (cached) {
     return cached
   }
-  try {
-    // Preserve the provider CSS. Runtime PostCSS minification pulls CommonJS
-    // filesystem assumptions into serverless ESM bundles for negligible savings.
-    const css = await fetchGoogleFontsCss(href)
-    setGoogleFontsCss(href, css)
-    return css
-  } catch (error) {
-    console.warn(
-      `[lumen-cms] Could not inline Google Fonts (${href}):`,
-      error instanceof Error ? error.message : error
-    )
-    return undefined
-  }
+  const pending = pendingFonts.get(href)
+  if (pending) return pending
+  const request = (async () => {
+    try {
+      // Preserve the provider CSS. Runtime PostCSS minification pulls CommonJS
+      // filesystem assumptions into serverless ESM bundles for negligible savings.
+      const css = await fetchGoogleFontsCss(href)
+      setGoogleFontsCss(href, css)
+      return css
+    } catch (error) {
+      console.warn(
+        `[lumen-cms] Could not inline Google Fonts (${href}):`,
+        error instanceof Error ? error.message : error
+      )
+      return undefined
+    } finally {
+      pendingFonts.delete(href)
+    }
+  })()
+  pendingFonts.set(href, request)
+  return request
 }

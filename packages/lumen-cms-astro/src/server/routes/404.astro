@@ -1,0 +1,14 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro'
+import { loadErrorPage } from '../errorPage'
+import { pageOptions } from '../request'
+import { notFoundResponse } from '../notFound'
+
+// Astro preserves the incoming URL when dispatching an unmatched request here.
+const page = await loadErrorPage(pageOptions(Astro.url.pathname.replace(/^\/+/, '')))
+if (!page) return notFoundResponse()
+Astro.response.status = 404
+Astro.response.headers.set('Cache-Control', 'private, no-store')
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+---
+<SiteLayout page={page} />

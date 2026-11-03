@@ -73,7 +73,13 @@ export async function loadPage(slug: string | undefined, options: CmsRoute['prop
   }
   // Consumer Next apps registered this optional hook themselves. In Astro the
   // configured integration selects it, without requiring a React registry import.
-  if (result.settings.ecommerce?.some(config => config.component === 'ecommerce_shopify_config') && !enriched.allShopifyProducts) await getShopifyPageProps(enriched)
-  if (!preview) enriched.storyLinkIndex = await publishedLinkIndex(process.env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION ? options.locale : undefined)
+  // Catalog enrichment and published links are independent. Keep both behind
+  // the page/auth checks and never request the published inventory for previews.
+  await Promise.all([
+    result.settings.ecommerce?.some(config => config.component === 'ecommerce_shopify_config') && !enriched.allShopifyProducts
+      ? getShopifyPageProps(enriched) : undefined,
+    !preview ? publishedLinkIndex(process.env.NEXT_PUBLIC_FIELD_LEVEL_TRANSLATION ? options.locale : undefined)
+      .then(index => { enriched.storyLinkIndex = index }) : undefined,
+  ])
   return enriched
 }

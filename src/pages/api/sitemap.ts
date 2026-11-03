@@ -70,9 +70,9 @@ export function createSitemapApi(
         const fullSlug = story.full_slug
         // React Doctor js-set-map-lookups false positive: fullSlug is a string.
         // Match substrings; Set.has would miss paths like en/demo-content/example.
-        const shouldIndex = !ignoreList.some((ignorePath: string) =>
-          fullSlug.includes(ignorePath)
-        )
+        const shouldIndex =
+          !fullSlug.split('/').includes('error-404') &&
+          !ignoreList.some((ignorePath: string) => fullSlug.includes(ignorePath))
         if (shouldIndex) {
           const isHome = story.slug === 'home'
           if (isHome) {

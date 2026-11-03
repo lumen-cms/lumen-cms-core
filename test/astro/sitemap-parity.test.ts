@@ -1,7 +1,7 @@
 import { expect, it, vi } from 'vitest'
 import { createSitemapApi } from '../../src/pages/api/sitemap'
 import { sitemapForRequest } from '../../packages/lumen-cms-astro/src-server/pages/api/sitemap'
-const state = vi.hoisted(() => ({ config: { rootDirectory: '', suppressSlugLocale: false, languages: ['en','de'] }, stories: ['home','de/home','de/course','site/home','site/course','demo-content/example'].map(full_slug => ({ full_slug, slug: full_slug.split('/').at(-1), published_at: '2026-11-02T00:00:00Z' })) }))
+const state = vi.hoisted(() => ({ config: { rootDirectory: '', suppressSlugLocale: false, languages: ['en','de'] }, stories: ['home','de/home','de/course','site/home','site/course','demo-content/example','error-404','de/error-404','site/error-404','de/site/error-404'].map(full_slug => ({ full_slug, slug: full_slug.split('/').at(-1), published_at: '2026-11-02T00:00:00Z' })) }))
 vi.mock('../../src/utils/config', () => ({ CONFIG: state.config }))
 vi.mock('../../src/utils/initial-props/storyblokPagesConfig', () => ({ getAllStoriesOfProject: async () => state.stories }))
 vi.mock('../../src/utils/initial-props/ssrConfig', () => ({ SSR_CONFIG: { ssrHooks: { sitemap: [] } } }))
@@ -23,6 +23,7 @@ it.each(['default', 'root', 'suppress', 'translated', 'host'])('matches the real
  const actual = await sitemapForRequest(new Request('https://example.com/api/sitemap'))
  expect(actual.status).toBe(res.statusCode)
  expect(await actual.text()).toBe(xml)
+ expect(xml).not.toContain('error-404')
  for (const [name,value] of Object.entries(headers)) expect(actual.headers.get(name)).toBe(value)
  if (mode === 'default') expect(xml).toContain('https://example.com/de/</loc>')
 })

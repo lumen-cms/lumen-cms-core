@@ -16,6 +16,20 @@ import type { ISbStoryData } from 'storyblok-js-client'
 import type { GlobalStoryblok, PageStoryblok, NewsStoryblok, EventStoryblok } from '../../packages/lumen-cms-shared/src/core/typings/generated/components-schema'
 const options = { locale: 'en', defaultLocale: 'en', locales: ['en'], cmsSlug: 'product' }
 const config = { component: 'ecommerce_shopify_config', domain: 'fixture.myshopify.com', access_token: 'public-test-token' }
+it('starts the published inventory while Shopify enrichment is still pending', async () => {
+ const products = Promise.withResolvers<{ products: { edges: [] } }>()
+ mocks.products.mockReturnValueOnce(products.promise)
+ mocks.page.mockResolvedValue({ page: { uuid: 'page-id' }, settings: { ecommerce: [config] } })
+ const page = loadPage('product', options)
+ try {
+  await vi.waitFor(() => expect(mocks.inventory).toHaveBeenCalledOnce())
+  expect(mocks.products).toHaveBeenCalledOnce()
+ } finally {
+  products.resolve({ products: { edges: [] } })
+  await page
+ }
+ expect((await page).storyLinkIndex).toEqual({ 'page-id': 'product' })
+})
 it('uses SDK server data for matching preview edits without refetching Shopify', async () => {
  const original = { insideStoryblok: true, locale: 'en', page: { uuid: 'page-id' }, settings: { uuid: 'settings-id', ecommerce: [config] }, allShopifyProducts: [{ node: { handle: 'cached-product' } }] } as RenderContext['page']
  const data = previewServerData(original)
