@@ -72,3 +72,13 @@ it('does not load retired Universal Analytics IDs, while allowing a GA4 environm
  const migrated = trackingScripts(legacy, { production: true, googleAnalyticsId: 'G-NEWPROPERTY' })
  expect(migrated.scripts.find(script => script.id === 'gtag-library')?.url).toContain('id=G-NEWPROPERTY')
 })
+
+
+it('sends one explicit initial worker page view with automatic config page views disabled', () => {
+ const plan = trackingScripts({setup_google_analytics:'G-WORKER'}, {production:true, explicitPageView:true})
+ const sandbox: Record<string, any> = {location:{pathname:'/course'}};sandbox.window=sandbox
+ runInNewContext(plan.scripts.find(script => script.id === 'gtag-init')!.script_body!, sandbox)
+ const calls = Array.from(sandbox.dataLayer, (args: ArrayLike<unknown>) => Array.from(args))
+ expect(calls[1]).toEqual(['config','G-WORKER',{page_path:'/course',send_page_view:false}])
+ expect(calls.filter(args => args[0] === 'event')).toEqual([['event','page_view',{send_to:'G-WORKER',page_path:'/course'}]])
+})

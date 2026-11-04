@@ -358,6 +358,9 @@ Node/local deployments use Astro's image service without a shared proxy or signi
 worker assets. Generated `gtag.js` tracking (Storyblok `setup_google_analytics`,
 or the `PUBLIC_GA` override) runs in a worker. The integration forwards both
 `gtag` and `dataLayer.push`; forms and checkout keep their existing event API.
+The initial page view is queued explicitly with automatic config page views
+disabled (`send_page_view: false`) to avoid property-dependent worker startup
+behavior and duplicate initial views. Other events retain their existing path.
 Initialization explicitly assigns `window.gtag` so it remains callable across
 worker scripts. Browsers without service-worker support initialize the queue
 before Partytown's main-thread fallback, without configuring GA twice.
@@ -378,7 +381,9 @@ Run `pnpm test:astro:google-worker` for worker/fallback conversion contracts.
 `TEST_REAL_GOOGLE=1 pnpm test:astro:google-worker` additionally fetches the real
 Google SDK and checks page_view, early generate_lead, purchase and custom-event
 payloads against a main-thread control. Collection is intercepted locally so
-synthetic conversions are not sent to the production property. This verifies
+synthetic conversions are not sent to the production property. Collection checks include both `google-analytics.com` and
+`analytics.google.com`; `TEST_GOOGLE_ID=G-…` selects another property for this
+intercepted test. This verifies
 outbound payloads, not acceptance in GA reports.
 
 References: https://partytown.qwik.dev/astro/ and

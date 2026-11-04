@@ -6,6 +6,8 @@ import { resolve, extname } from 'node:path'
 import { createRequire } from 'node:module'
 import { chromium } from 'playwright'
 
+const realGoogleId = process.env.TEST_GOOGLE_ID || 'G-E5T41KXD1F'
+if (!/^G-[A-Z0-9]+$/.test(realGoogleId)) throw new Error('TEST_GOOGLE_ID must be a GA4 measurement ID')
 const root = fileURLToPath(new URL('../', import.meta.url))
 const requireAstro = createRequire(resolve(root, 'packages/lumen-cms-astro/package.json'))
 const { build } = await import(requireAstro.resolve('astro'))
@@ -14,11 +16,11 @@ await mkdir(resolve(fixture, 'src/pages'), { recursive: true })
 await mkdir(resolve(fixture, 'node_modules'), { recursive: true })
 for (const name of ['astro','lumen-cms-shared']) await symlink(resolve(root, 'packages/lumen-cms-astro/node_modules',name), resolve(fixture, 'node_modules',name), 'dir').catch(error => { if (error.code !== 'EEXIST') throw error })
 await writeFile(resolve(fixture, 'package.json'), JSON.stringify({ type: 'module' }))
-await writeFile(resolve(fixture, 'astro.config.mjs'), `import partytown from ${JSON.stringify(requireAstro.resolve('@astrojs/partytown'))}; export default { integrations: [partytown({config:{forward:['gtag','dataLayer.push'],resolveUrl(url,location){if(url.hostname.endsWith('.google-analytics.com'))return new URL('/collect'+url.search,location);return url}}})], vite: {ssr:{noExternal:['lumen-cms-shared']}} };`)
+await writeFile(resolve(fixture, 'astro.config.mjs'), `import partytown from ${JSON.stringify(requireAstro.resolve('@astrojs/partytown'))}; export default { integrations: [partytown({config:{forward:['gtag','dataLayer.push'],resolveUrl(url,location){if(url.hostname.endsWith('.google-analytics.com') || url.hostname === 'analytics.google.com' || url.hostname === 'stats.g.doubleclick.net')return new URL('/collect'+url.search,location);return url}}})], vite: {ssr:{noExternal:['lumen-cms-shared']}} };`)
 await writeFile(resolve(fixture, 'src/pages/index.astro'), `---
 import GoogleAnalyticsWorker from ${JSON.stringify(resolve(root, 'packages/lumen-cms-astro/src/components/GoogleAnalyticsWorker.astro'))}
 import { trackingScripts } from ${JSON.stringify(resolve(root, 'packages/lumen-cms-shared/src/tracking.ts'))}
-const { scripts } = trackingScripts({setup_google_analytics:'G-WORKERTEST'}, {production:true,deferLibraries:true})
+const { scripts } = trackingScripts({setup_google_analytics:'G-WORKERTEST'}, {production:true,deferLibraries:true,explicitPageView:true})
 scripts.find(s => s.id === 'gtag-library').url = '/google-test.js'
 ---
 <html><head><GoogleAnalyticsWorker scripts={scripts}/></head><body><script is:inline>gtag('event','generate_lead',{value:10,currency:'EUR'});</script>Tracking fixture</body></html>`)
@@ -34,11 +36,11 @@ const server = createServer(async (req,res) => {
   const url = new URL(req.url, 'http://localhost')
   if (url.pathname === '/favicon.ico') { res.writeHead(204).end(); return }
   if (url.pathname === '/real' || url.pathname === '/real-main') {
-   let html=(await readFile(resolve(fixture,'dist/index.html'),'utf8')).replace('/google-test.js','https://www.googletagmanager.com/gtag/js?id=G-E5T41KXD1F').replaceAll('G-WORKERTEST','G-E5T41KXD1F')
+   let html=(await readFile(resolve(fixture,'dist/index.html'),'utf8')).replace('/google-test.js','https://www.googletagmanager.com/gtag/js?id='+realGoogleId).replaceAll('G-WORKERTEST',realGoogleId)
    if(url.pathname==='/real-main') html=html.replace(/<script>([\s\S]*?)<\/script>/g,(tag,body)=>body.includes('Partytown 1.')?'':tag).replaceAll('type="text/partytown"','')
    res.setHeader('Content-Type','text/html');res.end(html);return
   }
-  if (url.pathname === '/collect') { let body=''; for await (const chunk of req) body+=chunk; for (const line of body.split('\n')) hits.push(new URLSearchParams(url.search.slice(1)+'&'+line));res.writeHead(204,{'access-control-allow-origin':'*'}).end();return }
+  if (url.pathname === '/collect') { let body=''; for await (const chunk of req) body+=chunk; for (const line of body.split('\n')) { const params=new URLSearchParams(url.search); for(const [key,value] of new URLSearchParams(line))params.set(key,value); hits.push(params); }res.writeHead(204,{'access-control-allow-origin':'*'}).end();return }
   if (url.pathname === '/events') { let body=''; for await (const chunk of req) body+=chunk; events.push(JSON.parse(body)); res.writeHead(204).end(); return }
   if (url.pathname === '/google-test.js') { res.setHeader('Content-Type','text/javascript');res.end(sdk);return }
   const file = resolve(fixture, 'dist', '.' + (url.pathname === '/' ? '/index.html' : url.pathname))
@@ -62,8 +64,9 @@ try {
   await assertEventually(()=>events.some(e=>e[0]==='config'))
   await page.evaluate(()=>gtag('event','purchase',{transaction_id:'test-order',value:12.34,currency:'EUR',items:[{item_id:'course',quantity:1}]}))
   await page.evaluate(()=>gtag('event','custom_conversion',{custom_parameter:'retained'}))
-  await assertEventually(()=>events.filter(e=>e[0]==='event').length===3)
+  await assertEventually(()=>events.filter(e=>e[0]==='event').length===4)
   assert.equal(events.filter(e=>e[0]==='config').length,1)
+  assert.equal(events.filter(e=>e[1]==='page_view').length,1)
   assert.deepEqual(events.find(e=>e[1]==='generate_lead'),['event','generate_lead',{value:10,currency:'EUR'}])
   assert.deepEqual(events.find(e=>e[1]==='purchase'),['event','purchase',{transaction_id:'test-order',value:12.34,currency:'EUR',items:[{item_id:'course',quantity:1}]}])
   assert.deepEqual(events.find(e=>e[1]==='custom_conversion'),['event','custom_conversion',{custom_parameter:'retained'}])
@@ -76,7 +79,7 @@ try {
  if (process.env.TEST_REAL_GOOGLE === '1') for(const mode of ['real-main','real']) {
   const context=await browser.newContext()
   hits.length=0
-  await context.route(/https:\/\/[^/]*google-analytics\.com\//, async route => {
+  await context.route(/https:\/\/(?:[^/]*google-analytics\.com|analytics\.google\.com|stats\.g\.doubleclick\.net)\//, async route => {
    const request=route.request(); const url=new URL(request.url())
    const body=request.postData() || ''
    for(const line of (body || '').split('\n')) hits.push(new URLSearchParams(url.search.slice(1)+'&'+line))
@@ -90,7 +93,8 @@ try {
   await assertEventually(()=>hits.some(h=>h.get('en')==='page_view')).catch(async error => { console.log('SDK requests collected',hits.map(h=>Object.fromEntries(h))); throw error })
   await page.evaluate(()=>{gtag('event','purchase',{transaction_id:'worker-audit',value:12.34,currency:'EUR'});gtag('event','custom_conversion',{custom_parameter:'retained'})})
   await assertEventually(()=>hits.some(h=>h.get('en')==='purchase') && hits.some(h=>h.get('en')==='custom_conversion'))
-  assert.equal(hits.filter(h=>h.get('en')==='page_view').length,1)
+  assert.equal(hits.filter(h=>h.get('en')==='page_view' && h.get('tid')===realGoogleId).length,1)
+  for (const id of new Set(hits.filter(h=>h.get('en')==='page_view').map(h=>h.get('tid')))) assert.equal(hits.filter(h=>h.get('en')==='page_view' && h.get('tid')===id).length,1)
   assert.ok(hits.some(h=>h.get('en')==='generate_lead'))
   const purchase=hits.find(h=>h.get('en')==='purchase')
   assert.equal(purchase.get('ep.transaction_id'),'worker-audit')
