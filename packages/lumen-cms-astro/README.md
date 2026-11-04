@@ -350,3 +350,35 @@ or purge Vercel's image cache when replacing an image. Animated sources and expl
 format/crop requests use the project's Astro image service. Unknown remote hosts
 are not optimized; add trusted sources to the remote allowlist to enable processing.
 Node/local deployments use Astro's image service without a shared proxy or signing secret.
+
+
+### Google Analytics workers
+
+`defineLumenConfig` uses the official `@astrojs/partytown` integration to serve
+worker assets. Generated `gtag.js` tracking (Storyblok `setup_google_analytics`,
+or the `PUBLIC_GA` override) runs in a worker. The integration forwards both
+`gtag` and `dataLayer.push`; forms and checkout keep their existing event API.
+Initialization explicitly assigns `window.gtag` so it remains callable across
+worker scripts. Browsers without service-worker support initialize the queue
+before Partytown's main-thread fallback, without configuring GA twice.
+
+Development and CMS preview still exclude generated tracking. Sites with a
+nonempty `PUBLIC_GTM_CONTAINER` keep the existing main-thread Google path to
+avoid splitting a shared dataLayer across execution environments. Arbitrary
+CMS scripts, Facebook, HubSpot and AdRoll are unchanged. Sites without an
+analytics ID do not acquire one.
+
+GA4's automatic page-exit `user_engagement` event is unreliable in a worker;
+this is a documented Partytown limitation, not equivalent to complete tracking
+parity. Do not depend on worker execution for events emitted immediately before
+navigation without testing that flow.
+
+Run `pnpm test:astro:google-worker` for worker/fallback conversion contracts.
+`TEST_REAL_GOOGLE=1 pnpm test:astro:google-worker` additionally fetches the real
+Google SDK and checks page_view, early generate_lead, purchase and custom-event
+payloads against a main-thread control. Collection is intercepted locally so
+synthetic conversions are not sent to the production property. This verifies
+outbound payloads, not acceptance in GA reports.
+
+References: https://partytown.qwik.dev/astro/ and
+https://partytown.qwik.dev/google-tag-manager/.

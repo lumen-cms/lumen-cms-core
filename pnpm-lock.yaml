@@ -336,6 +336,9 @@ importers:
       '@astrojs/node':
         specifier: 11.1.9
         version: 11.1.9(astro@7.4.4(@types/node@24.19.2)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))(supports-color@8.1.1)
+      '@astrojs/partytown':
+        specifier: 2.1.9
+        version: 2.1.9
       '@mdi/svg':
         specifier: 7.4.47
         version: 7.4.47
@@ -606,6 +609,9 @@ packages:
     resolution: {integrity: sha512-fmWwCINRIf0gyFZlOlYaJGZnoeB5JJAXJvUXlHorhhemOxkftrOcMalwPIyNG2Q3KhncRvYMiJ8nGHsWrdtrpg==}
     peerDependencies:
       astro: ^7.2.1
+
+  '@astrojs/partytown@2.1.9':
+    resolution: {integrity: sha512-jAywLxinR9XRHH8NB4AOJL0cohFlqX+VWEsC9WUWTWNxfDun774rpi8DMaXPOieGjuAOSkr2BM5ejcdY/eZhsQ==}
 
   '@astrojs/prism@4.1.2':
     resolution: {integrity: sha512-jMrUEpFDarDO1KWPvVc9eSa8DSfwBlwEOHwX+8zvZQpiqXRGDxFnOXHsYqV6DP7w+0qIgTr98gS1GdQlm8ypWg==}
@@ -3398,6 +3404,11 @@ packages:
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+
+  '@qwik.dev/partytown@1.0.3':
+    resolution: {integrity: sha512-fJuU5lNA8Gr09q18f3y+chCp4etnStVI5ctv87rFnVJ/mDVdZKHeI+BBNmopa/WEXOKAzmvapwIYlwy0nBXM/w==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
 
   '@repeaterjs/repeater@3.1.0':
     resolution: {integrity: sha512-TaoVksZRSx2KWYYpyLQtMQXXeS98VsgZImzW65xmiVgbYhXLk+aEsmzPLirqVuE4/XuUapH2iMtxUzaBNDzdSQ==}
@@ -9085,6 +9096,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@astrojs/partytown@2.1.9':
+    dependencies:
+      '@qwik.dev/partytown': 1.0.3
+      mrmime: 2.0.1
+
   '@astrojs/prism@4.1.2':
     dependencies:
       prismjs: 1.30.0
@@ -11876,6 +11892,8 @@ snapshots:
       webpack-hot-middleware: 2.26.1
 
   '@popperjs/core@2.11.8': {}
+
+  '@qwik.dev/partytown@1.0.3': {}
 
   '@repeaterjs/repeater@3.1.0': {}
 

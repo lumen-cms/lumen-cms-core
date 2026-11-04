@@ -85,7 +85,8 @@
     "test:astro:image-priority": "node scripts/check-astro-image-priority.cjs",
     "test:astro:story-images": "node scripts/check-astro-story-images.cjs",
     "test:astro:packages": "node scripts/check-astro-packages.cjs && node scripts/check-astro-consumer-css.mjs && node scripts/check-astro-icons.mjs",
-    "astro:sync-schemas": "node scripts/sync-astro-schemas.cjs"
+    "astro:sync-schemas": "node scripts/sync-astro-schemas.cjs",
+    "test:astro:google-worker": "node scripts/check-astro-google-worker.mjs"
   },
   "author": "Dominic Garms",
   "license": "MIT",

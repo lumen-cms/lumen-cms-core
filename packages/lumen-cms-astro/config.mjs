@@ -3,6 +3,7 @@ import { resolve } from 'node:path'
 import { parseEnv } from 'node:util'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'astro/config'
+import partytown from '@astrojs/partytown'
 import tailwindcss from '@tailwindcss/vite'
 import lumenStoryblok from './integration.mjs'
 import { lumenImageConfig } from './src/images/config.mjs'
@@ -39,7 +40,7 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
     site: process.env.LUMEN_SITE_URL,
     output: buildMode === 'public' ? 'static' : 'server',
     adapter,
-    integrations: [lumenStoryblok({ preview: buildMode === 'preview' }), localeErrorRouting(), discovery({ preview: buildMode === 'preview' })],
+    integrations: [...(!process.env.PUBLIC_GTM_CONTAINER?.trim() ? [partytown({ config: { forward: ['gtag', 'dataLayer.push'] } })] : []), lumenStoryblok({ preview: buildMode === 'preview' }), localeErrorRouting(), discovery({ preview: buildMode === 'preview' })],
     image: buildMode === 'public' ? {
       ...lumenImageConfig,
       service: {

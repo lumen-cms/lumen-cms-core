@@ -1,0 +1,13 @@
+---
+import type { ScriptStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { scripts: ScriptStoryblok[] }
+const { scripts } = Astro.props
+const init = scripts.find(script => !script.url)?.script_body || ''
+const initializeOnce = `if(!window.__lumenGoogleInitialized){${init};window.__lumenGoogleInitialized=true;}`
+const escapeScript = (body: string) => body.replace(/<\/script/gi, '<\\/script')
+---
+<!-- The forwarding stub is installed in the head before body interactions.
+     Browsers without worker support initialize the same queue before fallback. -->
+<script is:inline set:html={escapeScript(`if(!window.crossOriginIsolated && !navigator.serviceWorker){${initializeOnce}}`)} />
+<script is:inline type="text/partytown" id="gtag-init" set:html={escapeScript(initializeOnce)} />
+{scripts.filter(script => script.url).map(script => <script is:inline type="text/partytown" id={script.id} src={script.url} />)}

@@ -16,6 +16,7 @@ import Block from '../components/Block.astro'
 import PageMetadata from '../components/PageMetadata.astro'
 import HubspotChat from '../components/HubspotChat.astro'
 import { isHubspotLoader } from '../lib/thirdPartyScripts'
+import GoogleAnalyticsWorker from '../components/GoogleAnalyticsWorker.astro'
 import CustomScripts from '../components/CustomScripts.astro'
 import StoryblokPreview from '../components/StoryblokPreview.astro'
 import { trackingScripts } from 'lumen-cms-shared/tracking'
@@ -29,8 +30,9 @@ const shopifyConfig = settings.ecommerce?.find(item => item.component === 'ecomm
 const context = createRenderContext(page, { components, linkRenderer, ...(storyListEndpoint ? { storyListEndpoint } : {}) })
 const theme = context.theme
 const serverData = previewServerData(page)
-const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.PUBLIC_GTM_CONTAINER, googleAnalyticsId: process.env.PUBLIC_GA, deferLibraries: true })
-const scripts = [...tracking.scripts, ...(settings.scripts || [])]
+const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.PUBLIC_GTM_CONTAINER?.trim(), googleAnalyticsId: process.env.PUBLIC_GA, deferLibraries: true })
+const workerScripts = !process.env.PUBLIC_GTM_CONTAINER?.trim() ? tracking.scripts.filter(script => script.id === 'gtag-init' || script.id === 'gtag-library') : []
+const scripts = [...tracking.scripts.filter(script => !workerScripts.includes(script)), ...(settings.scripts || [])]
 ;(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead = true
 const fontsHref = getFontBasedOnSetting(settings)
 const fontCss = getGoogleFontsCss(fontsHref)
@@ -44,6 +46,7 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
   <link rel="preconnect" href="https://a.storyblok.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
   {!fontCss && <link rel="preconnect" href="https://fonts.googleapis.com" />}
+  {workerScripts.length > 0 && <GoogleAnalyticsWorker scripts={workerScripts} />}
   {scripts.length > 0 && <CustomScripts scripts={scripts} />}
   <style data-lumen-preview-head is:inline set:html={themeCss(theme)} />
   <style data-lumen-preview-head is:inline set:html={collectPageStyles(page, theme)} />
