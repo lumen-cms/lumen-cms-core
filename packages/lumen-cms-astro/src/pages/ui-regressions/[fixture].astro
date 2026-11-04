@@ -17,11 +17,11 @@ const image = 'https://a.storyblok.com/f/123/800x400/fixture.jpg'
   <h1>Asana UI regression cases</h1>
   <div id="buttons">
    <Block context={context} content={{ component: 'button', _uid: 'primary-text', label: 'Primary text', color: 'primary', link }} />
-   <Block context={context} content={{ component: 'button', _uid: 'unelevated', label: 'Unelevated', variant: 'unelevated', link }} />
+   <Block context={context} content={{ component: 'button', _uid: 'unelevated', label: 'Unelevated', variant: 'unelevated', color: 'primary_text', link }} />
    <Block context={context} content={{ component: 'button', _uid: 'jobs', label: 'Jobs im Ausland', icon: { name: 'laptop-chromebook' }, link }} />
   </div>
-  <div id="language" style="color:white">
-   <Block context={context} initialOpen content={{ component: 'nav_menu', _uid: 'language-menu', title: 'Languages', body: [{ component: 'row', _uid: 'language-row', body: [{ component: 'column', _uid: 'language-column', body: [{ component: 'button', _uid: 'language-de', label: 'Deutsch', link }] }] }] }} />
+  <div id="language" style="color:white" data-lm-form-color="inherit">
+   <Block context={context} initialOpen content={{ component: 'nav_menu', _uid: 'language-menu', title: 'Languages', class_names: { values: ['text-white'] }, body: [{ component: 'row', _uid: 'language-row', body: [{ component: 'column', _uid: 'language-column', body: [{ component: 'button', _uid: 'language-de', label: 'Deutsch', link }] }] }] }} />
   </div>
   <div id="testimonial">
    <Block context={context} content={{ component: 'flex_row', _uid: 'outer-row', align_items: 'center', justify: 'center', body: [{ component: 'flex_row', _uid: 'inner-column', column: true, body: [heading('Dietmar Blicker'), heading('Academy Karlsruher SC')] }] }} />

@@ -203,7 +203,7 @@
  .lm-card-link { display: block; color: inherit; text-decoration: none; height: 100%; }
  .lm-card-link:is(a,button), .lm-card-cover-link { position: relative; isolation: isolate; }
  .lm-card-link:is(a,button)::after, .lm-card-cover-link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: currentColor; opacity: 0; pointer-events: none; transition: opacity 150ms; z-index: 1; }
- @media (hover:hover) { .lm-card-link:is(a,button):hover::after, .lm-card:has(.lm-card-cover-link):hover > .lm-card-cover-link::after { opacity: .04; } }
+ @media (hover:hover) { .lm-card-link:is(a,button):hover::after, :where(.lm-card:has(.lm-card-cover-link):hover) > .lm-card-cover-link::after { opacity: .04; } }
  .lm-card-link:is(a,button):focus-visible::after, .lm-card-cover-link:focus-visible::after { opacity: .12; }
  .lm-card-link:is(a,button):active::after, .lm-card-cover-link:active::after { opacity: .16; }
  .lm-card > .lm-card-cover-link { position: absolute; inset: 0; z-index: 1; color: inherit; border-radius: inherit; }
