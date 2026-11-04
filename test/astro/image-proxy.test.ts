@@ -1,10 +1,14 @@
 import { expect, it } from 'vitest'
 import { imageProxyOrigin, proxyImageUrl } from '../../packages/lumen-cms-astro/src/images/proxy'
-import { parseRequest } from '../../services/image-proxy/api/image.mjs'
-it('generates stable signed URLs accepted by the standalone proxy', () => {
+import contract from './fixtures/image-proxy-contract.json'
+
+// Shared golden vectors are also verified by the standalone proxy's parser tests.
+it.each(contract)('matches the standalone proxy signing contract: $name', ({ source, options, origin, secret, url }) => {
+ expect(proxyImageUrl(source, options, origin, secret)).toBe(url)
+})
+it('generates stable signed URLs and binds the requested format', () => {
  const options = { width: 640, quality: 75, format: 'avif' }
  const url = proxyImageUrl('https://arbitrary.example/photo.png', options, 'https://img-proxy.vercel.app', 'test-secret')
- expect(parseRequest(url, 'test-secret')).toMatchObject({ width: 640, format: 'avif', src: 'https://arbitrary.example/photo.png' })
  expect(proxyImageUrl('https://arbitrary.example/photo.png', options, 'https://img-proxy.vercel.app', 'test-secret')).toBe(url)
  expect(proxyImageUrl('https://arbitrary.example/photo.png', { ...options, format: 'webp' }, 'https://img-proxy.vercel.app', 'test-secret')).not.toBe(url)
 })

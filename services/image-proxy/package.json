@@ -1,8 +1,0 @@
-{
-  "name": "websites-astro-image-proxy",
-  "private": true,
-  "type": "module",
-  "engines": { "node": "24.x" },
-  "scripts": { "test": "node --test test/*.test.mjs" },
-  "dependencies": { "sharp": "0.35.5" }
-}

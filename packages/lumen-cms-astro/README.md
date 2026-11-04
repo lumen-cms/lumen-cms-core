@@ -81,8 +81,10 @@ overrides the default origin. Non-Storyblok remote raster
 images then use signed shared URLs, with AVIF/WebP picture sources and a PNG
 fallback. Arbitrary public HTTP(S) domains are supported through this path. Local
 assets and Storyblok retain their existing handling. Missing signing credentials
-fail explicitly rather than silently reverting to per-site optimization. See `services/image-proxy/README.md`
-in the core repository for deployment, caching semantics and limits.
+fail explicitly rather than silently reverting to per-site optimization. See the [standalone image proxy repository](https://github.com/dohomi/websites-astro-image-proxy)
+for deployment, caching semantics and limits. The proxy source and dependency updates
+are maintained there. Signing contract fixtures in `test/astro/fixtures/image-proxy-contract.json`
+are verified by both repositories; update both copies together when changing the protocol.
 
 The following commands are the CMS repository's internal site harness, not a
 replacement for the consumer apps' Vercel deployments:

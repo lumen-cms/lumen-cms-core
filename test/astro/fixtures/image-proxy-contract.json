@@ -1,0 +1,46 @@
+[
+  {
+    "name": "basic AVIF",
+    "source": "https://arbitrary.example/photo.png",
+    "options": {
+      "width": 640,
+      "quality": 75,
+      "format": "avif"
+    },
+    "secret": "test-secret",
+    "origin": "https://img-proxy.vercel.app",
+    "url": "https://img-proxy.vercel.app/api/image?f=avif&q=75&src=https%3A%2F%2Farbitrary.example%2Fphoto.png&v=1&w=640&sig=39eff2e75a48ad98a6deae73974da57cde42f333589bd967a58ed2776cb85983",
+    "expected": {
+      "src": "https://arbitrary.example/photo.png",
+      "width": 640,
+      "quality": 75,
+      "format": "avif",
+      "fit": "inside",
+      "position": "centre"
+    }
+  },
+  {
+    "name": "encoded source and scaled dimensions",
+    "source": "https://example.com/photo name.png?x=1&label=a+b",
+    "options": {
+      "width": 8192,
+      "height": 4096,
+      "quality": 80,
+      "format": "webp",
+      "fit": "cover",
+      "position": "right top"
+    },
+    "secret": "test-secret",
+    "origin": "https://img-proxy.vercel.app",
+    "url": "https://img-proxy.vercel.app/api/image?f=webp&fit=cover&h=2048&position=right+top&q=80&src=https%3A%2F%2Fexample.com%2Fphoto+name.png%3Fx%3D1%26label%3Da%2Bb&v=1&w=4096&sig=32f33244624e2398b4e4e051a7c28eb52b5cdcaa46649a8e9560d005107029f0",
+    "expected": {
+      "src": "https://example.com/photo name.png?x=1&label=a+b",
+      "width": 4096,
+      "quality": 80,
+      "format": "webp",
+      "fit": "cover",
+      "position": "right top",
+      "height": 2048
+    }
+  }
+]
