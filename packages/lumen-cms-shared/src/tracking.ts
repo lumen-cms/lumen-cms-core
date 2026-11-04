@@ -26,7 +26,8 @@ ${options.deferLibraries ? '' : "e=d.createElement('script');o=d.getElementsByTa
 adroll.track('pageView');`)
  if (options.deferLibraries && settings.setup_ad_roll_adv_id && settings.setup_ad_roll_pix_id) scripts.push({ component: 'script', _uid: 'adroll-library', id: 'adroll-library', strategy: 'lazyOnload', url: `https://s.adroll.com/j/${encodeURIComponent(settings.setup_ad_roll_adv_id)}/roundtrip.js` })
  const googleAnalyticsId = options.googleAnalyticsId?.trim() || settings.setup_google_analytics?.trim()
- if (googleAnalyticsId) {
+ // Universal Analytics properties no longer collect data. Do not load a retired tracker.
+ if (googleAnalyticsId && !/^UA-/i.test(googleAnalyticsId)) {
   scripts.push({ component: 'script', _uid: 'gtag-library', id: 'gtag-library', strategy: options.deferLibraries ? 'lazyOnload' : 'afterInteractive', url: `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleAnalyticsId)}` })
   inline('gtag-init', `window.dataLayer=window.dataLayer||[];window.gtag=function(){window.dataLayer.push(arguments);};gtag('js',new Date());gtag('config',${serializeJsonLd(googleAnalyticsId)},{page_path:window.location.pathname});`)
  }

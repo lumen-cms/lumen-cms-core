@@ -64,3 +64,11 @@ it('uses the environment GA override once, with CMS fallback for blank overrides
  const fallback = trackingScripts(settings, { production: true, googleAnalyticsId: '  ' })
  expect(fallback.scripts.find(script => script.id === 'gtag-library')?.url).toContain('id=G-FIXTURE')
 })
+
+
+it('does not load retired Universal Analytics IDs, while allowing a GA4 environment override', () => {
+ const legacy = { setup_google_analytics: ' UA-130347409-1 ' }
+ expect(trackingScripts(legacy, { production: true }).scripts).toEqual([])
+ const migrated = trackingScripts(legacy, { production: true, googleAnalyticsId: 'G-NEWPROPERTY' })
+ expect(migrated.scripts.find(script => script.id === 'gtag-library')?.url).toContain('id=G-NEWPROPERTY')
+})

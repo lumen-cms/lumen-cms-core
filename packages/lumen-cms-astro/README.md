@@ -366,7 +366,8 @@ Development and CMS preview still exclude generated tracking. Sites with a
 nonempty `PUBLIC_GTM_CONTAINER` keep the existing main-thread Google path to
 avoid splitting a shared dataLayer across execution environments. Arbitrary
 CMS scripts, Facebook, HubSpot and AdRoll are unchanged. Sites without an
-analytics ID do not acquire one.
+analytics ID do not acquire one. Retired `UA-…` Universal Analytics IDs are
+skipped; setting a GA4 `G-…` ID later enables the same worker integration.
 
 GA4's automatic page-exit `user_engagement` event is unreliable in a worker;
 this is a documented Partytown limitation, not equivalent to complete tracking
