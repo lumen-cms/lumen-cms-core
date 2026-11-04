@@ -1,12 +1,12 @@
 import { expect, it } from 'vitest'
-import { useVercelRemoteImage, vercelImageVariant } from '../../packages/lumen-cms-astro/src/images/vercel'
+import { shouldUseVercelRemoteImage, vercelImageVariant } from '../../packages/lumen-cms-astro/src/images/vercel'
 import { vercelImageConfig } from '../../packages/lumen-cms-astro/src/images/vercel-config.mjs'
 const source = 'https://example.public.blob.vercel-storage.com/photo name.jpg?x=1&y=2'
 it('only opts allowed still photos into managed optimization, leaving Storyblok and special transforms unchanged', () => {
  const enabled = { enabled: true, allowed: true }
- expect(useVercelRemoteImage(source, enabled)).toBe(true)
- for (const src of ['https://a.storyblok.com/f/1/100x100/photo.jpg', 'https://img2.storyblok.com/f/1/photo.jpg', '/local.jpg', 'https://example.com/animated.webp', 'https://example.com/animated.gif', 'https://example.com/logo.svg']) expect(useVercelRemoteImage(src, enabled)).toBe(false)
- for (const options of [{ enabled: false }, { allowed: false }, { format: 'png' }, { fit: 'cover' }, { position: 'top' }]) expect(useVercelRemoteImage(source, { ...enabled, ...options })).toBe(false)
+ expect(shouldUseVercelRemoteImage(source, enabled)).toBe(true)
+ for (const src of ['https://a.storyblok.com/f/1/100x100/photo.jpg', 'https://img2.storyblok.com/f/1/photo.jpg', '/local.jpg', 'https://example.com/animated.webp', 'https://example.com/animated.gif', 'https://example.com/logo.svg']) expect(shouldUseVercelRemoteImage(src, enabled)).toBe(false)
+ for (const options of [{ enabled: false }, { allowed: false }, { format: 'png' }, { fit: 'cover' }, { position: 'top' }]) expect(shouldUseVercelRemoteImage(source, { ...enabled, ...options })).toBe(false)
 })
 it('emits encoded managed URLs with allowed widths and truthful width descriptors', () => {
  for (const width of [24, 150, 301, 640, 1536, 5000]) {

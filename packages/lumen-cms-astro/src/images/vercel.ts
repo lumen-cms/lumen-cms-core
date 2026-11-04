@@ -3,7 +3,7 @@ import { isStoryblokImage } from './policy'
 
 /** The managed optimizer negotiates format and preserves source aspect ratio.
  * Keep explicit transforms and animation on the existing image path. */
-export function useVercelRemoteImage(source: string, options: {
+export function shouldUseVercelRemoteImage(source: string, options: {
  enabled: boolean; allowed: boolean; format?: string; fit?: string; position?: string
 }) {
  return options.enabled && options.allowed && /^https?:/.test(source)

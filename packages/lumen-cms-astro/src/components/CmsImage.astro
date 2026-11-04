@@ -7,7 +7,7 @@ import { imageDimensions, publicImageMetadata } from '../images/dimensions'
 import { isStoryblokImage, isSvgImage, normalizeImageSource, responsiveCandidates } from '../images/policy'
 import { storyblokImageUrl } from '../images/storyblok-service'
 import { proxyImageUrl } from '../images/proxy'
-import { useVercelRemoteImage, vercelImageVariant } from '../images/vercel'
+import { shouldUseVercelRemoteImage, vercelImageVariant } from '../images/vercel'
 interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
  src: string; alt: string; width?: number; height?: number; widths?: number[]; densities?: (number | `${number}x`)[]
  quality?: number; format?: ImageOutputFormat; fit?: 'contain' | 'cover' | 'fill' | 'inside' | 'outside'; position?: string
@@ -32,7 +32,7 @@ async function resolveImage(input: string) {
  let webp: ImageResult | undefined
  if (useCdn || bypass) {
   output = { src: useCdn ? storyblokImageUrl(source, dimensions.width, quality) : source, srcSet: { attribute: useCdn ? candidates.map(c => `${storyblokImageUrl(source, c.width, quality)} ${c.descriptor}`).join(', ') : '' }, attributes: dimensions }
- } else if (useVercelRemoteImage(source, { enabled: process.env.PUBLIC_REMOTE_IMAGE_OPTIMIZER === 'vercel', allowed: isRemoteAllowed(source, imageConfig), format, fit, position })) {
+ } else if (shouldUseVercelRemoteImage(source, { enabled: process.env.PUBLIC_REMOTE_IMAGE_OPTIMIZER === 'vercel', allowed: isRemoteAllowed(source, imageConfig), format, fit, position })) {
   const variant = vercelImageVariant(source, dimensions.width, quality)
   output = { src: variant.src, srcSet: { attribute: [...new Set(candidates.map(c => {
    const candidate = vercelImageVariant(source, c.width, quality)
