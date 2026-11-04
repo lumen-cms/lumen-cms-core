@@ -7,7 +7,7 @@ interface Props { scripts?: ScriptStoryblok[] }
 const scripts = cmsScripts(Astro.props.scripts).map(script => isHubspotLoader(script.src) ? { ...script, strategy: 'lazyOnload' as const } : script)
 const hasHubspot = scripts.some(script => isHubspotLoader(script.src))
 ---
-{hasHubspot && <script is:inline>window.hsConversationsSettings = { ...window.hsConversationsSettings, loadImmediately: false };</script>}
+{hasHubspot && <script is:inline>if (typeof window !== 'undefined') window.hsConversationsSettings = { ...window.hsConversationsSettings, loadImmediately: false };</script>}
 {scripts.filter(script => script.strategy === 'beforeInteractive').map(script => <script is:inline id={script.id} src={script.src} {...script.attributes} data-lm-cms-script={script.attributes.id || script.id} set:html={script.body?.replace(/<\/script/gi, '<\\/script')} />)}
 <script is:inline data-lumen-preview-head data-lm-cms-scripts type="application/json" set:html={serializeJsonLd(scripts.filter(script => script.strategy !== 'beforeInteractive'))} />
 <script>
