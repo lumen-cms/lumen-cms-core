@@ -41,7 +41,7 @@ Existing unrelated checks remain failing:
 - `astro check`: one invalid nested `column` fixture in `src/pages/ui-regressions/[fixture].astro:36`; no diagnostics in changed image files.
 - The older `check-astro-images.cjs` fixture assumes remote assets use local Sharp output, but current code routes them to the shared proxy and requires `IMAGE_PROXY_SECRET`. It was left unchanged; the new focused test uses deterministic Storyblok responses.
 
-## Rollout
+## Initial rollout status (before the original image deployment)
 
 Changes are local in the shared `lumen-cms-core` renderer. Nothing has been pushed or deployed. The `websites-astro` consumers pin published CMS commits; release the shared changes, update the consumer pin/lockfile using the existing distribution workflow, then rebuild Upskill. Re-run mobile and desktop PageSpeed against that deployment, and investigate a remote trace if the multi-second render delay persists. Do not report the local 95 as a production score.
 
@@ -56,3 +56,27 @@ The old `lazyOnload` loader could insert vendor scripts at the first idle callba
 Controlled diagnostics with all vendor requests blocked reduced blocking time to zero, but local simulated LCP did not consistently reproduce the large PSI swings. The first updated compressed local build measured 95 performance, 2.56s simulated LCP, 165ms TBT, and 17ms observed hero render delay. Its GA page_view returned HTTP 204. These local observations are not a claim of consistent production improvement; subsequent production PSI measurements are required.
 
 Regression coverage now gates priority decoding independently from window load, asserts vendor requests follow a paint opportunity, preserves an early conversion queue, and checks repeated initialization does not reload GA. Tracking unit tests cover environment override and CMS fallback. See [Google's LCP guidance](https://web.dev/articles/optimize-lcp) on JavaScript competing with rendering.
+
+### Production rollout and repeated measurements
+
+Shared runtime commit: `5cab699fd67662cbe9eee3bfb325f4d9700c600d`. Upskill-only consumer pin: `36e88fab2eda722dec06bbc8e8e180a4c2c0856c`. The GitHub-triggered production deployment `dpl_BPUty3XzYoC3QqTm9RUNK6iemcs1` is READY and serves `https://upskill-astro.vercel.app`. A redundant CLI deployment created during rollout was canceled; no other deployment was canceled. Other consumers retain their existing CMS pins.
+
+Fresh pre-change PSI reports: `yyt458gwsd` (14:25) mobile 95 / LCP 2.327s / TBT 184ms; desktop 100 / LCP 0.582s / TBT 43ms. `nnjrum19kl` (14:29) mobile 77 / LCP 5.013s / TBT 148ms; desktop 100 / LCP 0.582s / TBT 37ms.
+
+Post-change run `ncr4oipcte` reused the prior Lighthouse capture timestamp and identical measurements, so it is excluded from independent samples. Subsequent runs use unique `performance_run` query values. The query URL was verified to return byte-identical homepage HTML. No code detects Lighthouse, query strings, or test user agents.
+
+The independent deployment trace `/tmp/upskill-paint-deployed-analytics.json` records one GA4 `page_view` for `G-E5T41KXD1F`, `dl=https://upskill-astro.vercel.app/`, with HTTP 204. It does not verify the GA reporting dashboard or production conversion attribution. That trace still had 868ms observed image render delay, so the local 17ms observation must not be described as a universal elimination of rendering work.
+
+The desktop outlier `ktibwf5wu0` retained 0.582s LCP but had 528ms TBT: seven vendor long tasks (HubSpot 364ms total task duration, Facebook 343ms, GA 232ms), plus one 61ms first-party task. The loader protects initial paint but does not remove vendor execution cost or promise a fixed score.
+
+| Independent run | Mobile score | Mobile LCP | Mobile TBT | Desktop score | Desktop LCP | Desktop TBT |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| [uaz02o5vhq](https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/uaz02o5vhq?form_factor=mobile) | 93 | 2.327s | 125ms | 100 | 0.582s | 56ms |
+| [ktibwf5wu0](https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/ktibwf5wu0?form_factor=mobile) | 97 | 2.327s | 126ms | 78 | 0.582s | 528ms |
+| [qznh0uk5jp](https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/qznh0uk5jp?form_factor=mobile) | 92 | 2.327s | 257ms | 100 | 0.582s | 29ms |
+| [s5qtarn78b](https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/s5qtarn78b?form_factor=mobile) | 96 | 2.327s | 178ms | 99 | 0.582s | 85ms |
+| [wf20gqk4ms](https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/wf20gqk4ms?form_factor=mobile) | 98 | 2.327s | 74ms | 91 | 0.582s | 249ms |
+
+Five independent samples: mobile score median 96, range 92–98; LCP 2.327s in all five. Desktop score median 99, range 78–100; LCP 0.582s in all five. The previous 5–6s mobile simulated LCP spikes did not recur in this sample. This is evidence of more consistent initial rendering, not proof that all observed render delay or vendor CPU cost is eliminated. Real-user data is still absent from PSI.
+
+Validation passed: six tracking/loader unit tests; browser third-party regression audit; sample site build; consumer install, five consumer tests and build; shared repository pre-push React Doctor 100/100; production READY plus matching served deployment ID; deployed GA collection HTTP 204. No tracking account configuration or production analytics IDs were removed or changed.

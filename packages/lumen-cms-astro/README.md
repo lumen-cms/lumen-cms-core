@@ -273,7 +273,7 @@ of editor robots settings. Custom sitemap hooks must also avoid adding error URL
 Use `PUBLIC_*` for non-secret site settings and browser-visible values. For example,
 `PUBLIC_ROOT_DIRECTORY`, `PUBLIC_LANGUAGES`, `PUBLIC_SUPPRESS_SLUG_LOCALE`,
 `PUBLIC_OVERWRITE_SETTINGS_PATHS`, `PUBLIC_TRAVEL_HEADER_FALLBACK_IMG`,
-`PUBLIC_GTM_CONTAINER`, and `PUBLIC_STORYBLOK_TOKEN` (published content only).
+`PUBLIC_GA`, `PUBLIC_GTM_CONTAINER`, and `PUBLIC_STORYBLOK_TOKEN` (published content only).
 The config helper embeds public settings into builds, including settings supplied
 through the consumer's committed `site-settings.json`.
 
@@ -324,9 +324,12 @@ launcher opens the HubSpot widget on demand. The tracking/bootstrap script can
 still load HubSpot's small Conversations SDK; the widget itself waits for a click.
 HubSpot forms and meetings initialize within 300px of the viewport.
 
-The Astro layout defers generated analytics libraries until window load and idle
-(with a 2-second idle timeout), while immediately initializing provider queues for
-early conversion events. Custom scripts retain their CMS strategy, except known
+The Astro layout initializes provider queues early so conversion events can be
+queued before vendor libraries load. Lazy libraries wait for window load, eager
+high-priority image decoding, and a paint opportunity, then idle (with a 2-second
+idle timeout). Hidden tabs do not depend on animation frames. `PUBLIC_GA` overrides
+Storyblok `setup_google_analytics`; blank overrides fall back to Storyblok.
+`PUBLIC_GTM_CONTAINER` independently enables a GTM container. Custom scripts retain their CMS strategy, except known
 HubSpot account loaders. This is scheduling only, not consent enforcement.
 HubSpot's automatic collection of non-HubSpot forms is an account-level feature;
 turn it off in HubSpot if unused. The renderer does not silently disable it or
