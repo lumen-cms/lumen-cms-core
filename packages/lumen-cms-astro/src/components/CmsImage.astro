@@ -1,12 +1,11 @@
 ---
 import { getImage, imageConfig } from 'astro:assets'
-import { inferRemoteSize, isRemoteAllowed } from 'astro/assets/utils'
+import { isRemoteAllowed } from 'astro/assets/utils'
 import type { HTMLAttributes } from 'astro/types'
 import type { ImageOutputFormat } from 'astro'
 import { imageDimensions, publicImageMetadata } from '../images/dimensions'
 import { isStoryblokImage, isSvgImage, normalizeImageSource, responsiveCandidates } from '../images/policy'
 import { storyblokImageUrl } from '../images/storyblok-service'
-import { proxyImageUrl } from '../images/proxy'
 import { shouldUseVercelRemoteImage, vercelImageVariant } from '../images/vercel'
 interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
  src: string; alt: string; width?: number; height?: number; widths?: number[]; densities?: (number | `${number}x`)[]
@@ -16,13 +15,11 @@ interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> 
 const { src: input, width, height, widths, densities, quality = Number(process.env.PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, portraitSrc, blurDataURL, unoptimized, autoSizes = true, style, ...attrs } = Astro.props
 async function resolveImage(input: string) {
  const source = normalizeImageSource(input)
- const sharedProxy = /^https?:/.test(source) && !isStoryblokImage(source)
- const unauthorized = /^https?:/.test(source) && !isRemoteAllowed(source, imageConfig) && !sharedProxy
+ const remote = /^https?:/.test(source)
+ const unauthorized = remote && !isRemoteAllowed(source, imageConfig)
  const bypass = unauthorized || unoptimized || /\.ico(?:[?#]|$)/i.test(source) || isSvgImage(source) || /^(data:|blob:)/.test(source)
  // Unknown unoptimized fill sources need only a CSS box, not invented intrinsic attributes.
- const dimensions = width && height ? { width, height } : fill && (bypass || sharedProxy) ? { width: 1536, height: 1536 } : sharedProxy && !bypass && !isRemoteAllowed(source, imageConfig)
-  ? await inferRemoteSize(proxyImageUrl(source, { width: 1536, quality, format: 'webp' }))
-  : await imageDimensions(source, imageConfig)
+ const dimensions = width && height ? { width, height } : fill && (bypass || remote) ? { width: 1536, height: 1536 } : await imageDimensions(source, imageConfig)
  const sizes = attrs.sizes || (fill ? '100vw' : undefined)
  const candidates = bypass ? [] : responsiveCandidates(dimensions.width, sizes, widths, densities)
  const useCdn = isStoryblokImage(source) && !bypass && !format && !fit && !position
@@ -39,20 +36,6 @@ async function resolveImage(input: string) {
    return `${candidate.src} ${c.descriptor.endsWith('w') ? `${candidate.width}w` : c.descriptor}`
   }))].join(', ') }, attributes: dimensions }
   // No format-specific <source>: Vercel negotiates AVIF/WebP from Accept.
- } else if (sharedProxy) {
-  const variant = (outputFormat: string): ImageResult => {
-   const url = (candidateWidth: number) => proxyImageUrl(source, {
-    width: candidateWidth, quality, format: outputFormat, fit, position,
-    ...(fit && width && height ? { height: Math.round(candidateWidth * height / width) } : {}),
-   })
-   return { src: url(dimensions.width), srcSet: { attribute: candidates.map(c => `${url(c.width)} ${c.descriptor}`).join(', ') }, attributes: dimensions }
-  }
-  const animated = /\.(?:gif|webp)(?:[?#]|$)/i.test(source)
-  output = variant(format || (animated ? 'webp' : 'png'))
-  if (!format) {
-   webp = variant('webp')
-   if (!animated) avif = variant('avif')
-  }
  } else {
   const local = await publicImageMetadata(source)
   const transform = { src: local || source, ...dimensions, quality, format, fit: fit || 'inside' as const, position,

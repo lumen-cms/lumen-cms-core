@@ -25,3 +25,7 @@ it('emits encoded managed URLs with allowed widths and truthful width descriptor
 it('provides the remote allowlist explicitly to the managed optimizer', () => {
  expect(vercelImageConfig.remotePatterns).toContainEqual({ protocol: 'https', hostname: '**.public.blob.vercel-storage.com' })
 })
+
+it('keeps immutable remote images fresh for 365 days', () => {
+ expect(vercelImageConfig.minimumCacheTTL).toBe(365 * 24 * 60 * 60)
+})

@@ -74,18 +74,6 @@ emits the existing `/_image` URLs and the runtime Sharp service transforms them.
 This avoids generating tens of thousands of travel-gallery image variants during
 each HTML build. Storyblok images continue to use its image CDN directly.
 
-The shared Frankfurt image proxy defaults to `https://img-prxy.lumen.media`.
-Set `IMAGE_PROXY_SECRET` to the same server-only signing secret used by the proxy,
-in both build and runtime environments. `PUBLIC_IMAGE_PROXY_URL` optionally
-overrides the default origin. Non-Storyblok remote raster
-images then use signed shared URLs, with AVIF/WebP picture sources and a PNG
-fallback. Arbitrary public HTTP(S) domains are supported through this path. Local
-assets and Storyblok retain their existing handling. Missing signing credentials
-fail explicitly rather than silently reverting to per-site optimization. See the [standalone image proxy repository](https://github.com/dohomi/websites-astro-image-proxy)
-for deployment, caching semantics and limits. The proxy source and dependency updates
-are maintained there. Signing contract fixtures in `test/astro/fixtures/image-proxy-contract.json`
-are verified by both repositories; update both copies together when changing the protocol.
-
 The following commands are the CMS repository's internal site harness, not a
 replacement for the consumer apps' Vercel deployments:
 
@@ -347,13 +335,15 @@ remove global analytics, cookie banners, or existing lead collection.
 Run `node scripts/check-astro-third-parties.cjs` for the isolated browser audit
 (mocked providers; no analytics events are sent to real accounts).
 
-### Managed image optimization preview trial
+### Project-based image optimization
 
-Consumers can opt approved still remote images into Vercel's managed optimizer by
-setting the build-time `PUBLIC_REMOTE_IMAGE_OPTIMIZER=vercel` and passing
+On Vercel, set the build-time `PUBLIC_REMOTE_IMAGE_OPTIMIZER=vercel` and pass
 `vercelImageConfig` from `lumen-cms-astro/images/vercel-config` as the adapter's
-`imagesConfig`. Keep `imageService: false` so local assets and explicit Storyblok
-transforms retain their current behavior. Ordinary Storyblok images continue to
-use its CDN. Animated sources, unapproved hosts, and explicit format/crop requests
-keep the shared proxy. Managed URLs negotiate AVIF/WebP and use a 31-day cache floor.
-The Students experiment enables this only when `VERCEL_ENV=preview`.
+`imagesConfig`. Keep `imageService: false` so local assets and explicit transforms
+use Astro's existing Sharp service. Ordinary Storyblok images use its CDN directly.
+Approved remote still photos use `/_vercel/image`, with AVIF/WebP negotiation and
+`minimumCacheTTL: 31536000` (365 days). Source URLs must be immutable; change the URL
+or purge Vercel's image cache when replacing an image. Animated sources and explicit
+format/crop requests use the project's Astro image service. Unknown remote hosts
+are not optimized; add trusted sources to the remote allowlist to enable processing.
+Node/local deployments use Astro's image service without a shared proxy or signing secret.
