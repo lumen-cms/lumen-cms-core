@@ -1,0 +1,489 @@
+{
+  "date": "2026-11-04",
+  "scope": "Six Astro production aliases; custom-domain migrations are outside this rollout.",
+  "deployments": [
+    {
+      "site": "upskill-astro",
+      "alias": "upskill-astro.vercel.app",
+      "expectedDeployment": "dpl_GP8C8t78oxmab3X7M6Nr2FVE3sFQ",
+      "activeDeployment": "dpl_GP8C8t78oxmab3X7M6Nr2FVE3sFQ",
+      "ready": true,
+      "matches": true,
+      "commit": "73550d38933a1bd943cde5027252a53b74539292"
+    },
+    {
+      "site": "planettraining-astro",
+      "alias": "planettraining-astro.vercel.app",
+      "expectedDeployment": "dpl_2B6A2qE8LYWzhzj2sbQaTra9zaBi",
+      "activeDeployment": "dpl_2B6A2qE8LYWzhzj2sbQaTra9zaBi",
+      "ready": true,
+      "matches": true,
+      "commit": "73550d38933a1bd943cde5027252a53b74539292"
+    },
+    {
+      "site": "baliinternships-astro",
+      "alias": "baliinternships-astro.vercel.app",
+      "expectedDeployment": "dpl_EB6NL76G3CqWkvLP8rnSKbFgL7sr",
+      "activeDeployment": "dpl_EB6NL76G3CqWkvLP8rnSKbFgL7sr",
+      "ready": true,
+      "matches": true,
+      "commit": "73550d38933a1bd943cde5027252a53b74539292"
+    },
+    {
+      "site": "students-de-astro",
+      "alias": "students-de-astro.vercel.app",
+      "expectedDeployment": "dpl_64HggTrDJYM6LdvFm5Kp1BKTFQwH",
+      "activeDeployment": "dpl_64HggTrDJYM6LdvFm5Kp1BKTFQwH",
+      "ready": true,
+      "matches": true,
+      "commit": "73550d38933a1bd943cde5027252a53b74539292"
+    },
+    {
+      "site": "students-en-astro",
+      "alias": "students-en-astro.vercel.app",
+      "expectedDeployment": "dpl_3B1u7fxrnx8Mq39ycyrdJe6VnrHo",
+      "activeDeployment": "dpl_3B1u7fxrnx8Mq39ycyrdJe6VnrHo",
+      "ready": true,
+      "matches": true,
+      "commit": "73550d38933a1bd943cde5027252a53b74539292"
+    },
+    {
+      "site": "lumen-media-astro",
+      "alias": "lumen-media-astro.vercel.app",
+      "expectedDeployment": "dpl_2X7jTDZ8Q2zdQzmsFPGJn9KbRoG2",
+      "activeDeployment": "dpl_2X7jTDZ8Q2zdQzmsFPGJn9KbRoG2",
+      "ready": true,
+      "matches": true,
+      "commit": "73550d38933a1bd943cde5027252a53b74539292"
+    }
+  ],
+  "sharedRuntimeCommit": "f7b8cab813e039c9d9b1d9855999c6208794f235",
+  "runtimeChecks": [
+    {
+      "site": "https://planettraining-astro.vercel.app",
+      "expectedId": "G-VG3HH1PJNQ",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "analytics.google.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-VG3HH1PJNQ"
+        }
+      ],
+      "counts": {
+        "G-VG3HH1PJNQ": 1
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://students-en-astro.vercel.app",
+      "expectedId": "G-VPF8SZXRVH",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-QPJ9JQCQS6"
+        },
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-VPF8SZXRVH"
+        }
+      ],
+      "counts": {
+        "G-QPJ9JQCQS6": 1,
+        "G-VPF8SZXRVH": 1
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://lumen-media-astro.vercel.app",
+      "expectedId": null,
+      "workers": 1,
+      "scripts": [],
+      "pageViews": [],
+      "counts": {},
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://students-de-astro.vercel.app",
+      "expectedId": "G-QPJ9JQCQS6",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-QPJ9JQCQS6"
+        },
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-VPF8SZXRVH"
+        }
+      ],
+      "counts": {
+        "G-QPJ9JQCQS6": 1,
+        "G-VPF8SZXRVH": 1
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://upskill-astro.vercel.app",
+      "expectedId": "G-E5T41KXD1F",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-E5T41KXD1F"
+        }
+      ],
+      "counts": {
+        "G-E5T41KXD1F": 1
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://baliinternships-astro.vercel.app",
+      "expectedId": "G-D47Z3QX5YT",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-D47Z3QX5YT"
+        }
+      ],
+      "counts": {
+        "G-D47Z3QX5YT": 1
+      },
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "planetTraining": {
+    "findings": [
+      "The original observer missed analytics.google.com/g/collect; the old main-thread site was sending page views there.",
+      "After correcting the observer, the worker path reproduced a missing automatic initial page view with Planet Training configuration, despite successful explicit events."
+    ],
+    "fix": "Disable the automatic initial page view, then send one explicit page_view after config. Do not specify send_to, so linked Google destinations remain intact.",
+    "verified": "One successful HTTP 204 page_view per configured destination on production, no JavaScript errors.",
+    "reference": "https://developers.google.com/analytics/devguides/collection/ga4/views"
+  },
+  "trackingScope": {
+    "partytown": "Google gtag.js only, forwarding gtag and dataLayer.push.",
+    "unchanged": [
+      "HubSpot",
+      "Facebook",
+      "AdRoll",
+      "arbitrary CMS scripts"
+    ],
+    "lumenMedia": "Retired UA ID skipped; no GA4 ID configured, no Google tracking loaded.",
+    "linkedDestinations": "Both StudentsGoAbroad sites retain both linked Google destinations."
+  },
+  "validation": {
+    "productionBuilds": "All six READY on consumer commit 73550d38933a1bd943cde5027252a53b74539292.",
+    "consumerChecks": "All six Astro checks passed; five config tests passed.",
+    "trackingTests": "Seven tracking tests passed. Real Google SDK fixture covered default, Planet Training and linked StudentsGoAbroad configurations, worker and unsupported-browser fallback, queued lead and purchase payloads.",
+    "conversionSafety": "Synthetic conversion requests were intercepted locally and not sent to live analytics. Production verification generated ordinary page visits only.",
+    "limits": [
+      "HTTP 204 verifies collection transport, not GA report ingestion or attribution.",
+      "Worker page-exit user_engagement behavior does not have full main-thread parity.",
+      "The broader shared suite has an existing cmsScripts timing assertion failure and an existing UI regression fixture column schema check error; consumer checks and production builds passed."
+    ]
+  },
+  "pageSpeed": {
+    "date": "2026-11-04",
+    "initialDeploymentCommit": "d0e4a606e5ba290f81f9e9b0ffd6881c305dd98b",
+    "initialRuns": [
+      {
+        "report": "vi1a76mba0",
+        "mobile": {
+          "performance": 89,
+          "lcpMs": 2330,
+          "tbtMs": 300,
+          "speedIndexMs": 4675
+        },
+        "desktop": {
+          "performance": 97,
+          "lcpMs": 585,
+          "tbtMs": 145,
+          "speedIndexMs": 960
+        }
+      },
+      {
+        "report": "dktjxjfrbt",
+        "mobile": {
+          "performance": 92,
+          "lcpMs": 2330,
+          "tbtMs": 275,
+          "speedIndexMs": 3235
+        },
+        "desktop": {
+          "performance": 100,
+          "lcpMs": 584,
+          "tbtMs": 11,
+          "speedIndexMs": 587
+        }
+      },
+      {
+        "report": "0wvw6uhqlx",
+        "mobile": {
+          "performance": 98,
+          "lcpMs": 2329,
+          "tbtMs": 101,
+          "speedIndexMs": 1332
+        },
+        "desktop": {
+          "performance": 100,
+          "lcpMs": 583,
+          "tbtMs": 47,
+          "speedIndexMs": 475
+        }
+      }
+    ],
+    "previousBaseline": {
+      "mobileScores": [
+        93,
+        97,
+        92,
+        96,
+        98
+      ],
+      "desktopScores": [
+        100,
+        78,
+        100,
+        99,
+        91
+      ],
+      "mobileMedian": 96,
+      "desktopMedian": 99,
+      "mobileLcpMs": 2327,
+      "desktopLcpMs": 582,
+      "mobileTbtMs": [
+        125,
+        126,
+        257,
+        178,
+        74
+      ],
+      "desktopTbtMs": [
+        56,
+        528,
+        29,
+        85,
+        249
+      ]
+    },
+    "initialThirdPartyMainThreadMs": {
+      "report": "vi1a76mba0",
+      "facebook": 280,
+      "hubspot": 153,
+      "hubspotConversations": 28
+    },
+    "pageViewCorrectionCommit": "f66d32d",
+    "pageViewCorrectionRuns": [
+      {
+        "report": "tiv4rbk8p4",
+        "mobile": {
+          "performance": 95,
+          "lcpMs": 2329,
+          "tbtMs": 123,
+          "speedIndexMs": 4350
+        },
+        "desktop": {
+          "performance": 100,
+          "lcpMs": 583,
+          "tbtMs": 52,
+          "speedIndexMs": 973
+        }
+      },
+      {
+        "report": "i18fnio0p6",
+        "mobile": {
+          "performance": 98,
+          "lcpMs": 2329,
+          "tbtMs": 103,
+          "speedIndexMs": 1326
+        },
+        "desktop": {
+          "performance": 93,
+          "lcpMs": 590,
+          "tbtMs": 209,
+          "speedIndexMs": 665
+        }
+      }
+    ],
+    "finalRuns": [
+      {
+        "report": "tn4yu4susk",
+        "mobile": {
+          "performance": 91,
+          "lcpMs": 2329,
+          "tbtMs": 222,
+          "speedIndexMs": 4911
+        },
+        "desktop": {
+          "performance": 100,
+          "lcpMs": 583,
+          "tbtMs": 53,
+          "speedIndexMs": 836
+        }
+      },
+      {
+        "report": "v6ix73ir5c",
+        "mobile": {
+          "performance": 95,
+          "lcpMs": 2105,
+          "tbtMs": 243,
+          "speedIndexMs": 1260
+        },
+        "desktop": {
+          "performance": 100,
+          "lcpMs": 584,
+          "tbtMs": 22,
+          "speedIndexMs": 507
+        }
+      },
+      {
+        "report": "6zizp8ngmk",
+        "mobile": {
+          "performance": 93,
+          "lcpMs": 2328,
+          "tbtMs": 164,
+          "speedIndexMs": 4682
+        },
+        "desktop": {
+          "performance": 100,
+          "lcpMs": 584,
+          "tbtMs": 67,
+          "speedIndexMs": 595
+        }
+      }
+    ],
+    "finalDeploymentCommit": "73550d38933a1bd943cde5027252a53b74539292",
+    "finalSharedCommit": "f7b8cab813e039c9d9b1d9855999c6208794f235",
+    "finalHtmlSha256": "bdb13f71ee6e02352e30e3417922ea54a6ddcacfff8961e6f7b50087071d806a",
+    "finalSummary": {
+      "mobile": {
+        "performance": {
+          "median": 93,
+          "min": 91,
+          "max": 95
+        },
+        "lcpMs": {
+          "median": 2328,
+          "min": 2105,
+          "max": 2329
+        },
+        "tbtMs": {
+          "median": 222,
+          "min": 164,
+          "max": 243
+        },
+        "speedIndexMs": {
+          "median": 4682,
+          "min": 1260,
+          "max": 4911
+        }
+      },
+      "desktop": {
+        "performance": {
+          "median": 100,
+          "min": 100,
+          "max": 100
+        },
+        "lcpMs": {
+          "median": 584,
+          "min": 583,
+          "max": 584
+        },
+        "tbtMs": {
+          "median": 53,
+          "min": 22,
+          "max": 67
+        },
+        "speedIndexMs": {
+          "median": 595,
+          "min": 507,
+          "max": 836
+        }
+      }
+    }
+  },
+  "conclusion": "Final desktop samples are all 100 (previous median 99). Mobile median 93 versus previous 96; these samples do not establish a consistent mobile improvement. Mobile LCP ranges 2.105\u20132.329 seconds. Facebook and HubSpot remain sources of main-thread work; their behavior was preserved."
+}
