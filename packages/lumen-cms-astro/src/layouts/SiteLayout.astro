@@ -14,6 +14,8 @@ import FastSpringProvider from '../components/FastSpringProvider.astro'
 import ShopifyCart from '../components/ShopifyCart.astro'
 import Block from '../components/Block.astro'
 import PageMetadata from '../components/PageMetadata.astro'
+import HubspotChat from '../components/HubspotChat.astro'
+import { isHubspotLoader } from '../lib/thirdPartyScripts'
 import CustomScripts from '../components/CustomScripts.astro'
 import StoryblokPreview from '../components/StoryblokPreview.astro'
 import { trackingScripts } from 'lumen-cms-shared/tracking'
@@ -27,7 +29,7 @@ const shopifyConfig = settings.ecommerce?.find(item => item.component === 'ecomm
 const context = createRenderContext(page, { components, linkRenderer, ...(storyListEndpoint ? { storyListEndpoint } : {}) })
 const theme = context.theme
 const serverData = previewServerData(page)
-const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.PUBLIC_GTM_CONTAINER })
+const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.PUBLIC_GTM_CONTAINER, deferLibraries: true })
 const scripts = [...tracking.scripts, ...(settings.scripts || [])]
 ;(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead = true
 const fontsHref = getFontBasedOnSetting(settings)
@@ -65,6 +67,7 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
   {shopifyConfig && <ShopifyCart context={context} />}
   <footer class="lm-page-footer">{settings.footer?.map(content => <Block content={content} context={context} />)}</footer>
   {settings.snackbars?.map(content => <Block content={content} context={context} />)}
+  {scripts.some(script => isHubspotLoader(script.url)) && !context.preview && <HubspotChat locale={page.locale} />}
   {settings.chat_button?.map(content => <Block content={content} context={context} />)}
   </AppWrappers>
 

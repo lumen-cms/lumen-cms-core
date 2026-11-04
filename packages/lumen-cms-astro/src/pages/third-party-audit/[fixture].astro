@@ -1,0 +1,19 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro'
+import Hubspot from '../../components/Hubspot.astro'
+import type { RenderContext } from '../../lib/context'
+export function getStaticPaths() { return process.env.LUMEN_THIRD_PARTY_AUDIT ? [{ params: { fixture: 'loading' } }] : [] }
+const page = {
+ locale: 'en', defaultLocale: 'en', insideStoryblok: false,
+ settings: { component: 'global', _uid: 'settings', theme_base: 'base', website_title: 'Third-party loading audit', setup_google_analytics: 'G-FIXTURE', setup_facebook_pixel: 'fixture', scripts: [{ component: 'script', _uid: 'hubspot', url: '//js-na1.hs-scripts.com/123.js' }] },
+ page: { component: 'page', _uid: 'page', property: ['disable_promotion'], body: [] },
+} as RenderContext['page']
+---
+<SiteLayout page={page}>
+ <h1>Third-party loading audit</h1>
+ <img src="/audit-gate.png" alt="" width="1" height="1" />
+ <div style="height:4000px">Scroll to the form</div>
+ <Hubspot content={{ component: 'hubspot_form', _uid: 'audit', portal_id: '123', form_id: 'form', region: 'eu1' }} />
+ <div style="height:4000px">Scroll to the meeting</div>
+ <Hubspot content={{ component: 'hubspot_meeting', _uid: 'audit', meeting_name: 'team/person' }} />
+</SiteLayout>

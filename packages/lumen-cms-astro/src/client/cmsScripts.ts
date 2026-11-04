@@ -29,7 +29,7 @@ export function initializeCmsScripts() {
     document.body.append(script)
    }
    const idle = () => {
-    if ('requestIdleCallback' in window) window.requestIdleCallback(insert)
+    if ('requestIdleCallback' in window) window.requestIdleCallback(insert, { timeout: 2000 })
     else setTimeout(insert, 1)
    }
    if (entry.strategy === 'lazyOnload') {

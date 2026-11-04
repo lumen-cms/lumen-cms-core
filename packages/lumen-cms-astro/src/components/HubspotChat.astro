@@ -1,0 +1,11 @@
+---
+import ChatLauncher from './ChatLauncher.astro'
+interface Props { locale?: string }
+---
+<div data-lm-hubspot-chat><ChatLauncher locale={Astro.props.locale} /></div>
+<script>
+ import { initializeHubspotChat } from '../client/hubspotChat'
+ initializeHubspotChat()
+ document.addEventListener('astro:page-load', initializeHubspotChat)
+ document.addEventListener('lumen:content-mounted', initializeHubspotChat)
+</script>

@@ -307,3 +307,30 @@ The same integration generates `robots.txt`: public builds advertise the public
 sitemap; SSR permits crawling so noindex can be read and advertises no sitemap.
 The consumer build wrapper also sets the SSR noindex header globally in Vercel's
 output configuration, covering public-folder assets and hosting redirects.
+
+### Initial-load performance
+
+Backgrounds in the first top-level page-body block (`sectionPosition === 0`), or
+with the CMS `priority` flag, receive eager loading and high-priority preloads.
+This is a positional rule, not viewport/LCP detection. Portrait alternatives use
+`picture` sources and matching media-qualified preloads.
+
+YouTube iframe/player components require activation before loading the player.
+Tawk/Facebook chat blocks also require a click (including blocks with the legacy
+`disable_lazy` setting); scrolling does not load them. HubSpot account loaders
+configured as external CMS scripts use `lazyOnload`, with
+`hsConversationsSettings.loadImmediately = false` set before execution. A local
+launcher opens the HubSpot widget on demand. The tracking/bootstrap script can
+still load HubSpot's small Conversations SDK; the widget itself waits for a click.
+HubSpot forms and meetings initialize within 300px of the viewport.
+
+The Astro layout defers generated analytics libraries until window load and idle
+(with a 2-second idle timeout), while immediately initializing provider queues for
+early conversion events. Custom scripts retain their CMS strategy, except known
+HubSpot account loaders. This is scheduling only, not consent enforcement.
+HubSpot's automatic collection of non-HubSpot forms is an account-level feature;
+turn it off in HubSpot if unused. The renderer does not silently disable it or
+remove global analytics, cookie banners, or existing lead collection.
+
+Run `node scripts/check-astro-third-parties.cjs` for the isolated browser audit
+(mocked providers; no analytics events are sent to real accounts).

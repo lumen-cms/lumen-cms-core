@@ -43,3 +43,14 @@ it('keeps CMS values as string data when generating inline JavaScript', () => {
  expect(sandbox.injected).toBeUndefined()
  expect(sandbox.dataLayer[1][1]).toBe(id)
 })
+it('defers libraries while keeping early conversion events in provider queues', () => {
+ const plan = trackingScripts(settings, { production: true, deferLibraries: true, gtmContainer: 'GTM-FIXTURE' })
+ const sandbox: Record<string, any> = { location: { pathname: '/landing' }, document: {} }; sandbox.window = sandbox
+ for (const script of plan.scripts) if (script.strategy !== 'lazyOnload' && script.script_body) runInNewContext(script.script_body, sandbox)
+ // No document/network API is available: initialization must be queue-only.
+ runInNewContext("fbq('track','Lead'); gtag('event','generate_lead'); adroll.track('conversion');", sandbox)
+ expect(Array.from(sandbox.fbq.queue.at(-1))).toEqual(['track', 'Lead'])
+ expect(Array.from(sandbox.dataLayer.at(-1))).toEqual(['event', 'generate_lead'])
+ expect(sandbox.adroll.at(-1)[1][0]).toBe('conversion')
+ expect(plan.scripts.filter(script => script.url || script.id === 'googletagmanager').every(script => script.strategy === 'lazyOnload')).toBe(true)
+})

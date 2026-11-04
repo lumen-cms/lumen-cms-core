@@ -9,33 +9,38 @@ import { storyblokImageUrl } from '../images/storyblok-service'
 interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
  src: string; alt: string; width?: number; height?: number; widths?: number[]; densities?: (number | `${number}x`)[]
  quality?: number; format?: ImageOutputFormat; fit?: 'contain' | 'cover' | 'fill' | 'inside' | 'outside'; position?: string
- fill?: boolean; preload?: boolean; blurDataURL?: string; unoptimized?: boolean; autoSizes?: boolean
+ fill?: boolean; preload?: boolean; portraitSrc?: string; blurDataURL?: string; unoptimized?: boolean; autoSizes?: boolean
 }
-const { src: input, width, height, widths, densities, quality = Number(process.env.PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, blurDataURL, unoptimized, autoSizes = true, style, ...attrs } = Astro.props
-const source = normalizeImageSource(input)
-const unauthorized = /^https?:/.test(source) && !isRemoteAllowed(source, imageConfig)
-const bypass = unauthorized || unoptimized || /\.ico(?:[?#]|$)/i.test(source) || isSvgImage(source) || /^(data:|blob:)/.test(source)
-// Unknown unoptimized fill sources need only a CSS box, not invented intrinsic attributes.
-const dimensions = width && height ? { width, height } : fill && bypass ? { width: 1536, height: 1536 } : await imageDimensions(source, imageConfig)
-const sizes = attrs.sizes || (fill ? '100vw' : undefined)
-const candidates = bypass ? [] : responsiveCandidates(dimensions.width, sizes, widths, densities)
-const useCdn = isStoryblokImage(source) && !bypass && !format && !fit && !position
-type ImageResult = { src: string; srcSet: { attribute: string }; attributes: Record<string, unknown> }
-let output: ImageResult
-let avif: ImageResult | undefined
-if (useCdn || bypass) {
- output = { src: useCdn ? storyblokImageUrl(source, dimensions.width, quality) : source, srcSet: { attribute: useCdn ? candidates.map(c => `${storyblokImageUrl(source, c.width, quality)} ${c.descriptor}`).join(', ') : '' }, attributes: dimensions }
-} else {
- const local = await publicImageMetadata(source)
- const transform = { src: local || source, ...dimensions, quality, format, fit: fit || 'inside' as const, position,
-   ...(sizes || widths ? { widths: candidates.map(c => c.width) } : { densities: densities || [1, 2] }) }
- output = await getImage(transform)
- // Match the legacy AVIF-first policy for still raster sources. Animated
- // formats stay on Astro's animation-preserving default pipeline.
- if (!format && /\.(?:jpe?g|png)(?:[?#]|$)/i.test(source)) avif = await getImage({ ...transform, format: 'avif' })
+const { src: input, width, height, widths, densities, quality = Number(process.env.PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, portraitSrc, blurDataURL, unoptimized, autoSizes = true, style, ...attrs } = Astro.props
+async function resolveImage(input: string) {
+ const source = normalizeImageSource(input)
+ const unauthorized = /^https?:/.test(source) && !isRemoteAllowed(source, imageConfig)
+ const bypass = unauthorized || unoptimized || /\.ico(?:[?#]|$)/i.test(source) || isSvgImage(source) || /^(data:|blob:)/.test(source)
+ // Unknown unoptimized fill sources need only a CSS box, not invented intrinsic attributes.
+ const dimensions = width && height ? { width, height } : fill && bypass ? { width: 1536, height: 1536 } : await imageDimensions(source, imageConfig)
+ const sizes = attrs.sizes || (fill ? '100vw' : undefined)
+ const candidates = bypass ? [] : responsiveCandidates(dimensions.width, sizes, widths, densities)
+ const useCdn = isStoryblokImage(source) && !bypass && !format && !fit && !position
+ type ImageResult = { src: string; srcSet: { attribute: string }; attributes: Record<string, unknown> }
+ let output: ImageResult
+ let avif: ImageResult | undefined
+ if (useCdn || bypass) {
+  output = { src: useCdn ? storyblokImageUrl(source, dimensions.width, quality) : source, srcSet: { attribute: useCdn ? candidates.map(c => `${storyblokImageUrl(source, c.width, quality)} ${c.descriptor}`).join(', ') : '' }, attributes: dimensions }
+ } else {
+  const local = await publicImageMetadata(source)
+  const transform = { src: local || source, ...dimensions, quality, format, fit: fit || 'inside' as const, position,
+    ...(sizes || widths ? { widths: candidates.map(c => c.width) } : { densities: densities || [1, 2] }) }
+  output = await getImage(transform)
+  // Match the legacy AVIF-first policy for still raster sources. Animated
+  // formats stay on Astro's animation-preserving default pipeline.
+  if (!format && /\.(?:jpe?g|png)(?:[?#]|$)/i.test(source)) avif = await getImage({ ...transform, format: 'avif' })
+ }
+ return { output, avif, dimensions, sizes }
 }
+const { output, avif, dimensions, sizes } = await resolveImage(input)
+const portrait = portraitSrc ? await resolveImage(portraitSrc) : undefined
 const imageStyle = [fill ? 'position:absolute;inset:0;width:100%;height:100%' : '', typeof style === 'string' ? style : Object.entries(style || {}).map(([key,value]) => value == null ? '' : `${key.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`)}:${value}`).join(';'), blurDataURL ? `background-image:url("${blurDataURL}");background-size:cover;background-position:center` : ''].filter(Boolean).join(';')
-const htmlAttributes = { ...output.attributes, ...attrs, src: output.src, srcset: output.srcSet.attribute || undefined, sizes, width: fill ? undefined : dimensions.width, height: fill ? undefined : dimensions.height, loading: preload ? 'eager' as const : attrs.loading || 'lazy', decoding: attrs.decoding || 'async', style: imageStyle || undefined, 'data-lm-image-blur': blurDataURL ? '' : undefined }
+const htmlAttributes = { ...output.attributes, ...attrs, src: output.src, srcset: output.srcSet.attribute || undefined, sizes, width: fill ? undefined : dimensions.width, height: fill ? undefined : dimensions.height, loading: preload ? 'eager' as const : attrs.loading || 'lazy', fetchpriority: attrs.fetchpriority || (preload ? 'high' : undefined), decoding: attrs.decoding || 'async', style: imageStyle || undefined, 'data-lm-image-blur': blurDataURL ? '' : undefined }
 const preloadImage = avif || output
 // Lazy images can use their laid-out width instead of the generic viewport
 // estimate. Preserve explicit sizing rules and eager/LCP hints.
@@ -47,8 +52,14 @@ htmlAttributes.sizes = renderedSizes
 // shrink-to-fit/flex layouts instead of the browser's default 300x150 fallback.
 if (renderedSizes !== sizes) htmlAttributes.style = `${imageStyle};contain-intrinsic-size:${dimensions.width}px ${dimensions.height}px`
 ---
-{preload && <link rel="preload" as="image" type={avif ? 'image/avif' : undefined} href={preloadImage.srcSet.attribute ? undefined : preloadImage.src} imagesrcset={preloadImage.srcSet.attribute || undefined} imagesizes={sizes} />}
-<>{avif ? <picture style="display:contents"><source type="image/avif" srcset={avif.srcSet.attribute || avif.src} sizes={renderedSizes} /><img {...htmlAttributes} /></picture> : <img {...htmlAttributes} />}</>
+{preload && <link rel="preload" as="image" media={portrait ? '(orientation: landscape)' : undefined} fetchpriority={htmlAttributes.fetchpriority} type={avif ? 'image/avif' : undefined} href={preloadImage.srcSet.attribute ? undefined : preloadImage.src} imagesrcset={preloadImage.srcSet.attribute || undefined} imagesizes={sizes} />}
+{preload && portrait && <link rel="preload" as="image" media="(orientation: portrait)" fetchpriority={htmlAttributes.fetchpriority} type={portrait.avif ? 'image/avif' : undefined} href={(portrait.avif || portrait.output).srcSet.attribute ? undefined : (portrait.avif || portrait.output).src} imagesrcset={(portrait.avif || portrait.output).srcSet.attribute || undefined} imagesizes={sizes} />}
+<>{avif || portrait ? <picture style="display:contents">
+ {portrait?.avif && <source media="(orientation: portrait)" type="image/avif" srcset={portrait.avif.srcSet.attribute || portrait.avif.src} sizes={renderedSizes} />}
+ {portrait && <source media="(orientation: portrait)" srcset={portrait.output.srcSet.attribute || portrait.output.src} sizes={renderedSizes} />}
+ {avif && <source type="image/avif" srcset={avif.srcSet.attribute || avif.src} sizes={renderedSizes} />}
+ <img {...htmlAttributes} />
+</picture> : <img {...htmlAttributes} />}</>
 <script>
  function clearImagePlaceholders() {
   document.querySelectorAll<HTMLImageElement>('img[data-lm-image-blur]').forEach(image => {

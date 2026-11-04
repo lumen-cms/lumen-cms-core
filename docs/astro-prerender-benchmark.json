@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-04",
+  "site": "students-de",
+  "astro": "7.4.4",
+  "adapter": "@astrojs/vercel 11.0.18",
+  "cmsCommit": "3e74d56daf6ff22eb39ffa700a70a816648fdf27",
+  "method": "Sequential local full static builds in an isolated copy, TARGET=SSG VERCEL=1, astro build --timings; live CMS/API data; one run per configuration. Existing workspace edits excluded. No claim of controlled hosted A/B results.",
+  "routes": 985,
+  "runs": [
+    {
+      "mode": "baseline",
+      "workers": false,
+      "concurrency": 1,
+      "astroTotalSeconds": 422,
+      "wallSeconds": 424.55,
+      "generatePagesSeconds": 406,
+      "maxRssBytes": 2252390400
+    },
+    {
+      "mode": "parallel",
+      "workers": 3,
+      "concurrency": 1,
+      "astroTotalSeconds": 179,
+      "wallSeconds": 179.84,
+      "generatePagesSeconds": 163,
+      "maxRssBytes": 1761263616
+    },
+    {
+      "mode": "concurrency",
+      "workers": false,
+      "concurrency": 3,
+      "astroTotalSeconds": 251,
+      "wallSeconds": 252.08,
+      "generatePagesSeconds": 238,
+      "maxRssBytes": 2133590016
+    }
+  ],
+  "outputComparison": [
+    {
+      "mode": "workers-3",
+      "staticFiles": 1084,
+      "missing": [],
+      "added": [],
+      "byteDifferences": [
+        "auslandsprogramme-universitaeten-schulen/index.html"
+      ],
+      "differencesAfterGoogleFormsTokenNormalization": []
+    },
+    {
+      "mode": "concurrency-3",
+      "staticFiles": 1084,
+      "missing": [],
+      "added": [],
+      "byteDifferences": [
+        "auslandsprogramme-universitaeten-schulen/index.html"
+      ],
+      "differencesAfterGoogleFormsTokenNormalization": []
+    }
+  ],
+  "hostedBaseline": {
+    "url": "https://students-de-astro-4v1un632u-lumenmedia1.vercel.app",
+    "deploymentId": "dpl_HNy5damptZgWLBbdXgCGVqpD8JFH",
+    "machine": "4 cores / 8 GB Standard",
+    "buildStartToReadySeconds": 361.017,
+    "prerenderSeconds": 306
+  },
+  "hostedParallelTest": {
+    "url": "https://students-de-astro-i6ih02fal-lumenmedia1.vercel.app",
+    "inspectorUrl": "https://vercel.com/lumenmedia/students-de-astro/4ffKCaudMHaTE9RmRGfczxTB9eKi",
+    "deploymentId": "dpl_4ffKCaudMHaTE9RmRGfczxTB9eKi",
+    "status": "READY",
+    "target": "preview",
+    "machine": "4 cores / 8 GB Standard",
+    "workers": 3,
+    "buildMode": "TARGET=SSG",
+    "buildStartToReadySeconds": 123.572,
+    "prerenderSeconds": 84,
+    "routeCount": 985,
+    "routeInventoryMatchesHostedBaseline": true,
+    "caveat": "Single hosted preview compared with the earlier production baseline; both restored build caches, but environment, cache source and live API conditions can differ. Production unchanged.",
+    "smokeChecks": {
+      "homepage": 200,
+      "travelDetail": 200,
+      "sitemap": 200,
+      "sitemapEntries": 977,
+      "contentVerified": true
+    }
+  },
+  "recommendation": "Enabled experimental.parallelPrerender with workers: 3 in the local students-de consumer config. Hosted preview passed; retain the fixed worker cap and default build.concurrency. Production rollout remains separate.",
+  "references": [
+    "https://astro.build/blog/astro-740/#experimental-parallel-prerendering",
+    "https://docs.astro.build/en/reference/experimental-flags/parallel-prerender/"
+  ]
+}
