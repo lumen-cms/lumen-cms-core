@@ -32,6 +32,12 @@ const image = 'https://a.storyblok.com/f/123/800x400/fixture.jpg'
   <div id="image-cards" style="width:300px;margin:30px">
    <Block context={context} content={{ component: 'card_list', _uid: 'image-only', image_ratio: '4x3', column_count: '1', column_count_tablet: '1', body: [{ component: 'card_list_item', _uid: 'sports-card', image, link }] }} />
   </div>
+  <div id="course-card" style="width:300px">
+   <Block context={context} content={{ component: 'card', _uid: 'course-card', link, body_above_media: [{ component: 'button', _uid: 'course-above', label: 'Above media' }], body: [heading('Course'), { component: 'column', _uid: 'course-column', body: [{ component: 'button', _uid: 'course-start', label: 'Get started', variant: 'raised' }] }], body_actions: [{ component: 'button', _uid: 'course-footer', label: 'Continue course' }, { component: 'button', _uid: 'course-action', label: 'Custom action', on_click_function: 'courseAction' }], body_on_hover: [{ component: 'button', _uid: 'course-hover', label: 'Hover course' }] }} />
+  </div>
+  <div id="unlinked-card">
+   <Block context={context} content={{ component: 'card', _uid: 'unlinked-card', body: [{ component: 'button', _uid: 'standalone-button', label: 'Standalone button' }] }} />
+  </div>
   <div id="accordion">
    <Block context={context} content={{ component: 'accordion', _uid: 'animated', restrict_one: true, body: ['First', 'Second'].map(title => ({ component: 'accordion_item', _uid: title, title, body: [{ ...heading(`${title} content`), styles: [{ component: 'styles', _uid: `${title}-height`, height: '200px' }] }] })) }} />
   </div>

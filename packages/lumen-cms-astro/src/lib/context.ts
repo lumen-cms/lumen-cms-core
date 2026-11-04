@@ -12,7 +12,7 @@ export interface RenderContext {
   theme: CmsTheme
   page: AppPageProps & { allShopifyProducts?: AllProductsQuery['products']['edges']; storyLinkIndex?: Record<string, string> }
   preview: boolean
-  /** Render non-action button blocks as decoration inside native summaries. */
+  /** Render non-action button blocks as decoration inside summaries and linked cards. */
   decorativeButtons?: boolean
   components?: AstroRendererOverrides
   linkRenderer?: AstroComponentFactory

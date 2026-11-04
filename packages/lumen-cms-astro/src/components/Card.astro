@@ -19,6 +19,6 @@ const { href, target, rel, download } = getLinkAttrs(content.link as LinkType, {
  <Background content={background} />
  {href ? <>
   <CmsAnchor context={context} href={href} target={target} rel={rel} download={download} aria-label={accessibleLinkName(href)} class="MuiCardActionArea-root lm-card-cover-link" />
-  <div class="lm-card-linked-content"><CardBody content={content} context={context} /></div>
+  <div class="lm-card-linked-content"><CardBody content={content} context={{ ...context, decorativeButtons: true }} /></div>
  </> : <CardBody content={content} context={context} />}
 </div>
