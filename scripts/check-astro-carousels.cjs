@@ -61,10 +61,10 @@ async function main() {
     await page.locator('[data-parity-slide="1"]').hover(); await page.waitForTimeout(1800); await selected(page,1)
     await page.mouse.move(0,0); await selected(page,2)
     if (renderer === 'astro') {
-     await page.getByRole('button',{name:'Pause slideshow'}).click()
-     await page.waitForTimeout(1800); await selected(page,2)
+     assert.equal(await page.locator('[data-carousel-pause]').count(), 0, 'CMS carousels must not show the removed pause/start control')
      await page.emulateMedia({reducedMotion:'reduce'})
-     await selected(page,2); await page.getByRole('button',{name:'Start slideshow'}).click(); await page.mouse.move(0,0); await selected(page,0)
+     await page.waitForTimeout(1800); await selected(page,2)
+     await page.getByRole('button',{name:'Next slide',exact:true}).click(); await selected(page,0)
     }
    } else if (variant === 'single') {
     await gesture(page,true,true); await selected(page,0)
@@ -86,6 +86,28 @@ async function main() {
      await page.getByRole('button',{name:/^next slide$/i}).click(); await selected(page,1)
     }
    }
+   await context.close()
+  }
+  for (const feature of ['swiper', 'advanced']) for (const width of [390, 1280]) {
+   const context = await browser.newContext({ viewport: { width, height: 800 } })
+   const page = await context.newPage(); page.on('pageerror', e => errors.push(e.message))
+   await page.goto(`${origin}/bundle-fixtures/${feature}/`, { waitUntil: 'networkidle' })
+   const next = page.getByRole('button', { name: 'Next slide', exact: true })
+   await next.scrollIntoViewIfNeeded()
+   await page.waitForFunction(() => {
+    const viewport = document.querySelector('.swiper,.lm-native-carousel')
+    return !!(viewport?.swiper || viewport?.dataset.initialized)
+   })
+   assert.equal(await page.locator('[data-carousel-pause]').count(), 0)
+   assert.deepEqual(await next.evaluate(el => {
+    const style = getComputedStyle(el), svg = el.querySelector('svg')
+    return [style.borderWidth, style.backgroundColor, !!svg, svg && getComputedStyle(svg).fill]
+   }), ['0px', 'rgba(0, 0, 0, 0)', true, 'none'])
+   await next.click()
+   await page.waitForFunction(() => {
+    const viewport = document.querySelector('.swiper,.lm-native-carousel')
+    return (viewport?.swiper?.realIndex ?? Number(viewport?.dataset.carouselIndex)) === 1
+   })
    await context.close()
   }
   for (const feature of ['lightbox', 'shopify']) {

@@ -18,3 +18,6 @@
 .lm-swiper .swiper-button-lock { display: none; }
 .lm-swiper .swiper-button-prev::after,
 .lm-swiper .swiper-button-next::after { content: none; }
+/* Short logo strips can put the full-width pagination layer over the arrows. */
+.lm-swiper .swiper-pagination { pointer-events: none; }
+.lm-swiper .swiper-pagination-bullet { pointer-events: auto; }
