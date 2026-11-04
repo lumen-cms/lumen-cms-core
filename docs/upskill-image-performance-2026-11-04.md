@@ -80,3 +80,20 @@ The desktop outlier `ktibwf5wu0` retained 0.582s LCP but had 528ms TBT: seven ve
 Five independent samples: mobile score median 96, range 92–98; LCP 2.327s in all five. Desktop score median 99, range 78–100; LCP 0.582s in all five. The previous 5–6s mobile simulated LCP spikes did not recur in this sample. This is evidence of more consistent initial rendering, not proof that all observed render delay or vendor CPU cost is eliminated. Real-user data is still absent from PSI.
 
 Validation passed: six tracking/loader unit tests; browser third-party regression audit; sample site build; consumer install, five consumer tests and build; shared repository pre-push React Doctor 100/100; production READY plus matching served deployment ID; deployed GA collection HTTP 204. No tracking account configuration or production analytics IDs were removed or changed.
+
+## Follow-up: preserving all HubSpot and Facebook tracking
+
+The follow-up request was to reduce desktop vendor blocking while retaining tracking. The user clarified that all existing behavior should remain because usage of automatic capture features is uncertain. No production tracking settings or runtime code were changed in this follow-up.
+
+The live HubSpot loader includes analytics, a consent/banner script, non-HubSpot form capture, and the conversations bootstrap. Its analytics library also performs substantial browser/iframe work. Removing automatic form capture, Facebook automatic events, or advanced matching would change behavior and was not authorized.
+
+Two approaches were prototyped only under `/tmp/upskill-worker-experiment`:
+
+1. Partytown 1.0.3 worker execution. GA stayed on the main thread. Facebook's documented proxy/forward configuration was tested. HubSpot's UI, consent/banner and form-capture scripts were kept on the main thread. HubSpot analytics encountered CORS/fallback and iframe-instance errors in compatibility probes, with missing analytics collection/cookies in those probes. Facebook-only Lighthouse testing did record Facebook (200), HubSpot (200), and GA (204) requests, but that alone does not establish full automatic-event, attribution, or navigation-time conversion equivalence. The worker variant was not promoted to production.
+2. Serial lazy-library startup, preserving original vendor APIs and queues, with GA first and a paint opportunity between script completions. Three alternating default-desktop samples each measured 0ms TBT in the current and candidate versions on the local machine. To expose CPU cost, three more alternating pairs used the same desktop configuration with a 4× CPU multiplier. Current-loader TBT was 211.5, 189, and 202.5ms (median 202.5ms); candidate TBT was 227.9, 247.6, and 165ms (median 227.9ms). All six recorded GA, Facebook, and HubSpot page-view collection requests. This does not demonstrate a consistent reduction, so the candidate was not shipped. These are local diagnostic measurements, not public PageSpeed results.
+
+The original deployment remains in place. Its existing eager-image paint scheduling and click-only chat still apply. There is no newly claimed desktop score improvement and no consumer pin update in this follow-up. Further reductions need a compatibility-proven worker implementation or an account-level inventory establishing which automatic vendor features can be removed without changing required tracking.
+
+Primary references: [Astro Partytown integration](https://docs.astro.build/en/guides/integrations-guide/partytown/), [Facebook Pixel configuration](https://partytown.qwik.dev/facebook-pixel/), [Partytown trade-offs](https://partytown.qwik.dev/trade-offs/), and [HubSpot tracking-code responsibilities](https://knowledge.hubspot.com/reports/install-the-hubspot-tracking-code). Partytown specifically documents unreliable page-exit handlers; GA was not moved into a worker.
+
+The final combined-worker Lighthouse diagnostic recorded successful GA and Facebook requests, but the HubSpot collection request had Lighthouse status `-1`, not a verified successful response. A high score from that candidate is therefore not accepted as evidence of a safe tracking-preserving improvement.
