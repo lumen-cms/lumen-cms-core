@@ -1,11 +1,12 @@
 ---
 import { getImage, imageConfig } from 'astro:assets'
-import { isRemoteAllowed } from 'astro/assets/utils'
+import { inferRemoteSize, isRemoteAllowed } from 'astro/assets/utils'
 import type { HTMLAttributes } from 'astro/types'
 import type { ImageOutputFormat } from 'astro'
 import { imageDimensions, publicImageMetadata } from '../images/dimensions'
 import { isStoryblokImage, isSvgImage, normalizeImageSource, responsiveCandidates } from '../images/policy'
 import { storyblokImageUrl } from '../images/storyblok-service'
+import { proxyImageUrl } from '../images/proxy'
 interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
  src: string; alt: string; width?: number; height?: number; widths?: number[]; densities?: (number | `${number}x`)[]
  quality?: number; format?: ImageOutputFormat; fit?: 'contain' | 'cover' | 'fill' | 'inside' | 'outside'; position?: string
@@ -14,18 +15,36 @@ interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> 
 const { src: input, width, height, widths, densities, quality = Number(process.env.PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, portraitSrc, blurDataURL, unoptimized, autoSizes = true, style, ...attrs } = Astro.props
 async function resolveImage(input: string) {
  const source = normalizeImageSource(input)
- const unauthorized = /^https?:/.test(source) && !isRemoteAllowed(source, imageConfig)
+ const sharedProxy = /^https?:/.test(source) && !isStoryblokImage(source)
+ const unauthorized = /^https?:/.test(source) && !isRemoteAllowed(source, imageConfig) && !sharedProxy
  const bypass = unauthorized || unoptimized || /\.ico(?:[?#]|$)/i.test(source) || isSvgImage(source) || /^(data:|blob:)/.test(source)
  // Unknown unoptimized fill sources need only a CSS box, not invented intrinsic attributes.
- const dimensions = width && height ? { width, height } : fill && bypass ? { width: 1536, height: 1536 } : await imageDimensions(source, imageConfig)
+ const dimensions = width && height ? { width, height } : fill && (bypass || sharedProxy) ? { width: 1536, height: 1536 } : sharedProxy && !bypass && !isRemoteAllowed(source, imageConfig)
+  ? await inferRemoteSize(proxyImageUrl(source, { width: 1536, quality, format: 'webp' }))
+  : await imageDimensions(source, imageConfig)
  const sizes = attrs.sizes || (fill ? '100vw' : undefined)
  const candidates = bypass ? [] : responsiveCandidates(dimensions.width, sizes, widths, densities)
  const useCdn = isStoryblokImage(source) && !bypass && !format && !fit && !position
  type ImageResult = { src: string; srcSet: { attribute: string }; attributes: Record<string, unknown> }
  let output: ImageResult
  let avif: ImageResult | undefined
+ let webp: ImageResult | undefined
  if (useCdn || bypass) {
   output = { src: useCdn ? storyblokImageUrl(source, dimensions.width, quality) : source, srcSet: { attribute: useCdn ? candidates.map(c => `${storyblokImageUrl(source, c.width, quality)} ${c.descriptor}`).join(', ') : '' }, attributes: dimensions }
+ } else if (sharedProxy) {
+  const variant = (outputFormat: string): ImageResult => {
+   const url = (candidateWidth: number) => proxyImageUrl(source, {
+    width: candidateWidth, quality, format: outputFormat, fit, position,
+    ...(fit && width && height ? { height: Math.round(candidateWidth * height / width) } : {}),
+   })
+   return { src: url(dimensions.width), srcSet: { attribute: candidates.map(c => `${url(c.width)} ${c.descriptor}`).join(', ') }, attributes: dimensions }
+  }
+  const animated = /\.(?:gif|webp)(?:[?#]|$)/i.test(source)
+  output = variant(format || (animated ? 'webp' : 'png'))
+  if (!format) {
+   webp = variant('webp')
+   if (!animated) avif = variant('avif')
+  }
  } else {
   const local = await publicImageMetadata(source)
   const transform = { src: local || source, ...dimensions, quality, format, fit: fit || 'inside' as const, position,
@@ -35,9 +54,9 @@ async function resolveImage(input: string) {
   // formats stay on Astro's animation-preserving default pipeline.
   if (!format && /\.(?:jpe?g|png)(?:[?#]|$)/i.test(source)) avif = await getImage({ ...transform, format: 'avif' })
  }
- return { output, avif, dimensions, sizes }
+ return { output, avif, webp, dimensions, sizes }
 }
-const { output, avif, dimensions, sizes } = await resolveImage(input)
+const { output, avif, webp, dimensions, sizes } = await resolveImage(input)
 const portrait = portraitSrc ? await resolveImage(portraitSrc) : undefined
 const imageStyle = [fill ? 'position:absolute;inset:0;width:100%;height:100%' : '', typeof style === 'string' ? style : Object.entries(style || {}).map(([key,value]) => value == null ? '' : `${key.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`)}:${value}`).join(';'), blurDataURL ? `background-image:url("${blurDataURL}");background-size:cover;background-position:center` : ''].filter(Boolean).join(';')
 const htmlAttributes = { ...output.attributes, ...attrs, src: output.src, srcset: output.srcSet.attribute || undefined, sizes, width: fill ? undefined : dimensions.width, height: fill ? undefined : dimensions.height, loading: preload ? 'eager' as const : attrs.loading || 'lazy', fetchpriority: attrs.fetchpriority || (preload ? 'high' : undefined), decoding: attrs.decoding || 'async', style: imageStyle || undefined, 'data-lm-image-blur': blurDataURL ? '' : undefined }
@@ -54,10 +73,12 @@ if (renderedSizes !== sizes) htmlAttributes.style = `${imageStyle};contain-intri
 ---
 {preload && <link rel="preload" as="image" media={portrait ? '(orientation: landscape)' : undefined} fetchpriority={htmlAttributes.fetchpriority} type={avif ? 'image/avif' : undefined} href={preloadImage.srcSet.attribute ? undefined : preloadImage.src} imagesrcset={preloadImage.srcSet.attribute || undefined} imagesizes={sizes} />}
 {preload && portrait && <link rel="preload" as="image" media="(orientation: portrait)" fetchpriority={htmlAttributes.fetchpriority} type={portrait.avif ? 'image/avif' : undefined} href={(portrait.avif || portrait.output).srcSet.attribute ? undefined : (portrait.avif || portrait.output).src} imagesrcset={(portrait.avif || portrait.output).srcSet.attribute || undefined} imagesizes={sizes} />}
-<>{avif || portrait ? <picture style="display:contents">
+<>{avif || webp || portrait ? <picture style="display:contents">
  {portrait?.avif && <source media="(orientation: portrait)" type="image/avif" srcset={portrait.avif.srcSet.attribute || portrait.avif.src} sizes={renderedSizes} />}
+ {portrait?.webp && <source media="(orientation: portrait)" type="image/webp" srcset={portrait.webp.srcSet.attribute || portrait.webp.src} sizes={renderedSizes} />}
  {portrait && <source media="(orientation: portrait)" srcset={portrait.output.srcSet.attribute || portrait.output.src} sizes={renderedSizes} />}
  {avif && <source type="image/avif" srcset={avif.srcSet.attribute || avif.src} sizes={renderedSizes} />}
+ {webp && <source type="image/webp" srcset={webp.srcSet.attribute || webp.src} sizes={renderedSizes} />}
  <img {...htmlAttributes} />
 </picture> : <img {...htmlAttributes} />}</>
 <script>

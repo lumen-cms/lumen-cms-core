@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "public",
+  "regions": ["fra1"],
+  "functions": { "api/image.mjs": { "maxDuration": 30, "memory": 2048 } }
+}

@@ -74,6 +74,16 @@ emits the existing `/_image` URLs and the runtime Sharp service transforms them.
 This avoids generating tens of thousands of travel-gallery image variants during
 each HTML build. Storyblok images continue to use its image CDN directly.
 
+The shared Frankfurt image proxy defaults to `https://img-prxy.lumen.media`.
+Set `IMAGE_PROXY_SECRET` to the same server-only signing secret used by the proxy,
+in both build and runtime environments. `PUBLIC_IMAGE_PROXY_URL` optionally
+overrides the default origin. Non-Storyblok remote raster
+images then use signed shared URLs, with AVIF/WebP picture sources and a PNG
+fallback. Arbitrary public HTTP(S) domains are supported through this path. Local
+assets and Storyblok retain their existing handling. Missing signing credentials
+fail explicitly rather than silently reverting to per-site optimization. See `services/image-proxy/README.md`
+in the core repository for deployment, caching semantics and limits.
+
 The following commands are the CMS repository's internal site harness, not a
 replacement for the consumer apps' Vercel deployments:
 
