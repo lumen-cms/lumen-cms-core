@@ -27,6 +27,11 @@ async function main() {
    await page.setViewportSize({ width, height: 800 })
    await page.goto(`http://127.0.0.1:${server.address().port}/ui-regressions/asana/`)
    await page.waitForFunction(() => document.querySelector('#accordion details')?.dataset.accordionGroup)
+   for (const alignment of ['left', 'center', 'right', 'justify', 'unset']) {
+    const expected = alignment === 'unset' ? (width >= 900 ? 'center' : 'start') : alignment
+    const actual = await page.locator(`#paragraph-align-${alignment} h2`).evaluate(el => getComputedStyle(el).textAlign)
+    assert.equal(actual, expected, `Rich-text heading alignment ${alignment} at ${width}px`)
+   }
    const language = page.getByRole('link', { name: 'Deutsch', exact: true })
    assert.equal(await language.evaluate(el => getComputedStyle(el).color), 'rgba(0, 0, 0, 0.87)')
    await page.getByRole('button', { name: 'Languages', exact: true }).click()

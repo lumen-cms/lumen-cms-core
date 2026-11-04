@@ -15,6 +15,11 @@ const image = 'https://a.storyblok.com/f/123/800x400/fixture.jpg'
 <body>
  <main style="max-width:900px;margin:auto;padding:24px">
   <h1>Asana UI regression cases</h1>
+  <div id="paragraph-alignment">
+   {(['left', 'center', 'right', 'justify', undefined] as const).map(align => <div id={`paragraph-align-${align || 'unset'}`}>
+    <Block context={context} content={{ component: 'rich_text_editor', _uid: `align-${align || 'unset'}`, align, class_names: { values: ['text-md-center'] }, body: { type: 'doc', content: [{ type: 'heading', attrs: { level: 2 }, content: [{ type: 'text', text: 'Take the next step' }] }] } }} />
+   </div>)}
+  </div>
   <div id="buttons">
    <Block context={context} content={{ component: 'button', _uid: 'primary-text', label: 'Primary text', color: 'primary', link }} />
    <Block context={context} content={{ component: 'button', _uid: 'unelevated', label: 'Unelevated', variant: 'unelevated', color: 'primary_text', link }} />
