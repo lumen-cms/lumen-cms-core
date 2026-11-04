@@ -32,7 +32,8 @@ const theme = context.theme
 const serverData = previewServerData(page)
 const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.PUBLIC_GTM_CONTAINER?.trim(), googleAnalyticsId: process.env.PUBLIC_GA, deferLibraries: true })
 const workerScripts = !process.env.PUBLIC_GTM_CONTAINER?.trim() ? tracking.scripts.filter(script => script.id === 'gtag-init' || script.id === 'gtag-library') : []
-const scripts = [...tracking.scripts.filter(script => !workerScripts.includes(script)), ...(settings.scripts || [])]
+const workerScriptSet = new Set(workerScripts)
+const scripts = [...tracking.scripts.filter(script => !workerScriptSet.has(script)), ...(settings.scripts || [])]
 ;(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead = true
 const fontsHref = getFontBasedOnSetting(settings)
 const fontCss = getGoogleFontsCss(fontsHref)
