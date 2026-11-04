@@ -21,3 +21,7 @@ it('emits encoded managed URLs with allowed widths and truthful width descriptor
  expect(vercelImageVariant(source, 301, 75).width).toBe(360)
  expect(() => vercelImageVariant(source, NaN, 75)).toThrow()
 })
+
+it('provides the remote allowlist explicitly to the managed optimizer', () => {
+ expect(vercelImageConfig.remotePatterns).toContainEqual({ protocol: 'https', hostname: '**.public.blob.vercel-storage.com' })
+})
