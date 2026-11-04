@@ -55,4 +55,5 @@ export async function handleRequest(request, load = fetchImage) {
       } })
     } catch { return errorResponse(502, 'Unable to process image') }
 }
-export default { fetch: request => handleRequest(request) }
+const imageProxy = { fetch: request => handleRequest(request) }
+export default imageProxy
