@@ -1,0 +1,20 @@
+/* Keep CMS navigation independent of browser button defaults and font glyphs. */
+.lm-swiper .swiper-button-prev,
+.lm-swiper .swiper-button-next {
+ appearance: none;
+ background: transparent;
+ border: 0;
+ border-radius: 0;
+ padding: 0;
+ box-shadow: none;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: calc(var(--swiper-navigation-size, 44px) * 24 / 44);
+ height: var(--swiper-navigation-size, 44px);
+}
+.lm-swiper .swiper-button-prev > svg,
+.lm-swiper .swiper-button-next > svg { width: 100%; height: 100%; fill: none; }
+.lm-swiper .swiper-button-lock { display: none; }
+.lm-swiper .swiper-button-prev::after,
+.lm-swiper .swiper-button-next::after { content: none; }

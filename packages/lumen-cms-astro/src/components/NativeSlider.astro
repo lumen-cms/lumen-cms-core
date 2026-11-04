@@ -2,6 +2,8 @@
 import type { SwiperStoryblok, SliderStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 import type { RenderContext } from '../lib/context'
 import Block from './Block.astro'
+import CarouselChevron from './CarouselChevron.astro'
+import '../styles/carouselNavigation.css'
 import '../styles/nativeCarousel.css'
 interface Props { content: SwiperStoryblok | SliderStoryblok; context: RenderContext }
 const { content, context } = Astro.props
@@ -19,9 +21,8 @@ const color = (context.theme.palette[colorGroup] as Record<string, string> | und
     <Block content={legacy && child.component === 'section' ? { ...child, presetVariant: legacy.section_variant || 'transparent' } : child} context={context} options={modern} />
    </div>)}
  </div>
-  {!legacy && !props.includes('hide_arrows') && <><button class="swiper-button-prev" aria-label="Previous slide">‹</button><button class="swiper-button-next" aria-label="Next slide">›</button></>}
+  {!legacy && !props.includes('hide_arrows') && <><button class="swiper-button-prev" aria-label="Previous slide"><CarouselChevron previous /></button><button class="swiper-button-next" aria-label="Next slide"><CarouselChevron /></button></>}
   {!legacy && !props.includes('hide_pagination') && <div class="swiper-pagination">{content.body?.map((_, index) => <button type="button" class="swiper-pagination-bullet" data-slider-index={index} aria-label={`Slide ${index + 1}`} aria-current={index === 0 ? 'true' : undefined} />)}</div>}
- {!legacy && options.autoplay && <button type="button" class="btn btn-sm" data-carousel-pause>Pause slideshow</button>}
  {legacy && <div class="lm-slider-controls">
   {!props.includes('hide_arrows') && !props.includes('arrows_beside_pagination') && <><button type="button" class="lm-slider-arrow lm-slider-prev" data-slider-prev aria-label="Previous slide">‹</button><button type="button" class="lm-slider-arrow lm-slider-next" data-slider-next aria-label="Next slide">›</button></>}
   {!props.includes('hide_pagination') && <div class="lm-slider-pagination">
