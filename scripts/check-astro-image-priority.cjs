@@ -1,0 +1,53 @@
+const assert = require('node:assert/strict')
+const fs = require('node:fs/promises')
+const path = require('node:path')
+const http = require('node:http')
+const { spawn } = require('node:child_process')
+const sharp = require('sharp')
+const { load } = require('cheerio')
+const { chromium } = require('playwright')
+async function main() {
+ const root = path.resolve(__dirname, '..'), pkg = path.join(root, 'packages/lumen-cms-astro')
+ const temp = await fs.mkdtemp(path.join(pkg, '.priority-audit-')), out = path.join(temp, 'dist'), publicDir = path.join(temp, 'public')
+ let server, browser
+ try {
+  await fs.mkdir(publicDir)
+  const config = path.join(temp, 'astro.config.mjs')
+  await fs.writeFile(config, `import base from ${JSON.stringify(new URL(`file://${path.join(pkg, 'astro.config.mjs')}`).href)}; export default {...base,root:${JSON.stringify(pkg)},publicDir:${JSON.stringify(publicDir)},outDir:${JSON.stringify(out)}}`)
+  const child = spawn('pnpm', ['--filter','lumen-cms-astro','build','--config',path.relative(pkg,config)], {cwd:root,env:{...process.env,LUMEN_SITE:'',LUMEN_IMAGE_PRIORITY_AUDIT:'1',LUMEN_PUBLIC_DIR:publicDir,ASTRO_TELEMETRY_DISABLED:'1'},stdio:['ignore','pipe','pipe']})
+  let log=''; child.stdout.on('data',d=>log+=d); child.stderr.on('data',d=>log+=d)
+  assert.equal(await new Promise((resolve,reject)=>{child.on('error',reject);child.on('exit',resolve)}),0,log)
+  const $=load(await fs.readFile(path.join(out,'image-priority-audit/images/index.html'),'utf8'))
+  assert.equal($('#hero').attr('loading'),'eager'); assert.equal($('#hero').attr('decoding'),'sync'); assert.equal($('#hero').attr('fetchpriority'),'high')
+  assert.equal($('#hero').attr('sizes'),'200px')
+  assert.equal($('#explicit-decode').attr('decoding'),'async')
+  assert.equal($('#card').attr('sizes'),'auto, (min-width:600px) 33vw, 100vw')
+  assert.equal($('#card').parent().find('source').attr('sizes'),$('#card').attr('sizes'))
+  assert.equal($('#card').attr('loading'),'lazy'); assert.equal($('#card').attr('decoding'),'async')
+  assert.doesNotMatch($('#card').attr('style'),/contain-intrinsic-size/)
+  assert.equal($('#background').attr('sizes'),'100vw')
+  assert.equal($('#inline').attr('sizes'),'auto, 100vw')
+  server=http.createServer(async(req,res)=>{try{const name=new URL(req.url,'http://localhost').pathname;const file=path.join(out,name==='/'?'image-priority-audit/images/index.html':name);res.setHeader('Content-Type',file.endsWith('.js')?'text/javascript':file.endsWith('.html')?'text/html':file.endsWith('.avif')?'image/avif':'image/webp');res.end(await fs.readFile(file))}catch(error){console.error('Fixture asset error:',req.url,error.message);res.writeHead(404).end()}})
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve))
+  browser=await chromium.launch({headless:true})
+  for(const width of [375,1280]) {
+   const page=await browser.newPage({viewport:{width,height:800}}), requests=[]
+   page.on('request',r=>requests.push(r.url()))
+   await page.route('https://a.storyblok.com/**',async route=>{const width=Number(/\/m\/(\d+)x0/.exec(route.request().url())?.[1]||240);const body=await sharp({create:{width,height:Math.round(width/2),channels:3,background:'#e05020'}}).webp().toBuffer();await route.fulfill({contentType:'image/webp',body})})
+   await page.goto(`http://127.0.0.1:${server.address().port}/`)
+   await page.locator('#hero').evaluate(img=>img.decode())
+   await page.locator('#card').scrollIntoViewIfNeeded()
+   await page.locator('#card').evaluate(img=>img.decode())
+   const selected=await page.locator('#card').evaluate(img=>({src:img.currentSrc,width:img.getBoundingClientRect().width,height:img.getBoundingClientRect().height}))
+   assert.equal(selected.width,100); assert.equal(selected.height,75)
+   assert.match(selected.src,/\/m\/120x0\//,'Card must select the 120px variant for its 100px box')
+   const wanted=width<800?'portrait':'landscape',other=width<800?'landscape':'portrait'
+   assert.match(await page.locator('#hero').evaluate(img=>img.currentSrc),new RegExp(wanted))
+   assert.equal(requests.filter(url=>url.includes('/'+wanted+'.png')).length,1,'Preload and hero must share one download')
+   assert.equal(requests.some(url=>url.includes('/'+other+'.png')),false,'Inactive hero must not download')
+   await page.close()
+  }
+  console.log('Priority/card image audit passed: eager synchronous hero, one matching preload, portrait/landscape selection, measured lazy card sizes and stable layout at mobile/desktop widths.')
+ } finally {await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));await fs.rm(temp,{recursive:true,force:true})}
+}
+main().catch(error=>{console.error(error);process.exitCode=1})

@@ -82,6 +82,7 @@
     "test:astro:a11y-fixture": "node scripts/check-astro-a11y-fixture.cjs",
     "astro:a11y-report": "node scripts/report-astro-accessibility-ownership.cjs",
     "test:astro:images": "node scripts/check-astro-images.cjs",
+    "test:astro:image-priority": "node scripts/check-astro-image-priority.cjs",
     "test:astro:story-images": "node scripts/check-astro-story-images.cjs",
     "test:astro:packages": "node scripts/check-astro-packages.cjs && node scripts/check-astro-consumer-css.mjs && node scripts/check-astro-icons.mjs",
     "astro:sync-schemas": "node scripts/sync-astro-schemas.cjs"

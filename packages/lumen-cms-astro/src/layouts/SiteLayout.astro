@@ -41,6 +41,7 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
  <head>
   <meta charset="utf-8" />{!(settings.pwa_app_name && settings.pwa_app_description) && <meta name="format-detection" content="telephone=no" />}<meta name="viewport" content="width=device-width, initial-scale=1" />
   <PageMetadata page={page} />
+  <link rel="preconnect" href="https://a.storyblok.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
   {!fontCss && <link rel="preconnect" href="https://fonts.googleapis.com" />}
   {scripts.length > 0 && <CustomScripts scripts={scripts} />}

@@ -59,17 +59,18 @@ async function resolveImage(input: string) {
 const { output, avif, webp, dimensions, sizes } = await resolveImage(input)
 const portrait = portraitSrc ? await resolveImage(portraitSrc) : undefined
 const imageStyle = [fill ? 'position:absolute;inset:0;width:100%;height:100%' : '', typeof style === 'string' ? style : Object.entries(style || {}).map(([key,value]) => value == null ? '' : `${key.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`)}:${value}`).join(';'), blurDataURL ? `background-image:url("${blurDataURL}");background-size:cover;background-position:center` : ''].filter(Boolean).join(';')
-const htmlAttributes = { ...output.attributes, ...attrs, src: output.src, srcset: output.srcSet.attribute || undefined, sizes, width: fill ? undefined : dimensions.width, height: fill ? undefined : dimensions.height, loading: preload ? 'eager' as const : attrs.loading || 'lazy', fetchpriority: attrs.fetchpriority || (preload ? 'high' : undefined), decoding: attrs.decoding || 'async', style: imageStyle || undefined, 'data-lm-image-blur': blurDataURL ? '' : undefined }
+const htmlAttributes = { ...output.attributes, ...attrs, src: output.src, srcset: output.srcSet.attribute || undefined, sizes, width: fill ? undefined : dimensions.width, height: fill ? undefined : dimensions.height, loading: preload ? 'eager' as const : attrs.loading || 'lazy', fetchpriority: attrs.fetchpriority || (preload ? 'high' : undefined), decoding: attrs.decoding || (preload ? 'sync' : 'async'), style: imageStyle || undefined, 'data-lm-image-blur': blurDataURL ? '' : undefined }
 const preloadImage = avif || output
-// Lazy images can use their laid-out width instead of the generic viewport
-// estimate. Preserve explicit sizing rules and eager/LCP hints.
-// Exclude fill images, whose intrinsic dimensions are deliberately omitted.
-const renderedSizes = autoSizes && !fill && htmlAttributes.loading === 'lazy' && sizes === '100vw' && /\d+w(?:,|$)/.test(output.srcSet.attribute)
+// Opt in definite-size card boxes to native lazy-image auto sizing, retaining
+// their media-query fallback. Other fill images and explicit sizing rules keep
+// their existing behavior; eager/LCP images must never use auto sizes.
+const measuredSizes = Astro.props.autoSizes === true || (!fill && sizes === '100vw')
+const renderedSizes = autoSizes && measuredSizes && htmlAttributes.loading === 'lazy' && sizes && /\d+w(?:,|$)/.test(output.srcSet.attribute)
  ? `auto, ${sizes}` : sizes
 htmlAttributes.sizes = renderedSizes
 // Auto sizing enables size containment. Preserve the image's intrinsic box in
 // shrink-to-fit/flex layouts instead of the browser's default 300x150 fallback.
-if (renderedSizes !== sizes) htmlAttributes.style = `${imageStyle};contain-intrinsic-size:${dimensions.width}px ${dimensions.height}px`
+if (!fill && renderedSizes !== sizes) htmlAttributes.style = `${imageStyle};contain-intrinsic-size:${dimensions.width}px ${dimensions.height}px`
 ---
 {preload && <link rel="preload" as="image" media={portrait ? '(orientation: landscape)' : undefined} fetchpriority={htmlAttributes.fetchpriority} type={avif ? 'image/avif' : undefined} href={preloadImage.srcSet.attribute ? undefined : preloadImage.src} imagesrcset={preloadImage.srcSet.attribute || undefined} imagesizes={sizes} />}
 {preload && portrait && <link rel="preload" as="image" media="(orientation: portrait)" fetchpriority={htmlAttributes.fetchpriority} type={portrait.avif ? 'image/avif' : undefined} href={(portrait.avif || portrait.output).srcSet.attribute ? undefined : (portrait.avif || portrait.output).src} imagesrcset={(portrait.avif || portrait.output).srcSet.attribute || undefined} imagesizes={sizes} />}

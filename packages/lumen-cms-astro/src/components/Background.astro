@@ -12,7 +12,7 @@ const fixed = ['fixed_cover', 'fixed_image'].includes(backgroundStyle || '')
 {content && <>
  {source && <div class:list={['lm-background-images', { 'lm-background-fixed': fixed }]}>
   <div class="lm-background-image-frame">
-  <Image src={source!} portraitSrc={portraitSrc} fill alt="" widths={[640, 960, 1280, 1920, 2560]} sizes="100vw" quality={Number(content.quality) || undefined}
+  <Image src={source!} portraitSrc={portraitSrc} fill alt="" widths={[480, 640, 768, 960, 1280, 1920, 2560]} sizes="100vw" quality={Number(content.quality) || undefined}
     preload={priority} loading={priority || content.disable_lazy_loading ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : undefined}
     class:list={['lm-background-image', content.hide_image_on_breakpoint && `hide__${content.hide_image_on_breakpoint}`]}
     style={{ objectFit: content.background_size === 'auto' ? 'cover' : content.background_size || 'cover', objectPosition: content.background_position || 'center' }} />

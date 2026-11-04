@@ -9,7 +9,7 @@ const padding = content.content_padding ? `${Number(content.content_padding) * 8
 ---
 {content.body_above_media?.length && <div class="MuiCardContent-root lm-card-content" style={{ padding }}>{content.body_above_media.map(child => <Block content={child} context={context} />)}</div>}
 {content.media?.filename && <div class="MuiCardMedia-root lm-card-media" style={{ aspectRatio: content.media_aspect_ratio || '3/2', margin: content.media_margin ? `${Number(content.media_margin) * 8}px` : undefined }}>
- <Image src={content.media.filename} fill widths={[320,640,960,1280]} sizes={content.media_max_width ? `${content.media_max_width}px` : '300px'} alt={content.media.alt || 'card image'} style={{ width: '100%', height: '100%', position: 'absolute', objectFit: content.object_fit || 'cover', objectPosition: content.object_position || 'center' }} />
+ <Image src={content.media.filename} fill autoSizes widths={[320,480,640,768,960,1280]} quality={Number(process.env.PUBLIC_IMAGE_QUALITY) || 65} sizes={content.media_max_width ? `${content.media_max_width}px` : '300px'} alt={content.media.alt || 'card image'} style={{ width: '100%', height: '100%', position: 'absolute', objectFit: content.object_fit || 'cover', objectPosition: content.object_position || 'center' }} />
 </div>}
 {content.body?.length && <div class="MuiCardContent-root lm-card-content" style={{ padding, flexGrow: 1 }}>{content.body.map(child => <Block content={child} context={context} />)}</div>}
 {content.body_actions?.length && <div class="MuiCardActions-root lm-card-actions">{content.body_actions.map(child => <Block content={child} context={context} />)}</div>}

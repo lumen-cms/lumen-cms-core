@@ -1,0 +1,11 @@
+---
+import Image from '../../components/CmsImage.astro'
+export function getStaticPaths() { return process.env.LUMEN_IMAGE_PRIORITY_AUDIT ? [{ params: { fixture: 'images' } }] : [] }
+---
+<html><head><title>Priority and responsive card image regression</title></head><body>
+ <div style="position:relative;width:200px;height:120px"><Image id="hero" src="https://a.storyblok.com/f/1/240x120/landscape.png" portraitSrc="https://a.storyblok.com/f/1/240x120/portrait.png" fill preload sizes="200px" widths={[120,240]} alt="Hero" /></div>
+ <div style="position:relative;width:100px;height:75px"><Image id="card" portraitSrc="https://a.storyblok.com/f/1/240x120/card-portrait.png" src="https://a.storyblok.com/f/1/240x120/card.png" fill autoSizes sizes="(min-width:600px) 33vw, 100vw" widths={[120,240]} alt="Card" style={{objectFit:'cover'}} /></div>
+ <div style="position:relative;width:100px;height:75px"><Image id="background" src="https://a.storyblok.com/f/1/240x120/card.png" fill sizes="100vw" widths={[120,240]} alt="Background" /></div>
+ <div style="width:100px"><Image id="inline" src="https://a.storyblok.com/f/1/240x120/card.png" sizes="100vw" widths={[120,240]} alt="Inline" style={{width:'100%',height:'auto'}} /></div>
+ <Image id="explicit-decode" src="https://a.storyblok.com/f/1/240x120/card.png" width={120} height={60} preload decoding="async" alt="Explicit override" />
+</body></html>
