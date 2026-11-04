@@ -54,3 +54,13 @@ it('defers libraries while keeping early conversion events in provider queues', 
  expect(sandbox.adroll.at(-1)[1][0]).toBe('conversion')
  expect(plan.scripts.filter(script => script.url || script.id === 'googletagmanager').every(script => script.strategy === 'lazyOnload')).toBe(true)
 })
+
+it('uses the environment GA override once, with CMS fallback for blank overrides', () => {
+ const override = trackingScripts(settings, { production: true, googleAnalyticsId: ' G-ENV ', deferLibraries: true })
+ expect(override.scripts.filter(script => script.url?.includes('/gtag/js'))).toHaveLength(1)
+ expect(override.scripts.find(script => script.id === 'gtag-library')?.url).toContain('id=G-ENV')
+ expect(override.scripts.find(script => script.id === 'gtag-init')?.script_body).toContain('"G-ENV"')
+ expect(override.scripts.find(script => script.id === 'gtag-init')?.script_body).not.toContain('G-FIXTURE')
+ const fallback = trackingScripts(settings, { production: true, googleAnalyticsId: '  ' })
+ expect(fallback.scripts.find(script => script.id === 'gtag-library')?.url).toContain('id=G-FIXTURE')
+})

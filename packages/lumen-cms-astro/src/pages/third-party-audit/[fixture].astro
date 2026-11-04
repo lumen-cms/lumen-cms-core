@@ -11,7 +11,7 @@ const page = {
 ---
 <SiteLayout page={page}>
  <h1>Third-party loading audit</h1>
- <img src="/audit-gate.png" alt="" width="1" height="1" />
+ <img src="/audit-gate.png" fetchpriority="high" loading="eager" alt="" width="1" height="1" />
  <div style="height:4000px">Scroll to the form</div>
  <Hubspot content={{ component: 'hubspot_form', _uid: 'audit', portal_id: '123', form_id: 'form', region: 'eu1' }} />
  <div style="height:4000px">Scroll to the meeting</div>

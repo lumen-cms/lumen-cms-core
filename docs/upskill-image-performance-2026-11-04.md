@@ -44,3 +44,15 @@ Existing unrelated checks remain failing:
 ## Rollout
 
 Changes are local in the shared `lumen-cms-core` renderer. Nothing has been pushed or deployed. The `websites-astro` consumers pin published CMS commits; release the shared changes, update the consumer pin/lockfile using the existing distribution workflow, then rebuild Upskill. Re-run mobile and desktop PageSpeed against that deployment, and investigate a remote trace if the multi-second render delay persists. Do not report the local 95 as a production score.
+
+## Follow-up: third-party sources and first-paint scheduling
+
+The production script plan contains Storyblok GA `G-E5T41KXD1F`, Facebook pixel `726824377950061`, and the custom HubSpot account loader `4063132`. HubSpot adds analytics, collected forms, banner, and conversations bootstrap scripts. Chat UI remains click-only; embedded forms/meetings remain viewport-loaded. The production Vercel environment inventory contains neither `PUBLIC_GA` nor `PUBLIC_GTM_CONTAINER`.
+
+All configuration paths were checked: Storyblok `setup_google_analytics`, `setup_facebook_pixel`, AdRoll IDs, and `settings.scripts`; Astro `PUBLIC_GTM_CONTAINER`; legacy Next `NEXT_PUBLIC_GA` and `NEXT_PUBLIC_GTM_CONTAINER`, translated by reference tooling to Astro names. Astro's tracking generator previously ignored `PUBLIC_GA` even though the shared config exposed it. It now supports the trimmed environment GA override, falling back to the CMS ID without creating a second GA library/config. The Next runtime is unchanged.
+
+The old `lazyOnload` loader could insert vendor scripts at the first idle callback after load, before the priority image had decoded and painted. Lazy scripts now wait for eager/high-priority image decoding and two animation frames before idle scheduling. This is tied to page readiness, not a Lighthouse-specific delay, user-agent check, or interaction requirement. Hidden tabs skip frame waiting; a bounded frame fallback covers tabs backgrounded during scheduling. Early tracking queues and custom before/after-interactive strategies remain unchanged.
+
+Controlled diagnostics with all vendor requests blocked reduced blocking time to zero, but local simulated LCP did not consistently reproduce the large PSI swings. The first updated compressed local build measured 95 performance, 2.56s simulated LCP, 165ms TBT, and 17ms observed hero render delay. Its GA page_view returned HTTP 204. These local observations are not a claim of consistent production improvement; subsequent production PSI measurements are required.
+
+Regression coverage now gates priority decoding independently from window load, asserts vendor requests follow a paint opportunity, preserves an early conversion queue, and checks repeated initialization does not reload GA. Tracking unit tests cover environment override and CMS fallback. See [Google's LCP guidance](https://web.dev/articles/optimize-lcp) on JavaScript competing with rendering.

@@ -2,6 +2,27 @@ import type { CmsScript } from 'lumen-cms-shared/scripts'
 
 const scheduled = new Set<string>()
 const sources = new Set<string>()
+let initialPaint: Promise<void> | undefined
+/** load/idle alone can run before the loaded hero is decoded and painted. */
+function afterInitialPaint() {
+ return initialPaint ||= new Promise<void>(resolve => {
+  const loaded = async () => {
+   // Only eager priority images: never wait for below-the-fold lazy assets.
+   await Promise.allSettled([...document.querySelectorAll<HTMLImageElement>('img[fetchpriority="high"]')]
+    .filter(image => image.loading !== 'lazy')
+    .map(image => image.decode()))
+   if (document.visibilityState === 'hidden') { resolve(); return }
+   // The second frame follows a rendering opportunity. A backgrounded tab
+   // must still initialize analytics even when rAF is suspended.
+   let done = false
+   const finish = () => { if (done) return; done = true; clearTimeout(fallback); resolve() }
+   const fallback = setTimeout(finish, 1000)
+   requestAnimationFrame(() => requestAnimationFrame(finish))
+  }
+  if (document.readyState === 'complete') void loaded()
+  else window.addEventListener('load', () => { void loaded() }, { once: true })
+ })
+}
 export function initializeCmsScripts() {
  document.querySelectorAll<HTMLScriptElement>('script[data-lm-cms-script]').forEach(script => {
   scheduled.add(script.dataset.lmCmsScript!)
@@ -33,8 +54,7 @@ export function initializeCmsScripts() {
     else setTimeout(insert, 1)
    }
    if (entry.strategy === 'lazyOnload') {
-    if (document.readyState === 'complete') idle()
-    else window.addEventListener('load', idle, { once: true })
+    void afterInitialPaint().then(idle)
    } else insert()
   })
  })

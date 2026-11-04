@@ -27,12 +27,20 @@ async function main() {
   browser = await chromium.launch({ headless: true })
   const page = await browser.newPage(), requests = [], errors = []
   page.on('pageerror', error => errors.push(error.message))
+  await page.addInitScript(() => {
+   const decode = HTMLImageElement.prototype.decode
+   HTMLImageElement.prototype.decode = function () {
+    if (this.getAttribute('fetchpriority') !== 'high') return decode.call(this)
+    return new Promise(resolve => { window.releaseHeroDecode = resolve })
+   }
+  })
   let release
   const gate = new Promise(resolve => { release = resolve })
   await page.route('**/*', async route => {
    const url = new URL(route.request().url())
    if (url.pathname === '/audit-gate.png') { await gate; return route.fulfill({ status: 204 }) }
    if (url.origin === origin) return route.continue()
+   if (/facebook|googletagmanager|hs-scripts/.test(url.href)) assert.equal(await page.evaluate(() => window.heroPaintOpportunity),true,'Vendors must follow a hero paint opportunity')
    requests.push(url.href)
    let body = ''
    if (url.hostname.endsWith('hs-scripts.com')) body = `
@@ -50,8 +58,17 @@ async function main() {
   assert.equal(requests.some(url => /facebook|googletagmanager|hs-scripts/.test(url)),false,'Vendor libraries must wait for load/idle')
   await page.evaluate(() => { window.gtag('event','early-conversion'); window.fbq('track','Lead') })
   release()
+  await page.waitForFunction(() => typeof window.releaseHeroDecode === 'function')
+  assert.equal(requests.some(url => /facebook|googletagmanager|hs-scripts/.test(url)),false,'Load alone must not release vendors before priority image decoding')
+  await page.evaluate(() => {
+   window.releaseHeroDecode()
+   requestAnimationFrame(() => requestAnimationFrame(() => { window.heroPaintOpportunity = true }))
+  })
   await page.waitForFunction(() => !!window.HubSpotConversations)
   assert.equal(await page.evaluate(() => window.auditChatLoads),0)
+  assert.deepEqual(await page.evaluate(() => [...window.dataLayer.at(-1)]), ['event','early-conversion'])
+  await page.evaluate(() => document.dispatchEvent(new Event('astro:page-load')))
+  assert.equal(requests.filter(url => /gtag\/js/.test(url)).length,1,'Repeated initialization must not duplicate GA')
   assert.equal(requests.some(url => /hsforms|hsappstatic/.test(url)),false)
   const button = page.getByRole('button', { name:'Open chat', exact:true })
   await button.focus(); await button.press('Enter')

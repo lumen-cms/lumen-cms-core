@@ -1,7 +1,7 @@
 import type { GlobalStoryblok, ScriptStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 import { serializeJsonLd } from './seo'
 
-export function trackingScripts(settings: Partial<GlobalStoryblok>, options: { production: boolean; preview?: boolean; gtmContainer?: string; deferLibraries?: boolean }) {
+export function trackingScripts(settings: Partial<GlobalStoryblok>, options: { production: boolean; preview?: boolean; gtmContainer?: string; googleAnalyticsId?: string; deferLibraries?: boolean }) {
  const scripts: ScriptStoryblok[] = []
  const pixels: string[] = []
  if (!options.production || options.preview) return { scripts, pixels }
@@ -25,9 +25,10 @@ for(a=0;a<w.adroll.f.length;a++){w.adroll[w.adroll.f[a]]=w.adroll[w.adroll.f[a]]
 ${options.deferLibraries ? '' : "e=d.createElement('script');o=d.getElementsByTagName('script')[0];e.async=1;e.src=roundtripUrl;o.parentNode.insertBefore(e,o);"}})(window,document);
 adroll.track('pageView');`)
  if (options.deferLibraries && settings.setup_ad_roll_adv_id && settings.setup_ad_roll_pix_id) scripts.push({ component: 'script', _uid: 'adroll-library', id: 'adroll-library', strategy: 'lazyOnload', url: `https://s.adroll.com/j/${encodeURIComponent(settings.setup_ad_roll_adv_id)}/roundtrip.js` })
- if (settings.setup_google_analytics) {
-  scripts.push({ component: 'script', _uid: 'gtag-library', id: 'gtag-library', strategy: options.deferLibraries ? 'lazyOnload' : 'afterInteractive', url: `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(settings.setup_google_analytics)}` })
-  inline('gtag-init', `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${serializeJsonLd(settings.setup_google_analytics)},{page_path:window.location.pathname});`)
+ const googleAnalyticsId = options.googleAnalyticsId?.trim() || settings.setup_google_analytics?.trim()
+ if (googleAnalyticsId) {
+  scripts.push({ component: 'script', _uid: 'gtag-library', id: 'gtag-library', strategy: options.deferLibraries ? 'lazyOnload' : 'afterInteractive', url: `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleAnalyticsId)}` })
+  inline('gtag-init', `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${serializeJsonLd(googleAnalyticsId)},{page_path:window.location.pathname});`)
  }
  if (options.deferLibraries && options.gtmContainer) inline('gtm-queue', 'window.dataLayer=window.dataLayer||[];')
  if (options.gtmContainer) inline('googletagmanager', `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+encodeURIComponent(i)+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer',${serializeJsonLd(options.gtmContainer)});`)
