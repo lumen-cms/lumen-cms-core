@@ -13,3 +13,9 @@ const { content, context, options = {}, styleClass } = Astro.props
  </summary>
  <div class="collapse-content lm-accordion-content"><div class="w-100">{content.body?.map(child => <Block content={child} context={context} />)}</div></div>
 </details>
+<script>
+ import { initializeAccordions } from '../client/accordion'
+ initializeAccordions()
+ document.addEventListener('astro:page-load', initializeAccordions)
+ document.addEventListener('lumen:content-mounted', initializeAccordions)
+</script>

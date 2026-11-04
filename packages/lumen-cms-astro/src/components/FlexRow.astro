@@ -15,9 +15,9 @@ const direction = content.column ? 'column' : 'row'
     '--lm-direction': direction,
     '--lm-gap': `${Number(content.gap || 0) * 8}px`,
     '--lm-wrap': content.flex_wrap || 'wrap',
-    '--lm-justify': content.justify || undefined,
-    '--lm-align-items': content.align_items || undefined,
-    '--lm-align-content': content.align_content || undefined
+    '--lm-justify': content.justify || 'normal',
+    '--lm-align-items': content.align_items || 'normal',
+    '--lm-align-content': content.align_content || 'normal'
   }}
 >
   <slot />

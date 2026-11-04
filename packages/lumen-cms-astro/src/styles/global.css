@@ -20,7 +20,7 @@
    Component display utilities must not override the browser's hidden state. */
 [hidden]:not([hidden="until-found"]) { display: none !important; }
 @layer base {
- html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; box-sizing: border-box; }
+ html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; box-sizing: border-box; scroll-behavior: smooth; }
  *, *::before, *::after { box-sizing: inherit; }
  strong, b { font-weight: 700; }
  @media print { body { background-color: white; } }
@@ -183,14 +183,14 @@
  .lm-inline-svg { display: inline-block; }
  .lm-inline-svg svg { width: 100%; height: 100%; }
  .lm-inline-svg.has-color path { fill: currentColor; }
- .lm-background-images, .lm-background-image, .lm-background-elements { position: absolute; inset: 0; width: 100%; height: 100%; }
+ .lm-background-images, .lm-background-image-frame, .lm-background-image, .lm-background-elements { position: absolute; inset: 0; width: 100%; height: 100%; }
  .lm-background-images { pointer-events: none; }
  @media (orientation: landscape) { .lm-background-image.portrait { display: none !important; } }
  @media (orientation: portrait) { .lm-background-image.landscape { display: none !important; } }
  @media (max-width:599.95px) { .lm-background-image.hide__xs { display: none !important; } }
  @media (max-width:899.95px) { .lm-background-image.hide__sm { display: none !important; } }
  @media (max-width:1279.95px) { .lm-background-image.hide__md { display: none !important; } }
- @media (min-width:600px) { .lm-background-fixed { clip-path: polygon(0px 0px,100% 0px,100% 100%,0px 100%); } .lm-background-fixed .lm-background-image { position: fixed; z-index: -1; } }
+ @media (min-width:600px) { .lm-background-fixed { clip-path: polygon(0px 0px,100% 0px,100% 100%,0px 100%); z-index: 0; } .lm-background-fixed .lm-background-image-frame { position: fixed; z-index: -1; overflow: hidden; } }
  .lm-avatar { display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; line-height: 1; }
  .lm-iframe { position: relative; }
  .lm-card { color: var(--color-base-content); background: var(--color-base-100); border-radius: 4px; overflow: hidden; }
@@ -201,6 +201,16 @@
  .lm-card-media { position: relative; overflow: hidden; }
  .lm-card-actions { display: flex; align-items: center; padding: 8px; gap: 8px; }
  .lm-card-link { display: block; color: inherit; text-decoration: none; height: 100%; }
+ .lm-card-link:is(a,button), .lm-card-cover-link { position: relative; isolation: isolate; }
+ .lm-card-link:is(a,button)::after, .lm-card-cover-link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: currentColor; opacity: 0; pointer-events: none; transition: opacity 150ms; z-index: 1; }
+ @media (hover:hover) { .lm-card-link:is(a,button):hover::after, .lm-card:has(.lm-card-cover-link):hover > .lm-card-cover-link::after { opacity: .04; } }
+ .lm-card-link:is(a,button):focus-visible::after, .lm-card-cover-link:focus-visible::after { opacity: .12; }
+ .lm-card-link:is(a,button):active::after, .lm-card-cover-link:active::after { opacity: .16; }
+ .lm-card > .lm-card-cover-link { position: absolute; inset: 0; z-index: 1; color: inherit; border-radius: inherit; }
+ .lm-card-linked-content { display: contents; }
+ .lm-card-linked-content :is(a,button,input,select,textarea,summary,[tabindex]) { position: relative; z-index: 2; }
+ .lm-card-cover-link ~ .lm-card-linked-content .lm-main__hover { pointer-events: none; }
+ .lm-card-cover-link ~ .lm-card-linked-content .lm-main__hover :is(a,button) { pointer-events: auto; }
  .lm-main__hover { display: none; position: absolute; inset: 0; }
  .lm-card:hover .lm-main__hover { display: flex; }
  .lm-card-list { overflow: visible; flex-grow: 1; }

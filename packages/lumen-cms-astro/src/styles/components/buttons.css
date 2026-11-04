@@ -23,8 +23,17 @@
  .btn.lm-button.lm-button-xlarge { font-size: 20px; }
  .btn.lm-button.lm-button-shaped { border-radius: 2em; }
  .btn.lm-button.lm-button-square { border-radius: 0; }
- .btn.lm-button.lm-unelevated { box-shadow: none; }
+ .btn.lm-button.lm-unelevated:not(.btn-ghost):not(.btn-outline) { box-shadow: none; }
  .btn.lm-button.lm-grey-button { --btn-color: #e0e0e0; --btn-fg: rgba(0,0,0,.87); }
+ .btn.lm-button.lm-grey-button:not(.btn-ghost):not(.btn-outline):where(:not([data-custom-background])) { background-color: #e0e0e0; }
+ .btn.lm-button.lm-grey-button:not(.btn-ghost):not(.btn-outline):where(:not([data-custom-foreground])) { color: rgba(0,0,0,.87); }
+ .btn.lm-button:is(.btn-ghost, .btn-outline) { background-color: transparent; color: var(--btn-color, var(--color-base-content)); }
+ .btn.lm-button.lm-color-inherit { color: inherit; }
+ @media (hover:hover) {
+  .btn.lm-button:is(.btn-ghost, .btn-outline):hover { background-color: color-mix(in srgb, currentColor 4%, transparent); }
+  .btn.lm-button.lm-grey-button:not(.btn-ghost):not(.btn-outline):where(:not([data-custom-background])):hover { background-color: #d5d5d5; }
+ }
+ .btn.lm-button:is(.btn-ghost, .btn-outline):focus-visible { background-color: color-mix(in srgb, currentColor 12%, transparent); }
  .btn.lm-button.lm-grey-button.btn-ghost:where(:not([data-custom-foreground])), .btn.lm-button.lm-grey-button.btn-outline:where(:not([data-custom-foreground])) { color: var(--color-base-content); }
  .btn.lm-button.lm-icon-button { min-width: 0; padding: 8px; border-radius: 50%; }
  .btn.lm-button.lm-icon-button.btn-sm { padding: 5px; }

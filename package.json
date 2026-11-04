@@ -75,6 +75,7 @@
     "test:astro:error-pages:live": "node scripts/check-astro-live-error-pages.mjs",
     "test:astro:error-routing": "node scripts/check-astro-error-routing.mjs",
     "test:astro:fixture": "node scripts/check-astro-fixture.cjs",
+    "test:astro:ui-regressions": "node scripts/check-astro-ui-regressions.cjs",
     "test:astro:story-list": "node scripts/check-astro-story-list.cjs",
     "astro:registry": "node scripts/astro-registry-audit.cjs",
     "test:astro:a11y": "node scripts/check-astro-accessibility.cjs",

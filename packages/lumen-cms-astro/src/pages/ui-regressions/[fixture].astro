@@ -1,0 +1,46 @@
+---
+import '../../styles/global.css'
+import Block from '../../components/Block.astro'
+import type { RenderContext } from '../../lib/context'
+import { createCmsTheme, themeCss } from 'lumen-cms-shared/theme'
+export function getStaticPaths() { return process.env.LUMEN_SITE ? [] : [{ params: { fixture: 'asana' } }] }
+const theme = createCmsTheme()
+const context = { theme, preview: false, page: { locale: 'en', slug: '/ui-regressions/asana' } } as RenderContext
+const link = { linktype: 'url' as const, url: '#destination', fieldtype: 'multilink' as const, cached_url: '#destination', id: '' }
+const heading = (text: string) => ({ component: 'headline' as const, _uid: text, text, typography: 'body1' as const })
+const image = 'https://a.storyblok.com/f/123/800x400/fixture.jpg'
+---
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><style is:inline set:html={themeCss(theme)} /></head>
+<body>
+ <main style="max-width:900px;margin:auto;padding:24px">
+  <h1>Asana UI regression cases</h1>
+  <div id="buttons">
+   <Block context={context} content={{ component: 'button', _uid: 'primary-text', label: 'Primary text', color: 'primary', link }} />
+   <Block context={context} content={{ component: 'button', _uid: 'unelevated', label: 'Unelevated', variant: 'unelevated', link }} />
+   <Block context={context} content={{ component: 'button', _uid: 'jobs', label: 'Jobs im Ausland', icon: { name: 'laptop-chromebook' }, link }} />
+  </div>
+  <div id="language" style="color:white">
+   <Block context={context} initialOpen content={{ component: 'nav_menu', _uid: 'language-menu', title: 'Languages', body: [{ component: 'row', _uid: 'language-row', body: [{ component: 'column', _uid: 'language-column', body: [{ component: 'button', _uid: 'language-de', label: 'Deutsch', link }] }] }] }} />
+  </div>
+  <div id="testimonial">
+   <Block context={context} content={{ component: 'flex_row', _uid: 'outer-row', align_items: 'center', justify: 'center', body: [{ component: 'flex_row', _uid: 'inner-column', column: true, body: [heading('Dietmar Blicker'), heading('Academy Karlsruher SC')] }] }} />
+  </div>
+  <div id="linked-card" style="width:300px">
+   <Block context={context} content={{ component: 'card', _uid: 'trip-card', full_height: true, link, body: [heading('Individuelle Suche'), { component: 'button', _uid: 'trip-action', label: 'Zur individuellen Anfrage', color: 'primary', link: { ...link, url: '#inquiry', cached_url: '#inquiry' } }] }} />
+  </div>
+  <div id="image-cards" style="width:300px;margin:30px">
+   <Block context={context} content={{ component: 'card_list', _uid: 'image-only', image_ratio: '4x3', column_count: '1', column_count_tablet: '1', body: [{ component: 'card_list_item', _uid: 'sports-card', image, link }] }} />
+  </div>
+  <div id="accordion">
+   <Block context={context} content={{ component: 'accordion', _uid: 'animated', restrict_one: true, body: ['First', 'Second'].map(title => ({ component: 'accordion_item', _uid: title, title, body: [{ ...heading(`${title} content`), styles: [{ component: 'styles', _uid: `${title}-height`, height: '200px' }] }] })) }} />
+  </div>
+  <div id="legacy-slider" style="position:relative;overflow:hidden;min-height:100px">
+   <Block context={context} content={{ component: 'slider', _uid: 'legacy', autoslide: '5000', body: ['Slide one', 'Slide two'].map(text => ({ component: 'section', _uid: text, body: [heading(text)] })) }} />
+  </div>
+  <a id="scroll-link" href="#destination">Scroll to destination</a>
+  <div style="height:1200px"></div>
+  <Block context={context} content={{ component: 'section', _uid: 'fixed-background', section_identifier: 'destination', background_style: 'fixed_cover', background: [{ component: 'background', _uid: 'fixed-image', image }], body: [heading('Fixed background')] }} />
+  <div id="inquiry" style="height:1200px">Inquiry</div>
+ </main>
+</body></html>

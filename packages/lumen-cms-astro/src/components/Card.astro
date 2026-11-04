@@ -17,5 +17,8 @@ const { href, target, rel, download } = getLinkAttrs(content.link as LinkType, {
 {css && !(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead && <style is:inline set:html={css} />}
 <div class:list={['card', 'MuiCard-root', 'lm-card', 'lm-card-standalone', className, backgroundShadowClass(background), background?.classNames?.values]} style={{ height: content.full_height ? '100%' : undefined, borderRadius: content.square ? '0' : undefined, border: content.variant === 'outlined' ? '1px solid rgba(0,0,0,.12)' : undefined, '--lm-card-elevation': content.variant !== 'outlined' ? context.theme.shadows[Number(content.elevation || 1)] : 'none', ...generateBackgroundStyles({ background, theme: context.theme }) }}>
  <Background content={background} />
- {href ? <CmsAnchor context={context} href={href} target={target} rel={rel} download={download} aria-label={!content.media?.filename && !content.body?.length && !content.body_above_media?.length && !content.body_actions?.length && !content.body_on_hover?.length ? accessibleLinkName(href) : undefined} class="MuiCardActionArea-root lm-card-link"><CardBody content={content} context={context} /></CmsAnchor> : <CardBody content={content} context={context} />}
+ {href ? <>
+  <CmsAnchor context={context} href={href} target={target} rel={rel} download={download} aria-label={accessibleLinkName(href)} class="MuiCardActionArea-root lm-card-cover-link" />
+  <div class="lm-card-linked-content"><CardBody content={content} context={context} /></div>
+ </> : <CardBody content={content} context={context} />}
 </div>
