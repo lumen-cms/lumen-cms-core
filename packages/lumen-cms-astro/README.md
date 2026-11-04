@@ -388,3 +388,11 @@ outbound payloads, not acceptance in GA reports.
 
 References: https://partytown.qwik.dev/astro/ and
 https://partytown.qwik.dev/google-tag-manager/.
+
+
+For a live deployment check, run `pnpm test:astro:google-deployment <url> ...`.
+It observes normal page views (without generating test conversions), checks
+worker execution and one successful page view per destination, and includes
+Google's `analytics.google.com` collection endpoint as well as
+`google-analytics.com`. A site without a configured GA4 ID must emit no Google
+collection requests.

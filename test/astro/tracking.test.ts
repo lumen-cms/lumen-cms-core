@@ -80,5 +80,5 @@ it('sends one explicit initial worker page view with automatic config page views
  runInNewContext(plan.scripts.find(script => script.id === 'gtag-init')!.script_body!, sandbox)
  const calls = Array.from(sandbox.dataLayer, (args: ArrayLike<unknown>) => Array.from(args))
  expect(calls[1]).toEqual(['config','G-WORKER',{page_path:'/course',send_page_view:false}])
- expect(calls.filter(args => args[0] === 'event')).toEqual([['event','page_view',{send_to:'G-WORKER',page_path:'/course'}]])
+ expect(calls.filter(args => args[0] === 'event')).toEqual([['event','page_view',{page_path:'/course'}]])
 })

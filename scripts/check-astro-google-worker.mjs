@@ -6,6 +6,7 @@ import { resolve, extname } from 'node:path'
 import { createRequire } from 'node:module'
 import { chromium } from 'playwright'
 
+const expectedDestinations = (process.env.EXPECTED_GOOGLE_DESTINATIONS || '').split(',').filter(Boolean)
 const realGoogleId = process.env.TEST_GOOGLE_ID || 'G-E5T41KXD1F'
 if (!/^G-[A-Z0-9]+$/.test(realGoogleId)) throw new Error('TEST_GOOGLE_ID must be a GA4 measurement ID')
 const root = fileURLToPath(new URL('../', import.meta.url))
@@ -94,6 +95,7 @@ try {
   await page.evaluate(()=>{gtag('event','purchase',{transaction_id:'worker-audit',value:12.34,currency:'EUR'});gtag('event','custom_conversion',{custom_parameter:'retained'})})
   await assertEventually(()=>hits.some(h=>h.get('en')==='purchase') && hits.some(h=>h.get('en')==='custom_conversion'))
   assert.equal(hits.filter(h=>h.get('en')==='page_view' && h.get('tid')===realGoogleId).length,1)
+  for (const id of expectedDestinations) assert.equal(hits.filter(h=>h.get('en')==='page_view' && h.get('tid')===id).length,1,`Missing or duplicate destination ${id}`)
   for (const id of new Set(hits.filter(h=>h.get('en')==='page_view').map(h=>h.get('tid')))) assert.equal(hits.filter(h=>h.get('en')==='page_view' && h.get('tid')===id).length,1)
   assert.ok(hits.some(h=>h.get('en')==='generate_lead'))
   const purchase=hits.find(h=>h.get('en')==='purchase')
