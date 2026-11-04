@@ -1,28 +1,30 @@
 ---
 import type { ListSearchAutocompleteStoryblok, ToolbarSearchStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 import type { RenderContext } from '../lib/context'
+import { getSearchMessages } from 'lumen-cms-shared/searchMessages'
 import Icon from './Icon.astro'
 import Button from './CmsButton.astro'
 interface Props { content: ListSearchAutocompleteStoryblok | ToolbarSearchStoryblok; context: RenderContext }
 const { content, context } = Astro.props
 const options: Partial<ListSearchAutocompleteStoryblok> = content.component === 'list_search_autocomplete' ? content : { placeholder: content.placeholder }
 const page = context.page
+const messages = getSearchMessages(page.locale)
 let prefix = page.defaultLocale !== page.locale ? page.locale : undefined
 if (process.env.PUBLIC_ROOT_DIRECTORY) prefix = process.env.PUBLIC_ROOT_DIRECTORY
 if (process.env.PUBLIC_ENABLE_LOCALE_SUFFIX) prefix = page.locale
 const config = { locales: page.locales, defaultLocale: page.defaultLocale, publicToken: process.env.PUBLIC_STORYBLOK_TOKEN || '', prefix, additionalLocales: page.locales?.filter(locale => locale !== page.defaultLocale).join(',') || '', rootDirectory: process.env.PUBLIC_ROOT_DIRECTORY, suppressSlugLocale: !!process.env.PUBLIC_SUPPRESS_SLUG_LOCALE, languages: process.env.PUBLIC_LANGUAGES?.split(',') || [] }
-const label = options.label || options.placeholder || 'Search'
+const label = options.label || options.placeholder || messages.search
 const id = `search-${content._uid}`
 ---
-<div data-lm-search style={{ width: options.fullwidth ? '100%' : undefined }} data-search-breakpoint={options.mobile_breakpoint} data-search-config={JSON.stringify(config)} data-not-found={options.not_found_label}>
+<div data-lm-search data-search-locale={page.locale} style={{ width: options.fullwidth ? '100%' : undefined }} data-search-breakpoint={options.mobile_breakpoint} data-search-config={JSON.stringify(config)} data-not-found={options.not_found_label}>
  {content.component === 'toolbar_search' && content.trigger?.length ? <span data-search-trigger>{content.trigger.map(button => <Button content={button} context={context} />)}</span> :
  <button type="button" data-search-trigger data-lm-search-version="command-palette-v1" data-lm-search-label={options.label || ''} data-lm-search-placeholder={options.placeholder || ''} class:list={['lm-search-opener', options.mobile_breakpoint && `lm-search-icon-below-${options.mobile_breakpoint}`]} aria-label={label} aria-haspopup="dialog" aria-controls={id} style={{ '--lm-search-width': options.fullwidth ? '100%' : '220px', height: `${Number(options.height) || (options.large ? 56 : 40)}px`, border: options.outlined ? '1px solid #0002' : '1px solid transparent', borderRadius: options.shape === 'square' ? 0 : options.shape === 'rounded' ? '20px' : '4px' }}>
-  <Icon name={options.icon?.name || 'magnify'} /><span class="lm-search-label">{options.label && <span style={{ display: 'block', fontSize: options.placeholder ? '.75rem' : undefined }}>{options.label}</span>}{(options.placeholder || !options.label) && <span style={{ opacity: .7 }}>{options.placeholder || 'Search'}</span>}</span>
+  <Icon name={options.icon?.name || 'magnify'} /><span class="lm-search-label">{options.label && <span style={{ display: 'block', fontSize: options.placeholder ? '.75rem' : undefined }}>{options.label}</span>}{(options.placeholder || !options.label) && <span style={{ opacity: .7 }}>{options.placeholder || messages.search}</span>}</span>
  </button>}
  <dialog id={id} class="lm-search-dialog" aria-labelledby={`${id}-title`} style={{ borderRadius: options.menu_border_radius || (options.menu_square ? '0' : undefined), border: options.menu_outlined ? '1px solid #0002' : undefined, boxShadow: options.menu_outlined ? 'none' : context.theme.shadows[options.menu_elevation !== undefined ? Number(options.menu_elevation) : 1] }}>
-  <div class="lm-search-heading"><h2 id={`${id}-title`}>{options.label || 'Search'}</h2><button type="button" class="btn btn-ghost btn-circle" data-search-close aria-label="Close search">×</button></div>
-  <div class="lm-search-body"><input class="input w-full" type="search" role="combobox" aria-label={options.label || 'Search'} aria-autocomplete="list" aria-expanded="true" aria-controls={`${id}-results`} placeholder={options.placeholder || 'Search pages and landing pages'} autocomplete="off" />
-   <div class="lm-search-status" role="status" aria-live="polite"><span data-search-status>Type at least 2 characters to search.</span><button type="button" hidden data-search-retry class="btn btn-ghost">Retry</button></div>
+  <div class="lm-search-heading"><h2 id={`${id}-title`}>{options.label || messages.search}</h2><button type="button" class="lm-search-close" data-search-close aria-label={messages.close}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button></div>
+  <div class="lm-search-body"><input class="input w-full" type="search" role="combobox" aria-label={options.label || messages.search} aria-autocomplete="list" aria-expanded="true" aria-controls={`${id}-results`} placeholder={options.placeholder || messages.placeholder} autocomplete="off" />
+   <div class="lm-search-status" role="status" aria-live="polite"><span data-search-status>{messages.minimum}</span><button type="button" hidden data-search-retry class="btn btn-ghost">{messages.retry}</button></div>
    <ul id={`${id}-results`} role="listbox" class="lm-search-results"></ul>
   </div>
  </dialog>
@@ -32,3 +34,19 @@ const id = `search-${content._uid}`
  initializeSearch()
  document.addEventListener('astro:page-load', initializeSearch); document.addEventListener('lumen:content-mounted', initializeSearch)
 </script>
+
+<style>
+ /* Keep command-palette controls independent of the site's display typography. */
+ .lm-search-dialog { border-radius: 12px; font-size: 1rem; line-height: 1.5; }
+ .lm-search-heading { gap: 16px; padding: 16px 20px 12px; }
+ .lm-search-heading h2 { margin: 0; font: inherit; font-size: 1.125rem; font-weight: 600; line-height: 1.5; letter-spacing: normal; text-transform: none; }
+ .lm-search-close { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 36px; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: inherit; cursor: pointer; opacity: .65; }
+ .lm-search-close:hover { opacity: 1; background: color-mix(in srgb, currentColor 8%, transparent); }
+ .lm-search-close:focus-visible { opacity: 1; outline: 2px solid currentColor; outline-offset: 2px; }
+ .lm-search-body { padding: 0 20px 12px; }
+ .lm-search-body input { width: 100%; height: 48px; padding: 0 14px; border: 1px solid color-mix(in srgb, currentColor 22%, transparent); border-radius: 8px; background: transparent; color: inherit; font: inherit; font-size: 1rem; box-shadow: none; }
+ .lm-search-body input:focus { border-color: currentColor; outline: 2px solid color-mix(in srgb, currentColor 15%, transparent); outline-offset: 2px; }
+ .lm-search-status { padding: 12px 0; font-size: .875rem; color: color-mix(in srgb, var(--color-base-content) 65%, var(--color-base-100)); }
+ .lm-search-results a { font-size: 1rem; }
+ @media(max-width:599.95px) { .lm-search-dialog { border-radius: 0; } }
+</style>

@@ -11,6 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { Close } from 'mdi-material-ui'
 import useSWR from 'swr'
+import { getSearchMessages, searchResultCount } from './searchMessages'
 import { CONFIG } from '../../utils/config'
 import { useAppContext } from '../provider/context/AppContext'
 import type { ListSearchAutocompleteStoryblok } from '../../typings/generated/components-schema'
@@ -30,6 +31,8 @@ export default function SearchPaletteDialog({
   content: ListSearchAutocompleteStoryblok
   onClose: () => void
 }) {
+  const { locale } = useAppContext()
+  const messages = getSearchMessages(locale)
   const searchInput = useRef<HTMLInputElement>(null)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -49,7 +52,11 @@ export default function SearchPaletteDialog({
             content.menu_elevation !== undefined
               ? Number(content.menu_elevation)
               : 1,
-          sx: { borderRadius: content.menu_border_radius || undefined }
+          sx: {
+            borderRadius:
+              content.menu_border_radius ||
+              (fullScreen || content.menu_square ? 0 : '12px')
+          }
         }
       }}
     >
@@ -57,12 +64,26 @@ export default function SearchPaletteDialog({
         sx={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          gap: 2,
+          p: '16px 20px 12px',
+          fontSize: '1.125rem',
+          fontWeight: 600,
+          lineHeight: 1.5
         }}
       >
-        {content.label || 'Search'}
-        <IconButton aria-label="Close search" onClick={onClose}>
-          <Close />
+        {content.label || messages.search}
+        <IconButton
+          aria-label={messages.close}
+          onClick={onClose}
+          sx={{
+            width: 36,
+            height: 36,
+            borderRadius: '8px',
+            color: 'text.secondary'
+          }}
+        >
+          <Close sx={{ fontSize: 20 }} />
         </IconButton>
       </DialogTitle>
       <SearchResults
@@ -90,20 +111,26 @@ function SearchStatus({
   notFoundLabel: string | undefined
   onRetry: () => void
 }) {
+  const { locale } = useAppContext()
+  const messages = getSearchMessages(locale)
   return (
-    <Box role="status" aria-live="polite" sx={{ py: 2 }}>
+    <Box
+      role="status"
+      aria-live="polite"
+      sx={{ py: 1.5, fontSize: '0.875rem', color: 'text.secondary' }}
+    >
       {queryLength < 2 ? (
-        'Type at least 2 characters to search.'
+        messages.minimum
       ) : busy ? (
-        'Searching…'
+        messages.searching
       ) : error ? (
         <>
-          Search could not be loaded. <Button onClick={onRetry}>Retry</Button>
+          {messages.error} <Button onClick={onRetry}>{messages.retry}</Button>
         </>
       ) : count === 0 ? (
-        notFoundLabel || 'No results found.'
+        notFoundLabel || messages.empty
       ) : (
-        `${count} results`
+        searchResultCount(count, locale)
       )}
     </Box>
   )
@@ -123,6 +150,7 @@ function SearchResults({
   const [input, setInput] = useState('')
   const [debounced, setDebounced] = useState('')
   const { locale, defaultLocale, locales } = useAppContext()
+  const messages = getSearchMessages(locale)
   const query = input.trim()
   useEffect(() => {
     const timer = setTimeout(() => setDebounced(query), 400)
@@ -172,7 +200,7 @@ function SearchResults({
   const inputProps = getInputProps()
   const busy = query.length >= 2 && (!ready || isLoading)
   return (
-    <DialogContent>
+    <DialogContent sx={{ px: 2.5, pb: 1.5 }}>
       <Box
         {...getRootProps()}
         onKeyDown={(event) => {
@@ -188,11 +216,18 @@ function SearchResults({
           fullWidth
           autoFocus
           inputRef={searchInput}
-          placeholder={content.placeholder || 'Search pages and landing pages'}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '8px',
+              fontSize: '1rem'
+            },
+            '& .MuiOutlinedInput-input': { py: '12px', px: '14px' }
+          }}
+          placeholder={content.placeholder || messages.placeholder}
           slotProps={{
             htmlInput: {
               ...inputProps,
-              'aria-label': content.label || 'Search'
+              'aria-label': content.label || messages.search
             }
           }}
         />

@@ -10,6 +10,7 @@ import { fetchSearchStories, SearchStory } from './searchPaletteData'
 import { AppContext } from '../provider/context/AppContext'
 
 let currentSlug = '/initial'
+let currentLocale = 'en'
 let currentElement: React.ReactNode
 vi.mock('./searchPaletteData', async (original) => ({
   ...(await original<typeof import('./searchPaletteData')>()),
@@ -75,7 +76,7 @@ const render = async (element: React.ReactNode) => {
       <AppContext.Provider
         value={{
           slug: currentSlug,
-          locale: 'en',
+          locale: currentLocale,
           defaultLocale: 'en',
           locales: ['en']
         }}
@@ -89,6 +90,7 @@ const render = async (element: React.ReactNode) => {
 }
 beforeEach(() => {
   currentSlug = '/initial'
+  currentLocale = 'en'
   vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)
   vi.useFakeTimers()
   vi.mocked(fetchSearchStories).mockReset().mockResolvedValue([])
@@ -298,4 +300,76 @@ it('preserves the live status sequence, custom empty text and result counts', as
   expect(status().textContent).toBe('2 results')
   await type('x')
   expect(status().textContent).toBe('Type at least 2 characters to search.')
+})
+
+it('localizes all palette states and accessible labels using the current locale', async () => {
+  currentLocale = 'de-DE'
+  vi.mocked(fetchSearchStories)
+    .mockResolvedValueOnce([result('one', 'Erste Seite')])
+    .mockResolvedValueOnce([
+      result('one', 'Erste Seite'),
+      result('two', 'Zweite Seite')
+    ])
+    .mockRejectedValueOnce(new Error('offline'))
+    .mockResolvedValue([])
+  await render(
+    <LmListSearchAutocomplete content={{ ...content, label: undefined }} />
+  )
+  expect(host.querySelector('button')?.getAttribute('aria-label')).toBe('Suche')
+  await click(host.querySelector('button')!)
+  await tick(250)
+  expect(document.querySelector('h2')?.textContent).toBe('Suche')
+  expect(
+    document.querySelector('[aria-label="Suche schließen"]')
+  ).not.toBeNull()
+  expect(document.querySelector('input')?.placeholder).toBe(
+    'Seiten und Landingpages durchsuchen'
+  )
+  expect(document.querySelector('input')?.getAttribute('aria-label')).toBe(
+    'Suche'
+  )
+  const status = () => document.querySelector('[role="status"]')?.textContent
+  expect(status()).toBe('Gib mindestens 2 Zeichen ein, um zu suchen.')
+  await type('eins')
+  expect(status()).toBe('Suche läuft…')
+  await tick()
+  expect(status()).toBe('1 Ergebnis')
+  await type('zwei')
+  await tick()
+  expect(status()).toBe('2 Ergebnisse')
+  await type('fehler')
+  await tick()
+  expect(status()).toContain('Die Suche konnte nicht geladen werden.')
+  await click(
+    Array.from(document.querySelectorAll('button')).find(
+      (button) => button.textContent === 'Erneut versuchen'
+    )!
+  )
+  expect(status()).toBe('Keine Ergebnisse gefunden.')
+  await click(document.querySelector('[aria-label="Suche schließen"]')!)
+  await click(host.querySelector('button')!)
+  await tick(250)
+  expect(status()).toBe('Gib mindestens 2 Zeichen ein, um zu suchen.')
+})
+
+it('preserves CMS translations over locale defaults', async () => {
+  currentLocale = 'de'
+  await render(
+    <SearchPaletteDialog
+      content={{
+        ...content,
+        label: 'Tutorials finden',
+        placeholder: 'Tutorial suchen',
+        not_found_label: 'Keine Tutorials'
+      }}
+      onClose={vi.fn()}
+    />
+  )
+  expect(document.querySelector('h2')?.textContent).toBe('Tutorials finden')
+  expect(document.querySelector('input')?.placeholder).toBe('Tutorial suchen')
+  await type('test')
+  await tick()
+  expect(document.querySelector('[role="status"]')?.textContent).toBe(
+    'Keine Tutorials'
+  )
 })

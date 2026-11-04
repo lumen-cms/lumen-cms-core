@@ -5,6 +5,8 @@ import IconButton from '@mui/material/IconButton'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { Magnify } from 'mdi-material-ui'
+import { useAppContext } from '../provider/context/AppContext'
+import { getSearchMessages } from './searchMessages'
 import LmIcon from '../icon/LmIcon'
 import { LmListSearchAutocompleteProps } from './listWidgetTypes'
 import {
@@ -47,6 +49,8 @@ function getOpenerStyles(content: LmListSearchAutocompleteProps['content']) {
 }
 
 function SearchOpenerLabel({ content }: LmListSearchAutocompleteProps) {
+  const { locale } = useAppContext()
+  const messages = getSearchMessages(locale)
   return (
     <Box component="span" sx={{ textAlign: 'left', overflow: 'hidden' }}>
       {content.label && (
@@ -62,7 +66,7 @@ function SearchOpenerLabel({ content }: LmListSearchAutocompleteProps) {
       )}
       {(content.placeholder || !content.label) && (
         <Box component="span" sx={{ opacity: 0.7 }}>
-          {content.placeholder || 'Search'}
+          {content.placeholder || messages.search}
         </Box>
       )}
     </Box>
@@ -70,6 +74,8 @@ function SearchOpenerLabel({ content }: LmListSearchAutocompleteProps) {
 }
 
 function SearchOpener({ content }: LmListSearchAutocompleteProps) {
+  const { locale } = useAppContext()
+  const messages = getSearchMessages(locale)
   const palette = useSearchPalette()!
   const opener = useRef({ content })
   useEffect(() => {
@@ -85,7 +91,7 @@ function SearchOpener({ content }: LmListSearchAutocompleteProps) {
   ) : (
     <Magnify />
   )
-  const label = content.label || content.placeholder || 'Search'
+  const label = content.label || content.placeholder || messages.search
   const common = {
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
       event.currentTarget.focus()

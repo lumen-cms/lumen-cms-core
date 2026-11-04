@@ -1,3 +1,4 @@
+import { getSearchMessages, searchResultCount } from 'lumen-cms-shared/searchMessages'
 import { onUnmount } from './lifecycle'
 import { searchParams, searchLink, type SearchConfig } from 'lumen-cms-shared/search'
 import { match, parse } from 'lumen-cms-shared/core/components/list-widget/autosuggest'
@@ -17,6 +18,8 @@ export function initializeSearch() {
   searchRoots.add(root)
   if (searchRoots.size === 1) document.addEventListener('keydown', searchShortcut)
   const lifecycle = new AbortController()
+  const locale = root.dataset.searchLocale
+  const messages = getSearchMessages(locale)
   const config: SearchConfig = JSON.parse(root.dataset.searchConfig!)
   const dialog = root.querySelector<HTMLDialogElement>('dialog')!
   const trigger = root.querySelector<HTMLElement>('[data-search-trigger]')!
@@ -48,7 +51,7 @@ export function initializeSearch() {
    if (query.length < 2) return
    const current = ++sequence
    request?.abort(); request = new AbortController()
-   retry.hidden = true; status.textContent = 'Searching…'
+   retry.hidden = true; status.textContent = messages.searching
    try {
     const response = await fetch(`https://api.storyblok.com/v2/cdn/stories?${searchParams(query, config)}`, { signal: request.signal })
     if (!response.ok) throw new Error(`Search HTTP ${response.status}`)
@@ -64,19 +67,19 @@ export function initializeSearch() {
      link.addEventListener('click', () => dialog.close())
      item.addEventListener('mousemove', () => select(Array.from(results.children).indexOf(item)))
     }
-    status.textContent = results.children.length ? `${results.children.length} results` : root.dataset.notFound || 'No results found.'
+    status.textContent = results.children.length ? searchResultCount(results.children.length, locale) : root.dataset.notFound || messages.empty
     select(results.children.length ? 0 : -1)
    } catch (error) {
     if (current !== sequence || request.signal.aborted) return
-    clear(); status.textContent = 'Search could not be loaded. '; retry.hidden = false
+    clear(); status.textContent = messages.error + ' '; retry.hidden = false
    }
   }
   const open = () => { if (!root.isConnected) return; if (!dialog.open) dialog.showModal(); input.focus() }
   trigger.addEventListener('click', event => { event.preventDefault(); open() })
   dialog.querySelector('[data-search-close]')?.addEventListener('click', () => dialog.close())
-  dialog.addEventListener('close', () => { ++sequence; clearTimeout(timer); request?.abort(); input.value = ''; clear(); retry.hidden = true; status.textContent = 'Type at least 2 characters to search.' })
+  dialog.addEventListener('close', () => { ++sequence; clearTimeout(timer); request?.abort(); input.value = ''; clear(); retry.hidden = true; status.textContent = messages.minimum })
   dialog.addEventListener('click', event => { const rect = dialog.getBoundingClientRect(); if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close() })
-  input.addEventListener('input', () => { ++sequence; clearTimeout(timer); request?.abort(); clear(); retry.hidden = true; status.textContent = input.value.trim().length < 2 ? 'Type at least 2 characters to search.' : 'Searching…'; timer = setTimeout(load, 400) })
+  input.addEventListener('input', () => { ++sequence; clearTimeout(timer); request?.abort(); clear(); retry.hidden = true; status.textContent = input.value.trim().length < 2 ? messages.minimum : messages.searching; timer = setTimeout(load, 400) })
   input.addEventListener('keydown', event => {
    if (event.key === 'Escape') { event.preventDefault(); dialog.close(); return }
    if (!results.children.length) return
