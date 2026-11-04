@@ -346,3 +346,14 @@ remove global analytics, cookie banners, or existing lead collection.
 
 Run `node scripts/check-astro-third-parties.cjs` for the isolated browser audit
 (mocked providers; no analytics events are sent to real accounts).
+
+### Managed image optimization preview trial
+
+Consumers can opt approved still remote images into Vercel's managed optimizer by
+setting the build-time `PUBLIC_REMOTE_IMAGE_OPTIMIZER=vercel` and passing
+`vercelImageConfig` from `lumen-cms-astro/images/vercel-config` as the adapter's
+`imagesConfig`. Keep `imageService: false` so local assets and explicit Storyblok
+transforms retain their current behavior. Ordinary Storyblok images continue to
+use its CDN. Animated sources, unapproved hosts, and explicit format/crop requests
+keep the shared proxy. Managed URLs negotiate AVIF/WebP and use a 31-day cache floor.
+The Students experiment enables this only when `VERCEL_ENV=preview`.

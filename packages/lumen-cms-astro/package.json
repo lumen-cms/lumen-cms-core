@@ -30,7 +30,8 @@
     "./server/not-found": "./src/server/notFound.ts",
     "./server/request": "./src/server/request.ts",
     "./package.json": "./package.json",
-    "./server/consumer-pages": "./src/server/consumerPages.ts"
+    "./server/consumer-pages": "./src/server/consumerPages.ts",
+    "./images/vercel-config": "./src/images/vercel-config.mjs"
   },
   "scripts": {
     "dev": "astro dev",
