@@ -6,7 +6,7 @@ export function localeErrorRouting() {
   name: 'lumen-locale-error-routing',
   hooks: {
    'astro:config:setup': ({ config, injectRoute }) => {
-    if (config.output !== 'server') return
+    if (config.output !== 'server' && !config.adapter) return
     injectRoute({
      pattern: '/404',
      entrypoint: fileURLToPath(new URL('../src/server/routes/404.astro', import.meta.url)),

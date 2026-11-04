@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 const mocks = vi.hoisted(() => ({ props: vi.fn(), page: vi.fn(), travel: vi.fn() }))
 vi.mock('../../packages/lumen-cms-shared/src/core/utils/initial-props/getPageProps', () => ({ default: mocks.props }))
-vi.mock('../../packages/lumen-cms-astro/src/server/pages', () => ({ loadPage: mocks.page }))
+vi.mock('../../packages/lumen-cms-astro/src/server/pages', () => ({ loadPage: mocks.page, staticRoutes: vi.fn() }))
 vi.mock('../../packages/lumen-cms-astro/src/server/travelPages', () => ({ loadTravelPage: mocks.travel }))
 import { loadErrorPage } from '../../packages/lumen-cms-astro/src/server/errorPage'
 import { loadConsumerPage, loadConsumerTravelPage } from '../../packages/lumen-cms-astro/src/server/consumerPages'
@@ -10,6 +10,16 @@ import { CmsPageNotFoundError, CmsPageProtectedError } from '../../packages/lume
 afterEach(() => vi.unstubAllEnvs())
 const options = { locale: 'de', defaultLocale: 'en', locales: ['en', 'de'], cmsSlug: 'de/missing' }
 beforeEach(() => { vi.resetAllMocks(); vi.stubEnv('LUMEN_LOCALES', 'en,de'); vi.stubEnv('LUMEN_PREVIEW_SECRET', '') })
+
+it('prerenders the original CMS slug with published data and never reads preview cookies', async () => {
+ const props = { ...options, cmsSlug: 'de/website/home' }
+ const context = { isPrerendered: true, props, params: { slug: 'de/website' }, get cookies() { throw new Error('Static pages must not read cookies') } }
+ mocks.page.mockResolvedValue({ page: { component: 'page' } })
+ await loadConsumerPage(context as never)
+ expect(mocks.page).toHaveBeenCalledWith('de/website', props, false, { version: 'published' })
+ mocks.page.mockRejectedValue(new CmsPageNotFoundError('de/website'))
+ await expect(loadConsumerPage(context as never)).rejects.toBeInstanceOf(CmsPageNotFoundError)
+})
 
 it('loads the reserved story using the shared locale/root resolver and preserves CMS content', async () => {
  const data = { page: { component: 'page', body: [{ component: 'headline', text: 'Missing page' }] }, settings: { footer: [] } }

@@ -40,8 +40,8 @@ Create `src/pages/[...slug].astro`:
 ```astro
 ---
 import SiteLayout from 'lumen-cms-astro/SiteLayout.astro'
-import { loadConsumerPage } from 'lumen-cms-astro/server/consumer-pages'
-export const prerender = false
+import { loadConsumerPage, getConsumerStaticPaths } from 'lumen-cms-astro/server/consumer-pages'
+export const getStaticPaths = getConsumerStaticPaths
 const page = await loadConsumerPage(Astro)
 if (page instanceof Response) return page
 ---
@@ -55,6 +55,97 @@ Travel consumers use `loadConsumerTravelPage`, explicit detail routes, the
 `server/travel` hooks/endpoints, and the `travel/*.astro` component exports.
 
 ## Preview and APIs
+
+### Static public site and SSR preview
+
+For the existing `websites-astro` consumers, use one Vercel project per app.
+Set `TARGET=SSG` in Production (`main`) and `TARGET=SSR` in Preview (`preview`,
+plus future development branches). Without TARGET, legacy
+`LUMEN_BUILD_MODE=public|preview` remains supported and defaults to preview. Both use
+the usual `pnpm build`. Keep explicit `prerender = false` on API routes; remove
+it from page routes and export `getConsumerStaticPaths` as shown above. Preview
+builds ignore that function. Static page loading uses its original CMS slug and
+published data without reading cookies or live-edit payloads. Public mode disables
+preview authentication. Students detail routes export `getConsumerTravelStaticPaths`
+instead; their existing `loadConsumerTravelPage` handles both modes.
+
+Public mode uses Astro 7.4's separate build/runtime image services: prerendering
+emits the existing `/_image` URLs and the runtime Sharp service transforms them.
+This avoids generating tens of thousands of travel-gallery image variants during
+each HTML build. Storyblok images continue to use its image CDN directly.
+
+The following commands are the CMS repository's internal site harness, not a
+replacement for the consumer apps' Vercel deployments:
+
+```sh
+# Read every published page/news/event (all API pages), check route coverage,
+# and write .website-tests/astro-content/<site>/routes.json.
+pnpm astro:site bali audit
+
+# Full public build; rejects sample routes and configuration overrides.
+pnpm astro:site bali generate
+
+# Separate preview/API server build, with the same site environment.
+pnpm astro:site bali build --config astro.server.config.mjs
+```
+
+Replace `bali` with `planet` or `upskill`. Publish the public artifact from
+`packages/lumen-cms-astro/dist/<site>/`. The Node preview entrypoint is
+`packages/lumen-cms-astro/dist/<site>-server/server/entry.mjs`; deploy its complete
+server/client output behind HTTPS with the site's runtime environment. Keep
+`LUMEN_SITE_URL` set to the public canonical origin. Configure the preview token,
+preview secret and identical routing/locales on the SSR service. Its internal
+Astro sessions currently use filesystem storage: keep that storage persistent on
+a single Node instance, or configure a shared session driver for multiple instances.
+Consumer applications using `server/request` instead use signed cookies.
+
+The inventory includes noindex pages, excludes non-page components, and respects
+`PUBLIC_ROOT_DIRECTORY` and `PUBLIC_EXCLUDING_SLUGS`. Folder locales are enumerated
+from their own stories; field-level translations fetch each configured language.
+The report compares every returned published story with the generated route list
+and identifies synthetic locale homes separately. It verifies enumeration, not a
+successful render of every page; the full build must also pass before deployment.
+Translations follow the Content Delivery API's fallback/publication semantics.
+Custom routes backed by other services (for example travel details) still need
+their own static route enumeration.
+
+In Storyblok Settings > Visual Editor, configure the preview environment as:
+
+```text
+https://preview.example.com/api/preview?secret=URL_ENCODED_SECRET&slug=
+```
+
+Storyblok appends the story path. The endpoint establishes a preview session and
+redirects to the SSR route, retaining editor/release query parameters. Each page
+loads draft content. Unsaved Bridge input is sent through the SDK middleware and
+applied before enrichment, then the SSR result updates the document. Rich-text
+typing has an immediate browser update while reconciliation is pending. New
+stories do not need a public build to preview. The public artifact stays unchanged
+until Generate completes. Set the home story's Real path to `/` and verify block
+selection, unsaved edits, locale navigation, save/reload and release previews in
+the hosted iframe. HTTPS and iframe-compatible cookies are required.
+
+### Generate button wiring still required
+
+Use a manual [Storyblok Task Manager](https://www.storyblok.com/docs/apps/task-manager)
+task named **Generate public site**, pointing at the hosting platform's build hook.
+The app currently requires a Growth plan; a separate authenticated admin button
+can call a build trigger instead. No build-hook endpoint or hosted task is configured
+by these local commands.
+
+The build job installs locked dependencies, runs `pnpm astro:site <site> generate`
+with published credentials and site configuration, and deploys the resulting
+static directory only after success. Preserve the previous deployment on failure,
+serialize jobs per site, and expose build status/logs through the hosting platform.
+Keep webhook credentials in the task/CI configuration. The request should enqueue
+a job, not run the build inside an HTTP request. Save is for drafts; Publish makes
+content eligible; Generate builds the current published snapshot. Do not attach
+an automatic publish webhook if releases should happen only on Generate.
+
+Public forms, feeds, search/list endpoints and other runtime APIs still need a
+server deployment or routing to the API service; static hosting cannot execute
+them. Configure that routing and CORS separately from the authenticated preview
+pages. `/api/clear-cache` is not a replacement for Generate.
 
 - `server/request`: `enterConsumerPreview`, `exitConsumerPreview`, and
   `isPreviewRequest`. Mount the first two under `/api/preview` and
@@ -195,3 +286,24 @@ The Astro packages no longer read legacy Next environment names or
 `STORYBLOK_PUBLIC_TOKEN`; use `PUBLIC_STORYBLOK_TOKEN` instead. The independent
 Next renderer and existing Next consumer files retain their original names.
 Only the legacy comparison tooling translates a private copy of old settings.
+
+### Vercel branch deployment policy
+
+Use one project per website: `main` is Production with `TARGET=SSG`;
+`preview` is the persistent Storyblok Preview branch with `TARGET=SSR`.
+Future `develop` and feature branches also use the Preview environment's SSR setting.
+`TARGET` takes precedence over the legacy `LUMEN_BUILD_MODE=public|preview` setting.
+Both environments run the same `pnpm build` command. Keep the released code on
+`main` and `preview` aligned, and point the Generate deploy hook at `main`.
+
+The shared config injects `/sitemap.xml`: SSG prerenders it from the same published
+CMS locale and travel route inventories used by the pages. SEO-hidden stories,
+error pages and configured ignored paths are excluded from search discovery.
+The URLs always use the configured public `site` origin. SSR returns 404 for this
+endpoint and adds `X-Robots-Tag: noindex, nofollow` globally through middleware,
+including unauthenticated pages and API responses. `robots.txt` may allow crawling
+so search engines can read noindex. Preview authentication remains necessary for drafts.
+The same integration generates `robots.txt`: public builds advertise the public
+sitemap; SSR permits crawling so noindex can be read and advertises no sitemap.
+The consumer build wrapper also sets the SSR noindex header globally in Vercel's
+output configuration, covering public-folder assets and hosting redirects.

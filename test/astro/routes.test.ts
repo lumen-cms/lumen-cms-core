@@ -23,3 +23,18 @@ it('fails a build instead of silently replacing colliding locale routes', () => 
     defaultLocale: 'en', locales: ['en', 'de'], suppressSlugLocale: true, languages: ['de']
   })).toThrow('Multiple CMS stories')
 })
+
+it('enumerates field translations even when the API slug has no locale prefix', () => {
+ const routes = createStaticRoutes([
+  { full_slug: 'home', locale: 'en' }, { full_slug: 'home', locale: 'de' },
+  { full_slug: 'pricing', locale: 'en' }, { full_slug: 'preise', locale: 'de' },
+ ], { defaultLocale: 'en', locales: ['en', 'de'] })
+ expect(routes.map(route => route.params.slug)).toEqual([undefined, 'de', 'pricing', 'de/preise'])
+ expect(routes[3].props).toMatchObject({ locale: 'de', cmsSlug: 'preise' })
+})
+
+it('rejects suppressed field translations that would overwrite another language', () => {
+ expect(() => createStaticRoutes([
+  { full_slug: 'pricing', locale: 'en' }, { full_slug: 'pricing', locale: 'de' },
+ ], { defaultLocale: 'en', locales: ['en', 'de'], suppressSlugLocale: true, languages: ['de'] })).toThrow('Multiple CMS stories')
+})

@@ -7,6 +7,16 @@ function cookies() {
  return { get: (key: string) => values.has(key) ? { value: values.get(key)! } : undefined, set: vi.fn((key: string, value: string) => values.set(key, value)), delete: vi.fn((key: string) => values.delete(key)) }
 }
 const secret = 'consumer-preview-test-secret-32-characters'
+it('disables draft authentication on the public deployment even with valid credentials', async () => {
+ vi.stubEnv('LUMEN_BUILD_MODE', 'public')
+ vi.stubEnv('LUMEN_PREVIEW_SECRET', secret)
+ vi.stubEnv('STORYBLOK_PREVIEW_TOKEN', 'private-draft-token')
+ const jar = cookies()
+ const response = await enterConsumerPreview({ cookies: jar, url: new URL(`https://example.test/api/preview?secret=${secret}`) } as never)
+ expect(response.status).toBe(404)
+ expect(jar.set).not.toHaveBeenCalled()
+ expect(isPreviewRequest(jar as never)).toBe(false)
+})
 it('rejects missing/weak credentials and duplicate secrets before setting a session', async () => {
  const jar = cookies()
  const context = { cookies: jar, url: new URL('https://example.test/api/preview') }

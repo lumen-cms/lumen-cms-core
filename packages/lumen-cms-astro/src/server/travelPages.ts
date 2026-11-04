@@ -40,7 +40,7 @@ export async function loadTravelPage(slug: string | undefined, { locale, default
   const settingsLocale =
     locale !== defaultLocale || CONFIG.enableLocaleSuffix ? locale : undefined
   const requestParams: ISbStoryParams = {
-    ...(preview ? { version: 'draft' as const } : {}),
+    version: preview ? 'draft' : 'published',
     ...(preview && release ? { from_release: release } : {}),
     ...(CONFIG.fieldLevelTranslation && settingsLocale
       ? { language: settingsLocale }

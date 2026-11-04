@@ -1,7 +1,7 @@
 // Reuse the framework-independent delivery/enrichment pipeline while its modules
 // move into shared. A bundle audit guards against React/Next/MUI runtime imports.
 import getPageProps from 'lumen-cms-shared/core/utils/initial-props/getPageProps'
-import { publishedLinkStories, publishedLinkIndex } from './linkInventory'
+import { publishedRouteStories, publishedLinkIndex } from './linkInventory'
 import { createStaticRoutes, type CmsRoute } from 'lumen-cms-shared/server/routes'
 import { getShopifyPageProps } from 'lumen-cms-shared/core/components/ecommerce/shopify/lib/getShopifyPageProps'
 import type { RenderContext } from '../lib/context'
@@ -37,7 +37,7 @@ export async function staticRoutes(): Promise<CmsRoute[]> {
   }
   // noindex controls discovery by search engines, not page availability. Next's
   // fallback used to serve these pages even when its initial inventory omitted them.
-  return createStaticRoutes(await publishedLinkStories(), config)
+  return createStaticRoutes(await publishedRouteStories(locales, !!process.env.PUBLIC_FIELD_LEVEL_TRANSLATION), config)
 }
 
 export async function loadPage(slug: string | undefined, options: CmsRoute['props'], preview = false, requestParams?: ISbStoryParams, liveStory?: ISbStoryData<PageStoryblok | GlobalStoryblok | NewsStoryblok | EventStoryblok>, serverData?: PreviewServerData) {

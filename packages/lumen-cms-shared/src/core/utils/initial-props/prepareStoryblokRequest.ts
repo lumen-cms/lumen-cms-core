@@ -9,14 +9,13 @@ export const prepareForStoryblok = (
   const slugAsArray = Array.isArray(slug)
     ? [...slug]
     : [slug.replace(/^\/+|\/+$/g, '')]
-  const [first] = slugAsArray
 
   if (options?.defaultLocale === slugAsArray?.[0]) {
     slugAsArray.shift() // remove default locale from array
   }
   if (
     slugAsArray.length === 1 &&
-    (options.locales?.includes(first) || !first || first === '/')
+    (options.locales?.includes(slugAsArray[0]) || !slugAsArray[0] || slugAsArray[0] === '/')
   ) {
     // we add home and remove the lang identifier
     slugAsArray.shift()
@@ -36,7 +35,8 @@ export const prepareForStoryblok = (
   }
   if (rootDirectory) {
     // if the first entry is not root directory append root directory
-    first !== rootDirectory && slugAsArray.unshift(rootDirectory)
+    const rootParts = rootDirectory.split('/').filter(Boolean)
+    if (!rootParts.every((part, index) => slugAsArray[index] === part)) slugAsArray.unshift(...rootParts)
   }
 
   const pageSlug = slugAsArray.join('/')

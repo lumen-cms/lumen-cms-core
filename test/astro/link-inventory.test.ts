@@ -1,8 +1,17 @@
 import { beforeEach, expect, it, vi } from 'vitest'
 const fetchStories = vi.hoisted(() => vi.fn())
 vi.mock('../../packages/lumen-cms-shared/src/core/utils/initial-props/storyblokPagesConfig', () => ({ getAllStoriesOfProject: fetchStories }))
-import { clearPublishedLinkInventory, publishedLinkStories, publishedLinkIndex } from '../../packages/lumen-cms-astro/src/server/linkInventory'
+import { clearPublishedLinkInventory, publishedLinkStories, publishedLinkIndex, publishedRouteStories } from '../../packages/lumen-cms-astro/src/server/linkInventory'
 beforeEach(() => { clearPublishedLinkInventory(); fetchStories.mockReset() })
+it('requests every field translation and retains its rendering locale', async () => {
+ fetchStories.mockImplementation(async params => [{ uuid: 'id', full_slug: params.language === 'de' ? 'preise' : 'pricing' }])
+ expect(await publishedRouteStories(['en', 'de'], true)).toEqual([
+  { uuid: 'id', full_slug: 'pricing', locale: 'en' },
+  { uuid: 'id', full_slug: 'preise', locale: 'de' },
+ ])
+ expect(fetchStories.mock.calls.map(([params]) => params.language)).toEqual([undefined, 'de'])
+ expect(fetchStories.mock.calls.every(([params]) => params.version === 'published')).toBe(true)
+})
 it('shares the published inventory across route enumeration and UUID lookup', async () => {
  fetchStories.mockResolvedValue([{ uuid: 'id', full_slug: 'renamed' }])
  const [stories, index] = await Promise.all([publishedLinkStories(), publishedLinkIndex()])

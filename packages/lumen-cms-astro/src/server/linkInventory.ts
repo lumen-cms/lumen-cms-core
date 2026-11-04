@@ -17,3 +17,12 @@ export function publishedLinkStories(language?: string) {
 export async function publishedLinkIndex(language?: string): Promise<Record<string, string>> {
  return Object.fromEntries((await publishedLinkStories(language)).map(story => [story.uuid, story.full_slug]))
 }
+
+/** Folder translations are already separate stories. Field translations require
+ * one published inventory per configured language, including translated slugs. */
+export async function publishedRouteStories(locales: readonly string[], fieldLevelTranslation: boolean) {
+ if (!fieldLevelTranslation) return publishedLinkStories()
+ return (await Promise.all(locales.map(async (locale, index) =>
+  (await publishedLinkStories(index === 0 ? undefined : locale)).map(story => ({ ...story, locale }))
+ ))).flat()
+}

@@ -22,7 +22,7 @@ export function publicStoryPath(value: string, config: RouteConfig): string {
 }
 
 export function createStaticRoutes(
-  stories: readonly { full_slug: string }[],
+  stories: readonly { full_slug: string; locale?: string }[],
   config: RouteConfig
 ): CmsRoute[] {
   const locales = new Set(config.locales)
@@ -34,7 +34,7 @@ export function createStaticRoutes(
   const add = (path: string, locale: string, cmsSlug: string) => {
     const slug = path.replace(/^\/+|\/+$/g, '') || undefined
     const previous = routes.get(slug || '')
-    if (previous && previous.props.cmsSlug !== cmsSlug) {
+    if (previous && (previous.props.cmsSlug !== cmsSlug || previous.props.locale !== locale)) {
       throw new Error(`Multiple CMS stories map to /${slug || ''}`)
     }
     routes.set(slug || '', {
@@ -44,7 +44,9 @@ export function createStaticRoutes(
   }
   for (const story of stories) {
     const parts = story.full_slug.split('/').filter(Boolean)
-    const locale = locales.has(parts[0]) ? parts.shift()! : config.defaultLocale
+    const slugLocale = locales.has(parts[0]) ? parts.shift()! : config.defaultLocale
+    const locale = story.locale || slugLocale
+    if (!locales.has(locale)) throw new Error(`Unknown story locale: ${locale}`)
     const root = config.rootDirectory?.split('/').filter(Boolean) || []
     if (root.length && root.every((part, index) => parts[index] === part)) parts.splice(0, root.length)
     if (parts.at(-1) === 'home') parts.pop()

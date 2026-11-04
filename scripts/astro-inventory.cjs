@@ -6,7 +6,7 @@ const { build } = require('esbuild')
 async function main() {
   const root = path.resolve(__dirname, '..')
   const result = await build({
-    entryPoints: [path.join(root, 'packages/lumen-cms-astro/src/server/pages.ts')],
+    stdin: { contents: `export { staticRoutes, loadPage } from './packages/lumen-cms-astro/src/server/pages'; export { publishedRouteStories } from './packages/lumen-cms-astro/src/server/linkInventory'`, resolveDir: root, loader: 'ts' },
     bundle: true, platform: 'node', format: 'cjs', write: false,
     define: { 'import.meta.env.DEV': 'false' }
   })
@@ -17,6 +17,21 @@ async function main() {
   runtime._compile(result.outputFiles[0].text, filename)
   const { staticRoutes, loadPage } = runtime.exports
   const routes = await staticRoutes()
+  if (process.env.LUMEN_ROUTE_AUDIT) {
+    const locales = process.env.LUMEN_LOCALES.split(',')
+    const stories = await runtime.exports.publishedRouteStories(locales, !!process.env.PUBLIC_FIELD_LEVEL_TRANSLATION)
+    const missing = stories.filter(story => !routes.some(route => route.props.cmsSlug === story.full_slug && (!story.locale || route.props.locale === story.locale)))
+    if (missing.length) throw new Error(`${missing.length} published stories are missing from getStaticPaths`)
+    const byLocale = Object.fromEntries(locales.map(locale => [locale, 0]))
+    for (const route of routes) byLocale[route.props.locale]++
+    const syntheticHomes = routes.filter(route => !stories.some(story => story.full_slug === route.props.cmsSlug && (!story.locale || story.locale === route.props.locale))).map(route => '/' + (route.params.slug || ''))
+    const report = { site: process.env.LUMEN_SITE, capturedAt: new Date().toISOString(), publishedStories: stories.length, missing: missing.length, syntheticHomes, total: routes.length, byLocale, routes }
+    const output = path.join(root, '.website-tests/astro-content', process.env.LUMEN_SITE)
+    await fs.mkdir(output, { recursive: true })
+    await fs.writeFile(path.join(output, 'routes.json'), JSON.stringify(report, null, 2))
+    console.log(JSON.stringify({ site: report.site, publishedStories: stories.length, missing: missing.length, syntheticHomes, total: report.total, byLocale, report: path.join(output, 'routes.json') }, null, 2))
+    return
+  }
   const limit = Number(process.env.LUMEN_INVENTORY_LIMIT || routes.length)
   const output = path.join(root, '.website-tests/astro-content', process.env.LUMEN_SITE)
   await fs.mkdir(output, { recursive: true })

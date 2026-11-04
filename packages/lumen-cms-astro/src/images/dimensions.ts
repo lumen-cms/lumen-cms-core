@@ -3,6 +3,7 @@ import type { ImageMetadata } from 'astro'
 import type { AstroConfig } from 'astro'
 import { readFile } from 'node:fs/promises'
 import { resolve, sep } from 'node:path'
+import { retryRead } from 'lumen-cms-shared/server/retryRead'
 type ImageConfig = AstroConfig['image']
 
 export async function publicImageMetadata(source: string) {
@@ -26,5 +27,7 @@ export async function imageDimensions(source: string, config: ImageConfig, metad
   if (local) return local
   const normalized = normalizeImageSource(source)
   if (!isRemoteAllowed(normalized, config)) throw new Error(`Image dimensions are required for unconfigured source: ${source}`)
-  return inferRemoteSize(normalized, config)
+  // Astro wraps transport errors without preserving the HTTP status. A bounded
+  // retry tolerates dropped connections; persistent missing assets still fail.
+  return retryRead(() => inferRemoteSize(normalized, config), () => true)
 }

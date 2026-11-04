@@ -50,3 +50,18 @@ export async function sitemapResponse(request: Request, dependencies: SitemapDep
   return new Response(null, { status: 500 })
  }
 }
+
+/** Serialize an already resolved public build inventory. */
+export async function renderSitemap(entries: { url: string; lastmod?: string }[], hostname: string) {
+ const stream = new SitemapStream({ hostname })
+ const result = streamToPromise(stream)
+ void result.catch(() => undefined)
+ try {
+  for (const entry of entries) stream.write(entry)
+  stream.end()
+  return (await result).toString()
+ } catch (error) {
+  stream.destroy()
+  throw error
+ }
+}

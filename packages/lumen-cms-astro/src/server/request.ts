@@ -13,6 +13,7 @@ const equal = (a: string, b: string) => {
 
 /** Stateless, expiring preview sessions work across serverless instances. */
 export function isPreviewRequest(cookies: AstroCookies, secret = process.env.LUMEN_PREVIEW_SECRET || '', now = Date.now()) {
+  if (process.env.LUMEN_BUILD_MODE === 'public') return false
   if (secret.length < 32) return false
   const token = cookies.get(cookieName)?.value || ''
   const [expires, mac, extra] = token.split('.')
@@ -20,6 +21,7 @@ export function isPreviewRequest(cookies: AstroCookies, secret = process.env.LUM
 }
 
 export const enterConsumerPreview: APIRoute = ({ url, cookies }) => {
+  if (process.env.LUMEN_BUILD_MODE === 'public') return new Response('Preview is available on the preview deployment', { status: 404, headers })
   const secret = process.env.LUMEN_PREVIEW_SECRET || ''
   if (secret.length < 32 || !process.env.STORYBLOK_PREVIEW_TOKEN) return new Response('Preview is not configured', { status: 503, headers })
   if (url.searchParams.getAll('secret').length !== 1 || !equal(url.searchParams.get('secret') || '', secret)) return new Response('Invalid preview secret', { status: 401, headers })
