@@ -1,0 +1,14 @@
+---
+import type { ScriptStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { scripts: ScriptStoryblok[] }
+const { scripts } = Astro.props
+const init = scripts.find(script => script.id === 'fbq-init')?.script_body || ''
+// Partytown replays forwards in the worker, but its native fallback discards
+// the forwarding function. Native fallback clones have no script type. Replay
+// only Facebook's early calls there; leave other vendors' queues untouched.
+const initializeOnce = `if(!window.__lumenFacebookFallbackInitialized){${init}}`
+const replayFallback = `if(document.currentScript && !document.currentScript.type){var q=window._ptf||[];for(var i=0;i<q.length;){if(q[i].length===1 && q[i][0]==='fbq'){window.fbq.apply(window,q[i+1]);q.splice(i,2)}else{i+=2}}}`
+---
+<script is:inline set:html={(`if(!window.crossOriginIsolated && !navigator.serviceWorker){${init};window.__lumenFacebookFallbackInitialized=true;}`).replace(/<\/script/gi, '<\\/script')} />
+<script is:inline type="text/partytown" id="fbq-init" set:html={(initializeOnce + ';' + replayFallback).replace(/<\/script/gi, '<\\/script')} />
+{scripts.filter(script => script.url).map(script => <script is:inline type="text/partytown" id={script.id} src={script.url} />)}

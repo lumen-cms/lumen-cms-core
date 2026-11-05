@@ -1,0 +1,111 @@
+{
+  "date": "2026-11-05",
+  "decision": "Do not enable additional vendors in production: current tracking behavior has not passed parity checks. Google Analytics implementation unchanged.",
+  "method": {
+    "runtime": "Partytown 1.0.3; ordinary headless Chrome with default automation settings",
+    "source": "Public deployed CMS script configurations from Upskill and Planet Training",
+    "safety": "Synthetic Facebook and HubSpot collection requests intercepted locally; Chatwoot launcher opened without starting a conversation or sending a message.",
+    "limitations": [
+      "Local fixtures, not production-origin attribution tests.",
+      "Initial broad HubSpot trial intercepted the config endpoint; only subsequent hybrid and consent trials preserved the real collected-forms config.",
+      "Meta blocked automated events in the main-thread control, so Facebook delivery parity could not be established."
+    ]
+  },
+  "references": [
+    "https://partytown.qwik.dev/facebook-pixel/",
+    "https://partytown.qwik.dev/common-services/",
+    "https://partytown.qwik.dev/trade-offs/",
+    "https://app.chatwoot.com/hc/user-guide/articles/1677587234-how-to-send-additional-user-information-to-chatwoot-using-sdk"
+  ],
+  "facebook": {
+    "result": "Worker library and pixel configuration executed, but neither control nor worker produced collection hits. Main-thread SDK explicitly reported bot traffic detected and blocked.",
+    "eventsAttempted": [
+      "PageView",
+      "Lead with eventID",
+      "Purchase with value/currency/eventID",
+      "custom event"
+    ],
+    "automaticMatchingVerified": false,
+    "productionMigrationEnabled": false
+  },
+  "hubspotTrials": [
+    {
+      "variant": "Analytics and loader proxied into worker; consent, forms and chat on main thread",
+      "worker": false,
+      "visitorCookies": [
+        "__hstc",
+        "hubspotutk",
+        "__hssrc",
+        "__hssc"
+      ],
+      "pageViews": 1,
+      "automaticClicks": 1,
+      "formSubmissions": 1,
+      "formVisitorIdentityPresent": [
+        true
+      ],
+      "errors": []
+    },
+    {
+      "variant": "Analytics and loader proxied into worker; consent, forms and chat on main thread",
+      "worker": true,
+      "visitorCookies": [],
+      "pageViews": 1,
+      "automaticClicks": 0,
+      "formSubmissions": 1,
+      "formVisitorIdentityPresent": [
+        false
+      ],
+      "errors": []
+    },
+    {
+      "variant": "Analytics, consent and forms in worker; chat on main thread",
+      "worker": false,
+      "visitorCookies": [
+        "__hstc",
+        "hubspotutk",
+        "__hssrc",
+        "__hssc"
+      ],
+      "pageViews": 1,
+      "automaticClicks": 1,
+      "formSubmissions": 1,
+      "formVisitorIdentityPresent": [
+        true
+      ],
+      "errors": []
+    },
+    {
+      "variant": "Analytics, consent and forms in worker; chat on main thread",
+      "worker": true,
+      "visitorCookies": [],
+      "pageViews": 1,
+      "automaticClicks": 0,
+      "formSubmissions": 0,
+      "formVisitorIdentityPresent": [],
+      "errors": []
+    }
+  ],
+  "chatwoot": [
+    {
+      "worker": false,
+      "readyEvent": true,
+      "launcherOpened": true,
+      "widgetContentVisible": true,
+      "mainThreadPublicApi": "object",
+      "errors": [],
+      "note": "The cross-origin chat application remains in a normal iframe. Moving its bootstrap does not offload that application."
+    },
+    {
+      "worker": true,
+      "readyEvent": true,
+      "launcherOpened": true,
+      "widgetContentVisible": true,
+      "mainThreadPublicApi": "undefined",
+      "errors": [
+        "https://admin.lumen.media/widget?website_token=x2kZTJbzM8YrqWM5AuWaUxNZ net::ERR_FAILED"
+      ],
+      "note": "The cross-origin chat application remains in a normal iframe. Moving its bootstrap does not offload that application."
+    }
+  ]
+}

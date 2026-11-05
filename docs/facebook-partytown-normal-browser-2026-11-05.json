@@ -1,0 +1,144 @@
+{
+  "date": "2026-11-05",
+  "method": "User-operated normal browser; real Meta SDK and public Upskill Pixel configuration; collection redirected to local server, external collection blocked by CSP.",
+  "pixel": "726824377950061",
+  "control": {
+    "events": [
+      "AuditCustom",
+      "Lead",
+      "PageView",
+      "Purchase",
+      "SubscribedButtonClick"
+    ],
+    "explicitPurchase": {
+      "event": "Purchase",
+      "pixel": "726824377950061",
+      "value": "12.34",
+      "currency": "EUR",
+      "eventID": "audit-purchase",
+      "document": "http://127.0.0.1:4397/",
+      "body": ""
+    },
+    "automaticLead": true
+  },
+  "worker": {
+    "userConfirmed": "Partytown heading visible; waited and clicked FastSpring checkout start, completed purchase, Apply now.",
+    "events": [
+      {
+        "event": "PageView",
+        "pixel": "726824377950061",
+        "document": "http://127.0.0.1:4397/?mode=worker",
+        "body": ""
+      }
+    ],
+    "errors": [],
+    "diagnostics": [
+      {
+        "scope": "sdk",
+        "page": "http://127.0.0.1:4397/?mode=worker",
+        "type": "function",
+        "state": {
+          "pixelInitializationTime": 1793837539814,
+          "pixels": [
+            {
+              "agent": null,
+              "eventCount": 1,
+              "id": "726824377950061",
+              "userData": {},
+              "alternateUserData": {},
+              "userDataFormFields": {},
+              "alternateUserDataFormFields": {},
+              "censoredUserDataFormat": {},
+              "censoredUserDataFormatFormFields": {},
+              "userDataWebsiteVariables": {},
+              "userDataAI": {}
+            }
+          ]
+        }
+      },
+      {
+        "scope": "main",
+        "page": "http://127.0.0.1:4397/?mode=worker",
+        "type": "function",
+        "scripts": [
+          {
+            "src": "",
+            "type": ""
+          },
+          {
+            "src": "",
+            "type": ""
+          },
+          {
+            "src": "",
+            "type": "text/partytown-x"
+          },
+          {
+            "src": "https://connect.facebook.net/en_US/fbevents.js",
+            "type": "text/partytown-x"
+          },
+          {
+            "src": "http://127.0.0.1:4397/proxy?url=https%3A%2F%2Fconnect.facebook.net%2Fsignals%2Fconfig%2F726824377950061%3Fv%3D2.9.435%26r%3Dstable%26domain%3D127.0.0.1%26hme%3D4453c87d489b6902031c012cadd2731893cd69feb64fe8a61b339727247a7703%26ex_m%3D118%252C242%252C171%252C27%252C82%252C83%252C162%252C78%252C77%252C11%252C181%252C102%252C20%252C153%252C141%252C46%252C85%252C90%252C149%252C176%252C183%252C8%252C4%252C5%252C7%252C6%252C3%252C103%252C115%252C32%252C17%252C31%252C18%252C33%252C34%252C35%252C37%252C55%252C163%252C87%252C126%252C22%252C24%252C51%252C47%252C49%252C48%252C95%252C104%252C108%252C124%252C160%252C164%252C53%252C125%252C29%252C26%252C133%252C79%252C43%252C166%252C165%252C167%252C157%252C155%252C30%252C42%252C66%252C123%252C178%252C80%252C21%252C128%252C93%252C76%252C23%252C97%252C98%252C130%252C96%252C151%252C150%252C154%252C109%252C177%252C180%252C41%252C56%252C127%252C54%252C161%252C72%252C185%252C110%252C184%252C211%252C263%252C84%252C283%252C282%252C281%252C14%252C25%252C28%252C40%252C62%252C117%252C68%252C10%252C73%252C111%252C112%252C113%252C119%252C144%252C38%252C36%252C146%252C147%252C148%252C143%252C142%252C172%252C86%252C175%252C173%252C174%252C57%252C69%252C67%252C137%252C19%252C179%252C52%252C333%252C334%252C335%252C332%252C349%252C371%252C256%252C238%252C70%252C239%252C237%252C374%252C365%252C59%252C257%252C121%252C145%252C92%252C135%252C61%252C134%252C140%252C139%252C65%252C74%252C168%252C88%252C89%252C129%252C44%252C39%252C60%252C63%252C114%252C182%252C1%252C138%252C16%252C136%252C12%252C2%252C64%252C105%252C15%252C75%252C71%252C132%252C101%252C100%252C187%252C188%252C106%252C107%252C9%252C116%252C186%252C58%252C158%252C99%252C91%252C81%252C131%252C120%252C169%252C50%252C159%252C0%252C94%252C152%252C156%252C170%252C45%252C122%252C13%252C189",
+            "type": "text/partytown-x"
+          },
+          {
+            "src": "",
+            "type": ""
+          },
+          {
+            "src": "http://127.0.0.1:4397/fastspring-fixture.js",
+            "type": ""
+          },
+          {
+            "src": "",
+            "type": "text/partytown-x"
+          },
+          {
+            "src": "",
+            "type": ""
+          }
+        ]
+      }
+    ]
+  },
+  "fastspringSource": {
+    "file": "packages/lumen-cms-shared/src/fastspring.ts",
+    "events": [
+      {
+        "provider": "fbq",
+        "event": "InitiateCheckout",
+        "data": {
+          "content_ids": [
+            "audit-course"
+          ],
+          "value": 12.34,
+          "content_type": "product",
+          "currency": "EUR"
+        }
+      },
+      {
+        "provider": "fbq",
+        "event": "Purchase",
+        "data": {
+          "content_ids": [
+            "audit-course"
+          ],
+          "currency": "EUR",
+          "content_type": "product",
+          "value": 12.34
+        }
+      }
+    ],
+    "fixture": "Actual shared store bundled into local page; checkout transport simulated and no real order created.",
+    "deploymentObservation": "No FastSpring provider found in the six deployed homepages; this does not rule out other routes or external application checkout."
+  },
+  "decision": "Not approved for production migration. Worker loaded SDK and sent PageView, but explicit checkout/purchase and automatic click/lead requests were not captured. Root cause not yet isolated; startup diagnostics predate clicks and do not prove which processing stage lost the events.",
+  "limits": [
+    "Outgoing request capture is not Meta receipt, attribution, or reporting verification.",
+    "Production-domain Event Setup Tool rules and automatic matching parity remain unverified.",
+    "Only Upskill pixel was tested in the user-operated browser session."
+  ],
+  "productionChanges": "None. Facebook, HubSpot, Chatwoot and Google Analytics unchanged.",
+  "supersededBy": "facebook-partytown-corrected-verification-2026-11-05.json",
+  "correction": "Historical incomplete snapshot, not evidence of a confirmed Facebook SDK incompatibility. The original collector ignored multipart POST fields; later instrumented normal worker/main comparisons pass. See superseding report."
+}

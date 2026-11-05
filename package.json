@@ -88,7 +88,9 @@
     "test:astro:packages": "node scripts/check-astro-packages.cjs && node scripts/check-astro-consumer-css.mjs && node scripts/check-astro-icons.mjs",
     "astro:sync-schemas": "node scripts/sync-astro-schemas.cjs",
     "test:astro:google-worker": "node scripts/check-astro-google-worker.mjs",
-    "test:astro:google-deployment": "node scripts/check-astro-google-deployment.mjs"
+    "test:astro:google-deployment": "node scripts/check-astro-google-deployment.mjs",
+    "test:astro:facebook-worker": "node scripts/check-astro-facebook-worker.mjs",
+    "test:astro:facebook-audit": "node scripts/check-facebook-partytown.cjs"
   },
   "author": "Dominic Garms",
   "license": "MIT",

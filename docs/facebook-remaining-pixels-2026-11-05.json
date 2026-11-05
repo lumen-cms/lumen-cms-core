@@ -1,0 +1,217 @@
+{
+  "date": "2026-11-05",
+  "method": "Real Meta SDK in normal visible browser; main-thread and worker comparison; synthetic collection intercepted locally.",
+  "results": [
+    {
+      "pixel": "bali",
+      "passed": true,
+      "events": [
+        {
+          "event": "PageView",
+          "pixel": "2863534213877650",
+          "matchingEmail": false
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "2863534213877650",
+          "matchingEmail": true
+        },
+        {
+          "event": "InitiateCheckout",
+          "pixel": "2863534213877650",
+          "value": "12.34",
+          "currency": "EUR",
+          "contentIds": "[\"audit-course\"]",
+          "contentType": "product",
+          "matchingEmail": true
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "2863534213877650",
+          "matchingEmail": true
+        },
+        {
+          "event": "Purchase",
+          "pixel": "2863534213877650",
+          "value": "12.34",
+          "currency": "EUR",
+          "contentIds": "[\"audit-course\"]",
+          "contentType": "product",
+          "matchingEmail": true
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "2863534213877650",
+          "matchingEmail": true
+        },
+        {
+          "event": "Lead",
+          "pixel": "2863534213877650",
+          "eventID": "audit-lead",
+          "matchingEmail": true
+        },
+        {
+          "event": "Purchase",
+          "pixel": "2863534213877650",
+          "value": "12.34",
+          "currency": "EUR",
+          "eventID": "audit-purchase",
+          "contentIds": "[\"audit-course\"]",
+          "matchingEmail": true
+        },
+        {
+          "event": "AuditCustom",
+          "pixel": "2863534213877650",
+          "eventID": "audit-custom",
+          "matchingEmail": true
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "2863534213877650",
+          "matchingEmail": true
+        }
+      ]
+    },
+    {
+      "pixel": "studentsde",
+      "passed": true,
+      "events": [
+        {
+          "event": "PageView",
+          "pixel": "538277029942771",
+          "matchingEmail": false
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "538277029942771",
+          "matchingEmail": true
+        },
+        {
+          "event": "InitiateCheckout",
+          "pixel": "538277029942771",
+          "value": "12.34",
+          "currency": "EUR",
+          "contentIds": "[\"audit-course\"]",
+          "contentType": "product",
+          "matchingEmail": true
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "538277029942771",
+          "matchingEmail": true
+        },
+        {
+          "event": "Purchase",
+          "pixel": "538277029942771",
+          "value": "12.34",
+          "currency": "EUR",
+          "contentIds": "[\"audit-course\"]",
+          "contentType": "product",
+          "matchingEmail": true
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "538277029942771",
+          "matchingEmail": true
+        },
+        {
+          "event": "Lead",
+          "pixel": "538277029942771",
+          "eventID": "audit-lead",
+          "matchingEmail": true
+        },
+        {
+          "event": "Purchase",
+          "pixel": "538277029942771",
+          "value": "12.34",
+          "currency": "EUR",
+          "eventID": "audit-purchase",
+          "contentIds": "[\"audit-course\"]",
+          "matchingEmail": true
+        },
+        {
+          "event": "AuditCustom",
+          "pixel": "538277029942771",
+          "eventID": "audit-custom",
+          "matchingEmail": true
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "538277029942771",
+          "matchingEmail": true
+        }
+      ]
+    },
+    {
+      "pixel": "studentsen",
+      "passed": true,
+      "events": [
+        {
+          "event": "PageView",
+          "pixel": "1205753661121409",
+          "matchingEmail": false
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "1205753661121409",
+          "matchingEmail": false
+        },
+        {
+          "event": "InitiateCheckout",
+          "pixel": "1205753661121409",
+          "value": "12.34",
+          "currency": "EUR",
+          "contentIds": "[\"audit-course\"]",
+          "contentType": "product",
+          "matchingEmail": false
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "1205753661121409",
+          "matchingEmail": false
+        },
+        {
+          "event": "Purchase",
+          "pixel": "1205753661121409",
+          "value": "12.34",
+          "currency": "EUR",
+          "contentIds": "[\"audit-course\"]",
+          "contentType": "product",
+          "matchingEmail": false
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "1205753661121409",
+          "matchingEmail": false
+        },
+        {
+          "event": "Lead",
+          "pixel": "1205753661121409",
+          "eventID": "audit-lead",
+          "matchingEmail": false
+        },
+        {
+          "event": "Purchase",
+          "pixel": "1205753661121409",
+          "value": "12.34",
+          "currency": "EUR",
+          "eventID": "audit-purchase",
+          "contentIds": "[\"audit-course\"]",
+          "matchingEmail": false
+        },
+        {
+          "event": "AuditCustom",
+          "pixel": "1205753661121409",
+          "eventID": "audit-custom",
+          "matchingEmail": false
+        },
+        {
+          "event": "SubscribedButtonClick",
+          "pixel": "1205753661121409",
+          "matchingEmail": false
+        }
+      ]
+    }
+  ],
+  "productionReceiptVerified": false
+}

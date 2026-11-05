@@ -1,0 +1,204 @@
+{
+  "date": "2026-11-05",
+  "status": "Local comparison passed; production tracking unchanged.",
+  "findings": [
+    "The original collector parsed URL query parameters but ignored multipart POST bodies used by Meta for automatic events. Those requests could appear unnamed.",
+    "The prior snapshot with only PageView did not establish a failed fbq bridge: it lacked post-click instrumentation. Missing explicit query events from that snapshot cannot be attributed to the multipart parser alone.",
+    "With click diagnostics and a corrected collector, both normal (non-debug) worker and main-thread runs deliver matching events. No Meta SDK modification or bot-detection bypass was needed.",
+    "Repeated the Upskill worker test with periodic worker diagnostics removed; parity still passed."
+  ],
+  "changes": [
+    "Added collector support for multipart/form-data and application/x-www-form-urlencoded bodies, with body fields overriding query fields.",
+    "Added four collector regression tests, including unrecognized payload rejection.",
+    "Saved a reproducible loopback-only fixture using the actual shared FastSpring store, the installed Partytown runtime, and real public Meta Pixel configurations."
+  ],
+  "results": {
+    "results": [
+      {
+        "site": "upskill",
+        "pixel": "726824377950061",
+        "parityPassed": true,
+        "events": [
+          {
+            "event": "PageView",
+            "pixel": "726824377950061",
+            "matchingEmail": false
+          },
+          {
+            "event": "SubscribedButtonClick",
+            "pixel": "726824377950061",
+            "matchingEmail": true
+          },
+          {
+            "event": "InitiateCheckout",
+            "pixel": "726824377950061",
+            "value": "12.34",
+            "currency": "EUR",
+            "contentIds": "[\"audit-course\"]",
+            "contentType": "product",
+            "matchingEmail": true
+          },
+          {
+            "event": "SubscribedButtonClick",
+            "pixel": "726824377950061",
+            "matchingEmail": true
+          },
+          {
+            "event": "Purchase",
+            "pixel": "726824377950061",
+            "value": "12.34",
+            "currency": "EUR",
+            "contentIds": "[\"audit-course\"]",
+            "contentType": "product",
+            "matchingEmail": true
+          },
+          {
+            "event": "SubscribedButtonClick",
+            "pixel": "726824377950061",
+            "matchingEmail": true
+          },
+          {
+            "event": "Lead",
+            "pixel": "726824377950061",
+            "eventID": "audit-lead",
+            "matchingEmail": true
+          },
+          {
+            "event": "Purchase",
+            "pixel": "726824377950061",
+            "value": "12.34",
+            "currency": "EUR",
+            "eventID": "audit-purchase",
+            "contentIds": "[\"audit-course\"]",
+            "matchingEmail": true
+          },
+          {
+            "event": "AuditCustom",
+            "pixel": "726824377950061",
+            "eventID": "audit-custom",
+            "matchingEmail": true
+          },
+          {
+            "event": "SubscribedButtonClick",
+            "pixel": "726824377950061",
+            "matchingEmail": true
+          },
+          {
+            "event": "Lead",
+            "pixel": "726824377950061",
+            "matchingEmail": true
+          }
+        ],
+        "workerTransports": [
+          "query",
+          "multipart/form-data"
+        ]
+      },
+      {
+        "site": "planet",
+        "pixel": "1292661477415082",
+        "parityPassed": true,
+        "events": [
+          {
+            "event": "PageView",
+            "pixel": "1292661477415082",
+            "matchingEmail": false
+          },
+          {
+            "event": "SubscribedButtonClick",
+            "pixel": "1292661477415082",
+            "matchingEmail": false
+          },
+          {
+            "event": "InitiateCheckout",
+            "pixel": "1292661477415082",
+            "value": "12.34",
+            "currency": "EUR",
+            "contentIds": "[\"audit-course\"]",
+            "contentType": "product",
+            "matchingEmail": false
+          },
+          {
+            "event": "SubscribedButtonClick",
+            "pixel": "1292661477415082",
+            "matchingEmail": false
+          },
+          {
+            "event": "Purchase",
+            "pixel": "1292661477415082",
+            "value": "12.34",
+            "currency": "EUR",
+            "contentIds": "[\"audit-course\"]",
+            "contentType": "product",
+            "matchingEmail": false
+          },
+          {
+            "event": "SubscribedButtonClick",
+            "pixel": "1292661477415082",
+            "matchingEmail": false
+          },
+          {
+            "event": "Lead",
+            "pixel": "1292661477415082",
+            "eventID": "audit-lead",
+            "matchingEmail": false
+          },
+          {
+            "event": "Purchase",
+            "pixel": "1292661477415082",
+            "value": "12.34",
+            "currency": "EUR",
+            "eventID": "audit-purchase",
+            "contentIds": "[\"audit-course\"]",
+            "matchingEmail": false
+          },
+          {
+            "event": "AuditCustom",
+            "pixel": "1292661477415082",
+            "eventID": "audit-custom",
+            "matchingEmail": false
+          },
+          {
+            "event": "SubscribedButtonClick",
+            "pixel": "1292661477415082",
+            "matchingEmail": false
+          }
+        ],
+        "workerTransports": [
+          "query",
+          "multipart/form-data"
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "verification": {
+    "browser": "Existing visible in-app browser tab, with normal browser settings; interactions via UI controls. Earlier user-operated tests retained as historical evidence.",
+    "events": [
+      "PageView",
+      "FastSpring InitiateCheckout",
+      "FastSpring Purchase",
+      "explicit Lead and Purchase with eventID",
+      "custom event and parameter",
+      "SubscribedButtonClick",
+      "inferred Lead where present in the main-thread control"
+    ],
+    "matching": "Upskill sends matching data in both modes. Planet does not in either mode; configuration differences preserved.",
+    "sdk": "Real Meta SDK with local request interception, not a mocked fbq implementation.",
+    "purchase": "Simulated FastSpring callback through real shared handler; no actual order or payment.",
+    "tests": "4 parser regression tests passed; exact normalized event/payload parity assertions passed for Upskill (11 events) and Planet (10 events)."
+  },
+  "limitations": [
+    "This verifies outgoing payloads, not Meta reporting, attribution, or production-domain Event Setup Tool rules.",
+    "Other three Facebook-enabled sites have not been retested with this fixture.",
+    "No live-site rollout or performance improvement is claimed."
+  ],
+  "commands": {
+    "start": "node scripts/check-facebook-partytown.cjs",
+    "parserTests": "node --test scripts/facebook-audit/parse-event.test.cjs",
+    "url": "http://127.0.0.1:4397/?mode=worker",
+    "controls": "For each mode and pixel, click FastSpring checkout start, FastSpring completed purchase, explicit conversions, then Apply now. Compare /status entries by document URL.",
+    "isolation": "Loopback only; CSP blocks unhandled external collection; collection requests are captured locally. Do not deploy this test harness."
+  },
+  "liveChanges": "None; Facebook remains on the main thread, with GA, HubSpot and Chatwoot unchanged."
+}

@@ -17,6 +17,7 @@ import PageMetadata from '../components/PageMetadata.astro'
 import HubspotChat from '../components/HubspotChat.astro'
 import { isHubspotLoader } from '../lib/thirdPartyScripts'
 import GoogleAnalyticsWorker from '../components/GoogleAnalyticsWorker.astro'
+import FacebookWorker from '../components/FacebookWorker.astro'
 import CustomScripts from '../components/CustomScripts.astro'
 import StoryblokPreview from '../components/StoryblokPreview.astro'
 import { trackingScripts } from 'lumen-cms-shared/tracking'
@@ -32,7 +33,8 @@ const theme = context.theme
 const serverData = previewServerData(page)
 const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.PUBLIC_GTM_CONTAINER?.trim(), googleAnalyticsId: process.env.PUBLIC_GA, deferLibraries: true, explicitPageView: !process.env.PUBLIC_GTM_CONTAINER?.trim() })
 const workerScripts = !process.env.PUBLIC_GTM_CONTAINER?.trim() ? tracking.scripts.filter(script => script.id === 'gtag-init' || script.id === 'gtag-library') : []
-const workerScriptSet = new Set(workerScripts)
+const facebookScripts = process.env.PUBLIC_FACEBOOK_WORKER === '1' ? tracking.scripts.filter(script => script.id === 'fbq-init' || script.id === 'fbq-library') : []
+const workerScriptSet = new Set([...workerScripts, ...facebookScripts])
 const scripts = [...tracking.scripts.filter(script => !workerScriptSet.has(script)), ...(settings.scripts || [])]
 ;(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead = true
 const fontsHref = getFontBasedOnSetting(settings)
@@ -48,6 +50,7 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
   {!fontCss && <link rel="preconnect" href="https://fonts.googleapis.com" />}
   {workerScripts.length > 0 && <GoogleAnalyticsWorker scripts={workerScripts} />}
+  {facebookScripts.length > 0 && <FacebookWorker scripts={facebookScripts} />}
   {scripts.length > 0 && <CustomScripts scripts={scripts} />}
   <style data-lumen-preview-head is:inline set:html={themeCss(theme)} />
   <style data-lumen-preview-head is:inline set:html={collectPageStyles(page, theme)} />

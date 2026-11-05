@@ -368,7 +368,7 @@ before Partytown's main-thread fallback, without configuring GA twice.
 Development and CMS preview still exclude generated tracking. Sites with a
 nonempty `PUBLIC_GTM_CONTAINER` keep the existing main-thread Google path to
 avoid splitting a shared dataLayer across execution environments. Arbitrary
-CMS scripts, Facebook, HubSpot and AdRoll are unchanged. Sites without an
+CMS scripts, HubSpot, Chatwoot and AdRoll are unchanged. Sites without an
 analytics ID do not acquire one. Retired `UA-…` Universal Analytics IDs are
 skipped; setting a GA4 `G-…` ID later enables the same worker integration.
 
@@ -396,3 +396,30 @@ worker execution and one successful page view per destination, and includes
 Google's `analytics.google.com` collection endpoint as well as
 `google-analytics.com`. A site without a configured GA4 ID must emit no Google
 collection requests.
+
+
+### Facebook Pixel workers
+
+`defineLumenConfig` also enables Facebook workers by default. Generated Storyblok
+`setup_facebook_pixel` scripts run through Partytown with `fbq` forwarding, while
+HubSpot, Chatwoot and other CMS scripts retain their existing path. Multiple pixel
+IDs and the noscript image fallback remain supported. `PUBLIC_FACEBOOK_WORKER=0`
+is a build-time rollback switch; it does not change Google Analytics behavior.
+The standalone static fixture config keeps its existing main-thread Facebook path.
+
+The injected `/~facebook/[...path]` endpoint requires the consumer's Astro server
+adapter (all six consumers already use one). It only fetches public Facebook SDK
+and numeric pixel-configuration scripts from `connect.facebook.net`. It rejects
+other paths and redirects, forwards no cookies, and does not proxy collection.
+Pixel configuration is not cached; the SDK has a five-minute cache lifetime.
+
+Native fallback initializes an immediate queue when workers are unsupported and
+replays early Facebook forwards when worker registration fails. Tests cover both
+fallback paths, multiple pixels, event IDs, and conversion payloads. Do not treat
+page views alone as evidence that checkout or automatic event tracking works.
+
+Run `pnpm test:astro:facebook-worker` for the component contracts, and
+`node --test scripts/facebook-audit/parse-event.test.cjs` for collector tests.
+`pnpm test:astro:facebook-audit` serves a loopback-only real-SDK comparison with
+synthetic collection intercepted locally. This harness must never be deployed.
+Outgoing request parity is not proof of Meta reporting or attribution.

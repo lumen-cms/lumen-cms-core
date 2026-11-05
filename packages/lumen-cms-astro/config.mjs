@@ -4,6 +4,7 @@ import { parseEnv } from 'node:util'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'astro/config'
 import partytown from '@astrojs/partytown'
+import { trackingWorkerConfig, facebookScriptProxy } from './build/tracking-workers.mjs'
 import tailwindcss from '@tailwindcss/vite'
 import lumenStoryblok from './integration.mjs'
 import { lumenImageConfig } from './src/images/config.mjs'
@@ -20,6 +21,9 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
   }
   for (const [name, value] of Object.entries(environment)) process.env[name] ??= value
   for (const [name, value] of Object.entries(defaults)) process.env[name] ??= value
+  process.env.PUBLIC_FACEBOOK_WORKER ??= '1'
+  const facebookWorker = process.env.PUBLIC_FACEBOOK_WORKER === '1'
+  const googleWorker = !process.env.PUBLIC_GTM_CONTAINER?.trim()
   const target = process.env.TARGET
   if (target && !['SSG', 'SSR'].includes(target)) throw new Error('TARGET must be SSG or SSR')
   const buildMode = target ? (target === 'SSG' ? 'public' : 'preview') : process.env.LUMEN_BUILD_MODE || 'preview'
@@ -40,7 +44,7 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
     site: process.env.LUMEN_SITE_URL,
     output: buildMode === 'public' ? 'static' : 'server',
     adapter,
-    integrations: [...(!process.env.PUBLIC_GTM_CONTAINER?.trim() ? [partytown({ config: { forward: ['gtag', 'dataLayer.push'] } })] : []), lumenStoryblok({ preview: buildMode === 'preview' }), localeErrorRouting(), discovery({ preview: buildMode === 'preview' })],
+    integrations: [...(googleWorker || facebookWorker ? [partytown({ config: trackingWorkerConfig({ google: googleWorker, facebook: facebookWorker }) })] : []), ...(facebookWorker ? [facebookScriptProxy()] : []), lumenStoryblok({ preview: buildMode === 'preview' }), localeErrorRouting(), discovery({ preview: buildMode === 'preview' })],
     image: buildMode === 'public' ? {
       ...lumenImageConfig,
       service: {
