@@ -1,0 +1,518 @@
+{
+  "date": "2026-11-05",
+  "consumerCommit": "c5f55cb78f0169931163f82bc3ae89f620c1cf20",
+  "sharedCommit": "75e369f89d06d6e2823a406aa5edc45e693fa007",
+  "runs": [
+    {
+      "report": "1nqdhx868j",
+      "mobile": {
+        "score": 94,
+        "lcpMs": 2479,
+        "tbtMs": 2,
+        "speedIndexMs": 4757,
+        "url": "https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/1nqdhx868j?form_factor=mobile"
+      },
+      "desktop": {
+        "score": 100,
+        "lcpMs": 616,
+        "tbtMs": 34,
+        "speedIndexMs": 788,
+        "url": "https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/1nqdhx868j?form_factor=desktop"
+      }
+    },
+    {
+      "report": "q5ghu27dpl",
+      "mobile": {
+        "score": 99,
+        "lcpMs": 2254,
+        "tbtMs": 16,
+        "speedIndexMs": 1200,
+        "url": "https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/q5ghu27dpl?form_factor=mobile"
+      },
+      "desktop": {
+        "score": 100,
+        "lcpMs": 583,
+        "tbtMs": 0,
+        "speedIndexMs": 477,
+        "url": "https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/q5ghu27dpl?form_factor=desktop"
+      }
+    },
+    {
+      "report": "6d4j37egdg",
+      "mobile": {
+        "score": 98,
+        "lcpMs": 2331,
+        "tbtMs": 71,
+        "speedIndexMs": 1276,
+        "url": "https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/6d4j37egdg?form_factor=mobile"
+      },
+      "desktop": {
+        "score": 100,
+        "lcpMs": 584,
+        "tbtMs": 0,
+        "speedIndexMs": 479,
+        "url": "https://pagespeed.web.dev/analysis/https-upskill-astro-vercel-app/6d4j37egdg?form_factor=desktop"
+      }
+    }
+  ],
+  "scope": "Six Astro production aliases; custom-domain migration excluded.",
+  "implementation": "Facebook SDK/configuration execute through Partytown with restricted same-origin script proxy, fbq forwarding, and queue-preserving native fallback.",
+  "predeploymentVerification": {
+    "allFivePixelsPassed": true,
+    "events": [
+      "PageView",
+      "automatic SubscribedButtonClick",
+      "Lead",
+      "FastSpring InitiateCheckout",
+      "FastSpring Purchase",
+      "explicit Purchase",
+      "custom event"
+    ],
+    "method": "Real Meta SDK, main-thread versus worker, normal browser; synthetic collection intercepted locally. Payloads, event IDs, value/currency, content IDs and matching behavior compared. Pixel-specific automatic event behavior retained.",
+    "reports": [
+      "facebook-partytown-corrected-verification-2026-11-05.json",
+      "facebook-remaining-pixels-2026-11-05.json"
+    ]
+  },
+  "runtimeVerification": [
+    {
+      "site": "https://baliinternships-astro.vercel.app",
+      "expected": true,
+      "scripts": [
+        {
+          "id": "fbq-init",
+          "type": "text/partytown-x"
+        },
+        {
+          "id": "fbq-library",
+          "type": "text/partytown-x"
+        }
+      ],
+      "proxy": [
+        {
+          "path": "/~facebook/en_US/fbevents.js",
+          "status": 200
+        },
+        {
+          "path": "/~facebook/signals/config/2863534213877650",
+          "status": 200
+        }
+      ],
+      "state": {
+        "fbq": "function",
+        "facebookCookie": true,
+        "hubspotMain": [],
+        "chatwootMain": [
+          {
+            "src": "https://admin.lumen.media/packs/js/sdk.js",
+            "type": ""
+          }
+        ]
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://baliinternships-astro.vercel.app",
+      "expectedId": "G-D47Z3QX5YT",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-D47Z3QX5YT"
+        }
+      ],
+      "counts": {
+        "G-D47Z3QX5YT": 1
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://lumen-media-astro.vercel.app",
+      "expected": false,
+      "scripts": [],
+      "proxy": [],
+      "state": {
+        "fbq": "function",
+        "facebookCookie": false,
+        "hubspotMain": [],
+        "chatwootMain": []
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://lumen-media-astro.vercel.app",
+      "expectedId": null,
+      "workers": 1,
+      "scripts": [],
+      "pageViews": [],
+      "counts": {},
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://planettraining-astro.vercel.app",
+      "expected": true,
+      "scripts": [
+        {
+          "id": "fbq-init",
+          "type": "text/partytown-x"
+        },
+        {
+          "id": "fbq-library",
+          "type": "text/partytown-x"
+        }
+      ],
+      "proxy": [
+        {
+          "path": "/~facebook/en_US/fbevents.js",
+          "status": 200
+        },
+        {
+          "path": "/~facebook/signals/config/1292661477415082",
+          "status": 200
+        }
+      ],
+      "state": {
+        "fbq": "function",
+        "facebookCookie": true,
+        "hubspotMain": [],
+        "chatwootMain": [
+          {
+            "src": "https://admin.lumen.media/packs/js/sdk.js",
+            "type": ""
+          }
+        ]
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://planettraining-astro.vercel.app",
+      "expectedId": "G-VG3HH1PJNQ",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "analytics.google.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-VG3HH1PJNQ"
+        }
+      ],
+      "counts": {
+        "G-VG3HH1PJNQ": 1
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://students-de-astro.vercel.app",
+      "expected": true,
+      "scripts": [
+        {
+          "id": "fbq-init",
+          "type": "text/partytown-x"
+        },
+        {
+          "id": "fbq-library",
+          "type": "text/partytown-x"
+        }
+      ],
+      "proxy": [
+        {
+          "path": "/~facebook/en_US/fbevents.js",
+          "status": 200
+        },
+        {
+          "path": "/~facebook/signals/config/538277029942771",
+          "status": 200
+        }
+      ],
+      "state": {
+        "fbq": "function",
+        "facebookCookie": true,
+        "hubspotMain": [],
+        "chatwootMain": []
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://students-de-astro.vercel.app",
+      "expectedId": "G-QPJ9JQCQS6",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-QPJ9JQCQS6"
+        }
+      ],
+      "counts": {
+        "G-QPJ9JQCQS6": 1
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://students-en-astro.vercel.app",
+      "expected": true,
+      "scripts": [
+        {
+          "id": "fbq-init",
+          "type": "text/partytown-x"
+        },
+        {
+          "id": "fbq-library",
+          "type": "text/partytown-x"
+        }
+      ],
+      "proxy": [
+        {
+          "path": "/~facebook/en_US/fbevents.js",
+          "status": 200
+        },
+        {
+          "path": "/~facebook/signals/config/1205753661121409",
+          "status": 200
+        }
+      ],
+      "state": {
+        "fbq": "function",
+        "facebookCookie": true,
+        "hubspotMain": [
+          {
+            "src": "https://js-na1.hs-scripts.com/4063132.js",
+            "type": ""
+          }
+        ],
+        "chatwootMain": []
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://students-en-astro.vercel.app",
+      "expectedId": "G-VPF8SZXRVH",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-QPJ9JQCQS6"
+        },
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-VPF8SZXRVH"
+        }
+      ],
+      "counts": {
+        "G-QPJ9JQCQS6": 1,
+        "G-VPF8SZXRVH": 1
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://upskill-astro.vercel.app",
+      "expected": true,
+      "scripts": [
+        {
+          "id": "fbq-init",
+          "type": "text/partytown-x"
+        },
+        {
+          "id": "fbq-library",
+          "type": "text/partytown-x"
+        }
+      ],
+      "proxy": [
+        {
+          "path": "/~facebook/en_US/fbevents.js",
+          "status": 200
+        },
+        {
+          "path": "/~facebook/signals/config/726824377950061",
+          "status": 200
+        }
+      ],
+      "state": {
+        "fbq": "function",
+        "facebookCookie": true,
+        "hubspotMain": [
+          {
+            "src": "https://js-na1.hs-scripts.com/4063132.js",
+            "type": ""
+          }
+        ],
+        "chatwootMain": []
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "site": "https://upskill-astro.vercel.app",
+      "expectedId": "G-E5T41KXD1F",
+      "workers": 1,
+      "scripts": [
+        {
+          "id": "gtag-init",
+          "type": "text/partytown-x",
+          "explicitPageView": true
+        },
+        {
+          "id": "gtag-library",
+          "type": "text/partytown-x",
+          "explicitPageView": false
+        }
+      ],
+      "pageViews": [
+        {
+          "host": "www.google-analytics.com",
+          "status": 204,
+          "event": "page_view",
+          "id": "G-E5T41KXD1F"
+        }
+      ],
+      "counts": {
+        "G-E5T41KXD1F": 1
+      },
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "productionAliasesAndCmsIntegrity": [
+    {
+      "site": "https://upskill-astro.vercel.app",
+      "unchangedCmsScripts": true,
+      "scriptIds": [
+        "hs-script-loader"
+      ],
+      "deploymentId": "dpl_CiCcbdHFhLsiLhaikBN17ixSzeG7"
+    },
+    {
+      "site": "https://planettraining-astro.vercel.app",
+      "unchangedCmsScripts": true,
+      "scriptIds": [
+        "87cfb0d0-01ee-4cb4-b478-39bf3db9bb5c",
+        "d750852f-e5df-4d0a-9fbb-336e3e06a9f9"
+      ],
+      "deploymentId": "dpl_J7hxCVswafouSRGeieqUE1iTSxS4"
+    },
+    {
+      "site": "https://baliinternships-astro.vercel.app",
+      "unchangedCmsScripts": true,
+      "scriptIds": [
+        "1f353956-171d-453c-9032-2652b5e52c20"
+      ],
+      "deploymentId": "dpl_52FkogJvrN72hWCdovsY1evmcfgn"
+    },
+    {
+      "site": "https://students-de-astro.vercel.app",
+      "unchangedCmsScripts": true,
+      "scriptIds": [],
+      "deploymentId": "dpl_G3vL3QwD4nvZD26VET8gweZeemob"
+    },
+    {
+      "site": "https://students-en-astro.vercel.app",
+      "unchangedCmsScripts": true,
+      "scriptIds": [
+        "hs-script-loader"
+      ],
+      "deploymentId": "dpl_HCb9RiRBg2nyZN675kYVcDKA64aj"
+    },
+    {
+      "site": "https://lumen-media-astro.vercel.app",
+      "unchangedCmsScripts": true,
+      "scriptIds": [],
+      "deploymentId": "dpl_BTLCyXxzBqNW83xYpZqE5xdHfeAS"
+    }
+  ],
+  "baselineMedian": {
+    "mobile": {
+      "score": 93,
+      "tbtMs": 222,
+      "lcpMs": 2328
+    },
+    "desktop": {
+      "score": 100,
+      "tbtMs": 53,
+      "lcpMs": 584
+    }
+  },
+  "newMedian": {
+    "mobile": {
+      "score": 98,
+      "tbtMs": 16,
+      "lcpMs": 2331
+    },
+    "desktop": {
+      "score": 100,
+      "tbtMs": 0,
+      "lcpMs": 584
+    }
+  },
+  "interpretation": "All three new mobile TBT samples (2,16,71 ms) below baseline range (164\u2013243 ms). Median LCP essentially unchanged. Three lab samples do not establish real-user performance or eliminate run-to-run variation.",
+  "limitations": [
+    "Local conversion parity proves emitted payloads, not Meta dashboard ingestion or ad attribution. No synthetic production purchases submitted.",
+    "GA verified via successful collect responses, not dashboard access.",
+    "Lumen Media has no configured active GA4 or Facebook pixel.",
+    "Concurrent consumer commit b2beb69c pins shared ec7efa4c, which only adds a verification script; those queued rebuilds do not change runtime. PageSpeed and live tests here target the c5f55cb7 rollout."
+  ]
+}
