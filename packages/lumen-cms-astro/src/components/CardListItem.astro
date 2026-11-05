@@ -1,4 +1,5 @@
 ---
+import DialogInitialFocus from './DialogInitialFocus.astro'
 import CmsAnchor from './CmsAnchor.astro'
 import type { CardListItemStoryblok, HeadlineStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 import type { CardListItemProps } from 'lumen-cms-shared/core/components/card/cardTypes'
@@ -44,6 +45,7 @@ const overlay = hasImage && !top && variants.includes('over_media')
 
 {drawer && <template id={`${drawerId}-template`}>
  <dialog id={drawerId} class="lm-card-drawer" aria-label={content.title || 'Card details'} style={{ '--lm-card-drawer-width': content.action_width || '420px' }}>
+ <DialogInitialFocus />
   <div class="lm-card-drawer-toolbar">{content.action_headline?.map(child => <Block content={child} context={context} />)}<button type="button" class="btn btn-ghost btn-circle" data-dialog-close aria-label="Close card details">×</button></div>
   <div class="lm-card-drawer-body">{content.body?.map(child => <Block content={child} context={context} />)}</div>
  </dialog>

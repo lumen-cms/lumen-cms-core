@@ -1,4 +1,5 @@
 ---
+import DialogInitialFocus from './DialogInitialFocus.astro'
 import type { EcommerceShopifyConfigStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 import type { RenderContext } from '../lib/context'
 import { sanitizeProductDescription } from 'lumen-cms-shared/core/components/ecommerce/shopify/product/sanitizeProductDescription'
@@ -11,6 +12,7 @@ const trigger = { component: 'button' as const, _uid: `${uid}-description-trigge
 <div data-lm-dialog-trigger={id}><Block content={trigger} context={context} /></div>
 <template id={`${id}-template`}>
  <dialog id={id} class="lm-dialog lm-shopify-description" aria-label={trigger.label || 'About this item'}>
+ <DialogInitialFocus />
   <div class="lm-shopify-description-toolbar"><button type="button" class="btn btn-ghost btn-circle" data-dialog-close aria-label="Close dialog">×</button></div>
   <div class="lm-shopify-description-content"><div class="lm-typography-body1" style={{ color: context.theme.palette.text.secondary }} set:html={sanitizeProductDescription(descriptionHtml)} /></div>
  </dialog>

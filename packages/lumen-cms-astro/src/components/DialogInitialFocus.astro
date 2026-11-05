@@ -1,0 +1,7 @@
+<!-- Native dialogs focus this neutral target instead of highlighting a control.
+     It takes no layout space and is skipped by Tab; interactive controls retain
+     their normal keyboard focus indicators. Search intentionally omits it. -->
+<span data-dialog-initial-focus tabindex="-1" autofocus />
+<style>
+ [data-dialog-initial-focus] { position: absolute; width: 0; height: 0; overflow: hidden; outline: none; }
+</style>

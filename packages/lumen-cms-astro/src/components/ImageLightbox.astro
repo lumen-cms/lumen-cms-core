@@ -1,4 +1,5 @@
 ---
+import DialogInitialFocus from './DialogInitialFocus.astro'
 import type { ImageListStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 import ImageListItem from './ImageListItem.astro'
 import '../styles/nativeCarousel.css'
@@ -6,6 +7,7 @@ interface Props { content: ImageListStoryblok }
 const { content } = Astro.props
 ---
 <dialog class="lm-image-lightbox" aria-label="Image gallery">
+ <DialogInitialFocus />
  <button type="button" data-lightbox-close class="btn btn-ghost btn-circle lm-lightbox-close" aria-label="Close gallery">×</button>
  <div class="carousel carousel-start lm-native-carousel">{content.body?.map(item => <div class="carousel-item"><ImageListItem content={item} lightbox /></div>)}</div>
  <button type="button" data-lightbox-prev class="lm-lightbox-prev" aria-label="Previous image">‹</button>

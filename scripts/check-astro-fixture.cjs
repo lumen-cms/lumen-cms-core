@@ -249,9 +249,16 @@ async function main() {
         const toggle = page.getByRole('button', { name: 'Drawer left toggle' })
         await toggle.click()
         assert.equal(await page.locator('#lm-left-drawer').evaluate(el => el.open && el.matches(':modal')), true)
+        assert.equal(await page.locator('#lm-left-drawer > [data-dialog-initial-focus]').evaluate(el => el === document.activeElement && getComputedStyle(el).outlineStyle === 'none'), true, 'Opening the drawer must not highlight its first item')
+        await page.keyboard.press('Tab')
+        assert.equal(await page.locator('#lm-left-drawer').evaluate(el => {
+          const first = el.querySelector('a[href], button, input, select, textarea, summary')
+          return first === document.activeElement && first.matches(':focus-visible')
+        }), true, 'Keyboard navigation must retain visible focus on the first drawer item')
         await page.keyboard.press('Escape')
         assert.equal(await page.locator('#lm-left-drawer').evaluate(el => el.open), false)
         assert.equal(await toggle.getAttribute('aria-expanded'), 'false')
+        assert.equal(await toggle.evaluate(el => el === document.activeElement), true)
       } else {
         const menu = page.getByRole('button', { name: 'Explore fixture' })
         await menu.focus()

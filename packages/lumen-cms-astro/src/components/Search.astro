@@ -23,7 +23,7 @@ const id = `search-${content._uid}`
  </button>}
  <dialog id={id} class="lm-search-dialog" aria-labelledby={`${id}-title`} style={{ borderRadius: options.menu_border_radius || (options.menu_square ? '0' : undefined), border: options.menu_outlined ? '1px solid #0002' : undefined, boxShadow: options.menu_outlined ? 'none' : context.theme.shadows[options.menu_elevation !== undefined ? Number(options.menu_elevation) : 1] }}>
   <div class="lm-search-heading"><h2 id={`${id}-title`}>{options.label || messages.search}</h2><button type="button" class="lm-search-close" data-search-close aria-label={messages.close}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button></div>
-  <div class="lm-search-body"><input class="input w-full" type="search" role="combobox" aria-label={options.label || messages.search} aria-autocomplete="list" aria-expanded="true" aria-controls={`${id}-results`} placeholder={options.placeholder || messages.placeholder} autocomplete="off" />
+  <div class="lm-search-body"><input autofocus class="input w-full" type="search" role="combobox" aria-label={options.label || messages.search} aria-autocomplete="list" aria-expanded="true" aria-controls={`${id}-results`} placeholder={options.placeholder || messages.placeholder} autocomplete="off" />
    <div class="lm-search-status" role="status" aria-live="polite"><span data-search-status>{messages.minimum}</span><button type="button" hidden data-search-retry class="btn btn-ghost">{messages.retry}</button></div>
    <ul id={`${id}-results`} role="listbox" class="lm-search-results"></ul>
   </div>

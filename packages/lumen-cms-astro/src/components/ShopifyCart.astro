@@ -1,4 +1,5 @@
 ---
+import DialogInitialFocus from './DialogInitialFocus.astro'
 import Image from './CmsImage.astro'
 import type { RenderContext } from '../lib/context'
 import Headline from './CmsHeadline.astro'
@@ -16,6 +17,7 @@ const badge = context.theme.palette[config?.floating_badge_color || 'warning'] a
   <span class="indicator"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2M1 2v2h2l3.6 7.59-1.35 2.45A2 2 0 0 0 7 17h12v-2H7l1.1-2h7.45a2 2 0 0 0 1.75-1.03L20.88 5H5.21l-.94-2H1m18 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4M6.16 7h11.31l-2.76 5H8.53z" /></svg><span class="badge indicator-item" data-cart-count /></span>
  </button>
  <dialog class="lm-shopify-cart-dialog" aria-label="Shopping cart">
+ <DialogInitialFocus />
   <header class="lm-shopify-cart-toolbar"><Headline content={{ component: 'headline', _uid: 'shopify-cart-title', text: 'Shopping Cart', typography: 'headline4', ...config.cart_toolbar?.[0] }} context={context} /><button type="button" class="btn btn-ghost btn-circle" data-cart-close aria-label="Close shopping cart">×</button></header>
   <div class="lm-shopify-cart-items" data-cart-items />
   <footer class="lm-shopify-cart-footer">

@@ -1,4 +1,5 @@
 ---
+import DialogInitialFocus from './DialogInitialFocus.astro'
 import type { DialogStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 import type { RenderContext } from '../lib/context'
 import Block from './Block.astro'
@@ -9,6 +10,7 @@ const id = `dialog-${content._uid}`
 <div data-lm-dialog-trigger={id} style="cursor:pointer">{content.trigger?.map(child => <Block content={child} context={context} />)}</div>
 <template id={`${id}-template`}>
  <dialog id={id} class:list={['lm-dialog', content.fullscreen && `lm-dialog-full-${content.fullscreen}`]} data-prevent-outside={content.prevent_click_outside ? '' : undefined} data-slide-up={content.slide_up ? '' : undefined} aria-labelledby={`${id}-title`}>
+ <DialogInitialFocus />
   <div class="lm-dialog-title" style={{ display: content.prevent_close_button && !content.title ? 'none' : undefined }}>
    <div id={`${id}-title`} style="display:contents">
    {!content.custom_title?.length && <span>{content.title}</span>}

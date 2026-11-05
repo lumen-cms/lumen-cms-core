@@ -1,4 +1,5 @@
 ---
+import DialogInitialFocus from './DialogInitialFocus.astro'
 import type { EventCalendarStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 import type { CalendarResource } from 'lumen-cms-shared/calendar'
 import type { RenderContext } from '../lib/context'
@@ -26,6 +27,7 @@ const resources = [...new Map(stories.map(story => [story.content._uid, story.co
 </div>
 {resources.map(resource => <template id={`${scope}-${resource._uid}-template`}>
  <dialog id={`${scope}-${resource._uid}`} class="lm-dialog lm-dialog-full-xl" aria-label={resource.title || 'Event'}>
+ <DialogInitialFocus />
   <div style="display:flex;justify-content:flex-end;padding:16px 24px"><button type="button" class="btn btn-ghost btn-circle" data-dialog-close aria-label="Close dialog">×</button></div>
   <div style="overflow-y:auto"><Event content={resource} context={context} /></div>
  </dialog>
