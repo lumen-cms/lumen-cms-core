@@ -10,9 +10,9 @@ import { shouldUseVercelRemoteImage, vercelImageVariant } from '../images/vercel
 interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
  src: string; alt: string; width?: number; height?: number; widths?: number[]; densities?: (number | `${number}x`)[]
  quality?: number; format?: ImageOutputFormat; fit?: 'contain' | 'cover' | 'fill' | 'inside' | 'outside'; position?: string
- fill?: boolean; preload?: boolean; portraitSrc?: string; blurDataURL?: string; unoptimized?: boolean; autoSizes?: boolean
+ fill?: boolean; preload?: boolean; preloadOnly?: boolean; portraitSrc?: string; blurDataURL?: string; unoptimized?: boolean; autoSizes?: boolean
 }
-const { src: input, width, height, widths, densities, quality = Number(process.env.PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, portraitSrc, blurDataURL, unoptimized, autoSizes = true, style, ...attrs } = Astro.props
+const { src: input, width, height, widths, densities, quality = Number(process.env.PUBLIC_IMAGE_QUALITY) || 75, format, fit, position, fill, preload, preloadOnly, portraitSrc, blurDataURL, unoptimized, autoSizes = true, style, ...attrs } = Astro.props
 async function resolveImage(input: string) {
  const source = normalizeImageSource(input)
  const remote = /^https?:/.test(source)
@@ -65,14 +65,14 @@ if (!fill && renderedSizes !== sizes) htmlAttributes.style = `${imageStyle};cont
 ---
 {preload && <link rel="preload" as="image" media={portrait ? '(orientation: landscape)' : undefined} fetchpriority={htmlAttributes.fetchpriority} type={avif ? 'image/avif' : undefined} href={preloadImage.srcSet.attribute ? undefined : preloadImage.src} imagesrcset={preloadImage.srcSet.attribute || undefined} imagesizes={sizes} />}
 {preload && portrait && <link rel="preload" as="image" media="(orientation: portrait)" fetchpriority={htmlAttributes.fetchpriority} type={portrait.avif ? 'image/avif' : undefined} href={(portrait.avif || portrait.output).srcSet.attribute ? undefined : (portrait.avif || portrait.output).src} imagesrcset={(portrait.avif || portrait.output).srcSet.attribute || undefined} imagesizes={sizes} />}
-<>{avif || webp || portrait ? <picture style="display:contents">
+<>{!preloadOnly && (avif || webp || portrait ? <picture style="display:contents">
  {portrait?.avif && <source media="(orientation: portrait)" type="image/avif" srcset={portrait.avif.srcSet.attribute || portrait.avif.src} sizes={renderedSizes} />}
  {portrait?.webp && <source media="(orientation: portrait)" type="image/webp" srcset={portrait.webp.srcSet.attribute || portrait.webp.src} sizes={renderedSizes} />}
  {portrait && <source media="(orientation: portrait)" srcset={portrait.output.srcSet.attribute || portrait.output.src} sizes={renderedSizes} />}
  {avif && <source type="image/avif" srcset={avif.srcSet.attribute || avif.src} sizes={renderedSizes} />}
  {webp && <source type="image/webp" srcset={webp.srcSet.attribute || webp.src} sizes={renderedSizes} />}
  <img {...htmlAttributes} />
-</picture> : <img {...htmlAttributes} />}</>
+</picture> : <img {...htmlAttributes} />)}</>
 <script>
  function clearImagePlaceholders() {
   document.querySelectorAll<HTMLImageElement>('img[data-lm-image-blur]').forEach(image => {

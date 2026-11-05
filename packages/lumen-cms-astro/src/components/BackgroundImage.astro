@@ -1,0 +1,13 @@
+---
+import Image from './CmsImage.astro'
+import type { BackgroundStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+interface Props { content: BackgroundStoryblok; sectionPosition?: number; preloadOnly?: boolean }
+const { content, sectionPosition, preloadOnly } = Astro.props
+const priority = content.priority || sectionPosition === 0
+const source = content.image || content.alternative_image
+const portraitSrc = content.image ? content.alternative_image : undefined
+---
+{source && <Image src={source} portraitSrc={portraitSrc} fill alt="" widths={[480, 640, 768, 960, 1280, 1920, 2560]} sizes="100vw" quality={Number(content.quality) || undefined}
+ preload={priority} preloadOnly={preloadOnly} loading={priority || content.disable_lazy_loading ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : undefined}
+ class:list={['lm-background-image', content.hide_image_on_breakpoint && `hide__${content.hide_image_on_breakpoint}`]}
+ style={{ objectFit: content.background_size === 'auto' ? 'cover' : content.background_size || 'cover', objectPosition: content.background_position || 'center' }} />}

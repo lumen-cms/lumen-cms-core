@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css'
+import BackgroundImage from '../components/BackgroundImage.astro'
+import { firstSectionBackground } from '../images/hero'
 import { createRenderContext } from '../lib/renderContext'
 import { storyblokEditable } from '@storyblok/astro'
 import StoryblokServerData from '@storyblok/astro/StoryblokServerData.astro'
@@ -25,6 +27,7 @@ import { getFontBasedOnSetting } from 'lumen-cms-shared/core/utils/parseFont'
 import { getGoogleFontsCss } from 'lumen-cms-shared/core/utils/initial-props/googleFontsCache'
 interface Props { page: RenderContext['page']; components?: AstroRendererOverrides; wrappers?: AstroAppWrappers; linkRenderer?: RenderContext['linkRenderer']; storyListEndpoint?: string }
 const { page, components, wrappers, linkRenderer, storyListEndpoint } = Astro.props
+const heroBackground = !Astro.slots.has('default') ? firstSectionBackground(page, components) : undefined
 const settings = page.settings!
 const fastSpringConfig = settings.ecommerce?.find(item => item.component === 'ecommerce_fastspring_config')
 const shopifyConfig = settings.ecommerce?.find(item => item.component === 'ecommerce_shopify_config')
@@ -45,6 +48,7 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
 <html lang={page.locale || 'en'} data-lumen-renderer="astro" data-lumen-preview={context.preview || undefined}>
  <head>
   <meta charset="utf-8" />{!(settings.pwa_app_name && settings.pwa_app_description) && <meta name="format-detection" content="telephone=no" />}<meta name="viewport" content="width=device-width, initial-scale=1" />
+  {heroBackground && <BackgroundImage content={heroBackground} sectionPosition={0} preloadOnly />}
   <PageMetadata page={page} />
   <link rel="preconnect" href="https://a.storyblok.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
