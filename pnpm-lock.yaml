@@ -10,6 +10,9 @@ overrides:
   '@storyblok/richtext>happy-dom': 21.0.4
   '@tiptap/html>happy-dom': 21.0.4
 
+patchedDependencies:
+  '@qwik.dev/partytown@1.0.3': 919ed1cddc217881a5ea742c810078d72992c93974608a4c31e63eb6dd7c762e
+
 importers:
 
   .:
@@ -9098,7 +9101,7 @@ snapshots:
 
   '@astrojs/partytown@2.1.9':
     dependencies:
-      '@qwik.dev/partytown': 1.0.3
+      '@qwik.dev/partytown': 1.0.3(patch_hash=919ed1cddc217881a5ea742c810078d72992c93974608a4c31e63eb6dd7c762e)
       mrmime: 2.0.1
 
   '@astrojs/prism@4.1.2':
@@ -11893,7 +11896,7 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@qwik.dev/partytown@1.0.3': {}
+  '@qwik.dev/partytown@1.0.3(patch_hash=919ed1cddc217881a5ea742c810078d72992c93974608a4c31e63eb6dd7c762e)': {}
 
   '@repeaterjs/repeater@3.1.0': {}
 

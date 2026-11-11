@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-11",
+  "scope": "Local published planet.training homepage sample; no deployment or CMS changes",
+  "limitations": [
+    "Published homepage differs from supplied PageSpeed snapshot: its header background is absent. Background regression covered separately by production fixture.",
+    "One before/after mobile Lighthouse run, not a statistical benchmark. Localhost third-party cookies and Issues findings affect Best Practices.",
+    "Impact still returns 403 AccessDenied directly even though the final Lighthouse console audit passes; that audit does not prove tracking works.",
+    "Axe blocks external scripts; desktop CTA contrast findings need checking with fully loaded background images."
+  ],
+  "before": {
+    "scores": {
+      "performance": 63,
+      "accessibility": 94,
+      "best-practices": 58
+    },
+    "imageSavingsBytes": 72305,
+    "deprecatedAPIs": 0,
+    "aspectRatio": 1,
+    "imageResolution": 1
+  },
+  "after": {
+    "scores": {
+      "performance": 68,
+      "accessibility": 94,
+      "best-practices": 77
+    },
+    "imageSavingsBytes": 43588,
+    "deprecatedAPIs": 1,
+    "aspectRatio": 1,
+    "imageResolution": 1
+  },
+  "steps": [
+    {
+      "step": 1,
+      "status": "implemented; fixture verified",
+      "changes": [
+        "Normalize background-size initial/auto to object-fit cover; preserve contain.",
+        "Size eager background candidates using source aspect ratio and configured height, falling back to viewport height. Separate portrait sizing matches preloads."
+      ],
+      "limitation": "Viewport-height fallback is conservative; unusually tall or short content-driven heroes need explicit CMS height or art direction."
+    },
+    {
+      "step": 2,
+      "status": "implemented; Lighthouse verified",
+      "changes": [
+        "Pinned pnpm patch excludes window.fence from Partytown 1.0.3 discovery in service worker and atomics, production and debug builds."
+      ],
+      "validation": "Deprecated API audit passes; Google worker and fallback event tests pass.",
+      "deployment": "Consumer repositories must carry this pnpm patch too, or use an upstream version with the equivalent fix; workspace patches are not automatically propagated by publishing the Astro package."
+    },
+    {
+      "step": 3,
+      "status": "external configuration required",
+      "scriptBlockId": "d750852f-e5df-4d0a-9fbb-336e3e06a9f9",
+      "url": "https://utt.impactcdn.com/P-A6466220-c0d1-456d-b957-b3c7755b16021.js",
+      "result": "403 AccessDenied",
+      "next": "Verify active Impact account/script and domain configuration; replace CMS script with the provider-issued valid URL or confirm removal of obsolete integration."
+    },
+    {
+      "step": 4,
+      "status": "implemented improvement; remaining asset optimization",
+      "changes": [
+        "Added 480px and 768px inline-image candidates to avoid jumping from 640px to 960px."
+      ],
+      "next": "Remaining image-delivery findings are primarily club logo compression. Review source assets/quality visually before reducing quality globally."
+    },
+    {
+      "step": 5,
+      "status": "CMS edits required",
+      "changes": [],
+      "cmsEdits": [
+        {
+          "target": "Few of the teams & associations already collaborating on planet.training",
+          "finding": "#868b91 on #f5f5f7 = 3.15:1",
+          "action": "Darken this paragraph foreground to a verified minimum 4.5:1 contrast."
+        },
+        {
+          "target": "Feature cards, solution cards, subscription benefits, FAQ questions",
+          "finding": "Explicit h4/h5 tags follow h2 sections",
+          "action": "Use h3 for immediate subsection headings, keeping existing typography settings."
+        },
+        {
+          "target": "Numbers/statistics",
+          "action": "Use consistent h3 for peer subsection headings or paragraphs for decorative numbers; do not mix h4 and h5 for peers."
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "unit": "10 tests passed",
+    "productionImageFixture": "Passed mobile/desktop sizing, preload deduplication and lazy card layout",
+    "productionHomepageBuild": "Passed",
+    "googleWorker": "Worker and fallback event assertions passed",
+    "astroCheck": "Blocked by two existing type errors in src/pages/ui-regressions/[fixture].astro (column content and missing rich-text textAlign)",
+    "diffCheck": "Passed"
+  }
+}

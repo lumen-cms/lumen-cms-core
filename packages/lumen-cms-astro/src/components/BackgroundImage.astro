@@ -1,13 +1,20 @@
 ---
 import Image from './CmsImage.astro'
+import { backgroundImageFit, backgroundImageSizes } from '../images/policy'
 import type { BackgroundStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 interface Props { content: BackgroundStoryblok; sectionPosition?: number; preloadOnly?: boolean }
 const { content, sectionPosition, preloadOnly } = Astro.props
 const priority = content.priority || sectionPosition === 0
 const source = content.image || content.alternative_image
 const portraitSrc = content.image ? content.alternative_image : undefined
+const fit = backgroundImageFit(content.background_size)
+// Eager section backgrounds cannot use native lazy-image auto sizing. Reserve
+// enough resolution for a viewport-height hero when CMS height is unspecified.
+const coverHeight = content.height || (priority ? '100svh' : undefined)
+const sizes = fit === 'cover' && source ? backgroundImageSizes(source, coverHeight) : '100vw'
+const portraitSizes = fit === 'cover' && portraitSrc ? backgroundImageSizes(portraitSrc, coverHeight) : sizes
 ---
-{source && <Image src={source} portraitSrc={portraitSrc} fill alt="" widths={[480, 640, 768, 960, 1280, 1920, 2560]} sizes="100vw" quality={Number(content.quality) || undefined}
+{source && <Image src={source} portraitSrc={portraitSrc} portraitSizes={portraitSizes} fill alt="" widths={[480, 640, 768, 960, 1280, 1920, 2560]} sizes={sizes} quality={Number(content.quality) || undefined}
  preload={priority} preloadOnly={preloadOnly} loading={priority || content.disable_lazy_loading ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : undefined}
  class:list={['lm-background-image', content.hide_image_on_breakpoint && `hide__${content.hide_image_on_breakpoint}`]}
- style={{ objectFit: content.background_size === 'auto' ? 'cover' : content.background_size || 'cover', objectPosition: content.background_position || 'center' }} />}
+ style={{ objectFit: fit, objectPosition: content.background_position || 'center' }} />}

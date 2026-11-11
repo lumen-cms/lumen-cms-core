@@ -5,6 +5,16 @@ export function isStoryblokImage(source: string) {
   try { const url = new URL(normalizeImageSource(source)); return url.protocol === 'https:' && url.hostname === 'a.storyblok.com' } catch { return false }
 }
 export function isSvgImage(source: string) { return /\.svg$/i.test(source.split(/[?#]/)[0]) }
+/** CMS background-size keywords are not all valid object-fit values. */
+export function backgroundImageFit(size?: string): 'cover' | 'contain' {
+  return size === 'contain' ? 'contain' : 'cover'
+}
+/** A cover image must supply pixels for its height as well as its width. */
+export function backgroundImageSizes(source: string, height?: string) {
+  const dimensions = storyblokDimensions(source)
+  if (!dimensions || !height || !/^\d+(?:\.\d+)?(?:px|vh|svh|rem)$/.test(height)) return '100vw'
+  return `max(100vw, calc(${height} * ${Number((dimensions.width / dimensions.height).toFixed(4))}))`
+}
 export function storyblokDimensions(source: string) {
   if (!isStoryblokImage(source)) return undefined
   const match = new URL(normalizeImageSource(source)).pathname.match(/\/(\d+)x(\d+)\//)

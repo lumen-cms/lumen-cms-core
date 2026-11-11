@@ -12,3 +12,5 @@ allowBuilds:
   browser-tabs-lock: false
   core-js-pure: false
   unrs-resolver: false
+patchedDependencies:
+  '@qwik.dev/partytown@1.0.3': patches/@qwik.dev__partytown@1.0.3.patch

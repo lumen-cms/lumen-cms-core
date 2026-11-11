@@ -1,9 +1,19 @@
 // @vitest-environment happy-dom
 import { describe, expect, it } from 'vitest'
-import { isStoryblokImage, isSvgImage, responsiveCandidates, storyblokDimensions } from '../../packages/lumen-cms-astro/src/images/policy'
+import { backgroundImageFit, backgroundImageSizes, isStoryblokImage, isSvgImage, responsiveCandidates, storyblokDimensions } from '../../packages/lumen-cms-astro/src/images/policy'
 import { storyblokImageUrl } from '../../packages/lumen-cms-astro/src/images/storyblok-service'
 
 describe('CMS image selection', () => {
+ it('accounts for cover height without inventing dimensions for unknown sources', () => {
+  expect(backgroundImageSizes('https://a.storyblok.com/f/1/1200x600/bg.png', '100svh')).toBe('max(100vw, calc(100svh * 2))')
+  expect(backgroundImageSizes('https://a.storyblok.com/f/1/600x1200/bg.png', '800px')).toBe('max(100vw, calc(800px * 0.5))')
+  expect(backgroundImageSizes('/unknown.png', '100svh')).toBe('100vw')
+  expect(backgroundImageSizes('https://a.storyblok.com/f/1/600x1200/bg.png', 'auto')).toBe('100vw')
+ })
+ it('maps background-size defaults to undistorted image fitting', () => {
+  for (const size of [undefined, '', 'initial', 'auto', 'cover', '100% 100%']) expect(backgroundImageFit(size)).toBe('cover')
+  expect(backgroundImageFit('contain')).toBe('contain')
+ })
  it('uses density descriptors for fixed images, width descriptors for responsive images', () => {
   expect(responsiveCandidates(52, '52px')).toEqual([{ width: 52, descriptor: '52w' }, { width: 104, descriptor: '104w' }])
   expect(responsiveCandidates(40)).toEqual([{ width: 40, descriptor: '1x' }, { width: 80, descriptor: '2x' }])
