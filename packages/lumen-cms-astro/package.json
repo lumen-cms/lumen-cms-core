@@ -46,6 +46,7 @@
     "@mux/mux-player": "3.14.1",
     "@storyblok/richtext": "5.3.3",
     "@tailwindcss/vite": "4.3.3",
+    "@vercel/speed-insights": "2.1.0",
     "cheerio": "1.2.0",
     "clean-deep": "3.4.0",
     "daisyui": "5.7.50",

@@ -22,6 +22,7 @@ import GoogleAnalyticsWorker from '../components/GoogleAnalyticsWorker.astro'
 import FacebookWorker from '../components/FacebookWorker.astro'
 import CustomScripts from '../components/CustomScripts.astro'
 import StoryblokPreview from '../components/StoryblokPreview.astro'
+import SpeedInsights from '../components/SpeedInsights.astro'
 import { trackingScripts } from 'lumen-cms-shared/tracking'
 import { getFontBasedOnSetting } from 'lumen-cms-shared/core/utils/parseFont'
 import { getGoogleFontsCss } from 'lumen-cms-shared/core/utils/initial-props/googleFontsCache'
@@ -88,5 +89,6 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
  initializeCmsActions()
 </script>
  {context.preview && <StoryblokPreview />}
+ <SpeedInsights preview={context.preview} />
  </body>
 </html>

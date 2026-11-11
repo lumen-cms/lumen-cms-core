@@ -30,6 +30,9 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
   if (!['public', 'preview'].includes(buildMode)) throw new Error('LUMEN_BUILD_MODE must be public or preview')
   if (buildMode === 'public' && process.env.LUMEN_SAMPLE_ROUTES) throw new Error('Public builds cannot use LUMEN_SAMPLE_ROUTES')
   process.env.LUMEN_BUILD_MODE = buildMode
+  // Freeze collection settings into SSR builds too; default to disabled.
+  process.env.LUMEN_SPEED_INSIGHTS ??= '0'
+  process.env.LUMEN_SPEED_INSIGHTS_SAMPLE_RATE ??= '0.1'
   process.env.LUMEN_LOCALES ??= locales.join(',')
   process.env.LUMEN_SITE_URL ??= site
   const siteUrl = URL.parse(process.env.LUMEN_SITE_URL || '')
@@ -39,7 +42,7 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
   if (rootDirectory) process.env.PUBLIC_ROOT_DIRECTORY ??= rootDirectory
   // These are public, build-time routing defaults, not credentials. Vercel's
   // functions do not inherit values assigned to process.env during the build.
-  const routingDefaults = ['LUMEN_BUILD_MODE', 'LUMEN_LOCALES', 'LUMEN_SITE_URL', 'SITEMAP_HOSTNAME', 'SITEMAP_LOCALE', 'TRAVELS_SLUG', ...Object.keys(process.env).filter(key => key.startsWith('PUBLIC_'))]
+  const routingDefaults = ['VERCEL_ENV', 'LUMEN_SPEED_INSIGHTS', 'LUMEN_SPEED_INSIGHTS_SAMPLE_RATE', 'LUMEN_BUILD_MODE', 'LUMEN_LOCALES', 'LUMEN_SITE_URL', 'SITEMAP_HOSTNAME', 'SITEMAP_LOCALE', 'TRAVELS_SLUG', ...Object.keys(process.env).filter(key => key.startsWith('PUBLIC_'))]
   return defineConfig({
     site: process.env.LUMEN_SITE_URL,
     output: buildMode === 'public' ? 'static' : 'server',

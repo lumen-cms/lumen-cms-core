@@ -1,0 +1,24 @@
+---
+import SpeedInsights from '@vercel/speed-insights/astro'
+import { speedInsightsOptions } from '../lib/speedInsights'
+interface Props { preview: boolean }
+const options = speedInsightsOptions({
+ enabled: process.env.LUMEN_SPEED_INSIGHTS,
+ vercelEnv: process.env.VERCEL_ENV,
+ production: import.meta.env.PROD,
+ preview: Astro.props.preview,
+ sampleRate: process.env.LUMEN_SPEED_INSIGHTS_SAMPLE_RATE,
+})
+---
+{options && <>
+ <script is:inline>
+  if (typeof window !== 'undefined') window.speedInsightsBeforeSend = (event) => {
+   const url = new URL(event.url)
+   if ([...url.searchParams.keys()].some(key => key.startsWith('_storyblok'))) return null
+   url.search = ''
+   url.hash = ''
+   return { ...event, url: url.href }
+  }
+ </script>
+ <SpeedInsights {...options} />
+</>}

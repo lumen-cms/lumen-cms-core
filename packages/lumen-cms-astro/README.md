@@ -54,6 +54,35 @@ Register optional data hooks in a consumer setup module imported before loading.
 Travel consumers use `loadConsumerTravelPage`, explicit detail routes, the
 `server/travel` hooks/endpoints, and the `travel/*.astro` component exports.
 
+## Optional Vercel Speed Insights
+
+The shared `SiteLayout` includes the official Astro Speed Insights component,
+disabled by default. After confirming the Vercel project's Speed Insights tier
+is **Free**, set these Production environment variables (or consumer `environment`
+defaults), then rebuild. Free collection starts with the deployed SDK; no paid
+dashboard activation is needed:
+
+```dotenv
+LUMEN_SPEED_INSIGHTS=1
+LUMEN_SPEED_INSIGHTS_SAMPLE_RATE=0.1
+```
+
+Collection requires a production build with `VERCEL_ENV=production` and excludes
+CMS preview pages. Local development, Vercel Preview deployments, and non-Vercel
+hosts do not collect. The default sample rate is 10%; rates must be greater than
+0 and at most 1. Invalid rates disable collection. Query strings and fragments
+are removed from reported URLs, and Storyblok editor query URLs are dropped.
+The script runs in the browser, outside Partytown. Set `LUMEN_SPEED_INSIGHTS=0`
+and rebuild to disable it.
+
+These settings do **not** select or enforce a billing tier. Never enable Plus
+for a zero-cost setup. Vercel's Free allowance is shared across the team, and
+collection pauses at the limit without overage charges; sampling helps stretch
+that allowance but is not a billing cap. Check the current
+[Vercel pricing documentation](https://vercel.com/docs/speed-insights/limits-and-pricing)
+before enabling collection on each project. Installing core does not activate
+Speed Insights in Vercel or change project billing settings.
+
 ## Preview and APIs
 
 ### Static public site and SSR preview
