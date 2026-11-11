@@ -227,9 +227,6 @@
  .card__text_bottom .lm-card-overlay { justify-content: flex-end; }
  .lm-swiper { min-width: 0; }
  .lm-swiper .swiper-slide { min-width: 0; }
- .lm-swiper .swiper:not(.swiper-initialized) .swiper-slide { width: calc(100% / var(--lm-slides-mobile)); flex-shrink: 0; }
- @media(min-width:600px) { .lm-swiper .swiper:not(.swiper-initialized) .swiper-slide { width: calc(100% / var(--lm-slides-tablet)); } }
- @media(min-width:900px) { .lm-swiper .swiper:not(.swiper-initialized) .swiper-slide { width: calc(100% / var(--lm-slides-desktop)); } }
  .lm-legacy-slider .lm-section > .MuiContainer-root { padding: 0 !important; margin: 0 !important; max-width: inherit !important; }
  .lm-legacy-slider { position: relative; }
  .lm-legacy-slider .swiper-slide { text-align: left; }

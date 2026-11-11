@@ -1,0 +1,105 @@
+{
+  "date": "2026-11-11",
+  "cause": "Unlayered Swiper width:100% overrides the layered pre-initialization slide width. Browser can select 640px then 240px logo variants.",
+  "fix": "Scope unlayered initial widths and gaps to direct children of responsive slide carousels. Width=(container-(visibleSlides-1)*gap)/visibleSlides. Hand layout back to Swiper after initialization.",
+  "scope": "No hardcoded logo size or total item count. Native sliders and special effects retain their own layout.",
+  "dashboard": "No animation wrapper or hidden style found for the dashboard in published content. Reported 1910ms render delay did not reproduce: deployed trace about 10ms, local before 18ms/after 14ms. No speculative animation or tracking changes made; reduced carousel downloads remove resource contention.",
+  "limitations": [
+    "Single traces are diagnostic, not statistically robust score predictions. Local server has uncompressed CSS unlike Vercel.",
+    "CMS contrast/heading corrections and Impact 403 remain separate."
+  ],
+  "runs": {
+    "planet-delay-before": {
+      "simulatedLcpMs": 5329.264109391181,
+      "lcpBreakdown": [
+        {
+          "subpart": "timeToFirstByte",
+          "label": "Time to first byte",
+          "duration": 2.661
+        },
+        {
+          "subpart": "resourceLoadDelay",
+          "label": "Resource load delay",
+          "duration": 7.432
+        },
+        {
+          "subpart": "resourceLoadDuration",
+          "label": "Resource load duration",
+          "duration": 196.788
+        },
+        {
+          "subpart": "elementRenderDelay",
+          "label": "Element render delay",
+          "duration": 18.396
+        }
+      ],
+      "alNasrRequests": [
+        "https://a.storyblok.com/f/73553/1000x1000/94704e157b/logo-al-nasr-dubai-sc.png/m/640x0/filters:quality(75)",
+        "https://a.storyblok.com/f/73553/1000x1000/94704e157b/logo-al-nasr-dubai-sc.png/m/240x0/filters:quality(75)"
+      ]
+    },
+    "planet-delay-after": {
+      "simulatedLcpMs": 4727.711950313978,
+      "lcpBreakdown": [
+        {
+          "subpart": "timeToFirstByte",
+          "label": "Time to first byte",
+          "duration": 2.459
+        },
+        {
+          "subpart": "resourceLoadDelay",
+          "label": "Resource load delay",
+          "duration": 7.914
+        },
+        {
+          "subpart": "resourceLoadDuration",
+          "label": "Resource load duration",
+          "duration": 194.281
+        },
+        {
+          "subpart": "elementRenderDelay",
+          "label": "Element render delay",
+          "duration": 14.072
+        }
+      ],
+      "alNasrRequests": [
+        "https://a.storyblok.com/f/73553/1000x1000/94704e157b/logo-al-nasr-dubai-sc.png/m/240x0/filters:quality(75)"
+      ]
+    },
+    "planet-deployed-delay": {
+      "simulatedLcpMs": 1997.484,
+      "lcpBreakdown": [
+        {
+          "subpart": "timeToFirstByte",
+          "label": "Time to first byte",
+          "duration": 230.674
+        },
+        {
+          "subpart": "resourceLoadDelay",
+          "label": "Resource load delay",
+          "duration": 60.329
+        },
+        {
+          "subpart": "resourceLoadDuration",
+          "label": "Resource load duration",
+          "duration": 266.677
+        },
+        {
+          "subpart": "elementRenderDelay",
+          "label": "Element render delay",
+          "duration": 9.975
+        }
+      ],
+      "alNasrRequests": [
+        "https://a.storyblok.com/f/73553/1000x1000/94704e157b/logo-al-nasr-dubai-sc.png/m/640x0/filters:quality(75)",
+        "https://a.storyblok.com/f/73553/1000x1000/94704e157b/logo-al-nasr-dubai-sc.png/m/240x0/filters:quality(75)"
+      ]
+    }
+  },
+  "checks": [
+    "Sizing browser regression: five viewports, integer and fractional slide counts, narrow containers, effect exclusions, initial requests, before/after initialization width parity.",
+    "13 image/hero unit tests passed.",
+    "Existing carousel parity suite passed, including touch/mouse, autoplay, resize, reduced motion, lightbox and Shopify galleries.",
+    "Astro check reports only the same two pre-existing ui-regressions fixture type errors."
+  ]
+}

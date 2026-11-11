@@ -66,6 +66,7 @@
     "astro:cms": "node scripts/astro-site.cjs --cms",
     "test:astro:bundles": "node scripts/check-astro-bundles.cjs",
     "test:astro:carousels": "node scripts/check-astro-carousels.cjs",
+    "test:astro:carousel-sizing": "node scripts/check-astro-carousel-sizing.cjs",
     "test:astro:tabs": "node scripts/check-astro-tabs.cjs",
     "astro:check": "pnpm --filter lumen-cms-astro check",
     "test:astro": "vitest run --project unit test/astro",

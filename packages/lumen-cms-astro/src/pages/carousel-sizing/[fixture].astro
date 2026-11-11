@@ -1,0 +1,20 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro'
+import Swiper from '../../components/Swiper.astro'
+import { createRenderContext } from '../../lib/renderContext'
+import type { RenderContext } from '../../lib/context'
+export function getStaticPaths() { return process.env.LUMEN_CAROUSEL_SIZE_AUDIT ? [{params:{fixture:'images'}}] : [] }
+const page = { locale: 'en', defaultLocale: 'en', settings: { component: 'global', _uid: 'settings', theme_base: 'base', website_title: 'Carousel sizing' }, page: { component: 'page', _uid: 'page', body: [] } } as RenderContext['page']
+const context = createRenderContext(page)
+const slide = (index: number) => ({ component: 'swiper_item' as const, _uid: `slide-${index}`, body: [{ component: 'image' as const, _uid: `logo-${index}`, source: `https://a.storyblok.com/f/1/1000x1000/logo-${index}.png`, alt: `Logo ${index}` }] })
+const configs = [
+ { id: 'planet', slides_per_view: '3,5,9', space_between_slides: '24', width: 1100 },
+ { id: 'fractional', slides_per_view: '1.5,2.5,3.5', space_between_slides: '8,16,32', width: 700 },
+ { id: 'narrow', slides_per_view: '2,3,4', space_between_slides: '12', width: 300 },
+ { id: 'fade', slides_per_view: '1', effect: 'fade' as const, width: 300 },
+ { id: 'coverflow', slides_per_view: '1', effect: 'coverflow' as const, width: 700 },
+]
+---
+<SiteLayout page={page}>
+ {configs.map(({ id, width, ...options }) => <section id={id} style={`width:100%;max-width:${width}px;margin:0 auto`}><Swiper context={context} content={{ component:'swiper', _uid:id, ...options, body: Array.from({length:10}, (_, i) => slide(i)) }} /></section>)}
+</SiteLayout>

@@ -7,3 +7,29 @@
  .lm-swiper-effect-cube { position: relative; width: 100%; height: 300px; }
  .lm-swiper-effect-cube > .swiper { position: absolute; left: 50%; top: 0; margin-left: -150px; margin-right: -150px; }
  .lm-swiper-effect-cube > .swiper > .swiper-wrapper > .swiper-slide { background-position: center; background-size: cover; }
+
+/* Unlayered, like Swiper's own width:100% rule. Establish final slide sizes
+   before deferred JS so native lazy-image auto sizes sees the real image box.
+   Direct-child selectors keep nested carousels independent; effects retain
+   their own layout. Swiper owns widths/margins after initialization. */
+.lm-swiper[data-lm-slide-layout="responsive"] > .swiper:not(.swiper-initialized) > .swiper-wrapper {
+ --lm-visible-slides: var(--lm-slides-mobile);
+ --lm-slide-gap: var(--lm-gap-mobile);
+ gap: var(--lm-slide-gap);
+}
+.lm-swiper[data-lm-slide-layout="responsive"] > .swiper:not(.swiper-initialized) > .swiper-wrapper > .swiper-slide {
+ width: calc((100% - (var(--lm-visible-slides) - 1) * var(--lm-slide-gap)) / var(--lm-visible-slides));
+ flex-shrink: 0;
+}
+@media (min-width:600px) {
+ .lm-swiper[data-lm-slide-layout="responsive"] > .swiper:not(.swiper-initialized) > .swiper-wrapper {
+  --lm-visible-slides: var(--lm-slides-tablet);
+  --lm-slide-gap: var(--lm-gap-tablet);
+ }
+}
+@media (min-width:900px) {
+ .lm-swiper[data-lm-slide-layout="responsive"] > .swiper:not(.swiper-initialized) > .swiper-wrapper {
+  --lm-visible-slides: var(--lm-slides-desktop);
+  --lm-slide-gap: var(--lm-gap-desktop);
+ }
+}
