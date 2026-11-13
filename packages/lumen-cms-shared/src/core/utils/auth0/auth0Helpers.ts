@@ -1,43 +1,18 @@
+import { matchAuthRule, normalizeUser, hasRoles } from 'lumen-cms-shared/auth'
 import { CONFIG } from '../config'
 type User = { email?: string; [claim: string]: unknown }
 
-type AuthRole = string | Record<string, unknown>
-
-export const hasAuth0Credentials = (roles: string[], user: User) => {
-  const userCurrentRoles = (user[
-    process.env.AUTH_PERMISSION as string
-  ] || []) as AuthRole[]
-  console.log(userCurrentRoles, roles, user.email)
-  if (roles.includes('any') && !!user) {
-    return true
-  }
-  if (!userCurrentRoles.length) {
-    return false
-  }
-  return roles.find((role) =>
-    userCurrentRoles.find((item) =>
-      process.env.AUTH_PERMISSION_KEY
-        ? (item as Record<string, unknown>)[
-            process.env.AUTH_PERMISSION_KEY
-          ] === role
-        : item === role
-    )
-  )
+export const hasAuth0Credentials = (roles: string[], user: User): boolean => {
+ const normalized = normalizeUser({ ...user, sub: typeof user.sub === 'string' ? user.sub : 'legacy' }, process.env.AUTH_PERMISSION || 'roles', process.env.AUTH_PERMISSION_KEY)
+ return hasRoles(roles, normalized)
 }
-
-export const getAuth0RoleOnPath = (
-  routeParams: string | string[] | undefined,
-  options: { locale?: string; defaultLocale?: string }
-) => {
-  let currentPath = Array.isArray(routeParams)
-    ? routeParams.join('/')
-    : (routeParams ?? '')
-  if (options.locale && options.defaultLocale !== options.locale) {
-    currentPath = `/${options.locale}${currentPath}`
-  }
-  return CONFIG.authPathRequiredRoles?.find((item) =>
-    currentPath.startsWith(item.path)
-  )
+export const getAuth0RoleOnPath = (routeParams: string | string[] | undefined, options: { locale?: string; defaultLocale?: string }) => {
+ let path = '/' + (Array.isArray(routeParams) ? routeParams.join('/') : routeParams || '').replace(/^\/+/, '')
+ if (options.locale && options.locale !== options.defaultLocale && path !== '/' + options.locale && !path.startsWith('/' + options.locale + '/')) path = '/' + options.locale + path
+ const source = process.env.AUTH_PATH_REQUIRED_ROLES
+ const rules = source ? JSON.parse(source) as { path: string; roles: string[] }[] : CONFIG.authPathRequiredRoles
+ if (rules && (!Array.isArray(rules) || rules.some(rule => typeof rule.path !== 'string' || !Array.isArray(rule.roles) || rule.roles.some(role => typeof role !== 'string')))) throw new Error('AUTH_PATH_REQUIRED_ROLES must be an array of path/roles rules')
+ return matchAuthRule(path, rules)
 }
 
 export const hasAuth0PathCredentials = (

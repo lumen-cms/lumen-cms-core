@@ -91,7 +91,9 @@
     "test:astro:google-worker": "node scripts/check-astro-google-worker.mjs",
     "test:astro:google-deployment": "node scripts/check-astro-google-deployment.mjs",
     "test:astro:facebook-worker": "node scripts/check-astro-facebook-worker.mjs",
-    "test:astro:facebook-audit": "node scripts/check-facebook-partytown.cjs"
+    "test:astro:facebook-audit": "node scripts/check-facebook-partytown.cjs",
+    "test:astro:commerce": "node scripts/check-astro-commerce.cjs",
+    "test:astro:auth": "node scripts/check-astro-auth.cjs"
   },
   "author": "Dominic Garms",
   "license": "MIT",

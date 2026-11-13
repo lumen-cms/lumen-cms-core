@@ -1,0 +1,8 @@
+---
+import { loadConsumerPage } from '../server/consumerPages'
+import SiteLayout from '../layouts/SiteLayout.astro'
+export const prerender = false
+const page = await loadConsumerPage({ ...Astro, params: { slug: Astro.params.lumenAuthPath }, isPrerendered: false })
+if (page instanceof Response) return page
+---
+<SiteLayout page={page} />

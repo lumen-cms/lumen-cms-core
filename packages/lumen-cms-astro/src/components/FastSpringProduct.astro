@@ -2,12 +2,13 @@
 import type { EcommerceFastspringProductStoryblok, EcommerceCheckoutStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 import type { RenderContext } from '../lib/context'
 import Block from './Block.astro'
+import { getLinkAttrs, type LinkType } from '../lib/links'
 interface Props { content: EcommerceFastspringProductStoryblok; trigger?: NonNullable<EcommerceCheckoutStoryblok['trigger']>[number]; context: RenderContext }
 const { content, trigger, context } = Astro.props
 const presentation = trigger ? { ...trigger, link: undefined, on_click_function: undefined } : undefined
 ---
-<div data-lm-fastspring-product={JSON.stringify(content)} hidden>
- <template>{presentation && <Block content={presentation} context={context} />}</template><div data-fastspring-trigger />
+<div data-lm-fastspring-product={JSON.stringify(content)} data-preview={context.preview ? 'true' : undefined} data-success-url={content.on_successful_redirect ? getLinkAttrs(content.on_successful_redirect as LinkType, {}, context.page).href : ''} data-locale={context.page.locale}>
+ <template>{presentation && <Block content={presentation} context={context} />}</template><div data-fastspring-trigger /><p role="status" data-commerce-message aria-live="polite" /><button type="button" data-commerce-retry hidden>{context.page.locale === 'de' ? 'Erneut versuchen' : 'Try again'}</button>
 </div>
 <script>
  import { initializeFastSpringProducts } from '../client/fastspringProduct'

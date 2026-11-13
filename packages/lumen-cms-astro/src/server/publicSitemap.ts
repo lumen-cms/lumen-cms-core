@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro'
 import { renderSitemap } from 'lumen-cms-shared/server/sitemap'
 import { staticRoutes } from './pages'
+import { getAuth0RoleOnPath } from 'lumen-cms-shared/core/utils/auth0/auth0Helpers'
 import { publishedRouteStories } from './linkInventory'
 import { travelStaticRoutes } from './travelPages'
 import { pageOptions } from './request'
@@ -32,6 +33,7 @@ export const GET: APIRoute = async ({ site }) => {
  }
  for (const route of routes) {
   const slug = route.props.cmsSlug
+  if (getAuth0RoleOnPath('/' + slug, route.props)) continue
   const story = inventory.get(`${route.props.locale}:${slug}`) || inventory.get(`:${slug}`)
   if (/(?:^|\/)error-404(?:\/|$)/.test(slug) || ignoredPattern.test(slug)) continue
   if (String(story?.content.meta_robots) === 'true') continue

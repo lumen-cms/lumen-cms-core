@@ -1,3 +1,4 @@
+import { authStore } from './auth'
 import { createFastSpringStore, type CommerceUser } from 'lumen-cms-shared/fastspring'
 import { loadExternalScript } from './externalScript'
 import type { EcommerceFastspringConfigStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
@@ -10,10 +11,22 @@ type ProviderWindow = Window & {
 }
 let state: ReturnType<typeof createFastSpringStore> | undefined
 let ready: Promise<void> | undefined
+let configuration: EcommerceFastspringConfigStoryblok | undefined
+let identityRequired = false
+let sdkStatus: 'loading' | 'ready' | 'error' = 'loading'
+const notify = () => document.dispatchEvent(new Event('lumen:commerce-state'))
+export function commerceStatus() { return identityRequired && authStore.status === 'error' ? 'error' : identityRequired && authStore.status === 'loading' ? 'loading' : sdkStatus }
+export async function retryCommerce() {
+ if (identityRequired) await authStore.load()
+ if (configuration && sdkStatus !== 'ready') await initializeFastSpringProvider(configuration, authStore.user, identityRequired)
+}
+authStore.subscribe(() => { state?.setUser(authStore.user); notify() })
 
 export function fastSpringStore() {
  const api = window as ProviderWindow
  return state ||= createFastSpringStore({
+  completion: 'redirect',
+  completed: () => document.dispatchEvent(new Event('lumen:purchase-completed')),
   builder: { push: payload => window.fastspring.builder.push(payload), checkout: () => window.fastspring.builder.checkout() },
   navigate: path => { window.location.assign(new URL(path, document.baseURI).href) },
   analytics(provider, event, data) {
@@ -24,11 +37,17 @@ export function fastSpringStore() {
  })
 }
 
-export function initializeFastSpringProvider(config: EcommerceFastspringConfigStoryblok, user?: CommerceUser) {
+export function initializeFastSpringProvider(config: EcommerceFastspringConfigStoryblok, user?: CommerceUser, requireIdentity = false) {
+ if (configuration && JSON.stringify(configuration) !== JSON.stringify(config)) { window.location.reload(); return Promise.resolve() }
+ configuration = config
  const store = fastSpringStore()
- store.setUser(user)
+ identityRequired = requireIdentity
+ if (requireIdentity) authStore.activate()
+ store.setUser(requireIdentity ? authStore.user : user)
+ if (requireIdentity && authStore.status === 'loading') void authStore.load()
  if (ready) return ready
- if (!config.url) return Promise.resolve()
+ if (!config.url) { sdkStatus = 'error'; notify(); return Promise.resolve() }
+ sdkStatus = 'loading'; notify()
  // Register callbacks before inserting the script: the SDK can invoke them during load.
  window.fscDataCallback = (data: FastSpringData) => store.receive(data)
  window.fscDataPopupWebhookReceived = (data: FastSpringWebhookReceivedData) => store.purchase(data)
@@ -37,6 +56,6 @@ export function initializeFastSpringProvider(config: EcommerceFastspringConfigSt
   id: 'fsc-api', 'data-storefront': config.data_storefront || '', 'data-access-key': config.data_accesss_key || '',
   'data-data-callback': 'fscDataCallback', 'data-continuous': 'true',
   'data-popup-closed': 'fscDataPopupClosed', 'data-popup-webhook-received': 'fscDataPopupWebhookReceived'
- }).catch(error => { ready = undefined; throw error })
+ }).then(() => { sdkStatus = 'ready'; notify() }).catch(error => { ready = undefined; sdkStatus = 'error'; notify(); throw error })
  return ready
 }

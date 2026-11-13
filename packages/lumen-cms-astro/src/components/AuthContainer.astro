@@ -1,0 +1,16 @@
+---
+import type { AuthContainerStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import { hasRoles } from 'lumen-cms-shared/auth'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+interface Props { content: AuthContainerStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+if (Astro.isPrerendered && !context.preview) throw new Error('auth_container requires on-demand rendering')
+const user = context.auth?.user
+const roles = (value?: string) => (value || '').split(',').map(value => value.trim()).filter(Boolean)
+const required = roles(content.require_role), hidden = roles(content.hide_on_role)
+const visible = context.preview || ((content.display !== 'hide_logged_in' || !user) && (content.display !== 'require_logged_in' || !!user) && (!required.length || hasRoles(required, user)) && (!hidden.length || (!!user && !hasRoles(hidden, user))))
+const personalize = (value?: string) => value?.replaceAll('{email}', user?.email || '').replaceAll('{firstName}', user?.firstName || '').replaceAll('{lastName}', user?.lastName || '')
+const body = content.body?.map(blok => blok.component === 'headline' ? { ...blok, text: personalize(blok.text) } : blok.component === 'button' ? { ...blok, label: personalize(blok.label) } : blok)
+---
+{visible && (body?.length ? body.map(blok => <Block content={blok} context={context} />) : <slot />)}

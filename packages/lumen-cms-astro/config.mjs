@@ -42,7 +42,7 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
   if (rootDirectory) process.env.PUBLIC_ROOT_DIRECTORY ??= rootDirectory
   // These are public, build-time routing defaults, not credentials. Vercel's
   // functions do not inherit values assigned to process.env during the build.
-  const routingDefaults = ['VERCEL_ENV', 'LUMEN_SPEED_INSIGHTS', 'LUMEN_SPEED_INSIGHTS_SAMPLE_RATE', 'LUMEN_BUILD_MODE', 'LUMEN_LOCALES', 'LUMEN_SITE_URL', 'SITEMAP_HOSTNAME', 'SITEMAP_LOCALE', 'TRAVELS_SLUG', ...Object.keys(process.env).filter(key => key.startsWith('PUBLIC_'))]
+  const routingDefaults = ['VERCEL_ENV', 'LUMEN_SPEED_INSIGHTS', 'LUMEN_SPEED_INSIGHTS_SAMPLE_RATE', 'LUMEN_BUILD_MODE', 'LUMEN_AUTH_ENABLED', 'LUMEN_LOCALES', 'LUMEN_SITE_URL', 'SITEMAP_HOSTNAME', 'SITEMAP_LOCALE', 'TRAVELS_SLUG', ...Object.keys(process.env).filter(key => key.startsWith('PUBLIC_'))]
   return defineConfig({
     site: process.env.LUMEN_SITE_URL,
     output: buildMode === 'public' ? 'static' : 'server',

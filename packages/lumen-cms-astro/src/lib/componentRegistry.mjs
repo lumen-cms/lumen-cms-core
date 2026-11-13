@@ -1,6 +1,8 @@
 // One registry for static builds, SSR previews, and coverage checks.
 // Values are resolved by the official Storyblok integration from componentsDir.
 export const components = {
+ auth_container: 'components/AuthContainer',
+ auth_form: 'components/AuthForm',
  accordion: 'components/Accordion',
  accordion_item: 'components/AccordionItem',
  avatar: 'components/Avatar',

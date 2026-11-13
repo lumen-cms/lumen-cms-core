@@ -1,43 +1,33 @@
+import { matchAuthRule, normalizeUser, hasRoles } from './authCore'
 import { CONFIG } from '../config'
 import { User } from '@auth0/auth0-react'
 
-type AuthRole = string | Record<string, unknown>
-
-export const hasAuth0Credentials = (roles: string[], user: User) => {
-  const userCurrentRoles = (user[
-    process.env.NEXT_PUBLIC_AUTH_PERMISSION as string
-  ] || []) as AuthRole[]
-  console.log(userCurrentRoles, roles, user.email)
-  if (roles.includes('any') && !!user) {
-    return true
-  }
-  if (!userCurrentRoles.length) {
-    return false
-  }
-  return roles.find((role) =>
-    userCurrentRoles.find((item) =>
-      process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY
-        ? (item as Record<string, unknown>)[
-            process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY
-          ] === role
-        : item === role
-    )
+export const hasAuth0Credentials = (roles: string[], user: User): boolean => {
+  const normalized = normalizeUser(
+    { ...user, sub: typeof user.sub === 'string' ? user.sub : 'legacy' },
+    process.env.NEXT_PUBLIC_AUTH_PERMISSION || 'roles',
+    process.env.NEXT_PUBLIC_AUTH_PERMISSION_KEY
   )
+  return hasRoles(roles, normalized)
 }
-
 export const getAuth0RoleOnPath = (
   routeParams: string | string[] | undefined,
   options: { locale?: string; defaultLocale?: string }
 ) => {
-  let currentPath = Array.isArray(routeParams)
-    ? routeParams.join('/')
-    : (routeParams ?? '')
-  if (options.locale && options.defaultLocale !== options.locale) {
-    currentPath = `/${options.locale}${currentPath}`
-  }
-  return CONFIG.authPathRequiredRoles?.find((item) =>
-    currentPath.startsWith(item.path)
+  let path =
+    '/' +
+    (Array.isArray(routeParams)
+      ? routeParams.join('/')
+      : routeParams || ''
+    ).replace(/^\/+/, '')
+  if (
+    options.locale &&
+    options.locale !== options.defaultLocale &&
+    path !== '/' + options.locale &&
+    !path.startsWith('/' + options.locale + '/')
   )
+    path = '/' + options.locale + path
+  return matchAuthRule(path, CONFIG.authPathRequiredRoles)
 }
 
 export const hasAuth0PathCredentials = (

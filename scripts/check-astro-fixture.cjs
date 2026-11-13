@@ -34,7 +34,7 @@ async function main() {
     await page.route('**/fixture-video.mp4', route => route.fulfill({ status: 200, contentType: 'video/mp4', body: '' }))
     await page.route('https://a.storyblok.com/f/123/800x400/fixture.jpg**', route => route.fulfill({ contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" />' }))
     const errors = []
-    page.on('pageerror', error => errors.push(error.message))
+    page.on('pageerror', error => errors.push(error.stack || error.message))
     const observations = []
     const gridMetrics = () => {
       const sectionElement = document.querySelector('#grid-geometry-fixture')
@@ -74,7 +74,8 @@ async function main() {
       assert.deepEqual(await page.locator('#card-asset-link-fixture a').evaluateAll(nodes => nodes.map(node => [node.getAttribute('href'), node.getAttribute('download'), node.target, node.rel])), Array.from({ length: 4 }, () => ['https://example.test/brochure.pdf', 'https://example.test/brochure.pdf', '_blank', 'noopener noreferrer']))
       assert.equal(await page.locator('#card-asset-link-fixture [data-fixture-link=override]').count(), 2)
       assert.deepEqual(await page.locator('#card-asset-link-fixture > .lm-card > button').evaluate(node => [node.getAttribute('href'), node.getAttribute('download'), node.dataset.lmDialogTrigger]), [null, null, 'card-drawer-asset-drawer-card'])
-      assert.equal(await page.locator('#card-description-limits img').getAttribute('sizes'), '(min-width:1920px) 25vw, (min-width:600px) 33vw, 50vw')
+      assert.equal(await page.locator('#card-description-limits img').getAttribute('loading'), 'lazy')
+      assert.equal(await page.locator('#card-description-limits img').getAttribute('sizes'), 'auto, (min-width:1920px) 25vw, (min-width:600px) 33vw, 50vw')
       assert.deepEqual(await page.locator('#card-description-limits [data-limit-case]').evaluateAll(nodes => nodes.map(node => node.querySelector('p')?.textContent || null)), [null, '..', '..', 'ABC..', 'ABCDE'])
       assert.deepEqual(await page.locator('#flex-wrap-keywords-fixture > .lm-flex-row').evaluateAll(nodes => nodes.map(node => getComputedStyle(node).flexWrap)), ['wrap-reverse', 'nowrap', 'nowrap', 'nowrap'])
       const categoryAppearance = await page.locator('#category-appearance-fixture input[type=search]').evaluateAll(nodes => nodes.map(node => { const css = getComputedStyle(node); return { borderTop: css.borderTopWidth, borderBottom: css.borderBottomWidth, radius: css.borderTopLeftRadius, background: css.backgroundColor } }))
@@ -463,10 +464,12 @@ async function main() {
     await page.waitForFunction(() => document.querySelector('[data-lm-player]')?.dataset.playerReady === 'active')
     const media = player.locator('video')
     assert.deepEqual(await media.evaluate(el => ({ muted: el.muted, volume: el.volume, controls: el.controls, loop: el.loop, inline: el.playsInline })), { muted: true, volume: 0, controls: true, loop: true, inline: true })
+    // Clicking the light preview starts playback; toggle_play_on_hover now
+    // pauses that user-started playback while hovered and resumes on leave.
     await media.hover()
-    assert.equal(await media.getAttribute('data-play-requested'), 'true')
-    await page.mouse.move(0, 0)
     assert.equal(await media.getAttribute('data-play-requested'), 'false')
+    await page.mouse.move(0, 0)
+    assert.equal(await media.getAttribute('data-play-requested'), 'true')
     assert.equal(await player.evaluate(el => getComputedStyle(el, '::before').aspectRatio), '16 / 9')
     const videoSection = page.locator('#video-section-fixture')
     for (const width of [375, 1280]) {
@@ -687,7 +690,7 @@ async function main() {
     await fs.mkdir(destination, { recursive: true })
     await page.goto(`http://127.0.0.1:${server.address().port}/`)
     await page.screenshot({ path: path.join(destination, 'desktop.png'), fullPage: true })
-    await page.route('https://embed.tawk.to/fixture-account/default', route => route.fulfill({ contentType: 'application/javascript', body: 'window.__tawkLoaded = true;' }))
+    await page.route('https://embed.tawk.to/fixture-account/default', route => route.fulfill({ contentType: 'application/javascript', body: 'window.__tawkLoaded = true; window.Tawk_API.onLoad?.();' }))
     await page.route('https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js', route => route.fulfill({ contentType: 'application/javascript', body: 'window.FB = { init(options) { window.__facebookOptions = options; }, CustomerChat: { show() {}, hide() {} } }; window.fbAsyncInit?.();' }))
     await page.route('https://example.test/fastspring-fixture.js', route => route.fulfill({ contentType: 'application/javascript', body: `window.__checkoutPayloads = []; window.__checkoutCount = 0; window.fastspring = { builder: { push(data) { window.__checkoutPayloads.push(data); }, checkout() { window.__checkoutCount++; } } }; window.fscDataCallback({ currency: 'USD', groups: [{ items: [{ path: 'fixture-course', price: '$12', total: '$10', priceValue: 12 }] }] });` }))
     let hubspotScriptRequests = 0
@@ -709,7 +712,7 @@ async function main() {
     assert.equal(await page.locator('[data-lm-speech]').getAttribute('data-speaking'), 'false')
     await page.waitForFunction(() => window.__hubspotCalls?.length === 2)
     assert.equal(hubspotScriptRequests, 1)
-    assert.deepEqual(await page.evaluate(() => window.__hubspotCalls[0]), { region: 'eu1', portalId: 'fixture-portal', formId: 'fixture-form', target: '#form_hubspot-one' })
+    assert.deepEqual(await page.evaluate(() => window.__hubspotCalls.find(call => call.target === '#form_hubspot-one')), { region: 'eu1', portalId: 'fixture-portal', formId: 'fixture-form', target: '#form_hubspot-one' })
     assert.equal(await page.locator('.meetings-iframe-container').getAttribute('data-src'), 'https://app.hubspot.com/meetings/fixture/team?embed-true=true')
     for (const count of [3, 4]) {
       await page.getByRole('button', { name: 'Open embedded form', exact: true }).click()
@@ -720,6 +723,15 @@ async function main() {
       await embedDialog.waitFor({ state: 'detached' })
     }
     assert.equal(hubspotScriptRequests, 1, 'Dialog remounts reuse the provider script')
+    assert.equal(await page.evaluate(() => !!(window.__tawkLoaded || window.__facebookOptions)), false, 'Chat SDKs wait for user intent')
+    // These independent floating-widget fixtures overlap the bottom-nav
+    // fixture. Activate the native buttons by keyboard to test their lifecycle.
+    await page.locator('[data-lm-chat=facebook] [data-lm-chat-open]').focus()
+    await page.keyboard.press('Enter')
+    await page.waitForFunction(() => document.querySelector('[data-lm-chat=facebook]')?.dataset.chatState === 'ready')
+    await page.locator('[data-lm-chat=tawkto] [data-lm-chat-open]').focus()
+    await page.keyboard.press('Enter')
+    await page.waitForFunction(() => document.querySelector('[data-lm-chat=tawkto]')?.dataset.chatState === 'ready')
     await page.waitForFunction(() => window.__tawkLoaded && window.__facebookOptions)
     assert.deepEqual(await page.evaluate(() => window.__facebookOptions), { xfbml: true, version: 'v8.0' })
     assert.equal(await page.locator('.fb-customerchat').getAttribute('page_id'), 'fixture-page')
@@ -923,7 +935,8 @@ async function main() {
     await page.waitForFunction(() => document.querySelector('#header-feature .lm-scrolled'))
     await page.waitForFunction(() => getComputedStyle(document.querySelector('#header-feature header')).backgroundColor === 'rgb(23, 105, 170)')
     assert.equal((await headerAppearance('#header-feature')).shadow, 'none')
-    await page.evaluate(() => document.dispatchEvent(new Event('astro:before-swap')))
+    // Partytown also handles this Astro event and requires the destination document.
+    await page.evaluate(() => document.dispatchEvent(Object.assign(new Event('astro:before-swap'), { newDocument: document.implementation.createHTMLDocument() })))
     await page.evaluate(() => scrollTo(0, 0))
     await page.waitForTimeout(100)
     assert.equal(await page.locator('#header-feature .lm-scrolled').count(), 1, 'Unmount must remove the header scroll listener')

@@ -1,3 +1,4 @@
+import { hasAuthContent } from './authContent'
 import type { AstroGlobal } from 'astro'
 import { getPayload } from '@storyblok/astro'
 import type { ISbStoryData } from 'storyblok-js-client'
@@ -11,7 +12,19 @@ import { isPreviewRequest, pageOptions } from './request'
 
 type RequestContext = Pick<AstroGlobal, 'cookies' | 'locals' | 'url' | 'params' | 'response'> & Partial<Pick<AstroGlobal, 'isPrerendered' | 'props'>>
 
-export const getConsumerStaticPaths = staticRoutes
+export async function getConsumerStaticPaths() {
+ const routes = await staticRoutes()
+ if (process.env.LUMEN_AUTH_ENABLED !== '1') return routes
+ const publicRoutes: typeof routes = []
+ for (const route of routes) {
+  try {
+   const page = await loadPage(route.params.slug, route.props, false, { version: 'published' })
+   if (!hasAuthContent(page)) publicRoutes.push(route)
+  } catch (error) { if (!(error instanceof CmsPageProtectedError)) throw error }
+ }
+ return publicRoutes
+}
+
 
 /** Dedicated /reisen/[slug] and /travels/[slug] routes take only the final slug. */
 export async function getConsumerTravelStaticPaths() {
@@ -33,7 +46,11 @@ async function handleError(error: unknown, context: RequestContext, preview: boo
   context.response.headers.set('X-Robots-Tag', 'noindex, nofollow')
   return await loadErrorPage(pageOptions(context.url.pathname.replace(/^\/+/, '')), preview, preview ? { from_release: context.url.searchParams.get('_storyblok_release') || undefined } : undefined) || notFoundResponse()
  }
- if (error instanceof CmsPageProtectedError) return new Response('Authentication required', { status: 401, headers: { 'Cache-Control': 'private, no-store' } })
+ if (error instanceof CmsPageProtectedError) {
+  const auth = (context.locals as { lumenAuth?: { user?: unknown } }).lumenAuth
+  if (auth && !auth.user) return new Response(null, { status: 303, headers: { 'Cache-Control': 'private, no-store', Location: '/auth/login?returnTo=' + encodeURIComponent(context.url.pathname + context.url.search) } })
+  return new Response(auth?.user ? 'Access denied' : 'Authentication required', { status: auth?.user ? 403 : 401, headers: { 'Cache-Control': 'private, no-store' } })
+ }
  throw error
 }
 
@@ -49,7 +66,7 @@ export async function loadConsumerPage(context: RequestContext) {
   return await loadPage(context.params.slug, pageOptions(context.params.slug), preview, {
    version: preview ? 'draft' : 'published',
    ...(preview ? { from_release: context.url.searchParams.get('_storyblok_release') || undefined } : {}),
-  }, payload?.story, payload?.serverData)
+  }, payload?.story, payload?.serverData, (context.locals as { lumenAuth?: { user?: import('lumen-cms-shared/auth').AuthUser } }).lumenAuth?.user)
  } catch (error) { return handleError(error, context, preview) }
 }
 

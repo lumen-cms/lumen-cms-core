@@ -12,21 +12,21 @@ afterEach(() => {
   vi.restoreAllMocks()
 })
 
-it('returns the first matching requested role for string claims', () => {
+it('returns a boolean for matching string claims', () => {
   expect(
     hasAuth0Credentials(['editor', 'admin'], { roles: ['admin', 'editor'] })
-  ).toBe('editor')
-  expect(hasAuth0Credentials(['viewer'], { roles: ['admin'] })).toBeUndefined()
+  ).toBe(true)
+  expect(hasAuth0Credentials(['viewer'], { roles: ['admin'] })).toBe(false)
 })
 
 it('matches the configured field in object claims', () => {
   vi.stubEnv('NEXT_PUBLIC_AUTH_PERMISSION_KEY', 'name')
   expect(hasAuth0Credentials(['editor'], { roles: [{ name: 'editor' }] })).toBe(
-    'editor'
+    true
   )
   expect(
     hasAuth0Credentials(['editor'], { roles: [{ other: 'editor' }] })
-  ).toBeUndefined()
+  ).toBe(false)
 })
 
 it('keeps the any-role shortcut and empty-claim results', () => {
@@ -35,7 +35,7 @@ it('keeps the any-role shortcut and empty-claim results', () => {
   expect(hasAuth0Credentials(['editor'], { roles: [] })).toBe(false)
 })
 
-it('retains string indexing when a claim-field key is configured', () => {
+it('does not interpret string characters as object role claims', () => {
   vi.stubEnv('NEXT_PUBLIC_AUTH_PERMISSION_KEY', '0')
-  expect(hasAuth0Credentials(['e'], { roles: ['editor'] })).toBe('e')
+  expect(hasAuth0Credentials(['e'], { roles: ['editor'] })).toBe(false)
 })

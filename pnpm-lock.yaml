@@ -342,6 +342,9 @@ importers:
       '@astrojs/partytown':
         specifier: 2.1.9
         version: 2.1.9
+      '@auth0/auth0-server-js':
+        specifier: 1.17.0
+        version: 1.17.0
       '@mdi/svg':
         specifier: 7.4.47
         version: 7.4.47
@@ -638,6 +641,9 @@ packages:
     peerDependencies:
       react: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
       react-dom: ^16.11.0 || ^17 || ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
+
+  '@auth0/auth0-server-js@1.17.0':
+    resolution: {integrity: sha512-lnBpSn8Iut2n3a1kQq355g6IomCFGxhsXZLTlMCnCUxWY8IQILe6x5ks4OYzrPHt8l+JmAoMnKQtCfwSSKkp0g==}
 
   '@auth0/auth0-spa-js@2.29.0':
     resolution: {integrity: sha512-Y7HUe47kMOgkMJmDWX34HpbXMeyiuPkHBxWistQUstFdDHLEBX3pUE5pwm/fHI5Qb+yLC+Z+lTXop3uX4i0XkA==}
@@ -9158,6 +9164,11 @@ snapshots:
       '@auth0/auth0-spa-js': 2.29.0
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
+
+  '@auth0/auth0-server-js@1.17.0':
+    dependencies:
+      '@auth0/auth0-auth-js': 1.18.0
+      jose: 6.2.13
 
   '@auth0/auth0-spa-js@2.29.0':
     dependencies:

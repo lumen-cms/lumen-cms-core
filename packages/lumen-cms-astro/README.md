@@ -452,3 +452,83 @@ Run `pnpm test:astro:facebook-worker` for the component contracts, and
 `pnpm test:astro:facebook-audit` serves a loopback-only real-SDK comparison with
 synthetic collection intercepted locally. This harness must never be deployed.
 Outgoing request parity is not proof of Meta reporting or attribution.
+
+## Auth0 accounts and FastSpring ebooks
+
+Enable accounts per consumer with `LUMEN_AUTH_ENABLED=1` **at build time and at
+runtime** and configure a server adapter. Pure static hosting cannot serve auth
+endpoints. Public routes remain prerendered through `getConsumerStaticPaths`;
+protected routes and pages containing `auth_container`/`auth_form` (including
+shared header/footer content) are excluded and served by the injected SSR
+fallback. Keep the catch-all example above; do not replace its static path loader
+with the unfiltered `staticRoutes`. Auth blocks fail closed if accidentally
+prerendered. The built-in fallback uses `SiteLayout`; consumers with custom
+wrappers/renderers should add explicit SSR account routes using
+`loadConsumerPage` and their own layout.
+
+Create an Auth0 **Regular Web Application** for the Astro consumer. Existing
+React SPA applications can remain separate. Configure these server variables:
+
+| Variable | Purpose |
+| --- | --- |
+| `LUMEN_AUTH_ENABLED` | `1` enables routing and browser session lookup |
+| `LUMEN_SITE_URL` | Canonical origin; HTTPS except localhost |
+| `AUTH0_DOMAIN` | Auth0 tenant/custom domain |
+| `AUTH0_CLIENT_ID` | Regular Web Application client ID |
+| `AUTH0_CLIENT_SECRET` | Server-only client secret |
+| `AUTH0_SESSION_SECRET` | Random secret of at least 32 characters; same across instances |
+| `AUTH0_AUDIENCE` | Optional existing account API audience |
+| `AUTH_API` | Existing account service base URL; absent disables profile mutations |
+| `AUTH_PERMISSION` | Role claim name, defaults to `roles` |
+| `AUTH_PERMISSION_KEY` | Optional field name for object-valued role entries |
+| `AUTH_PATH_REQUIRED_ROLES` | JSON array, e.g. `[{"path":"/account","roles":["any"]},{"path":"/account/admin","roles":["admin"]}]` |
+
+Register `<origin>/auth/callback` as an Allowed Callback URL and `<origin>/` as
+an Allowed Logout URL. Enable refresh tokens/offline access for the account API
+when using it. Secrets are runtime configuration and must never use `PUBLIC_`.
+Changing the session secret invalidates existing application sessions.
+
+Use `/auth/login?returnTo=/account`, `/auth/signup?returnTo=/account`, and
+`/auth/logout` as normal links. CMS button `on_click_function` values `login`,
+`signup`, and `logout` also render native links when auth is enabled. Login/signup
+accept `locale`; return destinations are restricted to the canonical origin.
+The SDK owns PKCE, callback validation and encrypted HttpOnly session cookies.
+`GET /api/auth/session` exposes only the normalized public profile, never tokens.
+
+`auth_container` retains existing CMS display/role rules and personalization;
+role checks are server-side, segment-aware and use the most specific configured
+path. `auth_form` uses `PATCH /api/account` for first/last name and `DELETE
+/api/account` for confirmed deletion. Mutations require the canonical Origin and
+`X-Lumen-CSRF: 1`. The server derives `sub` from its session, obtains the API token,
+and adapts to the existing upstream GET `/api/update-user` and
+`/api/delete-user` contracts. Email cannot be edited. An unavailable upstream is
+reported without discarding form values. Authenticated/personalized responses
+are `private, no-store`; account actions are disabled in authenticated CMS preview.
+
+FastSpring continues to deliver the files. Guests can check out without signing
+up; signed-in buyers receive current `sub`/`email`/`id` tags. Checkout waits for
+session and SDK readiness, with visible errors and retry. Popup completion uses
+the CMS success link for both guests and signed-in buyers, or displays a success
+message without navigation. `/refetch` is a compatibility redirect to `/` and
+never opens a login popup. Browser purchase callbacks do not grant permissions
+or prove payment; tracking is deduplicated by order reference within a document.
+
+The shared store defaults to the legacy authenticated refresh behavior;
+Astro explicitly selects `completion: 'redirect'`. React's provider now reads
+its user from the existing auth store and reads current values in SDK callbacks.
+No React runtime or Auth0 client SDK is added to Astro browser bundles.
+
+Validation commands:
+
+```sh
+pnpm exec vitest run --project unit test/astro/auth.test.ts test/astro/auth-routes.test.ts test/astro/auth-pages.test.ts test/astro/fastspring.test.ts test/astro/fastspringProvider.test.ts
+pnpm --filter lumen-cms-astro build
+pnpm test:astro:commerce
+LUMEN_AUTH_ENABLED=1 pnpm --filter lumen-cms-astro exec astro build --config astro.server.config.mjs
+pnpm test:astro:auth
+```
+
+The browser/server checks use local fixtures, simulated checkout and encrypted
+test sessions. Before enabling a production consumer, separately verify login,
+signup, guest purchase, signed-in purchase and actual ebook delivery against its
+Auth0 test application and FastSpring test storefront.

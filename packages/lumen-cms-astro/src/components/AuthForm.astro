@@ -1,0 +1,31 @@
+---
+import type { AuthFormStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
+import type { RenderContext } from '../lib/context'
+import Block from './Block.astro'
+import Button from './Button.astro'
+interface Props { content: AuthFormStoryblok; context: RenderContext }
+const { content, context } = Astro.props
+if (Astro.isPrerendered && !context.preview) throw new Error('auth_form requires on-demand rendering')
+const user = context.auth?.user
+const de = context.page.locale === 'de'
+const disabled = context.preview || !user || !context.auth?.accountAvailable
+---
+<div data-lm-account data-locale={de ? 'de' : 'en'}>
+ <form>
+  <fieldset disabled={disabled}>
+   <label>{de ? 'Vorname' : 'First name'}<input class="input" name="given_name" required maxlength="200" value={user?.firstName || ''} autocomplete="given-name" /></label>
+   <label>{de ? 'Nachname' : 'Surname'}<input class="input" name="family_name" required maxlength="200" value={user?.lastName || ''} autocomplete="family-name" /></label>
+   <label>Email<input class="input" type="email" disabled value={user?.email || ''} /></label>
+   {content.account_update_button?.length ? content.account_update_button.map(blok => <Button content={{ ...blok, link: undefined, on_click_function: undefined }} context={context} theme={context.theme} type="submit" />) : <button type="submit" class="btn">{de ? 'Aktualisieren' : 'Update'}</button>}
+   {content.account_delete_body?.map(blok => <Block content={blok} context={context} />)}
+   <div data-account-delete>{content.account_delete_button?.map(blok => <Button content={{ ...blok, link: undefined, on_click_function: undefined }} context={context} theme={context.theme} />)}</div>
+  </fieldset>
+ </form>
+ <p role="status" aria-live="polite">{disabled && !context.preview ? (de ? 'Profilverwaltung ist derzeit nicht verfügbar.' : 'Account management is currently unavailable.') : ''}</p>
+</div>
+<script>
+ import { initializeAccountForms } from '../client/account'
+ initializeAccountForms()
+ document.addEventListener('astro:page-load', initializeAccountForms)
+ document.addEventListener('lumen:content-mounted', initializeAccountForms)
+</script>

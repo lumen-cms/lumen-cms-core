@@ -1,3 +1,5 @@
+import { hasRoles, type AuthUser } from 'lumen-cms-shared/auth'
+import { getAuth0RoleOnPath } from 'lumen-cms-shared/core/utils/auth0/auth0Helpers'
 // Reuse the framework-independent delivery/enrichment pipeline while its modules
 // move into shared. A bundle audit guards against React/Next/MUI runtime imports.
 import getPageProps from 'lumen-cms-shared/core/utils/initial-props/getPageProps'
@@ -40,7 +42,7 @@ export async function staticRoutes(): Promise<CmsRoute[]> {
   return createStaticRoutes(await publishedRouteStories(locales, !!process.env.PUBLIC_FIELD_LEVEL_TRANSLATION), config)
 }
 
-export async function loadPage(slug: string | undefined, options: CmsRoute['props'], preview = false, requestParams?: ISbStoryParams, liveStory?: ISbStoryData<PageStoryblok | GlobalStoryblok | NewsStoryblok | EventStoryblok>, serverData?: PreviewServerData) {
+export async function loadPage(slug: string | undefined, options: CmsRoute['props'], preview = false, requestParams?: ISbStoryParams, liveStory?: ISbStoryData<PageStoryblok | GlobalStoryblok | NewsStoryblok | EventStoryblok>, serverData?: PreviewServerData, user?: AuthUser) {
   if (isUnsupportedPageSlug(slug)) throw new CmsPageNotFoundError(slug)
   // Public routing removes nested /home segments. Delivery must use the
   // original CMS slug retained by getStaticPaths, not reconstruct it from URL.
@@ -49,7 +51,7 @@ export async function loadPage(slug: string | undefined, options: CmsRoute['prop
     locales: options.locales, insideStoryblok: preview
   }, requestParams, { defer: preview && !!liveStory?.content })
   if (!result.page || !result.settings) throw new CmsPageNotFoundError(slug)
-  if (result.needAuth && !preview) throw new CmsPageProtectedError(slug)
+  if (result.needAuth && !preview && !hasRoles(getAuth0RoleOnPath('/' + (options.cmsSlug || slug || 'home'), options)?.roles || ['any'], user)) throw new CmsPageProtectedError(slug)
   if (preview && liveStory?.content) {
     if (liveStory.content.component === 'global' && liveStory.uuid === result.settings.uuid) {
       result.settings = { ...liveStory.content, uuid: liveStory.uuid }

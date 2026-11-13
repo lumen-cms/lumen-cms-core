@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-astro",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -31,7 +31,8 @@
     "./server/request": "./src/server/request.ts",
     "./package.json": "./package.json",
     "./server/consumer-pages": "./src/server/consumerPages.ts",
-    "./images/vercel-config": "./src/images/vercel-config.mjs"
+    "./images/vercel-config": "./src/images/vercel-config.mjs",
+    "./server/auth": "./src/server/auth.ts"
   },
   "scripts": {
     "dev": "astro dev",
@@ -42,6 +43,7 @@
   "dependencies": {
     "@astrojs/node": "11.1.9",
     "@astrojs/partytown": "2.1.9",
+    "@auth0/auth0-server-js": "1.17.0",
     "@mdi/svg": "7.4.47",
     "@mux/mux-player": "3.14.1",
     "@storyblok/richtext": "5.3.3",
@@ -103,6 +105,6 @@
   "peerDependencies": {
     "@storyblok/astro": "^10.4.0",
     "astro": "^7.4.4",
-    "lumen-cms-shared": "0.1.0"
+    "lumen-cms-shared": "0.2.0"
   }
 }

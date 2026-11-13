@@ -12,7 +12,7 @@ const id = `menu-${content._uid}`
 const active = custom && JSON.stringify(content.body).includes(`"full_slug":"${context.page.slug?.replace(/^\/+/, '')}"`)
 ---
 <div class="dropdown lm-menu" data-lm-menu data-initial-open={initialOpen} data-hover={!!content.open_on_hover} data-alignment={content.alignment}>
- {content.title_custom?.length ? <div data-menu-trigger>{content.title_custom.map(child => <Block content={child} context={context} />)}</div> :
+ {content.title_custom?.length ? <div data-menu-trigger>{content.title_custom.map(child => <Block content={child} context={{ ...context, buttonLabel: content.title }} />)}</div> :
  <button type="button" data-menu-trigger aria-controls={id} aria-haspopup={custom ? 'dialog' : 'menu'} aria-expanded="false" class:list={['btn btn-ghost lm-button lm-labelled-button MuiButton-root lm-default-color', `lm-menu-trigger_${content._uid}`, { lm_menu_active: active }]}>
   {content.start_icon?.name && <span class="lm-button-start"><Icon name={content.start_icon.name} /></span>}{content.title}
   <span class="lm-menu-expand lm-button-trailing"><Icon name={content.icon?.name || (content.icon_custom?.[0] ? undefined : 'chevron-down')} url={content.icon_custom?.[0]?.icon_url} /></span>

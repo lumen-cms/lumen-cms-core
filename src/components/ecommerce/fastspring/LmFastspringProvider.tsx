@@ -1,6 +1,6 @@
-import { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren, useRef } from 'react'
 import Router from 'next/router'
-import { useAppContext } from '../../provider/context/AppContext'
+import { useUserData } from '../../auth/useAuth'
 import { useFastspringContext } from './context/FastSpringContext'
 import { useSettings } from '../../provider/SettingsPageProvider'
 import Script from 'next/script'
@@ -9,12 +9,15 @@ export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
   children
 }) => {
   const settings = useSettings()
-  const appCtx = useAppContext()
+  const user = useUserData()
   const { setRedirect, currency, setProducts, redirect, setCurrency } =
     useFastspringContext()
   const fastSpring = settings.ecommerce?.find(
     (i) => i.component === 'ecommerce_fastspring_config'
   )
+
+  const current = useRef({ user, currency, redirect })
+  current.current = { user, currency, redirect }
 
   const onLoad = () => {
     window.fscDataCallback = (data) => {
@@ -28,7 +31,7 @@ export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
         window.fbq &&
           fbq('track', 'Purchase', {
             content_ids: data.items.map((product) => product.product),
-            currency,
+            currency: current.current.currency,
             content_type: 'product',
             value: data.total
           })
@@ -40,7 +43,7 @@ export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
             quantity: pr.quantity
           })),
           conversion_value: data.total,
-          currency
+          currency: current.current.currency
         })
       } else {
         console.info(data) // remove soon
@@ -49,12 +52,12 @@ export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
     window.fscDataPopupClosed = async (data) => {
       if (data?.id && data?.reference) {
         // update elastic if defined
-        if (appCtx?.user) {
+        if (current.current.user) {
           // Resolve against the document base, retaining a full-page server refresh.
           window.location.href = new URL('/refetch', document.baseURI).href
           setRedirect('')
-        } else if (redirect) {
-          await Router.push(redirect)
+        } else if (current.current.redirect) {
+          await Router.push(current.current.redirect)
           setRedirect('')
         }
       } else {

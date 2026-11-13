@@ -33,6 +33,7 @@ const settings = page.settings!
 const fastSpringConfig = settings.ecommerce?.find(item => item.component === 'ecommerce_fastspring_config')
 const shopifyConfig = settings.ecommerce?.find(item => item.component === 'ecommerce_shopify_config')
 const context = createRenderContext(page, { components, linkRenderer, ...(storyListEndpoint ? { storyListEndpoint } : {}) })
+context.auth = (Astro.locals as { lumenAuth?: RenderContext['auth'] }).lumenAuth
 const theme = context.theme
 const serverData = previewServerData(page)
 const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.PUBLIC_GTM_CONTAINER?.trim(), googleAnalyticsId: process.env.PUBLIC_GA, deferLibraries: true, explicitPageView: !process.env.PUBLIC_GTM_CONTAINER?.trim() })
@@ -67,7 +68,7 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
   <a class="lm-skip-link" href="#lm-main-content">Skip to main content</a>
   <AppWrappers context={context} wrappers={wrappers}>
   {tracking.pixels.map(id => <noscript><img alt="" height="1" width="1" style="display:none" src={`https://www.facebook.com/tr?id=${encodeURIComponent(id)}&ev=PageView&noscript=1`} /></noscript>)}
-  {fastSpringConfig?.url && <FastSpringProvider config={fastSpringConfig} />}
+  {fastSpringConfig?.url && <FastSpringProvider config={fastSpringConfig} preview={context.preview} authEnabled={process.env.LUMEN_AUTH_ENABLED === '1'} />}
   <Header context={context} />
   <main id="lm-main-content" tabindex="-1" class="lm-page-main" {...context.preview && page.page ? storyblokEditable(page.page) : {}}>
    <slot>

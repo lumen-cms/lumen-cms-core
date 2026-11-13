@@ -9,11 +9,14 @@ export type AstroRendererOverrides = Readonly<Record<string, AstroComponentFacto
 /** Outermost first; wrappers receive settings/context and render an Astro slot. */
 export type AstroAppWrappers = readonly AstroComponentFactory[]
 export interface RenderContext {
+  auth?: { user?: import('lumen-cms-shared/auth').AuthUser; accountAvailable?: boolean }
   theme: CmsTheme
   page: AppPageProps & { allShopifyProducts?: AllProductsQuery['products']['edges']; storyLinkIndex?: Record<string, string> }
   preview: boolean
   /** Render non-action button blocks as decoration inside summaries and linked cards. */
   decorativeButtons?: boolean
+  /** Accessible name fallback scoped to custom menu trigger blocks. */
+  buttonLabel?: string
   components?: AstroRendererOverrides
   linkRenderer?: AstroComponentFactory
   storyListEndpoint?: string

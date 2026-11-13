@@ -1,3 +1,4 @@
+import { hasAuthContent } from './authContent'
 import type { APIRoute, APIContext } from 'astro'
 import { experimental_AstroContainer } from 'astro/container'
 import StoryListFragment from '../components/StoryListFragment.astro'
@@ -37,7 +38,7 @@ export function createStoryListEndpoint(options: StoryListEndpointOptions): APIR
   if (!context) return response({ error: 'not-found' }, 404)
   // Draft delivery belongs to the authenticated preview renderer, not this
   // published-list endpoint. Its source loader must enforce page access too.
-  if (context.preview || context.page.needAuth) return response({ error: 'unavailable' }, 403)
+  if (context.preview || context.page.needAuth || hasAuthContent(context.page)) return response({ error: 'unavailable' }, 403)
   const content = findList(context.page, uid)
   if (!content) return response({ error: 'not-found' }, 404)
   if (content.max_items) return response({ error: 'pagination-disabled' }, 400)

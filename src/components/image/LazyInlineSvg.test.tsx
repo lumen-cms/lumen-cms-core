@@ -70,7 +70,7 @@ it.each(['icon', 'image'] as const)(
       const svg = host.querySelector('svg')!
       if (kind === 'icon') {
         expect(fetchSvg.mock.calls[0]?.[0]).toBe(
-          'https://cdn.jsdelivr.net/npm/@mdi/svg/svg/chevron-down.svg'
+          'https://cdn.jsdelivr.net/npm/@mdi/svg@7.4.47/svg/chevron-down.svg'
         )
         expect(svg.classList.contains('lm-svg-icon')).toBe(true)
         expect(svg.classList.contains('size__lm-button-large')).toBe(true)

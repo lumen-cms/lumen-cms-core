@@ -39,7 +39,7 @@ for (const name of ['lumen-cms-shared', 'lumen-cms-astro']) {
     if (spec.startsWith('node:') || spec.startsWith('astro:') || spec === 'virtual:lumen-mdi-icons' || builtinModules.includes(spec)) continue
     const dependency = spec.startsWith('@') ? spec.split('/').slice(0, 2).join('/') : spec.split('/')[0]
     if (dependency !== name && !declared[dependency]) errors.push(`${file}: undeclared dependency: ${dependency}`)
-    if (/^(react|react-dom|next|@mui\/|@emotion\/|@auth0\/)/.test(dependency)) errors.push(`${file}: legacy UI dependency: ${dependency}`)
+    if (/^(react|react-dom|next|@mui\/|@emotion\/|@auth0\/)/.test(dependency) && !(dependency === '@auth0/auth0-server-js' && file.includes('/src/server/'))) errors.push(`${file}: legacy UI dependency: ${dependency}`)
    }
   }
  }

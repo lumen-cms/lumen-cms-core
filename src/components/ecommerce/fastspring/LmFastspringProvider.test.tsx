@@ -16,8 +16,8 @@ vi.mock('next/script', () => ({
     return null
   }
 }))
-vi.mock('../../provider/context/AppContext', () => ({
-  useAppContext: () => ({ user: fixture.authenticated ? { id: 'user' } : null })
+vi.mock('../../auth/useAuth', () => ({
+  useUserData: () => (fixture.authenticated ? { id: 'user' } : null)
 }))
 vi.mock('../../provider/SettingsPageProvider', () => ({
   useSettings: () => ({})
