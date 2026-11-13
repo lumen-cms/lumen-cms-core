@@ -31,6 +31,7 @@ async function main() {
   let failOnce = true
   page.on('pageerror', error => errors.push(error.message))
   await page.route('https://a.storyblok.com/**', route => route.fulfill({ status: 200, contentType: 'image/gif', body: Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64') }))
+  await page.route('https://a.storyblok.com/**/gallery-*.jpg*', route => route.fulfill({ status: 200, contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500"><rect width="800" height="500" fill="orange" /></svg>' }))
   await page.route('https://api.storyblok.com/**', async route => {
    const url = new URL(route.request().url()); requests.push(url)
    const search = url.searchParams.get('search_term')
@@ -101,7 +102,7 @@ async function main() {
   await page.evaluate(() => { const url = new URL(location.href); url.searchParams.set('search__text', 'image'); history.replaceState({}, '', url); document.dispatchEvent(new CustomEvent('lumen:search-change')) })
   await page.waitForFunction(() => [...document.querySelectorAll('[data-story-list]')].every(node => node.getAttribute('aria-busy') === 'false' && node.querySelector('[data-story-results]')?.textContent?.includes('image')))
   await verifyProps()
-  for (const width of [375, 1280]) {
+  for (const width of [375, 768, 1280, 1440]) {
    await page.setViewportSize({ width, height: 812 })
    for (const language of ['en', 'de']) {
     await page.goto(`http://127.0.0.1:${server.address().port}/__travel_${language}/index.html`)
@@ -143,6 +144,24 @@ async function main() {
     assert.equal(await detail.locator('.lm-travel-team img').getAttribute('width'), '150')
     assert.ok(await detail.evaluate(node => node.scrollWidth <= node.clientWidth))
     for (const section of ['overview', 'description', 'accommodation', 'services', 'team']) assert.match(await detail.innerText(), new RegExp(`Travel ${section} fixture`))
+    const gallery = detail.locator('#image-list')
+    await gallery.scrollIntoViewIfNeeded()
+    await page.waitForFunction(() => document.querySelector('#image-list .swiper')?.swiper?.initialized)
+    await gallery.locator('img').first().evaluate(image => image.decode())
+    const geometry = await gallery.locator('img').first().evaluate(image => {
+     const rect = image.getBoundingClientRect(), frame = image.closest('.lm-flex-row').getBoundingClientRect(), css = getComputedStyle(image)
+     return { width: rect.width, height: rect.height, frameWidth: frame.width, frameHeight: frame.height, bottom: rect.bottom, frameBottom: frame.bottom, fit: css.objectFit, radius: css.borderBottomLeftRadius }
+    })
+    assert(Math.abs(geometry.width - geometry.frameWidth) < 1, `Gallery must fill slide width: ${JSON.stringify(geometry)}`)
+    assert(Math.abs(geometry.height - Math.min(120, geometry.width * 500 / 800)) < 1, `Gallery image height at ${width}: ${JSON.stringify(geometry)}`)
+    assert(geometry.bottom <= geometry.frameBottom + 1, 'Gallery must not clip bottom image corners')
+    assert.equal(geometry.fit, 'cover')
+    assert.equal(geometry.radius, '8px')
+    await gallery.locator('.swiper').evaluate(node => { node.swiper.autoplay.stop(); node.swiper.slideTo(0, 0) })
+    await gallery.locator('.swiper-button-next').click()
+    await page.waitForFunction(() => document.querySelector('#image-list .swiper').swiper.activeIndex === 1)
+    await gallery.locator('.swiper-button-prev').click()
+    await page.waitForFunction(() => document.querySelector('#image-list .swiper').swiper.activeIndex === 0)
    }
   }
   for (const width of [375, 768, 1280]) {
