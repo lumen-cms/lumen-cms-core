@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useRef } from 'react'
+import { FC, PropsWithChildren, useRef, useEffect } from 'react'
 import Router from 'next/router'
 import { useUserData } from '../../auth/useAuth'
 import { useFastspringContext } from './context/FastSpringContext'
@@ -17,7 +17,9 @@ export const LmFastSpringProvider: FC<PropsWithChildren<unknown>> = ({
   )
 
   const current = useRef({ user, currency, redirect })
-  current.current = { user, currency, redirect }
+  useEffect(() => {
+    current.current = { user, currency, redirect }
+  }, [user, currency, redirect])
 
   const onLoad = () => {
     window.fscDataCallback = (data) => {

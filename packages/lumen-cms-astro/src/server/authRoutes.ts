@@ -52,9 +52,14 @@ export const ALL: APIRoute = async ({ url, cookies, request }) => {
    const locales = (process.env.LUMEN_LOCALES || 'en').split(',')
    const language = user?.language?.slice(0, 2)
    const fallback = language && language !== locales[0] && locales.includes(language) ? `/${language}/` : '/'
-   return redirect(result.appState?.explicit ? safeReturnTo(result.appState.returnTo, auth.config.origin) : fallback)
+   const destination = safeReturnTo(result.appState?.explicit ? result.appState.returnTo : fallback, auth.config.origin)
+   return redirect(destination)
   }
-  if (path === '/auth/logout') return redirect((await auth.client.logout({ returnTo: auth.config.origin + '/' })).href)
+  if (path === '/auth/logout') {
+   const destination = await auth.client.logout({ returnTo: auth.config.origin + '/' })
+   if (destination.origin !== new URL('https://' + auth.config.domain).origin) throw new Error('Unexpected logout origin')
+   return redirect(destination.href)
+  }
   return json({ error: 'Not found' }, 404)
  } catch {
   return json({ error: path === '/auth/callback' ? 'Sign-in failed. Please start login again.' : 'Account request failed. Please try again.' }, path === '/auth/callback' ? 400 : 503)

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { ALL } from '../../packages/lumen-cms-astro/src/server/authRoutes'
 const f = vi.hoisted(() => ({ user: { sub: 'trusted-user', email: 'user@example.test', roles: [] } as Record<string, unknown> | undefined, update: vi.fn(), login: vi.fn(async () => new URL('https://tenant.auth0.com/authorize')), callback: vi.fn(async () => ({ appState: { explicit: true, returnTo: '/de/book' } })), logout: vi.fn(async () => new URL('https://tenant.auth0.com/logout')) }))
-vi.mock('../../packages/lumen-cms-astro/src/server/auth', () => ({ authEnabled: () => true, privateHeaders: { 'Cache-Control': 'private, no-store' }, createAuth: () => ({ config: { origin: 'https://site.test' }, user: async () => f.user, updateProfile: f.update, clear: vi.fn(), client: { getAccessToken: async () => ({ accessToken: 'server-token' }), startInteractiveLogin: f.login, completeInteractiveLogin: f.callback, logout: f.logout } }) }))
+vi.mock('../../packages/lumen-cms-astro/src/server/auth', () => ({ authEnabled: () => true, privateHeaders: { 'Cache-Control': 'private, no-store' }, createAuth: () => ({ config: { origin: 'https://site.test', domain: 'tenant.auth0.com' }, user: async () => f.user, updateProfile: f.update, clear: vi.fn(), client: { getAccessToken: async () => ({ accessToken: 'server-token' }), startInteractiveLogin: f.login, completeInteractiveLogin: f.callback, logout: f.logout } }) }))
 vi.mock('../../packages/lumen-cms-astro/src/server/request', () => ({ isPreviewRequest: () => false }))
 beforeEach(() => { f.user = { sub: 'trusted-user', email: 'user@example.test', roles: [] }; vi.stubEnv('AUTH_API', 'https://api.test'); vi.clearAllMocks() })
 afterEach(() => { vi.unstubAllEnvs(); vi.unstubAllGlobals() })
@@ -49,4 +49,10 @@ it('does not change local profile on upstream errors and ends session after dele
 it('refetch redirects without requesting interactive login', async () => {
  expect((await call('/refetch')).headers.get('Location')).toBe('/')
  expect(f.login).not.toHaveBeenCalled()
+})
+
+it('allows only the configured Auth0 origin for logout redirects', async () => {
+ expect((await call('/auth/logout')).headers.get('Location')).toBe('https://tenant.auth0.com/logout')
+ f.logout.mockResolvedValueOnce(new URL('https://untrusted.test/logout'))
+ expect((await call('/auth/logout')).status).toBe(503)
 })

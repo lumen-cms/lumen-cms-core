@@ -39,10 +39,10 @@ export function hasRoles(
   required: readonly string[],
   user?: Pick<AuthUser, 'roles'> | null
 ): boolean {
+  const roles = new Set(user?.roles)
   return (
     !!user &&
-    (required.includes('any') ||
-      required.some((role) => user.roles.includes(role)))
+    (required.includes('any') || required.some((role) => roles.has(role)))
   )
 }
 export function matchAuthRule<T extends { path: string; roles: string[] }>(

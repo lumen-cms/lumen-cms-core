@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "prepare": "node scripts/install-git-hooks.cjs",
-    "check:react-doctor": "npx --yes react-doctor@latest --yes --verbose --scope full --blocking warning",
+    "check:react-doctor": "npx --yes react-doctor@latest --yes --verbose --scope full --blocking warning --no-telemetry",
     "dev": "next dev --experimental-https",
     "dev:bali": "dotenv -e .env.bali --no-expand -v NEXT_DIST_DIR=.next-reference/bali -- next dev --experimental-https -p 3009 --hostname 127.0.0.1",
     "dev:planet": "dotenv -e .env.planet --no-expand -v NEXT_DIST_DIR=.next-reference/planet -- next dev --experimental-https -p 3010 --hostname 127.0.0.1",

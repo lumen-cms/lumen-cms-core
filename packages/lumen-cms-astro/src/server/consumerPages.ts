@@ -15,14 +15,13 @@ type RequestContext = Pick<AstroGlobal, 'cookies' | 'locals' | 'url' | 'params' 
 export async function getConsumerStaticPaths() {
  const routes = await staticRoutes()
  if (process.env.LUMEN_AUTH_ENABLED !== '1') return routes
- const publicRoutes: typeof routes = []
- for (const route of routes) {
+ const allowed = await Promise.all(routes.map(async route => {
   try {
    const page = await loadPage(route.params.slug, route.props, false, { version: 'published' })
-   if (!hasAuthContent(page)) publicRoutes.push(route)
-  } catch (error) { if (!(error instanceof CmsPageProtectedError)) throw error }
- }
- return publicRoutes
+   return !hasAuthContent(page)
+  } catch (error) { if (!(error instanceof CmsPageProtectedError)) throw error; return false }
+ }))
+ return routes.filter((_, index) => allowed[index])
 }
 
 

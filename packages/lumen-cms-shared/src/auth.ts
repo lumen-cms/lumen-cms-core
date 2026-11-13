@@ -17,7 +17,8 @@ export function normalizeUser(claims: Record<string, unknown> | undefined, roleC
  return { sub: claims.sub, id: text('id'), email: text('email'), firstName: text('given_name'), lastName: text('family_name'), language: text('lang') || text('locale'), roles }
 }
 export function hasRoles(required: readonly string[], user?: Pick<AuthUser, 'roles'> | null): boolean {
- return !!user && (required.includes('any') || required.some(role => user.roles.includes(role)))
+ const roles = new Set(user?.roles)
+ return !!user && (required.includes('any') || required.some(role => roles.has(role)))
 }
 export function matchAuthRule<T extends { path: string; roles: string[] }>(path: string, rules: readonly T[] = []): T | undefined {
  const clean = (value: string) => '/' + value.split(/[?#]/)[0].split('/').filter(Boolean).join('/')

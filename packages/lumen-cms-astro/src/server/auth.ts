@@ -8,8 +8,10 @@ export function authConfig() {
  const required = ['AUTH0_DOMAIN', 'AUTH0_CLIENT_ID', 'AUTH0_CLIENT_SECRET', 'AUTH0_SESSION_SECRET', 'LUMEN_SITE_URL'] as const
  for (const key of required) if (!process.env[key]) throw new Error(`Auth enabled but ${key} is missing`)
  if (process.env.AUTH0_SESSION_SECRET!.length < 32) throw new Error('AUTH0_SESSION_SECRET must contain at least 32 characters')
- const origin = new URL(process.env.LUMEN_SITE_URL!).origin
- if (!origin.startsWith('https://') && !['localhost', '127.0.0.1', '[::1]'].includes(new URL(origin).hostname)) throw new Error('Auth requires HTTPS outside localhost')
+ const site = URL.parse(process.env.LUMEN_SITE_URL!)
+ if (!site || !['http:', 'https:'].includes(site.protocol)) throw new Error('LUMEN_SITE_URL must be an absolute HTTP(S) URL')
+ const origin = site.origin
+ if (!origin.startsWith('https://') && !['localhost', '127.0.0.1', '[::1]'].includes(site.hostname)) throw new Error('Auth requires HTTPS outside localhost')
  return { origin, secret: process.env.AUTH0_SESSION_SECRET!, domain: process.env.AUTH0_DOMAIN!, clientId: process.env.AUTH0_CLIENT_ID!, clientSecret: process.env.AUTH0_CLIENT_SECRET! }
 }
 /** Request-local adapter: cookie writes and identity never cross requests. */
