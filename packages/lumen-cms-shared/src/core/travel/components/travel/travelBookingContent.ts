@@ -182,7 +182,7 @@ export function getTravelBookingColumn(
                 _uid: 'el-5',
                 typography: 'headline3',
                 font: 'alt1',
-                class_names: { values: ['font-weight-800'] },
+                class_names: { values: ['font-weight-800', 'lm-travel-price'] },
                 text:
                   content.product?.product_price?.[currency] +
                   ' ' +

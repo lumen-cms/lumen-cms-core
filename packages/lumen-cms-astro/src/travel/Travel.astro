@@ -12,16 +12,6 @@ const { content, context } = Astro.props
 const langKey: 'DE' | 'EN' = content.language_key === 'DE' || content.language_key === 'EN' ? content.language_key : context.page.locale?.toLowerCase() === 'de' ? 'DE' : 'EN'
 const props = { content, langKey }
 const sections = [getTravelHeaderContent(props), getTravelOverviewContent(props), getTravelGalleryContent(props), getTravelServicesContent(props)].filter(section => section !== null)
-function markPrice(value: unknown) {
- if (!value || typeof value !== 'object') return
- const node = value as Record<string, unknown>
- if (node.component === 'headline' && node._uid === 'el-5') {
-  const classes = node.class_names as { values?: string[] } | undefined
-  node.class_names = { ...classes, values: [...(classes?.values || []), 'lm-travel-price'] }
- }
- Object.values(node).forEach(markPrice)
-}
-markPrice(sections)
 const teamHeading = { component: 'section' as const, _uid: 'travel-team', padding: '0 0 0 0', body: [mainFlexRowHeadline({ icon: 'account-group-outline', text: translations[langKey].travelDetail.team })] }
 const css = collectPageStyles([sections, teamHeading], context.theme)
 ---
