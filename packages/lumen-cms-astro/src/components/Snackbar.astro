@@ -5,7 +5,7 @@ import type { RenderContext } from '../lib/context'
 import Block from './Block.astro'
 interface Props { content: SnackbarStoryblok; context: RenderContext }
 const { content, context } = Astro.props
-const config = { cookie: content.cookie_name, days: content.expire_in_days, display: content.display, autoShow: content.auto_show, autoClose: content.auto_close, preventOutside: content.prevent_click_outside, preview: context.preview }
+const config = { id: content._uid, cookie: content.cookie_name, days: content.expire_in_days, display: content.display, autoShow: content.auto_show, autoClose: content.auto_close, preventOutside: content.prevent_click_outside, preview: context.preview }
 const Tag = content.dialog ? 'dialog' : 'div'
 const maxWidths = { xs: 444, sm: 600, md: 900, lg: 1280, xl: 1920 }
 ---
