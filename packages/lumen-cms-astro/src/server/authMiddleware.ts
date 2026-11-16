@@ -2,7 +2,9 @@ import { defineMiddleware } from 'astro:middleware'
 import { authEnabled, createAuth } from './auth'
 import { isPreviewRequest } from './request'
 export const onRequest = defineMiddleware(async (context, next) => {
- if (authEnabled() && !context.isPrerendered && !isPreviewRequest(context.cookies)) {
+ // Preview entry must validate its own secret before a preview cookie exists.
+ const previewEndpoint = ['/api/preview', '/api/exit-preview'].includes(context.url.pathname.replace(/\/$/, ''))
+ if (!previewEndpoint && authEnabled() && !context.isPrerendered && !isPreviewRequest(context.cookies)) {
   const locals = context.locals as Record<string, unknown>
   locals.lumenAuth = { user: await createAuth(context.cookies, context.request).user(), accountAvailable: !!process.env.AUTH_API }
  }

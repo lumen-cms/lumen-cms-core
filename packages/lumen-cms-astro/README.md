@@ -532,3 +532,10 @@ The browser/server checks use local fixtures, simulated checkout and encrypted
 test sessions. Before enabling a production consumer, separately verify login,
 signup, guest purchase, signed-in purchase and actual ebook delivery against its
 Auth0 test application and FastSpring test storefront.
+
+Storyblok preview builds (`TARGET=SSR` / `LUMEN_BUILD_MODE=preview`) do not
+register Auth0 middleware or account routes, even when `LUMEN_AUTH_ENABLED=1`
+is inherited from the public site. FastSpring SDK loading and checkout actions
+are also disabled in these builds. Preview entry still requires
+`LUMEN_PREVIEW_SECRET` and `STORYBLOK_PREVIEW_TOKEN`; Auth0 credentials are not
+required for the editor.

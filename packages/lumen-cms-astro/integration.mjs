@@ -24,7 +24,7 @@ export default function lumenStoryblok({ preview = false, auth = process.env.LUM
    if (options.config.output !== 'server') throw new Error('Lumen live preview requires Astro server output')
    options.addMiddleware({ entrypoint: '@storyblok/astro/middleware.ts', order: 'pre' })
   }
-  if (auth) {
+  if (auth && !preview) {
    if (!options.config.adapter) throw new Error('Lumen Auth requires a server adapter')
    options.injectRoute({ pattern: '/[...lumenAuthPath]', entrypoint: fileURLToPath(new URL('./src/components/AuthPage.astro', import.meta.url)), prerender: false })
    options.addMiddleware({ entrypoint: fileURLToPath(new URL('./src/server/authMiddleware.ts', import.meta.url)), order: 'pre' })

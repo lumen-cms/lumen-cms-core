@@ -12,7 +12,7 @@ interface Props { context?: RenderContext; content: ButtonStoryblok; theme: CmsT
 const { content, context, theme, type = 'button', disabled } = Astro.props
 const { css, className } = blockStyles(content, theme)
 const attrs = isValidLink(content.link as LinkType) ? getLinkAttrs(content.link as LinkType, { openExternal: !!content.open_external }, context?.page) : {}
-const authAction = process.env.LUMEN_AUTH_ENABLED === '1' && !context?.preview && ['login', 'signup', 'logout'].includes(content.on_click_function || '') ? content.on_click_function : undefined
+const authAction = process.env.LUMEN_BUILD_MODE !== 'preview' && process.env.LUMEN_AUTH_ENABLED === '1' && !context?.preview && ['login', 'signup', 'logout'].includes(content.on_click_function || '') ? content.on_click_function : undefined
 if (authAction) {
  attrs.href = '/auth/' + authAction + (authAction === 'logout' ? '' : '?returnTo=' + encodeURIComponent(Astro.url.pathname + Astro.url.search) + '&locale=' + encodeURIComponent(context?.page.locale || 'en'))
 }

@@ -3,7 +3,7 @@ import type { EcommerceFastspringConfigStoryblok } from 'lumen-cms-shared/core/t
 interface Props { config?: EcommerceFastspringConfigStoryblok; preview?: boolean; authEnabled?: boolean }
 const { config, preview, authEnabled } = Astro.props
 ---
-{config?.url && !preview && <div data-auth-enabled={authEnabled ? 'true' : 'false'} hidden data-lm-fastspring-provider={JSON.stringify({ component: config.component, _uid: config._uid, url: config.url, data_storefront: config.data_storefront, data_accesss_key: config.data_accesss_key })} />}
+{config?.url && !preview && process.env.LUMEN_BUILD_MODE !== 'preview' && <div data-auth-enabled={authEnabled ? 'true' : 'false'} hidden data-lm-fastspring-provider={JSON.stringify({ component: config.component, _uid: config._uid, url: config.url, data_storefront: config.data_storefront, data_accesss_key: config.data_accesss_key })} />}
 <script>
  import { initializeFastSpringProvider } from '../client/fastspringProvider'
  function initialize() {

@@ -1,7 +1,7 @@
 import { ServerClient, SessionExpiredError, CookieTransactionStore, StatelessStateStore, type CookieHandler } from '@auth0/auth0-server-js'
 import type { AstroCookies } from 'astro'
 import { normalizeUser } from 'lumen-cms-shared/auth'
-export const authEnabled = () => process.env.LUMEN_AUTH_ENABLED === '1'
+export const authEnabled = () => process.env.LUMEN_BUILD_MODE !== 'preview' && process.env.LUMEN_AUTH_ENABLED === '1'
 export const sessionName = 'lumen_auth'
 export const privateHeaders = { 'Cache-Control': 'private, no-store', 'X-Robots-Tag': 'noindex, nofollow' }
 export function authConfig() {
