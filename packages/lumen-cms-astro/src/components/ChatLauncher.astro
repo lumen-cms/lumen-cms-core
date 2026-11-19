@@ -5,7 +5,8 @@ const german = Astro.props.locale?.startsWith('de')
 <button type="button" class="lm-chat-launcher" data-lm-chat-open data-loading-label={german ? 'Chat wird geladen…' : 'Loading chat…'} data-error-label={german ? 'Chat erneut öffnen' : 'Retry chat'}>{german ? 'Chat öffnen' : 'Open chat'}</button>
 <span class="lm-chat-status" data-lm-chat-status role="status" aria-live="polite"></span>
 <style>
- .lm-chat-launcher { position:fixed; bottom:24px; right:24px; z-index:1200; border:0; border-radius:999px; padding:14px 20px; background:var(--color-primary, #155e75); color:var(--color-primary-content, white); font:inherit; cursor:pointer; box-shadow:0 3px 12px #0003; }
+ /* Keep the launcher below the consent banner (z-index: 1000). */
+ .lm-chat-launcher { position:fixed; bottom:24px; right:24px; z-index:900; border:0; border-radius:999px; padding:14px 20px; background:var(--color-primary, #155e75); color:var(--color-primary-content, white); font:inherit; cursor:pointer; box-shadow:0 3px 12px #0003; }
  .lm-chat-launcher:focus-visible { outline:3px solid currentColor; outline-offset:3px; }
  .lm-chat-launcher:disabled { cursor:wait; }
  .lm-chat-launcher[hidden] { display:none; }

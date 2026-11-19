@@ -18,14 +18,14 @@ export function initializeHubspotChat() {
   let disposed = false, conversations: Conversations | undefined, timer: ReturnType<typeof setTimeout> | undefined
   root.dataset.chatState = 'waiting'
   const reset = () => { clearTimeout(timer); button.disabled = false; button.hidden = false; button.textContent = label; status.textContent = ''; root.dataset.chatState = 'waiting' }
-  const closed = () => { if (!disposed) { conversations?.widget.remove(); reset() } }
-  const ready = () => { if (disposed || root.dataset.chatState !== 'loading') return; clearTimeout(timer); button.disabled = false; button.hidden = true; status.textContent = ''; root.dataset.chatState = 'ready' }
+  // HubSpot owns the launcher after loading, including when the chat is minimized.
+  // A late widgetLoaded event must also hide the retry button after a timeout.
+  const ready = () => { if (disposed) return; clearTimeout(timer); button.disabled = false; button.hidden = true; status.textContent = ''; root.dataset.chatState = 'ready' }
   const open = () => {
    if (disposed || root.dataset.chatState !== 'loading' || !api.HubSpotConversations) return
    if (!conversations) {
     conversations = api.HubSpotConversations
     conversations.on('widgetLoaded', ready)
-    conversations.on('widgetClosed', closed)
    }
    if (conversations.widget.status().loaded) { conversations.widget.open(); ready() }
    else conversations.widget.load({ widgetOpen: true })
@@ -47,7 +47,7 @@ export function initializeHubspotChat() {
   onUnmount(root, () => {
    disposed = true; lifecycle.abort(); clearTimeout(timer)
    const index = callbacks.indexOf(open); if (index >= 0) callbacks.splice(index, 1)
-   conversations?.off('widgetLoaded', ready); conversations?.off('widgetClosed', closed)
+   conversations?.off('widgetLoaded', ready)
    conversations?.widget.remove()
   })
  })

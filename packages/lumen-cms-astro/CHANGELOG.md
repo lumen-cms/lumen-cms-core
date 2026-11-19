@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.2 — 2026-11-19
+
+- Hand chat controls over to HubSpot after loading, including late loads, without restoring the custom launcher when the chat closes.
+- Keep the custom chat launcher below the cookie consent banner.
+
 ## 2.1.1 — 2026-11-19
 
 - Replace the floating Privacy settings button with a discreet control at the end of the page after saving a cookie choice.
