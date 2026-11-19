@@ -1,0 +1,77 @@
+const en = {
+ title: 'Your privacy choices',
+ bannerTitle: 'Your privacy',
+ description: 'With your permission, we use analytics to improve this website and marketing to measure campaigns and personalise advertising.',
+ storageDescription: 'We save your privacy choices so you don’t have to make them again on every visit.',
+ customize: 'Settings',
+ analytics: 'Analytics', analyticsDescription: 'Helps us understand visits and improve this website.',
+ marketing: 'Marketing', marketingDescription: 'Measures campaigns and enables personalised advertising.',
+ reject: 'Reject all', save: 'Save selection', accept: 'Accept all', settings: 'Privacy settings', close: 'Close',
+}
+type ConsentMessages = typeof en
+export const consentMessages: Record<string, ConsentMessages> = {
+ en,
+ de: {
+  title: 'Deine Datenschutzeinstellungen',
+  bannerTitle: 'Deine Privatsphäre',
+  description: 'Mit deiner Zustimmung nutzen wir Analytics zur Verbesserung der Website und Marketing für Kampagnen und personalisierte Werbung.',
+  storageDescription: 'Wir speichern deine Datenschutzauswahl, damit du sie nicht bei jedem Besuch erneut treffen musst.',
+  customize: 'Einstellungen',
+  analytics: 'Analytics', analyticsDescription: 'Hilft uns, Besuche zu verstehen und die Website zu verbessern.',
+  marketing: 'Marketing', marketingDescription: 'Misst Kampagnen und ermöglicht personalisierte Werbung.',
+  reject: 'Alle ablehnen', save: 'Auswahl speichern', accept: 'Alle akzeptieren', settings: 'Datenschutzeinstellungen', close: 'Schließen',
+ },
+ fr: {
+  title: 'Vos préférences de confidentialité',
+  bannerTitle: 'Votre confidentialité',
+  description: 'Avec votre accord, nous utilisons des outils d’analyse pour améliorer ce site et des outils marketing pour mesurer les campagnes et personnaliser la publicité.',
+  storageDescription: 'Nous enregistrons vos choix pour que vous n’ayez pas à les refaire à chaque visite.',
+  customize: 'Paramètres',
+  analytics: 'Analyse', analyticsDescription: 'Nous aide à comprendre les visites et à améliorer ce site.',
+  marketing: 'Marketing', marketingDescription: 'Mesure les campagnes et permet la publicité personnalisée.',
+  reject: 'Tout refuser', save: 'Enregistrer mes choix', accept: 'Tout accepter', settings: 'Confidentialité', close: 'Fermer',
+ },
+ es: {
+  title: 'Tus preferencias de privacidad',
+  bannerTitle: 'Tu privacidad',
+  description: 'Con tu permiso, usamos análisis para mejorar este sitio y herramientas de marketing para medir campañas y personalizar la publicidad.',
+  storageDescription: 'Guardamos tus preferencias de privacidad para que no tengas que elegirlas en cada visita.',
+  customize: 'Ajustes',
+  analytics: 'Análisis', analyticsDescription: 'Nos ayuda a entender las visitas y mejorar este sitio.',
+  marketing: 'Marketing', marketingDescription: 'Mide las campañas y permite la publicidad personalizada.',
+  reject: 'Rechazar todo', save: 'Guardar selección', accept: 'Aceptar todo', settings: 'Privacidad', close: 'Cerrar',
+ },
+ it: {
+  title: 'Le tue preferenze sulla privacy',
+  bannerTitle: 'La tua privacy',
+  description: 'Con il tuo consenso, usiamo strumenti di analisi per migliorare questo sito e di marketing per misurare le campagne e personalizzare la pubblicità.',
+  storageDescription: 'Salviamo le tue preferenze sulla privacy, così non dovrai sceglierle a ogni visita.',
+  customize: 'Impostazioni',
+  analytics: 'Analisi', analyticsDescription: 'Ci aiuta a comprendere le visite e migliorare questo sito.',
+  marketing: 'Marketing', marketingDescription: 'Misura le campagne e consente la pubblicità personalizzata.',
+  reject: 'Rifiuta tutto', save: 'Salva selezione', accept: 'Accetta tutto', settings: 'Impostazioni privacy', close: 'Chiudi',
+ },
+ nl: {
+  title: 'Jouw privacyvoorkeuren',
+  bannerTitle: 'Jouw privacy',
+  description: 'Met jouw toestemming gebruiken we analyses om deze website te verbeteren en marketing om campagnes te meten en advertenties te personaliseren.',
+  storageDescription: 'We slaan je privacykeuzes op, zodat je ze niet bij elk bezoek opnieuw hoeft te maken.',
+  customize: 'Instellingen',
+  analytics: 'Analyse', analyticsDescription: 'Helpt ons bezoeken te begrijpen en deze website te verbeteren.',
+  marketing: 'Marketing', marketingDescription: 'Meet campagnes en maakt gepersonaliseerde advertenties mogelijk.',
+  reject: 'Alles weigeren', save: 'Selectie opslaan', accept: 'Alles accepteren', settings: 'Privacyinstellingen', close: 'Sluiten',
+ },
+ id: {
+  title: 'Preferensi privasi Anda',
+  bannerTitle: 'Privasi Anda',
+  description: 'Dengan izin Anda, kami menggunakan analitik untuk meningkatkan situs ini dan pemasaran untuk mengukur kampanye serta mempersonalisasi iklan.',
+  storageDescription: 'Kami menyimpan pilihan privasi Anda agar Anda tidak perlu memilih ulang setiap kali berkunjung.',
+  customize: 'Pengaturan',
+  analytics: 'Analitik', analyticsDescription: 'Membantu kami memahami kunjungan dan meningkatkan situs ini.',
+  marketing: 'Pemasaran', marketingDescription: 'Mengukur kampanye dan memungkinkan iklan yang dipersonalisasi.',
+  reject: 'Tolak semua', save: 'Simpan pilihan', accept: 'Terima semua', settings: 'Pengaturan privasi', close: 'Tutup',
+ },
+}
+export function getConsentMessages(locale = 'en'): ConsentMessages {
+ return consentMessages[locale.toLowerCase().split(/[-_]/)[0]] || en
+}

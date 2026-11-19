@@ -378,77 +378,91 @@ are not optimized; add trusted sources to the remote allowlist to enable process
 Node/local deployments use Astro's image service without a shared proxy or signing secret.
 
 
-### Google Analytics workers
+### Shared Basic Consent
 
-`defineLumenConfig` uses the official `@astrojs/partytown` integration to serve
-worker assets. Generated `gtag.js` tracking (Storyblok `setup_google_analytics`,
-or the `PUBLIC_GA` override) runs in a worker. The integration forwards both
-`gtag` and `dataLayer.push`; forms and checkout keep their existing event API.
-The initial page view is queued explicitly with automatic config page views
-disabled (`send_page_view: false`) to avoid property-dependent worker startup
-behavior and duplicate initial views. Other events retain their existing path.
-Initialization explicitly assigns `window.gtag` so it remains callable across
-worker scripts. Browsers without service-worker support initialize the queue
-before Partytown's main-thread fallback, without configuring GA twice.
+`SiteLayout` enables a compact bottom consent banner by default, with separate Analytics
+and Marketing choices. Both start disabled. Sites with no active optional trackers
+(or only explicitly necessary CMS scripts) do not render a consent banner.
+Enabled Speed Insights also counts as optional analytics. Generated GA, Facebook and AdRoll
+SDKs, queues and tracking requests are blocked before consent. No Facebook
+noscript pixel is rendered. Category controls open in a separate bottom dialog. Closing it grants nothing; the permanent
+Privacy settings button opens it again.
 
-Development and CMS preview still exclude generated tracking. Sites with a
-nonempty `PUBLIC_GTM_CONTAINER` keep the existing main-thread Google path to
-avoid splitting a shared dataLayer across execution environments. Arbitrary
-CMS scripts, HubSpot, Chatwoot and AdRoll are unchanged. Sites without an
-analytics ID do not acquire one. Retired `UA-…` Universal Analytics IDs are
-skipped; setting a GA4 `G-…` ID later enables the same worker integration.
+GA (`PUBLIC_GA`, falling back to Storyblok `setup_google_analytics`) now runs on
+the main thread **after Analytics consent**, prioritising normal GA engagement
+and page-exit behaviour over worker offloading. It sends one automatic initial
+page view; the former explicit worker page view is no longer used. Google
+Consent Mode defaults precede config/events, and advertising consent follows the
+separate Marketing choice. Facebook and AdRoll run on the main thread only after
+Marketing consent. Optional Vercel Speed Insights also waits for Analytics
+consent. Form and checkout conversion events respect their category and events
+from before consent are not replayed.
 
-GA4's automatic page-exit `user_engagement` event is unreliable in a worker;
-this is a documented Partytown limitation, not equivalent to complete tracking
-parity. Do not depend on worker execution for events emitted immediately before
-navigation without testing that flow.
+Partytown is no longer registered by the standard configs. Existing worker
+components and audit utilities remain as isolated legacy fixtures;
+`PUBLIC_FACEBOOK_WORKER` no longer changes `SiteLayout` behaviour. Retired `UA-…`
+IDs are still skipped, and preview/development do not emit generated trackers.
 
-Run `pnpm test:astro:google-worker` for worker/fallback conversion contracts.
-`TEST_REAL_GOOGLE=1 pnpm test:astro:google-worker` additionally fetches the real
-Google SDK and checks page_view, early generate_lead, purchase and custom-event
-payloads against a main-thread control. Collection is intercepted locally so
-synthetic conversions are not sent to the production property. Collection checks include both `google-analytics.com` and
-`analytics.google.com`; `TEST_GOOGLE_ID=G-…` selects another property for this
-intercepted test. This verifies
-outbound payloads, not acceptance in GA reports.
+Custom CMS scripts, including `beforeInteractive`, default to **Marketing**.
+Use the existing Storyblok script `attributes` field to classify them:
 
-References: https://partytown.qwik.dev/astro/ and
-https://partytown.qwik.dev/google-tag-manager/.
+```text
+data-consent-category=analytics
+data-consent-category=marketing
+data-consent-category=necessary
+```
 
+Only mark genuinely essential scripts as `necessary`: these execute without a
+choice. Classify every CMS script when rolling out (including existing third-party
+consent widgets). HubSpot's CMS loader defaults to Marketing. Functional content
+embeds and checkout SDKs keep their own activation behaviour; this is not a
+network-level blocker for arbitrary scripts embedded in raw CMS HTML or custom
+consumer code. Such trackers must use the shared CMS script pipeline.
 
-For a live deployment check, run `pnpm test:astro:google-deployment <url> ...`.
-It observes normal page views (without generating test conversions), checks
-worker execution and one successful page view per destination, and includes
-Google's `analytics.google.com` collection endpoint as well as
-`google-analytics.com`. A site without a configured GA4 ID must emit no Google
-collection requests.
+Choices are stored for 180 days in the host-only, SameSite=Lax
+`lumen-consent-v1` cookie (Secure on HTTPS), versioned and checked for expiry.
+The two categories share the website's origin across all language paths.
+LocalStorage only notifies other tabs. Blocked storage does not grant consent.
+Withdrawing a category saves the new choice, removes known first-party tracker
+cookies and reloads the page to stop already-running third-party scripts.
+Cross-tab changes and restored pages are checked as well. Third-party-domain
+cookies cannot be removed by this website.
 
+A nonblank **`PUBLIC_GTM_CONTAINER` bypasses the shared dialog and gating**.
+The GTM site's own consent solution is responsible for all tracking, including
+CMS scripts and direct integrations configured alongside GTM. A blank value does
+not disable Basic Consent. Do not configure the same tracker both directly and
+inside GTM. This switch does not verify whether the container has a CMP.
 
-### Facebook Pixel workers
+Translations: German, English, French, Spanish, Italian, Dutch and Indonesian.
+Language comes from `page.locale`, including regional variants (`de-DE`, etc.),
+with English fallback. The `websites-astro` configs inspected on 2026-11-19 use:
 
-`defineLumenConfig` also enables Facebook workers by default. Generated Storyblok
-`setup_facebook_pixel` scripts run through Partytown with `fbq` forwarding, while
-HubSpot, Chatwoot and other CMS scripts retain their existing path. Multiple pixel
-IDs and the noscript image fallback remain supported. `PUBLIC_FACEBOOK_WORKER=0`
-is a build-time rollback switch; it does not change Google Analytics behavior.
-The standalone static fixture config keeps its existing main-thread Facebook path.
+| Project | Locales |
+| --- | --- |
+| baliinternships | en, de, id |
+| planettraining | en, de, it, es |
+| upskill | en, de |
+| students-de / students-en | de / en |
+| insidesoccer / insidesoccer-app | de, en |
+| lumen-media / planet-ebooks | en |
 
-The injected `/~facebook/[...path]` endpoint requires the consumer's Astro server
-adapter (all six consumers already use one). It only fetches public Facebook SDK
-and numeric pixel-configuration scripts from `connect.facebook.net`. It rejects
-other paths and redirects, forwards no cookies, and does not proxy collection.
-Pixel configuration is not cached; the SDK has a five-minute cache lifetime.
+French and Dutch are included in anticipation of additional projects. The dialog
+uses DaisyUI controls and existing theme tokens, with a primary-colour accept
+button, directly accessible reject action, responsive layout, native dialog focus
+handling and keyboard controls.
+The initial banner leaves the page interactive and does not take focus. The
+settings dialog contains only Analytics and Marketing, plus a concrete note
+explaining that the privacy choice is saved; there is no disabled Essential toggle.
 
-Native fallback initializes an immediate queue when workers are unsupported and
-replays early Facebook forwards when worker registration fails. Tests cover both
-fallback paths, multiple pixels, event IDs, and conversion payloads. Do not treat
-page views alone as evidence that checkout or automatic event tracking works.
+Consumer rollout: pin both renderer packages to `v2.1.0` (or its full commit SHA)
+using `pnpm cms:git v2.1.0` in `websites-astro`, then install and commit its
+manifests, `cms-source.json`, and lockfile together.
 
-Run `pnpm test:astro:facebook-worker` for the component contracts, and
-`node --test scripts/facebook-audit/parse-event.test.cjs` for collector tests.
-`pnpm test:astro:facebook-audit` serves a loopback-only real-SDK comparison with
-synthetic collection intercepted locally. This harness must never be deployed.
-Outgoing request parity is not proof of Meta reporting or attribution.
+Validation: `pnpm test:astro` and `node scripts/check-astro-consent.mjs`.
+Google's Basic Consent reference:
+https://developers.google.com/tag-platform/security/concepts/consent-mode
+
 
 ## Auth0 accounts and FastSpring ebooks
 

@@ -1,4 +1,5 @@
 import { onUnmount } from './lifecycle'
+import { hasConsent } from './consent'
 
 type Conversations = {
  widget: { status(): { loaded: boolean }; load(options: { widgetOpen: boolean }): void; open(): void; remove(): void }
@@ -32,6 +33,10 @@ export function initializeHubspotChat() {
   const callbacks = api.hsConversationsOnReady ||= []
   callbacks.push(open)
   button.addEventListener('click', () => {
+   if (!api.HubSpotConversations && !hasConsent('marketing')) {
+    document.querySelector<HTMLButtonElement>('[data-consent-open]')?.click()
+    return
+   }
    root.dataset.chatState = 'loading'; button.disabled = true; button.textContent = button.dataset.loadingLabel!; status.textContent = button.textContent
    timer = setTimeout(() => {
     if (disposed) return

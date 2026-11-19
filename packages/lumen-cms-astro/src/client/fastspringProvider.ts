@@ -1,4 +1,5 @@
 import { authStore } from './auth'
+import { hasConsent } from './consent'
 import { createFastSpringStore, type CommerceUser } from 'lumen-cms-shared/fastspring'
 import { loadExternalScript } from './externalScript'
 import type { EcommerceFastspringConfigStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
@@ -30,6 +31,7 @@ export function fastSpringStore() {
   builder: { push: payload => window.fastspring.builder.push(payload), checkout: () => window.fastspring.builder.checkout() },
   navigate: path => { window.location.assign(new URL(path, document.baseURI).href) },
   analytics(provider, event, data) {
+   if (!hasConsent(provider === 'gtag' ? 'analytics' : 'marketing')) return
    if (provider === 'gtag') api.gtag?.('event', event, data)
    else if (provider === 'fbq') api.fbq?.('track', event, data)
    else api.adroll?.track(event, data)

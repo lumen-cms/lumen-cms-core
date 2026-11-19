@@ -1,4 +1,5 @@
 import { createShopifyStore } from 'lumen-cms-shared/shopify'
+import { hasConsent } from './consent'
 import type { EcommerceShopifyConfigStoryblok } from 'lumen-cms-shared/core/typings/generated/components-schema'
 
 type AnalyticsWindow = Window & {
@@ -29,6 +30,7 @@ export function initializeShopifyProvider(config: EcommerceShopifyConfigStoryblo
    document.body.append(anchor); anchor.click(); anchor.remove()
   },
   analytics(provider, event, data) {
+   if (!hasConsent(provider === 'gtag' ? 'analytics' : 'marketing')) return
    if (provider === 'gtag') api.gtag?.('event', event, data)
    else api.fbq?.('track', event, data)
   }

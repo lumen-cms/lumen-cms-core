@@ -18,12 +18,14 @@ import Block from '../components/Block.astro'
 import PageMetadata from '../components/PageMetadata.astro'
 import HubspotChat from '../components/HubspotChat.astro'
 import { isHubspotLoader } from '../lib/thirdPartyScripts'
-import GoogleAnalyticsWorker from '../components/GoogleAnalyticsWorker.astro'
-import FacebookWorker from '../components/FacebookWorker.astro'
+import Consent from '../components/Consent.astro'
 import CustomScripts from '../components/CustomScripts.astro'
 import StoryblokPreview from '../components/StoryblokPreview.astro'
 import SpeedInsights from '../components/SpeedInsights.astro'
 import { trackingScripts } from 'lumen-cms-shared/tracking'
+import { cmsScripts } from 'lumen-cms-shared/scripts'
+import { requiresConsent } from '../lib/consent'
+import { speedInsightsOptions } from '../lib/speedInsights'
 import { getFontBasedOnSetting } from 'lumen-cms-shared/core/utils/parseFont'
 import { getGoogleFontsCss } from 'lumen-cms-shared/core/utils/initial-props/googleFontsCache'
 interface Props { page: RenderContext['page']; components?: AstroRendererOverrides; wrappers?: AstroAppWrappers; linkRenderer?: RenderContext['linkRenderer']; storyListEndpoint?: string }
@@ -36,18 +38,18 @@ const context = createRenderContext(page, { components, linkRenderer, ...(storyL
 context.auth = (Astro.locals as { lumenAuth?: RenderContext['auth'] }).lumenAuth
 const theme = context.theme
 const serverData = previewServerData(page)
-const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer: process.env.PUBLIC_GTM_CONTAINER?.trim(), googleAnalyticsId: process.env.PUBLIC_GA, deferLibraries: true, explicitPageView: !process.env.PUBLIC_GTM_CONTAINER?.trim() })
-const workerScripts = !process.env.PUBLIC_GTM_CONTAINER?.trim() ? tracking.scripts.filter(script => script.id === 'gtag-init' || script.id === 'gtag-library') : []
-const facebookScripts = process.env.PUBLIC_FACEBOOK_WORKER === '1' ? tracking.scripts.filter(script => script.id === 'fbq-init' || script.id === 'fbq-library') : []
-const workerScriptSet = new Set([...workerScripts, ...facebookScripts])
-const scripts = [...tracking.scripts.filter(script => !workerScriptSet.has(script)), ...(settings.scripts || [])]
+const gtmContainer = process.env.PUBLIC_GTM_CONTAINER?.trim()
+const tracking = trackingScripts(settings, { production: process.env.NODE_ENV === 'production', preview: context.preview, gtmContainer, googleAnalyticsId: process.env.PUBLIC_GA, deferLibraries: true })
+const scripts = [...tracking.scripts, ...(settings.scripts || [])]
+const speedInsights = speedInsightsOptions({ enabled: process.env.LUMEN_SPEED_INSIGHTS, vercelEnv: process.env.VERCEL_ENV, production: import.meta.env.PROD, preview: context.preview, sampleRate: process.env.LUMEN_SPEED_INSIGHTS_SAMPLE_RATE })
+const consent = !gtmContainer && !context.preview && requiresConsent(cmsScripts(scripts), !!speedInsights)
 ;(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead = true
 const fontsHref = getFontBasedOnSetting(settings)
 const fontCss = getGoogleFontsCss(fontsHref)
 const showPromotion = !page.page || (page.page.component === 'page' && (!page.page.body?.length || (!page.page.property?.includes('has_feature') && !page.page.property?.includes('disable_promotion'))))
 ---
 <!doctype html>
-<html lang={page.locale || 'en'} data-lumen-renderer="astro" data-lumen-preview={context.preview || undefined}>
+<html lang={page.locale || 'en'} data-lumen-renderer="astro" data-lumen-preview={context.preview || undefined} data-lumen-consent={consent ? 'basic' : undefined}>
  <head>
   <meta charset="utf-8" />{!(settings.pwa_app_name && settings.pwa_app_description) && <meta name="format-detection" content="telephone=no" />}<meta name="viewport" content="width=device-width, initial-scale=1" />
   {heroBackground && <BackgroundImage content={heroBackground} sectionPosition={0} preloadOnly />}
@@ -55,9 +57,7 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
   <link rel="preconnect" href="https://a.storyblok.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
   {!fontCss && <link rel="preconnect" href="https://fonts.googleapis.com" />}
-  {workerScripts.length > 0 && <GoogleAnalyticsWorker scripts={workerScripts} />}
-  {facebookScripts.length > 0 && <FacebookWorker scripts={facebookScripts} />}
-  {scripts.length > 0 && <CustomScripts scripts={scripts} />}
+  {scripts.length > 0 && <CustomScripts scripts={scripts} consent={consent} />}
   <style data-lumen-preview-head is:inline set:html={themeCss(theme)} />
   <style data-lumen-preview-head is:inline set:html={collectPageStyles(page, theme)} />
   {fontCss ? <style data-lumen-preview-head is:inline set:html={fontCss} /> : <link data-lumen-preview-head rel="stylesheet" href={fontsHref} />}
@@ -67,7 +67,6 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
   {serverData && <StoryblokServerData {...serverData} />}
   <a class="lm-skip-link" href="#lm-main-content">Skip to main content</a>
   <AppWrappers context={context} wrappers={wrappers}>
-  {tracking.pixels.map(id => <noscript><img alt="" height="1" width="1" style="display:none" src={`https://www.facebook.com/tr?id=${encodeURIComponent(id)}&ev=PageView&noscript=1`} /></noscript>)}
   {fastSpringConfig?.url && <FastSpringProvider config={fastSpringConfig} preview={context.preview} authEnabled={process.env.LUMEN_AUTH_ENABLED === '1'} />}
   <Header context={context} />
   <main id="lm-main-content" tabindex="-1" class="lm-page-main" {...context.preview && page.page ? storyblokEditable(page.page) : {}}>
@@ -90,6 +89,7 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
  initializeCmsActions()
 </script>
  {context.preview && <StoryblokPreview />}
+ {consent && <Consent locale={page.locale} />}
  <SpeedInsights preview={context.preview} />
  </body>
 </html>

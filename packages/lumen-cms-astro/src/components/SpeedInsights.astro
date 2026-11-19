@@ -20,5 +20,17 @@ const options = speedInsightsOptions({
    return { ...event, url: url.href }
   }
  </script>
- <SpeedInsights {...options} />
+ <template data-lm-speed-insights><SpeedInsights {...options} /></template>
+ <script>
+  import { hasConsent } from '../client/consent'
+  function initializeSpeedInsights() {
+   if (!hasConsent('analytics')) return
+   document.querySelectorAll<HTMLTemplateElement>('template[data-lm-speed-insights]').forEach(template => {
+    template.replaceWith(template.content.cloneNode(true))
+   })
+  }
+  initializeSpeedInsights()
+  document.addEventListener('lumen:consent-change', initializeSpeedInsights)
+  document.addEventListener('astro:page-load', initializeSpeedInsights)
+ </script>
 </>}

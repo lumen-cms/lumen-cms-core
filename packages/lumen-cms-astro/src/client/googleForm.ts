@@ -1,4 +1,5 @@
 import { submitToGoogleForms } from 'lumen-cms-shared/core/vendor/google-forms/submitToGoogleForms'
+import { hasConsent } from './consent'
 import type { GoogleForm } from 'lumen-cms-shared/core/vendor/google-forms/types'
 
 export function googleFormValues(form: HTMLFormElement, structure: GoogleForm) {
@@ -42,8 +43,8 @@ export function initializeGoogleForms() {
     const confirmed = await submitToGoogleForms(structure, googleFormValues(form, structure))
     if (confirmed) {
      const tracking = window as Window & { gtag?: (...args: unknown[]) => void; fbq?: (...args: unknown[]) => void }
-     tracking.gtag?.('event', 'generate_lead', { event_category: 'Google Form Submit', event_label: structure.action, content_id: location.pathname })
-     tracking.fbq?.('track', 'Lead')
+     if (hasConsent('analytics')) tracking.gtag?.('event', 'generate_lead', { event_category: 'Google Form Submit', event_label: structure.action, content_id: location.pathname })
+     if (hasConsent('marketing')) tracking.fbq?.('track', 'Lead')
     }
     // Preserve the existing opaque no-cors response behavior.
     form.hidden = true

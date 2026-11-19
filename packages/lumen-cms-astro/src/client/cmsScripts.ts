@@ -1,4 +1,6 @@
 import type { CmsScript } from 'lumen-cms-shared/scripts'
+import { scriptConsentCategory } from '../lib/consent'
+import { hasConsent, prepareGoogleConsent } from './consent'
 
 const scheduled = new Set<string>()
 const sources = new Set<string>()
@@ -31,10 +33,15 @@ export function initializeCmsScripts() {
  document.querySelectorAll<HTMLScriptElement>('script[data-lm-cms-scripts]').forEach(config => {
   const entries: CmsScript[] = JSON.parse(config.textContent || '[]')
   entries.forEach(entry => {
+   const category = scriptConsentCategory(entry)
+   if (!hasConsent(category)) return
    const id = entry.attributes.id || entry.id
    if (scheduled.has(id)) return
    scheduled.add(id)
    const insert = () => {
+    // Consent may have been withdrawn while load/paint/idle was pending.
+    if (!hasConsent(category)) { scheduled.delete(id); return }
+    if (entry.id === 'gtag-init' || entry.id === 'gtag-library') prepareGoogleConsent()
     const script = document.createElement('script')
     script.id = entry.id
     if (entry.src) { script.src = entry.src; script.async = true }

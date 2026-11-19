@@ -54,6 +54,8 @@ async function main() {
    return route.fulfill({ contentType: 'text/javascript', body })
   })
   await page.goto(origin, { waitUntil: 'domcontentloaded' })
+  assert.equal(await page.evaluate(() => typeof window.gtag), 'undefined', 'Basic Consent must not initialize Google before a choice')
+  await page.getByRole('button', { name: 'Accept all', exact: true }).click()
   await page.waitForFunction(() => typeof window.gtag === 'function' && typeof window.fbq === 'function')
   assert.equal(requests.some(url => /facebook|googletagmanager|hs-scripts/.test(url)),false,'Vendor libraries must wait for load/idle')
   await page.evaluate(() => { window.gtag('event','early-conversion'); window.fbq('track','Lead') })

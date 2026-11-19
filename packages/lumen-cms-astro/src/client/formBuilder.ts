@@ -1,3 +1,5 @@
+import { hasConsent } from './consent'
+
 export function formBuilderValues(form: HTMLFormElement): Record<string, unknown> {
  const values = new FormData(form)
  const result: Record<string, unknown> = Object.fromEntries(values)
@@ -42,9 +44,9 @@ export function initializeFormBuilders() {
      const response = await fetch(endpoint.startsWith('http') ? endpoint : location.origin + endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
      const result: unknown = await response.json()
      const eventName = response.status === 200 ? 'generate_lead' : 'exception'
-     tracking.gtag?.('event', eventName, { event_category: 'Form Submit', event_label: endpoint, content_id: location.pathname })
+     if (hasConsent('analytics')) tracking.gtag?.('event', eventName, { event_category: 'Form Submit', event_label: endpoint, content_id: location.pathname })
      if (response.status !== 200) { error.textContent = typeof result === 'string' ? result : JSON.stringify(result); error.hidden = false; form.hidden = true }
-     else { tracking.fbq?.('track', 'Lead'); showSuccess() }
+     else { if (hasConsent('marketing')) tracking.fbq?.('track', 'Lead'); showSuccess() }
     } else showSuccess()
     // Native replacement for application-level onSubmit listeners.
     root.dispatchEvent(new CustomEvent('lumen:form-submit', { bubbles: true, detail: data }))

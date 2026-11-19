@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.0 — 2026-11-19
+
+- Add shared Basic Consent with separate Analytics and Marketing choices, seven languages, and a compact bottom banner.
+- Load GA on the main thread after Analytics consent; gate Facebook, AdRoll, CMS scripts and optional Speed Insights by category.
+- Preserve choices for 180 days, support withdrawal and cross-tab updates, and remove the Facebook noscript bypass.
+- Skip consent UI on sites without optional trackers and when `PUBLIC_GTM_CONTAINER` delegates consent to GTM.
+- Remove default Partytown registration; the old worker components remain isolated legacy fixtures.
+- CMS scripts default to Marketing; classify essential scripts explicitly with `data-consent-category=necessary`.
+- Verify real Astro output, no-consent network behavior, category separation, GTM bypass, keyboard interaction and accessibility.
+
 ## 2.0.1 — 2026-11-19
 
 - Require explicit `LUMEN_SPEED_INSIGHTS=true` or `1` in each website environment.

@@ -1,0 +1,85 @@
+---
+import { getConsentMessages } from '../lib/consentMessages'
+interface Props { locale?: string }
+const text = getConsentMessages(Astro.props.locale)
+---
+<div data-lm-consent hidden>
+ <section class="lm-consent-banner" data-consent-banner aria-labelledby="lm-consent-banner-title" hidden>
+  <div class="lm-consent-copy">
+   <h2 id="lm-consent-banner-title">{text.bannerTitle}</h2>
+   <p>{text.description}</p>
+  </div>
+  <div class="lm-consent-banner-actions">
+   <button type="button" class="btn btn-ghost lm-consent-customize" data-consent-customize aria-haspopup="dialog" aria-controls="lm-consent-dialog">{text.customize}</button>
+   <button type="button" class="btn btn-outline" data-consent-reject>{text.reject}</button>
+   <button type="button" class="btn btn-primary" data-consent-accept>{text.accept}</button>
+  </div>
+ </section>
+ <button type="button" class="btn btn-sm lm-consent-launcher" data-consent-open aria-haspopup="dialog" aria-controls="lm-consent-dialog" hidden>{text.settings}</button>
+ <dialog id="lm-consent-dialog" class="lm-consent-dialog" aria-labelledby="lm-consent-title" aria-describedby="lm-consent-description">
+  <form>
+   <div class="flex items-start justify-between gap-4">
+    <h2 id="lm-consent-title">{text.title}</h2>
+    <button type="button" class="btn btn-ghost btn-sm btn-circle" data-consent-close aria-label={text.close}>×</button>
+   </div>
+   <p id="lm-consent-description" class="lm-consent-storage">{text.storageDescription}</p>
+   <div class="lm-consent-categories">
+    <label class="lm-consent-category">
+     <span><strong>{text.analytics}</strong><span>{text.analyticsDescription}</span></span>
+     <input type="checkbox" class="checkbox checkbox-sm" name="consent-analytics" aria-label={text.analytics} />
+    </label>
+    <label class="lm-consent-category">
+     <span><strong>{text.marketing}</strong><span>{text.marketingDescription}</span></span>
+     <input type="checkbox" class="checkbox checkbox-sm" name="consent-marketing" aria-label={text.marketing} />
+    </label>
+   </div>
+   <div class="lm-consent-actions">
+    <button type="button" class="btn btn-outline" data-consent-reject>{text.reject}</button>
+    <button type="submit" class="btn btn-outline">{text.save}</button>
+    <button type="button" class="btn btn-primary" data-consent-accept>{text.accept}</button>
+   </div>
+  </form>
+ </dialog>
+</div>
+<style>
+ [data-lm-consent] { font-family: var(--lm-font), ui-sans-serif, system-ui, sans-serif; color: var(--color-base-content); }
+ [data-lm-consent] h2 { margin: 0; font-family: inherit; font-size: 1.125rem; font-weight: 600; line-height: 1.4; text-transform: none; overflow-wrap: anywhere; }
+ [data-lm-consent] p { margin: .375rem 0 0; font-size: 1rem; line-height: 1.5; }
+ [data-lm-consent] .btn { font-family: inherit; font-size: .875rem; font-weight: 500; text-transform: none; letter-spacing: normal; }
+ .lm-consent-banner { position: fixed; inset: auto 1rem max(1rem, env(safe-area-inset-bottom)); z-index: 1000; display: flex; align-items: center; gap: 2rem; max-width: 76rem; margin-inline: auto; padding: 1.25rem 1.5rem; border: 1px solid var(--color-base-300); border-radius: 1rem; background: var(--color-base-100); box-shadow: 0 4px 24px #0002; max-height: calc(100dvh - 2rem); overflow-y: auto; }
+ .lm-consent-copy { flex: 1; min-width: 0; }
+ .lm-consent-banner-actions { display: flex; align-items: center; gap: .625rem; flex-shrink: 0; }
+ .lm-consent-banner-actions .btn, .lm-consent-actions .btn { height: auto; min-height: 2.75rem; padding: .625rem 1rem; border-radius: .625rem; white-space: normal; }
+ .lm-consent-customize { text-decoration: underline; text-underline-offset: .2em; }
+ .lm-consent-launcher { position: fixed; bottom: max(1rem, env(safe-area-inset-bottom)); left: 1rem; z-index: 1000; box-shadow: 0 2px 12px #0002; background: var(--color-base-100); color: var(--color-base-content); max-width: calc(100vw - 2rem); }
+ .lm-consent-dialog { border: 1px solid var(--color-base-300); border-radius: 1rem; padding: 0; margin: auto auto max(1rem, env(safe-area-inset-bottom)); width: min(38rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); overflow: auto; background: var(--color-base-100); color: var(--color-base-content); box-shadow: 0 16px 64px #0003; font-family: inherit; }
+ .lm-consent-dialog::backdrop { background: rgb(0 0 0 / .25); }
+ .lm-consent-dialog form { padding: 1.5rem; }
+ [data-lm-consent] .lm-consent-storage { margin: .75rem 0 1.25rem; }
+ .lm-consent-categories { border-block: 1px solid var(--color-base-300); }
+ .lm-consent-category { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 0; cursor: pointer; }
+ .lm-consent-category + .lm-consent-category { border-top: 1px solid var(--color-base-300); }
+ .lm-consent-category strong { font-size: 1rem; font-weight: 600; }
+ .lm-consent-category span span { display: block; font-size: .875rem; line-height: 1.5; margin-top: .25rem; }
+ .lm-consent-category input { flex-shrink: 0; }
+ .lm-consent-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .625rem; margin-top: 1.25rem; }
+ @media (max-width: 1023px) {
+  .lm-consent-banner { flex-direction: column; align-items: stretch; gap: 1rem; }
+  .lm-consent-banner-actions { justify-content: flex-end; }
+ }
+ @media (max-width: 599px) {
+  .lm-consent-banner { inset-inline: .75rem; bottom: max(.75rem, env(safe-area-inset-bottom)); padding: 1rem; gap: .875rem; }
+  .lm-consent-banner-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .375rem .625rem; }
+  .lm-consent-customize { grid-column: 1 / -1; grid-row: 2; }
+  .lm-consent-banner-actions .lm-consent-customize { min-height: 2.25rem; padding: .375rem; }
+  .lm-consent-dialog form { padding: 1.25rem; }
+  .lm-consent-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lm-consent-actions button[type="submit"] { grid-column: 1 / -1; grid-row: 2; }
+ }
+ @media print { [data-lm-consent] { display: none; } }
+</style>
+<script>
+ import { initializeConsent } from '../client/consent'
+ initializeConsent()
+ document.addEventListener('astro:page-load', initializeConsent)
+</script>
