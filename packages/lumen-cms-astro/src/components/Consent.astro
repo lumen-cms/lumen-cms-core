@@ -15,7 +15,7 @@ const text = getConsentMessages(Astro.props.locale)
    <button type="button" class="btn btn-primary" data-consent-accept>{text.accept}</button>
   </div>
  </section>
- <button type="button" class="btn btn-sm lm-consent-launcher" data-consent-open aria-haspopup="dialog" aria-controls="lm-consent-dialog" hidden>{text.settings}</button>
+ <button type="button" class="btn btn-ghost btn-sm lm-consent-launcher" data-consent-open aria-haspopup="dialog" aria-controls="lm-consent-dialog" hidden>{text.settings}</button>
  <dialog id="lm-consent-dialog" class="lm-consent-dialog" aria-labelledby="lm-consent-title" aria-describedby="lm-consent-description">
   <form>
    <div class="flex items-start justify-between gap-4">
@@ -51,7 +51,7 @@ const text = getConsentMessages(Astro.props.locale)
  .lm-consent-banner-actions { display: flex; align-items: center; gap: .625rem; flex-shrink: 0; }
  .lm-consent-banner-actions .btn, .lm-consent-actions .btn { height: auto; min-height: 2.75rem; padding: .625rem 1rem; border-radius: .625rem; white-space: normal; }
  .lm-consent-customize { text-decoration: underline; text-underline-offset: .2em; }
- .lm-consent-launcher { position: fixed; bottom: max(1rem, env(safe-area-inset-bottom)); left: 1rem; z-index: 1000; box-shadow: 0 2px 12px #0002; background: var(--color-base-100); color: var(--color-base-content); max-width: calc(100vw - 2rem); }
+ .lm-consent-launcher { display: block; margin: 1rem auto; color: var(--color-base-content); max-width: calc(100% - 2rem); text-decoration: underline; text-underline-offset: .2em; }
  .lm-consent-dialog { border: 1px solid var(--color-base-300); border-radius: 1rem; padding: 0; margin: auto auto max(1rem, env(safe-area-inset-bottom)); width: min(38rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); overflow: auto; background: var(--color-base-100); color: var(--color-base-content); box-shadow: 0 16px 64px #0003; font-family: inherit; }
  .lm-consent-dialog::backdrop { background: rgb(0 0 0 / .25); }
  .lm-consent-dialog form { padding: 1.5rem; }

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.1 — 2026-11-19
+
+- Replace the floating Privacy settings button with a discreet control at the end of the page after saving a cookie choice.
+- Keep saved choices and access to the consent dialog unchanged.
+
 ## 2.1.0 — 2026-11-19
 
 - Add shared Basic Consent with separate Analytics and Marketing choices, seven languages, and a compact bottom banner.

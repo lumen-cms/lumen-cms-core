@@ -385,8 +385,8 @@ and Marketing choices. Both start disabled. Sites with no active optional tracke
 (or only explicitly necessary CMS scripts) do not render a consent banner.
 Enabled Speed Insights also counts as optional analytics. Generated GA, Facebook and AdRoll
 SDKs, queues and tracking requests are blocked before consent. No Facebook
-noscript pixel is rendered. Category controls open in a separate bottom dialog. Closing it grants nothing; the permanent
-Privacy settings button opens it again.
+noscript pixel is rendered. Category controls open in a separate bottom dialog. Closing it grants nothing. After a choice is saved, the banner disappears.
+A discreet Privacy settings control at the end of the page opens it again; it does not float over the content.
 
 GA (`PUBLIC_GA`, falling back to Storyblok `setup_google_analytics`) now runs on
 the main thread **after Analytics consent**, prioritising normal GA engagement
