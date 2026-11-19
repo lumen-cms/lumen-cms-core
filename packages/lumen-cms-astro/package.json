@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-astro",
-  "version": "0.3.1",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -105,6 +105,6 @@
   "peerDependencies": {
     "@storyblok/astro": "^10.4.0",
     "astro": "^7.4.4",
-    "lumen-cms-shared": "0.2.0"
+    "lumen-cms-shared": "2.0.0"
   }
 }
