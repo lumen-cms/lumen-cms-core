@@ -11,6 +11,7 @@ import { lumenImageConfig } from './src/images/config.mjs'
 import { runtimeAudit } from './build/runtime-audit.mjs'
 import { discovery } from './build/discovery.mjs'
 import { localeErrorRouting } from './build/error-routing.mjs'
+import { optionalSpeedInsights } from './build/speed-insights.mjs'
 
 /** Load consumer settings before the delivery modules evaluate CONFIG. */
 export function defineLumenConfig({ site, locales = ['en'], rootDirectory, environment: defaults = {}, adapter, ...options }) {
@@ -20,7 +21,10 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
     catch (error) { if (error.code !== 'ENOENT') throw error }
   }
   for (const [name, value] of Object.entries(environment)) process.env[name] ??= value
-  for (const [name, value] of Object.entries(defaults)) process.env[name] ??= value
+  // Collection requires an explicit environment variable, never site-settings defaults.
+  for (const [name, value] of Object.entries(defaults)) {
+    if (name !== 'LUMEN_SPEED_INSIGHTS') process.env[name] ??= value
+  }
   process.env.PUBLIC_FACEBOOK_WORKER ??= '1'
   const facebookWorker = process.env.PUBLIC_FACEBOOK_WORKER === '1'
   const googleWorker = !process.env.PUBLIC_GTM_CONTAINER?.trim()
@@ -57,7 +61,7 @@ export function defineLumenConfig({ site, locales = ['en'], rootDirectory, envir
     } : lumenImageConfig,
     vite: {
       define: Object.fromEntries(routingDefaults.filter(key => process.env[key] !== undefined).map(key => [`process.env.${key}`, JSON.stringify(process.env[key])])),
-      plugins: [tailwindcss(), runtimeAudit()],
+      plugins: [optionalSpeedInsights({ enabled: process.env.LUMEN_SPEED_INSIGHTS, vercelEnv: process.env.VERCEL_ENV, buildMode }), tailwindcss(), runtimeAudit()],
       ssr: { noExternal: ['lumen-cms-astro', 'lumen-cms-shared'] },
     },
     ...options,

@@ -56,32 +56,29 @@ Travel consumers use `loadConsumerTravelPage`, explicit detail routes, the
 
 ## Optional Vercel Speed Insights
 
-The shared `SiteLayout` includes the official Astro Speed Insights component,
-disabled by default. After confirming the Vercel project's Speed Insights tier
-is **Free**, set these Production environment variables (or consumer `environment`
-defaults), then rebuild. Free collection starts with the deployed SDK; no paid
-dashboard activation is needed:
+Vercel Speed Insights is excluded from the build by default. To enable it for
+one website, set `LUMEN_SPEED_INSIGHTS=true` (or `1`; `TRUE` is also accepted)
+in that Vercel project's Production environment and rebuild. Consumer
+`site-settings.json` cannot enable it. Missing, empty, `0`, `false`, and all
+other values keep it disabled.
 
 ```dotenv
-LUMEN_SPEED_INSIGHTS=1
+LUMEN_SPEED_INSIGHTS=true
 LUMEN_SPEED_INSIGHTS_SAMPLE_RATE=0.1
 ```
 
-Collection requires a production build with `VERCEL_ENV=production` and excludes
-CMS preview pages. Local development, Vercel Preview deployments, and non-Vercel
-hosts do not collect. The default sample rate is 10%; rates must be greater than
-0 and at most 1. Invalid rates disable collection. Query strings and fragments
-are removed from reported URLs, and Storyblok editor query URLs are dropped.
-The script runs in the browser, outside Partytown. Set `LUMEN_SPEED_INSIGHTS=0`
-and rebuild to disable it.
+A build plugin removes the Speed Insights component before Astro discovers its
+client scripts, so disabled builds contain neither the SDK nor its client entry.
+Collection additionally requires `VERCEL_ENV=production`, a public build, and
+no CMS preview context. Preview builds always exclude the SDK.
 
-These settings do **not** select or enforce a billing tier. Never enable Plus
-for a zero-cost setup. Vercel's Free allowance is shared across the team, and
-collection pauses at the limit without overage charges; sampling helps stretch
-that allowance but is not a billing cap. Check the current
-[Vercel pricing documentation](https://vercel.com/docs/speed-insights/limits-and-pricing)
-before enabling collection on each project. Installing core does not activate
-Speed Insights in Vercel or change project billing settings.
+The default sample rate is 10%; an explicit rate must be greater than 0 and at
+most 1. Invalid rates disable collection. Query strings and fragments are
+removed from reported URLs, and Storyblok editor query URLs are dropped.
+The script runs outside Partytown. Remove the opt-in variable (or set it to
+`0` or `false`) and rebuild to remove the integration again. This is a build-time
+switch; changing the environment requires a new deployment. The switch does
+not change the project's Vercel billing settings.
 
 ## Preview and APIs
 

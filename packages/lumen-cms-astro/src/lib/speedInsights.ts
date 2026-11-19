@@ -6,7 +6,7 @@ export function speedInsightsOptions({ enabled, vercelEnv, production, preview, 
  preview: boolean
  sampleRate?: string
 }): { sampleRate: number } | undefined {
- if (enabled !== '1' || vercelEnv !== 'production' || !production || preview) return
+ if (!(enabled === '1' || enabled?.toLowerCase() === 'true') || vercelEnv !== 'production' || !production || preview) return
  const rate = sampleRate === undefined ? 0.1 : Number(sampleRate)
  // Invalid configuration fails closed instead of collecting at the SDK's 100% default.
  if (!Number.isFinite(rate) || rate <= 0 || rate > 1) return

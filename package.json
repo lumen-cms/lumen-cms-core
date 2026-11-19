@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-core",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Core website components for the LumenCMS",
   "repository": "https://github.com/lumen-cms/lumen-cms-core",
   "main": "src/index.ts",
@@ -93,7 +93,8 @@
     "test:astro:facebook-worker": "node scripts/check-astro-facebook-worker.mjs",
     "test:astro:facebook-audit": "node scripts/check-facebook-partytown.cjs",
     "test:astro:commerce": "node scripts/check-astro-commerce.cjs",
-    "test:astro:auth": "node scripts/check-astro-auth.cjs"
+    "test:astro:auth": "node scripts/check-astro-auth.cjs",
+    "test:astro:speed-insights": "node scripts/check-astro-speed-insights.mjs"
   },
   "author": "Dominic Garms",
   "license": "MIT",

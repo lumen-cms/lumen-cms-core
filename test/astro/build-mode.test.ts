@@ -32,3 +32,12 @@ it('rejects an unknown TARGET', () => {
  vi.stubEnv('TARGET', 'ssg')
  expect(() => defineLumenConfig({ site: 'https://example.test' })).toThrow('TARGET')
 })
+
+it('does not allow site-settings defaults to activate Speed Insights', () => {
+ vi.stubEnv('LUMEN_SPEED_INSIGHTS', undefined)
+ vi.stubEnv('TARGET', 'SSG')
+ vi.stubEnv('LUMEN_SAMPLE_ROUTES', '')
+ const config = defineLumenConfig({ site: 'https://example.test', environment: { LUMEN_SPEED_INSIGHTS: '1' } })
+ expect(config.vite.define['process.env.LUMEN_SPEED_INSIGHTS']).toBe('"0"')
+ expect(config.vite.plugins.some(plugin => plugin.name === 'lumen-optional-speed-insights')).toBe(true)
+})

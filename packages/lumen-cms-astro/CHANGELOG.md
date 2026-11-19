@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.1 — 2026-11-19
+
+- Require explicit `LUMEN_SPEED_INSIGHTS=true` or `1` in each website environment.
+- Exclude the Speed Insights SDK and client entry from disabled and preview builds.
+- Prevent consumer site settings from enabling collection implicitly.
+- Document the opt-in switch and verify SDK presence/absence with real Astro builds.
+
 ## 2.0.0 — 2026-11-19
 
 Start the unified Daisy/Astro release series at the repository tag `v2.0.0`.
