@@ -1,11 +1,11 @@
 import { storyblokImageUrl } from '../images/storyblok-service'
-import { isStoryblokImage, isSvgImage, normalizeImageSource } from '../images/policy'
+import { isGifImage, isStoryblokImage, isSvgImage, normalizeImageSource } from '../images/policy'
 
 /** Rebind client-only templates; non-CDN sources need server-rendered markup
  * for optimization and must not advertise fake resized variants. */
 export function updateStoryImage(image: HTMLImageElement, source: string) {
  const quality = Number(/quality\((\d+)\)/.exec(image.src)?.[1]) || 75
- if (!isStoryblokImage(source) || isSvgImage(source)) {
+ if (!isStoryblokImage(source) || isSvgImage(source) || isGifImage(source)) {
   image.src = normalizeImageSource(source)
   image.removeAttribute('srcset')
   return

@@ -57,3 +57,11 @@ it('does not advertise transformed variants for SVG pagination images', () => {
  expect(img.hasAttribute('srcset')).toBe(false)
  expect(img.src).toBe('https://a.storyblok.com/f/logo.svg?v=1')
 })
+it.each(['bell.gif', 'bell.GIF?v=2#preview'])('clears photo candidates when pagination loads %s', (filename) => {
+ const img = document.createElement('img'); img.width = 40
+ img.srcset = 'https://a.storyblok.com/f/photo.jpg/m/40x0 1x, https://a.storyblok.com/f/photo.jpg/m/80x0 2x'
+ const src = `//a.storyblok.com/f/69559/400x400/hash/${filename}`
+ updateStoryImage(img, src)
+ expect(img.hasAttribute('srcset')).toBe(false)
+ expect(img.src).toBe(`https:${src}`)
+})

@@ -1,6 +1,8 @@
 import { ImageLoaderProps, ImageProps } from 'next/image'
 
 export const loader = ({ src, width, quality }: ImageLoaderProps) => {
+  // Keep GIF frames and their original palette instead of resizing/re-encoding.
+  if (/\.gif(?:[?#]|$)/i.test(src)) return src
   const original = new URL(src)
   const pathname = original.pathname
   // const params = Object.fromEntries(original.searchParams)
@@ -29,7 +31,7 @@ export const storyblokImageLoader = (
   if (src?.indexOf('a.storyblok') !== -1) {
     props.loader = loader
   }
-  if (src?.endsWith('.svg')) {
+  if (src && /\.(?:svg|gif)(?:[?#]|$)/i.test(src)) {
     props.unoptimized = true
   }
   return props

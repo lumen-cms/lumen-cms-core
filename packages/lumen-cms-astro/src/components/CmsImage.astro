@@ -4,7 +4,7 @@ import { isRemoteAllowed } from 'astro/assets/utils'
 import type { HTMLAttributes } from 'astro/types'
 import type { ImageOutputFormat } from 'astro'
 import { imageDimensions, publicImageMetadata } from '../images/dimensions'
-import { isStoryblokImage, isSvgImage, normalizeImageSource, responsiveCandidates } from '../images/policy'
+import { isGifImage, isStoryblokImage, isSvgImage, normalizeImageSource, responsiveCandidates } from '../images/policy'
 import { storyblokImageUrl } from '../images/storyblok-service'
 import { shouldUseVercelRemoteImage, vercelImageVariant } from '../images/vercel'
 interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'width' | 'height'> {
@@ -17,7 +17,8 @@ async function resolveImage(input: string, sourceSizes = attrs.sizes) {
  const source = normalizeImageSource(input)
  const remote = /^https?:/.test(source)
  const unauthorized = remote && !isRemoteAllowed(source, imageConfig)
- const bypass = unauthorized || unoptimized || /\.ico(?:[?#]|$)/i.test(source) || isSvgImage(source) || /^(data:|blob:)/.test(source)
+ // Serve GIFs unchanged: CDN resizing/re-encoding can degrade animated icons.
+ const bypass = unauthorized || unoptimized || /\.ico(?:[?#]|$)/i.test(source) || isSvgImage(source) || isGifImage(source) || /^(data:|blob:)/.test(source)
  // Unknown unoptimized fill sources need only a CSS box, not invented intrinsic attributes.
  const dimensions = width && height ? { width, height } : fill && (bypass || remote) ? { width: 1536, height: 1536 } : await imageDimensions(source, imageConfig)
  const sizes = sourceSizes || (fill ? '100vw' : undefined)

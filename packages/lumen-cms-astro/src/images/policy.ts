@@ -5,6 +5,7 @@ export function isStoryblokImage(source: string) {
   try { const url = new URL(normalizeImageSource(source)); return url.protocol === 'https:' && url.hostname === 'a.storyblok.com' } catch { return false }
 }
 export function isSvgImage(source: string) { return /\.svg$/i.test(source.split(/[?#]/)[0]) }
+export function isGifImage(source: string) { return /\.gif$/i.test(source.split(/[?#]/)[0]) }
 /** CMS background-size keywords are not all valid object-fit values. */
 export function backgroundImageFit(size?: string): 'cover' | 'contain' {
   return size === 'contain' ? 'contain' : 'cover'
