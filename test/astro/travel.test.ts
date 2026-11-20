@@ -24,13 +24,13 @@ it('preserves detail/list JSON, not-found status and cache headers', async () =>
 
 it('preserves category locale precedence and all numeric filters', async () => {
  const filter = travelCategoryFilter(new URLSearchParams('locale=it&__nextLocale=de&travelType=1&branch=2&city=3&country=4&searchtext=ignored'), 'de')
- expect(filter).toEqual({ language_key: { _eq: 'IT' }, slug: { _neq: '' }, published: { _eq: true }, title: { _neq: '' }, product_id: { _gte: 1 }, preview_image_id: { _gte: 1 }, mn_travel_travel_types: { travel_type_id: { _eq: 1 } }, mn_travel_branches: { branch_id: { _eq: 2 } }, city_id: { _eq: 3 }, city: { country_id: { _eq: 4 } } })
+ expect(filter).toEqual({ language_key: { _eq: 'IT' }, slug: { _neq: '' }, published: { _eq: true }, title: { _neq: '' }, product_id: { _gte: 1 }, preview_image_id: { _gte: 1 }, mn_travel_travel_types: { travel_type_id: { _in: [1] } }, mn_travel_branches: { branch_id: { _in: [2] } }, city_id: { _in: [3] }, city: { country_id: { _in: [4] } } })
  expect(travelCategoryFilter(new URLSearchParams('__nextLocale=es'), 'de').language_key._eq).toBe('ES')
  expect(travelCategoryFilter(new URLSearchParams(), 'de').language_key._eq).toBe('DE')
  expect(travelCategoryFilter(new URLSearchParams()).language_key._eq).toBe('EN')
  const load = vi.fn(async (_filter: ReturnType<typeof travelCategoryFilter>) => ({ category: [{ id: 7 }] }))
  const response = await travelCategoriesResponse(new Request('https://fixture.test/api/categories?city=3'), load)
- expect(load.mock.calls[0][0]).toMatchObject({ city_id: { _eq: 3 } })
+ expect(load.mock.calls[0][0]).toMatchObject({ city_id: { _in: [3] } })
  expect(await response.json()).toEqual({ category: [{ id: 7 }] })
 })
 
@@ -68,4 +68,9 @@ it('enriches optional native travel and jobs blocks through separate server hook
   SSR_CONFIG.ssrHooks.componentData = previous
   vi.unstubAllGlobals(); vi.unstubAllEnvs()
  }
+})
+
+it('accepts multiple IDs per taxonomy in category requests', () => {
+ const filter = travelCategoryFilter(new URLSearchParams('travelType=1,2&branch=3,4&city=5,6&country=7&country=8'))
+ expect(filter).toMatchObject({ mn_travel_travel_types: { travel_type_id: { _in: [1,2] } }, mn_travel_branches: { branch_id: { _in: [3,4] } }, city_id: { _in: [5,6] }, city: { country_id: { _in: [7,8] } } })
 })

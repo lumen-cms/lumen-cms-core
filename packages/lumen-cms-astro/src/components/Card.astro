@@ -18,7 +18,8 @@ const { href, target, rel, download } = getLinkAttrs(content.link as LinkType, {
 <div class:list={['card', 'MuiCard-root', 'lm-card', 'lm-card-standalone', className, backgroundShadowClass(background), background?.classNames?.values]} style={{ height: content.full_height ? '100%' : undefined, borderRadius: content.square ? '0' : undefined, border: content.variant === 'outlined' ? '1px solid rgba(0,0,0,.12)' : undefined, '--lm-card-elevation': content.variant !== 'outlined' ? context.theme.shadows[Number(content.elevation || 1)] : 'none', ...generateBackgroundStyles({ background, theme: context.theme }) }}>
  <Background content={background} />
  {href ? <>
-  <CmsAnchor context={context} href={href} target={target} rel={rel} download={download} aria-label={accessibleLinkName(href)} class="MuiCardActionArea-root lm-card-cover-link" />
+  {/* The cover link intercepts hit testing for every nested editable blok. */}
+  {!context.preview && <CmsAnchor context={context} href={href} target={target} rel={rel} download={download} aria-label={accessibleLinkName(href)} class="MuiCardActionArea-root lm-card-cover-link" />}
   <div class="lm-card-linked-content"><CardBody content={content} context={{ ...context, decorativeButtons: true }} /></div>
  </> : <CardBody content={content} context={context} />}
 </div>

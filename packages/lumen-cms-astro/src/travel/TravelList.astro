@@ -22,10 +22,16 @@ for (const card of cards.body || []) {
 const travels = (content.travels_list_widget_data || []).map(travel => ({ id: travel.id, title: travel.title, city_id: travel.city_id, city: { country_id: travel.city?.country_id }, mn_travel_branches: travel.mn_travel_branches?.map(item => ({ branch_id: item.branch_id })), mn_travel_travel_types: travel.mn_travel_travel_types?.map(item => ({ travel_type_id: item.travel_type_id })), prices: travel.product?.product_price }))
 ---
 <style is:inline set:html={collectPageStyles(cards, context.theme)} />
-<div data-lm-travel-list data-language={language} data-travels={JSON.stringify(travels)} data-price-label={translations[language].price_starting} style={{ minHeight: content.is_search ? '90vh' : undefined }}>
+<div class:list={{ 'lm-travel-results': content.is_search }} data-lm-travel-list data-travel-search-results={content.is_search || undefined} data-language={language} data-travels={JSON.stringify(travels)} data-price-label={translations[language].price_starting} style={{ minHeight: content.is_search ? '90vh' : undefined }}>
  {content.is_search && <h4 class="MuiTypography-root MuiTypography-subtitle1 pl-3 pt-3">{translations[language].search_result}: <span data-travel-count>{travels.length}</span></h4>}
  <div style={{ padding: content.is_search ? '16px' : 0 }}><Block content={cards} context={context} /></div>
 </div>
+<style>
+ .lm-travel-results :global(.lm-card-grid > .lm-card-grid-item) { width: 100%; }
+ @media (min-width: 600px) { .lm-travel-results :global(.lm-card-grid > .lm-card-grid-item) { width: 50%; } }
+ @media (min-width: 900px) { .lm-travel-results :global(.lm-card-grid > .lm-card-grid-item) { width: calc(100% / 3); } }
+ @media (min-width: 1280px) { .lm-travel-results :global(.lm-card-grid > .lm-card-grid-item) { width: 25%; } }
+</style>
 <script>
  import { getCurrency } from 'locale-currency'
  import { travelFilterOnCategories } from 'lumen-cms-shared/core/travel/components/travel-list/travelFilterOnCategories'
@@ -41,7 +47,7 @@ const travels = (content.travels_list_widget_data || []).map(travel => ({ id: tr
    const currency = root.dataset.language === 'DE' ? 'eur' : ['usd', 'aus', 'eur', 'gbp'].includes(detected) ? detected : 'eur'
    const update = (event?: Event) => {
     const state = (event as CustomEvent | undefined)?.detail
-    const filters = state ? (Object.keys(state).length ? state : Object.fromEntries(new URL(location.href).searchParams)) : getTravelFilters()
+    const filters = state ?? getTravelFilters()
     const matches = new Set(travelFilterOnCategories(travels, filters).map(travel => String(travel.id)))
     let index = 0
     root.querySelectorAll<HTMLElement>('[data-lm-list-item]').forEach(item => {

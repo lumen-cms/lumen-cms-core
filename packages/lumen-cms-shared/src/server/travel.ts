@@ -6,10 +6,10 @@ export function travelCategoryFilter(params: URLSearchParams, rootDirectory?: st
   language_key: { _eq: locale.toUpperCase() },
   slug: { _neq: '' }, published: { _eq: true }, title: { _neq: '' },
   product_id: { _gte: 1 }, preview_image_id: { _gte: 1 },
-  ...(params.get('travelType') ? { mn_travel_travel_types: { travel_type_id: { _eq: Number(params.get('travelType')) } } } : {}),
-  ...(params.get('branch') ? { mn_travel_branches: { branch_id: { _eq: Number(params.get('branch')) } } } : {}),
-  ...(params.get('city') ? { city_id: { _eq: Number(params.get('city')) } } : {}),
-  ...(params.get('country') ? { city: { country_id: { _eq: Number(params.get('country')) } } } : {}),
+  ...(params.get('travelType') ? { mn_travel_travel_types: { travel_type_id: { _in: params.getAll('travelType').flatMap(value => value.split(',')).map(Number).filter(Number.isFinite) } } } : {}),
+  ...(params.get('branch') ? { mn_travel_branches: { branch_id: { _in: params.getAll('branch').flatMap(value => value.split(',')).map(Number).filter(Number.isFinite) } } } : {}),
+  ...(params.get('city') ? { city_id: { _in: params.getAll('city').flatMap(value => value.split(',')).map(Number).filter(Number.isFinite) } } : {}),
+  ...(params.get('country') ? { city: { country_id: { _in: params.getAll('country').flatMap(value => value.split(',')).map(Number).filter(Number.isFinite) } } } : {}),
  }
 }
 

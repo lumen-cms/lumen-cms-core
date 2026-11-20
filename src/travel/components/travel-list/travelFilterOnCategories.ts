@@ -12,23 +12,25 @@ export const travelFilterOnCategories = (
     const isTrueArray = []
     if (branch) {
       isTrueArray.push(
-        travel.mn_travel_branches?.some(
-          (branchMn) => branchMn.branch_id === Number(branch)
+        travel.mn_travel_branches?.some((branchMn) =>
+          String(branch).split(',').includes(String(branchMn.branch_id))
         )
       )
     }
     if (travelType) {
       isTrueArray.push(
-        travel.mn_travel_travel_types?.some(
-          (tr) => tr.travel_type_id === Number(travelType)
+        travel.mn_travel_travel_types?.some((tr) =>
+          String(travelType).split(',').includes(String(tr.travel_type_id))
         )
       )
     }
     if (city) {
-      isTrueArray.push(travel.city_id === Number(city))
+      isTrueArray.push(String(city).split(',').includes(String(travel.city_id)))
     }
     if (country) {
-      isTrueArray.push(travel.city?.country_id === Number(country))
+      isTrueArray.push(
+        String(country).split(',').includes(String(travel.city?.country_id))
+      )
     }
     if (searchtext) {
       const textArr = searchtext.split(' ')

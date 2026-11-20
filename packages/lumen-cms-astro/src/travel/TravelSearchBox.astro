@@ -8,80 +8,129 @@ const labels = translations[language]
 const selects = [{ name: 'travelType', key: 'travel_type', label: labels.travel_type }, { name: 'branch', key: 'branch', label: labels.branch }, { name: 'country', key: 'country', label: labels.travelCountry }, { name: 'city', key: 'city', label: labels.city }]
 ---
 <div data-lm-travel-search data-language={language} data-locale={context.page.locale || 'en'}>
- <label class="lm-travel-search-field"><span>{labels.search}</span><input class="input w-full" type="search" name="searchtext" autocomplete="new-password" /></label>
- {selects.map(field => <label class="lm-travel-search-field"><span>{field.label}</span><span class="lm-travel-select-row"><select class="select w-full" name={field.name} data-option-key={field.key} disabled><option value="">{language === 'DE' ? 'Wählen…' : 'Choose…'}</option></select><button type="button" class="btn btn-ghost btn-square" data-clear={field.name} aria-label={language === 'DE' ? 'Auswahl löschen' : 'Clear selection'} hidden>×</button></span></label>)}
+ <label class="lm-travel-search-field"><span>{labels.search}</span><input class="input w-full" type="search" name="searchtext" autocomplete="off" /></label>
+ {selects.map(field => <div class="lm-travel-search-field">
+  <span>{field.label}</span>
+  <div class="lm-travel-select-row">
+   <details data-taxonomy={field.name} data-option-key={field.key}>
+    <summary class="select w-full" aria-label={field.label}><span data-selection-label>{language === 'DE' ? 'Wählen…' : 'Choose…'}</span></summary>
+    <div class="lm-travel-options" role="group" aria-label={field.label}></div>
+   </details>
+   <button type="button" class="lm-travel-clear" data-clear={field.name} aria-label={`${field.label}: ${language === 'DE' ? 'Alle abwählen' : 'Clear all'}`} title={language === 'DE' ? 'Alle abwählen' : 'Clear all'} hidden><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button>
+  </div>
+ </div>)}
  <div role="status" data-travel-search-status></div><button type="button" class="btn btn-ghost" data-travel-search-retry hidden>{language === 'DE' ? 'Erneut versuchen' : 'Retry'}</button>
 </div>
 <style>
- .lm-travel-search-field { display: flex; flex-direction: column; gap: 4px; margin: 16px 0 8px; width: 100%; }
- .lm-travel-select-row { display: flex; align-items: center; gap: 8px; }
+ .lm-travel-search-field { display: flex; flex-direction: column; gap: 4px; margin: 16px 0 8px; width: 100%; min-width: 0; }
+ .lm-travel-select-row { position: relative; display: flex; align-items: center; min-width: 0; width: 100%; }
+ details { position: relative; flex: 1; min-width: 0; }
+ summary { cursor: pointer; display: flex; align-items: center; width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; }
+ .lm-travel-select-row:has([data-clear]:not([hidden])) summary { padding-right: 64px; }
+ .lm-travel-clear { position: absolute; right: 28px; top: 50%; transform: translateY(-50%); z-index: 1; display: grid; place-items: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: inherit; opacity: .6; cursor: pointer; transition: background-color .15s, opacity .15s; }
+ .lm-travel-clear:hover { background: #8882; opacity: 1; }
+ .lm-travel-clear:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; opacity: 1; }
+ summary span { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+ .lm-travel-options { position: absolute; z-index: 20; top: calc(100% + 4px); left: 0; width: 100%; max-width: 100%; box-sizing: border-box; max-height: 300px; overflow: auto; background: var(--color-base-100, white); color: var(--color-base-content, #222); border: 1px solid #ccc; border-radius: 8px; box-shadow: 0 4px 16px #0002; padding: 6px; }
+ .lm-travel-options :global(label) { display: flex; align-items: center; gap: 10px; padding: 8px; cursor: pointer; }
+ .lm-travel-options :global(label > span) { min-width: 0; overflow-wrap: anywhere; }
+ .lm-travel-options :global(label:hover) { background: #8882; }
+ .lm-travel-options :global([data-option-count]) { opacity: .6; }
+ .lm-travel-options :global([data-empty-options]) { padding: 8px; margin: 0; }
+ .lm-travel-options :global([hidden]) { display: none !important; }
+ .lm-travel-options :global(input) { width: 18px; height: 18px; flex-shrink: 0; }
+ [hidden] { display: none !important; }
 </style>
 <script>
  import type { OptionItem } from 'lumen-cms-shared/core/travel/components/travel-list/travelListTypes'
- import type { CategoryStateProp } from 'lumen-cms-shared/core/travel/components/page/pageContextTypes'
+ import { travelFacetCounts, type TravelTaxonomy } from 'lumen-cms-shared/travelFacets'
+ import type { AllTravelsQuery } from 'lumen-cms-shared/core/travel/typings/generated/hasura-schema'
  import { getTravelState, updateTravelState } from './state'
  import { onUnmount } from '../client/lifecycle'
- function optionLabel(option: OptionItem, language: string) {
-  let text = option[language === 'DE' ? 'title_de' : 'title']
-  const count = option.mn_travel_branches_aggregate?.aggregate.count ?? option.mn_travel_travel_types_aggregate?.aggregate.count ?? (option.cities ? option.cities.reduce((sum, city) => sum + city.travels_aggregate.aggregate.count, 0) : option.travels_aggregate?.aggregate.count)
-  if (count !== undefined) text += ` [${count}]`
-  return text
- }
  function initializeTravelSearch() {
   document.querySelectorAll<HTMLElement>('[data-lm-travel-search]').forEach(root => {
    if (root.dataset.initialized) return
    root.dataset.initialized = 'true'
-   const input = root.querySelector<HTMLInputElement>('input')!
-   const selects = [...root.querySelectorAll<HTMLSelectElement>('select')]
+   const german = root.dataset.language === 'DE'
+   const input = root.querySelector<HTMLInputElement>('input[type="search"]')!
+   const fields = [...root.querySelectorAll<HTMLDetailsElement>('details')]
    const status = root.querySelector<HTMLElement>('[data-travel-search-status]')!
    const retry = root.querySelector<HTMLButtonElement>('[data-travel-search-retry]')!
-   const interacted = new Set<string>()
    let timer: ReturnType<typeof setTimeout>
-   let request: AbortController | undefined
-   let sequence = 0
+   const request = new AbortController()
+   const list = document.querySelector<HTMLElement>('[data-travel-search-results]') || document.querySelector<HTMLElement>('[data-lm-travel-list]')
+   const travels = list ? JSON.parse(list.dataset.travels || '[]') as AllTravelsQuery['travel'] : undefined
+   const selected = (name: string) => String((getTravelState() as Record<string, unknown>)[name] || '').split(',').filter(Boolean)
    const sync = () => {
-    const state = getTravelState() as Record<string, string | number>
-    const query = new URL(location.href).searchParams
-    for (const select of selects) {
-     const value = String(state[select.name] || (!interacted.has(select.name) && query.get(select.name)) || '')
-     if (value && ![...select.options].some(option => option.value === value)) select.add(new Option(value, value))
-     select.value = value
-     root.querySelector<HTMLButtonElement>(`[data-clear="${select.name}"]`)!.hidden = !value
+    for (const field of fields) {
+     const values = selected(field.dataset.taxonomy!)
+     const selectedValues = new Set(values)
+     const checks = [...field.querySelectorAll<HTMLInputElement>('input')]
+     const counts = travels ? travelFacetCounts(travels, getTravelState(), field.dataset.taxonomy as TravelTaxonomy) : undefined
+     checks.forEach(check => {
+      check.checked = selectedValues.has(check.value)
+      const count = counts?.get(check.value) || 0
+      const label = check.closest('label')!
+      label.hidden = !!counts && !count && !check.checked
+      label.querySelector('[data-option-count]')!.textContent = counts ? ` (${count})` : ''
+     })
+     const empty = field.querySelector<HTMLElement>('[data-empty-options]')
+     if (empty) empty.hidden = checks.some(check => !check.closest('label')!.hidden)
+     const titles = new Map(checks.map(check => [check.value, check.dataset.title]))
+     const names = values.map(value => titles.get(value) || value)
+     field.querySelector<HTMLElement>('[data-selection-label]')!.textContent = names.length > 2 ? `${names.length} ${german ? 'ausgewählt' : 'selected'}` : names.join(', ') || (german ? 'Wählen…' : 'Choose…')
+     root.querySelector<HTMLButtonElement>(`[data-clear="${field.dataset.taxonomy}"]`)!.hidden = !values.length
     }
    }
    const load = async () => {
-    const current = ++sequence
-    request?.abort(); request = new AbortController()
-    const params = new URLSearchParams(Object.entries(getTravelState()).map(([key, value]) => [key, String(value)]))
-    params.set('locale', root.dataset.locale || 'en')
     retry.hidden = true; status.textContent = ''
     try {
-     const response = await fetch(`/api/categories?${params}`, { signal: request.signal })
+     // Load labels once; all dependent options and counts are computed locally.
+     const response = await fetch(`/api/categories?locale=${encodeURIComponent(root.dataset.locale || 'en')}`, { signal: request.signal })
      if (!response.ok) throw new Error('Category request failed')
      const data = await response.json() as Record<string, OptionItem[]>
-     if (current !== sequence) return
-     for (const select of selects) {
-      const placeholder = select.options[0]
-      select.replaceChildren(placeholder)
-      for (const option of data[select.dataset.optionKey!] || []) select.add(new Option(optionLabel(option, root.dataset.language!), String(option.id)))
-      select.disabled = false
+     for (const field of fields) {
+      const options = field.querySelector<HTMLElement>('.lm-travel-options')!
+      options.replaceChildren()
+      for (const option of data[field.dataset.optionKey!] || []) {
+       const label = document.createElement('label')
+       const check = document.createElement('input')
+       check.type = 'checkbox'; check.value = String(option.id)
+       check.dataset.title = option[german ? 'title_de' : 'title'] || String(option.id)
+       const count = document.createElement('span')
+       count.dataset.optionCount = ''
+       const title = document.createElement('span')
+       title.append(document.createTextNode(check.dataset.title), count)
+       label.append(check, title)
+       options.append(label)
+      }
+      const empty = document.createElement('p')
+      empty.dataset.emptyOptions = ''
+      empty.textContent = german ? 'Keine passenden Optionen' : 'No matching options'
+      empty.hidden = true
+      options.append(empty)
      }
      sync()
     } catch {
-     if (current !== sequence || request.signal.aborted) return
-     status.textContent = root.dataset.language === 'DE' ? 'Filter konnten nicht geladen werden.' : 'Filters could not be loaded.'
+     if (request.signal.aborted) return
+     status.textContent = german ? 'Filter konnten nicht geladen werden.' : 'Filters could not be loaded.'
      retry.hidden = false
     }
    }
    input.value = getTravelState().searchtext || ''
    input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => updateTravelState({ searchtext: input.value }), 750) })
-   for (const select of selects) select.addEventListener('change', () => { interacted.add(select.name); updateTravelState({ [select.name]: select.value } as CategoryStateProp) })
-   root.querySelectorAll<HTMLButtonElement>('[data-clear]').forEach(button => button.addEventListener('click', () => { interacted.add(button.dataset.clear!); updateTravelState({ [button.dataset.clear!]: '' }); sync() }))
-   const change = () => { sync(); void load() }
-   document.addEventListener('lumen:travel-filter', change)
+   fields.forEach(field => {
+    field.addEventListener('change', () => updateTravelState({ [field.dataset.taxonomy!]: [...field.querySelectorAll<HTMLInputElement>('input:checked')].map(check => check.value).join(',') }))
+    field.addEventListener('toggle', () => { if (field.open) fields.forEach(other => { if (other !== field) other.open = false }) })
+    field.addEventListener('keydown', event => { if (event.key === 'Escape') { field.open = false; field.querySelector('summary')!.focus() } })
+   })
+   const outside = (event: MouseEvent) => fields.forEach(field => { if (!field.contains(event.target as Node)) field.open = false })
+   document.addEventListener('click', outside)
+   root.querySelectorAll<HTMLButtonElement>('[data-clear]').forEach(button => button.addEventListener('click', () => updateTravelState({ [button.dataset.clear!]: '' })))
+   document.addEventListener('lumen:travel-filter', sync)
    retry.addEventListener('click', load)
    sync(); void load()
-   onUnmount(root, () => { ++sequence; clearTimeout(timer); request?.abort(); document.removeEventListener('lumen:travel-filter', change) })
+   onUnmount(root, () => { clearTimeout(timer); request.abort(); document.removeEventListener('lumen:travel-filter', sync); document.removeEventListener('click', outside) })
   })
  }
  initializeTravelSearch(); document.addEventListener('astro:page-load', initializeTravelSearch); document.addEventListener('lumen:content-mounted', initializeTravelSearch)

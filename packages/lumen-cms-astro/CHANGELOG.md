@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.1.4 — 2026-11-20
+
+- Add Tripfinder multi-select filters with OR matching within each taxonomy and client-side dependent options with result counts.
+- Keep reset controls inside the fields, wrap long option names, and show one, two, three, and four result cards across responsive breakpoints.
+- Preserve URL filters until explicitly cleared and avoid scrolling to the top on every filter change.
+- Keep navigation popovers within viewport bounds with vertical scrolling and wrapped content.
+- Let Storyblok selection overlays and nested editable card content receive clicks in preview.
+
 ## 2.1.3 — 2026-11-20
 
 - Keep navigation menus above page content and size custom menus to their content.
