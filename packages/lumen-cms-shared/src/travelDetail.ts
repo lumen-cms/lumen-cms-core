@@ -135,7 +135,7 @@ export function getTravelGalleryContent({ content }: Pick<TravelSectionProps, 'c
             _uid: 'wiperxxs',
             body: swiperItems,
             theme_color: 'primary.main',
-            slides_per_view: '2,3,6',
+            slides_per_view: '1,2,4',
             autoslide_duration: '4000',
             property: ['hide_pagination'],
             space_between_slides: '20'

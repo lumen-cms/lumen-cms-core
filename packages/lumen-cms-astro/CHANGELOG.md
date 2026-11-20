@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.3 — 2026-11-20
+
+- Keep navigation menus above page content and size custom menus to their content.
+- Render the site layout for global settings previews and migrate Storyblok preview handling to SDK 11.
+- Preserve original GIF quality in CMS images.
+- Show one, two, and four travel gallery slides at mobile, tablet, and desktop widths in both renderers.
+
 ## 2.1.2 — 2026-11-19
 
 - Hand chat controls over to HubSpot after loading, including late loads, without restoring the custom launcher when the chat closes.
