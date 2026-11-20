@@ -120,7 +120,7 @@ async function main() {
      text: [], tabs: ['Tabs'], swiper: ['NativeSlider'], advanced: ['AdvancedSwiper'], slider: ['NativeSlider'], images: [], lightbox: ['ImageLightbox'], shopify: ['ShopifyProduct', 'ShopifyProductDescription', 'CmsButton'], 'shopify-checkout': ['ShopifyProduct', 'ShopifyProductDescription', 'ShopifyCart', 'CmsButton'], calendar: ['EventCalendar'], 'calendar-month': ['EventCalendar'], 'calendar-below': ['EventCalendar'], 'advanced-below': ['AdvancedSwiper'], 'parallax-below': ['SectionParallax'], 'youtube-light': ['Player'], list: ['ListStories'], video: ['Player'],
     }[route.split('/')[2]]
     const entrypoints = [...requested].map(file => /\/([A-Za-z]+)\.astro_astro_type_script/.exec(file)?.[1]).filter(Boolean)
-    assert.deepEqual(entrypoints.filter(name => !['Document', 'Header', ...allowed].includes(name)), [], `${route}: unrelated component bootstrap`)
+    assert.deepEqual(entrypoints.filter(name => !['SiteLayout', 'Header', ...allowed].includes(name)), [], `${route}: unrelated component bootstrap`)
    }
    assert.deepEqual(errors, [], `${route}: browser exceptions`)
    const inlineScripts = await page.locator('script:not([src])').evaluateAll(nodes => nodes.filter(node => !node.type || node.type === 'module' || node.type === 'text/javascript').map(node => node.textContent || ''))

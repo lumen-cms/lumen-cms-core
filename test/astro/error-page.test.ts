@@ -1,4 +1,6 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
+// These routing tests do not render Astro components; SSR tests cover the SDK payload.
+vi.mock('../../packages/lumen-cms-astro/node_modules/@storyblok/astro/dist/index.mjs', () => ({ getPayload: vi.fn(async () => ({})) }))
 const mocks = vi.hoisted(() => ({ props: vi.fn(), page: vi.fn(), travel: vi.fn() }))
 vi.mock('../../packages/lumen-cms-shared/src/core/utils/initial-props/getPageProps', () => ({ default: mocks.props }))
 vi.mock('../../packages/lumen-cms-astro/src/server/pages', () => ({ loadPage: mocks.page, staticRoutes: vi.fn() }))
@@ -58,5 +60,19 @@ it('preserves delivery errors and authentication failures', async () => {
  await expect(loadConsumerPage(context as never)).rejects.toBe(failure)
  mocks.page.mockRejectedValue(new CmsPageProtectedError())
  expect(await loadConsumerPage(context as never)).toMatchObject({ status: 401 })
+ expect(mocks.props).not.toHaveBeenCalled()
+})
+
+it.each(['_dev_/fixture', '[object Object]/fixture'])('returns a local 404 for reserved path %s without fetching a CMS error page', async slug => {
+ mocks.page.mockRejectedValue(new CmsPageNotFoundError(slug))
+ // A broken/unavailable error-page backend must never be consulted here.
+ mocks.props.mockRejectedValue(new Error('Unauthorized'))
+ const context = { params: { slug }, cookies: { get: () => undefined }, locals: {}, url: new URL(`https://example.test/${encodeURI(slug)}`), response: { status: 200, headers: new Headers() } }
+ const response = await loadConsumerPage(context as never) as Response
+ expect(response.status).toBe(404)
+ expect(response.headers.get('Content-Type')).toBe('text/html; charset=utf-8')
+ expect(response.headers.get('Cache-Control')).toBe('private, no-store')
+ expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow')
+ expect(await response.text()).toContain('not found...')
  expect(mocks.props).not.toHaveBeenCalled()
 })

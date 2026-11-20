@@ -25,11 +25,11 @@ const Tag = attrs.href ? CmsAnchor : 'div'
   <span id={`timeline2_${content._uid}`} class="lm-timeline-connector" data-timeline-track data-timeline-last={isLast || undefined} style={{ background: grey[400], display: isLast && !options.show_last_line ? 'none' : undefined }} />
  </div>
  <div class="lm-timeline-content">
-  {content.opposite_body?.length && <div class="lm-timeline-mobile-opposite pb-2">{content.opposite_body.map(child => <Block content={child} context={context} />)}</div>}
+  {!!content.opposite_body?.length && <div class="lm-timeline-mobile-opposite pb-2">{content.opposite_body.map(child => <Block content={child} context={context} />)}</div>}
   <div class:list={{ 'lm-timeline-card': !options.disable_card, 'mb-2': !options.disable_card && !!content.opposite_body?.length }} style={options.disable_card ? undefined : { backgroundColor: options.card_background_color?.rgba || 'var(--color-base-100)', borderRadius: options.card_square ? '0' : '4px', border: options.card_variant === 'outlined' ? `1px solid ${context.theme.palette.divider}` : undefined, boxShadow: options.card_variant === 'outlined' ? 'none' : context.theme.shadows[Number(options.card_elevation || 1)] }}>
    <Tag {...(Tag === CmsAnchor ? { context } : {})} {...attrs} class:list={{ 'lm-card-link': !!attrs.href }}>
     {(content.title || content.subheader) && <div class="lm-timeline-card-header"><span class="lm-typography-h5">{content.title}</span><span class="lm-typography-body1" style={{ color: context.theme.palette.text.secondary }}>{content.subheader}</span></div>}
-    {content.body?.length && <div class="lm-timeline-card-body" style={{ padding: options.disable_card ? 0 : undefined }}>{content.body.map(child => <Block content={child} context={context} />)}</div>}
+    {!!content.body?.length && <div class="lm-timeline-card-body" style={{ padding: options.disable_card ? 0 : undefined }}>{content.body.map(child => <Block content={child} context={context} />)}</div>}
    </Tag>
   </div>
  </div>

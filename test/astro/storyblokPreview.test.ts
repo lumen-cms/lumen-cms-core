@@ -1,6 +1,7 @@
 // @vitest-environment happy-dom
 import { afterEach, expect, it, vi } from 'vitest'
 import { initializeStoryblokPreview } from '../../packages/lumen-cms-astro/src/client/storyblokPreview'
+import { createLivePreviewHandler } from '../../packages/lumen-cms-astro/node_modules/@storyblok/live-preview/dist/index.mjs'
 import { onUnmount } from '../../packages/lumen-cms-astro/src/client/lifecycle'
 let dispose = () => {}
 afterEach(() => { dispose(); document.head.replaceChildren(); document.body.replaceChildren(); document.documentElement.removeAttribute('data-lumen-preview') })
@@ -59,14 +60,14 @@ it('does not intercept SDK updates on public documents', () => {
  dispose = initializeStoryblokPreview()
  expect(input().defaultPrevented).toBe(false)
 })
-it('paints raw input immediately and cancels an older render before the SDK debounce fires', async () => {
+it('paints raw input immediately and cancels an older render during debounce', async () => {
  setup()
  const element = document.createElement('div')
  element.dataset.lmRichtext = 'rich'
  element.innerHTML = '<p>Initial</p>'
  document.body.append(element)
  let resolve!: (response: Response) => void
- const fetcher = vi.fn().mockReturnValue(new Promise(done => { resolve = done }))
+ const fetcher = vi.fn().mockReturnValueOnce(new Promise(done => { resolve = done })).mockReturnValue(new Promise(() => {}))
  vi.stubGlobal('fetch', fetcher)
  input()
  const story = { content: { body: [{ component: 'rich_text_editor', _uid: 'rich', body: { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Instant' }] }] } }] } }
@@ -123,6 +124,7 @@ it('loads newly introduced widget modules once and remounts after they load', as
  input()
  await vi.waitFor(() => expect(appended).toHaveLength(1))
  expect(mounted).not.toHaveBeenCalled()
+ expect(document.querySelector('section')?.className).toBe('old')
  expect(appended[0].src).toMatch(/\/new-widget.js$/)
  appended[0].dispatchEvent(new Event('load'))
  await vi.waitFor(() => expect(mounted).toHaveBeenCalledTimes(1))
@@ -131,4 +133,113 @@ it('loads newly introduced widget modules once and remounts after they load', as
  input()
  await vi.waitFor(() => expect(mounted).toHaveBeenCalledTimes(2))
  expect(appended).toHaveLength(1)
+})
+
+it('keeps widgets alive while a new module loads and commits only the latest edit', async () => {
+ setup()
+ const old = document.querySelector('section')!
+ const cleanup = vi.fn(), mounted = vi.fn()
+ onUnmount(old, cleanup)
+ document.addEventListener('astro:page-load', mounted, { once: true })
+ const appended: HTMLScriptElement[] = []
+ const append = document.head.append.bind(document.head)
+ vi.spyOn(document.head, 'append').mockImplementation((...nodes) => {
+  for (const node of nodes) {
+   if (node instanceof HTMLScriptElement) appended.push(node)
+   else append(node)
+  }
+ })
+ const withModule = (title: string) => html.replace('Edited', title).replace('</body>', '<script type="module" src="/shared-new-widget.js"></script></body>')
+ vi.stubGlobal('fetch', vi.fn().mockResolvedValueOnce(new Response(withModule('Stale'))).mockResolvedValueOnce(new Response(withModule('Latest'))))
+ input()
+ await vi.waitFor(() => expect(appended).toHaveLength(1))
+ input()
+ await vi.waitFor(() => expect(fetch).toHaveBeenCalledTimes(2))
+ expect(cleanup).not.toHaveBeenCalled()
+ expect(document.body.contains(old)).toBe(true)
+ appended[0].dispatchEvent(new Event('load'))
+ await vi.waitFor(() => expect(mounted).toHaveBeenCalledOnce())
+ expect(appended).toHaveLength(1)
+ expect(cleanup).toHaveBeenCalledOnce()
+ expect(document.body.contains(old)).toBe(false)
+ expect(document.title).toBe('Latest')
+})
+it('keeps the current widgets usable when a new module fails, and retries on the next edit', async () => {
+ setup()
+ const old = document.querySelector('section')!, cleanup = vi.fn()
+ onUnmount(old, cleanup)
+ vi.spyOn(console, 'error').mockImplementation(() => {})
+ const appended: HTMLScriptElement[] = []
+ const append = document.head.append.bind(document.head)
+ vi.spyOn(document.head, 'append').mockImplementation((...nodes) => {
+  for (const node of nodes) {
+   if (node instanceof HTMLScriptElement) appended.push(node)
+   else append(node)
+  }
+ })
+ const response = html.replace('</body>', '<script type="module" src="/retry-widget.js"></script></body>')
+ vi.stubGlobal('fetch', vi.fn().mockImplementation(async () => new Response(response)))
+ const error = vi.fn()
+ document.addEventListener('lumen:preview-error', error, { once: true })
+ input()
+ await vi.waitFor(() => expect(appended).toHaveLength(1))
+ appended[0].dispatchEvent(new Event('error'))
+ await vi.waitFor(() => expect(error).toHaveBeenCalledOnce())
+ expect(cleanup).not.toHaveBeenCalled()
+ expect(document.body.contains(old)).toBe(true)
+ input()
+ await vi.waitFor(() => expect(appended).toHaveLength(2))
+ appended[1].dispatchEvent(new Event('load'))
+ await vi.waitFor(() => expect(cleanup).toHaveBeenCalledOnce())
+})
+
+it('uses the SDK default to coalesce typing into one latest-payload render after 500ms, and cancels queued work on disposal', async () => {
+ setup()
+ vi.useFakeTimers()
+ const fetcher = vi.fn().mockReturnValue(new Promise(() => {}))
+ vi.stubGlobal('fetch', fetcher)
+ // Exercise the SDK's public scheduler and cancelable Astro update contract.
+ const sdkUpdate = vi.fn()
+ const handler = createLivePreviewHandler({
+  currentRoot: () => document.body, update: sdkUpdate,
+  onBeforeUpdate: story => document.dispatchEvent(new CustomEvent('storyblok-live-preview-updating', { cancelable: true, detail: { story } })),
+ })
+ const raw = (title: string) => {
+  const story = { id: 1, uuid: 'fixture', content: { title } }
+  document.dispatchEvent(new CustomEvent('lumen:preview-input', { detail: { story } }))
+  void handler.handle({ action: 'input', story })
+ }
+ try {
+  raw('A')
+  await vi.advanceTimersByTimeAsync(200)
+  raw('AB')
+  await vi.advanceTimersByTimeAsync(200)
+  raw('ABC')
+  await vi.advanceTimersByTimeAsync(499)
+  expect(fetcher).not.toHaveBeenCalled()
+  await vi.advanceTimersByTimeAsync(1)
+  expect(fetcher).toHaveBeenCalledOnce()
+  expect(JSON.parse(fetcher.mock.calls[0][1].body).story.content.title).toBe('ABC')
+  raw('ABCD')
+  expect(fetcher.mock.calls[0][1].signal.aborted).toBe(true)
+  dispose()
+  handler.dispose()
+  await vi.advanceTimersByTimeAsync(1000)
+  expect(fetcher).toHaveBeenCalledOnce()
+  expect(sdkUpdate).not.toHaveBeenCalled()
+ } finally { handler.dispose(); vi.useRealTimers() }
+})
+
+it('keeps the SDK preview element connected and ignores its replacement from server HTML', async () => {
+ setup()
+ const disconnected = vi.fn()
+ if (!customElements.get('storyblok-preview')) customElements.define('storyblok-preview', class extends HTMLElement { disconnectedCallback() { disconnected() } })
+ const preview = document.createElement('storyblok-preview')
+ document.body.append(preview)
+ vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(html.replace('</body>', '<storyblok-preview></storyblok-preview></body>'))))
+ input()
+ await vi.waitFor(() => expect(document.title).toBe('Edited'))
+ expect(document.querySelectorAll('storyblok-preview')).toHaveLength(1)
+ expect(document.querySelector('storyblok-preview')).toBe(preview)
+ expect(disconnected).not.toHaveBeenCalled()
 })

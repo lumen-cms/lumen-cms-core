@@ -19,7 +19,7 @@ const layers = content.elements?.map(({ _uid, always_complete_animation, amount,
    {layer.image && <Image src={layer.image} autoSizes={false} blurDataURL={layer.blurDataURL} preload={sectionPosition === 0} alt={`image of ${layer.image}`} widths={[320,640,960,1280,1920]} sizes={content.height && content.ratio ? `${content.height}px` : '100vw'} loading={sectionPosition === 0 || content.disable_lazy_load ? 'eager' : 'lazy'} fetchpriority={sectionPosition === 0 ? 'high' : 'low'} style={{ width: '100%', height: 'auto' }} />}
    {layer.children?.map(child => <Block content={child} context={context} />)}
   </div>)}
-  {content.body?.length && <div class:list={['lm-parallax-content', content.class_names?.values]}>{content.body.map(child => <Block content={child} context={context} />)}</div>}
+  {!!content.body?.length && <div class:list={['lm-parallax-content', content.class_names?.values]}>{content.body.map(child => <Block content={child} context={context} />)}</div>}
  </div>
 </div>}
 <script>

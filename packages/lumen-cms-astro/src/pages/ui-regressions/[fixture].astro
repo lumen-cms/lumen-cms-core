@@ -43,6 +43,11 @@ const image = 'https://a.storyblok.com/f/123/800x400/fixture.jpg'
   <div id="unlinked-card">
    <Block context={context} content={{ component: 'card', _uid: 'unlinked-card', body: [{ component: 'button', _uid: 'standalone-button', label: 'Standalone button' }] }} />
   </div>
+  <div id="empty-preview-arrays">
+   <Block context={context} content={{ component: 'card_list', _uid: 'empty-actions-list', body: [{ component: 'card_list_item', _uid: 'empty-actions', title: 'Preview card', card_actions_body: [], body: [] }] }} />
+   <Block context={context} content={{ component: 'card', _uid: 'empty-card', body: [], body_above_media: [], body_actions: [], body_on_hover: [] }} />
+   <Block context={context} content={{ component: 'card', _uid: 'testimonial-empty-actions', body: [heading('Preview testimonial')], body_above_media: [], body_actions: [], body_on_hover: [] }} />
+  </div>
   <div id="accordion">
    <Block context={context} content={{ component: 'accordion', _uid: 'animated', restrict_one: true, body: ['First', 'Second'].map(title => ({ component: 'accordion_item', _uid: title, title, body: [{ ...heading(`${title} content`), styles: [{ component: 'styles', _uid: `${title}-height`, height: '200px' }] }] })) }} />
   </div>

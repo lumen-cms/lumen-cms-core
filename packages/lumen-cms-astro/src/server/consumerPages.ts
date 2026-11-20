@@ -7,7 +7,7 @@ import type { PreviewServerData } from '../lib/previewServerData'
 import { loadPage, staticRoutes } from './pages'
 import { loadErrorPage } from './errorPage'
 import { loadTravelPage, travelStaticRoutes } from './travelPages'
-import { CmsPageNotFoundError, CmsPageProtectedError, notFoundResponse } from './notFound'
+import { CmsPageNotFoundError, CmsPageProtectedError, isUnsupportedPageSlug, notFoundResponse } from './notFound'
 import { isPreviewRequest, pageOptions } from './request'
 
 type RequestContext = Pick<AstroGlobal, 'cookies' | 'locals' | 'url' | 'params' | 'response'> & Partial<Pick<AstroGlobal, 'isPrerendered' | 'props'>>
@@ -41,6 +41,9 @@ function prepare(context: RequestContext) {
 }
 async function handleError(error: unknown, context: RequestContext, preview: boolean) {
  if (error instanceof CmsPageNotFoundError) {
+  // These paths are rejected locally; a CMS error-page fetch can turn their
+  // definite 404 into a delivery/authentication error.
+  if (isUnsupportedPageSlug(context.params.slug)) return notFoundResponse()
   context.response.status = 404
   context.response.headers.set('X-Robots-Tag', 'noindex, nofollow')
   return await loadErrorPage(pageOptions(context.url.pathname.replace(/^\/+/, '')), preview, preview ? { from_release: context.url.searchParams.get('_storyblok_release') || undefined } : undefined) || notFoundResponse()

@@ -1,0 +1,132 @@
+{
+  "date": "2026-11-20",
+  "sdk": {
+    "installed": "@storyblok/astro 11.0.0",
+    "api_client": "@storyblok/api-client 0.13.0",
+    "richtext": "@storyblok/richtext 5.5.2",
+    "live_preview": "@storyblok/live-preview 0.10.1",
+    "documentation": "https://www.storyblok.com/docs/libraries/js/astro-sdk/migration-from-v8",
+    "scope": "Migrated registry to defineStoryblokBlocks, middleware to storyblokPreviewMiddleware, named ServerData/Preview components. SDK owns 500ms debounce and save/publish reload. Lumen intercepts cancelable updates for head/styles/widget lifecycle and preserves the connected SDK element."
+  },
+  "delivery_measurement": {
+    "method": "Actual loadPage/getPageProps/resolver/StoryblokService/API client; fetch replaced with fixture HTTP responses (page 40 ms, settings 5 ms). Fresh service per sample. Fallback represents previous fetch-then-apply path. Not production latency; excludes HTML rendering and debounce.",
+    "samples": {
+      "fallback": [
+        {
+          "milliseconds": 47.06866600000001,
+          "requests": [
+            "home",
+            "settings"
+          ]
+        },
+        {
+          "milliseconds": 44.06833299999994,
+          "requests": [
+            "home",
+            "settings"
+          ]
+        },
+        {
+          "milliseconds": 42.43712500000004,
+          "requests": [
+            "home",
+            "settings"
+          ]
+        },
+        {
+          "milliseconds": 51.33579199999997,
+          "requests": [
+            "home",
+            "settings"
+          ]
+        },
+        {
+          "milliseconds": 60.73412499999995,
+          "requests": [
+            "home",
+            "settings"
+          ]
+        }
+      ],
+      "payload": [
+        {
+          "milliseconds": 7.230958999999984,
+          "requests": [
+            "settings"
+          ]
+        },
+        {
+          "milliseconds": 21.248709000000076,
+          "requests": [
+            "settings"
+          ]
+        },
+        {
+          "milliseconds": 8.383707999999842,
+          "requests": [
+            "settings"
+          ]
+        },
+        {
+          "milliseconds": 8.721458999999868,
+          "requests": [
+            "settings"
+          ]
+        },
+        {
+          "milliseconds": 19.418749999999818,
+          "requests": [
+            "settings"
+          ]
+        }
+      ]
+    },
+    "median_ms": {
+      "fallback": 47.06866600000001,
+      "payload": 8.721458999999868
+    }
+  },
+  "local_ssr_measurement": {
+    "scenario": "Local Astro SSR fixture, SDK middleware, unsaved card payload; no remote CMS calls",
+    "milliseconds": [
+      14.496500000000026,
+      4.668917000000022,
+      4.177166,
+      3.625916000000018,
+      3.8661670000000186
+    ],
+    "median_ms": 4.177166,
+    "checks": [
+      "All five POSTs return HTTP 200 and current unsaved card title",
+      "Empty card arrays produce no zero text",
+      "Subsequent GET retains original content"
+    ],
+    "limitation": "Local fixture uses SDK middleware and Astro rendering, not the remote SGA content/enrichment pipeline."
+  },
+  "validation": {
+    "astro_unit_tests": 486,
+    "astro_unit_files": 98,
+    "astro_check": "271 files, zero errors/warnings/hints",
+    "builds": [
+      "static fixture",
+      "server fixture"
+    ],
+    "debounce": "Public SDK scheduler with fake timers: 3 inputs at 200ms intervals produce zero POSTs until 500ms after last input, then one latest-payload POST. SDK default DOM update is canceled; new input aborts stale Lumen render; disposal cancels queued work.",
+    "browser": {
+      "script": "node scripts/check-astro-preview.cjs",
+      "environment": "Local authenticated SSR fixture in Chromium iframe, real Storyblok Bridge; no CMS saves/publishes",
+      "edits": 20,
+      "synchronous_total_ms": 3.9,
+      "posts_per_burst": 1,
+      "checks": [
+        "All rich-text edits paint before network",
+        "Paragraph node retained during typing",
+        "Bridge overlay survives reconciliation",
+        "No browser page errors"
+      ]
+    },
+    "shared_transport_richtext_tests": "28 tests in 6 files passed",
+    "root_types": "pnpm check-types passed"
+  },
+  "remaining": "Not deployed; no post-change measurements on preview.studentsgoabroad.com. Required settings, component data, and consumer hooks remain server-side."
+}

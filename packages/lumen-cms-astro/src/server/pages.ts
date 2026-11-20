@@ -1,3 +1,4 @@
+import { CONFIG } from 'lumen-cms-shared/core/utils/config'
 import { hasRoles, type AuthUser } from 'lumen-cms-shared/auth'
 import { getAuth0RoleOnPath } from 'lumen-cms-shared/core/utils/auth0/auth0Helpers'
 // Reuse the framework-independent delivery/enrichment pipeline while its modules
@@ -43,21 +44,25 @@ export async function staticRoutes(): Promise<CmsRoute[]> {
 }
 
 export async function loadPage(slug: string | undefined, options: CmsRoute['props'], preview = false, requestParams?: ISbStoryParams, liveStory?: ISbStoryData<PageStoryblok | GlobalStoryblok | NewsStoryblok | EventStoryblok>, serverData?: PreviewServerData, user?: AuthUser) {
+  // Do not apply a payload from another field-level language, even when the
+  // translated stories share a UUID. Missing language means the default field.
+  const language = options.locale !== options.defaultLocale || CONFIG.enableLocaleSuffix ? options.locale : 'default'
+  if (CONFIG.fieldLevelTranslation && liveStory && (liveStory.lang || 'default') !== language) liveStory = undefined
   if (isUnsupportedPageSlug(slug)) throw new CmsPageNotFoundError(slug)
   // Public routing removes nested /home segments. Delivery must use the
   // original CMS slug retained by getStaticPaths, not reconstruct it from URL.
   const result = await getPageProps((options.cmsSlug || slug)?.split('/') || 'home', {
     locale: options.locale, defaultLocale: options.defaultLocale,
     locales: options.locales, insideStoryblok: preview
-  }, requestParams, { defer: preview && !!liveStory?.content })
+  }, requestParams, { defer: preview && !!liveStory?.content, ...(preview && liveStory?.content ? { liveStory } : {}) })
   if (!result.page || !result.settings) throw new CmsPageNotFoundError(slug)
   if (result.needAuth && !preview && !hasRoles(getAuth0RoleOnPath('/' + (options.cmsSlug || slug || 'home'), options)?.roles || ['any'], user)) throw new CmsPageProtectedError(slug)
   if (preview && liveStory?.content) {
     if (liveStory.content.component === 'global' && liveStory.uuid === result.settings.uuid) {
-      result.settings = { ...liveStory.content, uuid: liveStory.uuid }
+      result.settings = { ...structuredClone(liveStory.content), uuid: liveStory.uuid }
     } else if (['page', 'news', 'event'].includes(liveStory.content.component) && liveStory.uuid === result.page.uuid) {
       // Legacy AppPageProps types page narrowly, although its renderer supports news/events.
-      result.page = { ...liveStory.content, uuid: liveStory.uuid } as typeof result.page
+      result.page = { ...structuredClone(liveStory.content), uuid: liveStory.uuid } as typeof result.page
     }
     // The initial loader deferred enrichment, including for unrelated payloads.
     // Run it exactly once against the content we will actually render.

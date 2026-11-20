@@ -1,7 +1,7 @@
 import { CONFIG } from '../config'
 import { AppApiRequestPayload, PagePropsOptions } from '../../typings/app'
 import { LmStoryblokService } from './StoryblokService'
-import { ISbStoryParams } from 'storyblok-js-client'
+import { ISbStoryParams, type ISbStoryData } from 'storyblok-js-client'
 
 const getSettingsPath = ({
   locale,
@@ -24,6 +24,7 @@ const getSettingsPath = ({
 type ApiProps = PagePropsOptions & {
   pageSlug: string
   requestParams?: ISbStoryParams
+  liveStory?: ISbStoryData
 }
 
 export const fetchSettings = async ({
@@ -45,6 +46,7 @@ export const apiRequestResolver = async ({
   pageSlug,
   insideStoryblok,
   requestParams,
+  liveStory,
   ...options
 }: ApiProps): Promise<AppApiRequestPayload> => {
   const locale =
@@ -68,12 +70,37 @@ export const apiRequestResolver = async ({
       : {})
   }
 
+  const settingsSlug = getSettingsPath({ locale, overwriteSettingPath })
+  // Only authenticated preview callers pass this payload. Match the exact CMS
+  // path and language; unrelated/missing metadata must use normal delivery.
+  // Never share edited data in the service cache or mutate the Bridge payload.
+  const liveResponse =
+    insideStoryblok &&
+    liveStory?.uuid &&
+    liveStory.content &&
+    (!CONFIG.fieldLevelTranslation ||
+      (liveStory.lang || 'default') === (params.language || 'default'))
+      ? {
+          data: { story: structuredClone(liveStory), cv: 0 },
+          perPage: 1,
+          total: 1
+        }
+      : undefined
+  const pageFromPayload =
+    liveResponse &&
+    liveStory?.full_slug === currentSlug &&
+    ['page', 'news', 'event', 'global'].includes(liveStory.content.component)
+  const settingsFromPayload =
+    liveResponse &&
+    liveStory?.full_slug === settingsSlug &&
+    liveStory.content.component === 'global'
   const [page, settings] = await Promise.all([
-    LmStoryblokService.getStory(currentSlug, params),
-    LmStoryblokService.getStory(
-      getSettingsPath({ locale, overwriteSettingPath }),
-      params
-    )
+    pageFromPayload
+      ? liveResponse
+      : LmStoryblokService.getStory(currentSlug, params),
+    settingsFromPayload
+      ? liveResponse
+      : LmStoryblokService.getStory(settingsSlug, params)
   ])
 
   return {

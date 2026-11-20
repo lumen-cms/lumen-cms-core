@@ -15,6 +15,8 @@ Astro.response.headers.set('Cache-Control', 'private, no-store')
 ---
 <SiteLayout page={page} />
 <script>
- import { handleStoryblokMessage } from '@storyblok/astro'
- ;(window as unknown as { fixtureStoryblokInput: (story: unknown) => void }).fixtureStoryblokInput = story => handleStoryblokMessage({ action: 'input', story } as Parameters<typeof handleStoryblokMessage>[0])
+ // Fixture-only entrypoint for exercising the same cancelable update contract.
+ ;(window as unknown as { fixtureStoryblokInput: (story: unknown) => void }).fixtureStoryblokInput = story => {
+  document.dispatchEvent(new CustomEvent('storyblok-live-preview-updating', { cancelable: true, detail: { story } }))
+ }
 </script>

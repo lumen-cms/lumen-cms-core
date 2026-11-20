@@ -1,5 +1,5 @@
 import { setStoryblokRequest } from './storyblokRequestContext'
-import type { ISbStoryParams } from 'storyblok-js-client'
+import type { ISbStoryParams, ISbStoryData } from 'storyblok-js-client'
 import { SSR_CONFIG } from './ssrConfig'
 import cleanDeep from 'clean-deep'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
@@ -31,7 +31,7 @@ const getPageProps = async (
   slug: string | string[],
   options: PagePropsOptions,
   requestParams?: ISbStoryParams,
-  enrichment: { defer?: boolean } = {}
+  enrichment: { defer?: boolean; liveStory?: ISbStoryData } = {}
 ): Promise<AppPageProps> => {
   const { pageSlug } = prepareForStoryblok(slug, options)
   const startedAt = performance.now()
@@ -41,7 +41,8 @@ const getPageProps = async (
     apiRequestResolver({
       ...options,
       pageSlug,
-      requestParams
+      requestParams,
+      liveStory: enrichment.liveStory
     })
   )
 

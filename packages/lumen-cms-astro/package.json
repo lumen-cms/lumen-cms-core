@@ -46,7 +46,8 @@
     "@auth0/auth0-server-js": "1.17.0",
     "@mdi/svg": "7.4.47",
     "@mux/mux-player": "3.14.1",
-    "@storyblok/richtext": "5.3.3",
+    "@storyblok/live-preview": "0.10.1",
+    "@storyblok/richtext": "5.5.2",
     "@tailwindcss/vite": "4.3.3",
     "@vercel/speed-insights": "2.1.0",
     "cheerio": "1.2.0",
@@ -73,7 +74,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
-    "@storyblok/astro": "10.4.0",
+    "@storyblok/astro": "11.0.0",
     "@types/js-cookie": "^3.0.6",
     "astro": "7.4.4",
     "lumen-cms-shared": "workspace:*",
@@ -103,7 +104,7 @@
     "build"
   ],
   "peerDependencies": {
-    "@storyblok/astro": "^10.4.0",
+    "@storyblok/astro": "^11.0.0",
     "astro": "^7.4.4",
     "lumen-cms-shared": "2.1.2"
   }

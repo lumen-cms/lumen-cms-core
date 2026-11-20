@@ -40,7 +40,7 @@ const overlay = hasImage && !top && variants.includes('over_media')
    {text && <Headline content={description} context={context} />}
   </div>}
  </Tag>
- {content.card_actions_body?.length && <div class="MuiCardActions-root lm-card-actions" style={{ gap: options.card_actions_disable_spacing ? '0' : undefined }}>{content.card_actions_body.map(child => <Block content={child} context={context} />)}</div>}
+ {!!content.card_actions_body?.length && <div class="MuiCardActions-root lm-card-actions" style={{ gap: options.card_actions_disable_spacing ? '0' : undefined }}>{content.card_actions_body.map(child => <Block content={child} context={context} />)}</div>}
 </div>
 
 {drawer && <template id={`${drawerId}-template`}>

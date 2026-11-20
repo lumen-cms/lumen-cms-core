@@ -1,4 +1,6 @@
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
+// These routing tests do not render Astro components; SSR tests cover the SDK payload.
+vi.mock('../../packages/lumen-cms-astro/node_modules/@storyblok/astro/dist/index.mjs', () => ({ getPayload: vi.fn(async () => ({})) }))
 const f = vi.hoisted(() => ({ page: vi.fn(), routes: vi.fn() }))
 vi.mock('../../packages/lumen-cms-astro/src/server/pages', () => ({ loadPage: f.page, staticRoutes: f.routes }))
 vi.mock('../../packages/lumen-cms-astro/src/server/errorPage', () => ({ loadErrorPage: vi.fn() }))

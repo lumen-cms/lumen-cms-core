@@ -32,6 +32,7 @@ async function main() {
     const actual = await page.locator(`#paragraph-align-${alignment} h2`).evaluate(el => getComputedStyle(el).textAlign)
     assert.equal(actual, expected, `Rich-text heading alignment ${alignment} at ${width}px`)
    }
+   assert.equal((await page.locator('#empty-preview-arrays').innerText()).replace(/\s+/g, ''), 'PreviewcardPreviewtestimonial')
    const language = page.getByRole('link', { name: 'Deutsch', exact: true })
    assert.equal(await language.evaluate(el => getComputedStyle(el).color), 'rgba(0, 0, 0, 0.87)')
    await page.getByRole('button', { name: 'Languages', exact: true }).click()

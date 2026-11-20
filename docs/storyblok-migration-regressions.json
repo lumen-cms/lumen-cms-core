@@ -1,0 +1,140 @@
+{
+  "date": "2026-11-20",
+  "baselineCommit": "70df3487e7fae0f01ff2f110e9830bb41d7ca72b",
+  "baselineSdk": "10.4.0",
+  "sdk": "11.0.0",
+  "scope": "Local fixtures and isolated pre-migration build; no deployed CMS writes or production checkout",
+  "checks": {
+    "unit": {
+      "files": 239,
+      "tests": 1082,
+      "passed": true
+    },
+    "astroTypes": {
+      "files": 271,
+      "errors": 0,
+      "warnings": 0
+    },
+    "rootTypes": "passed",
+    "packageBoundaries": "passed",
+    "registry": "All 81 mappings identical to baseline; Unknown fallback retained",
+    "html": "39/40 normalized fixture HTML files identical; remaining file identical after removing newly added empty-array regression case. Scripts, generated stylesheet filenames, Astro scope IDs and whitespace excluded from comparison.",
+    "browser": [
+      "General component fixtures across 6 viewport cases",
+      "Asana UI on mobile, desktop and reduced motion",
+      "Story lists, search, pagination, history, stale responses, retry and travel fixtures",
+      "13 dialog focus checks at 390px and 1280px",
+      "Commerce fixtures with mocked SDK and no real payments",
+      "17 bundle routes: functional/isolation/deferred/checkout checks passed in supplemental run",
+      "Real Bridge iframe: 20 rich-text updates in 4.3ms, one POST",
+      "Full SSR/API/preview check passed after fixing reserved-path error-page handling; no exclusions"
+    ],
+    "publicIsolation": "All 17 audited bundle routes loaded neither Storyblok SDK/editor runtime nor serialized preview data"
+  },
+  "knownBaselineFailures": [
+    {
+      "check": "check-astro-server.cjs",
+      "result": "Originally reproduced reserved-slug 500 instead of 404 with SDK 10 and 11. Fixed by returning local 404 for reserved paths without attempting CMS error-page delivery; preview session remains required.",
+      "status": "resolved",
+      "validation": "Full unmodified check-astro-server.cjs passed, including 404 HTML, private/no-store, noindex/nofollow, preview updates, session expiration and API fixtures. 10 error-page/auth unit tests and Astro check (271 files) passed."
+    },
+    {
+      "check": "check-astro-bundles.cjs",
+      "result": "Shopify checkout route exceeds 11 KiB gzip budget in both versions. Standard suite remains failing here. Supplemental harness reports budget failures and continues all functional assertions; production thresholds unchanged.",
+      "status": "deferred by user"
+    }
+  ],
+  "testCorrection": "Bundle allowlist expected Document although the layout is SiteLayout; corrected the stale name without changing size or isolation assertions.",
+  "bundleComparison": [
+    {
+      "route": "/bundle-fixtures/text/",
+      "beforeGzip": 2768,
+      "afterGzip": 2768
+    },
+    {
+      "route": "/bundle-fixtures/tabs/",
+      "beforeGzip": 4926,
+      "afterGzip": 4926
+    },
+    {
+      "route": "/bundle-fixtures/swiper/",
+      "beforeGzip": 5421,
+      "afterGzip": 5421
+    },
+    {
+      "route": "/bundle-fixtures/advanced/",
+      "beforeGzip": 38004,
+      "afterGzip": 38004
+    },
+    {
+      "route": "/bundle-fixtures/slider/",
+      "beforeGzip": 5421,
+      "afterGzip": 5421
+    },
+    {
+      "route": "/bundle-fixtures/images/",
+      "beforeGzip": 2998,
+      "afterGzip": 2998
+    },
+    {
+      "route": "/bundle-fixtures/lightbox/",
+      "beforeGzip": 5590,
+      "afterGzip": 5590
+    },
+    {
+      "route": "/bundle-fixtures/shopify/",
+      "beforeGzip": 10998,
+      "afterGzip": 10998
+    },
+    {
+      "route": "/bundle-fixtures/shopify-checkout/",
+      "beforeGzip": 12502,
+      "afterGzip": 12502
+    },
+    {
+      "route": "/bundle-fixtures/calendar/",
+      "beforeGzip": 94148,
+      "afterGzip": 94149
+    },
+    {
+      "route": "/bundle-fixtures/calendar-month/",
+      "beforeGzip": 80622,
+      "afterGzip": 80623
+    },
+    {
+      "route": "/bundle-fixtures/calendar-below/",
+      "beforeGzip": 4844,
+      "afterGzip": 4845
+    },
+    {
+      "route": "/bundle-fixtures/advanced-below/",
+      "beforeGzip": 4842,
+      "afterGzip": 4842
+    },
+    {
+      "route": "/bundle-fixtures/parallax-below/",
+      "beforeGzip": 4959,
+      "afterGzip": 4957
+    },
+    {
+      "route": "/bundle-fixtures/youtube-light/",
+      "beforeGzip": 6218,
+      "afterGzip": 6213
+    },
+    {
+      "route": "/bundle-fixtures/list/",
+      "beforeGzip": 5908,
+      "afterGzip": 5908
+    },
+    {
+      "route": "/bundle-fixtures/video/",
+      "beforeGzip": 6218,
+      "afterGzip": 6213
+    }
+  ],
+  "limitations": [
+    "No post-deployment validation on preview.studentsgoabroad.com",
+    "External vendor behavior tested through fixtures, not real CMS credentials or live payment flows",
+    "Does not establish parity for every customer page or custom consumer override"
+  ]
+}

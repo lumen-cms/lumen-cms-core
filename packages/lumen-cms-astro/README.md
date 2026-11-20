@@ -193,20 +193,32 @@ SameSite=None on HTTPS. Use an HTTPS development host for the Storyblok iframe.
 Third-party-cookie restrictions and Vercel deployment protection still require
 testing in the actual editor environment.
 
-Live editing uses one official Storyblok Bridge, the SDK's exported preview
-middleware, `getPayload`, and `StoryblokServerData`. Lumen registers the middleware
-explicitly and disables the SDK's automatic Bridge bootstrap so it can handle
-input before forwarding it to `handleStoryblokMessage` (SDK 10.4.0 debounces that
-handler by 500 ms). Do not add a second Bridge: its `initOnlyOnce` guard can leave
-one of the listeners inactive in the editor iframe.
+Live editing uses Astro SDK 11's `StoryblokPreview` with `liveUpdate` and its
+default debounce, `storyblokPreviewMiddleware`, `getPayload`, and
+`StoryblokServerData`. Components are registered through `defineStoryblokBlocks`
+with actual Astro component imports. The Lumen `Block` adapter forwards the SDK's
+`block` alongside the existing renderer `content`/`context` contract; inert markers
+attach editability to actual DOM roots without adding layout wrappers.
+The SDK owns debounce and reload-on-save/publish. A second observer through the
+public `onStoryblokEditorEvent` API shares its single Bridge and handles immediate
+rich-text painting and cancellation. No removed SDK bootstrap APIs are used.
+The SDK preview element remains connected during document reconciliation.
 
 Rich-text typing and common formatting update synchronously in the preview
 browser. Existing link text preserves its server-rendered anchor; changed link
-destinations, images, embedded blocks, and unsupported marks wait for SSR. The
-SDK still reconciles the complete document after typing pauses, including styles,
-fonts and widgets. New input cancels older responses immediately. Bridge overlay
-nodes survive reconciliation. Unsaved stories are applied before component/font/
-page-hook enrichment, so those hooks run once per update instead of twice.
+destinations, images, embedded blocks, and unsupported marks wait for SSR. After typing pauses, Lumen renders the latest payload on the
+server and reconciles the document, including styles, fonts and widgets. New
+input cancels older responses immediately. Bridge overlay
+nodes survive reconciliation. New widget modules load before the old page is
+disposed; superseded or failed loads keep the existing widgets usable. Concurrent
+updates share module loads, and failed modules can be retried on the next edit.
+Unsaved stories are applied before component/font/page-hook enrichment, so those
+hooks run once per update instead of twice.
+The delivery resolver uses a matching live story directly (CMS path and
+field-level language), skipping the saved-story request. It still fetches the
+other required story (page or settings); unrelated or incomplete payloads fall
+back to delivery. Enrichment runs once against edited content. No draft settings
+or credentials are added to browser round-trip data.
 Public pages contain neither the rich-text snapshots nor this preview bootstrap.
 
 This is a Lumen optimization around the official SSR approach, not a claim that
@@ -215,8 +227,7 @@ Astro's default preview renders everything client-side. See the
 for payload reuse and cancelable preview events, and the
 [official preview quickstart](https://www.storyblok.com/docs/quickstarts/astro/visual-preview)
 for using the live payload before falling back to a Content Delivery API fetch.
-The installed SDK source is authoritative for the 500 ms timing (the public guide
-currently labels itself version 8.x).
+See the [SDK 11 migration guide](https://www.storyblok.com/docs/libraries/js/astro-sdk/migration-from-v8) for the new registry and preview APIs.
 
 Regression checks:
 
@@ -225,6 +236,7 @@ pnpm test:astro
 pnpm astro:check
 pnpm --filter lumen-cms-astro exec astro build --config astro.server.config.mjs
 node scripts/check-astro-preview.cjs
+node scripts/check-astro-preview-http.cjs
 ```
 
 The browser check sends input through the actual Bridge inside a local iframe,

@@ -31,7 +31,7 @@ const systemHeight = system?.is_system_bar ? Number(system.height || 40) : 0
    {items.map(item => <DrawerItem content={item} context={context} openedPath={openedPath} />)}
   </div>
  </dialog>
- {page?.right_body?.length && <dialog id="lm-right-drawer" aria-label="Page navigation" class="lm-drawer lm-right-drawer"><DialogInitialFocus /><div class="lm-content-space" />{page.right_body.map(child => <Block content={child} context={context} />)}</dialog>}
+ {!!page?.right_body?.length && <dialog id="lm-right-drawer" aria-label="Page navigation" class="lm-drawer lm-right-drawer"><DialogInitialFocus /><div class="lm-content-space" />{page.right_body.map(child => <Block content={child} context={context} />)}</dialog>}
 </div>
 <script>
  function setupDrawers() {
