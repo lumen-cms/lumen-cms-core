@@ -46,7 +46,11 @@ const consent = !gtmContainer && !context.preview && requiresConsent(cmsScripts(
 ;(Astro.locals as { cmsStylesInHead?: boolean }).cmsStylesInHead = true
 const fontsHref = getFontBasedOnSetting(settings)
 const fontCss = getGoogleFontsCss(fontsHref)
-const showPromotion = !page.page || (page.page.component === 'page' && (!page.page.body?.length || (!page.page.property?.includes('has_feature') && !page.page.property?.includes('disable_promotion'))))
+// Delivery retains the global story as page when editing settings. It configures
+// the document chrome, but is not a renderable content block (legacy page types
+// only describe regular pages).
+const isSettingsPage = (page.page?.component as string | undefined) === 'global'
+const showPromotion = isSettingsPage || !page.page || (page.page.component === 'page' && (!page.page.body?.length || (!page.page.property?.includes('has_feature') && !page.page.property?.includes('disable_promotion'))))
 ---
 <!doctype html>
 <html lang={page.locale || 'en'} data-lumen-renderer="astro" data-lumen-preview={context.preview || undefined} data-lumen-consent={consent ? 'basic' : undefined}>
@@ -72,7 +76,7 @@ const showPromotion = !page.page || (page.page.component === 'page' && (!page.pa
   <main id="lm-main-content" tabindex="-1" class="lm-page-main" {...context.preview && page.page ? storyblokEditable(page.page) : {}}>
    <slot>
    {showPromotion && settings.promotion?.map(content => <Block content={content} context={context} />)}
-   {page.page && <Block content={page.page} context={context} />}
+   {page.page && !isSettingsPage && <Block content={page.page} context={context} />}
    {(!page.page || (page.page.component === 'page' && !page.page.body?.length)) && <div style="padding:20px;text-align:center">{page.pageNotFound ? 'Page not found' : 'There is no content yet...'}</div>}
    </slot>
   </main>
