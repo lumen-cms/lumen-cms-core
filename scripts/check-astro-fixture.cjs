@@ -262,9 +262,30 @@ async function main() {
         assert.equal(await toggle.evaluate(el => el === document.activeElement), true)
       } else {
         const menu = page.getByRole('button', { name: 'Explore fixture' })
+        await menu.scrollIntoViewIfNeeded()
         await menu.focus()
         await menu.press('ArrowDown')
         assert.equal(await menu.getAttribute('aria-expanded'), 'true')
+        // Reproduce a footer above the header's stacking context, plus a clipped header.
+        const overlap = await menu.evaluate(trigger => {
+          const panel = document.getElementById(trigger.getAttribute('aria-controls'))
+          const header = trigger.closest('.lm-site-header')
+          const previousStyle = header.getAttribute('style')
+          header.style.transform = 'translateZ(0)'
+          header.style.overflow = 'hidden'
+          const rect = panel.getBoundingClientRect()
+          const cover = document.createElement('div')
+          cover.id = 'menu-stacking-regression'
+          cover.style.cssText = `position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;height:${rect.height}px;background:red;z-index:1201`
+          document.body.append(cover)
+          const top = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2)
+          const result = panel.contains(top)
+          cover.remove()
+          if (previousStyle === null) header.removeAttribute('style')
+          else header.setAttribute('style', previousStyle)
+          return result
+        })
+        assert.equal(overlap, true, 'Open menu must remain above footer/content and escape header clipping')
         assert.equal(await page.getByRole('menuitem', { name: 'Menu A' }).evaluate(el => el === document.activeElement), true)
         await page.keyboard.press('ArrowDown')
         assert.equal(await page.getByRole('menuitem', { name: 'Menu B' }).evaluate(el => el === document.activeElement), true)
