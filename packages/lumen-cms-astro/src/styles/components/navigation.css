@@ -60,7 +60,8 @@
  .dropdown > .dropdown-content.lm-menu-panel { position: fixed; z-index: 1500; margin: 0; transform: none; }
  .dropdown > .lm-menu-panel > .menu { margin: 0; padding: 4px; min-width: 12rem; font: inherit; color: var(--color-base-content); }
  .dropdown > .lm-menu-custom { width: max-content; max-width: calc(100vw - 32px); padding: 0; }
- .dropdown > .lm-menu-mega { width: min(64rem, calc(100vw - 32px)); }
+ .lm-menu-custom-body > .lm-grid-row__wrap { max-width: calc(100vw - 64px); }
+ .lm-menu-custom .lm-grid-column { max-width: 100%; }
  @media (min-width:600px) { .navbar.lm-toolbar__main { min-height: 64px; } }
  @media (min-width:900px) { [data-custom-height=true] .navbar.lm-toolbar__main { min-height: var(--lm-header-expanded); } .lm-header-collapsed[data-custom-height=true] .navbar.lm-toolbar__main { min-height: 64px; } }
 }
